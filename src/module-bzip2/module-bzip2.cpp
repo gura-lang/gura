@@ -11,7 +11,7 @@ Gura_BeginModuleBody(bzip2)
 // bzip2.reader(stream:stream:r) {block?}
 Gura_DeclareFunction(reader)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -27,7 +27,7 @@ Gura_ImplementFunction(reader)
 // bzip2.writer(stream:stream:w, blockSize100k?:number) {block?}
 Gura_DeclareFunction(writer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "blockSize100k", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -52,7 +52,7 @@ Gura_ImplementFunction(writer)
 // stream#bzip2reader() {block?}
 Gura_DeclareMethod(stream, bzip2reader)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -67,7 +67,7 @@ Gura_ImplementMethod(stream, bzip2reader)
 // stream#bzip2writer(blockSize100k?:number) {block?}
 Gura_DeclareMethod(stream, bzip2writer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "blockSize100k", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

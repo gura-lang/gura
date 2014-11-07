@@ -40,7 +40,7 @@ void wx_ListBox::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ListBoxEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ListBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -62,7 +62,7 @@ Gura_ImplementFunction(ListBoxEmpty)
 
 Gura_DeclareFunction(ListBox)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ListBox));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -110,7 +110,7 @@ Gura_ImplementFunction(ListBox)
 
 Gura_DeclareMethod(wx_ListBox, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_ListBox, Create)
 
 Gura_DeclareMethod(wx_ListBox, Deselect)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_ListBox, Deselect)
 
 Gura_DeclareMethod(wx_ListBox, GetSelections)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_ListBox, GetSelections)
 
 Gura_DeclareMethod(wx_ListBox, InsertItems)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "items", VTYPE_string, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_ListBox, InsertItems)
 
 Gura_DeclareMethod(wx_ListBox, HitTest)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "point", VTYPE_wx_Point, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_ListBox, HitTest)
 
 Gura_DeclareMethod(wx_ListBox, IsSelected)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_ListBox, IsSelected)
 
 Gura_DeclareMethod(wx_ListBox, Set)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "choices", VTYPE_string, OCCUR_Once, FLAG_List);
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -247,7 +247,7 @@ Gura_ImplementMethod(wx_ListBox, Set)
 
 Gura_DeclareMethod(wx_ListBox, SetFirstItem)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -262,7 +262,7 @@ Gura_ImplementMethod(wx_ListBox, SetFirstItem)
 
 Gura_DeclareMethod(wx_ListBox, SetFirstItemString)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "string", VTYPE_string, OCCUR_Once);
 }
 

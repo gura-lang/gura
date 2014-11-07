@@ -53,7 +53,7 @@ void wx_GridCellRenderer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_GridCellRenderer, Draw)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "grid", VTYPE_wx_Grid, OCCUR_Once);
 	DeclareArg(env, "attr", VTYPE_wx_GridCellAttr, OCCUR_Once);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_GridCellRenderer, Draw)
 
 Gura_DeclareMethod(wx_GridCellRenderer, GetBestSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "grid", VTYPE_wx_Grid, OCCUR_Once);
 	DeclareArg(env, "attr", VTYPE_wx_GridCellAttr, OCCUR_Once);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_GridCellRenderer, GetBestSize)
 
 Gura_DeclareMethod(wx_GridCellRenderer, Clone)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

@@ -39,7 +39,7 @@ void wx_TarInputStream::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(TarInputStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_TarInputStream));
 	DeclareArg(env, "stream", VTYPE_wx_InputStream, OCCUR_Once);
 	DeclareArg(env, "conv", VTYPE_wx_MBConv, OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(TarInputStream)
 
 Gura_DeclareFunction(TarInputStream_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_TarInputStream));
 	DeclareArg(env, "stream", VTYPE_wx_InputStream, OCCUR_Once);
 	DeclareArg(env, "conv", VTYPE_wx_MBConv, OCCUR_ZeroOrOnce);
@@ -93,7 +93,7 @@ Gura_ImplementFunction(TarInputStream_1)
 
 Gura_DeclareMethod(wx_TarInputStream, CloseEntry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_TarInputStream, CloseEntry)
 
 Gura_DeclareMethod(wx_TarInputStream, GetNextEntry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_TarInputStream, GetNextEntry)
 
 Gura_DeclareMethod(wx_TarInputStream, OpenEntry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "entry", VTYPE_wx_TarEntry, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

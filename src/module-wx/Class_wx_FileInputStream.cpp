@@ -40,7 +40,7 @@ void wx_FileInputStream::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FileInputStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_FileInputStream));
 	DeclareArg(env, "ifileName", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -64,7 +64,7 @@ Gura_ImplementFunction(FileInputStream)
 
 Gura_DeclareMethod(wx_FileInputStream, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

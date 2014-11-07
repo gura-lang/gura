@@ -38,7 +38,7 @@ void wx_FFileStream::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FFileStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_FFileStream));
 	DeclareArg(env, "iofileName", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);

@@ -47,7 +47,7 @@ void wx_Image::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ImageEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Image));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -69,7 +69,7 @@ Gura_ImplementFunction(ImageEmpty)
 
 Gura_DeclareFunction(Image)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Image));
 	DeclareArg(env, "image", VTYPE_wx_Image, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -93,7 +93,7 @@ Gura_ImplementFunction(Image)
 
 Gura_DeclareFunction(Image_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_Image));
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
@@ -123,7 +123,7 @@ Gura_ImplementFunction(Image_1)
 
 Gura_DeclareFunction(Image_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Image));
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
@@ -152,7 +152,7 @@ Gura_ImplementFunction(Image_2)
 
 Gura_DeclareFunction(Image_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_Image));
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -189,7 +189,7 @@ Gura_ImplementFunction(Image_3)
 
 Gura_DeclareFunction(Image_4)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Image));
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -219,7 +219,7 @@ Gura_ImplementFunction(Image_4)
 
 Gura_DeclareFunction(Image_5)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Image));
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "mimetype", VTYPE_string, OCCUR_Once);
@@ -248,7 +248,7 @@ Gura_ImplementFunction(Image_5)
 
 Gura_DeclareFunction(Image_6)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Image));
 	DeclareArg(env, "stream", VTYPE_wx_InputStream, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -278,7 +278,7 @@ Gura_ImplementFunction(Image_6)
 
 Gura_DeclareFunction(Image_7)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Image));
 	DeclareArg(env, "stream", VTYPE_wx_InputStream, OCCUR_Once);
 	DeclareArg(env, "mimetype", VTYPE_string, OCCUR_Once);
@@ -307,7 +307,7 @@ Gura_ImplementFunction(Image_7)
 
 Gura_DeclareFunction(Image_8)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Image));
 	DeclareArg(env, "xpmData", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -335,7 +335,7 @@ Gura_ImplementFunction(Image_8)
 
 Gura_DeclareClassMethod(wx_Image, AddHandler)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "handler", VTYPE_wx_ImageHandler, OCCUR_Once);
 }
 
@@ -349,7 +349,7 @@ Gura_ImplementClassMethod(wx_Image, AddHandler)
 
 Gura_DeclareMethod(wx_Image, CanRead)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -365,7 +365,7 @@ Gura_ImplementMethod(wx_Image, CanRead)
 
 Gura_DeclareMethod(wx_Image, Blur)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "blurRadius", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -381,7 +381,7 @@ Gura_ImplementMethod(wx_Image, Blur)
 
 Gura_DeclareMethod(wx_Image, BlurHorizontal)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "blurRadius", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -397,7 +397,7 @@ Gura_ImplementMethod(wx_Image, BlurHorizontal)
 
 Gura_DeclareMethod(wx_Image, BlurVertical)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "blurRadius", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -413,7 +413,7 @@ Gura_ImplementMethod(wx_Image, BlurVertical)
 
 Gura_DeclareClassMethod(wx_Image, CleanUpHandlers)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementClassMethod(wx_Image, CleanUpHandlers)
@@ -425,7 +425,7 @@ Gura_ImplementClassMethod(wx_Image, CleanUpHandlers)
 
 Gura_DeclareMethod(wx_Image, ComputeHistogram)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "histogram", VTYPE_wx_ImageHistogram, OCCUR_Once);
 #endif
@@ -447,7 +447,7 @@ Gura_ImplementMethod(wx_Image, ComputeHistogram)
 
 Gura_DeclareMethod(wx_Image, ConvertAlphaToMask)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "threshold", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -464,7 +464,7 @@ Gura_ImplementMethod(wx_Image, ConvertAlphaToMask)
 
 Gura_DeclareMethod(wx_Image, ConvertToGreyscale)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "lr", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "lg", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "lb", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -487,7 +487,7 @@ Gura_ImplementMethod(wx_Image, ConvertToGreyscale)
 
 Gura_DeclareMethod(wx_Image, ConvertToMono)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "r", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "g", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
@@ -507,7 +507,7 @@ Gura_ImplementMethod(wx_Image, ConvertToMono)
 
 Gura_DeclareMethod(wx_Image, Copy)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -521,7 +521,7 @@ Gura_ImplementMethod(wx_Image, Copy)
 
 Gura_DeclareMethod(wx_Image, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "clear", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -542,7 +542,7 @@ Gura_ImplementMethod(wx_Image, Create)
 
 Gura_DeclareMethod(wx_Image, Destroy)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Image, Destroy)
@@ -555,7 +555,7 @@ Gura_ImplementMethod(wx_Image, Destroy)
 
 Gura_DeclareMethod(wx_Image, FindFirstUnusedColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "r", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "g", VTYPE_number, OCCUR_Once);
@@ -590,7 +590,7 @@ Gura_ImplementMethod(wx_Image, FindFirstUnusedColour)
 
 Gura_DeclareClassMethod(wx_Image, FindHandler)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -605,7 +605,7 @@ Gura_ImplementClassMethod(wx_Image, FindHandler)
 
 Gura_DeclareClassMethod(wx_Image, FindHandler_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "extension", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "imageType", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -622,7 +622,7 @@ Gura_ImplementClassMethod(wx_Image, FindHandler_1)
 
 Gura_DeclareClassMethod(wx_Image, FindHandler_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "imageType", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -637,7 +637,7 @@ Gura_ImplementClassMethod(wx_Image, FindHandler_2)
 
 Gura_DeclareClassMethod(wx_Image, FindHandlerMime)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "mimetype", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -652,7 +652,7 @@ Gura_ImplementClassMethod(wx_Image, FindHandlerMime)
 
 Gura_DeclareClassMethod(wx_Image, GetImageExtWildcard)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -665,7 +665,7 @@ Gura_ImplementClassMethod(wx_Image, GetImageExtWildcard)
 
 Gura_DeclareMethod(wx_Image, GetAlphaXY)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -683,7 +683,7 @@ Gura_ImplementMethod(wx_Image, GetAlphaXY)
 
 Gura_DeclareMethod(wx_Image, GetAlpha)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -701,7 +701,7 @@ Gura_ImplementMethod(wx_Image, GetAlpha)
 
 Gura_DeclareMethod(wx_Image, GetBlue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -719,7 +719,7 @@ Gura_ImplementMethod(wx_Image, GetBlue)
 
 Gura_DeclareMethod(wx_Image, GetData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -737,7 +737,7 @@ Gura_ImplementMethod(wx_Image, GetData)
 
 Gura_DeclareMethod(wx_Image, GetGreen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -756,7 +756,7 @@ Gura_ImplementMethod(wx_Image, GetGreen)
 #if 0
 Gura_DeclareClassMethod(wx_Image, GetImageCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -776,7 +776,7 @@ Gura_ImplementClassMethod(wx_Image, GetImageCount)
 #if 0
 Gura_DeclareClassMethod(wx_Image, GetImageCount_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_wx_InputStream, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -795,7 +795,7 @@ Gura_ImplementClassMethod(wx_Image, GetImageCount_1)
 
 Gura_DeclareClassMethod(wx_Image, GetHandlers)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -808,7 +808,7 @@ Gura_ImplementClassMethod(wx_Image, GetHandlers)
 
 Gura_DeclareMethod(wx_Image, GetHeight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -822,7 +822,7 @@ Gura_ImplementMethod(wx_Image, GetHeight)
 
 Gura_DeclareMethod(wx_Image, GetMaskBlue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -836,7 +836,7 @@ Gura_ImplementMethod(wx_Image, GetMaskBlue)
 
 Gura_DeclareMethod(wx_Image, GetMaskGreen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -850,7 +850,7 @@ Gura_ImplementMethod(wx_Image, GetMaskGreen)
 
 Gura_DeclareMethod(wx_Image, GetMaskRed)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -864,7 +864,7 @@ Gura_ImplementMethod(wx_Image, GetMaskRed)
 
 Gura_DeclareMethod(wx_Image, GetOrFindMaskColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "*r", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "*g", VTYPE_number, OCCUR_Once);
@@ -890,7 +890,7 @@ Gura_ImplementMethod(wx_Image, GetOrFindMaskColour)
 
 Gura_DeclareMethod(wx_Image, GetPalette)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -908,7 +908,7 @@ Gura_ImplementMethod(wx_Image, GetPalette)
 
 Gura_DeclareMethod(wx_Image, GetRed)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -926,7 +926,7 @@ Gura_ImplementMethod(wx_Image, GetRed)
 
 Gura_DeclareMethod(wx_Image, GetSubImage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -942,7 +942,7 @@ Gura_ImplementMethod(wx_Image, GetSubImage)
 
 Gura_DeclareMethod(wx_Image, GetWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -956,7 +956,7 @@ Gura_ImplementMethod(wx_Image, GetWidth)
 
 Gura_DeclareMethod(wx_Image, HSVValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "h", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "s", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -984,7 +984,7 @@ Gura_ImplementMethod(wx_Image, HSVValue)
 
 Gura_DeclareMethod(wx_Image, HSVtoRGB)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -996,7 +996,7 @@ Gura_ImplementMethod(wx_Image, HSVtoRGB)
 
 Gura_DeclareMethod(wx_Image, HasAlpha)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1010,7 +1010,7 @@ Gura_ImplementMethod(wx_Image, HasAlpha)
 
 Gura_DeclareMethod(wx_Image, HasMask)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1024,7 +1024,7 @@ Gura_ImplementMethod(wx_Image, HasMask)
 
 Gura_DeclareMethod(wx_Image, GetOption)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1040,7 +1040,7 @@ Gura_ImplementMethod(wx_Image, GetOption)
 
 Gura_DeclareMethod(wx_Image, GetOptionInt)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1056,7 +1056,7 @@ Gura_ImplementMethod(wx_Image, GetOptionInt)
 
 Gura_DeclareMethod(wx_Image, HasOption)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1072,7 +1072,7 @@ Gura_ImplementMethod(wx_Image, HasOption)
 
 Gura_DeclareMethod(wx_Image, InitAlpha)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Image, InitAlpha)
@@ -1085,7 +1085,7 @@ Gura_ImplementMethod(wx_Image, InitAlpha)
 
 Gura_DeclareClassMethod(wx_Image, InitStandardHandlers)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementClassMethod(wx_Image, InitStandardHandlers)
@@ -1097,7 +1097,7 @@ Gura_ImplementClassMethod(wx_Image, InitStandardHandlers)
 
 Gura_DeclareClassMethod(wx_Image, InsertHandler)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "handler", VTYPE_wx_ImageHandler, OCCUR_Once);
 }
 
@@ -1111,7 +1111,7 @@ Gura_ImplementClassMethod(wx_Image, InsertHandler)
 
 Gura_DeclareMethod(wx_Image, IsTransparent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "threshold", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1132,7 +1132,7 @@ Gura_ImplementMethod(wx_Image, IsTransparent)
 
 Gura_DeclareMethod(wx_Image, LoadFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1154,7 +1154,7 @@ Gura_ImplementMethod(wx_Image, LoadFile)
 
 Gura_DeclareMethod(wx_Image, LoadFile_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "mimetype", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1175,7 +1175,7 @@ Gura_ImplementMethod(wx_Image, LoadFile_1)
 
 Gura_DeclareMethod(wx_Image, LoadFile_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_wx_InputStream, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1196,7 +1196,7 @@ Gura_ImplementMethod(wx_Image, LoadFile_2)
 
 Gura_DeclareMethod(wx_Image, LoadFile_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_wx_InputStream, OCCUR_Once);
 	DeclareArg(env, "mimetype", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1217,7 +1217,7 @@ Gura_ImplementMethod(wx_Image, LoadFile_3)
 
 Gura_DeclareMethod(wx_Image, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1231,7 +1231,7 @@ Gura_ImplementMethod(wx_Image, IsOk)
 
 Gura_DeclareMethod(wx_Image, RGBValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "r", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "g", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1259,7 +1259,7 @@ Gura_ImplementMethod(wx_Image, RGBValue)
 
 Gura_DeclareMethod(wx_Image, RGBtoHSV)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1271,7 +1271,7 @@ Gura_ImplementMethod(wx_Image, RGBtoHSV)
 
 Gura_DeclareClassMethod(wx_Image, RemoveHandler)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1286,7 +1286,7 @@ Gura_ImplementClassMethod(wx_Image, RemoveHandler)
 
 Gura_DeclareMethod(wx_Image, Mirror)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "horizontally", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1303,7 +1303,7 @@ Gura_ImplementMethod(wx_Image, Mirror)
 
 Gura_DeclareMethod(wx_Image, Replace)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "r1", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "g1", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "b1", VTYPE_number, OCCUR_Once);
@@ -1328,7 +1328,7 @@ Gura_ImplementMethod(wx_Image, Replace)
 
 Gura_DeclareMethod(wx_Image, Rescale)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "quality", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1349,7 +1349,7 @@ Gura_ImplementMethod(wx_Image, Rescale)
 
 Gura_DeclareMethod(wx_Image, Resize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_Once);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1376,7 +1376,7 @@ Gura_ImplementMethod(wx_Image, Resize)
 
 Gura_DeclareMethod(wx_Image, Rotate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "rotationCentre", VTYPE_wx_Point, OCCUR_Once);
 	DeclareArg(env, "interpolating", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -1400,7 +1400,7 @@ Gura_ImplementMethod(wx_Image, Rotate)
 
 Gura_DeclareMethod(wx_Image, RotateHue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number, OCCUR_Once);
 }
 
@@ -1415,7 +1415,7 @@ Gura_ImplementMethod(wx_Image, RotateHue)
 
 Gura_DeclareMethod(wx_Image, Rotate90)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "clockwise", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1432,7 +1432,7 @@ Gura_ImplementMethod(wx_Image, Rotate90)
 
 Gura_DeclareMethod(wx_Image, SaveFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1450,7 +1450,7 @@ Gura_ImplementMethod(wx_Image, SaveFile)
 
 Gura_DeclareMethod(wx_Image, SaveFile_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "mimetype", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1468,7 +1468,7 @@ Gura_ImplementMethod(wx_Image, SaveFile_1)
 
 Gura_DeclareMethod(wx_Image, SaveFile_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1484,7 +1484,7 @@ Gura_ImplementMethod(wx_Image, SaveFile_2)
 
 Gura_DeclareMethod(wx_Image, SaveFile_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_wx_OutputStream, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1502,7 +1502,7 @@ Gura_ImplementMethod(wx_Image, SaveFile_3)
 
 Gura_DeclareMethod(wx_Image, SaveFile_4)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_wx_OutputStream, OCCUR_Once);
 	DeclareArg(env, "mimetype", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1520,7 +1520,7 @@ Gura_ImplementMethod(wx_Image, SaveFile_4)
 
 Gura_DeclareMethod(wx_Image, Scale)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "quality", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1541,7 +1541,7 @@ Gura_ImplementMethod(wx_Image, Scale)
 
 Gura_DeclareMethod(wx_Image, Size)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_Once);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1568,7 +1568,7 @@ Gura_ImplementMethod(wx_Image, Size)
 
 Gura_DeclareMethod(wx_Image, SetAlpha)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "alpha", VTYPE_binary, OCCUR_ZeroOrOnce);
 }
 
@@ -1591,7 +1591,7 @@ Gura_ImplementMethod(wx_Image, SetAlpha)
 
 Gura_DeclareMethod(wx_Image, SetAlphaXY)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "alpha", VTYPE_number, OCCUR_Once);
@@ -1610,7 +1610,7 @@ Gura_ImplementMethod(wx_Image, SetAlphaXY)
 
 Gura_DeclareMethod(wx_Image, SetData)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 #endif
@@ -1631,7 +1631,7 @@ Gura_ImplementMethod(wx_Image, SetData)
 
 Gura_DeclareMethod(wx_Image, SetMask)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "hasMask", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -1647,7 +1647,7 @@ Gura_ImplementMethod(wx_Image, SetMask)
 
 Gura_DeclareMethod(wx_Image, SetMaskColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "green", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "blue", VTYPE_number, OCCUR_Once);
@@ -1666,7 +1666,7 @@ Gura_ImplementMethod(wx_Image, SetMaskColour)
 
 Gura_DeclareMethod(wx_Image, SetMaskFromImage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "mask", VTYPE_wx_Image, OCCUR_Once);
 	DeclareArg(env, "mr", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "mg", VTYPE_number, OCCUR_Once);
@@ -1688,7 +1688,7 @@ Gura_ImplementMethod(wx_Image, SetMaskFromImage)
 
 Gura_DeclareMethod(wx_Image, SetOption)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
 }
@@ -1705,7 +1705,7 @@ Gura_ImplementMethod(wx_Image, SetOption)
 
 Gura_DeclareMethod(wx_Image, SetOption_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
@@ -1722,7 +1722,7 @@ Gura_ImplementMethod(wx_Image, SetOption_1)
 
 Gura_DeclareMethod(wx_Image, SetPalette)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "palette", VTYPE_wx_Palette, OCCUR_Once);
 }
 
@@ -1737,7 +1737,7 @@ Gura_ImplementMethod(wx_Image, SetPalette)
 
 Gura_DeclareMethod(wx_Image, SetRGB)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once);
@@ -1760,7 +1760,7 @@ Gura_ImplementMethod(wx_Image, SetRGB)
 
 Gura_DeclareMethod(wx_Image, SetRGBRect)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "green", VTYPE_number, OCCUR_Once);

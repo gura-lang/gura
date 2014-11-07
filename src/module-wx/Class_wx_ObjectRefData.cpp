@@ -39,7 +39,7 @@ void wx_ObjectRefData::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ObjectRefDataEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ObjectRefData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(ObjectRefDataEmpty)
 
 Gura_DeclareFunction(ObjectRefDataEmpty_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ObjectRefData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -83,7 +83,7 @@ Gura_ImplementFunction(ObjectRefDataEmpty_1)
 
 Gura_DeclareMethod(wx_ObjectRefData, GetRefCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

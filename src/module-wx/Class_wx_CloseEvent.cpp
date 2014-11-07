@@ -38,7 +38,7 @@ void wx_CloseEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(CloseEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_CloseEvent));
 	DeclareArg(env, "commandEventType", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(CloseEvent)
 
 Gura_DeclareMethod(wx_CloseEvent, CanVeto)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_CloseEvent, CanVeto)
 
 Gura_DeclareMethod(wx_CloseEvent, GetLoggingOff)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_CloseEvent, GetLoggingOff)
 
 Gura_DeclareMethod(wx_CloseEvent, SetCanVeto)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "canVeto", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_CloseEvent, SetCanVeto)
 
 Gura_DeclareMethod(wx_CloseEvent, SetForce)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "force", VTYPE_boolean, OCCUR_Once);
 #endif
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_CloseEvent, SetForce)
 
 Gura_DeclareMethod(wx_CloseEvent, SetLoggingOff)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "loggingOff", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_CloseEvent, SetLoggingOff)
 
 Gura_DeclareMethod(wx_CloseEvent, Veto)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "veto", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 

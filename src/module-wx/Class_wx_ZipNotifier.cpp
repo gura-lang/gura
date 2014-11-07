@@ -37,7 +37,7 @@ void wx_ZipNotifier::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_ZipNotifier, OnEntryUpdated)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "entry", VTYPE_wx_ZipEntry, OCCUR_Once);
 }
 

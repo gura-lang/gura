@@ -55,7 +55,7 @@ String Object_suffixmgr::ToString(bool exprFlag)
 // suffixmgr(target:symbol) {block?}
 Gura_DeclareFunction(suffixmgr)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "target", VTYPE_symbol);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_suffixmgr));
@@ -86,7 +86,7 @@ Gura_ImplementFunction(suffixmgr)
 // suffixmgr#assign(suffix:symbol):void:[overwrite] {block}
 Gura_DeclareMethod(suffixmgr, assign)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "suffix", VTYPE_symbol);
 	DeclareAttr(Gura_Symbol(overwrite));
 	DeclareBlock(OCCUR_Once);

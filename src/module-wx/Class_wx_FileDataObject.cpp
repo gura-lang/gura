@@ -41,7 +41,7 @@ void wx_FileDataObject::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FileDataObjectEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FileDataObject));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -63,7 +63,7 @@ Gura_ImplementFunction(FileDataObjectEmpty)
 
 Gura_DeclareMethod(wx_FileDataObject, AddFile)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "file", VTYPE_string, OCCUR_Once);
 }
 
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_FileDataObject, AddFile)
 
 Gura_DeclareMethod(wx_FileDataObject, GetFilenames)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

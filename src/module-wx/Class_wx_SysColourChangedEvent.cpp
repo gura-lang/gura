@@ -38,7 +38,7 @@ void wx_SysColourChangedEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(SysColourChangedEventEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SysColourChangedEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

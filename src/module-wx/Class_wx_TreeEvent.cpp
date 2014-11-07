@@ -38,7 +38,7 @@ void wx_TreeEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(TreeEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_TreeEvent));
 	DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "tree", VTYPE_wx_TreeCtrl, OCCUR_Once);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(TreeEvent)
 
 Gura_DeclareMethod(wx_TreeEvent, GetKeyCode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_TreeEvent, GetKeyCode)
 
 Gura_DeclareMethod(wx_TreeEvent, GetItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_TreeEvent, GetItem)
 
 Gura_DeclareMethod(wx_TreeEvent, GetKeyEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_TreeEvent, GetKeyEvent)
 
 Gura_DeclareMethod(wx_TreeEvent, GetLabel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_TreeEvent, GetLabel)
 
 Gura_DeclareMethod(wx_TreeEvent, GetOldItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_TreeEvent, GetOldItem)
 
 Gura_DeclareMethod(wx_TreeEvent, GetPoint)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_TreeEvent, GetPoint)
 
 Gura_DeclareMethod(wx_TreeEvent, IsEditCancelled)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_TreeEvent, IsEditCancelled)
 
 Gura_DeclareMethod(wx_TreeEvent, SetToolTip)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "tooltip", VTYPE_string, OCCUR_Once);
 }
 

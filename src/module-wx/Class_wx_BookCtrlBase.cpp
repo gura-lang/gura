@@ -37,7 +37,7 @@ void wx_BookCtrlBase::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_BookCtrlBase, AddPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "select", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -61,7 +61,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, AddPage)
 
 Gura_DeclareMethod(wx_BookCtrlBase, AdvanceSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "forward", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, AdvanceSelection)
 
 Gura_DeclareMethod(wx_BookCtrlBase, AssignImageList)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "imageList", VTYPE_wx_ImageList, OCCUR_Once);
 }
 
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, AssignImageList)
 
 Gura_DeclareMethod(wx_BookCtrlBase, ChangeSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, ChangeSelection)
 
 Gura_DeclareMethod(wx_BookCtrlBase, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, Create)
 
 Gura_DeclareMethod(wx_BookCtrlBase, DeleteAllPages)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, DeleteAllPages)
 
 Gura_DeclareMethod(wx_BookCtrlBase, DeletePage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, DeletePage)
 
 Gura_DeclareMethod(wx_BookCtrlBase, GetCurrentPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, GetCurrentPage)
 
 Gura_DeclareMethod(wx_BookCtrlBase, GetImageList)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, GetImageList)
 
 Gura_DeclareMethod(wx_BookCtrlBase, GetPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, GetPage)
 
 Gura_DeclareMethod(wx_BookCtrlBase, GetPageCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, GetPageCount)
 
 Gura_DeclareMethod(wx_BookCtrlBase, GetPageImage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "nPage", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, GetPageImage)
 
 Gura_DeclareMethod(wx_BookCtrlBase, GetPageText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "nPage", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, GetPageText)
 
 Gura_DeclareMethod(wx_BookCtrlBase, GetSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -278,7 +278,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, GetSelection)
 
 Gura_DeclareMethod(wx_BookCtrlBase, HitTest)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -295,7 +295,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, HitTest)
 
 Gura_DeclareMethod(wx_BookCtrlBase, InsertPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "page", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
@@ -321,7 +321,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, InsertPage)
 
 Gura_DeclareMethod(wx_BookCtrlBase, RemovePage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -337,7 +337,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, RemovePage)
 
 Gura_DeclareMethod(wx_BookCtrlBase, SetImageList)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "imageList", VTYPE_wx_ImageList, OCCUR_Once, FLAG_Nil);
 }
 
@@ -353,7 +353,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, SetImageList)
 
 Gura_DeclareMethod(wx_BookCtrlBase, SetPageSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -368,7 +368,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, SetPageSize)
 
 Gura_DeclareMethod(wx_BookCtrlBase, SetPageImage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -386,7 +386,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, SetPageImage)
 
 Gura_DeclareMethod(wx_BookCtrlBase, SetPageText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -404,7 +404,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, SetPageText)
 
 Gura_DeclareMethod(wx_BookCtrlBase, SetSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

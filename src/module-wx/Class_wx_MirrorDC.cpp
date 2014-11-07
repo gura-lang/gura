@@ -38,7 +38,7 @@ void wx_MirrorDC::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(MirrorDC)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_MirrorDC));
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "mirror", VTYPE_boolean, OCCUR_Once);

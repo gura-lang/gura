@@ -38,7 +38,7 @@ void wx_HyperlinkEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HyperlinkEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_HyperlinkEvent));
 	DeclareArg(env, "generator", VTYPE_wx_Object, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(HyperlinkEvent)
 
 Gura_DeclareMethod(wx_HyperlinkEvent, GetURL)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_HyperlinkEvent, GetURL)
 
 Gura_DeclareMethod(wx_HyperlinkEvent, SetURL)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "url", VTYPE_string, OCCUR_Once);
 }
 

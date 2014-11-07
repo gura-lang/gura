@@ -93,7 +93,7 @@ const Symbol *Object_operator::GetSymbol() const
 // operator(op:symbol) {block?}
 Gura_DeclareFunctionAlias(operator_, "operator")
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "op", VTYPE_symbol);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_operator));
@@ -121,7 +121,7 @@ Gura_ImplementFunction(operator_)
 // operator#assign(type_l:expr, type_r?:expr):map:void {block}
 Gura_DeclareMethod(operator_, assign)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "type_l", VTYPE_expr);
 	DeclareArg(env, "type_r", VTYPE_expr, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_Once);
@@ -169,7 +169,7 @@ Gura_ImplementMethod(operator_, assign)
 // operator#entries(type?:symbol)
 Gura_DeclareMethod(operator_, entries)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "type", VTYPE_symbol, OCCUR_ZeroOrOnce);
 }
 

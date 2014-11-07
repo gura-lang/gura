@@ -38,7 +38,7 @@ void wx_StringInputStream::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(StringInputStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_StringInputStream));
 	DeclareArg(env, "s", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);

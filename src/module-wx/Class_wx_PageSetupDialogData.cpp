@@ -40,7 +40,7 @@ void wx_PageSetupDialogData::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(PageSetupDialogDataEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PageSetupDialogData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -62,7 +62,7 @@ Gura_ImplementFunction(PageSetupDialogDataEmpty)
 
 Gura_DeclareFunction(PageSetupDialogData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_PageSetupDialogData));
 	DeclareArg(env, "data", VTYPE_wx_PageSetupDialogData, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -86,7 +86,7 @@ Gura_ImplementFunction(PageSetupDialogData)
 
 Gura_DeclareFunction(PageSetupDialogData_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_PageSetupDialogData));
 	DeclareArg(env, "printData", VTYPE_wx_PrintData, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -110,7 +110,7 @@ Gura_ImplementFunction(PageSetupDialogData_1)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, EnableHelp)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, EnableHelp)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, EnableMargins)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, EnableMargins)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, EnableOrientation)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, EnableOrientation)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, EnablePaper)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, EnablePaper)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, EnablePrinter)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, EnablePrinter)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetDefaultMinMargins)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetDefaultMinMargins)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetEnableMargins)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetEnableMargins)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetEnableOrientation)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetEnableOrientation)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetEnablePaper)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetEnablePaper)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetEnablePrinter)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetEnablePrinter)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetEnableHelp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetEnableHelp)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetDefaultInfo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -283,7 +283,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetDefaultInfo)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetMarginTopLeft)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -297,7 +297,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetMarginTopLeft)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetMarginBottomRight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -311,7 +311,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetMarginBottomRight)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetMinMarginTopLeft)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -325,7 +325,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetMinMarginTopLeft)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetMinMarginBottomRight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -339,7 +339,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetMinMarginBottomRight)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetPaperId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -353,7 +353,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetPaperId)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetPaperSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -367,7 +367,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetPaperSize)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetPrintData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -381,7 +381,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetPrintData)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -395,7 +395,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, IsOk)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, SetDefaultInfo)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -410,7 +410,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, SetDefaultInfo)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, SetDefaultMinMargins)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -425,7 +425,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, SetDefaultMinMargins)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, SetMarginTopLeft)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 }
 
@@ -440,7 +440,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, SetMarginTopLeft)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, SetMarginBottomRight)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 }
 
@@ -455,7 +455,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, SetMarginBottomRight)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, SetMinMarginTopLeft)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 }
 
@@ -470,7 +470,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, SetMinMarginTopLeft)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, SetMinMarginBottomRight)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 }
 
@@ -485,7 +485,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, SetMinMarginBottomRight)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, SetPaperId)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -500,7 +500,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, SetPaperId)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, SetPaperSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -515,7 +515,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, SetPaperSize)
 
 Gura_DeclareMethod(wx_PageSetupDialogData, SetPrintData)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "printData", VTYPE_wx_PrintData, OCCUR_Once);
 }
 

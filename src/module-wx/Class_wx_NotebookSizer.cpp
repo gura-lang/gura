@@ -38,7 +38,7 @@ void wx_NotebookSizer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(NotebookSizer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_NotebookSizer));
 	DeclareArg(env, "notebook", VTYPE_wx_Notebook, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -62,7 +62,7 @@ Gura_ImplementFunction(NotebookSizer)
 
 Gura_DeclareMethod(wx_NotebookSizer, GetNotebook)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

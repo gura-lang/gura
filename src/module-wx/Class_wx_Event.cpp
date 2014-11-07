@@ -41,7 +41,7 @@ void wx_Event::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(Event)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_Event));
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -75,7 +75,7 @@ Gura_ImplementFunction(Event)
 
 Gura_DeclareMethod(wx_Event, Clone)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_Event, Clone)
 
 Gura_DeclareMethod(wx_Event, GetEventObject)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_Event, GetEventObject)
 
 Gura_DeclareMethod(wx_Event, GetEventType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_Event, GetEventType)
 
 Gura_DeclareMethod(wx_Event, GetId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_Event, GetId)
 
 Gura_DeclareMethod(wx_Event, GetSkipped)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_Event, GetSkipped)
 
 Gura_DeclareMethod(wx_Event, GetTimestamp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_Event, GetTimestamp)
 
 Gura_DeclareMethod(wx_Event, IsCommandEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_Event, IsCommandEvent)
 
 Gura_DeclareMethod(wx_Event, ResumePropagation)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "propagationLevel", VTYPE_number, OCCUR_Once);
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_Event, ResumePropagation)
 
 Gura_DeclareMethod(wx_Event, SetEventObject)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "object", VTYPE_wx_Object, OCCUR_Once);
 }
 
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_Event, SetEventObject)
 
 Gura_DeclareMethod(wx_Event, SetEventType)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_Event, SetEventType)
 
 Gura_DeclareMethod(wx_Event, SetId)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_Event, SetId)
 
 Gura_DeclareMethod(wx_Event, SetTimestamp)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "timeStamp", VTYPE_number, OCCUR_Once);
 }
 
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_Event, SetTimestamp)
 
 Gura_DeclareMethod(wx_Event, ShouldPropagate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -262,7 +262,7 @@ Gura_ImplementMethod(wx_Event, ShouldPropagate)
 
 Gura_DeclareMethod(wx_Event, Skip)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "skip", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -278,7 +278,7 @@ Gura_ImplementMethod(wx_Event, Skip)
 
 Gura_DeclareMethod(wx_Event, StopPropagation)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

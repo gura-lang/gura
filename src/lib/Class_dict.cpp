@@ -219,7 +219,7 @@ void Object_dict::IteratorGet::GatherFollower(Environment::Frame *pFrame, Enviro
 // dict(elem[]?):[icase] {block?}, %{block}
 Gura_DeclareFunction(dict)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "elem", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_List);
 	DeclareAttr(Gura_Symbol(icase));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -260,7 +260,7 @@ Gura_ImplementFunction(dict)
 // dict#clear()
 Gura_DeclareMethod(dict, clear)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(dict, clear)
@@ -273,7 +273,7 @@ Gura_ImplementMethod(dict, clear)
 // dict#erase(key):map
 Gura_DeclareMethod(dict, erase)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_any);
 }
 
@@ -287,7 +287,7 @@ Gura_ImplementMethod(dict, erase)
 // dict#get(key, default?:nomap):map:[raise]
 Gura_DeclareMethod(dict, get)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_any);
 	DeclareArg(env, "default", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_NoMap);
 	DeclareAttr(Gura_Symbol(raise));
@@ -313,7 +313,7 @@ Gura_ImplementMethod(dict, get)
 // dict#gets(key, default?):map:[raise]
 Gura_DeclareMethod(dict, gets)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_any);
 	DeclareArg(env, "default", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(raise));
@@ -339,7 +339,7 @@ Gura_ImplementMethod(dict, gets)
 // dict#haskey(key):map
 Gura_DeclareMethod(dict, haskey)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_any);
 }
 
@@ -354,7 +354,7 @@ Gura_ImplementMethod(dict, haskey)
 // dict#items() {block?}
 Gura_DeclareMethod(dict, items)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -369,7 +369,7 @@ Gura_ImplementMethod(dict, items)
 // dict#keys() {block?}
 Gura_DeclareMethod(dict, keys)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -384,7 +384,7 @@ Gura_ImplementMethod(dict, keys)
 // dict#len()
 Gura_DeclareMethod(dict, len)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(dict, len)
@@ -396,7 +396,7 @@ Gura_ImplementMethod(dict, len)
 // dict#set(key, value:nomap):map:reduce
 Gura_DeclareMethod(dict, set)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_any);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_Once, FLAG_NoMap);
 }
@@ -412,7 +412,7 @@ Gura_ImplementMethod(dict, set)
 // dict#setdefault(key, value:nomap):map
 Gura_DeclareMethod(dict, setdefault)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_any);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_Once, FLAG_NoMap);
 }
@@ -432,7 +432,7 @@ Gura_ImplementMethod(dict, setdefault)
 // dict#sets(key, value):map:void
 Gura_DeclareMethod(dict, sets)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_any);
 	DeclareArg(env, "value", VTYPE_any);
 }
@@ -448,7 +448,7 @@ Gura_ImplementMethod(dict, sets)
 // dict#store(elems?):reduce:[default] {block?}
 Gura_DeclareMethod(dict, store)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "elems", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(default_));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -494,7 +494,7 @@ Gura_ImplementMethod(dict, store)
 // dict#values() {block?}
 Gura_DeclareMethod(dict, values)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

@@ -39,7 +39,7 @@ void wx_Timer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(TimerEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Timer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(TimerEmpty)
 
 Gura_DeclareFunction(Timer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Timer));
 	DeclareArg(env, "owner", VTYPE_wx_EvtHandler, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -88,7 +88,7 @@ Gura_ImplementFunction(Timer)
 
 Gura_DeclareMethod(wx_Timer, GetInterval)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_Timer, GetInterval)
 
 Gura_DeclareMethod(wx_Timer, IsOneShot)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_Timer, IsOneShot)
 
 Gura_DeclareMethod(wx_Timer, IsRunning)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_Timer, IsRunning)
 
 Gura_DeclareMethod(wx_Timer, Notify)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Timer, Notify)
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_Timer, Notify)
 
 Gura_DeclareMethod(wx_Timer, SetOwner)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "owner", VTYPE_wx_EvtHandler, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_Timer, SetOwner)
 
 Gura_DeclareMethod(wx_Timer, Start)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "milliseconds", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "oneShot", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_Timer, Start)
 
 Gura_DeclareMethod(wx_Timer, Stop)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Timer, Stop)

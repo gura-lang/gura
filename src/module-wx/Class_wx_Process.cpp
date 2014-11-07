@@ -39,7 +39,7 @@ void wx_Process::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(Process)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Process));
 	DeclareArg(env, "parent", VTYPE_wx_EvtHandler, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(Process)
 
 Gura_DeclareFunction(Process_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Process));
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -91,7 +91,7 @@ Gura_ImplementFunction(Process_1)
 
 Gura_DeclareMethod(wx_Process, CloseOutput)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Process, CloseOutput)
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_Process, CloseOutput)
 
 Gura_DeclareMethod(wx_Process, Detach)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Process, Detach)
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_Process, Detach)
 
 Gura_DeclareMethod(wx_Process, GetErrorStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_Process, GetErrorStream)
 
 Gura_DeclareMethod(wx_Process, GetInputStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_Process, GetInputStream)
 
 Gura_DeclareMethod(wx_Process, GetOutputStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_Process, GetOutputStream)
 
 Gura_DeclareMethod(wx_Process, IsErrorAvailable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_Process, IsErrorAvailable)
 
 Gura_DeclareMethod(wx_Process, IsInputAvailable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_Process, IsInputAvailable)
 
 Gura_DeclareMethod(wx_Process, IsInputOpened)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_Process, IsInputOpened)
 
 Gura_DeclareClassMethod(wx_Process, Kill)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pid", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "signal", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -222,7 +222,7 @@ Gura_ImplementClassMethod(wx_Process, Kill)
 
 Gura_DeclareClassMethod(wx_Process, Exists)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pid", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -237,7 +237,7 @@ Gura_ImplementClassMethod(wx_Process, Exists)
 
 Gura_DeclareMethod(wx_Process, OnTerminate)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pid", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "status", VTYPE_number, OCCUR_Once);
 }
@@ -254,7 +254,7 @@ Gura_ImplementMethod(wx_Process, OnTerminate)
 
 Gura_DeclareClassMethod(wx_Process, Open)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "cmd", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -272,7 +272,7 @@ Gura_ImplementClassMethod(wx_Process, Open)
 
 Gura_DeclareMethod(wx_Process, GetPid)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -286,7 +286,7 @@ Gura_ImplementMethod(wx_Process, GetPid)
 
 Gura_DeclareMethod(wx_Process, Redirect)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Process, Redirect)

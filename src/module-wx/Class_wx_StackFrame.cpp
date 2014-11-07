@@ -37,7 +37,7 @@ void wx_StackFrame::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_StackFrame, GetAddress)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StackFrame, GetAddress)
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_StackFrame, GetAddress)
 
 Gura_DeclareMethod(wx_StackFrame, GetFileName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_StackFrame, GetFileName)
 
 Gura_DeclareMethod(wx_StackFrame, GetLevel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_StackFrame, GetLevel)
 
 Gura_DeclareMethod(wx_StackFrame, GetLine)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_StackFrame, GetLine)
 
 Gura_DeclareMethod(wx_StackFrame, GetModule)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_StackFrame, GetModule)
 
 Gura_DeclareMethod(wx_StackFrame, GetName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_StackFrame, GetName)
 
 Gura_DeclareMethod(wx_StackFrame, GetOffset)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_StackFrame, GetOffset)
 
 Gura_DeclareMethod(wx_StackFrame, GetParam)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_string, OCCUR_Once);
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_StackFrame, GetParam)
 
 Gura_DeclareMethod(wx_StackFrame, GetParamCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_StackFrame, GetParamCount)
 
 Gura_DeclareMethod(wx_StackFrame, HasSourceLocation)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

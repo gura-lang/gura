@@ -38,7 +38,7 @@ void wx_HtmlContainerCell::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HtmlContainerCell)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_HtmlContainerCell));
 	DeclareArg(env, "*parent", VTYPE_wx_HtmlContainerCell, OCCUR_Once);
@@ -68,7 +68,7 @@ Gura_ImplementFunction(HtmlContainerCell)
 
 Gura_DeclareMethod(wx_HtmlContainerCell, GetAlignHor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, GetAlignHor)
 
 Gura_DeclareMethod(wx_HtmlContainerCell, GetAlignVer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, GetAlignVer)
 
 Gura_DeclareMethod(wx_HtmlContainerCell, GetBackgroundColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, GetBackgroundColour)
 
 Gura_DeclareMethod(wx_HtmlContainerCell, GetIndent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "ind", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, GetIndent)
 
 Gura_DeclareMethod(wx_HtmlContainerCell, GetIndentUnits)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "ind", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, GetIndentUnits)
 
 Gura_DeclareMethod(wx_HtmlContainerCell, InsertCell)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "*cell", VTYPE_wx_HtmlCell, OCCUR_Once);
 #endif
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, InsertCell)
 
 Gura_DeclareMethod(wx_HtmlContainerCell, SetAlign)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "tag", VTYPE_wx_HtmlTag, OCCUR_Once);
 }
 
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, SetAlign)
 
 Gura_DeclareMethod(wx_HtmlContainerCell, SetAlignHor)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "al", VTYPE_number, OCCUR_Once);
 }
 
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, SetAlignHor)
 
 Gura_DeclareMethod(wx_HtmlContainerCell, SetAlignVer)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "al", VTYPE_number, OCCUR_Once);
 }
 
@@ -208,7 +208,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, SetAlignVer)
 
 Gura_DeclareMethod(wx_HtmlContainerCell, SetBackgroundColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "clr", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -223,7 +223,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, SetBackgroundColour)
 
 Gura_DeclareMethod(wx_HtmlContainerCell, SetBorder)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "clr1", VTYPE_wx_Colour, OCCUR_Once);
 	DeclareArg(env, "clr2", VTYPE_wx_Colour, OCCUR_Once);
 }
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, SetBorder)
 
 Gura_DeclareMethod(wx_HtmlContainerCell, SetIndent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "what", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "units", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -260,7 +260,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, SetIndent)
 
 Gura_DeclareMethod(wx_HtmlContainerCell, SetMinHeight)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "align", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -278,7 +278,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, SetMinHeight)
 
 Gura_DeclareMethod(wx_HtmlContainerCell, SetWidthFloat)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "w", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "units", VTYPE_number, OCCUR_Once);
 }
@@ -295,7 +295,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, SetWidthFloat)
 
 Gura_DeclareMethod(wx_HtmlContainerCell, SetWidthFloat_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "tag", VTYPE_wx_HtmlTag, OCCUR_Once);
 	DeclareArg(env, "pixel_scale", VTYPE_number, OCCUR_ZeroOrOnce);
 }

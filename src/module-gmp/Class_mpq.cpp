@@ -55,7 +55,7 @@ String Object_mpq::ToString(bool exprFlag)
 // gmp.mpq(numer?, denom?:number):map {block?}
 Gura_DeclareFunction(mpq)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "numer", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "denom", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -93,7 +93,7 @@ Gura_ImplementFunction(mpq)
 // string#mpq(base?:number):map {block?}
 Gura_DeclareMethod(string, mpq)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "base", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 

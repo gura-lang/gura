@@ -51,7 +51,7 @@ void wx_CustomDataObject::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(CustomDataObject)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_CustomDataObject));
 	DeclareArg(env, "format", VTYPE_wx_DataFormat, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -76,7 +76,7 @@ Gura_ImplementFunction(CustomDataObject)
 
 Gura_DeclareMethod(wx_CustomDataObject, Alloc)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_CustomDataObject, Alloc)
 
 Gura_DeclareMethod(wx_CustomDataObject, Free)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CustomDataObject, Free)
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_CustomDataObject, Free)
 
 Gura_DeclareMethod(wx_CustomDataObject, GetSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_CustomDataObject, GetSize)
 
 Gura_DeclareMethod(wx_CustomDataObject, GetData)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CustomDataObject, GetData)
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_CustomDataObject, GetData)
 
 Gura_DeclareMethod(wx_CustomDataObject, SetData)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "*data", VTYPE_number, OCCUR_Once);
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_CustomDataObject, SetData)
 
 Gura_DeclareMethod(wx_CustomDataObject, TakeData)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "*data", VTYPE_number, OCCUR_Once);

@@ -291,7 +291,7 @@ Value Object_interp::InvokeTclThread(Environment &env, Signal sig,
 // tcl.interp#eval(objs+)
 Gura_DeclareMethod(interp, eval)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "objs", VTYPE_any, OCCUR_OnceOrMore);
 }
 
@@ -312,7 +312,7 @@ Gura_ImplementMethod(interp, eval)
 // tcl.interp#evalscript(script:string)
 Gura_DeclareMethod(interp, evalscript)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "script", VTYPE_string);
 }
 
@@ -331,7 +331,7 @@ Gura_ImplementMethod(interp, evalscript)
 // tcl.interp#variable(value?, varName?:string)
 Gura_DeclareMethod(interp, variable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "varName", VTYPE_string, OCCUR_ZeroOrOnce);
 }
@@ -356,7 +356,7 @@ Gura_ImplementMethod(interp, variable)
 // tcl.interp#command(func:function)
 Gura_DeclareMethod(interp, command)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "func", VTYPE_function);
 }
 
@@ -375,7 +375,7 @@ Gura_ImplementMethod(interp, command)
 // tcl.interp#timer()
 Gura_DeclareMethod(interp, timer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(interp, timer)
@@ -637,7 +637,7 @@ void Object_timer::TimerProcStub(ClientData clientData)
 // tcl.timer#start(msec:number, msecCont?:number, count?:number):reduce {block}
 Gura_DeclareMethod(timer, start)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "msec", VTYPE_number);
 	DeclareArg(env, "msecCont", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -659,7 +659,7 @@ Gura_ImplementMethod(timer, start)
 // tcl.timer#cancel()
 Gura_DeclareMethod(timer, cancel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(timer, cancel)
@@ -683,7 +683,7 @@ Gura_ImplementUserClass(timer)
 // image#readtcl(interp:tcl.interp, imageName:string):reduce
 Gura_DeclareMethod(image, readtcl)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "interp", VTYPE_interp);
 	DeclareArg(env, "imageName", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Reads an image data from TCL image object.");
@@ -722,7 +722,7 @@ Gura_ImplementMethod(image, readtcl)
 // image#writetcl(interp:tcl.interp, imageName:string):reduce
 Gura_DeclareMethod(image, writetcl)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "interp", VTYPE_interp);
 	DeclareArg(env, "imageName", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Writes an image data to TCL image object.");
@@ -764,7 +764,7 @@ Gura_ImplementMethod(image, writetcl)
 // tcl.interp()
 Gura_DeclareFunction(interp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementFunction(interp)
@@ -786,7 +786,7 @@ Gura_ImplementFunction(interp)
 // tcl.Tk_MainLoop()
 Gura_DeclareFunction(Tk_MainLoop)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementFunction(Tk_MainLoop)

@@ -38,7 +38,7 @@ void wx_FTP::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FTPEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FTP));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(FTPEmpty)
 
 Gura_DeclareMethod(wx_FTP, Abort)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_FTP, Abort)
 
 Gura_DeclareMethod(wx_FTP, CheckCommand)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "command", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "ret", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_FTP, CheckCommand)
 
 Gura_DeclareMethod(wx_FTP, SendCommand)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "command", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_FTP, SendCommand)
 
 Gura_DeclareMethod(wx_FTP, GetLastResult)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_FTP, GetLastResult)
 
 Gura_DeclareMethod(wx_FTP, ChDir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dir", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_FTP, ChDir)
 
 Gura_DeclareMethod(wx_FTP, MkDir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dir", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_FTP, MkDir)
 
 Gura_DeclareMethod(wx_FTP, RmDir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dir", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_FTP, RmDir)
 
 Gura_DeclareMethod(wx_FTP, Pwd)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_FTP, Pwd)
 
 Gura_DeclareMethod(wx_FTP, Rename)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "src", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "dst", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_FTP, Rename)
 
 Gura_DeclareMethod(wx_FTP, RmFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_FTP, RmFile)
 
 Gura_DeclareMethod(wx_FTP, SetAscii)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_FTP, SetAscii)
 
 Gura_DeclareMethod(wx_FTP, SetBinary)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -246,7 +246,7 @@ Gura_ImplementMethod(wx_FTP, SetBinary)
 
 Gura_DeclareMethod(wx_FTP, SetPassive)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pasv", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -261,7 +261,7 @@ Gura_ImplementMethod(wx_FTP, SetPassive)
 
 Gura_DeclareMethod(wx_FTP, SetTransferMode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -281,7 +281,7 @@ Gura_ImplementMethod(wx_FTP, SetTransferMode)
 
 Gura_DeclareMethod(wx_FTP, SetUser)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "user", VTYPE_string, OCCUR_Once);
 }
 
@@ -296,7 +296,7 @@ Gura_ImplementMethod(wx_FTP, SetUser)
 
 Gura_DeclareMethod(wx_FTP, SetPassword)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "passwd", VTYPE_string, OCCUR_Once);
 }
 
@@ -311,7 +311,7 @@ Gura_ImplementMethod(wx_FTP, SetPassword)
 
 Gura_DeclareMethod(wx_FTP, FileExists)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -327,7 +327,7 @@ Gura_ImplementMethod(wx_FTP, FileExists)
 
 Gura_DeclareMethod(wx_FTP, GetFileSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -343,7 +343,7 @@ Gura_ImplementMethod(wx_FTP, GetFileSize)
 
 Gura_DeclareMethod(wx_FTP, GetDirList)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "files", VTYPE_string, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "wildcard", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -362,7 +362,7 @@ Gura_ImplementMethod(wx_FTP, GetDirList)
 
 Gura_DeclareMethod(wx_FTP, GetFilesList)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "files", VTYPE_string, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "wildcard", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -381,7 +381,7 @@ Gura_ImplementMethod(wx_FTP, GetFilesList)
 
 Gura_DeclareMethod(wx_FTP, GetOutputStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "file", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -397,7 +397,7 @@ Gura_ImplementMethod(wx_FTP, GetOutputStream)
 
 Gura_DeclareMethod(wx_FTP, GetInputStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

@@ -421,7 +421,7 @@ String Object_track::ToString(bool exprFlag)
 // midi.track#seek(offset:number, origin?:symbol):reduce
 Gura_DeclareMethod(track, seek)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "offset", VTYPE_number);
 	DeclareArg(env, "origin", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -450,7 +450,7 @@ Gura_ImplementMethod(track, seek)
 // midi.track#tell()
 Gura_DeclareMethod(track, tell)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Returns the current insertion point in the track.\n"
 	);
@@ -465,7 +465,7 @@ Gura_ImplementMethod(track, tell)
 // midi.track#erase(n?:number):reduce
 Gura_DeclareMethod(track, erase)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Deletes an event at the current insertion point in the track.\n"
@@ -485,7 +485,7 @@ Gura_ImplementMethod(track, erase)
 // midi.track#mml(str:string, max_velocity?:number):map:reduce
 Gura_DeclareMethod(track, mml)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
 	DeclareArg(env, "max_velocity", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -510,7 +510,7 @@ Gura_ImplementMethod(track, mml)
 // midi.track#note_off(channel:number, note:number, velocity:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, note_off)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "note", VTYPE_number);
 	DeclareArg(env, "velocity", VTYPE_number);
@@ -535,7 +535,7 @@ Gura_ImplementMethod(track, note_off)
 // midi.track#note_on(channel:number, note:number, velocity:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, note_on)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "note", VTYPE_number);
 	DeclareArg(env, "velocity", VTYPE_number);
@@ -560,7 +560,7 @@ Gura_ImplementMethod(track, note_on)
 // midi.track#poly_pressure(channel:number, note:number, value:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, poly_pressure)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "note", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_number);
@@ -585,7 +585,7 @@ Gura_ImplementMethod(track, poly_pressure)
 // midi.track#control_change(channel:number, controller, value:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, control_change)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "controller", VTYPE_any);
 	DeclareArg(env, "value", VTYPE_number);
@@ -624,7 +624,7 @@ Gura_ImplementMethod(track, control_change)
 // midi.track#program_change(channel:number, program, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, program_change)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "program", VTYPE_any);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -661,7 +661,7 @@ Gura_ImplementMethod(track, program_change)
 // midi.track#channel_pressure(channel:number, pressure:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, channel_pressure)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "pressure", VTYPE_number);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -684,7 +684,7 @@ Gura_ImplementMethod(track, channel_pressure)
 // midi.track#pitch_bend(channel:number, value:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, pitch_bend)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_number);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -707,7 +707,7 @@ Gura_ImplementMethod(track, pitch_bend)
 // midi.track#sequence_number(number:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, sequence_number)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "number", VTYPE_number);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -727,7 +727,7 @@ Gura_ImplementMethod(track, sequence_number)
 // midi.track#text_event(text:string, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, text_event)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -747,7 +747,7 @@ Gura_ImplementMethod(track, text_event)
 // midi.track#copyright_notice(text:string, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, copyright_notice)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -767,7 +767,7 @@ Gura_ImplementMethod(track, copyright_notice)
 // midi.track#sequence_or_track_name(text:string, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, sequence_or_track_name)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -787,7 +787,7 @@ Gura_ImplementMethod(track, sequence_or_track_name)
 // midi.track#instrument_name(text:string, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, instrument_name)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -807,7 +807,7 @@ Gura_ImplementMethod(track, instrument_name)
 // midi.track#lyric_text(text:string, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, lyric_text)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -827,7 +827,7 @@ Gura_ImplementMethod(track, lyric_text)
 // midi.track#marker_text(text:string, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, marker_text)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -847,7 +847,7 @@ Gura_ImplementMethod(track, marker_text)
 // midi.track#cue_point(text:string, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, cue_point)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -867,7 +867,7 @@ Gura_ImplementMethod(track, cue_point)
 // midi.track#midi_channel_prefix_assignment(channel:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, midi_channel_prefix_assignment)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -888,7 +888,7 @@ Gura_ImplementMethod(track, midi_channel_prefix_assignment)
 // midi.track#end_of_track(deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, end_of_track)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""
@@ -907,7 +907,7 @@ Gura_ImplementMethod(track, end_of_track)
 // midi.track#tempo_setting(mpqn:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, tempo_setting)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "mpqn", VTYPE_number);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -928,7 +928,7 @@ Gura_ImplementMethod(track, tempo_setting)
 // midi.track#smpte_offset(hour:number, minute:number, second:number, frame:number, subFrame:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, smpte_offset)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "hour", VTYPE_number);
 	DeclareArg(env, "minute", VTYPE_number);
 	DeclareArg(env, "second", VTYPE_number);
@@ -957,7 +957,7 @@ Gura_ImplementMethod(track, smpte_offset)
 // midi.track#time_signature(numerator:number, denominator:number, metronome:number, cnt32nd:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, time_signature)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "numerator", VTYPE_number);
 	DeclareArg(env, "denominator", VTYPE_number);
 	DeclareArg(env, "metronome", VTYPE_number);
@@ -984,7 +984,7 @@ Gura_ImplementMethod(track, time_signature)
 // midi.track#key_signature(key:number, scale:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, key_signature)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_number);
 	DeclareArg(env, "scale", VTYPE_number);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1007,7 +1007,7 @@ Gura_ImplementMethod(track, key_signature)
 // midi.track#sequencer_specific_event(binary:binary, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, sequencer_specific_event)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "binary", VTYPE_binary);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1140,7 +1140,7 @@ String Object_sequence::ToString(bool exprFlag)
 // midi.sequence#read(stream:stream:r):map:reduce
 Gura_DeclareMethod(sequence, read)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""
@@ -1157,7 +1157,7 @@ Gura_ImplementMethod(sequence, read)
 // midi.sequence#write(stream:stream:w):map:reduce
 Gura_DeclareMethod(sequence, write)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""
@@ -1174,7 +1174,7 @@ Gura_ImplementMethod(sequence, write)
 // midi.sequence#play(port:midi.port, speed?:number, repeat:number:nil => 1):[background,player]
 Gura_DeclareMethod(sequence, play)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "port", VTYPE_port);
 	DeclareArg(env, "speed", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "repeat", VTYPE_number, OCCUR_Once,
@@ -1198,7 +1198,7 @@ Gura_ImplementMethod(sequence, play)
 // midi.sequence#track(index:number):map {block?}
 Gura_DeclareMethod(sequence, track)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1226,7 +1226,7 @@ Gura_ImplementMethod(sequence, track)
 // midi.sequence#mml(str:string, max_velocity?:number):reduce
 Gura_DeclareMethod(sequence, mml)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "str", VTYPE_string);
 	DeclareArg(env, "max_velocity", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1246,7 +1246,7 @@ Gura_ImplementMethod(sequence, mml)
 // midi.sequence#readmml(stream:stream, max_velocity?:number):reduce
 Gura_DeclareMethod(sequence, readmml)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream);
 	DeclareArg(env, "max_velocity", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1385,7 +1385,7 @@ String Object_port::ToString(bool exprFlag)
 // midi.port#send(msg+:number):map:reduce
 Gura_DeclareMethod(port, send)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "msg", VTYPE_number, OCCUR_OnceOrMore);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""
@@ -1417,7 +1417,7 @@ Gura_ImplementMethod(port, send)
 // midi.port#play(sequence:midi.sequence, speed?:number, repeat:number:nil => 1):map:[background,player]
 Gura_DeclareMethod(port, play)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "sequence", VTYPE_sequence);
 	DeclareArg(env, "speed", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "repeat", VTYPE_number, OCCUR_Once,
@@ -1441,7 +1441,7 @@ Gura_ImplementMethod(port, play)
 // midi.port#mml(str:string, max_velocity?:number):[background,player]
 Gura_DeclareMethod(port, mml)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "str", VTYPE_string);
 	DeclareArg(env, "max_velocity", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_UserSymbol(background));
@@ -1466,7 +1466,7 @@ Gura_ImplementMethod(port, mml)
 // midi.port#readmml(stream:stream, max_velocity?:number):[background,player]
 Gura_DeclareMethod(port, readmml)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream);
 	DeclareArg(env, "max_velocity", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_UserSymbol(background));
@@ -1491,7 +1491,7 @@ Gura_ImplementMethod(port, readmml)
 // midi.port#note_off(channel:number, note:number, velocity:number):map:reduce
 Gura_DeclareMethod(port, note_off)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "note", VTYPE_number);
 	DeclareArg(env, "velocity", VTYPE_number);
@@ -1513,7 +1513,7 @@ Gura_ImplementMethod(port, note_off)
 // midi.port#note_on(channel:number, note:number, velocity:number):map:reduce
 Gura_DeclareMethod(port, note_on)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "note", VTYPE_number);
 	DeclareArg(env, "velocity", VTYPE_number);
@@ -1535,7 +1535,7 @@ Gura_ImplementMethod(port, note_on)
 // midi.port#poly_pressure(channel:number, note:number, value:number):map:reduce
 Gura_DeclareMethod(port, poly_pressure)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "note", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_number);
@@ -1557,7 +1557,7 @@ Gura_ImplementMethod(port, poly_pressure)
 // midi.port#control_change(channel:number, controller:number, value:number):map:reduce
 Gura_DeclareMethod(port, control_change)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "controller", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_number);
@@ -1579,7 +1579,7 @@ Gura_ImplementMethod(port, control_change)
 // midi.port#program_change(channel:number, program:number):map:reduce
 Gura_DeclareMethod(port, program_change)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "program", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1599,7 +1599,7 @@ Gura_ImplementMethod(port, program_change)
 // midi.port#channel_pressure(channel:number, pressure:number):map:reduce
 Gura_DeclareMethod(port, channel_pressure)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "pressure", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1619,7 +1619,7 @@ Gura_ImplementMethod(port, channel_pressure)
 // midi.port#pitch_bend(channel:number, value:number):map:reduce
 Gura_DeclareMethod(port, pitch_bend)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1899,7 +1899,7 @@ String Object_soundfont::ToString(bool exprFlag)
 // midi.soundfont#synthesizer(preset:number, bank:number, key:number, velocity:number):map {block?}
 Gura_DeclareMethod(soundfont, synthesizer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "preset", VTYPE_number);
 	DeclareArg(env, "bank", VTYPE_number);
 	DeclareArg(env, "key", VTYPE_number);
@@ -1926,7 +1926,7 @@ Gura_ImplementMethod(soundfont, synthesizer)
 // midi.soundfont#print():void
 Gura_DeclareMethod(soundfont, print)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""
 	);
@@ -2109,7 +2109,7 @@ void Iterator_event::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &
 // midi.sequence(stream?:stream) {block?}
 Gura_DeclareFunction(sequence)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(sequence));
@@ -2131,7 +2131,7 @@ Gura_ImplementFunction(sequence)
 // midi.port(id?:number) {block?}
 Gura_DeclareFunction(port)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(port));
@@ -2154,7 +2154,7 @@ Gura_ImplementFunction(port)
 // midi.controller(symbol:symbol) {block?}
 Gura_DeclareFunction(controller)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(controller));
@@ -2177,7 +2177,7 @@ Gura_ImplementFunction(controller)
 // midi.program(symbol:symbol) {block?}
 Gura_DeclareFunction(program)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(program));
@@ -2200,7 +2200,7 @@ Gura_ImplementFunction(program)
 // midi.soundfont(stream:stream) {block?}
 Gura_DeclareFunction(soundfont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(soundfont));
@@ -2219,7 +2219,7 @@ Gura_ImplementFunction(soundfont)
 // midi.test(stream:stream)
 Gura_DeclareFunction(test)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream);
 }
 

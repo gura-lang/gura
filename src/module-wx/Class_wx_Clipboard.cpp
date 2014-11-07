@@ -38,7 +38,7 @@ void wx_Clipboard::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(Clipboard)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Clipboard));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(Clipboard)
 
 Gura_DeclareMethod(wx_Clipboard, AddData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "data", VTYPE_wx_DataObject, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_Clipboard, AddData)
 
 Gura_DeclareMethod(wx_Clipboard, Clear)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Clipboard, Clear)
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_Clipboard, Clear)
 
 Gura_DeclareMethod(wx_Clipboard, Close)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Clipboard, Close)
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_Clipboard, Close)
 
 Gura_DeclareMethod(wx_Clipboard, Flush)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_Clipboard, Flush)
 
 Gura_DeclareMethod(wx_Clipboard, GetData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "data", VTYPE_wx_DataObject, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_Clipboard, GetData)
 
 Gura_DeclareMethod(wx_Clipboard, IsOpened)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_Clipboard, IsOpened)
 
 Gura_DeclareMethod(wx_Clipboard, IsSupported)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_wx_DataFormat, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_Clipboard, IsSupported)
 
 Gura_DeclareMethod(wx_Clipboard, Open)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_Clipboard, Open)
 
 Gura_DeclareMethod(wx_Clipboard, SetData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "data", VTYPE_wx_DataObject, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_Clipboard, SetData)
 
 Gura_DeclareMethod(wx_Clipboard, UsePrimarySelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "primary", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 

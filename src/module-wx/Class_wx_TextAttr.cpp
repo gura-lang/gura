@@ -39,7 +39,7 @@ void wx_TextAttr::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(TextAttr)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TextAttr));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(TextAttr)
 
 Gura_DeclareFunction(TextAttr_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_TextAttr));
 	DeclareArg(env, "colText", VTYPE_wx_Colour, OCCUR_Once);
 	DeclareArg(env, "colBack", VTYPE_wx_Colour, OCCUR_ZeroOrOnce);
@@ -94,7 +94,7 @@ Gura_ImplementFunction(TextAttr_1)
 
 Gura_DeclareMethod(wx_TextAttr, GetAlignment)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_TextAttr, GetAlignment)
 
 Gura_DeclareMethod(wx_TextAttr, GetBackgroundColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_TextAttr, GetBackgroundColour)
 
 Gura_DeclareMethod(wx_TextAttr, GetFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_TextAttr, GetFont)
 
 Gura_DeclareMethod(wx_TextAttr, GetLeftIndent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_TextAttr, GetLeftIndent)
 
 Gura_DeclareMethod(wx_TextAttr, GetLeftSubIndent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_TextAttr, GetLeftSubIndent)
 
 Gura_DeclareMethod(wx_TextAttr, GetRightIndent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_TextAttr, GetRightIndent)
 
 Gura_DeclareMethod(wx_TextAttr, GetTabs)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_TextAttr, GetTabs)
 
 Gura_DeclareMethod(wx_TextAttr, GetTextColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_TextAttr, GetTextColour)
 
 Gura_DeclareMethod(wx_TextAttr, HasAlignment)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_TextAttr, HasAlignment)
 
 Gura_DeclareMethod(wx_TextAttr, HasBackgroundColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_TextAttr, HasBackgroundColour)
 
 Gura_DeclareMethod(wx_TextAttr, HasFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_TextAttr, HasFont)
 
 Gura_DeclareMethod(wx_TextAttr, HasLeftIndent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -262,7 +262,7 @@ Gura_ImplementMethod(wx_TextAttr, HasLeftIndent)
 
 Gura_DeclareMethod(wx_TextAttr, HasRightIndent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -276,7 +276,7 @@ Gura_ImplementMethod(wx_TextAttr, HasRightIndent)
 
 Gura_DeclareMethod(wx_TextAttr, HasTabs)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_TextAttr, HasTabs)
 
 Gura_DeclareMethod(wx_TextAttr, HasTextColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -304,7 +304,7 @@ Gura_ImplementMethod(wx_TextAttr, HasTextColour)
 
 Gura_DeclareMethod(wx_TextAttr, GetFlags)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -318,7 +318,7 @@ Gura_ImplementMethod(wx_TextAttr, GetFlags)
 
 Gura_DeclareMethod(wx_TextAttr, IsDefault)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -332,7 +332,7 @@ Gura_ImplementMethod(wx_TextAttr, IsDefault)
 
 Gura_DeclareMethod(wx_TextAttr, Merge)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "overlay", VTYPE_wx_TextAttr, OCCUR_Once);
 }
 
@@ -347,7 +347,7 @@ Gura_ImplementMethod(wx_TextAttr, Merge)
 
 Gura_DeclareClassMethod(wx_TextAttr, Merge_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "base", VTYPE_wx_TextAttr, OCCUR_Once);
 	DeclareArg(env, "overlay", VTYPE_wx_TextAttr, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -364,7 +364,7 @@ Gura_ImplementClassMethod(wx_TextAttr, Merge_1)
 
 Gura_DeclareMethod(wx_TextAttr, SetAlignment)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "alignment", VTYPE_number, OCCUR_Once);
 }
 
@@ -379,7 +379,7 @@ Gura_ImplementMethod(wx_TextAttr, SetAlignment)
 
 Gura_DeclareMethod(wx_TextAttr, SetBackgroundColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -394,7 +394,7 @@ Gura_ImplementMethod(wx_TextAttr, SetBackgroundColour)
 
 Gura_DeclareMethod(wx_TextAttr, SetFlags)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
@@ -409,7 +409,7 @@ Gura_ImplementMethod(wx_TextAttr, SetFlags)
 
 Gura_DeclareMethod(wx_TextAttr, SetFont)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 }
 
@@ -424,7 +424,7 @@ Gura_ImplementMethod(wx_TextAttr, SetFont)
 
 Gura_DeclareMethod(wx_TextAttr, SetLeftIndent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "indent", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "subIndent", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -442,7 +442,7 @@ Gura_ImplementMethod(wx_TextAttr, SetLeftIndent)
 
 Gura_DeclareMethod(wx_TextAttr, SetRightIndent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "indent", VTYPE_number, OCCUR_Once);
 }
 
@@ -457,7 +457,7 @@ Gura_ImplementMethod(wx_TextAttr, SetRightIndent)
 
 Gura_DeclareMethod(wx_TextAttr, SetTabs)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "tabs", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -472,7 +472,7 @@ Gura_ImplementMethod(wx_TextAttr, SetTabs)
 
 Gura_DeclareMethod(wx_TextAttr, SetTextColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 

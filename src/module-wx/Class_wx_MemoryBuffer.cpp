@@ -39,7 +39,7 @@ void wx_MemoryBuffer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(MemoryBuffer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_MemoryBuffer));
 	DeclareArg(env, "src", VTYPE_wx_MemoryBuffer, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(MemoryBuffer)
 
 Gura_DeclareFunction(MemoryBuffer_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_MemoryBuffer));
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -87,7 +87,7 @@ Gura_ImplementFunction(MemoryBuffer_1)
 
 Gura_DeclareMethod(wx_MemoryBuffer, GetData)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MemoryBuffer, GetData)
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_MemoryBuffer, GetData)
 
 Gura_DeclareMethod(wx_MemoryBuffer, GetBufSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_MemoryBuffer, GetBufSize)
 
 Gura_DeclareMethod(wx_MemoryBuffer, GetDataLen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_MemoryBuffer, GetDataLen)
 
 Gura_DeclareMethod(wx_MemoryBuffer, SetBufSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_MemoryBuffer, SetBufSize)
 
 Gura_DeclareMethod(wx_MemoryBuffer, SetDataLen)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_MemoryBuffer, SetDataLen)
 
 Gura_DeclareMethod(wx_MemoryBuffer, GetWriteBuf)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "sizeNeeded", VTYPE_number, OCCUR_Once);
 }
 
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_MemoryBuffer, GetWriteBuf)
 
 Gura_DeclareMethod(wx_MemoryBuffer, UngetWriteBuf)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "sizeUsed", VTYPE_number, OCCUR_Once);
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_MemoryBuffer, UngetWriteBuf)
 
 Gura_DeclareMethod(wx_MemoryBuffer, GetAppendBuf)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "sizeNeeded", VTYPE_number, OCCUR_Once);
 }
 
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_MemoryBuffer, GetAppendBuf)
 
 Gura_DeclareMethod(wx_MemoryBuffer, UngetAppendBuf)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "sizeUsed", VTYPE_number, OCCUR_Once);
 }
 
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_MemoryBuffer, UngetAppendBuf)
 
 Gura_DeclareMethod(wx_MemoryBuffer, AppendByte)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_MemoryBuffer, AppendByte)
 
 Gura_DeclareMethod(wx_MemoryBuffer, AppendData)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_Once);

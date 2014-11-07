@@ -46,7 +46,7 @@ void wx_SplitterWindow::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(SplitterWindowEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SplitterWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -68,7 +68,7 @@ Gura_ImplementFunction(SplitterWindowEmpty)
 
 Gura_DeclareFunction(SplitterWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_SplitterWindow));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -107,7 +107,7 @@ Gura_ImplementFunction(SplitterWindow)
 
 Gura_DeclareMethod(wx_SplitterWindow, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "point", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_SplitterWindow, Create)
 
 Gura_DeclareMethod(wx_SplitterWindow, GetMinimumPaneSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_SplitterWindow, GetMinimumPaneSize)
 
 Gura_DeclareMethod(wx_SplitterWindow, GetSashGravity)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_SplitterWindow, GetSashGravity)
 
 Gura_DeclareMethod(wx_SplitterWindow, GetSashPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_SplitterWindow, GetSashPosition)
 
 Gura_DeclareMethod(wx_SplitterWindow, GetSplitMode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_SplitterWindow, GetSplitMode)
 
 Gura_DeclareMethod(wx_SplitterWindow, GetWindow1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -207,7 +207,7 @@ Gura_ImplementMethod(wx_SplitterWindow, GetWindow1)
 
 Gura_DeclareMethod(wx_SplitterWindow, GetWindow2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -221,7 +221,7 @@ Gura_ImplementMethod(wx_SplitterWindow, GetWindow2)
 
 Gura_DeclareMethod(wx_SplitterWindow, Initialize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 }
 
@@ -236,7 +236,7 @@ Gura_ImplementMethod(wx_SplitterWindow, Initialize)
 
 Gura_DeclareMethod(wx_SplitterWindow, IsSplit)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_SplitterWindow, IsSplit)
 
 Gura_DeclareMethod(wx_SplitterWindow, OnDoubleClickSash)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_SplitterWindow, OnDoubleClickSash)
 
 Gura_DeclareMethod(wx_SplitterWindow, OnUnsplit)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "removed", VTYPE_wx_Window, OCCUR_Once);
 }
 
@@ -282,7 +282,7 @@ Gura_ImplementMethod(wx_SplitterWindow, OnUnsplit)
 
 Gura_DeclareMethod(wx_SplitterWindow, OnSashPositionChange)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "newSashPosition", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -298,7 +298,7 @@ Gura_ImplementMethod(wx_SplitterWindow, OnSashPositionChange)
 
 Gura_DeclareMethod(wx_SplitterWindow, ReplaceWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "winOld", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "winNew", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -316,7 +316,7 @@ Gura_ImplementMethod(wx_SplitterWindow, ReplaceWindow)
 
 Gura_DeclareMethod(wx_SplitterWindow, SetSashGravity)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "gravity", VTYPE_number, OCCUR_Once);
 }
 
@@ -331,7 +331,7 @@ Gura_ImplementMethod(wx_SplitterWindow, SetSashGravity)
 
 Gura_DeclareMethod(wx_SplitterWindow, SetSashPosition)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "redraw", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
@@ -349,7 +349,7 @@ Gura_ImplementMethod(wx_SplitterWindow, SetSashPosition)
 
 Gura_DeclareMethod(wx_SplitterWindow, SetSashSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
@@ -364,7 +364,7 @@ Gura_ImplementMethod(wx_SplitterWindow, SetSashSize)
 
 Gura_DeclareMethod(wx_SplitterWindow, SetMinimumPaneSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "paneSize", VTYPE_number, OCCUR_Once);
 }
 
@@ -379,7 +379,7 @@ Gura_ImplementMethod(wx_SplitterWindow, SetMinimumPaneSize)
 
 Gura_DeclareMethod(wx_SplitterWindow, SetSplitMode)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
@@ -394,7 +394,7 @@ Gura_ImplementMethod(wx_SplitterWindow, SetSplitMode)
 
 Gura_DeclareMethod(wx_SplitterWindow, SplitHorizontally)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window1", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "window2", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "sashPosition", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -415,7 +415,7 @@ Gura_ImplementMethod(wx_SplitterWindow, SplitHorizontally)
 
 Gura_DeclareMethod(wx_SplitterWindow, SplitVertically)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window1", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "window2", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "sashPosition", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -436,7 +436,7 @@ Gura_ImplementMethod(wx_SplitterWindow, SplitVertically)
 
 Gura_DeclareMethod(wx_SplitterWindow, Unsplit)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "toRemove", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -453,7 +453,7 @@ Gura_ImplementMethod(wx_SplitterWindow, Unsplit)
 
 Gura_DeclareMethod(wx_SplitterWindow, UpdateSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SplitterWindow, UpdateSize)

@@ -39,7 +39,7 @@ void wx_SpinButton::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(SpinButtonEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SpinButton));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(SpinButtonEmpty)
 
 Gura_DeclareFunction(SpinButton)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_SpinButton));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -99,7 +99,7 @@ Gura_ImplementFunction(SpinButton)
 
 Gura_DeclareMethod(wx_SpinButton, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_SpinButton, Create)
 
 Gura_DeclareMethod(wx_SpinButton, GetMax)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_SpinButton, GetMax)
 
 Gura_DeclareMethod(wx_SpinButton, GetMin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_SpinButton, GetMin)
 
 Gura_DeclareMethod(wx_SpinButton, GetValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_SpinButton, GetValue)
 
 Gura_DeclareMethod(wx_SpinButton, SetRange)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "max", VTYPE_number, OCCUR_Once);
 }
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_SpinButton, SetRange)
 
 Gura_DeclareMethod(wx_SpinButton, SetValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 

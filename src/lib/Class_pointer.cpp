@@ -56,7 +56,7 @@ bool Object_pointer::Pack(Signal sig,
 // pointer#forward(distance:number):reduce
 Gura_DeclareMethod(pointer, forward)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "distance", VTYPE_number);
 }
 
@@ -71,7 +71,7 @@ Gura_ImplementMethod(pointer, forward)
 // pointer#pack(format:string, value+):reduce:[stay]
 Gura_DeclareMethod(pointer, pack)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_OnceOrMore);
 	DeclareAttr(Gura_Symbol(stay));
@@ -92,7 +92,7 @@ Gura_ImplementMethod(pointer, pack)
 // pointer#reset()
 Gura_DeclareMethod(pointer, reset)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(pointer, reset)
@@ -105,7 +105,7 @@ Gura_ImplementMethod(pointer, reset)
 // pointer#unpack(format:string, values*:number):[nil,stay]
 Gura_DeclareMethod(pointer, unpack)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "values", VTYPE_number, OCCUR_ZeroOrMore);
 	DeclareAttr(Gura_Symbol(nil));
@@ -124,7 +124,7 @@ Gura_ImplementMethod(pointer, unpack)
 // pointer#unpacks(format:string, values*:number)
 Gura_DeclareMethod(pointer, unpacks)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "values", VTYPE_number, OCCUR_ZeroOrMore);
 }

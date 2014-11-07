@@ -44,7 +44,7 @@ void wx_HtmlWinParser::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HtmlWinParserEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlWinParser));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -66,7 +66,7 @@ Gura_ImplementFunction(HtmlWinParserEmpty)
 
 Gura_DeclareFunction(HtmlWinParser)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_HtmlWinParser));
 	DeclareArg(env, "*wndIface", VTYPE_wx_HtmlWindowInterface, OCCUR_Once);
@@ -96,7 +96,7 @@ Gura_ImplementFunction(HtmlWinParser)
 
 Gura_DeclareClassMethod(wx_HtmlWinParser, AddModule)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "*module", VTYPE_wx_HtmlTagsModule, OCCUR_Once);
 #endif
@@ -116,7 +116,7 @@ Gura_ImplementClassMethod(wx_HtmlWinParser, AddModule)
 
 Gura_DeclareMethod(wx_HtmlWinParser, CloseContainer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, CloseContainer)
 
 Gura_DeclareMethod(wx_HtmlWinParser, CreateCurrentFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, CreateCurrentFont)
 
 Gura_DeclareMethod(wx_HtmlWinParser, GetActualColor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetActualColor)
 
 Gura_DeclareMethod(wx_HtmlWinParser, GetAlign)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetAlign)
 
 Gura_DeclareMethod(wx_HtmlWinParser, GetCharHeight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetCharHeight)
 
 Gura_DeclareMethod(wx_HtmlWinParser, GetCharWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetCharWidth)
 
 Gura_DeclareMethod(wx_HtmlWinParser, GetContainer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetContainer)
 
 Gura_DeclareMethod(wx_HtmlWinParser, GetDC)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetDC)
 #if 0
 Gura_DeclareMethod(wx_HtmlWinParser, GetEncodingConverter)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetEncodingConverter)
 
 Gura_DeclareMethod(wx_HtmlWinParser, GetFontBold)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -263,7 +263,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetFontBold)
 
 Gura_DeclareMethod(wx_HtmlWinParser, GetFontFace)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -277,7 +277,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetFontFace)
 
 Gura_DeclareMethod(wx_HtmlWinParser, GetFontFixed)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -291,7 +291,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetFontFixed)
 
 Gura_DeclareMethod(wx_HtmlWinParser, GetFontItalic)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -305,7 +305,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetFontItalic)
 
 Gura_DeclareMethod(wx_HtmlWinParser, GetFontSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -319,7 +319,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetFontSize)
 
 Gura_DeclareMethod(wx_HtmlWinParser, GetFontUnderlined)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -334,7 +334,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetFontUnderlined)
 #if 0
 Gura_DeclareMethod(wx_HtmlWinParser, GetInputEncoding)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -354,7 +354,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetInputEncoding)
 
 Gura_DeclareMethod(wx_HtmlWinParser, GetLink)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -368,7 +368,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetLink)
 
 Gura_DeclareMethod(wx_HtmlWinParser, GetLinkColor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -383,7 +383,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetLinkColor)
 #if 0
 Gura_DeclareMethod(wx_HtmlWinParser, GetOutputEncoding)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -404,7 +404,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetOutputEncoding)
 #if 0
 Gura_DeclareMethod(wx_HtmlWinParser, GetWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -419,7 +419,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetWindow)
 
 Gura_DeclareMethod(wx_HtmlWinParser, OpenContainer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -433,7 +433,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, OpenContainer)
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetActualColor)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "clr", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -448,7 +448,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetActualColor)
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetAlign)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "a", VTYPE_number, OCCUR_Once);
 }
 
@@ -463,7 +463,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetAlign)
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetContainer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_wx_HtmlContainerCell, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -479,7 +479,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetContainer)
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetDC)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "*dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "pixel_scale", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -503,7 +503,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetDC)
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetFontBold)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 }
 
@@ -518,7 +518,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetFontBold)
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetFontFace)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "face", VTYPE_string, OCCUR_Once);
 }
 
@@ -533,7 +533,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetFontFace)
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetFontFixed)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 }
 
@@ -548,7 +548,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetFontFixed)
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetFontItalic)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 }
 
@@ -563,7 +563,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetFontItalic)
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetFontSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 }
 
@@ -578,7 +578,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetFontSize)
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetFontUnderlined)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 }
 
@@ -593,7 +593,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetFontUnderlined)
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetFonts)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "normal_face", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "fixed_face", VTYPE_string, OCCUR_Once);
@@ -620,7 +620,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetFonts)
 #if 0
 Gura_DeclareMethod(wx_HtmlWinParser, SetInputEncoding)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "enc", VTYPE_number, OCCUR_Once);
 }
 
@@ -641,7 +641,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetInputEncoding)
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetLink)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "link", VTYPE_wx_HtmlLinkInfo, OCCUR_Once);
 }
 
@@ -656,7 +656,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetLink)
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetLinkColor)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "clr", VTYPE_wx_Colour, OCCUR_Once);
 }
 

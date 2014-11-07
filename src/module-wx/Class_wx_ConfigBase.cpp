@@ -38,7 +38,7 @@ void wx_ConfigBase::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ConfigBase)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_ConfigBase));
 	DeclareArg(env, "appName", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(ConfigBase)
 
 Gura_DeclareClassMethod(wx_ConfigBase, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -97,7 +97,7 @@ Gura_ImplementClassMethod(wx_ConfigBase, Create)
 
 Gura_DeclareMethod(wx_ConfigBase, DontCreateOnDemand)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ConfigBase, DontCreateOnDemand)
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_ConfigBase, DontCreateOnDemand)
 
 Gura_DeclareMethod(wx_ConfigBase, DeleteAll)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_ConfigBase, DeleteAll)
 
 Gura_DeclareMethod(wx_ConfigBase, DeleteEntry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "bDeleteGroupIfEmpty", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_ConfigBase, DeleteEntry)
 
 Gura_DeclareMethod(wx_ConfigBase, DeleteGroup)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_ConfigBase, DeleteGroup)
 
 Gura_DeclareMethod(wx_ConfigBase, Exists)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "strName", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_ConfigBase, Exists)
 
 Gura_DeclareMethod(wx_ConfigBase, Flush)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "bCurrentOnly", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_ConfigBase, Flush)
 
 Gura_DeclareClassMethod(wx_ConfigBase, Get)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "CreateOnDemand", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -208,7 +208,7 @@ Gura_ImplementClassMethod(wx_ConfigBase, Get)
 
 Gura_DeclareMethod(wx_ConfigBase, GetAppName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetAppName)
 
 Gura_DeclareMethod(wx_ConfigBase, GetEntryType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -236,7 +236,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetEntryType)
 
 Gura_DeclareMethod(wx_ConfigBase, GetFirstGroup)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -254,7 +254,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetFirstGroup)
 
 Gura_DeclareMethod(wx_ConfigBase, GetFirstEntry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -272,7 +272,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetFirstEntry)
 
 Gura_DeclareMethod(wx_ConfigBase, GetNextGroup)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetNextGroup)
 
 Gura_DeclareMethod(wx_ConfigBase, GetNextEntry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -308,7 +308,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetNextEntry)
 
 Gura_DeclareMethod(wx_ConfigBase, GetNumberOfEntries)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "bRecursive", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -323,7 +323,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetNumberOfEntries)
 
 Gura_DeclareMethod(wx_ConfigBase, GetNumberOfGroups)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "bRecursive", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -338,7 +338,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetNumberOfGroups)
 
 Gura_DeclareMethod(wx_ConfigBase, GetPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -352,7 +352,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetPath)
 
 Gura_DeclareMethod(wx_ConfigBase, GetVendorName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -366,7 +366,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetVendorName)
 
 Gura_DeclareMethod(wx_ConfigBase, HasEntry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "strName", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -382,7 +382,7 @@ Gura_ImplementMethod(wx_ConfigBase, HasEntry)
 
 Gura_DeclareMethod(wx_ConfigBase, HasGroup)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "strName", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -398,7 +398,7 @@ Gura_ImplementMethod(wx_ConfigBase, HasGroup)
 
 Gura_DeclareMethod(wx_ConfigBase, IsExpandingEnvVars)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -412,7 +412,7 @@ Gura_ImplementMethod(wx_ConfigBase, IsExpandingEnvVars)
 
 Gura_DeclareMethod(wx_ConfigBase, IsRecordingDefaults)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -426,7 +426,7 @@ Gura_ImplementMethod(wx_ConfigBase, IsRecordingDefaults)
 
 Gura_DeclareMethod(wx_ConfigBase, Read)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -448,7 +448,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read)
 
 Gura_DeclareMethod(wx_ConfigBase, Read_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "key", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
@@ -474,7 +474,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_1)
 
 Gura_DeclareMethod(wx_ConfigBase, Read_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "defaultVal", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -492,7 +492,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_2)
 
 Gura_DeclareMethod(wx_ConfigBase, Read_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "l", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -510,7 +510,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_3)
 
 Gura_DeclareMethod(wx_ConfigBase, Read_4)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "key", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "l", VTYPE_number, OCCUR_Once);
@@ -536,7 +536,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_4)
 
 Gura_DeclareMethod(wx_ConfigBase, Read_5)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "defaultVal", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -554,7 +554,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_5)
 
 Gura_DeclareMethod(wx_ConfigBase, Read_6)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "d", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -572,7 +572,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_6)
 
 Gura_DeclareMethod(wx_ConfigBase, Read_7)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "key", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "d", VTYPE_number, OCCUR_Once);
@@ -598,7 +598,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_7)
 
 Gura_DeclareMethod(wx_ConfigBase, Read_8)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "b", VTYPE_boolean, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -616,7 +616,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_8)
 
 Gura_DeclareMethod(wx_ConfigBase, Read_9)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "key", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "d", VTYPE_boolean, OCCUR_Once);
@@ -642,7 +642,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_9)
 
 Gura_DeclareMethod(wx_ConfigBase, RenameEntry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "oldName", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "newName", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -660,7 +660,7 @@ Gura_ImplementMethod(wx_ConfigBase, RenameEntry)
 
 Gura_DeclareMethod(wx_ConfigBase, RenameGroup)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "oldName", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "newName", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -678,7 +678,7 @@ Gura_ImplementMethod(wx_ConfigBase, RenameGroup)
 
 Gura_DeclareClassMethod(wx_ConfigBase, Set)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pConfig", VTYPE_wx_ConfigBase, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -693,7 +693,7 @@ Gura_ImplementClassMethod(wx_ConfigBase, Set)
 
 Gura_DeclareMethod(wx_ConfigBase, SetExpandEnvVars)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "bDoIt", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -709,7 +709,7 @@ Gura_ImplementMethod(wx_ConfigBase, SetExpandEnvVars)
 
 Gura_DeclareMethod(wx_ConfigBase, SetPath)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "strPath", VTYPE_string, OCCUR_Once);
 }
 
@@ -724,7 +724,7 @@ Gura_ImplementMethod(wx_ConfigBase, SetPath)
 
 Gura_DeclareMethod(wx_ConfigBase, SetRecordDefaults)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "bDoIt", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -740,7 +740,7 @@ Gura_ImplementMethod(wx_ConfigBase, SetRecordDefaults)
 
 Gura_DeclareMethod(wx_ConfigBase, Write)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -758,7 +758,7 @@ Gura_ImplementMethod(wx_ConfigBase, Write)
 
 Gura_DeclareMethod(wx_ConfigBase, Write_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -776,7 +776,7 @@ Gura_ImplementMethod(wx_ConfigBase, Write_1)
 
 Gura_DeclareMethod(wx_ConfigBase, Write_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -794,7 +794,7 @@ Gura_ImplementMethod(wx_ConfigBase, Write_2)
 
 Gura_DeclareMethod(wx_ConfigBase, Write_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_boolean, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);

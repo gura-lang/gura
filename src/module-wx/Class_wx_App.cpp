@@ -113,7 +113,7 @@ void wx_App::HandleEvent(wxEvtHandler *handler, wxEventFunction func, wxEvent& e
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(App)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_App));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -135,7 +135,7 @@ Gura_ImplementFunction(App)
 
 Gura_DeclareMethod(wx_App, CreateLogTarget)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_App, CreateLogTarget)
 
 Gura_DeclareMethod(wx_App, CreateTraits)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_App, CreateTraits)
 
 Gura_DeclareMethod(wx_App, Dispatch)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_App, Dispatch)
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_App, Dispatch)
 
 Gura_DeclareMethod(wx_App, ExitMainLoop)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_App, ExitMainLoop)
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_App, ExitMainLoop)
 
 Gura_DeclareMethod(wx_App, FilterEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_Event, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_App, FilterEvent)
 
 Gura_DeclareMethod(wx_App, GetAppName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_App, GetAppName)
 
 Gura_DeclareMethod(wx_App, GetClassName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_App, GetClassName)
 
 Gura_DeclareMethod(wx_App, GetExitOnFrameDelete)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_App, GetExitOnFrameDelete)
 
 Gura_DeclareClassMethod(wx_App, GetInstance)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -272,7 +272,7 @@ Gura_ImplementClassMethod(wx_App, GetInstance)
 
 Gura_DeclareMethod(wx_App, GetTopWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -288,7 +288,7 @@ Gura_ImplementMethod(wx_App, GetTopWindow)
 
 Gura_DeclareMethod(wx_App, GetTraits)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -304,7 +304,7 @@ Gura_ImplementMethod(wx_App, GetTraits)
 
 Gura_DeclareMethod(wx_App, GetUseBestVisual)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -318,7 +318,7 @@ Gura_ImplementMethod(wx_App, GetUseBestVisual)
 
 Gura_DeclareMethod(wx_App, GetVendorName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -332,7 +332,7 @@ Gura_ImplementMethod(wx_App, GetVendorName)
 
 Gura_DeclareMethod(wx_App, IsActive)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -346,7 +346,7 @@ Gura_ImplementMethod(wx_App, IsActive)
 
 Gura_DeclareClassMethod(wx_App, IsMainLoopRunning)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -359,7 +359,7 @@ Gura_ImplementClassMethod(wx_App, IsMainLoopRunning)
 
 Gura_DeclareMethod(wx_App, MainLoop)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -376,7 +376,7 @@ Gura_ImplementMethod(wx_App, MainLoop)
 
 Gura_DeclareMethod(wx_App, OnActivate)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "event", VTYPE_wx_ActivateEvent, OCCUR_Once);
 #endif
@@ -397,7 +397,7 @@ Gura_ImplementMethod(wx_App, OnActivate)
 
 Gura_DeclareMethod(wx_App, OnCharHook)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "event", VTYPE_wx_KeyEvent, OCCUR_Once);
 #endif
@@ -418,7 +418,7 @@ Gura_ImplementMethod(wx_App, OnCharHook)
 
 Gura_DeclareMethod(wx_App, OnAssertFailure)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "*file", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "line", VTYPE_number, OCCUR_Once);
@@ -447,7 +447,7 @@ Gura_ImplementMethod(wx_App, OnAssertFailure)
 
 Gura_DeclareMethod(wx_App, OnCmdLineError)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parser", VTYPE_wx_CmdLineParser, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -463,7 +463,7 @@ Gura_ImplementMethod(wx_App, OnCmdLineError)
 
 Gura_DeclareMethod(wx_App, OnCmdLineHelp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parser", VTYPE_wx_CmdLineParser, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -479,7 +479,7 @@ Gura_ImplementMethod(wx_App, OnCmdLineHelp)
 
 Gura_DeclareMethod(wx_App, OnCmdLineParsed)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parser", VTYPE_wx_CmdLineParser, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -495,7 +495,7 @@ Gura_ImplementMethod(wx_App, OnCmdLineParsed)
 
 Gura_DeclareMethod(wx_App, OnExceptionInMainLoop)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -509,7 +509,7 @@ Gura_ImplementMethod(wx_App, OnExceptionInMainLoop)
 
 Gura_DeclareMethod(wx_App, OnExit)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -523,7 +523,7 @@ Gura_ImplementMethod(wx_App, OnExit)
 
 Gura_DeclareMethod(wx_App, OnFatalException)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_App, OnFatalException)
@@ -537,7 +537,7 @@ Gura_ImplementMethod(wx_App, OnFatalException)
 #if 0
 Gura_DeclareMethod(wx_App, OnIdle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_IdleEvent, OCCUR_Once);
 }
 
@@ -553,7 +553,7 @@ Gura_ImplementMethod(wx_App, OnIdle)
 
 Gura_DeclareMethod(wx_App, OnEndSession)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_CloseEvent, OCCUR_Once);
 }
 
@@ -573,7 +573,7 @@ Gura_ImplementMethod(wx_App, OnEndSession)
 
 Gura_DeclareMethod(wx_App, OnInit)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -587,7 +587,7 @@ Gura_ImplementMethod(wx_App, OnInit)
 
 Gura_DeclareMethod(wx_App, OnInitCmdLine)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "parser", VTYPE_wx_CmdLineParser, OCCUR_Once);
 }
 
@@ -602,7 +602,7 @@ Gura_ImplementMethod(wx_App, OnInitCmdLine)
 
 Gura_DeclareMethod(wx_App, OnRun)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -616,7 +616,7 @@ Gura_ImplementMethod(wx_App, OnRun)
 
 Gura_DeclareMethod(wx_App, OnUnhandledException)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_App, OnUnhandledException)
@@ -629,7 +629,7 @@ Gura_ImplementMethod(wx_App, OnUnhandledException)
 
 Gura_DeclareMethod(wx_App, ProcessMessage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -649,7 +649,7 @@ Gura_ImplementMethod(wx_App, ProcessMessage)
 
 Gura_DeclareMethod(wx_App, Pending)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -664,7 +664,7 @@ Gura_ImplementMethod(wx_App, Pending)
 #if 0
 Gura_DeclareMethod(wx_App, SendIdleEvents)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "event", VTYPE_wx_IdleEvent, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -683,7 +683,7 @@ Gura_ImplementMethod(wx_App, SendIdleEvents)
 
 Gura_DeclareMethod(wx_App, SetAppName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 }
 
@@ -698,7 +698,7 @@ Gura_ImplementMethod(wx_App, SetAppName)
 
 Gura_DeclareMethod(wx_App, SetClassName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 }
 
@@ -713,7 +713,7 @@ Gura_ImplementMethod(wx_App, SetClassName)
 
 Gura_DeclareMethod(wx_App, SetExitOnFrameDelete)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -728,7 +728,7 @@ Gura_ImplementMethod(wx_App, SetExitOnFrameDelete)
 
 Gura_DeclareClassMethod(wx_App, SetInstance)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "app", VTYPE_wx_AppConsole, OCCUR_Once);
 }
 
@@ -742,7 +742,7 @@ Gura_ImplementClassMethod(wx_App, SetInstance)
 
 Gura_DeclareMethod(wx_App, SetTopWindow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 }
 
@@ -757,7 +757,7 @@ Gura_ImplementMethod(wx_App, SetTopWindow)
 
 Gura_DeclareMethod(wx_App, SetVendorName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 }
 
@@ -772,7 +772,7 @@ Gura_ImplementMethod(wx_App, SetVendorName)
 
 Gura_DeclareMethod(wx_App, SetUseBestVisual)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 	DeclareArg(env, "forceTrueColour", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
@@ -790,7 +790,7 @@ Gura_ImplementMethod(wx_App, SetUseBestVisual)
 
 Gura_DeclareMethod(wx_App, HandleEvent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "*handler", VTYPE_wx_EvtHandler, OCCUR_Once);
 	DeclareArg(env, "func", VTYPE_wx_EventFunction, OCCUR_Once);
@@ -815,7 +815,7 @@ Gura_ImplementMethod(wx_App, HandleEvent)
 
 Gura_DeclareMethod(wx_App, Yield)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "onlyIfNeeded", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

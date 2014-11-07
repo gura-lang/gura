@@ -52,7 +52,7 @@ void wx_SearchCtrl::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(SearchCtrlEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SearchCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -74,7 +74,7 @@ Gura_ImplementFunction(SearchCtrlEmpty)
 
 Gura_DeclareFunction(SearchCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_SearchCtrl));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -118,7 +118,7 @@ Gura_ImplementFunction(SearchCtrl)
 
 Gura_DeclareMethod(wx_SearchCtrl, SetMenu)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "menu", VTYPE_wx_Menu, OCCUR_Once);
 }
 
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_SearchCtrl, SetMenu)
 
 Gura_DeclareMethod(wx_SearchCtrl, GetMenu)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_SearchCtrl, GetMenu)
 
 Gura_DeclareMethod(wx_SearchCtrl, ShowSearchButton)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "show", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_SearchCtrl, ShowSearchButton)
 
 Gura_DeclareMethod(wx_SearchCtrl, IsSearchButtonVisible)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_SearchCtrl, IsSearchButtonVisible)
 
 Gura_DeclareMethod(wx_SearchCtrl, ShowCancelButton)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "show", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_SearchCtrl, ShowCancelButton)
 
 Gura_DeclareMethod(wx_SearchCtrl, IsCancelButtonVisible)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

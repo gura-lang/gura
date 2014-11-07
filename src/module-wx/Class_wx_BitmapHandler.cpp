@@ -41,7 +41,7 @@ void wx_BitmapHandler::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(BitmapHandlerEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_BitmapHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -63,7 +63,7 @@ Gura_ImplementFunction(BitmapHandlerEmpty)
 
 Gura_DeclareMethod(wx_BitmapHandler, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_BitmapHandler, Create)
 
 Gura_DeclareMethod(wx_BitmapHandler, GetName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_BitmapHandler, GetName)
 
 Gura_DeclareMethod(wx_BitmapHandler, GetExtension)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_BitmapHandler, GetExtension)
 
 Gura_DeclareMethod(wx_BitmapHandler, GetType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_BitmapHandler, GetType)
 
 Gura_DeclareMethod(wx_BitmapHandler, LoadFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_BitmapHandler, LoadFile)
 
 Gura_DeclareMethod(wx_BitmapHandler, SaveFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_BitmapHandler, SaveFile)
 
 Gura_DeclareMethod(wx_BitmapHandler, SetName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 }
 
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_BitmapHandler, SetName)
 
 Gura_DeclareMethod(wx_BitmapHandler, SetExtension)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "extension", VTYPE_string, OCCUR_Once);
 }
 
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_BitmapHandler, SetExtension)
 
 Gura_DeclareMethod(wx_BitmapHandler, SetType)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 

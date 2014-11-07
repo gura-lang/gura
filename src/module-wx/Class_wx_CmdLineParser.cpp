@@ -44,7 +44,7 @@ void wx_CmdLineParser::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(CmdLineParserEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -72,7 +72,7 @@ Gura_ImplementFunction(CmdLineParserEmpty)
 
 Gura_DeclareFunction(CmdLineParser)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
 	DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
@@ -104,7 +104,7 @@ Gura_ImplementFunction(CmdLineParser)
 
 Gura_DeclareFunction(CmdLineParser_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
 	DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
@@ -136,7 +136,7 @@ Gura_ImplementFunction(CmdLineParser_1)
 
 Gura_DeclareFunction(CmdLineParser_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
 	DeclareArg(env, "cmdline", VTYPE_string, OCCUR_Once);
@@ -166,7 +166,7 @@ Gura_ImplementFunction(CmdLineParser_2)
 
 Gura_DeclareFunction(CmdLineParser_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
 	DeclareArg(env, "desc", VTYPE_wx_CmdLineEntryDesc, OCCUR_Once);
@@ -196,7 +196,7 @@ Gura_ImplementFunction(CmdLineParser_3)
 
 Gura_DeclareFunction(CmdLineParser_4)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
 	DeclareArg(env, "desc", VTYPE_wx_CmdLineEntryDesc, OCCUR_Once);
@@ -230,7 +230,7 @@ Gura_ImplementFunction(CmdLineParser_4)
 
 Gura_DeclareFunction(CmdLineParser_5)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
 	DeclareArg(env, "desc", VTYPE_wx_CmdLineEntryDesc, OCCUR_Once);
@@ -262,7 +262,7 @@ Gura_ImplementFunction(CmdLineParser_5)
 
 Gura_DeclareClassMethod(wx_CmdLineParser, ConvertStringToArgs)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "*cmdline", VTYPE_number, OCCUR_Once);
 #endif
@@ -283,7 +283,7 @@ Gura_ImplementClassMethod(wx_CmdLineParser, ConvertStringToArgs)
 
 Gura_DeclareMethod(wx_CmdLineParser, SetCmdLine)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "argv", VTYPE_number, OCCUR_Once);
@@ -306,7 +306,7 @@ Gura_ImplementMethod(wx_CmdLineParser, SetCmdLine)
 
 Gura_DeclareMethod(wx_CmdLineParser, SetCmdLine_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "argv", VTYPE_number, OCCUR_Once);
@@ -329,7 +329,7 @@ Gura_ImplementMethod(wx_CmdLineParser, SetCmdLine_1)
 
 Gura_DeclareMethod(wx_CmdLineParser, SetCmdLine_2)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "cmdline", VTYPE_string, OCCUR_Once);
 #endif
@@ -350,7 +350,7 @@ Gura_ImplementMethod(wx_CmdLineParser, SetCmdLine_2)
 
 Gura_DeclareMethod(wx_CmdLineParser, SetSwitchChars)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "switchChars", VTYPE_string, OCCUR_Once);
 #endif
@@ -371,7 +371,7 @@ Gura_ImplementMethod(wx_CmdLineParser, SetSwitchChars)
 
 Gura_DeclareMethod(wx_CmdLineParser, EnableLongOptions)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "enable", VTYPE_boolean, OCCUR_ZeroOrOnce);
 #endif
@@ -393,7 +393,7 @@ Gura_ImplementMethod(wx_CmdLineParser, EnableLongOptions)
 
 Gura_DeclareMethod(wx_CmdLineParser, DisableLongOptions)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CmdLineParser, DisableLongOptions)
@@ -410,7 +410,7 @@ Gura_ImplementMethod(wx_CmdLineParser, DisableLongOptions)
 
 Gura_DeclareMethod(wx_CmdLineParser, AreLongOptionsEnabled)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -428,7 +428,7 @@ Gura_ImplementMethod(wx_CmdLineParser, AreLongOptionsEnabled)
 
 Gura_DeclareMethod(wx_CmdLineParser, SetLogo)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "logo", VTYPE_string, OCCUR_Once);
 #endif
@@ -449,7 +449,7 @@ Gura_ImplementMethod(wx_CmdLineParser, SetLogo)
 
 Gura_DeclareMethod(wx_CmdLineParser, SetDesc)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "desc", VTYPE_wx_CmdLineEntryDesc, OCCUR_Once);
 #endif
@@ -470,7 +470,7 @@ Gura_ImplementMethod(wx_CmdLineParser, SetDesc)
 
 Gura_DeclareMethod(wx_CmdLineParser, AddSwitch)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "lng", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -500,7 +500,7 @@ Gura_ImplementMethod(wx_CmdLineParser, AddSwitch)
 
 Gura_DeclareMethod(wx_CmdLineParser, AddOption)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "lng", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -533,7 +533,7 @@ Gura_ImplementMethod(wx_CmdLineParser, AddOption)
 
 Gura_DeclareMethod(wx_CmdLineParser, AddParam)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "desc", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -561,7 +561,7 @@ Gura_ImplementMethod(wx_CmdLineParser, AddParam)
 
 Gura_DeclareMethod(wx_CmdLineParser, Parse)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "giveUsage", VTYPE_boolean, OCCUR_ZeroOrOnce);
 #endif
@@ -584,7 +584,7 @@ Gura_ImplementMethod(wx_CmdLineParser, Parse)
 
 Gura_DeclareMethod(wx_CmdLineParser, Usage)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CmdLineParser, Usage)
@@ -601,7 +601,7 @@ Gura_ImplementMethod(wx_CmdLineParser, Usage)
 
 Gura_DeclareMethod(wx_CmdLineParser, Found)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -617,7 +617,7 @@ Gura_ImplementMethod(wx_CmdLineParser, Found)
 
 Gura_DeclareMethod(wx_CmdLineParser, Found_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
@@ -641,7 +641,7 @@ Gura_ImplementMethod(wx_CmdLineParser, Found_1)
 
 Gura_DeclareMethod(wx_CmdLineParser, Found_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -665,7 +665,7 @@ Gura_ImplementMethod(wx_CmdLineParser, Found_2)
 
 Gura_DeclareMethod(wx_CmdLineParser, Found_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_wx_DateTime, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -683,7 +683,7 @@ Gura_ImplementMethod(wx_CmdLineParser, Found_3)
 
 Gura_DeclareMethod(wx_CmdLineParser, GetParamCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -697,7 +697,7 @@ Gura_ImplementMethod(wx_CmdLineParser, GetParamCount)
 
 Gura_DeclareMethod(wx_CmdLineParser, GetParam)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

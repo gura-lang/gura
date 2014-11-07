@@ -38,7 +38,7 @@ void wx_PreviewControlBar::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(PreviewControlBar)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_PreviewControlBar));
 	DeclareArg(env, "preview", VTYPE_wx_PrintPreview, OCCUR_Once);
 	DeclareArg(env, "buttons", VTYPE_number, OCCUR_Once);
@@ -78,7 +78,7 @@ Gura_ImplementFunction(PreviewControlBar)
 
 Gura_DeclareMethod(wx_PreviewControlBar, CreateButtons)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PreviewControlBar, CreateButtons)
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_PreviewControlBar, CreateButtons)
 
 Gura_DeclareMethod(wx_PreviewControlBar, GetPrintPreview)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_PreviewControlBar, GetPrintPreview)
 
 Gura_DeclareMethod(wx_PreviewControlBar, GetZoomControl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_PreviewControlBar, GetZoomControl)
 
 Gura_DeclareMethod(wx_PreviewControlBar, SetZoomControl)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "percent", VTYPE_number, OCCUR_Once);
 }
 

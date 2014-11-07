@@ -38,7 +38,7 @@ void wx_ChildFocusEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ChildFocusEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ChildFocusEvent));
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);

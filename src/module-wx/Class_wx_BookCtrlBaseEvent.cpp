@@ -37,7 +37,7 @@ void wx_BookCtrlBaseEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_BookCtrlBaseEvent, GetOldSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -51,7 +51,7 @@ Gura_ImplementMethod(wx_BookCtrlBaseEvent, GetOldSelection)
 
 Gura_DeclareMethod(wx_BookCtrlBaseEvent, GetSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_BookCtrlBaseEvent, GetSelection)
 
 Gura_DeclareMethod(wx_BookCtrlBaseEvent, SetOldSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_BookCtrlBaseEvent, SetOldSelection)
 
 Gura_DeclareMethod(wx_BookCtrlBaseEvent, SetSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 

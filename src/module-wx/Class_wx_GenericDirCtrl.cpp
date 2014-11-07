@@ -39,7 +39,7 @@ void wx_GenericDirCtrl::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GenericDirCtrlEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GenericDirCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(GenericDirCtrlEmpty)
 
 Gura_DeclareFunction(GenericDirCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_GenericDirCtrl));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -109,7 +109,7 @@ Gura_ImplementFunction(GenericDirCtrl)
 
 Gura_DeclareMethod(wx_GenericDirCtrl, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "dir", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, Create)
 
 Gura_DeclareMethod(wx_GenericDirCtrl, Init)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GenericDirCtrl, Init)
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, Init)
 
 Gura_DeclareMethod(wx_GenericDirCtrl, CollapseTree)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GenericDirCtrl, CollapseTree)
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, CollapseTree)
 
 Gura_DeclareMethod(wx_GenericDirCtrl, ExpandPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, ExpandPath)
 
 Gura_DeclareMethod(wx_GenericDirCtrl, CollapsePath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -207,7 +207,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, CollapsePath)
 
 Gura_DeclareMethod(wx_GenericDirCtrl, GetDefaultPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -221,7 +221,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, GetDefaultPath)
 
 Gura_DeclareMethod(wx_GenericDirCtrl, GetPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, GetPath)
 
 Gura_DeclareMethod(wx_GenericDirCtrl, GetFilePath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, GetFilePath)
 
 Gura_DeclareMethod(wx_GenericDirCtrl, GetFilter)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -263,7 +263,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, GetFilter)
 
 Gura_DeclareMethod(wx_GenericDirCtrl, GetFilterIndex)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -277,7 +277,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, GetFilterIndex)
 
 Gura_DeclareMethod(wx_GenericDirCtrl, GetFilterListCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -295,7 +295,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, GetFilterListCtrl)
 
 Gura_DeclareMethod(wx_GenericDirCtrl, GetRootId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -309,7 +309,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, GetRootId)
 
 Gura_DeclareMethod(wx_GenericDirCtrl, GetTreeCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -323,7 +323,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, GetTreeCtrl)
 
 Gura_DeclareMethod(wx_GenericDirCtrl, ReCreateTree)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GenericDirCtrl, ReCreateTree)
@@ -336,7 +336,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, ReCreateTree)
 
 Gura_DeclareMethod(wx_GenericDirCtrl, SetDefaultPath)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
 }
 
@@ -351,7 +351,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, SetDefaultPath)
 
 Gura_DeclareMethod(wx_GenericDirCtrl, SetFilter)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "filter", VTYPE_string, OCCUR_Once);
 }
 
@@ -366,7 +366,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, SetFilter)
 
 Gura_DeclareMethod(wx_GenericDirCtrl, SetFilterIndex)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -381,7 +381,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, SetFilterIndex)
 
 Gura_DeclareMethod(wx_GenericDirCtrl, SetPath)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
 }
 
@@ -396,7 +396,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, SetPath)
 
 Gura_DeclareMethod(wx_GenericDirCtrl, ShowHidden)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "show", VTYPE_boolean, OCCUR_Once);
 }
 

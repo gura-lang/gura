@@ -38,7 +38,7 @@ void wx_StackWalker::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(StackWalkerEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_StackWalker));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(StackWalkerEmpty)
 
 Gura_DeclareMethod(wx_StackWalker, OnStackFrame)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "frame", VTYPE_wx_StackFrame, OCCUR_Once);
 #endif
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_StackWalker, OnStackFrame)
 
 Gura_DeclareMethod(wx_StackWalker, Walk)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "skip", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "maxDepth", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_StackWalker, Walk)
 
 Gura_DeclareMethod(wx_StackWalker, WalkFromException)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StackWalker, WalkFromException)

@@ -37,7 +37,7 @@ void wx_StyledTextEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(StyledTextEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_StyledTextEvent));
 	DeclareArg(env, "commandType", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -68,7 +68,7 @@ Gura_ImplementFunction(StyledTextEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_StyledTextEvent, SetPosition)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "pos",	VTYPE_number, OCCUR_Once);
 }
 
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetPosition)
 
 Gura_DeclareMethod(wx_StyledTextEvent, SetKey)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "k",	VTYPE_number, OCCUR_Once);
 }
 
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetKey)
 
 Gura_DeclareMethod(wx_StyledTextEvent, SetModifiers)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "m",	VTYPE_number, OCCUR_Once);
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetModifiers)
 
 Gura_DeclareMethod(wx_StyledTextEvent, SetModificationType)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "t",	VTYPE_number, OCCUR_Once);
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetModificationType)
 
 Gura_DeclareMethod(wx_StyledTextEvent, SetText)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "t",	VTYPE_string, OCCUR_Once);
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetText)
 
 Gura_DeclareMethod(wx_StyledTextEvent, SetLength)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "len",	VTYPE_number, OCCUR_Once);
 }
 
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetLength)
 
 Gura_DeclareMethod(wx_StyledTextEvent, SetLinesAdded)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "num",	VTYPE_number, OCCUR_Once);
 }
 
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetLinesAdded)
 
 Gura_DeclareMethod(wx_StyledTextEvent, SetLine)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "val",	VTYPE_number, OCCUR_Once);
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetLine)
 
 Gura_DeclareMethod(wx_StyledTextEvent, SetFoldLevelNow)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "val",	VTYPE_number, OCCUR_Once);
 }
 
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetFoldLevelNow)
 
 Gura_DeclareMethod(wx_StyledTextEvent, SetFoldLevelPrev)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "val",	VTYPE_number, OCCUR_Once);
 }
 
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetFoldLevelPrev)
 
 Gura_DeclareMethod(wx_StyledTextEvent, SetMargin)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "val",	VTYPE_number, OCCUR_Once);
 }
 
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetMargin)
 
 Gura_DeclareMethod(wx_StyledTextEvent, SetMessage)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "val",	VTYPE_number, OCCUR_Once);
 }
 
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetMessage)
 
 Gura_DeclareMethod(wx_StyledTextEvent, SetWParam)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "val",	VTYPE_number, OCCUR_Once);
 }
 
@@ -263,7 +263,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetWParam)
 
 Gura_DeclareMethod(wx_StyledTextEvent, SetLParam)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "val",	VTYPE_number, OCCUR_Once);
 }
 
@@ -278,7 +278,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetLParam)
 
 Gura_DeclareMethod(wx_StyledTextEvent, SetListType)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "val",	VTYPE_number, OCCUR_Once);
 }
 
@@ -293,7 +293,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetListType)
 
 Gura_DeclareMethod(wx_StyledTextEvent, SetX)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "val",	VTYPE_number, OCCUR_Once);
 }
 
@@ -308,7 +308,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetX)
 
 Gura_DeclareMethod(wx_StyledTextEvent, SetY)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "val",	VTYPE_number, OCCUR_Once);
 }
 
@@ -323,7 +323,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetY)
 
 Gura_DeclareMethod(wx_StyledTextEvent, SetToken)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "val",	VTYPE_number, OCCUR_Once);
 }
 
@@ -338,7 +338,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetToken)
 
 Gura_DeclareMethod(wx_StyledTextEvent, SetAnnotationLinesAdded)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "val",	VTYPE_number, OCCUR_Once);
 }
 
@@ -353,7 +353,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetAnnotationLinesAdded)
 
 Gura_DeclareMethod(wx_StyledTextEvent, SetUpdated)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "val",	VTYPE_number, OCCUR_Once);
 }
 
@@ -368,7 +368,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetUpdated)
 
 Gura_DeclareMethod(wx_StyledTextEvent, SetDragText)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "val",	VTYPE_string, OCCUR_Once);
 }
 
@@ -383,7 +383,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetDragText)
 
 Gura_DeclareMethod(wx_StyledTextEvent, SetDragFlags)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "flags",	VTYPE_number, OCCUR_Once);
 }
 
@@ -398,7 +398,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetDragFlags)
 
 Gura_DeclareMethod(wx_StyledTextEvent, SetDragResult)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "val",	VTYPE_number, OCCUR_Once);
 }
 
@@ -413,7 +413,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetDragResult)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetPosition)
@@ -426,7 +426,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetPosition)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetKey)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetKey)
@@ -439,7 +439,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetKey)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetModifiers)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetModifiers)
@@ -452,7 +452,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetModifiers)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetModificationType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetModificationType)
@@ -465,7 +465,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetModificationType)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetText)
@@ -478,7 +478,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetText)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetLength)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetLength)
@@ -491,7 +491,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetLength)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetLinesAdded)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetLinesAdded)
@@ -504,7 +504,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetLinesAdded)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetLine)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetLine)
@@ -517,7 +517,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetLine)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetFoldLevelNow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetFoldLevelNow)
@@ -530,7 +530,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetFoldLevelNow)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetFoldLevelPrev)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetFoldLevelPrev)
@@ -543,7 +543,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetFoldLevelPrev)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetMargin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetMargin)
@@ -556,7 +556,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetMargin)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetMessage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetMessage)
@@ -569,7 +569,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetMessage)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetWParam)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetWParam)
@@ -582,7 +582,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetWParam)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetLParam)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetLParam)
@@ -595,7 +595,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetLParam)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetListType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetListType)
@@ -608,7 +608,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetListType)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetX)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetX)
@@ -621,7 +621,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetX)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetY)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetY)
@@ -634,7 +634,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetY)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetToken)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetToken)
@@ -647,7 +647,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetToken)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetAnnotationsLinesAdded)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetAnnotationsLinesAdded)
@@ -660,7 +660,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetAnnotationsLinesAdded)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetUpdated)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetUpdated)
@@ -673,7 +673,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetUpdated)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetDragText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetDragText)
@@ -686,7 +686,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetDragText)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetDragFlags)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetDragFlags)
@@ -699,7 +699,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetDragFlags)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetDragResult)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetDragResult)
@@ -712,7 +712,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetDragResult)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetShift)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetShift)
@@ -725,7 +725,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetShift)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetControl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetControl)
@@ -738,7 +738,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetControl)
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetAlt)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetAlt)

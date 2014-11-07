@@ -38,7 +38,7 @@ void wx_IdleEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(IdleEventEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_IdleEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(IdleEventEmpty)
 #if 0
 Gura_DeclareClassMethod(wx_IdleEvent, CanSend)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -77,7 +77,7 @@ Gura_ImplementClassMethod(wx_IdleEvent, CanSend)
 
 Gura_DeclareClassMethod(wx_IdleEvent, GetMode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -90,7 +90,7 @@ Gura_ImplementClassMethod(wx_IdleEvent, GetMode)
 
 Gura_DeclareMethod(wx_IdleEvent, RequestMore)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "needMore", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_IdleEvent, RequestMore)
 
 Gura_DeclareMethod(wx_IdleEvent, MoreRequested)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_IdleEvent, MoreRequested)
 
 Gura_DeclareClassMethodAlias(wx_IdleEvent, SetMode_, "SetMode")
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 

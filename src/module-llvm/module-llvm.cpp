@@ -13,7 +13,7 @@ static const llvm::Type *NullTy = reinterpret_cast<llvm::Type *>(0);
 // llvm.test()
 Gura_DeclareFunction(test)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementFunction(test)
@@ -61,7 +61,7 @@ Gura_ImplementFunction(test)
 // llvm.fibonacci()
 Gura_DeclareFunction(fibonacci)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 static llvm::Function *CreateFibFunction(llvm::Module *pModule, llvm::LLVMContext &context)

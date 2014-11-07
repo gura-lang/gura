@@ -39,7 +39,7 @@ void wx_GBSpan::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GBSpanEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GBSpan));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(GBSpanEmpty)
 
 Gura_DeclareFunction(GBSpan)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_GBSpan));
 	DeclareArg(env, "rowspan", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "colspan", VTYPE_number, OCCUR_Once);
@@ -87,7 +87,7 @@ Gura_ImplementFunction(GBSpan)
 
 Gura_DeclareMethod(wx_GBSpan, GetColspan)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_GBSpan, GetColspan)
 
 Gura_DeclareMethod(wx_GBSpan, GetRowspan)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_GBSpan, GetRowspan)
 
 Gura_DeclareMethod(wx_GBSpan, SetColspan)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colspan", VTYPE_number, OCCUR_Once);
 }
 
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_GBSpan, SetColspan)
 
 Gura_DeclareMethod(wx_GBSpan, SetRowspan)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "rowspan", VTYPE_number, OCCUR_Once);
 }
 

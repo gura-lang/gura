@@ -43,7 +43,7 @@ void wx_ProgressDialog::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ProgressDialog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ProgressDialog));
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
@@ -78,7 +78,7 @@ Gura_ImplementFunction(ProgressDialog)
 
 Gura_DeclareMethod(wx_ProgressDialog, Resume)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ProgressDialog, Resume)
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_ProgressDialog, Resume)
 
 Gura_DeclareMethod(wx_ProgressDialog, Update)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "newmsg", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_ProgressDialog, Update)
 
 Gura_DeclareMethod(wx_ProgressDialog, Pulse)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "newmsg", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

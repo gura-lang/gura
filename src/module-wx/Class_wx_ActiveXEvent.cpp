@@ -37,7 +37,7 @@ void wx_ActiveXEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_ActiveXEvent, ParamCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -51,7 +51,7 @@ Gura_ImplementMethod(wx_ActiveXEvent, ParamCount)
 
 Gura_DeclareMethod(wx_ActiveXEvent, ParamType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_ActiveXEvent, ParamType)
 
 Gura_DeclareMethod(wx_ActiveXEvent, ParamName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_ActiveXEvent, ParamName)
 
 Gura_DeclareMethod(wx_ActiveXEvent, GetDispatchId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

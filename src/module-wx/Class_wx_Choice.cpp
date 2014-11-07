@@ -40,7 +40,7 @@ void wx_Choice::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ChoiceEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Choice));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -62,7 +62,7 @@ Gura_ImplementFunction(ChoiceEmpty)
 
 Gura_DeclareFunction(Choice)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Choice));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -110,7 +110,7 @@ Gura_ImplementFunction(Choice)
 
 Gura_DeclareMethod(wx_Choice, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_Once);
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_Choice, Create)
 
 Gura_DeclareMethod(wx_Choice, GetColumns)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_Choice, GetColumns)
 
 Gura_DeclareMethod(wx_Choice, GetCurrentSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_Choice, GetCurrentSelection)
 
 Gura_DeclareMethod(wx_Choice, SetColumns)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 

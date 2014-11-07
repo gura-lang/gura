@@ -51,7 +51,7 @@ void wx_HtmlParser::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HtmlParserEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_HtmlParser));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -79,7 +79,7 @@ Gura_ImplementFunction(HtmlParserEmpty)
 
 Gura_DeclareMethod(wx_HtmlParser, AddTag)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "tag", VTYPE_wx_HtmlTag, OCCUR_Once);
 #endif
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_HtmlParser, AddTag)
 
 Gura_DeclareMethod(wx_HtmlParser, AddTagHandler)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "*handler", VTYPE_wx_HtmlTagHandler, OCCUR_Once);
 #endif
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_HtmlParser, AddTagHandler)
 
 Gura_DeclareMethod(wx_HtmlParser, AddWord)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "txt", VTYPE_number, OCCUR_Once);
 #endif
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_HtmlParser, AddWord)
 #if 0
 Gura_DeclareMethod(wx_HtmlParser, DoParsing)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "begin_pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "end_pos", VTYPE_number, OCCUR_Once);
 }
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_HtmlParser, DoParsing)
 
 Gura_DeclareMethod(wx_HtmlParser, DoParsing_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlParser, DoParsing_1)
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_HtmlParser, DoParsing_1)
 
 Gura_DeclareMethod(wx_HtmlParser, DoneParser)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlParser, DoneParser)
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_HtmlParser, DoneParser)
 
 Gura_DeclareMethod(wx_HtmlParser, GetFS)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_HtmlParser, GetFS)
 
 Gura_DeclareMethod(wx_HtmlParser, GetProduct)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_HtmlParser, GetProduct)
 
 Gura_DeclareMethod(wx_HtmlParser, GetSource)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_HtmlParser, GetSource)
 
 Gura_DeclareMethod(wx_HtmlParser, InitParser)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "source", VTYPE_string, OCCUR_Once);
 }
 
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_HtmlParser, InitParser)
 
 Gura_DeclareMethod(wx_HtmlParser, OpenURL)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "url", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -266,7 +266,7 @@ Gura_ImplementMethod(wx_HtmlParser, OpenURL)
 
 Gura_DeclareMethod(wx_HtmlParser, Parse)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "source", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -282,7 +282,7 @@ Gura_ImplementMethod(wx_HtmlParser, Parse)
 
 Gura_DeclareMethod(wx_HtmlParser, PushTagHandler)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "handler", VTYPE_wx_HtmlTagHandler, OCCUR_Once);
 	DeclareArg(env, "tags", VTYPE_string, OCCUR_Once);
 }
@@ -299,7 +299,7 @@ Gura_ImplementMethod(wx_HtmlParser, PushTagHandler)
 
 Gura_DeclareMethod(wx_HtmlParser, PopTagHandler)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlParser, PopTagHandler)
@@ -312,7 +312,7 @@ Gura_ImplementMethod(wx_HtmlParser, PopTagHandler)
 
 Gura_DeclareMethod(wx_HtmlParser, SetFS)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "*fs", VTYPE_wx_FileSystem, OCCUR_Once);
 #endif
@@ -333,7 +333,7 @@ Gura_ImplementMethod(wx_HtmlParser, SetFS)
 
 Gura_DeclareMethod(wx_HtmlParser, StopParsing)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlParser, StopParsing)

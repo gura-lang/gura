@@ -39,7 +39,7 @@ void wx_BufferedPaintDC::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(BufferedPaintDC)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_BufferedPaintDC));
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "buffer", VTYPE_wx_Bitmap, OCCUR_Once);
@@ -68,7 +68,7 @@ Gura_ImplementFunction(BufferedPaintDC)
 
 Gura_DeclareFunction(BufferedPaintDC_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_BufferedPaintDC));
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);

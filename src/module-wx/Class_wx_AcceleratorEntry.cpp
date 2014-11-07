@@ -41,7 +41,7 @@ void wx_AcceleratorEntry::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(AcceleratorEntryEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AcceleratorEntry));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -63,7 +63,7 @@ Gura_ImplementFunction(AcceleratorEntryEmpty)
 
 Gura_DeclareFunction(AcceleratorEntry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_AcceleratorEntry));
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "keyCode", VTYPE_any, OCCUR_Once);
@@ -92,7 +92,7 @@ Gura_ImplementFunction(AcceleratorEntry)
 
 Gura_DeclareMethod(wx_AcceleratorEntry, GetCommand)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_AcceleratorEntry, GetCommand)
 
 Gura_DeclareMethod(wx_AcceleratorEntry, GetFlags)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_AcceleratorEntry, GetFlags)
 
 Gura_DeclareMethod(wx_AcceleratorEntry, GetKeyCode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_AcceleratorEntry, GetKeyCode)
 
 Gura_DeclareMethod(wx_AcceleratorEntry, Set)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "keyCode", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "cmd", VTYPE_number, OCCUR_Once);

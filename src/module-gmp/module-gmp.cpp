@@ -11,7 +11,7 @@ Gura_BeginModuleBody(gmp)
 // gmp.gcd(num1:gmp.mpz, num2:gmp.mpz):map
 Gura_DeclareFunction(gcd)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num1", VTYPE_mpz);
 	DeclareArg(env, "num2", VTYPE_mpz);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -32,7 +32,7 @@ Gura_ImplementFunction(gcd)
 // gmp.lcm(num1:gmp.mpz, num2:gmp.mpz):map
 Gura_DeclareFunction(lcm)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num1", VTYPE_mpz);
 	DeclareArg(env, "num2", VTYPE_mpz);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -53,7 +53,7 @@ Gura_ImplementFunction(lcm)
 // gmp.sqrt(num):map
 Gura_DeclareFunction(sqrt)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""

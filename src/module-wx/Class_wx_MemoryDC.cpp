@@ -39,7 +39,7 @@ void wx_MemoryDC::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(MemoryDCEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MemoryDC));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(MemoryDCEmpty)
 
 Gura_DeclareFunction(MemoryDC)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_MemoryDC));
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -85,7 +85,7 @@ Gura_ImplementFunction(MemoryDC)
 
 Gura_DeclareMethod(wx_MemoryDC, SelectObject)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 }
 
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_MemoryDC, SelectObject)
 
 Gura_DeclareMethod(wx_MemoryDC, SelectObjectAsSource)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 }
 

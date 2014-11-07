@@ -37,7 +37,7 @@ void wx_RendererVersion::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareClassMethod(wx_RendererVersion, IsCompatible)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "ver", VTYPE_wx_RendererVersion, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

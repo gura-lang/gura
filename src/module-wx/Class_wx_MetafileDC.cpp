@@ -38,7 +38,7 @@ void wx_MetafileDC::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(MetafileDC)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_MetafileDC));
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(MetafileDC)
 
 Gura_DeclareMethod(wx_MetafileDC, Close)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

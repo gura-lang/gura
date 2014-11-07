@@ -38,7 +38,7 @@ void wx_HtmlFilter::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HtmlFilterEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_HtmlFilter));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(HtmlFilterEmpty)
 
 Gura_DeclareMethod(wx_HtmlFilter, CanRead)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "file", VTYPE_wx_FSFile, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_HtmlFilter, CanRead)
 
 Gura_DeclareMethod(wx_HtmlFilter, ReadFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "file", VTYPE_wx_FSFile, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

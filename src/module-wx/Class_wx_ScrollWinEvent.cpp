@@ -38,7 +38,7 @@ void wx_ScrollWinEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ScrollWinEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ScrollWinEvent));
 	DeclareArg(env, "commandType", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(ScrollWinEvent)
 
 Gura_DeclareMethod(wx_ScrollWinEvent, GetOrientation)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_ScrollWinEvent, GetOrientation)
 
 Gura_DeclareMethod(wx_ScrollWinEvent, GetPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

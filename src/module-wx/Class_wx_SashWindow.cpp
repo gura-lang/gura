@@ -39,7 +39,7 @@ void wx_SashWindow::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(SashWindowEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SashWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(SashWindowEmpty)
 
 Gura_DeclareFunction(SashWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_SashWindow));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -99,7 +99,7 @@ Gura_ImplementFunction(SashWindow)
 
 Gura_DeclareMethod(wx_SashWindow, GetSashVisible)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "edge", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_SashWindow, GetSashVisible)
 
 Gura_DeclareMethod(wx_SashWindow, GetMaximumSizeX)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_SashWindow, GetMaximumSizeX)
 
 Gura_DeclareMethod(wx_SashWindow, GetMaximumSizeY)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_SashWindow, GetMaximumSizeY)
 
 Gura_DeclareMethod(wx_SashWindow, GetMinimumSizeX)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_SashWindow, GetMinimumSizeX)
 
 Gura_DeclareMethod(wx_SashWindow, GetMinimumSizeY)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_SashWindow, GetMinimumSizeY)
 #if 0
 Gura_DeclareMethod(wx_SashWindow, HasBorder)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "edge", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_SashWindow, HasBorder)
 
 Gura_DeclareMethod(wx_SashWindow, SetMaximumSizeX)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
 }
 
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_SashWindow, SetMaximumSizeX)
 
 Gura_DeclareMethod(wx_SashWindow, SetMaximumSizeY)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
 }
 
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_SashWindow, SetMaximumSizeY)
 
 Gura_DeclareMethod(wx_SashWindow, SetMinimumSizeX)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_SashWindow, SetMinimumSizeX)
 
 Gura_DeclareMethod(wx_SashWindow, SetMinimumSizeY)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
 }
 
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_SashWindow, SetMinimumSizeY)
 
 Gura_DeclareMethod(wx_SashWindow, SetSashVisible)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "edge", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "visible", VTYPE_boolean, OCCUR_Once);
 }
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_SashWindow, SetSashVisible)
 #if 0
 Gura_DeclareMethod(wx_SashWindow, SetSashBorder)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "edge", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "hasBorder", VTYPE_boolean, OCCUR_Once);
 }
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_SashWindow, SetSashBorder)
 
 Gura_DeclareMethod(wx_SashWindow, GetEdgeMargin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "edge", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -301,7 +301,7 @@ Gura_ImplementMethod(wx_SashWindow, GetEdgeMargin)
 
 Gura_DeclareMethod(wx_SashWindow, GetDefaultBorderSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -315,7 +315,7 @@ Gura_ImplementMethod(wx_SashWindow, GetDefaultBorderSize)
 
 Gura_DeclareMethod(wx_SashWindow, GetExtraBorderSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -329,7 +329,7 @@ Gura_ImplementMethod(wx_SashWindow, GetExtraBorderSize)
 
 Gura_DeclareMethod(wx_SashWindow, SetDefaultBorderSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
@@ -344,7 +344,7 @@ Gura_ImplementMethod(wx_SashWindow, SetDefaultBorderSize)
 
 Gura_DeclareMethod(wx_SashWindow, SetExtraBorderSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 

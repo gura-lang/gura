@@ -39,7 +39,7 @@ void wx_DocParentFrame::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DocParentFrameEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DocParentFrame));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(DocParentFrameEmpty)
 
 Gura_DeclareFunction(DocParentFrame)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DocParentFrame));
 	DeclareArg(env, "manager", VTYPE_wx_DocManager, OCCUR_Once);
 	DeclareArg(env, "parent", VTYPE_wx_Frame, OCCUR_Once);
@@ -103,7 +103,7 @@ Gura_ImplementFunction(DocParentFrame)
 
 Gura_DeclareMethod(wx_DocParentFrame, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "manager", VTYPE_wx_DocManager, OCCUR_Once);
 	DeclareArg(env, "parent", VTYPE_wx_Frame, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_DocParentFrame, Create)
 
 Gura_DeclareMethod(wx_DocParentFrame, GetDocumentManager)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_DocParentFrame, GetDocumentManager)
 #if 0
 Gura_DeclareMethod(wx_DocParentFrame, OnCloseWindow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_CloseEvent, OCCUR_Once);
 }
 

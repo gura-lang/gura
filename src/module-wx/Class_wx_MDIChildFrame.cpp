@@ -39,7 +39,7 @@ void wx_MDIChildFrame::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(MDIChildFrameEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MDIChildFrame));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(MDIChildFrameEmpty)
 
 Gura_DeclareFunction(MDIChildFrame)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_MDIChildFrame));
 	DeclareArg(env, "parent", VTYPE_wx_MDIParentFrame, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -101,7 +101,7 @@ Gura_ImplementFunction(MDIChildFrame)
 
 Gura_DeclareMethod(wx_MDIChildFrame, Activate)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MDIChildFrame, Activate)
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_MDIChildFrame, Activate)
 
 Gura_DeclareMethod(wx_MDIChildFrame, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_MDIChildFrame, Create)
 
 Gura_DeclareMethod(wx_MDIChildFrame, Maximize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "maximize", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_MDIChildFrame, Maximize)
 
 Gura_DeclareMethod(wx_MDIChildFrame, Restore)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MDIChildFrame, Restore)

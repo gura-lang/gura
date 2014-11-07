@@ -38,7 +38,7 @@ void wx_MouseCaptureChangedEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(MouseCaptureChangedEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_MouseCaptureChangedEvent));
 	DeclareArg(env, "windowId", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "gainedCapture", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(MouseCaptureChangedEvent)
 
 Gura_DeclareMethod(wx_MouseCaptureChangedEvent, GetCapturedWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

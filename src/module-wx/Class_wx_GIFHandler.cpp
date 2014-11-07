@@ -36,7 +36,7 @@ void wx_GIFHandler::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GIFHandler)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GIFHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

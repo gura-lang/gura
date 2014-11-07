@@ -38,7 +38,7 @@ void wx_SocketClient::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(SocketClient)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_SocketClient));
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(SocketClient)
 
 Gura_DeclareMethod(wx_SocketClient, Connect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "address", VTYPE_wx_SockAddress, OCCUR_Once);
 	DeclareArg(env, "wait", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_SocketClient, Connect)
 
 Gura_DeclareMethod(wx_SocketClient, Connect_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "address", VTYPE_wx_SockAddress, OCCUR_Once);
 	DeclareArg(env, "local", VTYPE_wx_SockAddress, OCCUR_Once);
 	DeclareArg(env, "wait", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_SocketClient, Connect_1)
 
 Gura_DeclareMethod(wx_SocketClient, WaitOnConnect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "seconds", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "milliseconds", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);

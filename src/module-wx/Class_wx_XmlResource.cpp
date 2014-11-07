@@ -39,7 +39,7 @@ void wx_XmlResource::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(XmlResource)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_XmlResource));
 	DeclareArg(env, "filemask", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(XmlResource)
 
 Gura_DeclareFunction(XmlResource_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_XmlResource));
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "domain", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -97,7 +97,7 @@ Gura_ImplementFunction(XmlResource_1)
 
 Gura_DeclareMethod(wx_XmlResource, AddHandler)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "handler", VTYPE_wx_XmlResourceHandler, OCCUR_Once);
 }
 
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_XmlResource, AddHandler)
 
 Gura_DeclareMethod(wx_XmlResource, AttachUnknownControl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "control", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_XmlResource, AttachUnknownControl)
 
 Gura_DeclareMethod(wx_XmlResource, ClearHandlers)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlResource, ClearHandlers)
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_XmlResource, ClearHandlers)
 
 Gura_DeclareMethod(wx_XmlResource, CompareVersion)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "major", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "minor", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "release", VTYPE_number, OCCUR_Once);
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_XmlResource, CompareVersion)
 
 Gura_DeclareMethod(wx_XmlResource, Get)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_XmlResource, Get)
 
 Gura_DeclareMethod(wx_XmlResource, GetFlags)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_XmlResource, GetFlags)
 
 Gura_DeclareMethod(wx_XmlResource, GetVersion)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_XmlResource, GetVersion)
 
 Gura_DeclareMethod(wx_XmlResource, GetXRCID)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str_id", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value_if_not_found", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_XmlResource, GetXRCID)
 
 Gura_DeclareMethod(wx_XmlResource, InitAllHandlers)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlResource, InitAllHandlers)
@@ -242,7 +242,7 @@ Gura_ImplementMethod(wx_XmlResource, InitAllHandlers)
 
 Gura_DeclareMethod(wx_XmlResource, Load)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filemask", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -258,7 +258,7 @@ Gura_ImplementMethod(wx_XmlResource, Load)
 
 Gura_DeclareMethod(wx_XmlResource, LoadBitmap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -274,7 +274,7 @@ Gura_ImplementMethod(wx_XmlResource, LoadBitmap)
 
 Gura_DeclareMethod(wx_XmlResource, LoadDialog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -292,7 +292,7 @@ Gura_ImplementMethod(wx_XmlResource, LoadDialog)
 
 Gura_DeclareMethod(wx_XmlResource, LoadDialog_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dlg", VTYPE_wx_Dialog, OCCUR_Once);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
@@ -312,7 +312,7 @@ Gura_ImplementMethod(wx_XmlResource, LoadDialog_1)
 
 Gura_DeclareMethod(wx_XmlResource, LoadFrame)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "frame", VTYPE_wx_Frame, OCCUR_Once);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
@@ -332,7 +332,7 @@ Gura_ImplementMethod(wx_XmlResource, LoadFrame)
 
 Gura_DeclareMethod(wx_XmlResource, LoadIcon)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -348,7 +348,7 @@ Gura_ImplementMethod(wx_XmlResource, LoadIcon)
 
 Gura_DeclareMethod(wx_XmlResource, LoadMenu)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -364,7 +364,7 @@ Gura_ImplementMethod(wx_XmlResource, LoadMenu)
 
 Gura_DeclareMethod(wx_XmlResource, LoadMenuBar)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -382,7 +382,7 @@ Gura_ImplementMethod(wx_XmlResource, LoadMenuBar)
 
 Gura_DeclareMethod(wx_XmlResource, LoadMenuBar_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -398,7 +398,7 @@ Gura_ImplementMethod(wx_XmlResource, LoadMenuBar_1)
 
 Gura_DeclareMethod(wx_XmlResource, LoadPanel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -416,7 +416,7 @@ Gura_ImplementMethod(wx_XmlResource, LoadPanel)
 
 Gura_DeclareMethod(wx_XmlResource, LoadPanel_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "panel", VTYPE_wx_Panel, OCCUR_Once);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
@@ -436,7 +436,7 @@ Gura_ImplementMethod(wx_XmlResource, LoadPanel_1)
 
 Gura_DeclareMethod(wx_XmlResource, LoadToolBar)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -454,7 +454,7 @@ Gura_ImplementMethod(wx_XmlResource, LoadToolBar)
 
 Gura_DeclareMethod(wx_XmlResource, Set)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "res", VTYPE_wx_XmlResource, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -470,7 +470,7 @@ Gura_ImplementMethod(wx_XmlResource, Set)
 
 Gura_DeclareMethod(wx_XmlResource, SetFlags)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
@@ -485,7 +485,7 @@ Gura_ImplementMethod(wx_XmlResource, SetFlags)
 
 Gura_DeclareMethod(wx_XmlResource, Unload)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -501,7 +501,7 @@ Gura_ImplementMethod(wx_XmlResource, Unload)
 
 Gura_DeclareMethod(wx_XmlResource, GetDomain)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -519,7 +519,7 @@ Gura_ImplementMethod(wx_XmlResource, GetDomain)
 
 Gura_DeclareMethod(wx_XmlResource, SetDomain)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "domain", VTYPE_string, OCCUR_Once);
 #endif

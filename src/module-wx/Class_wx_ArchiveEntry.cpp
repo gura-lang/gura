@@ -37,7 +37,7 @@ void wx_ArchiveEntry::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_ArchiveEntry, Clone)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -51,7 +51,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, Clone)
 
 Gura_DeclareMethod(wx_ArchiveEntry, GetDateTime)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, GetDateTime)
 
 Gura_DeclareMethod(wx_ArchiveEntry, SetDateTime)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dt", VTYPE_wx_DateTime, OCCUR_Once);
 }
 
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, SetDateTime)
 
 Gura_DeclareMethod(wx_ArchiveEntry, GetInternalFormat)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, GetInternalFormat)
 
 Gura_DeclareMethod(wx_ArchiveEntry, GetInternalName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, GetInternalName)
 
 Gura_DeclareMethod(wx_ArchiveEntry, GetName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, GetName)
 
 Gura_DeclareMethod(wx_ArchiveEntry, SetName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, SetName)
 
 Gura_DeclareMethod(wx_ArchiveEntry, GetOffset)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, GetOffset)
 
 Gura_DeclareMethod(wx_ArchiveEntry, GetSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, GetSize)
 
 Gura_DeclareMethod(wx_ArchiveEntry, SetSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, SetSize)
 
 Gura_DeclareMethod(wx_ArchiveEntry, IsDir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, IsDir)
 
 Gura_DeclareMethod(wx_ArchiveEntry, SetIsDir)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "isDir", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, SetIsDir)
 
 Gura_DeclareMethod(wx_ArchiveEntry, IsReadOnly)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, IsReadOnly)
 
 Gura_DeclareMethod(wx_ArchiveEntry, SetIsReadOnly)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "isReadOnly", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -246,7 +246,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, SetIsReadOnly)
 
 Gura_DeclareMethod(wx_ArchiveEntry, SetNotifier)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "notifier", VTYPE_wx_ArchiveNotifier, OCCUR_Once);
 }
 
@@ -261,7 +261,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, SetNotifier)
 
 Gura_DeclareMethod(wx_ArchiveEntry, UnsetNotifier)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArchiveEntry, UnsetNotifier)

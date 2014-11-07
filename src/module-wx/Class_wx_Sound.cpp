@@ -39,7 +39,7 @@ void wx_Sound::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(SoundEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Sound));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(SoundEmpty)
 
 Gura_DeclareFunction(Sound)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Sound));
 	DeclareArg(env, "fileName", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "isResource", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -88,7 +88,7 @@ Gura_ImplementFunction(Sound)
 
 Gura_DeclareMethod(wx_Sound, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "fileName", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "isResource", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_Sound, Create)
 
 Gura_DeclareMethod(wx_Sound, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_Sound, IsOk)
 
 Gura_DeclareClassMethod(wx_Sound, IsPlaying)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -138,7 +138,7 @@ Gura_ImplementClassMethod(wx_Sound, IsPlaying)
 
 Gura_DeclareMethod(wx_Sound, Play)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_Sound, Play)
 
 Gura_DeclareClassMethod(wx_Sound, Play_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -173,7 +173,7 @@ Gura_ImplementClassMethod(wx_Sound, Play_1)
 
 Gura_DeclareClassMethod(wx_Sound, Stop)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementClassMethod(wx_Sound, Stop)

@@ -38,7 +38,7 @@ void wx_DatePickerCtrl::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DatePickerCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DatePickerCtrl));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -82,7 +82,7 @@ Gura_ImplementFunction(DatePickerCtrl)
 
 Gura_DeclareMethod(wx_DatePickerCtrl, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "dt", VTYPE_wx_DateTime, OCCUR_ZeroOrOnce);
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_DatePickerCtrl, Create)
 
 Gura_DeclareMethod(wx_DatePickerCtrl, GetRange)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "dt1", VTYPE_wx_DateTime, OCCUR_Once);
 	DeclareArg(env, "*dt2", VTYPE_wx_DateTime, OCCUR_Once);
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_DatePickerCtrl, GetRange)
 
 Gura_DeclareMethod(wx_DatePickerCtrl, GetValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_DatePickerCtrl, GetValue)
 
 Gura_DeclareMethod(wx_DatePickerCtrl, SetFormat)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "format", VTYPE_string, OCCUR_Once);
 #endif
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_DatePickerCtrl, SetFormat)
 
 Gura_DeclareMethod(wx_DatePickerCtrl, SetRange)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dt1", VTYPE_wx_DateTime, OCCUR_Once);
 	DeclareArg(env, "dt2", VTYPE_wx_DateTime, OCCUR_Once);
 }
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_DatePickerCtrl, SetRange)
 
 Gura_DeclareMethod(wx_DatePickerCtrl, SetValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dt", VTYPE_wx_DateTime, OCCUR_Once);
 }
 

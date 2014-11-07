@@ -39,7 +39,7 @@ void wx_RadioButton::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(RadioButtonEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RadioButton));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(RadioButtonEmpty)
 
 Gura_DeclareFunction(RadioButton)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_RadioButton));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -104,7 +104,7 @@ Gura_ImplementFunction(RadioButton)
 
 Gura_DeclareMethod(wx_RadioButton, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_RadioButton, Create)
 
 Gura_DeclareMethod(wx_RadioButton, GetValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_RadioButton, GetValue)
 
 Gura_DeclareMethod(wx_RadioButton, SetValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_boolean, OCCUR_Once);
 }
 

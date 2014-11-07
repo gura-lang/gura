@@ -43,7 +43,7 @@ void wx_Module::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ModuleEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_Module));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -71,7 +71,7 @@ Gura_ImplementFunction(ModuleEmpty)
 
 Gura_DeclareMethod(wx_Module, AddDependency)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "dep", VTYPE_wx_ClassInfo, OCCUR_Once);
 #endif
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_Module, AddDependency)
 
 Gura_DeclareMethod(wx_Module, OnExit)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Module, OnExit)
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_Module, OnExit)
 
 Gura_DeclareMethod(wx_Module, OnInit)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

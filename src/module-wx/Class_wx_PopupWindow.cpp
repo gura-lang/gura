@@ -37,7 +37,7 @@ void wx_PopupWindow::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_PopupWindow, Position)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "ptOrigin", VTYPE_wx_Point, OCCUR_Once);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
@@ -54,7 +54,7 @@ Gura_ImplementMethod(wx_PopupWindow, Position)
 
 Gura_DeclareMethod(wx_PopupWindow, IsTopLevel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

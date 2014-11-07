@@ -38,7 +38,7 @@ void wx_BusyCursor::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(BusyCursor_)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_BusyCursor));
 	DeclareArg(env, "cursor", VTYPE_wx_Cursor, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);

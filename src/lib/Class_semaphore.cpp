@@ -36,7 +36,7 @@ String Object_semaphore::ToString(bool exprFlag)
 // semaphore()
 Gura_DeclareFunction(semaphore)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(env.LookupClass(VTYPE_semaphore));
 }
 
@@ -52,7 +52,7 @@ Gura_ImplementFunction(semaphore)
 // semaphore#release()
 Gura_DeclareMethod(semaphore, release)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Releases the owership of the semaphore that is grabbed by semaphore#wait().");
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(semaphore, release)
 // semaphore#session()
 Gura_DeclareMethod(semaphore, session)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Forms a critical session by grabbing the semaphore's ownership, executing\n"
@@ -92,7 +92,7 @@ Gura_ImplementMethod(semaphore, session)
 // semaphore#wait()
 Gura_DeclareMethod(semaphore, wait)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Watis for the semaphore being released by other threads, and ghen grabs\n"
 	"that ownership.");

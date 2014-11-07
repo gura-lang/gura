@@ -38,7 +38,7 @@ void wx_TextEntryDialog::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(TextEntryDialog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_TextEntryDialog));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
@@ -77,7 +77,7 @@ Gura_ImplementFunction(TextEntryDialog)
 
 Gura_DeclareMethod(wx_TextEntryDialog, GetValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_TextEntryDialog, GetValue)
 
 Gura_DeclareMethod(wx_TextEntryDialog, SetValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
 }
 
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_TextEntryDialog, SetValue)
 
 Gura_DeclareMethod(wx_TextEntryDialog, ShowModal)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

@@ -38,7 +38,7 @@ void wx_AuiTabArt::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(AuiTabArtEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_AuiTabArt));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(AuiTabArtEmpty)
 
 Gura_DeclareMethod(wx_AuiTabArt, Clone)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_AuiTabArt, Clone)
 
 Gura_DeclareMethod(wx_AuiTabArt, DrawBackground)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "wnd", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_AuiTabArt, DrawBackground)
 
 Gura_DeclareMethod(wx_AuiTabArt, DrawButton)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "wnd", VTYPE_wx_Window, OCCUR_Once);
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_AuiTabArt, DrawButton)
 
 Gura_DeclareMethod(wx_AuiTabArt, DrawTab)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "wnd", VTYPE_wx_Window, OCCUR_Once);
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_AuiTabArt, DrawTab)
 
 Gura_DeclareMethod(wx_AuiTabArt, GetBestTabCtrlSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "wnd", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "pages", VTYPE_wx_AuiNotebookPageArray, OCCUR_Once);
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_AuiTabArt, GetBestTabCtrlSize)
 
 Gura_DeclareMethod(wx_AuiTabArt, GetIndentSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -211,7 +211,7 @@ Gura_ImplementMethod(wx_AuiTabArt, GetIndentSize)
 
 Gura_DeclareMethod(wx_AuiTabArt, GetTabSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "wnd", VTYPE_wx_Window, OCCUR_Once);
@@ -245,7 +245,7 @@ Gura_ImplementMethod(wx_AuiTabArt, GetTabSize)
 
 Gura_DeclareMethod(wx_AuiTabArt, SetFlags)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
@@ -260,7 +260,7 @@ Gura_ImplementMethod(wx_AuiTabArt, SetFlags)
 
 Gura_DeclareMethod(wx_AuiTabArt, SetMeasuringFont)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 }
 
@@ -275,7 +275,7 @@ Gura_ImplementMethod(wx_AuiTabArt, SetMeasuringFont)
 
 Gura_DeclareMethod(wx_AuiTabArt, SetNormalFont)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 }
 
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_AuiTabArt, SetNormalFont)
 
 Gura_DeclareMethod(wx_AuiTabArt, SetSelectedFont)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 }
 
@@ -305,7 +305,7 @@ Gura_ImplementMethod(wx_AuiTabArt, SetSelectedFont)
 
 Gura_DeclareMethod(wx_AuiTabArt, SetSizingInfo)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "tab_ctrl_size", VTYPE_wx_Size, OCCUR_Once);
 	DeclareArg(env, "tab_count", VTYPE_number, OCCUR_Once);
 }
@@ -322,7 +322,7 @@ Gura_ImplementMethod(wx_AuiTabArt, SetSizingInfo)
 
 Gura_DeclareMethod(wx_AuiTabArt, ShowWindowList)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "wnd", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "items", VTYPE_string, OCCUR_Once, FLAG_List);

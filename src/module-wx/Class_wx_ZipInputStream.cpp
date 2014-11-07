@@ -40,7 +40,7 @@ void wx_ZipInputStream::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ZipInputStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ZipInputStream));
 	DeclareArg(env, "stream", VTYPE_wx_InputStream, OCCUR_Once);
 	DeclareArg(env, "conv", VTYPE_wx_MBConv, OCCUR_ZeroOrOnce);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(ZipInputStream)
 
 Gura_DeclareFunction(ZipInputStream_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ZipInputStream));
 	DeclareArg(env, "stream", VTYPE_wx_InputStream, OCCUR_Once);
 	DeclareArg(env, "conv", VTYPE_wx_MBConv, OCCUR_ZeroOrOnce);
@@ -95,7 +95,7 @@ Gura_ImplementFunction(ZipInputStream_1)
 #if 0
 Gura_DeclareFunction(ZipInputStream_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ZipInputStream));
 	DeclareArg(env, "archive", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "file", VTYPE_string, OCCUR_Once);
@@ -122,7 +122,7 @@ Gura_ImplementFunction(ZipInputStream_2)
 
 Gura_DeclareMethod(wx_ZipInputStream, CloseEntry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_ZipInputStream, CloseEntry)
 
 Gura_DeclareMethod(wx_ZipInputStream, GetComment)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_ZipInputStream, GetComment)
 
 Gura_DeclareMethod(wx_ZipInputStream, GetNextEntry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_ZipInputStream, GetNextEntry)
 
 Gura_DeclareMethod(wx_ZipInputStream, GetTotalEntries)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_ZipInputStream, GetTotalEntries)
 
 Gura_DeclareMethod(wx_ZipInputStream, OpenEntry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "entry", VTYPE_wx_ZipEntry, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

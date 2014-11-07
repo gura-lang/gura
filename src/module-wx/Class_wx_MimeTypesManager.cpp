@@ -38,7 +38,7 @@ void wx_MimeTypesManager::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(MimeTypesManagerEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MimeTypesManager));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(MimeTypesManagerEmpty)
 
 Gura_DeclareMethod(wx_MimeTypesManager, AddFallbacks)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "fallbacks", VTYPE_wx_FileTypeInfo, OCCUR_Once);
 }
 
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_MimeTypesManager, AddFallbacks)
 
 Gura_DeclareMethod(wx_MimeTypesManager, GetFileTypeFromExtension)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "extension", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_MimeTypesManager, GetFileTypeFromExtension)
 
 Gura_DeclareMethod(wx_MimeTypesManager, GetFileTypeFromMimeType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "mimeType", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_MimeTypesManager, GetFileTypeFromMimeType)
 
 Gura_DeclareMethod(wx_MimeTypesManager, IsOfType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "mimeType", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "wildcard", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_MimeTypesManager, IsOfType)
 #if 0
 Gura_DeclareMethod(wx_MimeTypesManager, ReadMailcap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "fallback", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_MimeTypesManager, ReadMailcap)
 #if 0
 Gura_DeclareMethod(wx_MimeTypesManager, ReadMimeTypes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

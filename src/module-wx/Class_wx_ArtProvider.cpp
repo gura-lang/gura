@@ -37,7 +37,7 @@ void wx_ArtProvider::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ArtProvider)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ArtProvider));
 }
 
@@ -49,7 +49,7 @@ Gura_ImplementFunction(ArtProvider)
 
 Gura_DeclareClassMethod(wx_ArtProvider, Delete)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "provider", VTYPE_wx_ArtProvider, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -64,7 +64,7 @@ Gura_ImplementClassMethod(wx_ArtProvider, Delete)
 
 Gura_DeclareClassMethod(wx_ArtProvider, GetBitmap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "client", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_ZeroOrOnce);
@@ -85,7 +85,7 @@ Gura_ImplementClassMethod(wx_ArtProvider, GetBitmap)
 
 Gura_DeclareClassMethod(wx_ArtProvider, GetIcon)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "client", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_ZeroOrOnce);
@@ -106,7 +106,7 @@ Gura_ImplementClassMethod(wx_ArtProvider, GetIcon)
 
 Gura_DeclareClassMethod(wx_ArtProvider, GetSizeHint)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "client", VTYPE_wx_ArtClient, OCCUR_Once);
 	DeclareArg(env, "platform_default", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -124,7 +124,7 @@ Gura_ImplementClassMethod(wx_ArtProvider, GetSizeHint)
 
 Gura_DeclareClassMethod(wx_ArtProvider, Insert)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "provider", VTYPE_wx_ArtProvider, OCCUR_Once);
 }
 
@@ -138,7 +138,7 @@ Gura_ImplementClassMethod(wx_ArtProvider, Insert)
 
 Gura_DeclareClassMethod(wx_ArtProvider, Pop)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -151,7 +151,7 @@ Gura_ImplementClassMethod(wx_ArtProvider, Pop)
 
 Gura_DeclareClassMethod(wx_ArtProvider, Push)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "provider", VTYPE_wx_ArtProvider, OCCUR_Once);
 }
 
@@ -165,7 +165,7 @@ Gura_ImplementClassMethod(wx_ArtProvider, Push)
 
 Gura_DeclareClassMethod(wx_ArtProvider, Remove)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "provider", VTYPE_wx_ArtProvider, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

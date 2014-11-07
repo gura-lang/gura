@@ -46,7 +46,7 @@ void wx_GridCellNumberEditor::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GridCellNumberEditor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellNumberEditor));
 	DeclareArg(env, "min", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "max", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -74,7 +74,7 @@ Gura_ImplementFunction(GridCellNumberEditor)
 
 Gura_DeclareMethod(wx_GridCellNumberEditor, GetString)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -88,7 +88,7 @@ Gura_ImplementMethod(wx_GridCellNumberEditor, GetString)
 
 Gura_DeclareMethod(wx_GridCellNumberEditor, HasRange)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_GridCellNumberEditor, HasRange)
 
 Gura_DeclareMethod(wx_GridCellNumberEditor, SetParameters)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "params", VTYPE_string, OCCUR_Once);
 }
 

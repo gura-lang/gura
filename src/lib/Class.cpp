@@ -195,7 +195,7 @@ String Object::ToString(bool exprFlag)
 // object() {block?}
 Gura_DeclareFunction(object)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -211,7 +211,7 @@ Gura_ImplementFunction(object)
 // object#is(obj):map
 Gura_DeclareMethodPrimitive(Object, is)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "obj", VTYPE_any);
 }
 
@@ -223,7 +223,7 @@ Gura_ImplementMethod(Object, is)
 // object#isnil()
 Gura_DeclareMethodPrimitive(Object, isnil)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 }
 
 Gura_ImplementMethod(Object, isnil)
@@ -234,7 +234,7 @@ Gura_ImplementMethod(Object, isnil)
 // object#istype(type+:expr):map
 Gura_DeclareMethodPrimitive(Object, istype)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
 }
 
@@ -253,7 +253,7 @@ Gura_ImplementMethod(Object, istype)
 // object#isinstance(type+:expr):map
 Gura_DeclareMethodPrimitive(Object, isinstance)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
 }
 
@@ -267,7 +267,7 @@ Gura_ImplementMethod(Object, isinstance)
 // object#nomap() {block?}
 Gura_DeclareMethodPrimitive(Object, nomap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -281,7 +281,7 @@ Gura_ImplementMethod(Object, nomap)
 // object#tonumber():[strict,raise,zero,nil]
 Gura_DeclareMethodPrimitive(Object, tonumber)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(strict));
 	DeclareAttr(Gura_Symbol(raise));
 	DeclareAttr(Gura_Symbol(zero));
@@ -308,7 +308,7 @@ Gura_ImplementMethod(Object, tonumber)
 // object#tostring()
 Gura_DeclareMethodPrimitive(Object, tostring)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(Object, tostring)
@@ -332,7 +332,7 @@ public:
 Gura_Method(Object, __call__)::Gura_Method(Object, __call__)(Environment &env, const char *name) :
 						Function(env, Symbol::Add(name), FUNCTYPE_Class, FLAG_None)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareDictArg("dict");
@@ -388,7 +388,7 @@ Value Gura_Method(Object, __call__)::DoEval(Environment &env, Signal sig, Args &
 // object#__iter__()
 Gura_DeclareMethod(Object, __iter__)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(Object, __iter__)
@@ -416,7 +416,7 @@ Gura_ImplementMethod(Object, clone)
 // object.getprop!(symbol:symbol, default?:nomap):map
 Gura_DeclareClassMethodAlias(Object, getprop_X, "getprop!")
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "default", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_NoMap);
 }
@@ -436,7 +436,7 @@ Gura_ImplementClassMethod(Object, getprop_X)
 // object.setprop!(symbol:symbol, value):map
 Gura_DeclareClassMethodAlias(Object, setprop_X, "setprop!")
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "value", VTYPE_any);
 }

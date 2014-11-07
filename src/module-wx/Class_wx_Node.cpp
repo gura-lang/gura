@@ -37,7 +37,7 @@ void wx_Node::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_Node, GetData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -49,7 +49,7 @@ Gura_ImplementMethod(wx_Node, GetData)
 
 Gura_DeclareMethod(wx_Node, GetNext)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -61,7 +61,7 @@ Gura_ImplementMethod(wx_Node, GetNext)
 
 Gura_DeclareMethod(wx_Node, GetPrevious)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_Node, GetPrevious)
 
 Gura_DeclareMethod(wx_Node, SetData)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 #endif
 }
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_Node, SetData)
 
 Gura_DeclareMethod(wx_Node, IndexOf)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

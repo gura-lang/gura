@@ -68,7 +68,7 @@ void wx_DataViewCtrl::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DataViewCtrlEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -90,7 +90,7 @@ Gura_ImplementFunction(DataViewCtrlEmpty)
 
 Gura_DeclareFunction(DataViewCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewCtrl));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -128,7 +128,7 @@ Gura_ImplementFunction(DataViewCtrl)
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendColumn)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_wx_DataViewColumn, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AppendColumn)
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendBitmapColumn)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "model_column", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AppendBitmapColumn)
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendBitmapColumn_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "model_column", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AppendBitmapColumn_1)
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendDateColumn)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "model_column", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AppendDateColumn)
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendDateColumn_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "model_column", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AppendDateColumn_1)
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendProgressColumn)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "model_column", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AppendProgressColumn)
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendProgressColumn_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "model_column", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -288,7 +288,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AppendProgressColumn_1)
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendTextColumn)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "model_column", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -312,7 +312,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AppendTextColumn)
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendTextColumn_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "model_column", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -336,7 +336,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AppendTextColumn_1)
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendToggleColumn)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "model_column", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -360,7 +360,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AppendToggleColumn)
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendToggleColumn_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "model_column", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -384,7 +384,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AppendToggleColumn_1)
 
 Gura_DeclareMethod(wx_DataViewCtrl, AssociateModel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "model", VTYPE_wx_DataViewListModel, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -400,7 +400,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AssociateModel)
 
 Gura_DeclareMethod(wx_DataViewCtrl, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
@@ -430,7 +430,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, Create)
 
 Gura_DeclareMethod(wx_DataViewCtrl, ClearColumns)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -444,7 +444,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, ClearColumns)
 
 Gura_DeclareMethod(wx_DataViewCtrl, ClearSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewCtrl, ClearSelection)
@@ -457,7 +457,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, ClearSelection)
 
 Gura_DeclareMethod(wx_DataViewCtrl, DeleteColumn)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -473,7 +473,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, DeleteColumn)
 
 Gura_DeclareMethod(wx_DataViewCtrl, GetColumn)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -489,7 +489,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, GetColumn)
 
 Gura_DeclareMethod(wx_DataViewCtrl, GetModel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -503,7 +503,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, GetModel)
 
 Gura_DeclareMethod(wx_DataViewCtrl, GetNumberOfColumns)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -517,7 +517,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, GetNumberOfColumns)
 
 Gura_DeclareMethod(wx_DataViewCtrl, GetSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -531,7 +531,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, GetSelection)
 
 Gura_DeclareMethod(wx_DataViewCtrl, GetSelections)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "aSelections", VTYPE_number, OCCUR_Once, FLAG_List);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -547,7 +547,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, GetSelections)
 
 Gura_DeclareMethod(wx_DataViewCtrl, IsSelected)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -563,7 +563,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, IsSelected)
 
 Gura_DeclareMethod(wx_DataViewCtrl, SetSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
@@ -578,7 +578,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, SetSelection)
 
 Gura_DeclareMethod(wx_DataViewCtrl, SetSelectionRange)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
 }
@@ -595,7 +595,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, SetSelectionRange)
 
 Gura_DeclareMethod(wx_DataViewCtrl, SetSelections)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "aSelections", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -610,7 +610,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, SetSelections)
 
 Gura_DeclareMethod(wx_DataViewCtrl, Unselect)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 

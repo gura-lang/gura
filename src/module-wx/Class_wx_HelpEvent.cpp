@@ -38,7 +38,7 @@ void wx_HelpEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HelpEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_HelpEvent));
 	DeclareArg(env, "eventType", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(HelpEvent)
 
 Gura_DeclareMethod(wx_HelpEvent, GetOrigin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_HelpEvent, GetOrigin)
 
 Gura_DeclareMethod(wx_HelpEvent, GetPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_HelpEvent, GetPosition)
 
 Gura_DeclareMethod(wx_HelpEvent, SetOrigin)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "origin", VTYPE_wx_HelpEvent, OCCUR_Once);
 #endif
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_HelpEvent, SetOrigin)
 
 Gura_DeclareMethod(wx_HelpEvent, SetPosition)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 }
 

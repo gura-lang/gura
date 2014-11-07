@@ -16,7 +16,7 @@ static Environment *_pEnvThis = NULL;
 // os.clock()
 Gura_DeclareFunction(clock)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementFunction(clock)
@@ -27,7 +27,7 @@ Gura_ImplementFunction(clock)
 // os.exec(pathname:string, args*:string):map:[fork]
 Gura_DeclareFunction(exec)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	DeclareArg(env, "args", VTYPE_string, OCCUR_ZeroOrMore);
 	DeclareAttr(Gura_Symbol(fork));
@@ -62,7 +62,7 @@ Gura_ImplementFunction(exec)
 // os.fromnative(buff:binary):map
 Gura_DeclareFunction(fromnative)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "buff", VTYPE_binary);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Converts binary data that includes OS's native string into Gura's regulated string.");
@@ -78,7 +78,7 @@ Gura_ImplementFunction(fromnative)
 // os.getenv(name:string, default?:string):map
 Gura_DeclareFunction(getenv)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareArg(env, "default", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the value of an environment variable.");
@@ -95,7 +95,7 @@ Gura_ImplementFunction(getenv)
 // os.putenv(name:string, value:string):void
 Gura_DeclareFunction(putenv)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareArg(env, "value", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Set the value of an environment variable.");
@@ -110,7 +110,7 @@ Gura_ImplementFunction(putenv)
 // os.redirect(stdin:stream:nil:r, stdout:stream:nil:w, stderr?:stream:w) {block?}
 Gura_DeclareFunction(redirect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stdin", VTYPE_stream, OCCUR_Once, FLAG_Nil | FLAG_Read);
 	DeclareArg(env, "stdout", VTYPE_stream, OCCUR_Once, FLAG_Nil | FLAG_Write);
 	DeclareArg(env, "stderr", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
@@ -154,7 +154,7 @@ Gura_ImplementFunction(redirect)
 // os.sleep(secs)
 Gura_DeclareFunction(sleep)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "secs", VTYPE_number);
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementFunction(sleep)
 // os.symlink(src:string, tgt:string):map:void
 Gura_DeclareFunction(symlink)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "src", VTYPE_string);
 	DeclareArg(env, "tgt", VTYPE_string);
 }
@@ -189,7 +189,7 @@ Gura_ImplementFunction(symlink)
 // os.tonative(str:string):map
 Gura_DeclareFunction(tonative)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Converts Gura's regulated string into binary data that includes OS's native string.");
@@ -205,7 +205,7 @@ Gura_ImplementFunction(tonative)
 // os.unsetenv(name:string):void
 Gura_DeclareFunction(unsetenv)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "name", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Unset an environment variable.");
 }

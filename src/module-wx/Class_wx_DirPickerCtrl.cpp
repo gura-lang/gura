@@ -38,7 +38,7 @@ void wx_DirPickerCtrl::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DirPickerCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DirPickerCtrl));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -85,7 +85,7 @@ Gura_ImplementFunction(DirPickerCtrl)
 
 Gura_DeclareMethod(wx_DirPickerCtrl, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_DirPickerCtrl, Create)
 
 Gura_DeclareMethod(wx_DirPickerCtrl, GetPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_DirPickerCtrl, GetPath)
 
 Gura_DeclareMethod(wx_DirPickerCtrl, SetPath)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dirname", VTYPE_string, OCCUR_Once);
 }
 

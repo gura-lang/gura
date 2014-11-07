@@ -23,7 +23,7 @@ Gura_BeginModuleBody(basement)
 // class(superclass?) {block?}
 Gura_DeclareFunctionAlias(class_, "class")
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "superclass", VTYPE_function, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -59,7 +59,7 @@ Gura_ImplementFunction(class_)
 // - OnceOrMore attribute will be modified to ZeroOrMore
 Gura_DeclareFunctionAlias(struct_, "struct")
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "args", VTYPE_quote, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(loose));
@@ -99,7 +99,7 @@ Gura_ImplementFunction(struct_)
 // super(obj) {block?}
 Gura_DeclareFunction(super)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "obj", VTYPE_any, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -120,7 +120,7 @@ Gura_ImplementFunction(super)
 // module {block}
 Gura_DeclareFunction(module)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Creates a module that contains functions and variables defined in the block\n"
@@ -140,7 +140,7 @@ Gura_ImplementFunction(module)
 // import(`module, `alias?):void:[binary,overwrite,mixin_type] {block?}
 Gura_DeclareFunctionAlias(import_, "import")
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "module", VTYPE_quote);
 	DeclareArg(env, "alias", VTYPE_quote, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -208,7 +208,7 @@ Gura_ImplementFunction(import_)
 // scope(target?) {block}
 Gura_DeclareFunction(scope)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "target", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -248,7 +248,7 @@ Gura_ImplementFunction(scope)
 // locals(module?:module) {block?}
 Gura_DeclareFunction(locals)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "module", VTYPE_Module, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -270,7 +270,7 @@ Gura_ImplementFunction(locals)
 // outers() {block?}
 Gura_DeclareFunction(outers)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Returns an environment object that accesses to an outer scope.");
@@ -286,7 +286,7 @@ Gura_ImplementFunction(outers)
 // extern(`syms+)
 Gura_DeclareFunctionAlias(extern_, "extern")
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "syms", VTYPE_quote, OCCUR_OnceOrMore);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Declares symbols that is supposed to access variables in outer scopes.");
@@ -311,7 +311,7 @@ Gura_ImplementFunction(extern_)
 // local(`syms+)
 Gura_DeclareFunction(local)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "syms", VTYPE_quote, OCCUR_OnceOrMore);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Declares symbols that is supposed to access variables in a local scope.");
@@ -336,7 +336,7 @@ Gura_ImplementFunction(local)
 // public():void {block}
 Gura_DeclareFunctionAlias(public_, "public")
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareBlock(OCCUR_Once);
 }
 
@@ -371,7 +371,7 @@ Gura_ImplementFunction(public_)
 // try ():leader {block}
 Gura_DeclareFunctionAlias(try_, "try")
 {
-	SetMode(RSLTMODE_Normal, FLAG_Leader);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Specify a try block of a statement of try-catch-else.\n"
@@ -397,7 +397,7 @@ Gura_ImplementFunction(try_)
 // catch (errors*:error):leader:trailer {block}
 Gura_DeclareFunctionTrailerAlias(catch_, "catch")
 {
-	SetMode(RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
 	DeclareArg(env, "errors", VTYPE_error, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -440,7 +440,7 @@ Gura_ImplementFunction(catch_)
 // finally ():trailer:finalizer {block}
 Gura_DeclareFunctionTrailerAlias(finally_, "finally")
 {
-	SetMode(RSLTMODE_Normal, FLAG_Trailer | FLAG_Finalizer);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Trailer | FLAG_Finalizer);
 	DeclareBlock(OCCUR_Once);
 }
 
@@ -456,7 +456,7 @@ Gura_ImplementFunction(finally_)
 // if (`cond):leader {block}
 Gura_DeclareFunctionAlias(if_, "if")
 {
-	SetMode(RSLTMODE_Normal, FLAG_Leader);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader);
 	DeclareArg(env, "cond", VTYPE_quote);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -483,7 +483,7 @@ Gura_ImplementFunction(if_)
 // elsif (`cond):leader:trailer {block}
 Gura_DeclareFunctionTrailerAlias(elsif_, "elsif")
 {
-	SetMode(RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
 	DeclareArg(env, "cond", VTYPE_quote);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -510,7 +510,7 @@ Gura_ImplementFunction(elsif_)
 // else ():trailer {block}
 Gura_DeclareFunctionTrailerAlias(else_, "else")
 {
-	SetMode(RSLTMODE_Normal, FLAG_Trailer);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Trailer);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Specify an else block of a statement of if-elsif-else or try-catch-else.\n");
@@ -530,7 +530,7 @@ Gura_ImplementFunction(else_)
 // end (dummy*):void:symbol_func:trailer:end_marker
 Gura_DeclareFunction(end)
 {
-	SetMode(RSLTMODE_Void, FLAG_SymbolFunc | FLAG_Trailer | FLAG_EndMarker);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_SymbolFunc | FLAG_Trailer | FLAG_EndMarker);
 	DeclareArg(env, "dummy", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Specify an end of a sequence. It just works as a marker.\n");
@@ -569,7 +569,7 @@ Gura_ImplementFunction(switch_)
 // case (`cond) {block}
 Gura_DeclareFunctionAlias(case_, "case")
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "cond", VTYPE_quote);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -598,7 +598,7 @@ Gura_ImplementFunction(case_)
 // default {block}
 Gura_DeclareFunctionAlias(default_, "default")
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Specify a default block within a switch block.\n"
@@ -621,7 +621,7 @@ Gura_ImplementFunction(default_)
 // repeat (n?:number) {block}
 Gura_DeclareFunction(repeat)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -649,7 +649,7 @@ Gura_ImplementFunction(repeat)
 // while (`cond) {block}
 Gura_DeclareFunctionAlias(while_, "while")
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "cond", VTYPE_quote);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -705,7 +705,7 @@ Gura_ImplementFunction(for_)
 // cross (`expr+) {block}
 Gura_DeclareFunction(cross)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "expr", VTYPE_quote, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -736,7 +736,7 @@ Gura_ImplementFunction(cross)
 // break(value?):void:symbol_func
 Gura_DeclareFunctionAlias(break_, "break")
 {
-	SetMode(RSLTMODE_Void, FLAG_SymbolFunc);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_SymbolFunc);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Exits from an inside of a loop that is formed with functions repeat(), while()\n"
@@ -755,7 +755,7 @@ Gura_ImplementFunction(break_)
 // continue(value?):void:symbol_func
 Gura_DeclareFunctionAlias(continue_, "continue")
 {
-	SetMode(RSLTMODE_Void, FLAG_SymbolFunc);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_SymbolFunc);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"In a loop that is formed with functions repeat(), while(), for() and cross(),\n"
@@ -775,7 +775,7 @@ Gura_ImplementFunction(continue_)
 // return(value?):void:symbol_func
 Gura_DeclareFunctionAlias(return_, "return")
 {
-	SetMode(RSLTMODE_Void, FLAG_SymbolFunc);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_SymbolFunc);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Exits from a function skipping the following part of it.\n"
@@ -792,7 +792,7 @@ Gura_ImplementFunction(return_)
 // raise(error:error, msg:string => "error", value?)
 Gura_DeclareFunction(raise)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "error", VTYPE_error);
 	DeclareArg(env, "msg", VTYPE_string, OCCUR_Once, FLAG_None, new Expr_Value(Value("error")));
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
@@ -811,7 +811,7 @@ Gura_ImplementFunction(raise)
 // dim(n+:number) {block}
 Gura_DeclareFunction(dim)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -880,7 +880,7 @@ Gura_ImplementFunction(dim)
 // min(values+):map
 Gura_DeclareFunction(min)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Returns the minimum value among the given arguments.");
@@ -902,7 +902,7 @@ Gura_ImplementFunction(min)
 // max(values+):map
 Gura_DeclareFunction(max)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Returns the maximum value among the given arguments.");
@@ -924,7 +924,7 @@ Gura_ImplementFunction(max)
 // choose(index:number, values+):map
 Gura_DeclareFunction(choose)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
 }
@@ -943,7 +943,7 @@ Gura_ImplementFunction(choose)
 // cond(flag:boolean, value1:nomap, value2:nomap?):map
 Gura_DeclareFunction(cond)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean);
 	DeclareArg(env, "value1", VTYPE_any, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "value2", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_NoMap);
@@ -957,7 +957,7 @@ Gura_ImplementFunction(cond)
 // conds(flag:boolean, value1, value2?):map
 Gura_DeclareFunction(conds)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean);
 	DeclareArg(env, "value1", VTYPE_any, OCCUR_Once);
 	DeclareArg(env, "value2", VTYPE_any, OCCUR_ZeroOrOnce);
@@ -971,7 +971,7 @@ Gura_ImplementFunction(conds)
 // tostring(value):map
 Gura_DeclareFunction(tostring)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_any);
 }
 
@@ -983,7 +983,7 @@ Gura_ImplementFunction(tostring)
 // tonumber(value):map:[strict,raise,zero,nil]
 Gura_DeclareFunction(tonumber)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_any);
 	DeclareAttr(Gura_Symbol(strict));
 	DeclareAttr(Gura_Symbol(raise));
@@ -1011,7 +1011,7 @@ Gura_ImplementFunction(tonumber)
 // tosymbol(str:string):map
 Gura_DeclareFunction(tosymbol)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
 }
 
@@ -1023,7 +1023,7 @@ Gura_ImplementFunction(tosymbol)
 // int(value):map
 Gura_DeclareFunctionAlias(int_, "int")
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_any);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Converts any value into an integer number.");
@@ -1054,7 +1054,7 @@ Gura_ImplementFunction(int_)
 // ord(str:string):map
 Gura_DeclareFunction(ord)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
 }
 
@@ -1074,7 +1074,7 @@ Gura_ImplementFunction(ord)
 // chr(num:number):map:[nil]
 Gura_DeclareFunction(chr)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_number);
 	DeclareAttr(Gura_Symbol(nil));
 }
@@ -1103,7 +1103,7 @@ Gura_ImplementFunction(chr)
 // hex(num:number, digits?:number):map:[upper]
 Gura_DeclareFunction(hex)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_number);
 	DeclareArg(env, "digits", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(upper));
@@ -1128,7 +1128,7 @@ Gura_ImplementFunction(hex)
 // print(value*):map:void
 Gura_DeclareFunction(print)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Converts `values` into string and outputs the results to standard output."
@@ -1149,7 +1149,7 @@ Gura_ImplementFunction(print)
 // println(value*):map:void
 Gura_DeclareFunction(println)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Converts `values` into string and outputs the results to standard output before a carriage return."
@@ -1171,7 +1171,7 @@ Gura_ImplementFunction(println)
 // printf(format, values*):map:void
 Gura_DeclareFunction(printf)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1216,7 +1216,7 @@ Gura_ImplementFunction(printf)
 // format(format, value*):map
 Gura_DeclareFunction(format)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 }
@@ -1229,7 +1229,7 @@ Gura_ImplementFunction(format)
 // dir(obj?):[noesc]
 Gura_DeclareFunction(dir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "obj", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(noesc));
 	//DeclareAttr(Gura_Symbol(nosort));
@@ -1267,7 +1267,7 @@ Gura_ImplementFunction(dir)
 // dirtype(obj?):[noesc]
 Gura_DeclareFunction(dirtype)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "obj", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(noesc));
 	//DeclareAttr(Gura_Symbol(nosort));
@@ -1305,7 +1305,7 @@ Gura_ImplementFunction(dirtype)
 // help(func:function, lang?:symbol):map:void
 Gura_DeclareFunction(help)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_function);
 	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1324,7 +1324,7 @@ Gura_ImplementFunction(help)
 // isdefined(`identifier)
 Gura_DeclareFunction(isdefined)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "identifier", VTYPE_quote);
 }
 
@@ -1357,7 +1357,7 @@ Gura_Function(istype_)::Gura_Function(istype_)(
 					Environment &env, const char *name, ValueType valType) :
 	Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None), _valType(valType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
 	char buff[1024];
 	::sprintf(buff, "Check if the type of the specified value is %s.",
@@ -1378,7 +1378,7 @@ Gura_ImplementFunction(istype_)
 // istype(value, type+:expr):map
 Gura_DeclareFunction(istype)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_any);
 	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
 }
@@ -1398,7 +1398,7 @@ Gura_ImplementFunction(istype)
 // isinstance(value, type+:expr):map
 Gura_DeclareFunction(isinstance)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_any);
 	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
 }
@@ -1413,7 +1413,7 @@ Gura_ImplementFunction(isinstance)
 // classref(type+:expr):map {block?}
 Gura_DeclareFunction(classref)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1433,7 +1433,7 @@ Gura_ImplementFunction(classref)
 // typename(`value)
 Gura_DeclareFunctionAlias(typename_, "typename")
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_quote);
 }
 
@@ -1463,7 +1463,7 @@ Gura_ImplementFunction(typename_)
 // undef(`identifier+):[raise]
 Gura_DeclareFunctionAlias(undef_, "undef")
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "identifier", VTYPE_quote, OCCUR_OnceOrMore);
 	DeclareAttr(Gura_Symbol(raise));
 }
@@ -1517,7 +1517,7 @@ Gura_ImplementFunction(undef_)
 // randseed(seed:number):void
 Gura_DeclareFunction(randseed)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "seed", VTYPE_number);
 }
 
@@ -1530,7 +1530,7 @@ Gura_ImplementFunction(randseed)
 // rand(range?:number) {block?}
 Gura_DeclareFunction(rand)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "range", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

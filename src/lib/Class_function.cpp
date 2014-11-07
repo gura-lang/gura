@@ -239,7 +239,7 @@ Gura_ImplementFunction(function)
 // function#addhelp(lang:symbol, format:string, help:string):map
 Gura_DeclareMethod(function, addhelp)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "lang", VTYPE_symbol);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "help", VTYPE_string);
@@ -255,7 +255,7 @@ Gura_ImplementMethod(function, addhelp)
 // function#gethelp(lang?:symbol):map
 Gura_DeclareMethod(function, gethelp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets a help object of the specified function object.\n"
@@ -276,7 +276,7 @@ Gura_ImplementMethod(function, gethelp)
 // function#help(lang?:symbol):map:void
 Gura_DeclareMethod(function, help)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Print a help message for the specified function object.\n"
@@ -297,7 +297,7 @@ Gura_ImplementMethod(function, help)
 // function#mathdiff(var?:symbol)
 Gura_DeclareMethod(function, mathdiff)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "var", VTYPE_symbol, OCCUR_ZeroOrOnce);
 }
 

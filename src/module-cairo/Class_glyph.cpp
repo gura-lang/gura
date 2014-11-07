@@ -26,7 +26,7 @@ String Object_glyph::ToString(bool exprFlag)
 // cairo.glyph.allocate(num_glyphs:number) {block?}
 Gura_DeclareClassMethod(glyph, allocate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "num_glyphs", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

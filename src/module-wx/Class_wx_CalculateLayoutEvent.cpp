@@ -38,7 +38,7 @@ void wx_CalculateLayoutEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(CalculateLayoutEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_CalculateLayoutEvent));
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(CalculateLayoutEvent)
 
 Gura_DeclareMethod(wx_CalculateLayoutEvent, GetFlags)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_CalculateLayoutEvent, GetFlags)
 
 Gura_DeclareMethod(wx_CalculateLayoutEvent, GetRect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_CalculateLayoutEvent, GetRect)
 
 Gura_DeclareMethod(wx_CalculateLayoutEvent, SetFlags)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_CalculateLayoutEvent, SetFlags)
 
 Gura_DeclareMethod(wx_CalculateLayoutEvent, SetRect)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 }
 

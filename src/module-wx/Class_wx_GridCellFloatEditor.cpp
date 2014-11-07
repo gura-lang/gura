@@ -38,7 +38,7 @@ void wx_GridCellFloatEditor::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GridCellFloatEditor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellFloatEditor));
 	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "precision", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(GridCellFloatEditor)
 
 Gura_DeclareMethod(wx_GridCellFloatEditor, SetParameters)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "params", VTYPE_string, OCCUR_Once);
 }
 

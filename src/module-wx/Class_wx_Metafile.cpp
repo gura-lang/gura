@@ -38,7 +38,7 @@ void wx_Metafile::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(Metafile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Metafile));
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(Metafile)
 
 Gura_DeclareMethod(wx_Metafile, Ok)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_Metafile, Ok)
 
 Gura_DeclareMethod(wx_Metafile, Play)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_Metafile, Play)
 
 Gura_DeclareMethod(wx_Metafile, SetClipboard)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);

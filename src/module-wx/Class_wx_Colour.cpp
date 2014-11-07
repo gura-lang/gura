@@ -41,7 +41,7 @@ void wx_Colour::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ColourEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Colour));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -63,7 +63,7 @@ Gura_ImplementFunction(ColourEmpty)
 
 Gura_DeclareFunction(Colour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Colour));
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "green", VTYPE_number, OCCUR_Once);
@@ -94,7 +94,7 @@ Gura_ImplementFunction(Colour)
 
 Gura_DeclareFunction(NamedColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Colour));
 	DeclareArg(env, "colourName", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -118,7 +118,7 @@ Gura_ImplementFunction(NamedColour)
 
 Gura_DeclareMethod(wx_Colour, Alpha)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_Colour, Alpha)
 
 Gura_DeclareMethod(wx_Colour, Blue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_Colour, Blue)
 
 Gura_DeclareMethod(wx_Colour, GetAsString)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_Colour, GetAsString)
 #if 0
 Gura_DeclareMethod(wx_Colour, GetPixel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_Colour, GetPixel)
 
 Gura_DeclareMethod(wx_Colour, Green)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_Colour, Green)
 
 Gura_DeclareMethod(wx_Colour, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_Colour, IsOk)
 
 Gura_DeclareMethod(wx_Colour, Red)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_Colour, Red)
 
 Gura_DeclareMethod(wx_Colour, Set)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "green", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "blue", VTYPE_number, OCCUR_Once);
@@ -242,7 +242,7 @@ Gura_ImplementMethod(wx_Colour, Set)
 
 Gura_DeclareMethod(wx_Colour, SetRGB)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "RGB", VTYPE_number, OCCUR_Once);
 }
 
@@ -257,7 +257,7 @@ Gura_ImplementMethod(wx_Colour, SetRGB)
 
 Gura_DeclareMethod(wx_Colour, SetFromName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

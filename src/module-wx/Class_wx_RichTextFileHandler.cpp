@@ -38,7 +38,7 @@ void wx_RichTextFileHandler::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(RichTextFileHandler)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_RichTextFileHandler));
 	DeclareArg(env, "name", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -75,7 +75,7 @@ Gura_ImplementFunction(RichTextFileHandler)
 
 Gura_DeclareMethod(wx_RichTextFileHandler, CanHandle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, CanHandle)
 
 Gura_DeclareMethod(wx_RichTextFileHandler, CanLoad)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, CanLoad)
 
 Gura_DeclareMethod(wx_RichTextFileHandler, CanSave)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, CanSave)
 
 Gura_DeclareMethod(wx_RichTextFileHandler, DoLoadFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buffer", VTYPE_wx_RichTextBuffer, OCCUR_Once);
 	DeclareArg(env, "stream", VTYPE_wx_InputStream, OCCUR_Once);
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, DoLoadFile)
 
 Gura_DeclareMethod(wx_RichTextFileHandler, DoSaveFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buffer", VTYPE_wx_RichTextBuffer, OCCUR_Once);
 	DeclareArg(env, "stream", VTYPE_wx_OutputStream, OCCUR_Once);
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, DoSaveFile)
 
 Gura_DeclareMethod(wx_RichTextFileHandler, GetEncoding)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, GetEncoding)
 
 Gura_DeclareMethod(wx_RichTextFileHandler, GetExtension)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, GetExtension)
 
 Gura_DeclareMethod(wx_RichTextFileHandler, GetFlags)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, GetFlags)
 
 Gura_DeclareMethod(wx_RichTextFileHandler, GetName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -223,7 +223,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, GetName)
 
 Gura_DeclareMethod(wx_RichTextFileHandler, GetType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -237,7 +237,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, GetType)
 
 Gura_DeclareMethod(wx_RichTextFileHandler, IsVisible)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -251,7 +251,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, IsVisible)
 
 Gura_DeclareMethod(wx_RichTextFileHandler, LoadFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "buffer", VTYPE_wx_RichTextBuffer, OCCUR_Once);
 	DeclareArg(env, "stream", VTYPE_wx_InputStream, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, LoadFile)
 
 Gura_DeclareMethod(wx_RichTextFileHandler, LoadFile_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "buffer", VTYPE_wx_RichTextBuffer, OCCUR_Once);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -287,7 +287,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, LoadFile_1)
 
 Gura_DeclareMethod(wx_RichTextFileHandler, SaveFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "buffer", VTYPE_wx_RichTextBuffer, OCCUR_Once);
 	DeclareArg(env, "stream", VTYPE_wx_OutputStream, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -305,7 +305,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, SaveFile)
 
 Gura_DeclareMethod(wx_RichTextFileHandler, SaveFile_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "buffer", VTYPE_wx_RichTextBuffer, OCCUR_Once);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -323,7 +323,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, SaveFile_1)
 
 Gura_DeclareMethod(wx_RichTextFileHandler, SetEncoding)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "encoding", VTYPE_string, OCCUR_Once);
 }
 
@@ -338,7 +338,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, SetEncoding)
 
 Gura_DeclareMethod(wx_RichTextFileHandler, SetExtension)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "ext", VTYPE_string, OCCUR_Once);
 }
 
@@ -353,7 +353,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, SetExtension)
 
 Gura_DeclareMethod(wx_RichTextFileHandler, SetFlags)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
@@ -368,7 +368,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, SetFlags)
 
 Gura_DeclareMethod(wx_RichTextFileHandler, SetName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 }
 
@@ -383,7 +383,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, SetName)
 
 Gura_DeclareMethod(wx_RichTextFileHandler, SetType)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
@@ -398,7 +398,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, SetType)
 
 Gura_DeclareMethod(wx_RichTextFileHandler, SetVisible)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "visible", VTYPE_boolean, OCCUR_Once);
 }
 

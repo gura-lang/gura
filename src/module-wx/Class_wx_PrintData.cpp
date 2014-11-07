@@ -39,7 +39,7 @@ void wx_PrintData::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(PrintDataEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PrintData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(PrintDataEmpty)
 
 Gura_DeclareFunction(PrintData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_PrintData));
 	DeclareArg(env, "data", VTYPE_wx_PrintData, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -85,7 +85,7 @@ Gura_ImplementFunction(PrintData)
 
 Gura_DeclareMethod(wx_PrintData, GetCollate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_PrintData, GetCollate)
 
 Gura_DeclareMethod(wx_PrintData, GetBin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_PrintData, GetBin)
 
 Gura_DeclareMethod(wx_PrintData, GetColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_PrintData, GetColour)
 
 Gura_DeclareMethod(wx_PrintData, GetDuplex)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_PrintData, GetDuplex)
 
 Gura_DeclareMethod(wx_PrintData, GetNoCopies)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_PrintData, GetNoCopies)
 
 Gura_DeclareMethod(wx_PrintData, GetOrientation)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_PrintData, GetOrientation)
 
 Gura_DeclareMethod(wx_PrintData, GetPaperId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_PrintData, GetPaperId)
 
 Gura_DeclareMethod(wx_PrintData, GetPrinterName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_PrintData, GetPrinterName)
 
 Gura_DeclareMethod(wx_PrintData, GetQuality)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -211,7 +211,7 @@ Gura_ImplementMethod(wx_PrintData, GetQuality)
 
 Gura_DeclareMethod(wx_PrintData, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_PrintData, IsOk)
 
 Gura_DeclareMethod(wx_PrintData, SetBin)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 }
 
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_PrintData, SetBin)
 
 Gura_DeclareMethod(wx_PrintData, SetCollate)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_PrintData, SetCollate)
 
 Gura_DeclareMethod(wx_PrintData, SetColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -270,7 +270,7 @@ Gura_ImplementMethod(wx_PrintData, SetColour)
 
 Gura_DeclareMethod(wx_PrintData, SetDuplex)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_PrintData, SetDuplex)
 
 Gura_DeclareMethod(wx_PrintData, SetNoCopies)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -300,7 +300,7 @@ Gura_ImplementMethod(wx_PrintData, SetNoCopies)
 
 Gura_DeclareMethod(wx_PrintData, SetOrientation)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
 }
 
@@ -315,7 +315,7 @@ Gura_ImplementMethod(wx_PrintData, SetOrientation)
 
 Gura_DeclareMethod(wx_PrintData, SetPaperId)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "paperId", VTYPE_number, OCCUR_Once);
 }
 
@@ -330,7 +330,7 @@ Gura_ImplementMethod(wx_PrintData, SetPaperId)
 
 Gura_DeclareMethod(wx_PrintData, SetPrinterName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "printerName", VTYPE_string, OCCUR_Once);
 }
 
@@ -345,7 +345,7 @@ Gura_ImplementMethod(wx_PrintData, SetPrinterName)
 
 Gura_DeclareMethod(wx_PrintData, SetQuality)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "quality", VTYPE_number, OCCUR_Once);
 }
 

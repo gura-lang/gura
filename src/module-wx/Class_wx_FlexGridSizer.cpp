@@ -39,7 +39,7 @@ void wx_FlexGridSizer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FlexGridSizer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_FlexGridSizer));
 	DeclareArg(env, "rows", VTYPE_number, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "cols", VTYPE_number, OCCUR_Once);
@@ -77,7 +77,7 @@ Gura_ImplementFunction(FlexGridSizer)
 
 Gura_DeclareMethod(wx_FlexGridSizer, AddGrowableCol)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "proportion", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_FlexGridSizer, AddGrowableCol)
 
 Gura_DeclareMethod(wx_FlexGridSizer, AddGrowableRow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "proportion", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_FlexGridSizer, AddGrowableRow)
 
 Gura_DeclareMethod(wx_FlexGridSizer, GetFlexibleDirection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_FlexGridSizer, GetFlexibleDirection)
 
 Gura_DeclareMethod(wx_FlexGridSizer, GetNonFlexibleGrowMode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_FlexGridSizer, GetNonFlexibleGrowMode)
 
 Gura_DeclareMethod(wx_FlexGridSizer, RemoveGrowableCol)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 }
 
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_FlexGridSizer, RemoveGrowableCol)
 
 Gura_DeclareMethod(wx_FlexGridSizer, RemoveGrowableRow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 }
 
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_FlexGridSizer, RemoveGrowableRow)
 
 Gura_DeclareMethod(wx_FlexGridSizer, SetFlexibleDirection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 }
 
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_FlexGridSizer, SetFlexibleDirection)
 
 Gura_DeclareMethod(wx_FlexGridSizer, SetNonFlexibleGrowMode)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 

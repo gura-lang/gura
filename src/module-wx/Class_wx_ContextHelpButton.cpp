@@ -39,7 +39,7 @@ void wx_ContextHelpButton::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ContextHelpButtonEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_ContextHelpButton));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(ContextHelpButtonEmpty)
 
 Gura_DeclareFunction(ContextHelpButton)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ContextHelpButton));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);

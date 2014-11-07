@@ -40,7 +40,7 @@ void wx_FileOutputStream::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FileOutputStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_FileOutputStream));
 	DeclareArg(env, "ofileName", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -64,7 +64,7 @@ Gura_ImplementFunction(FileOutputStream)
 
 Gura_DeclareFunction(FileOutputStream_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_FileOutputStream));
 	DeclareArg(env, "file", VTYPE_wx_File, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -88,7 +88,7 @@ Gura_ImplementFunction(FileOutputStream_1)
 
 Gura_DeclareFunction(FileOutputStream_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_FileOutputStream));
 	DeclareArg(env, "fd", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -112,7 +112,7 @@ Gura_ImplementFunction(FileOutputStream_2)
 
 Gura_DeclareMethod(wx_FileOutputStream, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

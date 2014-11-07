@@ -39,7 +39,7 @@ void wx_RichTextEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(RichTextEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextEvent));
 	DeclareArg(env, "event", VTYPE_wx_RichTextEvent, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(RichTextEvent)
 
 Gura_DeclareFunction(RichTextEvent_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextEvent));
 	DeclareArg(env, "commandType", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "winid", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -91,7 +91,7 @@ Gura_ImplementFunction(RichTextEvent_1)
 
 Gura_DeclareMethod(wx_RichTextEvent, Clone)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_RichTextEvent, Clone)
 
 Gura_DeclareMethod(wx_RichTextEvent, GetCharacter)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_RichTextEvent, GetCharacter)
 
 Gura_DeclareMethod(wx_RichTextEvent, GetFlags)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_RichTextEvent, GetFlags)
 
 Gura_DeclareMethod(wx_RichTextEvent, GetNewStyleSheet)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_RichTextEvent, GetNewStyleSheet)
 
 Gura_DeclareMethod(wx_RichTextEvent, GetOldStyleSheet)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_RichTextEvent, GetOldStyleSheet)
 
 Gura_DeclareMethod(wx_RichTextEvent, GetPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_RichTextEvent, GetPosition)
 
 Gura_DeclareMethod(wx_RichTextEvent, GetRange)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_RichTextEvent, GetRange)
 
 Gura_DeclareMethod(wx_RichTextEvent, SetCharacter)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 }
 
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_RichTextEvent, SetCharacter)
 
 Gura_DeclareMethod(wx_RichTextEvent, SetFlags)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_RichTextEvent, SetFlags)
 
 Gura_DeclareMethod(wx_RichTextEvent, SetNewStyleSheet)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "sheet", VTYPE_wx_RichTextStyleSheet, OCCUR_Once);
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_RichTextEvent, SetNewStyleSheet)
 
 Gura_DeclareMethod(wx_RichTextEvent, SetOldStyleSheet)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "sheet", VTYPE_wx_RichTextStyleSheet, OCCUR_Once);
 }
 
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_RichTextEvent, SetOldStyleSheet)
 
 Gura_DeclareMethod(wx_RichTextEvent, SetPosition)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_RichTextEvent, SetPosition)
 
 Gura_DeclareMethod(wx_RichTextEvent, SetRange)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 }
 

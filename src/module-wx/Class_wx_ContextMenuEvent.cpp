@@ -38,7 +38,7 @@ void wx_ContextMenuEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ContextMenuEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ContextMenuEvent));
 	DeclareArg(env, "type", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(ContextMenuEvent)
 
 Gura_DeclareMethod(wx_ContextMenuEvent, GetPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_ContextMenuEvent, GetPosition)
 
 Gura_DeclareMethod(wx_ContextMenuEvent, SetPosition)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "point", VTYPE_wx_Point, OCCUR_Once);
 }
 

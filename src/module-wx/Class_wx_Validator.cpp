@@ -76,7 +76,7 @@ bool wx_Validator::TransferToWindow()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(Validator)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Validator));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -98,7 +98,7 @@ Gura_ImplementFunction(Validator)
 
 Gura_DeclareMethod(wx_Validator, Clone)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_Validator, Clone)
 
 Gura_DeclareMethod(wx_Validator, GetWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_Validator, GetWindow)
 
 Gura_DeclareClassMethod(wx_Validator, IsSilent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_Validator, IsSilent)
 
 Gura_DeclareClassMethod(wx_Validator, SetBellOnError)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "doIt", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_Validator, SetBellOnError)
 
 Gura_DeclareMethod(wx_Validator, SetWindow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 }
 
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_Validator, SetWindow)
 
 Gura_DeclareMethod(wx_Validator, TransferToWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_Validator, TransferToWindow)
 
 Gura_DeclareMethod(wx_Validator, TransferToWindow_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_Validator, TransferToWindow_1)
 
 Gura_DeclareMethod(wx_Validator, Validate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

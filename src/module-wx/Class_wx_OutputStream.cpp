@@ -38,7 +38,7 @@ void wx_OutputStream::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(OutputStreamEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_OutputStream));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(OutputStreamEmpty)
 
 Gura_DeclareMethod(wx_OutputStream, Close)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_OutputStream, Close)
 
 Gura_DeclareMethod(wx_OutputStream, LastWrite)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_OutputStream, LastWrite)
 
 Gura_DeclareMethod(wx_OutputStream, PutC)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 #endif
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_OutputStream, PutC)
 
 Gura_DeclareMethod(wx_OutputStream, SeekO)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_OutputStream, SeekO)
 
 Gura_DeclareMethod(wx_OutputStream, TellO)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_OutputStream, TellO)
 
 Gura_DeclareMethod(wx_OutputStream, Write)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_OutputStream, Write)
 
 Gura_DeclareMethod(wx_OutputStream, Write_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "stream_in", VTYPE_wx_InputStream, OCCUR_Once);
 #endif

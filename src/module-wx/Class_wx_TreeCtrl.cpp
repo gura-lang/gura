@@ -102,7 +102,7 @@ void Iterator_TreeCtrl_ItemChildren::GatherFollower(Environment::Frame *pFrame, 
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(TreeCtrlEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TreeCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -124,7 +124,7 @@ Gura_ImplementFunction(TreeCtrlEmpty)
 
 Gura_DeclareFunction(TreeCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_TreeCtrl));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -165,7 +165,7 @@ Gura_ImplementFunction(TreeCtrl)
 
 Gura_DeclareMethod(wx_TreeCtrl, AddRoot)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "image", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "selImage", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_TreeCtrl, AddRoot)
 
 Gura_DeclareMethod(wx_TreeCtrl, AppendItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "image", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_TreeCtrl, AppendItem)
 
 Gura_DeclareMethod(wx_TreeCtrl, AssignImageList)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "imageList", VTYPE_wx_ImageList, OCCUR_Once);
 }
 
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_TreeCtrl, AssignImageList)
 
 Gura_DeclareMethod(wx_TreeCtrl, AssignStateImageList)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "imageList", VTYPE_wx_ImageList, OCCUR_Once);
 }
 
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_TreeCtrl, AssignStateImageList)
 
 Gura_DeclareMethod(wx_TreeCtrl, Collapse)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 }
 
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_TreeCtrl, Collapse)
 
 Gura_DeclareMethod(wx_TreeCtrl, CollapseAll)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeCtrl, CollapseAll)
@@ -277,7 +277,7 @@ Gura_ImplementMethod(wx_TreeCtrl, CollapseAll)
 
 Gura_DeclareMethod(wx_TreeCtrl, CollapseAllChildren)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 }
 
@@ -292,7 +292,7 @@ Gura_ImplementMethod(wx_TreeCtrl, CollapseAllChildren)
 
 Gura_DeclareMethod(wx_TreeCtrl, CollapseAndReset)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 }
 
@@ -307,7 +307,7 @@ Gura_ImplementMethod(wx_TreeCtrl, CollapseAndReset)
 
 Gura_DeclareMethod(wx_TreeCtrl, Delete)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 }
 
@@ -322,7 +322,7 @@ Gura_ImplementMethod(wx_TreeCtrl, Delete)
 
 Gura_DeclareMethod(wx_TreeCtrl, DeleteAllItems)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeCtrl, DeleteAllItems)
@@ -335,7 +335,7 @@ Gura_ImplementMethod(wx_TreeCtrl, DeleteAllItems)
 
 Gura_DeclareMethod(wx_TreeCtrl, DeleteChildren)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 }
 
@@ -350,7 +350,7 @@ Gura_ImplementMethod(wx_TreeCtrl, DeleteChildren)
 
 Gura_DeclareMethod(wx_TreeCtrl, EditLabel)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 }
 
@@ -365,7 +365,7 @@ Gura_ImplementMethod(wx_TreeCtrl, EditLabel)
 
 Gura_DeclareMethod(wx_TreeCtrl, EndEditLabel)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "cancelEdit", VTYPE_boolean, OCCUR_Once);
 #endif
@@ -386,7 +386,7 @@ Gura_ImplementMethod(wx_TreeCtrl, EndEditLabel)
 
 Gura_DeclareMethod(wx_TreeCtrl, EnsureVisible)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 }
 
@@ -401,7 +401,7 @@ Gura_ImplementMethod(wx_TreeCtrl, EnsureVisible)
 
 Gura_DeclareMethod(wx_TreeCtrl, Expand)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 }
 
@@ -416,7 +416,7 @@ Gura_ImplementMethod(wx_TreeCtrl, Expand)
 
 Gura_DeclareMethod(wx_TreeCtrl, ExpandAll)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeCtrl, ExpandAll)
@@ -429,7 +429,7 @@ Gura_ImplementMethod(wx_TreeCtrl, ExpandAll)
 
 Gura_DeclareMethod(wx_TreeCtrl, ExpandAllChildren)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 }
 
@@ -444,7 +444,7 @@ Gura_ImplementMethod(wx_TreeCtrl, ExpandAllChildren)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetBoundingRect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareArg(env, "textOnly", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -468,7 +468,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetBoundingRect)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetChildrenCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareArg(env, "recursively", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -487,7 +487,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetChildrenCount)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -501,7 +501,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetCount)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetEditControl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -515,7 +515,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetEditControl)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetFirstChild)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -534,7 +534,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetFirstChild)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetFirstVisibleItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -548,7 +548,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetFirstVisibleItem)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetImageList)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -562,7 +562,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetImageList)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetIndent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -576,7 +576,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetIndent)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetSpacing)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -590,7 +590,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetSpacing)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetItemBackgroundColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -606,7 +606,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetItemBackgroundColour)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetItemData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -625,7 +625,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetItemData)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetGuraData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -643,7 +643,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetGuraData)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetItemChildren)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -662,7 +662,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetItemChildren)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetItemFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -678,7 +678,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetItemFont)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetItemImage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareArg(env, "which", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -697,7 +697,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetItemImage)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetItemText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -713,7 +713,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetItemText)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetItemTextColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -729,7 +729,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetItemTextColour)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetLastChild)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -745,7 +745,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetLastChild)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetNextChild)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareArg(env, "cookie", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -765,7 +765,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetNextChild)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetNextSibling)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -781,7 +781,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetNextSibling)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetNextVisible)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -797,7 +797,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetNextVisible)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetItemParent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -813,7 +813,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetItemParent)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetPrevSibling)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -829,7 +829,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetPrevSibling)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetPrevVisible)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -845,7 +845,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetPrevVisible)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetQuickBestSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -859,7 +859,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetQuickBestSize)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetRootItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -873,7 +873,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetRootItem)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -887,7 +887,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetSelection)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetSelections)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -908,7 +908,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetSelections)
 
 Gura_DeclareMethod(wx_TreeCtrl, GetStateImageList)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -922,7 +922,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetStateImageList)
 
 Gura_DeclareMethod(wx_TreeCtrl, HitTest)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "point", VTYPE_wx_Point, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -940,7 +940,7 @@ Gura_ImplementMethod(wx_TreeCtrl, HitTest)
 
 Gura_DeclareMethod(wx_TreeCtrl, InsertItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareArg(env, "previous", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
@@ -969,7 +969,7 @@ Gura_ImplementMethod(wx_TreeCtrl, InsertItem)
 
 Gura_DeclareMethod(wx_TreeCtrl, InsertItemBefore)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareArg(env, "before", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
@@ -998,7 +998,7 @@ Gura_ImplementMethod(wx_TreeCtrl, InsertItemBefore)
 
 Gura_DeclareMethod(wx_TreeCtrl, IsBold)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1014,7 +1014,7 @@ Gura_ImplementMethod(wx_TreeCtrl, IsBold)
 
 Gura_DeclareMethod(wx_TreeCtrl, IsEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1028,7 +1028,7 @@ Gura_ImplementMethod(wx_TreeCtrl, IsEmpty)
 
 Gura_DeclareMethod(wx_TreeCtrl, IsExpanded)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1044,7 +1044,7 @@ Gura_ImplementMethod(wx_TreeCtrl, IsExpanded)
 
 Gura_DeclareMethod(wx_TreeCtrl, IsSelected)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1060,7 +1060,7 @@ Gura_ImplementMethod(wx_TreeCtrl, IsSelected)
 
 Gura_DeclareMethod(wx_TreeCtrl, IsVisible)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1076,7 +1076,7 @@ Gura_ImplementMethod(wx_TreeCtrl, IsVisible)
 
 Gura_DeclareMethod(wx_TreeCtrl, ItemHasChildren)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1092,7 +1092,7 @@ Gura_ImplementMethod(wx_TreeCtrl, ItemHasChildren)
 
 Gura_DeclareMethod(wx_TreeCtrl, OnCompareItems)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item1", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareArg(env, "item2", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1110,7 +1110,7 @@ Gura_ImplementMethod(wx_TreeCtrl, OnCompareItems)
 
 Gura_DeclareMethod(wx_TreeCtrl, PrependItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "image", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1137,7 +1137,7 @@ Gura_ImplementMethod(wx_TreeCtrl, PrependItem)
 
 Gura_DeclareMethod(wx_TreeCtrl, ScrollTo)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 }
 
@@ -1152,7 +1152,7 @@ Gura_ImplementMethod(wx_TreeCtrl, ScrollTo)
 
 Gura_DeclareMethod(wx_TreeCtrl, SelectItem)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareArg(env, "select", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
@@ -1170,7 +1170,7 @@ Gura_ImplementMethod(wx_TreeCtrl, SelectItem)
 
 Gura_DeclareMethod(wx_TreeCtrl, SetIndent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "indent", VTYPE_number, OCCUR_Once);
 }
 
@@ -1185,7 +1185,7 @@ Gura_ImplementMethod(wx_TreeCtrl, SetIndent)
 
 Gura_DeclareMethod(wx_TreeCtrl, SetSpacing)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "spacing", VTYPE_number, OCCUR_Once);
 }
 
@@ -1200,7 +1200,7 @@ Gura_ImplementMethod(wx_TreeCtrl, SetSpacing)
 
 Gura_DeclareMethod(wx_TreeCtrl, SetImageList)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "imageList", VTYPE_wx_ImageList, OCCUR_Once, FLAG_Nil);
 }
 
@@ -1216,7 +1216,7 @@ Gura_ImplementMethod(wx_TreeCtrl, SetImageList)
 
 Gura_DeclareMethod(wx_TreeCtrl, SetItemBackgroundColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_wx_Colour, OCCUR_Once);
 }
@@ -1233,7 +1233,7 @@ Gura_ImplementMethod(wx_TreeCtrl, SetItemBackgroundColour)
 
 Gura_DeclareMethod(wx_TreeCtrl, SetItemBold)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareArg(env, "bold", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
@@ -1251,7 +1251,7 @@ Gura_ImplementMethod(wx_TreeCtrl, SetItemBold)
 
 Gura_DeclareMethod(wx_TreeCtrl, SetItemData)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareArg(env, "data", VTYPE_wx_TreeItemData, OCCUR_Once);
 }
@@ -1268,7 +1268,7 @@ Gura_ImplementMethod(wx_TreeCtrl, SetItemData)
 
 Gura_DeclareMethod(wx_TreeCtrl, SetGuraData)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareArg(env, "data", VTYPE_any, OCCUR_Once);
 }
@@ -1285,7 +1285,7 @@ Gura_ImplementMethod(wx_TreeCtrl, SetGuraData)
 
 Gura_DeclareMethod(wx_TreeCtrl, SetItemDropHighlight)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareArg(env, "highlight", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
@@ -1303,7 +1303,7 @@ Gura_ImplementMethod(wx_TreeCtrl, SetItemDropHighlight)
 
 Gura_DeclareMethod(wx_TreeCtrl, SetItemFont)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 }
@@ -1320,7 +1320,7 @@ Gura_ImplementMethod(wx_TreeCtrl, SetItemFont)
 
 Gura_DeclareMethod(wx_TreeCtrl, SetItemHasChildren)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareArg(env, "hasChildren", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
@@ -1338,7 +1338,7 @@ Gura_ImplementMethod(wx_TreeCtrl, SetItemHasChildren)
 
 Gura_DeclareMethod(wx_TreeCtrl, SetItemImage)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "which", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1358,7 +1358,7 @@ Gura_ImplementMethod(wx_TreeCtrl, SetItemImage)
 
 Gura_DeclareMethod(wx_TreeCtrl, SetItemText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 }
@@ -1375,7 +1375,7 @@ Gura_ImplementMethod(wx_TreeCtrl, SetItemText)
 
 Gura_DeclareMethod(wx_TreeCtrl, SetItemTextColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_wx_Colour, OCCUR_Once);
 }
@@ -1392,7 +1392,7 @@ Gura_ImplementMethod(wx_TreeCtrl, SetItemTextColour)
 
 Gura_DeclareMethod(wx_TreeCtrl, SetQuickBestSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "quickBestSize", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -1407,7 +1407,7 @@ Gura_ImplementMethod(wx_TreeCtrl, SetQuickBestSize)
 
 Gura_DeclareMethod(wx_TreeCtrl, SetStateImageList)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "imageList", VTYPE_wx_ImageList, OCCUR_Once);
 }
 
@@ -1422,7 +1422,7 @@ Gura_ImplementMethod(wx_TreeCtrl, SetStateImageList)
 
 Gura_DeclareMethod(wx_TreeCtrl, SetWindowStyle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "styles", VTYPE_number, OCCUR_Once);
 }
 
@@ -1437,7 +1437,7 @@ Gura_ImplementMethod(wx_TreeCtrl, SetWindowStyle)
 
 Gura_DeclareMethod(wx_TreeCtrl, SortChildren)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 }
 
@@ -1452,7 +1452,7 @@ Gura_ImplementMethod(wx_TreeCtrl, SortChildren)
 
 Gura_DeclareMethod(wx_TreeCtrl, Toggle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 }
 
@@ -1467,7 +1467,7 @@ Gura_ImplementMethod(wx_TreeCtrl, Toggle)
 
 Gura_DeclareMethod(wx_TreeCtrl, ToggleItemSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 }
 
@@ -1482,7 +1482,7 @@ Gura_ImplementMethod(wx_TreeCtrl, ToggleItemSelection)
 
 Gura_DeclareMethod(wx_TreeCtrl, Unselect)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeCtrl, Unselect)
@@ -1495,7 +1495,7 @@ Gura_ImplementMethod(wx_TreeCtrl, Unselect)
 
 Gura_DeclareMethod(wx_TreeCtrl, UnselectAll)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeCtrl, UnselectAll)
@@ -1508,7 +1508,7 @@ Gura_ImplementMethod(wx_TreeCtrl, UnselectAll)
 
 Gura_DeclareMethod(wx_TreeCtrl, UnselectItem)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
 }
 

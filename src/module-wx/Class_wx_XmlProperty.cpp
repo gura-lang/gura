@@ -39,7 +39,7 @@ void wx_XmlProperty::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(XmlPropertyEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_XmlProperty));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(XmlPropertyEmpty)
 
 Gura_DeclareFunction(XmlProperty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_XmlProperty));
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
@@ -90,7 +90,7 @@ Gura_ImplementFunction(XmlProperty)
 
 Gura_DeclareMethod(wx_XmlProperty, GetName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_XmlProperty, GetName)
 
 Gura_DeclareMethod(wx_XmlProperty, GetNext)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_XmlProperty, GetNext)
 
 Gura_DeclareMethod(wx_XmlProperty, GetValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_XmlProperty, GetValue)
 
 Gura_DeclareMethod(wx_XmlProperty, SetName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 }
 
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_XmlProperty, SetName)
 
 Gura_DeclareMethod(wx_XmlProperty, SetNext)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "next", VTYPE_wx_XmlProperty, OCCUR_Once);
 }
 
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_XmlProperty, SetNext)
 
 Gura_DeclareMethod(wx_XmlProperty, SetValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
 }
 

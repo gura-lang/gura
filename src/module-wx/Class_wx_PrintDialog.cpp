@@ -38,7 +38,7 @@ void wx_PrintDialog::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(PrintDialog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_PrintDialog));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "data", VTYPE_wx_PrintDialogData, OCCUR_ZeroOrOnce);
@@ -65,7 +65,7 @@ Gura_ImplementFunction(PrintDialog)
 
 Gura_DeclareMethod(wx_PrintDialog, GetPrintDialogData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_PrintDialog, GetPrintDialogData)
 
 Gura_DeclareMethod(wx_PrintDialog, GetPrintDC)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_PrintDialog, GetPrintDC)
 
 Gura_DeclareMethod(wx_PrintDialog, ShowModal)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

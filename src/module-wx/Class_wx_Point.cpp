@@ -39,7 +39,7 @@ void wx_Point::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(PointEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Point));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(PointEmpty)
 
 Gura_DeclareFunction(Point)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Point));
 	DeclareArg(env, "x", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_ZeroOrOnce);

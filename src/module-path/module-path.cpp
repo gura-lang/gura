@@ -11,7 +11,7 @@ Gura_BeginModuleBody(path)
 // path.stat(directory:directory):map
 Gura_DeclareFunction(stat)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "directory", VTYPE_directory);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Returns a stat object associated with the specified item.");
@@ -28,7 +28,7 @@ Gura_ImplementFunction(stat)
 // path.exists(pathname:string):map
 Gura_DeclareFunction(exists)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns true if the specified file exists in a file system.");
 }
@@ -43,7 +43,7 @@ Gura_ImplementFunction(exists)
 // path.dir(directory?:directory, pattern*:string):map:flat:[stat,file,dir] {block?}
 Gura_DeclareFunction(dir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map | FLAG_Flat);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map | FLAG_Flat);
 	DeclareArg(env, "directory", VTYPE_directory, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pattern", VTYPE_string, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -82,7 +82,7 @@ Gura_ImplementFunction(dir)
 // path.walk(directory?:directory, maxdepth?:number, pattern*:string):map:flat:[stat,file,dir] {block?}
 Gura_DeclareFunction(walk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map | FLAG_Flat);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map | FLAG_Flat);
 	DeclareArg(env, "directory", VTYPE_directory, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "maxdepth", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pattern", VTYPE_string, OCCUR_ZeroOrMore);
@@ -122,7 +122,7 @@ Gura_ImplementFunction(walk)
 // path.glob(pattern:string):map:flat:[stat,file,dir] {block?}
 Gura_DeclareFunction(glob)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map | FLAG_Flat);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map | FLAG_Flat);
 	DeclareArg(env, "pattern", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(stat));
@@ -152,7 +152,7 @@ Gura_ImplementFunction(glob)
 // path.match(pattern:string, name:string):map
 Gura_DeclareFunction(match)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pattern", VTYPE_string);
 	DeclareArg(env, "name", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
@@ -171,7 +171,7 @@ Gura_ImplementFunction(match)
 // path.split(pathname:string):map:[bottom]
 Gura_DeclareFunction(split)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	DeclareAttr(Gura_Symbol(bottom));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
@@ -198,7 +198,7 @@ Gura_ImplementFunction(split)
 // path.dirname(pathname:string):map
 Gura_DeclareFunction(dirname)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Splits a pathname by a directory separator and returns a directory name part.");
@@ -214,7 +214,7 @@ Gura_ImplementFunction(dirname)
 // path.filename(pathname:string):map
 Gura_DeclareFunction(filename)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Splits a pathname by a directory separator and returns a file name part.");
@@ -230,7 +230,7 @@ Gura_ImplementFunction(filename)
 // path.bottom(pathname:string):map
 Gura_DeclareFunction(bottom)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Returns the last part of a path name.");
@@ -246,7 +246,7 @@ Gura_ImplementFunction(bottom)
 // path.cutbottom(pathname:string):map
 Gura_DeclareFunction(cutbottom)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Returns a path name after eliminating its bottom part.");
@@ -262,7 +262,7 @@ Gura_ImplementFunction(cutbottom)
 // path.absname(name:string):map:[uri]
 Gura_DeclareFunction(absname)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareAttr(Gura_Symbol(uri));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an absolute path name of the given name.");
@@ -277,7 +277,7 @@ Gura_ImplementFunction(absname)
 // path.regulate(name:string):map:[uri]
 Gura_DeclareFunction(regulate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareAttr(Gura_Symbol(uri));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a regulated path name of the given name.");
@@ -294,7 +294,7 @@ Gura_ImplementFunction(regulate)
 // path.join(paths+:string):map:[uri]
 Gura_DeclareFunction(join)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "paths", VTYPE_string, OCCUR_OnceOrMore);
 	DeclareAttr(Gura_Symbol(uri));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a path name that joins given strings with directory separators.");
@@ -314,7 +314,7 @@ Gura_ImplementFunction(join)
 // path.splitext(pathname:string):map
 Gura_DeclareFunction(splitext)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Splits a pathname by a dot character indicating a beginning of an extension\n"
@@ -337,7 +337,7 @@ Gura_ImplementFunction(splitext)
 // path.basename(pathname:string):map
 Gura_DeclareFunction(basename)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Removes a suffix part of a path name.");
@@ -354,7 +354,7 @@ Gura_ImplementFunction(basename)
 // path.extname(pathname:string):map
 Gura_DeclareFunction(extname)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Extracts a suffix part of a path name.");

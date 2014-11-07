@@ -38,7 +38,7 @@ void wx_JoystickEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(JoystickEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_JoystickEvent));
 	DeclareArg(env, "eventType", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "state", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -72,7 +72,7 @@ Gura_ImplementFunction(JoystickEvent)
 
 Gura_DeclareMethod(wx_JoystickEvent, ButtonDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "button", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_JoystickEvent, ButtonDown)
 
 Gura_DeclareMethod(wx_JoystickEvent, ButtonIsDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "button", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_JoystickEvent, ButtonIsDown)
 
 Gura_DeclareMethod(wx_JoystickEvent, ButtonUp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "button", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_JoystickEvent, ButtonUp)
 
 Gura_DeclareMethod(wx_JoystickEvent, GetButtonChange)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_JoystickEvent, GetButtonChange)
 
 Gura_DeclareMethod(wx_JoystickEvent, GetButtonState)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_JoystickEvent, GetButtonState)
 
 Gura_DeclareMethod(wx_JoystickEvent, GetJoystick)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_JoystickEvent, GetJoystick)
 
 Gura_DeclareMethod(wx_JoystickEvent, GetPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_JoystickEvent, GetPosition)
 
 Gura_DeclareMethod(wx_JoystickEvent, GetZPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_JoystickEvent, GetZPosition)
 
 Gura_DeclareMethod(wx_JoystickEvent, IsButton)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -207,7 +207,7 @@ Gura_ImplementMethod(wx_JoystickEvent, IsButton)
 
 Gura_DeclareMethod(wx_JoystickEvent, IsMove)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -221,7 +221,7 @@ Gura_ImplementMethod(wx_JoystickEvent, IsMove)
 
 Gura_DeclareMethod(wx_JoystickEvent, IsZMove)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

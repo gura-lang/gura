@@ -39,7 +39,7 @@ void wx_HashSet::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HashSet)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_HashSet));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(HashSet)
 
 Gura_DeclareFunction(HashSet_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_HashSet));
 	DeclareArg(env, "set", VTYPE_wx_HashSet, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -85,7 +85,7 @@ Gura_ImplementFunction(HashSet_1)
 
 Gura_DeclareMethod(wx_HashSet, begin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_HashSet, begin)
 
 Gura_DeclareMethod(wx_HashSet, begin_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_HashSet, begin_1)
 
 Gura_DeclareMethod(wx_HashSet, clear)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HashSet, clear)
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_HashSet, clear)
 
 Gura_DeclareMethod(wx_HashSet, count)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_HashSet, count)
 
 Gura_DeclareMethod(wx_HashSet, empty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_HashSet, empty)
 
 Gura_DeclareMethod(wx_HashSet, end)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_HashSet, end)
 
 Gura_DeclareMethod(wx_HashSet, end_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_HashSet, end_1)
 
 Gura_DeclareMethod(wx_HashSet, erase)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_HashSet, erase)
 
 Gura_DeclareMethod(wx_HashSet, erase_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementMethod(wx_HashSet, erase_1)
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_HashSet, erase_1)
 
 Gura_DeclareMethod(wx_HashSet, erase_2)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementMethod(wx_HashSet, erase_2)
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_HashSet, erase_2)
 
 Gura_DeclareMethod(wx_HashSet, find)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_HashSet, find)
 
 Gura_DeclareMethod(wx_HashSet, find_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_HashSet, find_1)
 
 Gura_DeclareMethod(wx_HashSet, insert)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -246,7 +246,7 @@ Gura_ImplementMethod(wx_HashSet, insert)
 
 Gura_DeclareMethod(wx_HashSet, size)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

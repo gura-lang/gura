@@ -39,7 +39,7 @@ void wx_RealPoint::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(RealPointEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RealPoint));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(RealPointEmpty)
 
 Gura_DeclareFunction(RealPoint)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_RealPoint));
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);

@@ -38,7 +38,7 @@ void wx_BusyInfo::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(BusyInfo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_BusyInfo));
 	DeclareArg(env, "msg", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_ZeroOrOnce);

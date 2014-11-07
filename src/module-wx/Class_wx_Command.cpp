@@ -38,7 +38,7 @@ void wx_Command::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(Command)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_Command));
 	DeclareArg(env, "canUndo", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -72,7 +72,7 @@ Gura_ImplementFunction(Command)
 
 Gura_DeclareMethod(wx_Command, CanUndo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_Command, CanUndo)
 
 Gura_DeclareMethod(wx_Command, Do)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_Command, Do)
 
 Gura_DeclareMethod(wx_Command, GetName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_Command, GetName)
 
 Gura_DeclareMethod(wx_Command, Undo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

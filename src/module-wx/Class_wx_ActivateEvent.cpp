@@ -38,7 +38,7 @@ void wx_ActivateEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ActivateEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ActivateEvent));
 	DeclareArg(env, "eventType", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "active", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(ActivateEvent)
 
 Gura_DeclareMethod(wx_ActivateEvent, GetActive)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

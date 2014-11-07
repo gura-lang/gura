@@ -38,7 +38,7 @@ void wx_HtmlHelpData::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HtmlHelpDataEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlHelpData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(HtmlHelpDataEmpty)
 
 Gura_DeclareMethod(wx_HtmlHelpData, AddBook)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "book_url", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_HtmlHelpData, AddBook)
 
 Gura_DeclareMethod(wx_HtmlHelpData, FindPageById)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_HtmlHelpData, FindPageById)
 
 Gura_DeclareMethod(wx_HtmlHelpData, FindPageByName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_HtmlHelpData, FindPageByName)
 
 Gura_DeclareMethod(wx_HtmlHelpData, GetBookRecArray)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_HtmlHelpData, GetBookRecArray)
 
 Gura_DeclareMethod(wx_HtmlHelpData, GetContentsArray)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_HtmlHelpData, GetContentsArray)
 
 Gura_DeclareMethod(wx_HtmlHelpData, GetIndexArray)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_HtmlHelpData, GetIndexArray)
 
 Gura_DeclareMethod(wx_HtmlHelpData, SetTempDir)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
 }
 

@@ -64,7 +64,7 @@ toff_t Handler::TiffSize(thandle_t fd)
 // image#tiffread(stream:stream:r):reduce
 Gura_DeclareMethod(image, tiffread)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Reads a TIFF image from a stream.");
 }
@@ -84,7 +84,7 @@ Gura_ImplementMethod(image, tiffread)
 // tiff.test(stream:stream:r)
 Gura_DeclareFunction(test)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 }
 

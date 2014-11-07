@@ -38,7 +38,7 @@ void wx_GridCellFloatRenderer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GridCellFloatRenderer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellFloatRenderer));
 	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "precision", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(GridCellFloatRenderer)
 
 Gura_DeclareMethod(wx_GridCellFloatRenderer, GetPrecision)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_GridCellFloatRenderer, GetPrecision)
 
 Gura_DeclareMethod(wx_GridCellFloatRenderer, GetWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_GridCellFloatRenderer, GetWidth)
 
 Gura_DeclareMethod(wx_GridCellFloatRenderer, SetParameters)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "params", VTYPE_string, OCCUR_Once);
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_GridCellFloatRenderer, SetParameters)
 
 Gura_DeclareMethod(wx_GridCellFloatRenderer, SetPrecision)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "precision", VTYPE_number, OCCUR_Once);
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_GridCellFloatRenderer, SetPrecision)
 
 Gura_DeclareMethod(wx_GridCellFloatRenderer, SetWidth)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 

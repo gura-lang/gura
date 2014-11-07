@@ -24,7 +24,7 @@ void wx_Object::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ObjectEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Object));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -46,7 +46,7 @@ Gura_ImplementFunction(ObjectEmpty)
 
 Gura_DeclareFunction(Object)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Object));
 	DeclareArg(env, "other", VTYPE_wx_Object, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -70,7 +70,7 @@ Gura_ImplementFunction(Object)
 
 Gura_DeclareFunction(ObjectEmpty_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Object));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -92,7 +92,7 @@ Gura_ImplementFunction(ObjectEmpty_1)
 
 Gura_DeclareMethod(wx_Object, Dump)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once);
 #endif
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_Object, Dump)
 
 Gura_DeclareMethod(wx_Object, GetClassInfo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_Object, GetClassInfo)
 
 Gura_DeclareMethod(wx_Object, GetRefData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_Object, GetRefData)
 
 Gura_DeclareMethod(wx_Object, IsKindOf)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "info", VTYPE_wx_ClassInfo, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_Object, IsKindOf)
 
 Gura_DeclareMethod(wx_Object, IsSameAs)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "obj", VTYPE_wx_Object, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_Object, IsSameAs)
 
 Gura_DeclareMethod(wx_Object, Ref)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "clone", VTYPE_wx_Object, OCCUR_Once);
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_Object, Ref)
 
 Gura_DeclareMethod(wx_Object, SetRefData)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "data", VTYPE_wx_ObjectRefData, OCCUR_Once);
 }
 
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_Object, SetRefData)
 
 Gura_DeclareMethod(wx_Object, UnRef)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Object, UnRef)
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_Object, UnRef)
 
 Gura_DeclareMethod(wx_Object, UnShare)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Object, UnShare)

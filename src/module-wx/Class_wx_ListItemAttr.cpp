@@ -39,7 +39,7 @@ void wx_ListItemAttr::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ListItemAttrEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ListItemAttr));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(ListItemAttrEmpty)
 
 Gura_DeclareFunction(ListItemAttr)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ListItemAttr));
 	DeclareArg(env, "colText", VTYPE_wx_Colour, OCCUR_Once);
 	DeclareArg(env, "colBack", VTYPE_wx_Colour, OCCUR_Once);
@@ -89,7 +89,7 @@ Gura_ImplementFunction(ListItemAttr)
 
 Gura_DeclareMethod(wx_ListItemAttr, GetBackgroundColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_ListItemAttr, GetBackgroundColour)
 
 Gura_DeclareMethod(wx_ListItemAttr, GetFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_ListItemAttr, GetFont)
 
 Gura_DeclareMethod(wx_ListItemAttr, GetTextColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_ListItemAttr, GetTextColour)
 
 Gura_DeclareMethod(wx_ListItemAttr, HasBackgroundColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_ListItemAttr, HasBackgroundColour)
 
 Gura_DeclareMethod(wx_ListItemAttr, HasFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_ListItemAttr, HasFont)
 
 Gura_DeclareMethod(wx_ListItemAttr, HasTextColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_ListItemAttr, HasTextColour)
 
 Gura_DeclareMethod(wx_ListItemAttr, SetBackgroundColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_ListItemAttr, SetBackgroundColour)
 
 Gura_DeclareMethod(wx_ListItemAttr, SetFont)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 }
 
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_ListItemAttr, SetFont)
 
 Gura_DeclareMethod(wx_ListItemAttr, SetTextColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 

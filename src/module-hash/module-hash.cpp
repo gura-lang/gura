@@ -72,7 +72,7 @@ String Object_accumulator::ToString(bool exprFlag)
 // accumulator#init():reduce
 Gura_DeclareMethod(accumulator, init)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 }
 
 Gura_ImplementMethod(accumulator, init)
@@ -85,7 +85,7 @@ Gura_ImplementMethod(accumulator, init)
 // accumulator#update(stream:stream:r):reduce
 Gura_DeclareMethod(accumulator, update)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 }
 
@@ -259,7 +259,7 @@ const Value &Accumulator_CRC32::GetValue()
 // hash.md5(stream?:stream:r) {block?}
 Gura_DeclareFunction(md5)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -276,7 +276,7 @@ Gura_ImplementFunction(md5)
 // hash.sha1(stream?:stream:r) {block?}
 Gura_DeclareFunction(sha1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -293,7 +293,7 @@ Gura_ImplementFunction(sha1)
 // hash.crc32(stream?:stream:r) {block?}
 Gura_DeclareFunction(crc32)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

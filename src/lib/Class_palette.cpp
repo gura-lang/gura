@@ -84,7 +84,7 @@ String Object_palette::ToString(bool exprFlag)
 // palette(type) {block?}
 Gura_DeclareFunction(palette)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "type", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_palette));
@@ -118,7 +118,7 @@ Gura_ImplementFunction(palette)
 // palette#each() {block?}
 Gura_DeclareMethod(palette, each)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Creates an iterator that iterates each element in the palette.\n"
@@ -136,7 +136,7 @@ Gura_ImplementMethod(palette, each)
 // palette#nearest(color:color):map:[index]
 Gura_DeclareMethod(palette, nearest)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "color", VTYPE_color);
 	DeclareAttr(Gura_Symbol(index));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an index of the nearest entry with the specified color.");
@@ -153,7 +153,7 @@ Gura_ImplementMethod(palette, nearest)
 // palette#shrink():reduce:[align]
 Gura_DeclareMethod(palette, shrink)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareAttr(Gura_Symbol(align));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Shrinks the size of the palette to a number powered by two that is\n"
@@ -171,7 +171,7 @@ Gura_ImplementMethod(palette, shrink)
 // palette#updateby(image_or_palette):reduce:[shrink,align]
 Gura_DeclareMethod(palette, updateby)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "image_or_palette", VTYPE_any);
 	DeclareAttr(Gura_Symbol(shrink));
 	DeclareAttr(Gura_Symbol(align));

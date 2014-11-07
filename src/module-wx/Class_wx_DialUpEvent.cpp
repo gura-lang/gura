@@ -38,7 +38,7 @@ void wx_DialUpEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DialUpEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DialUpEvent));
 	DeclareArg(env, "isConnected", VTYPE_boolean, OCCUR_Once);
 	DeclareArg(env, "isOwnEvent", VTYPE_boolean, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_ImplementFunction(DialUpEvent)
 
 Gura_DeclareMethod(wx_DialUpEvent, IsConnectedEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_DialUpEvent, IsConnectedEvent)
 
 Gura_DeclareMethod(wx_DialUpEvent, IsOwnEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

@@ -38,7 +38,7 @@ void wx_StringBuffer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(StringBuffer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_StringBuffer));
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_Once);

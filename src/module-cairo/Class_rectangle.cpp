@@ -86,7 +86,7 @@ String Object_rectangle::ToString(bool exprFlag)
 // cairo.rectangle(x?:number, y?:number, width?:number, height?:number) {block?}
 Gura_DeclareFunction(rectangle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);

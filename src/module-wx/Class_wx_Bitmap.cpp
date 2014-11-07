@@ -51,7 +51,7 @@ void wx_Bitmap::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(EmptyBitmap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -73,7 +73,7 @@ Gura_ImplementFunction(EmptyBitmap)
 
 Gura_DeclareFunction(Bitmap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
 	DeclareArg(env, "image", VTYPE_image, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -100,7 +100,7 @@ Gura_ImplementFunction(Bitmap)
 
 Gura_DeclareFunction(BitmapFromXPMData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
 	DeclareArg(env, "bits", VTYPE_string, OCCUR_Once, FLAG_List);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -130,7 +130,7 @@ Gura_ImplementFunction(BitmapFromXPMData)
 
 Gura_DeclareFunction(Bitmap_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
 	DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -169,7 +169,7 @@ Gura_ImplementFunction(Bitmap_1)
 
 Gura_DeclareFunction(BitmapFromBits)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
 	DeclareArg(env, "bits", VTYPE_binary, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -200,7 +200,7 @@ Gura_ImplementFunction(BitmapFromBits)
 
 Gura_DeclareFunction(BitmapWH)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
@@ -229,7 +229,7 @@ Gura_ImplementFunction(BitmapWH)
 
 Gura_DeclareFunction(BitmapFromFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -255,7 +255,7 @@ Gura_ImplementFunction(BitmapFromFile)
 
 Gura_DeclareFunction(BitmapFromIcon)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
 	DeclareArg(env, "icon", VTYPE_wx_Icon, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -279,7 +279,7 @@ Gura_ImplementFunction(BitmapFromIcon)
 
 Gura_DeclareFunction(BitmapFromImage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
 	DeclareArg(env, "img", VTYPE_wx_Image, OCCUR_Once);
 	DeclareArg(env, "depth", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -306,7 +306,7 @@ Gura_ImplementFunction(BitmapFromImage)
 
 Gura_DeclareClassMethod(wx_Bitmap, AddHandler)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "handler", VTYPE_wx_BitmapHandler, OCCUR_Once);
 }
 
@@ -320,7 +320,7 @@ Gura_ImplementClassMethod(wx_Bitmap, AddHandler)
 
 Gura_DeclareClassMethod(wx_Bitmap, CleanUpHandlers)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementClassMethod(wx_Bitmap, CleanUpHandlers)
@@ -332,7 +332,7 @@ Gura_ImplementClassMethod(wx_Bitmap, CleanUpHandlers)
 
 Gura_DeclareMethod(wx_Bitmap, ConvertToImage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -346,7 +346,7 @@ Gura_ImplementMethod(wx_Bitmap, ConvertToImage)
 
 Gura_DeclareMethod(wx_Bitmap, CopyFromIcon)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "icon", VTYPE_wx_Icon, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -362,7 +362,7 @@ Gura_ImplementMethod(wx_Bitmap, CopyFromIcon)
 
 Gura_DeclareMethod(wx_Bitmap, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "depth", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -383,7 +383,7 @@ Gura_ImplementMethod(wx_Bitmap, Create)
 
 Gura_DeclareMethod(wx_Bitmap, Create_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -414,7 +414,7 @@ Gura_ImplementMethod(wx_Bitmap, Create_1)
 
 Gura_DeclareClassMethod(wx_Bitmap, FindHandler)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -429,7 +429,7 @@ Gura_ImplementClassMethod(wx_Bitmap, FindHandler)
 
 Gura_DeclareClassMethod(wx_Bitmap, FindHandler_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "extension", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "bitmapType", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -446,7 +446,7 @@ Gura_ImplementClassMethod(wx_Bitmap, FindHandler_1)
 
 Gura_DeclareClassMethod(wx_Bitmap, FindHandler_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "bitmapType", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -461,7 +461,7 @@ Gura_ImplementClassMethod(wx_Bitmap, FindHandler_2)
 
 Gura_DeclareMethod(wx_Bitmap, GetDepth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -475,7 +475,7 @@ Gura_ImplementMethod(wx_Bitmap, GetDepth)
 
 Gura_DeclareClassMethod(wx_Bitmap, GetHandlers)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -488,7 +488,7 @@ Gura_ImplementClassMethod(wx_Bitmap, GetHandlers)
 
 Gura_DeclareMethod(wx_Bitmap, GetHeight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -502,7 +502,7 @@ Gura_ImplementMethod(wx_Bitmap, GetHeight)
 
 Gura_DeclareMethod(wx_Bitmap, GetPalette)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -516,7 +516,7 @@ Gura_ImplementMethod(wx_Bitmap, GetPalette)
 
 Gura_DeclareMethod(wx_Bitmap, GetMask)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -530,7 +530,7 @@ Gura_ImplementMethod(wx_Bitmap, GetMask)
 
 Gura_DeclareMethod(wx_Bitmap, GetWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -544,7 +544,7 @@ Gura_ImplementMethod(wx_Bitmap, GetWidth)
 
 Gura_DeclareMethod(wx_Bitmap, GetSubBitmap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -560,7 +560,7 @@ Gura_ImplementMethod(wx_Bitmap, GetSubBitmap)
 
 Gura_DeclareClassMethod(wx_Bitmap, InitStandardHandlers)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementClassMethod(wx_Bitmap, InitStandardHandlers)
@@ -572,7 +572,7 @@ Gura_ImplementClassMethod(wx_Bitmap, InitStandardHandlers)
 
 Gura_DeclareClassMethod(wx_Bitmap, InsertHandler)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "handler", VTYPE_wx_BitmapHandler, OCCUR_Once);
 }
 
@@ -586,7 +586,7 @@ Gura_ImplementClassMethod(wx_Bitmap, InsertHandler)
 
 Gura_DeclareMethod(wx_Bitmap, LoadFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -604,7 +604,7 @@ Gura_ImplementMethod(wx_Bitmap, LoadFile)
 
 Gura_DeclareMethod(wx_Bitmap, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -618,7 +618,7 @@ Gura_ImplementMethod(wx_Bitmap, IsOk)
 
 Gura_DeclareClassMethod(wx_Bitmap, RemoveHandler)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -633,7 +633,7 @@ Gura_ImplementClassMethod(wx_Bitmap, RemoveHandler)
 
 Gura_DeclareMethod(wx_Bitmap, SaveFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "palette", VTYPE_wx_Palette, OCCUR_ZeroOrOnce);
@@ -654,7 +654,7 @@ Gura_ImplementMethod(wx_Bitmap, SaveFile)
 
 Gura_DeclareMethod(wx_Bitmap, SetDepth)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "depth", VTYPE_number, OCCUR_Once);
 }
 
@@ -669,7 +669,7 @@ Gura_ImplementMethod(wx_Bitmap, SetDepth)
 
 Gura_DeclareMethod(wx_Bitmap, SetHeight)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
@@ -684,7 +684,7 @@ Gura_ImplementMethod(wx_Bitmap, SetHeight)
 
 Gura_DeclareMethod(wx_Bitmap, SetMask)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mask", VTYPE_wx_Mask, OCCUR_Once);
 }
 
@@ -699,7 +699,7 @@ Gura_ImplementMethod(wx_Bitmap, SetMask)
 
 Gura_DeclareMethod(wx_Bitmap, SetOk)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "isOk", VTYPE_number, OCCUR_Once);
 #endif
@@ -720,7 +720,7 @@ Gura_ImplementMethod(wx_Bitmap, SetOk)
 
 Gura_DeclareMethod(wx_Bitmap, SetPalette)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "palette", VTYPE_wx_Palette, OCCUR_Once);
 }
 
@@ -735,7 +735,7 @@ Gura_ImplementMethod(wx_Bitmap, SetPalette)
 
 Gura_DeclareMethod(wx_Bitmap, SetWidth)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 

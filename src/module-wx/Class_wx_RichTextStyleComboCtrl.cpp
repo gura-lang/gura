@@ -38,7 +38,7 @@ void wx_RichTextStyleComboCtrl::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(RichTextStyleComboCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextStyleComboCtrl));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -74,7 +74,7 @@ Gura_ImplementFunction(RichTextStyleComboCtrl)
 
 Gura_DeclareMethod(wx_RichTextStyleComboCtrl, GetRichTextCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -88,7 +88,7 @@ Gura_ImplementMethod(wx_RichTextStyleComboCtrl, GetRichTextCtrl)
 
 Gura_DeclareMethod(wx_RichTextStyleComboCtrl, GetStyleSheet)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_RichTextStyleComboCtrl, GetStyleSheet)
 
 Gura_DeclareMethod(wx_RichTextStyleComboCtrl, SetRichTextCtrl)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "ctrl", VTYPE_wx_RichTextCtrl, OCCUR_Once);
 }
 
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_RichTextStyleComboCtrl, SetRichTextCtrl)
 
 Gura_DeclareMethod(wx_RichTextStyleComboCtrl, SetStyleSheet)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "styleSheet", VTYPE_wx_RichTextStyleSheet, OCCUR_Once);
 }
 
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_RichTextStyleComboCtrl, SetStyleSheet)
 
 Gura_DeclareMethod(wx_RichTextStyleComboCtrl, UpdateStyles)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextStyleComboCtrl, UpdateStyles)

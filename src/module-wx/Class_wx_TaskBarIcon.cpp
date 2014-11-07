@@ -41,7 +41,7 @@ void wx_TaskBarIcon::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(TaskBarIconEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TaskBarIcon));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -63,7 +63,7 @@ Gura_ImplementFunction(TaskBarIconEmpty)
 
 Gura_DeclareMethod(wx_TaskBarIcon, CreatePopupMenu)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_TaskBarIcon, CreatePopupMenu)
 
 Gura_DeclareMethod(wx_TaskBarIcon, IsIconInstalled)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_TaskBarIcon, IsIconInstalled)
 
 Gura_DeclareMethod(wx_TaskBarIcon, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_TaskBarIcon, IsOk)
 
 Gura_DeclareMethod(wx_TaskBarIcon, PopupMenu)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "menu", VTYPE_wx_Menu, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_TaskBarIcon, PopupMenu)
 
 Gura_DeclareMethod(wx_TaskBarIcon, RemoveIcon)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_TaskBarIcon, RemoveIcon)
 
 Gura_DeclareMethod(wx_TaskBarIcon, SetIcon)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "icon", VTYPE_wx_Icon, OCCUR_Once);
 	DeclareArg(env, "tooltip", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);

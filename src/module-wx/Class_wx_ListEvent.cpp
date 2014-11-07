@@ -38,7 +38,7 @@ void wx_ListEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ListEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ListEvent));
 	DeclareArg(env, "commandType", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(ListEvent)
 
 Gura_DeclareMethod(wx_ListEvent, GetCacheFrom)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_ListEvent, GetCacheFrom)
 
 Gura_DeclareMethod(wx_ListEvent, GetCacheTo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_ListEvent, GetCacheTo)
 
 Gura_DeclareMethod(wx_ListEvent, GetKeyCode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_ListEvent, GetKeyCode)
 
 Gura_DeclareMethod(wx_ListEvent, GetIndex)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_ListEvent, GetIndex)
 
 Gura_DeclareMethod(wx_ListEvent, GetColumn)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_ListEvent, GetColumn)
 
 Gura_DeclareMethod(wx_ListEvent, GetPoint)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_ListEvent, GetPoint)
 
 Gura_DeclareMethod(wx_ListEvent, GetLabel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_ListEvent, GetLabel)
 
 Gura_DeclareMethod(wx_ListEvent, GetText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_ListEvent, GetText)
 
 Gura_DeclareMethod(wx_ListEvent, GetImage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_ListEvent, GetImage)
 
 Gura_DeclareMethod(wx_ListEvent, GetData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_ListEvent, GetData)
 
 Gura_DeclareMethod(wx_ListEvent, GetMask)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_ListEvent, GetMask)
 
 Gura_DeclareMethod(wx_ListEvent, GetItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_ListEvent, GetItem)
 
 Gura_DeclareMethod(wx_ListEvent, IsEditCancelled)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

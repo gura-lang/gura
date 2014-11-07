@@ -42,7 +42,7 @@ void wx_SizerItem::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(SizerItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_SizerItem));
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
@@ -76,7 +76,7 @@ Gura_ImplementFunction(SizerItem)
 
 Gura_DeclareFunction(SizerItem_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_SizerItem));
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_wx_SizerFlags, OCCUR_Once);
@@ -102,7 +102,7 @@ Gura_ImplementFunction(SizerItem_1)
 
 Gura_DeclareFunction(SizerItem_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_SizerItem));
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "proportion", VTYPE_number, OCCUR_Once);
@@ -134,7 +134,7 @@ Gura_ImplementFunction(SizerItem_2)
 
 Gura_DeclareFunction(SizerItem_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_SizerItem));
 	DeclareArg(env, "window", VTYPE_wx_Sizer, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_wx_SizerFlags, OCCUR_Once);
@@ -160,7 +160,7 @@ Gura_ImplementFunction(SizerItem_3)
 
 Gura_DeclareFunction(SizerItem_4)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_SizerItem));
 	DeclareArg(env, "sizer", VTYPE_wx_Sizer, OCCUR_Once);
 	DeclareArg(env, "proportion", VTYPE_number, OCCUR_Once);
@@ -192,7 +192,7 @@ Gura_ImplementFunction(SizerItem_4)
 
 Gura_DeclareMethod(wx_SizerItem, CalcMin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_SizerItem, CalcMin)
 
 Gura_DeclareMethod(wx_SizerItem, DeleteWindows)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SizerItem, DeleteWindows)
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_SizerItem, DeleteWindows)
 
 Gura_DeclareMethod(wx_SizerItem, DetachSizer)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SizerItem, DetachSizer)
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_SizerItem, DetachSizer)
 
 Gura_DeclareMethod(wx_SizerItem, GetBorder)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -246,7 +246,7 @@ Gura_ImplementMethod(wx_SizerItem, GetBorder)
 
 Gura_DeclareMethod(wx_SizerItem, GetFlag)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -260,7 +260,7 @@ Gura_ImplementMethod(wx_SizerItem, GetFlag)
 
 Gura_DeclareMethod(wx_SizerItem, GetMinSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -274,7 +274,7 @@ Gura_ImplementMethod(wx_SizerItem, GetMinSize)
 
 Gura_DeclareMethod(wx_SizerItem, GetPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -288,7 +288,7 @@ Gura_ImplementMethod(wx_SizerItem, GetPosition)
 
 Gura_DeclareMethod(wx_SizerItem, GetProportion)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -302,7 +302,7 @@ Gura_ImplementMethod(wx_SizerItem, GetProportion)
 
 Gura_DeclareMethod(wx_SizerItem, GetRatio)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -316,7 +316,7 @@ Gura_ImplementMethod(wx_SizerItem, GetRatio)
 
 Gura_DeclareMethod(wx_SizerItem, GetRect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -330,7 +330,7 @@ Gura_ImplementMethod(wx_SizerItem, GetRect)
 
 Gura_DeclareMethod(wx_SizerItem, GetSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -344,7 +344,7 @@ Gura_ImplementMethod(wx_SizerItem, GetSize)
 
 Gura_DeclareMethod(wx_SizerItem, GetSizer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -358,7 +358,7 @@ Gura_ImplementMethod(wx_SizerItem, GetSizer)
 
 Gura_DeclareMethod(wx_SizerItem, GetSpacer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -372,7 +372,7 @@ Gura_ImplementMethod(wx_SizerItem, GetSpacer)
 
 Gura_DeclareMethod(wx_SizerItem, GetUserData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -386,7 +386,7 @@ Gura_ImplementMethod(wx_SizerItem, GetUserData)
 
 Gura_DeclareMethod(wx_SizerItem, GetWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -400,7 +400,7 @@ Gura_ImplementMethod(wx_SizerItem, GetWindow)
 
 Gura_DeclareMethod(wx_SizerItem, IsSizer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -414,7 +414,7 @@ Gura_ImplementMethod(wx_SizerItem, IsSizer)
 
 Gura_DeclareMethod(wx_SizerItem, IsShown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -428,7 +428,7 @@ Gura_ImplementMethod(wx_SizerItem, IsShown)
 
 Gura_DeclareMethod(wx_SizerItem, IsSpacer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -442,7 +442,7 @@ Gura_ImplementMethod(wx_SizerItem, IsSpacer)
 
 Gura_DeclareMethod(wx_SizerItem, IsWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -456,7 +456,7 @@ Gura_ImplementMethod(wx_SizerItem, IsWindow)
 
 Gura_DeclareMethod(wx_SizerItem, SetBorder)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "border", VTYPE_number, OCCUR_Once);
 }
 
@@ -471,7 +471,7 @@ Gura_ImplementMethod(wx_SizerItem, SetBorder)
 
 Gura_DeclareMethod(wx_SizerItem, SetDimension)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_Once);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
@@ -488,7 +488,7 @@ Gura_ImplementMethod(wx_SizerItem, SetDimension)
 
 Gura_DeclareMethod(wx_SizerItem, SetFlag)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 }
 
@@ -503,7 +503,7 @@ Gura_ImplementMethod(wx_SizerItem, SetFlag)
 
 Gura_DeclareMethod(wx_SizerItem, SetInitSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -520,7 +520,7 @@ Gura_ImplementMethod(wx_SizerItem, SetInitSize)
 
 Gura_DeclareMethod(wx_SizerItem, SetProportion)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "proportion", VTYPE_number, OCCUR_Once);
 }
 
@@ -535,7 +535,7 @@ Gura_ImplementMethod(wx_SizerItem, SetProportion)
 
 Gura_DeclareMethod(wx_SizerItem, SetRatio)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
@@ -552,7 +552,7 @@ Gura_ImplementMethod(wx_SizerItem, SetRatio)
 
 Gura_DeclareMethod(wx_SizerItem, SetRatio_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -567,7 +567,7 @@ Gura_ImplementMethod(wx_SizerItem, SetRatio_1)
 
 Gura_DeclareMethod(wx_SizerItem, SetRatio_2)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "ratio", VTYPE_number, OCCUR_Once);
 }
 
@@ -582,7 +582,7 @@ Gura_ImplementMethod(wx_SizerItem, SetRatio_2)
 
 Gura_DeclareMethod(wx_SizerItem, SetSizer)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "sizer", VTYPE_wx_Sizer, OCCUR_Once);
 }
 
@@ -597,7 +597,7 @@ Gura_ImplementMethod(wx_SizerItem, SetSizer)
 
 Gura_DeclareMethod(wx_SizerItem, SetSpacer)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -612,7 +612,7 @@ Gura_ImplementMethod(wx_SizerItem, SetSpacer)
 
 Gura_DeclareMethod(wx_SizerItem, SetWindow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 }
 
@@ -627,7 +627,7 @@ Gura_ImplementMethod(wx_SizerItem, SetWindow)
 
 Gura_DeclareMethod(wx_SizerItem, Show)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "show", VTYPE_boolean, OCCUR_Once);
 }
 

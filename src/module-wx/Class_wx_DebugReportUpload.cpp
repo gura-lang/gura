@@ -38,7 +38,7 @@ void wx_DebugReportUpload::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DebugReportUpload)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DebugReportUpload));
 	DeclareArg(env, "url", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "input", VTYPE_string, OCCUR_Once);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(DebugReportUpload)
 
 Gura_DeclareMethod(wx_DebugReportUpload, OnServerReply)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "WXUNUSED(reply)", VTYPE_string, OCCUR_Once, FLAG_List);
 #endif

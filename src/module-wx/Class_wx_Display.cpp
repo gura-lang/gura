@@ -38,7 +38,7 @@ void wx_Display::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(Display)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Display));
 	DeclareArg(env, "index", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(Display)
 
 Gura_DeclareMethod(wx_Display, ChangeMode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "mode", VTYPE_wx_VideoMode, OCCUR_ZeroOrOnce);
 #endif
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_Display, ChangeMode)
 
 Gura_DeclareMethod(wx_Display, GetClientArea)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_Display, GetClientArea)
 
 Gura_DeclareClassMethod(wx_Display, GetCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -121,7 +121,7 @@ Gura_ImplementClassMethod(wx_Display, GetCount)
 
 Gura_DeclareMethod(wx_Display, GetCurrentMode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_Display, GetCurrentMode)
 
 Gura_DeclareMethod(wx_Display, GetDepth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_Display, GetDepth)
 
 Gura_DeclareClassMethod(wx_Display, GetFromPoint)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 #endif
@@ -178,7 +178,7 @@ Gura_ImplementClassMethod(wx_Display, GetFromPoint)
 
 Gura_DeclareClassMethod(wx_Display, GetFromWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_Once);
 #endif
@@ -199,7 +199,7 @@ Gura_ImplementClassMethod(wx_Display, GetFromWindow)
 
 Gura_DeclareMethod(wx_Display, GetGeometry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_Display, GetGeometry)
 
 Gura_DeclareMethod(wx_Display, GetModes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "mode", VTYPE_wx_VideoMode, OCCUR_ZeroOrOnce);
 #endif
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_Display, GetModes)
 
 Gura_DeclareMethod(wx_Display, GetName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -258,7 +258,7 @@ Gura_ImplementMethod(wx_Display, GetName)
 
 Gura_DeclareMethod(wx_Display, IsPrimary)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

@@ -100,7 +100,7 @@ String Object_uri::ToString(bool exprFlag)
 // uri(str?:string):map {block?}
 Gura_DeclareFunction(uri)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_uri));
@@ -121,7 +121,7 @@ Gura_ImplementFunction(uri)
 // uri#getfragment()
 Gura_DeclareMethod(uri, getfragment)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(uri, getfragment)
@@ -133,7 +133,7 @@ Gura_ImplementMethod(uri, getfragment)
 // uri#getpath()
 Gura_DeclareMethod(uri, getpath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(uri, getpath)
@@ -145,7 +145,7 @@ Gura_ImplementMethod(uri, getpath)
 // uri#getquery()
 Gura_DeclareMethod(uri, getquery)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(uri, getquery)
@@ -160,7 +160,7 @@ Gura_ImplementMethod(uri, getquery)
 // uri.parsequery(query:string):map
 Gura_DeclareClassMethod(uri, parsequery)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "query", VTYPE_string);
 }
 

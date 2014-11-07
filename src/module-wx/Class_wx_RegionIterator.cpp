@@ -39,7 +39,7 @@ void wx_RegionIterator::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(RegionIteratorEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RegionIterator));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(RegionIteratorEmpty)
 
 Gura_DeclareFunction(RegionIterator)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_RegionIterator));
 	DeclareArg(env, "region", VTYPE_wx_Region, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -85,7 +85,7 @@ Gura_ImplementFunction(RegionIterator)
 
 Gura_DeclareMethod(wx_RegionIterator, GetX)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_RegionIterator, GetX)
 
 Gura_DeclareMethod(wx_RegionIterator, GetY)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_RegionIterator, GetY)
 
 Gura_DeclareMethod(wx_RegionIterator, GetW)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_RegionIterator, GetW)
 
 Gura_DeclareMethod(wx_RegionIterator, GetHeight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_RegionIterator, GetHeight)
 
 Gura_DeclareMethod(wx_RegionIterator, GetH)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_RegionIterator, GetH)
 
 Gura_DeclareMethod(wx_RegionIterator, GetRect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_RegionIterator, GetRect)
 
 Gura_DeclareMethod(wx_RegionIterator, GetWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_RegionIterator, GetWidth)
 
 Gura_DeclareMethod(wx_RegionIterator, HaveRects)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_RegionIterator, HaveRects)
 
 Gura_DeclareMethod(wx_RegionIterator, Reset)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "region", VTYPE_wx_Region, OCCUR_ZeroOrOnce);
 }
 
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_RegionIterator, Reset)
 
 Gura_DeclareMethod(wx_RegionIterator, Next)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RegionIterator, Next)

@@ -38,7 +38,7 @@ void wx_StopWatch::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(StopWatch)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_StopWatch));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(StopWatch)
 
 Gura_DeclareMethod(wx_StopWatch, Pause)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StopWatch, Pause)
@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_StopWatch, Pause)
 
 Gura_DeclareMethod(wx_StopWatch, Resume)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StopWatch, Resume)
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_StopWatch, Resume)
 
 Gura_DeclareMethod(wx_StopWatch, Start)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "milliseconds", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_StopWatch, Start)
 
 Gura_DeclareMethod(wx_StopWatch, Time)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

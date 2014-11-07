@@ -38,7 +38,7 @@ void wx_DataViewProgressRenderer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DataViewProgressRenderer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewProgressRenderer));
 	DeclareArg(env, "label", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "varianttype", VTYPE_string, OCCUR_ZeroOrOnce);

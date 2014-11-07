@@ -26,7 +26,7 @@ String Object_text_cluster::ToString(bool exprFlag)
 // cairo.text_cluster.allocate(num_clusters:number) {block?}
 Gura_DeclareClassMethod(text_cluster, allocate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "num_clusters", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

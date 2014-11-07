@@ -38,7 +38,7 @@ void wx_BoxSizer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(BoxSizer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_BoxSizer));
 	DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -62,7 +62,7 @@ Gura_ImplementFunction(BoxSizer)
 
 Gura_DeclareMethod(wx_BoxSizer, RecalcSizes)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_BoxSizer, RecalcSizes)
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_BoxSizer, RecalcSizes)
 
 Gura_DeclareMethod(wx_BoxSizer, CalcMin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_BoxSizer, CalcMin)
 
 Gura_DeclareMethod(wx_BoxSizer, GetOrientation)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

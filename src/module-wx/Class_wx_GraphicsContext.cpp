@@ -37,7 +37,7 @@ void wx_GraphicsContext::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_GraphicsContext, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dc", VTYPE_wx_WindowDC, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -53,7 +53,7 @@ Gura_ImplementMethod(wx_GraphicsContext, Create)
 
 Gura_DeclareMethod(wx_GraphicsContext, Create_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -69,7 +69,7 @@ Gura_ImplementMethod(wx_GraphicsContext, Create_1)
 
 Gura_DeclareMethod(wx_GraphicsContext, CreateFromNative)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "context", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_GraphicsContext, CreateFromNative)
 
 Gura_DeclareMethod(wx_GraphicsContext, CreateFromNativeWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_GraphicsContext, CreateFromNativeWindow)
 
 Gura_DeclareMethod(wx_GraphicsContext, CreatePen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pen", VTYPE_wx_Pen, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_GraphicsContext, CreatePen)
 
 Gura_DeclareMethod(wx_GraphicsContext, CreateBrush)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "brush", VTYPE_wx_Brush, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_GraphicsContext, CreateBrush)
 
 Gura_DeclareMethod(wx_GraphicsContext, CreateRadialGradientBrush)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "xo", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "yo", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "xc", VTYPE_wx_Double, OCCUR_Once);
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_GraphicsContext, CreateRadialGradientBrush)
 
 Gura_DeclareMethod(wx_GraphicsContext, CreateLinearGradientBrush)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x1", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y1", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "x2", VTYPE_wx_Double, OCCUR_Once);
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_GraphicsContext, CreateLinearGradientBrush)
 
 Gura_DeclareMethod(wx_GraphicsContext, CreateFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_wx_Colour, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_GraphicsContext, CreateFont)
 
 Gura_DeclareMethod(wx_GraphicsContext, CreateMatrix)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "a", VTYPE_wx_Double, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "b", VTYPE_wx_Double, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "c", VTYPE_wx_Double, OCCUR_ZeroOrOnce);
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_GraphicsContext, CreateMatrix)
 
 Gura_DeclareMethod(wx_GraphicsContext, CreatePath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_GraphicsContext, CreatePath)
 
 Gura_DeclareMethod(wx_GraphicsContext, Clip)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "region", VTYPE_wx_Region, OCCUR_Once);
 }
 
@@ -263,7 +263,7 @@ Gura_ImplementMethod(wx_GraphicsContext, Clip)
 
 Gura_DeclareMethod(wx_GraphicsContext, Clip_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "w", VTYPE_wx_Double, OCCUR_Once);
@@ -284,7 +284,7 @@ Gura_ImplementMethod(wx_GraphicsContext, Clip_1)
 
 Gura_DeclareMethod(wx_GraphicsContext, ResetClip)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GraphicsContext, ResetClip)
@@ -297,7 +297,7 @@ Gura_ImplementMethod(wx_GraphicsContext, ResetClip)
 
 Gura_DeclareMethod(wx_GraphicsContext, DrawBitmap)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "bmp", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
@@ -320,7 +320,7 @@ Gura_ImplementMethod(wx_GraphicsContext, DrawBitmap)
 
 Gura_DeclareMethod(wx_GraphicsContext, DrawEllipse)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "w", VTYPE_wx_Double, OCCUR_Once);
@@ -341,7 +341,7 @@ Gura_ImplementMethod(wx_GraphicsContext, DrawEllipse)
 
 Gura_DeclareMethod(wx_GraphicsContext, DrawIcon)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "icon", VTYPE_wx_Icon, OCCUR_Once);
 	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
@@ -364,7 +364,7 @@ Gura_ImplementMethod(wx_GraphicsContext, DrawIcon)
 
 Gura_DeclareMethod(wx_GraphicsContext, DrawLines)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "points", VTYPE_wx_Point2DDouble, OCCUR_Once);
 	DeclareArg(env, "fillStyle", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -384,7 +384,7 @@ Gura_ImplementMethod(wx_GraphicsContext, DrawLines)
 
 Gura_DeclareMethod(wx_GraphicsContext, DrawPath)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_wx_GraphicsPath, OCCUR_Once);
 	DeclareArg(env, "fillStyle", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -402,7 +402,7 @@ Gura_ImplementMethod(wx_GraphicsContext, DrawPath)
 
 Gura_DeclareMethod(wx_GraphicsContext, DrawRectangle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "w", VTYPE_wx_Double, OCCUR_Once);
@@ -423,7 +423,7 @@ Gura_ImplementMethod(wx_GraphicsContext, DrawRectangle)
 
 Gura_DeclareMethod(wx_GraphicsContext, DrawRoundedRectangle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "w", VTYPE_wx_Double, OCCUR_Once);
@@ -446,7 +446,7 @@ Gura_ImplementMethod(wx_GraphicsContext, DrawRoundedRectangle)
 
 Gura_DeclareMethod(wx_GraphicsContext, DrawText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
@@ -467,7 +467,7 @@ Gura_ImplementMethod(wx_GraphicsContext, DrawText)
 
 Gura_DeclareMethod(wx_GraphicsContext, DrawText_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
@@ -486,7 +486,7 @@ Gura_ImplementMethod(wx_GraphicsContext, DrawText_1)
 
 Gura_DeclareMethod(wx_GraphicsContext, FillPath)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_wx_GraphicsPath, OCCUR_Once);
 	DeclareArg(env, "fillStyle", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -504,7 +504,7 @@ Gura_ImplementMethod(wx_GraphicsContext, FillPath)
 
 Gura_DeclareMethod(wx_GraphicsContext, StrokePath)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_wx_GraphicsPath, OCCUR_Once);
 }
 
@@ -519,7 +519,7 @@ Gura_ImplementMethod(wx_GraphicsContext, StrokePath)
 
 Gura_DeclareMethod(wx_GraphicsContext, GetNativeContext)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GraphicsContext, GetNativeContext)
@@ -532,7 +532,7 @@ Gura_ImplementMethod(wx_GraphicsContext, GetNativeContext)
 
 Gura_DeclareMethod(wx_GraphicsContext, GetPartialTextExtents)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "widths", VTYPE_wx_ArrayDouble, OCCUR_Once);
 }
@@ -549,7 +549,7 @@ Gura_ImplementMethod(wx_GraphicsContext, GetPartialTextExtents)
 
 Gura_DeclareMethod(wx_GraphicsContext, GetTextExtent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "height", VTYPE_wx_Double, OCCUR_Once);
@@ -572,7 +572,7 @@ Gura_ImplementMethod(wx_GraphicsContext, GetTextExtent)
 
 Gura_DeclareMethod(wx_GraphicsContext, Rotate)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_wx_Double, OCCUR_Once);
 }
 
@@ -587,7 +587,7 @@ Gura_ImplementMethod(wx_GraphicsContext, Rotate)
 
 Gura_DeclareMethod(wx_GraphicsContext, Scale)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "xScale", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "yScale", VTYPE_wx_Double, OCCUR_Once);
 }
@@ -604,7 +604,7 @@ Gura_ImplementMethod(wx_GraphicsContext, Scale)
 
 Gura_DeclareMethod(wx_GraphicsContext, Translate)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dx", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "dy", VTYPE_wx_Double, OCCUR_Once);
 }
@@ -621,7 +621,7 @@ Gura_ImplementMethod(wx_GraphicsContext, Translate)
 
 Gura_DeclareMethod(wx_GraphicsContext, GetTransform)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -635,7 +635,7 @@ Gura_ImplementMethod(wx_GraphicsContext, GetTransform)
 
 Gura_DeclareMethod(wx_GraphicsContext, SetTransform)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "matrix", VTYPE_wx_GraphicsMatrix, OCCUR_Once);
 }
 
@@ -650,7 +650,7 @@ Gura_ImplementMethod(wx_GraphicsContext, SetTransform)
 
 Gura_DeclareMethod(wx_GraphicsContext, ConcatTransform)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "matrix", VTYPE_wx_GraphicsMatrix, OCCUR_Once);
 }
 
@@ -665,7 +665,7 @@ Gura_ImplementMethod(wx_GraphicsContext, ConcatTransform)
 
 Gura_DeclareMethod(wx_GraphicsContext, SetBrush)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "brush", VTYPE_wx_Brush, OCCUR_Once);
 }
 
@@ -680,7 +680,7 @@ Gura_ImplementMethod(wx_GraphicsContext, SetBrush)
 
 Gura_DeclareMethod(wx_GraphicsContext, SetBrush_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "brush", VTYPE_wx_GraphicsBrush, OCCUR_Once);
 }
 
@@ -695,7 +695,7 @@ Gura_ImplementMethod(wx_GraphicsContext, SetBrush_1)
 
 Gura_DeclareMethod(wx_GraphicsContext, SetFont)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
@@ -712,7 +712,7 @@ Gura_ImplementMethod(wx_GraphicsContext, SetFont)
 
 Gura_DeclareMethod(wx_GraphicsContext, SetFont_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_GraphicsFont, OCCUR_Once);
 }
 
@@ -727,7 +727,7 @@ Gura_ImplementMethod(wx_GraphicsContext, SetFont_1)
 
 Gura_DeclareMethod(wx_GraphicsContext, SetPen)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pen", VTYPE_wx_GraphicsPen, OCCUR_Once);
 }
 
@@ -742,7 +742,7 @@ Gura_ImplementMethod(wx_GraphicsContext, SetPen)
 
 Gura_DeclareMethod(wx_GraphicsContext, SetPen_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pen", VTYPE_wx_Pen, OCCUR_Once);
 }
 
@@ -757,7 +757,7 @@ Gura_ImplementMethod(wx_GraphicsContext, SetPen_1)
 
 Gura_DeclareMethod(wx_GraphicsContext, StrokeLine)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x1", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y1", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "x2", VTYPE_wx_Double, OCCUR_Once);
@@ -778,7 +778,7 @@ Gura_ImplementMethod(wx_GraphicsContext, StrokeLine)
 
 Gura_DeclareMethod(wx_GraphicsContext, StrokeLines)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "beginPoints", VTYPE_wx_Point2DDouble, OCCUR_Once);
 	DeclareArg(env, "endPoints", VTYPE_wx_Point2DDouble, OCCUR_Once);
@@ -797,7 +797,7 @@ Gura_ImplementMethod(wx_GraphicsContext, StrokeLines)
 
 Gura_DeclareMethod(wx_GraphicsContext, StrokeLines_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "points", VTYPE_wx_Point2DDouble, OCCUR_Once);
 }

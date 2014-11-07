@@ -38,7 +38,7 @@ void wx_FontPickerCtrl::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FontPickerCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_FontPickerCtrl));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -82,7 +82,7 @@ Gura_ImplementFunction(FontPickerCtrl)
 
 Gura_DeclareMethod(wx_FontPickerCtrl, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_ZeroOrOnce);
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_FontPickerCtrl, Create)
 
 Gura_DeclareMethod(wx_FontPickerCtrl, GetSelectedFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_FontPickerCtrl, GetSelectedFont)
 
 Gura_DeclareMethod(wx_FontPickerCtrl, SetSelectedFont)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 }
 
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_FontPickerCtrl, SetSelectedFont)
 
 Gura_DeclareMethod(wx_FontPickerCtrl, GetMaxPointSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_FontPickerCtrl, GetMaxPointSize)
 
 Gura_DeclareMethod(wx_FontPickerCtrl, SetMaxPointSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "max", VTYPE_number, OCCUR_Once);
 }
 

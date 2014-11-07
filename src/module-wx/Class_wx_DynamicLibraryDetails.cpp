@@ -37,7 +37,7 @@ void wx_DynamicLibraryDetails::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_DynamicLibraryDetails, GetName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -51,7 +51,7 @@ Gura_ImplementMethod(wx_DynamicLibraryDetails, GetName)
 
 Gura_DeclareMethod(wx_DynamicLibraryDetails, GetPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_DynamicLibraryDetails, GetPath)
 
 Gura_DeclareMethod(wx_DynamicLibraryDetails, GetAddress)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "addr", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "*len", VTYPE_number, OCCUR_Once);
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_DynamicLibraryDetails, GetAddress)
 
 Gura_DeclareMethod(wx_DynamicLibraryDetails, GetVersion)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

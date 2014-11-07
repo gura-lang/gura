@@ -38,7 +38,7 @@ void wx_FileSystem::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FileSystem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FileSystem));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(FileSystem)
 
 Gura_DeclareClassMethod(wx_FileSystem, AddHandler)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "handler", VTYPE_wx_FileSystemHandler, OCCUR_Once);
 }
 
@@ -74,7 +74,7 @@ Gura_ImplementClassMethod(wx_FileSystem, AddHandler)
 
 Gura_DeclareClassMethod(wx_FileSystem, HasHandlerForPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -89,7 +89,7 @@ Gura_ImplementClassMethod(wx_FileSystem, HasHandlerForPath)
 
 Gura_DeclareMethod(wx_FileSystem, ChangePathTo)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "is_dir", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_FileSystem, ChangePathTo)
 
 Gura_DeclareMethod(wx_FileSystem, GetPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_FileSystem, GetPath)
 
 Gura_DeclareClassMethod(wx_FileSystem, FileNameToURL)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_wx_FileName, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -136,7 +136,7 @@ Gura_ImplementClassMethod(wx_FileSystem, FileNameToURL)
 
 Gura_DeclareMethod(wx_FileSystem, FindFileInPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "file", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_FileSystem, FindFileInPath)
 
 Gura_DeclareMethod(wx_FileSystem, FindFirst)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "wildcard", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_FileSystem, FindFirst)
 
 Gura_DeclareMethod(wx_FileSystem, FindNext)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_FileSystem, FindNext)
 
 Gura_DeclareMethod(wx_FileSystem, OpenFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_FileSystem, OpenFile)
 
 Gura_DeclareClassMethod(wx_FileSystem, URLToFileName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "url", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

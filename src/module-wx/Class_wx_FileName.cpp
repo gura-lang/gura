@@ -43,7 +43,7 @@ void wx_FileName::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FileNameEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_FileName));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -71,7 +71,7 @@ Gura_ImplementFunction(FileNameEmpty)
 
 Gura_DeclareFunction(FileName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_FileName));
 	DeclareArg(env, "filename", VTYPE_wx_FileName, OCCUR_Once);
@@ -101,7 +101,7 @@ Gura_ImplementFunction(FileName)
 
 Gura_DeclareFunction(FileName_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_FileName));
 	DeclareArg(env, "fullpath", VTYPE_string, OCCUR_Once);
@@ -134,7 +134,7 @@ Gura_ImplementFunction(FileName_1)
 
 Gura_DeclareFunction(FileName_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_FileName));
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
@@ -169,7 +169,7 @@ Gura_ImplementFunction(FileName_2)
 
 Gura_DeclareFunction(FileName_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_FileName));
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
@@ -206,7 +206,7 @@ Gura_ImplementFunction(FileName_3)
 
 Gura_DeclareFunction(FileName_4)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_FileName));
 	DeclareArg(env, "volume", VTYPE_string, OCCUR_Once);
@@ -245,7 +245,7 @@ Gura_ImplementFunction(FileName_4)
 
 Gura_DeclareMethod(wx_FileName, AppendDir)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "dir", VTYPE_string, OCCUR_Once);
 #endif
@@ -266,7 +266,7 @@ Gura_ImplementMethod(wx_FileName, AppendDir)
 
 Gura_DeclareMethod(wx_FileName, Assign)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "filepath", VTYPE_wx_FileName, OCCUR_Once);
 #endif
@@ -287,7 +287,7 @@ Gura_ImplementMethod(wx_FileName, Assign)
 
 Gura_DeclareMethod(wx_FileName, Assign_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "fullpath", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -311,7 +311,7 @@ Gura_ImplementMethod(wx_FileName, Assign_1)
 
 Gura_DeclareMethod(wx_FileName, Assign_2)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "volume", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
@@ -343,7 +343,7 @@ Gura_ImplementMethod(wx_FileName, Assign_2)
 
 Gura_DeclareMethod(wx_FileName, Assign_3)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "volume", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
@@ -373,7 +373,7 @@ Gura_ImplementMethod(wx_FileName, Assign_3)
 
 Gura_DeclareMethod(wx_FileName, Assign_4)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
@@ -399,7 +399,7 @@ Gura_ImplementMethod(wx_FileName, Assign_4)
 
 Gura_DeclareMethod(wx_FileName, Assign_5)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
@@ -427,7 +427,7 @@ Gura_ImplementMethod(wx_FileName, Assign_5)
 
 Gura_DeclareClassMethod(wx_FileName, AssignCwd)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "volume", VTYPE_string, OCCUR_ZeroOrOnce);
 #endif
@@ -448,7 +448,7 @@ Gura_ImplementClassMethod(wx_FileName, AssignCwd)
 
 Gura_DeclareMethod(wx_FileName, AssignDir)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "dir", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -472,7 +472,7 @@ Gura_ImplementMethod(wx_FileName, AssignDir)
 
 Gura_DeclareMethod(wx_FileName, AssignHomeDir)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileName, AssignHomeDir)
@@ -489,7 +489,7 @@ Gura_ImplementMethod(wx_FileName, AssignHomeDir)
 
 Gura_DeclareMethod(wx_FileName, AssignTempFileName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "prefix", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "fileTemp", VTYPE_wx_File, OCCUR_ZeroOrOnce);
@@ -513,7 +513,7 @@ Gura_ImplementMethod(wx_FileName, AssignTempFileName)
 
 Gura_DeclareMethod(wx_FileName, Clear)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileName, Clear)
@@ -530,7 +530,7 @@ Gura_ImplementMethod(wx_FileName, Clear)
 
 Gura_DeclareMethod(wx_FileName, SetClearExt)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileName, SetClearExt)
@@ -547,7 +547,7 @@ Gura_ImplementMethod(wx_FileName, SetClearExt)
 
 Gura_DeclareClassMethod(wx_FileName, CreateTempFileName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "prefix", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "fileTemp", VTYPE_wx_File, OCCUR_ZeroOrOnce);
@@ -571,7 +571,7 @@ Gura_ImplementClassMethod(wx_FileName, CreateTempFileName)
 
 Gura_DeclareMethod(wx_FileName, DirExists)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -589,7 +589,7 @@ Gura_ImplementMethod(wx_FileName, DirExists)
 
 Gura_DeclareClassMethod(wx_FileName, DirExists_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dir", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -604,7 +604,7 @@ Gura_ImplementClassMethod(wx_FileName, DirExists_1)
 
 Gura_DeclareClassMethod(wx_FileName, DirName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "dir", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -628,7 +628,7 @@ Gura_ImplementClassMethod(wx_FileName, DirName)
 
 Gura_DeclareMethod(wx_FileName, FileExists)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -646,7 +646,7 @@ Gura_ImplementMethod(wx_FileName, FileExists)
 
 Gura_DeclareClassMethod(wx_FileName, FileExists_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "file", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -661,7 +661,7 @@ Gura_ImplementClassMethod(wx_FileName, FileExists_1)
 
 Gura_DeclareClassMethod(wx_FileName, FileName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "file", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -685,7 +685,7 @@ Gura_ImplementClassMethod(wx_FileName, FileName)
 
 Gura_DeclareClassMethod(wx_FileName, GetCwd)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "volume", VTYPE_string, OCCUR_ZeroOrOnce);
 #endif
@@ -707,7 +707,7 @@ Gura_ImplementClassMethod(wx_FileName, GetCwd)
 
 Gura_DeclareMethod(wx_FileName, GetDirCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -721,7 +721,7 @@ Gura_ImplementMethod(wx_FileName, GetDirCount)
 
 Gura_DeclareMethod(wx_FileName, GetDirs)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -735,7 +735,7 @@ Gura_ImplementMethod(wx_FileName, GetDirs)
 
 Gura_DeclareMethod(wx_FileName, GetExt)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -749,7 +749,7 @@ Gura_ImplementMethod(wx_FileName, GetExt)
 
 Gura_DeclareClassMethod(wx_FileName, GetForbiddenChars)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
 #endif
@@ -771,7 +771,7 @@ Gura_ImplementClassMethod(wx_FileName, GetForbiddenChars)
 
 Gura_DeclareClassMethod(wx_FileName, GetFormat)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
 #endif
@@ -793,7 +793,7 @@ Gura_ImplementClassMethod(wx_FileName, GetFormat)
 
 Gura_DeclareMethod(wx_FileName, GetFullName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -807,7 +807,7 @@ Gura_ImplementMethod(wx_FileName, GetFullName)
 
 Gura_DeclareMethod(wx_FileName, GetFullPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -824,7 +824,7 @@ Gura_ImplementMethod(wx_FileName, GetFullPath)
 
 Gura_DeclareClassMethod(wx_FileName, GetHomeDir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -841,7 +841,7 @@ Gura_ImplementClassMethod(wx_FileName, GetHomeDir)
 
 Gura_DeclareMethod(wx_FileName, GetLongPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -855,7 +855,7 @@ Gura_ImplementMethod(wx_FileName, GetLongPath)
 
 Gura_DeclareMethod(wx_FileName, GetModificationTime)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -869,7 +869,7 @@ Gura_ImplementMethod(wx_FileName, GetModificationTime)
 
 Gura_DeclareMethod(wx_FileName, GetName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -883,7 +883,7 @@ Gura_ImplementMethod(wx_FileName, GetName)
 
 Gura_DeclareMethod(wx_FileName, GetPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -903,7 +903,7 @@ Gura_ImplementMethod(wx_FileName, GetPath)
 
 Gura_DeclareClassMethod(wx_FileName, GetPathSeparator)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
 #endif
@@ -925,7 +925,7 @@ Gura_ImplementClassMethod(wx_FileName, GetPathSeparator)
 
 Gura_DeclareClassMethod(wx_FileName, GetPathSeparators)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
 #endif
@@ -947,7 +947,7 @@ Gura_ImplementClassMethod(wx_FileName, GetPathSeparators)
 
 Gura_DeclareClassMethod(wx_FileName, GetPathTerminators)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
 #endif
@@ -969,7 +969,7 @@ Gura_ImplementClassMethod(wx_FileName, GetPathTerminators)
 
 Gura_DeclareMethod(wx_FileName, GetPathWithSep)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -986,7 +986,7 @@ Gura_ImplementMethod(wx_FileName, GetPathWithSep)
 
 Gura_DeclareMethod(wx_FileName, GetShortPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1000,7 +1000,7 @@ Gura_ImplementMethod(wx_FileName, GetShortPath)
 
 Gura_DeclareMethod(wx_FileName, GetSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1018,7 +1018,7 @@ Gura_ImplementMethod(wx_FileName, GetSize)
 
 Gura_DeclareClassMethod(wx_FileName, GetSize_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 #endif
@@ -1039,7 +1039,7 @@ Gura_ImplementClassMethod(wx_FileName, GetSize_1)
 
 Gura_DeclareMethod(wx_FileName, GetHumanReadableSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "failmsg", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "precision", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1065,7 +1065,7 @@ Gura_ImplementMethod(wx_FileName, GetHumanReadableSize)
 
 Gura_DeclareClassMethod(wx_FileName, GetHumanReadableSize_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "bytes", VTYPE_wx_ULongLong, OCCUR_Once);
 	DeclareArg(env, "nullsize", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -1092,7 +1092,7 @@ Gura_ImplementClassMethod(wx_FileName, GetHumanReadableSize_1)
 
 Gura_DeclareClassMethod(wx_FileName, GetTempDir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1109,7 +1109,7 @@ Gura_ImplementClassMethod(wx_FileName, GetTempDir)
 
 Gura_DeclareMethod(wx_FileName, GetTimes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dtAccess", VTYPE_wx_DateTime, OCCUR_Once);
 	DeclareArg(env, "dtMod", VTYPE_wx_DateTime, OCCUR_Once);
 	DeclareArg(env, "dtCreate", VTYPE_wx_DateTime, OCCUR_Once);
@@ -1129,7 +1129,7 @@ Gura_ImplementMethod(wx_FileName, GetTimes)
 
 Gura_DeclareMethod(wx_FileName, GetVolume)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1143,7 +1143,7 @@ Gura_ImplementMethod(wx_FileName, GetVolume)
 
 Gura_DeclareClassMethod(wx_FileName, GetVolumeSeparator)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
 #endif
@@ -1165,7 +1165,7 @@ Gura_ImplementClassMethod(wx_FileName, GetVolumeSeparator)
 
 Gura_DeclareMethod(wx_FileName, HasExt)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1179,7 +1179,7 @@ Gura_ImplementMethod(wx_FileName, HasExt)
 
 Gura_DeclareMethod(wx_FileName, HasName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1193,7 +1193,7 @@ Gura_ImplementMethod(wx_FileName, HasName)
 
 Gura_DeclareMethod(wx_FileName, HasVolume)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1207,7 +1207,7 @@ Gura_ImplementMethod(wx_FileName, HasVolume)
 
 Gura_DeclareMethod(wx_FileName, InsertDir)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "before", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "dir", VTYPE_string, OCCUR_Once);
@@ -1230,7 +1230,7 @@ Gura_ImplementMethod(wx_FileName, InsertDir)
 
 Gura_DeclareMethod(wx_FileName, IsAbsolute)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
 #endif
@@ -1253,7 +1253,7 @@ Gura_ImplementMethod(wx_FileName, IsAbsolute)
 
 Gura_DeclareClassMethod(wx_FileName, IsCaseSensitive)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
 #endif
@@ -1275,7 +1275,7 @@ Gura_ImplementClassMethod(wx_FileName, IsCaseSensitive)
 
 Gura_DeclareMethod(wx_FileName, IsDirReadable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1293,7 +1293,7 @@ Gura_ImplementMethod(wx_FileName, IsDirReadable)
 
 Gura_DeclareClassMethod(wx_FileName, IsDirReadable_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dir", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1308,7 +1308,7 @@ Gura_ImplementClassMethod(wx_FileName, IsDirReadable_1)
 
 Gura_DeclareMethod(wx_FileName, IsDirWritable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1326,7 +1326,7 @@ Gura_ImplementMethod(wx_FileName, IsDirWritable)
 
 Gura_DeclareClassMethod(wx_FileName, IsDirWritable_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dir", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1341,7 +1341,7 @@ Gura_ImplementClassMethod(wx_FileName, IsDirWritable_1)
 
 Gura_DeclareMethod(wx_FileName, IsFileExecutable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1359,7 +1359,7 @@ Gura_ImplementMethod(wx_FileName, IsFileExecutable)
 
 Gura_DeclareClassMethod(wx_FileName, IsFileExecutable_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "file", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1374,7 +1374,7 @@ Gura_ImplementClassMethod(wx_FileName, IsFileExecutable_1)
 
 Gura_DeclareMethod(wx_FileName, IsFileReadable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1392,7 +1392,7 @@ Gura_ImplementMethod(wx_FileName, IsFileReadable)
 
 Gura_DeclareClassMethod(wx_FileName, IsFileReadable_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "file", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1407,7 +1407,7 @@ Gura_ImplementClassMethod(wx_FileName, IsFileReadable_1)
 
 Gura_DeclareMethod(wx_FileName, IsFileWritable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1425,7 +1425,7 @@ Gura_ImplementMethod(wx_FileName, IsFileWritable)
 
 Gura_DeclareClassMethod(wx_FileName, IsFileWritable_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "file", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1440,7 +1440,7 @@ Gura_ImplementClassMethod(wx_FileName, IsFileWritable_1)
 
 Gura_DeclareMethod(wx_FileName, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1454,7 +1454,7 @@ Gura_ImplementMethod(wx_FileName, IsOk)
 
 Gura_DeclareClassMethod(wx_FileName, IsPathSeparator)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1478,7 +1478,7 @@ Gura_ImplementClassMethod(wx_FileName, IsPathSeparator)
 
 Gura_DeclareMethod(wx_FileName, IsRelative)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
 #endif
@@ -1501,7 +1501,7 @@ Gura_ImplementMethod(wx_FileName, IsRelative)
 
 Gura_DeclareMethod(wx_FileName, IsDir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1515,7 +1515,7 @@ Gura_ImplementMethod(wx_FileName, IsDir)
 
 Gura_DeclareClassMethod(wx_FileName, MacFindDefaultTypeAndCreator)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "ext", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -1540,7 +1540,7 @@ Gura_ImplementClassMethod(wx_FileName, MacFindDefaultTypeAndCreator)
 
 Gura_DeclareClassMethod(wx_FileName, MacRegisterDefaultTypeAndCreator)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "ext", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -1564,7 +1564,7 @@ Gura_ImplementClassMethod(wx_FileName, MacRegisterDefaultTypeAndCreator)
 
 Gura_DeclareMethod(wx_FileName, MacSetDefaultTypeAndCreator)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1582,7 +1582,7 @@ Gura_ImplementMethod(wx_FileName, MacSetDefaultTypeAndCreator)
 
 Gura_DeclareMethod(wx_FileName, MakeAbsolute)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "cwd", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1608,7 +1608,7 @@ Gura_ImplementMethod(wx_FileName, MakeAbsolute)
 
 Gura_DeclareMethod(wx_FileName, MakeRelativeTo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "pathBase", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1634,7 +1634,7 @@ Gura_ImplementMethod(wx_FileName, MakeRelativeTo)
 
 Gura_DeclareMethod(wx_FileName, Mkdir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "perm", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1660,7 +1660,7 @@ Gura_ImplementMethod(wx_FileName, Mkdir)
 
 Gura_DeclareClassMethod(wx_FileName, Mkdir_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "dir", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "perm", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1687,7 +1687,7 @@ Gura_ImplementClassMethod(wx_FileName, Mkdir_1)
 
 Gura_DeclareMethod(wx_FileName, Normalize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "cwd", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -1716,7 +1716,7 @@ Gura_ImplementMethod(wx_FileName, Normalize)
 
 Gura_DeclareMethod(wx_FileName, PrependDir)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "dir", VTYPE_string, OCCUR_Once);
 #endif
@@ -1737,7 +1737,7 @@ Gura_ImplementMethod(wx_FileName, PrependDir)
 
 Gura_DeclareMethod(wx_FileName, RemoveDir)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 #endif
@@ -1758,7 +1758,7 @@ Gura_ImplementMethod(wx_FileName, RemoveDir)
 
 Gura_DeclareMethod(wx_FileName, RemoveLastDir)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileName, RemoveLastDir)
@@ -1775,7 +1775,7 @@ Gura_ImplementMethod(wx_FileName, RemoveLastDir)
 
 Gura_DeclareMethod(wx_FileName, Rmdir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1793,7 +1793,7 @@ Gura_ImplementMethod(wx_FileName, Rmdir)
 
 Gura_DeclareClassMethod(wx_FileName, Rmdir_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "dir", VTYPE_string, OCCUR_Once);
 #endif
@@ -1814,7 +1814,7 @@ Gura_ImplementClassMethod(wx_FileName, Rmdir_1)
 
 Gura_DeclareMethod(wx_FileName, SameAs)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filepath", VTYPE_wx_FileName, OCCUR_Once);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1833,7 +1833,7 @@ Gura_ImplementMethod(wx_FileName, SameAs)
 
 Gura_DeclareMethod(wx_FileName, SetCwd)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1851,7 +1851,7 @@ Gura_ImplementMethod(wx_FileName, SetCwd)
 
 Gura_DeclareClassMethod(wx_FileName, SetCwd_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "cwd", VTYPE_string, OCCUR_Once);
 #endif
@@ -1872,7 +1872,7 @@ Gura_ImplementClassMethod(wx_FileName, SetCwd_1)
 
 Gura_DeclareMethod(wx_FileName, SetExt)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "ext", VTYPE_string, OCCUR_Once);
 #endif
@@ -1893,7 +1893,7 @@ Gura_ImplementMethod(wx_FileName, SetExt)
 
 Gura_DeclareMethod(wx_FileName, SetEmptyExt)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileName, SetEmptyExt)
@@ -1910,7 +1910,7 @@ Gura_ImplementMethod(wx_FileName, SetEmptyExt)
 
 Gura_DeclareMethod(wx_FileName, SetFullName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "fullname", VTYPE_string, OCCUR_Once);
 #endif
@@ -1931,7 +1931,7 @@ Gura_ImplementMethod(wx_FileName, SetFullName)
 
 Gura_DeclareMethod(wx_FileName, SetName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 #endif
@@ -1952,7 +1952,7 @@ Gura_ImplementMethod(wx_FileName, SetName)
 
 Gura_DeclareMethod(wx_FileName, SetTimes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "dtAccess", VTYPE_wx_DateTime, OCCUR_Once);
 	DeclareArg(env, "dtMod", VTYPE_wx_DateTime, OCCUR_Once);
@@ -1978,7 +1978,7 @@ Gura_ImplementMethod(wx_FileName, SetTimes)
 
 Gura_DeclareMethod(wx_FileName, SetVolume)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "volume", VTYPE_string, OCCUR_Once);
 #endif
@@ -1999,7 +1999,7 @@ Gura_ImplementMethod(wx_FileName, SetVolume)
 
 Gura_DeclareClassMethod(wx_FileName, SplitPath)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "fullpath", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "volume", VTYPE_string, OCCUR_Once);
@@ -2033,7 +2033,7 @@ Gura_ImplementClassMethod(wx_FileName, SplitPath)
 
 Gura_DeclareClassMethod(wx_FileName, SplitPath_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "fullpath", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "volume", VTYPE_string, OCCUR_Once);
@@ -2064,7 +2064,7 @@ Gura_ImplementClassMethod(wx_FileName, SplitPath_1)
 
 Gura_DeclareClassMethod(wx_FileName, SplitPath_2)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "fullpath", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
@@ -2093,7 +2093,7 @@ Gura_ImplementClassMethod(wx_FileName, SplitPath_2)
 
 Gura_DeclareClassMethod(wx_FileName, SplitVolume)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "fullpath", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "volume", VTYPE_string, OCCUR_Once);
@@ -2120,7 +2120,7 @@ Gura_ImplementClassMethod(wx_FileName, SplitVolume)
 
 Gura_DeclareMethod(wx_FileName, Touch)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

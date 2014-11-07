@@ -59,7 +59,7 @@ void wx_EvtHandler::ObjectEventFunction(wxEvent &event)
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(EvtHandler)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_EvtHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -81,7 +81,7 @@ Gura_ImplementFunction(EvtHandler)
 
 Gura_DeclareMethod(wx_EvtHandler, AddPendingEvent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_Event, OCCUR_Once);
 }
 
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_EvtHandler, AddPendingEvent)
 // wx.EvtHandler#Bind(eventType:wx.EventType, id?:number, lastId?:number):void {block:func_scope}
 Gura_DeclareMethod(wx_EvtHandler, Bind)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "eventType", VTYPE_wx_EventFactory);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "lastId", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_EvtHandler, Bind)
 // wx.EvtHandler#Connect(eventType:wx.EventType, func:function, id?:number, lastId?:number):void:map
 Gura_DeclareMethod(wx_EvtHandler, Connect)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "eventType", VTYPE_wx_EventFactory);
 	DeclareArg(env, "func", VTYPE_function);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_EvtHandler, Connect)
 
 Gura_DeclareMethod(wx_EvtHandler, Disconnect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "eventType", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "function", VTYPE_wx_ObjectEventFunction, OCCUR_ZeroOrOnce);
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_EvtHandler, Disconnect)
 
 Gura_DeclareMethod(wx_EvtHandler, Disconnect_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "eventType", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_EvtHandler, Disconnect_1)
 
 Gura_DeclareMethod(wx_EvtHandler, Disconnect_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "lastId", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -251,7 +251,7 @@ Gura_ImplementMethod(wx_EvtHandler, Disconnect_2)
 
 Gura_DeclareMethod(wx_EvtHandler, GetClientData)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_EvtHandler, GetClientData)
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_EvtHandler, GetClientData)
 
 Gura_DeclareMethod(wx_EvtHandler, GetClientObject)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -279,7 +279,7 @@ Gura_ImplementMethod(wx_EvtHandler, GetClientObject)
 
 Gura_DeclareMethod(wx_EvtHandler, GetEvtHandlerEnabled)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -293,7 +293,7 @@ Gura_ImplementMethod(wx_EvtHandler, GetEvtHandlerEnabled)
 
 Gura_DeclareMethod(wx_EvtHandler, GetNextHandler)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -307,7 +307,7 @@ Gura_ImplementMethod(wx_EvtHandler, GetNextHandler)
 
 Gura_DeclareMethod(wx_EvtHandler, GetPreviousHandler)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -321,7 +321,7 @@ Gura_ImplementMethod(wx_EvtHandler, GetPreviousHandler)
 
 Gura_DeclareMethod(wx_EvtHandler, ProcessEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_Event, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -337,7 +337,7 @@ Gura_ImplementMethod(wx_EvtHandler, ProcessEvent)
 
 Gura_DeclareMethod(wx_EvtHandler, SearchEventTable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "table", VTYPE_wx_EventTable, OCCUR_Once);
 	DeclareArg(env, "event", VTYPE_wx_Event, OCCUR_Once);
@@ -361,7 +361,7 @@ Gura_ImplementMethod(wx_EvtHandler, SearchEventTable)
 
 Gura_DeclareMethod(wx_EvtHandler, SetClientData)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 #endif
@@ -382,7 +382,7 @@ Gura_ImplementMethod(wx_EvtHandler, SetClientData)
 
 Gura_DeclareMethod(wx_EvtHandler, SetClientObject)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "data", VTYPE_wx_ClientData, OCCUR_Once);
 }
 
@@ -397,7 +397,7 @@ Gura_ImplementMethod(wx_EvtHandler, SetClientObject)
 
 Gura_DeclareMethod(wx_EvtHandler, SetEvtHandlerEnabled)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "enabled", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -412,7 +412,7 @@ Gura_ImplementMethod(wx_EvtHandler, SetEvtHandlerEnabled)
 
 Gura_DeclareMethod(wx_EvtHandler, SetNextHandler)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "handler", VTYPE_wx_EvtHandler, OCCUR_Once);
 }
 
@@ -427,7 +427,7 @@ Gura_ImplementMethod(wx_EvtHandler, SetNextHandler)
 
 Gura_DeclareMethod(wx_EvtHandler, SetPreviousHandler)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "handler", VTYPE_wx_EvtHandler, OCCUR_Once);
 }
 

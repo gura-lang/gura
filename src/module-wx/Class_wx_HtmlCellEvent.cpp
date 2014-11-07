@@ -38,7 +38,7 @@ void wx_HtmlCellEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HtmlCellEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_HtmlCellEvent));
 	DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
@@ -74,7 +74,7 @@ Gura_ImplementFunction(HtmlCellEvent)
 
 Gura_DeclareMethod(wx_HtmlCellEvent, GetCell)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -88,7 +88,7 @@ Gura_ImplementMethod(wx_HtmlCellEvent, GetCell)
 
 Gura_DeclareMethod(wx_HtmlCellEvent, GetPoint)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_HtmlCellEvent, GetPoint)
 
 Gura_DeclareMethod(wx_HtmlCellEvent, SetLinkClicked)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "linkclicked", VTYPE_boolean, OCCUR_Once);
 #endif
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_HtmlCellEvent, SetLinkClicked)
 
 Gura_DeclareMethod(wx_HtmlCellEvent, GetLinkClicked)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

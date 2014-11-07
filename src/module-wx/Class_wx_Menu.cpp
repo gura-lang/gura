@@ -41,7 +41,7 @@ void wx_Menu::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(Menu)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Menu));
 	DeclareArg(env, "title", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(Menu)
 
 Gura_DeclareFunction(Menu_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Menu));
 	DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -93,7 +93,7 @@ Gura_ImplementFunction(Menu_1)
 
 Gura_DeclareMethod(wx_Menu, Append)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "helpString", VTYPE_string, OCCUR_ZeroOrOnce, FLAG_NoCast);
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_Menu, Append)
 
 Gura_DeclareMethodAlias(wx_Menu, AppendMenu_, "AppendMenu")
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "subMenu", VTYPE_wx_Menu, OCCUR_Once);
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_Menu, AppendMenu_)
 
 Gura_DeclareMethod(wx_Menu, AppendItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "menuItem", VTYPE_wx_MenuItem, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_Menu, AppendItem)
 
 Gura_DeclareMethod(wx_Menu, AppendCheckItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "helpString", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_Menu, AppendCheckItem)
 
 Gura_DeclareMethod(wx_Menu, AppendRadioItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "helpString", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_Menu, AppendRadioItem)
 
 Gura_DeclareMethod(wx_Menu, AppendSeparator)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_Menu, AppendSeparator)
 
 Gura_DeclareMethod(wx_Menu, AppendSubMenu)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "submenu", VTYPE_wx_Menu, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "help", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_Menu, AppendSubMenu)
 
 Gura_DeclareMethod(wx_Menu, Break)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Menu, Break)
@@ -247,7 +247,7 @@ Gura_ImplementMethod(wx_Menu, Break)
 
 Gura_DeclareMethod(wx_Menu, Check)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "check", VTYPE_boolean, OCCUR_Once);
 }
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_Menu, Check)
 
 Gura_DeclareMethod(wx_Menu, Delete)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -279,7 +279,7 @@ Gura_ImplementMethod(wx_Menu, Delete)
 
 Gura_DeclareMethod(wx_Menu, DeleteItem)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_MenuItem, OCCUR_Once);
 }
 
@@ -294,7 +294,7 @@ Gura_ImplementMethod(wx_Menu, DeleteItem)
 
 Gura_DeclareMethod(wx_Menu, Destroy)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -309,7 +309,7 @@ Gura_ImplementMethod(wx_Menu, Destroy)
 
 Gura_DeclareMethod(wx_Menu, DestroyItem)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_MenuItem, OCCUR_Once);
 }
 
@@ -324,7 +324,7 @@ Gura_ImplementMethod(wx_Menu, DestroyItem)
 
 Gura_DeclareMethod(wx_Menu, Enable)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "enable", VTYPE_boolean, OCCUR_Once);
 }
@@ -341,7 +341,7 @@ Gura_ImplementMethod(wx_Menu, Enable)
 
 Gura_DeclareMethod(wx_Menu, FindItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "itemString", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -357,7 +357,7 @@ Gura_ImplementMethod(wx_Menu, FindItem)
 
 Gura_DeclareMethod(wx_Menu, FindItemById)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -376,7 +376,7 @@ Gura_ImplementMethod(wx_Menu, FindItemById)
 
 Gura_DeclareMethod(wx_Menu, FindItemByPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -394,7 +394,7 @@ Gura_ImplementMethod(wx_Menu, FindItemByPosition)
 
 Gura_DeclareMethod(wx_Menu, GetHelpString)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -410,7 +410,7 @@ Gura_ImplementMethod(wx_Menu, GetHelpString)
 
 Gura_DeclareMethod(wx_Menu, GetLabel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -426,7 +426,7 @@ Gura_ImplementMethod(wx_Menu, GetLabel)
 
 Gura_DeclareMethod(wx_Menu, GetLabelText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -442,7 +442,7 @@ Gura_ImplementMethod(wx_Menu, GetLabelText)
 
 Gura_DeclareMethod(wx_Menu, GetMenuItemCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -456,7 +456,7 @@ Gura_ImplementMethod(wx_Menu, GetMenuItemCount)
 
 Gura_DeclareMethod(wx_Menu, GetMenuItems)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -470,7 +470,7 @@ Gura_ImplementMethod(wx_Menu, GetMenuItems)
 
 Gura_DeclareMethod(wx_Menu, GetTitle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -484,7 +484,7 @@ Gura_ImplementMethod(wx_Menu, GetTitle)
 
 Gura_DeclareMethod(wx_Menu, InsertItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "item", VTYPE_wx_MenuItem, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -502,7 +502,7 @@ Gura_ImplementMethod(wx_Menu, InsertItem)
 
 Gura_DeclareMethod(wx_Menu, Insert)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -529,7 +529,7 @@ Gura_ImplementMethod(wx_Menu, Insert)
 
 Gura_DeclareMethod(wx_Menu, InsertCheckItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
@@ -552,7 +552,7 @@ Gura_ImplementMethod(wx_Menu, InsertCheckItem)
 
 Gura_DeclareMethod(wx_Menu, InsertRadioItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
@@ -575,7 +575,7 @@ Gura_ImplementMethod(wx_Menu, InsertRadioItem)
 
 Gura_DeclareMethod(wx_Menu, InsertSeparator)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -591,7 +591,7 @@ Gura_ImplementMethod(wx_Menu, InsertSeparator)
 
 Gura_DeclareMethod(wx_Menu, IsChecked)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -607,7 +607,7 @@ Gura_ImplementMethod(wx_Menu, IsChecked)
 
 Gura_DeclareMethod(wx_Menu, IsEnabled)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -623,7 +623,7 @@ Gura_ImplementMethod(wx_Menu, IsEnabled)
 
 Gura_DeclareMethod(wx_Menu, PrependItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_MenuItem, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -639,7 +639,7 @@ Gura_ImplementMethod(wx_Menu, PrependItem)
 
 Gura_DeclareMethod(wx_Menu, Prepend)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "helpString", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -664,7 +664,7 @@ Gura_ImplementMethod(wx_Menu, Prepend)
 
 Gura_DeclareMethod(wx_Menu, PrependCheckItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "helpString", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -685,7 +685,7 @@ Gura_ImplementMethod(wx_Menu, PrependCheckItem)
 
 Gura_DeclareMethod(wx_Menu, PrependRadioItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "helpString", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -706,7 +706,7 @@ Gura_ImplementMethod(wx_Menu, PrependRadioItem)
 
 Gura_DeclareMethod(wx_Menu, PrependSeparator)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -720,7 +720,7 @@ Gura_ImplementMethod(wx_Menu, PrependSeparator)
 
 Gura_DeclareMethod(wx_Menu, Remove)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -736,7 +736,7 @@ Gura_ImplementMethod(wx_Menu, Remove)
 
 Gura_DeclareMethod(wx_Menu, RemoveItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_MenuItem, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -752,7 +752,7 @@ Gura_ImplementMethod(wx_Menu, RemoveItem)
 
 Gura_DeclareMethod(wx_Menu, SetHelpString)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "helpString", VTYPE_string, OCCUR_Once);
 }
@@ -769,7 +769,7 @@ Gura_ImplementMethod(wx_Menu, SetHelpString)
 
 Gura_DeclareMethod(wx_Menu, SetLabel)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
 }
@@ -786,7 +786,7 @@ Gura_ImplementMethod(wx_Menu, SetLabel)
 
 Gura_DeclareMethod(wx_Menu, SetTitle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once);
 }
 
@@ -801,7 +801,7 @@ Gura_ImplementMethod(wx_Menu, SetTitle)
 
 Gura_DeclareMethod(wx_Menu, UpdateUI)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "source", VTYPE_wx_EvtHandler, OCCUR_ZeroOrOnce);
 }
 

@@ -67,7 +67,7 @@ void wx_AuiDockArt::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(AuiDockArtEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_AuiDockArt));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -95,7 +95,7 @@ Gura_ImplementFunction(AuiDockArtEmpty)
 
 Gura_DeclareMethod(wx_AuiDockArt, DrawBackground)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_AuiDockArt, DrawBackground)
 
 Gura_DeclareMethod(wx_AuiDockArt, DrawBorder)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_AuiDockArt, DrawBorder)
 
 Gura_DeclareMethod(wx_AuiDockArt, DrawCaption)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_AuiDockArt, DrawCaption)
 
 Gura_DeclareMethod(wx_AuiDockArt, DrawGripper)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_AuiDockArt, DrawGripper)
 
 Gura_DeclareMethod(wx_AuiDockArt, DrawPaneButton)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "button", VTYPE_number, OCCUR_Once);
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_AuiDockArt, DrawPaneButton)
 
 Gura_DeclareMethod(wx_AuiDockArt, DrawSash)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_AuiDockArt, DrawSash)
 
 Gura_DeclareMethod(wx_AuiDockArt, GetColor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_AuiDockArt, GetColor)
 
 Gura_DeclareMethod(wx_AuiDockArt, GetColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -259,7 +259,7 @@ Gura_ImplementMethod(wx_AuiDockArt, GetColour)
 
 Gura_DeclareMethod(wx_AuiDockArt, GetFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -275,7 +275,7 @@ Gura_ImplementMethod(wx_AuiDockArt, GetFont)
 
 Gura_DeclareMethod(wx_AuiDockArt, GetMetric)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -291,7 +291,7 @@ Gura_ImplementMethod(wx_AuiDockArt, GetMetric)
 
 Gura_DeclareMethod(wx_AuiDockArt, SetColor)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "color", VTYPE_wx_Colour, OCCUR_Once);
 }
@@ -308,7 +308,7 @@ Gura_ImplementMethod(wx_AuiDockArt, SetColor)
 
 Gura_DeclareMethod(wx_AuiDockArt, SetColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
@@ -325,7 +325,7 @@ Gura_ImplementMethod(wx_AuiDockArt, SetColour)
 
 Gura_DeclareMethod(wx_AuiDockArt, SetFont)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 }
@@ -342,7 +342,7 @@ Gura_ImplementMethod(wx_AuiDockArt, SetFont)
 
 Gura_DeclareMethod(wx_AuiDockArt, SetMetric)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "new_val", VTYPE_number, OCCUR_Once);
 }

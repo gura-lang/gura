@@ -81,7 +81,7 @@ Value Object_GlyphSlot::DoSetProp(Environment &env, Signal sig, const Symbol *pS
 // freetype.GlyphSlot#Get_Glyph()
 Gura_DeclareMethod(GlyphSlot, Get_Glyph)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(GlyphSlot, Get_Glyph)
@@ -99,7 +99,7 @@ Gura_ImplementMethod(GlyphSlot, Get_Glyph)
 // freetype.GlyphSlot#Render(render_mode:number):reduce
 Gura_DeclareMethod(GlyphSlot, Render)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "render_mode", VTYPE_number);
 }
 

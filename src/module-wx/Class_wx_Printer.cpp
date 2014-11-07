@@ -38,7 +38,7 @@ void wx_Printer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(Printer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Printer));
 	DeclareArg(env, "data", VTYPE_wx_PrintDialogData, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(Printer)
 
 Gura_DeclareMethod(wx_Printer, CreateAbortWindow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "printout", VTYPE_wx_Printout, OCCUR_Once);
 }
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_Printer, CreateAbortWindow)
 
 Gura_DeclareMethod(wx_Printer, GetAbort)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_Printer, GetAbort)
 
 Gura_DeclareClassMethod(wx_Printer, GetLastError)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementClassMethod(wx_Printer, GetLastError)
 
 Gura_DeclareMethod(wx_Printer, GetPrintDialogData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_Printer, GetPrintDialogData)
 
 Gura_DeclareMethod(wx_Printer, Print)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "printout", VTYPE_wx_Printout, OCCUR_Once);
 	DeclareArg(env, "prompt", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_Printer, Print)
 
 Gura_DeclareMethod(wx_Printer, PrintDialog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_Printer, PrintDialog)
 
 Gura_DeclareMethod(wx_Printer, ReportError)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "printout", VTYPE_wx_Printout, OCCUR_Once);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_Printer, ReportError)
 
 Gura_DeclareMethod(wx_Printer, Setup)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

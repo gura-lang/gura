@@ -37,7 +37,7 @@ void wx_FilterClassFactory::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_FilterClassFactory, CanHandle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "protocol", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -56,7 +56,7 @@ Gura_ImplementMethod(wx_FilterClassFactory, CanHandle)
 
 Gura_DeclareClassMethod(wx_FilterClassFactory, Find)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "protocol", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -74,7 +74,7 @@ Gura_ImplementClassMethod(wx_FilterClassFactory, Find)
 
 Gura_DeclareClassMethod(wx_FilterClassFactory, GetFirst)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -87,7 +87,7 @@ Gura_ImplementClassMethod(wx_FilterClassFactory, GetFirst)
 
 Gura_DeclareMethod(wx_FilterClassFactory, GetNext)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_FilterClassFactory, GetNext)
 
 Gura_DeclareMethod(wx_FilterClassFactory, GetProtocol)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_FilterClassFactory, GetProtocol)
 
 Gura_DeclareMethod(wx_FilterClassFactory, GetProtocols)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "type", VTYPE_number, OCCUR_ZeroOrOnce);
 #endif
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_FilterClassFactory, GetProtocols)
 
 Gura_DeclareMethod(wx_FilterClassFactory, NewStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_wx_InputStream, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_FilterClassFactory, NewStream)
 
 Gura_DeclareMethod(wx_FilterClassFactory, NewStream_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_wx_OutputStream, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_FilterClassFactory, NewStream_1)
 
 Gura_DeclareMethod(wx_FilterClassFactory, NewStream_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_wx_InputStream, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_FilterClassFactory, NewStream_2)
 
 Gura_DeclareMethod(wx_FilterClassFactory, NewStream_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_wx_OutputStream, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_FilterClassFactory, NewStream_3)
 
 Gura_DeclareMethod(wx_FilterClassFactory, PopExtension)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_FilterClassFactory, PopExtension)
 
 Gura_DeclareMethod(wx_FilterClassFactory, PushFront)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FilterClassFactory, PushFront)
@@ -231,7 +231,7 @@ Gura_ImplementMethod(wx_FilterClassFactory, PushFront)
 
 Gura_DeclareMethod(wx_FilterClassFactory, Remove)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FilterClassFactory, Remove)

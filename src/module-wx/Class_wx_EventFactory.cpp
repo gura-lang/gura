@@ -10,7 +10,7 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_EventFactory, GetEventType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -24,7 +24,7 @@ Gura_ImplementMethod(wx_EventFactory, GetEventType)
 
 Gura_DeclareMethod(wx_EventFactory, GetName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

@@ -41,7 +41,7 @@ void wx_IconBundle::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(IconBundleEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_IconBundle));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -63,7 +63,7 @@ Gura_ImplementFunction(IconBundleEmpty)
 
 Gura_DeclareFunction(IconBundle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_IconBundle));
 	DeclareArg(env, "file", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -89,7 +89,7 @@ Gura_ImplementFunction(IconBundle)
 
 Gura_DeclareFunction(IconBundle_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_IconBundle));
 	DeclareArg(env, "icon", VTYPE_wx_Icon, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -113,7 +113,7 @@ Gura_ImplementFunction(IconBundle_1)
 
 Gura_DeclareFunction(IconBundle_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_IconBundle));
 	DeclareArg(env, "ic", VTYPE_wx_IconBundle, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -137,7 +137,7 @@ Gura_ImplementFunction(IconBundle_2)
 
 Gura_DeclareMethod(wx_IconBundle, AddIcon)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "file", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_IconBundle, AddIcon)
 
 Gura_DeclareMethod(wx_IconBundle, AddIcon_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "icon", VTYPE_wx_Icon, OCCUR_Once);
 }
 
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_IconBundle, AddIcon_1)
 
 Gura_DeclareMethod(wx_IconBundle, GetIcon)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_IconBundle, GetIcon)
 
 Gura_DeclareMethod(wx_IconBundle, GetIcon_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

@@ -39,7 +39,7 @@ void wx_StringTokenizer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(StringTokenizerEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_StringTokenizer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(StringTokenizerEmpty)
 
 Gura_DeclareFunction(StringTokenizer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_StringTokenizer));
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "delims", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -91,7 +91,7 @@ Gura_ImplementFunction(StringTokenizer)
 
 Gura_DeclareMethod(wx_StringTokenizer, CountTokens)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_StringTokenizer, CountTokens)
 
 Gura_DeclareMethod(wx_StringTokenizer, HasMoreTokens)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_StringTokenizer, HasMoreTokens)
 
 Gura_DeclareMethod(wx_StringTokenizer, GetLastDelimiter)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_StringTokenizer, GetLastDelimiter)
 
 Gura_DeclareMethod(wx_StringTokenizer, GetNextToken)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_StringTokenizer, GetNextToken)
 
 Gura_DeclareMethod(wx_StringTokenizer, GetPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_StringTokenizer, GetPosition)
 
 Gura_DeclareMethod(wx_StringTokenizer, GetString)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_StringTokenizer, GetString)
 
 Gura_DeclareMethod(wx_StringTokenizer, SetString)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "to_tokenize", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "delims", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_ZeroOrOnce);

@@ -502,7 +502,7 @@ Gura_DeclareFunctionBegin(list_xlist)
 Gura_DeclareFunctionEnd(list_xlist)
 {
 	_acceptInvalidFlag = (::strcmp(GetName(), "list") == 0);
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_OnceOrMore);
 	SetClassToConstruct(env.LookupClass(VTYPE_list));
 }
@@ -542,7 +542,7 @@ Gura_DeclareFunctionBegin(set_xset)
 Gura_DeclareFunctionEnd(set_xset)
 {
 	_acceptInvalidFlag = (::strcmp(GetName(), "set") == 0);
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "iter", VTYPE_iterator, OCCUR_OnceOrMore);
 	DeclareAttr(Gura_Symbol(or));
 	DeclareAttr(Gura_Symbol(and));
@@ -650,7 +650,7 @@ Gura_ImplementFunction(set_xset)
 // @(func?:Function) {block?}
 Gura_DeclareFunction(ListInit)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "func", VTYPE_function, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -702,7 +702,7 @@ Gura_ImplementFunction(ListInit)
 // list.zip(values+) {block?}
 Gura_DeclareClassMethod(list, zip)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -755,7 +755,7 @@ Gura_ImplementClassMethod(list, zip)
 // list#add(elem+):reduce
 Gura_DeclareMethod(list, add)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "elem", VTYPE_any, OCCUR_OnceOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -775,7 +775,7 @@ Gura_ImplementMethod(list, add)
 // list#append(elem+):reduce
 Gura_DeclareMethod(list, append)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "elem", VTYPE_any, OCCUR_OnceOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
@@ -810,7 +810,7 @@ Gura_ImplementMethod(list, append)
 // list#clear():reduce
 Gura_DeclareMethod(list, clear)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Clear the content of the list.");
@@ -826,7 +826,7 @@ Gura_ImplementMethod(list, clear)
 // list#combination(n:number) {block?}
 Gura_DeclareMethod(list, combination)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -853,7 +853,7 @@ Gura_ImplementMethod(list, combination)
 // list#erase(idx*:number):reduce
 Gura_DeclareMethod(list, erase)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "idx", VTYPE_number, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -884,7 +884,7 @@ Gura_ImplementMethod(list, erase)
 // list#first()
 Gura_DeclareMethod(list, first)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Returns a first value in the list. An error occurs when the list is empty.");
@@ -905,7 +905,7 @@ Gura_ImplementMethod(list, first)
 // list#flat()
 Gura_DeclareMethod(list, flat)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns the flattened list.");
@@ -924,7 +924,7 @@ Gura_ImplementMethod(list, flat)
 // list#flat():[dfs,bfs]
 Gura_DeclareMethod(list, flat)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(dfs));
 	DeclareAttr(Gura_Symbol(bfs));
 	//DeclareBlock(OCCUR_ZeroOrOnce);
@@ -953,7 +953,7 @@ Gura_ImplementMethod(list, flat)
 // list#get(index:number):map:flat
 Gura_DeclareMethod(list, get)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map | FLAG_Flat);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map | FLAG_Flat);
 	DeclareArg(env, "index", VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
@@ -970,7 +970,7 @@ Gura_ImplementMethod(list, get)
 // list#insert(idx:number, elem+):reduce
 Gura_DeclareMethod(list, insert)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "idx", VTYPE_number);
 	DeclareArg(env, "elem", VTYPE_any, OCCUR_OnceOrMore);
 	AddHelp(
@@ -997,7 +997,7 @@ Gura_ImplementMethod(list, insert)
 // list#isempty()
 Gura_DeclareMethod(list, isempty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Return true if the list is empty.");
@@ -1012,7 +1012,7 @@ Gura_ImplementMethod(list, isempty)
 // list#last()
 Gura_DeclareMethod(list, last)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Returns a last value in the list. An error occurs when the list is empty.");
@@ -1032,7 +1032,7 @@ Gura_ImplementMethod(list, last)
 // list#permutation(n?:number) {block?}
 Gura_DeclareMethod(list, permutation)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -1059,7 +1059,7 @@ Gura_ImplementMethod(list, permutation)
 // list#printf(format:string, stream?:stream:w):void
 Gura_DeclareMethod(list, printf)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	AddHelp(
@@ -1081,7 +1081,7 @@ Gura_ImplementMethod(list, printf)
 // list#put(index:number, value:nomap):reduce:map
 Gura_DeclareMethod(list, put)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
@@ -1100,7 +1100,7 @@ Gura_ImplementMethod(list, put)
 // list#shuffle():reduce
 Gura_DeclareMethod(list, shuffle)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Shuffle the order of the list content based on random numbers.");
@@ -1118,7 +1118,7 @@ Gura_ImplementMethod(list, shuffle)
 // list#shift():[raise]
 Gura_DeclareMethod(list, shift)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(raise));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
@@ -1146,7 +1146,7 @@ Gura_ImplementMethod(list, shift)
 // list#after(criteria) {block?}
 Gura_DeclareMethod(list, after)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -1174,7 +1174,7 @@ Gura_ImplementMethod(list, after)
 // list#align(n:number, value?):map {block?}
 Gura_DeclareMethod(list, align)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1192,7 +1192,7 @@ Gura_ImplementMethod(list, align)
 // list#and()
 Gura_DeclareMethodAlias(list, and_, "and")
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Calculates a logical AND result of all the values in the list.\n"
@@ -1213,7 +1213,7 @@ Gura_ImplementMethod(list, and_)
 // list#average()
 Gura_DeclareMethod(list, average)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns an average of values in the list.");
@@ -1233,7 +1233,7 @@ Gura_ImplementMethod(list, average)
 // list#before(criteria) {block?}
 Gura_DeclareMethod(list, before)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -1261,7 +1261,7 @@ Gura_ImplementMethod(list, before)
 // list#contains(value)
 Gura_DeclareMethod(list, contains)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
@@ -1281,7 +1281,7 @@ Gura_ImplementMethod(list, contains)
 // list#count(criteria?)
 Gura_DeclareMethod(list, count)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
@@ -1305,7 +1305,7 @@ Gura_ImplementMethod(list, count)
 // list#cycle(n?:number) {block?}
 Gura_DeclareMethod(list, cycle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1322,7 +1322,7 @@ Gura_ImplementMethod(list, cycle)
 // list#each() {block?}
 Gura_DeclareMethod(list, each)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
@@ -1342,7 +1342,7 @@ Gura_ImplementMethod(list, each)
 // list#filter(criteria?) {block?}
 Gura_DeclareMethod(list, filter)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -1373,7 +1373,7 @@ Gura_ImplementMethod(list, filter)
 // list#find(criteria?):[index]
 Gura_DeclareMethod(list, find)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(index));
 	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
 }
@@ -1395,7 +1395,7 @@ Gura_ImplementMethod(list, find)
 // list#fold(n:number, nstep?:number):[iteritem] {block?}
 Gura_DeclareMethod(list, fold)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareArg(env, "nstep", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1416,7 +1416,7 @@ Gura_ImplementMethod(list, fold)
 // list#format(format:string):map
 Gura_DeclareMethod(list, format)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
@@ -1433,7 +1433,7 @@ Gura_ImplementMethod(list, format)
 // list#head(n:number):map {block?}
 Gura_DeclareMethod(list, head)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1450,7 +1450,7 @@ Gura_ImplementMethod(list, head)
 // list#join(sep:string => "")
 Gura_DeclareMethod(list, join)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "sep", VTYPE_string, OCCUR_Once, FLAG_None, new Expr_Value(Value("")));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
@@ -1467,7 +1467,7 @@ Gura_ImplementMethod(list, join)
 // list#len()
 Gura_DeclareMethod(list, len)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns the length of the list.");
@@ -1483,7 +1483,7 @@ Gura_ImplementMethod(list, len)
 // list#map(func:function) {block?}
 Gura_DeclareMethod(list, map)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "func", VTYPE_function);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -1507,7 +1507,7 @@ Gura_ImplementMethod(list, map)
 // list#max():[index,last_index,indices]
 Gura_DeclareMethod(list, max)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(index));
 	DeclareAttr(Gura_Symbol(last_index));
 	DeclareAttr(Gura_Symbol(indices));
@@ -1534,7 +1534,7 @@ Gura_ImplementMethod(list, max)
 // list#min():[index,last_index,indices]
 Gura_DeclareMethod(list, min)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(index));
 	DeclareAttr(Gura_Symbol(last_index));
 	DeclareAttr(Gura_Symbol(indices));
@@ -1561,7 +1561,7 @@ Gura_ImplementMethod(list, min)
 // list#nilto(replace) {block?}
 Gura_DeclareMethod(list, nilto)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "replace", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1578,7 +1578,7 @@ Gura_ImplementMethod(list, nilto)
 // list#offset(n:number):map {block?}
 Gura_DeclareMethod(list, offset)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_Once);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1596,7 +1596,7 @@ Gura_ImplementMethod(list, offset)
 // list#or()
 Gura_DeclareMethodAlias(list, or_, "or")
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Calculates a logical OR result of all the values in the list.\n"
@@ -1617,7 +1617,7 @@ Gura_ImplementMethod(list, or_)
 // list#pack(format:string)
 Gura_DeclareMethod(list, pack)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
@@ -1663,7 +1663,7 @@ Gura_ImplementMethod(list, pack)
 // list#pingpong(n?:number):[sticky,sticky_l,sticky_r] {block?}
 Gura_DeclareMethod(list, pingpong)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(sticky));
@@ -1688,7 +1688,7 @@ Gura_ImplementMethod(list, pingpong)
 // list#rank(directive?):[stable] {block?}
 Gura_DeclareMethod(list, rank)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "directive", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(stable));
@@ -1720,7 +1720,7 @@ Gura_ImplementMethod(list, rank)
 // list#reduce(accum) {block}
 Gura_DeclareMethod(list, reduce)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "accum", VTYPE_any);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
@@ -1746,7 +1746,7 @@ Gura_ImplementMethod(list, reduce)
 // list#replace(value, replace) {block?}
 Gura_DeclareMethod(list, replace)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
 	DeclareArg(env, "replace", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1765,7 +1765,7 @@ Gura_ImplementMethod(list, replace)
 // list#reverse() {block?}
 Gura_DeclareMethod(list, reverse)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1780,7 +1780,7 @@ Gura_ImplementMethod(list, reverse)
 // list#roundoff(threshold:number => 1e-10) {block?}
 Gura_DeclareMethod(list, roundoff)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "threshold", VTYPE_number, OCCUR_Once, FLAG_None,
 											new Expr_Value(RoundOffThreshold));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1798,7 +1798,7 @@ Gura_ImplementMethod(list, roundoff)
 // list#runlength() {block?}
 Gura_DeclareMethod(list, runlength)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1814,7 +1814,7 @@ Gura_ImplementMethod(list, runlength)
 // list#since(criteria) {block?}
 Gura_DeclareMethod(list, since)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -1842,7 +1842,7 @@ Gura_ImplementMethod(list, since)
 // list#skip(n:number):map {block?}
 Gura_DeclareMethod(list, skip)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1859,7 +1859,7 @@ Gura_ImplementMethod(list, skip)
 // list#skipnil() {block?}
 Gura_DeclareMethod(list, skipnil)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1875,7 +1875,7 @@ Gura_ImplementMethod(list, skipnil)
 // list#sort(directive?, keys[]?):[stable] {block?}
 Gura_DeclareMethod(list, sort)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "directive", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "keys", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_List);
 	DeclareAttr(Gura_Symbol(stable));
@@ -1910,7 +1910,7 @@ Gura_ImplementMethod(list, sort)
 // list#stddev()
 Gura_DeclareMethod(list, stddev)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns a standard deviation of values in the list.");
@@ -1930,7 +1930,7 @@ Gura_ImplementMethod(list, stddev)
 // list#sum()
 Gura_DeclareMethod(list, sum)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns a sum of values in the list.");
@@ -1950,7 +1950,7 @@ Gura_ImplementMethod(list, sum)
 // list#tail(n:number):map {block?}
 Gura_DeclareMethod(list, tail)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1969,7 +1969,7 @@ Gura_ImplementMethod(list, tail)
 // list#until(criteria) {block?}
 Gura_DeclareMethod(list, until)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -1997,7 +1997,7 @@ Gura_ImplementMethod(list, until)
 // list#variance()
 Gura_DeclareMethod(list, variance)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns a variance of values in the list.");
@@ -2017,7 +2017,7 @@ Gura_ImplementMethod(list, variance)
 // list#walk():[dfs,bfs] {block?}
 Gura_DeclareMethod(list, walk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(dfs));
 	DeclareAttr(Gura_Symbol(bfs));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2044,7 +2044,7 @@ Gura_ImplementMethod(list, walk)
 // list#while(criteria) {block?}
 Gura_DeclareMethodAlias(list, while_, "while")
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(

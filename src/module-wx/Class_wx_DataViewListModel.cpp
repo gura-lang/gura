@@ -233,7 +233,7 @@ bool wx_DataViewListModel::ValueChanged(unsigned int col, unsigned int row)
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DataViewListModel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewListModel));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -255,7 +255,7 @@ Gura_ImplementFunction(DataViewListModel)
 
 Gura_DeclareMethod(wx_DataViewListModel, AddNotifier)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "notifier", VTYPE_wx_DataViewListModelNotifier, OCCUR_Once);
 }
 
@@ -270,7 +270,7 @@ Gura_ImplementMethod(wx_DataViewListModel, AddNotifier)
 
 Gura_DeclareMethod(wx_DataViewListModel, AddViewingColumn)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "view_column", VTYPE_wx_DataViewColumn, OCCUR_Once);
 	DeclareArg(env, "model_column", VTYPE_number, OCCUR_Once);
 }
@@ -287,7 +287,7 @@ Gura_ImplementMethod(wx_DataViewListModel, AddViewingColumn)
 
 Gura_DeclareMethod(wx_DataViewListModel, Cleared)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -301,7 +301,7 @@ Gura_ImplementMethod(wx_DataViewListModel, Cleared)
 
 Gura_DeclareMethod(wx_DataViewListModel, RemoveNotifier)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "notifier", VTYPE_wx_DataViewListModelNotifier, OCCUR_Once);
 }
 
@@ -316,7 +316,7 @@ Gura_ImplementMethod(wx_DataViewListModel, RemoveNotifier)
 
 Gura_DeclareMethod(wx_DataViewListModel, RemoveViewingColumn)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "column", VTYPE_wx_DataViewColumn, OCCUR_Once);
 }
 
@@ -331,7 +331,7 @@ Gura_ImplementMethod(wx_DataViewListModel, RemoveViewingColumn)
 
 Gura_DeclareMethod(wx_DataViewListModel, RowAppended)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -345,7 +345,7 @@ Gura_ImplementMethod(wx_DataViewListModel, RowAppended)
 
 Gura_DeclareMethod(wx_DataViewListModel, RowChanged)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -361,7 +361,7 @@ Gura_ImplementMethod(wx_DataViewListModel, RowChanged)
 
 Gura_DeclareMethod(wx_DataViewListModel, RowDeleted)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -377,7 +377,7 @@ Gura_ImplementMethod(wx_DataViewListModel, RowDeleted)
 
 Gura_DeclareMethod(wx_DataViewListModel, RowInserted)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "before", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -393,7 +393,7 @@ Gura_ImplementMethod(wx_DataViewListModel, RowInserted)
 
 Gura_DeclareMethod(wx_DataViewListModel, RowPrepended)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -407,7 +407,7 @@ Gura_ImplementMethod(wx_DataViewListModel, RowPrepended)
 
 Gura_DeclareMethod(wx_DataViewListModel, RowsReordered)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "new_order", VTYPE_number, OCCUR_Once, FLAG_List);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -424,7 +424,7 @@ Gura_ImplementMethod(wx_DataViewListModel, RowsReordered)
 
 Gura_DeclareMethod(wx_DataViewListModel, ValueChanged)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);

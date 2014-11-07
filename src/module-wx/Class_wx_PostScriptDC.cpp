@@ -39,7 +39,7 @@ void wx_PostScriptDC::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(PostScriptDC)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_PostScriptDC));
 	DeclareArg(env, "printData", VTYPE_wx_PrintData, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(PostScriptDC)
 
 Gura_DeclareFunction(PostScriptDC_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_PostScriptDC));
 	DeclareArg(env, "output", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "interactive", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -92,7 +92,7 @@ Gura_ImplementFunction(PostScriptDC_1)
 
 Gura_DeclareClassMethod(wx_PostScriptDC, SetResolution)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "ppi", VTYPE_number, OCCUR_Once);
 }
 
@@ -106,7 +106,7 @@ Gura_ImplementClassMethod(wx_PostScriptDC, SetResolution)
 
 Gura_DeclareClassMethod(wx_PostScriptDC, GetResolution)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

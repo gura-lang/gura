@@ -11,7 +11,7 @@ Gura_BeginModuleBody(base64)
 // base64.reader(stream:stream:r)
 Gura_DeclareFunction(reader)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 }
 
@@ -25,7 +25,7 @@ Gura_ImplementFunction(reader)
 // base64.writer(stream:stream:w, linelen:number => 76)
 Gura_DeclareFunction(writer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "linelen", VTYPE_number, OCCUR_Once, FLAG_Nil, new Expr_Value(76));
 }
@@ -42,7 +42,7 @@ Gura_ImplementFunction(writer)
 // base64.decode(stream:stream:r)
 Gura_DeclareFunction(decode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 }
 
@@ -60,7 +60,7 @@ Gura_ImplementFunction(decode)
 // base64.encode(stream:stream:r, linelen:number => 76)
 Gura_DeclareFunction(encode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareArg(env, "linelen", VTYPE_number, OCCUR_Once, FLAG_Nil, new Expr_Value(76));
 }
@@ -82,7 +82,7 @@ Gura_ImplementFunction(encode)
 // stream#base64reader()
 Gura_DeclareMethod(stream, base64reader)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(stream, base64reader)
@@ -95,7 +95,7 @@ Gura_ImplementMethod(stream, base64reader)
 // stream#base64writer(linelen:number => 76)
 Gura_DeclareMethod(stream, base64writer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "linelen", VTYPE_number, OCCUR_Once, FLAG_Nil, new Expr_Value(76));
 }
 

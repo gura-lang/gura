@@ -38,7 +38,7 @@ void wx_PreviewCanvas::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(PreviewCanvas)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_PreviewCanvas));
 	DeclareArg(env, "preview", VTYPE_wx_PrintPreview, OCCUR_Once);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
@@ -76,7 +76,7 @@ Gura_ImplementFunction(PreviewCanvas)
 
 Gura_DeclareMethod(wx_PreviewCanvas, OnPaint)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_PaintEvent, OCCUR_Once);
 }
 

@@ -38,7 +38,7 @@ void wx_FindReplaceData::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FindReplaceData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_FindReplaceData));
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(FindReplaceData)
 
 Gura_DeclareMethod(wx_FindReplaceData, GetFindString)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_FindReplaceData, GetFindString)
 
 Gura_DeclareMethod(wx_FindReplaceData, GetReplaceString)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_FindReplaceData, GetReplaceString)
 
 Gura_DeclareMethod(wx_FindReplaceData, GetFlags)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_FindReplaceData, GetFlags)
 
 Gura_DeclareMethod(wx_FindReplaceData, SetFlags)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_FindReplaceData, SetFlags)
 
 Gura_DeclareMethod(wx_FindReplaceData, SetFindString)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 }
 
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_FindReplaceData, SetFindString)
 
 Gura_DeclareMethod(wx_FindReplaceData, SetReplaceString)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 }
 

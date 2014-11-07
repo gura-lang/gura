@@ -38,7 +38,7 @@ void wx_GridCellNumberRenderer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GridCellNumberRenderer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellNumberRenderer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

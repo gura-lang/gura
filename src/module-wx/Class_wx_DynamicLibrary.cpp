@@ -39,7 +39,7 @@ void wx_DynamicLibrary::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DynamicLibraryEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_DynamicLibrary));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(DynamicLibraryEmpty)
 
 Gura_DeclareFunction(DynamicLibrary)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_DynamicLibrary));
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
@@ -100,7 +100,7 @@ Gura_ImplementFunction(DynamicLibrary)
 
 Gura_DeclareClassMethod(wx_DynamicLibrary, CanonicalizeName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "cat", VTYPE_wx_DynamicLibraryCategory, OCCUR_ZeroOrOnce);
@@ -124,7 +124,7 @@ Gura_ImplementClassMethod(wx_DynamicLibrary, CanonicalizeName)
 
 Gura_DeclareClassMethod(wx_DynamicLibrary, CanonicalizePluginName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "cat", VTYPE_wx_PluginCategory, OCCUR_ZeroOrOnce);
@@ -148,7 +148,7 @@ Gura_ImplementClassMethod(wx_DynamicLibrary, CanonicalizePluginName)
 
 Gura_DeclareMethod(wx_DynamicLibrary, Detach)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_DynamicLibrary, Detach)
 
 Gura_DeclareMethod(wx_DynamicLibrary, GetSymbol)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 }
 
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_DynamicLibrary, GetSymbol)
 
 Gura_DeclareMethod(wx_DynamicLibrary, GetSymbolAorW)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 }
 
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_DynamicLibrary, GetSymbolAorW)
 
 Gura_DeclareClassMethod(wx_DynamicLibrary, GetProgramHandle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -218,7 +218,7 @@ Gura_ImplementClassMethod(wx_DynamicLibrary, GetProgramHandle)
 
 Gura_DeclareMethod(wx_DynamicLibrary, HasSymbol)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_DynamicLibrary, HasSymbol)
 
 Gura_DeclareMethod(wx_DynamicLibrary, IsLoaded)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_DynamicLibrary, IsLoaded)
 
 Gura_DeclareClassMethod(wx_DynamicLibrary, ListLoaded)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -265,7 +265,7 @@ Gura_ImplementClassMethod(wx_DynamicLibrary, ListLoaded)
 
 Gura_DeclareMethod(wx_DynamicLibrary, Load)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_DynamicLibrary, Load)
 
 Gura_DeclareMethod(wx_DynamicLibrary, Unload)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DynamicLibrary, Unload)
@@ -307,7 +307,7 @@ Gura_ImplementMethod(wx_DynamicLibrary, Unload)
 
 Gura_DeclareClassMethod(wx_DynamicLibrary, Unload_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "handle", VTYPE_wx_DllType, OCCUR_Once);
 #endif

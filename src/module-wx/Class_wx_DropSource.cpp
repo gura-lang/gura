@@ -44,7 +44,7 @@ void wx_DropSource::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DropSource)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_DropSource));
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(DropSource)
 
 Gura_DeclareFunction(DropSource_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_DropSource));
 	DeclareArg(env, "data", VTYPE_wx_DataObject, OCCUR_Once);
@@ -126,7 +126,7 @@ Gura_ImplementFunction(DropSource_1)
 
 Gura_DeclareMethod(wx_DropSource, SetData)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "data", VTYPE_wx_DataObject, OCCUR_Once);
 #endif
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_DropSource, SetData)
 
 Gura_DeclareMethod(wx_DropSource, DoDragDrop)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 #endif
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_DropSource, DoDragDrop)
 
 Gura_DeclareMethod(wx_DropSource, GetDataObject)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_DropSource, GetDataObject)
 
 Gura_DeclareMethod(wx_DropSource, GiveFeedback)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "effect", VTYPE_wx_DragResult, OCCUR_Once);
 #endif
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_DropSource, GiveFeedback)
 
 Gura_DeclareMethod(wx_DropSource, SetCursor)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "res", VTYPE_wx_DragResult, OCCUR_Once);
 	DeclareArg(env, "cursor", VTYPE_wx_Cursor, OCCUR_Once);

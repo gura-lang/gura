@@ -40,7 +40,7 @@ void wx_CheckListBox::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(CheckListBoxEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_CheckListBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -62,7 +62,7 @@ Gura_ImplementFunction(CheckListBoxEmpty)
 
 Gura_DeclareFunction(CheckListBox)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_CheckListBox));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -110,7 +110,7 @@ Gura_ImplementFunction(CheckListBox)
 
 Gura_DeclareMethod(wx_CheckListBox, Check)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "check", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_CheckListBox, Check)
 
 Gura_DeclareMethod(wx_CheckListBox, IsChecked)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

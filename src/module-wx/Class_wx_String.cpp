@@ -44,7 +44,7 @@ void wx_String::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(String)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_String));
 	DeclareArg(env, "str", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -68,7 +68,7 @@ Gura_ImplementFunction(String)
 
 Gura_DeclareFunction(String_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_String));
 	DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
@@ -101,7 +101,7 @@ Gura_ImplementFunction(String_1)
 
 Gura_DeclareFunction(String_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_String));
 	DeclareArg(env, "psz", VTYPE_string, OCCUR_Once);
@@ -134,7 +134,7 @@ Gura_ImplementFunction(String_2)
 
 Gura_DeclareFunction(String_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_String));
 	DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
@@ -167,7 +167,7 @@ Gura_ImplementFunction(String_3)
 
 Gura_DeclareFunction(String_4)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_String));
 	DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
@@ -202,7 +202,7 @@ Gura_ImplementFunction(String_4)
 
 Gura_DeclareFunction(String_5)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_String));
 	DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
@@ -237,7 +237,7 @@ Gura_ImplementFunction(String_5)
 
 Gura_DeclareMethod(wx_String, Alloc)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "nLen", VTYPE_number, OCCUR_Once);
 }
 
@@ -252,7 +252,7 @@ Gura_ImplementMethod(wx_String, Alloc)
 
 Gura_DeclareMethod(wx_String, Append)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "psz", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -268,7 +268,7 @@ Gura_ImplementMethod(wx_String, Append)
 
 Gura_DeclareMethod(wx_String, Append_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -293,7 +293,7 @@ Gura_ImplementMethod(wx_String, Append_1)
 
 Gura_DeclareMethod(wx_String, AfterFirst)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 #endif
@@ -315,7 +315,7 @@ Gura_ImplementMethod(wx_String, AfterFirst)
 
 Gura_DeclareMethod(wx_String, AfterLast)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 #endif
@@ -337,7 +337,7 @@ Gura_ImplementMethod(wx_String, AfterLast)
 
 Gura_DeclareMethod(wx_String, BeforeFirst)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 #endif
@@ -359,7 +359,7 @@ Gura_ImplementMethod(wx_String, BeforeFirst)
 
 Gura_DeclareMethod(wx_String, BeforeLast)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 #endif
@@ -381,7 +381,7 @@ Gura_ImplementMethod(wx_String, BeforeLast)
 
 Gura_DeclareMethod(wx_String, c_str)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -399,7 +399,7 @@ Gura_ImplementMethod(wx_String, c_str)
 
 Gura_DeclareMethod(wx_String, char_str)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "conv", VTYPE_wx_MBConv, OCCUR_ZeroOrOnce);
 #endif
@@ -422,7 +422,7 @@ Gura_ImplementMethod(wx_String, char_str)
 
 Gura_DeclareMethod(wx_String, Clear)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, Clear)
@@ -435,7 +435,7 @@ Gura_ImplementMethod(wx_String, Clear)
 
 Gura_DeclareMethod(wx_String, Cmp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -451,7 +451,7 @@ Gura_ImplementMethod(wx_String, Cmp)
 
 Gura_DeclareMethod(wx_String, CmpNoCase)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -467,7 +467,7 @@ Gura_ImplementMethod(wx_String, CmpNoCase)
 
 Gura_DeclareMethod(wx_String, CompareTo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "psz", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "cmp", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -486,7 +486,7 @@ Gura_ImplementMethod(wx_String, CompareTo)
 
 Gura_DeclareMethod(wx_String, Contains)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -502,7 +502,7 @@ Gura_ImplementMethod(wx_String, Contains)
 
 Gura_DeclareMethod(wx_String, Empty)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, Empty)
@@ -515,7 +515,7 @@ Gura_ImplementMethod(wx_String, Empty)
 
 Gura_DeclareMethod(wx_String, Find)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "fromEnd", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -540,7 +540,7 @@ Gura_ImplementMethod(wx_String, Find)
 
 Gura_DeclareMethod(wx_String, Find_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "sz", VTYPE_string, OCCUR_Once);
 #endif
@@ -562,7 +562,7 @@ Gura_ImplementMethod(wx_String, Find_1)
 
 Gura_DeclareMethod(wx_String, First)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 #endif
@@ -584,7 +584,7 @@ Gura_ImplementMethod(wx_String, First)
 
 Gura_DeclareMethod(wx_String, First_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "psz", VTYPE_string, OCCUR_Once);
 #endif
@@ -606,7 +606,7 @@ Gura_ImplementMethod(wx_String, First_1)
 
 Gura_DeclareMethod(wx_String, First_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 #endif
@@ -628,7 +628,7 @@ Gura_ImplementMethod(wx_String, First_2)
 
 Gura_DeclareMethod(wx_String, fn_str)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -646,7 +646,7 @@ Gura_ImplementMethod(wx_String, fn_str)
 
 Gura_DeclareMethod(wx_String, fn_str_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -664,7 +664,7 @@ Gura_ImplementMethod(wx_String, fn_str_1)
 
 Gura_DeclareMethod(wx_String, fn_str_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -682,7 +682,7 @@ Gura_ImplementMethod(wx_String, fn_str_2)
 
 Gura_DeclareClassMethod(wx_String, Format)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "*format", VTYPE_number, OCCUR_Once);
 #endif
@@ -703,7 +703,7 @@ Gura_ImplementClassMethod(wx_String, Format)
 
 Gura_DeclareMethod(wx_String, Freq)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 #endif
@@ -725,7 +725,7 @@ Gura_ImplementMethod(wx_String, Freq)
 
 Gura_DeclareClassMethod(wx_String, From8BitData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
@@ -748,7 +748,7 @@ Gura_ImplementClassMethod(wx_String, From8BitData)
 
 Gura_DeclareClassMethod(wx_String, From8BitData_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 #endif
@@ -769,7 +769,7 @@ Gura_ImplementClassMethod(wx_String, From8BitData_1)
 
 Gura_DeclareClassMethod(wx_String, FromAscii)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 #endif
@@ -790,7 +790,7 @@ Gura_ImplementClassMethod(wx_String, FromAscii)
 
 Gura_DeclareClassMethod(wx_String, FromAscii_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 #endif
@@ -811,7 +811,7 @@ Gura_ImplementClassMethod(wx_String, FromAscii_1)
 
 Gura_DeclareMethod(wx_String, GetChar)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -827,7 +827,7 @@ Gura_ImplementMethod(wx_String, GetChar)
 
 Gura_DeclareMethod(wx_String, GetData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -845,7 +845,7 @@ Gura_ImplementMethod(wx_String, GetData)
 
 Gura_DeclareMethod(wx_String, GetWritableChar)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 #endif
@@ -867,7 +867,7 @@ Gura_ImplementMethod(wx_String, GetWritableChar)
 
 Gura_DeclareMethod(wx_String, GetWriteBuf)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 #endif
@@ -889,7 +889,7 @@ Gura_ImplementMethod(wx_String, GetWriteBuf)
 
 Gura_DeclareMethod(wx_String, Index)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 #endif
@@ -911,7 +911,7 @@ Gura_ImplementMethod(wx_String, Index)
 
 Gura_DeclareMethod(wx_String, Index_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "sz", VTYPE_string, OCCUR_Once);
 #endif
@@ -933,7 +933,7 @@ Gura_ImplementMethod(wx_String, Index_1)
 
 Gura_DeclareMethod(wx_String, IsAscii)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -951,7 +951,7 @@ Gura_ImplementMethod(wx_String, IsAscii)
 
 Gura_DeclareMethod(wx_String, IsEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -969,7 +969,7 @@ Gura_ImplementMethod(wx_String, IsEmpty)
 
 Gura_DeclareMethod(wx_String, IsNull)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -987,7 +987,7 @@ Gura_ImplementMethod(wx_String, IsNull)
 
 Gura_DeclareMethod(wx_String, Is_number)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1005,7 +1005,7 @@ Gura_ImplementMethod(wx_String, Is_number)
 
 Gura_DeclareMethod(wx_String, IsSameAs)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "psz", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "caseSensitive", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -1030,7 +1030,7 @@ Gura_ImplementMethod(wx_String, IsSameAs)
 
 Gura_DeclareMethod(wx_String, IsSameAs_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "caseSensitive", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -1055,7 +1055,7 @@ Gura_ImplementMethod(wx_String, IsSameAs_1)
 
 Gura_DeclareMethod(wx_String, IsWord)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1073,7 +1073,7 @@ Gura_ImplementMethod(wx_String, IsWord)
 
 Gura_DeclareMethod(wx_String, Last)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1091,7 +1091,7 @@ Gura_ImplementMethod(wx_String, Last)
 
 Gura_DeclareMethod(wx_String, Last_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1109,7 +1109,7 @@ Gura_ImplementMethod(wx_String, Last_1)
 
 Gura_DeclareMethod(wx_String, Left)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1125,7 +1125,7 @@ Gura_ImplementMethod(wx_String, Left)
 
 Gura_DeclareMethod(wx_String, Len)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1139,7 +1139,7 @@ Gura_ImplementMethod(wx_String, Len)
 
 Gura_DeclareMethod(wx_String, Length)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1153,7 +1153,7 @@ Gura_ImplementMethod(wx_String, Length)
 
 Gura_DeclareMethod(wx_String, Lower)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1167,7 +1167,7 @@ Gura_ImplementMethod(wx_String, Lower)
 
 Gura_DeclareMethod(wx_String, LowerCase)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, LowerCase)
@@ -1180,7 +1180,7 @@ Gura_ImplementMethod(wx_String, LowerCase)
 
 Gura_DeclareMethod(wx_String, MakeLower)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1194,7 +1194,7 @@ Gura_ImplementMethod(wx_String, MakeLower)
 
 Gura_DeclareMethod(wx_String, MakeUpper)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1208,7 +1208,7 @@ Gura_ImplementMethod(wx_String, MakeUpper)
 
 Gura_DeclareMethod(wx_String, Matches)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "szMask", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1224,7 +1224,7 @@ Gura_ImplementMethod(wx_String, Matches)
 
 Gura_DeclareMethod(wx_String, mb_str)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "conv", VTYPE_wx_MBConv, OCCUR_Once);
 #endif
@@ -1246,7 +1246,7 @@ Gura_ImplementMethod(wx_String, mb_str)
 
 Gura_DeclareMethod(wx_String, mb_str_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "conv", VTYPE_wx_MBConv, OCCUR_Once);
 #endif
@@ -1268,7 +1268,7 @@ Gura_ImplementMethod(wx_String, mb_str_1)
 
 Gura_DeclareMethod(wx_String, Mid)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "first", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1287,7 +1287,7 @@ Gura_ImplementMethod(wx_String, Mid)
 
 Gura_DeclareMethod(wx_String, Pad)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "pad", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1315,7 +1315,7 @@ Gura_ImplementMethod(wx_String, Pad)
 
 Gura_DeclareMethod(wx_String, Prepend)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 #endif
@@ -1337,7 +1337,7 @@ Gura_ImplementMethod(wx_String, Prepend)
 
 Gura_DeclareMethod(wx_String, Printf)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "pszFormat", VTYPE_string, OCCUR_Once);
 #endif
@@ -1359,7 +1359,7 @@ Gura_ImplementMethod(wx_String, Printf)
 
 Gura_DeclareMethod(wx_String, Remove)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1375,7 +1375,7 @@ Gura_ImplementMethod(wx_String, Remove)
 
 Gura_DeclareMethod(wx_String, Remove_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
@@ -1399,7 +1399,7 @@ Gura_ImplementMethod(wx_String, Remove_1)
 
 Gura_DeclareMethod(wx_String, RemoveLast)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1413,7 +1413,7 @@ Gura_ImplementMethod(wx_String, RemoveLast)
 
 Gura_DeclareMethod(wx_String, Replace)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "szOld", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "szNew", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "replaceAll", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -1434,7 +1434,7 @@ Gura_ImplementMethod(wx_String, Replace)
 
 Gura_DeclareMethod(wx_String, Right)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1450,7 +1450,7 @@ Gura_ImplementMethod(wx_String, Right)
 
 Gura_DeclareMethod(wx_String, SetChar)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
@@ -1473,7 +1473,7 @@ Gura_ImplementMethod(wx_String, SetChar)
 
 Gura_DeclareMethod(wx_String, Shrink)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, Shrink)
@@ -1486,7 +1486,7 @@ Gura_ImplementMethod(wx_String, Shrink)
 
 Gura_DeclareMethod(wx_String, StartsWith)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "*prefix", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "*rest", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -1511,7 +1511,7 @@ Gura_ImplementMethod(wx_String, StartsWith)
 
 Gura_DeclareMethod(wx_String, EndsWith)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "*suffix", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "*rest", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -1536,7 +1536,7 @@ Gura_ImplementMethod(wx_String, EndsWith)
 
 Gura_DeclareMethod(wx_String, Strip)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1556,7 +1556,7 @@ Gura_ImplementMethod(wx_String, Strip)
 
 Gura_DeclareMethod(wx_String, SubString)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1574,7 +1574,7 @@ Gura_ImplementMethod(wx_String, SubString)
 
 Gura_DeclareMethod(wx_String, To8BitData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1592,7 +1592,7 @@ Gura_ImplementMethod(wx_String, To8BitData)
 
 Gura_DeclareMethod(wx_String, To8BitData_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1610,7 +1610,7 @@ Gura_ImplementMethod(wx_String, To8BitData_1)
 
 Gura_DeclareMethod(wx_String, ToAscii)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1628,7 +1628,7 @@ Gura_ImplementMethod(wx_String, ToAscii)
 
 Gura_DeclareMethod(wx_String, ToAscii_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1646,7 +1646,7 @@ Gura_ImplementMethod(wx_String, ToAscii_1)
 
 Gura_DeclareMethod(wx_String, ToDouble)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "*val", VTYPE_number, OCCUR_Once);
 #endif
@@ -1668,7 +1668,7 @@ Gura_ImplementMethod(wx_String, ToDouble)
 
 Gura_DeclareMethod(wx_String, ToLong)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "*val", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "base", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1693,7 +1693,7 @@ Gura_ImplementMethod(wx_String, ToLong)
 
 Gura_DeclareMethod(wx_String, ToLongLong)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "*val", VTYPE_wx_LongLong_t, OCCUR_Once);
 	DeclareArg(env, "base", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1718,7 +1718,7 @@ Gura_ImplementMethod(wx_String, ToLongLong)
 
 Gura_DeclareMethod(wx_String, ToULong)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "*val", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "base", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1743,7 +1743,7 @@ Gura_ImplementMethod(wx_String, ToULong)
 
 Gura_DeclareMethod(wx_String, ToULongLong)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "*val", VTYPE_wx_ULongLong_t, OCCUR_Once);
 	DeclareArg(env, "base", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1768,7 +1768,7 @@ Gura_ImplementMethod(wx_String, ToULongLong)
 
 Gura_DeclareMethod(wx_String, ToUTF8)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1782,7 +1782,7 @@ Gura_ImplementMethod(wx_String, ToUTF8)
 
 Gura_DeclareMethod(wx_String, Trim)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "fromRight", VTYPE_boolean, OCCUR_ZeroOrOnce);
 #endif
@@ -1805,7 +1805,7 @@ Gura_ImplementMethod(wx_String, Trim)
 
 Gura_DeclareMethod(wx_String, Truncate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 #endif
@@ -1827,7 +1827,7 @@ Gura_ImplementMethod(wx_String, Truncate)
 
 Gura_DeclareMethod(wx_String, UngetWriteBuf)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, UngetWriteBuf)
@@ -1844,7 +1844,7 @@ Gura_ImplementMethod(wx_String, UngetWriteBuf)
 
 Gura_DeclareMethod(wx_String, UngetWriteBuf_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 #endif
@@ -1865,7 +1865,7 @@ Gura_ImplementMethod(wx_String, UngetWriteBuf_1)
 
 Gura_DeclareMethod(wx_String, Upper)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1879,7 +1879,7 @@ Gura_ImplementMethod(wx_String, Upper)
 
 Gura_DeclareMethod(wx_String, UpperCase)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, UpperCase)
@@ -1892,7 +1892,7 @@ Gura_ImplementMethod(wx_String, UpperCase)
 
 Gura_DeclareMethod(wx_String, utf8_str)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1910,7 +1910,7 @@ Gura_ImplementMethod(wx_String, utf8_str)
 
 Gura_DeclareMethod(wx_String, wc_str)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "conv", VTYPE_wx_MBConv, OCCUR_Once);
 #endif
@@ -1932,7 +1932,7 @@ Gura_ImplementMethod(wx_String, wc_str)
 
 Gura_DeclareMethod(wx_String, wc_str_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "conv", VTYPE_wx_MBConv, OCCUR_Once);
 #endif
@@ -1954,7 +1954,7 @@ Gura_ImplementMethod(wx_String, wc_str_1)
 
 Gura_DeclareMethod(wx_String, wchar_str)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

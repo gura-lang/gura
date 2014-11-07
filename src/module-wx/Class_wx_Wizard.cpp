@@ -46,7 +46,7 @@ void wx_Wizard::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(WizardEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Wizard));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -68,7 +68,7 @@ Gura_ImplementFunction(WizardEmpty)
 
 Gura_DeclareFunction(Wizard)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Wizard));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -108,7 +108,7 @@ Gura_ImplementFunction(Wizard)
 
 Gura_DeclareMethod(wx_Wizard, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_Wizard, Create)
 
 Gura_DeclareMethod(wx_Wizard, FitToPage)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "firstPage", VTYPE_wx_WizardPage, OCCUR_Once);
 }
 
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_Wizard, FitToPage)
 
 Gura_DeclareMethod(wx_Wizard, GetBitmap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_Wizard, GetBitmap)
 
 Gura_DeclareMethod(wx_Wizard, GetBitmapBackgroundColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_Wizard, GetBitmapBackgroundColour)
 
 Gura_DeclareMethod(wx_Wizard, GetBitmapPlacement)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_Wizard, GetBitmapPlacement)
 
 Gura_DeclareMethod(wx_Wizard, GetCurrentPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_Wizard, GetCurrentPage)
 
 Gura_DeclareMethod(wx_Wizard, GetMinimumBitmapWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -226,7 +226,7 @@ Gura_ImplementMethod(wx_Wizard, GetMinimumBitmapWidth)
 
 Gura_DeclareMethod(wx_Wizard, GetPageAreaSizer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_Wizard, GetPageAreaSizer)
 
 Gura_DeclareMethod(wx_Wizard, GetPageSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -254,7 +254,7 @@ Gura_ImplementMethod(wx_Wizard, GetPageSize)
 
 Gura_DeclareMethod(wx_Wizard, HasNextPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_wx_WizardPage, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -270,7 +270,7 @@ Gura_ImplementMethod(wx_Wizard, HasNextPage)
 
 Gura_DeclareMethod(wx_Wizard, HasPrevPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_wx_WizardPage, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -286,7 +286,7 @@ Gura_ImplementMethod(wx_Wizard, HasPrevPage)
 
 Gura_DeclareMethod(wx_Wizard, RunWizard)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "firstPage", VTYPE_wx_WizardPage, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -302,7 +302,7 @@ Gura_ImplementMethod(wx_Wizard, RunWizard)
 
 Gura_DeclareMethod(wx_Wizard, SetBitmap)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 }
 
@@ -317,7 +317,7 @@ Gura_ImplementMethod(wx_Wizard, SetBitmap)
 
 Gura_DeclareMethod(wx_Wizard, SetBitmapBackgroundColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -332,7 +332,7 @@ Gura_ImplementMethod(wx_Wizard, SetBitmapBackgroundColour)
 
 Gura_DeclareMethod(wx_Wizard, SetBitmapPlacement)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "placement", VTYPE_number, OCCUR_Once);
 }
 
@@ -347,7 +347,7 @@ Gura_ImplementMethod(wx_Wizard, SetBitmapPlacement)
 
 Gura_DeclareMethod(wx_Wizard, SetBorder)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "border", VTYPE_number, OCCUR_Once);
 }
 
@@ -362,7 +362,7 @@ Gura_ImplementMethod(wx_Wizard, SetBorder)
 
 Gura_DeclareMethod(wx_Wizard, SetMinimumBitmapWidth)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
@@ -377,7 +377,7 @@ Gura_ImplementMethod(wx_Wizard, SetMinimumBitmapWidth)
 
 Gura_DeclareMethod(wx_Wizard, SetPageSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "sizePage", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -392,7 +392,7 @@ Gura_ImplementMethod(wx_Wizard, SetPageSize)
 
 Gura_DeclareMethod(wx_Wizard, ShowPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_wx_WizardPage, OCCUR_Once);
 	DeclareArg(env, "goingForward", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);

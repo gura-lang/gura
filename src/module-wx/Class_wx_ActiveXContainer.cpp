@@ -38,7 +38,7 @@ void wx_ActiveXContainer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ActiveXContainer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_ActiveXContainer));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);

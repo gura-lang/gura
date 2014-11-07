@@ -42,7 +42,7 @@ void wx_HtmlHelpFrame::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HtmlHelpFrame)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlHelpFrame));
 	DeclareArg(env, "data", VTYPE_wx_HtmlHelpData, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(HtmlHelpFrame)
 
 Gura_DeclareFunction(HtmlHelpFrame_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlHelpFrame));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "wxWindowID", VTYPE_number, OCCUR_Once);
@@ -102,7 +102,7 @@ Gura_ImplementFunction(HtmlHelpFrame_1)
 
 Gura_DeclareMethod(wx_HtmlHelpFrame, AddToolbarButtons)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "toolBar", VTYPE_wx_ToolBar, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_HtmlHelpFrame, AddToolbarButtons)
 
 Gura_DeclareMethod(wx_HtmlHelpFrame, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_HtmlHelpFrame, Create)
 
 Gura_DeclareMethod(wx_HtmlHelpFrame, GetController)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_HtmlHelpFrame, GetController)
 
 Gura_DeclareMethod(wx_HtmlHelpFrame, ReadCustomization)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "cfg", VTYPE_wx_ConfigBase, OCCUR_Once);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_ZeroOrOnce);
 }
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_HtmlHelpFrame, ReadCustomization)
 
 Gura_DeclareMethod(wx_HtmlHelpFrame, SetController)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "contoller", VTYPE_wx_HtmlHelpController, OCCUR_Once);
 }
 
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_HtmlHelpFrame, SetController)
 
 Gura_DeclareMethod(wx_HtmlHelpFrame, SetTitleFormat)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_string, OCCUR_Once);
 }
 
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_HtmlHelpFrame, SetTitleFormat)
 
 Gura_DeclareMethod(wx_HtmlHelpFrame, WriteCustomization)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "cfg", VTYPE_wx_ConfigBase, OCCUR_Once);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_ZeroOrOnce);
 }

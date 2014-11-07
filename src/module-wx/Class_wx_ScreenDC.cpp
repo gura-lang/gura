@@ -38,7 +38,7 @@ void wx_ScreenDC::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ScreenDCEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ScreenDC));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(ScreenDCEmpty)
 
 Gura_DeclareMethod(wx_ScreenDC, StartDrawingOnTop)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_ScreenDC, StartDrawingOnTop)
 
 Gura_DeclareMethod(wx_ScreenDC, StartDrawingOnTop_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_ScreenDC, StartDrawingOnTop_1)
 
 Gura_DeclareMethod(wx_ScreenDC, EndDrawingOnTop)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

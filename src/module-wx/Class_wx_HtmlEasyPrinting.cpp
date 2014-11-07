@@ -38,7 +38,7 @@ void wx_HtmlEasyPrinting::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HtmlEasyPrinting)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlEasyPrinting));
 	DeclareArg(env, "name", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "parentWindow", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(HtmlEasyPrinting)
 
 Gura_DeclareMethod(wx_HtmlEasyPrinting, GetParentWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, GetParentWindow)
 
 Gura_DeclareMethod(wx_HtmlEasyPrinting, GetPrintData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, GetPrintData)
 
 Gura_DeclareMethod(wx_HtmlEasyPrinting, GetPageSetupData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, GetPageSetupData)
 
 Gura_DeclareMethod(wx_HtmlEasyPrinting, PreviewFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "htmlfile", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, PreviewFile)
 
 Gura_DeclareMethod(wx_HtmlEasyPrinting, PreviewText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "htmltext", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "basepath", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, PreviewText)
 
 Gura_DeclareMethod(wx_HtmlEasyPrinting, PrintFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "htmlfile", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, PrintFile)
 
 Gura_DeclareMethod(wx_HtmlEasyPrinting, PrintText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "htmltext", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "basepath", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, PrintText)
 
 Gura_DeclareMethod(wx_HtmlEasyPrinting, PageSetup)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlEasyPrinting, PageSetup)
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, PageSetup)
 
 Gura_DeclareMethod(wx_HtmlEasyPrinting, SetFonts)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "normal_face", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "fixed_face", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "sizes", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_List);
@@ -223,7 +223,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, SetFonts)
 
 Gura_DeclareMethod(wx_HtmlEasyPrinting, SetHeader)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "header", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "pg", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, SetHeader)
 
 Gura_DeclareMethod(wx_HtmlEasyPrinting, SetFooter)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "footer", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "pg", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -259,7 +259,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, SetFooter)
 
 Gura_DeclareMethod(wx_HtmlEasyPrinting, SetParentWindow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 }
 

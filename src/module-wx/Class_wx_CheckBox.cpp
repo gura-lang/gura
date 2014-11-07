@@ -39,7 +39,7 @@ void wx_CheckBox::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(CheckBoxEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_CheckBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(CheckBoxEmpty)
 
 Gura_DeclareFunction(CheckBox)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_CheckBox));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -104,7 +104,7 @@ Gura_ImplementFunction(CheckBox)
 
 Gura_DeclareMethod(wx_CheckBox, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_CheckBox, Create)
 
 Gura_DeclareMethod(wx_CheckBox, GetValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_CheckBox, GetValue)
 
 Gura_DeclareMethod(wx_CheckBox, Get3StateValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_CheckBox, Get3StateValue)
 
 Gura_DeclareMethod(wx_CheckBox, Is3rdStateAllowedForUser)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_CheckBox, Is3rdStateAllowedForUser)
 
 Gura_DeclareMethod(wx_CheckBox, Is3State)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_CheckBox, Is3State)
 
 Gura_DeclareMethod(wx_CheckBox, IsChecked)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_CheckBox, IsChecked)
 
 Gura_DeclareMethod(wx_CheckBox, SetValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "state", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -224,7 +224,7 @@ Gura_ImplementMethod(wx_CheckBox, SetValue)
 
 Gura_DeclareMethod(wx_CheckBox, Set3StateValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "state", VTYPE_number, OCCUR_Once);
 }
 

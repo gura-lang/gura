@@ -295,7 +295,7 @@ GLenum GetImageFormat(Signal sig, const Image *pImage)
 // image#opengl():reduce {block}
 Gura_DeclareMethod(image, opengl)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareBlock(OCCUR_Once);
 }
 

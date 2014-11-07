@@ -39,7 +39,7 @@ void wx_AuiNotebook::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(AuiNotebookEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AuiNotebook));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(AuiNotebookEmpty)
 
 Gura_DeclareFunction(AuiNotebook)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_AuiNotebook));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -97,7 +97,7 @@ Gura_ImplementFunction(AuiNotebook)
 
 Gura_DeclareMethod(wx_AuiNotebook, AddPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "caption", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "select", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_AuiNotebook, AddPage)
 
 Gura_DeclareMethod(wx_AuiNotebook, AdvanceSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "forward", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_AuiNotebook, AdvanceSelection)
 
 Gura_DeclareMethod(wx_AuiNotebook, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_AuiNotebook, Create)
 
 Gura_DeclareMethod(wx_AuiNotebook, DeletePage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_AuiNotebook, DeletePage)
 
 Gura_DeclareMethod(wx_AuiNotebook, GetArtProvider)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_AuiNotebook, GetArtProvider)
 
 Gura_DeclareMethod(wx_AuiNotebook, GetHeightForPageHeight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pageHeight", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -211,7 +211,7 @@ Gura_ImplementMethod(wx_AuiNotebook, GetHeightForPageHeight)
 
 Gura_DeclareMethod(wx_AuiNotebook, GetPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page_idx", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_AuiNotebook, GetPage)
 
 Gura_DeclareMethod(wx_AuiNotebook, GetPageBitmap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_AuiNotebook, GetPageBitmap)
 
 Gura_DeclareMethod(wx_AuiNotebook, GetPageCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -257,7 +257,7 @@ Gura_ImplementMethod(wx_AuiNotebook, GetPageCount)
 
 Gura_DeclareMethod(wx_AuiNotebook, GetPageIndex)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page_wnd", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -273,7 +273,7 @@ Gura_ImplementMethod(wx_AuiNotebook, GetPageIndex)
 
 Gura_DeclareMethod(wx_AuiNotebook, GetPageText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -289,7 +289,7 @@ Gura_ImplementMethod(wx_AuiNotebook, GetPageText)
 
 Gura_DeclareMethod(wx_AuiNotebook, GetSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -303,7 +303,7 @@ Gura_ImplementMethod(wx_AuiNotebook, GetSelection)
 
 Gura_DeclareMethod(wx_AuiNotebook, GetTabCtrlHeight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -317,7 +317,7 @@ Gura_ImplementMethod(wx_AuiNotebook, GetTabCtrlHeight)
 
 Gura_DeclareMethod(wx_AuiNotebook, InsertPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page_idx", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "page", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "caption", VTYPE_string, OCCUR_Once);
@@ -343,7 +343,7 @@ Gura_ImplementMethod(wx_AuiNotebook, InsertPage)
 
 Gura_DeclareMethod(wx_AuiNotebook, RemovePage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -359,7 +359,7 @@ Gura_ImplementMethod(wx_AuiNotebook, RemovePage)
 
 Gura_DeclareMethod(wx_AuiNotebook, SetArtProvider)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "art", VTYPE_wx_AuiTabArt, OCCUR_Once);
 }
 
@@ -374,7 +374,7 @@ Gura_ImplementMethod(wx_AuiNotebook, SetArtProvider)
 
 Gura_DeclareMethod(wx_AuiNotebook, SetFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -390,7 +390,7 @@ Gura_ImplementMethod(wx_AuiNotebook, SetFont)
 
 Gura_DeclareMethod(wx_AuiNotebook, SetNormalFont)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 }
 
@@ -405,7 +405,7 @@ Gura_ImplementMethod(wx_AuiNotebook, SetNormalFont)
 
 Gura_DeclareMethod(wx_AuiNotebook, SetSelectedFont)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 }
 
@@ -420,7 +420,7 @@ Gura_ImplementMethod(wx_AuiNotebook, SetSelectedFont)
 
 Gura_DeclareMethod(wx_AuiNotebook, SetMeasuringFont)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 }
 
@@ -435,7 +435,7 @@ Gura_ImplementMethod(wx_AuiNotebook, SetMeasuringFont)
 
 Gura_DeclareMethod(wx_AuiNotebook, SetPageBitmap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -453,7 +453,7 @@ Gura_ImplementMethod(wx_AuiNotebook, SetPageBitmap)
 
 Gura_DeclareMethod(wx_AuiNotebook, SetPageText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -471,7 +471,7 @@ Gura_ImplementMethod(wx_AuiNotebook, SetPageText)
 
 Gura_DeclareMethod(wx_AuiNotebook, SetSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "new_page", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -487,7 +487,7 @@ Gura_ImplementMethod(wx_AuiNotebook, SetSelection)
 
 Gura_DeclareMethod(wx_AuiNotebook, SetTabCtrlHeight)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
@@ -502,7 +502,7 @@ Gura_ImplementMethod(wx_AuiNotebook, SetTabCtrlHeight)
 
 Gura_DeclareMethod(wx_AuiNotebook, SetUniformBitmapSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -517,7 +517,7 @@ Gura_ImplementMethod(wx_AuiNotebook, SetUniformBitmapSize)
 
 Gura_DeclareMethod(wx_AuiNotebook, Split)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 }
@@ -534,7 +534,7 @@ Gura_ImplementMethod(wx_AuiNotebook, Split)
 
 Gura_DeclareMethod(wx_AuiNotebook, ShowWindowMenu)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

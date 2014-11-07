@@ -38,7 +38,7 @@ void wx_URL::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(URL)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_URL));
 	DeclareArg(env, "url", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(URL)
 
 Gura_DeclareMethod(wx_URL, GetProtocol)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_URL, GetProtocol)
 
 Gura_DeclareMethod(wx_URL, GetError)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_URL, GetError)
 
 Gura_DeclareMethod(wx_URL, GetInputStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_URL, GetInputStream)
 
 Gura_DeclareMethod(wx_URL, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_URL, IsOk)
 
 Gura_DeclareClassMethod(wx_URL, SetDefaultProxy)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "url_proxy", VTYPE_string, OCCUR_Once);
 }
 
@@ -137,7 +137,7 @@ Gura_ImplementClassMethod(wx_URL, SetDefaultProxy)
 
 Gura_DeclareMethod(wx_URL, SetProxy)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "url_proxy", VTYPE_string, OCCUR_Once);
 }
 
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_URL, SetProxy)
 
 Gura_DeclareMethod(wx_URL, SetURL)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "url", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

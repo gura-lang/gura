@@ -41,7 +41,7 @@ String Object_mpz::ToString(bool exprFlag)
 // gmp.mpz(value?):map {block?}
 Gura_DeclareFunction(mpz)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_mpz));
@@ -77,7 +77,7 @@ Gura_ImplementFunction(mpz)
 // string#mpz(base?:number):map {block?}
 Gura_DeclareMethod(string, mpz)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "base", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 

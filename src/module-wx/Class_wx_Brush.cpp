@@ -42,7 +42,7 @@ void wx_Brush::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(BrushEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Brush));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -64,7 +64,7 @@ Gura_ImplementFunction(BrushEmpty)
 
 Gura_DeclareFunction(Brush)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Brush));
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -91,7 +91,7 @@ Gura_ImplementFunction(Brush)
 
 Gura_DeclareFunction(Brush_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Brush));
 	DeclareArg(env, "colourName", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
@@ -117,7 +117,7 @@ Gura_ImplementFunction(Brush_1)
 
 Gura_DeclareFunction(Brush_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Brush));
 	DeclareArg(env, "stippleBitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -141,7 +141,7 @@ Gura_ImplementFunction(Brush_2)
 
 Gura_DeclareFunction(Brush_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Brush));
 	DeclareArg(env, "brush", VTYPE_wx_Brush, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -165,7 +165,7 @@ Gura_ImplementFunction(Brush_3)
 
 Gura_DeclareMethod(wx_Brush, GetColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_Brush, GetColour)
 
 Gura_DeclareMethod(wx_Brush, GetStipple)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_Brush, GetStipple)
 
 Gura_DeclareMethod(wx_Brush, GetStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -207,7 +207,7 @@ Gura_ImplementMethod(wx_Brush, GetStyle)
 
 Gura_DeclareMethod(wx_Brush, IsHatch)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -221,7 +221,7 @@ Gura_ImplementMethod(wx_Brush, IsHatch)
 
 Gura_DeclareMethod(wx_Brush, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_Brush, IsOk)
 
 Gura_DeclareMethod(wx_Brush, SetColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_Brush, SetColour)
 
 Gura_DeclareMethod(wx_Brush, SetColour_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colourName", VTYPE_string, OCCUR_Once);
 }
 
@@ -265,7 +265,7 @@ Gura_ImplementMethod(wx_Brush, SetColour_1)
 
 Gura_DeclareMethod(wx_Brush, SetColour_2)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "green", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "blue", VTYPE_number, OCCUR_Once);
@@ -284,7 +284,7 @@ Gura_ImplementMethod(wx_Brush, SetColour_2)
 
 Gura_DeclareMethod(wx_Brush, SetStipple)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 }
 
@@ -299,7 +299,7 @@ Gura_ImplementMethod(wx_Brush, SetStipple)
 
 Gura_DeclareMethod(wx_Brush, SetStyle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 

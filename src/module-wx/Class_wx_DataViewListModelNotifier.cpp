@@ -38,7 +38,7 @@ void wx_DataViewListModelNotifier::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DataViewListModelNotifierEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_DataViewListModelNotifier));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(DataViewListModelNotifierEmpty)
 
 Gura_DeclareMethod(wx_DataViewListModelNotifier, Cleared)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_DataViewListModelNotifier, Cleared)
 
 Gura_DeclareMethod(wx_DataViewListModelNotifier, GetOwner)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_DataViewListModelNotifier, GetOwner)
 
 Gura_DeclareMethod(wx_DataViewListModelNotifier, RowAppended)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_DataViewListModelNotifier, RowAppended)
 
 Gura_DeclareMethod(wx_DataViewListModelNotifier, RowChanged)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_DataViewListModelNotifier, RowChanged)
 
 Gura_DeclareMethod(wx_DataViewListModelNotifier, RowDeleted)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_DataViewListModelNotifier, RowDeleted)
 
 Gura_DeclareMethod(wx_DataViewListModelNotifier, RowInserted)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "before", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_DataViewListModelNotifier, RowInserted)
 
 Gura_DeclareMethod(wx_DataViewListModelNotifier, RowPrepended)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_DataViewListModelNotifier, RowPrepended)
 
 Gura_DeclareMethod(wx_DataViewListModelNotifier, RowsReordered)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "new_order", VTYPE_number, OCCUR_Once);
 #endif
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_DataViewListModelNotifier, RowsReordered)
 
 Gura_DeclareMethod(wx_DataViewListModelNotifier, SetOwner)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "owner", VTYPE_wx_DataViewListModel, OCCUR_Once);
 }
 
@@ -207,7 +207,7 @@ Gura_ImplementMethod(wx_DataViewListModelNotifier, SetOwner)
 
 Gura_DeclareMethod(wx_DataViewListModelNotifier, ValueChanged)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);

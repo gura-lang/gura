@@ -37,7 +37,7 @@ void wx_MBConvUTF16::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_MBConvUTF16, MB2WC)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_MBConvUTF16, MB2WC)
 
 Gura_DeclareMethod(wx_MBConvUTF16, WC2MB)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);

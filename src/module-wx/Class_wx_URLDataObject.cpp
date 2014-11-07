@@ -38,7 +38,7 @@ void wx_URLDataObject::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(URLDataObject)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_URLDataObject));
 	DeclareArg(env, "url", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(URLDataObject)
 
 Gura_DeclareMethod(wx_URLDataObject, GetURL)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_URLDataObject, GetURL)
 
 Gura_DeclareMethod(wx_URLDataObject, SetURL)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "url", VTYPE_string, OCCUR_Once);
 }
 

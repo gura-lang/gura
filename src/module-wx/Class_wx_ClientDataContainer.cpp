@@ -38,7 +38,7 @@ void wx_ClientDataContainer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ClientDataContainerEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ClientDataContainer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(ClientDataContainerEmpty)
 
 Gura_DeclareMethod(wx_ClientDataContainer, GetClientData)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ClientDataContainer, GetClientData)
@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_ClientDataContainer, GetClientData)
 
 Gura_DeclareMethod(wx_ClientDataContainer, GetClientObject)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_ClientDataContainer, GetClientObject)
 
 Gura_DeclareMethod(wx_ClientDataContainer, SetClientData)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 #endif
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_ClientDataContainer, SetClientData)
 
 Gura_DeclareMethod(wx_ClientDataContainer, SetClientObject)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "data", VTYPE_wx_ClientData, OCCUR_Once);
 }
 

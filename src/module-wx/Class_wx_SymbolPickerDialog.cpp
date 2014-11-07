@@ -39,7 +39,7 @@ void wx_SymbolPickerDialog::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(SymbolPickerDialog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_SymbolPickerDialog));
 	DeclareArg(env, "symbol", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "initialFont", VTYPE_string, OCCUR_Once);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(SymbolPickerDialog)
 
 Gura_DeclareFunction(SymbolPickerDialogEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SymbolPickerDialog));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -106,7 +106,7 @@ Gura_ImplementFunction(SymbolPickerDialogEmpty)
 
 Gura_DeclareMethod(wx_SymbolPickerDialog, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "symbol", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "initialFont", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "normalTextFont", VTYPE_string, OCCUR_Once);
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, Create)
 
 Gura_DeclareMethod(wx_SymbolPickerDialog, GetFontName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, GetFontName)
 
 Gura_DeclareMethod(wx_SymbolPickerDialog, GetFromUnicode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, GetFromUnicode)
 
 Gura_DeclareMethod(wx_SymbolPickerDialog, GetNormalTextFontName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, GetNormalTextFontName)
 
 Gura_DeclareMethod(wx_SymbolPickerDialog, GetSymbol)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, GetSymbol)
 
 Gura_DeclareMethod(wx_SymbolPickerDialog, GetSymbolChar)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, GetSymbolChar)
 
 Gura_DeclareMethod(wx_SymbolPickerDialog, HasSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, HasSelection)
 
 Gura_DeclareMethod(wx_SymbolPickerDialog, SetFontName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
 }
 
@@ -242,7 +242,7 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, SetFontName)
 
 Gura_DeclareMethod(wx_SymbolPickerDialog, SetFromUnicode)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -257,7 +257,7 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, SetFromUnicode)
 
 Gura_DeclareMethod(wx_SymbolPickerDialog, SetNormalTextFontName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
 }
 
@@ -272,7 +272,7 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, SetNormalTextFontName)
 
 Gura_DeclareMethod(wx_SymbolPickerDialog, SetSymbol)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
 }
 
@@ -287,7 +287,7 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, SetSymbol)
 
 Gura_DeclareMethod(wx_SymbolPickerDialog, SetUnicodeMode)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "unicodeMode", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -302,7 +302,7 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, SetUnicodeMode)
 
 Gura_DeclareMethod(wx_SymbolPickerDialog, UseNormalFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

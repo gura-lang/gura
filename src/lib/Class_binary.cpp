@@ -199,7 +199,7 @@ void Object_binary::IteratorUnpack::GatherFollower(Environment::Frame *pFrame, E
 // binary(buff*) {block?}
 Gura_DeclareFunction(binary)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "buff", VTYPE_any, OCCUR_ZeroOrMore);
 	SetClassToConstruct(env.LookupClass(VTYPE_binary));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -228,7 +228,7 @@ Gura_ImplementFunction(binary)
 // binary#add(buff+:binary):map:reduce
 Gura_DeclareMethod(binary, add)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "buff", VTYPE_binary, OCCUR_OnceOrMore);
 }
 
@@ -248,7 +248,7 @@ Gura_ImplementMethod(binary, add)
 // binary.alloc(bytes:number, data?:number):map {block?}
 Gura_DeclareClassMethod(binary, alloc)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "bytes", VTYPE_number);
 	DeclareArg(env, "data", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -268,7 +268,7 @@ Gura_ImplementClassMethod(binary, alloc)
 // binary#decode(codec:codec)
 Gura_DeclareMethodPrimitive(binary, decode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "codec", VTYPE_codec);
 }
 
@@ -286,7 +286,7 @@ Gura_ImplementMethod(binary, decode)
 // binary#dump(stream?:stream:w):void:[upper]
 Gura_DeclareMethod(binary, dump)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	DeclareAttr(Gura_Symbol(upper));
 }
@@ -304,7 +304,7 @@ Gura_ImplementMethod(binary, dump)
 // binary#each() {block?}
 Gura_DeclareMethod(binary, each)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an iterator picking up each byte in the buffer");
 }
@@ -320,7 +320,7 @@ Gura_ImplementMethod(binary, each)
 // binary#encodeuri()
 Gura_DeclareMethod(binary, encodeuri)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Returns a string in which non-URIC characters are percent-encoded.");
 }
@@ -335,7 +335,7 @@ Gura_ImplementMethod(binary, encodeuri)
 // binary#hex():[upper,cstr,carray]
 Gura_DeclareMethod(binary, hex)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(upper));
 	DeclareAttr(Gura_Symbol(cstr));
 	DeclareAttr(Gura_Symbol(carray));
@@ -365,7 +365,7 @@ Gura_ImplementMethod(binary, hex)
 // binary#len()
 Gura_DeclareMethod(binary, len)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the length of the buffer in binary.");
 }
 
@@ -378,7 +378,7 @@ Gura_ImplementMethod(binary, len)
 // binary.pack(format:string, value*):map {block?}
 Gura_DeclareClassMethod(binary, pack)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -396,7 +396,7 @@ Gura_ImplementClassMethod(binary, pack)
 // binary#pointer(offset:number => 0) {block?}
 Gura_DeclareMethod(binary, pointer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "offset", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -415,7 +415,7 @@ Gura_ImplementMethod(binary, pointer)
 // binary#reader() {block?}
 Gura_DeclareMethod(binary, reader)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -429,7 +429,7 @@ Gura_ImplementMethod(binary, reader)
 // binary#store(offset:number, buff+:binary):map:reduce
 Gura_DeclareMethod(binary, store)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "offset", VTYPE_number);
 	DeclareArg(env, "buff", VTYPE_binary, OCCUR_OnceOrMore);
 }
@@ -461,7 +461,7 @@ Gura_ImplementMethod(binary, store)
 // binary#unpack(format:string, values*:number):[nil]
 Gura_DeclareMethod(binary, unpack)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "values", VTYPE_number, OCCUR_ZeroOrMore);
 	DeclareAttr(Gura_Symbol(nil));
@@ -479,7 +479,7 @@ Gura_ImplementMethod(binary, unpack)
 // binary#unpacks(format:string, values*:number) {block?}
 Gura_DeclareMethod(binary, unpacks)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "values", VTYPE_number, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -498,7 +498,7 @@ Gura_ImplementMethod(binary, unpacks)
 // binary#writer() {block?}
 Gura_DeclareMethod(binary, writer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

@@ -38,7 +38,7 @@ void wx_SplitterEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(SplitterEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_SplitterEvent));
 	DeclareArg(env, "eventType", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "splitter", VTYPE_wx_SplitterWindow, OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(SplitterEvent)
 
 Gura_DeclareMethod(wx_SplitterEvent, GetSashPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_SplitterEvent, GetSashPosition)
 
 Gura_DeclareMethod(wx_SplitterEvent, GetX)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_SplitterEvent, GetX)
 
 Gura_DeclareMethod(wx_SplitterEvent, GetY)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_SplitterEvent, GetY)
 
 Gura_DeclareMethod(wx_SplitterEvent, GetWindowBeingRemoved)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_SplitterEvent, GetWindowBeingRemoved)
 
 Gura_DeclareMethod(wx_SplitterEvent, SetSashPosition)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 

@@ -2115,7 +2115,7 @@ String Object_document::ToString(bool exprFlag)
 // markdown.document#parse(str:string):void
 Gura_DeclareMethod(document, parse)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "str", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""
@@ -2132,7 +2132,7 @@ Gura_ImplementMethod(document, parse)
 // markdown.document#read(stream:stream:r):void
 Gura_DeclareMethod(document, read)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""
@@ -2228,7 +2228,7 @@ String Object_item::ToString(bool exprFlag)
 // markdown.item#print():void
 Gura_DeclareMethod(item, print)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""
 	);
@@ -2255,7 +2255,7 @@ Gura_ImplementUserClass(item)
 // markdown.document(stream?:stream:r) {block?}
 Gura_DeclareFunction(document)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	SetClassToConstruct(Gura_UserClass(document));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2278,7 +2278,7 @@ Gura_ImplementFunction(document)
 // markdown.setpresenter():void {block}
 Gura_DeclareFunction(setpresenter)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Sets a presentation function that shows helps written in Markdown format.\n"

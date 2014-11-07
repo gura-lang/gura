@@ -39,7 +39,7 @@ void wx_GridSizer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GridSizer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_GridSizer));
 	DeclareArg(env, "rows", VTYPE_number, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "cols", VTYPE_number, OCCUR_Once);
@@ -77,7 +77,7 @@ Gura_ImplementFunction(GridSizer)
 
 Gura_DeclareMethod(wx_GridSizer, GetCols)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_GridSizer, GetCols)
 
 Gura_DeclareMethod(wx_GridSizer, GetHGap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_GridSizer, GetHGap)
 
 Gura_DeclareMethod(wx_GridSizer, GetRows)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_GridSizer, GetRows)
 
 Gura_DeclareMethod(wx_GridSizer, GetVGap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_GridSizer, GetVGap)
 
 Gura_DeclareMethod(wx_GridSizer, SetCols)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "cols", VTYPE_number, OCCUR_Once);
 }
 
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_GridSizer, SetCols)
 
 Gura_DeclareMethod(wx_GridSizer, SetHGap)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "gap", VTYPE_number, OCCUR_Once);
 }
 
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_GridSizer, SetHGap)
 
 Gura_DeclareMethod(wx_GridSizer, SetRows)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "rows", VTYPE_number, OCCUR_Once);
 }
 
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_GridSizer, SetRows)
 
 Gura_DeclareMethod(wx_GridSizer, SetVGap)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "gap", VTYPE_number, OCCUR_Once);
 }
 

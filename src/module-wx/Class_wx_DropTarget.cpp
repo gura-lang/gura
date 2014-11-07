@@ -122,7 +122,7 @@ void wx_DropTarget::OnLeave()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DropTarget)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DropTarget));
 	DeclareArg(env, "data", VTYPE_wx_DataObject, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -147,7 +147,7 @@ Gura_ImplementFunction(DropTarget)
 
 Gura_DeclareMethod(wx_DropTarget, GetData)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DropTarget, GetData)
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_DropTarget, GetData)
 
 Gura_DeclareMethod(wx_DropTarget, OnData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_DropTarget, OnData)
 
 Gura_DeclareMethod(wx_DropTarget, OnDrop)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_DropTarget, OnDrop)
 
 Gura_DeclareMethod(wx_DropTarget, OnEnter)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_DropTarget, OnEnter)
 
 Gura_DeclareMethod(wx_DropTarget, OnDragOver)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -266,7 +266,7 @@ Gura_ImplementMethod(wx_DropTarget, OnDragOver)
 
 Gura_DeclareMethod(wx_DropTarget, OnLeave)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DropTarget, OnLeave)
@@ -283,7 +283,7 @@ Gura_ImplementMethod(wx_DropTarget, OnLeave)
 
 Gura_DeclareMethod(wx_DropTarget, SetDataObject)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "data", VTYPE_wx_DataObject, OCCUR_Once);
 #endif

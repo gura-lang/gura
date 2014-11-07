@@ -45,7 +45,7 @@ void wx_Region::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(RegionEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Region));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -67,7 +67,7 @@ Gura_ImplementFunction(RegionEmpty)
 
 Gura_DeclareFunction(Region)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Region));
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -97,7 +97,7 @@ Gura_ImplementFunction(Region)
 
 Gura_DeclareFunction(Region_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Region));
 	DeclareArg(env, "topLeft", VTYPE_wx_Point, OCCUR_Once);
 	DeclareArg(env, "bottomRight", VTYPE_wx_Point, OCCUR_Once);
@@ -123,7 +123,7 @@ Gura_ImplementFunction(Region_1)
 
 Gura_DeclareFunction(RegionRect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Region));
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -147,7 +147,7 @@ Gura_ImplementFunction(RegionRect)
 
 Gura_DeclareFunction(RegionPoints)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Region));
 	DeclareArg(env, "points", VTYPE_wx_Point, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "fillStyle", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -180,7 +180,7 @@ Gura_ImplementFunction(RegionPoints)
 
 Gura_DeclareFunction(RegionFromBitmap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Region));
 	DeclareArg(env, "bmp", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "transColour", VTYPE_wx_Colour, OCCUR_ZeroOrOnce);
@@ -215,7 +215,7 @@ Gura_ImplementFunction(RegionFromBitmap)
 #if 0
 Gura_DeclareFunction(Region_6)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Region));
 	DeclareArg(env, "bmp", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "transColour", VTYPE_wx_Colour, OCCUR_Once);
@@ -245,7 +245,7 @@ Gura_ImplementFunction(Region_6)
 
 Gura_DeclareMethod(wx_Region, Clear)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Region, Clear)
@@ -258,7 +258,7 @@ Gura_ImplementMethod(wx_Region, Clear)
 
 Gura_DeclareMethod(wx_Region, Contains)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -276,7 +276,7 @@ Gura_ImplementMethod(wx_Region, Contains)
 
 Gura_DeclareMethod(wx_Region, ContainsPoint)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -292,7 +292,7 @@ Gura_ImplementMethod(wx_Region, ContainsPoint)
 
 Gura_DeclareMethod(wx_Region, ContainsRectDim)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -314,7 +314,7 @@ Gura_ImplementMethod(wx_Region, ContainsRectDim)
 
 Gura_DeclareMethod(wx_Region, ContainsRect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -330,7 +330,7 @@ Gura_ImplementMethod(wx_Region, ContainsRect)
 
 Gura_DeclareMethod(wx_Region, ConvertToBitmap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -344,7 +344,7 @@ Gura_ImplementMethod(wx_Region, ConvertToBitmap)
 
 Gura_DeclareMethod(wx_Region, GetBoxRectDim)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -363,7 +363,7 @@ Gura_ImplementMethod(wx_Region, GetBoxRectDim)
 
 Gura_DeclareMethod(wx_Region, GetBox)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -377,7 +377,7 @@ Gura_ImplementMethod(wx_Region, GetBox)
 
 Gura_DeclareMethod(wx_Region, Intersect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -399,7 +399,7 @@ Gura_ImplementMethod(wx_Region, Intersect)
 
 Gura_DeclareMethod(wx_Region, IntersectRect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -415,7 +415,7 @@ Gura_ImplementMethod(wx_Region, IntersectRect)
 
 Gura_DeclareMethod(wx_Region, IntersectRegion)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "region", VTYPE_wx_Region, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -431,7 +431,7 @@ Gura_ImplementMethod(wx_Region, IntersectRegion)
 
 Gura_DeclareMethod(wx_Region, IsEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -445,7 +445,7 @@ Gura_ImplementMethod(wx_Region, IsEmpty)
 
 Gura_DeclareMethod(wx_Region, IsEqual)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "region", VTYPE_wx_Region, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -461,7 +461,7 @@ Gura_ImplementMethod(wx_Region, IsEqual)
 
 Gura_DeclareMethod(wx_Region, SubtractRect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -477,7 +477,7 @@ Gura_ImplementMethod(wx_Region, SubtractRect)
 
 Gura_DeclareMethod(wx_Region, SubtractRegion)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "region", VTYPE_wx_Region, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -493,7 +493,7 @@ Gura_ImplementMethod(wx_Region, SubtractRegion)
 
 Gura_DeclareMethod(wx_Region, Offset)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -511,7 +511,7 @@ Gura_ImplementMethod(wx_Region, Offset)
 
 Gura_DeclareMethod(wx_Region, OffsetPoint)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -527,7 +527,7 @@ Gura_ImplementMethod(wx_Region, OffsetPoint)
 
 Gura_DeclareMethod(wx_Region, Union)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -549,7 +549,7 @@ Gura_ImplementMethod(wx_Region, Union)
 
 Gura_DeclareMethod(wx_Region, UnionRect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -565,7 +565,7 @@ Gura_ImplementMethod(wx_Region, UnionRect)
 
 Gura_DeclareMethod(wx_Region, UnionRegion)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "region", VTYPE_wx_Region, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -581,7 +581,7 @@ Gura_ImplementMethod(wx_Region, UnionRegion)
 
 Gura_DeclareMethod(wx_Region, UnionBitmap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "bmp", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -597,7 +597,7 @@ Gura_ImplementMethod(wx_Region, UnionBitmap)
 
 Gura_DeclareMethod(wx_Region, UnionBitmapColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "bmp", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "transColour", VTYPE_wx_Colour, OCCUR_Once);
 	DeclareArg(env, "tolerance", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -618,7 +618,7 @@ Gura_ImplementMethod(wx_Region, UnionBitmapColour)
 
 Gura_DeclareMethod(wx_Region, Xor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -640,7 +640,7 @@ Gura_ImplementMethod(wx_Region, Xor)
 
 Gura_DeclareMethod(wx_Region, XorRect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -656,7 +656,7 @@ Gura_ImplementMethod(wx_Region, XorRect)
 
 Gura_DeclareMethod(wx_Region, XorRegion)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "region", VTYPE_wx_Region, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

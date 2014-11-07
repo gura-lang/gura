@@ -38,7 +38,7 @@ void wx_SocketBase::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(SocketBaseEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_SocketBase));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(SocketBaseEmpty)
 
 Gura_DeclareMethod(wx_SocketBase, Close)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SocketBase, Close)
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_SocketBase, Close)
 
 Gura_DeclareMethod(wx_SocketBase, Destroy)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_SocketBase, Destroy)
 
 Gura_DeclareMethod(wx_SocketBase, Discard)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_SocketBase, Discard)
 
 Gura_DeclareMethod(wx_SocketBase, Error)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_SocketBase, Error)
 
 Gura_DeclareMethod(wx_SocketBase, GetClientData)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SocketBase, GetClientData)
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_SocketBase, GetClientData)
 
 Gura_DeclareMethod(wx_SocketBase, GetLocal)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "addr", VTYPE_wx_SockAddress, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_SocketBase, GetLocal)
 
 Gura_DeclareMethod(wx_SocketBase, GetFlags)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_SocketBase, GetFlags)
 
 Gura_DeclareMethod(wx_SocketBase, GetPeer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "addr", VTYPE_wx_SockAddress, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_SocketBase, GetPeer)
 
 Gura_DeclareMethod(wx_SocketBase, InterruptWait)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SocketBase, InterruptWait)
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_SocketBase, InterruptWait)
 
 Gura_DeclareMethod(wx_SocketBase, IsConnected)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -223,7 +223,7 @@ Gura_ImplementMethod(wx_SocketBase, IsConnected)
 
 Gura_DeclareMethod(wx_SocketBase, IsData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -237,7 +237,7 @@ Gura_ImplementMethod(wx_SocketBase, IsData)
 
 Gura_DeclareMethod(wx_SocketBase, IsDisconnected)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -251,7 +251,7 @@ Gura_ImplementMethod(wx_SocketBase, IsDisconnected)
 
 Gura_DeclareMethod(wx_SocketBase, LastCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -265,7 +265,7 @@ Gura_ImplementMethod(wx_SocketBase, LastCount)
 
 Gura_DeclareMethod(wx_SocketBase, LastError)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -283,7 +283,7 @@ Gura_ImplementMethod(wx_SocketBase, LastError)
 
 Gura_DeclareMethod(wx_SocketBase, Notify)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "notify", VTYPE_boolean, OCCUR_Once);
 #endif
@@ -304,7 +304,7 @@ Gura_ImplementMethod(wx_SocketBase, Notify)
 
 Gura_DeclareMethod(wx_SocketBase, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -318,7 +318,7 @@ Gura_ImplementMethod(wx_SocketBase, IsOk)
 
 Gura_DeclareMethod(wx_SocketBase, RestoreState)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SocketBase, RestoreState)
@@ -335,7 +335,7 @@ Gura_ImplementMethod(wx_SocketBase, RestoreState)
 
 Gura_DeclareMethod(wx_SocketBase, SaveState)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SocketBase, SaveState)
@@ -352,7 +352,7 @@ Gura_ImplementMethod(wx_SocketBase, SaveState)
 
 Gura_DeclareMethod(wx_SocketBase, SetClientData)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 #endif
@@ -373,7 +373,7 @@ Gura_ImplementMethod(wx_SocketBase, SetClientData)
 
 Gura_DeclareMethod(wx_SocketBase, SetEventHandler)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "handler", VTYPE_wx_EvtHandler, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -397,7 +397,7 @@ Gura_ImplementMethod(wx_SocketBase, SetEventHandler)
 
 Gura_DeclareMethod(wx_SocketBase, SetFlags)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 #endif
@@ -418,7 +418,7 @@ Gura_ImplementMethod(wx_SocketBase, SetFlags)
 
 Gura_DeclareMethod(wx_SocketBase, SetLocal)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "local", VTYPE_wx_IPV4address, OCCUR_Once);
 #endif
@@ -440,7 +440,7 @@ Gura_ImplementMethod(wx_SocketBase, SetLocal)
 
 Gura_DeclareMethod(wx_SocketBase, SetNotify)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 #endif
@@ -461,7 +461,7 @@ Gura_ImplementMethod(wx_SocketBase, SetNotify)
 
 Gura_DeclareMethod(wx_SocketBase, SetTimeout)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "seconds", VTYPE_number, OCCUR_Once);
 #endif
@@ -482,7 +482,7 @@ Gura_ImplementMethod(wx_SocketBase, SetTimeout)
 
 Gura_DeclareMethod(wx_SocketBase, Peek)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "nbytes", VTYPE_number, OCCUR_Once);
@@ -506,7 +506,7 @@ Gura_ImplementMethod(wx_SocketBase, Peek)
 
 Gura_DeclareMethod(wx_SocketBase, Read)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "nbytes", VTYPE_number, OCCUR_Once);
@@ -530,7 +530,7 @@ Gura_ImplementMethod(wx_SocketBase, Read)
 
 Gura_DeclareMethod(wx_SocketBase, ReadMsg)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "nbytes", VTYPE_number, OCCUR_Once);
@@ -554,7 +554,7 @@ Gura_ImplementMethod(wx_SocketBase, ReadMsg)
 
 Gura_DeclareMethod(wx_SocketBase, Unread)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "nbytes", VTYPE_number, OCCUR_Once);
@@ -578,7 +578,7 @@ Gura_ImplementMethod(wx_SocketBase, Unread)
 
 Gura_DeclareMethod(wx_SocketBase, Wait)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "seconds", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "millisecond", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -604,7 +604,7 @@ Gura_ImplementMethod(wx_SocketBase, Wait)
 
 Gura_DeclareMethod(wx_SocketBase, Wait_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "seconds", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "millisecond", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -630,7 +630,7 @@ Gura_ImplementMethod(wx_SocketBase, Wait_1)
 
 Gura_DeclareMethod(wx_SocketBase, WaitForRead)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "seconds", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "millisecond", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -656,7 +656,7 @@ Gura_ImplementMethod(wx_SocketBase, WaitForRead)
 
 Gura_DeclareMethod(wx_SocketBase, WaitForWrite)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "seconds", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "millisecond", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -682,7 +682,7 @@ Gura_ImplementMethod(wx_SocketBase, WaitForWrite)
 
 Gura_DeclareMethod(wx_SocketBase, Write)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "nbytes", VTYPE_number, OCCUR_Once);
@@ -706,7 +706,7 @@ Gura_ImplementMethod(wx_SocketBase, Write)
 
 Gura_DeclareMethod(wx_SocketBase, WriteMsg)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "nbytes", VTYPE_number, OCCUR_Once);

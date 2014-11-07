@@ -39,7 +39,7 @@ void wx_FilterOutputStream::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FilterOutputStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_FilterOutputStream));
 	DeclareArg(env, "stream", VTYPE_wx_OutputStream, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(FilterOutputStream)
 
 Gura_DeclareFunction(FilterOutputStream_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_FilterOutputStream));
 	DeclareArg(env, "stream", VTYPE_wx_OutputStream, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);

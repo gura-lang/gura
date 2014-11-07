@@ -112,7 +112,7 @@ void Object_Quadric::Callback_QuadricErrorProc(GLenum err)
 // glu.gluQuadricNormals(qobj:Quadric, normals:number):void
 Gura_DeclareFunction(gluQuadricNormals)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "qobj", VTYPE_Quadric);
 	DeclareArg(env, "normals", VTYPE_number);
 }
@@ -128,7 +128,7 @@ Gura_ImplementFunction(gluQuadricNormals)
 // glu.gluQuadricTexture(qobj:Quadric, textureCoords:boolean):void
 Gura_DeclareFunction(gluQuadricTexture)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "qobj", VTYPE_Quadric);
 	DeclareArg(env, "textureCoords", VTYPE_boolean);
 }
@@ -144,7 +144,7 @@ Gura_ImplementFunction(gluQuadricTexture)
 // glu.gluQuadricOrientation(qobj:Quadric, orientation:number):void
 Gura_DeclareFunction(gluQuadricOrientation)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "qobj", VTYPE_Quadric);
 	DeclareArg(env, "normals", VTYPE_number);
 }
@@ -160,7 +160,7 @@ Gura_ImplementFunction(gluQuadricOrientation)
 // glu.gluQuadricDrawStyle(qobj:Quadric, drawStyle:number):void
 Gura_DeclareFunction(gluQuadricDrawStyle)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "qobj", VTYPE_Quadric);
 	DeclareArg(env, "drawStyle", VTYPE_number);
 }
@@ -177,7 +177,7 @@ Gura_ImplementFunction(gluQuadricDrawStyle)
 //                         slices:number, stacks:number):void
 Gura_DeclareFunction(gluCylinder)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "qobj", VTYPE_Quadric);
 	DeclareArg(env, "baseRadius", VTYPE_number);
 	DeclareArg(env, "topRadius", VTYPE_number);
@@ -202,7 +202,7 @@ Gura_ImplementFunction(gluCylinder)
 //                     slices:number, loops:number):void
 Gura_DeclareFunction(gluDisk)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "qobj", VTYPE_Quadric);
 	DeclareArg(env, "innerRadius", VTYPE_number);
 	DeclareArg(env, "outerRadius", VTYPE_number);
@@ -225,7 +225,7 @@ Gura_ImplementFunction(gluDisk)
 //     slices:number, loops:number, startAngle:number, sweepAngle:number):void
 Gura_DeclareFunction(gluPartialDisk)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "qobj", VTYPE_Quadric);
 	DeclareArg(env, "innerRadius", VTYPE_number);
 	DeclareArg(env, "outerRadius", VTYPE_number);
@@ -251,7 +251,7 @@ Gura_ImplementFunction(gluPartialDisk)
 // glu.gluSphere(qobj:Quadric, radius:number, slices:number, stacks:number):void
 Gura_DeclareFunction(gluSphere)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "qobj", VTYPE_Quadric);
 	DeclareArg(env, "radius", VTYPE_number);
 	DeclareArg(env, "slices", VTYPE_number);
@@ -271,7 +271,7 @@ Gura_ImplementFunction(gluSphere)
 // glu.gluQuadricCallback(qobj:Quadric, which:number, fn:function):void
 Gura_DeclareFunction(gluQuadricCallback)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "qobj", VTYPE_Quadric);
 	DeclareArg(env, "which", VTYPE_number);
 	DeclareArg(env, "fn", VTYPE_function);
@@ -328,7 +328,7 @@ String Object_Tesselator::ToString(bool exprFlag)
 // glu.gluTessBeginPolygon(tess:Tesselator):void {block?}
 Gura_DeclareFunction(gluTessBeginPolygon)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -350,7 +350,7 @@ Gura_ImplementFunction(gluTessBeginPolygon)
 // glu.gluTessBeginContour(tess:Tesselator):void {block?}
 Gura_DeclareFunction(gluTessBeginContour)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -372,7 +372,7 @@ Gura_ImplementFunction(gluTessBeginContour)
 // glu.gluTessVertex(tess:Tesselator, coords[]:number):void
 Gura_DeclareFunction(gluTessVertex)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
 	DeclareArg(env, "coords", VTYPE_number, OCCUR_Once, FLAG_List);
 }
@@ -388,7 +388,7 @@ Gura_ImplementFunction(gluTessVertex)
 // glu.gluTessEndContour(tess:Tesselator):void
 Gura_DeclareFunction(gluTessEndContour)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
 }
 
@@ -402,7 +402,7 @@ Gura_ImplementFunction(gluTessEndContour)
 // glu.gluTessEndPolygon(tess:Tesselator):void
 Gura_DeclareFunction(gluTessEndPolygon)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
 }
 
@@ -416,7 +416,7 @@ Gura_ImplementFunction(gluTessEndPolygon)
 // glu.gluTessProperty(tess:Tesselator, which:number, value:number):void
 Gura_DeclareFunction(gluTessProperty)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
 	DeclareArg(env, "which", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_number);
@@ -434,7 +434,7 @@ Gura_ImplementFunction(gluTessProperty)
 // glu.gluTessNormal(tess:Tesselator, x:number, y:number, z:number):void
 Gura_DeclareFunction(gluTessNormal)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
@@ -454,7 +454,7 @@ Gura_ImplementFunction(gluTessNormal)
 // glu.gluTessCallback(tess:Tesselator, which:number, fn:function):void
 Gura_DeclareFunction(gluTessCallback)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
 	DeclareArg(env, "which", VTYPE_number);
 	DeclareArg(env, "fn", VTYPE_function);
@@ -477,7 +477,7 @@ Gura_ImplementFunction(gluTessCallback)
 // glu.gluGetTessProperty(tess:Tesselator, which:number)
 Gura_DeclareFunction(gluGetTessProperty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
 	DeclareArg(env, "which", VTYPE_number);
 }
@@ -494,7 +494,7 @@ Gura_ImplementFunction(gluGetTessProperty)
 // glu.gluBeginPolygon(tess:Tesselator):void {block?}
 Gura_DeclareFunction(gluBeginPolygon)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -516,7 +516,7 @@ Gura_ImplementFunction(gluBeginPolygon)
 // glu.gluNextContour(tess:Tesselator, type:number):void
 Gura_DeclareFunction(gluNextContour)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
 	DeclareArg(env, "type", VTYPE_number);
 }
@@ -532,7 +532,7 @@ Gura_ImplementFunction(gluNextContour)
 // glu.gluEndPolygon(tess:Tesselator):void
 Gura_DeclareFunction(gluEndPolygon)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
 }
 
@@ -584,7 +584,7 @@ String Object_Nurbs::ToString(bool exprFlag)
 // glu.gluBeginSurface(nobj:Nurbs):void {block?}
 Gura_DeclareFunction(gluBeginSurface)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -606,7 +606,7 @@ Gura_ImplementFunction(gluBeginSurface)
 // glu.gluBeginCurve(nobj:Nurbs):void {block?}
 Gura_DeclareFunction(gluBeginCurve)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -628,7 +628,7 @@ Gura_ImplementFunction(gluBeginCurve)
 // glu.gluEndCurve(nobj:Nurbs):void
 Gura_DeclareFunction(gluEndCurve)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
 }
 
@@ -642,7 +642,7 @@ Gura_ImplementFunction(gluEndCurve)
 // glu.gluEndSurface(nobj:Nurbs):void
 Gura_DeclareFunction(gluEndSurface)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
 }
 
@@ -656,7 +656,7 @@ Gura_ImplementFunction(gluEndSurface)
 // glu.gluBeginTrim(nobj:Nurbs):void {block?}
 Gura_DeclareFunction(gluBeginTrim)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -678,7 +678,7 @@ Gura_ImplementFunction(gluBeginTrim)
 // glu.gluEndTrim(nobj:Nurbs):void
 Gura_DeclareFunction(gluEndTrim)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
 }
 
@@ -692,7 +692,7 @@ Gura_ImplementFunction(gluEndTrim)
 // glu.gluPwlCurve(nobj:Nurbs, data[]:number, stride:number, type:number):void
 Gura_DeclareFunction(gluPwlCurve)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
 	DeclareArg(env, "data", VTYPE_number, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "stride", VTYPE_number);
@@ -724,7 +724,7 @@ Gura_ImplementFunction(gluPwlCurve)
 //                         ctlarray[]:number, order:number, type:number):void
 Gura_DeclareFunction(gluNurbsCurve)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
 	DeclareArg(env, "knot", VTYPE_number, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "stride", VTYPE_number);
@@ -752,7 +752,7 @@ Gura_ImplementFunction(gluNurbsCurve)
 //                     ctlarray[]:number, order:number, torder:number, type:number):void
 Gura_DeclareFunction(gluNurbsSurface)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
 	DeclareArg(env, "sknot", VTYPE_number, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "tknot", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -788,7 +788,7 @@ Gura_ImplementFunction(gluNurbsSurface)
 // glu.gluLoadSamplingMatrices(nobj:Nurbs, model[]:number, perspective[]:number, view[]:number):void
 Gura_DeclareFunction(gluLoadSamplingMatrices)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
 	DeclareArg(env, "model", VTYPE_number, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "perspective", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -808,7 +808,7 @@ Gura_ImplementFunction(gluLoadSamplingMatrices)
 // glu.gluNurbsProperty(nobj:Nurbs, property:number, value:number):void
 Gura_DeclareFunction(gluNurbsProperty)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
 	DeclareArg(env, "property", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_number);
@@ -826,7 +826,7 @@ Gura_ImplementFunction(gluNurbsProperty)
 // glu.gluGetNurbsProperty(nobj:Nurbs, property:number)
 Gura_DeclareFunction(gluGetNurbsProperty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
 	DeclareArg(env, "property", VTYPE_number);
 }
@@ -843,7 +843,7 @@ Gura_ImplementFunction(gluGetNurbsProperty)
 // glu.gluNurbsCallback(nobj:Nurbs):void
 Gura_DeclareFunction(gluNurbsCallback)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
 }
 
@@ -878,7 +878,7 @@ Gura_ImplementUserClass(Nurbs)
 // glu.gluErrorStringWIN():void
 Gura_DeclareFunction(gluErrorStringWIN)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(gluErrorStringWIN)
@@ -890,7 +890,7 @@ Gura_ImplementFunction(gluErrorStringWIN)
 // glu.gluErrorString():void
 Gura_DeclareFunction(gluErrorString)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(gluErrorString)
@@ -902,7 +902,7 @@ Gura_ImplementFunction(gluErrorString)
 // glu.gluErrorUnicodeStringEXT():void
 Gura_DeclareFunction(gluErrorUnicodeStringEXT)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(gluErrorUnicodeStringEXT)
@@ -914,7 +914,7 @@ Gura_ImplementFunction(gluErrorUnicodeStringEXT)
 // glu.gluGetString():void
 Gura_DeclareFunction(gluGetString)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(gluGetString)
@@ -926,7 +926,7 @@ Gura_ImplementFunction(gluGetString)
 // glu.gluOrtho2D(left:number, right:number, bottom:number, top:number):void
 Gura_DeclareFunction(gluOrtho2D)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "left", VTYPE_number);
 	DeclareArg(env, "right", VTYPE_number);
 	DeclareArg(env, "bottom", VTYPE_number);
@@ -946,7 +946,7 @@ Gura_ImplementFunction(gluOrtho2D)
 // glu.gluPerspective(fovy:number, aspect:number, zNear:number, zFar:number):void
 Gura_DeclareFunction(gluPerspective)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "fovy", VTYPE_number);
 	DeclareArg(env, "aspect", VTYPE_number);
 	DeclareArg(env, "zNear", VTYPE_number);
@@ -966,7 +966,7 @@ Gura_ImplementFunction(gluPerspective)
 // glu.gluPickMatrix(x:number, y:number, width:number, height:number, viewport[]:number):void
 Gura_DeclareFunction(gluPickMatrix)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number);
@@ -1002,7 +1002,7 @@ Gura_ImplementFunction(gluPickMatrix)
 //               upx:number, upy:number, upz:number):void
 Gura_DeclareFunction(gluLookAt)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "eyex", VTYPE_number);
 	DeclareArg(env, "eyey", VTYPE_number);
 	DeclareArg(env, "eyez", VTYPE_number);
@@ -1032,7 +1032,7 @@ Gura_ImplementFunction(gluLookAt)
 // glu.gluProject()
 Gura_DeclareFunction(gluProject)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "objX", VTYPE_number);
 	DeclareArg(env, "objY", VTYPE_number);
 	DeclareArg(env, "objZ", VTYPE_number);
@@ -1062,7 +1062,7 @@ Gura_ImplementFunction(gluProject)
 // glu.gluUnProject()
 Gura_DeclareFunction(gluUnProject)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "winX", VTYPE_number);
 	DeclareArg(env, "winY", VTYPE_number);
 	DeclareArg(env, "winZ", VTYPE_number);
@@ -1092,7 +1092,7 @@ Gura_ImplementFunction(gluUnProject)
 // glu.gluScaleImage(image:image, w:number, h:number):void
 Gura_DeclareFunction(gluScaleImage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "image", VTYPE_image);
 	DeclareArg(env, "w", VTYPE_number);
 	DeclareArg(env, "h", VTYPE_number);
@@ -1129,7 +1129,7 @@ Gura_ImplementFunction(gluScaleImage)
 // glu.gluBuild1DMipmaps(target:number, internalFormat:number, image:image):map
 Gura_DeclareFunction(gluBuild1DMipmaps)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number);
 	DeclareArg(env, "internalFormat", VTYPE_number);
 	DeclareArg(env, "image", VTYPE_image);
@@ -1153,7 +1153,7 @@ Gura_ImplementFunction(gluBuild1DMipmaps)
 // glu.gluBuild2DMipmaps(target:number, internalFormat:number, image:image):map
 Gura_DeclareFunction(gluBuild2DMipmaps)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number);
 	DeclareArg(env, "internalFormat", VTYPE_number);
 	DeclareArg(env, "image", VTYPE_image);
@@ -1179,7 +1179,7 @@ Gura_ImplementFunction(gluBuild2DMipmaps)
 // glu.gluNewQuadric()
 Gura_DeclareFunction(gluNewQuadric)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementFunction(gluNewQuadric)
@@ -1191,7 +1191,7 @@ Gura_ImplementFunction(gluNewQuadric)
 // glu.gluNewTess()
 Gura_DeclareFunction(gluNewTess)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementFunction(gluNewTess)
@@ -1203,7 +1203,7 @@ Gura_ImplementFunction(gluNewTess)
 // glu.gluNewNurbsRenderer()
 Gura_DeclareFunction(gluNewNurbsRenderer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementFunction(gluNewNurbsRenderer)

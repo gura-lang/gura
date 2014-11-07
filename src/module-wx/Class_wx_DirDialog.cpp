@@ -38,7 +38,7 @@ void wx_DirDialog::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DirDialog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DirDialog));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -81,7 +81,7 @@ Gura_ImplementFunction(DirDialog)
 
 Gura_DeclareMethod(wx_DirDialog, GetPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_DirDialog, GetPath)
 
 Gura_DeclareMethod(wx_DirDialog, GetMessage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_DirDialog, GetMessage)
 
 Gura_DeclareMethod(wx_DirDialog, SetMessage)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_DirDialog, SetMessage)
 
 Gura_DeclareMethod(wx_DirDialog, SetPath)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
 }
 
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_DirDialog, SetPath)
 
 Gura_DeclareMethod(wx_DirDialog, ShowModal)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

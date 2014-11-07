@@ -38,7 +38,7 @@ void wx_MutexLocker::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(MutexLocker)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_MutexLocker));
 	DeclareArg(env, "mutex", VTYPE_wx_Mutex, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -62,7 +62,7 @@ Gura_ImplementFunction(MutexLocker)
 
 Gura_DeclareMethod(wx_MutexLocker, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

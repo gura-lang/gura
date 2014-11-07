@@ -42,7 +42,7 @@ void wx_HtmlHelpDialog::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HtmlHelpDialog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_HtmlHelpDialog));
 	DeclareArg(env, "data", VTYPE_wx_HtmlHelpData, OCCUR_ZeroOrOnce);
@@ -73,7 +73,7 @@ Gura_ImplementFunction(HtmlHelpDialog)
 
 Gura_DeclareFunction(HtmlHelpDialog_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_HtmlHelpDialog));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
@@ -114,7 +114,7 @@ Gura_ImplementFunction(HtmlHelpDialog_1)
 
 Gura_DeclareMethod(wx_HtmlHelpDialog, AddToolbarButtons)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "toolBar", VTYPE_wx_ToolBar, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_HtmlHelpDialog, AddToolbarButtons)
 
 Gura_DeclareMethod(wx_HtmlHelpDialog, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_HtmlHelpDialog, Create)
 
 Gura_DeclareMethod(wx_HtmlHelpDialog, GetController)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_HtmlHelpDialog, GetController)
 
 Gura_DeclareMethod(wx_HtmlHelpDialog, ReadCustomization)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "cfg", VTYPE_wx_ConfigBase, OCCUR_Once);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_HtmlHelpDialog, ReadCustomization)
 
 Gura_DeclareMethod(wx_HtmlHelpDialog, SetController)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "contoller", VTYPE_wx_HtmlHelpController, OCCUR_Once);
 #endif
@@ -226,7 +226,7 @@ Gura_ImplementMethod(wx_HtmlHelpDialog, SetController)
 
 Gura_DeclareMethod(wx_HtmlHelpDialog, SetTitleFormat)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "format", VTYPE_string, OCCUR_Once);
 #endif
@@ -247,7 +247,7 @@ Gura_ImplementMethod(wx_HtmlHelpDialog, SetTitleFormat)
 
 Gura_DeclareMethod(wx_HtmlHelpDialog, WriteCustomization)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "cfg", VTYPE_wx_ConfigBase, OCCUR_Once);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_ZeroOrOnce);

@@ -36,7 +36,7 @@ void wx_BMPHandler::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(BMPHandler)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_BMPHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

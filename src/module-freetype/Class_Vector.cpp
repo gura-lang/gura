@@ -76,7 +76,7 @@ Value Object_Vector::DoSetProp(Environment &env, Signal sig, const Symbol *pSymb
 // freetype.Vector(x:number, y:number):map {block?}
 Gura_DeclareFunction(Vector)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	SetClassToConstruct(Gura_UserClass(Vector));
@@ -95,7 +95,7 @@ Gura_ImplementFunction(Vector)
 // freetype.Vector#Length()
 Gura_DeclareMethod(Vector, Length)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(Vector, Length)
@@ -109,7 +109,7 @@ Gura_ImplementMethod(Vector, Length)
 // freetype.Vector#Transform(matrix:freetype.Matrix):reduce
 Gura_DeclareMethod(Vector, Transform)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "matrix", VTYPE_Matrix);
 }
 

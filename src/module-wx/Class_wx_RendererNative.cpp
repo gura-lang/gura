@@ -38,7 +38,7 @@ void wx_RendererNative::GuraObjectDeleted()
 
 Gura_DeclareMethod(wx_RendererNative, DrawCheckBox)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_RendererNative, DrawCheckBox)
 
 Gura_DeclareMethod(wx_RendererNative, DrawComboBoxDropButton)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_RendererNative, DrawComboBoxDropButton)
 
 Gura_DeclareMethod(wx_RendererNative, DrawDropArrow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_RendererNative, DrawDropArrow)
 
 Gura_DeclareMethod(wx_RendererNative, DrawHeaderButton)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_RendererNative, DrawHeaderButton)
 
 Gura_DeclareMethod(wx_RendererNative, DrawItemSelectionRect)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_RendererNative, DrawItemSelectionRect)
 
 Gura_DeclareMethod(wx_RendererNative, DrawPushButton)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_RendererNative, DrawPushButton)
 
 Gura_DeclareMethod(wx_RendererNative, DrawSplitterBorder)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
@@ -237,7 +237,7 @@ Gura_ImplementMethod(wx_RendererNative, DrawSplitterBorder)
 
 Gura_DeclareMethod(wx_RendererNative, DrawSplitterSash)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_RendererNative, DrawSplitterSash)
 
 Gura_DeclareMethod(wx_RendererNative, DrawTreeItemButton)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
@@ -297,7 +297,7 @@ Gura_ImplementMethod(wx_RendererNative, DrawTreeItemButton)
 
 Gura_DeclareMethod(wx_RendererNative, Get)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -315,7 +315,7 @@ Gura_ImplementMethod(wx_RendererNative, Get)
 
 Gura_DeclareMethod(wx_RendererNative, GetDefault)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -333,7 +333,7 @@ Gura_ImplementMethod(wx_RendererNative, GetDefault)
 
 Gura_DeclareMethod(wx_RendererNative, GetGeneric)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -351,7 +351,7 @@ Gura_ImplementMethod(wx_RendererNative, GetGeneric)
 
 Gura_DeclareMethod(wx_RendererNative, GetHeaderButtonHeight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_Once);
 #endif
@@ -373,7 +373,7 @@ Gura_ImplementMethod(wx_RendererNative, GetHeaderButtonHeight)
 
 Gura_DeclareMethod(wx_RendererNative, GetSplitterParams)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_Once);
 #endif
@@ -395,7 +395,7 @@ Gura_ImplementMethod(wx_RendererNative, GetSplitterParams)
 
 Gura_DeclareMethod(wx_RendererNative, GetVersion)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -409,7 +409,7 @@ Gura_ImplementMethod(wx_RendererNative, GetVersion)
 
 Gura_DeclareMethod(wx_RendererNative, Load)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 #endif
@@ -431,7 +431,7 @@ Gura_ImplementMethod(wx_RendererNative, Load)
 
 Gura_DeclareMethod(wx_RendererNative, Set)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "renderer", VTYPE_wx_RendererNative, OCCUR_Once);
 #endif

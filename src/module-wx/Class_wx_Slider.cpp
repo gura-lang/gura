@@ -39,7 +39,7 @@ void wx_Slider::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(SliderEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Slider));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(SliderEmpty)
 
 Gura_DeclareFunction(Slider)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Slider));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -108,7 +108,7 @@ Gura_ImplementFunction(Slider)
 
 Gura_DeclareMethod(wx_Slider, ClearSel)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Slider, ClearSel)
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_Slider, ClearSel)
 
 Gura_DeclareMethod(wx_Slider, ClearTicks)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Slider, ClearTicks)
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_Slider, ClearTicks)
 
 Gura_DeclareMethod(wx_Slider, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_Slider, Create)
 
 Gura_DeclareMethod(wx_Slider, GetLineSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_Slider, GetLineSize)
 
 Gura_DeclareMethod(wx_Slider, GetMax)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_Slider, GetMax)
 
 Gura_DeclareMethod(wx_Slider, GetMin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_Slider, GetMin)
 
 Gura_DeclareMethod(wx_Slider, GetPageSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_Slider, GetPageSize)
 
 Gura_DeclareMethod(wx_Slider, GetSelEnd)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_Slider, GetSelEnd)
 
 Gura_DeclareMethod(wx_Slider, GetSelStart)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -257,7 +257,7 @@ Gura_ImplementMethod(wx_Slider, GetSelStart)
 
 Gura_DeclareMethod(wx_Slider, GetThumbLength)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -271,7 +271,7 @@ Gura_ImplementMethod(wx_Slider, GetThumbLength)
 
 Gura_DeclareMethod(wx_Slider, GetTickFreq)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_Slider, GetTickFreq)
 
 Gura_DeclareMethod(wx_Slider, GetValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -299,7 +299,7 @@ Gura_ImplementMethod(wx_Slider, GetValue)
 
 Gura_DeclareMethod(wx_Slider, SetLineSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "lineSize", VTYPE_number, OCCUR_Once);
 }
 
@@ -314,7 +314,7 @@ Gura_ImplementMethod(wx_Slider, SetLineSize)
 
 Gura_DeclareMethod(wx_Slider, SetPageSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pageSize", VTYPE_number, OCCUR_Once);
 }
 
@@ -329,7 +329,7 @@ Gura_ImplementMethod(wx_Slider, SetPageSize)
 
 Gura_DeclareMethod(wx_Slider, SetRange)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "minValue", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "maxValue", VTYPE_number, OCCUR_Once);
 }
@@ -346,7 +346,7 @@ Gura_ImplementMethod(wx_Slider, SetRange)
 
 Gura_DeclareMethod(wx_Slider, SetSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "startPos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "endPos", VTYPE_number, OCCUR_Once);
 }
@@ -363,7 +363,7 @@ Gura_ImplementMethod(wx_Slider, SetSelection)
 
 Gura_DeclareMethod(wx_Slider, SetThumbLength)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
 
@@ -378,7 +378,7 @@ Gura_ImplementMethod(wx_Slider, SetThumbLength)
 
 Gura_DeclareMethod(wx_Slider, SetTick)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "tickPos", VTYPE_number, OCCUR_Once);
 }
 
@@ -393,7 +393,7 @@ Gura_ImplementMethod(wx_Slider, SetTick)
 
 Gura_DeclareMethod(wx_Slider, SetTickFreq)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
@@ -410,7 +410,7 @@ Gura_ImplementMethod(wx_Slider, SetTickFreq)
 
 Gura_DeclareMethod(wx_Slider, SetValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 

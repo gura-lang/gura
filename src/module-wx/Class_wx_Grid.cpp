@@ -73,7 +73,7 @@ void wx_Grid::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GridEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Grid));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -95,7 +95,7 @@ Gura_ImplementFunction(GridEmpty)
 
 Gura_DeclareFunction(Grid)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Grid));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -133,7 +133,7 @@ Gura_ImplementFunction(Grid)
 
 Gura_DeclareMethod(wx_Grid, AppendCols)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "numCols", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "updateLabels", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_Grid, AppendCols)
 
 Gura_DeclareMethod(wx_Grid, AppendRows)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "numRows", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "updateLabels", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_Grid, AppendRows)
 
 Gura_DeclareMethod(wx_Grid, AutoSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Grid, AutoSize)
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_Grid, AutoSize)
 
 Gura_DeclareMethod(wx_Grid, AutoSizeColumn)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "setAsMin", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_Grid, AutoSizeColumn)
 
 Gura_DeclareMethod(wx_Grid, AutoSizeColumns)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "setAsMin", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_Grid, AutoSizeColumns)
 
 Gura_DeclareMethod(wx_Grid, AutoSizeRow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "setAsMin", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
@@ -238,7 +238,7 @@ Gura_ImplementMethod(wx_Grid, AutoSizeRow)
 
 Gura_DeclareMethod(wx_Grid, AutoSizeRows)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "setAsMin", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -254,7 +254,7 @@ Gura_ImplementMethod(wx_Grid, AutoSizeRows)
 
 Gura_DeclareMethod(wx_Grid, BeginBatch)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Grid, BeginBatch)
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_Grid, BeginBatch)
 
 Gura_DeclareMethod(wx_Grid, BlockToDeviceRect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "topLeft", VTYPE_wx_GridCellCoords, OCCUR_Once);
 	DeclareArg(env, "bottomRight", VTYPE_wx_GridCellCoords, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_Grid, BlockToDeviceRect)
 
 Gura_DeclareMethod(wx_Grid, CanDragColMove)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -299,7 +299,7 @@ Gura_ImplementMethod(wx_Grid, CanDragColMove)
 
 Gura_DeclareMethod(wx_Grid, CanDragColSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -313,7 +313,7 @@ Gura_ImplementMethod(wx_Grid, CanDragColSize)
 
 Gura_DeclareMethod(wx_Grid, CanDragRowSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -327,7 +327,7 @@ Gura_ImplementMethod(wx_Grid, CanDragRowSize)
 
 Gura_DeclareMethod(wx_Grid, CanDragGridSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -341,7 +341,7 @@ Gura_ImplementMethod(wx_Grid, CanDragGridSize)
 
 Gura_DeclareMethod(wx_Grid, CanEnableCellControl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -355,7 +355,7 @@ Gura_ImplementMethod(wx_Grid, CanEnableCellControl)
 
 Gura_DeclareMethod(wx_Grid, CanHaveAttributes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -369,7 +369,7 @@ Gura_ImplementMethod(wx_Grid, CanHaveAttributes)
 
 Gura_DeclareMethod(wx_Grid, CellToRect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -387,7 +387,7 @@ Gura_ImplementMethod(wx_Grid, CellToRect)
 
 Gura_DeclareMethod(wx_Grid, CellToRect_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "coords", VTYPE_wx_GridCellCoords, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -403,7 +403,7 @@ Gura_ImplementMethod(wx_Grid, CellToRect_1)
 
 Gura_DeclareMethod(wx_Grid, ClearGrid)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Grid, ClearGrid)
@@ -416,7 +416,7 @@ Gura_ImplementMethod(wx_Grid, ClearGrid)
 
 Gura_DeclareMethod(wx_Grid, ClearSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Grid, ClearSelection)
@@ -429,7 +429,7 @@ Gura_ImplementMethod(wx_Grid, ClearSelection)
 
 Gura_DeclareMethod(wx_Grid, CreateGrid)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "numRows", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "numCols", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "selmode", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -450,7 +450,7 @@ Gura_ImplementMethod(wx_Grid, CreateGrid)
 
 Gura_DeclareMethod(wx_Grid, DeleteCols)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "numCols", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "updateLabels", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -473,7 +473,7 @@ Gura_ImplementMethod(wx_Grid, DeleteCols)
 
 Gura_DeclareMethod(wx_Grid, DeleteRows)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "numRows", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "updateLabels", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -496,7 +496,7 @@ Gura_ImplementMethod(wx_Grid, DeleteRows)
 
 Gura_DeclareMethod(wx_Grid, DeselectCell)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
@@ -513,7 +513,7 @@ Gura_ImplementMethod(wx_Grid, DeselectCell)
 
 Gura_DeclareMethod(wx_Grid, DeselectCol)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
@@ -528,7 +528,7 @@ Gura_ImplementMethod(wx_Grid, DeselectCol)
 
 Gura_DeclareMethod(wx_Grid, DeselectRow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
@@ -543,7 +543,7 @@ Gura_ImplementMethod(wx_Grid, DeselectRow)
 
 Gura_DeclareMethod(wx_Grid, DisableCellEditControl)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Grid, DisableCellEditControl)
@@ -556,7 +556,7 @@ Gura_ImplementMethod(wx_Grid, DisableCellEditControl)
 
 Gura_DeclareMethod(wx_Grid, DisableDragColMove)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Grid, DisableDragColMove)
@@ -569,7 +569,7 @@ Gura_ImplementMethod(wx_Grid, DisableDragColMove)
 
 Gura_DeclareMethod(wx_Grid, DisableDragColSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Grid, DisableDragColSize)
@@ -582,7 +582,7 @@ Gura_ImplementMethod(wx_Grid, DisableDragColSize)
 
 Gura_DeclareMethod(wx_Grid, DisableDragGridSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Grid, DisableDragGridSize)
@@ -595,7 +595,7 @@ Gura_ImplementMethod(wx_Grid, DisableDragGridSize)
 
 Gura_DeclareMethod(wx_Grid, DisableDragRowSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Grid, DisableDragRowSize)
@@ -608,7 +608,7 @@ Gura_ImplementMethod(wx_Grid, DisableDragRowSize)
 
 Gura_DeclareMethod(wx_Grid, EnableCellEditControl)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "enable", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -624,7 +624,7 @@ Gura_ImplementMethod(wx_Grid, EnableCellEditControl)
 
 Gura_DeclareMethod(wx_Grid, EnableDragColSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "enable", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -640,7 +640,7 @@ Gura_ImplementMethod(wx_Grid, EnableDragColSize)
 
 Gura_DeclareMethod(wx_Grid, EnableDragColMove)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "enable", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -656,7 +656,7 @@ Gura_ImplementMethod(wx_Grid, EnableDragColMove)
 
 Gura_DeclareMethod(wx_Grid, EnableDragGridSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "enable", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -672,7 +672,7 @@ Gura_ImplementMethod(wx_Grid, EnableDragGridSize)
 
 Gura_DeclareMethod(wx_Grid, EnableDragRowSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "enable", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -688,7 +688,7 @@ Gura_ImplementMethod(wx_Grid, EnableDragRowSize)
 
 Gura_DeclareMethod(wx_Grid, EnableEditing)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "edit", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -703,7 +703,7 @@ Gura_ImplementMethod(wx_Grid, EnableEditing)
 
 Gura_DeclareMethod(wx_Grid, EnableGridLines)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "enable", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -719,7 +719,7 @@ Gura_ImplementMethod(wx_Grid, EnableGridLines)
 
 Gura_DeclareMethod(wx_Grid, EndBatch)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Grid, EndBatch)
@@ -732,7 +732,7 @@ Gura_ImplementMethod(wx_Grid, EndBatch)
 
 Gura_DeclareMethod(wx_Grid, Fit)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Grid, Fit)
@@ -745,7 +745,7 @@ Gura_ImplementMethod(wx_Grid, Fit)
 
 Gura_DeclareMethod(wx_Grid, ForceRefresh)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Grid, ForceRefresh)
@@ -758,7 +758,7 @@ Gura_ImplementMethod(wx_Grid, ForceRefresh)
 
 Gura_DeclareMethod(wx_Grid, GetBatchCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -772,7 +772,7 @@ Gura_ImplementMethod(wx_Grid, GetBatchCount)
 
 Gura_DeclareMethod(wx_Grid, GetCellOverflow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -790,7 +790,7 @@ Gura_ImplementMethod(wx_Grid, GetCellOverflow)
 
 Gura_DeclareMethod(wx_Grid, GetCellAlignment)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -810,7 +810,7 @@ Gura_ImplementMethod(wx_Grid, GetCellAlignment)
 
 Gura_DeclareMethod(wx_Grid, GetCellBackgroundColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -828,7 +828,7 @@ Gura_ImplementMethod(wx_Grid, GetCellBackgroundColour)
 
 Gura_DeclareMethod(wx_Grid, GetCellEditor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -846,7 +846,7 @@ Gura_ImplementMethod(wx_Grid, GetCellEditor)
 
 Gura_DeclareMethod(wx_Grid, GetCellFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -864,7 +864,7 @@ Gura_ImplementMethod(wx_Grid, GetCellFont)
 
 Gura_DeclareMethod(wx_Grid, GetCellHighlightPenWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -878,7 +878,7 @@ Gura_ImplementMethod(wx_Grid, GetCellHighlightPenWidth)
 
 Gura_DeclareMethod(wx_Grid, GetCellHighlightROPenWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -892,7 +892,7 @@ Gura_ImplementMethod(wx_Grid, GetCellHighlightROPenWidth)
 
 Gura_DeclareMethod(wx_Grid, GetCellRenderer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -912,7 +912,7 @@ Gura_ImplementMethod(wx_Grid, GetCellRenderer)
 
 Gura_DeclareMethod(wx_Grid, GetCellTextColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -930,7 +930,7 @@ Gura_ImplementMethod(wx_Grid, GetCellTextColour)
 
 Gura_DeclareMethod(wx_Grid, GetCellValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -948,7 +948,7 @@ Gura_ImplementMethod(wx_Grid, GetCellValue)
 
 Gura_DeclareMethod(wx_Grid, GetCellValue_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "coords", VTYPE_wx_GridCellCoords, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -964,7 +964,7 @@ Gura_ImplementMethod(wx_Grid, GetCellValue_1)
 
 Gura_DeclareMethod(wx_Grid, GetColAt)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "colPos", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -980,7 +980,7 @@ Gura_ImplementMethod(wx_Grid, GetColAt)
 
 Gura_DeclareMethod(wx_Grid, GetColLeft)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -996,7 +996,7 @@ Gura_ImplementMethod(wx_Grid, GetColLeft)
 
 Gura_DeclareMethod(wx_Grid, GetColLabelAlignment)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1012,7 +1012,7 @@ Gura_ImplementMethod(wx_Grid, GetColLabelAlignment)
 
 Gura_DeclareMethod(wx_Grid, GetColLabelSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1026,7 +1026,7 @@ Gura_ImplementMethod(wx_Grid, GetColLabelSize)
 
 Gura_DeclareMethod(wx_Grid, GetColLabelValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1042,7 +1042,7 @@ Gura_ImplementMethod(wx_Grid, GetColLabelValue)
 
 Gura_DeclareMethod(wx_Grid, GetColMinimalAcceptableWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1056,7 +1056,7 @@ Gura_ImplementMethod(wx_Grid, GetColMinimalAcceptableWidth)
 
 Gura_DeclareMethod(wx_Grid, GetColMinimalWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1072,7 +1072,7 @@ Gura_ImplementMethod(wx_Grid, GetColMinimalWidth)
 
 Gura_DeclareMethod(wx_Grid, GetColPos)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "colID", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1088,7 +1088,7 @@ Gura_ImplementMethod(wx_Grid, GetColPos)
 
 Gura_DeclareMethod(wx_Grid, GetColRight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1104,7 +1104,7 @@ Gura_ImplementMethod(wx_Grid, GetColRight)
 
 Gura_DeclareMethod(wx_Grid, GetColSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1120,7 +1120,7 @@ Gura_ImplementMethod(wx_Grid, GetColSize)
 
 Gura_DeclareMethod(wx_Grid, GetDefaultCellAlignment)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1136,7 +1136,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultCellAlignment)
 
 Gura_DeclareMethod(wx_Grid, GetDefaultCellBackgroundColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1150,7 +1150,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultCellBackgroundColour)
 
 Gura_DeclareMethod(wx_Grid, GetDefaultCellFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1164,7 +1164,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultCellFont)
 
 Gura_DeclareMethod(wx_Grid, GetDefaultCellOverflow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1178,7 +1178,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultCellOverflow)
 
 Gura_DeclareMethod(wx_Grid, GetDefaultCellTextColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1192,7 +1192,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultCellTextColour)
 
 Gura_DeclareMethod(wx_Grid, GetDefaultColLabelSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1206,7 +1206,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultColLabelSize)
 
 Gura_DeclareMethod(wx_Grid, GetDefaultColSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1220,7 +1220,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultColSize)
 
 Gura_DeclareMethod(wx_Grid, GetDefaultEditor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1236,7 +1236,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultEditor)
 
 Gura_DeclareMethod(wx_Grid, GetDefaultEditorForCell)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1256,7 +1256,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultEditorForCell)
 
 Gura_DeclareMethod(wx_Grid, GetDefaultEditorForCell_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_wx_GridCellCoords, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1274,7 +1274,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultEditorForCell_1)
 
 Gura_DeclareMethod(wx_Grid, GetDefaultEditorForType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "typeName", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1292,7 +1292,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultEditorForType)
 
 Gura_DeclareMethod(wx_Grid, GetDefaultRenderer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1308,7 +1308,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultRenderer)
 
 Gura_DeclareMethod(wx_Grid, GetDefaultRendererForCell)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1328,7 +1328,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultRendererForCell)
 
 Gura_DeclareMethod(wx_Grid, GetDefaultRendererForType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "typeName", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1346,7 +1346,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultRendererForType)
 
 Gura_DeclareMethod(wx_Grid, GetDefaultRowLabelSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1360,7 +1360,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultRowLabelSize)
 
 Gura_DeclareMethod(wx_Grid, GetDefaultRowSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1374,7 +1374,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultRowSize)
 
 Gura_DeclareMethod(wx_Grid, GetGridCursorCol)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1388,7 +1388,7 @@ Gura_ImplementMethod(wx_Grid, GetGridCursorCol)
 
 Gura_DeclareMethod(wx_Grid, GetGridCursorRow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1402,7 +1402,7 @@ Gura_ImplementMethod(wx_Grid, GetGridCursorRow)
 
 Gura_DeclareMethod(wx_Grid, GetGridLineColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1416,7 +1416,7 @@ Gura_ImplementMethod(wx_Grid, GetGridLineColour)
 
 Gura_DeclareMethod(wx_Grid, GetDefaultGridLinePen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1430,7 +1430,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultGridLinePen)
 
 Gura_DeclareMethod(wx_Grid, GetRowGridLinePen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1446,7 +1446,7 @@ Gura_ImplementMethod(wx_Grid, GetRowGridLinePen)
 
 Gura_DeclareMethod(wx_Grid, GetColGridLinePen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1462,7 +1462,7 @@ Gura_ImplementMethod(wx_Grid, GetColGridLinePen)
 
 Gura_DeclareMethod(wx_Grid, GridLinesEnabled)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1476,7 +1476,7 @@ Gura_ImplementMethod(wx_Grid, GridLinesEnabled)
 
 Gura_DeclareMethod(wx_Grid, GetLabelBackgroundColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1490,7 +1490,7 @@ Gura_ImplementMethod(wx_Grid, GetLabelBackgroundColour)
 
 Gura_DeclareMethod(wx_Grid, GetLabelFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1504,7 +1504,7 @@ Gura_ImplementMethod(wx_Grid, GetLabelFont)
 
 Gura_DeclareMethod(wx_Grid, GetLabelTextColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1518,7 +1518,7 @@ Gura_ImplementMethod(wx_Grid, GetLabelTextColour)
 
 Gura_DeclareMethod(wx_Grid, GetNumberCols)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1532,7 +1532,7 @@ Gura_ImplementMethod(wx_Grid, GetNumberCols)
 
 Gura_DeclareMethod(wx_Grid, GetNumberRows)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1546,7 +1546,7 @@ Gura_ImplementMethod(wx_Grid, GetNumberRows)
 
 Gura_DeclareMethod(wx_Grid, GetOrCreateCellAttr)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1566,7 +1566,7 @@ Gura_ImplementMethod(wx_Grid, GetOrCreateCellAttr)
 
 Gura_DeclareMethod(wx_Grid, GetRowMinimalAcceptableHeight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1580,7 +1580,7 @@ Gura_ImplementMethod(wx_Grid, GetRowMinimalAcceptableHeight)
 
 Gura_DeclareMethod(wx_Grid, GetRowMinimalHeight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1596,7 +1596,7 @@ Gura_ImplementMethod(wx_Grid, GetRowMinimalHeight)
 
 Gura_DeclareMethod(wx_Grid, GetRowLabelAlignment)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1612,7 +1612,7 @@ Gura_ImplementMethod(wx_Grid, GetRowLabelAlignment)
 
 Gura_DeclareMethod(wx_Grid, GetRowLabelSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1626,7 +1626,7 @@ Gura_ImplementMethod(wx_Grid, GetRowLabelSize)
 
 Gura_DeclareMethod(wx_Grid, GetRowLabelValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1642,7 +1642,7 @@ Gura_ImplementMethod(wx_Grid, GetRowLabelValue)
 
 Gura_DeclareMethod(wx_Grid, GetRowSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1658,7 +1658,7 @@ Gura_ImplementMethod(wx_Grid, GetRowSize)
 
 Gura_DeclareMethod(wx_Grid, GetScrollLineX)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1672,7 +1672,7 @@ Gura_ImplementMethod(wx_Grid, GetScrollLineX)
 
 Gura_DeclareMethod(wx_Grid, GetScrollLineY)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1686,7 +1686,7 @@ Gura_ImplementMethod(wx_Grid, GetScrollLineY)
 
 Gura_DeclareMethod(wx_Grid, GetSelectionMode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1698,7 +1698,7 @@ Gura_ImplementMethod(wx_Grid, GetSelectionMode)
 
 Gura_DeclareMethod(wx_Grid, GetSelectedCells)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1712,7 +1712,7 @@ Gura_ImplementMethod(wx_Grid, GetSelectedCells)
 
 Gura_DeclareMethod(wx_Grid, GetSelectedCols)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1726,7 +1726,7 @@ Gura_ImplementMethod(wx_Grid, GetSelectedCols)
 
 Gura_DeclareMethod(wx_Grid, GetSelectedRows)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1740,7 +1740,7 @@ Gura_ImplementMethod(wx_Grid, GetSelectedRows)
 
 Gura_DeclareMethod(wx_Grid, GetSelectionBackground)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1754,7 +1754,7 @@ Gura_ImplementMethod(wx_Grid, GetSelectionBackground)
 
 Gura_DeclareMethod(wx_Grid, GetSelectionBlockTopLeft)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1768,7 +1768,7 @@ Gura_ImplementMethod(wx_Grid, GetSelectionBlockTopLeft)
 
 Gura_DeclareMethod(wx_Grid, GetSelectionBlockBottomRight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1782,7 +1782,7 @@ Gura_ImplementMethod(wx_Grid, GetSelectionBlockBottomRight)
 
 Gura_DeclareMethod(wx_Grid, GetSelectionForeground)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1796,7 +1796,7 @@ Gura_ImplementMethod(wx_Grid, GetSelectionForeground)
 
 Gura_DeclareMethod(wx_Grid, GetTable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1812,7 +1812,7 @@ Gura_ImplementMethod(wx_Grid, GetTable)
 
 Gura_DeclareMethod(wx_Grid, GetViewWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1826,7 +1826,7 @@ Gura_ImplementMethod(wx_Grid, GetViewWidth)
 
 Gura_DeclareMethod(wx_Grid, HideCellEditControl)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Grid, HideCellEditControl)
@@ -1839,7 +1839,7 @@ Gura_ImplementMethod(wx_Grid, HideCellEditControl)
 
 Gura_DeclareMethod(wx_Grid, InitColWidths)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Grid, InitColWidths)
@@ -1852,7 +1852,7 @@ Gura_ImplementMethod(wx_Grid, InitColWidths)
 
 Gura_DeclareMethod(wx_Grid, InitRowHeights)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Grid, InitRowHeights)
@@ -1865,7 +1865,7 @@ Gura_ImplementMethod(wx_Grid, InitRowHeights)
 
 Gura_DeclareMethod(wx_Grid, InsertCols)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "numCols", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "updateLabels", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -1888,7 +1888,7 @@ Gura_ImplementMethod(wx_Grid, InsertCols)
 
 Gura_DeclareMethod(wx_Grid, InsertRows)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "numRows", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "updateLabels", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -1911,7 +1911,7 @@ Gura_ImplementMethod(wx_Grid, InsertRows)
 
 Gura_DeclareMethod(wx_Grid, IsCellEditControlEnabled)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1925,7 +1925,7 @@ Gura_ImplementMethod(wx_Grid, IsCellEditControlEnabled)
 
 Gura_DeclareMethod(wx_Grid, IsCurrentCellReadOnly)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1939,7 +1939,7 @@ Gura_ImplementMethod(wx_Grid, IsCurrentCellReadOnly)
 
 Gura_DeclareMethod(wx_Grid, IsEditable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1953,7 +1953,7 @@ Gura_ImplementMethod(wx_Grid, IsEditable)
 
 Gura_DeclareMethod(wx_Grid, IsInSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1971,7 +1971,7 @@ Gura_ImplementMethod(wx_Grid, IsInSelection)
 
 Gura_DeclareMethod(wx_Grid, IsInSelection_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "coords", VTYPE_wx_GridCellCoords, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1987,7 +1987,7 @@ Gura_ImplementMethod(wx_Grid, IsInSelection_1)
 
 Gura_DeclareMethod(wx_Grid, IsReadOnly)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2005,7 +2005,7 @@ Gura_ImplementMethod(wx_Grid, IsReadOnly)
 
 Gura_DeclareMethod(wx_Grid, IsSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2019,7 +2019,7 @@ Gura_ImplementMethod(wx_Grid, IsSelection)
 
 Gura_DeclareMethod(wx_Grid, IsVisible)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "wholeCellVisible", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -2040,7 +2040,7 @@ Gura_ImplementMethod(wx_Grid, IsVisible)
 
 Gura_DeclareMethod(wx_Grid, IsVisible_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "coords", VTYPE_wx_GridCellCoords, OCCUR_Once);
 	DeclareArg(env, "wholeCellVisible", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2059,7 +2059,7 @@ Gura_ImplementMethod(wx_Grid, IsVisible_1)
 
 Gura_DeclareMethod(wx_Grid, MakeCellVisible)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
@@ -2076,7 +2076,7 @@ Gura_ImplementMethod(wx_Grid, MakeCellVisible)
 
 Gura_DeclareMethod(wx_Grid, MakeCellVisible_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "coords", VTYPE_wx_GridCellCoords, OCCUR_Once);
 }
 
@@ -2091,7 +2091,7 @@ Gura_ImplementMethod(wx_Grid, MakeCellVisible_1)
 
 Gura_DeclareMethod(wx_Grid, MoveCursorDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "expandSelection", VTYPE_boolean, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2107,7 +2107,7 @@ Gura_ImplementMethod(wx_Grid, MoveCursorDown)
 
 Gura_DeclareMethod(wx_Grid, MoveCursorLeft)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "expandSelection", VTYPE_boolean, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2123,7 +2123,7 @@ Gura_ImplementMethod(wx_Grid, MoveCursorLeft)
 
 Gura_DeclareMethod(wx_Grid, MoveCursorRight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "expandSelection", VTYPE_boolean, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2139,7 +2139,7 @@ Gura_ImplementMethod(wx_Grid, MoveCursorRight)
 
 Gura_DeclareMethod(wx_Grid, MoveCursorUp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "expandSelection", VTYPE_boolean, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2155,7 +2155,7 @@ Gura_ImplementMethod(wx_Grid, MoveCursorUp)
 
 Gura_DeclareMethod(wx_Grid, MoveCursorDownBlock)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "expandSelection", VTYPE_boolean, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2171,7 +2171,7 @@ Gura_ImplementMethod(wx_Grid, MoveCursorDownBlock)
 
 Gura_DeclareMethod(wx_Grid, MoveCursorLeftBlock)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "expandSelection", VTYPE_boolean, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2187,7 +2187,7 @@ Gura_ImplementMethod(wx_Grid, MoveCursorLeftBlock)
 
 Gura_DeclareMethod(wx_Grid, MoveCursorRightBlock)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "expandSelection", VTYPE_boolean, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2203,7 +2203,7 @@ Gura_ImplementMethod(wx_Grid, MoveCursorRightBlock)
 
 Gura_DeclareMethod(wx_Grid, MoveCursorUpBlock)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "expandSelection", VTYPE_boolean, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2219,7 +2219,7 @@ Gura_ImplementMethod(wx_Grid, MoveCursorUpBlock)
 
 Gura_DeclareMethod(wx_Grid, MovePageDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2233,7 +2233,7 @@ Gura_ImplementMethod(wx_Grid, MovePageDown)
 
 Gura_DeclareMethod(wx_Grid, MovePageUp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2247,7 +2247,7 @@ Gura_ImplementMethod(wx_Grid, MovePageUp)
 
 Gura_DeclareMethod(wx_Grid, RegisterDataType)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "typeName", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "renderer", VTYPE_wx_GridCellRenderer, OCCUR_Once);
 	DeclareArg(env, "editor", VTYPE_wx_GridCellEditor, OCCUR_Once);
@@ -2266,7 +2266,7 @@ Gura_ImplementMethod(wx_Grid, RegisterDataType)
 
 Gura_DeclareMethod(wx_Grid, SaveEditControlValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Grid, SaveEditControlValue)
@@ -2279,7 +2279,7 @@ Gura_ImplementMethod(wx_Grid, SaveEditControlValue)
 
 Gura_DeclareMethod(wx_Grid, SelectAll)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Grid, SelectAll)
@@ -2292,7 +2292,7 @@ Gura_ImplementMethod(wx_Grid, SelectAll)
 
 Gura_DeclareMethod(wx_Grid, SelectBlock)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "topRow", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "leftCol", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "bottomRow", VTYPE_number, OCCUR_Once);
@@ -2316,7 +2316,7 @@ Gura_ImplementMethod(wx_Grid, SelectBlock)
 
 Gura_DeclareMethod(wx_Grid, SelectBlock_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "topLeft", VTYPE_wx_GridCellCoords, OCCUR_Once);
 	DeclareArg(env, "bottomRight", VTYPE_wx_GridCellCoords, OCCUR_Once);
 	DeclareArg(env, "addToSelected", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -2336,7 +2336,7 @@ Gura_ImplementMethod(wx_Grid, SelectBlock_1)
 
 Gura_DeclareMethod(wx_Grid, SelectCol)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "addToSelected", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
@@ -2354,7 +2354,7 @@ Gura_ImplementMethod(wx_Grid, SelectCol)
 
 Gura_DeclareMethod(wx_Grid, SelectRow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "addToSelected", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
@@ -2372,7 +2372,7 @@ Gura_ImplementMethod(wx_Grid, SelectRow)
 
 Gura_DeclareMethod(wx_Grid, SetCellOverflow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "allow", VTYPE_boolean, OCCUR_Once);
@@ -2391,7 +2391,7 @@ Gura_ImplementMethod(wx_Grid, SetCellOverflow)
 
 Gura_DeclareMethod(wx_Grid, SetCellSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "num_rows", VTYPE_number, OCCUR_Once);
@@ -2412,7 +2412,7 @@ Gura_ImplementMethod(wx_Grid, SetCellSize)
 
 Gura_DeclareMethod(wx_Grid, SetCellAlignment)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "horiz", VTYPE_number, OCCUR_Once);
@@ -2433,7 +2433,7 @@ Gura_ImplementMethod(wx_Grid, SetCellAlignment)
 
 Gura_DeclareMethod(wx_Grid, SetCellAlignment_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
@@ -2452,7 +2452,7 @@ Gura_ImplementMethod(wx_Grid, SetCellAlignment_1)
 
 Gura_DeclareMethod(wx_Grid, SetCellBackgroundColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
@@ -2471,7 +2471,7 @@ Gura_ImplementMethod(wx_Grid, SetCellBackgroundColour)
 
 Gura_DeclareMethod(wx_Grid, SetCellEditor)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "editor", VTYPE_wx_GridCellEditor, OCCUR_Once);
@@ -2490,7 +2490,7 @@ Gura_ImplementMethod(wx_Grid, SetCellEditor)
 
 Gura_DeclareMethod(wx_Grid, SetCellFont)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
@@ -2509,7 +2509,7 @@ Gura_ImplementMethod(wx_Grid, SetCellFont)
 
 Gura_DeclareMethod(wx_Grid, SetCellHighlightPenWidth)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
@@ -2524,7 +2524,7 @@ Gura_ImplementMethod(wx_Grid, SetCellHighlightPenWidth)
 
 Gura_DeclareMethod(wx_Grid, SetCellHighlightROPenWidth)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
@@ -2539,7 +2539,7 @@ Gura_ImplementMethod(wx_Grid, SetCellHighlightROPenWidth)
 
 Gura_DeclareMethod(wx_Grid, SetCellRenderer)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "renderer", VTYPE_wx_GridCellRenderer, OCCUR_Once);
@@ -2558,7 +2558,7 @@ Gura_ImplementMethod(wx_Grid, SetCellRenderer)
 
 Gura_DeclareMethod(wx_Grid, SetCellTextColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
@@ -2577,7 +2577,7 @@ Gura_ImplementMethod(wx_Grid, SetCellTextColour)
 
 Gura_DeclareMethod(wx_Grid, SetCellTextColour_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "val", VTYPE_wx_Colour, OCCUR_Once);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
@@ -2596,7 +2596,7 @@ Gura_ImplementMethod(wx_Grid, SetCellTextColour_1)
 
 Gura_DeclareMethod(wx_Grid, SetCellTextColour_2)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -2611,7 +2611,7 @@ Gura_ImplementMethod(wx_Grid, SetCellTextColour_2)
 
 Gura_DeclareMethod(wx_Grid, SetCellValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "s", VTYPE_string, OCCUR_Once);
@@ -2630,7 +2630,7 @@ Gura_ImplementMethod(wx_Grid, SetCellValue)
 
 Gura_DeclareMethod(wx_Grid, SetCellValue_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "coords", VTYPE_wx_GridCellCoords, OCCUR_Once);
 	DeclareArg(env, "s", VTYPE_string, OCCUR_Once);
 }
@@ -2647,7 +2647,7 @@ Gura_ImplementMethod(wx_Grid, SetCellValue_1)
 
 Gura_DeclareMethod(wx_Grid, SetCellValue_2)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "val", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
@@ -2666,7 +2666,7 @@ Gura_ImplementMethod(wx_Grid, SetCellValue_2)
 
 Gura_DeclareMethod(wx_Grid, SetColAttr)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "attr", VTYPE_wx_GridCellAttr, OCCUR_Once);
 }
@@ -2683,7 +2683,7 @@ Gura_ImplementMethod(wx_Grid, SetColAttr)
 
 Gura_DeclareMethod(wx_Grid, SetColFormatBool)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
@@ -2698,7 +2698,7 @@ Gura_ImplementMethod(wx_Grid, SetColFormatBool)
 
 Gura_DeclareMethod(wx_Grid, SetColFormatNumber)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
@@ -2713,7 +2713,7 @@ Gura_ImplementMethod(wx_Grid, SetColFormatNumber)
 
 Gura_DeclareMethod(wx_Grid, SetColFormatFloat)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "precision", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -2734,7 +2734,7 @@ Gura_ImplementMethod(wx_Grid, SetColFormatFloat)
 
 Gura_DeclareMethod(wx_Grid, SetColFormatCustom)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "typeName", VTYPE_string, OCCUR_Once);
 }
@@ -2751,7 +2751,7 @@ Gura_ImplementMethod(wx_Grid, SetColFormatCustom)
 
 Gura_DeclareMethod(wx_Grid, SetColLabelAlignment)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "horiz", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "vert", VTYPE_number, OCCUR_Once);
 }
@@ -2768,7 +2768,7 @@ Gura_ImplementMethod(wx_Grid, SetColLabelAlignment)
 
 Gura_DeclareMethod(wx_Grid, SetColLabelSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
@@ -2783,7 +2783,7 @@ Gura_ImplementMethod(wx_Grid, SetColLabelSize)
 
 Gura_DeclareMethod(wx_Grid, SetColLabelValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
 }
@@ -2800,7 +2800,7 @@ Gura_ImplementMethod(wx_Grid, SetColLabelValue)
 
 Gura_DeclareMethod(wx_Grid, SetColMinimalWidth)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
@@ -2817,7 +2817,7 @@ Gura_ImplementMethod(wx_Grid, SetColMinimalWidth)
 
 Gura_DeclareMethod(wx_Grid, SetColMinimalAcceptableWidth)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
@@ -2832,7 +2832,7 @@ Gura_ImplementMethod(wx_Grid, SetColMinimalAcceptableWidth)
 
 Gura_DeclareMethod(wx_Grid, SetColPos)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colID", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "newPos", VTYPE_number, OCCUR_Once);
 }
@@ -2849,7 +2849,7 @@ Gura_ImplementMethod(wx_Grid, SetColPos)
 
 Gura_DeclareMethod(wx_Grid, SetColSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
@@ -2866,7 +2866,7 @@ Gura_ImplementMethod(wx_Grid, SetColSize)
 
 Gura_DeclareMethod(wx_Grid, SetDefaultCellAlignment)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "horiz", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "vert", VTYPE_number, OCCUR_Once);
 }
@@ -2883,7 +2883,7 @@ Gura_ImplementMethod(wx_Grid, SetDefaultCellAlignment)
 
 Gura_DeclareMethod(wx_Grid, SetDefaultCellBackgroundColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -2898,7 +2898,7 @@ Gura_ImplementMethod(wx_Grid, SetDefaultCellBackgroundColour)
 
 Gura_DeclareMethod(wx_Grid, SetDefaultCellFont)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 }
 
@@ -2913,7 +2913,7 @@ Gura_ImplementMethod(wx_Grid, SetDefaultCellFont)
 
 Gura_DeclareMethod(wx_Grid, SetDefaultCellOverflow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "allow", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -2928,7 +2928,7 @@ Gura_ImplementMethod(wx_Grid, SetDefaultCellOverflow)
 
 Gura_DeclareMethod(wx_Grid, SetDefaultCellTextColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -2943,7 +2943,7 @@ Gura_ImplementMethod(wx_Grid, SetDefaultCellTextColour)
 
 Gura_DeclareMethod(wx_Grid, SetDefaultEditor)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "editor", VTYPE_wx_GridCellEditor, OCCUR_Once);
 }
 
@@ -2958,7 +2958,7 @@ Gura_ImplementMethod(wx_Grid, SetDefaultEditor)
 
 Gura_DeclareMethod(wx_Grid, SetDefaultRenderer)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "renderer", VTYPE_wx_GridCellRenderer, OCCUR_Once);
 }
 
@@ -2973,7 +2973,7 @@ Gura_ImplementMethod(wx_Grid, SetDefaultRenderer)
 
 Gura_DeclareMethod(wx_Grid, SetDefaultColSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "resizeExistingCols", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
@@ -2991,7 +2991,7 @@ Gura_ImplementMethod(wx_Grid, SetDefaultColSize)
 
 Gura_DeclareMethod(wx_Grid, SetDefaultRowSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "resizeExistingRows", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
@@ -3009,7 +3009,7 @@ Gura_ImplementMethod(wx_Grid, SetDefaultRowSize)
 
 Gura_DeclareMethod(wx_Grid, SetGridCursor)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
@@ -3026,7 +3026,7 @@ Gura_ImplementMethod(wx_Grid, SetGridCursor)
 
 Gura_DeclareMethod(wx_Grid, SetGridLineColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -3041,7 +3041,7 @@ Gura_ImplementMethod(wx_Grid, SetGridLineColour)
 
 Gura_DeclareMethod(wx_Grid, SetLabelBackgroundColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -3056,7 +3056,7 @@ Gura_ImplementMethod(wx_Grid, SetLabelBackgroundColour)
 
 Gura_DeclareMethod(wx_Grid, SetLabelFont)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 }
 
@@ -3071,7 +3071,7 @@ Gura_ImplementMethod(wx_Grid, SetLabelFont)
 
 Gura_DeclareMethod(wx_Grid, SetLabelTextColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -3086,7 +3086,7 @@ Gura_ImplementMethod(wx_Grid, SetLabelTextColour)
 
 Gura_DeclareMethod(wx_Grid, SetMargins)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "extraWidth", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "extraHeight", VTYPE_number, OCCUR_Once);
 }
@@ -3103,7 +3103,7 @@ Gura_ImplementMethod(wx_Grid, SetMargins)
 
 Gura_DeclareMethod(wx_Grid, SetOrCalcColumnSizes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "calcOnly", VTYPE_boolean, OCCUR_Once);
 	DeclareArg(env, "setAsMin", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3122,7 +3122,7 @@ Gura_ImplementMethod(wx_Grid, SetOrCalcColumnSizes)
 
 Gura_DeclareMethod(wx_Grid, SetOrCalcRowSizes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "calcOnly", VTYPE_boolean, OCCUR_Once);
 	DeclareArg(env, "setAsMin", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3141,7 +3141,7 @@ Gura_ImplementMethod(wx_Grid, SetOrCalcRowSizes)
 
 Gura_DeclareMethod(wx_Grid, SetReadOnly)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "isReadOnly", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -3161,7 +3161,7 @@ Gura_ImplementMethod(wx_Grid, SetReadOnly)
 
 Gura_DeclareMethod(wx_Grid, SetRowAttr)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "attr", VTYPE_wx_GridCellAttr, OCCUR_Once);
 }
@@ -3178,7 +3178,7 @@ Gura_ImplementMethod(wx_Grid, SetRowAttr)
 
 Gura_DeclareMethod(wx_Grid, SetRowLabelAlignment)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "horiz", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "vert", VTYPE_number, OCCUR_Once);
 }
@@ -3195,7 +3195,7 @@ Gura_ImplementMethod(wx_Grid, SetRowLabelAlignment)
 
 Gura_DeclareMethod(wx_Grid, SetRowLabelSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
@@ -3210,7 +3210,7 @@ Gura_ImplementMethod(wx_Grid, SetRowLabelSize)
 
 Gura_DeclareMethod(wx_Grid, SetRowLabelValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
 }
@@ -3227,7 +3227,7 @@ Gura_ImplementMethod(wx_Grid, SetRowLabelValue)
 
 Gura_DeclareMethod(wx_Grid, SetRowMinimalHeight)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
@@ -3244,7 +3244,7 @@ Gura_ImplementMethod(wx_Grid, SetRowMinimalHeight)
 
 Gura_DeclareMethod(wx_Grid, SetRowMinimalAcceptableHeight)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
@@ -3259,7 +3259,7 @@ Gura_ImplementMethod(wx_Grid, SetRowMinimalAcceptableHeight)
 
 Gura_DeclareMethod(wx_Grid, SetRowSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
@@ -3276,7 +3276,7 @@ Gura_ImplementMethod(wx_Grid, SetRowSize)
 
 Gura_DeclareMethod(wx_Grid, SetScrollLineX)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 }
 
@@ -3291,7 +3291,7 @@ Gura_ImplementMethod(wx_Grid, SetScrollLineX)
 
 Gura_DeclareMethod(wx_Grid, SetScrollLineY)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
@@ -3306,7 +3306,7 @@ Gura_ImplementMethod(wx_Grid, SetScrollLineY)
 
 Gura_DeclareMethod(wx_Grid, SetSelectionBackground)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -3321,7 +3321,7 @@ Gura_ImplementMethod(wx_Grid, SetSelectionBackground)
 
 Gura_DeclareMethod(wx_Grid, SetSelectionForeground)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -3336,7 +3336,7 @@ Gura_ImplementMethod(wx_Grid, SetSelectionForeground)
 
 Gura_DeclareMethod(wx_Grid, SetSelectionMode)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "selmode", VTYPE_number, OCCUR_Once);
 }
 
@@ -3352,7 +3352,7 @@ Gura_ImplementMethod(wx_Grid, SetSelectionMode)
 
 Gura_DeclareMethod(wx_Grid, SetTable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "table", VTYPE_wx_GridTableBase, OCCUR_Once);
 	DeclareArg(env, "takeOwnership", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "selmode", VTYPE_wx_Grid, OCCUR_ZeroOrOnce);
@@ -3374,7 +3374,7 @@ Gura_ImplementMethod(wx_Grid, SetTable)
 
 Gura_DeclareMethod(wx_Grid, ShowCellEditControl)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Grid, ShowCellEditControl)
@@ -3387,7 +3387,7 @@ Gura_ImplementMethod(wx_Grid, ShowCellEditControl)
 
 Gura_DeclareMethod(wx_Grid, XToCol)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "clipToMinMax", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3406,7 +3406,7 @@ Gura_ImplementMethod(wx_Grid, XToCol)
 
 Gura_DeclareMethod(wx_Grid, XToEdgeOfCol)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -3422,7 +3422,7 @@ Gura_ImplementMethod(wx_Grid, XToEdgeOfCol)
 
 Gura_DeclareMethod(wx_Grid, YToEdgeOfRow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -3438,7 +3438,7 @@ Gura_ImplementMethod(wx_Grid, YToEdgeOfRow)
 
 Gura_DeclareMethod(wx_Grid, YToRow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

@@ -39,7 +39,7 @@ void wx_GridCellAttr::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GridCellAttrEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellAttr));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(GridCellAttrEmpty)
 
 Gura_DeclareFunction(GridCellAttr)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellAttr));
 	DeclareArg(env, "colText", VTYPE_wx_Colour, OCCUR_Once);
 	DeclareArg(env, "colBack", VTYPE_wx_Colour, OCCUR_Once);
@@ -93,7 +93,7 @@ Gura_ImplementFunction(GridCellAttr)
 
 Gura_DeclareMethod(wx_GridCellAttr, Clone)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_GridCellAttr, Clone)
 
 Gura_DeclareMethod(wx_GridCellAttr, IncRef)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridCellAttr, IncRef)
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_GridCellAttr, IncRef)
 
 Gura_DeclareMethod(wx_GridCellAttr, DecRef)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridCellAttr, DecRef)
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_GridCellAttr, DecRef)
 
 Gura_DeclareMethod(wx_GridCellAttr, SetTextColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colText", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_GridCellAttr, SetTextColour)
 
 Gura_DeclareMethod(wx_GridCellAttr, SetBackgroundColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colBack", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_GridCellAttr, SetBackgroundColour)
 
 Gura_DeclareMethod(wx_GridCellAttr, SetFont)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 }
 
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_GridCellAttr, SetFont)
 
 Gura_DeclareMethod(wx_GridCellAttr, SetAlignment)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "hAlign", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "vAlign", VTYPE_number, OCCUR_Once);
 }
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_GridCellAttr, SetAlignment)
 
 Gura_DeclareMethod(wx_GridCellAttr, SetReadOnly)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "isReadOnly", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -211,7 +211,7 @@ Gura_ImplementMethod(wx_GridCellAttr, SetReadOnly)
 
 Gura_DeclareMethod(wx_GridCellAttr, SetRenderer)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "renderer", VTYPE_wx_GridCellRenderer, OCCUR_Once);
 }
 
@@ -226,7 +226,7 @@ Gura_ImplementMethod(wx_GridCellAttr, SetRenderer)
 
 Gura_DeclareMethod(wx_GridCellAttr, SetEditor)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "editor", VTYPE_wx_GridCellEditor, OCCUR_Once);
 }
 
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_GridCellAttr, SetEditor)
 
 Gura_DeclareMethod(wx_GridCellAttr, HasTextColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_GridCellAttr, HasTextColour)
 
 Gura_DeclareMethod(wx_GridCellAttr, HasBackgroundColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_GridCellAttr, HasBackgroundColour)
 
 Gura_DeclareMethod(wx_GridCellAttr, HasFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -283,7 +283,7 @@ Gura_ImplementMethod(wx_GridCellAttr, HasFont)
 
 Gura_DeclareMethod(wx_GridCellAttr, HasAlignment)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -297,7 +297,7 @@ Gura_ImplementMethod(wx_GridCellAttr, HasAlignment)
 
 Gura_DeclareMethod(wx_GridCellAttr, HasRenderer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -311,7 +311,7 @@ Gura_ImplementMethod(wx_GridCellAttr, HasRenderer)
 
 Gura_DeclareMethod(wx_GridCellAttr, HasEditor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -325,7 +325,7 @@ Gura_ImplementMethod(wx_GridCellAttr, HasEditor)
 
 Gura_DeclareMethod(wx_GridCellAttr, GetTextColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -339,7 +339,7 @@ Gura_ImplementMethod(wx_GridCellAttr, GetTextColour)
 
 Gura_DeclareMethod(wx_GridCellAttr, GetBackgroundColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -353,7 +353,7 @@ Gura_ImplementMethod(wx_GridCellAttr, GetBackgroundColour)
 
 Gura_DeclareMethod(wx_GridCellAttr, GetFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -367,7 +367,7 @@ Gura_ImplementMethod(wx_GridCellAttr, GetFont)
 
 Gura_DeclareMethod(wx_GridCellAttr, GetAlignment)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -383,7 +383,7 @@ Gura_ImplementMethod(wx_GridCellAttr, GetAlignment)
 
 Gura_DeclareMethod(wx_GridCellAttr, GetRenderer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "grid", VTYPE_wx_Grid, OCCUR_Once);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
@@ -403,7 +403,7 @@ Gura_ImplementMethod(wx_GridCellAttr, GetRenderer)
 
 Gura_DeclareMethod(wx_GridCellAttr, GetEditor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "grid", VTYPE_wx_Grid, OCCUR_Once);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
@@ -423,7 +423,7 @@ Gura_ImplementMethod(wx_GridCellAttr, GetEditor)
 
 Gura_DeclareMethod(wx_GridCellAttr, IsReadOnly)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -437,7 +437,7 @@ Gura_ImplementMethod(wx_GridCellAttr, IsReadOnly)
 
 Gura_DeclareMethod(wx_GridCellAttr, SetDefAttr)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "defAttr", VTYPE_wx_GridCellAttr, OCCUR_Once);
 }
 

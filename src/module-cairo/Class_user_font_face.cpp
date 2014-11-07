@@ -55,7 +55,7 @@ cairo_status_t Object_user_font_face::unicode_to_glyph_func(cairo_scaled_font_t 
 // cairo.user_font_face.create() {block?}
 Gura_DeclareClassMethod(user_font_face, create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

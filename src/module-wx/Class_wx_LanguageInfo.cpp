@@ -44,7 +44,7 @@ void wx_LanguageInfo::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(LanguageInfo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_LanguageInfo));
 	DeclareArg(env, "Language", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "CanonicalName", VTYPE_string, OCCUR_ZeroOrOnce);

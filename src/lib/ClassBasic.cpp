@@ -165,7 +165,7 @@ bool Class_undefined::Format_c(Signal sig, Formatter *pFormatter, Formatter::Fla
 // symbol#eval(env?:environment)
 Gura_DeclareMethod(symbol, eval)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "env", VTYPE_environment, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Evaluate a symbol object.");
 }
@@ -266,7 +266,7 @@ bool Class_boolean::Format_u(Signal sig, Formatter *pFormatter, Formatter::Flags
 // number#roundoff(threshold:number => 1e-10)
 Gura_DeclareMethodPrimitive(number, roundoff)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "threshold", VTYPE_number, OCCUR_Once, FLAG_None,
 											new Expr_Value(RoundOffThreshold));
 }
@@ -418,7 +418,7 @@ Gura_ImplementSuffixMgrForNumber(j)
 // complex(real:number, imag?:number):map {block?}
 Gura_DeclareFunction(complex)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "real", VTYPE_number);
 	DeclareArg(env, "imag", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -437,7 +437,7 @@ Gura_ImplementFunction(complex)
 // complex.polar(abs:number, angle:number):map:[deg] {block?}
 Gura_DeclareClassMethod(complex, polar)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "abs", VTYPE_number);
 	DeclareArg(env, "arg", VTYPE_number);
 	DeclareAttr(Gura_Symbol(deg));
@@ -457,7 +457,7 @@ Gura_ImplementClassMethod(complex, polar)
 // complex#roundoff(threshold:number => 1e-10)
 Gura_DeclareMethodPrimitive(complex, roundoff)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "threshold", VTYPE_number, OCCUR_Once, FLAG_None,
 											new Expr_Value(RoundOffThreshold));
 }
@@ -608,7 +608,7 @@ Gura_ImplementSuffixMgrForNumber(r)
 // rational(numer:number, denom?:number):map {block?}
 Gura_DeclareFunction(rational)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "numer", VTYPE_number);
 	DeclareArg(env, "denom", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -633,7 +633,7 @@ Gura_ImplementFunction(rational)
 // rational#reduce()
 Gura_DeclareMethodPrimitive(rational, reduce)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(rational, reduce)
@@ -724,7 +724,7 @@ Gura_ImplementSuffixMgrForString($)
 // string#align(len:number, padding:string => " "):map:[center,left,right]
 Gura_DeclareMethod(string, align)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "len", VTYPE_number);
 	DeclareArg(env, "padding", VTYPE_string, OCCUR_Once, FLAG_None, new Expr_Value(Value(" ")));
 	DeclareAttr(Gura_Symbol(center));
@@ -760,7 +760,7 @@ Gura_ImplementMethod(string, align)
 // string#binary()
 Gura_DeclareMethodPrimitive(string, binary)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(string, binary)
@@ -772,7 +772,7 @@ Gura_ImplementMethod(string, binary)
 // string#capitalize()
 Gura_DeclareMethod(string, capitalize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Returns a string copied from the original one but with the first character\n"
 	"capitalized.");
@@ -786,7 +786,7 @@ Gura_ImplementMethod(string, capitalize)
 // string#chop(suffix*:string):[eol,icase]
 Gura_DeclareMethod(string, chop)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "suffix", VTYPE_string, OCCUR_ZeroOrMore);
 	DeclareAttr(Gura_Symbol(eol));
 	DeclareAttr(Gura_Symbol(icase));
@@ -817,7 +817,7 @@ Gura_ImplementMethod(string, chop)
 // string#decodeuri()
 Gura_DeclareMethod(string, decodeuri)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Returns a string in which percent-encoded characters are decoded.");
 }
@@ -830,7 +830,7 @@ Gura_ImplementMethod(string, decodeuri)
 // string#each():[utf8,utf32] {block?}
 Gura_DeclareMethod(string, each)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareAttr(Gura_Symbol(utf8));
 	DeclareAttr(Gura_Symbol(utf32));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -855,7 +855,7 @@ Gura_ImplementMethod(string, each)
 // conrresponding to file#readlines()
 Gura_DeclareMethod(string, eachline)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "nlines", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(chop));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -878,7 +878,7 @@ Gura_ImplementMethod(string, eachline)
 // string#encode(codec:codec)
 Gura_DeclareMethodPrimitive(string, encode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "codec", VTYPE_codec);
 }
 
@@ -895,7 +895,7 @@ Gura_ImplementMethod(string, encode)
 // string#encodeuri()
 Gura_DeclareMethod(string, encodeuri)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Returns a string in which non-URIC characters are percent-encoded.");
 }
@@ -908,7 +908,7 @@ Gura_ImplementMethod(string, encodeuri)
 // string#endswith(suffix:string, endpos?:number):map:[rest,icase]
 Gura_DeclareMethod(string, endswith)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "suffix",	VTYPE_string);
 	DeclareArg(env, "endpos",	VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(rest));
@@ -937,7 +937,7 @@ Gura_ImplementMethod(string, endswith)
 // string#escapehtml():[quote]
 Gura_DeclareMethod(string, escapehtml)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(quote));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Returns a string that converts characters into escape sequences.");
@@ -952,7 +952,7 @@ Gura_ImplementMethod(string, escapehtml)
 // string#find(sub:string, pos?:number => 0):map:[icase,rev]
 Gura_DeclareMethod(string, find)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "sub",	VTYPE_string);
 	DeclareArg(env, "pos",	VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareAttr(Gura_Symbol(icase));
@@ -974,7 +974,7 @@ Gura_ImplementMethod(string, find)
 // string#fold(len:number, step?:number):[neat] {block?}
 Gura_DeclareMethod(string, fold)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "len", VTYPE_number);
 	DeclareArg(env, "step", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(neat));
@@ -998,7 +998,7 @@ Gura_ImplementMethod(string, fold)
 // string#format(values*):map
 Gura_DeclareMethod(string, format)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Parses the content of the string object as a format specifier similar to\n"
@@ -1013,7 +1013,7 @@ Gura_ImplementMethod(string, format)
 // string#isempty()
 Gura_DeclareMethod(string, isempty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns true if the string is empty.");
 }
 
@@ -1025,7 +1025,7 @@ Gura_ImplementMethod(string, isempty)
 // string#left(len?:number):map
 Gura_DeclareMethod(string, left)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a copy of the string in len characters from its left side");
 }
@@ -1039,7 +1039,7 @@ Gura_ImplementMethod(string, left)
 // string#len()
 Gura_DeclareMethod(string, len)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the length of the string in characters.");
 }
 
@@ -1051,7 +1051,7 @@ Gura_ImplementMethod(string, len)
 // string#lower()
 Gura_DeclareMethod(string, lower)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a string of lowercase characters of the original one");
 }
 
@@ -1063,7 +1063,7 @@ Gura_ImplementMethod(string, lower)
 // string#mid(pos:number => 0, len?:number):map
 Gura_DeclareMethod(string, mid)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
@@ -1086,7 +1086,7 @@ Gura_ImplementMethod(string, mid)
 // string#print(stream?:stream:w):void
 Gura_DeclareMethodPrimitive(string, print)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 }
 
@@ -1101,7 +1101,7 @@ Gura_ImplementMethod(string, print)
 // string#println(stream?:stream:w):void
 Gura_DeclareMethodPrimitive(string, println)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 }
 
@@ -1116,7 +1116,7 @@ Gura_ImplementMethod(string, println)
 // string#reader() {block?}
 Gura_DeclareMethod(string, reader)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1129,7 +1129,7 @@ Gura_ImplementMethod(string, reader)
 // string#replace(sub:string, replace:string, count?:number):map:[icase] {block?}
 Gura_DeclareMethod(string, replace)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "sub",		VTYPE_string);
 	DeclareArg(env, "replace",	VTYPE_string);
 	DeclareArg(env, "count",	VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1158,7 +1158,7 @@ Gura_ImplementMethod(string, replace)
 // string#right(len?:number):map
 Gura_DeclareMethod(string, right)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a copy of the string in len characters from its right side");
 }
@@ -1172,7 +1172,7 @@ Gura_ImplementMethod(string, right)
 // string#split(sep?:string, count?:number):[icase] {block?}
 Gura_DeclareMethod(string, split)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "sep", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(icase));
@@ -1204,7 +1204,7 @@ Gura_ImplementMethod(string, split)
 // string#startswith(prefix:string, pos:number => 0):map:[rest,icase]
 Gura_DeclareMethod(string, startswith)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "prefix",	VTYPE_string);
 	DeclareArg(env, "pos",		VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareAttr(Gura_Symbol(rest));
@@ -1230,7 +1230,7 @@ Gura_ImplementMethod(string, startswith)
 // string#strip():[both,left,right]
 Gura_DeclareMethod(string, strip)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(both));
 	DeclareAttr(Gura_Symbol(left));
 	DeclareAttr(Gura_Symbol(right));
@@ -1248,7 +1248,7 @@ Gura_ImplementMethod(string, strip)
 // string#template():[noindent,lasteol] {block?}
 Gura_DeclareMethodAlias(string, template_, "template")
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(noindent));
 	DeclareAttr(Gura_Symbol(lasteol));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1271,7 +1271,7 @@ Gura_ImplementMethod(string, template_)
 // string#tosymbol()
 Gura_DeclareMethod(string, tosymbol)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(string, tosymbol)
@@ -1282,7 +1282,7 @@ Gura_ImplementMethod(string, tosymbol)
 // string.translator():void {block}
 Gura_DeclareClassMethod(string, translator)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Register a string translator.");
@@ -1303,7 +1303,7 @@ Gura_ImplementClassMethod(string, translator)
 // string#unescapehtml()
 Gura_DeclareMethod(string, unescapehtml)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Returns a string that reverts escaped sequences into characters.");
 }
@@ -1316,7 +1316,7 @@ Gura_ImplementMethod(string, unescapehtml)
 // string#upper()
 Gura_DeclareMethod(string, upper)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a string of uppercase characters of the original one");
 }
 
@@ -1328,7 +1328,7 @@ Gura_ImplementMethod(string, upper)
 // string#zentohan()
 Gura_DeclareMethod(string, zentohan)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Converts zenkaku to hankaku characters");
 }
 

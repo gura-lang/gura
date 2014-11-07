@@ -42,7 +42,7 @@ void wx_HtmlListBox::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HtmlListBox)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_HtmlListBox));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
@@ -87,7 +87,7 @@ Gura_ImplementFunction(HtmlListBox)
 
 Gura_DeclareFunction(HtmlListBoxEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_HtmlListBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -115,7 +115,7 @@ Gura_ImplementFunction(HtmlListBoxEmpty)
 
 Gura_DeclareMethod(wx_HtmlListBox, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_HtmlListBox, Create)
 
 Gura_DeclareMethod(wx_HtmlListBox, GetFileSystem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_HtmlListBox, GetFileSystem)
 
 Gura_DeclareMethod(wx_HtmlListBox, GetFileSystem_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_HtmlListBox, GetFileSystem_1)
 
 Gura_DeclareMethod(wx_HtmlListBox, GetSelectedTextBgColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "colBg", VTYPE_wx_Colour, OCCUR_Once);
 #endif
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_HtmlListBox, GetSelectedTextBgColour)
 
 Gura_DeclareMethod(wx_HtmlListBox, GetSelectedTextColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "colFg", VTYPE_wx_Colour, OCCUR_Once);
 #endif
@@ -226,7 +226,7 @@ Gura_ImplementMethod(wx_HtmlListBox, GetSelectedTextColour)
 
 Gura_DeclareMethod(wx_HtmlListBox, OnGetItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 #endif
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_HtmlListBox, OnGetItem)
 
 Gura_DeclareMethod(wx_HtmlListBox, OnGetItemMarkup)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 #endif
@@ -270,7 +270,7 @@ Gura_ImplementMethod(wx_HtmlListBox, OnGetItemMarkup)
 
 Gura_DeclareMethod(wx_HtmlListBox, OnLinkClicked)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "link", VTYPE_wx_HtmlLinkInfo, OCCUR_Once);

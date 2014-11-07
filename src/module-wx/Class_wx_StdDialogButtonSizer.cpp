@@ -38,7 +38,7 @@ void wx_StdDialogButtonSizer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(StdDialogButtonSizer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_StdDialogButtonSizer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(StdDialogButtonSizer)
 
 Gura_DeclareMethod(wx_StdDialogButtonSizer, AddButton)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "button", VTYPE_wx_Button, OCCUR_Once);
 }
 
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_StdDialogButtonSizer, AddButton)
 
 Gura_DeclareMethod(wx_StdDialogButtonSizer, Realize)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StdDialogButtonSizer, Realize)
@@ -88,7 +88,7 @@ Gura_ImplementMethod(wx_StdDialogButtonSizer, Realize)
 
 Gura_DeclareMethod(wx_StdDialogButtonSizer, SetAffirmativeButton)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "button", VTYPE_wx_Button, OCCUR_Once);
 }
 
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_StdDialogButtonSizer, SetAffirmativeButton)
 
 Gura_DeclareMethod(wx_StdDialogButtonSizer, SetCancelButton)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "button", VTYPE_wx_Button, OCCUR_Once);
 }
 
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_StdDialogButtonSizer, SetCancelButton)
 
 Gura_DeclareMethod(wx_StdDialogButtonSizer, SetNegativeButton)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "button", VTYPE_wx_Button, OCCUR_Once);
 }
 

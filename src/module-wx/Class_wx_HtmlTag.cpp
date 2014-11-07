@@ -38,7 +38,7 @@ void wx_HtmlTag::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HtmlTag)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_HtmlTag));
 	DeclareArg(env, "parent", VTYPE_wx_HtmlTag, OCCUR_Once);
@@ -78,7 +78,7 @@ Gura_ImplementFunction(HtmlTag)
 
 Gura_DeclareMethod(wx_HtmlTag, GetAllParams)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_HtmlTag, GetAllParams)
 
 Gura_DeclareMethod(wx_HtmlTag, GetBeginPos)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_HtmlTag, GetBeginPos)
 
 Gura_DeclareMethod(wx_HtmlTag, GetEndPos1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_HtmlTag, GetEndPos1)
 
 Gura_DeclareMethod(wx_HtmlTag, GetEndPos2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_HtmlTag, GetEndPos2)
 
 Gura_DeclareMethod(wx_HtmlTag, GetName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_HtmlTag, GetName)
 
 Gura_DeclareMethod(wx_HtmlTag, GetParam)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "par", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "with_commas", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_HtmlTag, GetParam)
 
 Gura_DeclareMethod(wx_HtmlTag, GetParamAsColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "par", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "clr", VTYPE_wx_Colour, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_HtmlTag, GetParamAsColour)
 
 Gura_DeclareMethod(wx_HtmlTag, GetParamAsInt)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "par", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_HtmlTag, GetParamAsInt)
 
 Gura_DeclareMethod(wx_HtmlTag, HasEnding)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -223,7 +223,7 @@ Gura_ImplementMethod(wx_HtmlTag, HasEnding)
 
 Gura_DeclareMethod(wx_HtmlTag, HasParam)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "par", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_HtmlTag, HasParam)
 
 Gura_DeclareMethod(wx_HtmlTag, ScanParam)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "par", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "format", VTYPE_string, OCCUR_Once);

@@ -19,7 +19,7 @@ Gura_BeginModuleBody(cairo)
 // image#cairo() {block?}
 Gura_DeclareMethod(image, cairo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -43,7 +43,7 @@ Gura_ImplementMethod(image, cairo)
 // cairo.create(surface:cairo.surface) {block?}
 Gura_DeclareFunction(create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_surface);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -59,7 +59,7 @@ Gura_ImplementFunction(create)
 // cairo.pdf_get_versions()
 Gura_DeclareFunction(pdf_get_versions)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementFunction(pdf_get_versions)
@@ -83,7 +83,7 @@ Gura_ImplementFunction(pdf_get_versions)
 // cairo.ps_get_levels()
 Gura_DeclareFunction(ps_get_levels)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementFunction(ps_get_levels)
@@ -105,7 +105,7 @@ Gura_ImplementFunction(ps_get_levels)
 // cairo.ps_level_to_string(level:number)
 Gura_DeclareFunction(ps_level_to_string)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "level", VTYPE_number);
 }
 
@@ -121,7 +121,7 @@ Gura_ImplementFunction(ps_level_to_string)
 // cairo.svg_get_versions()
 Gura_DeclareFunction(svg_get_versions)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementFunction(svg_get_versions)
@@ -143,7 +143,7 @@ Gura_ImplementFunction(svg_get_versions)
 // cairo.pdf_version_to_string(version:number)
 Gura_DeclareFunction(pdf_version_to_string)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "version", VTYPE_number);
 }
 
@@ -158,7 +158,7 @@ Gura_ImplementFunction(pdf_version_to_string)
 // cairo.svg_version_to_string(version:number)
 Gura_DeclareFunction(svg_version_to_string)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "version", VTYPE_number);
 }
 
@@ -173,7 +173,7 @@ Gura_ImplementFunction(svg_version_to_string)
 // cairo.status_to_string(status:number)
 Gura_DeclareFunction(status_to_string)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "version", VTYPE_number);
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementFunction(status_to_string)
 // cairo.format_stride_for_width(format:number, width:number)
 Gura_DeclareFunction(format_stride_for_width)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number);
 }
@@ -204,7 +204,7 @@ Gura_ImplementFunction(format_stride_for_width)
 // cairo.debug_reset_static_data():void
 Gura_DeclareFunction(debug_reset_static_data)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(debug_reset_static_data)
@@ -216,7 +216,7 @@ Gura_ImplementFunction(debug_reset_static_data)
 // cairo.test()
 Gura_DeclareFunction(test)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementFunction(test)

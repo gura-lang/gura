@@ -12,7 +12,7 @@ Gura_BeginModuleScope(cairo)
 // cairo.ps_surface.create(stream:stream:w, width_in_points:number, height_in_points:number) {block?}
 Gura_DeclareClassMethod(ps_surface, create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "width_in_points", VTYPE_number);
 	DeclareArg(env, "height_in_points", VTYPE_number);
@@ -33,7 +33,7 @@ Gura_ImplementClassMethod(ps_surface, create)
 // cairo.ps_surface#restrict_to_level(level:number):reduce
 Gura_DeclareMethod(ps_surface, restrict_to_level)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "level", VTYPE_number);
 }
 
@@ -50,7 +50,7 @@ Gura_ImplementMethod(ps_surface, restrict_to_level)
 // cairo.ps_surface#set_eps(eps:boolean):reduce
 Gura_DeclareMethod(ps_surface, set_eps)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "eps", VTYPE_boolean);
 }
 
@@ -67,7 +67,7 @@ Gura_ImplementMethod(ps_surface, set_eps)
 // cairo.ps_surface#get_eps()
 Gura_DeclareMethod(ps_surface, get_eps)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(ps_surface, get_eps)
@@ -82,7 +82,7 @@ Gura_ImplementMethod(ps_surface, get_eps)
 // cairo.ps_surface#set_size(width_in_points:number, height_in_points:number)
 Gura_DeclareMethod(ps_surface, set_size)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "width_in_points", VTYPE_number);
 	DeclareArg(env, "height_in_points", VTYPE_number);
 }
@@ -101,7 +101,7 @@ Gura_ImplementMethod(ps_surface, set_size)
 // cairo.ps_surface#dsc_begin_setup()
 Gura_DeclareMethod(ps_surface, dsc_begin_setup)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 }
 
 Gura_ImplementMethod(ps_surface, dsc_begin_setup)
@@ -116,7 +116,7 @@ Gura_ImplementMethod(ps_surface, dsc_begin_setup)
 // cairo.ps_surface#dsc_begin_page_setup()
 Gura_DeclareMethod(ps_surface, dsc_begin_page_setup)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 }
 
 Gura_ImplementMethod(ps_surface, dsc_begin_page_setup)
@@ -131,7 +131,7 @@ Gura_ImplementMethod(ps_surface, dsc_begin_page_setup)
 // cairo.ps_surface#dsc_comment(comment:string)
 Gura_DeclareMethod(ps_surface, dsc_comment)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "comment", VTYPE_string);
 }
 

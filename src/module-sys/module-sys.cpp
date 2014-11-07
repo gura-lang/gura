@@ -12,7 +12,7 @@ Gura_BeginModuleBody(sys)
 // sys.echo(flag:boolean)
 Gura_DeclareFunction(echo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "flag", VTYPE_boolean);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Enables or disables echo-back functionality according to flag.");
@@ -27,7 +27,7 @@ Gura_ImplementFunction(echo)
 // sys.exit(status?:number)
 Gura_DeclareFunction(exit)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "status", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Terminates the program with a specified status number.");
@@ -42,7 +42,7 @@ Gura_ImplementFunction(exit)
 // sys.required_version(major:number, minor:number, patch:number)
 Gura_DeclareFunction(required_version)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "major", VTYPE_number);
 	DeclareArg(env, "minor", VTYPE_number);
 	DeclareArg(env, "patch", VTYPE_number);

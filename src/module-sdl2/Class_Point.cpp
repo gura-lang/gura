@@ -66,7 +66,7 @@ Value Object_Point::DoSetProp(Environment &env, Signal sig,
 // sdl2.Point(x:number, y:number)
 Gura_DeclareFunction(Point)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,

@@ -671,7 +671,7 @@ Directory *PathMgr_FileSys::DoOpenDirectory(Environment &env, Signal sig,
 // fs.chdir(pathname:string) {block?}
 Gura_DeclareFunction(chdir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Changes the current working directory.");
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -701,7 +701,7 @@ Gura_ImplementFunction(chdir)
 // fs.chmod(mode, pathname:string):map:void:[follow_link]
 Gura_DeclareFunction(chmod)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_any);
 	DeclareArg(env, "pathname", VTYPE_string);
 	DeclareAttr(Gura_UserSymbol(follow_link));
@@ -729,7 +729,7 @@ Gura_ImplementFunction(chmod)
 // fs.copy(src:string, dst:string):map:void:[overwrite]
 Gura_DeclareFunction(copy)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "src", VTYPE_string);
 	DeclareArg(env, "dst", VTYPE_string);
 	DeclareAttr(Gura_Symbol(overwrite));
@@ -750,7 +750,7 @@ Gura_ImplementFunction(copy)
 // fs.cpdir(src:string, dst:string):map:void[:tree]
 Gura_DeclareFunction(cpdir)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "src", VTYPE_string);
 	DeclareArg(env, "dst", VTYPE_string);
 	DeclareAttr(Gura_UserSymbol(tree));
@@ -774,7 +774,7 @@ Gura_ImplementFunction(cpdir)
 // fs.getcwd()
 Gura_DeclareFunction(getcwd)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the current working directory.");
 }
 
@@ -787,7 +787,7 @@ Gura_ImplementFunction(getcwd)
 // fs.mkdir(pathname:string):map:void[:tree]
 Gura_DeclareFunction(mkdir)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	DeclareAttr(Gura_UserSymbol(tree));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Creates a directory.");
@@ -808,7 +808,7 @@ Gura_ImplementFunction(mkdir)
 // fs.remove(pathname:string):map:void
 Gura_DeclareFunction(remove)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Removes a file from the file system.");
 }
@@ -824,7 +824,7 @@ Gura_ImplementFunction(remove)
 // fs.rename(src:string, dst:string):map:void
 Gura_DeclareFunction(rename)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "src", VTYPE_string);
 	DeclareArg(env, "dst", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Renames a file or directory.");
@@ -841,7 +841,7 @@ Gura_ImplementFunction(rename)
 // fs.rmdir(pathname:string):map:void[:tree]
 Gura_DeclareFunction(rmdir)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	DeclareAttr(Gura_UserSymbol(tree));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Removes a directory.");

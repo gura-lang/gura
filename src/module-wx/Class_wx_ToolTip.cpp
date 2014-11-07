@@ -38,7 +38,7 @@ void wx_ToolTip::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareClassMethod(wx_ToolTip, Enable)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -52,7 +52,7 @@ Gura_ImplementClassMethod(wx_ToolTip, Enable)
 
 Gura_DeclareClassMethod(wx_ToolTip, SetDelay)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "msecs", VTYPE_number, OCCUR_Once);
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementClassMethod(wx_ToolTip, SetDelay)
 
 Gura_DeclareFunction(ToolTip)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ToolTip));
 	DeclareArg(env, "tip", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -90,7 +90,7 @@ Gura_ImplementFunction(ToolTip)
 
 Gura_DeclareMethod(wx_ToolTip, SetTip)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "tip", VTYPE_string, OCCUR_Once);
 }
 
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_ToolTip, SetTip)
 
 Gura_DeclareMethod(wx_ToolTip, GetTip)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_ToolTip, GetTip)
 
 Gura_DeclareMethod(wx_ToolTip, GetWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

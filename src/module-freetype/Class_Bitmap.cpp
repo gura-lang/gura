@@ -75,7 +75,7 @@ Value Object_Bitmap::DoSetProp(Environment &env, Signal sig, const Symbol *pSymb
 // freetype.Bitmap() {block?}
 Gura_DeclareFunction(Bitmap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(Bitmap));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -91,7 +91,7 @@ Gura_ImplementFunction(Bitmap)
 // freetype.Bitmap#Embolden(xStrength:number, yStrength:number):reduce
 Gura_DeclareMethod(Bitmap, Embolden)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "strength", VTYPE_number);
 }
 

@@ -45,7 +45,7 @@ void wx_HtmlTagHandler::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HtmlTagHandlerEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_HtmlTagHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -73,7 +73,7 @@ Gura_ImplementFunction(HtmlTagHandlerEmpty)
 
 Gura_DeclareMethod(wx_HtmlTagHandler, GetSupportedTags)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_HtmlTagHandler, GetSupportedTags)
 
 Gura_DeclareMethod(wx_HtmlTagHandler, HandleTag)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "tag", VTYPE_wx_HtmlTag, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_HtmlTagHandler, HandleTag)
 
 Gura_DeclareMethod(wx_HtmlTagHandler, ParseInner)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "tag", VTYPE_wx_HtmlTag, OCCUR_Once);
 #endif
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_HtmlTagHandler, ParseInner)
 
 Gura_DeclareMethod(wx_HtmlTagHandler, SetParser)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "*parser", VTYPE_wx_HtmlParser, OCCUR_Once);
 #endif

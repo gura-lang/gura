@@ -38,7 +38,7 @@ void wx_DebugReportPreview::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DebugReportPreviewEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_DebugReportPreview));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(DebugReportPreviewEmpty)
 
 Gura_DeclareMethod(wx_DebugReportPreview, Show)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dbgrpt", VTYPE_wx_DebugReport, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

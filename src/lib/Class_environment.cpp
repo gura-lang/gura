@@ -61,7 +61,7 @@ String Object_environment::ToString(bool exprFlag)
 // environment#getprop!(symbol:symbol):map
 Gura_DeclareMethodAlias(environment, getprop_X, "getprop!")
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(environment, getprop_X)
 // environment#lookup(symbol:symbol, escalate:boolean => true):map
 Gura_DeclareMethod(environment, lookup)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "escalate", VTYPE_boolean,
 						OCCUR_Once, FLAG_None, new Expr_Value(Value(true)));
@@ -105,7 +105,7 @@ Gura_ImplementMethod(environment, lookup)
 // environment#setprop!(symbol:symbol, value):map
 Gura_DeclareMethodAlias(environment, setprop_X, "setprop!")
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "value", VTYPE_any);
 }

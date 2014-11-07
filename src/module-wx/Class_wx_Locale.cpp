@@ -40,7 +40,7 @@ void wx_Locale::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(Locale)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Locale));
 	DeclareArg(env, "language", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -73,7 +73,7 @@ Gura_ImplementFunction(Locale)
 #if 0
 Gura_DeclareFunction(Locale_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_Locale));
 	DeclareArg(env, "*szName", VTYPE_number, OCCUR_Once);
@@ -116,7 +116,7 @@ Gura_ImplementFunction(Locale_1)
 
 Gura_DeclareMethod(wx_Locale, AddCatalog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "szDomain", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "msgIdLanguage", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "msgIdCharset", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_Locale, AddCatalog)
 
 Gura_DeclareClassMethod(wx_Locale, AddCatalogLookupPathPrefix)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "prefix", VTYPE_string, OCCUR_Once);
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementClassMethod(wx_Locale, AddCatalogLookupPathPrefix)
 
 Gura_DeclareClassMethod(wx_Locale, AddLanguage)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "info", VTYPE_wx_LanguageInfo, OCCUR_Once);
 }
 
@@ -175,7 +175,7 @@ Gura_ImplementClassMethod(wx_Locale, AddLanguage)
 
 Gura_DeclareClassMethod(wx_Locale, FindLanguageInfo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "locale", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -194,7 +194,7 @@ Gura_ImplementClassMethod(wx_Locale, FindLanguageInfo)
 
 Gura_DeclareMethod(wx_Locale, GetCanonicalName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -208,7 +208,7 @@ Gura_ImplementMethod(wx_Locale, GetCanonicalName)
 
 Gura_DeclareMethod(wx_Locale, GetLanguage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_Locale, GetLanguage)
 
 Gura_DeclareClassMethod(wx_Locale, GetLanguageInfo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "lang", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -241,7 +241,7 @@ Gura_ImplementClassMethod(wx_Locale, GetLanguageInfo)
 
 Gura_DeclareClassMethod(wx_Locale, GetLanguageName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "lang", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -256,7 +256,7 @@ Gura_ImplementClassMethod(wx_Locale, GetLanguageName)
 
 Gura_DeclareMethod(wx_Locale, GetLocale)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -270,7 +270,7 @@ Gura_ImplementMethod(wx_Locale, GetLocale)
 
 Gura_DeclareMethod(wx_Locale, GetName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -284,7 +284,7 @@ Gura_ImplementMethod(wx_Locale, GetName)
 
 Gura_DeclareMethod(wx_Locale, GetString)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "*szOrigString", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "*szDomain", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -309,7 +309,7 @@ Gura_ImplementMethod(wx_Locale, GetString)
 
 Gura_DeclareMethod(wx_Locale, GetString_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "*szOrigString", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "*szOrigString2", VTYPE_number, OCCUR_Once);
@@ -338,7 +338,7 @@ Gura_ImplementMethod(wx_Locale, GetString_1)
 
 Gura_DeclareMethod(wx_Locale, GetHeaderValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "szHeader", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "szDomain", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -362,7 +362,7 @@ Gura_ImplementMethod(wx_Locale, GetHeaderValue)
 
 Gura_DeclareMethod(wx_Locale, GetSysName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -376,7 +376,7 @@ Gura_ImplementMethod(wx_Locale, GetSysName)
 
 Gura_DeclareClassMethod(wx_Locale, GetSystemEncoding)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -389,7 +389,7 @@ Gura_ImplementClassMethod(wx_Locale, GetSystemEncoding)
 
 Gura_DeclareClassMethod(wx_Locale, GetSystemEncodingName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -402,7 +402,7 @@ Gura_ImplementClassMethod(wx_Locale, GetSystemEncodingName)
 
 Gura_DeclareClassMethod(wx_Locale, GetSystemLanguage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -415,7 +415,7 @@ Gura_ImplementClassMethod(wx_Locale, GetSystemLanguage)
 
 Gura_DeclareMethod(wx_Locale, Init)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "language", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -435,7 +435,7 @@ Gura_ImplementMethod(wx_Locale, Init)
 
 Gura_DeclareMethod(wx_Locale, Init_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "*szName", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "*szShort", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -469,7 +469,7 @@ Gura_ImplementMethod(wx_Locale, Init_1)
 
 Gura_DeclareClassMethod(wx_Locale, IsAvailable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "lang", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -484,7 +484,7 @@ Gura_ImplementClassMethod(wx_Locale, IsAvailable)
 
 Gura_DeclareMethod(wx_Locale, IsLoaded)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "domain", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -505,7 +505,7 @@ Gura_ImplementMethod(wx_Locale, IsLoaded)
 
 Gura_DeclareMethod(wx_Locale, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

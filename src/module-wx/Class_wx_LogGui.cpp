@@ -38,7 +38,7 @@ void wx_LogGui::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(LogGuiEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_LogGui));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

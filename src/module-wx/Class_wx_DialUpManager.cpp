@@ -37,7 +37,7 @@ void wx_DialUpManager::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_DialUpManager, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -51,7 +51,7 @@ Gura_ImplementMethod(wx_DialUpManager, Create)
 
 Gura_DeclareMethod(wx_DialUpManager, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_DialUpManager, IsOk)
 
 Gura_DeclareMethod(wx_DialUpManager, GetISPNames)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "names", VTYPE_string, OCCUR_Once, FLAG_List);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_DialUpManager, GetISPNames)
 
 Gura_DeclareMethod(wx_DialUpManager, Dial)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "nameOfISP", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "username", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "password", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_DialUpManager, Dial)
 
 Gura_DeclareMethod(wx_DialUpManager, IsDialing)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_DialUpManager, IsDialing)
 
 Gura_DeclareMethod(wx_DialUpManager, CancelDialing)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_DialUpManager, CancelDialing)
 
 Gura_DeclareMethod(wx_DialUpManager, HangUp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_DialUpManager, HangUp)
 
 Gura_DeclareMethod(wx_DialUpManager, IsAlwaysOnline)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_DialUpManager, IsAlwaysOnline)
 
 Gura_DeclareMethod(wx_DialUpManager, IsOnline)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_DialUpManager, IsOnline)
 
 Gura_DeclareMethod(wx_DialUpManager, SetOnlineStatus)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "isOnline", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_DialUpManager, SetOnlineStatus)
 
 Gura_DeclareMethod(wx_DialUpManager, EnableAutoCheckOnlineStatus)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "nSeconds", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_DialUpManager, EnableAutoCheckOnlineStatus)
 
 Gura_DeclareMethod(wx_DialUpManager, DisableAutoCheckOnlineStatus)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DialUpManager, DisableAutoCheckOnlineStatus)
@@ -223,7 +223,7 @@ Gura_ImplementMethod(wx_DialUpManager, DisableAutoCheckOnlineStatus)
 
 Gura_DeclareMethod(wx_DialUpManager, SetWellKnownHost)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "hostname", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "portno", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_DialUpManager, SetWellKnownHost)
 
 Gura_DeclareMethod(wx_DialUpManager, SetConnectCommand)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "commandDial", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "commandHangup", VTYPE_string, OCCUR_ZeroOrOnce);
 }

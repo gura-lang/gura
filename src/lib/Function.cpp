@@ -58,6 +58,13 @@ Function::~Function()
 {
 }
 
+void Function::SetFuncAttr(ValueType valTypeResult, ResultMode resultMode, ULong flags)
+{
+	_valTypeResult = valTypeResult;
+	_resultMode = resultMode;
+	_flags |= flags;
+}
+
 void Function::SetClassToConstruct(Class *pClassToConstruct)
 {
 	_pClassToConstruct = pClassToConstruct;

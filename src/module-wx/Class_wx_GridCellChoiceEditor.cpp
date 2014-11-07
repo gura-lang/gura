@@ -39,7 +39,7 @@ void wx_GridCellChoiceEditor::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GridCellChoiceEditor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellChoiceEditor));
 	DeclareArg(env, "choices", VTYPE_string, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "allowOthers", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(GridCellChoiceEditor)
 
 Gura_DeclareMethod(wx_GridCellChoiceEditor, SetParameters)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "params", VTYPE_string, OCCUR_Once);
 }
 

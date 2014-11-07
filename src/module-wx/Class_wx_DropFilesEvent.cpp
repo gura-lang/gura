@@ -38,7 +38,7 @@ void wx_DropFilesEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DropFilesEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_DropFilesEvent));
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -77,7 +77,7 @@ Gura_ImplementFunction(DropFilesEvent)
 
 Gura_DeclareMethod(wx_DropFilesEvent, GetFiles)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_DropFilesEvent, GetFiles)
 
 Gura_DeclareMethod(wx_DropFilesEvent, GetNumberOfFiles)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_DropFilesEvent, GetNumberOfFiles)
 
 Gura_DeclareMethod(wx_DropFilesEvent, GetPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

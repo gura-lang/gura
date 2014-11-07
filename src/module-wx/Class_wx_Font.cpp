@@ -42,7 +42,7 @@ void wx_Font::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FontEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Font));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -64,7 +64,7 @@ Gura_ImplementFunction(FontEmpty)
 
 Gura_DeclareFunction(Font)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Font));
 	DeclareArg(env, "pointSize", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "family", VTYPE_number, OCCUR_Once);
@@ -103,7 +103,7 @@ Gura_ImplementFunction(Font)
 
 Gura_DeclareFunction(FontEx)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Font));
 	DeclareArg(env, "pixelSize", VTYPE_wx_Size, OCCUR_Once);
 	DeclareArg(env, "family", VTYPE_number, OCCUR_Once);
@@ -147,7 +147,7 @@ Gura_ImplementFunction(FontEx)
 
 Gura_DeclareMethod(wx_Font, IsFixedWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_Font, IsFixedWidth)
 
 Gura_DeclareClassMethod(wx_Font, GetDefaultEncoding)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -174,7 +174,7 @@ Gura_ImplementClassMethod(wx_Font, GetDefaultEncoding)
 
 Gura_DeclareMethod(wx_Font, GetEncoding)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_Font, GetEncoding)
 
 Gura_DeclareMethod(wx_Font, GetFaceName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_Font, GetFaceName)
 
 Gura_DeclareMethod(wx_Font, GetFamily)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_Font, GetFamily)
 
 Gura_DeclareMethod(wx_Font, GetFamilyString)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_Font, GetFamilyString)
 
 Gura_DeclareMethod(wx_Font, GetNativeFontInfo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_Font, GetNativeFontInfo)
 
 Gura_DeclareMethod(wx_Font, GetNativeFontInfoDesc)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -262,7 +262,7 @@ Gura_ImplementMethod(wx_Font, GetNativeFontInfoDesc)
 
 Gura_DeclareMethod(wx_Font, GetNativeFontInfoUserDesc)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -276,7 +276,7 @@ Gura_ImplementMethod(wx_Font, GetNativeFontInfoUserDesc)
 
 Gura_DeclareMethod(wx_Font, GetPointSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_Font, GetPointSize)
 
 Gura_DeclareMethod(wx_Font, GetStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -304,7 +304,7 @@ Gura_ImplementMethod(wx_Font, GetStyle)
 
 Gura_DeclareMethod(wx_Font, GetStyleString)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -318,7 +318,7 @@ Gura_ImplementMethod(wx_Font, GetStyleString)
 
 Gura_DeclareMethod(wx_Font, GetUnderlined)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -332,7 +332,7 @@ Gura_ImplementMethod(wx_Font, GetUnderlined)
 
 Gura_DeclareMethod(wx_Font, GetWeight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -346,7 +346,7 @@ Gura_ImplementMethod(wx_Font, GetWeight)
 
 Gura_DeclareMethod(wx_Font, GetWeightString)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -360,7 +360,7 @@ Gura_ImplementMethod(wx_Font, GetWeightString)
 
 Gura_DeclareClassMethod(wx_Font, New)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pointSize", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "family", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
@@ -390,7 +390,7 @@ Gura_ImplementClassMethod(wx_Font, New)
 
 Gura_DeclareClassMethod(wx_Font, New_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pointSize", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "family", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -416,7 +416,7 @@ Gura_ImplementClassMethod(wx_Font, New_1)
 
 Gura_DeclareClassMethod(wx_Font, New_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pixelSize", VTYPE_wx_Size, OCCUR_Once);
 	DeclareArg(env, "family", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
@@ -446,7 +446,7 @@ Gura_ImplementClassMethod(wx_Font, New_2)
 
 Gura_DeclareClassMethod(wx_Font, New_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pixelSize", VTYPE_wx_Size, OCCUR_Once);
 	DeclareArg(env, "family", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -472,7 +472,7 @@ Gura_ImplementClassMethod(wx_Font, New_3)
 
 Gura_DeclareMethod(wx_Font, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -486,7 +486,7 @@ Gura_ImplementMethod(wx_Font, IsOk)
 
 Gura_DeclareClassMethod(wx_Font, SetDefaultEncoding)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 }
 
@@ -500,7 +500,7 @@ Gura_ImplementClassMethod(wx_Font, SetDefaultEncoding)
 
 Gura_DeclareMethod(wx_Font, SetEncoding)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 }
 
@@ -515,7 +515,7 @@ Gura_ImplementMethod(wx_Font, SetEncoding)
 
 Gura_DeclareMethod(wx_Font, SetFaceName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "faceName", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -531,7 +531,7 @@ Gura_ImplementMethod(wx_Font, SetFaceName)
 
 Gura_DeclareMethod(wx_Font, SetFamily)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "family", VTYPE_number, OCCUR_Once);
 }
 
@@ -546,7 +546,7 @@ Gura_ImplementMethod(wx_Font, SetFamily)
 
 Gura_DeclareMethod(wx_Font, SetNativeFontInfo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "info", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -562,7 +562,7 @@ Gura_ImplementMethod(wx_Font, SetNativeFontInfo)
 
 Gura_DeclareMethod(wx_Font, SetNativeFontInfoUserDesc)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "info", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -578,7 +578,7 @@ Gura_ImplementMethod(wx_Font, SetNativeFontInfoUserDesc)
 
 Gura_DeclareMethod(wx_Font, SetPointSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pointSize", VTYPE_number, OCCUR_Once);
 }
 
@@ -593,7 +593,7 @@ Gura_ImplementMethod(wx_Font, SetPointSize)
 
 Gura_DeclareMethod(wx_Font, SetStyle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
@@ -608,7 +608,7 @@ Gura_ImplementMethod(wx_Font, SetStyle)
 
 Gura_DeclareMethod(wx_Font, SetUnderlined)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "underlined", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -623,7 +623,7 @@ Gura_ImplementMethod(wx_Font, SetUnderlined)
 
 Gura_DeclareMethod(wx_Font, SetWeight)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "weight", VTYPE_number, OCCUR_Once);
 }
 

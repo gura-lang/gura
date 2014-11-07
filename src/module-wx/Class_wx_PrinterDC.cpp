@@ -39,7 +39,7 @@ void wx_PrinterDC::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(PrinterDC)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_PrinterDC));
 	DeclareArg(env, "printData", VTYPE_wx_PrintData, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -64,7 +64,7 @@ Gura_ImplementFunction(PrinterDC)
 #if 0
 Gura_DeclareFunction(PrinterDC_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_PrinterDC));
 	DeclareArg(env, "driver", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "device", VTYPE_string, OCCUR_Once);
@@ -99,7 +99,7 @@ Gura_ImplementFunction(PrinterDC_1)
 
 Gura_DeclareMethod(wx_PrinterDC, GetPaperRect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

@@ -248,7 +248,7 @@ bool wx_Window::TransferDataToWindow()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(WindowEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Window));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -270,7 +270,7 @@ Gura_ImplementFunction(WindowEmpty)
 
 Gura_DeclareFunction(Window)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Window));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -308,7 +308,7 @@ Gura_ImplementFunction(Window)
 
 Gura_DeclareMethod(wx_Window, AddChild)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "child", VTYPE_wx_Window, OCCUR_Once);
 }
 
@@ -323,7 +323,7 @@ Gura_ImplementMethod(wx_Window, AddChild)
 
 Gura_DeclareMethod(wx_Window, CacheBestSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -338,7 +338,7 @@ Gura_ImplementMethod(wx_Window, CacheBestSize)
 
 Gura_DeclareMethod(wx_Window, CaptureMouse)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Window, CaptureMouse)
@@ -351,7 +351,7 @@ Gura_ImplementMethod(wx_Window, CaptureMouse)
 
 Gura_DeclareMethod(wx_Window, Center)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 }
 
@@ -366,7 +366,7 @@ Gura_ImplementMethod(wx_Window, Center)
 
 Gura_DeclareMethod(wx_Window, CenterOnParent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 }
 
@@ -381,7 +381,7 @@ Gura_ImplementMethod(wx_Window, CenterOnParent)
 
 Gura_DeclareMethod(wx_Window, CenterOnScreen)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 #endif
@@ -402,7 +402,7 @@ Gura_ImplementMethod(wx_Window, CenterOnScreen)
 
 Gura_DeclareMethod(wx_Window, Centre)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "direction", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
@@ -418,7 +418,7 @@ Gura_ImplementMethod(wx_Window, Centre)
 
 Gura_DeclareMethod(wx_Window, CentreOnParent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "direction", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
@@ -434,7 +434,7 @@ Gura_ImplementMethod(wx_Window, CentreOnParent)
 
 Gura_DeclareMethod(wx_Window, ClearBackground)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Window, ClearBackground)
@@ -447,7 +447,7 @@ Gura_ImplementMethod(wx_Window, ClearBackground)
 
 Gura_DeclareMethod(wx_Window, ClientToScreenXY)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -464,7 +464,7 @@ Gura_ImplementMethod(wx_Window, ClientToScreenXY)
 
 Gura_DeclareMethod(wx_Window, ClientToScreen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -480,7 +480,7 @@ Gura_ImplementMethod(wx_Window, ClientToScreen)
 
 Gura_DeclareMethod(wx_Window, ClientToWindowSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -496,7 +496,7 @@ Gura_ImplementMethod(wx_Window, ClientToWindowSize)
 
 Gura_DeclareMethod(wx_Window, Close)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "force", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -513,7 +513,7 @@ Gura_ImplementMethod(wx_Window, Close)
 
 Gura_DeclareMethod(wx_Window, ConvertDialogPointToPixels)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -529,7 +529,7 @@ Gura_ImplementMethod(wx_Window, ConvertDialogPointToPixels)
 
 Gura_DeclareMethod(wx_Window, ConvertDialogSizeToPixels)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "sz", VTYPE_wx_Size, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -545,7 +545,7 @@ Gura_ImplementMethod(wx_Window, ConvertDialogSizeToPixels)
 
 Gura_DeclareMethod(wx_Window, ConvertPixelPointToDialog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -561,7 +561,7 @@ Gura_ImplementMethod(wx_Window, ConvertPixelPointToDialog)
 
 Gura_DeclareMethod(wx_Window, ConvertPixelSizeToDialog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "sz", VTYPE_wx_Size, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -577,7 +577,7 @@ Gura_ImplementMethod(wx_Window, ConvertPixelSizeToDialog)
 
 Gura_DeclareMethod(wx_Window, Destroy)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -591,7 +591,7 @@ Gura_ImplementMethod(wx_Window, Destroy)
 
 Gura_DeclareMethod(wx_Window, DestroyChildren)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Window, DestroyChildren)
@@ -604,7 +604,7 @@ Gura_ImplementMethod(wx_Window, DestroyChildren)
 
 Gura_DeclareMethod(wx_Window, Disable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -618,7 +618,7 @@ Gura_ImplementMethod(wx_Window, Disable)
 
 Gura_DeclareMethod(wx_Window, DoGetBestSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -636,7 +636,7 @@ Gura_ImplementMethod(wx_Window, DoGetBestSize)
 
 Gura_DeclareMethod(wx_Window, DoUpdateWindowUI)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_UpdateUIEvent, OCCUR_Once);
 }
 
@@ -651,7 +651,7 @@ Gura_ImplementMethod(wx_Window, DoUpdateWindowUI)
 
 Gura_DeclareMethod(wx_Window, DragAcceptFiles)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "accept", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -666,7 +666,7 @@ Gura_ImplementMethod(wx_Window, DragAcceptFiles)
 
 Gura_DeclareMethod(wx_Window, Enable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "enable", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -683,7 +683,7 @@ Gura_ImplementMethod(wx_Window, Enable)
 
 Gura_DeclareClassMethod(wx_Window, FindFocus)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -698,7 +698,7 @@ Gura_ImplementClassMethod(wx_Window, FindFocus)
 
 Gura_DeclareMethod(wx_Window, FindWindowById)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -716,7 +716,7 @@ Gura_ImplementMethod(wx_Window, FindWindowById)
 
 Gura_DeclareMethod(wx_Window, FindWindowByName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -735,7 +735,7 @@ Gura_ImplementMethod(wx_Window, FindWindowByName)
 #if 0
 Gura_DeclareClassMethod(wx_Window, FindWindowById)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -756,7 +756,7 @@ Gura_ImplementClassMethod(wx_Window, FindWindowById)
 
 Gura_DeclareClassMethod(wx_Window, FindWindowByLabel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -777,7 +777,7 @@ Gura_ImplementClassMethod(wx_Window, FindWindowByLabel)
 #if 0
 Gura_DeclareClassMethod(wx_Window, FindWindowByName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -798,7 +798,7 @@ Gura_ImplementClassMethod(wx_Window, FindWindowByName)
 
 Gura_DeclareMethod(wx_Window, Fit)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Window, Fit)
@@ -811,7 +811,7 @@ Gura_ImplementMethod(wx_Window, Fit)
 
 Gura_DeclareMethod(wx_Window, FitInside)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Window, FitInside)
@@ -824,7 +824,7 @@ Gura_ImplementMethod(wx_Window, FitInside)
 
 Gura_DeclareMethod(wx_Window, Freeze)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Window, Freeze)
@@ -837,7 +837,7 @@ Gura_ImplementMethod(wx_Window, Freeze)
 
 Gura_DeclareMethod(wx_Window, GetAcceleratorTable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -853,7 +853,7 @@ Gura_ImplementMethod(wx_Window, GetAcceleratorTable)
 
 Gura_DeclareMethod(wx_Window, GetAccessible)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -873,7 +873,7 @@ Gura_ImplementMethod(wx_Window, GetAccessible)
 
 Gura_DeclareMethod(wx_Window, GetAdjustedBestSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -891,7 +891,7 @@ Gura_ImplementMethod(wx_Window, GetAdjustedBestSize)
 
 Gura_DeclareMethod(wx_Window, GetBackgroundColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -905,7 +905,7 @@ Gura_ImplementMethod(wx_Window, GetBackgroundColour)
 
 Gura_DeclareMethod(wx_Window, GetBackgroundStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -919,7 +919,7 @@ Gura_ImplementMethod(wx_Window, GetBackgroundStyle)
 
 Gura_DeclareMethod(wx_Window, GetEffectiveMinSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -933,7 +933,7 @@ Gura_ImplementMethod(wx_Window, GetEffectiveMinSize)
 
 Gura_DeclareMethod(wx_Window, GetBestSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -947,7 +947,7 @@ Gura_ImplementMethod(wx_Window, GetBestSize)
 
 Gura_DeclareClassMethod(wx_Window, GetCapture)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -962,7 +962,7 @@ Gura_ImplementClassMethod(wx_Window, GetCapture)
 
 Gura_DeclareMethod(wx_Window, GetCaret)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -978,7 +978,7 @@ Gura_ImplementMethod(wx_Window, GetCaret)
 
 Gura_DeclareMethod(wx_Window, GetCharHeight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -992,7 +992,7 @@ Gura_ImplementMethod(wx_Window, GetCharHeight)
 
 Gura_DeclareMethod(wx_Window, GetCharWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1006,7 +1006,7 @@ Gura_ImplementMethod(wx_Window, GetCharWidth)
 
 Gura_DeclareMethod(wx_Window, GetChildren)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1027,7 +1027,7 @@ Gura_ImplementMethod(wx_Window, GetChildren)
 
 Gura_DeclareClassMethod(wx_Window, GetClassDefaultAttributes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "variant", VTYPE_number, OCCUR_ZeroOrOnce);
 #endif
@@ -1049,7 +1049,7 @@ Gura_ImplementClassMethod(wx_Window, GetClassDefaultAttributes)
 
 Gura_DeclareMethod(wx_Window, GetClientSizeWH)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1065,7 +1065,7 @@ Gura_ImplementMethod(wx_Window, GetClientSizeWH)
 
 Gura_DeclareMethod(wx_Window, GetClientSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1079,7 +1079,7 @@ Gura_ImplementMethod(wx_Window, GetClientSize)
 
 Gura_DeclareMethod(wx_Window, GetConstraints)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1095,7 +1095,7 @@ Gura_ImplementMethod(wx_Window, GetConstraints)
 
 Gura_DeclareMethod(wx_Window, GetContainingSizer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1111,7 +1111,7 @@ Gura_ImplementMethod(wx_Window, GetContainingSizer)
 
 Gura_DeclareMethod(wx_Window, GetCursor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1125,7 +1125,7 @@ Gura_ImplementMethod(wx_Window, GetCursor)
 
 Gura_DeclareMethod(wx_Window, GetDefaultAttributes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1143,7 +1143,7 @@ Gura_ImplementMethod(wx_Window, GetDefaultAttributes)
 
 Gura_DeclareMethod(wx_Window, GetDropTarget)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1159,7 +1159,7 @@ Gura_ImplementMethod(wx_Window, GetDropTarget)
 
 Gura_DeclareMethod(wx_Window, GetEventHandler)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1175,7 +1175,7 @@ Gura_ImplementMethod(wx_Window, GetEventHandler)
 
 Gura_DeclareMethod(wx_Window, GetExtraStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1189,7 +1189,7 @@ Gura_ImplementMethod(wx_Window, GetExtraStyle)
 
 Gura_DeclareMethod(wx_Window, GetFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1203,7 +1203,7 @@ Gura_ImplementMethod(wx_Window, GetFont)
 
 Gura_DeclareMethod(wx_Window, GetForegroundColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1217,7 +1217,7 @@ Gura_ImplementMethod(wx_Window, GetForegroundColour)
 
 Gura_DeclareMethod(wx_Window, GetGrandParent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1233,7 +1233,7 @@ Gura_ImplementMethod(wx_Window, GetGrandParent)
 
 Gura_DeclareMethod(wx_Window, GetHandle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1249,7 +1249,7 @@ Gura_ImplementMethod(wx_Window, GetHandle)
 
 Gura_DeclareMethod(wx_Window, GetHelpTextAtPoint)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "point", VTYPE_wx_Point, OCCUR_Once);
 	DeclareArg(env, "origin", VTYPE_wx_HelpEvent, OCCUR_Once);
@@ -1273,7 +1273,7 @@ Gura_ImplementMethod(wx_Window, GetHelpTextAtPoint)
 
 Gura_DeclareMethod(wx_Window, GetHelpText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1287,7 +1287,7 @@ Gura_ImplementMethod(wx_Window, GetHelpText)
 
 Gura_DeclareMethod(wx_Window, GetId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1301,7 +1301,7 @@ Gura_ImplementMethod(wx_Window, GetId)
 
 Gura_DeclareMethod(wx_Window, GetLabel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1315,7 +1315,7 @@ Gura_ImplementMethod(wx_Window, GetLabel)
 
 Gura_DeclareMethod(wx_Window, GetMaxSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1329,7 +1329,7 @@ Gura_ImplementMethod(wx_Window, GetMaxSize)
 
 Gura_DeclareMethod(wx_Window, GetMinSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1343,7 +1343,7 @@ Gura_ImplementMethod(wx_Window, GetMinSize)
 
 Gura_DeclareMethod(wx_Window, GetName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1357,7 +1357,7 @@ Gura_ImplementMethod(wx_Window, GetName)
 
 Gura_DeclareMethod(wx_Window, GetNextSibling)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1373,7 +1373,7 @@ Gura_ImplementMethod(wx_Window, GetNextSibling)
 
 Gura_DeclareMethod(wx_Window, GetParent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1389,7 +1389,7 @@ Gura_ImplementMethod(wx_Window, GetParent)
 
 Gura_DeclareMethod(wx_Window, GetPositionXY)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1405,7 +1405,7 @@ Gura_ImplementMethod(wx_Window, GetPositionXY)
 
 Gura_DeclareMethod(wx_Window, GetPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1419,7 +1419,7 @@ Gura_ImplementMethod(wx_Window, GetPosition)
 
 Gura_DeclareMethod(wx_Window, GetPrevSibling)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1435,7 +1435,7 @@ Gura_ImplementMethod(wx_Window, GetPrevSibling)
 
 Gura_DeclareMethod(wx_Window, GetRect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1449,7 +1449,7 @@ Gura_ImplementMethod(wx_Window, GetRect)
 
 Gura_DeclareMethod(wx_Window, GetScreenPositionXY)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1465,7 +1465,7 @@ Gura_ImplementMethod(wx_Window, GetScreenPositionXY)
 
 Gura_DeclareMethod(wx_Window, GetScreenPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1479,7 +1479,7 @@ Gura_ImplementMethod(wx_Window, GetScreenPosition)
 
 Gura_DeclareMethod(wx_Window, GetScreenRect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1493,7 +1493,7 @@ Gura_ImplementMethod(wx_Window, GetScreenRect)
 
 Gura_DeclareMethod(wx_Window, GetScrollPos)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1509,7 +1509,7 @@ Gura_ImplementMethod(wx_Window, GetScrollPos)
 
 Gura_DeclareMethod(wx_Window, GetScrollRange)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1525,7 +1525,7 @@ Gura_ImplementMethod(wx_Window, GetScrollRange)
 
 Gura_DeclareMethod(wx_Window, GetScrollThumb)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1541,7 +1541,7 @@ Gura_ImplementMethod(wx_Window, GetScrollThumb)
 
 Gura_DeclareMethod(wx_Window, GetSizeWH)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1557,7 +1557,7 @@ Gura_ImplementMethod(wx_Window, GetSizeWH)
 
 Gura_DeclareMethod(wx_Window, GetSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1571,7 +1571,7 @@ Gura_ImplementMethod(wx_Window, GetSize)
 
 Gura_DeclareMethod(wx_Window, GetSizer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1587,7 +1587,7 @@ Gura_ImplementMethod(wx_Window, GetSizer)
 
 Gura_DeclareMethod(wx_Window, GetTextExtent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "string", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1610,7 +1610,7 @@ Gura_ImplementMethod(wx_Window, GetTextExtent)
 
 Gura_DeclareMethod(wx_Window, GetToolTip)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1626,7 +1626,7 @@ Gura_ImplementMethod(wx_Window, GetToolTip)
 
 Gura_DeclareMethod(wx_Window, GetUpdateRegion)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1640,7 +1640,7 @@ Gura_ImplementMethod(wx_Window, GetUpdateRegion)
 
 Gura_DeclareMethod(wx_Window, GetValidator)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1656,7 +1656,7 @@ Gura_ImplementMethod(wx_Window, GetValidator)
 
 Gura_DeclareMethod(wx_Window, GetVirtualSizeWH)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1672,7 +1672,7 @@ Gura_ImplementMethod(wx_Window, GetVirtualSizeWH)
 
 Gura_DeclareMethod(wx_Window, GetVirtualSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1686,7 +1686,7 @@ Gura_ImplementMethod(wx_Window, GetVirtualSize)
 
 Gura_DeclareMethod(wx_Window, GetWindowBorderSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1700,7 +1700,7 @@ Gura_ImplementMethod(wx_Window, GetWindowBorderSize)
 
 Gura_DeclareMethod(wx_Window, GetWindowStyleFlag)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1714,7 +1714,7 @@ Gura_ImplementMethod(wx_Window, GetWindowStyleFlag)
 
 Gura_DeclareMethod(wx_Window, GetWindowVariant)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1728,7 +1728,7 @@ Gura_ImplementMethod(wx_Window, GetWindowVariant)
 
 Gura_DeclareMethod(wx_Window, HasCapture)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1742,7 +1742,7 @@ Gura_ImplementMethod(wx_Window, HasCapture)
 
 Gura_DeclareMethod(wx_Window, HasFlag)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1758,7 +1758,7 @@ Gura_ImplementMethod(wx_Window, HasFlag)
 
 Gura_DeclareMethod(wx_Window, HasMultiplePages)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1772,7 +1772,7 @@ Gura_ImplementMethod(wx_Window, HasMultiplePages)
 
 Gura_DeclareMethod(wx_Window, HasScrollbar)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1788,7 +1788,7 @@ Gura_ImplementMethod(wx_Window, HasScrollbar)
 
 Gura_DeclareMethod(wx_Window, HasTransparentBackground)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1802,7 +1802,7 @@ Gura_ImplementMethod(wx_Window, HasTransparentBackground)
 
 Gura_DeclareMethod(wx_Window, Hide)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1816,7 +1816,7 @@ Gura_ImplementMethod(wx_Window, Hide)
 
 Gura_DeclareMethod(wx_Window, InheritAttributes)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Window, InheritAttributes)
@@ -1829,7 +1829,7 @@ Gura_ImplementMethod(wx_Window, InheritAttributes)
 
 Gura_DeclareMethod(wx_Window, InitDialog)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Window, InitDialog)
@@ -1842,7 +1842,7 @@ Gura_ImplementMethod(wx_Window, InitDialog)
 
 Gura_DeclareMethod(wx_Window, InvalidateBestSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Window, InvalidateBestSize)
@@ -1855,7 +1855,7 @@ Gura_ImplementMethod(wx_Window, InvalidateBestSize)
 
 Gura_DeclareMethod(wx_Window, IsDoubleBuffered)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1869,7 +1869,7 @@ Gura_ImplementMethod(wx_Window, IsDoubleBuffered)
 
 Gura_DeclareMethod(wx_Window, IsEnabled)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1883,7 +1883,7 @@ Gura_ImplementMethod(wx_Window, IsEnabled)
 
 Gura_DeclareMethod(wx_Window, IsExposed)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "w", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1910,7 +1910,7 @@ Gura_ImplementMethod(wx_Window, IsExposed)
 
 Gura_DeclareMethod(wx_Window, IsExposedPoint)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1926,7 +1926,7 @@ Gura_ImplementMethod(wx_Window, IsExposedPoint)
 
 Gura_DeclareMethod(wx_Window, IsExposedRect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1942,7 +1942,7 @@ Gura_ImplementMethod(wx_Window, IsExposedRect)
 
 Gura_DeclareMethod(wx_Window, IsFrozen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1956,7 +1956,7 @@ Gura_ImplementMethod(wx_Window, IsFrozen)
 
 Gura_DeclareMethod(wx_Window, IsRetained)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1970,7 +1970,7 @@ Gura_ImplementMethod(wx_Window, IsRetained)
 
 Gura_DeclareMethod(wx_Window, IsShown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1984,7 +1984,7 @@ Gura_ImplementMethod(wx_Window, IsShown)
 
 Gura_DeclareMethod(wx_Window, IsShownOnScreen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1998,7 +1998,7 @@ Gura_ImplementMethod(wx_Window, IsShownOnScreen)
 
 Gura_DeclareMethod(wx_Window, IsTopLevel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2012,7 +2012,7 @@ Gura_ImplementMethod(wx_Window, IsTopLevel)
 
 Gura_DeclareMethod(wx_Window, Layout)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Window, Layout)
@@ -2025,7 +2025,7 @@ Gura_ImplementMethod(wx_Window, Layout)
 
 Gura_DeclareMethod(wx_Window, Lower)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Window, Lower)
@@ -2038,7 +2038,7 @@ Gura_ImplementMethod(wx_Window, Lower)
 
 Gura_DeclareMethod(wx_Window, MakeModal)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -2053,7 +2053,7 @@ Gura_ImplementMethod(wx_Window, MakeModal)
 
 Gura_DeclareMethod(wx_Window, MoveXY)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -2070,7 +2070,7 @@ Gura_ImplementMethod(wx_Window, MoveXY)
 
 Gura_DeclareMethod(wx_Window, Move)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 }
 
@@ -2085,7 +2085,7 @@ Gura_ImplementMethod(wx_Window, Move)
 
 Gura_DeclareMethod(wx_Window, MoveAfterInTabOrder)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_Once);
 }
 
@@ -2100,7 +2100,7 @@ Gura_ImplementMethod(wx_Window, MoveAfterInTabOrder)
 
 Gura_DeclareMethod(wx_Window, MoveBeforeInTabOrder)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_Once);
 }
 
@@ -2115,7 +2115,7 @@ Gura_ImplementMethod(wx_Window, MoveBeforeInTabOrder)
 
 Gura_DeclareMethod(wx_Window, Navigate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2132,7 +2132,7 @@ Gura_ImplementMethod(wx_Window, Navigate)
 
 Gura_DeclareMethod(wx_Window, OnActivate)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "event", VTYPE_wx_ActivateEvent, OCCUR_Once);
 #endif
@@ -2153,7 +2153,7 @@ Gura_ImplementMethod(wx_Window, OnActivate)
 
 Gura_DeclareMethod(wx_Window, OnChar)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "event", VTYPE_wx_KeyEvent, OCCUR_Once);
 #endif
@@ -2174,7 +2174,7 @@ Gura_ImplementMethod(wx_Window, OnChar)
 
 Gura_DeclareMethod(wx_Window, OnCharHook)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "event", VTYPE_wx_KeyEvent, OCCUR_Once);
 #endif
@@ -2195,7 +2195,7 @@ Gura_ImplementMethod(wx_Window, OnCharHook)
 
 Gura_DeclareMethod(wx_Window, OnCommand)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "object", VTYPE_wx_EvtHandler, OCCUR_Once);
 	DeclareArg(env, "event", VTYPE_wx_CommandEvent, OCCUR_Once);
@@ -2218,7 +2218,7 @@ Gura_ImplementMethod(wx_Window, OnCommand)
 
 Gura_DeclareMethod(wx_Window, OnClose)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2236,7 +2236,7 @@ Gura_ImplementMethod(wx_Window, OnClose)
 
 Gura_DeclareMethod(wx_Window, OnKeyDown)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "event", VTYPE_wx_KeyEvent, OCCUR_Once);
 #endif
@@ -2257,7 +2257,7 @@ Gura_ImplementMethod(wx_Window, OnKeyDown)
 
 Gura_DeclareMethod(wx_Window, OnKeyUp)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "event", VTYPE_wx_KeyEvent, OCCUR_Once);
 #endif
@@ -2278,7 +2278,7 @@ Gura_ImplementMethod(wx_Window, OnKeyUp)
 
 Gura_DeclareMethod(wx_Window, OnInitDialog)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "event", VTYPE_wx_InitDialogEvent, OCCUR_Once);
 #endif
@@ -2299,7 +2299,7 @@ Gura_ImplementMethod(wx_Window, OnInitDialog)
 
 Gura_DeclareMethod(wx_Window, OnMenuHighlight)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "event", VTYPE_wx_MenuEvent, OCCUR_Once);
 #endif
@@ -2320,7 +2320,7 @@ Gura_ImplementMethod(wx_Window, OnMenuHighlight)
 
 Gura_DeclareMethod(wx_Window, OnMouseEvent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "event", VTYPE_wx_MouseEvent, OCCUR_Once);
 #endif
@@ -2341,7 +2341,7 @@ Gura_ImplementMethod(wx_Window, OnMouseEvent)
 
 Gura_DeclareMethod(wx_Window, OnMove)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "event", VTYPE_wx_MoveEvent, OCCUR_Once);
 #endif
@@ -2362,7 +2362,7 @@ Gura_ImplementMethod(wx_Window, OnMove)
 
 Gura_DeclareMethod(wx_Window, OnPaint)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "event", VTYPE_wx_PaintEvent, OCCUR_Once);
 #endif
@@ -2383,7 +2383,7 @@ Gura_ImplementMethod(wx_Window, OnPaint)
 
 Gura_DeclareMethod(wx_Window, OnScroll)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "event", VTYPE_wx_ScrollWinEvent, OCCUR_Once);
 #endif
@@ -2404,7 +2404,7 @@ Gura_ImplementMethod(wx_Window, OnScroll)
 
 Gura_DeclareMethod(wx_Window, OnSetFocus)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "event", VTYPE_wx_FocusEvent, OCCUR_Once);
 #endif
@@ -2425,7 +2425,7 @@ Gura_ImplementMethod(wx_Window, OnSetFocus)
 
 Gura_DeclareMethod(wx_Window, OnSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "event", VTYPE_wx_SizeEvent, OCCUR_Once);
 #endif
@@ -2446,7 +2446,7 @@ Gura_ImplementMethod(wx_Window, OnSize)
 
 Gura_DeclareMethod(wx_Window, OnSysColourChanged)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "event", VTYPE_wx_OnSysColourChangedEvent, OCCUR_Once);
 #endif
@@ -2467,7 +2467,7 @@ Gura_ImplementMethod(wx_Window, OnSysColourChanged)
 
 Gura_DeclareMethod(wx_Window, OnInternalIdle)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Window, OnInternalIdle)
@@ -2484,7 +2484,7 @@ Gura_ImplementMethod(wx_Window, OnInternalIdle)
 
 Gura_DeclareMethod(wx_Window, PopEventHandler)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "deleteHandler", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2503,7 +2503,7 @@ Gura_ImplementMethod(wx_Window, PopEventHandler)
 
 Gura_DeclareMethod(wx_Window, PopupMenu)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "menu", VTYPE_wx_Menu, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2522,7 +2522,7 @@ Gura_ImplementMethod(wx_Window, PopupMenu)
 
 Gura_DeclareMethod(wx_Window, PopupMenuXY)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "menu", VTYPE_wx_Menu, OCCUR_Once);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -2542,7 +2542,7 @@ Gura_ImplementMethod(wx_Window, PopupMenuXY)
 
 Gura_DeclareMethod(wx_Window, PushEventHandler)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "handler", VTYPE_wx_EvtHandler, OCCUR_Once);
 }
 
@@ -2557,7 +2557,7 @@ Gura_ImplementMethod(wx_Window, PushEventHandler)
 
 Gura_DeclareMethod(wx_Window, Raise)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Window, Raise)
@@ -2570,7 +2570,7 @@ Gura_ImplementMethod(wx_Window, Raise)
 
 Gura_DeclareMethod(wx_Window, Refresh)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "eraseBackground", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_ZeroOrOnce);
 }
@@ -2589,7 +2589,7 @@ Gura_ImplementMethod(wx_Window, Refresh)
 
 Gura_DeclareMethod(wx_Window, RefreshRect)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareArg(env, "eraseBackground", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
@@ -2607,7 +2607,7 @@ Gura_ImplementMethod(wx_Window, RefreshRect)
 
 Gura_DeclareMethod(wx_Window, RegisterHotKey)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "hotkeyId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "modifiers", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "virtualKeyCode", VTYPE_number, OCCUR_Once);
@@ -2632,7 +2632,7 @@ Gura_ImplementMethod(wx_Window, RegisterHotKey)
 
 Gura_DeclareMethod(wx_Window, ReleaseMouse)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Window, ReleaseMouse)
@@ -2645,7 +2645,7 @@ Gura_ImplementMethod(wx_Window, ReleaseMouse)
 
 Gura_DeclareMethod(wx_Window, RemoveChild)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "child", VTYPE_wx_Window, OCCUR_Once);
 }
 
@@ -2660,7 +2660,7 @@ Gura_ImplementMethod(wx_Window, RemoveChild)
 
 Gura_DeclareMethod(wx_Window, RemoveEventHandler)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "handler", VTYPE_wx_EvtHandler, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2676,7 +2676,7 @@ Gura_ImplementMethod(wx_Window, RemoveEventHandler)
 
 Gura_DeclareMethod(wx_Window, Reparent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "newParent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2692,7 +2692,7 @@ Gura_ImplementMethod(wx_Window, Reparent)
 
 Gura_DeclareMethod(wx_Window, ScreenToClientXY)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2710,7 +2710,7 @@ Gura_ImplementMethod(wx_Window, ScreenToClientXY)
 
 Gura_DeclareMethod(wx_Window, ScreenToClient)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2726,7 +2726,7 @@ Gura_ImplementMethod(wx_Window, ScreenToClient)
 
 Gura_DeclareMethod(wx_Window, ScrollLines)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "lines", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2742,7 +2742,7 @@ Gura_ImplementMethod(wx_Window, ScrollLines)
 
 Gura_DeclareMethod(wx_Window, ScrollPages)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pages", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2758,7 +2758,7 @@ Gura_ImplementMethod(wx_Window, ScrollPages)
 
 Gura_DeclareMethod(wx_Window, ScrollWindow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dx", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "dy", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_ZeroOrOnce);
@@ -2778,7 +2778,7 @@ Gura_ImplementMethod(wx_Window, ScrollWindow)
 
 Gura_DeclareMethod(wx_Window, SetAcceleratorTable)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "accel", VTYPE_wx_AcceleratorTable, OCCUR_Once);
 }
 
@@ -2793,7 +2793,7 @@ Gura_ImplementMethod(wx_Window, SetAcceleratorTable)
 
 Gura_DeclareMethod(wx_Window, SetAccessible)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "accessible", VTYPE_wx_Accessible, OCCUR_Once);
 #endif
@@ -2814,7 +2814,7 @@ Gura_ImplementMethod(wx_Window, SetAccessible)
 
 Gura_DeclareMethod(wx_Window, SetAutoLayout)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "autoLayout", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -2829,7 +2829,7 @@ Gura_ImplementMethod(wx_Window, SetAutoLayout)
 
 Gura_DeclareMethod(wx_Window, SetBackgroundColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2845,7 +2845,7 @@ Gura_ImplementMethod(wx_Window, SetBackgroundColour)
 
 Gura_DeclareMethod(wx_Window, SetBackgroundStyle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
@@ -2860,7 +2860,7 @@ Gura_ImplementMethod(wx_Window, SetBackgroundStyle)
 
 Gura_DeclareMethod(wx_Window, SetInitialSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_ZeroOrOnce);
 }
 
@@ -2876,7 +2876,7 @@ Gura_ImplementMethod(wx_Window, SetInitialSize)
 
 Gura_DeclareMethod(wx_Window, SetCaret)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "caret", VTYPE_wx_Caret, OCCUR_Once);
 }
 
@@ -2891,7 +2891,7 @@ Gura_ImplementMethod(wx_Window, SetCaret)
 
 Gura_DeclareMethod(wx_Window, SetClientSizeWH)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
@@ -2908,7 +2908,7 @@ Gura_ImplementMethod(wx_Window, SetClientSizeWH)
 
 Gura_DeclareMethod(wx_Window, SetClientSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -2923,7 +2923,7 @@ Gura_ImplementMethod(wx_Window, SetClientSize)
 
 Gura_DeclareMethod(wx_Window, SetConstraints)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "constraints", VTYPE_wx_LayoutConstraints, OCCUR_Once);
 }
 
@@ -2938,7 +2938,7 @@ Gura_ImplementMethod(wx_Window, SetConstraints)
 
 Gura_DeclareMethod(wx_Window, SetContainingSizer)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "sizer", VTYPE_wx_Sizer, OCCUR_Once);
 }
 
@@ -2953,7 +2953,7 @@ Gura_ImplementMethod(wx_Window, SetContainingSizer)
 
 Gura_DeclareMethod(wx_Window, SetCursor)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "cursor", VTYPE_wx_Cursor, OCCUR_Once);
 }
 
@@ -2968,7 +2968,7 @@ Gura_ImplementMethod(wx_Window, SetCursor)
 
 Gura_DeclareMethod(wx_Window, SetDropTarget)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_wx_DropTarget, OCCUR_Once);
 }
 
@@ -2983,7 +2983,7 @@ Gura_ImplementMethod(wx_Window, SetDropTarget)
 
 Gura_DeclareMethod(wx_Window, SetInitialBestSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 #endif
@@ -3004,7 +3004,7 @@ Gura_ImplementMethod(wx_Window, SetInitialBestSize)
 
 Gura_DeclareMethod(wx_Window, SetEventHandler)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "handler", VTYPE_wx_EvtHandler, OCCUR_Once);
 }
 
@@ -3019,7 +3019,7 @@ Gura_ImplementMethod(wx_Window, SetEventHandler)
 
 Gura_DeclareMethod(wx_Window, SetExtraStyle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "exStyle", VTYPE_number, OCCUR_Once);
 }
 
@@ -3034,7 +3034,7 @@ Gura_ImplementMethod(wx_Window, SetExtraStyle)
 
 Gura_DeclareMethod(wx_Window, SetFocus)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Window, SetFocus)
@@ -3047,7 +3047,7 @@ Gura_ImplementMethod(wx_Window, SetFocus)
 
 Gura_DeclareMethod(wx_Window, SetFocusFromKbd)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Window, SetFocusFromKbd)
@@ -3060,7 +3060,7 @@ Gura_ImplementMethod(wx_Window, SetFocusFromKbd)
 
 Gura_DeclareMethod(wx_Window, SetFont)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 }
 
@@ -3075,7 +3075,7 @@ Gura_ImplementMethod(wx_Window, SetFont)
 
 Gura_DeclareMethod(wx_Window, SetForegroundColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -3090,7 +3090,7 @@ Gura_ImplementMethod(wx_Window, SetForegroundColour)
 
 Gura_DeclareMethod(wx_Window, SetHelpText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "helpText", VTYPE_string, OCCUR_Once);
 }
 
@@ -3105,7 +3105,7 @@ Gura_ImplementMethod(wx_Window, SetHelpText)
 
 Gura_DeclareMethod(wx_Window, SetId)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -3120,7 +3120,7 @@ Gura_ImplementMethod(wx_Window, SetId)
 
 Gura_DeclareMethod(wx_Window, SetLabel)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
 }
 
@@ -3135,7 +3135,7 @@ Gura_ImplementMethod(wx_Window, SetLabel)
 
 Gura_DeclareMethod(wx_Window, SetMaxSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -3150,7 +3150,7 @@ Gura_ImplementMethod(wx_Window, SetMaxSize)
 
 Gura_DeclareMethod(wx_Window, SetMinSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -3165,7 +3165,7 @@ Gura_ImplementMethod(wx_Window, SetMinSize)
 
 Gura_DeclareMethod(wx_Window, SetName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 }
 
@@ -3180,7 +3180,7 @@ Gura_ImplementMethod(wx_Window, SetName)
 
 Gura_DeclareMethod(wx_Window, SetOwnBackgroundColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -3195,7 +3195,7 @@ Gura_ImplementMethod(wx_Window, SetOwnBackgroundColour)
 
 Gura_DeclareMethod(wx_Window, SetOwnFont)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 }
 
@@ -3210,7 +3210,7 @@ Gura_ImplementMethod(wx_Window, SetOwnFont)
 
 Gura_DeclareMethod(wx_Window, SetOwnForegroundColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -3225,7 +3225,7 @@ Gura_ImplementMethod(wx_Window, SetOwnForegroundColour)
 
 Gura_DeclareMethod(wx_Window, SetPalette)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "palette", VTYPE_wx_Palette, OCCUR_Once);
 #endif
@@ -3246,7 +3246,7 @@ Gura_ImplementMethod(wx_Window, SetPalette)
 
 Gura_DeclareMethod(wx_Window, SetScrollbar)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "thumbSize", VTYPE_number, OCCUR_Once);
@@ -3270,7 +3270,7 @@ Gura_ImplementMethod(wx_Window, SetScrollbar)
 
 Gura_DeclareMethod(wx_Window, SetScrollPage)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "pageSize", VTYPE_number, OCCUR_Once);
@@ -3296,7 +3296,7 @@ Gura_ImplementMethod(wx_Window, SetScrollPage)
 
 Gura_DeclareMethod(wx_Window, SetScrollPos)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "refresh", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -3316,7 +3316,7 @@ Gura_ImplementMethod(wx_Window, SetScrollPos)
 
 Gura_DeclareMethod(wx_Window, SetScrollRange)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
@@ -3342,7 +3342,7 @@ Gura_ImplementMethod(wx_Window, SetScrollRange)
 
 Gura_DeclareMethod(wx_Window, SetDimensions)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -3366,7 +3366,7 @@ Gura_ImplementMethod(wx_Window, SetDimensions)
 
 Gura_DeclareMethod(wx_Window, SetRect)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 }
 
@@ -3381,7 +3381,7 @@ Gura_ImplementMethod(wx_Window, SetRect)
 
 Gura_DeclareMethod(wx_Window, SetSizeWH)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
@@ -3398,7 +3398,7 @@ Gura_ImplementMethod(wx_Window, SetSizeWH)
 
 Gura_DeclareMethod(wx_Window, SetSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -3413,7 +3413,7 @@ Gura_ImplementMethod(wx_Window, SetSize)
 
 Gura_DeclareMethod(wx_Window, SetSizer)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "sizer", VTYPE_wx_Sizer, OCCUR_Once);
 	DeclareArg(env, "deleteOld", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
@@ -3431,7 +3431,7 @@ Gura_ImplementMethod(wx_Window, SetSizer)
 
 Gura_DeclareMethod(wx_Window, SetSizerAndFit)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "sizer", VTYPE_wx_Sizer, OCCUR_Once);
 	DeclareArg(env, "deleteOld", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
@@ -3449,7 +3449,7 @@ Gura_ImplementMethod(wx_Window, SetSizerAndFit)
 
 Gura_DeclareMethod(wx_Window, SetThemeEnabled)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "enable", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -3464,7 +3464,7 @@ Gura_ImplementMethod(wx_Window, SetThemeEnabled)
 
 Gura_DeclareMethod(wx_Window, SetToolTipString)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "tip", VTYPE_string, OCCUR_Once);
 }
 
@@ -3479,7 +3479,7 @@ Gura_ImplementMethod(wx_Window, SetToolTipString)
 
 Gura_DeclareMethod(wx_Window, SetToolTip)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "tip", VTYPE_wx_ToolTip, OCCUR_Once);
 }
 
@@ -3494,7 +3494,7 @@ Gura_ImplementMethod(wx_Window, SetToolTip)
 
 Gura_DeclareMethod(wx_Window, SetValidator)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "validator", VTYPE_wx_Validator, OCCUR_Once);
 }
 
@@ -3509,7 +3509,7 @@ Gura_ImplementMethod(wx_Window, SetValidator)
 
 Gura_DeclareMethod(wx_Window, SetVirtualSizeWH)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
@@ -3526,7 +3526,7 @@ Gura_ImplementMethod(wx_Window, SetVirtualSizeWH)
 
 Gura_DeclareMethod(wx_Window, SetVirtualSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -3541,7 +3541,7 @@ Gura_ImplementMethod(wx_Window, SetVirtualSize)
 
 Gura_DeclareMethod(wx_Window, SetVirtualSizeHintsWH)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "minW", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "minH", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "maxW", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -3564,7 +3564,7 @@ Gura_ImplementMethod(wx_Window, SetVirtualSizeHintsWH)
 
 Gura_DeclareMethod(wx_Window, SetVirtualSizeHints)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "minSize", VTYPE_wx_Size, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "maxSize", VTYPE_wx_Size, OCCUR_ZeroOrOnce);
 }
@@ -3583,7 +3583,7 @@ Gura_ImplementMethod(wx_Window, SetVirtualSizeHints)
 
 Gura_DeclareMethod(wx_Window, SetWindowStyle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
@@ -3598,7 +3598,7 @@ Gura_ImplementMethod(wx_Window, SetWindowStyle)
 
 Gura_DeclareMethod(wx_Window, SetWindowStyleFlag)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
@@ -3613,7 +3613,7 @@ Gura_ImplementMethod(wx_Window, SetWindowStyleFlag)
 
 Gura_DeclareMethod(wx_Window, SetWindowVariant)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "variant", VTYPE_number, OCCUR_Once);
 }
 
@@ -3628,7 +3628,7 @@ Gura_ImplementMethod(wx_Window, SetWindowVariant)
 
 Gura_DeclareMethod(wx_Window, ShouldInheritColours)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -3642,7 +3642,7 @@ Gura_ImplementMethod(wx_Window, ShouldInheritColours)
 
 Gura_DeclareMethod(wx_Window, Show)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "show", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -3659,7 +3659,7 @@ Gura_ImplementMethod(wx_Window, Show)
 
 Gura_DeclareMethod(wx_Window, Thaw)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Window, Thaw)
@@ -3672,7 +3672,7 @@ Gura_ImplementMethod(wx_Window, Thaw)
 
 Gura_DeclareMethod(wx_Window, ToggleWindowStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -3688,7 +3688,7 @@ Gura_ImplementMethod(wx_Window, ToggleWindowStyle)
 
 Gura_DeclareMethod(wx_Window, TransferDataFromWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -3702,7 +3702,7 @@ Gura_ImplementMethod(wx_Window, TransferDataFromWindow)
 
 Gura_DeclareMethod(wx_Window, TransferDataToWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -3716,7 +3716,7 @@ Gura_ImplementMethod(wx_Window, TransferDataToWindow)
 
 Gura_DeclareMethod(wx_Window, UnregisterHotKey)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "hotkeyId", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -3737,7 +3737,7 @@ Gura_ImplementMethod(wx_Window, UnregisterHotKey)
 
 Gura_DeclareMethod(wx_Window, Update)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Window, Update)
@@ -3750,7 +3750,7 @@ Gura_ImplementMethod(wx_Window, Update)
 
 Gura_DeclareMethod(wx_Window, UpdateWindowUI)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
@@ -3766,7 +3766,7 @@ Gura_ImplementMethod(wx_Window, UpdateWindowUI)
 
 Gura_DeclareMethod(wx_Window, Validate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -3780,7 +3780,7 @@ Gura_ImplementMethod(wx_Window, Validate)
 
 Gura_DeclareMethod(wx_Window, WarpPointer)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -3797,7 +3797,7 @@ Gura_ImplementMethod(wx_Window, WarpPointer)
 
 Gura_DeclareMethod(wx_Window, WindowToClientSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

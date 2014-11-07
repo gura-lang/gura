@@ -36,7 +36,7 @@ void wx_PNGHandler::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(PNGHandler)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PNGHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

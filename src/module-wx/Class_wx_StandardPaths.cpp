@@ -37,7 +37,7 @@ void wx_StandardPaths::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareClassMethod(wx_StandardPaths, Get)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -54,7 +54,7 @@ Gura_ImplementClassMethod(wx_StandardPaths, Get)
 
 Gura_DeclareMethod(wx_StandardPaths, GetConfigDir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetConfigDir)
 
 Gura_DeclareMethod(wx_StandardPaths, GetDataDir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetDataDir)
 
 Gura_DeclareMethod(wx_StandardPaths, GetDocumentsDir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetDocumentsDir)
 
 Gura_DeclareMethod(wx_StandardPaths, GetExecutablePath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetExecutablePath)
 
 Gura_DeclareMethod(wx_StandardPaths, GetInstallPrefix)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetInstallPrefix)
 
 Gura_DeclareMethod(wx_StandardPaths, GetLocalDataDir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetLocalDataDir)
 
 Gura_DeclareMethod(wx_StandardPaths, GetLocalizedResourcesDir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "lang", VTYPE_string, OCCUR_Once);
 #endif
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetLocalizedResourcesDir)
 
 Gura_DeclareMethod(wx_StandardPaths, GetPluginsDir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetPluginsDir)
 
 Gura_DeclareMethod(wx_StandardPaths, GetResourcesDir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetResourcesDir)
 
 Gura_DeclareMethod(wx_StandardPaths, GetTempDir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetTempDir)
 
 Gura_DeclareMethod(wx_StandardPaths, GetUserConfigDir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetUserConfigDir)
 
 Gura_DeclareMethod(wx_StandardPaths, GetUserDataDir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetUserDataDir)
 
 Gura_DeclareMethod(wx_StandardPaths, GetUserLocalDataDir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetUserLocalDataDir)
 
 Gura_DeclareMethod(wx_StandardPaths, SetInstallPrefix)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "prefix", VTYPE_string, OCCUR_Once);
 #endif

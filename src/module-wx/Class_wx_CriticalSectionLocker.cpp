@@ -38,7 +38,7 @@ void wx_CriticalSectionLocker::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(CriticalSectionLocker)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_CriticalSectionLocker));
 	DeclareArg(env, "criticalsection", VTYPE_wx_CriticalSection, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);

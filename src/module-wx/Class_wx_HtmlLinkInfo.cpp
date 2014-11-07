@@ -39,7 +39,7 @@ void wx_HtmlLinkInfo::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HtmlLinkInfoEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlLinkInfo));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(HtmlLinkInfoEmpty)
 
 Gura_DeclareFunction(HtmlLinkInfo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlLinkInfo));
 	DeclareArg(env, "href", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "target", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -88,7 +88,7 @@ Gura_ImplementFunction(HtmlLinkInfo)
 
 Gura_DeclareMethod(wx_HtmlLinkInfo, GetEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_HtmlLinkInfo, GetEvent)
 
 Gura_DeclareMethod(wx_HtmlLinkInfo, GetHtmlCell)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_HtmlLinkInfo, GetHtmlCell)
 
 Gura_DeclareMethod(wx_HtmlLinkInfo, GetHref)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_HtmlLinkInfo, GetHref)
 
 Gura_DeclareMethod(wx_HtmlLinkInfo, GetTarget)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

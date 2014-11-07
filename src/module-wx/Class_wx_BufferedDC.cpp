@@ -40,7 +40,7 @@ void wx_BufferedDC::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(BufferedDCEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_BufferedDC));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -62,7 +62,7 @@ Gura_ImplementFunction(BufferedDCEmpty)
 
 Gura_DeclareFunction(BufferedDC)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_BufferedDC));
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "area", VTYPE_wx_Size, OCCUR_Once);
@@ -91,7 +91,7 @@ Gura_ImplementFunction(BufferedDC)
 
 Gura_DeclareFunction(BufferedDC_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_BufferedDC));
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "buffer", VTYPE_wx_Bitmap, OCCUR_Once);
@@ -120,7 +120,7 @@ Gura_ImplementFunction(BufferedDC_1)
 
 Gura_DeclareMethod(wx_BufferedDC, Init)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "area", VTYPE_wx_Size, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_BufferedDC, Init)
 
 Gura_DeclareMethod(wx_BufferedDC, Init_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "buffer", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);

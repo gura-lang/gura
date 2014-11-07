@@ -38,7 +38,7 @@ void wx_AutoBufferedPaintDC::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(AutoBufferedPaintDC)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_AutoBufferedPaintDC));
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);

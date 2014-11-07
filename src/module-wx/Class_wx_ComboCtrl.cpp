@@ -55,7 +55,7 @@ void wx_ComboCtrl::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ComboCtrlEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ComboCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -77,7 +77,7 @@ Gura_ImplementFunction(ComboCtrlEmpty)
 
 Gura_DeclareFunction(ComboCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ComboCtrl));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -121,7 +121,7 @@ Gura_ImplementFunction(ComboCtrl)
 
 Gura_DeclareMethod(wx_ComboCtrl, AnimateShow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_ComboCtrl, AnimateShow)
 
 Gura_DeclareMethod(wx_ComboCtrl, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_ComboCtrl, Create)
 
 Gura_DeclareMethod(wx_ComboCtrl, Copy)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, Copy)
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_ComboCtrl, Copy)
 
 Gura_DeclareMethod(wx_ComboCtrl, Cut)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, Cut)
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_ComboCtrl, Cut)
 
 Gura_DeclareMethod(wx_ComboCtrl, DoSetPopupControl)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "popup", VTYPE_wx_ComboPopup, OCCUR_Once);
 }
 
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_ComboCtrl, DoSetPopupControl)
 
 Gura_DeclareMethod(wx_ComboCtrl, DoShowPopup)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_ComboCtrl, DoShowPopup)
 
 Gura_DeclareMethod(wx_ComboCtrl, EnablePopupAnimation)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "enable", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_ComboCtrl, EnablePopupAnimation)
 
 Gura_DeclareMethod(wx_ComboCtrl, GetBitmapDisabled)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -263,7 +263,7 @@ Gura_ImplementMethod(wx_ComboCtrl, GetBitmapDisabled)
 
 Gura_DeclareMethod(wx_ComboCtrl, GetBitmapHover)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -277,7 +277,7 @@ Gura_ImplementMethod(wx_ComboCtrl, GetBitmapHover)
 
 Gura_DeclareMethod(wx_ComboCtrl, GetBitmapNormal)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -291,7 +291,7 @@ Gura_ImplementMethod(wx_ComboCtrl, GetBitmapNormal)
 
 Gura_DeclareMethod(wx_ComboCtrl, GetBitmapPressed)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -305,7 +305,7 @@ Gura_ImplementMethod(wx_ComboCtrl, GetBitmapPressed)
 
 Gura_DeclareMethod(wx_ComboCtrl, GetButtonSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -319,7 +319,7 @@ Gura_ImplementMethod(wx_ComboCtrl, GetButtonSize)
 
 Gura_DeclareMethod(wx_ComboCtrl, GetCustomPaintWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -333,7 +333,7 @@ Gura_ImplementMethod(wx_ComboCtrl, GetCustomPaintWidth)
 
 Gura_DeclareClassMethod(wx_ComboCtrl, GetFeatures)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -346,7 +346,7 @@ Gura_ImplementClassMethod(wx_ComboCtrl, GetFeatures)
 
 Gura_DeclareMethod(wx_ComboCtrl, GetInsertionPoint)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -360,7 +360,7 @@ Gura_ImplementMethod(wx_ComboCtrl, GetInsertionPoint)
 
 Gura_DeclareMethod(wx_ComboCtrl, IsPopupWindowState)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "state", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -376,7 +376,7 @@ Gura_ImplementMethod(wx_ComboCtrl, IsPopupWindowState)
 
 Gura_DeclareMethod(wx_ComboCtrl, GetLastPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -390,7 +390,7 @@ Gura_ImplementMethod(wx_ComboCtrl, GetLastPosition)
 
 Gura_DeclareMethod(wx_ComboCtrl, GetPopupControl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -404,7 +404,7 @@ Gura_ImplementMethod(wx_ComboCtrl, GetPopupControl)
 
 Gura_DeclareMethod(wx_ComboCtrl, GetPopupWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -418,7 +418,7 @@ Gura_ImplementMethod(wx_ComboCtrl, GetPopupWindow)
 
 Gura_DeclareMethod(wx_ComboCtrl, GetTextCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -432,7 +432,7 @@ Gura_ImplementMethod(wx_ComboCtrl, GetTextCtrl)
 
 Gura_DeclareMethod(wx_ComboCtrl, GetTextIndent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -446,7 +446,7 @@ Gura_ImplementMethod(wx_ComboCtrl, GetTextIndent)
 
 Gura_DeclareMethod(wx_ComboCtrl, GetTextRect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -460,7 +460,7 @@ Gura_ImplementMethod(wx_ComboCtrl, GetTextRect)
 
 Gura_DeclareMethod(wx_ComboCtrl, GetValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -474,7 +474,7 @@ Gura_ImplementMethod(wx_ComboCtrl, GetValue)
 
 Gura_DeclareMethod(wx_ComboCtrl, HidePopup)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, HidePopup)
@@ -487,7 +487,7 @@ Gura_ImplementMethod(wx_ComboCtrl, HidePopup)
 
 Gura_DeclareMethod(wx_ComboCtrl, IsPopupShown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -501,7 +501,7 @@ Gura_ImplementMethod(wx_ComboCtrl, IsPopupShown)
 
 Gura_DeclareMethod(wx_ComboCtrl, OnButtonClick)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, OnButtonClick)
@@ -514,7 +514,7 @@ Gura_ImplementMethod(wx_ComboCtrl, OnButtonClick)
 
 Gura_DeclareMethod(wx_ComboCtrl, Paste)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, Paste)
@@ -527,7 +527,7 @@ Gura_ImplementMethod(wx_ComboCtrl, Paste)
 
 Gura_DeclareMethod(wx_ComboCtrl, Remove)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
 }
@@ -544,7 +544,7 @@ Gura_ImplementMethod(wx_ComboCtrl, Remove)
 
 Gura_DeclareMethod(wx_ComboCtrl, Replace)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
@@ -563,7 +563,7 @@ Gura_ImplementMethod(wx_ComboCtrl, Replace)
 
 Gura_DeclareMethod(wx_ComboCtrl, SetButtonBitmaps)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "bmpNormal", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "pushButtonBg", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "bmpPressed", VTYPE_wx_Bitmap, OCCUR_ZeroOrOnce);
@@ -590,7 +590,7 @@ Gura_ImplementMethod(wx_ComboCtrl, SetButtonBitmaps)
 
 Gura_DeclareMethod(wx_ComboCtrl, SetButtonPosition)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "side", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -615,7 +615,7 @@ Gura_ImplementMethod(wx_ComboCtrl, SetButtonPosition)
 
 Gura_DeclareMethod(wx_ComboCtrl, SetCustomPaintWidth)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
@@ -630,7 +630,7 @@ Gura_ImplementMethod(wx_ComboCtrl, SetCustomPaintWidth)
 
 Gura_DeclareMethod(wx_ComboCtrl, SetInsertionPoint)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -645,7 +645,7 @@ Gura_ImplementMethod(wx_ComboCtrl, SetInsertionPoint)
 
 Gura_DeclareMethod(wx_ComboCtrl, SetInsertionPointEnd)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, SetInsertionPointEnd)
@@ -658,7 +658,7 @@ Gura_ImplementMethod(wx_ComboCtrl, SetInsertionPointEnd)
 
 Gura_DeclareMethod(wx_ComboCtrl, SetPopupAnchor)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "anchorSide", VTYPE_number, OCCUR_Once);
 }
 
@@ -673,7 +673,7 @@ Gura_ImplementMethod(wx_ComboCtrl, SetPopupAnchor)
 
 Gura_DeclareMethod(wx_ComboCtrl, SetPopupControl)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "popup", VTYPE_wx_ComboPopup, OCCUR_Once);
 }
 
@@ -688,7 +688,7 @@ Gura_ImplementMethod(wx_ComboCtrl, SetPopupControl)
 
 Gura_DeclareMethod(wx_ComboCtrl, SetPopupExtents)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "extLeft", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "extRight", VTYPE_number, OCCUR_Once);
 }
@@ -705,7 +705,7 @@ Gura_ImplementMethod(wx_ComboCtrl, SetPopupExtents)
 
 Gura_DeclareMethod(wx_ComboCtrl, SetPopupMaxHeight)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
@@ -720,7 +720,7 @@ Gura_ImplementMethod(wx_ComboCtrl, SetPopupMaxHeight)
 
 Gura_DeclareMethod(wx_ComboCtrl, SetPopupMinWidth)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
@@ -735,7 +735,7 @@ Gura_ImplementMethod(wx_ComboCtrl, SetPopupMinWidth)
 
 Gura_DeclareMethod(wx_ComboCtrl, SetSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
 }
@@ -752,7 +752,7 @@ Gura_ImplementMethod(wx_ComboCtrl, SetSelection)
 
 Gura_DeclareMethod(wx_ComboCtrl, SetText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
 }
 
@@ -767,7 +767,7 @@ Gura_ImplementMethod(wx_ComboCtrl, SetText)
 
 Gura_DeclareMethod(wx_ComboCtrl, SetTextIndent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "indent", VTYPE_number, OCCUR_Once);
 }
 
@@ -782,7 +782,7 @@ Gura_ImplementMethod(wx_ComboCtrl, SetTextIndent)
 
 Gura_DeclareMethod(wx_ComboCtrl, SetValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
 }
 
@@ -797,7 +797,7 @@ Gura_ImplementMethod(wx_ComboCtrl, SetValue)
 
 Gura_DeclareMethod(wx_ComboCtrl, SetValueWithEvent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "withEvent", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
@@ -815,7 +815,7 @@ Gura_ImplementMethod(wx_ComboCtrl, SetValueWithEvent)
 
 Gura_DeclareMethod(wx_ComboCtrl, ShowPopup)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, ShowPopup)
@@ -828,7 +828,7 @@ Gura_ImplementMethod(wx_ComboCtrl, ShowPopup)
 
 Gura_DeclareMethod(wx_ComboCtrl, Undo)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, Undo)
@@ -841,7 +841,7 @@ Gura_ImplementMethod(wx_ComboCtrl, Undo)
 
 Gura_DeclareMethod(wx_ComboCtrl, UseAltPopupWindow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "enable", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 

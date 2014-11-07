@@ -38,7 +38,7 @@ void wx_HtmlDCRenderer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HtmlDCRendererEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlDCRenderer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(HtmlDCRendererEmpty)
 
 Gura_DeclareMethod(wx_HtmlDCRenderer, SetDC)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "pixel_scale", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, SetDC)
 
 Gura_DeclareMethod(wx_HtmlDCRenderer, SetFonts)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "normal_face", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "fixed_face", VTYPE_string, OCCUR_Once);
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, SetFonts)
 
 Gura_DeclareMethod(wx_HtmlDCRenderer, SetSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, SetSize)
 
 Gura_DeclareMethod(wx_HtmlDCRenderer, SetHtmlText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "html", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "basepath", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "isdir", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, SetHtmlText)
 
 Gura_DeclareMethod(wx_HtmlDCRenderer, Render)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, Render)
 
 Gura_DeclareMethod(wx_HtmlDCRenderer, GetTotalHeight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

@@ -38,7 +38,7 @@ void wx_CommandEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(CommandEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_CommandEvent));
 	DeclareArg(env, "commandEventType", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(CommandEvent)
 
 Gura_DeclareMethod(wx_CommandEvent, Checked)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_CommandEvent, Checked)
 
 Gura_DeclareMethod(wx_CommandEvent, GetClientObject)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_CommandEvent, GetClientObject)
 
 Gura_DeclareMethod(wx_CommandEvent, GetExtraLong)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_CommandEvent, GetExtraLong)
 
 Gura_DeclareMethod(wx_CommandEvent, GetInt)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_CommandEvent, GetInt)
 
 Gura_DeclareMethod(wx_CommandEvent, GetSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_CommandEvent, GetSelection)
 
 Gura_DeclareMethod(wx_CommandEvent, GetString)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_CommandEvent, GetString)
 
 Gura_DeclareMethod(wx_CommandEvent, IsChecked)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_CommandEvent, IsChecked)
 
 Gura_DeclareMethod(wx_CommandEvent, IsSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_CommandEvent, IsSelection)
 
 Gura_DeclareMethod(wx_CommandEvent, SetClientData)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
 #endif
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_CommandEvent, SetClientData)
 
 Gura_DeclareMethod(wx_CommandEvent, SetClientObject)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "clientObject", VTYPE_wx_ClientData, OCCUR_Once);
 }
 
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_CommandEvent, SetClientObject)
 
 Gura_DeclareMethod(wx_CommandEvent, SetExtraLong)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "extraLong", VTYPE_number, OCCUR_Once);
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_CommandEvent, SetExtraLong)
 
 Gura_DeclareMethod(wx_CommandEvent, SetInt)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "intCommand", VTYPE_number, OCCUR_Once);
 }
 
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_CommandEvent, SetInt)
 
 Gura_DeclareMethod(wx_CommandEvent, SetString)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "string", VTYPE_string, OCCUR_Once);
 }
 

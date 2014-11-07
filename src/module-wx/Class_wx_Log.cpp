@@ -44,7 +44,7 @@ void wx_Log::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(Log)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Log));
 }
 
@@ -56,7 +56,7 @@ Gura_ImplementFunction(Log)
 
 Gura_DeclareClassMethod(wx_Log, AddTraceMask)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mask", VTYPE_string, OCCUR_Once);
 }
 
@@ -70,7 +70,7 @@ Gura_ImplementClassMethod(wx_Log, AddTraceMask)
 
 Gura_DeclareClassMethod(wx_Log, ClearTraceMasks)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementClassMethod(wx_Log, ClearTraceMasks)
@@ -82,7 +82,7 @@ Gura_ImplementClassMethod(wx_Log, ClearTraceMasks)
 
 Gura_DeclareClassMethod(wx_Log, GetTraceMasks)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementClassMethod(wx_Log, GetTraceMasks)
 
 Gura_DeclareClassMethod(wx_Log, OnLog)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
@@ -117,7 +117,7 @@ Gura_ImplementClassMethod(wx_Log, OnLog)
 
 Gura_DeclareClassMethod(wx_Log, GetActiveTarget)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -132,7 +132,7 @@ Gura_ImplementClassMethod(wx_Log, GetActiveTarget)
 
 Gura_DeclareClassMethod(wx_Log, SetActiveTarget)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "logtarget", VTYPE_wx_Log, OCCUR_Once, FLAG_Nil);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -150,7 +150,7 @@ Gura_ImplementClassMethod(wx_Log, SetActiveTarget)
 
 Gura_DeclareClassMethod(wx_Log, Suspend)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementClassMethod(wx_Log, Suspend)
@@ -162,7 +162,7 @@ Gura_ImplementClassMethod(wx_Log, Suspend)
 
 Gura_DeclareClassMethod(wx_Log, Resume)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementClassMethod(wx_Log, Resume)
@@ -174,7 +174,7 @@ Gura_ImplementClassMethod(wx_Log, Resume)
 
 Gura_DeclareMethod(wx_Log, DoLog)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "*msg", VTYPE_number, OCCUR_Once);
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_Log, DoLog)
 
 Gura_DeclareMethod(wx_Log, DoLogString)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "*msg", VTYPE_number, OCCUR_Once);
 #endif
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_Log, DoLogString)
 
 Gura_DeclareClassMethod(wx_Log, DontCreateOnDemand)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementClassMethod(wx_Log, DontCreateOnDemand)
@@ -230,7 +230,7 @@ Gura_ImplementClassMethod(wx_Log, DontCreateOnDemand)
 
 Gura_DeclareMethod(wx_Log, Flush)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Log, Flush)
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_Log, Flush)
 
 Gura_DeclareClassMethod(wx_Log, FlushActive)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementClassMethod(wx_Log, FlushActive)
@@ -255,7 +255,7 @@ Gura_ImplementClassMethod(wx_Log, FlushActive)
 
 Gura_DeclareClassMethod(wx_Log, SetVerbose)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "verbose", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -270,7 +270,7 @@ Gura_ImplementClassMethod(wx_Log, SetVerbose)
 
 Gura_DeclareClassMethod(wx_Log, GetVerbose)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -283,7 +283,7 @@ Gura_ImplementClassMethod(wx_Log, GetVerbose)
 
 Gura_DeclareClassMethod(wx_Log, SetLogLevel)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "logLevel", VTYPE_number, OCCUR_Once);
 }
 
@@ -297,7 +297,7 @@ Gura_ImplementClassMethod(wx_Log, SetLogLevel)
 
 Gura_DeclareClassMethod(wx_Log, GetLogLevel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -310,7 +310,7 @@ Gura_ImplementClassMethod(wx_Log, GetLogLevel)
 
 Gura_DeclareClassMethod(wx_Log, SetRepetitionCounting)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "repetCounting", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -325,7 +325,7 @@ Gura_ImplementClassMethod(wx_Log, SetRepetitionCounting)
 
 Gura_DeclareClassMethod(wx_Log, GetRepetitionCounting)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -338,7 +338,7 @@ Gura_ImplementClassMethod(wx_Log, GetRepetitionCounting)
 
 Gura_DeclareClassMethod(wx_Log, SetTimestamp)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_string, OCCUR_Once);
 }
 
@@ -357,7 +357,7 @@ Gura_ImplementClassMethod(wx_Log, SetTimestamp)
 
 Gura_DeclareClassMethod(wx_Log, DisableTimestamp)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementClassMethod(wx_Log, DisableTimestamp)
@@ -374,7 +374,7 @@ Gura_ImplementClassMethod(wx_Log, DisableTimestamp)
 
 Gura_DeclareClassMethod(wx_Log, GetTimestamp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -387,7 +387,7 @@ Gura_ImplementClassMethod(wx_Log, GetTimestamp)
 
 Gura_DeclareClassMethod(wx_Log, SetTraceMask)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mask", VTYPE_number, OCCUR_Once);
 }
 
@@ -401,7 +401,7 @@ Gura_ImplementClassMethod(wx_Log, SetTraceMask)
 
 Gura_DeclareClassMethod(wx_Log, IsAllowedTraceMask)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "mask", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -416,7 +416,7 @@ Gura_ImplementClassMethod(wx_Log, IsAllowedTraceMask)
 
 Gura_DeclareClassMethod(wx_Log, RemoveTraceMask)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mask", VTYPE_string, OCCUR_Once);
 }
 

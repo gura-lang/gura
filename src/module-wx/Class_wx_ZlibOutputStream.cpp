@@ -38,7 +38,7 @@ void wx_ZlibOutputStream::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ZlibOutputStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ZlibOutputStream));
 	DeclareArg(env, "stream", VTYPE_wx_OutputStream, OCCUR_Once);
 	DeclareArg(env, "level", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -68,7 +68,7 @@ Gura_ImplementFunction(ZlibOutputStream)
 
 Gura_DeclareClassMethod(wx_ZlibOutputStream, CanHandleGZip)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

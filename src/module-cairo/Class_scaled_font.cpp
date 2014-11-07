@@ -28,7 +28,7 @@ String Object_scaled_font::ToString(bool exprFlag)
 //            font_matrix:matrix, ctm:matrix, options:cairo.font_options) {block?}
 Gura_DeclareClassMethod(scaled_font, create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "font_face", VTYPE_font_face);
 	DeclareArg(env, "font_matrix", VTYPE_matrix);
 	DeclareArg(env, "ctm", VTYPE_matrix);

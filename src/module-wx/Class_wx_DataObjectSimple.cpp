@@ -45,7 +45,7 @@ void wx_DataObjectSimple::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DataObjectSimple)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DataObjectSimple));
 	DeclareArg(env, "format", VTYPE_wx_DataFormat, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -70,7 +70,7 @@ Gura_ImplementFunction(DataObjectSimple)
 
 Gura_DeclareMethod(wx_DataObjectSimple, GetFormat)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_DataObjectSimple, GetFormat)
 
 Gura_DeclareMethod(wx_DataObjectSimple, SetFormat)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_wx_DataFormat, OCCUR_Once);
 }
 
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_DataObjectSimple, SetFormat)
 
 Gura_DeclareMethod(wx_DataObjectSimple, GetDataSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_DataObjectSimple, GetDataSize)
 
 Gura_DeclareMethod(wx_DataObjectSimple, GetDataHere)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "*buf", VTYPE_number, OCCUR_Once);
 #endif
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_DataObjectSimple, GetDataHere)
 
 Gura_DeclareMethod(wx_DataObjectSimple, SetData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "*buf", VTYPE_number, OCCUR_Once);

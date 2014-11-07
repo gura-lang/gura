@@ -50,7 +50,7 @@ String Object_template::ToString(bool exprFlag)
 // template(src?:stream:r):map:[noindent,lasteol] {block?}
 Gura_DeclareFunctionAlias(template_, "template")
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "src", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareAttr(Gura_Symbol(noindent));
 	DeclareAttr(Gura_Symbol(lasteol));
@@ -77,7 +77,7 @@ Gura_ImplementFunction(template_)
 // template#block(symbol:symbol):void {block}
 Gura_DeclareMethod(template_, block)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareBlock(OCCUR_Once);
 }
@@ -90,7 +90,7 @@ Gura_ImplementMethod(template_, block)
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 						pSymbol, Expr::Reference(pExprBlock), FUNCTYPE_Instance));
-	pFunc->SetMode(RSLTMODE_Void, FLAG_DynamicScope);
+	pFunc->SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_DynamicScope);
 	ValueMap &valueMap = pTemplate->GetValueMap();
 	if (valueMap.find(pSymbol) != valueMap.end()) {
 		sig.SetError(ERR_KeyError, "duplicated symbol: %s", pSymbol->GetName());
@@ -103,7 +103,7 @@ Gura_ImplementMethod(template_, block)
 // template#call(symbol:symbol, args*):void
 Gura_DeclareMethod(template_, call)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
 }
@@ -117,7 +117,7 @@ Gura_ImplementMethod(template_, call)
 // template#def(symbol:symbol, `args*):void {block}
 Gura_DeclareMethod(template_, def)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_Once);
@@ -131,7 +131,7 @@ Gura_ImplementMethod(template_, def)
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 						pSymbol, Expr::Reference(pExprBlock), FUNCTYPE_Instance));
-	pFunc->SetMode(RSLTMODE_Void, FLAG_DynamicScope);
+	pFunc->SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_DynamicScope);
 	AutoPtr<Args> pArgsSub(new Args());
 	do {
 		AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
@@ -154,7 +154,7 @@ Gura_ImplementMethod(template_, def)
 // template#embed(template):void
 Gura_DeclareMethod(template_, embed)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "template", VTYPE_any);
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementMethod(template_, embed)
 // template#extends(super:template):void
 Gura_DeclareMethod(template_, extends)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "super", VTYPE_template);
 }
 
@@ -182,7 +182,7 @@ Gura_ImplementMethod(template_, extends)
 // template#parse(str:string):void:[noindent,lasteol]
 Gura_DeclareMethod(template_, parse)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "str", VTYPE_string);
 	DeclareAttr(Gura_Symbol(noindent));
 	DeclareAttr(Gura_Symbol(lasteol));
@@ -201,7 +201,7 @@ Gura_ImplementMethod(template_, parse)
 // template#read(src:stream:r):void:[noindent,lasteol]
 Gura_DeclareMethod(template_, read)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "src", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareAttr(Gura_Symbol(noindent));
 	DeclareAttr(Gura_Symbol(lasteol));
@@ -219,7 +219,7 @@ Gura_ImplementMethod(template_, read)
 // template#render(dst?:stream:w)
 Gura_DeclareMethod(template_, render)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "dst", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 }
 
@@ -241,7 +241,7 @@ Gura_ImplementMethod(template_, render)
 // template#super(symbol):void
 Gura_DeclareMethod(template_, super)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "super", VTYPE_any);
 }
 
@@ -254,7 +254,7 @@ Gura_ImplementMethod(template_, super)
 // template#_R_block(symbol:symbol):void
 Gura_DeclareMethod(template_, _R_block)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 }
 
@@ -275,7 +275,7 @@ Gura_ImplementMethod(template_, _R_block)
 // template#_R_call(symbol:symbol, args*):void
 Gura_DeclareMethod(template_, _R_call)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
 }
@@ -298,7 +298,7 @@ Gura_ImplementMethod(template_, _R_call)
 // template#_R_def(symbol:symbol, `args*):void
 Gura_DeclareMethod(template_, _R_def)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrMore);
 }
@@ -312,7 +312,7 @@ Gura_ImplementMethod(template_, _R_def)
 // template#_R_embed(template:template):void
 Gura_DeclareMethod(template_, _R_embed)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "template", VTYPE_template);
 }
 
@@ -328,7 +328,7 @@ Gura_ImplementMethod(template_, _R_embed)
 // template#_R_extends(super):void:[lasteol,noindent]
 Gura_DeclareMethod(template_, _R_extends)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "super", VTYPE_any);
 	DeclareAttr(Gura_Symbol(lasteol));
 	DeclareAttr(Gura_Symbol(noindent));
@@ -343,7 +343,7 @@ Gura_ImplementMethod(template_, _R_extends)
 // template#_R_super(symbol:symbol):void
 Gura_DeclareMethod(template_, _R_super)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 }
 

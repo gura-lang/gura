@@ -53,7 +53,7 @@ bool wx_Thread::TestDestroy()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(Thread)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_Thread));
 	DeclareArg(env, "kind", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(Thread)
 
 Gura_DeclareMethod(wx_Thread, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stackSize", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_Thread, Create)
 
 Gura_DeclareMethod(wx_Thread, Delete)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_Thread, Delete)
 
 Gura_DeclareMethod(wx_Thread, Entry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_Thread, Entry)
 
 Gura_DeclareMethod(wx_Thread, Exit)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "exitcode", VTYPE_number, OCCUR_ZeroOrOnce);
 #endif
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_Thread, Exit)
 
 Gura_DeclareClassMethod(wx_Thread, GetCPUCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -168,7 +168,7 @@ Gura_ImplementClassMethod(wx_Thread, GetCPUCount)
 
 Gura_DeclareClassMethod(wx_Thread, GetCurrentId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -181,7 +181,7 @@ Gura_ImplementClassMethod(wx_Thread, GetCurrentId)
 
 Gura_DeclareMethod(wx_Thread, GetId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_Thread, GetId)
 
 Gura_DeclareMethod(wx_Thread, GetPriority)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_Thread, GetPriority)
 
 Gura_DeclareMethod(wx_Thread, IsAlive)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -223,7 +223,7 @@ Gura_ImplementMethod(wx_Thread, IsAlive)
 
 Gura_DeclareMethod(wx_Thread, IsDetached)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -237,7 +237,7 @@ Gura_ImplementMethod(wx_Thread, IsDetached)
 
 Gura_DeclareClassMethod(wx_Thread, IsMain)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -250,7 +250,7 @@ Gura_ImplementClassMethod(wx_Thread, IsMain)
 
 Gura_DeclareMethod(wx_Thread, IsPaused)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_Thread, IsPaused)
 
 Gura_DeclareMethod(wx_Thread, IsRunning)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -278,7 +278,7 @@ Gura_ImplementMethod(wx_Thread, IsRunning)
 
 Gura_DeclareMethod(wx_Thread, Kill)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -293,7 +293,7 @@ Gura_ImplementMethod(wx_Thread, Kill)
 #if 0
 Gura_DeclareMethod(wx_Thread, OnExit)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Thread, OnExit)
@@ -307,7 +307,7 @@ Gura_ImplementMethod(wx_Thread, OnExit)
 
 Gura_DeclareMethod(wx_Thread, Pause)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -321,7 +321,7 @@ Gura_ImplementMethod(wx_Thread, Pause)
 
 Gura_DeclareMethod(wx_Thread, Run)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -335,7 +335,7 @@ Gura_ImplementMethod(wx_Thread, Run)
 
 Gura_DeclareMethod(wx_Thread, SetPriority)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "priority", VTYPE_number, OCCUR_Once);
 }
 
@@ -350,7 +350,7 @@ Gura_ImplementMethod(wx_Thread, SetPriority)
 
 Gura_DeclareClassMethod(wx_Thread, Sleep)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "milliseconds", VTYPE_number, OCCUR_Once);
 }
 
@@ -364,7 +364,7 @@ Gura_ImplementClassMethod(wx_Thread, Sleep)
 
 Gura_DeclareMethod(wx_Thread, Resume)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -378,7 +378,7 @@ Gura_ImplementMethod(wx_Thread, Resume)
 
 Gura_DeclareClassMethod(wx_Thread, SetConcurrency)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -393,7 +393,7 @@ Gura_ImplementClassMethod(wx_Thread, SetConcurrency)
 
 Gura_DeclareMethod(wx_Thread, TestDestroy)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -412,7 +412,7 @@ Gura_ImplementMethod(wx_Thread, TestDestroy)
 
 Gura_DeclareClassMethod(wx_Thread, This)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -425,7 +425,7 @@ Gura_ImplementClassMethod(wx_Thread, This)
 
 Gura_DeclareMethod(wx_Thread, Yield)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Thread, Yield)
@@ -438,7 +438,7 @@ Gura_ImplementMethod(wx_Thread, Yield)
 
 Gura_DeclareMethod(wx_Thread, Wait)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

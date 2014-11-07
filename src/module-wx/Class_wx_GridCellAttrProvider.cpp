@@ -58,7 +58,7 @@ void wx_GridCellAttrProvider::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GridCellAttrProvider)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellAttrProvider));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -80,7 +80,7 @@ Gura_ImplementFunction(GridCellAttrProvider)
 
 Gura_DeclareMethod(wx_GridCellAttrProvider, GetAttr)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);

@@ -39,7 +39,7 @@ void wx_HyperlinkCtrl::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HyperlinkCtrl)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
@@ -80,7 +80,7 @@ Gura_ImplementFunction(HyperlinkCtrl)
 
 Gura_DeclareMethod(wx_HyperlinkCtrl, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, Create)
 
 Gura_DeclareMethod(wx_HyperlinkCtrl, GetHoverColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, GetHoverColour)
 
 Gura_DeclareMethod(wx_HyperlinkCtrl, SetHoverColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, SetHoverColour)
 
 Gura_DeclareMethod(wx_HyperlinkCtrl, GetNormalColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, GetNormalColour)
 
 Gura_DeclareMethod(wx_HyperlinkCtrl, SetNormalColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, SetNormalColour)
 
 Gura_DeclareMethod(wx_HyperlinkCtrl, GetVisitedColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, GetVisitedColour)
 
 Gura_DeclareMethod(wx_HyperlinkCtrl, SetVisitedColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, SetVisitedColour)
 
 Gura_DeclareMethod(wx_HyperlinkCtrl, GetVisited)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, GetVisited)
 
 Gura_DeclareMethod(wx_HyperlinkCtrl, SetVisited)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "visited", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -231,7 +231,7 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, SetVisited)
 
 Gura_DeclareMethod(wx_HyperlinkCtrl, GetURL)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -245,7 +245,7 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, GetURL)
 
 Gura_DeclareMethod(wx_HyperlinkCtrl, SetURL)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "url", VTYPE_string, OCCUR_Once);
 }
 

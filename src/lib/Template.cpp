@@ -97,7 +97,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 	if (pTemplate->GetFuncForBody() == NULL) {
 		AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 				Gura_Symbol(_anonymous_), new Expr_Block(), FUNCTYPE_Instance));
-		pFunc->SetMode(RSLTMODE_Void, FLAG_DynamicScope);
+		pFunc->SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_DynamicScope);
 		pTemplate->SetFuncForBody(pFunc.release());
 	}
 	Expr_Block *pExprBlockRoot = dynamic_cast<Expr_Block *>(

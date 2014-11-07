@@ -38,7 +38,7 @@ void wx_WindowDisabler::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(WindowDisabler)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_WindowDisabler));
 	DeclareArg(env, "winToSkip", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_Once);

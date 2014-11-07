@@ -37,7 +37,7 @@ void wx_SimpleHelpProvider::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(SimpleHelpProvider)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SimpleHelpProvider));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

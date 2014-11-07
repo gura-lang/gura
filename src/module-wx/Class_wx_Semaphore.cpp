@@ -38,7 +38,7 @@ void wx_Semaphore::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(Semaphore)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Semaphore));
 	DeclareArg(env, "initialcount", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "maxcount", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(Semaphore)
 
 Gura_DeclareMethod(wx_Semaphore, Post)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_Semaphore, Post)
 
 Gura_DeclareMethod(wx_Semaphore, TryWait)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_Semaphore, TryWait)
 
 Gura_DeclareMethod(wx_Semaphore, Wait)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_Semaphore, Wait)
 
 Gura_DeclareMethod(wx_Semaphore, WaitTimeout)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "timeout_millis", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

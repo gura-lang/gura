@@ -39,7 +39,7 @@ void wx_PlatformInfo::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(PlatformInfoEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PlatformInfo));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(PlatformInfoEmpty)
 
 Gura_DeclareFunction(PlatformInfo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_PlatformInfo));
 	DeclareArg(env, "pid", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "tkMajor", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -107,7 +107,7 @@ Gura_ImplementFunction(PlatformInfo)
 
 Gura_DeclareMethod(wx_PlatformInfo, CheckOSVersion)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "major", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "minor", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_PlatformInfo, CheckOSVersion)
 
 Gura_DeclareMethod(wx_PlatformInfo, CheckToolkitVersion)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "major", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "minor", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_PlatformInfo, CheckToolkitVersion)
 
 Gura_DeclareClassMethod(wx_PlatformInfo, Get)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -156,7 +156,7 @@ Gura_ImplementClassMethod(wx_PlatformInfo, Get)
 
 Gura_DeclareClassMethod(wx_PlatformInfo, GetArch)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "arch", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -171,7 +171,7 @@ Gura_ImplementClassMethod(wx_PlatformInfo, GetArch)
 
 Gura_DeclareClassMethod(wx_PlatformInfo, GetArchName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "arch", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -186,7 +186,7 @@ Gura_ImplementClassMethod(wx_PlatformInfo, GetArchName)
 
 Gura_DeclareMethod(wx_PlatformInfo, GetArchName_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_PlatformInfo, GetArchName_1)
 
 Gura_DeclareMethod(wx_PlatformInfo, GetArchitecture)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_PlatformInfo, GetArchitecture)
 
 Gura_DeclareClassMethod(wx_PlatformInfo, GetEndianness)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "end", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -229,7 +229,7 @@ Gura_ImplementClassMethod(wx_PlatformInfo, GetEndianness)
 
 Gura_DeclareMethod(wx_PlatformInfo, GetEndianness_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_PlatformInfo, GetEndianness_1)
 
 Gura_DeclareClassMethod(wx_PlatformInfo, GetEndiannessName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "end", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -258,7 +258,7 @@ Gura_ImplementClassMethod(wx_PlatformInfo, GetEndiannessName)
 
 Gura_DeclareMethod(wx_PlatformInfo, GetEndiannessName_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -272,7 +272,7 @@ Gura_ImplementMethod(wx_PlatformInfo, GetEndiannessName_1)
 
 Gura_DeclareMethod(wx_PlatformInfo, GetOSMajorVersion)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -286,7 +286,7 @@ Gura_ImplementMethod(wx_PlatformInfo, GetOSMajorVersion)
 
 Gura_DeclareMethod(wx_PlatformInfo, GetOSMinorVersion)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -300,7 +300,7 @@ Gura_ImplementMethod(wx_PlatformInfo, GetOSMinorVersion)
 
 Gura_DeclareClassMethod(wx_PlatformInfo, GetOperatingSystemFamilyName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "os", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -315,7 +315,7 @@ Gura_ImplementClassMethod(wx_PlatformInfo, GetOperatingSystemFamilyName)
 
 Gura_DeclareMethod(wx_PlatformInfo, GetOperatingSystemFamilyName_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -329,7 +329,7 @@ Gura_ImplementMethod(wx_PlatformInfo, GetOperatingSystemFamilyName_1)
 
 Gura_DeclareClassMethod(wx_PlatformInfo, GetOperatingSystemId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -344,7 +344,7 @@ Gura_ImplementClassMethod(wx_PlatformInfo, GetOperatingSystemId)
 
 Gura_DeclareMethod(wx_PlatformInfo, GetOperatingSystemId_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -358,7 +358,7 @@ Gura_ImplementMethod(wx_PlatformInfo, GetOperatingSystemId_1)
 
 Gura_DeclareClassMethod(wx_PlatformInfo, GetOperatingSystemIdName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "os", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -373,7 +373,7 @@ Gura_ImplementClassMethod(wx_PlatformInfo, GetOperatingSystemIdName)
 
 Gura_DeclareMethod(wx_PlatformInfo, GetOperatingSystemIdName_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -387,7 +387,7 @@ Gura_ImplementMethod(wx_PlatformInfo, GetOperatingSystemIdName_1)
 
 Gura_DeclareClassMethod(wx_PlatformInfo, GetPortId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "portname", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -402,7 +402,7 @@ Gura_ImplementClassMethod(wx_PlatformInfo, GetPortId)
 
 Gura_DeclareMethod(wx_PlatformInfo, GetPortId_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -416,7 +416,7 @@ Gura_ImplementMethod(wx_PlatformInfo, GetPortId_1)
 
 Gura_DeclareClassMethod(wx_PlatformInfo, GetPortIdName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "port", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "usingUniversal", VTYPE_boolean, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -433,7 +433,7 @@ Gura_ImplementClassMethod(wx_PlatformInfo, GetPortIdName)
 
 Gura_DeclareMethod(wx_PlatformInfo, GetPortIdName_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -447,7 +447,7 @@ Gura_ImplementMethod(wx_PlatformInfo, GetPortIdName_1)
 
 Gura_DeclareClassMethod(wx_PlatformInfo, GetPortIdShortName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "port", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "usingUniversal", VTYPE_boolean, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -464,7 +464,7 @@ Gura_ImplementClassMethod(wx_PlatformInfo, GetPortIdShortName)
 
 Gura_DeclareMethod(wx_PlatformInfo, GetPortIdShortName_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -478,7 +478,7 @@ Gura_ImplementMethod(wx_PlatformInfo, GetPortIdShortName_1)
 
 Gura_DeclareMethod(wx_PlatformInfo, GetToolkitMajorVersion)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -492,7 +492,7 @@ Gura_ImplementMethod(wx_PlatformInfo, GetToolkitMajorVersion)
 
 Gura_DeclareMethod(wx_PlatformInfo, GetToolkitMinorVersion)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -506,7 +506,7 @@ Gura_ImplementMethod(wx_PlatformInfo, GetToolkitMinorVersion)
 
 Gura_DeclareMethod(wx_PlatformInfo, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -520,7 +520,7 @@ Gura_ImplementMethod(wx_PlatformInfo, IsOk)
 
 Gura_DeclareMethod(wx_PlatformInfo, IsUsingUniversalWidgets)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -534,7 +534,7 @@ Gura_ImplementMethod(wx_PlatformInfo, IsUsingUniversalWidgets)
 
 Gura_DeclareMethod(wx_PlatformInfo, SetArchitecture)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -549,7 +549,7 @@ Gura_ImplementMethod(wx_PlatformInfo, SetArchitecture)
 
 Gura_DeclareMethod(wx_PlatformInfo, SetEndianness)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -564,7 +564,7 @@ Gura_ImplementMethod(wx_PlatformInfo, SetEndianness)
 
 Gura_DeclareMethod(wx_PlatformInfo, SetOSVersion)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "major", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "minor", VTYPE_number, OCCUR_Once);
 }
@@ -581,7 +581,7 @@ Gura_ImplementMethod(wx_PlatformInfo, SetOSVersion)
 
 Gura_DeclareMethod(wx_PlatformInfo, SetOperatingSystemId)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -596,7 +596,7 @@ Gura_ImplementMethod(wx_PlatformInfo, SetOperatingSystemId)
 
 Gura_DeclareMethod(wx_PlatformInfo, SetPortId)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -611,7 +611,7 @@ Gura_ImplementMethod(wx_PlatformInfo, SetPortId)
 
 Gura_DeclareMethod(wx_PlatformInfo, SetToolkitVersion)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "major", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "minor", VTYPE_number, OCCUR_Once);
 }

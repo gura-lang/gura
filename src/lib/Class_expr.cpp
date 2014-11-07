@@ -5,7 +5,7 @@
 
 #define ImplementTypeChecker(symbol, func) \
 Gura_DeclareMethod(expr, is##symbol) { \
-	SetMode(RSLTMODE_Normal, FLAG_None); \
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None); \
 	AddHelp( \
 		Gura_Symbol(en), Help::FMT_markdown, \
 		"Returns `true` if expr is an expression of " #symbol "."); \
@@ -278,7 +278,7 @@ String Object_expr::ToString(bool exprFlag)
 // expr(src:stream:r) {block?}
 Gura_DeclareFunction(expr)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "src", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_expr));
@@ -299,7 +299,7 @@ Gura_ImplementFunction(expr)
 // expr#eval(env?:environment)
 Gura_DeclareMethod(expr, eval)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "env", VTYPE_environment, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -320,7 +320,7 @@ Gura_ImplementMethod(expr, eval)
 // expr.parse(script:string) {block?}
 Gura_DeclareClassMethod(expr, parse)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "script", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -342,7 +342,7 @@ Gura_ImplementClassMethod(expr, parse)
 // expr#textize(style?:symbol, indent?:string)
 Gura_DeclareMethod(expr, textize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "style", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "indent", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -384,7 +384,7 @@ Gura_ImplementMethod(expr, textize)
 // expr#tofunction(`args*)
 Gura_DeclareMethod(expr, tofunction)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -418,7 +418,7 @@ Gura_ImplementMethod(expr, tofunction)
 // expr#unquote()
 Gura_DeclareMethod(expr, unquote)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(expr, unquote)
@@ -431,7 +431,7 @@ Gura_ImplementMethod(expr, unquote)
 // expr#write(dst:stream:w, style?:symbol, indent?:string)
 Gura_DeclareMethod(expr, write)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "dst", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "style", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "indent", VTYPE_string, OCCUR_ZeroOrOnce);

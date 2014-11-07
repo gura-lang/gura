@@ -51,7 +51,7 @@ void Object_iterator::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 // iterator(value+) {block?}
 Gura_DeclareFunction(iterator)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_iterator));
@@ -76,7 +76,7 @@ Gura_ImplementFunction(iterator)
 // range(num:number, num_end?:number, step?:number):map {block?}
 Gura_DeclareFunction(range)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num",		VTYPE_number);
 	DeclareArg(env, "num_end",	VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "step",		VTYPE_number, OCCUR_ZeroOrOnce);
@@ -132,7 +132,7 @@ Gura_ImplementFunction(range)
 // interval(a:number, b:number, samples:number):map:[open,open_l,open_r] {block?}
 Gura_DeclareFunction(interval)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "a", VTYPE_number);
 	DeclareArg(env, "b", VTYPE_number);
 	DeclareArg(env, "samples", VTYPE_number);
@@ -174,7 +174,7 @@ Gura_ImplementFunction(interval)
 // consts(value, num?:number) {block?}
 Gura_DeclareFunction(consts)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
 	DeclareArg(env, "num", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -194,7 +194,7 @@ Gura_ImplementFunction(consts)
 // rands(range?:number, num?:number) {block?}
 Gura_DeclareFunction(rands)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "range", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "num", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -214,7 +214,7 @@ Gura_ImplementFunction(rands)
 // iterator#delay(delay:number) {block?}
 Gura_DeclareMethod(iterator, delay)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "delay", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -230,7 +230,7 @@ Gura_ImplementMethod(iterator, delay)
 // iterator#isinfinite()
 Gura_DeclareMethod(iterator, isinfinite)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(iterator, isinfinite)
@@ -242,7 +242,7 @@ Gura_ImplementMethod(iterator, isinfinite)
 // iterator#next()
 Gura_DeclareMethod(iterator, next)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(iterator, next)
@@ -256,7 +256,7 @@ Gura_ImplementMethod(iterator, next)
 // iterator#print(stream?:stream:w)
 Gura_DeclareMethod(iterator, print)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 }
 
@@ -280,7 +280,7 @@ Gura_ImplementMethod(iterator, print)
 // iterator#printf(format:string, stream?:stream:w)
 Gura_DeclareMethod(iterator, printf)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 }
@@ -308,7 +308,7 @@ Gura_ImplementMethod(iterator, printf)
 // iterator#println(stream?:stream:w)
 Gura_DeclareMethod(iterator, println)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 }
 
@@ -332,7 +332,7 @@ Gura_ImplementMethod(iterator, println)
 // iterator#repeater()
 Gura_DeclareMethod(iterator, repeater)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(iterator, repeater)
@@ -345,7 +345,7 @@ Gura_ImplementMethod(iterator, repeater)
 // iterator#after(criteria) {block?}
 Gura_DeclareMethod(iterator, after)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -362,7 +362,7 @@ Gura_ImplementMethod(iterator, after)
 // iterator#align(n:number, value?) {block?}
 Gura_DeclareMethod(iterator, align)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -379,7 +379,7 @@ Gura_ImplementMethod(iterator, align)
 // iterator#and()
 Gura_DeclareMethodAlias(iterator, and_, "and")
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(iterator, and_)
@@ -395,7 +395,7 @@ Gura_ImplementMethod(iterator, and_)
 // iterator#average()
 Gura_DeclareMethod(iterator, average)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns an average of values in the iterator.");
@@ -415,7 +415,7 @@ Gura_ImplementMethod(iterator, average)
 // iterator#before(criteria) {block?}
 Gura_DeclareMethod(iterator, before)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -432,7 +432,7 @@ Gura_ImplementMethod(iterator, before)
 // iterator#contains(value)
 Gura_DeclareMethod(iterator, contains)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
@@ -452,7 +452,7 @@ Gura_ImplementMethod(iterator, contains)
 // iterator#count(criteria?)
 Gura_DeclareMethod(iterator, count)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
 }
 
@@ -469,7 +469,7 @@ Gura_ImplementMethod(iterator, count)
 // iterator#cycle(n?:number) {block?}
 Gura_DeclareMethod(iterator, cycle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -491,7 +491,7 @@ Gura_ImplementMethod(iterator, cycle)
 // iterator#each() {block?}
 Gura_DeclareMethod(iterator, each)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -505,7 +505,7 @@ Gura_ImplementMethod(iterator, each)
 // iterator#filter(criteria?) {block?}
 Gura_DeclareMethod(iterator, filter)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -527,7 +527,7 @@ Gura_ImplementMethod(iterator, filter)
 // iterator#find(criteria?):[index]
 Gura_DeclareMethod(iterator, find)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(index));
 	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
 }
@@ -548,7 +548,7 @@ Gura_ImplementMethod(iterator, find)
 // iterator#flat():[dfs,bfs] {block?}
 Gura_DeclareMethod(iterator, flat)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(dfs));
 	DeclareAttr(Gura_Symbol(bfs));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -576,7 +576,7 @@ Gura_ImplementMethod(iterator, flat)
 // iterator#fold(n:number):[iteritem] {block?}
 Gura_DeclareMethod(iterator, fold)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(iteritem));
@@ -594,7 +594,7 @@ Gura_ImplementMethod(iterator, fold)
 // iterator#format(format:string) {block?}
 Gura_DeclareMethod(iterator, format)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -610,7 +610,7 @@ Gura_ImplementMethod(iterator, format)
 // iterator#head(n:number):map {block?}
 Gura_DeclareMethod(iterator, head)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -626,7 +626,7 @@ Gura_ImplementMethod(iterator, head)
 // iterator#join(sep?:string)
 Gura_DeclareMethod(iterator, join)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "sep", VTYPE_string, OCCUR_ZeroOrOnce);
 }
 
@@ -661,7 +661,7 @@ Gura_ImplementMethod(iterator, join)
 // iterator#joinb()
 Gura_DeclareMethod(iterator, joinb)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(iterator, joinb)
@@ -689,7 +689,7 @@ Gura_ImplementMethod(iterator, joinb)
 // iterator#len()
 Gura_DeclareMethod(iterator, len)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns the length of the iterator.");
@@ -713,7 +713,7 @@ Gura_ImplementMethod(iterator, len)
 // iterator#map(func:Function) {block?}
 Gura_DeclareMethod(iterator, map)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "func", VTYPE_function);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -730,7 +730,7 @@ Gura_ImplementMethod(iterator, map)
 // iterator#max():[index,last_index,indices]
 Gura_DeclareMethod(iterator, max)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(index));
 	DeclareAttr(Gura_Symbol(last_index));
 	DeclareAttr(Gura_Symbol(indices));
@@ -756,7 +756,7 @@ Gura_ImplementMethod(iterator, max)
 // iterator#min():[index,last_index,indices]
 Gura_DeclareMethod(iterator, min)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(index));
 	DeclareAttr(Gura_Symbol(last_index));
 	DeclareAttr(Gura_Symbol(indices));
@@ -782,7 +782,7 @@ Gura_ImplementMethod(iterator, min)
 // iterator#nilto(replace) {block?}
 Gura_DeclareMethod(iterator, nilto)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "replace", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -798,7 +798,7 @@ Gura_ImplementMethod(iterator, nilto)
 // iterator#offset(n:number) {block?}
 Gura_DeclareMethod(iterator, offset)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -817,7 +817,7 @@ Gura_ImplementMethod(iterator, offset)
 // iterator#or()
 Gura_DeclareMethodAlias(iterator, or_, "or")
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(iterator, or_)
@@ -833,7 +833,7 @@ Gura_ImplementMethod(iterator, or_)
 // iterator#pack(format:string) {block?}
 Gura_DeclareMethod(iterator, pack)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -849,7 +849,7 @@ Gura_ImplementMethod(iterator, pack)
 // iterator#pingpong(n?:number):[sticky,sticky_l,sticky_r] {block?}
 Gura_DeclareMethod(iterator, pingpong)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(sticky));
@@ -878,7 +878,7 @@ Gura_ImplementMethod(iterator, pingpong)
 // iterator#rank(directive?):[stable] {block?}
 Gura_DeclareMethod(iterator, rank)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "directive", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -900,7 +900,7 @@ Gura_ImplementMethod(iterator, rank)
 // iterator#reduce(accum) {block}
 Gura_DeclareMethod(iterator, reduce)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "accum", VTYPE_any);
 	DeclareBlock(OCCUR_Once);
 }
@@ -923,7 +923,7 @@ Gura_ImplementMethod(iterator, reduce)
 // iterator#replace(value, replace) {block?}
 Gura_DeclareMethod(iterator, replace)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
 	DeclareArg(env, "replace", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -940,7 +940,7 @@ Gura_ImplementMethod(iterator, replace)
 // iterator#reverse() {block?}
 Gura_DeclareMethod(iterator, reverse)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -959,7 +959,7 @@ Gura_ImplementMethod(iterator, reverse)
 // iterator#roundoff(threshold:number => 1e-10) {block?}
 Gura_DeclareMethod(iterator, roundoff)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "threshold", VTYPE_number, OCCUR_Once, FLAG_None,
 											new Expr_Value(RoundOffThreshold));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -976,7 +976,7 @@ Gura_ImplementMethod(iterator, roundoff)
 // iterator#runlength() {block?}
 Gura_DeclareMethod(iterator, runlength)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -990,7 +990,7 @@ Gura_ImplementMethod(iterator, runlength)
 // iterator#since(criteria) {block?}
 Gura_DeclareMethod(iterator, since)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1007,7 +1007,7 @@ Gura_ImplementMethod(iterator, since)
 // iterator#skip(n:number) {block?}
 Gura_DeclareMethod(iterator, skip)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1023,7 +1023,7 @@ Gura_ImplementMethod(iterator, skip)
 // iterator#skipnil() {block?}
 Gura_DeclareMethod(iterator, skipnil)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1037,7 +1037,7 @@ Gura_ImplementMethod(iterator, skipnil)
 // iterator#sort(directive?, keys[]?):[stable] {block?}
 Gura_DeclareMethod(iterator, sort)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "directive", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "keys", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_List);
 	DeclareAttr(Gura_Symbol(stable));
@@ -1063,7 +1063,7 @@ Gura_ImplementMethod(iterator, sort)
 // iterator#stddev()
 Gura_DeclareMethod(iterator, stddev)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns a standard deviation of values in the iterator.");
@@ -1083,7 +1083,7 @@ Gura_ImplementMethod(iterator, stddev)
 // iterator#sum()
 Gura_DeclareMethod(iterator, sum)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns a sum of values in the iterator.");
@@ -1103,7 +1103,7 @@ Gura_ImplementMethod(iterator, sum)
 // iterator#tail(n:number) {block?}
 Gura_DeclareMethod(iterator, tail)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1127,7 +1127,7 @@ Gura_ImplementMethod(iterator, tail)
 // iterator#until(criteria) {block?}
 Gura_DeclareMethod(iterator, until)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1144,7 +1144,7 @@ Gura_ImplementMethod(iterator, until)
 // iterator#variance()
 Gura_DeclareMethod(iterator, variance)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns a variance of values in the iterator.");
@@ -1164,7 +1164,7 @@ Gura_ImplementMethod(iterator, variance)
 // iterator#walk():[dfs,bfs] {block?}
 Gura_DeclareMethod(iterator, walk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(dfs));
 	DeclareAttr(Gura_Symbol(bfs));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1190,7 +1190,7 @@ Gura_ImplementMethod(iterator, walk)
 // iterator#while(criteria) {block?}
 Gura_DeclareMethodAlias(iterator, while_, "while")
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

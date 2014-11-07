@@ -39,7 +39,7 @@ void wx_VListBox::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(VListBox)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_VListBox));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(VListBox)
 
 Gura_DeclareFunction(VListBoxEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_VListBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -112,7 +112,7 @@ Gura_ImplementFunction(VListBoxEmpty)
 
 Gura_DeclareMethod(wx_VListBox, Clear)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VListBox, Clear)
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_VListBox, Clear)
 
 Gura_DeclareMethod(wx_VListBox, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_VListBox, Create)
 
 Gura_DeclareMethod(wx_VListBox, DeselectAll)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_VListBox, DeselectAll)
 
 Gura_DeclareMethod(wx_VListBox, GetFirstSelected)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "cookie", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_VListBox, GetFirstSelected)
 
 Gura_DeclareMethod(wx_VListBox, GetItemCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_VListBox, GetItemCount)
 
 Gura_DeclareMethod(wx_VListBox, GetMargins)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_VListBox, GetMargins)
 
 Gura_DeclareMethod(wx_VListBox, GetNextSelected)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "cookie", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_VListBox, GetNextSelected)
 
 Gura_DeclareMethod(wx_VListBox, GetSelectedCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_VListBox, GetSelectedCount)
 
 Gura_DeclareMethod(wx_VListBox, GetSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -258,7 +258,7 @@ Gura_ImplementMethod(wx_VListBox, GetSelection)
 
 Gura_DeclareMethod(wx_VListBox, GetSelectionBackground)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -272,7 +272,7 @@ Gura_ImplementMethod(wx_VListBox, GetSelectionBackground)
 
 Gura_DeclareMethod(wx_VListBox, HasMultipleSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -286,7 +286,7 @@ Gura_ImplementMethod(wx_VListBox, HasMultipleSelection)
 
 Gura_DeclareMethod(wx_VListBox, IsCurrent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -302,7 +302,7 @@ Gura_ImplementMethod(wx_VListBox, IsCurrent)
 
 Gura_DeclareMethod(wx_VListBox, IsSelected)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -318,7 +318,7 @@ Gura_ImplementMethod(wx_VListBox, IsSelected)
 
 Gura_DeclareMethod(wx_VListBox, OnDrawBackground)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
@@ -343,7 +343,7 @@ Gura_ImplementMethod(wx_VListBox, OnDrawBackground)
 
 Gura_DeclareMethod(wx_VListBox, OnDrawItem)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
@@ -368,7 +368,7 @@ Gura_ImplementMethod(wx_VListBox, OnDrawItem)
 
 Gura_DeclareMethod(wx_VListBox, OnDrawSeparator)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
@@ -393,7 +393,7 @@ Gura_ImplementMethod(wx_VListBox, OnDrawSeparator)
 
 Gura_DeclareMethod(wx_VListBox, OnMeasureItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 #endif
@@ -415,7 +415,7 @@ Gura_ImplementMethod(wx_VListBox, OnMeasureItem)
 
 Gura_DeclareMethod(wx_VListBox, Select)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "select", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -434,7 +434,7 @@ Gura_ImplementMethod(wx_VListBox, Select)
 
 Gura_DeclareMethod(wx_VListBox, SelectAll)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -448,7 +448,7 @@ Gura_ImplementMethod(wx_VListBox, SelectAll)
 
 Gura_DeclareMethod(wx_VListBox, SelectRange)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -466,7 +466,7 @@ Gura_ImplementMethod(wx_VListBox, SelectRange)
 
 Gura_DeclareMethod(wx_VListBox, SetItemCount)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
 }
 
@@ -481,7 +481,7 @@ Gura_ImplementMethod(wx_VListBox, SetItemCount)
 
 Gura_DeclareMethod(wx_VListBox, SetMargins)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 }
 
@@ -496,7 +496,7 @@ Gura_ImplementMethod(wx_VListBox, SetMargins)
 
 Gura_DeclareMethod(wx_VListBox, SetMargins_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -513,7 +513,7 @@ Gura_ImplementMethod(wx_VListBox, SetMargins_1)
 
 Gura_DeclareMethod(wx_VListBox, SetSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "selection", VTYPE_number, OCCUR_Once);
 }
 
@@ -528,7 +528,7 @@ Gura_ImplementMethod(wx_VListBox, SetSelection)
 
 Gura_DeclareMethod(wx_VListBox, SetSelectionBackground)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -543,7 +543,7 @@ Gura_ImplementMethod(wx_VListBox, SetSelectionBackground)
 
 Gura_DeclareMethod(wx_VListBox, Toggle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 

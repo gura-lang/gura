@@ -39,7 +39,7 @@ void wx_MenuBar::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(MenuBar)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_MenuBar));
 	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -64,7 +64,7 @@ Gura_ImplementFunction(MenuBar)
 
 Gura_DeclareFunction(MenuBar_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_MenuBar));
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -101,7 +101,7 @@ Gura_ImplementFunction(MenuBar_1)
 
 Gura_DeclareMethod(wx_MenuBar, Append)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "menu", VTYPE_wx_Menu, OCCUR_Once);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_MenuBar, Append)
 
 Gura_DeclareMethod(wx_MenuBar, Check)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "check", VTYPE_boolean, OCCUR_Once);
 }
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_MenuBar, Check)
 
 Gura_DeclareMethod(wx_MenuBar, Enable)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "enable", VTYPE_boolean, OCCUR_Once);
 }
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_MenuBar, Enable)
 
 Gura_DeclareMethod(wx_MenuBar, EnableTop)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "enable", VTYPE_boolean, OCCUR_Once);
 }
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_MenuBar, EnableTop)
 
 Gura_DeclareMethod(wx_MenuBar, FindMenu)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_MenuBar, FindMenu)
 
 Gura_DeclareMethod(wx_MenuBar, FindMenuItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "menuString", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "itemString", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_MenuBar, FindMenuItem)
 
 Gura_DeclareMethod(wx_MenuBar, FindItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "**menu", VTYPE_wx_Menu, OCCUR_ZeroOrOnce);
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_MenuBar, FindItem)
 
 Gura_DeclareMethod(wx_MenuBar, GetHelpString)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -245,7 +245,7 @@ Gura_ImplementMethod(wx_MenuBar, GetHelpString)
 
 Gura_DeclareMethod(wx_MenuBar, GetLabel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -261,7 +261,7 @@ Gura_ImplementMethod(wx_MenuBar, GetLabel)
 
 Gura_DeclareMethod(wx_MenuBar, GetLabelTop)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -277,7 +277,7 @@ Gura_ImplementMethod(wx_MenuBar, GetLabelTop)
 
 Gura_DeclareMethod(wx_MenuBar, GetMenu)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "menuIndex", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -293,7 +293,7 @@ Gura_ImplementMethod(wx_MenuBar, GetMenu)
 
 Gura_DeclareMethod(wx_MenuBar, GetMenuCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -307,7 +307,7 @@ Gura_ImplementMethod(wx_MenuBar, GetMenuCount)
 
 Gura_DeclareMethod(wx_MenuBar, GetMenuLabel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -323,7 +323,7 @@ Gura_ImplementMethod(wx_MenuBar, GetMenuLabel)
 
 Gura_DeclareMethod(wx_MenuBar, GetMenuLabelText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -339,7 +339,7 @@ Gura_ImplementMethod(wx_MenuBar, GetMenuLabelText)
 
 Gura_DeclareMethod(wx_MenuBar, Insert)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "menu", VTYPE_wx_Menu, OCCUR_Once);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once);
@@ -359,7 +359,7 @@ Gura_ImplementMethod(wx_MenuBar, Insert)
 
 Gura_DeclareMethod(wx_MenuBar, IsChecked)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -375,7 +375,7 @@ Gura_ImplementMethod(wx_MenuBar, IsChecked)
 
 Gura_DeclareMethod(wx_MenuBar, IsEnabled)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -391,7 +391,7 @@ Gura_ImplementMethod(wx_MenuBar, IsEnabled)
 
 Gura_DeclareMethod(wx_MenuBar, Refresh)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MenuBar, Refresh)
@@ -404,7 +404,7 @@ Gura_ImplementMethod(wx_MenuBar, Refresh)
 
 Gura_DeclareMethod(wx_MenuBar, Remove)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -420,7 +420,7 @@ Gura_ImplementMethod(wx_MenuBar, Remove)
 
 Gura_DeclareMethod(wx_MenuBar, Replace)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "menu", VTYPE_wx_Menu, OCCUR_Once);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once);
@@ -440,7 +440,7 @@ Gura_ImplementMethod(wx_MenuBar, Replace)
 
 Gura_DeclareMethod(wx_MenuBar, SetHelpString)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "helpString", VTYPE_string, OCCUR_Once);
 }
@@ -457,7 +457,7 @@ Gura_ImplementMethod(wx_MenuBar, SetHelpString)
 
 Gura_DeclareMethod(wx_MenuBar, SetLabel)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
 }
@@ -474,7 +474,7 @@ Gura_ImplementMethod(wx_MenuBar, SetLabel)
 
 Gura_DeclareMethod(wx_MenuBar, SetLabelTop)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
 }
@@ -491,7 +491,7 @@ Gura_ImplementMethod(wx_MenuBar, SetLabelTop)
 
 Gura_DeclareMethod(wx_MenuBar, SetMenuLabel)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
 }

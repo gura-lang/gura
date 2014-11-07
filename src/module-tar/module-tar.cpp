@@ -206,7 +206,7 @@ Header *Object_reader::NextHeader(Signal sig)
 // tar.reader#entries() {block?}
 Gura_DeclareMethod(reader, entries)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -333,7 +333,7 @@ bool Object_writer::Close()
 // tar.writer#add(stream:stream:r, filename?:string):map:reduce
 Gura_DeclareMethod(writer, add)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_ZeroOrOnce);
 }
@@ -359,7 +359,7 @@ Gura_ImplementMethod(writer, add)
 // tar.writer#close():reduce
 Gura_DeclareMethod(writer, close)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 }
 
 Gura_ImplementMethod(writer, close)
@@ -714,7 +714,7 @@ Directory *PathMgr_TAR::DoOpenDirectory(Environment &env, Signal sig,
 // tar.reader(stream:stream:r, compression?:symbol) {block?}
 Gura_DeclareFunction(reader)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareArg(env, "compression", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -740,7 +740,7 @@ Gura_ImplementFunction(reader)
 // tar.writer(stream:stream:w, compression?:symbol) {block?}
 Gura_DeclareFunction(writer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "compression", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -766,7 +766,7 @@ Gura_ImplementFunction(writer)
 // tar.test(stream:stream:r)
 Gura_DeclareFunction(test)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 }
 

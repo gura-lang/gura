@@ -38,7 +38,7 @@ void wx_RichTextXMLHandler::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(RichTextXMLHandler)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextXMLHandler));
 	DeclareArg(env, "name", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ext", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(RichTextXMLHandler)
 
 Gura_DeclareMethod(wx_RichTextXMLHandler, CanLoad)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, CanLoad)
 
 Gura_DeclareMethod(wx_RichTextXMLHandler, CanSave)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, CanSave)
 #if 0
 Gura_DeclareMethod(wx_RichTextXMLHandler, CreateStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "attr", VTYPE_wx_TextAttrEx, OCCUR_Once);
 	DeclareArg(env, "isPara", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, CreateStyle)
 
 Gura_DeclareMethod(wx_RichTextXMLHandler, DoLoadFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buffer", VTYPE_wx_RichTextBuffer, OCCUR_Once);
 	DeclareArg(env, "stream", VTYPE_wx_InputStream, OCCUR_Once);
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, DoLoadFile)
 
 Gura_DeclareMethod(wx_RichTextXMLHandler, DoSaveFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buffer", VTYPE_wx_RichTextBuffer, OCCUR_Once);
 	DeclareArg(env, "stream", VTYPE_wx_OutputStream, OCCUR_Once);
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, DoSaveFile)
 
 Gura_DeclareMethod(wx_RichTextXMLHandler, ExportXML)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_wx_OutputStream, OCCUR_Once);
 	DeclareArg(env, "obj", VTYPE_wx_RichTextObject, OCCUR_Once);
 	DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, ExportXML)
 #if 0
 Gura_DeclareMethod(wx_RichTextXMLHandler, GetNodeContent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "node", VTYPE_wx_XmlNode, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, GetNodeContent)
 #if 0
 Gura_DeclareMethod(wx_RichTextXMLHandler, GetParamNode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "node", VTYPE_wx_XmlNode, OCCUR_Once);
 	DeclareArg(env, "param", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, GetParamNode)
 #if 0
 Gura_DeclareMethod(wx_RichTextXMLHandler, GetParamValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "node", VTYPE_wx_XmlNode, OCCUR_Once);
 	DeclareArg(env, "param", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -245,7 +245,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, GetParamValue)
 #if 0
 Gura_DeclareMethod(wx_RichTextXMLHandler, GetStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "attr", VTYPE_wx_TextAttrEx, OCCUR_Once);
 	DeclareArg(env, "node", VTYPE_wx_XmlNode, OCCUR_Once);
 	DeclareArg(env, "isPara", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -268,7 +268,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, GetStyle)
 #if 0
 Gura_DeclareMethod(wx_RichTextXMLHandler, GetText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "node", VTYPE_wx_XmlNode, OCCUR_Once);
 	DeclareArg(env, "param", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "translate", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -292,7 +292,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, GetText)
 #if 0
 Gura_DeclareMethod(wx_RichTextXMLHandler, HasParam)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "node", VTYPE_wx_XmlNode, OCCUR_Once);
 	DeclareArg(env, "param", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -311,7 +311,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, HasParam)
 
 Gura_DeclareMethod(wx_RichTextXMLHandler, ImportXML)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "buffer", VTYPE_wx_RichTextBuffer, OCCUR_Once);
 	DeclareArg(env, "obj", VTYPE_wx_RichTextObject, OCCUR_Once);
 	DeclareArg(env, "node", VTYPE_wx_XmlNode, OCCUR_Once);

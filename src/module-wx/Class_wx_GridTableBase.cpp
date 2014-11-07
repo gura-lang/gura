@@ -300,7 +300,7 @@ wxString wx_GridTableBase::GetColLabelValue(int col)
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GridTableBase)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GridTableBase));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -322,7 +322,7 @@ Gura_ImplementFunction(GridTableBase)
 
 Gura_DeclareMethod(wx_GridTableBase, GetTypeName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -340,7 +340,7 @@ Gura_ImplementMethod(wx_GridTableBase, GetTypeName)
 
 Gura_DeclareMethod(wx_GridTableBase, CanGetValueAs)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "typeName", VTYPE_string, OCCUR_Once);
@@ -360,7 +360,7 @@ Gura_ImplementMethod(wx_GridTableBase, CanGetValueAs)
 
 Gura_DeclareMethod(wx_GridTableBase, CanSetValueAs)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "typeName", VTYPE_string, OCCUR_Once);
@@ -380,7 +380,7 @@ Gura_ImplementMethod(wx_GridTableBase, CanSetValueAs)
 
 Gura_DeclareMethod(wx_GridTableBase, GetValueAsLong)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -398,7 +398,7 @@ Gura_ImplementMethod(wx_GridTableBase, GetValueAsLong)
 
 Gura_DeclareMethod(wx_GridTableBase, GetValueAsDouble)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -416,7 +416,7 @@ Gura_ImplementMethod(wx_GridTableBase, GetValueAsDouble)
 
 Gura_DeclareMethod(wx_GridTableBase, GetValueAsBool)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -434,7 +434,7 @@ Gura_ImplementMethod(wx_GridTableBase, GetValueAsBool)
 
 Gura_DeclareMethod(wx_GridTableBase, SetValueAsLong)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -453,7 +453,7 @@ Gura_ImplementMethod(wx_GridTableBase, SetValueAsLong)
 
 Gura_DeclareMethod(wx_GridTableBase, SetValueAsDouble)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -472,7 +472,7 @@ Gura_ImplementMethod(wx_GridTableBase, SetValueAsDouble)
 
 Gura_DeclareMethod(wx_GridTableBase, SetValueAsBool)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_boolean, OCCUR_Once);
@@ -491,7 +491,7 @@ Gura_ImplementMethod(wx_GridTableBase, SetValueAsBool)
 
 Gura_DeclareMethod(wx_GridTableBase, GetValueAsCustom)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "typeName", VTYPE_string, OCCUR_Once);
@@ -510,7 +510,7 @@ Gura_ImplementMethod(wx_GridTableBase, GetValueAsCustom)
 
 Gura_DeclareMethod(wx_GridTableBase, SetValueAsCustom)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
@@ -537,7 +537,7 @@ Gura_ImplementMethod(wx_GridTableBase, SetValueAsCustom)
 
 Gura_DeclareMethod(wx_GridTableBase, SetView)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "grid", VTYPE_wx_Grid, OCCUR_Once);
 }
 
@@ -552,7 +552,7 @@ Gura_ImplementMethod(wx_GridTableBase, SetView)
 
 Gura_DeclareMethod(wx_GridTableBase, GetView)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -566,7 +566,7 @@ Gura_ImplementMethod(wx_GridTableBase, GetView)
 
 Gura_DeclareMethod(wx_GridTableBase, Clear)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridTableBase, Clear)
@@ -579,7 +579,7 @@ Gura_ImplementMethod(wx_GridTableBase, Clear)
 
 Gura_DeclareMethod(wx_GridTableBase, InsertRows)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "numRows", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -599,7 +599,7 @@ Gura_ImplementMethod(wx_GridTableBase, InsertRows)
 
 Gura_DeclareMethod(wx_GridTableBase, AppendRows)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "numRows", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -616,7 +616,7 @@ Gura_ImplementMethod(wx_GridTableBase, AppendRows)
 
 Gura_DeclareMethod(wx_GridTableBase, DeleteRows)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "numRows", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -636,7 +636,7 @@ Gura_ImplementMethod(wx_GridTableBase, DeleteRows)
 
 Gura_DeclareMethod(wx_GridTableBase, InsertCols)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "numCols", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -656,7 +656,7 @@ Gura_ImplementMethod(wx_GridTableBase, InsertCols)
 
 Gura_DeclareMethod(wx_GridTableBase, AppendCols)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "numCols", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -673,7 +673,7 @@ Gura_ImplementMethod(wx_GridTableBase, AppendCols)
 
 Gura_DeclareMethod(wx_GridTableBase, DeleteCols)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "numCols", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -693,7 +693,7 @@ Gura_ImplementMethod(wx_GridTableBase, DeleteCols)
 
 Gura_DeclareMethod(wx_GridTableBase, GetRowLabelValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -709,7 +709,7 @@ Gura_ImplementMethod(wx_GridTableBase, GetRowLabelValue)
 
 Gura_DeclareMethod(wx_GridTableBase, GetColLabelValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -725,7 +725,7 @@ Gura_ImplementMethod(wx_GridTableBase, GetColLabelValue)
 
 Gura_DeclareMethod(wx_GridTableBase, SetRowLabelValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "WXUNUSED(row)", VTYPE_number, OCCUR_Once);
 #endif
@@ -746,7 +746,7 @@ Gura_ImplementMethod(wx_GridTableBase, SetRowLabelValue)
 
 Gura_DeclareMethod(wx_GridTableBase, SetColLabelValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "WXUNUSED(col)", VTYPE_number, OCCUR_Once);
 #endif
@@ -767,7 +767,7 @@ Gura_ImplementMethod(wx_GridTableBase, SetColLabelValue)
 
 Gura_DeclareMethod(wx_GridTableBase, SetAttrProvider)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "attrProvider", VTYPE_wx_GridCellAttrProvider, OCCUR_Once);
 }
 
@@ -782,7 +782,7 @@ Gura_ImplementMethod(wx_GridTableBase, SetAttrProvider)
 
 Gura_DeclareMethod(wx_GridTableBase, GetAttrProvider)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -796,7 +796,7 @@ Gura_ImplementMethod(wx_GridTableBase, GetAttrProvider)
 
 Gura_DeclareMethod(wx_GridTableBase, CanHaveAttributes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -810,7 +810,7 @@ Gura_ImplementMethod(wx_GridTableBase, CanHaveAttributes)
 
 Gura_DeclareMethod(wx_GridTableBase, UpdateAttrRows)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "numRows", VTYPE_number, OCCUR_Once);
@@ -833,7 +833,7 @@ Gura_ImplementMethod(wx_GridTableBase, UpdateAttrRows)
 
 Gura_DeclareMethod(wx_GridTableBase, UpdateAttrCols)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "numCols", VTYPE_number, OCCUR_Once);
@@ -856,7 +856,7 @@ Gura_ImplementMethod(wx_GridTableBase, UpdateAttrCols)
 
 Gura_DeclareMethod(wx_GridTableBase, GetAttr)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
@@ -880,7 +880,7 @@ Gura_ImplementMethod(wx_GridTableBase, GetAttr)
 
 Gura_DeclareMethod(wx_GridTableBase, SetAttr)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "attr", VTYPE_wx_GridCellAttr, OCCUR_Once);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
@@ -899,7 +899,7 @@ Gura_ImplementMethod(wx_GridTableBase, SetAttr)
 
 Gura_DeclareMethod(wx_GridTableBase, SetRowAttr)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "attr", VTYPE_wx_GridCellAttr, OCCUR_Once);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
@@ -916,7 +916,7 @@ Gura_ImplementMethod(wx_GridTableBase, SetRowAttr)
 
 Gura_DeclareMethod(wx_GridTableBase, SetColAttr)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "attr", VTYPE_wx_GridCellAttr, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }

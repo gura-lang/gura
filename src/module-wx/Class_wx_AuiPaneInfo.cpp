@@ -39,7 +39,7 @@ void wx_AuiPaneInfo::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(AuiPaneInfoEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AuiPaneInfo));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(AuiPaneInfoEmpty)
 
 Gura_DeclareFunction(AuiPaneInfo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_AuiPaneInfo));
 	DeclareArg(env, "c", VTYPE_wx_AuiPaneInfo, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -85,7 +85,7 @@ Gura_ImplementFunction(AuiPaneInfo)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, BestSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, BestSize)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, BestSize_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, BestSize_1)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Bottom)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Bottom)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, BottomDockable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "b", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, BottomDockable)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Caption)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Caption)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, CaptionVisible)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "visible", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, CaptionVisible)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Centre)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Centre)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Center)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -211,7 +211,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Center)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, CentrePane)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, CentrePane)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, CenterPane)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, CenterPane)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, CloseButton)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "visible", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -256,7 +256,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, CloseButton)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, DefaultPane)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -270,7 +270,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, DefaultPane)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, DestroyOnClose)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "b", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -287,7 +287,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, DestroyOnClose)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Direction)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -303,7 +303,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Direction)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Dock)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -317,7 +317,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Dock)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, DockFixed)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "b", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -334,7 +334,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, DockFixed)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Dockable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "b", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -351,7 +351,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Dockable)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Fixed)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -365,7 +365,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Fixed)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Float)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -379,7 +379,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Float)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Floatable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "b", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -396,7 +396,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Floatable)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, FloatingPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -412,7 +412,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, FloatingPosition)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, FloatingPosition_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -430,7 +430,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, FloatingPosition_1)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, FloatingSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -446,7 +446,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, FloatingSize)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, FloatingSize_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -464,7 +464,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, FloatingSize_1)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Gripper)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "visible", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -481,7 +481,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Gripper)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, GripperTop)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "attop", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -498,7 +498,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, GripperTop)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, HasBorder)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -512,7 +512,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, HasBorder)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, HasCaption)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -526,7 +526,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, HasCaption)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, HasCloseButton)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -540,7 +540,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, HasCloseButton)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, HasFlag)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -556,7 +556,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, HasFlag)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, HasGripper)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -570,7 +570,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, HasGripper)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, HasGripperTop)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -584,7 +584,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, HasGripperTop)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, HasMaximizeButton)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -598,7 +598,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, HasMaximizeButton)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, HasMinimizeButton)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -612,7 +612,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, HasMinimizeButton)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, HasPinButton)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -626,7 +626,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, HasPinButton)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Hide)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -640,7 +640,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Hide)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, IsBottomDockable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -654,7 +654,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsBottomDockable)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, IsDocked)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -668,7 +668,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsDocked)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, IsFixed)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -682,7 +682,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsFixed)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, IsFloatable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -696,7 +696,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsFloatable)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, IsFloating)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -710,7 +710,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsFloating)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, IsLeftDockable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -724,7 +724,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsLeftDockable)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, IsMovable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -738,7 +738,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsMovable)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -752,7 +752,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsOk)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, IsResizable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -766,7 +766,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsResizable)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, IsRightDockable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -780,7 +780,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsRightDockable)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, IsShown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -794,7 +794,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsShown)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, IsToolbar)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -808,7 +808,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsToolbar)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, IsTopDockable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -822,7 +822,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsTopDockable)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Layer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "layer", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -838,7 +838,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Layer)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Left)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -852,7 +852,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Left)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, LeftDockable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "b", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -869,7 +869,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, LeftDockable)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, MaxSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -885,7 +885,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, MaxSize)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, MaxSize_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -903,7 +903,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, MaxSize_1)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, MaximizeButton)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "visible", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -920,7 +920,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, MaximizeButton)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, MinSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -936,7 +936,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, MinSize)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, MinSize_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -954,7 +954,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, MinSize_1)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, MinimizeButton)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "visible", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -971,7 +971,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, MinimizeButton)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Movable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "b", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -988,7 +988,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Movable)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Name)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1004,7 +1004,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Name)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, PaneBorder)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "visible", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1021,7 +1021,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, PaneBorder)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, PinButton)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "visible", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1038,7 +1038,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, PinButton)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Position)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1054,7 +1054,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Position)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Resizable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "resizable", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1071,7 +1071,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Resizable)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Right)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1085,7 +1085,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Right)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, RightDockable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "b", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1102,7 +1102,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, RightDockable)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Row)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1118,7 +1118,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Row)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, SafeSet)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "source", VTYPE_wx_AuiPaneInfo, OCCUR_Once);
 }
 
@@ -1133,7 +1133,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, SafeSet)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, SetFlag)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "option_state", VTYPE_boolean, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1151,7 +1151,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, SetFlag)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Show)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "show", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1168,7 +1168,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Show)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, ToolbarPane)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1182,7 +1182,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, ToolbarPane)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Top)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1196,7 +1196,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Top)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, TopDockable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "b", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1213,7 +1213,7 @@ Gura_ImplementMethod(wx_AuiPaneInfo, TopDockable)
 
 Gura_DeclareMethod(wx_AuiPaneInfo, Window)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "w", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

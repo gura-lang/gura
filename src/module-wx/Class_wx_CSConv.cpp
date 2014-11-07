@@ -39,7 +39,7 @@ void wx_CSConv::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(CSConv)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_CSConv));
 	DeclareArg(env, "charset", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(CSConv)
 
 Gura_DeclareFunction(CSConv_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_CSConv));
 	DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -87,7 +87,7 @@ Gura_ImplementFunction(CSConv_1)
 
 Gura_DeclareMethod(wx_CSConv, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_CSConv, IsOk)
 
 Gura_DeclareMethod(wx_CSConv, MB2WC)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_CSConv, MB2WC)
 
 Gura_DeclareMethod(wx_CSConv, WC2MB)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);

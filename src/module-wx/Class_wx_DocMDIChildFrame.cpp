@@ -38,7 +38,7 @@ void wx_DocMDIChildFrame::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DocMDIChildFrame)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_DocMDIChildFrame));
 	DeclareArg(env, "doc", VTYPE_wx_Document, OCCUR_Once);
@@ -88,7 +88,7 @@ Gura_ImplementFunction(DocMDIChildFrame)
 
 Gura_DeclareMethod(wx_DocMDIChildFrame, GetDocument)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_DocMDIChildFrame, GetDocument)
 
 Gura_DeclareMethod(wx_DocMDIChildFrame, GetView)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_DocMDIChildFrame, GetView)
 #if 0
 Gura_DeclareMethod(wx_DocMDIChildFrame, OnActivate)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_ActivateEvent, OCCUR_Once);
 }
 
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_DocMDIChildFrame, OnActivate)
 #if 0
 Gura_DeclareMethod(wx_DocMDIChildFrame, OnCloseWindow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_CloseEvent, OCCUR_Once);
 }
 
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_DocMDIChildFrame, OnCloseWindow)
 
 Gura_DeclareMethod(wx_DocMDIChildFrame, SetDocument)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "doc", VTYPE_wx_Document, OCCUR_Once);
 }
 
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_DocMDIChildFrame, SetDocument)
 
 Gura_DeclareMethod(wx_DocMDIChildFrame, SetView)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "view", VTYPE_wx_View, OCCUR_Once);
 }
 

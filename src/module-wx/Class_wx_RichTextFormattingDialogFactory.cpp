@@ -55,7 +55,7 @@ void wx_RichTextFormattingDialogFactory::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(RichTextFormattingDialogFactoryEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextFormattingDialogFactory));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -77,7 +77,7 @@ Gura_ImplementFunction(RichTextFormattingDialogFactoryEmpty)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, CreateButtons)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dialog", VTYPE_wx_RichTextFormattingDialog, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, CreateButtons)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, CreatePage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "dialog", VTYPE_wx_RichTextFormattingDialog, OCCUR_Once);
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, CreatePage)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, CreatePages)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pages", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "dialog", VTYPE_wx_RichTextFormattingDialog, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, CreatePages)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, GetPageId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, GetPageId)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, GetPageIdCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, GetPageIdCount)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, GetPageImage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, GetPageImage)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, SetSheetStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dialog", VTYPE_wx_RichTextFormattingDialog, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, SetSheetStyle)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, ShowHelp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "dialog", VTYPE_wx_RichTextFormattingDialog, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);

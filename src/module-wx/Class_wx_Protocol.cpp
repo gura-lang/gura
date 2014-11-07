@@ -37,7 +37,7 @@ void wx_Protocol::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_Protocol, Reconnect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -51,7 +51,7 @@ Gura_ImplementMethod(wx_Protocol, Reconnect)
 
 Gura_DeclareMethod(wx_Protocol, GetInputStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_Protocol, GetInputStream)
 
 Gura_DeclareMethod(wx_Protocol, Abort)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_Protocol, Abort)
 
 Gura_DeclareMethod(wx_Protocol, GetError)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_Protocol, GetError)
 
 Gura_DeclareMethod(wx_Protocol, GetContentType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_Protocol, GetContentType)
 
 Gura_DeclareMethod(wx_Protocol, SetUser)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "user", VTYPE_string, OCCUR_Once);
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_Protocol, SetUser)
 
 Gura_DeclareMethod(wx_Protocol, SetPassword)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "user", VTYPE_string, OCCUR_Once);
 }
 

@@ -38,7 +38,7 @@ void wx_DataObjectComposite::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DataObjectCompositeEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DataObjectComposite));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(DataObjectCompositeEmpty)
 
 Gura_DeclareMethod(wx_DataObjectComposite, Add)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "*dataObject", VTYPE_wx_DataObjectSimple, OCCUR_Once);
 	DeclareArg(env, "preferred", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_DataObjectComposite, Add)
 
 Gura_DeclareMethod(wx_DataObjectComposite, GetReceivedFormat)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

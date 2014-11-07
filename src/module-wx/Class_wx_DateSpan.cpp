@@ -38,7 +38,7 @@ void wx_DateSpan::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DateSpan)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DateSpan));
 	DeclareArg(env, "years", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "months", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -72,7 +72,7 @@ Gura_ImplementFunction(DateSpan)
 
 Gura_DeclareMethod(wx_DateSpan, Add)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "other", VTYPE_wx_DateSpan, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -88,7 +88,7 @@ Gura_ImplementMethod(wx_DateSpan, Add)
 
 Gura_DeclareMethod(wx_DateSpan, Add_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "other", VTYPE_wx_DateSpan, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_DateSpan, Add_1)
 
 Gura_DeclareClassMethod(wx_DateSpan, Day)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -117,7 +117,7 @@ Gura_ImplementClassMethod(wx_DateSpan, Day)
 
 Gura_DeclareClassMethod(wx_DateSpan, Days)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "days", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -132,7 +132,7 @@ Gura_ImplementClassMethod(wx_DateSpan, Days)
 
 Gura_DeclareMethod(wx_DateSpan, GetDays)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_DateSpan, GetDays)
 
 Gura_DeclareMethod(wx_DateSpan, GetMonths)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_DateSpan, GetMonths)
 
 Gura_DeclareMethod(wx_DateSpan, GetTotalDays)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_DateSpan, GetTotalDays)
 
 Gura_DeclareMethod(wx_DateSpan, GetWeeks)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_DateSpan, GetWeeks)
 
 Gura_DeclareMethod(wx_DateSpan, GetYears)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_DateSpan, GetYears)
 
 Gura_DeclareClassMethod(wx_DateSpan, Month)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -215,7 +215,7 @@ Gura_ImplementClassMethod(wx_DateSpan, Month)
 
 Gura_DeclareClassMethod(wx_DateSpan, Months)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "mon", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -230,7 +230,7 @@ Gura_ImplementClassMethod(wx_DateSpan, Months)
 
 Gura_DeclareMethod(wx_DateSpan, Multiply)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "factor", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -246,7 +246,7 @@ Gura_ImplementMethod(wx_DateSpan, Multiply)
 
 Gura_DeclareMethod(wx_DateSpan, Multiply_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "factor", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -262,7 +262,7 @@ Gura_ImplementMethod(wx_DateSpan, Multiply_1)
 
 Gura_DeclareMethod(wx_DateSpan, Negate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -276,7 +276,7 @@ Gura_ImplementMethod(wx_DateSpan, Negate)
 
 Gura_DeclareMethod(wx_DateSpan, Neg)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_DateSpan, Neg)
 
 Gura_DeclareMethod(wx_DateSpan, SetDays)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -306,7 +306,7 @@ Gura_ImplementMethod(wx_DateSpan, SetDays)
 
 Gura_DeclareMethod(wx_DateSpan, SetYears)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -322,7 +322,7 @@ Gura_ImplementMethod(wx_DateSpan, SetYears)
 
 Gura_DeclareMethod(wx_DateSpan, SetMonths)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -338,7 +338,7 @@ Gura_ImplementMethod(wx_DateSpan, SetMonths)
 
 Gura_DeclareMethod(wx_DateSpan, SetWeeks)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -354,7 +354,7 @@ Gura_ImplementMethod(wx_DateSpan, SetWeeks)
 
 Gura_DeclareMethod(wx_DateSpan, Subtract)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "other", VTYPE_wx_DateSpan, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -370,7 +370,7 @@ Gura_ImplementMethod(wx_DateSpan, Subtract)
 
 Gura_DeclareMethod(wx_DateSpan, Subtract_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "other", VTYPE_wx_DateSpan, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -386,7 +386,7 @@ Gura_ImplementMethod(wx_DateSpan, Subtract_1)
 
 Gura_DeclareClassMethod(wx_DateSpan, Week)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -399,7 +399,7 @@ Gura_ImplementClassMethod(wx_DateSpan, Week)
 
 Gura_DeclareClassMethod(wx_DateSpan, Weeks)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "weeks", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -414,7 +414,7 @@ Gura_ImplementClassMethod(wx_DateSpan, Weeks)
 
 Gura_DeclareClassMethod(wx_DateSpan, Year)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -427,7 +427,7 @@ Gura_ImplementClassMethod(wx_DateSpan, Year)
 
 Gura_DeclareClassMethod(wx_DateSpan, Years)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "years", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

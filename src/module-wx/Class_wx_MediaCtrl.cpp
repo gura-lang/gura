@@ -39,7 +39,7 @@ void wx_MediaCtrl::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(MediaCtrlEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MediaCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(MediaCtrlEmpty)
 
 Gura_DeclareFunction(MediaCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_MediaCtrl));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -108,7 +108,7 @@ Gura_ImplementFunction(MediaCtrl)
 
 Gura_DeclareMethod(wx_MediaCtrl, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "fileName", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_MediaCtrl, Create)
 
 Gura_DeclareMethod(wx_MediaCtrl, GetBestSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_MediaCtrl, GetBestSize)
 
 Gura_DeclareMethod(wx_MediaCtrl, GetPlaybackRate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_MediaCtrl, GetPlaybackRate)
 
 Gura_DeclareMethod(wx_MediaCtrl, GetVolume)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_MediaCtrl, GetVolume)
 
 Gura_DeclareMethod(wx_MediaCtrl, GetState)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_MediaCtrl, GetState)
 
 Gura_DeclareMethod(wx_MediaCtrl, Length)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_MediaCtrl, Length)
 
 Gura_DeclareMethod(wx_MediaCtrl, Load)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "fileName", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_MediaCtrl, Load)
 
 Gura_DeclareMethod(wx_MediaCtrl, Load_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "uri", VTYPE_wx_URI, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_MediaCtrl, Load_1)
 
 Gura_DeclareMethod(wx_MediaCtrl, Load_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "uri", VTYPE_wx_URI, OCCUR_Once);
 	DeclareArg(env, "proxy", VTYPE_wx_URI, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_MediaCtrl, Load_2)
 
 Gura_DeclareMethod(wx_MediaCtrl, LoadURI)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "uri", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -283,7 +283,7 @@ Gura_ImplementMethod(wx_MediaCtrl, LoadURI)
 
 Gura_DeclareMethod(wx_MediaCtrl, LoadURIWithProxy)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "uri", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "proxy", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -301,7 +301,7 @@ Gura_ImplementMethod(wx_MediaCtrl, LoadURIWithProxy)
 
 Gura_DeclareMethod(wx_MediaCtrl, Pause)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -315,7 +315,7 @@ Gura_ImplementMethod(wx_MediaCtrl, Pause)
 
 Gura_DeclareMethod(wx_MediaCtrl, Play)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -329,7 +329,7 @@ Gura_ImplementMethod(wx_MediaCtrl, Play)
 
 Gura_DeclareMethod(wx_MediaCtrl, Seek)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "where", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -347,7 +347,7 @@ Gura_ImplementMethod(wx_MediaCtrl, Seek)
 
 Gura_DeclareMethod(wx_MediaCtrl, SetPlaybackRate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dRate", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -363,7 +363,7 @@ Gura_ImplementMethod(wx_MediaCtrl, SetPlaybackRate)
 
 Gura_DeclareMethod(wx_MediaCtrl, SetVolume)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dVolume", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -379,7 +379,7 @@ Gura_ImplementMethod(wx_MediaCtrl, SetVolume)
 
 Gura_DeclareMethod(wx_MediaCtrl, ShowPlayerControls)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -396,7 +396,7 @@ Gura_ImplementMethod(wx_MediaCtrl, ShowPlayerControls)
 
 Gura_DeclareMethod(wx_MediaCtrl, Stop)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -410,7 +410,7 @@ Gura_ImplementMethod(wx_MediaCtrl, Stop)
 
 Gura_DeclareMethod(wx_MediaCtrl, Tell)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

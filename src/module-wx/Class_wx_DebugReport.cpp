@@ -38,7 +38,7 @@ void wx_DebugReport::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DebugReportEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DebugReport));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(DebugReportEmpty)
 
 Gura_DeclareMethod(wx_DebugReport, AddAll)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementMethod(wx_DebugReport, AddAll)
@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_DebugReport, AddAll)
 
 Gura_DeclareMethod(wx_DebugReport, AddContext)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_DebugReport, AddContext)
 
 Gura_DeclareMethod(wx_DebugReport, AddCurrentContext)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_DebugReport, AddCurrentContext)
 
 Gura_DeclareMethod(wx_DebugReport, AddCurrentDump)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_DebugReport, AddCurrentDump)
 
 Gura_DeclareMethod(wx_DebugReport, AddDump)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_DebugReport, AddDump)
 
 Gura_DeclareMethod(wx_DebugReport, AddExceptionContext)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_DebugReport, AddExceptionContext)
 
 Gura_DeclareMethod(wx_DebugReport, AddExceptionDump)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_DebugReport, AddExceptionDump)
 
 Gura_DeclareMethod(wx_DebugReport, AddFile)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "description", VTYPE_string, OCCUR_Once);
 }
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_DebugReport, AddFile)
 
 Gura_DeclareMethod(wx_DebugReport, AddText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "description", VTYPE_string, OCCUR_Once);
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_DebugReport, AddText)
 
 Gura_DeclareMethod(wx_DebugReport, DoAddCustomContext)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "nodeRoot", VTYPE_wx_XmlNode, OCCUR_Once);
 #endif
@@ -237,7 +237,7 @@ Gura_ImplementMethod(wx_DebugReport, DoAddCustomContext)
 
 Gura_DeclareMethod(wx_DebugReport, DoAddExceptionInfo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "nodeContext", VTYPE_wx_XmlNode, OCCUR_Once);
 #endif
@@ -259,7 +259,7 @@ Gura_ImplementMethod(wx_DebugReport, DoAddExceptionInfo)
 
 Gura_DeclareMethod(wx_DebugReport, DoAddLoadedModules)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "nodeModules", VTYPE_wx_XmlNode, OCCUR_Once);
 #endif
@@ -281,7 +281,7 @@ Gura_ImplementMethod(wx_DebugReport, DoAddLoadedModules)
 
 Gura_DeclareMethod(wx_DebugReport, DoAddSystemInfo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "nodeSystemInfo", VTYPE_wx_XmlNode, OCCUR_Once);
 #endif
@@ -303,7 +303,7 @@ Gura_ImplementMethod(wx_DebugReport, DoAddSystemInfo)
 
 Gura_DeclareMethod(wx_DebugReport, GetDirectory)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -317,7 +317,7 @@ Gura_ImplementMethod(wx_DebugReport, GetDirectory)
 
 Gura_DeclareMethod(wx_DebugReport, GetFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
@@ -343,7 +343,7 @@ Gura_ImplementMethod(wx_DebugReport, GetFile)
 
 Gura_DeclareMethod(wx_DebugReport, GetFilesCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -357,7 +357,7 @@ Gura_ImplementMethod(wx_DebugReport, GetFilesCount)
 
 Gura_DeclareMethod(wx_DebugReport, GetReportName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -371,7 +371,7 @@ Gura_ImplementMethod(wx_DebugReport, GetReportName)
 
 Gura_DeclareMethod(wx_DebugReport, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -385,7 +385,7 @@ Gura_ImplementMethod(wx_DebugReport, IsOk)
 
 Gura_DeclareMethod(wx_DebugReport, Process)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -399,7 +399,7 @@ Gura_ImplementMethod(wx_DebugReport, Process)
 
 Gura_DeclareMethod(wx_DebugReport, RemoveFile)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 }
 
@@ -414,7 +414,7 @@ Gura_ImplementMethod(wx_DebugReport, RemoveFile)
 
 Gura_DeclareMethod(wx_DebugReport, Reset)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DebugReport, Reset)

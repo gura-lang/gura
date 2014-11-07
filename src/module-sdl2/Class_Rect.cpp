@@ -81,7 +81,7 @@ Value Object_Rect::DoSetProp(Environment &env, Signal sig,
 // sdl2.Rect(x:number, y:number, w:number, h:number)
 Gura_DeclareFunction(Rect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "w", VTYPE_number, OCCUR_Once, FLAG_None);

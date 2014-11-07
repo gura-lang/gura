@@ -38,7 +38,7 @@ void wx_RichTextHTMLHandler::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(RichTextHTMLHandler)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextHTMLHandler));
 	DeclareArg(env, "name", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ext", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(RichTextHTMLHandler)
 
 Gura_DeclareMethod(wx_RichTextHTMLHandler, ClearTemporaryImageLocations)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextHTMLHandler, ClearTemporaryImageLocations)
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, ClearTemporaryImageLocations)
 
 Gura_DeclareMethod(wx_RichTextHTMLHandler, DeleteTemporaryImages)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, DeleteTemporaryImages)
 
 Gura_DeclareMethod(wx_RichTextHTMLHandler, DeleteTemporaryImages_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "imageLocations", VTYPE_string, OCCUR_Once, FLAG_List);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, DeleteTemporaryImages_1)
 
 Gura_DeclareMethod(wx_RichTextHTMLHandler, DoSaveFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buffer", VTYPE_wx_RichTextBuffer, OCCUR_Once);
 	DeclareArg(env, "stream", VTYPE_wx_OutputStream, OCCUR_Once);
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, DoSaveFile)
 
 Gura_DeclareMethod(wx_RichTextHTMLHandler, GetFontSizeMapping)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, GetFontSizeMapping)
 
 Gura_DeclareMethod(wx_RichTextHTMLHandler, GetTempDir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, GetTempDir)
 
 Gura_DeclareMethod(wx_RichTextHTMLHandler, GetTemporaryImageLocations)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, GetTemporaryImageLocations)
 
 Gura_DeclareMethod(wx_RichTextHTMLHandler, SetFileCounter)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "counter", VTYPE_number, OCCUR_Once);
 }
 
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, SetFileCounter)
 
 Gura_DeclareMethod(wx_RichTextHTMLHandler, SetFontSizeMapping)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "fontSizeMapping", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, SetFontSizeMapping)
 
 Gura_DeclareMethod(wx_RichTextHTMLHandler, SetTempDir)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "tempDir", VTYPE_string, OCCUR_Once);
 }
 
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, SetTempDir)
 
 Gura_DeclareMethod(wx_RichTextHTMLHandler, SetTemporaryImageLocations)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "locations", VTYPE_string, OCCUR_Once, FLAG_List);
 }
 

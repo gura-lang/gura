@@ -44,7 +44,7 @@ void wx_Pen::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(PenEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Pen));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -66,7 +66,7 @@ Gura_ImplementFunction(PenEmpty)
 
 Gura_DeclareFunction(Pen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Pen));
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -96,7 +96,7 @@ Gura_ImplementFunction(Pen)
 
 Gura_DeclareFunction(Pen_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Pen));
 	DeclareArg(env, "colourName", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -124,7 +124,7 @@ Gura_ImplementFunction(Pen_1)
 
 Gura_DeclareFunction(Pen_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Pen));
 	DeclareArg(env, "stipple", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -155,7 +155,7 @@ Gura_ImplementFunction(Pen_2)
 
 Gura_DeclareFunction(Pen_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Pen));
 	DeclareArg(env, "pen", VTYPE_wx_Pen, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -179,7 +179,7 @@ Gura_ImplementFunction(Pen_3)
 
 Gura_DeclareMethod(wx_Pen, GetCap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_Pen, GetCap)
 
 Gura_DeclareMethod(wx_Pen, GetColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -207,7 +207,7 @@ Gura_ImplementMethod(wx_Pen, GetColour)
 
 Gura_DeclareMethod(wx_Pen, GetDashes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -228,7 +228,7 @@ Gura_ImplementMethod(wx_Pen, GetDashes)
 
 Gura_DeclareMethod(wx_Pen, GetJoin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -242,7 +242,7 @@ Gura_ImplementMethod(wx_Pen, GetJoin)
 
 Gura_DeclareMethod(wx_Pen, GetStipple)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -261,7 +261,7 @@ Gura_ImplementMethod(wx_Pen, GetStipple)
 
 Gura_DeclareMethod(wx_Pen, GetStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -275,7 +275,7 @@ Gura_ImplementMethod(wx_Pen, GetStyle)
 
 Gura_DeclareMethod(wx_Pen, GetWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -289,7 +289,7 @@ Gura_ImplementMethod(wx_Pen, GetWidth)
 
 Gura_DeclareMethod(wx_Pen, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -303,7 +303,7 @@ Gura_ImplementMethod(wx_Pen, IsOk)
 
 Gura_DeclareMethod(wx_Pen, SetCap)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "capStyle", VTYPE_number, OCCUR_Once);
 }
 
@@ -318,7 +318,7 @@ Gura_ImplementMethod(wx_Pen, SetCap)
 
 Gura_DeclareMethod(wx_Pen, SetColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -333,7 +333,7 @@ Gura_ImplementMethod(wx_Pen, SetColour)
 
 Gura_DeclareMethod(wx_Pen, SetColour_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colourName", VTYPE_string, OCCUR_Once);
 }
 
@@ -348,7 +348,7 @@ Gura_ImplementMethod(wx_Pen, SetColour_1)
 
 Gura_DeclareMethod(wx_Pen, SetColour_2)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "green", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "blue", VTYPE_number, OCCUR_Once);
@@ -367,7 +367,7 @@ Gura_ImplementMethod(wx_Pen, SetColour_2)
 
 Gura_DeclareMethod(wx_Pen, SetDashes)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dashes", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -382,7 +382,7 @@ Gura_ImplementMethod(wx_Pen, SetDashes)
 
 Gura_DeclareMethod(wx_Pen, SetJoin)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "join_style", VTYPE_number, OCCUR_Once);
 }
 
@@ -397,7 +397,7 @@ Gura_ImplementMethod(wx_Pen, SetJoin)
 
 Gura_DeclareMethod(wx_Pen, SetStipple)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "stipple", VTYPE_wx_Bitmap, OCCUR_Once);
 }
 
@@ -417,7 +417,7 @@ Gura_ImplementMethod(wx_Pen, SetStipple)
 
 Gura_DeclareMethod(wx_Pen, SetStyle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
@@ -432,7 +432,7 @@ Gura_ImplementMethod(wx_Pen, SetStyle)
 
 Gura_DeclareMethod(wx_Pen, SetWidth)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 

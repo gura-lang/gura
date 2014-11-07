@@ -243,7 +243,7 @@ Object_exif *Object_exif::ReadStream(Environment &env, Signal sig, Stream &strea
 // jpeg.exif#each() {block?}
 Gura_DeclareMethod(exif, each)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

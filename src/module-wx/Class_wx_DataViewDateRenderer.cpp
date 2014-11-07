@@ -38,7 +38,7 @@ void wx_DataViewDateRenderer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DataViewDateRenderer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewDateRenderer));
 	DeclareArg(env, "varianttype", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_ZeroOrOnce);

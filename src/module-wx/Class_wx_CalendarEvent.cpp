@@ -37,7 +37,7 @@ void wx_CalendarEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_CalendarEvent, GetWeekDay)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -51,7 +51,7 @@ Gura_ImplementMethod(wx_CalendarEvent, GetWeekDay)
 
 Gura_DeclareMethod(wx_CalendarEvent, SetWeekDay)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "day", VTYPE_number, OCCUR_Once);
 }
 

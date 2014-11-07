@@ -65,7 +65,7 @@ String Object_mpf::ToString(bool exprFlag)
 // gmp.mpf(value?, prec?:number):map {block?}
 Gura_DeclareFunction(mpf)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "prec", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -104,7 +104,7 @@ Gura_ImplementFunction(mpf)
 // gmp.mpf.get_defaul_prec()
 Gura_DeclareClassMethod(mpf, get_default_prec)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementClassMethod(mpf, get_default_prec)
@@ -116,7 +116,7 @@ Gura_ImplementClassMethod(mpf, get_default_prec)
 // gmp.mpf.set_defaul_prec(prec:number):void
 Gura_DeclareClassMethod(mpf, set_default_prec)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "prec", VTYPE_number);
 }
 
@@ -133,7 +133,7 @@ Gura_ImplementClassMethod(mpf, set_default_prec)
 // string#mpf(base?:number):map {block?}
 Gura_DeclareMethod(string, mpf)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "base", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 

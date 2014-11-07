@@ -38,7 +38,7 @@ void wx_ScopedArray::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ScopedArray)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ScopedArray));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(ScopedArray)
 
 Gura_DeclareMethod(wx_ScopedArray, reset)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementMethod(wx_ScopedArray, reset)
@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_ScopedArray, reset)
 
 Gura_DeclareMethod(wx_ScopedArray, get)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_ScopedArray, get)
 
 Gura_DeclareMethod(wx_ScopedArray, swap)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "& ot", VTYPE_wx_ScopedPtr, OCCUR_Once);
 }
 

@@ -37,7 +37,7 @@ void wx_DllLoader::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareClassMethod(wx_DllLoader, GetDllExt)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -50,7 +50,7 @@ Gura_ImplementClassMethod(wx_DllLoader, GetDllExt)
 
 Gura_DeclareMethod(wx_DllLoader, GetProgramHandle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_DllLoader, GetProgramHandle)
 
 Gura_DeclareMethod(wx_DllLoader, GetSymbol)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dllHandle", VTYPE_wx_DllType, OCCUR_Once);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 }
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_DllLoader, GetSymbol)
 
 Gura_DeclareMethod(wx_DllLoader, LoadLibrary)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "libname", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "success", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_DllLoader, LoadLibrary)
 
 Gura_DeclareMethod(wx_DllLoader, UnloadLibrary)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dllhandle", VTYPE_wx_DllType, OCCUR_Once);
 }
 

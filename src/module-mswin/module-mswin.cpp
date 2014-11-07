@@ -30,7 +30,7 @@ String Object_regkey::ToString(bool exprFlag)
 // mswin.regkey#createkey(subkey:string, option?:number, samDesired?:number):map {block?}
 Gura_DeclareMethod(regkey, createkey)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "subkey", VTYPE_string);
 	DeclareArg(env, "option", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "samDesired", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -60,7 +60,7 @@ Gura_ImplementMethod(regkey, createkey)
 // mswin.regkey#openkey(subkey:string, samDesired?:number):map {block?}
 Gura_DeclareMethod(regkey, openkey)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "subkey", VTYPE_string);
 	DeclareArg(env, "samDesired", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -87,7 +87,7 @@ Gura_ImplementMethod(regkey, openkey)
 // mswin.regkey#deletekey(subkey:string):map:void
 Gura_DeclareMethod(regkey, deletekey)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "subkey", VTYPE_string);
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(regkey, deletekey)
 // mswin.regkey#enumkey(samDesired?:number):[openkey] {block?}
 Gura_DeclareMethod(regkey, enumkey)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "samDesired", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_UserSymbol(openkey));
@@ -130,7 +130,7 @@ Gura_ImplementMethod(regkey, enumkey)
 // mswin.regkey#setvalue(valueName:string, data:nomap):map
 Gura_DeclareMethod(regkey, setvalue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "valueName", VTYPE_string);
 	DeclareArg(env, "data", VTYPE_any, OCCUR_Once, FLAG_NoMap);
 }
@@ -159,7 +159,7 @@ Gura_ImplementMethod(regkey, setvalue)
 // mswin.regkey#deletevalue(valueName:string):map:void
 Gura_DeclareMethod(regkey, deletevalue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "valueName", VTYPE_string);
 }
 
@@ -179,7 +179,7 @@ Gura_ImplementMethod(regkey, deletevalue)
 // mswin.regkey#queryvalue(valueName?:string):map
 Gura_DeclareMethod(regkey, queryvalue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "valueName", VTYPE_string, OCCUR_ZeroOrOnce);
 }
 
@@ -214,7 +214,7 @@ Gura_ImplementMethod(regkey, queryvalue)
 // mswin.regkey#enumvalue() {block?}
 Gura_DeclareMethod(regkey, enumvalue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -966,7 +966,7 @@ void Iterator_RegEnumValue::GatherFollower(Environment::Frame *pFrame, Environme
 // obj = mswin.ole(progid:string):map:[no_const,connect] {block?}
 Gura_DeclareFunction(ole)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "progid", VTYPE_string);
 	DeclareAttr(Gura_UserSymbol(no_const));
 	DeclareAttr(Gura_UserSymbol(connect));
@@ -991,7 +991,7 @@ Gura_ImplementFunction(ole)
 
 Gura_DeclareFunction(GetACP)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementFunction(GetACP)

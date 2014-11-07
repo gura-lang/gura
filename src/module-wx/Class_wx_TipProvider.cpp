@@ -41,7 +41,7 @@ void wx_TipProvider::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(TipProvider)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_TipProvider));
 	DeclareArg(env, "currentTip", VTYPE_number, OCCUR_Once);
@@ -71,7 +71,7 @@ Gura_ImplementFunction(TipProvider)
 
 Gura_DeclareMethod(wx_TipProvider, GetTip)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_TipProvider, GetTip)
 
 Gura_DeclareMethod(wx_TipProvider, PreProcessTip)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "tip", VTYPE_string, OCCUR_Once);
 #endif
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_TipProvider, PreProcessTip)
 
 Gura_DeclareMethod(wx_TipProvider, GetCurrentTip)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

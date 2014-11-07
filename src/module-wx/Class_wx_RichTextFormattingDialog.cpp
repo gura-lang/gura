@@ -39,7 +39,7 @@ void wx_RichTextFormattingDialog::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(RichTextFormattingDialog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextFormattingDialog));
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
@@ -80,7 +80,7 @@ Gura_ImplementFunction(RichTextFormattingDialog)
 
 Gura_DeclareFunction(RichTextFormattingDialogEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextFormattingDialog));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -102,7 +102,7 @@ Gura_ImplementFunction(RichTextFormattingDialogEmpty)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, ApplyStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "ctrl", VTYPE_wx_RichTextCtrl, OCCUR_Once);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, ApplyStyle)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once);
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, Create)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, GetAttributes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, GetAttributes)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, GetAttributes_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, GetAttributes_1)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, GetDialog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -198,7 +198,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, GetDialog)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, GetDialogAttributes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, GetDialogAttributes)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, GetDialogStyleDefinition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, GetDialogStyleDefinition)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, GetFormattingDialogFactory)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, GetFormattingDialogFactory)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, GetImageList)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -258,7 +258,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, GetImageList)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, GetStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "ctrl", VTYPE_wx_RichTextCtrl, OCCUR_Once);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -276,7 +276,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, GetStyle)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, GetStyleDefinition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, GetStyleDefinition)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, GetStyleSheet)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -304,7 +304,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, GetStyleSheet)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, SetAttributes)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "attr", VTYPE_wx_TextAttrEx, OCCUR_Once);
 }
 
@@ -319,7 +319,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, SetAttributes)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, SetFormattingDialogFactory)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "factory", VTYPE_wx_RichTextFormattingDialogFactory, OCCUR_Once);
 }
 
@@ -334,7 +334,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, SetFormattingDialogFactory)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, SetImageList)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "imageList", VTYPE_wx_ImageList, OCCUR_Once, FLAG_Nil);
 }
 
@@ -350,7 +350,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, SetImageList)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, SetStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "style", VTYPE_wx_TextAttrEx, OCCUR_Once);
 	DeclareArg(env, "update", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -369,7 +369,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, SetStyle)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, SetStyleDefinition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "styleDef", VTYPE_wx_RichTextStyleDefinition, OCCUR_Once);
 	DeclareArg(env, "sheet", VTYPE_wx_RichTextStyleSheet, OCCUR_Once);
 	DeclareArg(env, "update", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -390,7 +390,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, SetStyleDefinition)
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, UpdateDisplay)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

@@ -39,7 +39,7 @@ void wx_GridSizeEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GridSizeEventEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GridSizeEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(GridSizeEventEmpty)
 
 Gura_DeclareFunction(GridSizeEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_GridSizeEvent));
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -110,7 +110,7 @@ Gura_ImplementFunction(GridSizeEvent)
 
 Gura_DeclareMethod(wx_GridSizeEvent, AltDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_GridSizeEvent, AltDown)
 
 Gura_DeclareMethod(wx_GridSizeEvent, ControlDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_GridSizeEvent, ControlDown)
 
 Gura_DeclareMethod(wx_GridSizeEvent, GetPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_GridSizeEvent, GetPosition)
 
 Gura_DeclareMethod(wx_GridSizeEvent, GetRowOrCol)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_GridSizeEvent, GetRowOrCol)
 
 Gura_DeclareMethod(wx_GridSizeEvent, MetaDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_GridSizeEvent, MetaDown)
 
 Gura_DeclareMethod(wx_GridSizeEvent, ShiftDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

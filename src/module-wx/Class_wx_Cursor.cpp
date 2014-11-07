@@ -45,7 +45,7 @@ void wx_Cursor::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(CursorEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Cursor));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -67,7 +67,7 @@ Gura_ImplementFunction(CursorEmpty)
 
 Gura_DeclareFunction(Cursor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Cursor));
 	DeclareArg(env, "bits", VTYPE_binary, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -127,7 +127,7 @@ Gura_ImplementFunction(Cursor)
 
 Gura_DeclareFunction(NamedCursor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Cursor));
 	DeclareArg(env, "cursorName", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -164,7 +164,7 @@ Gura_ImplementFunction(NamedCursor)
 
 Gura_DeclareFunction(StockCursor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Cursor));
 	DeclareArg(env, "cursorId", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -188,7 +188,7 @@ Gura_ImplementFunction(StockCursor)
 
 Gura_DeclareFunction(Cursor_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Cursor));
 	DeclareArg(env, "image", VTYPE_wx_Image, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -212,7 +212,7 @@ Gura_ImplementFunction(Cursor_3)
 
 Gura_DeclareMethod(wx_Cursor, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

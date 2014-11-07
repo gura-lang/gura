@@ -12,7 +12,7 @@ Gura_BeginModuleBody(wav)
 // audio#wavread(stream:stream:r):reduce
 Gura_DeclareMethod(audio, wavread)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Reads WAV audio from a stream.");
 }
@@ -27,7 +27,7 @@ Gura_ImplementMethod(audio, wavread)
 // audio#wavwrite(stream:stream:w):reduce
 Gura_DeclareMethod(audio, wavwrite)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Writes WAV audio to a stream.");
 }
@@ -45,7 +45,7 @@ Gura_ImplementMethod(audio, wavwrite)
 // mav.test(stream:stream, streamOut:stream:w)
 Gura_DeclareFunction(test)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream);
 	DeclareArg(env, "streamOut", VTYPE_stream, OCCUR_Once, FLAG_Write);
 }

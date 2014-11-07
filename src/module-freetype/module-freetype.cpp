@@ -65,7 +65,7 @@ FT_ULong Handler::ReadStub(FT_Stream streamFT,
 // image#drawtext(font:freetype.font, x:number, y:number, str:string):map:reduce {block?}
 Gura_DeclareMethod(image, drawtext)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_font);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
@@ -97,7 +97,7 @@ Gura_ImplementMethod(image, drawtext)
 // freetype.test(stream:stream:r)
 Gura_DeclareFunction(test)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 }
 
@@ -182,7 +182,7 @@ Gura_ImplementFunction(test)
 // freetype.sysfontpath(name?:string):map
 Gura_DeclareFunction(sysfontpath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_ZeroOrOnce);
 }
 

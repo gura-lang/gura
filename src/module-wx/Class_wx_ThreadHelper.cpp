@@ -41,7 +41,7 @@ void wx_ThreadHelper::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ThreadHelperEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_ThreadHelper));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(ThreadHelperEmpty)
 
 Gura_DeclareMethod(wx_ThreadHelper, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stackSize", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_ThreadHelper, Create)
 
 Gura_DeclareMethod(wx_ThreadHelper, Entry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_ThreadHelper, Entry)
 
 Gura_DeclareMethod(wx_ThreadHelper, GetThread)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

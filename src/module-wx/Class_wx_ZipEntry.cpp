@@ -39,7 +39,7 @@ void wx_ZipEntry::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ZipEntry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ZipEntry));
 	DeclareArg(env, "name", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "dt", VTYPE_wx_DateTime, OCCUR_ZeroOrOnce);
@@ -70,7 +70,7 @@ Gura_ImplementFunction(ZipEntry)
 
 Gura_DeclareFunction(ZipEntry_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ZipEntry));
 	DeclareArg(env, "entry", VTYPE_wx_ZipEntry, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -94,7 +94,7 @@ Gura_ImplementFunction(ZipEntry_1)
 
 Gura_DeclareMethod(wx_ZipEntry, Clone)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_ZipEntry, Clone)
 
 Gura_DeclareMethod(wx_ZipEntry, GetComment)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_ZipEntry, GetComment)
 
 Gura_DeclareMethod(wx_ZipEntry, SetComment)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "comment", VTYPE_string, OCCUR_Once);
 }
 
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_ZipEntry, SetComment)
 
 Gura_DeclareMethod(wx_ZipEntry, GetCompressedSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_ZipEntry, GetCompressedSize)
 
 Gura_DeclareMethod(wx_ZipEntry, GetCrc)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_ZipEntry, GetCrc)
 
 Gura_DeclareMethod(wx_ZipEntry, GetExternalAttributes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_ZipEntry, GetExternalAttributes)
 
 Gura_DeclareMethod(wx_ZipEntry, SetExternalAttributes)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 }
 
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_ZipEntry, SetExternalAttributes)
 
 Gura_DeclareMethod(wx_ZipEntry, GetExtra)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_ZipEntry, GetExtra)
 
 Gura_DeclareMethod(wx_ZipEntry, GetExtraLen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -226,7 +226,7 @@ Gura_ImplementMethod(wx_ZipEntry, GetExtraLen)
 
 Gura_DeclareMethod(wx_ZipEntry, SetExtra)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "extra", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_ZipEntry, SetExtra)
 
 Gura_DeclareMethod(wx_ZipEntry, GetFlags)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -263,7 +263,7 @@ Gura_ImplementMethod(wx_ZipEntry, GetFlags)
 
 Gura_DeclareMethod(wx_ZipEntry, GetInternalName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -281,7 +281,7 @@ Gura_ImplementMethod(wx_ZipEntry, GetInternalName)
 
 Gura_DeclareMethod(wx_ZipEntry, GetInternalName_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -309,7 +309,7 @@ Gura_ImplementMethod(wx_ZipEntry, GetInternalName_1)
 
 Gura_DeclareMethod(wx_ZipEntry, GetLocalExtra)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -327,7 +327,7 @@ Gura_ImplementMethod(wx_ZipEntry, GetLocalExtra)
 
 Gura_DeclareMethod(wx_ZipEntry, GetLocalExtraLen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -341,7 +341,7 @@ Gura_ImplementMethod(wx_ZipEntry, GetLocalExtraLen)
 
 Gura_DeclareMethod(wx_ZipEntry, SetLocalExtra)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "extra", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
@@ -364,7 +364,7 @@ Gura_ImplementMethod(wx_ZipEntry, SetLocalExtra)
 
 Gura_DeclareMethod(wx_ZipEntry, GetMethod)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -378,7 +378,7 @@ Gura_ImplementMethod(wx_ZipEntry, GetMethod)
 
 Gura_DeclareMethod(wx_ZipEntry, SetMethod)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "method", VTYPE_number, OCCUR_Once);
 }
 
@@ -393,7 +393,7 @@ Gura_ImplementMethod(wx_ZipEntry, SetMethod)
 
 Gura_DeclareMethod(wx_ZipEntry, GetMode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -407,7 +407,7 @@ Gura_ImplementMethod(wx_ZipEntry, GetMode)
 
 Gura_DeclareMethodAlias(wx_ZipEntry, SetMode_, "SetMode")
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
@@ -422,7 +422,7 @@ Gura_ImplementMethod(wx_ZipEntry, SetMode_)
 
 Gura_DeclareMethod(wx_ZipEntry, SetNotifier)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "notifier", VTYPE_wx_ZipNotifier, OCCUR_Once);
 }
 
@@ -437,7 +437,7 @@ Gura_ImplementMethod(wx_ZipEntry, SetNotifier)
 
 Gura_DeclareMethod(wx_ZipEntry, UnsetNotifier)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ZipEntry, UnsetNotifier)
@@ -450,7 +450,7 @@ Gura_ImplementMethod(wx_ZipEntry, UnsetNotifier)
 
 Gura_DeclareMethod(wx_ZipEntry, GetSystemMadeBy)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -464,7 +464,7 @@ Gura_ImplementMethod(wx_ZipEntry, GetSystemMadeBy)
 
 Gura_DeclareMethod(wx_ZipEntry, SetSystemMadeBy)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "system", VTYPE_number, OCCUR_Once);
 }
 
@@ -479,7 +479,7 @@ Gura_ImplementMethod(wx_ZipEntry, SetSystemMadeBy)
 
 Gura_DeclareMethod(wx_ZipEntry, IsMadeByUnix)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -493,7 +493,7 @@ Gura_ImplementMethod(wx_ZipEntry, IsMadeByUnix)
 
 Gura_DeclareMethod(wx_ZipEntry, IsText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -507,7 +507,7 @@ Gura_ImplementMethod(wx_ZipEntry, IsText)
 
 Gura_DeclareMethod(wx_ZipEntry, SetIsText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "isText", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 

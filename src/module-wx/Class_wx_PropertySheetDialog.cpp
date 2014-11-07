@@ -43,7 +43,7 @@ void wx_PropertySheetDialog::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(PropertySheetDialog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_PropertySheetDialog));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(PropertySheetDialog)
 
 Gura_DeclareMethod(wx_PropertySheetDialog, AddBookCtrl)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "sizer", VTYPE_wx_Sizer, OCCUR_Once);
 }
 
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_PropertySheetDialog, AddBookCtrl)
 
 Gura_DeclareMethod(wx_PropertySheetDialog, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once);
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_PropertySheetDialog, Create)
 
 Gura_DeclareMethod(wx_PropertySheetDialog, CreateBookCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_PropertySheetDialog, CreateBookCtrl)
 
 Gura_DeclareMethod(wx_PropertySheetDialog, CreateButtons)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_PropertySheetDialog, CreateButtons)
 
 Gura_DeclareMethod(wx_PropertySheetDialog, GetBookCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_PropertySheetDialog, GetBookCtrl)
 
 Gura_DeclareMethod(wx_PropertySheetDialog, GetInnerSizer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_PropertySheetDialog, GetInnerSizer)
 
 Gura_DeclareMethod(wx_PropertySheetDialog, GetSheetStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_PropertySheetDialog, GetSheetStyle)
 
 Gura_DeclareMethod(wx_PropertySheetDialog, LayoutDialog)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "centreFlags", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_PropertySheetDialog, LayoutDialog)
 
 Gura_DeclareMethod(wx_PropertySheetDialog, SetBookCtrl)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "bookCtrl", VTYPE_wx_BookCtrlBase, OCCUR_Once);
 }
 
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_PropertySheetDialog, SetBookCtrl)
 
 Gura_DeclareMethod(wx_PropertySheetDialog, SetInnerSizer)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "sizer", VTYPE_wx_Sizer, OCCUR_Once);
 #endif
@@ -256,7 +256,7 @@ Gura_ImplementMethod(wx_PropertySheetDialog, SetInnerSizer)
 
 Gura_DeclareMethod(wx_PropertySheetDialog, SetSheetStyle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
@@ -271,7 +271,7 @@ Gura_ImplementMethod(wx_PropertySheetDialog, SetSheetStyle)
 
 Gura_DeclareMethod(wx_PropertySheetDialog, SetSheetOuterBorder)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "border", VTYPE_number, OCCUR_Once);
 }
 
@@ -286,7 +286,7 @@ Gura_ImplementMethod(wx_PropertySheetDialog, SetSheetOuterBorder)
 
 Gura_DeclareMethod(wx_PropertySheetDialog, SetSheetInnerBorder)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "border", VTYPE_number, OCCUR_Once);
 }
 

@@ -181,7 +181,7 @@ String Object_content::ToString(bool exprFlag)
 // msico.content#write(stream:stream:w):reduce
 Gura_DeclareMethod(content, write)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Writes a ICO image to a stream.");
 }
@@ -197,7 +197,7 @@ Gura_ImplementMethod(content, write)
 // msico.content#addimage(image:image):map:reduce
 Gura_DeclareMethod(content, addimage)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "image", VTYPE_image);
 }
 
@@ -222,7 +222,7 @@ Gura_ImplementUserClass(content)
 // image#msicoread(stream:stream:r, idx:number => 0):reduce
 Gura_DeclareMethod(image, msicoread)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareArg(env, "idx", VTYPE_number, OCCUR_Once,
 								FLAG_None, new Expr_Value(Value(0)));
@@ -243,7 +243,7 @@ Gura_ImplementMethod(image, msicoread)
 // msico.content(stream?:stream:r, format:symbol => `rgba) {block?}
 Gura_DeclareFunction(content)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareArg(env, "format", VTYPE_symbol, OCCUR_Once,
 							FLAG_None, new Expr_Value(Gura_Symbol(rgba)));

@@ -38,7 +38,7 @@ void wx_LogChain::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(LogChain)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_LogChain));
 	DeclareArg(env, "logger", VTYPE_wx_Log, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -62,7 +62,7 @@ Gura_ImplementFunction(LogChain)
 
 Gura_DeclareMethod(wx_LogChain, DetachOldLog)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_LogChain, DetachOldLog)
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_LogChain, DetachOldLog)
 
 Gura_DeclareMethod(wx_LogChain, GetOldLog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_LogChain, GetOldLog)
 
 Gura_DeclareMethod(wx_LogChain, IsPassingMessages)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_LogChain, IsPassingMessages)
 
 Gura_DeclareMethod(wx_LogChain, PassMessages)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "passMessages", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_LogChain, PassMessages)
 
 Gura_DeclareMethod(wx_LogChain, SetLog)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "logger", VTYPE_wx_Log, OCCUR_Once);
 }
 

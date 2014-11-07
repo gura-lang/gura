@@ -33,7 +33,7 @@ Value Object_image_surface::DoGetProp(Environment &env, Signal sig, const Symbol
 // cairo.image_surface.create(image:image) {block?}
 Gura_DeclareClassMethod(image_surface, create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "image", VTYPE_image);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -53,7 +53,7 @@ Gura_ImplementClassMethod(image_surface, create)
 // cairo.image_surface.create_from_png(stream:stream:r) {block?}
 Gura_DeclareClassMethod(image_surface, create_from_png)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -73,7 +73,7 @@ Gura_ImplementClassMethod(image_surface, create_from_png)
 // cairo.image_surface#get_format()
 Gura_DeclareMethod(image_surface, get_format)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(image_surface, get_format)
@@ -87,7 +87,7 @@ Gura_ImplementMethod(image_surface, get_format)
 // cairo.image_surface#get_width()
 Gura_DeclareMethod(image_surface, get_width)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(image_surface, get_width)
@@ -101,7 +101,7 @@ Gura_ImplementMethod(image_surface, get_width)
 // cairo.image_surface#get_height()
 Gura_DeclareMethod(image_surface, get_height)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(image_surface, get_height)
@@ -115,7 +115,7 @@ Gura_ImplementMethod(image_surface, get_height)
 // cairo.image_surface#get_stride()
 Gura_DeclareMethod(image_surface, get_stride)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(image_surface, get_stride)

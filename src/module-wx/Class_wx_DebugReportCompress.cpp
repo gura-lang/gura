@@ -38,7 +38,7 @@ void wx_DebugReportCompress::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DebugReportCompressEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DebugReportCompress));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(DebugReportCompressEmpty)
 
 Gura_DeclareMethod(wx_DebugReportCompress, GetCompressedFileName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

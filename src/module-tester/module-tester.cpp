@@ -44,7 +44,7 @@ void Thread1::Run()
 // tester.run()
 Gura_DeclareFunction(run)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "run tester.");
 }
 

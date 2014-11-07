@@ -47,7 +47,7 @@ String Object_args::ToString(bool exprFlag)
 // args#finalize_trailer():void
 Gura_DeclareMethod(args, finalize_trailer)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(args, finalize_trailer)
@@ -60,7 +60,7 @@ Gura_ImplementMethod(args, finalize_trailer)
 // args#isset(symbol:symbol)
 Gura_DeclareMethod(args, isset)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol, OCCUR_Once);
 }
 
@@ -74,7 +74,7 @@ Gura_ImplementMethod(args, isset)
 // args#quit_trailer():void
 Gura_DeclareMethod(args, quit_trailer)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(args, quit_trailer)

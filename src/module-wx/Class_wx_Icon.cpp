@@ -46,7 +46,7 @@ void wx_Icon::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(EmptyIcon)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -67,7 +67,7 @@ Gura_ImplementFunction(EmptyIcon)
 
 Gura_DeclareFunction(Icon)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Icon));
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -99,7 +99,7 @@ Gura_ImplementFunction(Icon)
 
 Gura_DeclareFunction(IconFromXPMData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "bits", VTYPE_string, OCCUR_Once, FLAG_List);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -128,7 +128,7 @@ Gura_ImplementFunction(IconFromXPMData)
 
 Gura_DeclareFunction(Icon_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_Icon));
 	DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -167,7 +167,7 @@ Gura_ImplementFunction(Icon_1)
 
 Gura_DeclareFunction(Icon_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_Icon));
 	DeclareArg(env, "bits[]", VTYPE_number, OCCUR_Once);
@@ -204,7 +204,7 @@ Gura_ImplementFunction(Icon_2)
 
 Gura_DeclareFunction(Icon_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_Icon));
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -239,7 +239,7 @@ Gura_ImplementFunction(Icon_3)
 
 Gura_DeclareFunction(Icon_5)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Icon));
 	DeclareArg(env, "bits", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -267,7 +267,7 @@ Gura_ImplementFunction(Icon_5)
 
 Gura_DeclareFunction(Icon_7)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Icon));
 	DeclareArg(env, "loc", VTYPE_wx_IconLocation, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -291,7 +291,7 @@ Gura_ImplementFunction(Icon_7)
 
 Gura_DeclareMethod(wx_Icon, CopyFromBitmap)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "bmp", VTYPE_wx_Bitmap, OCCUR_Once);
 }
 
@@ -306,7 +306,7 @@ Gura_ImplementMethod(wx_Icon, CopyFromBitmap)
 
 Gura_DeclareMethod(wx_Icon, GetDepth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -320,7 +320,7 @@ Gura_ImplementMethod(wx_Icon, GetDepth)
 
 Gura_DeclareMethod(wx_Icon, GetHeight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -334,7 +334,7 @@ Gura_ImplementMethod(wx_Icon, GetHeight)
 
 Gura_DeclareMethod(wx_Icon, GetWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -348,7 +348,7 @@ Gura_ImplementMethod(wx_Icon, GetWidth)
 
 Gura_DeclareMethod(wx_Icon, LoadFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -366,7 +366,7 @@ Gura_ImplementMethod(wx_Icon, LoadFile)
 
 Gura_DeclareMethod(wx_Icon, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -380,7 +380,7 @@ Gura_ImplementMethod(wx_Icon, IsOk)
 
 Gura_DeclareMethod(wx_Icon, SaveFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -407,7 +407,7 @@ Gura_ImplementMethod(wx_Icon, SaveFile)
 
 Gura_DeclareMethod(wx_Icon, SetDepth)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "depth", VTYPE_number, OCCUR_Once);
 }
 
@@ -422,7 +422,7 @@ Gura_ImplementMethod(wx_Icon, SetDepth)
 
 Gura_DeclareMethod(wx_Icon, SetHeight)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
@@ -437,7 +437,7 @@ Gura_ImplementMethod(wx_Icon, SetHeight)
 
 Gura_DeclareMethod(wx_Icon, SetWidth)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 

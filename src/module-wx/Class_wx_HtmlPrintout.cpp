@@ -38,7 +38,7 @@ void wx_HtmlPrintout::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HtmlPrintout)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlPrintout));
 	DeclareArg(env, "title", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(HtmlPrintout)
 
 Gura_DeclareClassMethod(wx_HtmlPrintout, AddFilter)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "filter", VTYPE_wx_HtmlFilter, OCCUR_Once);
 }
 
@@ -77,7 +77,7 @@ Gura_ImplementClassMethod(wx_HtmlPrintout, AddFilter)
 
 Gura_DeclareMethod(wx_HtmlPrintout, SetFonts)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "normal_face", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "fixed_face", VTYPE_string, OCCUR_Once);
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_HtmlPrintout, SetFonts)
 
 Gura_DeclareMethod(wx_HtmlPrintout, SetFooter)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "footer", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "pg", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_HtmlPrintout, SetFooter)
 
 Gura_DeclareMethod(wx_HtmlPrintout, SetHeader)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "header", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "pg", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_HtmlPrintout, SetHeader)
 
 Gura_DeclareMethod(wx_HtmlPrintout, SetHtmlFile)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "htmlfile", VTYPE_string, OCCUR_Once);
 }
 
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_HtmlPrintout, SetHtmlFile)
 
 Gura_DeclareMethod(wx_HtmlPrintout, SetHtmlText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "html", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "basepath", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "isdir", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_HtmlPrintout, SetHtmlText)
 
 Gura_DeclareMethod(wx_HtmlPrintout, SetMargins)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "top", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "bottom", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "left", VTYPE_number, OCCUR_ZeroOrOnce);

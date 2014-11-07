@@ -29,7 +29,7 @@ String Object_font_face::ToString(bool exprFlag)
 // cairo.font_face#status()
 Gura_DeclareMethod(font_face, status)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(font_face, status)
@@ -43,7 +43,7 @@ Gura_ImplementMethod(font_face, status)
 // cairo.font_face#get_type()
 Gura_DeclareMethod(font_face, get_type)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(font_face, get_type)

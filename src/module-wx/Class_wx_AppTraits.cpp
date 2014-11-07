@@ -56,7 +56,7 @@ void wx_AppTraits::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_AppTraits, CreateFontMapper)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -70,7 +70,7 @@ Gura_ImplementMethod(wx_AppTraits, CreateFontMapper)
 
 Gura_DeclareMethod(wx_AppTraits, CreateLogTarget)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_AppTraits, CreateLogTarget)
 
 Gura_DeclareMethod(wx_AppTraits, CreateMessageOutput)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_AppTraits, CreateMessageOutput)
 
 Gura_DeclareMethod(wx_AppTraits, CreateRenderer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_AppTraits, CreateRenderer)
 
 Gura_DeclareMethod(wx_AppTraits, GetDesktopEnvironment)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_AppTraits, GetDesktopEnvironment)
 
 Gura_DeclareMethod(wx_AppTraits, GetStandardPaths)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_AppTraits, GetStandardPaths)
 
 Gura_DeclareMethod(wx_AppTraits, GetToolkitVersion)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "major", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "minor", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_AppTraits, GetToolkitVersion)
 
 Gura_DeclareMethod(wx_AppTraits, HasStderr)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_AppTraits, HasStderr)
 
 Gura_DeclareMethod(wx_AppTraits, IsUsingUniversalWidgets)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_AppTraits, IsUsingUniversalWidgets)
 
 Gura_DeclareMethod(wx_AppTraits, ShowAssertDialog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "msg", VTYPE_string, OCCUR_Once);
 #endif

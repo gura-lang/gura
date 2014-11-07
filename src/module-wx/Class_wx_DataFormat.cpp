@@ -40,7 +40,7 @@ void wx_DataFormat::GuraObjectDeleted()
 #if 0
 Gura_DeclareFunction(DataFormat)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DataFormat));
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -65,7 +65,7 @@ Gura_ImplementFunction(DataFormat)
 
 Gura_DeclareFunction(DataFormat_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_DataFormat));
 	DeclareArg(env, "*format", VTYPE_number, OCCUR_Once);
@@ -96,7 +96,7 @@ Gura_ImplementFunction(DataFormat_1)
 
 Gura_DeclareMethod(wx_DataFormat, GetId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_DataFormat, GetId)
 
 Gura_DeclareMethod(wx_DataFormat, GetType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_DataFormat, GetType)
 
 Gura_DeclareMethod(wx_DataFormat, SetId)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "*format", VTYPE_number, OCCUR_Once);
 #endif
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_DataFormat, SetId)
 
 Gura_DeclareMethod(wx_DataFormat, SetType)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 

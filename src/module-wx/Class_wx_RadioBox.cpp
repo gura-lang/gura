@@ -49,7 +49,7 @@ void wx_RadioBox::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(RadioBoxEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RadioBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -71,7 +71,7 @@ Gura_ImplementFunction(RadioBoxEmpty)
 
 Gura_DeclareFunction(RadioBox)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_RadioBox));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -124,7 +124,7 @@ Gura_ImplementFunction(RadioBox)
 
 Gura_DeclareMethod(wx_RadioBox, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_RadioBox, Create)
 
 Gura_DeclareMethod(wx_RadioBox, Enable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "enable", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_RadioBox, Enable)
 
 Gura_DeclareMethod(wx_RadioBox, EnableItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "enable", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -198,7 +198,7 @@ Gura_ImplementMethod(wx_RadioBox, EnableItem)
 
 Gura_DeclareMethod(wx_RadioBox, FindString)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "string", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_RadioBox, FindString)
 
 Gura_DeclareMethod(wx_RadioBox, GetColumnCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -228,7 +228,7 @@ Gura_ImplementMethod(wx_RadioBox, GetColumnCount)
 
 Gura_DeclareMethod(wx_RadioBox, GetItemHelpText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_RadioBox, GetItemHelpText)
 
 Gura_DeclareMethod(wx_RadioBox, GetItemToolTip)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -260,7 +260,7 @@ Gura_ImplementMethod(wx_RadioBox, GetItemToolTip)
 
 Gura_DeclareMethod(wx_RadioBox, GetItemFromPoint)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -276,7 +276,7 @@ Gura_ImplementMethod(wx_RadioBox, GetItemFromPoint)
 
 Gura_DeclareMethod(wx_RadioBox, GetLabel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_RadioBox, GetLabel)
 
 Gura_DeclareMethod(wx_RadioBox, GetRowCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -304,7 +304,7 @@ Gura_ImplementMethod(wx_RadioBox, GetRowCount)
 
 Gura_DeclareMethod(wx_RadioBox, GetSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -318,7 +318,7 @@ Gura_ImplementMethod(wx_RadioBox, GetSelection)
 
 Gura_DeclareMethod(wx_RadioBox, GetStringSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -332,7 +332,7 @@ Gura_ImplementMethod(wx_RadioBox, GetStringSelection)
 
 Gura_DeclareMethod(wx_RadioBox, GetString)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -348,7 +348,7 @@ Gura_ImplementMethod(wx_RadioBox, GetString)
 
 Gura_DeclareMethod(wx_RadioBox, IsItemEnabled)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -364,7 +364,7 @@ Gura_ImplementMethod(wx_RadioBox, IsItemEnabled)
 
 Gura_DeclareMethod(wx_RadioBox, IsItemShown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -380,7 +380,7 @@ Gura_ImplementMethod(wx_RadioBox, IsItemShown)
 
 Gura_DeclareMethod(wx_RadioBox, SetItemHelpText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "helptext", VTYPE_string, OCCUR_Once);
 }
@@ -397,7 +397,7 @@ Gura_ImplementMethod(wx_RadioBox, SetItemHelpText)
 
 Gura_DeclareMethod(wx_RadioBox, SetLabel)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
 }
 
@@ -412,7 +412,7 @@ Gura_ImplementMethod(wx_RadioBox, SetLabel)
 
 Gura_DeclareMethod(wx_RadioBox, SetSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -427,7 +427,7 @@ Gura_ImplementMethod(wx_RadioBox, SetSelection)
 
 Gura_DeclareMethod(wx_RadioBox, SetStringSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "string", VTYPE_string, OCCUR_Once);
 }
 
@@ -442,7 +442,7 @@ Gura_ImplementMethod(wx_RadioBox, SetStringSelection)
 
 Gura_DeclareMethod(wx_RadioBox, SetItemToolTip)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 }
@@ -459,7 +459,7 @@ Gura_ImplementMethod(wx_RadioBox, SetItemToolTip)
 
 Gura_DeclareMethod(wx_RadioBox, Show)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "show", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -476,7 +476,7 @@ Gura_ImplementMethod(wx_RadioBox, Show)
 
 Gura_DeclareMethod(wx_RadioBox, ShowItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "show", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);

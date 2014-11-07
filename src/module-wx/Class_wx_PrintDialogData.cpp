@@ -40,7 +40,7 @@ void wx_PrintDialogData::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(PrintDialogDataEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PrintDialogData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -62,7 +62,7 @@ Gura_ImplementFunction(PrintDialogDataEmpty)
 
 Gura_DeclareFunction(PrintDialogData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_PrintDialogData));
 	DeclareArg(env, "dialogData", VTYPE_wx_PrintDialogData, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -86,7 +86,7 @@ Gura_ImplementFunction(PrintDialogData)
 
 Gura_DeclareFunction(PrintDialogData_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_PrintDialogData));
 	DeclareArg(env, "printData", VTYPE_wx_PrintData, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -110,7 +110,7 @@ Gura_ImplementFunction(PrintDialogData_1)
 
 Gura_DeclareMethod(wx_PrintDialogData, EnableHelp)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_PrintDialogData, EnableHelp)
 
 Gura_DeclareMethod(wx_PrintDialogData, EnablePageNumbers)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_PrintDialogData, EnablePageNumbers)
 
 Gura_DeclareMethod(wx_PrintDialogData, EnablePrintToFile)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_PrintDialogData, EnablePrintToFile)
 
 Gura_DeclareMethod(wx_PrintDialogData, EnableSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_PrintDialogData, EnableSelection)
 
 Gura_DeclareMethod(wx_PrintDialogData, GetAllPages)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_PrintDialogData, GetAllPages)
 
 Gura_DeclareMethod(wx_PrintDialogData, GetCollate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -198,7 +198,7 @@ Gura_ImplementMethod(wx_PrintDialogData, GetCollate)
 
 Gura_DeclareMethod(wx_PrintDialogData, GetFromPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_PrintDialogData, GetFromPage)
 
 Gura_DeclareMethod(wx_PrintDialogData, GetMaxPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -226,7 +226,7 @@ Gura_ImplementMethod(wx_PrintDialogData, GetMaxPage)
 
 Gura_DeclareMethod(wx_PrintDialogData, GetMinPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_PrintDialogData, GetMinPage)
 
 Gura_DeclareMethod(wx_PrintDialogData, GetNoCopies)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -254,7 +254,7 @@ Gura_ImplementMethod(wx_PrintDialogData, GetNoCopies)
 
 Gura_DeclareMethod(wx_PrintDialogData, GetPrintData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -268,7 +268,7 @@ Gura_ImplementMethod(wx_PrintDialogData, GetPrintData)
 
 Gura_DeclareMethod(wx_PrintDialogData, GetPrintToFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -282,7 +282,7 @@ Gura_ImplementMethod(wx_PrintDialogData, GetPrintToFile)
 
 Gura_DeclareMethod(wx_PrintDialogData, GetSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -296,7 +296,7 @@ Gura_ImplementMethod(wx_PrintDialogData, GetSelection)
 
 Gura_DeclareMethod(wx_PrintDialogData, GetToPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -310,7 +310,7 @@ Gura_ImplementMethod(wx_PrintDialogData, GetToPage)
 
 Gura_DeclareMethod(wx_PrintDialogData, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -324,7 +324,7 @@ Gura_ImplementMethod(wx_PrintDialogData, IsOk)
 
 Gura_DeclareMethod(wx_PrintDialogData, SetCollate)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -339,7 +339,7 @@ Gura_ImplementMethod(wx_PrintDialogData, SetCollate)
 
 Gura_DeclareMethod(wx_PrintDialogData, SetFromPage)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
@@ -354,7 +354,7 @@ Gura_ImplementMethod(wx_PrintDialogData, SetFromPage)
 
 Gura_DeclareMethod(wx_PrintDialogData, SetMaxPage)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
@@ -369,7 +369,7 @@ Gura_ImplementMethod(wx_PrintDialogData, SetMaxPage)
 
 Gura_DeclareMethod(wx_PrintDialogData, SetMinPage)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
@@ -384,7 +384,7 @@ Gura_ImplementMethod(wx_PrintDialogData, SetMinPage)
 
 Gura_DeclareMethod(wx_PrintDialogData, SetNoCopies)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -399,7 +399,7 @@ Gura_ImplementMethod(wx_PrintDialogData, SetNoCopies)
 
 Gura_DeclareMethod(wx_PrintDialogData, SetPrintData)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "printData", VTYPE_wx_PrintData, OCCUR_Once);
 }
 
@@ -414,7 +414,7 @@ Gura_ImplementMethod(wx_PrintDialogData, SetPrintData)
 
 Gura_DeclareMethod(wx_PrintDialogData, SetPrintToFile)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -429,7 +429,7 @@ Gura_ImplementMethod(wx_PrintDialogData, SetPrintToFile)
 
 Gura_DeclareMethod(wx_PrintDialogData, SetSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -444,7 +444,7 @@ Gura_ImplementMethod(wx_PrintDialogData, SetSelection)
 
 Gura_DeclareMethod(wx_PrintDialogData, SetSetupDialog)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 #endif
@@ -465,7 +465,7 @@ Gura_ImplementMethod(wx_PrintDialogData, SetSetupDialog)
 
 Gura_DeclareMethod(wx_PrintDialogData, SetToPage)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 

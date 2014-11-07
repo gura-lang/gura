@@ -399,7 +399,7 @@ void Object_font::DrawGrayOnImage(Image *pImage, int x, int y,
 // freetype.font(face:freetype.Face):map {block?}
 Gura_DeclareFunction(font)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "face", VTYPE_Face);
 	SetClassToConstruct(Gura_UserClass(font));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -416,7 +416,7 @@ Gura_ImplementFunction(font)
 // freetype.font#cleardeco()
 Gura_DeclareMethod(font, cleardeco)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 }
 
 Gura_ImplementMethod(font, cleardeco)
@@ -429,7 +429,7 @@ Gura_ImplementMethod(font, cleardeco)
 // freetype.font#drawtext(image:image, x:number, y:number, str:string):map:reduce {block?}
 Gura_DeclareMethod(font, drawtext)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "image", VTYPE_image);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
@@ -457,7 +457,7 @@ Gura_ImplementMethod(font, drawtext)
 // freetype.font#calcsize(str:string):map
 Gura_DeclareMethod(font, calcsize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
 }
 
@@ -476,7 +476,7 @@ Gura_ImplementMethod(font, calcsize)
 // freetype.font#calcbbox(x:number, y:number, str:string):map
 Gura_DeclareMethod(font, calcbbox)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "str", VTYPE_string);

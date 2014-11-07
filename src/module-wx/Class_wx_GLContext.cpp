@@ -38,7 +38,7 @@ void wx_GLContext::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GLContext)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_GLContext));
 	DeclareArg(env, "win", VTYPE_wx_GLCanvas, OCCUR_Once);
 	DeclareArg(env, "other", VTYPE_wx_GLContext, OCCUR_ZeroOrOnce);
@@ -65,7 +65,7 @@ Gura_ImplementFunction(GLContext)
 
 Gura_DeclareMethod(wx_GLContext, SetCurrent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "win", VTYPE_wx_GLCanvas, OCCUR_Once);
 }
 

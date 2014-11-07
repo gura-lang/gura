@@ -39,7 +39,7 @@ void wx_SashLayoutWindow::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(SashLayoutWindowEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SashLayoutWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(SashLayoutWindowEmpty)
 
 Gura_DeclareFunction(SashLayoutWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_SashLayoutWindow));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -99,7 +99,7 @@ Gura_ImplementFunction(SashLayoutWindow)
 
 Gura_DeclareMethod(wx_SashLayoutWindow, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_SashLayoutWindow, Create)
 
 Gura_DeclareMethod(wx_SashLayoutWindow, GetAlignment)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_SashLayoutWindow, GetAlignment)
 
 Gura_DeclareMethod(wx_SashLayoutWindow, GetOrientation)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_SashLayoutWindow, GetOrientation)
 
 Gura_DeclareMethod(wx_SashLayoutWindow, OnCalculateLayout)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_CalculateLayoutEvent, OCCUR_Once);
 }
 
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_SashLayoutWindow, OnCalculateLayout)
 
 Gura_DeclareMethod(wx_SashLayoutWindow, OnQueryLayoutInfo)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_QueryLayoutInfoEvent, OCCUR_Once);
 }
 
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_SashLayoutWindow, OnQueryLayoutInfo)
 
 Gura_DeclareMethod(wx_SashLayoutWindow, SetAlignment)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "alignment", VTYPE_number, OCCUR_Once);
 }
 
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_SashLayoutWindow, SetAlignment)
 
 Gura_DeclareMethod(wx_SashLayoutWindow, SetDefaultSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_SashLayoutWindow, SetDefaultSize)
 
 Gura_DeclareMethod(wx_SashLayoutWindow, SetOrientation)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
 }
 

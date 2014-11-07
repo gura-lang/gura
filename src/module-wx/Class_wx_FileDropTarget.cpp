@@ -70,7 +70,7 @@ bool wx_FileDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& f
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FileDropTarget)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FileDropTarget));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -92,7 +92,7 @@ Gura_ImplementFunction(FileDropTarget)
 
 Gura_DeclareMethod(wx_FileDropTarget, OnDrop)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_FileDropTarget, OnDrop)
 
 Gura_DeclareMethod(wx_FileDropTarget, OnDropFiles)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "filenames", VTYPE_string, OCCUR_Once, FLAG_List);

@@ -2,7 +2,7 @@
 // opengl.glAccum(op:number, value:number):void:map
 Gura_DeclareFunction(glAccum)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "op", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_number);
 }
@@ -19,7 +19,7 @@ Gura_ImplementFunction(glAccum)
 // opengl.glAlphaFunc(func:number, ref:number):void:map
 Gura_DeclareFunction(glAlphaFunc)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_number);
 	DeclareArg(env, "ref", VTYPE_number);
 }
@@ -36,7 +36,7 @@ Gura_ImplementFunction(glAlphaFunc)
 // opengl.glArrayElement(i:number):void:map
 Gura_DeclareFunction(glArrayElement)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "i", VTYPE_number);
 }
 
@@ -51,7 +51,7 @@ Gura_ImplementFunction(glArrayElement)
 // opengl.glBindTexture(target:number, texture:number):void:map
 Gura_DeclareFunction(glBindTexture)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number);
 	DeclareArg(env, "texture", VTYPE_number);
 }
@@ -68,7 +68,7 @@ Gura_ImplementFunction(glBindTexture)
 // opengl.glBlendFunc(sfactor:number, dfactor:number):void:map
 Gura_DeclareFunction(glBlendFunc)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "sfactor", VTYPE_number);
 	DeclareArg(env, "dfactor", VTYPE_number);
 }
@@ -85,7 +85,7 @@ Gura_ImplementFunction(glBlendFunc)
 // opengl.glCallList(list:number):void:map
 Gura_DeclareFunction(glCallList)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "list", VTYPE_number);
 }
 
@@ -100,7 +100,7 @@ Gura_ImplementFunction(glCallList)
 // opengl.glClear(mask:number):void:map
 Gura_DeclareFunction(glClear)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mask", VTYPE_number);
 }
 
@@ -115,7 +115,7 @@ Gura_ImplementFunction(glClear)
 // opengl.glClearAccum(red:number, green:number, blue:number, alpha:number):void:map
 Gura_DeclareFunction(glClearAccum)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
@@ -136,7 +136,7 @@ Gura_ImplementFunction(glClearAccum)
 // opengl.glClearColor(red:number, green:number, blue:number, alpha:number):void:map
 Gura_DeclareFunction(glClearColor)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
@@ -157,7 +157,7 @@ Gura_ImplementFunction(glClearColor)
 // opengl.glClearDepth(depth:number):void:map
 Gura_DeclareFunction(glClearDepth)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "depth", VTYPE_number);
 }
 
@@ -172,7 +172,7 @@ Gura_ImplementFunction(glClearDepth)
 // opengl.glClearIndex(c:number):void:map
 Gura_DeclareFunction(glClearIndex)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number);
 }
 
@@ -187,7 +187,7 @@ Gura_ImplementFunction(glClearIndex)
 // opengl.glClearStencil(s:number):void:map
 Gura_DeclareFunction(glClearStencil)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number);
 }
 
@@ -202,7 +202,7 @@ Gura_ImplementFunction(glClearStencil)
 // opengl.glClipPlane(plane:number, equation[]:number):void:map
 Gura_DeclareFunction(glClipPlane)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "plane", VTYPE_number);
 	DeclareArg(env, "equation", VTYPE_number, OCCUR_Once, FLAG_List);
 }
@@ -220,7 +220,7 @@ Gura_ImplementFunction(glClipPlane)
 // opengl.glColor3b(red:number, green:number, blue:number):void:map
 Gura_DeclareFunction(glColor3b)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
@@ -239,7 +239,7 @@ Gura_ImplementFunction(glColor3b)
 // opengl.glColor3bv(v[]:number):void:map
 Gura_DeclareFunction(glColor3bv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -254,7 +254,7 @@ Gura_ImplementFunction(glColor3bv)
 // opengl.glColor3d(red:number, green:number, blue:number):void:map
 Gura_DeclareFunction(glColor3d)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
@@ -273,7 +273,7 @@ Gura_ImplementFunction(glColor3d)
 // opengl.glColor3dv(v[]:number):void:map
 Gura_DeclareFunction(glColor3dv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -288,7 +288,7 @@ Gura_ImplementFunction(glColor3dv)
 // opengl.glColor3f(red:number, green:number, blue:number):void:map
 Gura_DeclareFunction(glColor3f)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
@@ -307,7 +307,7 @@ Gura_ImplementFunction(glColor3f)
 // opengl.glColor3fv(v[]:number):void:map
 Gura_DeclareFunction(glColor3fv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -322,7 +322,7 @@ Gura_ImplementFunction(glColor3fv)
 // opengl.glColor3i(red:number, green:number, blue:number):void:map
 Gura_DeclareFunction(glColor3i)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
@@ -341,7 +341,7 @@ Gura_ImplementFunction(glColor3i)
 // opengl.glColor3iv(v[]:number):void:map
 Gura_DeclareFunction(glColor3iv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -356,7 +356,7 @@ Gura_ImplementFunction(glColor3iv)
 // opengl.glColor3s(red:number, green:number, blue:number):void:map
 Gura_DeclareFunction(glColor3s)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
@@ -375,7 +375,7 @@ Gura_ImplementFunction(glColor3s)
 // opengl.glColor3sv(v[]:number):void:map
 Gura_DeclareFunction(glColor3sv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -390,7 +390,7 @@ Gura_ImplementFunction(glColor3sv)
 // opengl.glColor3ub(red:number, green:number, blue:number):void:map
 Gura_DeclareFunction(glColor3ub)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
@@ -409,7 +409,7 @@ Gura_ImplementFunction(glColor3ub)
 // opengl.glColor3ubv(v[]:number):void:map
 Gura_DeclareFunction(glColor3ubv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -424,7 +424,7 @@ Gura_ImplementFunction(glColor3ubv)
 // opengl.glColor3ui(red:number, green:number, blue:number):void:map
 Gura_DeclareFunction(glColor3ui)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
@@ -443,7 +443,7 @@ Gura_ImplementFunction(glColor3ui)
 // opengl.glColor3uiv(v[]:number):void:map
 Gura_DeclareFunction(glColor3uiv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -458,7 +458,7 @@ Gura_ImplementFunction(glColor3uiv)
 // opengl.glColor3us(red:number, green:number, blue:number):void:map
 Gura_DeclareFunction(glColor3us)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
@@ -477,7 +477,7 @@ Gura_ImplementFunction(glColor3us)
 // opengl.glColor3usv(v[]:number):void:map
 Gura_DeclareFunction(glColor3usv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -492,7 +492,7 @@ Gura_ImplementFunction(glColor3usv)
 // opengl.glColor4b(red:number, green:number, blue:number, alpha:number):void:map
 Gura_DeclareFunction(glColor4b)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
@@ -513,7 +513,7 @@ Gura_ImplementFunction(glColor4b)
 // opengl.glColor4bv(v[]:number):void:map
 Gura_DeclareFunction(glColor4bv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -528,7 +528,7 @@ Gura_ImplementFunction(glColor4bv)
 // opengl.glColor4d(red:number, green:number, blue:number, alpha:number):void:map
 Gura_DeclareFunction(glColor4d)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
@@ -549,7 +549,7 @@ Gura_ImplementFunction(glColor4d)
 // opengl.glColor4dv(v[]:number):void:map
 Gura_DeclareFunction(glColor4dv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -564,7 +564,7 @@ Gura_ImplementFunction(glColor4dv)
 // opengl.glColor4f(red:number, green:number, blue:number, alpha:number):void:map
 Gura_DeclareFunction(glColor4f)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
@@ -585,7 +585,7 @@ Gura_ImplementFunction(glColor4f)
 // opengl.glColor4fv(v[]:number):void:map
 Gura_DeclareFunction(glColor4fv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -600,7 +600,7 @@ Gura_ImplementFunction(glColor4fv)
 // opengl.glColor4i(red:number, green:number, blue:number, alpha:number):void:map
 Gura_DeclareFunction(glColor4i)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
@@ -621,7 +621,7 @@ Gura_ImplementFunction(glColor4i)
 // opengl.glColor4iv(v[]:number):void:map
 Gura_DeclareFunction(glColor4iv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -636,7 +636,7 @@ Gura_ImplementFunction(glColor4iv)
 // opengl.glColor4s(red:number, green:number, blue:number, alpha:number):void:map
 Gura_DeclareFunction(glColor4s)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
@@ -657,7 +657,7 @@ Gura_ImplementFunction(glColor4s)
 // opengl.glColor4sv(v[]:number):void:map
 Gura_DeclareFunction(glColor4sv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -672,7 +672,7 @@ Gura_ImplementFunction(glColor4sv)
 // opengl.glColor4ub(red:number, green:number, blue:number, alpha:number):void:map
 Gura_DeclareFunction(glColor4ub)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
@@ -693,7 +693,7 @@ Gura_ImplementFunction(glColor4ub)
 // opengl.glColor4ubv(v[]:number):void:map
 Gura_DeclareFunction(glColor4ubv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -708,7 +708,7 @@ Gura_ImplementFunction(glColor4ubv)
 // opengl.glColor4ui(red:number, green:number, blue:number, alpha:number):void:map
 Gura_DeclareFunction(glColor4ui)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
@@ -729,7 +729,7 @@ Gura_ImplementFunction(glColor4ui)
 // opengl.glColor4uiv(v[]:number):void:map
 Gura_DeclareFunction(glColor4uiv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -744,7 +744,7 @@ Gura_ImplementFunction(glColor4uiv)
 // opengl.glColor4us(red:number, green:number, blue:number, alpha:number):void:map
 Gura_DeclareFunction(glColor4us)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
@@ -765,7 +765,7 @@ Gura_ImplementFunction(glColor4us)
 // opengl.glColor4usv(v[]:number):void:map
 Gura_DeclareFunction(glColor4usv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -780,7 +780,7 @@ Gura_ImplementFunction(glColor4usv)
 // opengl.glColorMask(red:boolean, green:boolean, blue:boolean, alpha:boolean):void:map
 Gura_DeclareFunction(glColorMask)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_boolean);
 	DeclareArg(env, "green", VTYPE_boolean);
 	DeclareArg(env, "blue", VTYPE_boolean);
@@ -801,7 +801,7 @@ Gura_ImplementFunction(glColorMask)
 // opengl.glColorMaterial(face:number, mode:number):void:map
 Gura_DeclareFunction(glColorMaterial)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "face", VTYPE_number);
 	DeclareArg(env, "mode", VTYPE_number);
 }
@@ -818,7 +818,7 @@ Gura_ImplementFunction(glColorMaterial)
 // opengl.glCopyPixels(x:number, y:number, width:number, height:number, type:number):void:map
 Gura_DeclareFunction(glCopyPixels)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number);
@@ -841,7 +841,7 @@ Gura_ImplementFunction(glCopyPixels)
 // opengl.glCopyTexImage1D(target:number, level:number, internalFormat:number, x:number, y:number, width:number, border:number):void:map
 Gura_DeclareFunction(glCopyTexImage1D)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number);
 	DeclareArg(env, "level", VTYPE_number);
 	DeclareArg(env, "internalFormat", VTYPE_number);
@@ -868,7 +868,7 @@ Gura_ImplementFunction(glCopyTexImage1D)
 // opengl.glCopyTexImage2D(target:number, level:number, internalFormat:number, x:number, y:number, width:number, height:number, border:number):void:map
 Gura_DeclareFunction(glCopyTexImage2D)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number);
 	DeclareArg(env, "level", VTYPE_number);
 	DeclareArg(env, "internalFormat", VTYPE_number);
@@ -897,7 +897,7 @@ Gura_ImplementFunction(glCopyTexImage2D)
 // opengl.glCopyTexSubImage1D(target:number, level:number, xoffset:number, x:number, y:number, width:number):void:map
 Gura_DeclareFunction(glCopyTexSubImage1D)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number);
 	DeclareArg(env, "level", VTYPE_number);
 	DeclareArg(env, "xoffset", VTYPE_number);
@@ -922,7 +922,7 @@ Gura_ImplementFunction(glCopyTexSubImage1D)
 // opengl.glCopyTexSubImage2D(target:number, level:number, xoffset:number, yoffset:number, x:number, y:number, width:number, height:number):void:map
 Gura_DeclareFunction(glCopyTexSubImage2D)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number);
 	DeclareArg(env, "level", VTYPE_number);
 	DeclareArg(env, "xoffset", VTYPE_number);
@@ -951,7 +951,7 @@ Gura_ImplementFunction(glCopyTexSubImage2D)
 // opengl.glCullFace(mode:number):void:map
 Gura_DeclareFunction(glCullFace)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number);
 }
 
@@ -966,7 +966,7 @@ Gura_ImplementFunction(glCullFace)
 // opengl.glDeleteLists(list:number, range:number):void:map
 Gura_DeclareFunction(glDeleteLists)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "list", VTYPE_number);
 	DeclareArg(env, "range", VTYPE_number);
 }
@@ -983,7 +983,7 @@ Gura_ImplementFunction(glDeleteLists)
 // opengl.glDepthFunc(func:number):void:map
 Gura_DeclareFunction(glDepthFunc)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_number);
 }
 
@@ -998,7 +998,7 @@ Gura_ImplementFunction(glDepthFunc)
 // opengl.glDepthMask(flag:boolean):void:map
 Gura_DeclareFunction(glDepthMask)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean);
 }
 
@@ -1013,7 +1013,7 @@ Gura_ImplementFunction(glDepthMask)
 // opengl.glDepthRange(zNear:number, zFar:number):void:map
 Gura_DeclareFunction(glDepthRange)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "zNear", VTYPE_number);
 	DeclareArg(env, "zFar", VTYPE_number);
 }
@@ -1030,7 +1030,7 @@ Gura_ImplementFunction(glDepthRange)
 // opengl.glDisable(cap:number):void:map
 Gura_DeclareFunction(glDisable)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "cap", VTYPE_number);
 }
 
@@ -1045,7 +1045,7 @@ Gura_ImplementFunction(glDisable)
 // opengl.glDisableClientState(array:number):void:map
 Gura_DeclareFunction(glDisableClientState)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "array", VTYPE_number);
 }
 
@@ -1060,7 +1060,7 @@ Gura_ImplementFunction(glDisableClientState)
 // opengl.glDrawArrays(mode:number, first:number, count:number):void:map
 Gura_DeclareFunction(glDrawArrays)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number);
 	DeclareArg(env, "first", VTYPE_number);
 	DeclareArg(env, "count", VTYPE_number);
@@ -1079,7 +1079,7 @@ Gura_ImplementFunction(glDrawArrays)
 // opengl.glDrawBuffer(mode:number):void:map
 Gura_DeclareFunction(glDrawBuffer)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number);
 }
 
@@ -1094,7 +1094,7 @@ Gura_ImplementFunction(glDrawBuffer)
 // opengl.glEdgeFlag(flag:boolean):void:map
 Gura_DeclareFunction(glEdgeFlag)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean);
 }
 
@@ -1109,7 +1109,7 @@ Gura_ImplementFunction(glEdgeFlag)
 // opengl.glEdgeFlagv(flag[]:boolean):void:map
 Gura_DeclareFunction(glEdgeFlagv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once, FLAG_List);
 }
 
@@ -1125,7 +1125,7 @@ Gura_ImplementFunction(glEdgeFlagv)
 // opengl.glEnable(cap:number):void:map
 Gura_DeclareFunction(glEnable)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "cap", VTYPE_number);
 }
 
@@ -1140,7 +1140,7 @@ Gura_ImplementFunction(glEnable)
 // opengl.glEnableClientState(array:number):void:map
 Gura_DeclareFunction(glEnableClientState)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "array", VTYPE_number);
 }
 
@@ -1155,7 +1155,7 @@ Gura_ImplementFunction(glEnableClientState)
 // opengl.glEnd():void
 Gura_DeclareFunction(glEnd)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(glEnd)
@@ -1168,7 +1168,7 @@ Gura_ImplementFunction(glEnd)
 // opengl.glEndList():void
 Gura_DeclareFunction(glEndList)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(glEndList)
@@ -1181,7 +1181,7 @@ Gura_ImplementFunction(glEndList)
 // opengl.glEvalCoord1d(u:number):void:map
 Gura_DeclareFunction(glEvalCoord1d)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "u", VTYPE_number);
 }
 
@@ -1196,7 +1196,7 @@ Gura_ImplementFunction(glEvalCoord1d)
 // opengl.glEvalCoord1dv(u[]:number):void:map
 Gura_DeclareFunction(glEvalCoord1dv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "u", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -1211,7 +1211,7 @@ Gura_ImplementFunction(glEvalCoord1dv)
 // opengl.glEvalCoord1f(u:number):void:map
 Gura_DeclareFunction(glEvalCoord1f)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "u", VTYPE_number);
 }
 
@@ -1226,7 +1226,7 @@ Gura_ImplementFunction(glEvalCoord1f)
 // opengl.glEvalCoord1fv(u[]:number):void:map
 Gura_DeclareFunction(glEvalCoord1fv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "u", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -1241,7 +1241,7 @@ Gura_ImplementFunction(glEvalCoord1fv)
 // opengl.glEvalCoord2d(u:number, v:number):void:map
 Gura_DeclareFunction(glEvalCoord2d)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "u", VTYPE_number);
 	DeclareArg(env, "v", VTYPE_number);
 }
@@ -1258,7 +1258,7 @@ Gura_ImplementFunction(glEvalCoord2d)
 // opengl.glEvalCoord2dv(u[]:number):void:map
 Gura_DeclareFunction(glEvalCoord2dv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "u", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -1273,7 +1273,7 @@ Gura_ImplementFunction(glEvalCoord2dv)
 // opengl.glEvalCoord2f(u:number, v:number):void:map
 Gura_DeclareFunction(glEvalCoord2f)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "u", VTYPE_number);
 	DeclareArg(env, "v", VTYPE_number);
 }
@@ -1290,7 +1290,7 @@ Gura_ImplementFunction(glEvalCoord2f)
 // opengl.glEvalCoord2fv(u[]:number):void:map
 Gura_DeclareFunction(glEvalCoord2fv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "u", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -1305,7 +1305,7 @@ Gura_ImplementFunction(glEvalCoord2fv)
 // opengl.glEvalMesh1(mode:number, i1:number, i2:number):void:map
 Gura_DeclareFunction(glEvalMesh1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number);
 	DeclareArg(env, "i1", VTYPE_number);
 	DeclareArg(env, "i2", VTYPE_number);
@@ -1324,7 +1324,7 @@ Gura_ImplementFunction(glEvalMesh1)
 // opengl.glEvalMesh2(mode:number, i1:number, i2:number, j1:number, j2:number):void:map
 Gura_DeclareFunction(glEvalMesh2)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number);
 	DeclareArg(env, "i1", VTYPE_number);
 	DeclareArg(env, "i2", VTYPE_number);
@@ -1347,7 +1347,7 @@ Gura_ImplementFunction(glEvalMesh2)
 // opengl.glEvalPoint1(i:number):void:map
 Gura_DeclareFunction(glEvalPoint1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "i", VTYPE_number);
 }
 
@@ -1362,7 +1362,7 @@ Gura_ImplementFunction(glEvalPoint1)
 // opengl.glEvalPoint2(i:number, j:number):void:map
 Gura_DeclareFunction(glEvalPoint2)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "i", VTYPE_number);
 	DeclareArg(env, "j", VTYPE_number);
 }
@@ -1379,7 +1379,7 @@ Gura_ImplementFunction(glEvalPoint2)
 // opengl.glFinish():void
 Gura_DeclareFunction(glFinish)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(glFinish)
@@ -1392,7 +1392,7 @@ Gura_ImplementFunction(glFinish)
 // opengl.glFlush():void
 Gura_DeclareFunction(glFlush)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(glFlush)
@@ -1405,7 +1405,7 @@ Gura_ImplementFunction(glFlush)
 // opengl.glFogf(pname:number, param:number):void:map
 Gura_DeclareFunction(glFogf)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "param", VTYPE_number);
 }
@@ -1422,7 +1422,7 @@ Gura_ImplementFunction(glFogf)
 // opengl.glFogfv(pname:number, params[]:number):void:map
 Gura_DeclareFunction(glFogfv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 }
@@ -1440,7 +1440,7 @@ Gura_ImplementFunction(glFogfv)
 // opengl.glFogi(pname:number, param:number):void:map
 Gura_DeclareFunction(glFogi)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "param", VTYPE_number);
 }
@@ -1457,7 +1457,7 @@ Gura_ImplementFunction(glFogi)
 // opengl.glFogiv(pname:number, params[]:number):void:map
 Gura_DeclareFunction(glFogiv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 }
@@ -1475,7 +1475,7 @@ Gura_ImplementFunction(glFogiv)
 // opengl.glFrontFace(mode:number):void:map
 Gura_DeclareFunction(glFrontFace)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number);
 }
 
@@ -1490,7 +1490,7 @@ Gura_ImplementFunction(glFrontFace)
 // opengl.glFrustum(left:number, right:number, bottom:number, top:number, zNear:number, zFar:number):void:map
 Gura_DeclareFunction(glFrustum)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "left", VTYPE_number);
 	DeclareArg(env, "right", VTYPE_number);
 	DeclareArg(env, "bottom", VTYPE_number);
@@ -1515,7 +1515,7 @@ Gura_ImplementFunction(glFrustum)
 // opengl.glHint(target:number, mode:number):void:map
 Gura_DeclareFunction(glHint)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number);
 	DeclareArg(env, "mode", VTYPE_number);
 }
@@ -1532,7 +1532,7 @@ Gura_ImplementFunction(glHint)
 // opengl.glIndexMask(mask:number):void:map
 Gura_DeclareFunction(glIndexMask)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mask", VTYPE_number);
 }
 
@@ -1547,7 +1547,7 @@ Gura_ImplementFunction(glIndexMask)
 // opengl.glIndexd(c:number):void:map
 Gura_DeclareFunction(glIndexd)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number);
 }
 
@@ -1562,7 +1562,7 @@ Gura_ImplementFunction(glIndexd)
 // opengl.glIndexdv(c[]:number):void:map
 Gura_DeclareFunction(glIndexdv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -1578,7 +1578,7 @@ Gura_ImplementFunction(glIndexdv)
 // opengl.glIndexf(c:number):void:map
 Gura_DeclareFunction(glIndexf)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number);
 }
 
@@ -1593,7 +1593,7 @@ Gura_ImplementFunction(glIndexf)
 // opengl.glIndexfv(c[]:number):void:map
 Gura_DeclareFunction(glIndexfv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -1609,7 +1609,7 @@ Gura_ImplementFunction(glIndexfv)
 // opengl.glIndexi(c:number):void:map
 Gura_DeclareFunction(glIndexi)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number);
 }
 
@@ -1624,7 +1624,7 @@ Gura_ImplementFunction(glIndexi)
 // opengl.glIndexiv(c[]:number):void:map
 Gura_DeclareFunction(glIndexiv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -1640,7 +1640,7 @@ Gura_ImplementFunction(glIndexiv)
 // opengl.glIndexs(c:number):void:map
 Gura_DeclareFunction(glIndexs)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number);
 }
 
@@ -1655,7 +1655,7 @@ Gura_ImplementFunction(glIndexs)
 // opengl.glIndexsv(c[]:number):void:map
 Gura_DeclareFunction(glIndexsv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -1671,7 +1671,7 @@ Gura_ImplementFunction(glIndexsv)
 // opengl.glIndexub(c:number):void:map
 Gura_DeclareFunction(glIndexub)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number);
 }
 
@@ -1686,7 +1686,7 @@ Gura_ImplementFunction(glIndexub)
 // opengl.glIndexubv(c[]:number):void:map
 Gura_DeclareFunction(glIndexubv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -1702,7 +1702,7 @@ Gura_ImplementFunction(glIndexubv)
 // opengl.glInitNames():void
 Gura_DeclareFunction(glInitNames)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(glInitNames)
@@ -1715,7 +1715,7 @@ Gura_ImplementFunction(glInitNames)
 // opengl.glLightModelf(pname:number, param:number):void:map
 Gura_DeclareFunction(glLightModelf)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "param", VTYPE_number);
 }
@@ -1732,7 +1732,7 @@ Gura_ImplementFunction(glLightModelf)
 // opengl.glLightModelfv(pname:number, params[]:number):void:map
 Gura_DeclareFunction(glLightModelfv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 }
@@ -1750,7 +1750,7 @@ Gura_ImplementFunction(glLightModelfv)
 // opengl.glLightModeli(pname:number, param:number):void:map
 Gura_DeclareFunction(glLightModeli)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "param", VTYPE_number);
 }
@@ -1767,7 +1767,7 @@ Gura_ImplementFunction(glLightModeli)
 // opengl.glLightModeliv(pname:number, params[]:number):void:map
 Gura_DeclareFunction(glLightModeliv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 }
@@ -1785,7 +1785,7 @@ Gura_ImplementFunction(glLightModeliv)
 // opengl.glLightf(light:number, pname:number, param:number):void:map
 Gura_DeclareFunction(glLightf)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "light", VTYPE_number);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "param", VTYPE_number);
@@ -1804,7 +1804,7 @@ Gura_ImplementFunction(glLightf)
 // opengl.glLightfv(light:number, pname:number, params[]:number):void:map
 Gura_DeclareFunction(glLightfv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "light", VTYPE_number);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -1824,7 +1824,7 @@ Gura_ImplementFunction(glLightfv)
 // opengl.glLighti(light:number, pname:number, param:number):void:map
 Gura_DeclareFunction(glLighti)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "light", VTYPE_number);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "param", VTYPE_number);
@@ -1843,7 +1843,7 @@ Gura_ImplementFunction(glLighti)
 // opengl.glLightiv(light:number, pname:number, params[]:number):void:map
 Gura_DeclareFunction(glLightiv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "light", VTYPE_number);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -1863,7 +1863,7 @@ Gura_ImplementFunction(glLightiv)
 // opengl.glLineStipple(factor:number, pattern:number):void:map
 Gura_DeclareFunction(glLineStipple)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "factor", VTYPE_number);
 	DeclareArg(env, "pattern", VTYPE_number);
 }
@@ -1880,7 +1880,7 @@ Gura_ImplementFunction(glLineStipple)
 // opengl.glLineWidth(width:number):void:map
 Gura_DeclareFunction(glLineWidth)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number);
 }
 
@@ -1895,7 +1895,7 @@ Gura_ImplementFunction(glLineWidth)
 // opengl.glListBase(base:number):void:map
 Gura_DeclareFunction(glListBase)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "base", VTYPE_number);
 }
 
@@ -1910,7 +1910,7 @@ Gura_ImplementFunction(glListBase)
 // opengl.glLoadIdentity():void
 Gura_DeclareFunction(glLoadIdentity)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(glLoadIdentity)
@@ -1923,7 +1923,7 @@ Gura_ImplementFunction(glLoadIdentity)
 // opengl.glLoadMatrixd(m[]:number):void:map
 Gura_DeclareFunction(glLoadMatrixd)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "m", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -1939,7 +1939,7 @@ Gura_ImplementFunction(glLoadMatrixd)
 // opengl.glLoadMatrixf(m[]:number):void:map
 Gura_DeclareFunction(glLoadMatrixf)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "m", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -1955,7 +1955,7 @@ Gura_ImplementFunction(glLoadMatrixf)
 // opengl.glLoadName(name:number):void:map
 Gura_DeclareFunction(glLoadName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_number);
 }
 
@@ -1970,7 +1970,7 @@ Gura_ImplementFunction(glLoadName)
 // opengl.glLogicOp(opcode:number):void:map
 Gura_DeclareFunction(glLogicOp)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "opcode", VTYPE_number);
 }
 
@@ -1985,7 +1985,7 @@ Gura_ImplementFunction(glLogicOp)
 // opengl.glMap1d(target:number, u1:number, u2:number, stride:number, order:number, points[]:number):void:map
 Gura_DeclareFunction(glMap1d)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number);
 	DeclareArg(env, "u1", VTYPE_number);
 	DeclareArg(env, "u2", VTYPE_number);
@@ -2011,7 +2011,7 @@ Gura_ImplementFunction(glMap1d)
 // opengl.glMap1f(target:number, u1:number, u2:number, stride:number, order:number, points[]:number):void:map
 Gura_DeclareFunction(glMap1f)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number);
 	DeclareArg(env, "u1", VTYPE_number);
 	DeclareArg(env, "u2", VTYPE_number);
@@ -2037,7 +2037,7 @@ Gura_ImplementFunction(glMap1f)
 // opengl.glMap2d(target:number, u1:number, u2:number, ustride:number, uorder:number, v1:number, v2:number, vstride:number, vorder:number, points[]:number):void:map
 Gura_DeclareFunction(glMap2d)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number);
 	DeclareArg(env, "u1", VTYPE_number);
 	DeclareArg(env, "u2", VTYPE_number);
@@ -2071,7 +2071,7 @@ Gura_ImplementFunction(glMap2d)
 // opengl.glMap2f(target:number, u1:number, u2:number, ustride:number, uorder:number, v1:number, v2:number, vstride:number, vorder:number, points[]:number):void:map
 Gura_DeclareFunction(glMap2f)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number);
 	DeclareArg(env, "u1", VTYPE_number);
 	DeclareArg(env, "u2", VTYPE_number);
@@ -2105,7 +2105,7 @@ Gura_ImplementFunction(glMap2f)
 // opengl.glMapGrid1d(un:number, u1:number, u2:number):void:map
 Gura_DeclareFunction(glMapGrid1d)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "un", VTYPE_number);
 	DeclareArg(env, "u1", VTYPE_number);
 	DeclareArg(env, "u2", VTYPE_number);
@@ -2124,7 +2124,7 @@ Gura_ImplementFunction(glMapGrid1d)
 // opengl.glMapGrid1f(un:number, u1:number, u2:number):void:map
 Gura_DeclareFunction(glMapGrid1f)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "un", VTYPE_number);
 	DeclareArg(env, "u1", VTYPE_number);
 	DeclareArg(env, "u2", VTYPE_number);
@@ -2143,7 +2143,7 @@ Gura_ImplementFunction(glMapGrid1f)
 // opengl.glMapGrid2d(un:number, u1:number, u2:number, vn:number, v1:number, v2:number):void:map
 Gura_DeclareFunction(glMapGrid2d)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "un", VTYPE_number);
 	DeclareArg(env, "u1", VTYPE_number);
 	DeclareArg(env, "u2", VTYPE_number);
@@ -2168,7 +2168,7 @@ Gura_ImplementFunction(glMapGrid2d)
 // opengl.glMapGrid2f(un:number, u1:number, u2:number, vn:number, v1:number, v2:number):void:map
 Gura_DeclareFunction(glMapGrid2f)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "un", VTYPE_number);
 	DeclareArg(env, "u1", VTYPE_number);
 	DeclareArg(env, "u2", VTYPE_number);
@@ -2193,7 +2193,7 @@ Gura_ImplementFunction(glMapGrid2f)
 // opengl.glMaterialf(face:number, pname:number, param:number):void:map
 Gura_DeclareFunction(glMaterialf)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "face", VTYPE_number);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "param", VTYPE_number);
@@ -2212,7 +2212,7 @@ Gura_ImplementFunction(glMaterialf)
 // opengl.glMaterialfv(face:number, pname:number, params[]:number):void:map
 Gura_DeclareFunction(glMaterialfv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "face", VTYPE_number);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -2232,7 +2232,7 @@ Gura_ImplementFunction(glMaterialfv)
 // opengl.glMateriali(face:number, pname:number, param:number):void:map
 Gura_DeclareFunction(glMateriali)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "face", VTYPE_number);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "param", VTYPE_number);
@@ -2251,7 +2251,7 @@ Gura_ImplementFunction(glMateriali)
 // opengl.glMaterialiv(face:number, pname:number, params[]:number):void:map
 Gura_DeclareFunction(glMaterialiv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "face", VTYPE_number);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -2271,7 +2271,7 @@ Gura_ImplementFunction(glMaterialiv)
 // opengl.glMatrixMode(mode:number):void:map
 Gura_DeclareFunction(glMatrixMode)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number);
 }
 
@@ -2286,7 +2286,7 @@ Gura_ImplementFunction(glMatrixMode)
 // opengl.glMultMatrixd(m[]:number):void:map
 Gura_DeclareFunction(glMultMatrixd)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "m", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -2302,7 +2302,7 @@ Gura_ImplementFunction(glMultMatrixd)
 // opengl.glMultMatrixf(m[]:number):void:map
 Gura_DeclareFunction(glMultMatrixf)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "m", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -2318,7 +2318,7 @@ Gura_ImplementFunction(glMultMatrixf)
 // opengl.glNormal3b(nx:number, ny:number, nz:number):void:map
 Gura_DeclareFunction(glNormal3b)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "nx", VTYPE_number);
 	DeclareArg(env, "ny", VTYPE_number);
 	DeclareArg(env, "nz", VTYPE_number);
@@ -2337,7 +2337,7 @@ Gura_ImplementFunction(glNormal3b)
 // opengl.glNormal3bv(v[]:number):void:map
 Gura_DeclareFunction(glNormal3bv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -2352,7 +2352,7 @@ Gura_ImplementFunction(glNormal3bv)
 // opengl.glNormal3d(nx:number, ny:number, nz:number):void:map
 Gura_DeclareFunction(glNormal3d)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "nx", VTYPE_number);
 	DeclareArg(env, "ny", VTYPE_number);
 	DeclareArg(env, "nz", VTYPE_number);
@@ -2371,7 +2371,7 @@ Gura_ImplementFunction(glNormal3d)
 // opengl.glNormal3dv(v[]:number):void:map
 Gura_DeclareFunction(glNormal3dv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -2386,7 +2386,7 @@ Gura_ImplementFunction(glNormal3dv)
 // opengl.glNormal3f(nx:number, ny:number, nz:number):void:map
 Gura_DeclareFunction(glNormal3f)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "nx", VTYPE_number);
 	DeclareArg(env, "ny", VTYPE_number);
 	DeclareArg(env, "nz", VTYPE_number);
@@ -2405,7 +2405,7 @@ Gura_ImplementFunction(glNormal3f)
 // opengl.glNormal3fv(v[]:number):void:map
 Gura_DeclareFunction(glNormal3fv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -2420,7 +2420,7 @@ Gura_ImplementFunction(glNormal3fv)
 // opengl.glNormal3i(nx:number, ny:number, nz:number):void:map
 Gura_DeclareFunction(glNormal3i)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "nx", VTYPE_number);
 	DeclareArg(env, "ny", VTYPE_number);
 	DeclareArg(env, "nz", VTYPE_number);
@@ -2439,7 +2439,7 @@ Gura_ImplementFunction(glNormal3i)
 // opengl.glNormal3iv(v[]:number):void:map
 Gura_DeclareFunction(glNormal3iv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -2454,7 +2454,7 @@ Gura_ImplementFunction(glNormal3iv)
 // opengl.glNormal3s(nx:number, ny:number, nz:number):void:map
 Gura_DeclareFunction(glNormal3s)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "nx", VTYPE_number);
 	DeclareArg(env, "ny", VTYPE_number);
 	DeclareArg(env, "nz", VTYPE_number);
@@ -2473,7 +2473,7 @@ Gura_ImplementFunction(glNormal3s)
 // opengl.glNormal3sv(v[]:number):void:map
 Gura_DeclareFunction(glNormal3sv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -2488,7 +2488,7 @@ Gura_ImplementFunction(glNormal3sv)
 // opengl.glOrtho(left:number, right:number, bottom:number, top:number, zNear:number, zFar:number):void:map
 Gura_DeclareFunction(glOrtho)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "left", VTYPE_number);
 	DeclareArg(env, "right", VTYPE_number);
 	DeclareArg(env, "bottom", VTYPE_number);
@@ -2513,7 +2513,7 @@ Gura_ImplementFunction(glOrtho)
 // opengl.glPassThrough(token:number):void:map
 Gura_DeclareFunction(glPassThrough)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "token", VTYPE_number);
 }
 
@@ -2528,7 +2528,7 @@ Gura_ImplementFunction(glPassThrough)
 // opengl.glPixelMapfv(map:number, mapsize:number, values[]:number):void:map
 Gura_DeclareFunction(glPixelMapfv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "map", VTYPE_number);
 	DeclareArg(env, "mapsize", VTYPE_number);
 	DeclareArg(env, "values", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -2548,7 +2548,7 @@ Gura_ImplementFunction(glPixelMapfv)
 // opengl.glPixelMapuiv(map:number, mapsize:number, values[]:number):void:map
 Gura_DeclareFunction(glPixelMapuiv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "map", VTYPE_number);
 	DeclareArg(env, "mapsize", VTYPE_number);
 	DeclareArg(env, "values", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -2568,7 +2568,7 @@ Gura_ImplementFunction(glPixelMapuiv)
 // opengl.glPixelMapusv(map:number, mapsize:number, values[]:number):void:map
 Gura_DeclareFunction(glPixelMapusv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "map", VTYPE_number);
 	DeclareArg(env, "mapsize", VTYPE_number);
 	DeclareArg(env, "values", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -2588,7 +2588,7 @@ Gura_ImplementFunction(glPixelMapusv)
 // opengl.glPixelStoref(pname:number, param:number):void:map
 Gura_DeclareFunction(glPixelStoref)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "param", VTYPE_number);
 }
@@ -2605,7 +2605,7 @@ Gura_ImplementFunction(glPixelStoref)
 // opengl.glPixelStorei(pname:number, param:number):void:map
 Gura_DeclareFunction(glPixelStorei)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "param", VTYPE_number);
 }
@@ -2622,7 +2622,7 @@ Gura_ImplementFunction(glPixelStorei)
 // opengl.glPixelTransferf(pname:number, param:number):void:map
 Gura_DeclareFunction(glPixelTransferf)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "param", VTYPE_number);
 }
@@ -2639,7 +2639,7 @@ Gura_ImplementFunction(glPixelTransferf)
 // opengl.glPixelTransferi(pname:number, param:number):void:map
 Gura_DeclareFunction(glPixelTransferi)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "param", VTYPE_number);
 }
@@ -2656,7 +2656,7 @@ Gura_ImplementFunction(glPixelTransferi)
 // opengl.glPixelZoom(xfactor:number, yfactor:number):void:map
 Gura_DeclareFunction(glPixelZoom)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "xfactor", VTYPE_number);
 	DeclareArg(env, "yfactor", VTYPE_number);
 }
@@ -2673,7 +2673,7 @@ Gura_ImplementFunction(glPixelZoom)
 // opengl.glPointSize(size:number):void:map
 Gura_DeclareFunction(glPointSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number);
 }
 
@@ -2688,7 +2688,7 @@ Gura_ImplementFunction(glPointSize)
 // opengl.glPolygonMode(face:number, mode:number):void:map
 Gura_DeclareFunction(glPolygonMode)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "face", VTYPE_number);
 	DeclareArg(env, "mode", VTYPE_number);
 }
@@ -2705,7 +2705,7 @@ Gura_ImplementFunction(glPolygonMode)
 // opengl.glPolygonOffset(factor:number, units:number):void:map
 Gura_DeclareFunction(glPolygonOffset)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "factor", VTYPE_number);
 	DeclareArg(env, "units", VTYPE_number);
 }
@@ -2722,7 +2722,7 @@ Gura_ImplementFunction(glPolygonOffset)
 // opengl.glPopAttrib():void
 Gura_DeclareFunction(glPopAttrib)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(glPopAttrib)
@@ -2735,7 +2735,7 @@ Gura_ImplementFunction(glPopAttrib)
 // opengl.glPopClientAttrib():void
 Gura_DeclareFunction(glPopClientAttrib)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(glPopClientAttrib)
@@ -2748,7 +2748,7 @@ Gura_ImplementFunction(glPopClientAttrib)
 // opengl.glPopMatrix():void
 Gura_DeclareFunction(glPopMatrix)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(glPopMatrix)
@@ -2761,7 +2761,7 @@ Gura_ImplementFunction(glPopMatrix)
 // opengl.glPopName():void
 Gura_DeclareFunction(glPopName)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(glPopName)
@@ -2774,7 +2774,7 @@ Gura_ImplementFunction(glPopName)
 // opengl.glRasterPos2d(x:number, y:number):void:map
 Gura_DeclareFunction(glRasterPos2d)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 }
@@ -2791,7 +2791,7 @@ Gura_ImplementFunction(glRasterPos2d)
 // opengl.glRasterPos2dv(v[]:number):void:map
 Gura_DeclareFunction(glRasterPos2dv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -2806,7 +2806,7 @@ Gura_ImplementFunction(glRasterPos2dv)
 // opengl.glRasterPos2f(x:number, y:number):void:map
 Gura_DeclareFunction(glRasterPos2f)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 }
@@ -2823,7 +2823,7 @@ Gura_ImplementFunction(glRasterPos2f)
 // opengl.glRasterPos2fv(v[]:number):void:map
 Gura_DeclareFunction(glRasterPos2fv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -2838,7 +2838,7 @@ Gura_ImplementFunction(glRasterPos2fv)
 // opengl.glRasterPos2i(x:number, y:number):void:map
 Gura_DeclareFunction(glRasterPos2i)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 }
@@ -2855,7 +2855,7 @@ Gura_ImplementFunction(glRasterPos2i)
 // opengl.glRasterPos2iv(v[]:number):void:map
 Gura_DeclareFunction(glRasterPos2iv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -2870,7 +2870,7 @@ Gura_ImplementFunction(glRasterPos2iv)
 // opengl.glRasterPos2s(x:number, y:number):void:map
 Gura_DeclareFunction(glRasterPos2s)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 }
@@ -2887,7 +2887,7 @@ Gura_ImplementFunction(glRasterPos2s)
 // opengl.glRasterPos2sv(v[]:number):void:map
 Gura_DeclareFunction(glRasterPos2sv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -2902,7 +2902,7 @@ Gura_ImplementFunction(glRasterPos2sv)
 // opengl.glRasterPos3d(x:number, y:number, z:number):void:map
 Gura_DeclareFunction(glRasterPos3d)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "z", VTYPE_number);
@@ -2921,7 +2921,7 @@ Gura_ImplementFunction(glRasterPos3d)
 // opengl.glRasterPos3dv(v[]:number):void:map
 Gura_DeclareFunction(glRasterPos3dv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -2936,7 +2936,7 @@ Gura_ImplementFunction(glRasterPos3dv)
 // opengl.glRasterPos3f(x:number, y:number, z:number):void:map
 Gura_DeclareFunction(glRasterPos3f)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "z", VTYPE_number);
@@ -2955,7 +2955,7 @@ Gura_ImplementFunction(glRasterPos3f)
 // opengl.glRasterPos3fv(v[]:number):void:map
 Gura_DeclareFunction(glRasterPos3fv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -2970,7 +2970,7 @@ Gura_ImplementFunction(glRasterPos3fv)
 // opengl.glRasterPos3i(x:number, y:number, z:number):void:map
 Gura_DeclareFunction(glRasterPos3i)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "z", VTYPE_number);
@@ -2989,7 +2989,7 @@ Gura_ImplementFunction(glRasterPos3i)
 // opengl.glRasterPos3iv(v[]:number):void:map
 Gura_DeclareFunction(glRasterPos3iv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -3004,7 +3004,7 @@ Gura_ImplementFunction(glRasterPos3iv)
 // opengl.glRasterPos3s(x:number, y:number, z:number):void:map
 Gura_DeclareFunction(glRasterPos3s)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "z", VTYPE_number);
@@ -3023,7 +3023,7 @@ Gura_ImplementFunction(glRasterPos3s)
 // opengl.glRasterPos3sv(v[]:number):void:map
 Gura_DeclareFunction(glRasterPos3sv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -3038,7 +3038,7 @@ Gura_ImplementFunction(glRasterPos3sv)
 // opengl.glRasterPos4d(x:number, y:number, z:number, w:number):void:map
 Gura_DeclareFunction(glRasterPos4d)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "z", VTYPE_number);
@@ -3059,7 +3059,7 @@ Gura_ImplementFunction(glRasterPos4d)
 // opengl.glRasterPos4dv(v[]:number):void:map
 Gura_DeclareFunction(glRasterPos4dv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -3074,7 +3074,7 @@ Gura_ImplementFunction(glRasterPos4dv)
 // opengl.glRasterPos4f(x:number, y:number, z:number, w:number):void:map
 Gura_DeclareFunction(glRasterPos4f)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "z", VTYPE_number);
@@ -3095,7 +3095,7 @@ Gura_ImplementFunction(glRasterPos4f)
 // opengl.glRasterPos4fv(v[]:number):void:map
 Gura_DeclareFunction(glRasterPos4fv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -3110,7 +3110,7 @@ Gura_ImplementFunction(glRasterPos4fv)
 // opengl.glRasterPos4i(x:number, y:number, z:number, w:number):void:map
 Gura_DeclareFunction(glRasterPos4i)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "z", VTYPE_number);
@@ -3131,7 +3131,7 @@ Gura_ImplementFunction(glRasterPos4i)
 // opengl.glRasterPos4iv(v[]:number):void:map
 Gura_DeclareFunction(glRasterPos4iv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -3146,7 +3146,7 @@ Gura_ImplementFunction(glRasterPos4iv)
 // opengl.glRasterPos4s(x:number, y:number, z:number, w:number):void:map
 Gura_DeclareFunction(glRasterPos4s)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "z", VTYPE_number);
@@ -3167,7 +3167,7 @@ Gura_ImplementFunction(glRasterPos4s)
 // opengl.glRasterPos4sv(v[]:number):void:map
 Gura_DeclareFunction(glRasterPos4sv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -3182,7 +3182,7 @@ Gura_ImplementFunction(glRasterPos4sv)
 // opengl.glReadBuffer(mode:number):void:map
 Gura_DeclareFunction(glReadBuffer)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number);
 }
 
@@ -3197,7 +3197,7 @@ Gura_ImplementFunction(glReadBuffer)
 // opengl.glRectd(x1:number, y1:number, x2:number, y2:number):void:map
 Gura_DeclareFunction(glRectd)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x1", VTYPE_number);
 	DeclareArg(env, "y1", VTYPE_number);
 	DeclareArg(env, "x2", VTYPE_number);
@@ -3218,7 +3218,7 @@ Gura_ImplementFunction(glRectd)
 // opengl.glRectf(x1:number, y1:number, x2:number, y2:number):void:map
 Gura_DeclareFunction(glRectf)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x1", VTYPE_number);
 	DeclareArg(env, "y1", VTYPE_number);
 	DeclareArg(env, "x2", VTYPE_number);
@@ -3239,7 +3239,7 @@ Gura_ImplementFunction(glRectf)
 // opengl.glRecti(x1:number, y1:number, x2:number, y2:number):void:map
 Gura_DeclareFunction(glRecti)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x1", VTYPE_number);
 	DeclareArg(env, "y1", VTYPE_number);
 	DeclareArg(env, "x2", VTYPE_number);
@@ -3260,7 +3260,7 @@ Gura_ImplementFunction(glRecti)
 // opengl.glRects(x1:number, y1:number, x2:number, y2:number):void:map
 Gura_DeclareFunction(glRects)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x1", VTYPE_number);
 	DeclareArg(env, "y1", VTYPE_number);
 	DeclareArg(env, "x2", VTYPE_number);
@@ -3281,7 +3281,7 @@ Gura_ImplementFunction(glRects)
 // opengl.glRotated(angle:number, x:number, y:number, z:number):void:map
 Gura_DeclareFunction(glRotated)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
@@ -3302,7 +3302,7 @@ Gura_ImplementFunction(glRotated)
 // opengl.glRotatef(angle:number, x:number, y:number, z:number):void:map
 Gura_DeclareFunction(glRotatef)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
@@ -3323,7 +3323,7 @@ Gura_ImplementFunction(glRotatef)
 // opengl.glScaled(x:number, y:number, z:number):void:map
 Gura_DeclareFunction(glScaled)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "z", VTYPE_number);
@@ -3342,7 +3342,7 @@ Gura_ImplementFunction(glScaled)
 // opengl.glScalef(x:number, y:number, z:number):void:map
 Gura_DeclareFunction(glScalef)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "z", VTYPE_number);
@@ -3361,7 +3361,7 @@ Gura_ImplementFunction(glScalef)
 // opengl.glScissor(x:number, y:number, width:number, height:number):void:map
 Gura_DeclareFunction(glScissor)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number);
@@ -3382,7 +3382,7 @@ Gura_ImplementFunction(glScissor)
 // opengl.glShadeModel(mode:number):void:map
 Gura_DeclareFunction(glShadeModel)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number);
 }
 
@@ -3397,7 +3397,7 @@ Gura_ImplementFunction(glShadeModel)
 // opengl.glStencilFunc(func:number, ref:number, mask:number):void:map
 Gura_DeclareFunction(glStencilFunc)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_number);
 	DeclareArg(env, "ref", VTYPE_number);
 	DeclareArg(env, "mask", VTYPE_number);
@@ -3416,7 +3416,7 @@ Gura_ImplementFunction(glStencilFunc)
 // opengl.glStencilMask(mask:number):void:map
 Gura_DeclareFunction(glStencilMask)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mask", VTYPE_number);
 }
 
@@ -3431,7 +3431,7 @@ Gura_ImplementFunction(glStencilMask)
 // opengl.glStencilOp(fail:number, zfail:number, zpass:number):void:map
 Gura_DeclareFunction(glStencilOp)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "fail", VTYPE_number);
 	DeclareArg(env, "zfail", VTYPE_number);
 	DeclareArg(env, "zpass", VTYPE_number);
@@ -3450,7 +3450,7 @@ Gura_ImplementFunction(glStencilOp)
 // opengl.glTexCoord1d(s:number):void:map
 Gura_DeclareFunction(glTexCoord1d)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number);
 }
 
@@ -3465,7 +3465,7 @@ Gura_ImplementFunction(glTexCoord1d)
 // opengl.glTexCoord1dv(v[]:number):void:map
 Gura_DeclareFunction(glTexCoord1dv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -3480,7 +3480,7 @@ Gura_ImplementFunction(glTexCoord1dv)
 // opengl.glTexCoord1f(s:number):void:map
 Gura_DeclareFunction(glTexCoord1f)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number);
 }
 
@@ -3495,7 +3495,7 @@ Gura_ImplementFunction(glTexCoord1f)
 // opengl.glTexCoord1fv(v[]:number):void:map
 Gura_DeclareFunction(glTexCoord1fv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -3510,7 +3510,7 @@ Gura_ImplementFunction(glTexCoord1fv)
 // opengl.glTexCoord1i(s:number):void:map
 Gura_DeclareFunction(glTexCoord1i)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number);
 }
 
@@ -3525,7 +3525,7 @@ Gura_ImplementFunction(glTexCoord1i)
 // opengl.glTexCoord1iv(v[]:number):void:map
 Gura_DeclareFunction(glTexCoord1iv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -3540,7 +3540,7 @@ Gura_ImplementFunction(glTexCoord1iv)
 // opengl.glTexCoord1s(s:number):void:map
 Gura_DeclareFunction(glTexCoord1s)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number);
 }
 
@@ -3555,7 +3555,7 @@ Gura_ImplementFunction(glTexCoord1s)
 // opengl.glTexCoord1sv(v[]:number):void:map
 Gura_DeclareFunction(glTexCoord1sv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -3570,7 +3570,7 @@ Gura_ImplementFunction(glTexCoord1sv)
 // opengl.glTexCoord2d(s:number, t:number):void:map
 Gura_DeclareFunction(glTexCoord2d)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number);
 	DeclareArg(env, "t", VTYPE_number);
 }
@@ -3587,7 +3587,7 @@ Gura_ImplementFunction(glTexCoord2d)
 // opengl.glTexCoord2dv(v[]:number):void:map
 Gura_DeclareFunction(glTexCoord2dv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -3602,7 +3602,7 @@ Gura_ImplementFunction(glTexCoord2dv)
 // opengl.glTexCoord2f(s:number, t:number):void:map
 Gura_DeclareFunction(glTexCoord2f)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number);
 	DeclareArg(env, "t", VTYPE_number);
 }
@@ -3619,7 +3619,7 @@ Gura_ImplementFunction(glTexCoord2f)
 // opengl.glTexCoord2fv(v[]:number):void:map
 Gura_DeclareFunction(glTexCoord2fv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -3634,7 +3634,7 @@ Gura_ImplementFunction(glTexCoord2fv)
 // opengl.glTexCoord2i(s:number, t:number):void:map
 Gura_DeclareFunction(glTexCoord2i)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number);
 	DeclareArg(env, "t", VTYPE_number);
 }
@@ -3651,7 +3651,7 @@ Gura_ImplementFunction(glTexCoord2i)
 // opengl.glTexCoord2iv(v[]:number):void:map
 Gura_DeclareFunction(glTexCoord2iv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -3666,7 +3666,7 @@ Gura_ImplementFunction(glTexCoord2iv)
 // opengl.glTexCoord2s(s:number, t:number):void:map
 Gura_DeclareFunction(glTexCoord2s)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number);
 	DeclareArg(env, "t", VTYPE_number);
 }
@@ -3683,7 +3683,7 @@ Gura_ImplementFunction(glTexCoord2s)
 // opengl.glTexCoord2sv(v[]:number):void:map
 Gura_DeclareFunction(glTexCoord2sv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -3698,7 +3698,7 @@ Gura_ImplementFunction(glTexCoord2sv)
 // opengl.glTexCoord3d(s:number, t:number, r:number):void:map
 Gura_DeclareFunction(glTexCoord3d)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number);
 	DeclareArg(env, "t", VTYPE_number);
 	DeclareArg(env, "r", VTYPE_number);
@@ -3717,7 +3717,7 @@ Gura_ImplementFunction(glTexCoord3d)
 // opengl.glTexCoord3dv(v[]:number):void:map
 Gura_DeclareFunction(glTexCoord3dv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -3732,7 +3732,7 @@ Gura_ImplementFunction(glTexCoord3dv)
 // opengl.glTexCoord3f(s:number, t:number, r:number):void:map
 Gura_DeclareFunction(glTexCoord3f)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number);
 	DeclareArg(env, "t", VTYPE_number);
 	DeclareArg(env, "r", VTYPE_number);
@@ -3751,7 +3751,7 @@ Gura_ImplementFunction(glTexCoord3f)
 // opengl.glTexCoord3fv(v[]:number):void:map
 Gura_DeclareFunction(glTexCoord3fv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -3766,7 +3766,7 @@ Gura_ImplementFunction(glTexCoord3fv)
 // opengl.glTexCoord3i(s:number, t:number, r:number):void:map
 Gura_DeclareFunction(glTexCoord3i)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number);
 	DeclareArg(env, "t", VTYPE_number);
 	DeclareArg(env, "r", VTYPE_number);
@@ -3785,7 +3785,7 @@ Gura_ImplementFunction(glTexCoord3i)
 // opengl.glTexCoord3iv(v[]:number):void:map
 Gura_DeclareFunction(glTexCoord3iv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -3800,7 +3800,7 @@ Gura_ImplementFunction(glTexCoord3iv)
 // opengl.glTexCoord3s(s:number, t:number, r:number):void:map
 Gura_DeclareFunction(glTexCoord3s)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number);
 	DeclareArg(env, "t", VTYPE_number);
 	DeclareArg(env, "r", VTYPE_number);
@@ -3819,7 +3819,7 @@ Gura_ImplementFunction(glTexCoord3s)
 // opengl.glTexCoord3sv(v[]:number):void:map
 Gura_DeclareFunction(glTexCoord3sv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -3834,7 +3834,7 @@ Gura_ImplementFunction(glTexCoord3sv)
 // opengl.glTexCoord4d(s:number, t:number, r:number, q:number):void:map
 Gura_DeclareFunction(glTexCoord4d)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number);
 	DeclareArg(env, "t", VTYPE_number);
 	DeclareArg(env, "r", VTYPE_number);
@@ -3855,7 +3855,7 @@ Gura_ImplementFunction(glTexCoord4d)
 // opengl.glTexCoord4dv(v[]:number):void:map
 Gura_DeclareFunction(glTexCoord4dv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -3870,7 +3870,7 @@ Gura_ImplementFunction(glTexCoord4dv)
 // opengl.glTexCoord4f(s:number, t:number, r:number, q:number):void:map
 Gura_DeclareFunction(glTexCoord4f)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number);
 	DeclareArg(env, "t", VTYPE_number);
 	DeclareArg(env, "r", VTYPE_number);
@@ -3891,7 +3891,7 @@ Gura_ImplementFunction(glTexCoord4f)
 // opengl.glTexCoord4fv(v[]:number):void:map
 Gura_DeclareFunction(glTexCoord4fv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -3906,7 +3906,7 @@ Gura_ImplementFunction(glTexCoord4fv)
 // opengl.glTexCoord4i(s:number, t:number, r:number, q:number):void:map
 Gura_DeclareFunction(glTexCoord4i)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number);
 	DeclareArg(env, "t", VTYPE_number);
 	DeclareArg(env, "r", VTYPE_number);
@@ -3927,7 +3927,7 @@ Gura_ImplementFunction(glTexCoord4i)
 // opengl.glTexCoord4iv(v[]:number):void:map
 Gura_DeclareFunction(glTexCoord4iv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -3942,7 +3942,7 @@ Gura_ImplementFunction(glTexCoord4iv)
 // opengl.glTexCoord4s(s:number, t:number, r:number, q:number):void:map
 Gura_DeclareFunction(glTexCoord4s)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number);
 	DeclareArg(env, "t", VTYPE_number);
 	DeclareArg(env, "r", VTYPE_number);
@@ -3963,7 +3963,7 @@ Gura_ImplementFunction(glTexCoord4s)
 // opengl.glTexCoord4sv(v[]:number):void:map
 Gura_DeclareFunction(glTexCoord4sv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -3978,7 +3978,7 @@ Gura_ImplementFunction(glTexCoord4sv)
 // opengl.glTexEnvf(target:number, pname:number, param:number):void:map
 Gura_DeclareFunction(glTexEnvf)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "param", VTYPE_number);
@@ -3997,7 +3997,7 @@ Gura_ImplementFunction(glTexEnvf)
 // opengl.glTexEnvfv(target:number, pname:number, params[]:number):void:map
 Gura_DeclareFunction(glTexEnvfv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -4017,7 +4017,7 @@ Gura_ImplementFunction(glTexEnvfv)
 // opengl.glTexEnvi(target:number, pname:number, param:number):void:map
 Gura_DeclareFunction(glTexEnvi)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "param", VTYPE_number);
@@ -4036,7 +4036,7 @@ Gura_ImplementFunction(glTexEnvi)
 // opengl.glTexEnviv(target:number, pname:number, params[]:number):void:map
 Gura_DeclareFunction(glTexEnviv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -4056,7 +4056,7 @@ Gura_ImplementFunction(glTexEnviv)
 // opengl.glTexGend(coord:number, pname:number, param:number):void:map
 Gura_DeclareFunction(glTexGend)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "coord", VTYPE_number);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "param", VTYPE_number);
@@ -4075,7 +4075,7 @@ Gura_ImplementFunction(glTexGend)
 // opengl.glTexGendv(coord:number, pname:number, params[]:number):void:map
 Gura_DeclareFunction(glTexGendv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "coord", VTYPE_number);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -4095,7 +4095,7 @@ Gura_ImplementFunction(glTexGendv)
 // opengl.glTexGenf(coord:number, pname:number, param:number):void:map
 Gura_DeclareFunction(glTexGenf)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "coord", VTYPE_number);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "param", VTYPE_number);
@@ -4114,7 +4114,7 @@ Gura_ImplementFunction(glTexGenf)
 // opengl.glTexGenfv(coord:number, pname:number, params[]:number):void:map
 Gura_DeclareFunction(glTexGenfv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "coord", VTYPE_number);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -4134,7 +4134,7 @@ Gura_ImplementFunction(glTexGenfv)
 // opengl.glTexGeni(coord:number, pname:number, param:number):void:map
 Gura_DeclareFunction(glTexGeni)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "coord", VTYPE_number);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "param", VTYPE_number);
@@ -4153,7 +4153,7 @@ Gura_ImplementFunction(glTexGeni)
 // opengl.glTexGeniv(coord:number, pname:number, params[]:number):void:map
 Gura_DeclareFunction(glTexGeniv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "coord", VTYPE_number);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -4173,7 +4173,7 @@ Gura_ImplementFunction(glTexGeniv)
 // opengl.glTexParameterf(target:number, pname:number, param:number):void:map
 Gura_DeclareFunction(glTexParameterf)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "param", VTYPE_number);
@@ -4192,7 +4192,7 @@ Gura_ImplementFunction(glTexParameterf)
 // opengl.glTexParameterfv(target:number, pname:number, params[]:number):void:map
 Gura_DeclareFunction(glTexParameterfv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -4212,7 +4212,7 @@ Gura_ImplementFunction(glTexParameterfv)
 // opengl.glTexParameteri(target:number, pname:number, param:number):void:map
 Gura_DeclareFunction(glTexParameteri)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "param", VTYPE_number);
@@ -4231,7 +4231,7 @@ Gura_ImplementFunction(glTexParameteri)
 // opengl.glTexParameteriv(target:number, pname:number, params[]:number):void:map
 Gura_DeclareFunction(glTexParameteriv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number);
 	DeclareArg(env, "pname", VTYPE_number);
 	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -4251,7 +4251,7 @@ Gura_ImplementFunction(glTexParameteriv)
 // opengl.glTranslated(x:number, y:number, z:number):void:map
 Gura_DeclareFunction(glTranslated)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "z", VTYPE_number);
@@ -4270,7 +4270,7 @@ Gura_ImplementFunction(glTranslated)
 // opengl.glTranslatef(x:number, y:number, z:number):void:map
 Gura_DeclareFunction(glTranslatef)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "z", VTYPE_number);
@@ -4289,7 +4289,7 @@ Gura_ImplementFunction(glTranslatef)
 // opengl.glVertex2d(x:number, y:number):void:map
 Gura_DeclareFunction(glVertex2d)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 }
@@ -4306,7 +4306,7 @@ Gura_ImplementFunction(glVertex2d)
 // opengl.glVertex2dv(v[]:number):void:map
 Gura_DeclareFunction(glVertex2dv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -4321,7 +4321,7 @@ Gura_ImplementFunction(glVertex2dv)
 // opengl.glVertex2f(x:number, y:number):void:map
 Gura_DeclareFunction(glVertex2f)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 }
@@ -4338,7 +4338,7 @@ Gura_ImplementFunction(glVertex2f)
 // opengl.glVertex2fv(v[]:number):void:map
 Gura_DeclareFunction(glVertex2fv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -4353,7 +4353,7 @@ Gura_ImplementFunction(glVertex2fv)
 // opengl.glVertex2i(x:number, y:number):void:map
 Gura_DeclareFunction(glVertex2i)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 }
@@ -4370,7 +4370,7 @@ Gura_ImplementFunction(glVertex2i)
 // opengl.glVertex2iv(v[]:number):void:map
 Gura_DeclareFunction(glVertex2iv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -4385,7 +4385,7 @@ Gura_ImplementFunction(glVertex2iv)
 // opengl.glVertex2s(x:number, y:number):void:map
 Gura_DeclareFunction(glVertex2s)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 }
@@ -4402,7 +4402,7 @@ Gura_ImplementFunction(glVertex2s)
 // opengl.glVertex2sv(v[]:number):void:map
 Gura_DeclareFunction(glVertex2sv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -4417,7 +4417,7 @@ Gura_ImplementFunction(glVertex2sv)
 // opengl.glVertex3d(x:number, y:number, z:number):void:map
 Gura_DeclareFunction(glVertex3d)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "z", VTYPE_number);
@@ -4436,7 +4436,7 @@ Gura_ImplementFunction(glVertex3d)
 // opengl.glVertex3dv(v[]:number):void:map
 Gura_DeclareFunction(glVertex3dv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -4451,7 +4451,7 @@ Gura_ImplementFunction(glVertex3dv)
 // opengl.glVertex3f(x:number, y:number, z:number):void:map
 Gura_DeclareFunction(glVertex3f)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "z", VTYPE_number);
@@ -4470,7 +4470,7 @@ Gura_ImplementFunction(glVertex3f)
 // opengl.glVertex3fv(v[]:number):void:map
 Gura_DeclareFunction(glVertex3fv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -4485,7 +4485,7 @@ Gura_ImplementFunction(glVertex3fv)
 // opengl.glVertex3i(x:number, y:number, z:number):void:map
 Gura_DeclareFunction(glVertex3i)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "z", VTYPE_number);
@@ -4504,7 +4504,7 @@ Gura_ImplementFunction(glVertex3i)
 // opengl.glVertex3iv(v[]:number):void:map
 Gura_DeclareFunction(glVertex3iv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -4519,7 +4519,7 @@ Gura_ImplementFunction(glVertex3iv)
 // opengl.glVertex3s(x:number, y:number, z:number):void:map
 Gura_DeclareFunction(glVertex3s)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "z", VTYPE_number);
@@ -4538,7 +4538,7 @@ Gura_ImplementFunction(glVertex3s)
 // opengl.glVertex3sv(v[]:number):void:map
 Gura_DeclareFunction(glVertex3sv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -4553,7 +4553,7 @@ Gura_ImplementFunction(glVertex3sv)
 // opengl.glVertex4d(x:number, y:number, z:number, w:number):void:map
 Gura_DeclareFunction(glVertex4d)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "z", VTYPE_number);
@@ -4574,7 +4574,7 @@ Gura_ImplementFunction(glVertex4d)
 // opengl.glVertex4dv(v[]:number):void:map
 Gura_DeclareFunction(glVertex4dv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -4589,7 +4589,7 @@ Gura_ImplementFunction(glVertex4dv)
 // opengl.glVertex4f(x:number, y:number, z:number, w:number):void:map
 Gura_DeclareFunction(glVertex4f)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "z", VTYPE_number);
@@ -4610,7 +4610,7 @@ Gura_ImplementFunction(glVertex4f)
 // opengl.glVertex4fv(v[]:number):void:map
 Gura_DeclareFunction(glVertex4fv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -4625,7 +4625,7 @@ Gura_ImplementFunction(glVertex4fv)
 // opengl.glVertex4i(x:number, y:number, z:number, w:number):void:map
 Gura_DeclareFunction(glVertex4i)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "z", VTYPE_number);
@@ -4646,7 +4646,7 @@ Gura_ImplementFunction(glVertex4i)
 // opengl.glVertex4iv(v[]:number):void:map
 Gura_DeclareFunction(glVertex4iv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -4661,7 +4661,7 @@ Gura_ImplementFunction(glVertex4iv)
 // opengl.glVertex4s(x:number, y:number, z:number, w:number):void:map
 Gura_DeclareFunction(glVertex4s)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "z", VTYPE_number);
@@ -4682,7 +4682,7 @@ Gura_ImplementFunction(glVertex4s)
 // opengl.glVertex4sv(v[]:number):void:map
 Gura_DeclareFunction(glVertex4sv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -4697,7 +4697,7 @@ Gura_ImplementFunction(glVertex4sv)
 // opengl.glViewport(x:number, y:number, width:number, height:number):void:map
 Gura_DeclareFunction(glViewport)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number);

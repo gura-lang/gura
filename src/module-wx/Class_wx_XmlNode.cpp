@@ -40,7 +40,7 @@ void wx_XmlNode::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(XmlNode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_XmlNode));
 	DeclareArg(env, "parent", VTYPE_wx_XmlNode, OCCUR_Once);
@@ -83,7 +83,7 @@ Gura_ImplementFunction(XmlNode)
 
 Gura_DeclareFunction(XmlNode_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_XmlNode));
 	DeclareArg(env, "node", VTYPE_wx_XmlNode, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -107,7 +107,7 @@ Gura_ImplementFunction(XmlNode_1)
 
 Gura_DeclareFunction(XmlNode_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_XmlNode));
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
@@ -136,7 +136,7 @@ Gura_ImplementFunction(XmlNode_2)
 
 Gura_DeclareMethod(wx_XmlNode, AddChild)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "child", VTYPE_wx_XmlNode, OCCUR_Once);
 }
 
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_XmlNode, AddChild)
 
 Gura_DeclareMethod(wx_XmlNode, AddProperty)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
 }
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_XmlNode, AddProperty)
 
 Gura_DeclareMethod(wx_XmlNode, AddProperty_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "prop", VTYPE_wx_XmlProperty, OCCUR_Once);
 }
 
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_XmlNode, AddProperty_1)
 
 Gura_DeclareMethod(wx_XmlNode, DeleteProperty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_XmlNode, DeleteProperty)
 
 Gura_DeclareMethod(wx_XmlNode, GetChildren)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_XmlNode, GetChildren)
 
 Gura_DeclareMethod(wx_XmlNode, GetContent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_XmlNode, GetContent)
 
 Gura_DeclareMethod(wx_XmlNode, GetDepth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "grandparent", VTYPE_wx_XmlNode, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_XmlNode, GetDepth)
 
 Gura_DeclareMethod(wx_XmlNode, GetNodeContent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -258,7 +258,7 @@ Gura_ImplementMethod(wx_XmlNode, GetNodeContent)
 
 Gura_DeclareMethod(wx_XmlNode, GetName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -272,7 +272,7 @@ Gura_ImplementMethod(wx_XmlNode, GetName)
 
 Gura_DeclareMethod(wx_XmlNode, GetNext)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -286,7 +286,7 @@ Gura_ImplementMethod(wx_XmlNode, GetNext)
 
 Gura_DeclareMethod(wx_XmlNode, GetParent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -301,7 +301,7 @@ Gura_ImplementMethod(wx_XmlNode, GetParent)
 #if 0
 Gura_DeclareMethod(wx_XmlNode, GetPropVal)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "propName", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -319,7 +319,7 @@ Gura_ImplementMethod(wx_XmlNode, GetPropVal)
 
 Gura_DeclareMethod(wx_XmlNode, GetPropVal_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "propName", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "defaultVal", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -338,7 +338,7 @@ Gura_ImplementMethod(wx_XmlNode, GetPropVal_1)
 
 Gura_DeclareMethod(wx_XmlNode, GetProperties)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -352,7 +352,7 @@ Gura_ImplementMethod(wx_XmlNode, GetProperties)
 
 Gura_DeclareMethod(wx_XmlNode, GetType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -366,7 +366,7 @@ Gura_ImplementMethod(wx_XmlNode, GetType)
 
 Gura_DeclareMethod(wx_XmlNode, HasProp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "propName", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -382,7 +382,7 @@ Gura_ImplementMethod(wx_XmlNode, HasProp)
 
 Gura_DeclareMethod(wx_XmlNode, InsertChild)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "child", VTYPE_wx_XmlNode, OCCUR_Once);
 	DeclareArg(env, "followingNode", VTYPE_wx_XmlNode, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -400,7 +400,7 @@ Gura_ImplementMethod(wx_XmlNode, InsertChild)
 
 Gura_DeclareMethod(wx_XmlNode, InsertChildAfter)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "child", VTYPE_wx_XmlNode, OCCUR_Once);
 	DeclareArg(env, "precedingNode", VTYPE_wx_XmlNode, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -418,7 +418,7 @@ Gura_ImplementMethod(wx_XmlNode, InsertChildAfter)
 
 Gura_DeclareMethod(wx_XmlNode, IsWhitespaceOnly)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -432,7 +432,7 @@ Gura_ImplementMethod(wx_XmlNode, IsWhitespaceOnly)
 
 Gura_DeclareMethod(wx_XmlNode, RemoveChild)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "child", VTYPE_wx_XmlNode, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -448,7 +448,7 @@ Gura_ImplementMethod(wx_XmlNode, RemoveChild)
 
 Gura_DeclareMethod(wx_XmlNode, SetChildren)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "child", VTYPE_wx_XmlNode, OCCUR_Once);
 }
 
@@ -463,7 +463,7 @@ Gura_ImplementMethod(wx_XmlNode, SetChildren)
 
 Gura_DeclareMethod(wx_XmlNode, SetContent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "con", VTYPE_string, OCCUR_Once);
 }
 
@@ -478,7 +478,7 @@ Gura_ImplementMethod(wx_XmlNode, SetContent)
 
 Gura_DeclareMethod(wx_XmlNode, SetName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 }
 
@@ -493,7 +493,7 @@ Gura_ImplementMethod(wx_XmlNode, SetName)
 
 Gura_DeclareMethod(wx_XmlNode, SetNext)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "next", VTYPE_wx_XmlNode, OCCUR_Once);
 }
 
@@ -508,7 +508,7 @@ Gura_ImplementMethod(wx_XmlNode, SetNext)
 
 Gura_DeclareMethod(wx_XmlNode, SetParent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_XmlNode, OCCUR_Once);
 }
 
@@ -523,7 +523,7 @@ Gura_ImplementMethod(wx_XmlNode, SetParent)
 
 Gura_DeclareMethod(wx_XmlNode, SetProperties)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "prop", VTYPE_wx_XmlProperty, OCCUR_Once);
 }
 
@@ -538,7 +538,7 @@ Gura_ImplementMethod(wx_XmlNode, SetProperties)
 
 Gura_DeclareMethod(wx_XmlNode, SetType)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 

@@ -38,7 +38,7 @@ void wx_FileType::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FileTypeEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_FileType));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(FileTypeEmpty)
 
 Gura_DeclareMethod(wx_FileType, GetMimeType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "mimeType", VTYPE_string, OCCUR_Once);
 #endif
@@ -88,7 +88,7 @@ Gura_ImplementMethod(wx_FileType, GetMimeType)
 
 Gura_DeclareMethod(wx_FileType, GetMimeType_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "mimeTypes", VTYPE_string, OCCUR_Once, FLAG_List);
 #endif
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_FileType, GetMimeType_1)
 
 Gura_DeclareMethod(wx_FileType, GetExtensions)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "extensions", VTYPE_string, OCCUR_Once, FLAG_List);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_FileType, GetExtensions)
 
 Gura_DeclareMethod(wx_FileType, GetIcon)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "iconLoc", VTYPE_wx_IconLocation, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_FileType, GetIcon)
 
 Gura_DeclareMethod(wx_FileType, GetDescription)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "desc", VTYPE_string, OCCUR_Once);
 #endif
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_FileType, GetDescription)
 
 Gura_DeclareMethod(wx_FileType, GetOpenCommand)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "command", VTYPE_string, OCCUR_Once);
 #endif
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_FileType, GetOpenCommand)
 
 Gura_DeclareMethod(wx_FileType, GetOpenCommand_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_FileType, GetOpenCommand_1)
 
 Gura_DeclareMethod(wx_FileType, GetPrintCommand)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "command", VTYPE_string, OCCUR_Once);
 #endif
@@ -224,7 +224,7 @@ Gura_ImplementMethod(wx_FileType, GetPrintCommand)
 
 Gura_DeclareClassMethod(wx_FileType, ExpandCommand)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "command", VTYPE_string, OCCUR_Once);
 #endif

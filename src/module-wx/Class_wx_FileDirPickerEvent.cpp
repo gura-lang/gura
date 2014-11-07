@@ -38,7 +38,7 @@ void wx_FileDirPickerEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FileDirPickerEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_FileDirPickerEvent));
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "generator", VTYPE_wx_Object, OCCUR_Once);
@@ -68,7 +68,7 @@ Gura_ImplementFunction(FileDirPickerEvent)
 
 Gura_DeclareMethod(wx_FileDirPickerEvent, GetPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_FileDirPickerEvent, GetPath)
 
 Gura_DeclareMethod(wx_FileDirPickerEvent, SetPath)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
 }
 

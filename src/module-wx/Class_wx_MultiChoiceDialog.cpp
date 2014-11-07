@@ -39,7 +39,7 @@ void wx_MultiChoiceDialog::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(MultiChoiceDialog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_MultiChoiceDialog));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once, FLAG_Nil);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(MultiChoiceDialog)
 
 Gura_DeclareFunction(MultiChoiceDialog_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_MultiChoiceDialog));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
@@ -121,7 +121,7 @@ Gura_ImplementFunction(MultiChoiceDialog_1)
 
 Gura_DeclareMethod(wx_MultiChoiceDialog, GetSelections)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_MultiChoiceDialog, GetSelections)
 
 Gura_DeclareMethod(wx_MultiChoiceDialog, SetSelections)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "selections", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_MultiChoiceDialog, SetSelections)
 
 Gura_DeclareMethod(wx_MultiChoiceDialog, ShowModal)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

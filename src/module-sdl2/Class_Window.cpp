@@ -5,7 +5,7 @@ Gura_BeginModuleScope(sdl2)
 // sdl2.Window#CreateRenderer()
 Gura_DeclareMethod(Window, CreateRenderer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }

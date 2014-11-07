@@ -77,7 +77,7 @@ void wx_HelpController::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HelpController)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_HelpController));
 	DeclareArg(env, "parentWindow", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -102,7 +102,7 @@ Gura_ImplementFunction(HelpController)
 
 Gura_DeclareMethod(wx_HelpController, Initialize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "file", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_HelpController, Initialize)
 
 Gura_DeclareMethod(wx_HelpController, Initialize_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "file", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "server", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_HelpController, Initialize_1)
 
 Gura_DeclareMethod(wx_HelpController, DisplayBlock)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "blockNo", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_HelpController, DisplayBlock)
 
 Gura_DeclareMethod(wx_HelpController, DisplayContents)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_HelpController, DisplayContents)
 
 Gura_DeclareMethod(wx_HelpController, DisplayContextPopup)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "contextId", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_HelpController, DisplayContextPopup)
 
 Gura_DeclareMethod(wx_HelpController, DisplaySection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "section", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -198,7 +198,7 @@ Gura_ImplementMethod(wx_HelpController, DisplaySection)
 
 Gura_DeclareMethod(wx_HelpController, DisplaySection_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "sectionNo", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_HelpController, DisplaySection_1)
 
 Gura_DeclareMethod(wx_HelpController, DisplayTextPopup)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_HelpController, DisplayTextPopup)
 
 Gura_DeclareMethod(wx_HelpController, GetFrameParameters)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
@@ -261,7 +261,7 @@ Gura_ImplementMethod(wx_HelpController, GetFrameParameters)
 
 Gura_DeclareMethod(wx_HelpController, GetParentWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -275,7 +275,7 @@ Gura_ImplementMethod(wx_HelpController, GetParentWindow)
 
 Gura_DeclareMethod(wx_HelpController, KeywordSearch)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "keyWord", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -294,7 +294,7 @@ Gura_ImplementMethod(wx_HelpController, KeywordSearch)
 
 Gura_DeclareMethod(wx_HelpController, LoadFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "file", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -311,7 +311,7 @@ Gura_ImplementMethod(wx_HelpController, LoadFile)
 
 Gura_DeclareMethod(wx_HelpController, OnQuit)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -325,7 +325,7 @@ Gura_ImplementMethod(wx_HelpController, OnQuit)
 
 Gura_DeclareMethod(wx_HelpController, SetFrameParameters)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
@@ -348,7 +348,7 @@ Gura_ImplementMethod(wx_HelpController, SetFrameParameters)
 
 Gura_DeclareMethod(wx_HelpController, SetParentWindow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "parentWindow", VTYPE_wx_Window, OCCUR_Once);
 }
 
@@ -363,7 +363,7 @@ Gura_ImplementMethod(wx_HelpController, SetParentWindow)
 
 Gura_DeclareMethod(wx_HelpController, SetViewer)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "viewer", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -380,7 +380,7 @@ Gura_ImplementMethod(wx_HelpController, SetViewer)
 
 Gura_DeclareMethod(wx_HelpController, Quit)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

@@ -38,7 +38,7 @@ void wx_ShowEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ShowEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ShowEvent));
 	DeclareArg(env, "winid", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "show", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(ShowEvent)
 
 Gura_DeclareMethod(wx_ShowEvent, SetShow)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "show", VTYPE_boolean, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_ShowEvent, SetShow)
 
 Gura_DeclareMethod(wx_ShowEvent, IsShown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_ShowEvent, IsShown)
 
 Gura_DeclareMethod(wx_ShowEvent, GetShow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

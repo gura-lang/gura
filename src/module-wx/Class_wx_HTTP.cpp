@@ -37,7 +37,7 @@ void wx_HTTP::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_HTTP, GetResponse)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -51,7 +51,7 @@ Gura_ImplementMethod(wx_HTTP, GetResponse)
 
 Gura_DeclareMethod(wx_HTTP, GetInputStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_HTTP, GetInputStream)
 
 Gura_DeclareMethod(wx_HTTP, SetHeader)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "header", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "h_data", VTYPE_string, OCCUR_Once);
 }
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_HTTP, SetHeader)
 
 Gura_DeclareMethod(wx_HTTP, GetHeader)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "header", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

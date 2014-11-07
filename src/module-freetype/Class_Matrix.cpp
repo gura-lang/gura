@@ -97,7 +97,7 @@ bool Object_Matrix::ConvertFrom(Signal sig, const Gura::Matrix *pMat)
 // freetype.Matrix(matrix:matrix):map {block?}
 Gura_DeclareFunction(Matrix)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "matrix", VTYPE_matrix);
 	SetClassToConstruct(Gura_UserClass(Matrix));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -114,7 +114,7 @@ Gura_ImplementFunction(Matrix)
 // freetype.Matrix#Multiply(matrix:freetype.Matrix):reduce
 Gura_DeclareMethod(Matrix, Multiply)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "matrix", VTYPE_Matrix);
 }
 
@@ -129,7 +129,7 @@ Gura_ImplementMethod(Matrix, Multiply)
 // freetype.Matrix#Invert():reduce
 Gura_DeclareMethod(Matrix, Invert)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 }
 
 Gura_ImplementMethod(Matrix, Invert)

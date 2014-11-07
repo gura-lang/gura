@@ -39,7 +39,7 @@ void wx_PathList::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(PathListEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PathList));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(PathListEmpty)
 
 Gura_DeclareFunction(PathList)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_PathList));
 	DeclareArg(env, "arr", VTYPE_string, OCCUR_Once, FLAG_List);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -85,7 +85,7 @@ Gura_ImplementFunction(PathList)
 
 Gura_DeclareMethod(wx_PathList, AddEnvList)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "env_variable", VTYPE_string, OCCUR_Once);
 }
 
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_PathList, AddEnvList)
 
 Gura_DeclareMethod(wx_PathList, Add)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_PathList, Add)
 
 Gura_DeclareMethod(wx_PathList, Add_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "arr", VTYPE_string, OCCUR_Once, FLAG_List);
 }
 
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_PathList, Add_1)
 
 Gura_DeclareMethod(wx_PathList, EnsureFileAccessible)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_PathList, EnsureFileAccessible)
 
 Gura_DeclareMethod(wx_PathList, FindAbsoluteValidPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "file", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_PathList, FindAbsoluteValidPath)
 
 Gura_DeclareMethod(wx_PathList, FindValidPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "file", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

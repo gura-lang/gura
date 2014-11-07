@@ -1130,7 +1130,7 @@ String Object_content::ToString(bool exprFlag)
 // gif.content#write(stream:stream:w):reduce
 Gura_DeclareMethod(content, write)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Writes a GIF image to a stream.");
 }
@@ -1150,7 +1150,7 @@ Gura_ImplementMethod(content, write)
 //	leftPos:number => 0, topPos:number => 0, disposalMethod:symbol => `none):map:reduce
 Gura_DeclareMethod(content, addimage)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "image", VTYPE_image);
 	DeclareArg(env, "delayTime", VTYPE_number, OCCUR_Once,
 						FLAG_None, new Expr_Value(10));
@@ -1358,7 +1358,7 @@ Gura_ImplementUserClass(imgprop)
 // image#gifread(stream:stream:r):reduce
 Gura_DeclareMethod(image, gifread)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Reads a GIF image from a stream.");
 }
@@ -1378,7 +1378,7 @@ Gura_ImplementMethod(image, gifread)
 // image#gifwrite(stream:stream:w):reduce
 Gura_DeclareMethod(image, gifwrite)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Writes a GIF image to a stream.");
 }
@@ -1404,7 +1404,7 @@ Gura_ImplementMethod(image, gifwrite)
 // gif.content(stream?:stream:r, format.symbol => `rgba) {block?}
 Gura_DeclareFunction(content)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareArg(env, "format", VTYPE_symbol, OCCUR_Once,
 						FLAG_None, new Expr_Value(Gura_Symbol(rgba)));

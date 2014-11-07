@@ -38,7 +38,7 @@ void wx_Quantize::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(QuantizeEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Quantize));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(QuantizeEmpty)
 
 Gura_DeclareMethod(wx_Quantize, Quantize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "src", VTYPE_wx_Image, OCCUR_Once);
 	DeclareArg(env, "dest", VTYPE_wx_Image, OCCUR_Once);
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_Quantize, Quantize)
 
 Gura_DeclareMethod(wx_Quantize, Quantize_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "src", VTYPE_wx_Image, OCCUR_Once);
 	DeclareArg(env, "dest", VTYPE_wx_Image, OCCUR_Once);
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_Quantize, Quantize_1)
 
 Gura_DeclareMethod(wx_Quantize, DoQuantize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "w", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "h", VTYPE_number, OCCUR_Once);

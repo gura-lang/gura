@@ -38,7 +38,7 @@ void wx_SockAddress::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(SockAddressEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_SockAddress));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(SockAddressEmpty)
 
 Gura_DeclareMethod(wx_SockAddress, Clear)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SockAddress, Clear)

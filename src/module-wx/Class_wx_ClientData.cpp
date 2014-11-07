@@ -24,7 +24,7 @@ void wx_ClientData::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ClientData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ClientData));
 	DeclareArg(env, "data", VTYPE_any, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -47,7 +47,7 @@ Gura_ImplementFunction(ClientData)
 
 Gura_DeclareMethod(wx_ClientData, GetData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -62,7 +62,7 @@ Gura_ImplementMethod(wx_ClientData, GetData)
 
 Gura_DeclareMethod(wx_ClientData, SetData)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "data", VTYPE_any, OCCUR_Once);
 }
 

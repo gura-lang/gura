@@ -40,7 +40,7 @@ void wx_FFile::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FFileEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_FFile));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -68,7 +68,7 @@ Gura_ImplementFunction(FFileEmpty)
 
 Gura_DeclareFunction(FFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_FFile));
 	DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
@@ -101,7 +101,7 @@ Gura_ImplementFunction(FFile)
 
 Gura_DeclareFunction(FFile_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_FFile));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -129,7 +129,7 @@ Gura_ImplementFunction(FFile_1)
 
 Gura_DeclareMethod(wx_FFile, Attach)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 #endif
 }
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_FFile, Attach)
 
 Gura_DeclareMethod(wx_FFile, Close)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_FFile, Close)
 
 Gura_DeclareMethod(wx_FFile, Detach)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FFile, Detach)
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_FFile, Detach)
 
 Gura_DeclareMethod(wx_FFile, fp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_FFile, fp)
 
 Gura_DeclareMethod(wx_FFile, Eof)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_FFile, Eof)
 
 Gura_DeclareMethod(wx_FFile, Flush)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_FFile, Flush)
 
 Gura_DeclareMethod(wx_FFile, GetKind)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -245,7 +245,7 @@ Gura_ImplementMethod(wx_FFile, GetKind)
 
 Gura_DeclareMethod(wx_FFile, IsOpened)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -259,7 +259,7 @@ Gura_ImplementMethod(wx_FFile, IsOpened)
 
 Gura_DeclareMethod(wx_FFile, Length)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -273,7 +273,7 @@ Gura_ImplementMethod(wx_FFile, Length)
 
 Gura_DeclareMethod(wx_FFile, Open)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -298,7 +298,7 @@ Gura_ImplementMethod(wx_FFile, Open)
 
 Gura_DeclareMethod(wx_FFile, Read)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
@@ -322,7 +322,7 @@ Gura_ImplementMethod(wx_FFile, Read)
 
 Gura_DeclareMethod(wx_FFile, ReadAll)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "conv", VTYPE_wx_MBConv, OCCUR_ZeroOrOnce);
@@ -347,7 +347,7 @@ Gura_ImplementMethod(wx_FFile, ReadAll)
 
 Gura_DeclareMethod(wx_FFile, Seek)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "ofs", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -372,7 +372,7 @@ Gura_ImplementMethod(wx_FFile, Seek)
 
 Gura_DeclareMethod(wx_FFile, SeekEnd)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "ofs", VTYPE_number, OCCUR_ZeroOrOnce);
 #endif
@@ -395,7 +395,7 @@ Gura_ImplementMethod(wx_FFile, SeekEnd)
 
 Gura_DeclareMethod(wx_FFile, Tell)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -409,7 +409,7 @@ Gura_ImplementMethod(wx_FFile, Tell)
 
 Gura_DeclareMethod(wx_FFile, Write)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
@@ -433,7 +433,7 @@ Gura_ImplementMethod(wx_FFile, Write)
 
 Gura_DeclareMethod(wx_FFile, Write_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "s", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "conv", VTYPE_wx_MBConv, OCCUR_ZeroOrOnce);

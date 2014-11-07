@@ -39,7 +39,7 @@ void wx_RichTextStyleListCtrl::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(RichTextStyleListCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextStyleListCtrl));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -75,7 +75,7 @@ Gura_ImplementFunction(RichTextStyleListCtrl)
 
 Gura_DeclareFunction(RichTextStyleListCtrlEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextStyleListCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -97,7 +97,7 @@ Gura_ImplementFunction(RichTextStyleListCtrlEmpty)
 
 Gura_DeclareMethod(wx_RichTextStyleListCtrl, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, Create)
 
 Gura_DeclareMethod(wx_RichTextStyleListCtrl, GetRichTextCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, GetRichTextCtrl)
 
 Gura_DeclareMethod(wx_RichTextStyleListCtrl, GetStyleChoice)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, GetStyleChoice)
 
 Gura_DeclareMethod(wx_RichTextStyleListCtrl, GetStyleListBox)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, GetStyleListBox)
 
 Gura_DeclareMethod(wx_RichTextStyleListCtrl, GetStyleSheet)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, GetStyleSheet)
 
 Gura_DeclareMethod(wx_RichTextStyleListCtrl, GetStyleType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, GetStyleType)
 
 Gura_DeclareMethod(wx_RichTextStyleListCtrl, SetRichTextCtrl)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "ctrl", VTYPE_wx_RichTextCtrl, OCCUR_Once);
 }
 
@@ -208,7 +208,7 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, SetRichTextCtrl)
 
 Gura_DeclareMethod(wx_RichTextStyleListCtrl, SetStyleSheet)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "styleSheet", VTYPE_wx_RichTextStyleSheet, OCCUR_Once);
 }
 
@@ -223,7 +223,7 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, SetStyleSheet)
 
 Gura_DeclareMethod(wx_RichTextStyleListCtrl, SetStyleType)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "styleType", VTYPE_number, OCCUR_Once);
 }
 
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, SetStyleType)
 
 Gura_DeclareMethod(wx_RichTextStyleListCtrl, UpdateStyles)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextStyleListCtrl, UpdateStyles)

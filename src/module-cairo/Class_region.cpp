@@ -26,7 +26,7 @@ String Object_region::ToString(bool exprFlag)
 // cairo.region.create() {block?}
 Gura_DeclareClassMethod(region, create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -43,7 +43,7 @@ Gura_ImplementClassMethod(region, create)
 // cairo.region.create_rectangle(rectangle:cairo.rectangle_int) {block?}
 Gura_DeclareClassMethod(region, create_rectangle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "rectangle", VTYPE_rectangle_int);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -63,7 +63,7 @@ Gura_ImplementClassMethod(region, create_rectangle)
 // cairo.region.create_rectangles(rectangle[]:cairo.rectangle_int) {block?}
 Gura_DeclareClassMethod(region, create_rectangles)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "rects", VTYPE_rectangle_int, OCCUR_Once, FLAG_List);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -89,7 +89,7 @@ Gura_ImplementClassMethod(region, create_rectangles)
 // cairo.region#copy() {block?}
 Gura_DeclareMethod(region, copy)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -111,7 +111,7 @@ Gura_ImplementMethod(region, copy)
 // cairo.region#status()
 Gura_DeclareMethod(region, status)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(region, status)
@@ -125,7 +125,7 @@ Gura_ImplementMethod(region, status)
 // cairo.region#get_extents()
 Gura_DeclareMethod(region, get_extents)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(region, get_extents)
@@ -141,7 +141,7 @@ Gura_ImplementMethod(region, get_extents)
 // cairo.region#num_rectangles()
 Gura_DeclareMethod(region, num_rectangles)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(region, num_rectangles)
@@ -156,7 +156,7 @@ Gura_ImplementMethod(region, num_rectangles)
 // cairo.region#get_rectangle(nth:number)
 Gura_DeclareMethod(region, get_rectangle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "nth", VTYPE_number);
 }
 
@@ -174,7 +174,7 @@ Gura_ImplementMethod(region, get_rectangle)
 // cairo.region#is_empty()
 Gura_DeclareMethod(region, is_empty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(region, is_empty)
@@ -189,7 +189,7 @@ Gura_ImplementMethod(region, is_empty)
 // cairo.region#contains_point(x:number, y:number)
 Gura_DeclareMethod(region, contains_point)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 }
@@ -206,7 +206,7 @@ Gura_ImplementMethod(region, contains_point)
 // cairo.region#contains_rectangle(rectangle:cairo.rectangle_int)
 Gura_DeclareMethod(region, contains_rectangle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "rectangle", VTYPE_rectangle_int);
 }
 
@@ -225,7 +225,7 @@ Gura_ImplementMethod(region, contains_rectangle)
 // cairo.region#equal(region:cairo.region)
 Gura_DeclareMethod(region, equal)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "region", VTYPE_region);
 }
 
@@ -241,7 +241,7 @@ Gura_ImplementMethod(region, equal)
 // cairo.region#translate(dx:number, dy:number)
 Gura_DeclareMethod(region, translate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "dx", VTYPE_number);
 	DeclareArg(env, "dy", VTYPE_number);
 }
@@ -258,7 +258,7 @@ Gura_ImplementMethod(region, translate)
 // cairo.region#intersect(other:cairo.region)
 Gura_DeclareMethod(region, intersect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "other", VTYPE_region);
 }
 
@@ -284,7 +284,7 @@ Gura_ImplementMethod(region, intersect)
 // cairo.region#intersect_rectangle(rectangle:cairo.rectangle_int)
 Gura_DeclareMethod(region, intersect_rectangle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "rectangle", VTYPE_rectangle_int);
 }
 
@@ -311,7 +311,7 @@ Gura_ImplementMethod(region, intersect_rectangle)
 // cairo.region#subtract(other:cairo.region)
 Gura_DeclareMethod(region, subtract)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "other", VTYPE_region);
 }
 
@@ -337,7 +337,7 @@ Gura_ImplementMethod(region, subtract)
 // cairo.region#subtract_rectangle(rectangle:cairo.rectangle_int)
 Gura_DeclareMethod(region, subtract_rectangle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "rectangle", VTYPE_rectangle_int);
 }
 
@@ -364,7 +364,7 @@ Gura_ImplementMethod(region, subtract_rectangle)
 // cairo.region#union(other:cairo.region)
 Gura_DeclareMethodAlias(region, union_, "union")
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "other", VTYPE_region);
 }
 
@@ -390,7 +390,7 @@ Gura_ImplementMethod(region, union_)
 // cairo.region#union_rectangle(rectangle:cairo.rectangle_int)
 Gura_DeclareMethod(region, union_rectangle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "rectangle", VTYPE_rectangle_int);
 }
 
@@ -417,7 +417,7 @@ Gura_ImplementMethod(region, union_rectangle)
 // cairo.region#xor(other:cairo.region)
 Gura_DeclareMethodAlias(region, xor_, "xor")
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "other", VTYPE_region);
 }
 
@@ -443,7 +443,7 @@ Gura_ImplementMethod(region, xor_)
 // cairo.region#xor_rectangle(rectangle:cairo.rectangle_int)
 Gura_DeclareMethod(region, xor_rectangle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "rectangle", VTYPE_rectangle_int);
 }
 

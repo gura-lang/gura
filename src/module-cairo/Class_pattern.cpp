@@ -26,7 +26,7 @@ String Object_pattern::ToString(bool exprFlag)
 // cairo.pattern.create_rgb(red:number, green:number, blue:number) {block?}
 Gura_DeclareClassMethod(pattern, create_rgb)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
@@ -52,7 +52,7 @@ Gura_ImplementClassMethod(pattern, create_rgb)
 // cairo.pattern.create_rgba(red:number, green:number, blue:number, alpha:number) {block?}
 Gura_DeclareClassMethod(pattern, create_rgba)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
@@ -79,7 +79,7 @@ Gura_ImplementClassMethod(pattern, create_rgba)
 // cairo.pattern.create_color(color:color, alpha?:number) {block?}
 Gura_DeclareClassMethod(pattern, create_color)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "color", VTYPE_color);
 	DeclareArg(env, "alpha", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -111,7 +111,7 @@ Gura_ImplementClassMethod(pattern, create_color)
 // cairo.pattern.create_for_surface(surface:cairo.surface) {block?}
 Gura_DeclareClassMethod(pattern, create_for_surface)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_surface);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -133,7 +133,7 @@ Gura_ImplementClassMethod(pattern, create_for_surface)
 // cairo.pattern.create_linear(x0:number, y0:number, x1:number, y1:number) {block?}
 Gura_DeclareClassMethod(pattern, create_linear)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "x0", VTYPE_number);
 	DeclareArg(env, "y0", VTYPE_number);
 	DeclareArg(env, "x1", VTYPE_number);
@@ -162,7 +162,7 @@ Gura_ImplementClassMethod(pattern, create_linear)
 // cairo.pattern.create_radial(cx0:number, cy0:number, radius0:number, cx1:number, cy1:number, radius1:number) {block?}
 Gura_DeclareClassMethod(pattern, create_radial)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "cx0", VTYPE_number);
 	DeclareArg(env, "cy0", VTYPE_number);
 	DeclareArg(env, "radius0", VTYPE_number);
@@ -194,7 +194,7 @@ Gura_ImplementClassMethod(pattern, create_radial)
 // cairo.pattern#add_color_stop_rgb(offset:number, red:number, green:number, blue:number):reduce
 Gura_DeclareMethod(pattern, add_color_stop_rgb)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "offset", VTYPE_number);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
@@ -229,7 +229,7 @@ Gura_ImplementMethod(pattern, add_color_stop_rgb)
 // cairo.pattern#add_color_stop_rgba(offset:number, red:number, green:number, blue:number, alpha:number):reduce
 Gura_DeclareMethod(pattern, add_color_stop_rgba)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "offset", VTYPE_number);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
@@ -265,7 +265,7 @@ Gura_ImplementMethod(pattern, add_color_stop_rgba)
 // cairo.pattern#get_color_stop_count()
 Gura_DeclareMethod(pattern, get_color_stop_count)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the number of color stops specified in the given gradient pattern.\n"
 	);
@@ -284,7 +284,7 @@ Gura_ImplementMethod(pattern, get_color_stop_count)
 // cairo.pattern#get_color_stop_rgba(index:number)
 Gura_DeclareMethod(pattern, get_color_stop_rgba)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "index", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the color and offset information at the given index for a gradient pattern.\n"
@@ -306,7 +306,7 @@ Gura_ImplementMethod(pattern, get_color_stop_rgba)
 // cairo.pattern#get_rgba()
 Gura_DeclareMethod(pattern, get_rgba)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the solid color for a solid color pattern.\n"
 	);
@@ -326,7 +326,7 @@ Gura_ImplementMethod(pattern, get_rgba)
 // cairo.pattern#get_surface()
 Gura_DeclareMethod(pattern, get_surface)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the surface of a surface pattern.\n"
 	"The reference returned in surface is owned by the pattern;\n"
@@ -401,7 +401,7 @@ Gura_ImplementMethod(pattern, get_surface)
 // cairo.pattern#get_linear_points()
 Gura_DeclareMethod(pattern, get_linear_points)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the gradient endpoints for a linear gradient.\n"
 	);
@@ -421,7 +421,7 @@ Gura_ImplementMethod(pattern, get_linear_points)
 // cairo.pattern#get_radial_circles()
 Gura_DeclareMethod(pattern, get_radial_circles)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the gradient endpoint circles for a radial gradient, each specified as a center coordinate and a radius.\n"
 	);
@@ -444,7 +444,7 @@ Gura_ImplementMethod(pattern, get_radial_circles)
 // cairo.pattern#status()
 Gura_DeclareMethod(pattern, status)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Checks whether an error has previously occurred for this pattern.\n"
 	);
@@ -461,7 +461,7 @@ Gura_ImplementMethod(pattern, status)
 // cairo.pattern#set_extend(extend:number):reduce
 Gura_DeclareMethod(pattern, set_extend)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "extend", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Sets the mode to be used for drawing outside the area of a pattern.\n"
@@ -485,7 +485,7 @@ Gura_ImplementMethod(pattern, set_extend)
 // cairo.pattern#get_extend()
 Gura_DeclareMethod(pattern, get_extend)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the current extend mode for a pattern.\n"
 	"See cairo_extend_t for details on the semantics of each extend strategy.\n"
@@ -504,7 +504,7 @@ Gura_ImplementMethod(pattern, get_extend)
 // cairo.pattern#set_filter(filter:number):reduce
 Gura_DeclareMethod(pattern, set_filter)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "filter", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Sets the filter to be used for resizing when using this pattern. See cairo_filter_t for details on each filter.\n"
@@ -532,7 +532,7 @@ Gura_ImplementMethod(pattern, set_filter)
 // cairo.pattern#get_filter()
 Gura_DeclareMethod(pattern, get_filter)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the current filter for a pattern. See cairo_filter_t for details on each filter.\n"
 	);
@@ -550,7 +550,7 @@ Gura_ImplementMethod(pattern, get_filter)
 // cairo.pattern#set_matrix(matrix:matrix):reduce
 Gura_DeclareMethod(pattern, set_matrix)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "matrix", VTYPE_matrix);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Sets the pattern's transformation matrix to matrix. This matrix is a transformation from user space to pattern space.\n"
@@ -587,7 +587,7 @@ Gura_ImplementMethod(pattern, set_matrix)
 // cairo.pattern#get_matrix()
 Gura_DeclareMethod(pattern, get_matrix)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Stores the pattern's transformation matrix into matrix.\n"
 	);
@@ -607,7 +607,7 @@ Gura_ImplementMethod(pattern, get_matrix)
 // cairo.pattern#get_type()
 Gura_DeclareMethod(pattern, get_type)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"This function returns the type a pattern. See cairo_pattern_type_t for available types.\n"
 	);

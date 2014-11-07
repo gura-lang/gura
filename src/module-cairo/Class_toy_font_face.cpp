@@ -16,7 +16,7 @@ String Object_toy_font_face::ToString(bool exprFlag)
 // cairo.toy_font_face.create(family:string, slant:number, weight:number) {block?}
 Gura_DeclareClassMethod(toy_font_face, create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "family", VTYPE_string);
 	DeclareArg(env, "slant", VTYPE_number);
 	DeclareArg(env, "weight", VTYPE_number);
@@ -46,7 +46,7 @@ Gura_ImplementClassMethod(toy_font_face, create)
 // cairo.toy_font_face#get_family()
 Gura_DeclareMethod(toy_font_face, get_family)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the familly name of a toy font.\n"
 	);
@@ -63,7 +63,7 @@ Gura_ImplementMethod(toy_font_face, get_family)
 // cairo.toy_font_face#get_slant()
 Gura_DeclareMethod(toy_font_face, get_slant)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the slant a toy font.\n"
 	);
@@ -80,7 +80,7 @@ Gura_ImplementMethod(toy_font_face, get_slant)
 // cairo.toy_font_face#get_weight()
 Gura_DeclareMethod(toy_font_face, get_weight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the weight a toy font.\n"
 	);

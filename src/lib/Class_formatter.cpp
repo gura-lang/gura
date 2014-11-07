@@ -53,7 +53,7 @@ String Object_formatter::ToString(bool exprFlag)
 // formatter#getfieldminwidth()
 Gura_DeclareMethod(formatter, getfieldminwidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(formatter, getfieldminwidth)
@@ -65,7 +65,7 @@ Gura_ImplementMethod(formatter, getfieldminwidth)
 // formatter#getpadding()
 Gura_DeclareMethod(formatter, getpadding)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(formatter, getpadding)
@@ -78,7 +78,7 @@ Gura_ImplementMethod(formatter, getpadding)
 // formatter#getplusmode()
 Gura_DeclareMethod(formatter, getplusmode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(formatter, getplusmode)
@@ -90,7 +90,7 @@ Gura_ImplementMethod(formatter, getplusmode)
 // formatter#getprecision()
 Gura_DeclareMethod(formatter, getprecision)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(formatter, getprecision)
@@ -102,7 +102,7 @@ Gura_ImplementMethod(formatter, getprecision)
 // formatter#isleftalign()
 Gura_DeclareMethod(formatter, isleftalign)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(formatter, isleftalign)
@@ -114,7 +114,7 @@ Gura_ImplementMethod(formatter, isleftalign)
 // formatter#issharp()
 Gura_DeclareMethod(formatter, issharp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(formatter, issharp)
@@ -126,7 +126,7 @@ Gura_ImplementMethod(formatter, issharp)
 // formatter#isuppercase()
 Gura_DeclareMethod(formatter, isuppercase)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(formatter, isuppercase)

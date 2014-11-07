@@ -41,7 +41,7 @@ void wx_StreamBase::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(StreamBaseEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_StreamBase));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(StreamBaseEmpty)
 
 Gura_DeclareMethod(wx_StreamBase, GetLength)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_StreamBase, GetLength)
 
 Gura_DeclareMethod(wx_StreamBase, GetLastError)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_StreamBase, GetLastError)
 
 Gura_DeclareMethod(wx_StreamBase, GetSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_StreamBase, GetSize)
 
 Gura_DeclareMethod(wx_StreamBase, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_StreamBase, IsOk)
 
 Gura_DeclareMethod(wx_StreamBase, IsSeekable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_StreamBase, IsSeekable)
 
 Gura_DeclareMethod(wx_StreamBase, OnSysRead)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "bufsize", VTYPE_number, OCCUR_Once);
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_StreamBase, OnSysRead)
 
 Gura_DeclareMethod(wx_StreamBase, OnSysSeek)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_StreamBase, OnSysSeek)
 
 Gura_DeclareMethod(wx_StreamBase, OnSysTell)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_StreamBase, OnSysTell)
 
 Gura_DeclareMethod(wx_StreamBase, OnSysWrite)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "bufsize", VTYPE_number, OCCUR_Once);

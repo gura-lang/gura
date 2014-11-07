@@ -100,7 +100,7 @@ bool wx_FontEnumerator::OnFontEncoding(const wxString& font, const wxString& enc
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FontEnumerator)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FontEnumerator));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -122,7 +122,7 @@ Gura_ImplementFunction(FontEnumerator)
 
 Gura_DeclareMethod(wx_FontEnumerator, EnumerateFacenames)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "encoding", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "fixedWidthOnly", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_FontEnumerator, EnumerateFacenames)
 
 Gura_DeclareMethod(wx_FontEnumerator, EnumerateEncodings)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_FontEnumerator, EnumerateEncodings)
 
 Gura_DeclareClassMethod(wx_FontEnumerator, GetEncodings)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "facename", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -175,7 +175,7 @@ Gura_ImplementClassMethod(wx_FontEnumerator, GetEncodings)
 
 Gura_DeclareClassMethod(wx_FontEnumerator, GetFacenames)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "encoding", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "fixedWidthOnly", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -194,7 +194,7 @@ Gura_ImplementClassMethod(wx_FontEnumerator, GetFacenames)
 
 Gura_DeclareClassMethod(wx_FontEnumerator, IsValidFacename)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "facename", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -209,7 +209,7 @@ Gura_ImplementClassMethod(wx_FontEnumerator, IsValidFacename)
 
 Gura_DeclareMethod(wx_FontEnumerator, OnFacename)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_FontEnumerator, OnFacename)
 
 Gura_DeclareMethod(wx_FontEnumerator, OnFontEncoding)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "encoding", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);

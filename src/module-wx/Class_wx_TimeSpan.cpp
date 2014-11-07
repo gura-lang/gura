@@ -39,7 +39,7 @@ void wx_TimeSpan::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_TimeSpan, Abs)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -53,7 +53,7 @@ Gura_ImplementMethod(wx_TimeSpan, Abs)
 
 Gura_DeclareMethod(wx_TimeSpan, Add)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "diff", VTYPE_wx_TimeSpan, OCCUR_Once);
 #endif
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_TimeSpan, Add)
 
 Gura_DeclareMethod(wx_TimeSpan, Add_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "diff", VTYPE_wx_TimeSpan, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_TimeSpan, Add_1)
 
 Gura_DeclareClassMethod(wx_TimeSpan, Days)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "days", VTYPE_number, OCCUR_Once);
 #endif
@@ -112,7 +112,7 @@ Gura_ImplementClassMethod(wx_TimeSpan, Days)
 
 Gura_DeclareClassMethod(wx_TimeSpan, Day)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -129,7 +129,7 @@ Gura_ImplementClassMethod(wx_TimeSpan, Day)
 
 Gura_DeclareMethod(wx_TimeSpan, Format)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "format", VTYPE_string, OCCUR_ZeroOrOnce);
 #endif
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_TimeSpan, Format)
 
 Gura_DeclareMethod(wx_TimeSpan, GetDays)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_TimeSpan, GetDays)
 
 Gura_DeclareMethod(wx_TimeSpan, GetHours)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_TimeSpan, GetHours)
 
 Gura_DeclareMethod(wx_TimeSpan, GetMilliseconds)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -198,7 +198,7 @@ Gura_ImplementMethod(wx_TimeSpan, GetMilliseconds)
 
 Gura_DeclareMethod(wx_TimeSpan, GetMinutes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_TimeSpan, GetMinutes)
 
 Gura_DeclareMethod(wx_TimeSpan, GetSeconds)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -226,7 +226,7 @@ Gura_ImplementMethod(wx_TimeSpan, GetSeconds)
 
 Gura_DeclareMethod(wx_TimeSpan, GetValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_TimeSpan, GetValue)
 
 Gura_DeclareMethod(wx_TimeSpan, GetWeeks)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -254,7 +254,7 @@ Gura_ImplementMethod(wx_TimeSpan, GetWeeks)
 
 Gura_DeclareClassMethod(wx_TimeSpan, Hours)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "hours", VTYPE_number, OCCUR_Once);
 #endif
@@ -275,7 +275,7 @@ Gura_ImplementClassMethod(wx_TimeSpan, Hours)
 
 Gura_DeclareClassMethod(wx_TimeSpan, Hour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -292,7 +292,7 @@ Gura_ImplementClassMethod(wx_TimeSpan, Hour)
 
 Gura_DeclareMethod(wx_TimeSpan, IsEqualTo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "ts", VTYPE_wx_TimeSpan, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -308,7 +308,7 @@ Gura_ImplementMethod(wx_TimeSpan, IsEqualTo)
 
 Gura_DeclareMethod(wx_TimeSpan, IsLongerThan)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "ts", VTYPE_wx_TimeSpan, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -324,7 +324,7 @@ Gura_ImplementMethod(wx_TimeSpan, IsLongerThan)
 
 Gura_DeclareMethod(wx_TimeSpan, IsNegative)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -338,7 +338,7 @@ Gura_ImplementMethod(wx_TimeSpan, IsNegative)
 
 Gura_DeclareMethod(wx_TimeSpan, IsNull)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -352,7 +352,7 @@ Gura_ImplementMethod(wx_TimeSpan, IsNull)
 
 Gura_DeclareMethod(wx_TimeSpan, IsPositive)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -366,7 +366,7 @@ Gura_ImplementMethod(wx_TimeSpan, IsPositive)
 
 Gura_DeclareMethod(wx_TimeSpan, IsShorterThan)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "ts", VTYPE_wx_TimeSpan, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -382,7 +382,7 @@ Gura_ImplementMethod(wx_TimeSpan, IsShorterThan)
 
 Gura_DeclareClassMethod(wx_TimeSpan, Minutes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
 #endif
@@ -403,7 +403,7 @@ Gura_ImplementClassMethod(wx_TimeSpan, Minutes)
 
 Gura_DeclareClassMethod(wx_TimeSpan, Minute)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -420,7 +420,7 @@ Gura_ImplementClassMethod(wx_TimeSpan, Minute)
 
 Gura_DeclareMethod(wx_TimeSpan, Multiply)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 #endif
@@ -442,7 +442,7 @@ Gura_ImplementMethod(wx_TimeSpan, Multiply)
 
 Gura_DeclareMethod(wx_TimeSpan, Multiply_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -458,7 +458,7 @@ Gura_ImplementMethod(wx_TimeSpan, Multiply_1)
 
 Gura_DeclareMethod(wx_TimeSpan, Negate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -472,7 +472,7 @@ Gura_ImplementMethod(wx_TimeSpan, Negate)
 
 Gura_DeclareMethod(wx_TimeSpan, Neg)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -490,7 +490,7 @@ Gura_ImplementMethod(wx_TimeSpan, Neg)
 
 Gura_DeclareClassMethod(wx_TimeSpan, Milliseconds)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "ms", VTYPE_number, OCCUR_Once);
 #endif
@@ -511,7 +511,7 @@ Gura_ImplementClassMethod(wx_TimeSpan, Milliseconds)
 
 Gura_DeclareClassMethod(wx_TimeSpan, Millisecond)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -528,7 +528,7 @@ Gura_ImplementClassMethod(wx_TimeSpan, Millisecond)
 
 Gura_DeclareClassMethod(wx_TimeSpan, Seconds)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "sec", VTYPE_number, OCCUR_Once);
 #endif
@@ -549,7 +549,7 @@ Gura_ImplementClassMethod(wx_TimeSpan, Seconds)
 
 Gura_DeclareClassMethod(wx_TimeSpan, Second)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -566,7 +566,7 @@ Gura_ImplementClassMethod(wx_TimeSpan, Second)
 
 Gura_DeclareMethod(wx_TimeSpan, Subtract)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "diff", VTYPE_wx_TimeSpan, OCCUR_Once);
 #endif
@@ -588,7 +588,7 @@ Gura_ImplementMethod(wx_TimeSpan, Subtract)
 
 Gura_DeclareMethod(wx_TimeSpan, Subtract_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "diff", VTYPE_wx_TimeSpan, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -604,7 +604,7 @@ Gura_ImplementMethod(wx_TimeSpan, Subtract_1)
 
 Gura_DeclareClassMethod(wx_TimeSpan, Weeks)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "weeks", VTYPE_number, OCCUR_Once);
 #endif
@@ -625,7 +625,7 @@ Gura_ImplementClassMethod(wx_TimeSpan, Weeks)
 
 Gura_DeclareClassMethod(wx_TimeSpan, Week)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -642,7 +642,7 @@ Gura_ImplementClassMethod(wx_TimeSpan, Week)
 
 Gura_DeclareFunction(TimeSpanEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_TimeSpan));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -670,7 +670,7 @@ Gura_ImplementFunction(TimeSpanEmpty)
 
 Gura_DeclareFunction(TimeSpan)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_TimeSpan));
 	DeclareArg(env, "hours", VTYPE_number, OCCUR_Once);

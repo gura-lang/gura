@@ -43,7 +43,7 @@ void wx_GLCanvas::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GLCanvas)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_GLCanvas));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -90,7 +90,7 @@ Gura_ImplementFunction(GLCanvas)
 #if 0
 Gura_DeclareFunction(GLCanvas_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_GLCanvas));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "sharedContext", VTYPE_wx_GLContext, OCCUR_Once);
@@ -140,7 +140,7 @@ Gura_ImplementFunction(GLCanvas_1)
 #if 0
 Gura_DeclareFunction(GLCanvas_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_GLCanvas));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "sharedCanvas", VTYPE_wx_GLCanvas, OCCUR_Once);
@@ -189,7 +189,7 @@ Gura_ImplementFunction(GLCanvas_2)
 
 Gura_DeclareMethod(wx_GLCanvas, GetContext)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_GLCanvas, GetContext)
 
 Gura_DeclareMethod(wx_GLCanvas, SetCurrent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "RC", VTYPE_any, OCCUR_ZeroOrOnce);
 }
 
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_GLCanvas, SetCurrent)
 
 Gura_DeclareMethod(wx_GLCanvas, SetColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_string, OCCUR_Once);
 }
 
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_GLCanvas, SetColour)
 
 Gura_DeclareMethod(wx_GLCanvas, SwapBuffers)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GLCanvas, SwapBuffers)

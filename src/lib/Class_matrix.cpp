@@ -157,7 +157,7 @@ String Object_matrix::ToString(bool exprFlag)
 // matrix(nrows:number, ncols:number, value?) {block?}
 Gura_DeclareFunction(matrix)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "nrows", VTYPE_number);
 	DeclareArg(env, "ncols", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
@@ -175,7 +175,7 @@ Gura_ImplementFunction(matrix)
 // @@ {block}
 Gura_DeclareFunction(MatrixInit)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_Once);
 }
 
@@ -219,7 +219,7 @@ Gura_ImplementFunction(MatrixInit)
 // matrix#col(col:number):map
 Gura_DeclareMethod(matrix, col)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Returns a list of values copied from a specified column of the matrix.\n"
@@ -235,7 +235,7 @@ Gura_ImplementMethod(matrix, col)
 // matrix#colsize()
 Gura_DeclareMethod(matrix, colsize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the matrix column size.");
 }
 
@@ -248,7 +248,7 @@ Gura_ImplementMethod(matrix, colsize)
 // matrix#each():[transpose]
 Gura_DeclareMethod(matrix, each)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(transpose));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Returns an iterator that picks up each cell by scanning the matrix.\n"
@@ -267,7 +267,7 @@ Gura_ImplementMethod(matrix, each)
 // matrix#eachcol()
 Gura_DeclareMethod(matrix, eachcol)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Returns an iterator that generates lists of values copied from each column\n"
 	"of the matrix.\n");
@@ -283,7 +283,7 @@ Gura_ImplementMethod(matrix, eachcol)
 // matrix#eachrow()
 Gura_DeclareMethod(matrix, eachrow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Returns an iterator that generates lists of values copied from each row\n"
 	"of the matrix.\n");
@@ -299,7 +299,7 @@ Gura_ImplementMethod(matrix, eachrow)
 // matrix.identity(n:number):static:map {block?}
 Gura_DeclareClassMethod(matrix, identity)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -313,7 +313,7 @@ Gura_ImplementClassMethod(matrix, identity)
 // matrix#invert()
 Gura_DeclareMethod(matrix, invert)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an inverted matrix.");
 }
 
@@ -327,7 +327,7 @@ Gura_ImplementMethod(matrix, invert)
 // matrix#issquare()
 Gura_DeclareMethod(matrix, issquare)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns true if the matrix is a square one.");
 }
 
@@ -340,7 +340,7 @@ Gura_ImplementMethod(matrix, issquare)
 // matrix.rotation(angle:number, tx?:number, ty?:number):static:map:[deg] {block?}
 Gura_DeclareClassMethod(matrix, rotation)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number);
 	DeclareArg(env, "tx", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ty", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -371,7 +371,7 @@ Gura_ImplementClassMethod(matrix, rotation)
 // matrix.rotation_x(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
 Gura_DeclareClassMethod(matrix, rotation_x)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number);
 	DeclareArg(env, "tx", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ty", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -407,7 +407,7 @@ Gura_ImplementClassMethod(matrix, rotation_x)
 // matrix.rotation_y(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
 Gura_DeclareClassMethod(matrix, rotation_y)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number);
 	DeclareArg(env, "tx", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ty", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -443,7 +443,7 @@ Gura_ImplementClassMethod(matrix, rotation_y)
 // matrix.rotation_z(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
 Gura_DeclareClassMethod(matrix, rotation_z)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number);
 	DeclareArg(env, "tx", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ty", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -479,7 +479,7 @@ Gura_ImplementClassMethod(matrix, rotation_z)
 // matrix#roundoff(threshold:number => 1e-10)
 Gura_DeclareMethod(matrix, roundoff)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "threshold", VTYPE_number, OCCUR_Once, FLAG_None,
 										new Expr_Value(RoundOffThreshold));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a matrix with values that have been rounded off.");
@@ -495,7 +495,7 @@ Gura_ImplementMethod(matrix, roundoff)
 // matrix#row(row:number):map
 Gura_DeclareMethod(matrix, row)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Returns a list of values copied from a specified row of the matrix.\n"
@@ -511,7 +511,7 @@ Gura_ImplementMethod(matrix, row)
 // matrix#rowsize()
 Gura_DeclareMethod(matrix, rowsize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the matrix row size.");
 }
 
@@ -524,7 +524,7 @@ Gura_ImplementMethod(matrix, rowsize)
 // matrix#set(value)
 Gura_DeclareMethod(matrix, set)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Sets all the cells of the matrix with a specified value.");
 }
@@ -543,7 +543,7 @@ Gura_ImplementMethod(matrix, set)
 // matrix#setcol(col:number, value)
 Gura_DeclareMethod(matrix, setcol)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "col", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_any);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Sets cells in a selected column of the matrix with a specified value.");
@@ -563,7 +563,7 @@ Gura_ImplementMethod(matrix, setcol)
 // matrix#setrow(row:number, value)
 Gura_DeclareMethod(matrix, setrow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "row", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_any);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Sets cells in a selected row of the matrix with a specified value.");
@@ -583,7 +583,7 @@ Gura_ImplementMethod(matrix, setrow)
 // matrix#submat(row:number, col:number, nrows:number, ncols:number):map
 Gura_DeclareMethod(matrix, submat)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number);
 	DeclareArg(env, "col", VTYPE_number);
 	DeclareArg(env, "nrows", VTYPE_number);
@@ -604,7 +604,7 @@ Gura_ImplementMethod(matrix, submat)
 // matrix#tolist():[transpose,flat]
 Gura_DeclareMethod(matrix, tolist)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(transpose));
 	DeclareAttr(Gura_Symbol(flat));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
@@ -633,7 +633,7 @@ Gura_ImplementMethod(matrix, tolist)
 // matrix#transpose()
 Gura_DeclareMethod(matrix, transpose)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a transpose matrix.");
 }
 

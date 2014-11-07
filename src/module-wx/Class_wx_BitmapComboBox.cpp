@@ -40,7 +40,7 @@ void wx_BitmapComboBox::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(BitmapComboBoxEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_BitmapComboBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -62,7 +62,7 @@ Gura_ImplementFunction(BitmapComboBoxEmpty)
 
 Gura_DeclareFunction(BitmapComboBox)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_BitmapComboBox));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -105,7 +105,7 @@ Gura_ImplementFunction(BitmapComboBox)
 
 Gura_DeclareMethod(wx_BitmapComboBox, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Create)
 
 Gura_DeclareMethod(wx_BitmapComboBox, Append)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Append)
 
 Gura_DeclareMethod(wx_BitmapComboBox, Append_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Append_1)
 
 Gura_DeclareMethod(wx_BitmapComboBox, Append_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "clientData", VTYPE_wx_ClientData, OCCUR_Once);
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Append_2)
 
 Gura_DeclareMethod(wx_BitmapComboBox, GetBitmapSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, GetBitmapSize)
 
 Gura_DeclareMethod(wx_BitmapComboBox, GetItemBitmap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, GetItemBitmap)
 
 Gura_DeclareMethod(wx_BitmapComboBox, Insert)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Insert)
 
 Gura_DeclareMethod(wx_BitmapComboBox, Insert_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
@@ -283,7 +283,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Insert_1)
 
 Gura_DeclareMethod(wx_BitmapComboBox, Insert_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -305,7 +305,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Insert_2)
 
 Gura_DeclareMethod(wx_BitmapComboBox, SetItemBitmap)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 }

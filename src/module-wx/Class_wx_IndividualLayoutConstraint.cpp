@@ -40,7 +40,7 @@ void wx_IndividualLayoutConstraint::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(IndividualLayoutConstraintEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_IndividualLayoutConstraint));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -62,7 +62,7 @@ Gura_ImplementFunction(IndividualLayoutConstraintEmpty)
 
 Gura_DeclareMethod(wx_IndividualLayoutConstraint, Above)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "otherWin", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "margin", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_IndividualLayoutConstraint, Above)
 
 Gura_DeclareMethod(wx_IndividualLayoutConstraint, Absolute)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_IndividualLayoutConstraint, Absolute)
 
 Gura_DeclareMethod(wx_IndividualLayoutConstraint, AsIs)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, AsIs)
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_IndividualLayoutConstraint, AsIs)
 
 Gura_DeclareMethod(wx_IndividualLayoutConstraint, Below)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "otherWin", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "margin", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_IndividualLayoutConstraint, Below)
 
 Gura_DeclareMethod(wx_IndividualLayoutConstraint, Unconstrained)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, Unconstrained)
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_IndividualLayoutConstraint, Unconstrained)
 
 Gura_DeclareMethod(wx_IndividualLayoutConstraint, LeftOf)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "otherWin", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "margin", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_IndividualLayoutConstraint, LeftOf)
 
 Gura_DeclareMethod(wx_IndividualLayoutConstraint, PercentOf)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "otherWin", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "edge", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "per", VTYPE_number, OCCUR_Once);
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_IndividualLayoutConstraint, PercentOf)
 
 Gura_DeclareMethod(wx_IndividualLayoutConstraint, RightOf)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "otherWin", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "margin", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_IndividualLayoutConstraint, RightOf)
 
 Gura_DeclareMethod(wx_IndividualLayoutConstraint, SameAs)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "otherWin", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "edge", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "margin", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_IndividualLayoutConstraint, SameAs)
 
 Gura_DeclareMethod(wx_IndividualLayoutConstraint, Set)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "rel", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "otherWin", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "otherEdge", VTYPE_number, OCCUR_Once);

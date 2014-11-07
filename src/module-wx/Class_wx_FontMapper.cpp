@@ -38,7 +38,7 @@ void wx_FontMapper::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FontMapper)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FontMapper));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(FontMapper)
 
 Gura_DeclareMethod(wx_FontMapper, CharsetToEncoding)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "charset", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "interactive", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_FontMapper, CharsetToEncoding)
 
 Gura_DeclareClassMethod(wx_FontMapper, Get)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -92,7 +92,7 @@ Gura_ImplementClassMethod(wx_FontMapper, Get)
 
 Gura_DeclareClassMethod(wx_FontMapper, GetAllEncodingNames)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 #endif
@@ -113,7 +113,7 @@ Gura_ImplementClassMethod(wx_FontMapper, GetAllEncodingNames)
 
 Gura_DeclareMethod(wx_FontMapper, GetAltForEncoding)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "facename", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "interactive", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_FontMapper, GetAltForEncoding)
 
 Gura_DeclareMethod(wx_FontMapper, GetAltForEncoding_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "alt_encoding", VTYPE_number, OCCUR_Once);
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_FontMapper, GetAltForEncoding_1)
 
 Gura_DeclareClassMethod(wx_FontMapper, GetEncoding)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -185,7 +185,7 @@ Gura_ImplementClassMethod(wx_FontMapper, GetEncoding)
 
 Gura_DeclareClassMethod(wx_FontMapper, GetEncodingDescription)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -200,7 +200,7 @@ Gura_ImplementClassMethod(wx_FontMapper, GetEncodingDescription)
 
 Gura_DeclareClassMethod(wx_FontMapper, GetEncodingFromName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "encoding", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -215,7 +215,7 @@ Gura_ImplementClassMethod(wx_FontMapper, GetEncodingFromName)
 
 Gura_DeclareClassMethod(wx_FontMapper, GetEncodingName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -230,7 +230,7 @@ Gura_ImplementClassMethod(wx_FontMapper, GetEncodingName)
 
 Gura_DeclareClassMethod(wx_FontMapper, GetSupportedEncodingsCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -243,7 +243,7 @@ Gura_ImplementClassMethod(wx_FontMapper, GetSupportedEncodingsCount)
 
 Gura_DeclareMethod(wx_FontMapper, IsEncodingAvailable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "facename", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -262,7 +262,7 @@ Gura_ImplementMethod(wx_FontMapper, IsEncodingAvailable)
 
 Gura_DeclareMethod(wx_FontMapper, SetDialogParent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 }
 
@@ -277,7 +277,7 @@ Gura_ImplementMethod(wx_FontMapper, SetDialogParent)
 
 Gura_DeclareMethod(wx_FontMapper, SetDialogTitle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once);
 }
 
@@ -292,7 +292,7 @@ Gura_ImplementMethod(wx_FontMapper, SetDialogTitle)
 
 Gura_DeclareClassMethod(wx_FontMapper, Set)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "mapper", VTYPE_wx_FontMapper, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -307,7 +307,7 @@ Gura_ImplementClassMethod(wx_FontMapper, Set)
 
 Gura_DeclareMethod(wx_FontMapper, SetConfig)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "config", VTYPE_wx_ConfigBase, OCCUR_Once);
 #endif
@@ -328,7 +328,7 @@ Gura_ImplementMethod(wx_FontMapper, SetConfig)
 
 Gura_DeclareMethod(wx_FontMapper, SetConfigPath)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "prefix", VTYPE_string, OCCUR_Once);
 }
 

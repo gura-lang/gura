@@ -38,7 +38,7 @@ void wx_LogStream::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(LogStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_LogStream));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

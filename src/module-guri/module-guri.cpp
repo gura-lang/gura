@@ -11,7 +11,7 @@ Gura_BeginModuleBody(guri)
 // guri.test()
 Gura_DeclareFunction(test)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(test)

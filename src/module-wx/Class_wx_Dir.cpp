@@ -39,7 +39,7 @@ void wx_Dir::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DirEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Dir));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(DirEmpty)
 
 Gura_DeclareFunction(Dir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Dir));
 	DeclareArg(env, "dir", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -85,7 +85,7 @@ Gura_ImplementFunction(Dir)
 
 Gura_DeclareClassMethod(wx_Dir, Exists)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dir", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -100,7 +100,7 @@ Gura_ImplementClassMethod(wx_Dir, Exists)
 
 Gura_DeclareClassMethod(wx_Dir, GetAllFiles)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "dirname", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "files", VTYPE_string, OCCUR_Once, FLAG_List);
@@ -129,7 +129,7 @@ Gura_ImplementClassMethod(wx_Dir, GetAllFiles)
 
 Gura_DeclareClassMethod(wx_Dir, FindFirst)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dirname", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "filespec", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -149,7 +149,7 @@ Gura_ImplementClassMethod(wx_Dir, FindFirst)
 
 Gura_DeclareMethod(wx_Dir, GetFirst)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "filespec", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_Dir, GetFirst)
 
 Gura_DeclareMethod(wx_Dir, GetName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_Dir, GetName)
 
 Gura_DeclareMethod(wx_Dir, GetNext)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 #endif
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_Dir, GetNext)
 
 Gura_DeclareClassMethod(wx_Dir, GetTotalSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "dir", VTYPE_string, OCCUR_Once);
 #endif
@@ -234,7 +234,7 @@ Gura_ImplementClassMethod(wx_Dir, GetTotalSize)
 
 Gura_DeclareMethod(wx_Dir, HasFiles)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filespec", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -251,7 +251,7 @@ Gura_ImplementMethod(wx_Dir, HasFiles)
 
 Gura_DeclareMethod(wx_Dir, HasSubDirs)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dirspec", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -268,7 +268,7 @@ Gura_ImplementMethod(wx_Dir, HasSubDirs)
 
 Gura_DeclareMethod(wx_Dir, IsOpened)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -282,7 +282,7 @@ Gura_ImplementMethod(wx_Dir, IsOpened)
 
 Gura_DeclareMethod(wx_Dir, Open)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dir", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -298,7 +298,7 @@ Gura_ImplementMethod(wx_Dir, Open)
 
 Gura_DeclareMethod(wx_Dir, Traverse)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "sink", VTYPE_wx_DirTraverser, OCCUR_Once);
 	DeclareArg(env, "filespec", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);

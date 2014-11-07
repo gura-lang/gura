@@ -498,7 +498,7 @@ String Object_Canvas::ToString(bool exprFlag)
 // canvas.canvas#width()
 Gura_DeclareMethod(Canvas, width)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(Canvas, width)
@@ -510,7 +510,7 @@ Gura_ImplementMethod(Canvas, width)
 // canvas.canvas#height()
 Gura_DeclareMethod(Canvas, height)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(Canvas, height)
@@ -523,7 +523,7 @@ Gura_ImplementMethod(Canvas, height)
 //			style:symbol => `normal, weight:symbol => `normal, facename?:string):reduce
 Gura_DeclareMethod(Canvas, setfont)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "height", VTYPE_number);
 	DeclareArg(env, "family", VTYPE_symbol, OCCUR_Once, FLAG_None,
 								new Expr_Value(Gura_UserSymbol(default)));
@@ -546,7 +546,7 @@ Gura_ImplementMethod(Canvas, setfont)
 // canvas.canvas#settextcolor(color):reduce
 Gura_DeclareMethod(Canvas, settextcolor)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "color", VTYPE_any);
 }
 
@@ -560,7 +560,7 @@ Gura_ImplementMethod(Canvas, settextcolor)
 // canvas.canvas#setpen(color, width:number => 1, style:symbol => `solid):reduce
 Gura_DeclareMethod(Canvas, setpen)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "color", VTYPE_any);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None,
 								new Expr_Value(1));
@@ -579,7 +579,7 @@ Gura_ImplementMethod(Canvas, setpen)
 // canvas.canvas#setbrush(color, style:symbol => `solid):reduce
 Gura_DeclareMethod(Canvas, setbrush)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "color", VTYPE_any);
 	DeclareArg(env, "style", VTYPE_symbol, OCCUR_Once, FLAG_None,
 								new Expr_Value(Gura_UserSymbol(solid)));
@@ -595,7 +595,7 @@ Gura_ImplementMethod(Canvas, setbrush)
 // canvas.canvas#text(x:number, y:number, text:string, width_bound?:number, height_bound?:number):reduce:[n,ne,e,se,s,sw,w,nw,c]
 Gura_DeclareMethod(Canvas, text)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "text", VTYPE_string);
@@ -617,7 +617,7 @@ Gura_ImplementMethod(Canvas, text)
 // canvas.canvas#textrot(x:number, y:number, text:string, angle:number):reduce
 Gura_DeclareMethod(Canvas, textrot)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "text", VTYPE_string);
@@ -635,7 +635,7 @@ Gura_ImplementMethod(Canvas, textrot)
 // canvas.canvas#line(x1:number, y1:number, x2:number, y2:number):map:reduce
 Gura_DeclareMethod(Canvas, line)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "x1", VTYPE_number);
 	DeclareArg(env, "y1", VTYPE_number);
 	DeclareArg(env, "x2", VTYPE_number);
@@ -653,7 +653,7 @@ Gura_ImplementMethod(Canvas, line)
 // canvas.canvas#rectangle(x:number, y:number, width:number, height:number):map:reduce
 Gura_DeclareMethod(Canvas, rectangle)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number);
@@ -672,7 +672,7 @@ Gura_ImplementMethod(Canvas, rectangle)
 // canvas.canvas#ellipse(x:number, y:number, width:number, height:number):map:reduce
 Gura_DeclareMethod(Canvas, ellipse)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number);
@@ -691,7 +691,7 @@ Gura_ImplementMethod(Canvas, ellipse)
 // canvas.canvas#pie(x:number, y:number, width:number, height:number, start_degree:number, end_degree:number):map:reduce
 Gura_DeclareMethod(Canvas, pie)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number);
@@ -713,7 +713,7 @@ Gura_ImplementMethod(Canvas, pie)
 // canvas.canvas#polyline(xs[]:number, ys[]:number):reduce
 Gura_DeclareMethod(Canvas, polyline)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "xs", VTYPE_number, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "ys", VTYPE_number, OCCUR_Once, FLAG_List);
 }
@@ -728,7 +728,7 @@ Gura_ImplementMethod(Canvas, polyline)
 // canvas.canvas#polylinep(pts[]:List):reduce
 Gura_DeclareMethod(Canvas, polylinep)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "pts", VTYPE_list, OCCUR_Once, FLAG_List);
 }
 
@@ -742,7 +742,7 @@ Gura_ImplementMethod(Canvas, polylinep)
 // canvas.canvas#polygon(xs[]:number, ys[]:number):reduce
 Gura_DeclareMethod(Canvas, polygon)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "xs", VTYPE_number, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "ys", VTYPE_number, OCCUR_Once, FLAG_List);
 }
@@ -757,7 +757,7 @@ Gura_ImplementMethod(Canvas, polygon)
 // canvas.canvas#polygonp(pts[]:List):reduce
 Gura_DeclareMethod(Canvas, polygonp)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "pts", VTYPE_list, OCCUR_Once, FLAG_List);
 }
 
@@ -771,7 +771,7 @@ Gura_ImplementMethod(Canvas, polygonp)
 // str = canvas.canvas#close()
 Gura_DeclareMethod(Canvas, close)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(Canvas, close)
@@ -809,7 +809,7 @@ Gura_ImplementUserClass(Canvas)
 // unit of width and height is mm
 Gura_DeclareFunction(create_emf)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "filename", VTYPE_string);
 	DeclareArg(env, "width", VTYPE_number);
 	DeclareArg(env, "height", VTYPE_number);

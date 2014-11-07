@@ -37,7 +37,7 @@ void wx_MBConvFile::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_MBConvFile, MB2WC)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -57,7 +57,7 @@ Gura_ImplementMethod(wx_MBConvFile, MB2WC)
 
 Gura_DeclareMethod(wx_MBConvFile, WC2MB)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);

@@ -40,7 +40,7 @@ void wx_OwnerDrawnComboBox::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(OwnerDrawnComboBoxEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_OwnerDrawnComboBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -62,7 +62,7 @@ Gura_ImplementFunction(OwnerDrawnComboBoxEmpty)
 
 Gura_DeclareFunction(OwnerDrawnComboBox)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_OwnerDrawnComboBox));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -105,7 +105,7 @@ Gura_ImplementFunction(OwnerDrawnComboBox)
 
 Gura_DeclareMethod(wx_OwnerDrawnComboBox, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, Create)
 
 Gura_DeclareMethod(wx_OwnerDrawnComboBox, GetWidestItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, GetWidestItem)
 
 Gura_DeclareMethod(wx_OwnerDrawnComboBox, GetWidestItemWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, GetWidestItemWidth)
 
 Gura_DeclareMethod(wx_OwnerDrawnComboBox, OnDrawBackground)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, OnDrawBackground)
 
 Gura_DeclareMethod(wx_OwnerDrawnComboBox, OnDrawItem)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, OnDrawItem)
 
 Gura_DeclareMethod(wx_OwnerDrawnComboBox, OnMeasureItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 #endif
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, OnMeasureItem)
 
 Gura_DeclareMethod(wx_OwnerDrawnComboBox, OnMeasureItemWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 #endif

@@ -126,7 +126,7 @@ bool wx_DataViewRenderer::Validate(wxVariant& value)
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DataViewRenderer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_DataViewRenderer));
 	DeclareArg(env, "varianttype", VTYPE_string, OCCUR_Once);
@@ -159,7 +159,7 @@ Gura_ImplementFunction(DataViewRenderer)
 
 Gura_DeclareMethod(wx_DataViewRenderer, GetMode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_DataViewRenderer, GetMode)
 
 Gura_DeclareMethod(wx_DataViewRenderer, GetOwner)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_DataViewRenderer, GetOwner)
 
 Gura_DeclareMethod(wx_DataViewRenderer, GetValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_wx_Variant, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_DataViewRenderer, GetValue)
 
 Gura_DeclareMethod(wx_DataViewRenderer, GetVariantType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_DataViewRenderer, GetVariantType)
 
 Gura_DeclareMethod(wx_DataViewRenderer, SetOwner)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "owner", VTYPE_wx_DataViewColumn, OCCUR_Once);
 }
 
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_DataViewRenderer, SetOwner)
 
 Gura_DeclareMethod(wx_DataViewRenderer, SetValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_wx_Variant, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_DataViewRenderer, SetValue)
 
 Gura_DeclareMethod(wx_DataViewRenderer, Validate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_wx_Variant, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

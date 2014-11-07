@@ -38,7 +38,7 @@ void wx_CriticalSection::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(CriticalSectionEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_CriticalSection));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(CriticalSectionEmpty)
 
 Gura_DeclareMethod(wx_CriticalSection, Enter)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CriticalSection, Enter)
@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_CriticalSection, Enter)
 
 Gura_DeclareMethod(wx_CriticalSection, Leave)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CriticalSection, Leave)

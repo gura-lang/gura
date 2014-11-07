@@ -70,7 +70,7 @@ bool wx_TextDropTarget::OnDropText(wxCoord x, wxCoord y, const wxString& data)
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(TextDropTarget)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TextDropTarget));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -92,7 +92,7 @@ Gura_ImplementFunction(TextDropTarget)
 
 Gura_DeclareMethod(wx_TextDropTarget, OnDrop)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_TextDropTarget, OnDrop)
 
 Gura_DeclareMethod(wx_TextDropTarget, OnDropText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "data", VTYPE_string, OCCUR_Once);

@@ -52,7 +52,7 @@ void wx_StatusBar::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(StatusBarEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_StatusBar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -74,7 +74,7 @@ Gura_ImplementFunction(StatusBarEmpty)
 
 Gura_DeclareFunction(StatusBar)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_StatusBar));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -107,7 +107,7 @@ Gura_ImplementFunction(StatusBar)
 
 Gura_DeclareMethod(wx_StatusBar, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_StatusBar, Create)
 
 Gura_DeclareMethod(wx_StatusBar, GetFieldRect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_StatusBar, GetFieldRect)
 
 Gura_DeclareMethod(wx_StatusBar, GetFieldsCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_StatusBar, GetFieldsCount)
 
 Gura_DeclareMethod(wx_StatusBar, GetStatusText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "i", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_StatusBar, GetStatusText)
 
 Gura_DeclareMethod(wx_StatusBar, PopStatusText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "field", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_StatusBar, PopStatusText)
 
 Gura_DeclareMethod(wx_StatusBar, PushStatusText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "string", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "field", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_StatusBar, PushStatusText)
 
 Gura_DeclareMethod(wx_StatusBar, SetFieldsCount)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "number", VTYPE_number, OCCUR_Once);
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_StatusBar, SetFieldsCount)
 
 Gura_DeclareMethod(wx_StatusBar, SetMinHeight)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_StatusBar, SetMinHeight)
 
 Gura_DeclareMethod(wx_StatusBar, SetStatusText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "i", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_StatusBar, SetStatusText)
 
 Gura_DeclareMethod(wx_StatusBar, SetStatusWidths)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "widths", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -282,7 +282,7 @@ Gura_ImplementMethod(wx_StatusBar, SetStatusWidths)
 
 Gura_DeclareMethod(wx_StatusBar, SetStatusStyles)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "styles", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 

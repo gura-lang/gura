@@ -16,7 +16,7 @@ String Object_mesh_pattern::ToString(bool exprFlag)
 // cairo.mesh_pattern.create() {block?}
 Gura_DeclareClassMethod(mesh_pattern, create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""
@@ -41,7 +41,7 @@ Gura_ImplementClassMethod(mesh_pattern, create)
 // cairo.mesh_pattern#begin_patch():reduce
 Gura_DeclareMethod(mesh_pattern, begin_patch)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""
 	);
@@ -64,7 +64,7 @@ Gura_ImplementMethod(mesh_pattern, begin_patch)
 // cairo.mesh_pattern#end_patch():reduce
 Gura_DeclareMethod(mesh_pattern, end_patch)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""
 	);
@@ -87,7 +87,7 @@ Gura_ImplementMethod(mesh_pattern, end_patch)
 // cairo.mesh_pattern#move_to(x:number, y:number):reduce
 Gura_DeclareMethod(mesh_pattern, move_to)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -114,7 +114,7 @@ Gura_ImplementMethod(mesh_pattern, move_to)
 // cairo.mesh_pattern#line_to(x:number, y:number):reduce
 Gura_DeclareMethod(mesh_pattern, line_to)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -141,7 +141,7 @@ Gura_ImplementMethod(mesh_pattern, line_to)
 // cairo.mesh_pattern#curve_to(x1:number, y1:number, x2:number, y2:number, x3:number, y3:number):reduce
 Gura_DeclareMethod(mesh_pattern, curve_to)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "x1", VTYPE_number);
 	DeclareArg(env, "y1", VTYPE_number);
 	DeclareArg(env, "x2", VTYPE_number);
@@ -176,7 +176,7 @@ Gura_ImplementMethod(mesh_pattern, curve_to)
 // cairo.mesh_pattern#set_control_point(point_num:number, x:number, y:number):reduce
 Gura_DeclareMethod(mesh_pattern, set_control_point)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "point_num", VTYPE_number);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
@@ -206,7 +206,7 @@ Gura_ImplementMethod(mesh_pattern, set_control_point)
 //                         red:number, green:number, blue:number):reduce
 Gura_DeclareMethod(mesh_pattern, set_corner_color_rgb)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "corner_num", VTYPE_number);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
@@ -238,7 +238,7 @@ Gura_ImplementMethod(mesh_pattern, set_corner_color_rgb)
 //                         red:number, green:number, blue:number, alpha:number):reduce
 Gura_DeclareMethod(mesh_pattern, set_corner_color_rgba)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "corner_num", VTYPE_number);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
@@ -273,7 +273,7 @@ Gura_ImplementMethod(mesh_pattern, set_corner_color_rgba)
 // cairo.mesh_pattern#():reduce
 Gura_DeclareMethod(mesh_pattern, )
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""
 	);

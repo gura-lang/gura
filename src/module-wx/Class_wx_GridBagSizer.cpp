@@ -38,7 +38,7 @@ void wx_GridBagSizer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GridBagSizer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_GridBagSizer));
 	DeclareArg(env, "vgap", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "hgap", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(GridBagSizer)
 
 Gura_DeclareMethod(wx_GridBagSizer, Add)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_any, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_GBPosition, OCCUR_Once);
 	DeclareArg(env, "span", VTYPE_wx_GBSpan, OCCUR_ZeroOrOnce);
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_GridBagSizer, Add)
 
 Gura_DeclareMethod(wx_GridBagSizer, AddSpacer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_GBPosition, OCCUR_Once);
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_GridBagSizer, AddSpacer)
 
 Gura_DeclareMethod(wx_GridBagSizer, AddItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_GBSizerItem, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_GridBagSizer, AddItem)
 
 Gura_DeclareMethod(wx_GridBagSizer, CalcMin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_GridBagSizer, CalcMin)
 
 Gura_DeclareMethod(wx_GridBagSizer, CheckForIntersection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_wx_GBSizerItem, OCCUR_Once);
 	DeclareArg(env, "excludeItem", VTYPE_wx_GBSizerItem, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_GridBagSizer, CheckForIntersection)
 
 Gura_DeclareMethod(wx_GridBagSizer, CheckForIntersectionPos)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_wx_GBPosition, OCCUR_Once);
 	DeclareArg(env, "span", VTYPE_wx_GBSpan, OCCUR_Once);
 	DeclareArg(env, "excludeItem", VTYPE_wx_GBSizerItem, OCCUR_ZeroOrOnce);
@@ -207,7 +207,7 @@ Gura_ImplementMethod(wx_GridBagSizer, CheckForIntersectionPos)
 
 Gura_DeclareMethod(wx_GridBagSizer, FindItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_any, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_GridBagSizer, FindItem)
 
 Gura_DeclareMethod(wx_GridBagSizer, FindItemAtPoint)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_GridBagSizer, FindItemAtPoint)
 
 Gura_DeclareMethod(wx_GridBagSizer, FindItemAtPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_wx_GBPosition, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_GridBagSizer, FindItemAtPosition)
 
 Gura_DeclareMethod(wx_GridBagSizer, FindItemWithData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "userData", VTYPE_wx_Object, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -280,7 +280,7 @@ Gura_ImplementMethod(wx_GridBagSizer, FindItemWithData)
 
 Gura_DeclareMethod(wx_GridBagSizer, GetCellSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -298,7 +298,7 @@ Gura_ImplementMethod(wx_GridBagSizer, GetCellSize)
 
 Gura_DeclareMethod(wx_GridBagSizer, GetEmptyCellSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -312,7 +312,7 @@ Gura_ImplementMethod(wx_GridBagSizer, GetEmptyCellSize)
 
 Gura_DeclareMethod(wx_GridBagSizer, GetItemPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_any, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -340,7 +340,7 @@ Gura_ImplementMethod(wx_GridBagSizer, GetItemPosition)
 
 Gura_DeclareMethod(wx_GridBagSizer, GetItemSpan)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_any, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -368,7 +368,7 @@ Gura_ImplementMethod(wx_GridBagSizer, GetItemSpan)
 
 Gura_DeclareMethod(wx_GridBagSizer, RecalcSizes)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridBagSizer, RecalcSizes)
@@ -381,7 +381,7 @@ Gura_ImplementMethod(wx_GridBagSizer, RecalcSizes)
 
 Gura_DeclareMethod(wx_GridBagSizer, SetEmptyCellSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "sz", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -396,7 +396,7 @@ Gura_ImplementMethod(wx_GridBagSizer, SetEmptyCellSize)
 
 Gura_DeclareMethod(wx_GridBagSizer, SetItemPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_any, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_GBPosition, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -426,7 +426,7 @@ Gura_ImplementMethod(wx_GridBagSizer, SetItemPosition)
 
 Gura_DeclareMethod(wx_GridBagSizer, SetItemSpan)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_any, OCCUR_Once);
 	DeclareArg(env, "span", VTYPE_wx_GBSpan, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);

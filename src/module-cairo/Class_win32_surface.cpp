@@ -13,7 +13,7 @@ Gura_BeginModuleScope(cairo)
 // cairo.win32_surface.emf_create(filename:string, width_in_points:number, height_in_points:number) {block?}
 Gura_DeclareClassMethod(win32_surface, create_emf)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "filename", VTYPE_string);
 	DeclareArg(env, "width_in_points", VTYPE_number);
 	DeclareArg(env, "height_in_points", VTYPE_number);
@@ -46,7 +46,7 @@ Gura_ImplementClassMethod(win32_surface, create_emf)
 // cairo.win32_surface.create_printing(printer_name:string, width_in_points:number, height_in_points:number) {block?}
 Gura_DeclareClassMethod(win32_surface, create_printing)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "printer_name", VTYPE_string);
 	DeclareArg(env, "width_in_points", VTYPE_number);
 	DeclareArg(env, "height_in_points", VTYPE_number);

@@ -38,7 +38,7 @@ void wx_MessageDialog::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(MessageDialog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_MessageDialog));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
@@ -74,7 +74,7 @@ Gura_ImplementFunction(MessageDialog)
 
 Gura_DeclareMethod(wx_MessageDialog, SetExtendedMessage)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "extendedMessage", VTYPE_string, OCCUR_Once);
 }
 
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_MessageDialog, SetExtendedMessage)
 
 Gura_DeclareMethod(wx_MessageDialog, SetHelpLabel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "help", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_MessageDialog, SetHelpLabel)
 
 Gura_DeclareMethod(wx_MessageDialog, SetMessage)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_MessageDialog, SetMessage)
 
 Gura_DeclareMethod(wx_MessageDialog, SetOKCancelLabels)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "ok", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "cancel", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_MessageDialog, SetOKCancelLabels)
 
 Gura_DeclareMethod(wx_MessageDialog, SetOKLabel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "ok", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_MessageDialog, SetOKLabel)
 
 Gura_DeclareMethod(wx_MessageDialog, SetYesNoCancelLabels)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "yes", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "no", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "cancel", VTYPE_string, OCCUR_Once);
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_MessageDialog, SetYesNoCancelLabels)
 
 Gura_DeclareMethod(wx_MessageDialog, SetYesNoLabels)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "yes", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "no", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_MessageDialog, SetYesNoLabels)
 
 Gura_DeclareMethod(wx_MessageDialog, ShowModal)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_MessageDialog, ShowModal)
 
 Gura_DeclareMethod(wx_MessageDialog, GetCaption)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_MessageDialog, GetCaption)
 
 Gura_DeclareMethod(wx_MessageDialog, GetMessage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_MessageDialog, GetMessage)
 
 Gura_DeclareMethod(wx_MessageDialog, GetExtendedMessage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_MessageDialog, GetExtendedMessage)
 
 Gura_DeclareMethod(wx_MessageDialog, GetMessageDialogStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -262,7 +262,7 @@ Gura_ImplementMethod(wx_MessageDialog, GetMessageDialogStyle)
 
 Gura_DeclareMethod(wx_MessageDialog, HasCustomLabels)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -276,7 +276,7 @@ Gura_ImplementMethod(wx_MessageDialog, HasCustomLabels)
 
 Gura_DeclareMethod(wx_MessageDialog, GetYesLabel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_MessageDialog, GetYesLabel)
 
 Gura_DeclareMethod(wx_MessageDialog, GetNoLabel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -304,7 +304,7 @@ Gura_ImplementMethod(wx_MessageDialog, GetNoLabel)
 
 Gura_DeclareMethod(wx_MessageDialog, GetOKLabel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -318,7 +318,7 @@ Gura_ImplementMethod(wx_MessageDialog, GetOKLabel)
 
 Gura_DeclareMethod(wx_MessageDialog, GetCancelLabel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -332,7 +332,7 @@ Gura_ImplementMethod(wx_MessageDialog, GetCancelLabel)
 
 Gura_DeclareMethod(wx_MessageDialog, GetHelpLabel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -346,7 +346,7 @@ Gura_ImplementMethod(wx_MessageDialog, GetHelpLabel)
 
 Gura_DeclareMethod(wx_MessageDialog, GetEffectiveIcon)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

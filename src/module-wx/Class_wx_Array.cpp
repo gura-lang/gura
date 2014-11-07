@@ -39,7 +39,7 @@ void wx_Array::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_Array, WX_DEFINE_ARRAY)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementMethod(wx_Array, WX_DEFINE_ARRAY)
@@ -52,7 +52,7 @@ Gura_ImplementMethod(wx_Array, WX_DEFINE_ARRAY)
 
 Gura_DeclareMethod(wx_Array, WX_DEFINE_EXPORTED_ARRAY)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementMethod(wx_Array, WX_DEFINE_EXPORTED_ARRAY)
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_Array, WX_DEFINE_EXPORTED_ARRAY)
 
 Gura_DeclareMethod(wx_Array, WX_DEFINE_USER_EXPORTED_ARRAY)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementMethod(wx_Array, WX_DEFINE_USER_EXPORTED_ARRAY)
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_Array, WX_DEFINE_USER_EXPORTED_ARRAY)
 
 Gura_DeclareMethod(wx_Array, WX_DEFINE_SORTED_ARRAY)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementMethod(wx_Array, WX_DEFINE_SORTED_ARRAY)
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_Array, WX_DEFINE_SORTED_ARRAY)
 
 Gura_DeclareMethod(wx_Array, WX_DEFINE_SORTED_EXPORTED_ARRAY)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementMethod(wx_Array, WX_DEFINE_SORTED_EXPORTED_ARRAY)
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_Array, WX_DEFINE_SORTED_EXPORTED_ARRAY)
 
 Gura_DeclareMethod(wx_Array, WX_DEFINE_SORTED_USER_EXPORTED_ARRAY)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementMethod(wx_Array, WX_DEFINE_SORTED_USER_EXPORTED_ARRAY)
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_Array, WX_DEFINE_SORTED_USER_EXPORTED_ARRAY)
 
 Gura_DeclareMethod(wx_Array, WX_DECLARE_OBJARRAY)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementMethod(wx_Array, WX_DECLARE_OBJARRAY)
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_Array, WX_DECLARE_OBJARRAY)
 
 Gura_DeclareMethod(wx_Array, WX_DECLARE_EXPORTED_OBJARRAY)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementMethod(wx_Array, WX_DECLARE_EXPORTED_OBJARRAY)
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_Array, WX_DECLARE_EXPORTED_OBJARRAY)
 
 Gura_DeclareMethod(wx_Array, WX_DECLARE_USER_EXPORTED_OBJARRAY)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementMethod(wx_Array, WX_DECLARE_USER_EXPORTED_OBJARRAY)
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_Array, WX_DECLARE_USER_EXPORTED_OBJARRAY)
 
 Gura_DeclareMethod(wx_Array, WX_DEFINE_OBJARRAY)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementMethod(wx_Array, WX_DEFINE_OBJARRAY)
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_Array, WX_DEFINE_OBJARRAY)
 
 Gura_DeclareMethod(wx_Array, WX_DEFINE_EXPORTED_OBJARRAY)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementMethod(wx_Array, WX_DEFINE_EXPORTED_OBJARRAY)
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_Array, WX_DEFINE_EXPORTED_OBJARRAY)
 
 Gura_DeclareMethod(wx_Array, WX_DEFINE_USER_EXPORTED_OBJARRAY)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementMethod(wx_Array, WX_DEFINE_USER_EXPORTED_OBJARRAY)
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_Array, WX_DEFINE_USER_EXPORTED_OBJARRAY)
 
 Gura_DeclareMethod(wx_Array, WX_APPEND_ARRAY)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "array", VTYPE_wx_Array, OCCUR_Once);
 	DeclareArg(env, "other", VTYPE_wx_Array, OCCUR_Once);
 }
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_Array, WX_APPEND_ARRAY)
 
 Gura_DeclareMethod(wx_Array, WX_PREPEND_ARRAY)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "array", VTYPE_wx_Array, OCCUR_Once);
 	DeclareArg(env, "other", VTYPE_wx_Array, OCCUR_Once);
 }
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_Array, WX_PREPEND_ARRAY)
 
 Gura_DeclareMethod(wx_Array, WX_CLEAR_ARRAY)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "array", VTYPE_wx_Array, OCCUR_Once);
 }
 
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_Array, WX_CLEAR_ARRAY)
 
 Gura_DeclareFunction(ArrayEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Array));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -266,7 +266,7 @@ Gura_ImplementFunction(ArrayEmpty)
 
 Gura_DeclareMethod(wx_Array, wxObjArray)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Array, wxObjArray)
@@ -279,7 +279,7 @@ Gura_ImplementMethod(wx_Array, wxObjArray)
 
 Gura_DeclareMethod(wx_Array, wxSortedArray)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "compareFunction", VTYPE_number, OCCUR_Once);
 }
 
@@ -294,7 +294,7 @@ Gura_ImplementMethod(wx_Array, wxSortedArray)
 
 Gura_DeclareFunction(Array)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Array));
 	DeclareArg(env, "array", VTYPE_wx_Array, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -318,7 +318,7 @@ Gura_ImplementFunction(Array)
 
 Gura_DeclareMethod(wx_Array, wxSortedArray_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "array", VTYPE_wx_SortedArray, OCCUR_Once);
 }
 
@@ -333,7 +333,7 @@ Gura_ImplementMethod(wx_Array, wxSortedArray_1)
 
 Gura_DeclareMethod(wx_Array, wxObjArray_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "array", VTYPE_wx_ObjArray, OCCUR_Once);
 }
 
@@ -348,7 +348,7 @@ Gura_ImplementMethod(wx_Array, wxObjArray_1)
 
 Gura_DeclareMethod(wx_Array, Add)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "copies", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
@@ -364,7 +364,7 @@ Gura_ImplementMethod(wx_Array, Add)
 
 Gura_DeclareMethod(wx_Array, Add_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementMethod(wx_Array, Add_1)
@@ -377,7 +377,7 @@ Gura_ImplementMethod(wx_Array, Add_1)
 
 Gura_DeclareMethod(wx_Array, Add_2)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "copies", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
@@ -393,7 +393,7 @@ Gura_ImplementMethod(wx_Array, Add_2)
 
 Gura_DeclareMethod(wx_Array, Alloc)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
 }
 
@@ -408,7 +408,7 @@ Gura_ImplementMethod(wx_Array, Alloc)
 
 Gura_DeclareMethod(wx_Array, Clear)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Array, Clear)
@@ -421,7 +421,7 @@ Gura_ImplementMethod(wx_Array, Clear)
 
 Gura_DeclareMethod(wx_Array, Count)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -435,7 +435,7 @@ Gura_ImplementMethod(wx_Array, Count)
 
 Gura_DeclareMethod(wx_Array, Detach)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -449,7 +449,7 @@ Gura_ImplementMethod(wx_Array, Detach)
 
 Gura_DeclareMethod(wx_Array, Empty)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Array, Empty)
@@ -462,7 +462,7 @@ Gura_ImplementMethod(wx_Array, Empty)
 
 Gura_DeclareMethod(wx_Array, GetCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -476,7 +476,7 @@ Gura_ImplementMethod(wx_Array, GetCount)
 
 Gura_DeclareMethod(wx_Array, Index)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "searchFromEnd", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -493,7 +493,7 @@ Gura_ImplementMethod(wx_Array, Index)
 
 Gura_DeclareMethod(wx_Array, Index_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -507,7 +507,7 @@ Gura_ImplementMethod(wx_Array, Index_1)
 
 Gura_DeclareMethod(wx_Array, Insert)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "copies", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -525,7 +525,7 @@ Gura_ImplementMethod(wx_Array, Insert)
 
 Gura_DeclareMethod(wx_Array, Insert_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -540,7 +540,7 @@ Gura_ImplementMethod(wx_Array, Insert_1)
 
 Gura_DeclareMethod(wx_Array, Insert_2)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "copies", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -558,7 +558,7 @@ Gura_ImplementMethod(wx_Array, Insert_2)
 
 Gura_DeclareMethod(wx_Array, IsEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -572,7 +572,7 @@ Gura_ImplementMethod(wx_Array, IsEmpty)
 
 Gura_DeclareMethod(wx_Array, Item)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -586,7 +586,7 @@ Gura_ImplementMethod(wx_Array, Item)
 
 Gura_DeclareMethod(wx_Array, Last)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -598,7 +598,7 @@ Gura_ImplementMethod(wx_Array, Last)
 
 Gura_DeclareMethod(wx_Array, Remove)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementMethod(wx_Array, Remove)
@@ -611,7 +611,7 @@ Gura_ImplementMethod(wx_Array, Remove)
 
 Gura_DeclareMethod(wx_Array, RemoveAt)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -629,7 +629,7 @@ Gura_ImplementMethod(wx_Array, RemoveAt)
 
 Gura_DeclareMethod(wx_Array, SetCount)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
 }
 
@@ -644,7 +644,7 @@ Gura_ImplementMethod(wx_Array, SetCount)
 
 Gura_DeclareMethod(wx_Array, Shrink)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Array, Shrink)
@@ -657,7 +657,7 @@ Gura_ImplementMethod(wx_Array, Shrink)
 
 Gura_DeclareMethod(wx_Array, Sort)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementMethod(wx_Array, Sort)

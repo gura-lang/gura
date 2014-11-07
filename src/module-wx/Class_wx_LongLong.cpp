@@ -40,7 +40,7 @@ void wx_LongLong::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(LongLongEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_LongLong));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -68,7 +68,7 @@ Gura_ImplementFunction(LongLongEmpty)
 
 Gura_DeclareFunction(LongLong)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_LongLong));
 	DeclareArg(env, "ll", VTYPE_wx_LongLong_t, OCCUR_Once);
@@ -98,7 +98,7 @@ Gura_ImplementFunction(LongLong)
 
 Gura_DeclareFunction(LongLong_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_LongLong));
 	DeclareArg(env, "hi", VTYPE_number, OCCUR_Once);
@@ -130,7 +130,7 @@ Gura_ImplementFunction(LongLong_1)
 
 Gura_DeclareMethod(wx_LongLong, Abs)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_LongLong, Abs)
 
 Gura_DeclareMethod(wx_LongLong, Abs_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_LongLong, Abs_1)
 
 Gura_DeclareMethod(wx_LongLong, Assign)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "d", VTYPE_number, OCCUR_Once);
 #endif
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_LongLong, Assign)
 
 Gura_DeclareMethod(wx_LongLong, GetHi)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -198,7 +198,7 @@ Gura_ImplementMethod(wx_LongLong, GetHi)
 
 Gura_DeclareMethod(wx_LongLong, GetLo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_LongLong, GetLo)
 
 Gura_DeclareMethod(wx_LongLong, GetValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_LongLong, GetValue)
 
 Gura_DeclareMethod(wx_LongLong, ToDouble)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_LongLong, ToDouble)
 
 Gura_DeclareMethod(wx_LongLong, ToLong)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -258,7 +258,7 @@ Gura_ImplementMethod(wx_LongLong, ToLong)
 
 Gura_DeclareMethod(wx_LongLong, ToString)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

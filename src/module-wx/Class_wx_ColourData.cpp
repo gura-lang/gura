@@ -38,7 +38,7 @@ void wx_ColourData::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ColourData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ColourData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(ColourData)
 
 Gura_DeclareMethod(wx_ColourData, GetChooseFull)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_ColourData, GetChooseFull)
 
 Gura_DeclareMethod(wx_ColourData, GetColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -88,7 +88,7 @@ Gura_ImplementMethod(wx_ColourData, GetColour)
 
 Gura_DeclareMethod(wx_ColourData, GetCustomColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_ColourData, GetCustomColour)
 
 Gura_DeclareMethod(wx_ColourData, SetChooseFull)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_ColourData, SetChooseFull)
 
 Gura_DeclareMethod(wx_ColourData, SetColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_ColourData, SetColour)
 
 Gura_DeclareMethod(wx_ColourData, SetCustomColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }

@@ -38,7 +38,7 @@ void wx_AnimationCtrl::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(AnimationCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_AnimationCtrl));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -78,7 +78,7 @@ Gura_ImplementFunction(AnimationCtrl)
 
 Gura_DeclareMethod(wx_AnimationCtrl, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "anim", VTYPE_wx_Animation, OCCUR_Once);
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_AnimationCtrl, Create)
 
 Gura_DeclareMethod(wx_AnimationCtrl, GetAnimation)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_AnimationCtrl, GetAnimation)
 
 Gura_DeclareMethod(wx_AnimationCtrl, GetInactiveBitmap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_AnimationCtrl, GetInactiveBitmap)
 
 Gura_DeclareMethod(wx_AnimationCtrl, IsPlaying)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_AnimationCtrl, IsPlaying)
 
 Gura_DeclareMethod(wx_AnimationCtrl, LoadFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "file", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "animType", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_AnimationCtrl, LoadFile)
 
 Gura_DeclareMethod(wx_AnimationCtrl, Play)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_AnimationCtrl, Play)
 
 Gura_DeclareMethod(wx_AnimationCtrl, SetAnimation)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "anim", VTYPE_wx_Animation, OCCUR_Once);
 }
 
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_AnimationCtrl, SetAnimation)
 
 Gura_DeclareMethod(wx_AnimationCtrl, SetInactiveBitmap)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "bmp", VTYPE_wx_Bitmap, OCCUR_Once);
 }
 
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_AnimationCtrl, SetInactiveBitmap)
 
 Gura_DeclareMethod(wx_AnimationCtrl, Stop)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AnimationCtrl, Stop)

@@ -39,7 +39,7 @@ void wx_DataViewColumn::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DataViewColumn)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewColumn));
 	DeclareArg(env, "title", VTYPE_any, OCCUR_Once);
 	DeclareArg(env, "renderer", VTYPE_wx_DataViewRenderer, OCCUR_Once);
@@ -82,7 +82,7 @@ Gura_ImplementFunction(DataViewColumn)
 
 Gura_DeclareMethod(wx_DataViewColumn, GetBitmap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_DataViewColumn, GetBitmap)
 
 Gura_DeclareMethod(wx_DataViewColumn, GetModelColumn)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_DataViewColumn, GetModelColumn)
 
 Gura_DeclareMethod(wx_DataViewColumn, GetOwner)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_DataViewColumn, GetOwner)
 
 Gura_DeclareMethod(wx_DataViewColumn, GetRenderer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_DataViewColumn, GetRenderer)
 
 Gura_DeclareMethod(wx_DataViewColumn, GetSortable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_DataViewColumn, GetSortable)
 
 Gura_DeclareMethod(wx_DataViewColumn, GetWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_DataViewColumn, GetWidth)
 
 Gura_DeclareMethod(wx_DataViewColumn, IsSortOrderAscending)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_DataViewColumn, IsSortOrderAscending)
 
 Gura_DeclareMethod(wx_DataViewColumn, SetAlignment)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
 }
 
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_DataViewColumn, SetAlignment)
 
 Gura_DeclareMethod(wx_DataViewColumn, SetBitmap)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 }
 
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_DataViewColumn, SetBitmap)
 
 Gura_DeclareMethod(wx_DataViewColumn, SetSortOrder)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "ascending", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_DataViewColumn, SetSortOrder)
 
 Gura_DeclareMethod(wx_DataViewColumn, SetSortable)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "sortable", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_DataViewColumn, SetSortable)
 
 Gura_DeclareMethod(wx_DataViewColumn, SetTitle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once);
 }
 

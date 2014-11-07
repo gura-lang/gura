@@ -37,7 +37,7 @@ void wx_PickerBase::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_PickerBase, SetInternalMargin)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "margin", VTYPE_number, OCCUR_Once);
 }
 
@@ -52,7 +52,7 @@ Gura_ImplementMethod(wx_PickerBase, SetInternalMargin)
 
 Gura_DeclareMethod(wx_PickerBase, GetInternalMargin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_PickerBase, GetInternalMargin)
 
 Gura_DeclareMethod(wx_PickerBase, SetTextCtrlProportion)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "prop", VTYPE_number, OCCUR_Once);
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_PickerBase, SetTextCtrlProportion)
 
 Gura_DeclareMethod(wx_PickerBase, SetPickerCtrlProportion)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "prop", VTYPE_number, OCCUR_Once);
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_PickerBase, SetPickerCtrlProportion)
 
 Gura_DeclareMethod(wx_PickerBase, GetTextCtrlProportion)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_PickerBase, GetTextCtrlProportion)
 
 Gura_DeclareMethod(wx_PickerBase, GetPickerCtrlProportion)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_PickerBase, GetPickerCtrlProportion)
 
 Gura_DeclareMethod(wx_PickerBase, HasTextCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_PickerBase, HasTextCtrl)
 
 Gura_DeclareMethod(wx_PickerBase, GetTextCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_PickerBase, GetTextCtrl)
 
 Gura_DeclareMethod(wx_PickerBase, IsTextCtrlGrowable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_PickerBase, IsTextCtrlGrowable)
 
 Gura_DeclareMethod(wx_PickerBase, SetPickerCtrlGrowable)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "grow", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_PickerBase, SetPickerCtrlGrowable)
 
 Gura_DeclareMethod(wx_PickerBase, SetTextCtrlGrowable)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "grow", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -198,7 +198,7 @@ Gura_ImplementMethod(wx_PickerBase, SetTextCtrlGrowable)
 
 Gura_DeclareMethod(wx_PickerBase, IsPickerCtrlGrowable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

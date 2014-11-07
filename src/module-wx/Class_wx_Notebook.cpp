@@ -39,7 +39,7 @@ void wx_Notebook::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(NotebookEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Notebook));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(NotebookEmpty)
 
 Gura_DeclareFunction(Notebook)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Notebook));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -99,7 +99,7 @@ Gura_ImplementFunction(Notebook)
 
 Gura_DeclareMethod(wx_Notebook, AddPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "select", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_Notebook, AddPage)
 
 Gura_DeclareMethod(wx_Notebook, AdvanceSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "forward", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_Notebook, AdvanceSelection)
 
 Gura_DeclareMethod(wx_Notebook, AssignImageList)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "imageList", VTYPE_wx_ImageList, OCCUR_Once);
 }
 
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_Notebook, AssignImageList)
 
 Gura_DeclareMethod(wx_Notebook, ChangeSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_Notebook, ChangeSelection)
 
 Gura_DeclareMethod(wx_Notebook, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_Notebook, Create)
 
 Gura_DeclareMethod(wx_Notebook, DeleteAllPages)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_Notebook, DeleteAllPages)
 
 Gura_DeclareMethod(wx_Notebook, DeletePage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_Notebook, DeletePage)
 
 Gura_DeclareMethod(wx_Notebook, GetCurrentPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -246,7 +246,7 @@ Gura_ImplementMethod(wx_Notebook, GetCurrentPage)
 
 Gura_DeclareMethod(wx_Notebook, GetImageList)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -262,7 +262,7 @@ Gura_ImplementMethod(wx_Notebook, GetImageList)
 
 Gura_DeclareMethod(wx_Notebook, GetPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -280,7 +280,7 @@ Gura_ImplementMethod(wx_Notebook, GetPage)
 
 Gura_DeclareMethod(wx_Notebook, GetPageCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -294,7 +294,7 @@ Gura_ImplementMethod(wx_Notebook, GetPageCount)
 
 Gura_DeclareMethod(wx_Notebook, GetPageImage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "nPage", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -310,7 +310,7 @@ Gura_ImplementMethod(wx_Notebook, GetPageImage)
 
 Gura_DeclareMethod(wx_Notebook, GetPageText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "nPage", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -326,7 +326,7 @@ Gura_ImplementMethod(wx_Notebook, GetPageText)
 
 Gura_DeclareMethod(wx_Notebook, GetRowCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -340,7 +340,7 @@ Gura_ImplementMethod(wx_Notebook, GetRowCount)
 
 Gura_DeclareMethod(wx_Notebook, GetSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -354,7 +354,7 @@ Gura_ImplementMethod(wx_Notebook, GetSelection)
 
 Gura_DeclareMethod(wx_Notebook, GetThemeBackgroundColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -368,7 +368,7 @@ Gura_ImplementMethod(wx_Notebook, GetThemeBackgroundColour)
 
 Gura_DeclareMethod(wx_Notebook, HitTest)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -385,7 +385,7 @@ Gura_ImplementMethod(wx_Notebook, HitTest)
 
 Gura_DeclareMethod(wx_Notebook, InsertPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "page", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
@@ -412,7 +412,7 @@ Gura_ImplementMethod(wx_Notebook, InsertPage)
 #if 0
 Gura_DeclareMethod(wx_Notebook, OnSelChange)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_NotebookEvent, OCCUR_Once);
 }
 
@@ -433,7 +433,7 @@ Gura_ImplementMethod(wx_Notebook, OnSelChange)
 
 Gura_DeclareMethod(wx_Notebook, RemovePage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -449,7 +449,7 @@ Gura_ImplementMethod(wx_Notebook, RemovePage)
 
 Gura_DeclareMethod(wx_Notebook, SetImageList)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "imageList", VTYPE_wx_ImageList, OCCUR_Once, FLAG_Nil);
 }
 
@@ -465,7 +465,7 @@ Gura_ImplementMethod(wx_Notebook, SetImageList)
 
 Gura_DeclareMethod(wx_Notebook, SetPadding)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "padding", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -480,7 +480,7 @@ Gura_ImplementMethod(wx_Notebook, SetPadding)
 
 Gura_DeclareMethod(wx_Notebook, SetPageSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -495,7 +495,7 @@ Gura_ImplementMethod(wx_Notebook, SetPageSize)
 
 Gura_DeclareMethod(wx_Notebook, SetPageImage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -513,7 +513,7 @@ Gura_ImplementMethod(wx_Notebook, SetPageImage)
 
 Gura_DeclareMethod(wx_Notebook, SetPageText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -531,7 +531,7 @@ Gura_ImplementMethod(wx_Notebook, SetPageText)
 
 Gura_DeclareMethod(wx_Notebook, SetSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

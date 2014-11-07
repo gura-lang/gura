@@ -29,7 +29,7 @@ String Object_device::ToString(bool exprFlag)
 // cairo.device#status()
 Gura_DeclareMethod(device, status)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(device, status)
@@ -43,7 +43,7 @@ Gura_ImplementMethod(device, status)
 // cairo.device#finish():reduce
 Gura_DeclareMethod(device, finish)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 }
 
 Gura_ImplementMethod(device, finish)
@@ -57,7 +57,7 @@ Gura_ImplementMethod(device, finish)
 // cairo.device#flush():reduce
 Gura_DeclareMethod(device, flush)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 }
 
 Gura_ImplementMethod(device, flush)
@@ -71,7 +71,7 @@ Gura_ImplementMethod(device, flush)
 // cairo.device#get_type()
 Gura_DeclareMethod(device, get_type)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(device, get_type)
@@ -89,7 +89,7 @@ Gura_ImplementMethod(device, get_type)
 // cairo.device#acquire()
 Gura_DeclareMethod(device, acquire)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(device, acquire)
@@ -103,7 +103,7 @@ Gura_ImplementMethod(device, acquire)
 // cairo.device#release():void
 Gura_DeclareMethod(device, release)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(device, release)

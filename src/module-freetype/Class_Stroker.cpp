@@ -72,7 +72,7 @@ Value Object_Stroker::DoSetProp(Environment &env, Signal sig, const Symbol *pSym
 // freetype.Stroker():map {block?}
 Gura_DeclareFunction(Stroker)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	//SetClassToConstruct(Gura_UserClass(Face));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -91,7 +91,7 @@ Gura_ImplementFunction(Stroker)
 // freetype.Stroker#BeginSubPath(to:freetype.Vector, open:boolean):reduce
 Gura_DeclareMethod(Stroker, BeginSubPath)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "to", VTYPE_Vector);
 	DeclareArg(env, "open", VTYPE_boolean);
 }

@@ -37,7 +37,7 @@ void wx_GraphicsRenderer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_GraphicsRenderer, GetDefaultRenderer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -51,7 +51,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, GetDefaultRenderer)
 
 Gura_DeclareMethod(wx_GraphicsRenderer, CreateContext)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dc", VTYPE_wx_WindowDC, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, CreateContext)
 
 Gura_DeclareMethod(wx_GraphicsRenderer, CreateContext_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, CreateContext_1)
 
 Gura_DeclareMethod(wx_GraphicsRenderer, CreateContextFromNativeContext)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "context", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, CreateContextFromNativeContext)
 
 Gura_DeclareMethod(wx_GraphicsRenderer, CreateContextFromNativeWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, CreateContextFromNativeWindow)
 
 Gura_DeclareMethod(wx_GraphicsRenderer, CreatePen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pen", VTYPE_wx_Pen, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, CreatePen)
 
 Gura_DeclareMethod(wx_GraphicsRenderer, CreateBrush)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "brush", VTYPE_wx_Brush, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, CreateBrush)
 
 Gura_DeclareMethod(wx_GraphicsRenderer, CreateLinearGradientBrush)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x1", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y1", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "x2", VTYPE_wx_Double, OCCUR_Once);
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, CreateLinearGradientBrush)
 
 Gura_DeclareMethod(wx_GraphicsRenderer, CreateRadialGradientBrush)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "xo", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "yo", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "xc", VTYPE_wx_Double, OCCUR_Once);
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, CreateRadialGradientBrush)
 
 Gura_DeclareMethod(wx_GraphicsRenderer, CreateFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_wx_Colour, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, CreateFont)
 
 Gura_DeclareMethod(wx_GraphicsRenderer, CreateMatrix)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "a", VTYPE_wx_Double, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "b", VTYPE_wx_Double, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "c", VTYPE_wx_Double, OCCUR_ZeroOrOnce);
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, CreateMatrix)
 
 Gura_DeclareMethod(wx_GraphicsRenderer, CreatePath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

@@ -40,7 +40,7 @@ void wx_GBSizerItem::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GBSizerItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_GBSizerItem));
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
@@ -76,7 +76,7 @@ Gura_ImplementFunction(GBSizerItem)
 
 Gura_DeclareFunction(GBSizerItem_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_GBSizerItem));
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_GBPosition, OCCUR_Once);
@@ -110,7 +110,7 @@ Gura_ImplementFunction(GBSizerItem_1)
 
 Gura_DeclareFunction(GBSizerItem_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_GBSizerItem));
 	DeclareArg(env, "sizer", VTYPE_wx_Sizer, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_GBPosition, OCCUR_Once);
@@ -144,7 +144,7 @@ Gura_ImplementFunction(GBSizerItem_2)
 
 Gura_DeclareMethod(wx_GBSizerItem, GetEndPos)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_GBSizerItem, GetEndPos)
 
 Gura_DeclareMethod(wx_GBSizerItem, GetPos)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_GBSizerItem, GetPos)
 
 Gura_DeclareMethod(wx_GBSizerItem, GetPos_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_GBSizerItem, GetPos_1)
 
 Gura_DeclareMethod(wx_GBSizerItem, GetSpan)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_GBSizerItem, GetSpan)
 
 Gura_DeclareMethod(wx_GBSizerItem, GetSpan_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "rowspan", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "colspan", VTYPE_number, OCCUR_Once);
 }
@@ -223,7 +223,7 @@ Gura_ImplementMethod(wx_GBSizerItem, GetSpan_1)
 
 Gura_DeclareMethod(wx_GBSizerItem, Intersects)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "other", VTYPE_wx_GBSizerItem, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_GBSizerItem, Intersects)
 
 Gura_DeclareMethod(wx_GBSizerItem, Intersects_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_wx_GBPosition, OCCUR_Once);
 	DeclareArg(env, "span", VTYPE_wx_GBSpan, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -257,7 +257,7 @@ Gura_ImplementMethod(wx_GBSizerItem, Intersects_1)
 
 Gura_DeclareMethod(wx_GBSizerItem, SetPos)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_wx_GBPosition, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -273,7 +273,7 @@ Gura_ImplementMethod(wx_GBSizerItem, SetPos)
 
 Gura_DeclareMethod(wx_GBSizerItem, SetSpan)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "span", VTYPE_wx_GBSpan, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

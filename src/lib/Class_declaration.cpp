@@ -54,7 +54,7 @@ String Object_declaration::ToString(bool exprFlag)
 // declaration#istype(type+:expr)
 Gura_DeclareMethod(declaration, istype)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
 }
 

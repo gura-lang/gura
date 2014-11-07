@@ -45,7 +45,7 @@ void wx_LogWindow::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(LogWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_LogWindow));
 	DeclareArg(env, "*parent", VTYPE_wx_Frame, OCCUR_Once);
@@ -83,7 +83,7 @@ Gura_ImplementFunction(LogWindow)
 
 Gura_DeclareMethod(wx_LogWindow, Show)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "show", VTYPE_boolean, OCCUR_ZeroOrOnce);
 #endif
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_LogWindow, Show)
 
 Gura_DeclareMethod(wx_LogWindow, GetFrame)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_LogWindow, GetFrame)
 
 Gura_DeclareMethod(wx_LogWindow, OnFrameCreate)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "*frame", VTYPE_wx_Frame, OCCUR_Once);
 #endif
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_LogWindow, OnFrameCreate)
 
 Gura_DeclareMethod(wx_LogWindow, OnFrameClose)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "*frame", VTYPE_wx_Frame, OCCUR_Once);
 #endif
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_LogWindow, OnFrameClose)
 
 Gura_DeclareMethod(wx_LogWindow, OnFrameDelete)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "*frame", VTYPE_wx_Frame, OCCUR_Once);
 #endif

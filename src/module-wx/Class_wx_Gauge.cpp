@@ -39,7 +39,7 @@ void wx_Gauge::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GaugeEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Gauge));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(GaugeEmpty)
 
 Gura_DeclareFunction(Gauge)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Gauge));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -104,7 +104,7 @@ Gura_ImplementFunction(Gauge)
 
 Gura_DeclareMethod(wx_Gauge, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_Gauge, Create)
 
 Gura_DeclareMethod(wx_Gauge, GetBezelFace)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_Gauge, GetBezelFace)
 
 Gura_DeclareMethod(wx_Gauge, GetRange)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_Gauge, GetRange)
 
 Gura_DeclareMethod(wx_Gauge, GetShadowWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_Gauge, GetShadowWidth)
 
 Gura_DeclareMethod(wx_Gauge, GetValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_Gauge, GetValue)
 
 Gura_DeclareMethod(wx_Gauge, IsVertical)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_Gauge, IsVertical)
 
 Gura_DeclareMethod(wx_Gauge, SetBezelFace)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
@@ -224,7 +224,7 @@ Gura_ImplementMethod(wx_Gauge, SetBezelFace)
 
 Gura_DeclareMethod(wx_Gauge, SetRange)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 }
 
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_Gauge, SetRange)
 
 Gura_DeclareMethod(wx_Gauge, SetShadowWidth)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
@@ -254,7 +254,7 @@ Gura_ImplementMethod(wx_Gauge, SetShadowWidth)
 
 Gura_DeclareMethod(wx_Gauge, SetValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_Gauge, SetValue)
 
 Gura_DeclareMethod(wx_Gauge, Pulse)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Gauge, Pulse)

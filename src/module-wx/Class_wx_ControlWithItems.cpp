@@ -37,7 +37,7 @@ void wx_ControlWithItems::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_ControlWithItems, Append)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "clientData", VTYPE_wx_ClientData, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -60,7 +60,7 @@ Gura_ImplementMethod(wx_ControlWithItems, Append)
 
 Gura_DeclareMethod(wx_ControlWithItems, Clear)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ControlWithItems, Clear)
@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_ControlWithItems, Clear)
 
 Gura_DeclareMethod(wx_ControlWithItems, Delete)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -88,7 +88,7 @@ Gura_ImplementMethod(wx_ControlWithItems, Delete)
 
 Gura_DeclareMethod(wx_ControlWithItems, FindString)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "string", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "caseSensitive", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_ControlWithItems, FindString)
 
 Gura_DeclareMethod(wx_ControlWithItems, GetClientData)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_ControlWithItems, GetClientData)
 
 Gura_DeclareMethod(wx_ControlWithItems, GetClientObject)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_ControlWithItems, GetClientObject)
 
 Gura_DeclareMethod(wx_ControlWithItems, GetCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_ControlWithItems, GetCount)
 
 Gura_DeclareMethod(wx_ControlWithItems, GetSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_ControlWithItems, GetSelection)
 
 Gura_DeclareMethod(wx_ControlWithItems, GetString)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_ControlWithItems, GetString)
 
 Gura_DeclareMethod(wx_ControlWithItems, GetStrings)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_ControlWithItems, GetStrings)
 
 Gura_DeclareMethod(wx_ControlWithItems, GetStringSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -211,7 +211,7 @@ Gura_ImplementMethod(wx_ControlWithItems, GetStringSelection)
 
 Gura_DeclareMethod(wx_ControlWithItems, Insert)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "clientData", VTYPE_wx_ClientData, OCCUR_ZeroOrOnce);
@@ -236,7 +236,7 @@ Gura_ImplementMethod(wx_ControlWithItems, Insert)
 
 Gura_DeclareMethod(wx_ControlWithItems, IsEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_ControlWithItems, IsEmpty)
 
 Gura_DeclareMethod(wx_ControlWithItems, Select)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -265,7 +265,7 @@ Gura_ImplementMethod(wx_ControlWithItems, Select)
 
 Gura_DeclareMethod(wx_ControlWithItems, SetClientObject)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "data", VTYPE_wx_ClientData, OCCUR_Once);
 }
@@ -282,7 +282,7 @@ Gura_ImplementMethod(wx_ControlWithItems, SetClientObject)
 
 Gura_DeclareMethod(wx_ControlWithItems, SetSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -297,7 +297,7 @@ Gura_ImplementMethod(wx_ControlWithItems, SetSelection)
 
 Gura_DeclareMethod(wx_ControlWithItems, SetString)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "string", VTYPE_string, OCCUR_Once);
 }
@@ -314,7 +314,7 @@ Gura_ImplementMethod(wx_ControlWithItems, SetString)
 
 Gura_DeclareMethod(wx_ControlWithItems, SetStringSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "string", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

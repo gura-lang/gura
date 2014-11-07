@@ -38,7 +38,7 @@ void wx_QueryLayoutInfoEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(QueryLayoutInfoEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_QueryLayoutInfoEvent));
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(QueryLayoutInfoEvent)
 
 Gura_DeclareMethod(wx_QueryLayoutInfoEvent, GetAlignment)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_QueryLayoutInfoEvent, GetAlignment)
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, GetAlignment)
 
 Gura_DeclareMethod(wx_QueryLayoutInfoEvent, GetFlags)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, GetFlags)
 
 Gura_DeclareMethod(wx_QueryLayoutInfoEvent, GetOrientation)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, GetOrientation)
 
 Gura_DeclareMethod(wx_QueryLayoutInfoEvent, GetRequestedLength)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, GetRequestedLength)
 
 Gura_DeclareMethod(wx_QueryLayoutInfoEvent, GetSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, GetSize)
 
 Gura_DeclareMethod(wx_QueryLayoutInfoEvent, SetAlignment)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "alignment", VTYPE_number, OCCUR_Once);
 }
 
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, SetAlignment)
 
 Gura_DeclareMethod(wx_QueryLayoutInfoEvent, SetFlags)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, SetFlags)
 
 Gura_DeclareMethod(wx_QueryLayoutInfoEvent, SetOrientation)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
 }
 
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, SetOrientation)
 
 Gura_DeclareMethod(wx_QueryLayoutInfoEvent, SetRequestedLength)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "length", VTYPE_number, OCCUR_Once);
 }
 
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, SetRequestedLength)
 
 Gura_DeclareMethod(wx_QueryLayoutInfoEvent, SetSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
 

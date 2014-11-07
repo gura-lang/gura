@@ -38,7 +38,7 @@ void wx_StreamToTextRedirector::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(StreamToTextRedirector)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_StreamToTextRedirector));
 	DeclareArg(env, "*text", VTYPE_wx_TextCtrl, OCCUR_Once);
 	DeclareArg(env, "ostr", VTYPE_stream, OCCUR_ZeroOrOnce);

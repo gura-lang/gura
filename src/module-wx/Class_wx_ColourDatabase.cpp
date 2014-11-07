@@ -38,7 +38,7 @@ void wx_ColourDatabase::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ColourDatabaseEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ColourDatabase));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(ColourDatabaseEmpty)
 
 Gura_DeclareMethod(wx_ColourDatabase, AddColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colourName", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_ColourDatabase, AddColour)
 
 Gura_DeclareMethod(wx_ColourDatabase, AddColour_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colourName", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_ColourDatabase, AddColour_1)
 
 Gura_DeclareMethod(wx_ColourDatabase, Find)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "colourName", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_ColourDatabase, Find)
 
 Gura_DeclareMethod(wx_ColourDatabase, FindName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

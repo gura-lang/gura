@@ -38,7 +38,7 @@ void wx_ContextHelp::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ContextHelp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ContextHelp));
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "doNow", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(ContextHelp)
 
 Gura_DeclareMethod(wx_ContextHelp, BeginContextHelp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_ContextHelp, BeginContextHelp)
 
 Gura_DeclareMethod(wx_ContextHelp, EndContextHelp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

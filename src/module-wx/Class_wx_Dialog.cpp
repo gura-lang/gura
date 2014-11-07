@@ -42,7 +42,7 @@ void wx_Dialog::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DialogEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Dialog));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -64,7 +64,7 @@ Gura_ImplementFunction(DialogEmpty)
 
 Gura_DeclareFunction(Dialog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Dialog));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -105,7 +105,7 @@ Gura_ImplementFunction(Dialog)
 
 Gura_DeclareMethod(wx_Dialog, AddMainButtonId)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_Dialog, AddMainButtonId)
 
 Gura_DeclareMethod(wx_Dialog, CanDoLayoutAdaptation)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_Dialog, CanDoLayoutAdaptation)
 
 Gura_DeclareMethod(wx_Dialog, Centre)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "direction", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_Dialog, Centre)
 
 Gura_DeclareMethod(wx_Dialog, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once);
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_Dialog, Create)
 
 Gura_DeclareMethod(wx_Dialog, CreateButtonSizer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_Dialog, CreateButtonSizer)
 
 Gura_DeclareMethod(wx_Dialog, CreateSeparatedButtonSizer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_Dialog, CreateSeparatedButtonSizer)
 
 Gura_DeclareMethod(wx_Dialog, CreateStdDialogButtonSizer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -231,7 +231,7 @@ Gura_ImplementMethod(wx_Dialog, CreateStdDialogButtonSizer)
 
 Gura_DeclareMethod(wx_Dialog, DoLayoutAdaptation)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -245,7 +245,7 @@ Gura_ImplementMethod(wx_Dialog, DoLayoutAdaptation)
 
 Gura_DeclareMethod(wx_Dialog, DoOK)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -263,7 +263,7 @@ Gura_ImplementMethod(wx_Dialog, DoOK)
 
 Gura_DeclareMethod(wx_Dialog, EndModal)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "retCode", VTYPE_number, OCCUR_Once);
 }
 
@@ -278,7 +278,7 @@ Gura_ImplementMethod(wx_Dialog, EndModal)
 
 Gura_DeclareMethod(wx_Dialog, GetAffirmativeId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -292,7 +292,7 @@ Gura_ImplementMethod(wx_Dialog, GetAffirmativeId)
 
 Gura_DeclareMethod(wx_Dialog, GetEscapeId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -306,7 +306,7 @@ Gura_ImplementMethod(wx_Dialog, GetEscapeId)
 
 Gura_DeclareMethod(wx_Dialog, GetLayoutAdaptationDone)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -320,7 +320,7 @@ Gura_ImplementMethod(wx_Dialog, GetLayoutAdaptationDone)
 
 Gura_DeclareMethod(wx_Dialog, GetLayoutAdaptationLevel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -334,7 +334,7 @@ Gura_ImplementMethod(wx_Dialog, GetLayoutAdaptationLevel)
 
 Gura_DeclareMethod(wx_Dialog, GetLayoutAdaptationMode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -348,7 +348,7 @@ Gura_ImplementMethod(wx_Dialog, GetLayoutAdaptationMode)
 
 Gura_DeclareMethod(wx_Dialog, GetReturnCode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -362,7 +362,7 @@ Gura_ImplementMethod(wx_Dialog, GetReturnCode)
 
 Gura_DeclareMethod(wx_Dialog, GetMainButtonIds)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -376,7 +376,7 @@ Gura_ImplementMethod(wx_Dialog, GetMainButtonIds)
 
 Gura_DeclareMethod(wx_Dialog, GetToolBar)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -394,7 +394,7 @@ Gura_ImplementMethod(wx_Dialog, GetToolBar)
 
 Gura_DeclareMethod(wx_Dialog, Iconize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "iconize", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -409,7 +409,7 @@ Gura_ImplementMethod(wx_Dialog, Iconize)
 
 Gura_DeclareMethod(wx_Dialog, IsIconized)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -423,7 +423,7 @@ Gura_ImplementMethod(wx_Dialog, IsIconized)
 
 Gura_DeclareMethod(wx_Dialog, IsMainButtonId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -439,7 +439,7 @@ Gura_ImplementMethod(wx_Dialog, IsMainButtonId)
 
 Gura_DeclareMethod(wx_Dialog, IsModal)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -453,7 +453,7 @@ Gura_ImplementMethod(wx_Dialog, IsModal)
 
 Gura_DeclareMethod(wx_Dialog, OnSysColourChanged)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "event", VTYPE_wx_SysColourChangedEvent, OCCUR_Once);
 #endif
@@ -474,7 +474,7 @@ Gura_ImplementMethod(wx_Dialog, OnSysColourChanged)
 
 Gura_DeclareMethod(wx_Dialog, SetAffirmativeId)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -489,7 +489,7 @@ Gura_ImplementMethod(wx_Dialog, SetAffirmativeId)
 
 Gura_DeclareMethod(wx_Dialog, SetEscapeId)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -504,7 +504,7 @@ Gura_ImplementMethod(wx_Dialog, SetEscapeId)
 
 Gura_DeclareMethod(wx_Dialog, SetIcon)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "icon", VTYPE_wx_Icon, OCCUR_Once);
 }
 
@@ -519,7 +519,7 @@ Gura_ImplementMethod(wx_Dialog, SetIcon)
 
 Gura_DeclareMethod(wx_Dialog, SetIcons)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "icons", VTYPE_wx_IconBundle, OCCUR_Once);
 }
 
@@ -534,7 +534,7 @@ Gura_ImplementMethod(wx_Dialog, SetIcons)
 
 Gura_DeclareMethod(wx_Dialog, SetLayoutAdaptationDone)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "done", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -549,7 +549,7 @@ Gura_ImplementMethod(wx_Dialog, SetLayoutAdaptationDone)
 
 Gura_DeclareMethod(wx_Dialog, SetLayoutAdaptationLevel)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
 }
 
@@ -564,7 +564,7 @@ Gura_ImplementMethod(wx_Dialog, SetLayoutAdaptationLevel)
 
 Gura_DeclareMethod(wx_Dialog, SetLayoutAdaptationMode)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
@@ -579,7 +579,7 @@ Gura_ImplementMethod(wx_Dialog, SetLayoutAdaptationMode)
 
 Gura_DeclareMethod(wx_Dialog, SetReturnCode)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "retCode", VTYPE_number, OCCUR_Once);
 }
 
@@ -594,7 +594,7 @@ Gura_ImplementMethod(wx_Dialog, SetReturnCode)
 
 Gura_DeclareMethod(wx_Dialog, Show)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "show", VTYPE_boolean, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -610,7 +610,7 @@ Gura_ImplementMethod(wx_Dialog, Show)
 
 Gura_DeclareMethod(wx_Dialog, ShowModal)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -624,7 +624,7 @@ Gura_ImplementMethod(wx_Dialog, ShowModal)
 
 Gura_DeclareMethod(wx_Dialog, ShowWindowModal)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Dialog, ShowWindowModal)

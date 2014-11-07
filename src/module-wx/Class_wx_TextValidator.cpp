@@ -48,7 +48,7 @@ void wx_TextValidator::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(TextValidator_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_TextValidator));
 	DeclareArg(env, "validator", VTYPE_wx_TextValidator, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -72,7 +72,7 @@ Gura_ImplementFunction(TextValidator_1)
 
 Gura_DeclareFunction(TextValidator)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_TextValidator));
 	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "valPtr", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -104,7 +104,7 @@ Gura_ImplementFunction(TextValidator)
 
 Gura_DeclareMethod(wx_TextValidator, Clone)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_TextValidator, Clone)
 
 Gura_DeclareMethod(wx_TextValidator, GetExcludes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_TextValidator, GetExcludes)
 
 Gura_DeclareMethod(wx_TextValidator, GetIncludes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_TextValidator, GetIncludes)
 
 Gura_DeclareMethod(wx_TextValidator, GetStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_TextValidator, GetStyle)
 
 Gura_DeclareMethod(wx_TextValidator, OnChar)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_KeyEvent, OCCUR_Once);
 }
 
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_TextValidator, OnChar)
 
 Gura_DeclareMethod(wx_TextValidator, SetExcludes)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "stringList", VTYPE_string, OCCUR_Once, FLAG_List);
 }
 
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_TextValidator, SetExcludes)
 
 Gura_DeclareMethod(wx_TextValidator, SetIncludes)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "stringList", VTYPE_string, OCCUR_Once, FLAG_List);
 }
 
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_TextValidator, SetIncludes)
 
 Gura_DeclareMethod(wx_TextValidator, SetStyle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_TextValidator, SetStyle)
 
 Gura_DeclareMethod(wx_TextValidator, TransferFromWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_TextValidator, TransferFromWindow)
 
 Gura_DeclareMethod(wx_TextValidator, TransferToWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_TextValidator, TransferToWindow)
 
 Gura_DeclareMethod(wx_TextValidator, Validate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

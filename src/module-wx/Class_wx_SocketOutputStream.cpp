@@ -38,7 +38,7 @@ void wx_SocketOutputStream::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(SocketOutputStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_SocketOutputStream));
 	DeclareArg(env, "s", VTYPE_wx_SocketBase, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);

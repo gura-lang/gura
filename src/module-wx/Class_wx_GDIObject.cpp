@@ -39,7 +39,7 @@ void wx_GDIObject::GuraObjectDeleted()
 #if 0
 Gura_DeclareFunction(GDIObjectEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GDIObject));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

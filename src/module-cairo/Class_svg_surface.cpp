@@ -12,7 +12,7 @@ Gura_BeginModuleScope(cairo)
 // cairo.svg_surface.create(stream:stream:w, width_in_points:number, height_in_points:number) {block?}
 Gura_DeclareClassMethod(svg_surface, create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "width_in_points", VTYPE_number);
 	DeclareArg(env, "height_in_points", VTYPE_number);
@@ -34,7 +34,7 @@ Gura_ImplementClassMethod(svg_surface, create)
 // cairo.svg_surface#restrict_to_version(version:number):reduce
 Gura_DeclareMethod(svg_surface, restrict_to_version)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "version", VTYPE_number);
 }
 

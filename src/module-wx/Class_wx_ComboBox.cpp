@@ -43,7 +43,7 @@ void wx_ComboBox::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ComboBoxEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ComboBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -65,7 +65,7 @@ Gura_ImplementFunction(ComboBoxEmpty)
 
 Gura_DeclareFunction(ComboBox)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ComboBox));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -116,7 +116,7 @@ Gura_ImplementFunction(ComboBox)
 
 Gura_DeclareMethod(wx_ComboBox, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_ComboBox, Create)
 
 Gura_DeclareMethod(wx_ComboBox, CanCopy)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_ComboBox, CanCopy)
 
 Gura_DeclareMethod(wx_ComboBox, CanCut)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_ComboBox, CanCut)
 
 Gura_DeclareMethod(wx_ComboBox, CanPaste)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_ComboBox, CanPaste)
 
 Gura_DeclareMethod(wx_ComboBox, CanRedo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_ComboBox, CanRedo)
 
 Gura_DeclareMethod(wx_ComboBox, CanUndo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_ComboBox, CanUndo)
 
 Gura_DeclareMethod(wx_ComboBox, Copy)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboBox, Copy)
@@ -242,7 +242,7 @@ Gura_ImplementMethod(wx_ComboBox, Copy)
 
 Gura_DeclareMethod(wx_ComboBox, Cut)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboBox, Cut)
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_ComboBox, Cut)
 
 Gura_DeclareMethod(wx_ComboBox, GetCurrentSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_ComboBox, GetCurrentSelection)
 
 Gura_DeclareMethod(wx_ComboBox, GetInsertionPoint)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -283,7 +283,7 @@ Gura_ImplementMethod(wx_ComboBox, GetInsertionPoint)
 
 Gura_DeclareMethod(wx_ComboBox, GetLastPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -297,7 +297,7 @@ Gura_ImplementMethod(wx_ComboBox, GetLastPosition)
 
 Gura_DeclareMethod(wx_ComboBox, GetMark)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -313,7 +313,7 @@ Gura_ImplementMethod(wx_ComboBox, GetMark)
 
 Gura_DeclareMethod(wx_ComboBox, GetValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -327,7 +327,7 @@ Gura_ImplementMethod(wx_ComboBox, GetValue)
 
 Gura_DeclareMethod(wx_ComboBox, Paste)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboBox, Paste)
@@ -340,7 +340,7 @@ Gura_ImplementMethod(wx_ComboBox, Paste)
 
 Gura_DeclareMethod(wx_ComboBox, Redo)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboBox, Redo)
@@ -353,7 +353,7 @@ Gura_ImplementMethod(wx_ComboBox, Redo)
 
 Gura_DeclareMethod(wx_ComboBox, Replace)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
@@ -372,7 +372,7 @@ Gura_ImplementMethod(wx_ComboBox, Replace)
 
 Gura_DeclareMethod(wx_ComboBox, Remove)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
 }
@@ -389,7 +389,7 @@ Gura_ImplementMethod(wx_ComboBox, Remove)
 
 Gura_DeclareMethod(wx_ComboBox, SetInsertionPoint)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -404,7 +404,7 @@ Gura_ImplementMethod(wx_ComboBox, SetInsertionPoint)
 
 Gura_DeclareMethod(wx_ComboBox, SetInsertionPointEnd)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboBox, SetInsertionPointEnd)
@@ -417,7 +417,7 @@ Gura_ImplementMethod(wx_ComboBox, SetInsertionPointEnd)
 
 Gura_DeclareMethod(wx_ComboBox, SetMark)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
 }
@@ -434,7 +434,7 @@ Gura_ImplementMethod(wx_ComboBox, SetMark)
 
 Gura_DeclareMethod(wx_ComboBox, SetValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 }
 
@@ -449,7 +449,7 @@ Gura_ImplementMethod(wx_ComboBox, SetValue)
 
 Gura_DeclareMethod(wx_ComboBox, Undo)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboBox, Undo)
@@ -462,7 +462,7 @@ Gura_ImplementMethod(wx_ComboBox, Undo)
 
 Gura_DeclareMethod(wx_ComboBox, Append)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "clientData", VTYPE_wx_ClientData, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -485,7 +485,7 @@ Gura_ImplementMethod(wx_ComboBox, Append)
 
 Gura_DeclareMethod(wx_ComboBox, Clear)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboBox, Clear)
@@ -498,7 +498,7 @@ Gura_ImplementMethod(wx_ComboBox, Clear)
 
 Gura_DeclareMethod(wx_ComboBox, Delete)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -513,7 +513,7 @@ Gura_ImplementMethod(wx_ComboBox, Delete)
 
 Gura_DeclareMethod(wx_ComboBox, FindString)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "string", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "caseSensitive", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -532,7 +532,7 @@ Gura_ImplementMethod(wx_ComboBox, FindString)
 
 Gura_DeclareMethod(wx_ComboBox, GetClientData)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -547,7 +547,7 @@ Gura_ImplementMethod(wx_ComboBox, GetClientData)
 
 Gura_DeclareMethod(wx_ComboBox, GetClientObject)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -564,7 +564,7 @@ Gura_ImplementMethod(wx_ComboBox, GetClientObject)
 
 Gura_DeclareMethod(wx_ComboBox, GetCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -578,7 +578,7 @@ Gura_ImplementMethod(wx_ComboBox, GetCount)
 
 Gura_DeclareMethod(wx_ComboBox, GetSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -592,7 +592,7 @@ Gura_ImplementMethod(wx_ComboBox, GetSelection)
 
 Gura_DeclareMethod(wx_ComboBox, GetString)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -608,7 +608,7 @@ Gura_ImplementMethod(wx_ComboBox, GetString)
 
 Gura_DeclareMethod(wx_ComboBox, GetStrings)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -622,7 +622,7 @@ Gura_ImplementMethod(wx_ComboBox, GetStrings)
 
 Gura_DeclareMethod(wx_ComboBox, GetStringSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -636,7 +636,7 @@ Gura_ImplementMethod(wx_ComboBox, GetStringSelection)
 
 Gura_DeclareMethod(wx_ComboBox, Insert)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "clientData", VTYPE_wx_ClientData, OCCUR_ZeroOrOnce);
@@ -662,7 +662,7 @@ Gura_ImplementMethod(wx_ComboBox, Insert)
 #if 0
 Gura_DeclareMethod(wx_ComboBox, IsEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -677,7 +677,7 @@ Gura_ImplementMethod(wx_ComboBox, IsEmpty)
 
 Gura_DeclareMethod(wx_ComboBox, Select)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -692,7 +692,7 @@ Gura_ImplementMethod(wx_ComboBox, Select)
 
 Gura_DeclareMethod(wx_ComboBox, SetClientObject)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "data", VTYPE_wx_ClientData, OCCUR_Once);
 }
@@ -709,7 +709,7 @@ Gura_ImplementMethod(wx_ComboBox, SetClientObject)
 
 Gura_DeclareMethod(wx_ComboBox, SetSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -724,7 +724,7 @@ Gura_ImplementMethod(wx_ComboBox, SetSelection)
 
 Gura_DeclareMethod(wx_ComboBox, SetString)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "string", VTYPE_string, OCCUR_Once);
 }
@@ -741,7 +741,7 @@ Gura_ImplementMethod(wx_ComboBox, SetString)
 
 Gura_DeclareMethod(wx_ComboBox, SetStringSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "string", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

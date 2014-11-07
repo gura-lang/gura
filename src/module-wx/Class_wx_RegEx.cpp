@@ -39,7 +39,7 @@ void wx_RegEx::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(RegExEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RegEx));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(RegExEmpty)
 
 Gura_DeclareFunction(RegEx)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_RegEx));
 	DeclareArg(env, "expr", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -88,7 +88,7 @@ Gura_ImplementFunction(RegEx)
 
 Gura_DeclareMethod(wx_RegEx, Compile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pattern", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_RegEx, Compile)
 
 Gura_DeclareMethod(wx_RegEx, IsValid)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_RegEx, IsValid)
 
 Gura_DeclareMethod(wx_RegEx, GetMatch)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "start", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_RegEx, GetMatch)
 
 Gura_DeclareMethod(wx_RegEx, GetMatch_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_RegEx, GetMatch_1)
 
 Gura_DeclareMethod(wx_RegEx, GetMatchCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_RegEx, GetMatchCount)
 
 Gura_DeclareMethod(wx_RegEx, Matches)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_RegEx, Matches)
 
 Gura_DeclareMethod(wx_RegEx, Matches_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_RegEx, Matches_1)
 
 Gura_DeclareMethod(wx_RegEx, Matches_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_RegEx, Matches_2)
 
 Gura_DeclareMethod(wx_RegEx, Replace)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "replacement", VTYPE_string, OCCUR_Once);
@@ -266,7 +266,7 @@ Gura_ImplementMethod(wx_RegEx, Replace)
 
 Gura_DeclareMethod(wx_RegEx, ReplaceAll)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "replacement", VTYPE_string, OCCUR_Once);
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_RegEx, ReplaceAll)
 
 Gura_DeclareMethod(wx_RegEx, ReplaceFirst)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "replacement", VTYPE_string, OCCUR_Once);

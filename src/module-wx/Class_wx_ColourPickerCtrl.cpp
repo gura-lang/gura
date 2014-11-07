@@ -38,7 +38,7 @@ void wx_ColourPickerCtrl::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ColourPickerCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ColourPickerCtrl));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -82,7 +82,7 @@ Gura_ImplementFunction(ColourPickerCtrl)
 
 Gura_DeclareMethod(wx_ColourPickerCtrl, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_ZeroOrOnce);
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_ColourPickerCtrl, Create)
 
 Gura_DeclareMethod(wx_ColourPickerCtrl, GetColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_ColourPickerCtrl, GetColour)
 
 Gura_DeclareMethod(wx_ColourPickerCtrl, SetColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_ColourPickerCtrl, SetColour)
 
 Gura_DeclareMethod(wx_ColourPickerCtrl, SetColour_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colname", VTYPE_string, OCCUR_Once);
 }
 

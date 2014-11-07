@@ -28,7 +28,7 @@ String Object_foo::ToString(bool exprFlag)
 // example.foo#test()
 Gura_DeclareMethod(foo, test)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(foo, test)
@@ -49,7 +49,7 @@ Gura_ImplementUserClass(foo)
 // example.foo()
 Gura_DeclareFunction(foo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementFunction(foo)
@@ -60,7 +60,7 @@ Gura_ImplementFunction(foo)
 // result = example.adder(num1:number, num2:number)
 Gura_DeclareFunction(adder)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "num1", VTYPE_number);
 	DeclareArg(env, "num2", VTYPE_number);
 }

@@ -1409,7 +1409,7 @@ String Object_stat::ToString(bool exprFlag)
 // http.stat#field(name:string):map:[raise]
 Gura_DeclareMethod(stat, field)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareAttr(Gura_Symbol(raise));
 }
@@ -1664,7 +1664,7 @@ Stream *Object_request::SendRespChunk(Signal sig,
 // http.request#field(name:string):map:[raise]
 Gura_DeclareMethod(request, field)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareAttr(Gura_Symbol(raise));
 }
@@ -1681,7 +1681,7 @@ Gura_ImplementMethod(request, field)
 //                       version:string => 'HTTP/1.1', header%):reduce
 Gura_DeclareMethod(request, response)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "code", VTYPE_string);
 	DeclareArg(env, "reason", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "body", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
@@ -1706,7 +1706,7 @@ Gura_ImplementMethod(request, response)
 //                        version:string => 'HTTP/1.1', header%) {block?}
 Gura_DeclareMethod(request, respchunk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "code", VTYPE_string);
 	DeclareArg(env, "reason", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "version", VTYPE_string,
@@ -1728,7 +1728,7 @@ Gura_ImplementMethod(request, respchunk)
 // http.request#ismethod(method:string)
 Gura_DeclareMethod(request, ismethod)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "method", VTYPE_string);
 }
 
@@ -1822,7 +1822,7 @@ String Object_response::ToString(bool exprFlag)
 // http.response#field(name:string):map:[raise]
 Gura_DeclareMethod(response, field)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareAttr(Gura_Symbol(raise));
 }
@@ -2036,7 +2036,7 @@ Object_request *Object_server::Wait(Signal sig)
 // http.server#wait() {block?}
 Gura_DeclareMethod(server, wait)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2247,7 +2247,7 @@ bool Object_client::CleanupResponse(Signal sig)
 //                     version:string => 'HTTP/1.1', header%) {block?}
 Gura_DeclareMethod(client, request)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "method", VTYPE_string);
 	DeclareArg(env, "uri", VTYPE_string);
 	DeclareArg(env, "body", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
@@ -2272,7 +2272,7 @@ Gura_ImplementMethod(client, request)
 //                     version:string => 'HTTP/1.1', header%) {block?}
 Gura_DeclareMethod(client, _request)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "uri", VTYPE_string);
 	DeclareArg(env, "body", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareArg(env, "version", VTYPE_string,
@@ -2295,7 +2295,7 @@ Gura_ImplementMethod(client, _request)
 // http.client#cleanup()
 Gura_DeclareMethod(client, cleanup)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 }
 
 Gura_ImplementMethod(client, cleanup)
@@ -2368,7 +2368,7 @@ Gura_ImplementUserClass(proxy)
 // http.addproxy(addr:string, port:number, userid?:string, password?:string) {criteria?}
 Gura_DeclareFunction(addproxy)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "addr", VTYPE_string);
 	DeclareArg(env, "port", VTYPE_number);
 	DeclareArg(env, "userid", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -2399,7 +2399,7 @@ Gura_ImplementFunction(addproxy)
 // http.server(addr?:string, port:number => 80) {block?}
 Gura_DeclareFunction(server)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "addr", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "port", VTYPE_number,
 						OCCUR_Once, FLAG_None, new Expr_Value(80));
@@ -2422,7 +2422,7 @@ Gura_ImplementFunction(server)
 //             useridProxy?:string, passwordProxy?:string) {block?}
 Gura_DeclareFunction(client)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "addr", VTYPE_string);
 	DeclareArg(env, "port", VTYPE_number,
 						OCCUR_Once, FLAG_None, new Expr_Value(80));

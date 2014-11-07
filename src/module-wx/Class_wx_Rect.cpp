@@ -42,7 +42,7 @@ void wx_Rect::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(RectEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Rect));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -64,7 +64,7 @@ Gura_ImplementFunction(RectEmpty)
 
 Gura_DeclareFunction(Rect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Rect));
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -94,7 +94,7 @@ Gura_ImplementFunction(Rect)
 
 Gura_DeclareFunction(Rect_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Rect));
 	DeclareArg(env, "topLeft", VTYPE_wx_Point, OCCUR_Once);
 	DeclareArg(env, "bottomRight", VTYPE_wx_Point, OCCUR_Once);
@@ -120,7 +120,7 @@ Gura_ImplementFunction(Rect_1)
 
 Gura_DeclareFunction(Rect_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Rect));
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_Once);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
@@ -146,7 +146,7 @@ Gura_ImplementFunction(Rect_2)
 
 Gura_DeclareFunction(Rect_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Rect));
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -170,7 +170,7 @@ Gura_ImplementFunction(Rect_3)
 
 Gura_DeclareMethod(wx_Rect, CentreIn)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "r", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareArg(env, "dir", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_Rect, CentreIn)
 
 Gura_DeclareMethod(wx_Rect, CenterIn)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "r", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareArg(env, "dir", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -208,7 +208,7 @@ Gura_ImplementMethod(wx_Rect, CenterIn)
 
 Gura_DeclareMethod(wx_Rect, ContainsXY)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -226,7 +226,7 @@ Gura_ImplementMethod(wx_Rect, ContainsXY)
 
 Gura_DeclareMethod(wx_Rect, Contains)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -242,7 +242,7 @@ Gura_ImplementMethod(wx_Rect, Contains)
 
 Gura_DeclareMethod(wx_Rect, ContainsRect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -258,7 +258,7 @@ Gura_ImplementMethod(wx_Rect, ContainsRect)
 
 Gura_DeclareMethod(wx_Rect, Deflate)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dx", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "dy", VTYPE_number, OCCUR_Once);
 }
@@ -275,7 +275,7 @@ Gura_ImplementMethod(wx_Rect, Deflate)
 
 Gura_DeclareMethod(wx_Rect, Deflate_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "diff", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_Rect, Deflate_1)
 
 Gura_DeclareMethod(wx_Rect, Deflate_2)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "diff", VTYPE_number, OCCUR_Once);
 }
 
@@ -305,7 +305,7 @@ Gura_ImplementMethod(wx_Rect, Deflate_2)
 
 Gura_DeclareMethod(wx_Rect, Deflate_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dx", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "dy", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -323,7 +323,7 @@ Gura_ImplementMethod(wx_Rect, Deflate_3)
 
 Gura_DeclareMethod(wx_Rect, GetBottom)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -337,7 +337,7 @@ Gura_ImplementMethod(wx_Rect, GetBottom)
 
 Gura_DeclareMethod(wx_Rect, GetHeight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -351,7 +351,7 @@ Gura_ImplementMethod(wx_Rect, GetHeight)
 
 Gura_DeclareMethod(wx_Rect, GetLeft)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -365,7 +365,7 @@ Gura_ImplementMethod(wx_Rect, GetLeft)
 
 Gura_DeclareMethod(wx_Rect, GetPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -379,7 +379,7 @@ Gura_ImplementMethod(wx_Rect, GetPosition)
 
 Gura_DeclareMethod(wx_Rect, GetTopLeft)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -393,7 +393,7 @@ Gura_ImplementMethod(wx_Rect, GetTopLeft)
 
 Gura_DeclareMethod(wx_Rect, GetTopRight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -407,7 +407,7 @@ Gura_ImplementMethod(wx_Rect, GetTopRight)
 
 Gura_DeclareMethod(wx_Rect, GetBottomLeft)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -421,7 +421,7 @@ Gura_ImplementMethod(wx_Rect, GetBottomLeft)
 
 Gura_DeclareMethod(wx_Rect, GetBottomRight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -435,7 +435,7 @@ Gura_ImplementMethod(wx_Rect, GetBottomRight)
 
 Gura_DeclareMethod(wx_Rect, GetRight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -449,7 +449,7 @@ Gura_ImplementMethod(wx_Rect, GetRight)
 
 Gura_DeclareMethod(wx_Rect, GetSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -463,7 +463,7 @@ Gura_ImplementMethod(wx_Rect, GetSize)
 
 Gura_DeclareMethod(wx_Rect, GetTop)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -477,7 +477,7 @@ Gura_ImplementMethod(wx_Rect, GetTop)
 
 Gura_DeclareMethod(wx_Rect, GetWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -491,7 +491,7 @@ Gura_ImplementMethod(wx_Rect, GetWidth)
 
 Gura_DeclareMethod(wx_Rect, GetX)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -505,7 +505,7 @@ Gura_ImplementMethod(wx_Rect, GetX)
 
 Gura_DeclareMethod(wx_Rect, GetY)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -519,7 +519,7 @@ Gura_ImplementMethod(wx_Rect, GetY)
 
 Gura_DeclareMethod(wx_Rect, Inflate)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dx", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "dy", VTYPE_number, OCCUR_Once);
 }
@@ -536,7 +536,7 @@ Gura_ImplementMethod(wx_Rect, Inflate)
 
 Gura_DeclareMethod(wx_Rect, Inflate_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "diff", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -551,7 +551,7 @@ Gura_ImplementMethod(wx_Rect, Inflate_1)
 
 Gura_DeclareMethod(wx_Rect, Inflate_2)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "diff", VTYPE_number, OCCUR_Once);
 }
 
@@ -566,7 +566,7 @@ Gura_ImplementMethod(wx_Rect, Inflate_2)
 
 Gura_DeclareMethod(wx_Rect, Inflate_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dx", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "dy", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -584,7 +584,7 @@ Gura_ImplementMethod(wx_Rect, Inflate_3)
 
 Gura_DeclareMethod(wx_Rect, Intersect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -600,7 +600,7 @@ Gura_ImplementMethod(wx_Rect, Intersect)
 
 Gura_DeclareMethod(wx_Rect, Intersect_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -616,7 +616,7 @@ Gura_ImplementMethod(wx_Rect, Intersect_1)
 
 Gura_DeclareMethod(wx_Rect, Intersects)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -632,7 +632,7 @@ Gura_ImplementMethod(wx_Rect, Intersects)
 
 Gura_DeclareMethod(wx_Rect, IsEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -646,7 +646,7 @@ Gura_ImplementMethod(wx_Rect, IsEmpty)
 
 Gura_DeclareMethod(wx_Rect, Offset)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dx", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "dy", VTYPE_number, OCCUR_Once);
 }
@@ -663,7 +663,7 @@ Gura_ImplementMethod(wx_Rect, Offset)
 
 Gura_DeclareMethod(wx_Rect, Offset_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 }
 
@@ -678,7 +678,7 @@ Gura_ImplementMethod(wx_Rect, Offset_1)
 
 Gura_DeclareMethod(wx_Rect, SetHeight)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
@@ -693,7 +693,7 @@ Gura_ImplementMethod(wx_Rect, SetHeight)
 
 Gura_DeclareMethod(wx_Rect, SetSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -708,7 +708,7 @@ Gura_ImplementMethod(wx_Rect, SetSize)
 
 Gura_DeclareMethod(wx_Rect, SetWidth)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
@@ -723,7 +723,7 @@ Gura_ImplementMethod(wx_Rect, SetWidth)
 
 Gura_DeclareMethod(wx_Rect, SetX)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 }
 
@@ -738,7 +738,7 @@ Gura_ImplementMethod(wx_Rect, SetX)
 
 Gura_DeclareMethod(wx_Rect, SetY)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
@@ -753,7 +753,7 @@ Gura_ImplementMethod(wx_Rect, SetY)
 
 Gura_DeclareMethod(wx_Rect, Union)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -769,7 +769,7 @@ Gura_ImplementMethod(wx_Rect, Union)
 
 Gura_DeclareMethod(wx_Rect, Union_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

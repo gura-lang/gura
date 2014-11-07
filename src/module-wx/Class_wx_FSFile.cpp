@@ -38,7 +38,7 @@ void wx_FSFile::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FSFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_FSFile));
 	DeclareArg(env, "*stream", VTYPE_wx_InputStream, OCCUR_Once);
@@ -76,7 +76,7 @@ Gura_ImplementFunction(FSFile)
 
 Gura_DeclareMethod(wx_FSFile, DetachStream)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FSFile, DetachStream)
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_FSFile, DetachStream)
 
 Gura_DeclareMethod(wx_FSFile, GetAnchor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_FSFile, GetAnchor)
 
 Gura_DeclareMethod(wx_FSFile, GetLocation)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_FSFile, GetLocation)
 
 Gura_DeclareMethod(wx_FSFile, GetMimeType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_FSFile, GetMimeType)
 
 Gura_DeclareMethod(wx_FSFile, GetModificationTime)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_FSFile, GetModificationTime)
 
 Gura_DeclareMethod(wx_FSFile, GetStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

@@ -160,7 +160,7 @@ void wx_HtmlWindow::OnSetTitle(const wxString& title)
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HtmlWindowEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -182,7 +182,7 @@ Gura_ImplementFunction(HtmlWindowEmpty)
 
 Gura_DeclareFunction(HtmlWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlWindow));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -221,7 +221,7 @@ Gura_ImplementFunction(HtmlWindow)
 
 Gura_DeclareClassMethod(wx_HtmlWindow, AddFilter)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "filter", VTYPE_wx_HtmlFilter, OCCUR_Once);
 }
 
@@ -235,7 +235,7 @@ Gura_ImplementClassMethod(wx_HtmlWindow, AddFilter)
 
 Gura_DeclareMethod(wx_HtmlWindow, AppendToPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "source", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -251,7 +251,7 @@ Gura_ImplementMethod(wx_HtmlWindow, AppendToPage)
 
 Gura_DeclareMethod(wx_HtmlWindow, GetInternalRepresentation)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -265,7 +265,7 @@ Gura_ImplementMethod(wx_HtmlWindow, GetInternalRepresentation)
 
 Gura_DeclareMethod(wx_HtmlWindow, GetOpenedAnchor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -279,7 +279,7 @@ Gura_ImplementMethod(wx_HtmlWindow, GetOpenedAnchor)
 
 Gura_DeclareMethod(wx_HtmlWindow, GetOpenedPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -293,7 +293,7 @@ Gura_ImplementMethod(wx_HtmlWindow, GetOpenedPage)
 
 Gura_DeclareMethod(wx_HtmlWindow, GetOpenedPageTitle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -307,7 +307,7 @@ Gura_ImplementMethod(wx_HtmlWindow, GetOpenedPageTitle)
 
 Gura_DeclareMethod(wx_HtmlWindow, GetRelatedFrame)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -321,7 +321,7 @@ Gura_ImplementMethod(wx_HtmlWindow, GetRelatedFrame)
 
 Gura_DeclareMethod(wx_HtmlWindow, HistoryBack)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -335,7 +335,7 @@ Gura_ImplementMethod(wx_HtmlWindow, HistoryBack)
 
 Gura_DeclareMethod(wx_HtmlWindow, HistoryCanBack)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -349,7 +349,7 @@ Gura_ImplementMethod(wx_HtmlWindow, HistoryCanBack)
 
 Gura_DeclareMethod(wx_HtmlWindow, HistoryCanForward)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -363,7 +363,7 @@ Gura_ImplementMethod(wx_HtmlWindow, HistoryCanForward)
 
 Gura_DeclareMethod(wx_HtmlWindow, HistoryClear)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWindow, HistoryClear)
@@ -376,7 +376,7 @@ Gura_ImplementMethod(wx_HtmlWindow, HistoryClear)
 
 Gura_DeclareMethod(wx_HtmlWindow, HistoryForward)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -390,7 +390,7 @@ Gura_ImplementMethod(wx_HtmlWindow, HistoryForward)
 
 Gura_DeclareMethod(wx_HtmlWindow, LoadFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_wx_FileName, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -406,7 +406,7 @@ Gura_ImplementMethod(wx_HtmlWindow, LoadFile)
 
 Gura_DeclareMethod(wx_HtmlWindow, LoadPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -422,7 +422,7 @@ Gura_ImplementMethod(wx_HtmlWindow, LoadPage)
 
 Gura_DeclareMethod(wx_HtmlWindow, OnCellClicked)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "cell", VTYPE_wx_HtmlCell, OCCUR_Once);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -444,7 +444,7 @@ Gura_ImplementMethod(wx_HtmlWindow, OnCellClicked)
 
 Gura_DeclareMethod(wx_HtmlWindow, OnCellMouseHover)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "cell", VTYPE_wx_HtmlCell, OCCUR_Once);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -463,7 +463,7 @@ Gura_ImplementMethod(wx_HtmlWindow, OnCellMouseHover)
 
 Gura_DeclareMethod(wx_HtmlWindow, OnLinkClicked)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "link", VTYPE_wx_HtmlLinkInfo, OCCUR_Once);
 }
 
@@ -478,7 +478,7 @@ Gura_ImplementMethod(wx_HtmlWindow, OnLinkClicked)
 
 Gura_DeclareMethod(wx_HtmlWindow, OnOpeningURL)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "url", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -498,7 +498,7 @@ Gura_ImplementMethod(wx_HtmlWindow, OnOpeningURL)
 
 Gura_DeclareMethod(wx_HtmlWindow, OnSetTitle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once);
 }
 
@@ -513,7 +513,7 @@ Gura_ImplementMethod(wx_HtmlWindow, OnSetTitle)
 
 Gura_DeclareMethod(wx_HtmlWindow, ReadCustomization)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "cfg", VTYPE_wx_ConfigBase, OCCUR_Once);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_ZeroOrOnce);
 }
@@ -531,7 +531,7 @@ Gura_ImplementMethod(wx_HtmlWindow, ReadCustomization)
 
 Gura_DeclareMethod(wx_HtmlWindow, SelectAll)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWindow, SelectAll)
@@ -544,7 +544,7 @@ Gura_ImplementMethod(wx_HtmlWindow, SelectAll)
 
 Gura_DeclareMethod(wx_HtmlWindow, SelectionToText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -558,7 +558,7 @@ Gura_ImplementMethod(wx_HtmlWindow, SelectionToText)
 
 Gura_DeclareMethod(wx_HtmlWindow, SelectLine)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_Once);
 }
 
@@ -573,7 +573,7 @@ Gura_ImplementMethod(wx_HtmlWindow, SelectLine)
 
 Gura_DeclareMethod(wx_HtmlWindow, SelectWord)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_Once);
 }
 
@@ -588,7 +588,7 @@ Gura_ImplementMethod(wx_HtmlWindow, SelectWord)
 
 Gura_DeclareMethod(wx_HtmlWindow, SetBorders)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
 }
 
@@ -603,7 +603,7 @@ Gura_ImplementMethod(wx_HtmlWindow, SetBorders)
 
 Gura_DeclareMethod(wx_HtmlWindow, SetFonts)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "normal_face", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "fixed_face", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "sizes", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_List);
@@ -635,7 +635,7 @@ Gura_ImplementMethod(wx_HtmlWindow, SetFonts)
 
 Gura_DeclareMethod(wx_HtmlWindow, SetPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "source", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -651,7 +651,7 @@ Gura_ImplementMethod(wx_HtmlWindow, SetPage)
 
 Gura_DeclareMethod(wx_HtmlWindow, SetRelatedFrame)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "frame", VTYPE_wx_Frame, OCCUR_Once);
 	DeclareArg(env, "format", VTYPE_string, OCCUR_Once);
 }
@@ -668,7 +668,7 @@ Gura_ImplementMethod(wx_HtmlWindow, SetRelatedFrame)
 
 Gura_DeclareMethod(wx_HtmlWindow, SetRelatedStatusBar)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "bar", VTYPE_number, OCCUR_Once);
 }
 
@@ -683,7 +683,7 @@ Gura_ImplementMethod(wx_HtmlWindow, SetRelatedStatusBar)
 
 Gura_DeclareMethod(wx_HtmlWindow, ToText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -697,7 +697,7 @@ Gura_ImplementMethod(wx_HtmlWindow, ToText)
 
 Gura_DeclareMethod(wx_HtmlWindow, WriteCustomization)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "cfg", VTYPE_wx_ConfigBase, OCCUR_Once);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_ZeroOrOnce);
 }

@@ -39,7 +39,7 @@ void wx_DataViewEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DataViewEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewEvent));
 	DeclareArg(env, "commandType", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "winid", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(DataViewEvent)
 
 Gura_DeclareFunction(DataViewEvent_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewEvent));
 	DeclareArg(env, "event", VTYPE_wx_DataViewEvent, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -91,7 +91,7 @@ Gura_ImplementFunction(DataViewEvent_1)
 
 Gura_DeclareMethod(wx_DataViewEvent, Clone)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_DataViewEvent, Clone)
 
 Gura_DeclareMethod(wx_DataViewEvent, GetColumn)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_DataViewEvent, GetColumn)
 
 Gura_DeclareMethod(wx_DataViewEvent, GetDataViewColumn)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_DataViewEvent, GetDataViewColumn)
 
 Gura_DeclareMethod(wx_DataViewEvent, GetModel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_DataViewEvent, GetModel)
 
 Gura_DeclareMethod(wx_DataViewEvent, GetRow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_DataViewEvent, GetRow)
 
 Gura_DeclareMethod(wx_DataViewEvent, GetValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_DataViewEvent, GetValue)
 
 Gura_DeclareMethod(wx_DataViewEvent, IsEditCancelled)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_DataViewEvent, IsEditCancelled)
 
 Gura_DeclareMethod(wx_DataViewEvent, SetColumn)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_DataViewEvent, SetColumn)
 
 Gura_DeclareMethod(wx_DataViewEvent, SetDataViewColumn)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_wx_DataViewColumn, OCCUR_Once);
 }
 
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_DataViewEvent, SetDataViewColumn)
 
 Gura_DeclareMethod(wx_DataViewEvent, SetEditCanceled)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "editCancelled", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_DataViewEvent, SetEditCanceled)
 
 Gura_DeclareMethod(wx_DataViewEvent, SetModel)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "model", VTYPE_wx_DataViewModel, OCCUR_Once);
 }
 
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_DataViewEvent, SetModel)
 
 Gura_DeclareMethod(wx_DataViewEvent, SetRow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_DataViewEvent, SetRow)
 
 Gura_DeclareMethod(wx_DataViewEvent, SetValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_wx_Variant, OCCUR_Once);
 }
 

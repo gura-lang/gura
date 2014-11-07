@@ -40,7 +40,7 @@ void wx_HtmlTagsModule::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_HtmlTagsModule, FillHandlersTable)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "*parser", VTYPE_wx_HtmlWinParser, OCCUR_Once);
 #endif

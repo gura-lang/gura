@@ -75,7 +75,7 @@ Value Object_Glyph::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbo
 // freetype.Glyph#Copy()
 Gura_DeclareMethod(Glyph, Copy)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(Glyph, Copy)
@@ -93,7 +93,7 @@ Gura_ImplementMethod(Glyph, Copy)
 // freetype.Glyph#Stroke(stroker:freetype.Stroker):reduce
 Gura_DeclareMethod(Glyph, Stroke)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stroker", VTYPE_Stroker);
 }
 
@@ -112,7 +112,7 @@ Gura_ImplementMethod(Glyph, Stroke)
 // freetype.Glyph#StrokeBorder(stroker:freetype.Stroker, inside:boolean):reduce
 Gura_DeclareMethod(Glyph, StrokeBorder)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stroker", VTYPE_Stroker);
 	DeclareArg(env, "inside", VTYPE_boolean);
 }

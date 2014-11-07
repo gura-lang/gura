@@ -94,7 +94,7 @@ String Object_audio::ToString(bool exprFlag)
 // audio(args+):map {block?}
 Gura_DeclareFunction(audio)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "args", VTYPE_any, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -153,7 +153,7 @@ Gura_ImplementFunction(audio)
 // audio#each(channel:number, offset?:number):map {block?}
 Gura_DeclareMethod(audio, each)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "offset", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -176,7 +176,7 @@ Gura_ImplementMethod(audio, each)
 // audio#get(channel:number, offset:number):map
 Gura_DeclareMethod(audio, get)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "offset", VTYPE_number);
 }
@@ -201,7 +201,7 @@ Gura_ImplementMethod(audio, get)
 // audio#put(channel:number, offset:number, data:number):reduce:map
 Gura_DeclareMethod(audio, put)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "offset", VTYPE_number);
 	DeclareArg(env, "data", VTYPE_number);
@@ -227,7 +227,7 @@ Gura_ImplementMethod(audio, put)
 // audio#sinewave(channel:number, freq:number, len:number, amplitude?:number):reduce:map
 Gura_DeclareMethod(audio, sinewave)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "freq", VTYPE_number);
 	DeclareArg(env, "len", VTYPE_number);
@@ -254,7 +254,7 @@ Gura_ImplementMethod(audio, sinewave)
 // audio#store(channel:number, offset:number, data:iterator):reduce
 Gura_DeclareMethod(audio, store)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "offset", VTYPE_number);
 	DeclareArg(env, "data", VTYPE_iterator);

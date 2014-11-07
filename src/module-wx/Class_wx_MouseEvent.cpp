@@ -38,7 +38,7 @@ void wx_MouseEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(MouseEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_MouseEvent));
 	DeclareArg(env, "mouseEventType", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(MouseEvent)
 
 Gura_DeclareMethod(wx_MouseEvent, AltDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_MouseEvent, AltDown)
 
 Gura_DeclareMethod(wx_MouseEvent, Button)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "button", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_MouseEvent, Button)
 
 Gura_DeclareMethod(wx_MouseEvent, ButtonDClick)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "but", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_MouseEvent, ButtonDClick)
 
 Gura_DeclareMethod(wx_MouseEvent, ButtonDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "but", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_MouseEvent, ButtonDown)
 
 Gura_DeclareMethod(wx_MouseEvent, ButtonUp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "but", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_MouseEvent, ButtonUp)
 
 Gura_DeclareMethod(wx_MouseEvent, CmdDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_MouseEvent, CmdDown)
 
 Gura_DeclareMethod(wx_MouseEvent, ControlDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_MouseEvent, ControlDown)
 
 Gura_DeclareMethod(wx_MouseEvent, Dragging)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_MouseEvent, Dragging)
 
 Gura_DeclareMethod(wx_MouseEvent, Entering)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_MouseEvent, Entering)
 
 Gura_DeclareMethod(wx_MouseEvent, GetButton)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_MouseEvent, GetButton)
 
 Gura_DeclareMethod(wx_MouseEvent, GetPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -228,7 +228,7 @@ Gura_ImplementMethod(wx_MouseEvent, GetPosition)
 
 Gura_DeclareMethod(wx_MouseEvent, GetPosition_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -251,7 +251,7 @@ Gura_ImplementMethod(wx_MouseEvent, GetPosition_1)
 
 Gura_DeclareMethod(wx_MouseEvent, GetPosition_2)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -274,7 +274,7 @@ Gura_ImplementMethod(wx_MouseEvent, GetPosition_2)
 
 Gura_DeclareMethod(wx_MouseEvent, GetLogicalPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_MouseEvent, GetLogicalPosition)
 
 Gura_DeclareMethod(wx_MouseEvent, GetLinesPerAction)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -304,7 +304,7 @@ Gura_ImplementMethod(wx_MouseEvent, GetLinesPerAction)
 
 Gura_DeclareMethod(wx_MouseEvent, GetWheelRotation)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -318,7 +318,7 @@ Gura_ImplementMethod(wx_MouseEvent, GetWheelRotation)
 
 Gura_DeclareMethod(wx_MouseEvent, GetWheelDelta)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -332,7 +332,7 @@ Gura_ImplementMethod(wx_MouseEvent, GetWheelDelta)
 
 Gura_DeclareMethod(wx_MouseEvent, GetX)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -346,7 +346,7 @@ Gura_ImplementMethod(wx_MouseEvent, GetX)
 
 Gura_DeclareMethod(wx_MouseEvent, GetY)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -360,7 +360,7 @@ Gura_ImplementMethod(wx_MouseEvent, GetY)
 
 Gura_DeclareMethod(wx_MouseEvent, IsButton)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -374,7 +374,7 @@ Gura_ImplementMethod(wx_MouseEvent, IsButton)
 
 Gura_DeclareMethod(wx_MouseEvent, IsPageScroll)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -388,7 +388,7 @@ Gura_ImplementMethod(wx_MouseEvent, IsPageScroll)
 
 Gura_DeclareMethod(wx_MouseEvent, Leaving)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -402,7 +402,7 @@ Gura_ImplementMethod(wx_MouseEvent, Leaving)
 
 Gura_DeclareMethod(wx_MouseEvent, LeftDClick)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -416,7 +416,7 @@ Gura_ImplementMethod(wx_MouseEvent, LeftDClick)
 
 Gura_DeclareMethod(wx_MouseEvent, LeftDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -430,7 +430,7 @@ Gura_ImplementMethod(wx_MouseEvent, LeftDown)
 
 Gura_DeclareMethod(wx_MouseEvent, LeftIsDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -444,7 +444,7 @@ Gura_ImplementMethod(wx_MouseEvent, LeftIsDown)
 
 Gura_DeclareMethod(wx_MouseEvent, LeftUp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -458,7 +458,7 @@ Gura_ImplementMethod(wx_MouseEvent, LeftUp)
 
 Gura_DeclareMethod(wx_MouseEvent, MetaDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -472,7 +472,7 @@ Gura_ImplementMethod(wx_MouseEvent, MetaDown)
 
 Gura_DeclareMethod(wx_MouseEvent, MiddleDClick)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -486,7 +486,7 @@ Gura_ImplementMethod(wx_MouseEvent, MiddleDClick)
 
 Gura_DeclareMethod(wx_MouseEvent, MiddleDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -500,7 +500,7 @@ Gura_ImplementMethod(wx_MouseEvent, MiddleDown)
 
 Gura_DeclareMethod(wx_MouseEvent, MiddleIsDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -514,7 +514,7 @@ Gura_ImplementMethod(wx_MouseEvent, MiddleIsDown)
 
 Gura_DeclareMethod(wx_MouseEvent, MiddleUp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -528,7 +528,7 @@ Gura_ImplementMethod(wx_MouseEvent, MiddleUp)
 
 Gura_DeclareMethod(wx_MouseEvent, Moving)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -542,7 +542,7 @@ Gura_ImplementMethod(wx_MouseEvent, Moving)
 
 Gura_DeclareMethod(wx_MouseEvent, RightDClick)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -556,7 +556,7 @@ Gura_ImplementMethod(wx_MouseEvent, RightDClick)
 
 Gura_DeclareMethod(wx_MouseEvent, RightDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -570,7 +570,7 @@ Gura_ImplementMethod(wx_MouseEvent, RightDown)
 
 Gura_DeclareMethod(wx_MouseEvent, RightIsDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -584,7 +584,7 @@ Gura_ImplementMethod(wx_MouseEvent, RightIsDown)
 
 Gura_DeclareMethod(wx_MouseEvent, RightUp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -598,7 +598,7 @@ Gura_ImplementMethod(wx_MouseEvent, RightUp)
 
 Gura_DeclareMethod(wx_MouseEvent, ShiftDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

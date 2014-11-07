@@ -247,7 +247,7 @@ bool wx_DataViewCustomRenderer::StartDrag(wxPoint cursor, wxRect cell, wxDataVie
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DataViewCustomRenderer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewCustomRenderer));
 	DeclareArg(env, "varianttype", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -275,7 +275,7 @@ Gura_ImplementFunction(DataViewCustomRenderer)
 
 Gura_DeclareMethod(wx_DataViewCustomRenderer, Activate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "cell", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareArg(env, "model", VTYPE_wx_DataViewListModel, OCCUR_Once);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
@@ -297,7 +297,7 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, Activate)
 
 Gura_DeclareMethod(wx_DataViewCustomRenderer, GetDC)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -311,7 +311,7 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, GetDC)
 
 Gura_DeclareMethod(wx_DataViewCustomRenderer, LeftClick)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "cursor", VTYPE_wx_Point, OCCUR_Once);
 	DeclareArg(env, "cell", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareArg(env, "model", VTYPE_wx_DataViewListModel, OCCUR_Once);
@@ -335,7 +335,7 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, LeftClick)
 
 Gura_DeclareMethod(wx_DataViewCustomRenderer, RightClick)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "cursor", VTYPE_wx_Point, OCCUR_Once);
 	DeclareArg(env, "cell", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareArg(env, "model", VTYPE_wx_DataViewListModel, OCCUR_Once);
@@ -359,7 +359,7 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, RightClick)
 
 Gura_DeclareMethod(wx_DataViewCustomRenderer, StartDrag)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "cursor", VTYPE_wx_Point, OCCUR_Once);
 	DeclareArg(env, "cell", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareArg(env, "model", VTYPE_wx_DataViewListModel, OCCUR_Once);

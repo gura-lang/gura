@@ -219,7 +219,7 @@ String Object_pattern::ToString(bool exprFlag)
 // re.pattern#match(str:string, pos:number => 0):map {block?}
 Gura_DeclareMethod(pattern, match)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -240,7 +240,7 @@ Gura_ImplementMethod(pattern, match)
 // re.pattern#sub(replace, str:string, count?:number):map {block?}
 Gura_DeclareMethod(pattern, sub)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "replace", VTYPE_any);
 	DeclareArg(env, "str", VTYPE_string);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -274,7 +274,7 @@ Gura_ImplementMethod(pattern, sub)
 // re.pattern#split(str:string, count?:number):map {block?}
 Gura_DeclareMethod(pattern, split)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -293,7 +293,7 @@ Gura_ImplementMethod(pattern, split)
 // re.pattern#scan(str:string, pos:number => 0, endpos?:number):map {block?}
 Gura_DeclareMethod(pattern, scan)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -454,7 +454,7 @@ int Object_match::ForeachNameCallbackStub(
 // re.match#group(index):map
 Gura_DeclareMethod(match, group)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_any);
 }
 
@@ -467,7 +467,7 @@ Gura_ImplementMethod(match, group)
 // re.match#groups()
 Gura_DeclareMethod(match, groups)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(match, groups)
@@ -487,7 +487,7 @@ Gura_ImplementMethod(match, groups)
 // re.match#start(index):map
 Gura_DeclareMethod(match, start)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_any);
 }
 
@@ -502,7 +502,7 @@ Gura_ImplementMethod(match, start)
 // re.match#end(index):map
 Gura_DeclareMethod(match, end)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_any);
 }
 
@@ -531,7 +531,7 @@ Gura_ImplementUserClass(match)
 // string#match(pattern:pattern, pos:number => 0, endpos?:number):map {block?}
 Gura_DeclareMethod(string, match)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pattern", VTYPE_pattern);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -551,7 +551,7 @@ Gura_ImplementMethod(string, match)
 // string#sub(pattern:pattern, replace, count?:number):map {block?}
 Gura_DeclareMethod(string, sub)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pattern", VTYPE_pattern);
 	DeclareArg(env, "replace", VTYPE_any);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -586,7 +586,7 @@ Gura_ImplementMethod(string, sub)
 // string#splitreg(pattern:pattern, count?:number):map {block?}
 Gura_DeclareMethod(string, splitreg)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pattern", VTYPE_pattern);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -605,7 +605,7 @@ Gura_ImplementMethod(string, splitreg)
 // string#scan(pattern:pattern, pos:number => 0, endpos?:number):map {block?}
 Gura_DeclareMethod(string, scan)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pattern", VTYPE_pattern);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -628,7 +628,7 @@ Gura_ImplementMethod(string, scan)
 // list#grep(pattern:pattern) {block?}
 Gura_DeclareMethod(list, grep)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pattern", VTYPE_pattern);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -647,7 +647,7 @@ Gura_ImplementMethod(list, grep)
 // iterator#grep(pattern:pattern) {block?}
 Gura_DeclareMethod(iterator, grep)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pattern", VTYPE_pattern);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -669,7 +669,7 @@ Gura_ImplementMethod(iterator, grep)
 // re.pattern(pattern:string):map:[icase,multiline] {block?}
 Gura_DeclareFunction(pattern)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pattern", VTYPE_string);
 	DeclareAttr(Gura_Symbol(icase));
 	DeclareAttr(Gura_UserSymbol(multiline));
@@ -690,7 +690,7 @@ Gura_ImplementFunction(pattern)
 // re.match(pattern:pattern, str:string, pos:number => 0):map {block?}
 Gura_DeclareFunction(match)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pattern", VTYPE_pattern);
 	DeclareArg(env, "str", VTYPE_string);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
@@ -711,7 +711,7 @@ Gura_ImplementFunction(match)
 // re.sub(pattern:pattern, replace, str:string, count?:number):map {block?}
 Gura_DeclareFunction(sub)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pattern", VTYPE_pattern);
 	DeclareArg(env, "replace", VTYPE_any);
 	DeclareArg(env, "str", VTYPE_string);
@@ -746,7 +746,7 @@ Gura_ImplementFunction(sub)
 // re.split(pattern:pattern, str:string, count?:number):map {block?}
 Gura_DeclareFunction(split)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pattern", VTYPE_pattern);
 	DeclareArg(env, "str", VTYPE_string);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -766,7 +766,7 @@ Gura_ImplementFunction(split)
 // re.scan(pattern:pattern, str:string, pos:number => 0, endpos?:number):map {block?}
 Gura_DeclareFunction(scan)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pattern", VTYPE_pattern);
 	DeclareArg(env, "str", VTYPE_string);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));

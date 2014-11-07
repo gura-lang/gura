@@ -77,7 +77,7 @@ void wx_Accessible::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(Accessible)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Accessible));
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -102,7 +102,7 @@ Gura_ImplementFunction(Accessible)
 
 Gura_DeclareMethod(wx_Accessible, DoDefaultAction)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_Accessible, DoDefaultAction)
 
 Gura_DeclareMethod(wx_Accessible, GetChild)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "child", VTYPE_wx_Accessible, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_Accessible, GetChild)
 
 Gura_DeclareMethod(wx_Accessible, GetChildCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "childCount", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_Accessible, GetChildCount)
 
 Gura_DeclareMethod(wx_Accessible, GetDefaultAction)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "actionName", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_Accessible, GetDefaultAction)
 
 Gura_DeclareMethod(wx_Accessible, GetDescription)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "description", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_Accessible, GetDescription)
 
 Gura_DeclareMethod(wx_Accessible, GetFocus)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "child", VTYPE_wx_Accessible, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_Accessible, GetFocus)
 
 Gura_DeclareMethod(wx_Accessible, GetHelpText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "helpText", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -224,7 +224,7 @@ Gura_ImplementMethod(wx_Accessible, GetHelpText)
 
 Gura_DeclareMethod(wx_Accessible, GetKeyboardShortcut)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "shortcut", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -242,7 +242,7 @@ Gura_ImplementMethod(wx_Accessible, GetKeyboardShortcut)
 
 Gura_DeclareMethod(wx_Accessible, GetLocation)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareArg(env, "elementId", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -260,7 +260,7 @@ Gura_ImplementMethod(wx_Accessible, GetLocation)
 
 Gura_DeclareMethod(wx_Accessible, GetName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -278,7 +278,7 @@ Gura_ImplementMethod(wx_Accessible, GetName)
 
 Gura_DeclareMethod(wx_Accessible, GetParent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Accessible, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -294,7 +294,7 @@ Gura_ImplementMethod(wx_Accessible, GetParent)
 
 Gura_DeclareMethod(wx_Accessible, GetRole)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "role", VTYPE_wx_AccRole, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -312,7 +312,7 @@ Gura_ImplementMethod(wx_Accessible, GetRole)
 
 Gura_DeclareMethod(wx_Accessible, GetSelections)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "selections", VTYPE_wx_Variant, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -328,7 +328,7 @@ Gura_ImplementMethod(wx_Accessible, GetSelections)
 
 Gura_DeclareMethod(wx_Accessible, GetState)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "state", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -346,7 +346,7 @@ Gura_ImplementMethod(wx_Accessible, GetState)
 
 Gura_DeclareMethod(wx_Accessible, GetValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "strValue", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -364,7 +364,7 @@ Gura_ImplementMethod(wx_Accessible, GetValue)
 
 Gura_DeclareMethod(wx_Accessible, GetWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -378,7 +378,7 @@ Gura_ImplementMethod(wx_Accessible, GetWindow)
 
 Gura_DeclareMethod(wx_Accessible, HitTest)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 	DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "childObject", VTYPE_wx_Accessible, OCCUR_Once);
@@ -398,7 +398,7 @@ Gura_ImplementMethod(wx_Accessible, HitTest)
 
 Gura_DeclareMethod(wx_Accessible, Navigate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "navDir", VTYPE_wx_NavDir, OCCUR_Once);
 	DeclareArg(env, "fromId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "toId", VTYPE_number, OCCUR_Once);
@@ -420,7 +420,7 @@ Gura_ImplementMethod(wx_Accessible, Navigate)
 
 Gura_DeclareMethod(wx_Accessible, NotifyEvent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "objectType", VTYPE_wx_AccObject, OCCUR_Once);
@@ -441,7 +441,7 @@ Gura_ImplementMethod(wx_Accessible, NotifyEvent)
 
 Gura_DeclareMethod(wx_Accessible, Select)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "selectFlags", VTYPE_wx_AccSelectionFlags, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -459,7 +459,7 @@ Gura_ImplementMethod(wx_Accessible, Select)
 
 Gura_DeclareMethod(wx_Accessible, SetWindow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 }
 

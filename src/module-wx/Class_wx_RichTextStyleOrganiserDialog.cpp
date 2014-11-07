@@ -39,7 +39,7 @@ void wx_RichTextStyleOrganiserDialog::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(RichTextStyleOrganiserDialog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextStyleOrganiserDialog));
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "sheet", VTYPE_wx_RichTextStyleSheet, OCCUR_Once);
@@ -85,7 +85,7 @@ Gura_ImplementFunction(RichTextStyleOrganiserDialog)
 
 Gura_DeclareFunction(RichTextStyleOrganiserDialogEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextStyleOrganiserDialog));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -107,7 +107,7 @@ Gura_ImplementFunction(RichTextStyleOrganiserDialogEmpty)
 
 Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, ApplyStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "ctrl", VTYPE_wx_RichTextCtrl, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, ApplyStyle)
 
 Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "sheet", VTYPE_wx_RichTextStyleSheet, OCCUR_Once);
 	DeclareArg(env, "ctrl", VTYPE_wx_RichTextCtrl, OCCUR_Once);
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, Create)
 
 Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetFlags)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetFlags)
 
 Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetRestartNumbering)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetRestartNumbering)
 
 Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetRichTextCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetRichTextCtrl)
 
 Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetSelectedStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetSelectedStyle)
 
 Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetSelectedStyleDefinition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -231,7 +231,7 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetSelectedStyleDefinition
 
 Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetStyleSheet)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -245,7 +245,7 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetStyleSheet)
 
 Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, SetFlags)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
@@ -260,7 +260,7 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, SetFlags)
 
 Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, SetRestartNumbering)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "restartNumbering", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -275,7 +275,7 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, SetRestartNumbering)
 
 Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, SetRichTextCtrl)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "ctrl", VTYPE_wx_RichTextCtrl, OCCUR_Once);
 }
 
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, SetRichTextCtrl)
 
 Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, SetShowToolTips)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "show", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -305,7 +305,7 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, SetShowToolTips)
 
 Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, SetStyleSheet)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "sheet", VTYPE_wx_RichTextStyleSheet, OCCUR_Once);
 }
 

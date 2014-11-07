@@ -285,11 +285,6 @@ public:
 	Value EvalMap(Environment &env, Signal sig, Args &args) const;
 	inline FunctionType GetType() const { return _funcType; }
 	inline const char *GetTypeName() const { return GetFuncTypeName(_funcType); }
-	inline void SetMode(ResultMode resultMode, ULong flags, ValueType valTypeResult = VTYPE_any) {
-		_valTypeResult = valTypeResult;
-		_resultMode = resultMode;
-		_flags |= flags;
-	}
 	inline ValueType GetValueTypeResult() const { return _valTypeResult; }
 	inline ResultMode GetResultMode() const { return _resultMode; }
 	inline ULong GetFlags() const { return _flags; }
@@ -317,6 +312,7 @@ public:
 	inline bool GetEndMarkerFlag() const { return (_flags & FLAG_EndMarker)? true : false; }
 	inline bool GetPublicFlag() const { return (_flags & FLAG_Public)? true : false; }
 	inline bool GetPrivateFlag() const { return (_flags & FLAG_Private)? true : false; }
+	void SetFuncAttr(ValueType valTypeResult, ResultMode resultMode, ULong flags);
 	void SetClassToConstruct(Class *pClassToConstruct);
 	bool CustomDeclare(Environment &env, Signal sig,
 			const SymbolSet &attrsAcceptable, Args &args);

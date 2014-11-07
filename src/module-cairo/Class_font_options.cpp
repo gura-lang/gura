@@ -26,7 +26,7 @@ String Object_font_options::ToString(bool exprFlag)
 // cairo.font_options.create() {block?}
 Gura_DeclareClassMethod(font_options, create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -43,7 +43,7 @@ Gura_ImplementClassMethod(font_options, create)
 // cairo.font_options#status()
 Gura_DeclareMethod(font_options, status)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(font_options, status)
@@ -59,7 +59,7 @@ Gura_ImplementMethod(font_options, status)
 // cairo.font_options#merge(other:font_options):void
 Gura_DeclareMethod(font_options, merge)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "other", VTYPE_font_options);
 }
 
@@ -77,7 +77,7 @@ Gura_ImplementMethod(font_options, merge)
 // cairo.font_options#hash()
 Gura_DeclareMethod(font_options, hash)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(font_options, hash)
@@ -92,7 +92,7 @@ Gura_ImplementMethod(font_options, hash)
 // cairo.font_options#equal(other:font_options)
 Gura_DeclareMethod(font_options, equal)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "other", VTYPE_font_options);
 }
 
@@ -110,7 +110,7 @@ Gura_ImplementMethod(font_options, equal)
 // cairo.font_options#set_antialias(antialias:number):void
 Gura_DeclareMethod(font_options, set_antialias)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "antialias", VTYPE_number);
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(font_options, set_antialias)
 // cairo.font_options#get_antialias()
 Gura_DeclareMethod(font_options, get_antialias)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(font_options, get_antialias)
@@ -143,7 +143,7 @@ Gura_ImplementMethod(font_options, get_antialias)
 // cairo.font_options#set_subpixel_order(subpixel_order:number):void
 Gura_DeclareMethod(font_options, set_subpixel_order)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "subpixel_order", VTYPE_number);
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementMethod(font_options, set_subpixel_order)
 // cairo.font_options#get_subpixel_order()
 Gura_DeclareMethod(font_options, get_subpixel_order)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(font_options, get_subpixel_order)
@@ -176,7 +176,7 @@ Gura_ImplementMethod(font_options, get_subpixel_order)
 // cairo.font_options#set_hint_style(hint_style:number):void
 Gura_DeclareMethod(font_options, set_hint_style)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "hint_style", VTYPE_number);
 }
 
@@ -194,7 +194,7 @@ Gura_ImplementMethod(font_options, set_hint_style)
 // cairo.font_options#get_hint_style()
 Gura_DeclareMethod(font_options, get_hint_style)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(font_options, get_hint_style)
@@ -209,7 +209,7 @@ Gura_ImplementMethod(font_options, get_hint_style)
 // cairo.font_options#set_hint_metrics(hint_metrics:number):void
 Gura_DeclareMethod(font_options, set_hint_metrics)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "hint_metrics", VTYPE_number);
 }
 
@@ -227,7 +227,7 @@ Gura_ImplementMethod(font_options, set_hint_metrics)
 // cairo.font_options#get_hint_metrics()
 Gura_DeclareMethod(font_options, get_hint_metrics)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(font_options, get_hint_metrics)

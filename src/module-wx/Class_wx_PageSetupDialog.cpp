@@ -38,7 +38,7 @@ void wx_PageSetupDialog::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(PageSetupDialog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_PageSetupDialog));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "data", VTYPE_wx_PageSetupDialogData, OCCUR_ZeroOrOnce);
@@ -65,7 +65,7 @@ Gura_ImplementFunction(PageSetupDialog)
 
 Gura_DeclareMethod(wx_PageSetupDialog, GetPageSetupData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_PageSetupDialog, GetPageSetupData)
 
 Gura_DeclareMethod(wx_PageSetupDialog, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_PageSetupDialog, IsOk)
 
 Gura_DeclareMethod(wx_PageSetupDialog, ShowModal)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

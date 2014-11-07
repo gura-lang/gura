@@ -39,7 +39,7 @@ void wx_DataInputStream::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DataInputStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DataInputStream));
 	DeclareArg(env, "stream", VTYPE_wx_InputStream, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(DataInputStream)
 
 Gura_DeclareFunction(DataInputStream_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_DataInputStream));
 	DeclareArg(env, "stream", VTYPE_wx_InputStream, OCCUR_Once);
@@ -96,7 +96,7 @@ Gura_ImplementFunction(DataInputStream_1)
 
 Gura_DeclareMethod(wx_DataInputStream, BigEndianOrdered)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "be_order", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_DataInputStream, BigEndianOrdered)
 
 Gura_DeclareMethod(wx_DataInputStream, Read8)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_DataInputStream, Read8)
 
 Gura_DeclareMethod(wx_DataInputStream, Read8_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_DataInputStream, Read8_1)
 
 Gura_DeclareMethod(wx_DataInputStream, Read16)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_DataInputStream, Read16)
 
 Gura_DeclareMethod(wx_DataInputStream, Read16_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_DataInputStream, Read16_1)
 
 Gura_DeclareMethod(wx_DataInputStream, Read32)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_DataInputStream, Read32)
 
 Gura_DeclareMethod(wx_DataInputStream, Read32_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_DataInputStream, Read32_1)
 
 Gura_DeclareMethod(wx_DataInputStream, Read64)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_DataInputStream, Read64)
 
 Gura_DeclareMethod(wx_DataInputStream, Read64_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "buffer", VTYPE_wx_Uint64, OCCUR_Once);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -263,7 +263,7 @@ Gura_ImplementMethod(wx_DataInputStream, Read64_1)
 
 Gura_DeclareMethod(wx_DataInputStream, ReadDouble)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -277,7 +277,7 @@ Gura_ImplementMethod(wx_DataInputStream, ReadDouble)
 
 Gura_DeclareMethod(wx_DataInputStream, ReadDouble_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -300,7 +300,7 @@ Gura_ImplementMethod(wx_DataInputStream, ReadDouble_1)
 
 Gura_DeclareMethod(wx_DataInputStream, ReadString)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

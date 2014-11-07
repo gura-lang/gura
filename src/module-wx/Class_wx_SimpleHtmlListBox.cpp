@@ -38,7 +38,7 @@ void wx_SimpleHtmlListBox::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_SimpleHtmlListBox, wxHtmlListBox)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, wxHtmlListBox)
 
 Gura_DeclareMethod(wx_SimpleHtmlListBox, wxHtmlListBox_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, wxHtmlListBox_1)
 
 Gura_DeclareFunction(SimpleHtmlListBoxEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SimpleHtmlListBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -142,7 +142,7 @@ Gura_ImplementFunction(SimpleHtmlListBoxEmpty)
 
 Gura_DeclareMethod(wx_SimpleHtmlListBox, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, Create)
 
 Gura_DeclareMethod(wx_SimpleHtmlListBox, Create_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_Once);

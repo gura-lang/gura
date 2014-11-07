@@ -38,7 +38,7 @@ void wx_ComboPopup::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_ComboPopup, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -54,7 +54,7 @@ Gura_ImplementMethod(wx_ComboPopup, Create)
 
 Gura_DeclareMethod(wx_ComboPopup, Dismiss)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboPopup, Dismiss)
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_ComboPopup, Dismiss)
 
 Gura_DeclareMethod(wx_ComboPopup, GetAdjustedSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "minWidth", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "prefHeight", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "maxHeight", VTYPE_number, OCCUR_Once);
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_ComboPopup, GetAdjustedSize)
 
 Gura_DeclareMethod(wx_ComboPopup, GetControl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_ComboPopup, GetControl)
 
 Gura_DeclareMethod(wx_ComboPopup, GetStringValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_ComboPopup, GetStringValue)
 
 Gura_DeclareMethod(wx_ComboPopup, Init)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboPopup, Init)
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_ComboPopup, Init)
 
 Gura_DeclareMethod(wx_ComboPopup, IsCreated)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_ComboPopup, IsCreated)
 
 Gura_DeclareMethod(wx_ComboPopup, LazyCreate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_ComboPopup, LazyCreate)
 
 Gura_DeclareMethod(wx_ComboPopup, OnComboDoubleClick)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboPopup, OnComboDoubleClick)
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_ComboPopup, OnComboDoubleClick)
 
 Gura_DeclareMethod(wx_ComboPopup, OnComboKeyEvent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_KeyEvent, OCCUR_Once);
 }
 
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_ComboPopup, OnComboKeyEvent)
 
 Gura_DeclareMethod(wx_ComboPopup, OnDismiss)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboPopup, OnDismiss)
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_ComboPopup, OnDismiss)
 
 Gura_DeclareMethod(wx_ComboPopup, OnPopup)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboPopup, OnPopup)
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_ComboPopup, OnPopup)
 
 Gura_DeclareMethod(wx_ComboPopup, PaintComboControl)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 }
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_ComboPopup, PaintComboControl)
 
 Gura_DeclareMethod(wx_ComboPopup, SetStringValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
 }
 

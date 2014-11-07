@@ -42,7 +42,7 @@ void wx_DC::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_DC, Blit)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "xdest", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "ydest", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_DC, Blit)
 
 Gura_DeclareClassMethod(wx_DC, CacheEnabled)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -99,7 +99,7 @@ Gura_ImplementClassMethod(wx_DC, CacheEnabled)
 
 Gura_DeclareMethod(wx_DC, CalcBoundingBox)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_DC, CalcBoundingBox)
 
 Gura_DeclareMethod(wx_DC, Clear)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DC, Clear)
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_DC, Clear)
 #if 0
 Gura_DeclareClassMethod(wx_DC, ClearCache)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementClassMethod(wx_DC, ClearCache)
@@ -149,7 +149,7 @@ Gura_ImplementClassMethod(wx_DC, ClearCache)
 #if 0
 Gura_DeclareMethod(wx_DC, ComputeScaleAndOrigin)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DC, ComputeScaleAndOrigin)
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_DC, ComputeScaleAndOrigin)
 
 Gura_DeclareMethod(wx_DC, CrossHair)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_DC, CrossHair)
 
 Gura_DeclareMethod(wx_DC, DestroyClippingRegion)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DC, DestroyClippingRegion)
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_DC, DestroyClippingRegion)
 
 Gura_DeclareMethod(wx_DC, DeviceToLogicalX)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_DC, DeviceToLogicalX)
 
 Gura_DeclareMethod(wx_DC, DeviceToLogicalXRel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_DC, DeviceToLogicalXRel)
 
 Gura_DeclareMethod(wx_DC, DeviceToLogicalY)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_DC, DeviceToLogicalY)
 
 Gura_DeclareMethod(wx_DC, DeviceToLogicalYRel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -257,7 +257,7 @@ Gura_ImplementMethod(wx_DC, DeviceToLogicalYRel)
 
 Gura_DeclareMethod(wx_DC, DrawArc)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x1", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y1", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "x2", VTYPE_number, OCCUR_Once);
@@ -282,7 +282,7 @@ Gura_ImplementMethod(wx_DC, DrawArc)
 
 Gura_DeclareMethod(wx_DC, DrawBitmap)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -303,7 +303,7 @@ Gura_ImplementMethod(wx_DC, DrawBitmap)
 
 Gura_DeclareMethod(wx_DC, DrawCheckMark)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -324,7 +324,7 @@ Gura_ImplementMethod(wx_DC, DrawCheckMark)
 
 Gura_DeclareMethod(wx_DC, DrawCheckMarkRect)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 }
 
@@ -339,7 +339,7 @@ Gura_ImplementMethod(wx_DC, DrawCheckMarkRect)
 
 Gura_DeclareMethod(wx_DC, DrawCircle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "radius", VTYPE_number, OCCUR_Once);
@@ -358,7 +358,7 @@ Gura_ImplementMethod(wx_DC, DrawCircle)
 
 Gura_DeclareMethod(wx_DC, DrawCirclePoint)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 	DeclareArg(env, "radius", VTYPE_number, OCCUR_Once);
 }
@@ -375,7 +375,7 @@ Gura_ImplementMethod(wx_DC, DrawCirclePoint)
 
 Gura_DeclareMethod(wx_DC, DrawEllipse)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -396,7 +396,7 @@ Gura_ImplementMethod(wx_DC, DrawEllipse)
 
 Gura_DeclareMethod(wx_DC, DrawEllipsePointSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
@@ -413,7 +413,7 @@ Gura_ImplementMethod(wx_DC, DrawEllipsePointSize)
 
 Gura_DeclareMethod(wx_DC, DrawEllipseRect)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 }
 
@@ -428,7 +428,7 @@ Gura_ImplementMethod(wx_DC, DrawEllipseRect)
 
 Gura_DeclareMethod(wx_DC, DrawEllipticArc)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -453,7 +453,7 @@ Gura_ImplementMethod(wx_DC, DrawEllipticArc)
 
 Gura_DeclareMethod(wx_DC, DrawIcon)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "icon", VTYPE_wx_Icon, OCCUR_Once);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -472,7 +472,7 @@ Gura_ImplementMethod(wx_DC, DrawIcon)
 
 Gura_DeclareMethod(wx_DC, DrawLabel)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "image", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
@@ -500,7 +500,7 @@ Gura_ImplementMethod(wx_DC, DrawLabel)
 
 Gura_DeclareMethod(wx_DC, DrawLabel_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareArg(env, "alignment", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -523,7 +523,7 @@ Gura_ImplementMethod(wx_DC, DrawLabel_1)
 
 Gura_DeclareMethod(wx_DC, DrawLine)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x1", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y1", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "x2", VTYPE_number, OCCUR_Once);
@@ -544,7 +544,7 @@ Gura_ImplementMethod(wx_DC, DrawLine)
 
 Gura_DeclareMethod(wx_DC, DrawLines)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "points", VTYPE_wx_Point, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "xoffset", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "yoffset", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -565,7 +565,7 @@ Gura_ImplementMethod(wx_DC, DrawLines)
 
 Gura_DeclareMethod(wx_DC, DrawPolygon)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "points", VTYPE_wx_Point, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "xoffset", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "yoffset", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -589,7 +589,7 @@ Gura_ImplementMethod(wx_DC, DrawPolygon)
 
 Gura_DeclareMethod(wx_DC, DrawPolyPolygon)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "points", VTYPE_list, OCCUR_Once, FLAG_List | FLAG_NoMap);
 	DeclareArg(env, "xoffset", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "yoffset", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -635,7 +635,7 @@ Gura_ImplementMethod(wx_DC, DrawPolyPolygon)
 
 Gura_DeclareMethod(wx_DC, DrawPoint)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -652,7 +652,7 @@ Gura_ImplementMethod(wx_DC, DrawPoint)
 
 Gura_DeclareMethod(wx_DC, DrawRectangle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -673,7 +673,7 @@ Gura_ImplementMethod(wx_DC, DrawRectangle)
 
 Gura_DeclareMethod(wx_DC, DrawRectanglePointSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 	DeclareArg(env, "sz", VTYPE_wx_Size, OCCUR_Once);
 }
@@ -690,7 +690,7 @@ Gura_ImplementMethod(wx_DC, DrawRectanglePointSize)
 
 Gura_DeclareMethod(wx_DC, DrawRectangleRect)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 }
 
@@ -705,7 +705,7 @@ Gura_ImplementMethod(wx_DC, DrawRectangleRect)
 
 Gura_DeclareMethod(wx_DC, DrawRotatedText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -726,7 +726,7 @@ Gura_ImplementMethod(wx_DC, DrawRotatedText)
 
 Gura_DeclareMethod(wx_DC, DrawRoundedRectangle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -749,7 +749,7 @@ Gura_ImplementMethod(wx_DC, DrawRoundedRectangle)
 
 Gura_DeclareMethod(wx_DC, DrawRoundedRectanglePointSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 	DeclareArg(env, "sz", VTYPE_wx_Size, OCCUR_Once);
 	DeclareArg(env, "radius", VTYPE_number, OCCUR_Once);
@@ -769,7 +769,7 @@ Gura_ImplementMethod(wx_DC, DrawRoundedRectanglePointSize)
 
 Gura_DeclareMethod(wx_DC, DrawRoundedRectangleRect)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareArg(env, "radius", VTYPE_number, OCCUR_Once);
 }
@@ -786,7 +786,7 @@ Gura_ImplementMethod(wx_DC, DrawRoundedRectangleRect)
 
 Gura_DeclareMethod(wx_DC, DrawSpline)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "points", VTYPE_wx_Point, OCCUR_Once, FLAG_List);
 }
 
@@ -801,7 +801,7 @@ Gura_ImplementMethod(wx_DC, DrawSpline)
 
 Gura_DeclareMethod(wx_DC, DrawText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -820,7 +820,7 @@ Gura_ImplementMethod(wx_DC, DrawText)
 
 Gura_DeclareClassMethod(wx_DC, EnableCache)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "enableCache", VTYPE_boolean, OCCUR_Once);
 #endif
@@ -840,7 +840,7 @@ Gura_ImplementClassMethod(wx_DC, EnableCache)
 
 Gura_DeclareMethod(wx_DC, EndDoc)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DC, EndDoc)
@@ -853,7 +853,7 @@ Gura_ImplementMethod(wx_DC, EndDoc)
 
 Gura_DeclareMethod(wx_DC, EndPage)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DC, EndPage)
@@ -866,7 +866,7 @@ Gura_ImplementMethod(wx_DC, EndPage)
 
 Gura_DeclareMethod(wx_DC, FloodFill)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
@@ -889,7 +889,7 @@ Gura_ImplementMethod(wx_DC, FloodFill)
 
 Gura_DeclareMethod(wx_DC, GetBackground)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -903,7 +903,7 @@ Gura_ImplementMethod(wx_DC, GetBackground)
 
 Gura_DeclareMethod(wx_DC, GetBackgroundMode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -917,7 +917,7 @@ Gura_ImplementMethod(wx_DC, GetBackgroundMode)
 
 Gura_DeclareMethod(wx_DC, GetBrush)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -931,7 +931,7 @@ Gura_ImplementMethod(wx_DC, GetBrush)
 
 Gura_DeclareMethod(wx_DC, GetCharHeight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -945,7 +945,7 @@ Gura_ImplementMethod(wx_DC, GetCharHeight)
 
 Gura_DeclareMethod(wx_DC, GetCharWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -959,7 +959,7 @@ Gura_ImplementMethod(wx_DC, GetCharWidth)
 
 Gura_DeclareMethod(wx_DC, GetClippingBox)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -977,7 +977,7 @@ Gura_ImplementMethod(wx_DC, GetClippingBox)
 
 Gura_DeclareMethod(wx_DC, GetFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -991,7 +991,7 @@ Gura_ImplementMethod(wx_DC, GetFont)
 
 Gura_DeclareMethod(wx_DC, GetLayoutDirection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1005,7 +1005,7 @@ Gura_ImplementMethod(wx_DC, GetLayoutDirection)
 
 Gura_DeclareMethod(wx_DC, GetLogicalFunction)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1019,7 +1019,7 @@ Gura_ImplementMethod(wx_DC, GetLogicalFunction)
 
 Gura_DeclareMethod(wx_DC, GetMapMode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1033,7 +1033,7 @@ Gura_ImplementMethod(wx_DC, GetMapMode)
 
 Gura_DeclareMethod(wx_DC, GetMultiLineTextExtent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "string", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1055,7 +1055,7 @@ Gura_ImplementMethod(wx_DC, GetMultiLineTextExtent)
 
 Gura_DeclareMethod(wx_DC, GetPartialTextExtents)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "widths", VTYPE_number, OCCUR_Once, FLAG_List);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1073,7 +1073,7 @@ Gura_ImplementMethod(wx_DC, GetPartialTextExtents)
 
 Gura_DeclareMethod(wx_DC, GetPen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1087,7 +1087,7 @@ Gura_ImplementMethod(wx_DC, GetPen)
 
 Gura_DeclareMethod(wx_DC, GetPixel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
@@ -1107,7 +1107,7 @@ Gura_ImplementMethod(wx_DC, GetPixel)
 
 Gura_DeclareMethod(wx_DC, GetPPI)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1121,7 +1121,7 @@ Gura_ImplementMethod(wx_DC, GetPPI)
 
 Gura_DeclareMethod(wx_DC, GetSizeAsList)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1137,7 +1137,7 @@ Gura_ImplementMethod(wx_DC, GetSizeAsList)
 
 Gura_DeclareMethod(wx_DC, GetSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1151,7 +1151,7 @@ Gura_ImplementMethod(wx_DC, GetSize)
 
 Gura_DeclareMethod(wx_DC, GetSizeMMAsList)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1167,7 +1167,7 @@ Gura_ImplementMethod(wx_DC, GetSizeMMAsList)
 
 Gura_DeclareMethod(wx_DC, GetSizeMM)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1181,7 +1181,7 @@ Gura_ImplementMethod(wx_DC, GetSizeMM)
 
 Gura_DeclareMethod(wx_DC, GetTextBackground)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1195,7 +1195,7 @@ Gura_ImplementMethod(wx_DC, GetTextBackground)
 
 Gura_DeclareMethod(wx_DC, GetTextExtent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "string", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1218,7 +1218,7 @@ Gura_ImplementMethod(wx_DC, GetTextExtent)
 
 Gura_DeclareMethod(wx_DC, GetTextExtent_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "string", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1234,7 +1234,7 @@ Gura_ImplementMethod(wx_DC, GetTextExtent_1)
 
 Gura_DeclareMethod(wx_DC, GetTextForeground)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1248,7 +1248,7 @@ Gura_ImplementMethod(wx_DC, GetTextForeground)
 
 Gura_DeclareMethod(wx_DC, GetUserScale)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1264,7 +1264,7 @@ Gura_ImplementMethod(wx_DC, GetUserScale)
 
 Gura_DeclareMethod(wx_DC, GradientFillConcentric)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareArg(env, "initialColour", VTYPE_wx_Colour, OCCUR_Once);
 	DeclareArg(env, "destColour", VTYPE_wx_Colour, OCCUR_Once);
@@ -1290,7 +1290,7 @@ Gura_ImplementMethod(wx_DC, GradientFillConcentric)
 #if 0
 Gura_DeclareMethod(wx_DC, GradientFillConcentric_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareArg(env, "initialColour", VTYPE_wx_Colour, OCCUR_Once);
 	DeclareArg(env, "destColour", VTYPE_wx_Colour, OCCUR_Once);
@@ -1312,7 +1312,7 @@ Gura_ImplementMethod(wx_DC, GradientFillConcentric_1)
 
 Gura_DeclareMethod(wx_DC, GradientFillLinear)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareArg(env, "initialColour", VTYPE_wx_Colour, OCCUR_Once);
 	DeclareArg(env, "destColour", VTYPE_wx_Colour, OCCUR_Once);
@@ -1334,7 +1334,7 @@ Gura_ImplementMethod(wx_DC, GradientFillLinear)
 
 Gura_DeclareMethod(wx_DC, LogicalToDeviceX)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1350,7 +1350,7 @@ Gura_ImplementMethod(wx_DC, LogicalToDeviceX)
 
 Gura_DeclareMethod(wx_DC, LogicalToDeviceXRel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1366,7 +1366,7 @@ Gura_ImplementMethod(wx_DC, LogicalToDeviceXRel)
 
 Gura_DeclareMethod(wx_DC, LogicalToDeviceY)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1382,7 +1382,7 @@ Gura_ImplementMethod(wx_DC, LogicalToDeviceY)
 
 Gura_DeclareMethod(wx_DC, LogicalToDeviceYRel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1398,7 +1398,7 @@ Gura_ImplementMethod(wx_DC, LogicalToDeviceYRel)
 
 Gura_DeclareMethod(wx_DC, MaxX)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1412,7 +1412,7 @@ Gura_ImplementMethod(wx_DC, MaxX)
 
 Gura_DeclareMethod(wx_DC, MaxY)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1426,7 +1426,7 @@ Gura_ImplementMethod(wx_DC, MaxY)
 
 Gura_DeclareMethod(wx_DC, MinX)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1440,7 +1440,7 @@ Gura_ImplementMethod(wx_DC, MinX)
 
 Gura_DeclareMethod(wx_DC, MinY)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1455,7 +1455,7 @@ Gura_ImplementMethod(wx_DC, MinY)
 #if 0
 Gura_DeclareMethod(wx_DC, Ok)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1470,7 +1470,7 @@ Gura_ImplementMethod(wx_DC, Ok)
 
 Gura_DeclareMethod(wx_DC, ResetBoundingBox)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DC, ResetBoundingBox)
@@ -1483,7 +1483,7 @@ Gura_ImplementMethod(wx_DC, ResetBoundingBox)
 
 Gura_DeclareMethod(wx_DC, SetAxisOrientation)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "xLeftRight", VTYPE_boolean, OCCUR_Once);
 	DeclareArg(env, "yBottomUp", VTYPE_boolean, OCCUR_Once);
 }
@@ -1500,7 +1500,7 @@ Gura_ImplementMethod(wx_DC, SetAxisOrientation)
 
 Gura_DeclareMethod(wx_DC, SetBackground)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "brush", VTYPE_wx_Brush, OCCUR_Once);
 }
 
@@ -1515,7 +1515,7 @@ Gura_ImplementMethod(wx_DC, SetBackground)
 
 Gura_DeclareMethod(wx_DC, SetBackgroundMode)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
@@ -1530,7 +1530,7 @@ Gura_ImplementMethod(wx_DC, SetBackgroundMode)
 
 Gura_DeclareMethod(wx_DC, SetBrush)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "brush", VTYPE_wx_Brush, OCCUR_Once);
 }
 
@@ -1545,7 +1545,7 @@ Gura_ImplementMethod(wx_DC, SetBrush)
 
 Gura_DeclareMethod(wx_DC, SetClippingRegion)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -1566,7 +1566,7 @@ Gura_ImplementMethod(wx_DC, SetClippingRegion)
 
 Gura_DeclareMethod(wx_DC, SetClippingRegionPointSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 	DeclareArg(env, "sz", VTYPE_wx_Size, OCCUR_Once);
 }
@@ -1583,7 +1583,7 @@ Gura_ImplementMethod(wx_DC, SetClippingRegionPointSize)
 
 Gura_DeclareMethod(wx_DC, SetClippingRect)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 }
 
@@ -1598,7 +1598,7 @@ Gura_ImplementMethod(wx_DC, SetClippingRect)
 
 Gura_DeclareMethod(wx_DC, SetClippingRegionAsRegion)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "region", VTYPE_wx_Region, OCCUR_Once);
 }
 
@@ -1613,7 +1613,7 @@ Gura_ImplementMethod(wx_DC, SetClippingRegionAsRegion)
 
 Gura_DeclareMethod(wx_DC, SetDeviceOrigin)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -1630,7 +1630,7 @@ Gura_ImplementMethod(wx_DC, SetDeviceOrigin)
 
 Gura_DeclareMethod(wx_DC, SetFont)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 }
 
@@ -1645,7 +1645,7 @@ Gura_ImplementMethod(wx_DC, SetFont)
 
 Gura_DeclareMethod(wx_DC, SetLayoutDirection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dir", VTYPE_number, OCCUR_Once);
 }
 
@@ -1660,7 +1660,7 @@ Gura_ImplementMethod(wx_DC, SetLayoutDirection)
 
 Gura_DeclareMethod(wx_DC, SetLogicalFunction)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "function", VTYPE_number, OCCUR_Once);
 }
 
@@ -1675,7 +1675,7 @@ Gura_ImplementMethod(wx_DC, SetLogicalFunction)
 
 Gura_DeclareMethod(wx_DC, SetMapMode)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
@@ -1690,7 +1690,7 @@ Gura_ImplementMethod(wx_DC, SetMapMode)
 
 Gura_DeclareMethod(wx_DC, SetPalette)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "palette", VTYPE_wx_Palette, OCCUR_Once);
 }
 
@@ -1705,7 +1705,7 @@ Gura_ImplementMethod(wx_DC, SetPalette)
 
 Gura_DeclareMethod(wx_DC, SetPen)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pen", VTYPE_wx_Pen, OCCUR_Once);
 }
 
@@ -1720,7 +1720,7 @@ Gura_ImplementMethod(wx_DC, SetPen)
 
 Gura_DeclareMethod(wx_DC, SetTextBackground)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -1735,7 +1735,7 @@ Gura_ImplementMethod(wx_DC, SetTextBackground)
 
 Gura_DeclareMethod(wx_DC, SetTextForeground)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -1750,7 +1750,7 @@ Gura_ImplementMethod(wx_DC, SetTextForeground)
 
 Gura_DeclareMethod(wx_DC, SetUserScale)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "xScale", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "yScale", VTYPE_number, OCCUR_Once);
 }
@@ -1767,7 +1767,7 @@ Gura_ImplementMethod(wx_DC, SetUserScale)
 
 Gura_DeclareMethod(wx_DC, StartDoc)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1783,7 +1783,7 @@ Gura_ImplementMethod(wx_DC, StartDoc)
 
 Gura_DeclareMethod(wx_DC, StartPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

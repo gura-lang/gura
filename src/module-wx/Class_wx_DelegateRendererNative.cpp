@@ -39,7 +39,7 @@ void wx_DelegateRendererNative::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DelegateRendererNativeEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DelegateRendererNative));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(DelegateRendererNativeEmpty)
 
 Gura_DeclareFunction(DelegateRendererNative)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DelegateRendererNative));
 	DeclareArg(env, "rendererNative", VTYPE_wx_RendererNative, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -85,7 +85,7 @@ Gura_ImplementFunction(DelegateRendererNative)
 
 Gura_DeclareMethod(wx_DelegateRendererNative, DrawXXX)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 #endif
 }

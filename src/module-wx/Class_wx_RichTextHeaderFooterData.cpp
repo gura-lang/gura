@@ -39,7 +39,7 @@ void wx_RichTextHeaderFooterData::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(RichTextHeaderFooterDataEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextHeaderFooterData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(RichTextHeaderFooterDataEmpty)
 
 Gura_DeclareFunction(RichTextHeaderFooterData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextHeaderFooterData));
 	DeclareArg(env, "data", VTYPE_wx_RichTextHeaderFooterData, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -85,7 +85,7 @@ Gura_ImplementFunction(RichTextHeaderFooterData)
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, Clear)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, Clear)
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, Clear)
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, Copy)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "data", VTYPE_wx_RichTextHeaderFooterData, OCCUR_Once);
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, Copy)
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, GetFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, GetFont)
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, GetFooterMargin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, GetFooterMargin)
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, GetFooterText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, GetFooterText)
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, GetHeaderMargin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, GetHeaderMargin)
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, GetHeaderText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, GetHeaderText)
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, GetShowOnFirstPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, GetShowOnFirstPage)
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, GetText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "headerFooter", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, GetText)
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, GetTextColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, GetTextColour)
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, Init)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, Init)
@@ -256,7 +256,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, Init)
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, SetFont)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 }
 
@@ -271,7 +271,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, SetFont)
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, SetFooterText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -292,7 +292,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, SetFooterText)
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, SetHeaderText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -313,7 +313,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, SetHeaderText)
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, SetMargins)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "headerMargin", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "footerMargin", VTYPE_number, OCCUR_Once);
 }
@@ -330,7 +330,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, SetMargins)
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, SetShowOnFirstPage)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "showOnFirstPage", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -345,7 +345,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, SetShowOnFirstPage)
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, SetText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "headerFooter", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
@@ -366,7 +366,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, SetText)
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, SetTextColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_wx_Colour, OCCUR_Once);
 }
 

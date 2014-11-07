@@ -40,7 +40,7 @@ void wx_RichTextRange::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(RichTextRange)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextRange));
 	DeclareArg(env, "start", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "end", VTYPE_number, OCCUR_Once);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(RichTextRange)
 
 Gura_DeclareFunction(RichTextRange_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextRange));
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -90,7 +90,7 @@ Gura_ImplementFunction(RichTextRange_1)
 
 Gura_DeclareFunction(RichTextRangeEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextRange));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -112,7 +112,7 @@ Gura_ImplementFunction(RichTextRangeEmpty)
 
 Gura_DeclareMethod(wx_RichTextRange, Contains)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_RichTextRange, Contains)
 
 Gura_DeclareMethod(wx_RichTextRange, GetEnd)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_RichTextRange, GetEnd)
 
 Gura_DeclareMethod(wx_RichTextRange, GetLength)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_RichTextRange, GetLength)
 
 Gura_DeclareMethod(wx_RichTextRange, GetStart)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_RichTextRange, GetStart)
 
 Gura_DeclareMethod(wx_RichTextRange, FromInternal)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_RichTextRange, FromInternal)
 
 Gura_DeclareMethod(wx_RichTextRange, IsOutside)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_RichTextRange, IsOutside)
 
 Gura_DeclareMethod(wx_RichTextRange, IsWithin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_RichTextRange, IsWithin)
 
 Gura_DeclareMethod(wx_RichTextRange, LimitTo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_RichTextRange, LimitTo)
 
 Gura_DeclareMethod(wx_RichTextRange, SetEnd)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "end", VTYPE_number, OCCUR_Once);
 }
 
@@ -247,7 +247,7 @@ Gura_ImplementMethod(wx_RichTextRange, SetEnd)
 
 Gura_DeclareMethod(wx_RichTextRange, SetRange)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "start", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "end", VTYPE_number, OCCUR_Once);
 }
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_RichTextRange, SetRange)
 
 Gura_DeclareMethod(wx_RichTextRange, SetStart)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "start", VTYPE_number, OCCUR_Once);
 }
 
@@ -279,7 +279,7 @@ Gura_ImplementMethod(wx_RichTextRange, SetStart)
 
 Gura_DeclareMethod(wx_RichTextRange, Swap)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextRange, Swap)
@@ -292,7 +292,7 @@ Gura_ImplementMethod(wx_RichTextRange, Swap)
 
 Gura_DeclareMethod(wx_RichTextRange, ToInternal)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

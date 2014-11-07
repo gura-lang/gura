@@ -39,7 +39,7 @@ void wx_GridEditorCreatedEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GridEditorCreatedEventEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_GridEditorCreatedEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(GridEditorCreatedEventEmpty)
 
 Gura_DeclareFunction(GridEditorCreatedEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_GridEditorCreatedEvent));
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -107,7 +107,7 @@ Gura_ImplementFunction(GridEditorCreatedEvent)
 
 Gura_DeclareMethod(wx_GridEditorCreatedEvent, GetCol)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_GridEditorCreatedEvent, GetCol)
 
 Gura_DeclareMethod(wx_GridEditorCreatedEvent, GetControl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_GridEditorCreatedEvent, GetControl)
 
 Gura_DeclareMethod(wx_GridEditorCreatedEvent, GetRow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_GridEditorCreatedEvent, GetRow)
 
 Gura_DeclareMethod(wx_GridEditorCreatedEvent, SetCol)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 #endif
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_GridEditorCreatedEvent, SetCol)
 
 Gura_DeclareMethod(wx_GridEditorCreatedEvent, SetControl)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "ctrl", VTYPE_wx_Control, OCCUR_Once);
 #endif
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_GridEditorCreatedEvent, SetControl)
 
 Gura_DeclareMethod(wx_GridEditorCreatedEvent, SetRow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 #endif

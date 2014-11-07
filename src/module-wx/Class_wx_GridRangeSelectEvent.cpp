@@ -39,7 +39,7 @@ void wx_GridRangeSelectEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GridRangeSelectEventEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GridRangeSelectEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(GridRangeSelectEventEmpty)
 
 Gura_DeclareFunction(GridRangeSelectEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_GridRangeSelectEvent));
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -108,7 +108,7 @@ Gura_ImplementFunction(GridRangeSelectEvent)
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, AltDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, AltDown)
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, ControlDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, ControlDown)
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, GetBottomRightCoords)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, GetBottomRightCoords)
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, GetBottomRow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, GetBottomRow)
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, GetLeftCol)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, GetLeftCol)
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, GetRightCol)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, GetRightCol)
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, GetTopLeftCoords)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, GetTopLeftCoords)
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, GetTopRow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, GetTopRow)
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, MetaDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, MetaDown)
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, Selecting)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, Selecting)
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, ShiftDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

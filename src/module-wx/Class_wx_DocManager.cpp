@@ -38,7 +38,7 @@ void wx_DocManager::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DocManager)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DocManager));
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "initialize", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(DocManager)
 
 Gura_DeclareMethod(wx_DocManager, ActivateView)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "doc", VTYPE_wx_View, OCCUR_Once);
 	DeclareArg(env, "activate", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_DocManager, ActivateView)
 
 Gura_DeclareMethod(wx_DocManager, AddDocument)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "doc", VTYPE_wx_Document, OCCUR_Once);
 }
 
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_DocManager, AddDocument)
 
 Gura_DeclareMethod(wx_DocManager, AddFileToHistory)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 }
 
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_DocManager, AddFileToHistory)
 
 Gura_DeclareMethod(wx_DocManager, AssociateTemplate)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "temp", VTYPE_wx_DocTemplate, OCCUR_Once);
 }
 
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_DocManager, AssociateTemplate)
 
 Gura_DeclareMethod(wx_DocManager, CloseDocuments)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "force", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_DocManager, CloseDocuments)
 
 Gura_DeclareMethod(wx_DocManager, CreateDocument)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_DocManager, CreateDocument)
 
 Gura_DeclareMethod(wx_DocManager, CreateView)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "doc", VTYPE_wx_Document, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_DocManager, CreateView)
 
 Gura_DeclareMethod(wx_DocManager, DisassociateTemplate)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "temp", VTYPE_wx_DocTemplate, OCCUR_Once);
 }
 
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_DocManager, DisassociateTemplate)
 
 Gura_DeclareMethod(wx_DocManager, FileHistoryAddFilesToMenu)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DocManager, FileHistoryAddFilesToMenu)
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_DocManager, FileHistoryAddFilesToMenu)
 
 Gura_DeclareMethod(wx_DocManager, FileHistoryAddFilesToMenu_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "menu", VTYPE_wx_Menu, OCCUR_Once);
 }
 
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_DocManager, FileHistoryAddFilesToMenu_1)
 
 Gura_DeclareMethod(wx_DocManager, FileHistoryLoad)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "config", VTYPE_wx_ConfigBase, OCCUR_Once);
 }
 
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_DocManager, FileHistoryLoad)
 
 Gura_DeclareMethod(wx_DocManager, FileHistoryRemoveMenu)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "menu", VTYPE_wx_Menu, OCCUR_Once);
 }
 
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_DocManager, FileHistoryRemoveMenu)
 
 Gura_DeclareMethod(wx_DocManager, FileHistorySave)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "resourceFile", VTYPE_wx_ConfigBase, OCCUR_Once);
 }
 
@@ -270,7 +270,7 @@ Gura_ImplementMethod(wx_DocManager, FileHistorySave)
 
 Gura_DeclareMethod(wx_DocManager, FileHistoryUseMenu)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "menu", VTYPE_wx_Menu, OCCUR_Once);
 }
 
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_DocManager, FileHistoryUseMenu)
 
 Gura_DeclareMethod(wx_DocManager, FindTemplateForPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -301,7 +301,7 @@ Gura_ImplementMethod(wx_DocManager, FindTemplateForPath)
 
 Gura_DeclareMethod(wx_DocManager, GetCurrentDocument)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -315,7 +315,7 @@ Gura_ImplementMethod(wx_DocManager, GetCurrentDocument)
 
 Gura_DeclareMethod(wx_DocManager, GetCurrentView)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -329,7 +329,7 @@ Gura_ImplementMethod(wx_DocManager, GetCurrentView)
 
 Gura_DeclareMethod(wx_DocManager, GetDocuments)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -343,7 +343,7 @@ Gura_ImplementMethod(wx_DocManager, GetDocuments)
 
 Gura_DeclareMethod(wx_DocManager, GetFileHistory)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -357,7 +357,7 @@ Gura_ImplementMethod(wx_DocManager, GetFileHistory)
 
 Gura_DeclareMethod(wx_DocManager, GetLastDirectory)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -371,7 +371,7 @@ Gura_ImplementMethod(wx_DocManager, GetLastDirectory)
 
 Gura_DeclareMethod(wx_DocManager, GetMaxDocsOpen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -385,7 +385,7 @@ Gura_ImplementMethod(wx_DocManager, GetMaxDocsOpen)
 
 Gura_DeclareMethod(wx_DocManager, GetHistoryFilesCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -399,7 +399,7 @@ Gura_ImplementMethod(wx_DocManager, GetHistoryFilesCount)
 
 Gura_DeclareMethod(wx_DocManager, GetTemplates)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -413,7 +413,7 @@ Gura_ImplementMethod(wx_DocManager, GetTemplates)
 
 Gura_DeclareMethod(wx_DocManager, Initialize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -427,7 +427,7 @@ Gura_ImplementMethod(wx_DocManager, Initialize)
 
 Gura_DeclareMethod(wx_DocManager, MakeDefaultName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "buf", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -443,7 +443,7 @@ Gura_ImplementMethod(wx_DocManager, MakeDefaultName)
 
 Gura_DeclareMethod(wx_DocManager, MakeNewDocumentName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -457,7 +457,7 @@ Gura_ImplementMethod(wx_DocManager, MakeNewDocumentName)
 
 Gura_DeclareMethod(wx_DocManager, OnCreateFileHistory)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -471,7 +471,7 @@ Gura_ImplementMethod(wx_DocManager, OnCreateFileHistory)
 
 Gura_DeclareMethod(wx_DocManager, OnFileClose)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_CommandEvent, OCCUR_Once);
 }
 
@@ -486,7 +486,7 @@ Gura_ImplementMethod(wx_DocManager, OnFileClose)
 
 Gura_DeclareMethod(wx_DocManager, OnFileCloseAll)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_CommandEvent, OCCUR_Once);
 }
 
@@ -501,7 +501,7 @@ Gura_ImplementMethod(wx_DocManager, OnFileCloseAll)
 
 Gura_DeclareMethod(wx_DocManager, OnFileNew)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_CommandEvent, OCCUR_Once);
 }
 
@@ -516,7 +516,7 @@ Gura_ImplementMethod(wx_DocManager, OnFileNew)
 
 Gura_DeclareMethod(wx_DocManager, OnFileOpen)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_CommandEvent, OCCUR_Once);
 }
 
@@ -531,7 +531,7 @@ Gura_ImplementMethod(wx_DocManager, OnFileOpen)
 
 Gura_DeclareMethod(wx_DocManager, OnFileRevert)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_CommandEvent, OCCUR_Once);
 }
 
@@ -546,7 +546,7 @@ Gura_ImplementMethod(wx_DocManager, OnFileRevert)
 
 Gura_DeclareMethod(wx_DocManager, OnFileSave)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_CommandEvent, OCCUR_Once);
 }
 
@@ -561,7 +561,7 @@ Gura_ImplementMethod(wx_DocManager, OnFileSave)
 
 Gura_DeclareMethod(wx_DocManager, OnFileSaveAs)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_CommandEvent, OCCUR_Once);
 }
 
@@ -576,7 +576,7 @@ Gura_ImplementMethod(wx_DocManager, OnFileSaveAs)
 
 Gura_DeclareMethod(wx_DocManager, RemoveDocument)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "doc", VTYPE_wx_Document, OCCUR_Once);
 }
 
@@ -591,7 +591,7 @@ Gura_ImplementMethod(wx_DocManager, RemoveDocument)
 
 Gura_DeclareMethod(wx_DocManager, SelectDocumentPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "templates", VTYPE_wx_DocTemplate, OCCUR_Once);
 	DeclareArg(env, "noTemplates", VTYPE_number, OCCUR_Once);
@@ -621,7 +621,7 @@ Gura_ImplementMethod(wx_DocManager, SelectDocumentPath)
 
 Gura_DeclareMethod(wx_DocManager, SelectDocumentType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "templates", VTYPE_wx_DocTemplate, OCCUR_Once);
 	DeclareArg(env, "noTemplates", VTYPE_number, OCCUR_Once);
@@ -648,7 +648,7 @@ Gura_ImplementMethod(wx_DocManager, SelectDocumentType)
 
 Gura_DeclareMethod(wx_DocManager, SelectViewType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "templates", VTYPE_wx_DocTemplate, OCCUR_Once);
 	DeclareArg(env, "noTemplates", VTYPE_number, OCCUR_Once);
@@ -675,7 +675,7 @@ Gura_ImplementMethod(wx_DocManager, SelectViewType)
 
 Gura_DeclareMethod(wx_DocManager, SetLastDirectory)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dir", VTYPE_string, OCCUR_Once);
 }
 
@@ -690,7 +690,7 @@ Gura_ImplementMethod(wx_DocManager, SetLastDirectory)
 
 Gura_DeclareMethod(wx_DocManager, SetMaxDocsOpen)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 

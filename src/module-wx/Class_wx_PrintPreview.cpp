@@ -38,7 +38,7 @@ void wx_PrintPreview::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(PrintPreview)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_PrintPreview));
 	DeclareArg(env, "printout", VTYPE_wx_Printout, OCCUR_Once);
 	DeclareArg(env, "printoutForPrinting", VTYPE_wx_Printout, OCCUR_Once);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(PrintPreview)
 
 Gura_DeclareMethod(wx_PrintPreview, GetCanvas)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_PrintPreview, GetCanvas)
 
 Gura_DeclareMethod(wx_PrintPreview, GetCurrentPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_PrintPreview, GetCurrentPage)
 
 Gura_DeclareMethod(wx_PrintPreview, GetFrame)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_PrintPreview, GetFrame)
 
 Gura_DeclareMethod(wx_PrintPreview, GetMaxPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_PrintPreview, GetMaxPage)
 
 Gura_DeclareMethod(wx_PrintPreview, GetMinPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_PrintPreview, GetMinPage)
 
 Gura_DeclareMethod(wx_PrintPreview, GetPrintout)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_PrintPreview, GetPrintout)
 
 Gura_DeclareMethod(wx_PrintPreview, GetPrintoutForPrinting)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_PrintPreview, GetPrintoutForPrinting)
 
 Gura_DeclareMethod(wx_PrintPreview, Ok)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_PrintPreview, Ok)
 
 Gura_DeclareMethod(wx_PrintPreview, PaintPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "canvas", VTYPE_wx_PreviewCanvas, OCCUR_Once);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_PrintPreview, PaintPage)
 
 Gura_DeclareMethod(wx_PrintPreview, Print)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "prompt", VTYPE_boolean, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_PrintPreview, Print)
 
 Gura_DeclareMethod(wx_PrintPreview, RenderPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pageNum", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_PrintPreview, RenderPage)
 
 Gura_DeclareMethod(wx_PrintPreview, SetCanvas)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_PreviewCanvas, OCCUR_Once);
 }
 
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_PrintPreview, SetCanvas)
 
 Gura_DeclareMethod(wx_PrintPreview, SetCurrentPage)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pageNum", VTYPE_number, OCCUR_Once);
 }
 
@@ -259,7 +259,7 @@ Gura_ImplementMethod(wx_PrintPreview, SetCurrentPage)
 
 Gura_DeclareMethod(wx_PrintPreview, SetFrame)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "frame", VTYPE_wx_Frame, OCCUR_Once);
 }
 
@@ -274,7 +274,7 @@ Gura_ImplementMethod(wx_PrintPreview, SetFrame)
 
 Gura_DeclareMethod(wx_PrintPreview, SetPrintout)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "printout", VTYPE_wx_Printout, OCCUR_Once);
 }
 
@@ -289,7 +289,7 @@ Gura_ImplementMethod(wx_PrintPreview, SetPrintout)
 
 Gura_DeclareMethod(wx_PrintPreview, SetZoom)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "percent", VTYPE_number, OCCUR_Once);
 }
 

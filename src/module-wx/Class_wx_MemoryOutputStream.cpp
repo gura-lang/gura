@@ -38,7 +38,7 @@ void wx_MemoryOutputStream::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(MemoryOutputStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_MemoryOutputStream));
 	DeclareArg(env, "data", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -72,7 +72,7 @@ Gura_ImplementFunction(MemoryOutputStream)
 
 Gura_DeclareMethod(wx_MemoryOutputStream, CopyTo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_MemoryOutputStream, CopyTo)
 
 Gura_DeclareMethod(wx_MemoryOutputStream, GetOutputStreamBuffer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

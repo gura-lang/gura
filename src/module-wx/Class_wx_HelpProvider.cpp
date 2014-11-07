@@ -50,7 +50,7 @@ void wx_HelpProvider::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HelpProvider)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HelpProvider));
 }
 
@@ -62,7 +62,7 @@ Gura_ImplementFunction(HelpProvider)
 
 Gura_DeclareMethod(wx_HelpProvider, AddHelp)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 }
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_HelpProvider, AddHelp)
 
 Gura_DeclareMethod(wx_HelpProvider, AddHelp_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 }
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_HelpProvider, AddHelp_1)
 
 Gura_DeclareClassMethod(wx_HelpProvider, Get)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementClassMethod(wx_HelpProvider, Get)
 
 Gura_DeclareMethod(wx_HelpProvider, GetHelp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_HelpProvider, GetHelp)
 
 Gura_DeclareMethod(wx_HelpProvider, RemoveHelp)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 }
 
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_HelpProvider, RemoveHelp)
 
 Gura_DeclareClassMethod(wx_HelpProvider, Set)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "helpProvider", VTYPE_wx_HelpProvider, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -155,7 +155,7 @@ Gura_ImplementClassMethod(wx_HelpProvider, Set)
 
 Gura_DeclareMethod(wx_HelpProvider, ShowHelpAtPoint)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "point", VTYPE_wx_Point, OCCUR_Once);
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_HelpProvider, ShowHelpAtPoint)
 
 Gura_DeclareMethod(wx_HelpProvider, ShowHelp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

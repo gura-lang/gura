@@ -38,7 +38,7 @@ void wx_ListView::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ListView)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ListView));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -79,7 +79,7 @@ Gura_ImplementFunction(ListView)
 
 Gura_DeclareMethod(wx_ListView, ClearColumnImage)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_ListView, ClearColumnImage)
 
 Gura_DeclareMethod(wx_ListView, Focus)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_ListView, Focus)
 
 Gura_DeclareMethod(wx_ListView, GetFirstSelected)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_ListView, GetFirstSelected)
 
 Gura_DeclareMethod(wx_ListView, GetFocusedItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_ListView, GetFocusedItem)
 
 Gura_DeclareMethod(wx_ListView, GetNextSelected)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_ListView, GetNextSelected)
 
 Gura_DeclareMethod(wx_ListView, IsSelected)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_ListView, IsSelected)
 
 Gura_DeclareMethod(wx_ListView, Select)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "on", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_ListView, Select)
 
 Gura_DeclareMethod(wx_ListView, SetColumnImage)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 }

@@ -43,7 +43,7 @@ void wx_DateTime::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareClassMethod(wx_DateTime, ConvertYearToBC)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "year", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -58,7 +58,7 @@ Gura_ImplementClassMethod(wx_DateTime, ConvertYearToBC)
 
 Gura_DeclareClassMethod(wx_DateTime, GetAmPmStrings)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -75,7 +75,7 @@ Gura_ImplementClassMethod(wx_DateTime, GetAmPmStrings)
 
 Gura_DeclareClassMethod(wx_DateTime, GetBeginDST)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "year", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "country", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -94,7 +94,7 @@ Gura_ImplementClassMethod(wx_DateTime, GetBeginDST)
 
 Gura_DeclareClassMethod(wx_DateTime, GetCountry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementClassMethod(wx_DateTime, GetCountry)
 
 Gura_DeclareClassMethod(wx_DateTime, GetCurrentYear)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "country", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -123,7 +123,7 @@ Gura_ImplementClassMethod(wx_DateTime, GetCurrentYear)
 
 Gura_DeclareClassMethod(wx_DateTime, GetCurrentMonth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "country", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -139,7 +139,7 @@ Gura_ImplementClassMethod(wx_DateTime, GetCurrentMonth)
 
 Gura_DeclareClassMethod(wx_DateTime, GetCentury)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "year", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -154,7 +154,7 @@ Gura_ImplementClassMethod(wx_DateTime, GetCentury)
 
 Gura_DeclareClassMethod(wx_DateTime, GetEndDST)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "year", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "country", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -173,7 +173,7 @@ Gura_ImplementClassMethod(wx_DateTime, GetEndDST)
 
 Gura_DeclareClassMethod(wx_DateTime, GetMonthName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "month", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -191,7 +191,7 @@ Gura_ImplementClassMethod(wx_DateTime, GetMonthName)
 
 Gura_DeclareClassMethod(wx_DateTime, GetNumberOfDaysInYear)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "year", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "cal", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -209,7 +209,7 @@ Gura_ImplementClassMethod(wx_DateTime, GetNumberOfDaysInYear)
 
 Gura_DeclareClassMethod(wx_DateTime, GetNumberOfDaysInMonth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "month", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "year", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "cal", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -230,7 +230,7 @@ Gura_ImplementClassMethod(wx_DateTime, GetNumberOfDaysInMonth)
 
 Gura_DeclareClassMethod(wx_DateTime, GetTimeNow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -245,7 +245,7 @@ Gura_ImplementClassMethod(wx_DateTime, GetTimeNow)
 
 Gura_DeclareClassMethod(wx_DateTime, GetTmNow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -260,7 +260,7 @@ Gura_ImplementClassMethod(wx_DateTime, GetTmNow)
 
 Gura_DeclareClassMethod(wx_DateTime, GetWeekDayName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "weekday", VTYPE_number);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -278,7 +278,7 @@ Gura_ImplementClassMethod(wx_DateTime, GetWeekDayName)
 
 Gura_DeclareClassMethod(wx_DateTime, IsLeapYear)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "year", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -297,7 +297,7 @@ Gura_ImplementClassMethod(wx_DateTime, IsLeapYear)
 
 Gura_DeclareClassMethod(wx_DateTime, IsWestEuropeanCountry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -316,7 +316,7 @@ Gura_ImplementClassMethod(wx_DateTime, IsWestEuropeanCountry)
 
 Gura_DeclareClassMethod(wx_DateTime, IsDSTApplicable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "year", VTYPE_number, OCCUR_ZeroOrOnce);
 #endif
@@ -338,7 +338,7 @@ Gura_ImplementClassMethod(wx_DateTime, IsDSTApplicable)
 
 Gura_DeclareClassMethod(wx_DateTime, Now)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -351,7 +351,7 @@ Gura_ImplementClassMethod(wx_DateTime, Now)
 
 Gura_DeclareClassMethod(wx_DateTime, SetCountry)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 #endif
 }
@@ -369,7 +369,7 @@ Gura_ImplementClassMethod(wx_DateTime, SetCountry)
 
 Gura_DeclareClassMethod(wx_DateTime, Today)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -382,7 +382,7 @@ Gura_ImplementClassMethod(wx_DateTime, Today)
 
 Gura_DeclareClassMethod(wx_DateTime, UNow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -395,7 +395,7 @@ Gura_ImplementClassMethod(wx_DateTime, UNow)
 
 Gura_DeclareFunction(DateTime)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DateTime));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -417,7 +417,7 @@ Gura_ImplementFunction(DateTime)
 
 Gura_DeclareMethod(wx_DateTime, SetToCurrent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -435,7 +435,7 @@ Gura_ImplementMethod(wx_DateTime, SetToCurrent)
 
 Gura_DeclareMethod(wx_DateTime, SetJDN)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "jdn", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -451,7 +451,7 @@ Gura_ImplementMethod(wx_DateTime, SetJDN)
 
 Gura_DeclareMethod(wx_DateTime, SetHMS)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "hour", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "minute", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "second", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -476,7 +476,7 @@ Gura_ImplementMethod(wx_DateTime, SetHMS)
 
 Gura_DeclareMethod(wx_DateTime, Set)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "day", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "month", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "year", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -510,7 +510,7 @@ Gura_ImplementMethod(wx_DateTime, Set)
 
 Gura_DeclareMethod(wx_DateTime, ResetTime)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -528,7 +528,7 @@ Gura_ImplementMethod(wx_DateTime, ResetTime)
 
 Gura_DeclareMethod(wx_DateTime, SetYear)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "year", VTYPE_number, OCCUR_Once);
 #endif
@@ -550,7 +550,7 @@ Gura_ImplementMethod(wx_DateTime, SetYear)
 
 Gura_DeclareMethod(wx_DateTime, SetMonth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -570,7 +570,7 @@ Gura_ImplementMethod(wx_DateTime, SetMonth)
 
 Gura_DeclareMethod(wx_DateTime, SetDay)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "day", VTYPE_wx_DateTime_t, OCCUR_Once);
 #endif
@@ -592,7 +592,7 @@ Gura_ImplementMethod(wx_DateTime, SetDay)
 
 Gura_DeclareMethod(wx_DateTime, SetHour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "hour", VTYPE_wx_DateTime_t, OCCUR_Once);
 #endif
@@ -614,7 +614,7 @@ Gura_ImplementMethod(wx_DateTime, SetHour)
 
 Gura_DeclareMethod(wx_DateTime, SetMinute)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "minute", VTYPE_wx_DateTime_t, OCCUR_Once);
 #endif
@@ -636,7 +636,7 @@ Gura_ImplementMethod(wx_DateTime, SetMinute)
 
 Gura_DeclareMethod(wx_DateTime, SetSecond)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "second", VTYPE_wx_DateTime_t, OCCUR_Once);
 #endif
@@ -658,7 +658,7 @@ Gura_ImplementMethod(wx_DateTime, SetSecond)
 
 Gura_DeclareMethod(wx_DateTime, SetMillisecond)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "millisecond", VTYPE_wx_DateTime_t, OCCUR_Once);
 #endif
@@ -680,7 +680,7 @@ Gura_ImplementMethod(wx_DateTime, SetMillisecond)
 
 Gura_DeclareMethod(wx_DateTime, IsValid)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -694,7 +694,7 @@ Gura_ImplementMethod(wx_DateTime, IsValid)
 
 Gura_DeclareMethod(wx_DateTime, GetDateOnly)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -708,7 +708,7 @@ Gura_ImplementMethod(wx_DateTime, GetDateOnly)
 
 Gura_DeclareMethod(wx_DateTime, GetTm)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -726,7 +726,7 @@ Gura_ImplementMethod(wx_DateTime, GetTm)
 
 Gura_DeclareMethod(wx_DateTime, GetTicks)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -742,7 +742,7 @@ Gura_ImplementMethod(wx_DateTime, GetTicks)
 
 Gura_DeclareMethod(wx_DateTime, GetCentury_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -762,7 +762,7 @@ Gura_ImplementMethod(wx_DateTime, GetCentury_1)
 
 Gura_DeclareMethod(wx_DateTime, GetYear)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "tz", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -779,7 +779,7 @@ Gura_ImplementMethod(wx_DateTime, GetYear)
 
 Gura_DeclareMethod(wx_DateTime, GetMonth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "tz", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -796,7 +796,7 @@ Gura_ImplementMethod(wx_DateTime, GetMonth)
 
 Gura_DeclareMethod(wx_DateTime, GetDay)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "tz", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -813,7 +813,7 @@ Gura_ImplementMethod(wx_DateTime, GetDay)
 
 Gura_DeclareMethod(wx_DateTime, GetWeekDay)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "tz", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -830,7 +830,7 @@ Gura_ImplementMethod(wx_DateTime, GetWeekDay)
 
 Gura_DeclareMethod(wx_DateTime, GetHour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "tz", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -847,7 +847,7 @@ Gura_ImplementMethod(wx_DateTime, GetHour)
 
 Gura_DeclareMethod(wx_DateTime, GetMinute)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "tz", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -864,7 +864,7 @@ Gura_ImplementMethod(wx_DateTime, GetMinute)
 
 Gura_DeclareMethod(wx_DateTime, GetSecond)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "tz", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -881,7 +881,7 @@ Gura_ImplementMethod(wx_DateTime, GetSecond)
 
 Gura_DeclareMethod(wx_DateTime, GetMillisecond)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "tz", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -898,7 +898,7 @@ Gura_ImplementMethod(wx_DateTime, GetMillisecond)
 
 Gura_DeclareMethod(wx_DateTime, GetDayOfYear)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "tz", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -915,7 +915,7 @@ Gura_ImplementMethod(wx_DateTime, GetDayOfYear)
 
 Gura_DeclareMethod(wx_DateTime, GetWeekOfYear)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -935,7 +935,7 @@ Gura_ImplementMethod(wx_DateTime, GetWeekOfYear)
 
 Gura_DeclareMethod(wx_DateTime, GetWeekOfMonth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -955,7 +955,7 @@ Gura_ImplementMethod(wx_DateTime, GetWeekOfMonth)
 
 Gura_DeclareMethod(wx_DateTime, IsWorkDay)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -975,7 +975,7 @@ Gura_ImplementMethod(wx_DateTime, IsWorkDay)
 
 Gura_DeclareMethod(wx_DateTime, IsGregorianDate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -995,7 +995,7 @@ Gura_ImplementMethod(wx_DateTime, IsGregorianDate)
 
 Gura_DeclareMethod(wx_DateTime, Set_5)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "ddt", VTYPE_number, OCCUR_Once);
 #endif
@@ -1017,7 +1017,7 @@ Gura_ImplementMethod(wx_DateTime, Set_5)
 
 Gura_DeclareMethod(wx_DateTime, GetAsDOS)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1035,7 +1035,7 @@ Gura_ImplementMethod(wx_DateTime, GetAsDOS)
 
 Gura_DeclareMethod(wx_DateTime, IsEqualTo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "datetime", VTYPE_wx_DateTime, OCCUR_Once);
 #endif
@@ -1057,7 +1057,7 @@ Gura_ImplementMethod(wx_DateTime, IsEqualTo)
 
 Gura_DeclareMethod(wx_DateTime, IsEarlierThan)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "datetime", VTYPE_wx_DateTime, OCCUR_Once);
 #endif
@@ -1079,7 +1079,7 @@ Gura_ImplementMethod(wx_DateTime, IsEarlierThan)
 
 Gura_DeclareMethod(wx_DateTime, IsLaterThan)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "datetime", VTYPE_wx_DateTime, OCCUR_Once);
 #endif
@@ -1101,7 +1101,7 @@ Gura_ImplementMethod(wx_DateTime, IsLaterThan)
 
 Gura_DeclareMethod(wx_DateTime, IsStrictlyBetween)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "t1", VTYPE_wx_DateTime, OCCUR_Once);
 	DeclareArg(env, "t2", VTYPE_wx_DateTime, OCCUR_Once);
@@ -1125,7 +1125,7 @@ Gura_ImplementMethod(wx_DateTime, IsStrictlyBetween)
 
 Gura_DeclareMethod(wx_DateTime, IsBetween)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "t1", VTYPE_wx_DateTime, OCCUR_Once);
 	DeclareArg(env, "t2", VTYPE_wx_DateTime, OCCUR_Once);
@@ -1149,7 +1149,7 @@ Gura_ImplementMethod(wx_DateTime, IsBetween)
 
 Gura_DeclareMethod(wx_DateTime, IsSameDate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "dt", VTYPE_wx_DateTime, OCCUR_Once);
 #endif
@@ -1171,7 +1171,7 @@ Gura_ImplementMethod(wx_DateTime, IsSameDate)
 
 Gura_DeclareMethod(wx_DateTime, IsSameTime)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "dt", VTYPE_wx_DateTime, OCCUR_Once);
 #endif
@@ -1193,7 +1193,7 @@ Gura_ImplementMethod(wx_DateTime, IsSameTime)
 
 Gura_DeclareMethod(wx_DateTime, IsEqualUpTo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "dt", VTYPE_wx_DateTime, OCCUR_Once);
 	DeclareArg(env, "ts", VTYPE_wx_TimeSpan, OCCUR_Once);
@@ -1217,7 +1217,7 @@ Gura_ImplementMethod(wx_DateTime, IsEqualUpTo)
 
 Gura_DeclareMethod(wx_DateTime, Add)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "diff", VTYPE_wx_TimeSpan, OCCUR_Once);
 #endif
@@ -1239,7 +1239,7 @@ Gura_ImplementMethod(wx_DateTime, Add)
 
 Gura_DeclareMethod(wx_DateTime, Add_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "diff", VTYPE_wx_TimeSpan, OCCUR_Once);
 #endif
@@ -1261,7 +1261,7 @@ Gura_ImplementMethod(wx_DateTime, Add_1)
 
 Gura_DeclareMethod(wx_DateTime, Add_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "diff", VTYPE_wx_DateSpan, OCCUR_Once);
 #endif
@@ -1283,7 +1283,7 @@ Gura_ImplementMethod(wx_DateTime, Add_2)
 
 Gura_DeclareMethod(wx_DateTime, Add_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "diff", VTYPE_wx_DateSpan, OCCUR_Once);
 #endif
@@ -1305,7 +1305,7 @@ Gura_ImplementMethod(wx_DateTime, Add_3)
 
 Gura_DeclareMethod(wx_DateTime, Subtract)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "diff", VTYPE_wx_TimeSpan, OCCUR_Once);
 #endif
@@ -1327,7 +1327,7 @@ Gura_ImplementMethod(wx_DateTime, Subtract)
 
 Gura_DeclareMethod(wx_DateTime, Subtract_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "diff", VTYPE_wx_TimeSpan, OCCUR_Once);
 #endif
@@ -1349,7 +1349,7 @@ Gura_ImplementMethod(wx_DateTime, Subtract_1)
 
 Gura_DeclareMethod(wx_DateTime, Subtract_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "diff", VTYPE_wx_DateSpan, OCCUR_Once);
 #endif
@@ -1371,7 +1371,7 @@ Gura_ImplementMethod(wx_DateTime, Subtract_2)
 
 Gura_DeclareMethod(wx_DateTime, Subtract_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "diff", VTYPE_wx_DateSpan, OCCUR_Once);
 #endif
@@ -1393,7 +1393,7 @@ Gura_ImplementMethod(wx_DateTime, Subtract_3)
 
 Gura_DeclareMethod(wx_DateTime, Subtract_4)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "dt", VTYPE_wx_DateTime, OCCUR_Once);
 #endif
@@ -1415,7 +1415,7 @@ Gura_ImplementMethod(wx_DateTime, Subtract_4)
 
 Gura_DeclareMethod(wx_DateTime, ParseRfc822Date)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "date", VTYPE_string, OCCUR_Once);
 #endif
@@ -1437,7 +1437,7 @@ Gura_ImplementMethod(wx_DateTime, ParseRfc822Date)
 
 Gura_DeclareMethod(wx_DateTime, ParseFormat)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "date", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "format", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -1469,7 +1469,7 @@ Gura_ImplementMethod(wx_DateTime, ParseFormat)
 
 Gura_DeclareMethod(wx_DateTime, ParseDateTime)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "datetime", VTYPE_string, OCCUR_Once);
 #endif
@@ -1491,7 +1491,7 @@ Gura_ImplementMethod(wx_DateTime, ParseDateTime)
 
 Gura_DeclareMethod(wx_DateTime, ParseDate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "date", VTYPE_string, OCCUR_Once);
 #endif
@@ -1513,7 +1513,7 @@ Gura_ImplementMethod(wx_DateTime, ParseDate)
 
 Gura_DeclareMethod(wx_DateTime, ParseTime)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "time", VTYPE_string, OCCUR_Once);
 #endif
@@ -1535,7 +1535,7 @@ Gura_ImplementMethod(wx_DateTime, ParseTime)
 
 Gura_DeclareMethod(wx_DateTime, Format)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "format", VTYPE_string, OCCUR_ZeroOrOnce);
 #endif
@@ -1562,7 +1562,7 @@ Gura_ImplementMethod(wx_DateTime, Format)
 
 Gura_DeclareMethod(wx_DateTime, FormatDate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1580,7 +1580,7 @@ Gura_ImplementMethod(wx_DateTime, FormatDate)
 
 Gura_DeclareMethod(wx_DateTime, FormatTime)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1594,7 +1594,7 @@ Gura_ImplementMethod(wx_DateTime, FormatTime)
 
 Gura_DeclareMethod(wx_DateTime, FormatISODate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1608,7 +1608,7 @@ Gura_ImplementMethod(wx_DateTime, FormatISODate)
 
 Gura_DeclareMethod(wx_DateTime, FormatISOTime)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1622,7 +1622,7 @@ Gura_ImplementMethod(wx_DateTime, FormatISOTime)
 
 Gura_DeclareMethod(wx_DateTime, SetToWeekDayInSameWeek)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1642,7 +1642,7 @@ Gura_ImplementMethod(wx_DateTime, SetToWeekDayInSameWeek)
 
 Gura_DeclareMethod(wx_DateTime, GetWeekDayInSameWeek)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1662,7 +1662,7 @@ Gura_ImplementMethod(wx_DateTime, GetWeekDayInSameWeek)
 
 Gura_DeclareMethod(wx_DateTime, SetToNextWeekDay)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1682,7 +1682,7 @@ Gura_ImplementMethod(wx_DateTime, SetToNextWeekDay)
 
 Gura_DeclareMethod(wx_DateTime, GetNextWeekDay)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1702,7 +1702,7 @@ Gura_ImplementMethod(wx_DateTime, GetNextWeekDay)
 
 Gura_DeclareMethod(wx_DateTime, SetToPrevWeekDay)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1722,7 +1722,7 @@ Gura_ImplementMethod(wx_DateTime, SetToPrevWeekDay)
 
 Gura_DeclareMethod(wx_DateTime, GetPrevWeekDay)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1742,7 +1742,7 @@ Gura_ImplementMethod(wx_DateTime, GetPrevWeekDay)
 
 Gura_DeclareMethod(wx_DateTime, SetToWeekDay)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "year", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1768,7 +1768,7 @@ Gura_ImplementMethod(wx_DateTime, SetToWeekDay)
 
 Gura_DeclareMethod(wx_DateTime, GetWeekDay_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "year", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1794,7 +1794,7 @@ Gura_ImplementMethod(wx_DateTime, GetWeekDay_1)
 
 Gura_DeclareMethod(wx_DateTime, SetToLastWeekDay)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "year", VTYPE_number, OCCUR_ZeroOrOnce);
 #endif
@@ -1817,7 +1817,7 @@ Gura_ImplementMethod(wx_DateTime, SetToLastWeekDay)
 
 Gura_DeclareMethod(wx_DateTime, GetLastWeekDay)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "year", VTYPE_number, OCCUR_ZeroOrOnce);
 #endif
@@ -1840,7 +1840,7 @@ Gura_ImplementMethod(wx_DateTime, GetLastWeekDay)
 
 Gura_DeclareClassMethod(wx_DateTime, SetToWeekOfYear)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "year", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "numWeek", VTYPE_wx_DateTime_t, OCCUR_Once);
@@ -1863,7 +1863,7 @@ Gura_ImplementClassMethod(wx_DateTime, SetToWeekOfYear)
 
 Gura_DeclareMethod(wx_DateTime, SetToLastMonthDay)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "year", VTYPE_number, OCCUR_ZeroOrOnce);
 #endif
@@ -1886,7 +1886,7 @@ Gura_ImplementMethod(wx_DateTime, SetToLastMonthDay)
 
 Gura_DeclareMethod(wx_DateTime, GetLastMonthDay)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "year", VTYPE_number, OCCUR_ZeroOrOnce);
 #endif
@@ -1909,7 +1909,7 @@ Gura_ImplementMethod(wx_DateTime, GetLastMonthDay)
 
 Gura_DeclareMethod(wx_DateTime, SetToYearDay)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "yday", VTYPE_wx_DateTime_t, OCCUR_Once);
 #endif
@@ -1931,7 +1931,7 @@ Gura_ImplementMethod(wx_DateTime, SetToYearDay)
 
 Gura_DeclareMethod(wx_DateTime, GetYearDay)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "yday", VTYPE_wx_DateTime_t, OCCUR_Once);
 #endif
@@ -1953,7 +1953,7 @@ Gura_ImplementMethod(wx_DateTime, GetYearDay)
 
 Gura_DeclareMethod(wx_DateTime, GetJulianDayNumber)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1971,7 +1971,7 @@ Gura_ImplementMethod(wx_DateTime, GetJulianDayNumber)
 
 Gura_DeclareMethod(wx_DateTime, GetJDN)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1989,7 +1989,7 @@ Gura_ImplementMethod(wx_DateTime, GetJDN)
 
 Gura_DeclareMethod(wx_DateTime, GetModifiedJulianDayNumber)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2007,7 +2007,7 @@ Gura_ImplementMethod(wx_DateTime, GetModifiedJulianDayNumber)
 
 Gura_DeclareMethod(wx_DateTime, GetMJD)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2025,7 +2025,7 @@ Gura_ImplementMethod(wx_DateTime, GetMJD)
 
 Gura_DeclareMethod(wx_DateTime, GetRataDie)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2043,7 +2043,7 @@ Gura_ImplementMethod(wx_DateTime, GetRataDie)
 
 Gura_DeclareMethod(wx_DateTime, FromTimezone)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "noDST", VTYPE_boolean, OCCUR_ZeroOrOnce);
 #endif
@@ -2066,7 +2066,7 @@ Gura_ImplementMethod(wx_DateTime, FromTimezone)
 
 Gura_DeclareMethod(wx_DateTime, ToTimezone)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "noDST", VTYPE_boolean, OCCUR_ZeroOrOnce);
 #endif
@@ -2089,7 +2089,7 @@ Gura_ImplementMethod(wx_DateTime, ToTimezone)
 
 Gura_DeclareMethod(wx_DateTime, MakeTimezone)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "noDST", VTYPE_boolean, OCCUR_ZeroOrOnce);
 #endif
@@ -2112,7 +2112,7 @@ Gura_ImplementMethod(wx_DateTime, MakeTimezone)
 
 Gura_DeclareMethod(wx_DateTime, MakeFromTimezone)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "noDST", VTYPE_boolean, OCCUR_ZeroOrOnce);
 #endif
@@ -2135,7 +2135,7 @@ Gura_ImplementMethod(wx_DateTime, MakeFromTimezone)
 
 Gura_DeclareMethod(wx_DateTime, ToUTC)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "noDST", VTYPE_boolean, OCCUR_ZeroOrOnce);
 #endif
@@ -2158,7 +2158,7 @@ Gura_ImplementMethod(wx_DateTime, ToUTC)
 
 Gura_DeclareMethod(wx_DateTime, MakeUTC)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "noDST", VTYPE_boolean, OCCUR_ZeroOrOnce);
 #endif
@@ -2181,7 +2181,7 @@ Gura_ImplementMethod(wx_DateTime, MakeUTC)
 
 Gura_DeclareMethod(wx_DateTime, IsDST)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);

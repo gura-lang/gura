@@ -38,7 +38,7 @@ void wx_PenList::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(PenListEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PenList));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(PenListEmpty)
 
 Gura_DeclareMethod(wx_PenList, FindOrCreatePen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_PenList, FindOrCreatePen)
 
 Gura_DeclareMethod(wx_PenList, FindOrCreatePen_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "colourName", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_Once);

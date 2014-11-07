@@ -38,7 +38,7 @@ void wx_LayoutAlgorithm::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(LayoutAlgorithm)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_LayoutAlgorithm));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(LayoutAlgorithm)
 
 Gura_DeclareMethod(wx_LayoutAlgorithm, LayoutFrame)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "frame", VTYPE_wx_Frame, OCCUR_Once);
 	DeclareArg(env, "mainWindow", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutFrame)
 
 Gura_DeclareMethod(wx_LayoutAlgorithm, LayoutMDIFrame)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "frame", VTYPE_wx_MDIParentFrame, OCCUR_Once);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutMDIFrame)
 
 Gura_DeclareMethod(wx_LayoutAlgorithm, LayoutWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "mainWindow", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);

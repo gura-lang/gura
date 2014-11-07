@@ -39,7 +39,7 @@ void wx_RichTextCtrl::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(RichTextCtrlEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(RichTextCtrlEmpty)
 
 Gura_DeclareFunction(RichTextCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextCtrl));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -106,7 +106,7 @@ Gura_ImplementFunction(RichTextCtrl)
 
 Gura_DeclareMethod(wx_RichTextCtrl, AddImage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "image", VTYPE_wx_Image, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, AddImage)
 
 Gura_DeclareMethod(wx_RichTextCtrl, AddParagraph)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, AddParagraph)
 
 Gura_DeclareMethod(wx_RichTextCtrl, AppendText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 }
 
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, AppendText)
 
 Gura_DeclareMethod(wx_RichTextCtrl, ApplyAlignmentToSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "alignment", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, ApplyAlignmentToSelection)
 
 Gura_DeclareMethod(wx_RichTextCtrl, ApplyBoldToSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, ApplyBoldToSelection)
 
 Gura_DeclareMethod(wx_RichTextCtrl, ApplyItalicToSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, ApplyItalicToSelection)
 
 Gura_DeclareMethod(wx_RichTextCtrl, ApplyStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "def", VTYPE_wx_RichTextStyleDefinition, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, ApplyStyle)
 
 Gura_DeclareMethod(wx_RichTextCtrl, ApplyStyleSheet)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "sheet", VTYPE_wx_RichTextStyleSheet, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, ApplyStyleSheet)
 
 Gura_DeclareMethod(wx_RichTextCtrl, ApplyUnderlineToSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, ApplyUnderlineToSelection)
 
 Gura_DeclareMethod(wx_RichTextCtrl, BatchingUndo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -258,7 +258,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, BatchingUndo)
 
 Gura_DeclareMethod(wx_RichTextCtrl, BeginAlignment)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "alignment", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -274,7 +274,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, BeginAlignment)
 
 Gura_DeclareMethod(wx_RichTextCtrl, BeginBatchUndo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "cmdName", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, BeginBatchUndo)
 
 Gura_DeclareMethod(wx_RichTextCtrl, BeginBold)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -304,7 +304,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, BeginBold)
 
 Gura_DeclareMethod(wx_RichTextCtrl, BeginCharacterStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "characterStyle", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -320,7 +320,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, BeginCharacterStyle)
 
 Gura_DeclareMethod(wx_RichTextCtrl, BeginFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -336,7 +336,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, BeginFont)
 
 Gura_DeclareMethod(wx_RichTextCtrl, BeginFontSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pointSize", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -352,7 +352,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, BeginFontSize)
 
 Gura_DeclareMethod(wx_RichTextCtrl, BeginItalic)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -366,7 +366,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, BeginItalic)
 
 Gura_DeclareMethod(wx_RichTextCtrl, BeginLeftIndent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "leftIndent", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "leftSubIndent", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -385,7 +385,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, BeginLeftIndent)
 
 Gura_DeclareMethod(wx_RichTextCtrl, BeginLineSpacing)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "lineSpacing", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -401,7 +401,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, BeginLineSpacing)
 
 Gura_DeclareMethod(wx_RichTextCtrl, BeginListStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "listStyle", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "level", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "number", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -423,7 +423,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, BeginListStyle)
 
 Gura_DeclareMethod(wx_RichTextCtrl, BeginNumberedBullet)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "bulletNumber", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "leftIndent", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "leftSubIndent", VTYPE_number, OCCUR_Once);
@@ -446,7 +446,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, BeginNumberedBullet)
 
 Gura_DeclareMethod(wx_RichTextCtrl, BeginParagraphSpacing)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "before", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "after", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -464,7 +464,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, BeginParagraphSpacing)
 
 Gura_DeclareMethod(wx_RichTextCtrl, BeginParagraphStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "paragraphStyle", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -480,7 +480,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, BeginParagraphStyle)
 
 Gura_DeclareMethod(wx_RichTextCtrl, BeginRightIndent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "rightIndent", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -496,7 +496,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, BeginRightIndent)
 
 Gura_DeclareMethod(wx_RichTextCtrl, BeginStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "style", VTYPE_any, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -521,7 +521,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, BeginStyle)
 
 Gura_DeclareMethod(wx_RichTextCtrl, BeginSuppressUndo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -535,7 +535,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, BeginSuppressUndo)
 
 Gura_DeclareMethod(wx_RichTextCtrl, BeginSymbolBullet)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "symbol", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "leftIndent", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "leftSubIndent", VTYPE_number, OCCUR_Once);
@@ -562,7 +562,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, BeginSymbolBullet)
 
 Gura_DeclareMethod(wx_RichTextCtrl, BeginTextColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -578,7 +578,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, BeginTextColour)
 
 Gura_DeclareMethod(wx_RichTextCtrl, BeginUnderline)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -592,7 +592,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, BeginUnderline)
 
 Gura_DeclareMethod(wx_RichTextCtrl, BeginURL)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "url", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "characterStyle", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -611,7 +611,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, BeginURL)
 
 Gura_DeclareMethod(wx_RichTextCtrl, CanCopy)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -625,7 +625,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, CanCopy)
 
 Gura_DeclareMethod(wx_RichTextCtrl, CanCut)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -639,7 +639,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, CanCut)
 
 Gura_DeclareMethod(wx_RichTextCtrl, CanDeleteSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -653,7 +653,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, CanDeleteSelection)
 
 Gura_DeclareMethod(wx_RichTextCtrl, CanPaste)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -667,7 +667,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, CanPaste)
 
 Gura_DeclareMethod(wx_RichTextCtrl, CanRedo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -681,7 +681,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, CanRedo)
 
 Gura_DeclareMethod(wx_RichTextCtrl, CanUndo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -695,7 +695,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, CanUndo)
 
 Gura_DeclareMethod(wx_RichTextCtrl, Clear)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCtrl, Clear)
@@ -708,7 +708,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, Clear)
 
 Gura_DeclareMethod(wx_RichTextCtrl, ClearListStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -727,7 +727,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, ClearListStyle)
 
 Gura_DeclareMethod(wx_RichTextCtrl, ClearListStyle_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -746,7 +746,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, ClearListStyle_1)
 
 Gura_DeclareMethod(wx_RichTextCtrl, Command)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_CommandEvent, OCCUR_Once);
 }
 
@@ -761,7 +761,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, Command)
 
 Gura_DeclareMethod(wx_RichTextCtrl, Copy)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCtrl, Copy)
@@ -774,7 +774,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, Copy)
 
 Gura_DeclareMethod(wx_RichTextCtrl, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -811,7 +811,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, Create)
 
 Gura_DeclareMethod(wx_RichTextCtrl, Cut)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCtrl, Cut)
@@ -824,7 +824,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, Cut)
 
 Gura_DeclareMethod(wx_RichTextCtrl, Delete)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -840,7 +840,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, Delete)
 
 Gura_DeclareMethod(wx_RichTextCtrl, DeleteSelectedContent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -856,7 +856,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, DeleteSelectedContent)
 
 Gura_DeclareMethod(wx_RichTextCtrl, DeleteSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCtrl, DeleteSelection)
@@ -869,7 +869,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, DeleteSelection)
 
 Gura_DeclareMethod(wx_RichTextCtrl, DiscardEdits)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCtrl, DiscardEdits)
@@ -882,7 +882,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, DiscardEdits)
 
 Gura_DeclareMethod(wx_RichTextCtrl, DoGetBestSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -900,7 +900,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, DoGetBestSize)
 
 Gura_DeclareMethod(wx_RichTextCtrl, EndAlignment)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -914,7 +914,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, EndAlignment)
 
 Gura_DeclareMethod(wx_RichTextCtrl, EndAllStyles)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -928,7 +928,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, EndAllStyles)
 
 Gura_DeclareMethod(wx_RichTextCtrl, EndBatchUndo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -942,7 +942,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, EndBatchUndo)
 
 Gura_DeclareMethod(wx_RichTextCtrl, EndBold)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -956,7 +956,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, EndBold)
 
 Gura_DeclareMethod(wx_RichTextCtrl, EndCharacterStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -970,7 +970,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, EndCharacterStyle)
 
 Gura_DeclareMethod(wx_RichTextCtrl, EndFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -984,7 +984,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, EndFont)
 
 Gura_DeclareMethod(wx_RichTextCtrl, EndFontSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -998,7 +998,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, EndFontSize)
 
 Gura_DeclareMethod(wx_RichTextCtrl, EndItalic)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1012,7 +1012,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, EndItalic)
 
 Gura_DeclareMethod(wx_RichTextCtrl, EndLeftIndent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1026,7 +1026,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, EndLeftIndent)
 
 Gura_DeclareMethod(wx_RichTextCtrl, EndLineSpacing)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1040,7 +1040,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, EndLineSpacing)
 
 Gura_DeclareMethod(wx_RichTextCtrl, EndListStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1054,7 +1054,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, EndListStyle)
 
 Gura_DeclareMethod(wx_RichTextCtrl, EndNumberedBullet)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1068,7 +1068,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, EndNumberedBullet)
 
 Gura_DeclareMethod(wx_RichTextCtrl, EndParagraphSpacing)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1082,7 +1082,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, EndParagraphSpacing)
 
 Gura_DeclareMethod(wx_RichTextCtrl, EndParagraphStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1096,7 +1096,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, EndParagraphStyle)
 
 Gura_DeclareMethod(wx_RichTextCtrl, EndRightIndent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1110,7 +1110,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, EndRightIndent)
 
 Gura_DeclareMethod(wx_RichTextCtrl, EndStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1124,7 +1124,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, EndStyle)
 
 Gura_DeclareMethod(wx_RichTextCtrl, EndSuppressUndo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1138,7 +1138,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, EndSuppressUndo)
 
 Gura_DeclareMethod(wx_RichTextCtrl, EndSymbolBullet)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1152,7 +1152,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, EndSymbolBullet)
 
 Gura_DeclareMethod(wx_RichTextCtrl, EndTextColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1166,7 +1166,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, EndTextColour)
 
 Gura_DeclareMethod(wx_RichTextCtrl, EndUnderline)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1180,7 +1180,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, EndUnderline)
 
 Gura_DeclareMethod(wx_RichTextCtrl, EndURL)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1194,7 +1194,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, EndURL)
 
 Gura_DeclareMethod(wx_RichTextCtrl, ExtendSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "oldPosition", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "newPosition", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -1214,7 +1214,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, ExtendSelection)
 
 Gura_DeclareMethod(wx_RichTextCtrl, FindNextWordPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "direction", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1231,7 +1231,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, FindNextWordPosition)
 
 Gura_DeclareMethod(wx_RichTextCtrl, Freeze)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCtrl, Freeze)
@@ -1244,7 +1244,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, Freeze)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetBasicStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1258,7 +1258,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetBasicStyle)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetBuffer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1272,7 +1272,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetBuffer)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetBuffer_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1286,7 +1286,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetBuffer_1)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetCaretPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1300,7 +1300,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetCaretPosition)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetCaretPositionForIndex)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1318,7 +1318,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetCaretPositionForIndex)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetCommandProcessor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1332,7 +1332,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetCommandProcessor)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetDefaultStyleEx)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1346,7 +1346,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetDefaultStyleEx)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetDelayedLayoutThreshold)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1360,7 +1360,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetDelayedLayoutThreshold)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetFilename)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1374,7 +1374,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetFilename)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetFirstVisiblePosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1388,7 +1388,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetFirstVisiblePosition)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetHandlerFlags)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1402,7 +1402,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetHandlerFlags)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetInsertionPoint)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1416,7 +1416,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetInsertionPoint)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetLastPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1430,7 +1430,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetLastPosition)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetLineLength)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "lineNo", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1446,7 +1446,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetLineLength)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetLineText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "lineNo", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1462,7 +1462,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetLineText)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetLogicalPoint)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "ptPhysical", VTYPE_wx_Point, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1478,7 +1478,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetLogicalPoint)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetNumberOfLines)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1492,7 +1492,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetNumberOfLines)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetPhysicalPoint)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "ptLogical", VTYPE_wx_Point, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1508,7 +1508,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetPhysicalPoint)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetRange)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1526,7 +1526,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetRange)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1542,7 +1542,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetSelection)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetSelectionRange)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1556,7 +1556,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetSelectionRange)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetStringSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1570,7 +1570,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetStringSelection)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_any, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1600,7 +1600,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetStyle)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetStyleForRange)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_any, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1627,7 +1627,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetStyleForRange)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetStyleSheet)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1641,7 +1641,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetStyleSheet)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetUncombinedStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_wx_RichTextAttr, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1673,7 +1673,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetUncombinedStyle)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1687,7 +1687,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetValue)
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetVisibleLineForCaretPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "caretPosition", VTYPE_number, OCCUR_Once);
 #endif
@@ -1709,7 +1709,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetVisibleLineForCaretPosition)
 
 Gura_DeclareMethod(wx_RichTextCtrl, HasCharacterAttributes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_wx_TextAttrEx, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1727,7 +1727,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, HasCharacterAttributes)
 
 Gura_DeclareMethod(wx_RichTextCtrl, HasCharacterAttributes_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_wx_RichTextAttr, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1745,7 +1745,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, HasCharacterAttributes_1)
 
 Gura_DeclareMethod(wx_RichTextCtrl, HasParagraphAttributes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_wx_TextAttrEx, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1763,7 +1763,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, HasParagraphAttributes)
 
 Gura_DeclareMethod(wx_RichTextCtrl, HasParagraphAttributes_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_wx_RichTextAttr, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1781,7 +1781,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, HasParagraphAttributes_1)
 
 Gura_DeclareMethod(wx_RichTextCtrl, HasSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1795,7 +1795,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, HasSelection)
 
 Gura_DeclareMethod(wx_RichTextCtrl, HitTest)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1812,7 +1812,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, HitTest)
 
 Gura_DeclareMethod(wx_RichTextCtrl, HitTestXY)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1830,7 +1830,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, HitTestXY)
 
 Gura_DeclareMethod(wx_RichTextCtrl, Init)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCtrl, Init)
@@ -1843,7 +1843,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, Init)
 
 Gura_DeclareMethod(wx_RichTextCtrl, InitCommandEvent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "event", VTYPE_wx_CommandEvent, OCCUR_Once);
 #endif
@@ -1864,7 +1864,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, InitCommandEvent)
 
 Gura_DeclareMethod(wx_RichTextCtrl, IsDefaultStyleShowing)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1878,7 +1878,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, IsDefaultStyleShowing)
 
 Gura_DeclareMethod(wx_RichTextCtrl, IsEditable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1892,7 +1892,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, IsEditable)
 
 Gura_DeclareMethod(wx_RichTextCtrl, IsFrozen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1906,7 +1906,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, IsFrozen)
 
 Gura_DeclareMethod(wx_RichTextCtrl, IsModified)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1920,7 +1920,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, IsModified)
 
 Gura_DeclareMethod(wx_RichTextCtrl, IsMultiLine)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1934,7 +1934,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, IsMultiLine)
 
 Gura_DeclareMethod(wx_RichTextCtrl, IsPositionVisible)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1950,7 +1950,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, IsPositionVisible)
 
 Gura_DeclareMethod(wx_RichTextCtrl, IsSelectionAligned)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "alignment", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1966,7 +1966,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, IsSelectionAligned)
 
 Gura_DeclareMethod(wx_RichTextCtrl, IsSelectionBold)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1980,7 +1980,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, IsSelectionBold)
 
 Gura_DeclareMethod(wx_RichTextCtrl, IsSelectionItalics)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1994,7 +1994,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, IsSelectionItalics)
 
 Gura_DeclareMethod(wx_RichTextCtrl, IsSelectionUnderlined)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2008,7 +2008,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, IsSelectionUnderlined)
 
 Gura_DeclareMethod(wx_RichTextCtrl, IsSingleLine)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2022,7 +2022,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, IsSingleLine)
 
 Gura_DeclareMethod(wx_RichTextCtrl, KeyboardNavigate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "keyCode", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2040,7 +2040,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, KeyboardNavigate)
 
 Gura_DeclareMethod(wx_RichTextCtrl, LayoutContent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "onlyVisibleRect", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2057,7 +2057,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, LayoutContent)
 
 Gura_DeclareMethod(wx_RichTextCtrl, LineBreak)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2071,7 +2071,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, LineBreak)
 
 Gura_DeclareMethod(wx_RichTextCtrl, LoadFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "file", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2090,7 +2090,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, LoadFile)
 
 Gura_DeclareMethod(wx_RichTextCtrl, MarkDirty)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCtrl, MarkDirty)
@@ -2103,7 +2103,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, MarkDirty)
 
 Gura_DeclareMethod(wx_RichTextCtrl, MoveCaret)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "showAtLineStart", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2122,7 +2122,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, MoveCaret)
 
 Gura_DeclareMethod(wx_RichTextCtrl, MoveCaretBack)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "oldPosition", VTYPE_number, OCCUR_Once);
 }
 
@@ -2137,7 +2137,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, MoveCaretBack)
 
 Gura_DeclareMethod(wx_RichTextCtrl, MoveCaretForward)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "oldPosition", VTYPE_number, OCCUR_Once);
 }
 
@@ -2152,7 +2152,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, MoveCaretForward)
 
 Gura_DeclareMethod(wx_RichTextCtrl, MoveDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "noLines", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2172,7 +2172,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, MoveDown)
 
 Gura_DeclareMethod(wx_RichTextCtrl, MoveEnd)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2189,7 +2189,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, MoveEnd)
 
 Gura_DeclareMethod(wx_RichTextCtrl, MoveHome)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2206,7 +2206,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, MoveHome)
 
 Gura_DeclareMethod(wx_RichTextCtrl, MoveLeft)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "noPositions", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2226,7 +2226,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, MoveLeft)
 
 Gura_DeclareMethod(wx_RichTextCtrl, MoveRight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "noPositions", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2246,7 +2246,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, MoveRight)
 
 Gura_DeclareMethod(wx_RichTextCtrl, MoveToLineEnd)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2263,7 +2263,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, MoveToLineEnd)
 
 Gura_DeclareMethod(wx_RichTextCtrl, MoveToLineStart)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2280,7 +2280,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, MoveToLineStart)
 
 Gura_DeclareMethod(wx_RichTextCtrl, MoveToParagraphEnd)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2297,7 +2297,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, MoveToParagraphEnd)
 
 Gura_DeclareMethod(wx_RichTextCtrl, MoveToParagraphStart)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2314,7 +2314,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, MoveToParagraphStart)
 
 Gura_DeclareMethod(wx_RichTextCtrl, MoveUp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "noLines", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2334,7 +2334,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, MoveUp)
 
 Gura_DeclareMethod(wx_RichTextCtrl, Newline)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2348,7 +2348,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, Newline)
 
 Gura_DeclareMethod(wx_RichTextCtrl, NumberList)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_any, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -2387,7 +2387,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, NumberList)
 
 Gura_DeclareMethod(wx_RichTextCtrl, OnClear)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_CommandEvent, OCCUR_Once);
 }
 
@@ -2402,7 +2402,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, OnClear)
 
 Gura_DeclareMethod(wx_RichTextCtrl, OnContextMenu)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_ContextMenuEvent, OCCUR_Once);
 }
 
@@ -2417,7 +2417,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, OnContextMenu)
 
 Gura_DeclareMethod(wx_RichTextCtrl, OnCopy)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_CommandEvent, OCCUR_Once);
 }
 
@@ -2432,7 +2432,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, OnCopy)
 
 Gura_DeclareMethod(wx_RichTextCtrl, OnCut)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_CommandEvent, OCCUR_Once);
 }
 
@@ -2447,7 +2447,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, OnCut)
 
 Gura_DeclareMethod(wx_RichTextCtrl, OnDropFiles)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_DropFilesEvent, OCCUR_Once);
 }
 
@@ -2462,7 +2462,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, OnDropFiles)
 
 Gura_DeclareMethod(wx_RichTextCtrl, OnPaste)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_CommandEvent, OCCUR_Once);
 }
 
@@ -2477,7 +2477,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, OnPaste)
 
 Gura_DeclareMethod(wx_RichTextCtrl, OnRedo)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_CommandEvent, OCCUR_Once);
 }
 
@@ -2492,7 +2492,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, OnRedo)
 
 Gura_DeclareMethod(wx_RichTextCtrl, OnSelectAll)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_CommandEvent, OCCUR_Once);
 }
 
@@ -2507,7 +2507,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, OnSelectAll)
 
 Gura_DeclareMethod(wx_RichTextCtrl, OnUndo)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_CommandEvent, OCCUR_Once);
 }
 
@@ -2522,7 +2522,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, OnUndo)
 
 Gura_DeclareMethod(wx_RichTextCtrl, OnUpdateClear)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_UpdateUIEvent, OCCUR_Once);
 }
 
@@ -2537,7 +2537,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, OnUpdateClear)
 
 Gura_DeclareMethod(wx_RichTextCtrl, OnUpdateCopy)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_UpdateUIEvent, OCCUR_Once);
 }
 
@@ -2552,7 +2552,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, OnUpdateCopy)
 
 Gura_DeclareMethod(wx_RichTextCtrl, OnUpdateCut)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_UpdateUIEvent, OCCUR_Once);
 }
 
@@ -2567,7 +2567,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, OnUpdateCut)
 
 Gura_DeclareMethod(wx_RichTextCtrl, OnUpdatePaste)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_UpdateUIEvent, OCCUR_Once);
 }
 
@@ -2582,7 +2582,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, OnUpdatePaste)
 
 Gura_DeclareMethod(wx_RichTextCtrl, OnUpdateRedo)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_UpdateUIEvent, OCCUR_Once);
 }
 
@@ -2597,7 +2597,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, OnUpdateRedo)
 
 Gura_DeclareMethod(wx_RichTextCtrl, OnUpdateSelectAll)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_UpdateUIEvent, OCCUR_Once);
 }
 
@@ -2612,7 +2612,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, OnUpdateSelectAll)
 
 Gura_DeclareMethod(wx_RichTextCtrl, OnUpdateUndo)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_UpdateUIEvent, OCCUR_Once);
 }
 
@@ -2627,7 +2627,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, OnUpdateUndo)
 
 Gura_DeclareMethod(wx_RichTextCtrl, PageDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "noPages", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2647,7 +2647,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, PageDown)
 
 Gura_DeclareMethod(wx_RichTextCtrl, PageUp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "noPages", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2667,7 +2667,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, PageUp)
 
 Gura_DeclareMethod(wx_RichTextCtrl, PaintBackground)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 }
 
@@ -2682,7 +2682,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, PaintBackground)
 
 Gura_DeclareMethod(wx_RichTextCtrl, Paste)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCtrl, Paste)
@@ -2695,7 +2695,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, Paste)
 
 Gura_DeclareMethod(wx_RichTextCtrl, PositionCaret)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCtrl, PositionCaret)
@@ -2708,7 +2708,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, PositionCaret)
 
 Gura_DeclareMethod(wx_RichTextCtrl, PositionToXY)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2726,7 +2726,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, PositionToXY)
 
 Gura_DeclareMethod(wx_RichTextCtrl, PromoteList)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "promoteBy", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_wx_RichTextListStyleDefinition, OCCUR_Once);
@@ -2752,7 +2752,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, PromoteList)
 
 Gura_DeclareMethod(wx_RichTextCtrl, PromoteList_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "promoteBy", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 	DeclareArg(env, "styleName", VTYPE_string, OCCUR_Once);
@@ -2778,7 +2778,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, PromoteList_1)
 
 Gura_DeclareMethod(wx_RichTextCtrl, Redo)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCtrl, Redo)
@@ -2791,7 +2791,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, Redo)
 
 Gura_DeclareMethod(wx_RichTextCtrl, Remove)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
 }
@@ -2808,7 +2808,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, Remove)
 
 Gura_DeclareMethod(wx_RichTextCtrl, Replace)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
@@ -2827,7 +2827,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, Replace)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SaveFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "file", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2847,7 +2847,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SaveFile)
 
 Gura_DeclareMethod(wx_RichTextCtrl, ScrollIntoView)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "keyCode", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2865,7 +2865,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, ScrollIntoView)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SelectAll)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCtrl, SelectAll)
@@ -2878,7 +2878,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SelectAll)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SelectNone)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCtrl, SelectNone)
@@ -2891,7 +2891,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SelectNone)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetAndShowDefaultStyle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "attr", VTYPE_wx_RichTextAttr, OCCUR_Once);
 }
 
@@ -2906,7 +2906,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetAndShowDefaultStyle)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetBasicStyle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "style", VTYPE_wx_RichTextAttr, OCCUR_Once);
 }
 
@@ -2921,7 +2921,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetBasicStyle)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetBasicStyle_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "style", VTYPE_wx_TextAttrEx, OCCUR_Once);
 }
 
@@ -2936,7 +2936,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetBasicStyle_1)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetCaretPosition)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "showAtLineStart", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
@@ -2954,7 +2954,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetCaretPosition)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetDefaultStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "style", VTYPE_any, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2979,7 +2979,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetDefaultStyle)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetDefaultStyleToCursorStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2993,7 +2993,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetDefaultStyleToCursorStyle)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetDelayedLayoutThreshold)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "threshold", VTYPE_number, OCCUR_Once);
 }
 
@@ -3008,7 +3008,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetDelayedLayoutThreshold)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetEditable)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "editable", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -3023,7 +3023,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetEditable)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetFilename)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 }
 
@@ -3038,7 +3038,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetFilename)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -3054,7 +3054,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetFont)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetHandlerFlags)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
@@ -3069,7 +3069,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetHandlerFlags)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetInsertionPoint)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -3084,7 +3084,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetInsertionPoint)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetInsertionPointEnd)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCtrl, SetInsertionPointEnd)
@@ -3097,7 +3097,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetInsertionPointEnd)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetListStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_wx_RichTextListStyleDefinition, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_any, OCCUR_Once);
@@ -3134,7 +3134,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetListStyle)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
 }
@@ -3151,7 +3151,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetSelection)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetSelectionRange)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 }
 
@@ -3166,7 +3166,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetSelectionRange)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_any, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3196,7 +3196,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetStyle)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetStyle_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "start", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "end", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_wx_TextAttrEx, OCCUR_Once);
@@ -3216,7 +3216,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetStyle_1)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetStyle_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "start", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "end", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_wx_TextAttr, OCCUR_Once);
@@ -3236,7 +3236,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetStyle_2)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetStyleEx)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_wx_RichTextAttr, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -3257,7 +3257,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetStyleEx)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetStyleEx_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_wx_TextAttrEx, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -3279,7 +3279,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetStyleEx_1)
 #if 0
 Gura_DeclareMethod(wx_RichTextCtrl, SetStyleEx_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "start", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "end", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_wx_TextAttrEx, OCCUR_Once);
@@ -3303,7 +3303,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetStyleEx_2)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetStyleSheet)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "styleSheet", VTYPE_wx_RichTextStyleSheet, OCCUR_Once);
 }
 
@@ -3318,7 +3318,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetStyleSheet)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
 }
 
@@ -3333,7 +3333,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetValue)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetupScrollbars)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "atTop", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -3349,7 +3349,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetupScrollbars)
 
 Gura_DeclareMethod(wx_RichTextCtrl, ShowPosition)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -3364,7 +3364,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, ShowPosition)
 
 Gura_DeclareMethod(wx_RichTextCtrl, SuppressingUndo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -3378,7 +3378,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SuppressingUndo)
 
 Gura_DeclareMethod(wx_RichTextCtrl, Thaw)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCtrl, Thaw)
@@ -3391,7 +3391,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, Thaw)
 
 Gura_DeclareMethod(wx_RichTextCtrl, Undo)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCtrl, Undo)
@@ -3404,7 +3404,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, Undo)
 
 Gura_DeclareMethod(wx_RichTextCtrl, WordLeft)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "noWords", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3424,7 +3424,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, WordLeft)
 
 Gura_DeclareMethod(wx_RichTextCtrl, WordRight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "noWords", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3444,7 +3444,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, WordRight)
 
 Gura_DeclareMethod(wx_RichTextCtrl, WriteImageFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "bitmapType", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3462,7 +3462,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, WriteImageFile)
 
 Gura_DeclareMethod(wx_RichTextCtrl, WriteImageBlock)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "imageBlock", VTYPE_wx_RichTextImageBlock, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -3478,7 +3478,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, WriteImageBlock)
 
 Gura_DeclareMethod(wx_RichTextCtrl, WriteBitmap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "bitmapType", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3497,7 +3497,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, WriteBitmap)
 
 Gura_DeclareMethod(wx_RichTextCtrl, WriteImage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "image", VTYPE_wx_Image, OCCUR_Once);
 	DeclareArg(env, "bitmapType", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3516,7 +3516,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, WriteImage)
 
 Gura_DeclareMethod(wx_RichTextCtrl, WriteText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 }
 
@@ -3531,7 +3531,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, WriteText)
 
 Gura_DeclareMethod(wx_RichTextCtrl, XYToPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);

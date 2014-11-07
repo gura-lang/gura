@@ -38,7 +38,7 @@ void wx_VariantData::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(VariantDataEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_VariantData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(VariantDataEmpty)
 
 Gura_DeclareMethod(wx_VariantData, DecRef)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VariantData, DecRef)
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_VariantData, DecRef)
 
 Gura_DeclareMethod(wx_VariantData, Eq)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "data", VTYPE_wx_VariantData, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_VariantData, Eq)
 
 Gura_DeclareMethod(wx_VariantData, GetType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_VariantData, GetType)
 
 Gura_DeclareMethod(wx_VariantData, GetValueClassInfo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_VariantData, GetValueClassInfo)
 
 Gura_DeclareMethod(wx_VariantData, IncRef)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VariantData, IncRef)
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_VariantData, IncRef)
 
 Gura_DeclareMethod(wx_VariantData, Read)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once);
 #endif
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_VariantData, Read)
 
 Gura_DeclareMethod(wx_VariantData, Read_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "string", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_VariantData, Read_1)
 
 Gura_DeclareMethod(wx_VariantData, Write)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once);
 #endif
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_VariantData, Write)
 
 Gura_DeclareMethod(wx_VariantData, Write_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "string", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_VariantData, Write_1)
 
 Gura_DeclareMethod(wx_VariantData, wxGetVariantCast)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

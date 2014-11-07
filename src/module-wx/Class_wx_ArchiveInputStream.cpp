@@ -37,7 +37,7 @@ void wx_ArchiveInputStream::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_ArchiveInputStream, CloseEntry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -51,7 +51,7 @@ Gura_ImplementMethod(wx_ArchiveInputStream, CloseEntry)
 
 Gura_DeclareMethod(wx_ArchiveInputStream, GetNextEntry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_ArchiveInputStream, GetNextEntry)
 
 Gura_DeclareMethod(wx_ArchiveInputStream, OpenEntry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "entry", VTYPE_wx_ArchiveEntry, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

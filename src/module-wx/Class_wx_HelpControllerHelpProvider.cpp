@@ -38,7 +38,7 @@ void wx_HelpControllerHelpProvider::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HelpControllerHelpProvider)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_HelpControllerHelpProvider));
 	DeclareArg(env, "hc", VTYPE_wx_HelpControllerBase, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(HelpControllerHelpProvider)
 
 Gura_DeclareMethod(wx_HelpControllerHelpProvider, SetHelpController)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "hc", VTYPE_wx_HelpControllerBase, OCCUR_Once);
 }
 
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_HelpControllerHelpProvider, SetHelpController)
 
 Gura_DeclareMethod(wx_HelpControllerHelpProvider, GetHelpController)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

@@ -67,7 +67,7 @@ Value Object_CharMap::DoSetProp(Environment &env, Signal sig, const Symbol *pSym
 // freetype.CharMap#Get_Index()
 Gura_DeclareMethod(CharMap, Get_Index)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(CharMap, Get_Index)

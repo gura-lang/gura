@@ -37,7 +37,7 @@ void wx_Control::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_Control, Command)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_CommandEvent, OCCUR_Once);
 }
 
@@ -52,7 +52,7 @@ Gura_ImplementMethod(wx_Control, Command)
 
 Gura_DeclareMethod(wx_Control, GetLabel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_Control, GetLabel)
 
 Gura_DeclareMethod(wx_Control, GetLabelText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_Control, GetLabelText)
 
 Gura_DeclareClassMethod(wx_Control, GetLabelText_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -95,7 +95,7 @@ Gura_ImplementClassMethod(wx_Control, GetLabelText_1)
 
 Gura_DeclareMethod(wx_Control, SetLabel)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
 }
 

@@ -39,7 +39,7 @@ void wx_Button::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ButtonEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Button));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(ButtonEmpty)
 
 Gura_DeclareFunction(Button)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Button));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -123,7 +123,7 @@ Gura_ImplementFunction(Button)
 
 Gura_DeclareMethod(wx_Button, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_Button, Create)
 
 Gura_DeclareMethod(wx_Button, GetLabel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Returns the string label for the button.\n"
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_Button, GetLabel)
 
 Gura_DeclareMethod(wx_Button, GetDefaultSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Returns the default size for the buttons.\n"
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_Button, GetDefaultSize)
 
 Gura_DeclareMethod(wx_Button, SetDefault)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Button, SetDefault)
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_Button, SetDefault)
 
 Gura_DeclareMethod(wx_Button, SetLabel)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Sets the string label for the button.\n"

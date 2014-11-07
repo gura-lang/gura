@@ -42,7 +42,7 @@ void wx_ScrollBar::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ScrollBarEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ScrollBar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -64,7 +64,7 @@ Gura_ImplementFunction(ScrollBarEmpty)
 
 Gura_DeclareFunction(ScrollBar)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ScrollBar));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -105,7 +105,7 @@ Gura_ImplementFunction(ScrollBar)
 
 Gura_DeclareMethod(wx_ScrollBar, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_ScrollBar, Create)
 
 Gura_DeclareMethod(wx_ScrollBar, GetRange)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_ScrollBar, GetRange)
 
 Gura_DeclareMethod(wx_ScrollBar, GetPageSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_ScrollBar, GetPageSize)
 
 Gura_DeclareMethod(wx_ScrollBar, GetThumbPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_ScrollBar, GetThumbPosition)
 
 Gura_DeclareMethod(wx_ScrollBar, GetThumbSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_ScrollBar, GetThumbSize)
 
 Gura_DeclareMethod(wx_ScrollBar, SetObjectLength)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "objectLength", VTYPE_number, OCCUR_Once);
 #endif
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_ScrollBar, SetObjectLength)
 
 Gura_DeclareMethod(wx_ScrollBar, SetPageSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pageSize", VTYPE_number, OCCUR_Once);
 }
 
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_ScrollBar, SetPageSize)
 
 Gura_DeclareMethod(wx_ScrollBar, SetThumbPosition)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "viewStart", VTYPE_number, OCCUR_Once);
 }
 
@@ -245,7 +245,7 @@ Gura_ImplementMethod(wx_ScrollBar, SetThumbPosition)
 
 Gura_DeclareMethod(wx_ScrollBar, SetScrollbar)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "thumbSize", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_ScrollBar, SetScrollbar)
 
 Gura_DeclareMethod(wx_ScrollBar, SetViewLength)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "viewLength", VTYPE_number, OCCUR_Once);
 #endif

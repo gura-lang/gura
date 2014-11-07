@@ -99,7 +99,7 @@ String Object_image::ToString(bool exprFlag)
 // image(args+):map {block?}
 Gura_DeclareFunction(image)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "args", VTYPE_any, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_image));
@@ -182,7 +182,7 @@ Gura_ImplementFunction(image)
 // image#allocbuff(width:number, height:number, color?:color):reduce
 Gura_DeclareMethod(image, allocbuff)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "width", VTYPE_number);
 	DeclareArg(env, "height", VTYPE_number);
 	DeclareArg(env, "color", VTYPE_color, OCCUR_ZeroOrOnce);
@@ -200,7 +200,7 @@ Gura_ImplementMethod(image, allocbuff)
 // image#blur(radius:number, sigma:number) {block?}
 Gura_DeclareMethod(image, blur)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "radius", VTYPE_number);
 	DeclareArg(env, "sigma", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -219,7 +219,7 @@ Gura_ImplementMethod(image, blur)
 // image#clear():reduce
 Gura_DeclareMethod(image, clear)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 }
 
 Gura_ImplementMethod(image, clear)
@@ -233,7 +233,7 @@ Gura_ImplementMethod(image, clear)
 // image#crop(x:number, y:number, width?:number, height?:number):map {block?}
 Gura_DeclareMethod(image, crop)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -259,7 +259,7 @@ Gura_ImplementMethod(image, crop)
 // image#delpalette():reduce
 Gura_DeclareMethod(image, delpalette)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 }
 
 Gura_ImplementMethod(image, delpalette)
@@ -272,7 +272,7 @@ Gura_ImplementMethod(image, delpalette)
 // image#extract(x:number, y:number, width:number, height:number, element:symbol, dst):reduce
 Gura_DeclareMethod(image, extract)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number);
@@ -306,7 +306,7 @@ Gura_ImplementMethod(image, extract)
 // image#fill(color:color):reduce
 Gura_DeclareMethod(image, fill)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "color", VTYPE_color);
 }
 
@@ -321,7 +321,7 @@ Gura_ImplementMethod(image, fill)
 // image#fillrect(x:number, y:number, width:number, height:number, color:color):map:reduce
 Gura_DeclareMethod(image, fillrect)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number);
@@ -343,7 +343,7 @@ Gura_ImplementMethod(image, fillrect)
 // image#flip(orient:symbol):map {block?}
 Gura_DeclareMethod(image, flip)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "orient", VTYPE_symbol);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -372,7 +372,7 @@ Gura_ImplementMethod(image, flip)
 // image#getpixel(x:number, y:number):map {block?}
 Gura_DeclareMethod(image, getpixel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -393,7 +393,7 @@ Gura_ImplementMethod(image, getpixel)
 // image#grayscale() {block?}
 Gura_DeclareMethod(image, grayscale)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -408,7 +408,7 @@ Gura_ImplementMethod(image, grayscale)
 // image#mapcolorlevel(map_r[]:number, map_g?[]:number, map_b?[]:number) {block?}
 Gura_DeclareMethod(image, mapcolorlevel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "map_r", VTYPE_number, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "map_g", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_List);
 	DeclareArg(env, "map_b", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_List);
@@ -469,7 +469,7 @@ Gura_ImplementMethod(image, mapcolorlevel)
 //     xoffset:number => 0, yoffset:number => 0, a:number => 255):map:reduce
 Gura_DeclareMethod(image, paste)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "src", VTYPE_image);
@@ -511,7 +511,7 @@ Gura_ImplementMethod(image, paste)
 // image#putpixel(x:number, y:number, color:color):map:reduce
 Gura_DeclareMethod(image, putpixel)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "color", VTYPE_color);
@@ -531,7 +531,7 @@ Gura_ImplementMethod(image, putpixel)
 // image#read(stream:stream:r, imagetype?:string):map:reduce
 Gura_DeclareMethod(image, read)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareArg(env, "imagetype", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Reads image data from a stream.");
@@ -548,7 +548,7 @@ Gura_ImplementMethod(image, read)
 // image#reducecolor(palette?:palette) {block?}
 Gura_DeclareMethod(image, reducecolor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "palette", VTYPE_palette, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -571,7 +571,7 @@ Gura_ImplementMethod(image, reducecolor)
 // image#replacecolor(colorOrg:color, color:color, tolerance?:number):reduce
 Gura_DeclareMethod(image, replacecolor)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "colorOrg", VTYPE_color);
 	DeclareArg(env, "color", VTYPE_color);
 	DeclareArg(env, "tolerance", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -590,7 +590,7 @@ Gura_ImplementMethod(image, replacecolor)
 // image#resize(width?:number, height?:number):map:[box,ratio] {block?}
 Gura_DeclareMethod(image, resize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(box));
@@ -648,7 +648,7 @@ Gura_ImplementMethod(image, resize)
 // image#rotate(angle:number, background?:color):map {block?}
 Gura_DeclareMethod(image, rotate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "rotate", VTYPE_number);
 	DeclareArg(env, "background", VTYPE_color, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -670,7 +670,7 @@ Gura_ImplementMethod(image, rotate)
 // image#scan(x?:number, y?:number, width?:number, height?:number, scandir?:symbol) {block?}
 Gura_DeclareMethod(image, scan)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -704,7 +704,7 @@ Gura_ImplementMethod(image, scan)
 // image#setalpha(a:number, color?:color, tolerance?:number):reduce
 Gura_DeclareMethod(image, setalpha)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "a", VTYPE_number);
 	DeclareArg(env, "color", VTYPE_color, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "tolerance", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -731,7 +731,7 @@ Gura_ImplementMethod(image, setalpha)
 // image#size()
 Gura_DeclareMethod(image, size)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(image, size)
@@ -747,7 +747,7 @@ Gura_ImplementMethod(image, size)
 // image#store(x:number, y:number, width:number, height:number, element:symbol, src):reduce
 Gura_DeclareMethod(image, store)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number);
@@ -781,7 +781,7 @@ Gura_ImplementMethod(image, store)
 // image#thumbnail(width?:number, height?:number):map:[box] {block?}
 Gura_DeclareMethod(image, thumbnail)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(box));
@@ -852,7 +852,7 @@ Gura_ImplementMethod(image, thumbnail)
 // image#write(stream:stream:w, imagetype?:string):map:reduce
 Gura_DeclareMethod(image, write)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "imagetype", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Writes image data to a stream.");

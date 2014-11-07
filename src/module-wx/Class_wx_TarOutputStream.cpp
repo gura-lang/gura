@@ -39,7 +39,7 @@ void wx_TarOutputStream::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(TarOutputStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_TarOutputStream));
 	DeclareArg(env, "stream", VTYPE_wx_OutputStream, OCCUR_Once);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(TarOutputStream)
 
 Gura_DeclareFunction(TarOutputStream_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_TarOutputStream));
 	DeclareArg(env, "stream", VTYPE_wx_OutputStream, OCCUR_Once);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -99,7 +99,7 @@ Gura_ImplementFunction(TarOutputStream_1)
 
 Gura_DeclareMethod(wx_TarOutputStream, Close)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_TarOutputStream, Close)
 
 Gura_DeclareMethod(wx_TarOutputStream, CloseEntry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_TarOutputStream, CloseEntry)
 
 Gura_DeclareMethod(wx_TarOutputStream, CopyArchiveMetaData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_wx_TarInputStream, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_TarOutputStream, CopyArchiveMetaData)
 
 Gura_DeclareMethod(wx_TarOutputStream, CopyEntry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "entry", VTYPE_wx_TarEntry, OCCUR_Once);
 	DeclareArg(env, "inputStream", VTYPE_wx_TarInputStream, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_TarOutputStream, CopyEntry)
 
 Gura_DeclareMethod(wx_TarOutputStream, GetBlockingFactor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_TarOutputStream, GetBlockingFactor)
 
 Gura_DeclareMethod(wx_TarOutputStream, SetBlockingFactor)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "factor", VTYPE_number, OCCUR_Once);
 }
 
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_TarOutputStream, SetBlockingFactor)
 
 Gura_DeclareMethod(wx_TarOutputStream, PutNextDirEntry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "dt", VTYPE_wx_DateTime, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_TarOutputStream, PutNextDirEntry)
 
 Gura_DeclareMethod(wx_TarOutputStream, PutNextEntry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "entry", VTYPE_wx_TarEntry, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_TarOutputStream, PutNextEntry)
 
 Gura_DeclareMethod(wx_TarOutputStream, PutNextEntry_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "dt", VTYPE_wx_DateTime, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_ZeroOrOnce);

@@ -38,7 +38,7 @@ void wx_TempFileOutputStream::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(TempFileOutputStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_TempFileOutputStream));
 	DeclareArg(env, "fileName", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -62,7 +62,7 @@ Gura_ImplementFunction(TempFileOutputStream)
 
 Gura_DeclareMethod(wx_TempFileOutputStream, Commit)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_TempFileOutputStream, Commit)
 
 Gura_DeclareMethod(wx_TempFileOutputStream, Discard)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TempFileOutputStream, Discard)

@@ -40,7 +40,7 @@ void wx_DCClipper::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DCClipper)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DCClipper));
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "r", VTYPE_wx_Region, OCCUR_Once);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(DCClipper)
 
 Gura_DeclareFunction(DCClipper_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DCClipper));
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
@@ -92,7 +92,7 @@ Gura_ImplementFunction(DCClipper_1)
 
 Gura_DeclareFunction(DCClipper_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DCClipper));
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);

@@ -11,7 +11,7 @@ static Environment *_pEnv = NULL;
 
 Gura_DeclareFunction(IMPLEMENT_APP)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "constructor", VTYPE_function, OCCUR_Once);
 }
 
@@ -45,7 +45,7 @@ Gura_ImplementFunction(IMPLEMENT_APP)
 
 Gura_DeclareFunction(BusyCursor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_Once);
 }
 
@@ -63,7 +63,7 @@ Gura_ImplementFunction(BusyCursor)
 
 Gura_DeclareFunction(CaretSuspend)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_Once);
 }
@@ -82,7 +82,7 @@ Gura_ImplementFunction(CaretSuspend)
 
 Gura_DeclareFunction(ClipboardLocker)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_Once);
 }
 
@@ -100,7 +100,7 @@ Gura_ImplementFunction(ClipboardLocker)
 #if 0
 Gura_DeclareFunction(DynamicCast)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "ptr", VTYPE_wx_Object, OCCUR_Once);
 	DeclareArg(env, "classname", VTYPE_Class, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -119,7 +119,7 @@ Gura_ImplementFunction(DynamicCast)
 
 Gura_DeclareFunction(CHECK_GCC_VERSION)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "major", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "minor", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -136,7 +136,7 @@ Gura_ImplementFunction(CHECK_GCC_VERSION)
 
 Gura_DeclareFunction(CHECK_VERSION)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "major", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "minor", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "release", VTYPE_number, OCCUR_Once);
@@ -155,7 +155,7 @@ Gura_ImplementFunction(CHECK_VERSION)
 
 Gura_DeclareFunction(CHECK_VERSION_FULL)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "major", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "minor", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "release", VTYPE_number, OCCUR_Once);
@@ -176,7 +176,7 @@ Gura_ImplementFunction(CHECK_VERSION_FULL)
 
 Gura_DeclareFunction(CHECK_W32API_VERSION)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "major", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "minor", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -193,7 +193,7 @@ Gura_ImplementFunction(CHECK_W32API_VERSION)
 
 Gura_DeclareFunction(Entry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "argv", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -214,7 +214,7 @@ Gura_ImplementFunction(Entry)
 
 Gura_DeclareFunction(Entry_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pCmdLine", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "nCmdShow", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -237,7 +237,7 @@ Gura_ImplementFunction(Entry_1)
 
 Gura_DeclareFunction(EntryCleanup)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(EntryCleanup)
@@ -249,7 +249,7 @@ Gura_ImplementFunction(EntryCleanup)
 
 Gura_DeclareFunction(EntryStart)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "argv", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -270,7 +270,7 @@ Gura_ImplementFunction(EntryStart)
 
 Gura_DeclareFunction(HandleFatalExceptions)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "doIt", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -291,7 +291,7 @@ Gura_ImplementFunction(HandleFatalExceptions)
 
 Gura_DeclareFunction(InitAllImageHandlers)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(InitAllImageHandlers)
@@ -303,7 +303,7 @@ Gura_ImplementFunction(InitAllImageHandlers)
 
 Gura_DeclareFunction(Initialize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -316,7 +316,7 @@ Gura_ImplementFunction(Initialize)
 
 Gura_DeclareFunction(SafeYield)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "onlyIfNeeded", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -335,7 +335,7 @@ Gura_ImplementFunction(SafeYield)
 
 Gura_DeclareFunction(Uninitialize)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(Uninitialize)
@@ -347,7 +347,7 @@ Gura_ImplementFunction(Uninitialize)
 
 Gura_DeclareFunction(Yield)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -360,7 +360,7 @@ Gura_ImplementFunction(Yield)
 
 Gura_DeclareFunction(WakeUpIdle)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(WakeUpIdle)
@@ -372,7 +372,7 @@ Gura_ImplementFunction(WakeUpIdle)
 
 Gura_DeclareFunction(Execute)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "command", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "sync", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "callback", VTYPE_wx_Process, OCCUR_ZeroOrOnce);
@@ -393,7 +393,7 @@ Gura_ImplementFunction(Execute)
 
 Gura_DeclareFunction(Execute_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "argv", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "callback", VTYPE_wx_Process, OCCUR_ZeroOrOnce);
@@ -419,7 +419,7 @@ Gura_ImplementFunction(Execute_1)
 
 Gura_DeclareFunction(Execute_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "command", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "output", VTYPE_string, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -439,7 +439,7 @@ Gura_ImplementFunction(Execute_2)
 
 Gura_DeclareFunction(Execute_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "command", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "output", VTYPE_string, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "errors", VTYPE_string, OCCUR_Once, FLAG_List);
@@ -461,7 +461,7 @@ Gura_ImplementFunction(Execute_3)
 
 Gura_DeclareFunction(Exit)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(Exit)
@@ -473,7 +473,7 @@ Gura_ImplementFunction(Exit)
 
 Gura_DeclareFunction(Kill)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pid", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "sig", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "*rc", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -501,7 +501,7 @@ Gura_ImplementFunction(Kill)
 
 Gura_DeclareFunction(GetProcessId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -514,7 +514,7 @@ Gura_ImplementFunction(GetProcessId)
 
 Gura_DeclareFunction(Shell)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "command", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -534,7 +534,7 @@ Gura_ImplementFunction(Shell)
 
 Gura_DeclareFunction(Shutdown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "flags", VTYPE_wx_ShutdownFlags, OCCUR_Once);
 #endif
@@ -555,7 +555,7 @@ Gura_ImplementFunction(Shutdown)
 
 Gura_DeclareFunction(CRIT_SECT_DECLARE)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(CRIT_SECT_DECLARE)
@@ -571,7 +571,7 @@ Gura_ImplementFunction(CRIT_SECT_DECLARE)
 
 Gura_DeclareFunction(CRIT_SECT_DECLARE_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(CRIT_SECT_DECLARE_1)
@@ -587,7 +587,7 @@ Gura_ImplementFunction(CRIT_SECT_DECLARE_1)
 
 Gura_DeclareFunction(CRIT_SECT_LOCKER)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(CRIT_SECT_LOCKER)
@@ -603,7 +603,7 @@ Gura_ImplementFunction(CRIT_SECT_LOCKER)
 
 Gura_DeclareFunction(CRITICAL_SECTION)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(CRITICAL_SECTION)
@@ -619,7 +619,7 @@ Gura_ImplementFunction(CRITICAL_SECTION)
 
 Gura_DeclareFunction(ENTER_CRIT_SECT)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "cs", VTYPE_wx_CriticalSection, OCCUR_Once);
 }
 
@@ -633,7 +633,7 @@ Gura_ImplementFunction(ENTER_CRIT_SECT)
 
 Gura_DeclareFunction(IsMainThread)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -651,7 +651,7 @@ Gura_ImplementFunction(IsMainThread)
 
 Gura_DeclareFunction(LEAVE_CRIT_SECT)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "cs", VTYPE_wx_CriticalSection, OCCUR_Once);
 }
 
@@ -665,7 +665,7 @@ Gura_ImplementFunction(LEAVE_CRIT_SECT)
 
 Gura_DeclareFunction(MutexGuiEnter)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(MutexGuiEnter)
@@ -677,7 +677,7 @@ Gura_ImplementFunction(MutexGuiEnter)
 
 Gura_DeclareFunction(MutexGuiLeave)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(MutexGuiLeave)
@@ -689,7 +689,7 @@ Gura_ImplementFunction(MutexGuiLeave)
 
 Gura_DeclareFunction(Dos2UnixFilename)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_string, OCCUR_Once);
 }
 
@@ -707,7 +707,7 @@ Gura_ImplementFunction(Dos2UnixFilename)
 
 Gura_DeclareFunction(FileExists)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -722,7 +722,7 @@ Gura_ImplementFunction(FileExists)
 
 Gura_DeclareFunction(FileModificationTime)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -739,7 +739,7 @@ Gura_ImplementFunction(FileModificationTime)
 
 Gura_DeclareFunction(FileNameFromPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -754,7 +754,7 @@ Gura_ImplementFunction(FileNameFromPath)
 
 Gura_DeclareFunction(FileNameFromPath_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -773,7 +773,7 @@ Gura_ImplementFunction(FileNameFromPath_1)
 
 Gura_DeclareFunction(FindFirstFile_)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "spec", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -795,7 +795,7 @@ Gura_ImplementFunction(FindFirstFile_)
 
 Gura_DeclareFunction(FindNextFile_)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -808,7 +808,7 @@ Gura_ImplementFunction(FindNextFile_)
 
 Gura_DeclareFunction(GetDiskSpace)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "*total", VTYPE_wx_LongLong, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "*free", VTYPE_wx_LongLong, OCCUR_ZeroOrOnce);
@@ -833,7 +833,7 @@ Gura_ImplementFunction(GetDiskSpace)
 
 Gura_DeclareFunction(GetFileKind)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "fd", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -852,7 +852,7 @@ Gura_ImplementFunction(GetFileKind)
 
 Gura_DeclareFunction(GetFileKind_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -869,7 +869,7 @@ Gura_ImplementFunction(GetFileKind_1)
 
 Gura_DeclareFunction(GetOSDirectory)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -882,7 +882,7 @@ Gura_ImplementFunction(GetOSDirectory)
 
 Gura_DeclareFunction(IsAbsolutePath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -897,7 +897,7 @@ Gura_ImplementFunction(IsAbsolutePath)
 
 Gura_DeclareFunction(DirExists)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dirname", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -912,7 +912,7 @@ Gura_ImplementFunction(DirExists)
 
 Gura_DeclareFunction(PathOnly)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -927,7 +927,7 @@ Gura_ImplementFunction(PathOnly)
 
 Gura_DeclareFunction(Unix2DosFilename)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_string, OCCUR_Once);
 }
 
@@ -945,7 +945,7 @@ Gura_ImplementFunction(Unix2DosFilename)
 
 Gura_DeclareFunction(CHANGE_UMASK)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mask", VTYPE_number, OCCUR_Once);
 }
 
@@ -959,7 +959,7 @@ Gura_ImplementFunction(CHANGE_UMASK)
 
 Gura_DeclareFunction(ConcatFiles)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "file1", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "file2", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "file3", VTYPE_string, OCCUR_Once);
@@ -978,7 +978,7 @@ Gura_ImplementFunction(ConcatFiles)
 
 Gura_DeclareFunctionAlias(CopyFile_, "CopyFile")
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "file1", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "file2", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "overwrite", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -998,7 +998,7 @@ Gura_ImplementFunction(CopyFile_)
 
 Gura_DeclareFunction(GetCwd)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1011,7 +1011,7 @@ Gura_ImplementFunction(GetCwd)
 
 Gura_DeclareFunction(IsWild)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pattern", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1026,7 +1026,7 @@ Gura_ImplementFunction(IsWild)
 
 Gura_DeclareFunction(MatchWild)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pattern", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "dot_special", VTYPE_boolean, OCCUR_Once);
@@ -1045,7 +1045,7 @@ Gura_ImplementFunction(MatchWild)
 
 Gura_DeclareFunction(Mkdir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dir", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "perm", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1063,7 +1063,7 @@ Gura_ImplementFunction(Mkdir)
 
 Gura_DeclareFunction(ParseCommonDialogsFilter)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "wildCard", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "descriptions", VTYPE_string, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "filters", VTYPE_string, OCCUR_Once, FLAG_List);
@@ -1082,7 +1082,7 @@ Gura_ImplementFunction(ParseCommonDialogsFilter)
 
 Gura_DeclareFunction(RemoveFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "file", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1097,7 +1097,7 @@ Gura_ImplementFunction(RemoveFile)
 
 Gura_DeclareFunction(RenameFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "file1", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "file2", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "overwrite", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -1117,7 +1117,7 @@ Gura_ImplementFunction(RenameFile)
 
 Gura_DeclareFunction(Rmdir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dir", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1135,7 +1135,7 @@ Gura_ImplementFunction(Rmdir)
 
 Gura_DeclareFunction(SetWorkingDirectory)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dir", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1150,7 +1150,7 @@ Gura_ImplementFunction(SetWorkingDirectory)
 
 Gura_DeclareFunction(SplitPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "fullname", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1169,7 +1169,7 @@ Gura_ImplementFunction(SplitPath)
 
 Gura_DeclareFunction(TransferFileToStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1190,7 +1190,7 @@ Gura_ImplementFunction(TransferFileToStream)
 
 Gura_DeclareFunction(TransferStreamToFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1209,7 +1209,7 @@ Gura_ImplementFunction(TransferStreamToFile)
 
 Gura_DeclareFunction(GetEmailAddress)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1222,7 +1222,7 @@ Gura_ImplementFunction(GetEmailAddress)
 
 Gura_DeclareFunction(GetEmailAddress_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1243,7 +1243,7 @@ Gura_ImplementFunction(GetEmailAddress_1)
 
 Gura_DeclareFunction(GetFreeMemory)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1260,7 +1260,7 @@ Gura_ImplementFunction(GetFreeMemory)
 
 Gura_DeclareFunction(GetFullHostName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1273,7 +1273,7 @@ Gura_ImplementFunction(GetFullHostName)
 
 Gura_DeclareFunction(GetHomeDir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1286,7 +1286,7 @@ Gura_ImplementFunction(GetHomeDir)
 
 Gura_DeclareFunction(GetHostName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1299,7 +1299,7 @@ Gura_ImplementFunction(GetHostName)
 
 Gura_DeclareFunction(GetOsDescription)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1312,7 +1312,7 @@ Gura_ImplementFunction(GetOsDescription)
 
 Gura_DeclareFunction(GetOsVersion)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1328,7 +1328,7 @@ Gura_ImplementFunction(GetOsVersion)
 
 Gura_DeclareFunction(IsPlatformLittleEndian)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1341,7 +1341,7 @@ Gura_ImplementFunction(IsPlatformLittleEndian)
 
 Gura_DeclareFunction(IsPlatform64Bit)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1354,7 +1354,7 @@ Gura_ImplementFunction(IsPlatform64Bit)
 
 Gura_DeclareFunction(GetUserHome)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "user", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1374,7 +1374,7 @@ Gura_ImplementFunction(GetUserHome)
 
 Gura_DeclareFunction(GetUserId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1387,7 +1387,7 @@ Gura_ImplementFunction(GetUserId)
 
 Gura_DeclareFunction(GetUserId_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1408,7 +1408,7 @@ Gura_ImplementFunction(GetUserId_1)
 
 Gura_DeclareFunction(GetUserName_)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1421,7 +1421,7 @@ Gura_ImplementFunction(GetUserName_)
 
 Gura_DeclareFunction(GetUserName__1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1442,7 +1442,7 @@ Gura_ImplementFunction(GetUserName__1)
 
 Gura_DeclareFunction(copystring)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1461,7 +1461,7 @@ Gura_ImplementFunction(copystring)
 
 Gura_DeclareFunction(GetTranslation)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "domain", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1483,7 +1483,7 @@ Gura_ImplementFunction(GetTranslation)
 
 Gura_DeclareFunction(GetTranslation_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "strPlural", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -1513,7 +1513,7 @@ Gura_ImplementFunction(GetTranslation_1)
 
 Gura_DeclareFunction(IsEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "p", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1532,7 +1532,7 @@ Gura_ImplementFunction(IsEmpty)
 
 Gura_DeclareFunction(Strcmp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "p1", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "p2", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1553,7 +1553,7 @@ Gura_ImplementFunction(Strcmp)
 
 Gura_DeclareFunction(Stricmp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "p1", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "p2", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1574,7 +1574,7 @@ Gura_ImplementFunction(Stricmp)
 
 Gura_DeclareFunction(StringEq)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "s1", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "s2", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1595,7 +1595,7 @@ Gura_ImplementFunction(StringEq)
 
 Gura_DeclareFunction(StringMatch)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "s1", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "s2", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "subString", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -1622,7 +1622,7 @@ Gura_ImplementFunction(StringMatch)
 
 Gura_DeclareFunction(StringTokenize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "delims", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1643,7 +1643,7 @@ Gura_ImplementFunction(StringTokenize)
 
 Gura_DeclareFunction(Strlen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "p", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1662,7 +1662,7 @@ Gura_ImplementFunction(Strlen)
 
 Gura_DeclareFunction(Snprintf)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "buf", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "format", VTYPE_string, OCCUR_Once);
@@ -1685,7 +1685,7 @@ Gura_ImplementFunction(Snprintf)
 
 Gura_DeclareFunction(TRANSLATE)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1704,7 +1704,7 @@ Gura_ImplementFunction(TRANSLATE)
 
 Gura_DeclareFunction(Vsnprintf)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "buf", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "format", VTYPE_string, OCCUR_Once);
@@ -1727,7 +1727,7 @@ Gura_ImplementFunction(Vsnprintf)
 
 Gura_DeclareFunction(PLURAL)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "sing", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "plur", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -1747,7 +1747,7 @@ Gura_ImplementFunction(PLURAL)
 
 Gura_DeclareFunction(AboutBox)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "info", VTYPE_wx_AboutDialogInfo, OCCUR_Once);
 }
 
@@ -1761,7 +1761,7 @@ Gura_ImplementFunction(AboutBox)
 
 Gura_DeclareFunction(BeginBusyCursor)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "cursor", VTYPE_wx_Cursor, OCCUR_ZeroOrOnce);
 }
 
@@ -1776,7 +1776,7 @@ Gura_ImplementFunction(BeginBusyCursor)
 
 Gura_DeclareFunction(Bell)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(Bell)
@@ -1788,7 +1788,7 @@ Gura_ImplementFunction(Bell)
 
 Gura_DeclareFunction(CreateFileTipProvider)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "currentTip", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1805,7 +1805,7 @@ Gura_ImplementFunction(CreateFileTipProvider)
 
 Gura_DeclareFunction(DirSelector)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "default_path", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1833,7 +1833,7 @@ Gura_ImplementFunction(DirSelector)
 
 Gura_DeclareFunction(FileSelector)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "default_path", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "default_filename", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -1872,7 +1872,7 @@ Gura_ImplementFunction(FileSelector)
 
 Gura_DeclareFunction(EndBusyCursor)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(EndBusyCursor)
@@ -1884,7 +1884,7 @@ Gura_ImplementFunction(EndBusyCursor)
 
 Gura_DeclareFunction(GenericAboutBox)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "info", VTYPE_wx_AboutDialogInfo, OCCUR_Once);
 }
 
@@ -1902,7 +1902,7 @@ Gura_ImplementFunction(GenericAboutBox)
 
 Gura_DeclareFunction(GetColourFromUser)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "colInit", VTYPE_wx_Colour, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "caption", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -1924,7 +1924,7 @@ Gura_ImplementFunction(GetColourFromUser)
 
 Gura_DeclareFunction(GetFontFromUser)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "fontInit", VTYPE_wx_Font, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "caption", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -1946,7 +1946,7 @@ Gura_ImplementFunction(GetFontFromUser)
 
 Gura_DeclareFunction(GetMultipleChoices)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "caption", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "aChoices", VTYPE_string, OCCUR_Once, FLAG_List);
@@ -1984,7 +1984,7 @@ Gura_ImplementFunction(GetMultipleChoices)
 
 Gura_DeclareFunction(GetNumberFromUser)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "prompt", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "caption", VTYPE_string, OCCUR_Once);
@@ -2017,7 +2017,7 @@ Gura_ImplementFunction(GetNumberFromUser)
 
 Gura_DeclareFunction(GetPasswordFromUser)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "caption", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "default_value", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -2050,7 +2050,7 @@ Gura_ImplementFunction(GetPasswordFromUser)
 
 Gura_DeclareFunction(GetTextFromUser)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "caption", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "default_value", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -2083,7 +2083,7 @@ Gura_ImplementFunction(GetTextFromUser)
 
 Gura_DeclareFunction(GetSingleChoice)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "caption", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "aChoices", VTYPE_string, OCCUR_Once, FLAG_List);
@@ -2120,7 +2120,7 @@ Gura_ImplementFunction(GetSingleChoice)
 
 Gura_DeclareFunction(GetSingleChoiceIndex)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "caption", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "aChoices", VTYPE_string, OCCUR_Once, FLAG_List);
@@ -2157,7 +2157,7 @@ Gura_ImplementFunction(GetSingleChoiceIndex)
 
 Gura_DeclareFunction(GetSingleChoiceData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "caption", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "aChoices", VTYPE_string, OCCUR_Once, FLAG_List);
@@ -2200,7 +2200,7 @@ Gura_ImplementFunction(GetSingleChoiceData)
 
 Gura_DeclareFunction(GetSingleChoiceData_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "caption", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -2245,7 +2245,7 @@ Gura_ImplementFunction(GetSingleChoiceData_1)
 
 Gura_DeclareFunction(IsBusy)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2258,7 +2258,7 @@ Gura_ImplementFunction(IsBusy)
 
 Gura_DeclareFunctionAlias(MessageBox_, "MessageBox")
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "caption", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -2288,7 +2288,7 @@ Gura_ImplementFunction(MessageBox_)
 
 Gura_DeclareFunction(ShowTip)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "tipProvider", VTYPE_wx_TipProvider, OCCUR_Once);
 	DeclareArg(env, "showAtStartup", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -2308,7 +2308,7 @@ Gura_ImplementFunction(ShowTip)
 
 Gura_DeclareFunction(Finite)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2323,7 +2323,7 @@ Gura_ImplementFunction(Finite)
 
 Gura_DeclareFunction(IsNaN)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2338,7 +2338,7 @@ Gura_ImplementFunction(IsNaN)
 
 Gura_DeclareFunction(BITMAP)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(BITMAP)
@@ -2354,7 +2354,7 @@ Gura_ImplementFunction(BITMAP)
 
 Gura_DeclareFunction(ClientDisplayRect)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -2378,7 +2378,7 @@ Gura_ImplementFunction(ClientDisplayRect)
 
 Gura_DeclareFunction(GetClientDisplayRect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2391,7 +2391,7 @@ Gura_ImplementFunction(GetClientDisplayRect)
 
 Gura_DeclareFunction(ColourDisplay)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2404,7 +2404,7 @@ Gura_ImplementFunction(ColourDisplay)
 
 Gura_DeclareFunction(DisplayDepth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2417,7 +2417,7 @@ Gura_ImplementFunction(DisplayDepth)
 
 Gura_DeclareFunction(DisplaySize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
@@ -2437,7 +2437,7 @@ Gura_ImplementFunction(DisplaySize)
 
 Gura_DeclareFunction(GetDisplaySize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2450,7 +2450,7 @@ Gura_ImplementFunction(GetDisplaySize)
 
 Gura_DeclareFunction(DisplaySizeMM)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
@@ -2470,7 +2470,7 @@ Gura_ImplementFunction(DisplaySizeMM)
 
 Gura_DeclareFunction(GetDisplaySizeMM)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2483,7 +2483,7 @@ Gura_ImplementFunction(GetDisplaySizeMM)
 
 Gura_DeclareFunction(DROP_ICON)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2502,7 +2502,7 @@ Gura_ImplementFunction(DROP_ICON)
 
 Gura_DeclareFunction(ICON)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(ICON)
@@ -2518,7 +2518,7 @@ Gura_ImplementFunction(ICON)
 
 Gura_DeclareFunction(MakeMetafilePlaceable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "minX", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "minY", VTYPE_number, OCCUR_Once);
@@ -2548,7 +2548,7 @@ Gura_ImplementFunction(MakeMetafilePlaceable)
 
 Gura_DeclareFunction(SetCursor)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "cursor", VTYPE_wx_Cursor, OCCUR_Once);
 }
 
@@ -2562,7 +2562,7 @@ Gura_ImplementFunction(SetCursor)
 
 Gura_DeclareFunction(GetPrinterCommand)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2579,7 +2579,7 @@ Gura_ImplementFunction(GetPrinterCommand)
 
 Gura_DeclareFunction(GetPrinterFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2596,7 +2596,7 @@ Gura_ImplementFunction(GetPrinterFile)
 
 Gura_DeclareFunction(GetPrinterMode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2613,7 +2613,7 @@ Gura_ImplementFunction(GetPrinterMode)
 
 Gura_DeclareFunction(GetPrinterOptions)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2630,7 +2630,7 @@ Gura_ImplementFunction(GetPrinterOptions)
 
 Gura_DeclareFunction(GetPrinterOrientation)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2647,7 +2647,7 @@ Gura_ImplementFunction(GetPrinterOrientation)
 
 Gura_DeclareFunction(GetPrinterPreviewCommand)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2664,7 +2664,7 @@ Gura_ImplementFunction(GetPrinterPreviewCommand)
 
 Gura_DeclareFunction(GetPrinterScaling)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -2684,7 +2684,7 @@ Gura_ImplementFunction(GetPrinterScaling)
 
 Gura_DeclareFunction(GetPrinterTranslation)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -2704,7 +2704,7 @@ Gura_ImplementFunction(GetPrinterTranslation)
 
 Gura_DeclareFunction(SetPrinterCommand)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "command", VTYPE_string, OCCUR_Once);
 }
 
@@ -2722,7 +2722,7 @@ Gura_ImplementFunction(SetPrinterCommand)
 
 Gura_DeclareFunction(SetPrinterFile)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 }
 
@@ -2740,7 +2740,7 @@ Gura_ImplementFunction(SetPrinterFile)
 
 Gura_DeclareFunction(SetPrinterMode)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
@@ -2758,7 +2758,7 @@ Gura_ImplementFunction(SetPrinterMode)
 
 Gura_DeclareFunction(SetPrinterOptions)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "options", VTYPE_string, OCCUR_Once);
 }
 
@@ -2776,7 +2776,7 @@ Gura_ImplementFunction(SetPrinterOptions)
 
 Gura_DeclareFunction(SetPrinterOrientation)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
 }
 
@@ -2794,7 +2794,7 @@ Gura_ImplementFunction(SetPrinterOrientation)
 
 Gura_DeclareFunction(SetPrinterPreviewCommand)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "command", VTYPE_string, OCCUR_Once);
 }
 
@@ -2812,7 +2812,7 @@ Gura_ImplementFunction(SetPrinterPreviewCommand)
 
 Gura_DeclareFunction(SetPrinterScaling)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -2832,7 +2832,7 @@ Gura_ImplementFunction(SetPrinterScaling)
 
 Gura_DeclareFunction(SetPrinterTranslation)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -2852,7 +2852,7 @@ Gura_ImplementFunction(SetPrinterTranslation)
 
 Gura_DeclareFunction(ClipboardOpen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2870,7 +2870,7 @@ Gura_ImplementFunction(ClipboardOpen)
 
 Gura_DeclareFunction(CloseClipboard)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2888,7 +2888,7 @@ Gura_ImplementFunction(CloseClipboard)
 
 Gura_DeclareFunction(EmptyClipboard)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2906,7 +2906,7 @@ Gura_ImplementFunction(EmptyClipboard)
 
 Gura_DeclareFunction(EnumClipboardFormats)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dataFormat", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2926,7 +2926,7 @@ Gura_ImplementFunction(EnumClipboardFormats)
 
 Gura_DeclareFunction(GetClipboardData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dataFormat", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2946,7 +2946,7 @@ Gura_ImplementFunction(GetClipboardData)
 
 Gura_DeclareFunction(GetClipboardFormatName_)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dataFormat", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "formatName", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "maxCount", VTYPE_number, OCCUR_Once);
@@ -2974,7 +2974,7 @@ Gura_ImplementFunction(GetClipboardFormatName_)
 
 Gura_DeclareFunction(IsClipboardFormatAvailable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dataFormat", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2994,7 +2994,7 @@ Gura_ImplementFunction(IsClipboardFormatAvailable)
 
 Gura_DeclareFunction(OpenClipboard)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -3012,7 +3012,7 @@ Gura_ImplementFunction(OpenClipboard)
 
 Gura_DeclareFunction(RegisterClipboardFormat_)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "formatName", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -3036,7 +3036,7 @@ Gura_ImplementFunction(RegisterClipboardFormat_)
 
 Gura_DeclareFunction(SetClipboardData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dataFormat", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "data", VTYPE_wx_Object, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -3062,7 +3062,7 @@ Gura_ImplementFunction(SetClipboardData)
 
 Gura_DeclareFunction(CONCAT)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(CONCAT)
@@ -3078,7 +3078,7 @@ Gura_ImplementFunction(CONCAT)
 
 Gura_DeclareFunction(DYNLIB_FUNCTION)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(DYNLIB_FUNCTION)
@@ -3094,7 +3094,7 @@ Gura_ImplementFunction(DYNLIB_FUNCTION)
 
 Gura_DeclareFunction(GetKeyState)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -3109,7 +3109,7 @@ Gura_ImplementFunction(GetKeyState)
 
 Gura_DeclareFunction(LL)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -3126,7 +3126,7 @@ Gura_ImplementFunction(LL)
 
 Gura_DeclareFunction(NewId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -3139,7 +3139,7 @@ Gura_ImplementFunction(NewId)
 
 Gura_DeclareFunction(NewIds)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -3152,7 +3152,7 @@ Gura_ImplementFunction(NewIds)
 
 Gura_DeclareFunction(ON_BLOCK_EXIT0)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(ON_BLOCK_EXIT0)
@@ -3168,7 +3168,7 @@ Gura_ImplementFunction(ON_BLOCK_EXIT0)
 
 Gura_DeclareFunction(ON_BLOCK_EXIT1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(ON_BLOCK_EXIT1)
@@ -3184,7 +3184,7 @@ Gura_ImplementFunction(ON_BLOCK_EXIT1)
 
 Gura_DeclareFunction(ON_BLOCK_EXIT2)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(ON_BLOCK_EXIT2)
@@ -3200,7 +3200,7 @@ Gura_ImplementFunction(ON_BLOCK_EXIT2)
 
 Gura_DeclareFunction(ON_BLOCK_EXIT_OBJ0)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(ON_BLOCK_EXIT_OBJ0)
@@ -3216,7 +3216,7 @@ Gura_ImplementFunction(ON_BLOCK_EXIT_OBJ0)
 
 Gura_DeclareFunction(ON_BLOCK_EXIT_OBJ1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(ON_BLOCK_EXIT_OBJ1)
@@ -3232,7 +3232,7 @@ Gura_ImplementFunction(ON_BLOCK_EXIT_OBJ1)
 
 Gura_DeclareFunction(ON_BLOCK_EXIT_OBJ2)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(ON_BLOCK_EXIT_OBJ2)
@@ -3248,7 +3248,7 @@ Gura_ImplementFunction(ON_BLOCK_EXIT_OBJ2)
 
 Gura_DeclareFunction(RegisterId)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -3262,7 +3262,7 @@ Gura_ImplementFunction(RegisterId)
 
 Gura_DeclareFunction(DDECleanUp)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(DDECleanUp)
@@ -3279,7 +3279,7 @@ Gura_ImplementFunction(DDECleanUp)
 
 Gura_DeclareFunction(DDEInitialize)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(DDEInitialize)
@@ -3296,7 +3296,7 @@ Gura_ImplementFunction(DDEInitialize)
 
 Gura_DeclareFunction(EnableTopLevelWindows)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "enable", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -3311,7 +3311,7 @@ Gura_ImplementFunction(EnableTopLevelWindows)
 
 Gura_DeclareFunction(FindMenuItemId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "frame", VTYPE_wx_Frame, OCCUR_Once);
 	DeclareArg(env, "menuString", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "itemString", VTYPE_string, OCCUR_Once);
@@ -3330,7 +3330,7 @@ Gura_ImplementFunction(FindMenuItemId)
 
 Gura_DeclareFunction(FindWindowByLabel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3348,7 +3348,7 @@ Gura_ImplementFunction(FindWindowByLabel)
 
 Gura_DeclareFunction(FindWindowByName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3366,7 +3366,7 @@ Gura_ImplementFunction(FindWindowByName)
 
 Gura_DeclareFunction(FindWindowAtPoint)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -3381,7 +3381,7 @@ Gura_ImplementFunction(FindWindowAtPoint)
 
 Gura_DeclareFunction(FindWindowAtPointer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -3396,7 +3396,7 @@ Gura_ImplementFunction(FindWindowAtPointer)
 
 Gura_DeclareFunction(GetActiveWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -3409,7 +3409,7 @@ Gura_ImplementFunction(GetActiveWindow)
 
 Gura_DeclareFunction(GetBatteryState)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -3422,7 +3422,7 @@ Gura_ImplementFunction(GetBatteryState)
 
 Gura_DeclareFunction(GetDisplayName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -3439,7 +3439,7 @@ Gura_ImplementFunction(GetDisplayName)
 
 Gura_DeclareFunction(GetPowerType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -3452,7 +3452,7 @@ Gura_ImplementFunction(GetPowerType)
 
 Gura_DeclareFunction(GetMousePosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -3465,7 +3465,7 @@ Gura_ImplementFunction(GetMousePosition)
 
 Gura_DeclareFunction(GetMouseState)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -3478,7 +3478,7 @@ Gura_ImplementFunction(GetMouseState)
 
 Gura_DeclareFunction(GetResource)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "section", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "entry", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
@@ -3504,7 +3504,7 @@ Gura_ImplementFunction(GetResource)
 
 Gura_DeclareFunction(GetResource_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "section", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "entry", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -3530,7 +3530,7 @@ Gura_ImplementFunction(GetResource_1)
 
 Gura_DeclareFunction(GetResource_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "section", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "entry", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -3556,7 +3556,7 @@ Gura_ImplementFunction(GetResource_2)
 
 Gura_DeclareFunction(GetResource_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "section", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "entry", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -3582,7 +3582,7 @@ Gura_ImplementFunction(GetResource_3)
 
 Gura_DeclareFunction(GetStockLabel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3600,7 +3600,7 @@ Gura_ImplementFunction(GetStockLabel)
 
 Gura_DeclareFunction(GetTopLevelParent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -3615,7 +3615,7 @@ Gura_ImplementFunction(GetTopLevelParent)
 
 Gura_DeclareFunction(LaunchDefaultBrowser)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "url", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3633,7 +3633,7 @@ Gura_ImplementFunction(LaunchDefaultBrowser)
 
 Gura_DeclareFunction(LoadUserResource)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "resourceName", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "resourceType", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3656,7 +3656,7 @@ Gura_ImplementFunction(LoadUserResource)
 
 Gura_DeclareFunction(PostDelete)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "object", VTYPE_wx_Object, OCCUR_Once);
 }
 
@@ -3674,7 +3674,7 @@ Gura_ImplementFunction(PostDelete)
 
 Gura_DeclareFunction(PostEvent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dest", VTYPE_wx_EvtHandler, OCCUR_Once);
 	DeclareArg(env, "event", VTYPE_wx_Event, OCCUR_Once);
 }
@@ -3690,7 +3690,7 @@ Gura_ImplementFunction(PostEvent)
 
 Gura_DeclareFunction(SetDisplayName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "displayName", VTYPE_string, OCCUR_Once);
 }
 
@@ -3708,7 +3708,7 @@ Gura_ImplementFunction(SetDisplayName)
 
 Gura_DeclareFunction(StripMenuCodes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3726,7 +3726,7 @@ Gura_ImplementFunction(StripMenuCodes)
 
 Gura_DeclareFunction(STRINGIZE)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(STRINGIZE)
@@ -3742,7 +3742,7 @@ Gura_ImplementFunction(STRINGIZE)
 
 Gura_DeclareFunction(STRINGIZE_T)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(STRINGIZE_T)
@@ -3758,7 +3758,7 @@ Gura_ImplementFunction(STRINGIZE_T)
 
 Gura_DeclareFunction(SUPPRESS_GCC_PRIVATE_DTOR_WARNING)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(SUPPRESS_GCC_PRIVATE_DTOR_WARNING)
@@ -3774,7 +3774,7 @@ Gura_ImplementFunction(SUPPRESS_GCC_PRIVATE_DTOR_WARNING)
 
 Gura_DeclareFunction(ULL)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -3791,7 +3791,7 @@ Gura_ImplementFunction(ULL)
 
 Gura_DeclareFunction(VaCopy)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(VaCopy)
@@ -3807,7 +3807,7 @@ Gura_ImplementFunction(VaCopy)
 
 Gura_DeclareFunction(WriteResource)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "section", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "entry", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
@@ -3833,7 +3833,7 @@ Gura_ImplementFunction(WriteResource)
 
 Gura_DeclareFunction(WriteResource_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "section", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "entry", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -3859,7 +3859,7 @@ Gura_ImplementFunction(WriteResource_1)
 
 Gura_DeclareFunction(WriteResource_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "section", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "entry", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -3885,7 +3885,7 @@ Gura_ImplementFunction(WriteResource_2)
 
 Gura_DeclareFunction(WriteResource_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "section", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "entry", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -3911,7 +3911,7 @@ Gura_ImplementFunction(WriteResource_3)
 
 Gura_DeclareFunction(INT32_SWAP_ALWAYS)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -3926,7 +3926,7 @@ Gura_ImplementFunction(INT32_SWAP_ALWAYS)
 
 Gura_DeclareFunction(UINT32_SWAP_ALWAYS)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -3941,7 +3941,7 @@ Gura_ImplementFunction(UINT32_SWAP_ALWAYS)
 
 Gura_DeclareFunction(INT16_SWAP_ALWAYS)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -3956,7 +3956,7 @@ Gura_ImplementFunction(INT16_SWAP_ALWAYS)
 
 Gura_DeclareFunction(UINT16_SWAP_ALWAYS)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -3971,7 +3971,7 @@ Gura_ImplementFunction(UINT16_SWAP_ALWAYS)
 
 Gura_DeclareFunction(INT32_SWAP_ON_BE)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -3986,7 +3986,7 @@ Gura_ImplementFunction(INT32_SWAP_ON_BE)
 
 Gura_DeclareFunction(UINT32_SWAP_ON_BE)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -4001,7 +4001,7 @@ Gura_ImplementFunction(UINT32_SWAP_ON_BE)
 
 Gura_DeclareFunction(INT16_SWAP_ON_BE)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -4016,7 +4016,7 @@ Gura_ImplementFunction(INT16_SWAP_ON_BE)
 
 Gura_DeclareFunction(UINT16_SWAP_ON_BE)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -4031,7 +4031,7 @@ Gura_ImplementFunction(UINT16_SWAP_ON_BE)
 
 Gura_DeclareFunction(INT32_SWAP_ON_LE)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -4046,7 +4046,7 @@ Gura_ImplementFunction(INT32_SWAP_ON_LE)
 
 Gura_DeclareFunction(UINT32_SWAP_ON_LE)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -4061,7 +4061,7 @@ Gura_ImplementFunction(UINT32_SWAP_ON_LE)
 
 Gura_DeclareFunction(INT16_SWAP_ON_LE)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -4076,7 +4076,7 @@ Gura_ImplementFunction(INT16_SWAP_ON_LE)
 
 Gura_DeclareFunction(UINT16_SWAP_ON_LE)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -4091,7 +4091,7 @@ Gura_ImplementFunction(UINT16_SWAP_ON_LE)
 
 Gura_DeclareFunction(DebugMsg)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "fmt", VTYPE_string, OCCUR_Once);
 }
 
@@ -4109,7 +4109,7 @@ Gura_ImplementFunction(DebugMsg)
 
 Gura_DeclareFunction(Error)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "msg", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_ZeroOrOnce);
 }
@@ -4130,7 +4130,7 @@ Gura_ImplementFunction(Error)
 
 Gura_DeclareFunction(FatalError)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "msg", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_ZeroOrOnce);
 }
@@ -4151,7 +4151,7 @@ Gura_ImplementFunction(FatalError)
 
 Gura_DeclareFunction(LogError)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "formatString", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
 }
@@ -4168,7 +4168,7 @@ Gura_ImplementFunction(LogError)
 
 Gura_DeclareFunction(LogFatalError)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "formatString", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
 }
@@ -4185,7 +4185,7 @@ Gura_ImplementFunction(LogFatalError)
 
 Gura_DeclareFunction(LogWarning)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "formatString", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
 }
@@ -4202,7 +4202,7 @@ Gura_ImplementFunction(LogWarning)
 
 Gura_DeclareFunction(LogMessage)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "formatString", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
 }
@@ -4219,7 +4219,7 @@ Gura_ImplementFunction(LogMessage)
 
 Gura_DeclareFunction(LogVerbose)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "formatString", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
 }
@@ -4236,7 +4236,7 @@ Gura_ImplementFunction(LogVerbose)
 
 Gura_DeclareFunction(LogStatus)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "formatString", VTYPE_string, OCCUR_Once, FLAG_NoCast);
 	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
 }
@@ -4253,7 +4253,7 @@ Gura_ImplementFunction(LogStatus)
 
 Gura_DeclareFunction(LogStatusEx)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "frame", VTYPE_wx_Frame, OCCUR_Once);
 	DeclareArg(env, "formatString", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
@@ -4272,7 +4272,7 @@ Gura_ImplementFunction(LogStatusEx)
 
 Gura_DeclareFunction(LogSysError)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "formatString", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
 }
@@ -4289,7 +4289,7 @@ Gura_ImplementFunction(LogSysError)
 
 Gura_DeclareFunction(LogDebug)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "formatString", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
 }
@@ -4306,7 +4306,7 @@ Gura_ImplementFunction(LogDebug)
 
 Gura_DeclareFunction(LogTrace)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "formatString", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
 }
@@ -4323,7 +4323,7 @@ Gura_ImplementFunction(LogTrace)
 
 Gura_DeclareFunction(LogTrace_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mask", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "formatString", VTYPE_string, OCCUR_Once);
 }
@@ -4343,7 +4343,7 @@ Gura_ImplementFunction(LogTrace_1)
 
 Gura_DeclareFunction(LogTrace_2)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "mask", VTYPE_wx_TraceMask, OCCUR_Once);
 	DeclareArg(env, "formatString", VTYPE_string, OCCUR_Once);
@@ -4365,7 +4365,7 @@ Gura_ImplementFunction(LogTrace_2)
 
 Gura_DeclareFunction(SafeShowMessage)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 }
@@ -4381,7 +4381,7 @@ Gura_ImplementFunction(SafeShowMessage)
 
 Gura_DeclareFunction(SysErrorCode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -4394,7 +4394,7 @@ Gura_ImplementFunction(SysErrorCode)
 
 Gura_DeclareFunction(SysErrorMsg)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "errCode", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -4414,7 +4414,7 @@ Gura_ImplementFunction(SysErrorMsg)
 
 Gura_DeclareFunction(Trace)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "fmt", VTYPE_string, OCCUR_Once);
 }
 
@@ -4432,7 +4432,7 @@ Gura_ImplementFunction(Trace)
 
 Gura_DeclareFunction(TraceLevel)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "fmt", VTYPE_string, OCCUR_Once);
 }
@@ -4452,7 +4452,7 @@ Gura_ImplementFunction(TraceLevel)
 
 Gura_DeclareFunction(GetElapsedTime)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "resetTimer", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -4472,7 +4472,7 @@ Gura_ImplementFunction(GetElapsedTime)
 
 Gura_DeclareFunction(GetLocalTime)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -4485,7 +4485,7 @@ Gura_ImplementFunction(GetLocalTime)
 
 Gura_DeclareFunction(GetLocalTimeMillis)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -4498,7 +4498,7 @@ Gura_ImplementFunction(GetLocalTimeMillis)
 
 Gura_DeclareFunction(GetUTCTime)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -4511,7 +4511,7 @@ Gura_ImplementFunction(GetUTCTime)
 
 Gura_DeclareFunction(MicroSleep)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "microseconds", VTYPE_number, OCCUR_Once);
 }
 
@@ -4525,7 +4525,7 @@ Gura_ImplementFunction(MicroSleep)
 
 Gura_DeclareFunction(MilliSleep)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "milliseconds", VTYPE_number, OCCUR_Once);
 }
 
@@ -4539,7 +4539,7 @@ Gura_ImplementFunction(MilliSleep)
 
 Gura_DeclareFunction(Now)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -4552,7 +4552,7 @@ Gura_ImplementFunction(Now)
 
 Gura_DeclareFunction(Sleep)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "secs", VTYPE_number, OCCUR_Once);
 }
 
@@ -4566,7 +4566,7 @@ Gura_ImplementFunction(Sleep)
 
 Gura_DeclareFunction(StartTimer)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(StartTimer)
@@ -4582,7 +4582,7 @@ Gura_ImplementFunction(StartTimer)
 
 Gura_DeclareFunction(Usleep)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "milliseconds", VTYPE_number, OCCUR_Once);
 }
 
@@ -4596,7 +4596,7 @@ Gura_ImplementFunction(Usleep)
 
 Gura_DeclareFunction(OnAssert)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "fileName", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "lineNumber", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "func", VTYPE_number, OCCUR_Once);
@@ -4623,7 +4623,7 @@ Gura_ImplementFunction(OnAssert)
 
 Gura_DeclareFunction(ASSERT)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(ASSERT)
@@ -4639,7 +4639,7 @@ Gura_ImplementFunction(ASSERT)
 
 Gura_DeclareFunction(ASSERT_MIN_BITSIZE)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(ASSERT_MIN_BITSIZE)
@@ -4655,7 +4655,7 @@ Gura_ImplementFunction(ASSERT_MIN_BITSIZE)
 
 Gura_DeclareFunction(ASSERT_MSG)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "condition", VTYPE_boolean, OCCUR_Once);
 	DeclareArg(env, "msg", VTYPE_string, OCCUR_Once);
 }
@@ -4671,7 +4671,7 @@ Gura_ImplementFunction(ASSERT_MSG)
 
 Gura_DeclareFunction(COMPILE_TIME_ASSERT)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(COMPILE_TIME_ASSERT)
@@ -4687,7 +4687,7 @@ Gura_ImplementFunction(COMPILE_TIME_ASSERT)
 
 Gura_DeclareFunction(COMPILE_TIME_ASSERT2)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(COMPILE_TIME_ASSERT2)
@@ -4703,7 +4703,7 @@ Gura_ImplementFunction(COMPILE_TIME_ASSERT2)
 
 Gura_DeclareFunction(FAIL)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(FAIL)
@@ -4715,7 +4715,7 @@ Gura_ImplementFunction(FAIL)
 
 Gura_DeclareFunction(FAIL_MSG)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "msg", VTYPE_string, OCCUR_Once);
 }
 
@@ -4729,7 +4729,7 @@ Gura_ImplementFunction(FAIL_MSG)
 
 Gura_DeclareFunction(CHECK)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(CHECK)
@@ -4745,7 +4745,7 @@ Gura_ImplementFunction(CHECK)
 
 Gura_DeclareFunction(CHECK_MSG)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(CHECK_MSG)
@@ -4761,7 +4761,7 @@ Gura_ImplementFunction(CHECK_MSG)
 
 Gura_DeclareFunction(CHECK_RET)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(CHECK_RET)
@@ -4777,7 +4777,7 @@ Gura_ImplementFunction(CHECK_RET)
 
 Gura_DeclareFunction(CHECK2)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(CHECK2)
@@ -4793,7 +4793,7 @@ Gura_ImplementFunction(CHECK2)
 
 Gura_DeclareFunction(CHECK2_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementFunction(CHECK2_1)
@@ -4809,7 +4809,7 @@ Gura_ImplementFunction(CHECK2_1)
 
 Gura_DeclareFunction(Trap)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementFunction(Trap)
@@ -4821,7 +4821,7 @@ Gura_ImplementFunction(Trap)
 
 Gura_DeclareFunction(IsDebuggerRunning)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -4834,7 +4834,7 @@ Gura_ImplementFunction(IsDebuggerRunning)
 
 Gura_DeclareFunction(GetEnv)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "var", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -4854,7 +4854,7 @@ Gura_ImplementFunction(GetEnv)
 
 Gura_DeclareFunction(SetEnv)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "var", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4871,7 +4871,7 @@ Gura_ImplementFunction(SetEnv)
 
 Gura_DeclareFunction(UnsetEnv)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "var", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -4886,7 +4886,7 @@ Gura_ImplementFunction(UnsetEnv)
 
 Gura_DeclareFunction(Isalnum)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -4901,7 +4901,7 @@ Gura_ImplementFunction(Isalnum)
 
 Gura_DeclareFunction(Isalpha)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -4916,7 +4916,7 @@ Gura_ImplementFunction(Isalpha)
 
 Gura_DeclareFunction(Iscntrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -4931,7 +4931,7 @@ Gura_ImplementFunction(Iscntrl)
 
 Gura_DeclareFunction(Isdigit)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -4946,7 +4946,7 @@ Gura_ImplementFunction(Isdigit)
 
 Gura_DeclareFunction(Isgraph)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -4961,7 +4961,7 @@ Gura_ImplementFunction(Isgraph)
 
 Gura_DeclareFunction(Islower)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -4976,7 +4976,7 @@ Gura_ImplementFunction(Islower)
 
 Gura_DeclareFunction(Isprint)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -4991,7 +4991,7 @@ Gura_ImplementFunction(Isprint)
 
 Gura_DeclareFunction(Ispunct)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -5006,7 +5006,7 @@ Gura_ImplementFunction(Ispunct)
 
 Gura_DeclareFunction(Isspace)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -5021,7 +5021,7 @@ Gura_ImplementFunction(Isspace)
 
 Gura_DeclareFunction(Isupper)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -5036,7 +5036,7 @@ Gura_ImplementFunction(Isupper)
 
 Gura_DeclareFunction(Isxdigit)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -5051,7 +5051,7 @@ Gura_ImplementFunction(Isxdigit)
 
 Gura_DeclareFunction(Tolower)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -5066,7 +5066,7 @@ Gura_ImplementFunction(Tolower)
 
 Gura_DeclareFunction(Toupper)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

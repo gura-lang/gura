@@ -41,7 +41,7 @@ void wx_XmlDocument::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(XmlDocumentEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_XmlDocument));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -63,7 +63,7 @@ Gura_ImplementFunction(XmlDocumentEmpty)
 
 Gura_DeclareFunction(XmlDocument)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_XmlDocument));
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
@@ -99,7 +99,7 @@ Gura_ImplementFunction(XmlDocument)
 
 Gura_DeclareFunction(XmlDocument_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_XmlDocument));
 	DeclareArg(env, "stream", VTYPE_wx_InputStream, OCCUR_Once);
@@ -135,7 +135,7 @@ Gura_ImplementFunction(XmlDocument_1)
 
 Gura_DeclareFunction(XmlDocument_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_XmlDocument));
 	DeclareArg(env, "doc", VTYPE_wx_XmlDocument, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -159,7 +159,7 @@ Gura_ImplementFunction(XmlDocument_2)
 
 Gura_DeclareMethod(wx_XmlDocument, DetachRoot)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_XmlDocument, DetachRoot)
 #if 0
 Gura_DeclareMethod(wx_XmlDocument, GetEncoding)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_XmlDocument, GetEncoding)
 
 Gura_DeclareMethod(wx_XmlDocument, GetFileEncoding)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -208,7 +208,7 @@ Gura_ImplementMethod(wx_XmlDocument, GetFileEncoding)
 
 Gura_DeclareMethod(wx_XmlDocument, GetRoot)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_XmlDocument, GetRoot)
 
 Gura_DeclareMethod(wx_XmlDocument, GetVersion)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -236,7 +236,7 @@ Gura_ImplementMethod(wx_XmlDocument, GetVersion)
 
 Gura_DeclareMethod(wx_XmlDocument, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_XmlDocument, IsOk)
 
 Gura_DeclareMethod(wx_XmlDocument, Load)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "encoding", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -272,7 +272,7 @@ Gura_ImplementMethod(wx_XmlDocument, Load)
 
 Gura_DeclareMethod(wx_XmlDocument, Load_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_wx_InputStream, OCCUR_Once);
 	DeclareArg(env, "encoding", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -294,7 +294,7 @@ Gura_ImplementMethod(wx_XmlDocument, Load_1)
 
 Gura_DeclareMethod(wx_XmlDocument, Save)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "indentstep", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -313,7 +313,7 @@ Gura_ImplementMethod(wx_XmlDocument, Save)
 
 Gura_DeclareMethod(wx_XmlDocument, Save_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_wx_OutputStream, OCCUR_Once);
 	DeclareArg(env, "indentstep", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -333,7 +333,7 @@ Gura_ImplementMethod(wx_XmlDocument, Save_1)
 #if 0
 Gura_DeclareMethod(wx_XmlDocument, SetEncoding)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "enc", VTYPE_string, OCCUR_Once);
 }
 
@@ -354,7 +354,7 @@ Gura_ImplementMethod(wx_XmlDocument, SetEncoding)
 
 Gura_DeclareMethod(wx_XmlDocument, SetFileEncoding)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "encoding", VTYPE_string, OCCUR_Once);
 }
 
@@ -369,7 +369,7 @@ Gura_ImplementMethod(wx_XmlDocument, SetFileEncoding)
 
 Gura_DeclareMethod(wx_XmlDocument, SetRoot)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "node", VTYPE_wx_XmlNode, OCCUR_Once);
 }
 
@@ -384,7 +384,7 @@ Gura_ImplementMethod(wx_XmlDocument, SetRoot)
 
 Gura_DeclareMethod(wx_XmlDocument, SetVersion)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "version", VTYPE_string, OCCUR_Once);
 }
 

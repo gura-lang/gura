@@ -178,7 +178,7 @@ bool Object_Face::Initialize(Environment &env, Signal sig, Stream *pStream, int 
 // freetype.Face(stream:stream, face_index:number => 0):map {block?}
 Gura_DeclareFunction(Face)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream);
 	DeclareArg(env, "face_index", VTYPE_number,
 						OCCUR_Once, FLAG_None, new Expr_Value(0));
@@ -197,7 +197,7 @@ Gura_ImplementFunction(Face)
 // freetype.Face#CheckTrueTypePatents()
 Gura_DeclareMethod(Face, CheckTrueTypePatents)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(Face, CheckTrueTypePatents)
@@ -209,7 +209,7 @@ Gura_ImplementMethod(Face, CheckTrueTypePatents)
 // freetype.Face#Get_Advance(glyph_index:number, load_flags:number)
 Gura_DeclareMethod(Face, Get_Advance)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "glyph_index", VTYPE_number);
 	DeclareArg(env, "load_flags", VTYPE_number);
 }
@@ -231,7 +231,7 @@ Gura_ImplementMethod(Face, Get_Advance)
 // freetype.Face#Get_Advances(glyph_index_start:number, count:number, load_flags:number)
 Gura_DeclareMethod(Face, Get_Advances)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "glyph_index_start", VTYPE_number);
 	DeclareArg(env, "count", VTYPE_number);
 	DeclareArg(env, "load_flags", VTYPE_number);
@@ -262,7 +262,7 @@ Gura_ImplementMethod(Face, Get_Advances)
 // freetype.Face#Get_Glyph_Name(glyph_index:number)
 Gura_DeclareMethod(Face, Get_Glyph_Name)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "glyph_index", VTYPE_number);
 }
 
@@ -282,7 +282,7 @@ Gura_ImplementMethod(Face, Get_Glyph_Name)
 // freetype.Face#Get_Postscript_Name()
 Gura_DeclareMethod(Face, Get_Postscript_Name)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(Face, Get_Postscript_Name)
@@ -296,7 +296,7 @@ Gura_ImplementMethod(Face, Get_Postscript_Name)
 // freetype.Face#Get_Kerning()
 Gura_DeclareMethod(Face, Get_Kerning)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "left_glyph", VTYPE_number);
 	DeclareArg(env, "right_glyph", VTYPE_number);
 	DeclareArg(env, "kern_mode", VTYPE_number);
@@ -322,7 +322,7 @@ Gura_ImplementMethod(Face, Get_Kerning)
 // freetype.Face#Load_Char(char_code:number, load_flags:number):reduce
 Gura_DeclareMethod(Face, Load_Char)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "char_code", VTYPE_number);
 	DeclareArg(env, "load_flags", VTYPE_number);
 }
@@ -343,7 +343,7 @@ Gura_ImplementMethod(Face, Load_Char)
 // freetype.Face#Load_Glyph(glyph_index:number, load_flags:number):reduce
 Gura_DeclareMethod(Face, Load_Glyph)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "glyph_index", VTYPE_number);
 	DeclareArg(env, "load_flags", VTYPE_number);
 }
@@ -365,7 +365,7 @@ Gura_ImplementMethod(Face, Load_Glyph)
 // freetype.Face#Select_Charmap(encoding:freetype.Encoding):reduce
 Gura_DeclareMethod(Face, Select_Charmap)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "encoding", VTYPE_Encoding);
 }
 
@@ -384,7 +384,7 @@ Gura_ImplementMethod(Face, Select_Charmap)
 // freetype.Face#Set_Charmap(charmap:freetype.CharMap):reduce
 Gura_DeclareMethod(Face, Set_Charmap)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "charmap", VTYPE_CharMap);
 }
 
@@ -403,7 +403,7 @@ Gura_ImplementMethod(Face, Set_Charmap)
 // freetype.Face#Set_Pixel_Sizes(pixel_width:number, pixel_height:number):reduce
 Gura_DeclareMethod(Face, Set_Pixel_Sizes)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "pixel_width", VTYPE_number);
 	DeclareArg(env, "pixel_height", VTYPE_number);
 }

@@ -36,7 +36,7 @@ void wx_PNMHandler::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(PNMHandler)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PNMHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

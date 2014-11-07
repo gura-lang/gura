@@ -38,7 +38,7 @@ void wx_Client::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ClientEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Client));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(ClientEmpty)
 
 Gura_DeclareMethod(wx_Client, MakeConnection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "host", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "service", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "topic", VTYPE_string, OCCUR_Once);
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_Client, MakeConnection)
 
 Gura_DeclareMethod(wx_Client, OnMakeConnection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_Client, OnMakeConnection)
 
 Gura_DeclareMethod(wx_Client, ValidHost)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "host", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

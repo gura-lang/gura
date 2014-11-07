@@ -43,7 +43,7 @@ void wx_BitmapDataObject::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(BitmapDataObject)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_BitmapDataObject));
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -68,7 +68,7 @@ Gura_ImplementFunction(BitmapDataObject)
 
 Gura_DeclareMethod(wx_BitmapDataObject, GetBitmap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_BitmapDataObject, GetBitmap)
 
 Gura_DeclareMethod(wx_BitmapDataObject, SetBitmap)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 }
 

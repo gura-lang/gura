@@ -37,7 +37,7 @@ void wx_HtmlLinkEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_HtmlLinkEvent, wxHyperlinkEvent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "linkinfo", VTYPE_wx_HtmlLinkInfo, OCCUR_Once);
@@ -60,7 +60,7 @@ Gura_ImplementMethod(wx_HtmlLinkEvent, wxHyperlinkEvent)
 
 Gura_DeclareMethod(wx_HtmlLinkEvent, GetLinkInfo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

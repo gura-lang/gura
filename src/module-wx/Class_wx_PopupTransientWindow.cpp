@@ -124,7 +124,7 @@ void wx_PopupTransientWindow::OnDismiss()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(PopupTransientWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PopupTransientWindow));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -151,7 +151,7 @@ Gura_ImplementFunction(PopupTransientWindow)
 
 Gura_DeclareMethod(wx_PopupTransientWindow, Popup)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "focus", VTYPE_wx_Window, OCCUR_Once);
 }
 
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_PopupTransientWindow, Popup)
 
 Gura_DeclareMethod(wx_PopupTransientWindow, Dismiss)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PopupTransientWindow, Dismiss)
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_PopupTransientWindow, Dismiss)
 
 Gura_DeclareMethod(wx_PopupTransientWindow, CanDismiss)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_PopupTransientWindow, CanDismiss)
 
 Gura_DeclareMethod(wx_PopupTransientWindow, ProcessLeftDown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_MouseEvent, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_PopupTransientWindow, ProcessLeftDown)
 
 Gura_DeclareMethod(wx_PopupTransientWindow, Show)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "show", VTYPE_boolean, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_PopupTransientWindow, Show)
 
 Gura_DeclareMethod(wx_PopupTransientWindow, OnDismiss)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PopupTransientWindow, OnDismiss)

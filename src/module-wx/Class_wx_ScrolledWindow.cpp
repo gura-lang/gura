@@ -53,7 +53,7 @@ void wx_ScrolledWindow::OnDraw(wxDC& dc)
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ScrolledWindowEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ScrolledWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -75,7 +75,7 @@ Gura_ImplementFunction(ScrolledWindowEmpty)
 
 Gura_DeclareFunction(ScrolledWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ScrolledWindow));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -114,7 +114,7 @@ Gura_ImplementFunction(ScrolledWindow)
 
 Gura_DeclareMethod(wx_ScrolledWindow, CalcScrolledPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_ScrolledWindow, CalcScrolledPosition)
 
 Gura_DeclareMethod(wx_ScrolledWindow, CalcUnscrolledPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_ScrolledWindow, CalcUnscrolledPosition)
 
 Gura_DeclareMethod(wx_ScrolledWindow, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_ScrolledWindow, Create)
 
 Gura_DeclareMethod(wx_ScrolledWindow, EnableScrolling)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "xScrolling", VTYPE_boolean, OCCUR_Once);
 	DeclareArg(env, "yScrolling", VTYPE_boolean, OCCUR_Once);
 }
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_ScrolledWindow, EnableScrolling)
 
 Gura_DeclareMethod(wx_ScrolledWindow, GetScrollPixelsPerUnit)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_ScrolledWindow, GetScrollPixelsPerUnit)
 
 Gura_DeclareMethod(wx_ScrolledWindow, GetViewStart)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_ScrolledWindow, GetViewStart)
 
 Gura_DeclareMethod(wx_ScrolledWindow, GetVirtualSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_ScrolledWindow, GetVirtualSize)
 
 Gura_DeclareMethod(wx_ScrolledWindow, IsRetained)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_ScrolledWindow, IsRetained)
 
 Gura_DeclareMethod(wx_ScrolledWindow, DoPrepareDC)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 }
 
@@ -279,7 +279,7 @@ Gura_ImplementMethod(wx_ScrolledWindow, DoPrepareDC)
 
 Gura_DeclareMethod(wx_ScrolledWindow, OnDraw)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 }
 
@@ -294,7 +294,7 @@ Gura_ImplementMethod(wx_ScrolledWindow, OnDraw)
 
 Gura_DeclareMethod(wx_ScrolledWindow, PrepareDC)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 }
 
@@ -309,7 +309,7 @@ Gura_ImplementMethod(wx_ScrolledWindow, PrepareDC)
 
 Gura_DeclareMethod(wx_ScrolledWindow, Scroll)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -326,7 +326,7 @@ Gura_ImplementMethod(wx_ScrolledWindow, Scroll)
 
 Gura_DeclareMethod(wx_ScrolledWindow, SetScrollbars)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pixelsPerUnitX", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "pixelsPerUnitY", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "noUnitsX", VTYPE_number, OCCUR_Once);
@@ -356,7 +356,7 @@ Gura_ImplementMethod(wx_ScrolledWindow, SetScrollbars)
 
 Gura_DeclareMethod(wx_ScrolledWindow, SetScrollRate)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "xstep", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "ystep", VTYPE_number, OCCUR_Once);
 }
@@ -373,7 +373,7 @@ Gura_ImplementMethod(wx_ScrolledWindow, SetScrollRate)
 
 Gura_DeclareMethod(wx_ScrolledWindow, SetTargetWindow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 }
 

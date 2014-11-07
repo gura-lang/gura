@@ -38,7 +38,7 @@ void wx_ImageHandler::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ImageHandlerEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_ImageHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(ImageHandlerEmpty)
 
 Gura_DeclareMethod(wx_ImageHandler, GetName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_ImageHandler, GetName)
 
 Gura_DeclareMethod(wx_ImageHandler, GetExtension)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_ImageHandler, GetExtension)
 
 Gura_DeclareMethod(wx_ImageHandler, GetImageCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_wx_InputStream, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_ImageHandler, GetImageCount)
 
 Gura_DeclareMethod(wx_ImageHandler, GetType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_ImageHandler, GetType)
 
 Gura_DeclareMethod(wx_ImageHandler, GetMimeType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_ImageHandler, GetMimeType)
 
 Gura_DeclareMethod(wx_ImageHandler, LoadFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "image", VTYPE_wx_Image, OCCUR_Once);
 	DeclareArg(env, "stream", VTYPE_wx_InputStream, OCCUR_Once);
 	DeclareArg(env, "verbose", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_ImageHandler, LoadFile)
 
 Gura_DeclareMethod(wx_ImageHandler, SaveFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "image", VTYPE_wx_Image, OCCUR_Once);
 	DeclareArg(env, "stream", VTYPE_wx_OutputStream, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_ImageHandler, SaveFile)
 
 Gura_DeclareMethod(wx_ImageHandler, SetName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 }
 
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_ImageHandler, SetName)
 
 Gura_DeclareMethod(wx_ImageHandler, SetExtension)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "extension", VTYPE_string, OCCUR_Once);
 }
 
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_ImageHandler, SetExtension)
 
 Gura_DeclareMethod(wx_ImageHandler, SetMimeType)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mimetype", VTYPE_string, OCCUR_Once);
 }
 
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_ImageHandler, SetMimeType)
 
 Gura_DeclareMethod(wx_ImageHandler, SetType)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 

@@ -38,7 +38,7 @@ void wx_ListItem::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ListItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ListItem));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(ListItem)
 
 Gura_DeclareMethod(wx_ListItem, Clear)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ListItem, Clear)
@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_ListItem, Clear)
 
 Gura_DeclareMethod(wx_ListItem, GetAlign)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_ListItem, GetAlign)
 
 Gura_DeclareMethod(wx_ListItem, GetBackgroundColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_ListItem, GetBackgroundColour)
 
 Gura_DeclareMethod(wx_ListItem, GetColumn)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_ListItem, GetColumn)
 
 Gura_DeclareMethod(wx_ListItem, GetData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_ListItem, GetData)
 
 Gura_DeclareMethod(wx_ListItem, GetFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_ListItem, GetFont)
 
 Gura_DeclareMethod(wx_ListItem, GetId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_ListItem, GetId)
 
 Gura_DeclareMethod(wx_ListItem, GetImage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_ListItem, GetImage)
 
 Gura_DeclareMethod(wx_ListItem, GetMask)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_ListItem, GetMask)
 
 Gura_DeclareMethod(wx_ListItem, GetState)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_ListItem, GetState)
 
 Gura_DeclareMethod(wx_ListItem, GetText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_ListItem, GetText)
 
 Gura_DeclareMethod(wx_ListItem, GetTextColour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_ListItem, GetTextColour)
 
 Gura_DeclareMethod(wx_ListItem, GetWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_ListItem, GetWidth)
 
 Gura_DeclareMethod(wx_ListItem, SetAlign)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
 }
 
@@ -256,7 +256,7 @@ Gura_ImplementMethod(wx_ListItem, SetAlign)
 
 Gura_DeclareMethod(wx_ListItem, SetBackgroundColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colBack", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -271,7 +271,7 @@ Gura_ImplementMethod(wx_ListItem, SetBackgroundColour)
 
 Gura_DeclareMethod(wx_ListItem, SetColumn)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
@@ -286,7 +286,7 @@ Gura_ImplementMethod(wx_ListItem, SetColumn)
 
 Gura_DeclareMethod(wx_ListItem, SetData)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
@@ -301,7 +301,7 @@ Gura_ImplementMethod(wx_ListItem, SetData)
 
 Gura_DeclareMethod(wx_ListItem, SetData_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
@@ -316,7 +316,7 @@ Gura_ImplementMethod(wx_ListItem, SetData_1)
 
 Gura_DeclareMethod(wx_ListItem, SetFont)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
 }
 
@@ -331,7 +331,7 @@ Gura_ImplementMethod(wx_ListItem, SetFont)
 
 Gura_DeclareMethod(wx_ListItem, SetId)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -346,7 +346,7 @@ Gura_ImplementMethod(wx_ListItem, SetId)
 
 Gura_DeclareMethod(wx_ListItem, SetImage)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 }
 
@@ -361,7 +361,7 @@ Gura_ImplementMethod(wx_ListItem, SetImage)
 
 Gura_DeclareMethod(wx_ListItem, SetMask)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mask", VTYPE_number, OCCUR_Once);
 }
 
@@ -376,7 +376,7 @@ Gura_ImplementMethod(wx_ListItem, SetMask)
 
 Gura_DeclareMethod(wx_ListItem, SetState)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "state", VTYPE_number, OCCUR_Once);
 }
 
@@ -391,7 +391,7 @@ Gura_ImplementMethod(wx_ListItem, SetState)
 
 Gura_DeclareMethod(wx_ListItem, SetStateMask)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "stateMask", VTYPE_number, OCCUR_Once);
 }
 
@@ -406,7 +406,7 @@ Gura_ImplementMethod(wx_ListItem, SetStateMask)
 
 Gura_DeclareMethod(wx_ListItem, SetText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 }
 
@@ -421,7 +421,7 @@ Gura_ImplementMethod(wx_ListItem, SetText)
 
 Gura_DeclareMethod(wx_ListItem, SetTextColour)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "colText", VTYPE_wx_Colour, OCCUR_Once);
 }
 
@@ -436,7 +436,7 @@ Gura_ImplementMethod(wx_ListItem, SetTextColour)
 
 Gura_DeclareMethod(wx_ListItem, SetWidth)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 

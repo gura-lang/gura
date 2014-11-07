@@ -114,7 +114,7 @@ bool Object_writer::PutLine(Environment &env, Signal sig, const ValueList &valLi
 // csv.writer#write(fields+):map:reduce
 Gura_DeclareMethod(writer, write)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "fields", VTYPE_any, OCCUR_OnceOrMore);
 }
 
@@ -137,7 +137,7 @@ Gura_ImplementUserClass(writer)
 // csv.parse(str:string):map
 Gura_DeclareFunction(parse)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
 }
 
@@ -150,7 +150,7 @@ Gura_ImplementFunction(parse)
 // csv.read(stream:stream:r) {block?}
 Gura_DeclareFunction(read)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -166,7 +166,7 @@ Gura_ImplementFunction(read)
 // csv.writer(stream:stream:w, format?:string) {block?}
 Gura_DeclareFunction(writer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "format", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -188,7 +188,7 @@ Gura_ImplementFunction(writer)
 // stream#csvread() {block?}
 Gura_DeclareMethod(stream, csvread)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -203,7 +203,7 @@ Gura_ImplementMethod(stream, csvread)
 // stream#csvwriter(format?:string) {block?}
 Gura_DeclareMethod(stream, csvwriter)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

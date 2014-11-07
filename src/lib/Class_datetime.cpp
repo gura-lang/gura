@@ -162,7 +162,7 @@ String Object_datetime::ToString(bool exprFlag)
 //           minsoff?:number):map {block?}
 Gura_DeclareFunction(datetime)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "year", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "month", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "day", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -199,7 +199,7 @@ Gura_ImplementFunction(datetime)
 // datetime#clrtzoff():reduce
 Gura_DeclareMethod(datetime, clrtzoff)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 }
 
 Gura_ImplementMethod(datetime, clrtzoff)
@@ -212,7 +212,7 @@ Gura_ImplementMethod(datetime, clrtzoff)
 // datetime#format(format => `w3c)
 Gura_DeclareMethod(datetime, format)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_any, OCCUR_Once,
 								FLAG_None, new Expr_Value(Gura_Symbol(w3c)));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
@@ -286,7 +286,7 @@ Gura_ImplementMethod(datetime, format)
 // datetime.isleap(year:number):map
 Gura_DeclareClassMethod(datetime, isleap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "year", VTYPE_number);
 }
 
@@ -299,7 +299,7 @@ Gura_ImplementClassMethod(datetime, isleap)
 // datetime#isleap()
 Gura_DeclareMethod(datetime, isleap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(datetime, isleap)
@@ -312,7 +312,7 @@ Gura_ImplementMethod(datetime, isleap)
 // datetime.monthdays(year:number, month:number):map {block?}
 Gura_DeclareClassMethod(datetime, monthdays)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "year", VTYPE_number);
 	DeclareArg(env, "month", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -329,7 +329,7 @@ Gura_ImplementClassMethod(datetime, monthdays)
 // datetime.now():[utc] {block?}
 Gura_DeclareClassMethod(datetime, now)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(utc));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -343,7 +343,7 @@ Gura_ImplementClassMethod(datetime, now)
 // datetime.parse(str:string):map {block?}
 Gura_DeclareClassMethod(datetime, parse)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -361,7 +361,7 @@ Gura_ImplementClassMethod(datetime, parse)
 // datetime#settzoff(mins:number):reduce
 Gura_DeclareMethod(datetime, settzoff)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "mins", VTYPE_number);
 }
 
@@ -375,7 +375,7 @@ Gura_ImplementMethod(datetime, settzoff)
 // datetime.time(hour:number => 0, minute:number => 0, sec:number => 0, usec:number => 0):map {block?}
 Gura_DeclareClassMethod(datetime, time)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "hour", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareArg(env, "minute", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareArg(env, "sec", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
@@ -399,7 +399,7 @@ Gura_ImplementClassMethod(datetime, time)
 // datetime.today():[utc] {block?}
 Gura_DeclareClassMethod(datetime, today)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(utc));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -414,7 +414,7 @@ Gura_ImplementClassMethod(datetime, today)
 // datetime#utc()
 Gura_DeclareMethod(datetime, utc)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(datetime, utc)
@@ -430,7 +430,7 @@ Gura_ImplementMethod(datetime, utc)
 // datetime.weekday(year:number, month:number, day:number):map
 Gura_DeclareClassMethod(datetime, weekday)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "year", VTYPE_number);
 	DeclareArg(env, "month", VTYPE_number);
 	DeclareArg(env, "day", VTYPE_number);

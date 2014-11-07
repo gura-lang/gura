@@ -39,7 +39,7 @@ void wx_AutomationObject::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(AutomationObject)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_AutomationObject));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(AutomationObject)
 
 Gura_DeclareMethod(wx_AutomationObject, CallMethod)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "method", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "noArgs", VTYPE_number, OCCUR_Once);
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_AutomationObject, CallMethod)
 
 Gura_DeclareMethod(wx_AutomationObject, CallMethod_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "method", VTYPE_string, OCCUR_Once);
 #endif
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_AutomationObject, CallMethod_1)
 
 Gura_DeclareMethod(wx_AutomationObject, CreateInstance)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "classId", VTYPE_string, OCCUR_Once);
 #endif
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_AutomationObject, CreateInstance)
 
 Gura_DeclareMethod(wx_AutomationObject, GetDispatchPtr)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_AutomationObject, GetDispatchPtr)
 
 Gura_DeclareMethod(wx_AutomationObject, GetInstance)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "classId", VTYPE_string, OCCUR_Once);
 #endif
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_AutomationObject, GetInstance)
 
 Gura_DeclareMethod(wx_AutomationObject, GetObject)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "obj", VTYPE_wx_AutomationObject, OCCUR_Once);
 	DeclareArg(env, "property", VTYPE_string, OCCUR_Once);
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_AutomationObject, GetObject)
 
 Gura_DeclareMethod(wx_AutomationObject, GetProperty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "property", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "noArgs", VTYPE_number, OCCUR_Once);
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_AutomationObject, GetProperty)
 
 Gura_DeclareMethod(wx_AutomationObject, GetProperty_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "property", VTYPE_string, OCCUR_Once);
 #endif
@@ -247,7 +247,7 @@ Gura_ImplementMethod(wx_AutomationObject, GetProperty_1)
 
 Gura_DeclareMethod(wx_AutomationObject, Invoke)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "member", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "action", VTYPE_number, OCCUR_Once);
@@ -280,7 +280,7 @@ Gura_ImplementMethod(wx_AutomationObject, Invoke)
 
 Gura_DeclareMethod(wx_AutomationObject, PutProperty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "property", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "noArgs", VTYPE_number, OCCUR_Once);
@@ -306,7 +306,7 @@ Gura_ImplementMethod(wx_AutomationObject, PutProperty)
 
 Gura_DeclareMethod(wx_AutomationObject, PutProperty_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "property", VTYPE_string, OCCUR_Once);
 #endif
@@ -328,7 +328,7 @@ Gura_ImplementMethod(wx_AutomationObject, PutProperty_1)
 
 Gura_DeclareMethod(wx_AutomationObject, SetDispatchPtr)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 #endif
 }

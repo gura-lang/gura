@@ -54,7 +54,7 @@ void wx_Connection::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ConnectionEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Connection));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -76,7 +76,7 @@ Gura_ImplementFunction(ConnectionEmpty)
 
 Gura_DeclareFunction(Connection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_Connection));
 	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
@@ -108,7 +108,7 @@ Gura_ImplementFunction(Connection)
 
 Gura_DeclareMethod(wx_Connection, Advise)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_Connection, Advise)
 
 Gura_DeclareMethod(wx_Connection, Execute)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_Connection, Execute)
 
 Gura_DeclareMethod(wx_Connection, Disconnect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_Connection, Disconnect)
 
 Gura_DeclareMethod(wx_Connection, OnAdvise)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "topic", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_Connection, OnAdvise)
 
 Gura_DeclareMethod(wx_Connection, OnDisconnect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -224,7 +224,7 @@ Gura_ImplementMethod(wx_Connection, OnDisconnect)
 
 Gura_DeclareMethod(wx_Connection, OnExecute)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "topic", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -252,7 +252,7 @@ Gura_ImplementMethod(wx_Connection, OnExecute)
 
 Gura_DeclareMethod(wx_Connection, OnPoke)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "topic", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
@@ -282,7 +282,7 @@ Gura_ImplementMethod(wx_Connection, OnPoke)
 
 Gura_DeclareMethod(wx_Connection, OnRequest)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "topic", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
@@ -310,7 +310,7 @@ Gura_ImplementMethod(wx_Connection, OnRequest)
 
 Gura_DeclareMethod(wx_Connection, OnStartAdvise)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "topic", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -328,7 +328,7 @@ Gura_ImplementMethod(wx_Connection, OnStartAdvise)
 
 Gura_DeclareMethod(wx_Connection, OnStopAdvise)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "topic", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -346,7 +346,7 @@ Gura_ImplementMethod(wx_Connection, OnStopAdvise)
 
 Gura_DeclareMethod(wx_Connection, Poke)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -376,7 +376,7 @@ Gura_ImplementMethod(wx_Connection, Poke)
 
 Gura_DeclareMethod(wx_Connection, Request)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -403,7 +403,7 @@ Gura_ImplementMethod(wx_Connection, Request)
 
 Gura_DeclareMethod(wx_Connection, StartAdvise)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -419,7 +419,7 @@ Gura_ImplementMethod(wx_Connection, StartAdvise)
 
 Gura_DeclareMethod(wx_Connection, StopAdvise)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

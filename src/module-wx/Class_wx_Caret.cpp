@@ -40,7 +40,7 @@ void wx_Caret::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(CaretEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Caret));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -62,7 +62,7 @@ Gura_ImplementFunction(CaretEmpty)
 
 Gura_DeclareFunction(Caret)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Caret));
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -90,7 +90,7 @@ Gura_ImplementFunction(Caret)
 
 Gura_DeclareFunction(Caret_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Caret));
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
@@ -116,7 +116,7 @@ Gura_ImplementFunction(Caret_1)
 
 Gura_DeclareMethod(wx_Caret, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_Caret, Create)
 
 Gura_DeclareMethod(wx_Caret, Create_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_Caret, Create_1)
 
 Gura_DeclareClassMethod(wx_Caret, GetBlinkTime)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementClassMethod(wx_Caret, GetBlinkTime)
 
 Gura_DeclareMethod(wx_Caret, GetPosition)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_Caret, GetPosition)
 
 Gura_DeclareMethod(wx_Caret, GetPosition_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_Caret, GetPosition_1)
 
 Gura_DeclareMethod(wx_Caret, GetSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_Caret, GetSize)
 
 Gura_DeclareMethod(wx_Caret, GetSize_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_Caret, GetSize_1)
 
 Gura_DeclareMethod(wx_Caret, GetWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_Caret, GetWindow)
 
 Gura_DeclareMethod(wx_Caret, Hide)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Caret, Hide)
@@ -268,7 +268,7 @@ Gura_ImplementMethod(wx_Caret, Hide)
 
 Gura_DeclareMethod(wx_Caret, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -282,7 +282,7 @@ Gura_ImplementMethod(wx_Caret, IsOk)
 
 Gura_DeclareMethod(wx_Caret, IsVisible)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -296,7 +296,7 @@ Gura_ImplementMethod(wx_Caret, IsVisible)
 
 Gura_DeclareMethod(wx_Caret, Move)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -313,7 +313,7 @@ Gura_ImplementMethod(wx_Caret, Move)
 
 Gura_DeclareMethod(wx_Caret, Move_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pt", VTYPE_wx_Point, OCCUR_Once);
 }
 
@@ -328,7 +328,7 @@ Gura_ImplementMethod(wx_Caret, Move_1)
 
 Gura_DeclareClassMethod(wx_Caret, SetBlinkTime)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "milliseconds", VTYPE_number, OCCUR_Once);
 }
 
@@ -342,7 +342,7 @@ Gura_ImplementClassMethod(wx_Caret, SetBlinkTime)
 
 Gura_DeclareMethod(wx_Caret, SetSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
@@ -359,7 +359,7 @@ Gura_ImplementMethod(wx_Caret, SetSize)
 
 Gura_DeclareMethod(wx_Caret, SetSize_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -374,7 +374,7 @@ Gura_ImplementMethod(wx_Caret, SetSize_1)
 
 Gura_DeclareMethod(wx_Caret, Show)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "show", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 

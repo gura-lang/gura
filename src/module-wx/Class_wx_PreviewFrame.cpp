@@ -38,7 +38,7 @@ void wx_PreviewFrame::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(PreviewFrame)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_PreviewFrame));
 	DeclareArg(env, "preview", VTYPE_wx_PrintPreview, OCCUR_Once);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
@@ -78,7 +78,7 @@ Gura_ImplementFunction(PreviewFrame)
 
 Gura_DeclareMethod(wx_PreviewFrame, CreateControlBar)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PreviewFrame, CreateControlBar)
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_PreviewFrame, CreateControlBar)
 
 Gura_DeclareMethod(wx_PreviewFrame, CreateCanvas)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PreviewFrame, CreateCanvas)
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_PreviewFrame, CreateCanvas)
 
 Gura_DeclareMethod(wx_PreviewFrame, Initialize)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PreviewFrame, Initialize)
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_PreviewFrame, Initialize)
 
 Gura_DeclareMethod(wx_PreviewFrame, OnCloseWindow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_CloseEvent, OCCUR_Once);
 }
 

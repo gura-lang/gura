@@ -37,7 +37,7 @@ void wx_DebugContext::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_DebugContext, Check)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -51,7 +51,7 @@ Gura_ImplementMethod(wx_DebugContext, Check)
 
 Gura_DeclareMethod(wx_DebugContext, Dump)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_DebugContext, Dump)
 
 Gura_DeclareMethod(wx_DebugContext, GetCheckPrevious)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_DebugContext, GetCheckPrevious)
 
 Gura_DeclareMethod(wx_DebugContext, GetDebugMode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_DebugContext, GetDebugMode)
 
 Gura_DeclareMethod(wx_DebugContext, GetLevel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_DebugContext, GetLevel)
 
 Gura_DeclareMethod(wx_DebugContext, GetStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_DebugContext, GetStream)
 
 Gura_DeclareMethod(wx_DebugContext, GetStreamBuf)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_DebugContext, GetStreamBuf)
 
 Gura_DeclareMethod(wx_DebugContext, HasStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_DebugContext, HasStream)
 
 Gura_DeclareMethod(wx_DebugContext, PrintClasses)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_DebugContext, PrintClasses)
 
 Gura_DeclareMethod(wx_DebugContext, PrintStatistics)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "detailed", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_DebugContext, PrintStatistics)
 
 Gura_DeclareMethod(wx_DebugContext, SetCheckpoint)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "all", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_DebugContext, SetCheckpoint)
 
 Gura_DeclareMethod(wx_DebugContext, SetCheckPrevious)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "check", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_DebugContext, SetCheckPrevious)
 
 Gura_DeclareMethod(wx_DebugContext, SetDebugMode)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "debug", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -224,7 +224,7 @@ Gura_ImplementMethod(wx_DebugContext, SetDebugMode)
 
 Gura_DeclareMethod(wx_DebugContext, SetFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_DebugContext, SetFile)
 
 Gura_DeclareMethod(wx_DebugContext, SetLevel)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
 }
 
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_DebugContext, SetLevel)
 
 Gura_DeclareMethod(wx_DebugContext, SetStandardError)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_DebugContext, SetStandardError)
 
 Gura_DeclareMethod(wx_DebugContext, SetStream)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once);
 }
 

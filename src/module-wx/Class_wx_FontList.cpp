@@ -38,7 +38,7 @@ void wx_FontList::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FontListEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FontList));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(FontListEmpty)
 
 Gura_DeclareMethod(wx_FontList, FindOrCreateFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "point_size", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "family", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_Once);

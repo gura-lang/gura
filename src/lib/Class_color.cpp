@@ -93,7 +93,7 @@ String Object_color::ToString(bool exprFlag)
 // color(args+) {block?}
 Gura_DeclareFunction(color)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "args", VTYPE_any, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_color));
@@ -137,7 +137,7 @@ Gura_ImplementFunction(color)
 // color#getgray()
 Gura_DeclareMethod(color, getgray)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(color, getgray)
@@ -149,7 +149,7 @@ Gura_ImplementMethod(color, getgray)
 // color#html()
 Gura_DeclareMethod(color, html)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(color, html)
@@ -161,7 +161,7 @@ Gura_ImplementMethod(color, html)
 // color#tolist():[alpha]
 Gura_DeclareMethod(color, tolist)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(alpha));
 }
 

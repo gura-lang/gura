@@ -38,7 +38,7 @@ void wx_TipWindow::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(TipWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_TipWindow));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
@@ -78,7 +78,7 @@ Gura_ImplementFunction(TipWindow)
 
 Gura_DeclareMethod(wx_TipWindow, SetTipWindowPtr)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "windowPtr", VTYPE_wx_TipWindow, OCCUR_Once);
 #endif
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_TipWindow, SetTipWindowPtr)
 
 Gura_DeclareMethod(wx_TipWindow, SetBoundingRect)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "rectBound", VTYPE_wx_Rect, OCCUR_Once);
 }
 

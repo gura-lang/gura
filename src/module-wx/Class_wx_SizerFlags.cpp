@@ -38,7 +38,7 @@ void wx_SizerFlags::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(SizerFlags)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_SizerFlags));
 	DeclareArg(env, "proportion", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(SizerFlags)
 
 Gura_DeclareMethod(wx_SizerFlags, Align)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "align", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_SizerFlags, Align)
 
 Gura_DeclareMethod(wx_SizerFlags, Border)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "direction", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "borderinpixels", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_SizerFlags, Border)
 
 Gura_DeclareMethod(wx_SizerFlags, Center)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_SizerFlags, Center)
 
 Gura_DeclareMethod(wx_SizerFlags, Centre)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_SizerFlags, Centre)
 
 Gura_DeclareMethod(wx_SizerFlags, DoubleBorder)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "direction", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_SizerFlags, DoubleBorder)
 
 Gura_DeclareMethod(wx_SizerFlags, DoubleHorzBorder)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_SizerFlags, DoubleHorzBorder)
 
 Gura_DeclareMethod(wx_SizerFlags, Expand)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_SizerFlags, Expand)
 
 Gura_DeclareClassMethod(wx_SizerFlags, GetDefaultBorder)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -189,7 +189,7 @@ Gura_ImplementClassMethod(wx_SizerFlags, GetDefaultBorder)
 
 Gura_DeclareMethod(wx_SizerFlags, Left)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_SizerFlags, Left)
 
 Gura_DeclareMethod(wx_SizerFlags, FixedMinSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_SizerFlags, FixedMinSize)
 
 Gura_DeclareMethod(wx_SizerFlags, Proportion)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "proportion", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_SizerFlags, Proportion)
 
 Gura_DeclareMethod(wx_SizerFlags, ReserveSpaceEvenIfHidden)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_SizerFlags, ReserveSpaceEvenIfHidden)
 
 Gura_DeclareMethod(wx_SizerFlags, Right)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -262,7 +262,7 @@ Gura_ImplementMethod(wx_SizerFlags, Right)
 
 Gura_DeclareMethod(wx_SizerFlags, Shaped)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -276,7 +276,7 @@ Gura_ImplementMethod(wx_SizerFlags, Shaped)
 
 Gura_DeclareMethod(wx_SizerFlags, TripleBorder)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "direction", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

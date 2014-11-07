@@ -52,7 +52,7 @@ void wx_TopLevelWindow::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_TopLevelWindow, CanSetTransparent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, CanSetTransparent)
 
 Gura_DeclareMethod(wx_TopLevelWindow, CentreOnScreen)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "direction", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, CentreOnScreen)
 
 Gura_DeclareMethod(wx_TopLevelWindow, EnableCloseButton)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "enable", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, EnableCloseButton)
 
 Gura_DeclareMethod(wx_TopLevelWindow, GetDefaultItem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, GetDefaultItem)
 
 Gura_DeclareMethod(wx_TopLevelWindow, GetIcon)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, GetIcon)
 
 Gura_DeclareMethod(wx_TopLevelWindow, GetIcons)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, GetIcons)
 
 Gura_DeclareMethod(wx_TopLevelWindow, GetTitle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, GetTitle)
 
 Gura_DeclareMethod(wx_TopLevelWindow, HandleSettingChange)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "wParam", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "lParam", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, HandleSettingChange)
 
 Gura_DeclareMethod(wx_TopLevelWindow, IsActive)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, IsActive)
 
 Gura_DeclareMethod(wx_TopLevelWindow, IsAlwaysMaximized)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, IsAlwaysMaximized)
 
 Gura_DeclareMethod(wx_TopLevelWindow, Iconize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "iconize", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -221,7 +221,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, Iconize)
 
 Gura_DeclareMethod(wx_TopLevelWindow, IsFullScreen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, IsFullScreen)
 
 Gura_DeclareMethod(wx_TopLevelWindow, IsIconized)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, IsIconized)
 
 Gura_DeclareMethod(wx_TopLevelWindow, IsMaximized)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -263,7 +263,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, IsMaximized)
 
 Gura_DeclareMethod(wx_TopLevelWindow, IsUsingNativeDecorations)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -281,7 +281,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, IsUsingNativeDecorations)
 
 Gura_DeclareMethod(wx_TopLevelWindow, Maximize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "maximize", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -296,7 +296,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, Maximize)
 
 Gura_DeclareMethod(wx_TopLevelWindow, RequestUserAttention)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
@@ -312,7 +312,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, RequestUserAttention)
 
 Gura_DeclareMethod(wx_TopLevelWindow, SetDefaultItem)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "*win", VTYPE_wx_Window, OCCUR_Once);
 #endif
@@ -333,7 +333,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, SetDefaultItem)
 
 Gura_DeclareMethod(wx_TopLevelWindow, SetIcon)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "icon", VTYPE_wx_Icon, OCCUR_Once);
 }
 
@@ -348,7 +348,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, SetIcon)
 
 Gura_DeclareMethod(wx_TopLevelWindow, SetIcons)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "icons", VTYPE_wx_IconBundle, OCCUR_Once);
 }
 
@@ -363,7 +363,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, SetIcons)
 
 Gura_DeclareMethod(wx_TopLevelWindow, SetLeftMenu)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -391,7 +391,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, SetLeftMenu)
 
 Gura_DeclareMethod(wx_TopLevelWindow, SetMaxSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -406,7 +406,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, SetMaxSize)
 
 Gura_DeclareMethod(wx_TopLevelWindow, SetMinSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -421,7 +421,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, SetMinSize)
 
 Gura_DeclareMethod(wx_TopLevelWindow, SetSizeHints)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "minW", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "minH", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "maxW", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -450,7 +450,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, SetSizeHints)
 
 Gura_DeclareMethod(wx_TopLevelWindow, SetSizeHints_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "minSize", VTYPE_wx_Size, OCCUR_Once);
 	DeclareArg(env, "maxSize", VTYPE_wx_Size, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "incSize", VTYPE_wx_Size, OCCUR_ZeroOrOnce);
@@ -471,7 +471,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, SetSizeHints_1)
 
 Gura_DeclareMethod(wx_TopLevelWindow, SetRightMenu)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -499,7 +499,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, SetRightMenu)
 
 Gura_DeclareMethod(wx_TopLevelWindow, SetShape)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "region", VTYPE_wx_Region, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -515,7 +515,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, SetShape)
 
 Gura_DeclareMethod(wx_TopLevelWindow, SetTitle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once);
 }
 
@@ -530,7 +530,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, SetTitle)
 
 Gura_DeclareMethod(wx_TopLevelWindow, SetTransparent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "alpha", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -546,7 +546,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, SetTransparent)
 
 Gura_DeclareMethod(wx_TopLevelWindow, ShouldPreventAppExit)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -560,7 +560,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, ShouldPreventAppExit)
 
 Gura_DeclareMethod(wx_TopLevelWindow, ShowFullScreen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "show", VTYPE_boolean, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -579,7 +579,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, ShowFullScreen)
 
 Gura_DeclareMethod(wx_TopLevelWindow, UseNativeDecorations)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "native", VTYPE_boolean, OCCUR_ZeroOrOnce);
 #endif
@@ -601,7 +601,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, UseNativeDecorations)
 
 Gura_DeclareMethod(wx_TopLevelWindow, UseNativeDecorationsByDefault)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "native", VTYPE_boolean, OCCUR_ZeroOrOnce);
 #endif

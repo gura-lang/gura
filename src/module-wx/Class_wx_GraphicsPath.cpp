@@ -37,7 +37,7 @@ void wx_GraphicsPath::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_GraphicsPath, MoveToPoint)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
 }
@@ -54,7 +54,7 @@ Gura_ImplementMethod(wx_GraphicsPath, MoveToPoint)
 
 Gura_DeclareMethod(wx_GraphicsPath, MoveToPoint_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "p", VTYPE_wx_Point2DDouble, OCCUR_Once);
 }
 
@@ -69,7 +69,7 @@ Gura_ImplementMethod(wx_GraphicsPath, MoveToPoint_1)
 
 Gura_DeclareMethod(wx_GraphicsPath, AddArc)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "r", VTYPE_wx_Double, OCCUR_Once);
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddArc)
 
 Gura_DeclareMethod(wx_GraphicsPath, AddArc_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_wx_Point2DDouble, OCCUR_Once);
 	DeclareArg(env, "r", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "startAngle", VTYPE_wx_Double, OCCUR_Once);
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddArc_1)
 
 Gura_DeclareMethod(wx_GraphicsPath, AddArcToPoint)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x1", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y1", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "x2", VTYPE_wx_Double, OCCUR_Once);
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddArcToPoint)
 
 Gura_DeclareMethod(wx_GraphicsPath, AddCircle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "r", VTYPE_wx_Double, OCCUR_Once);
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddCircle)
 
 Gura_DeclareMethod(wx_GraphicsPath, AddCurveToPoint)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "cx1", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "cy1", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "cx2", VTYPE_wx_Double, OCCUR_Once);
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddCurveToPoint)
 
 Gura_DeclareMethod(wx_GraphicsPath, AddCurveToPoint_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c1", VTYPE_wx_Point2DDouble, OCCUR_Once);
 	DeclareArg(env, "c2", VTYPE_wx_Point2DDouble, OCCUR_Once);
 	DeclareArg(env, "e", VTYPE_wx_Point2DDouble, OCCUR_Once);
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddCurveToPoint_1)
 
 Gura_DeclareMethod(wx_GraphicsPath, AddEllipse)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "w", VTYPE_wx_Double, OCCUR_Once);
@@ -224,7 +224,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddEllipse)
 
 Gura_DeclareMethod(wx_GraphicsPath, AddLineToPoint)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
 }
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddLineToPoint)
 
 Gura_DeclareMethod(wx_GraphicsPath, AddLineToPoint_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "p", VTYPE_wx_Point2DDouble, OCCUR_Once);
 }
 
@@ -256,7 +256,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddLineToPoint_1)
 
 Gura_DeclareMethod(wx_GraphicsPath, AddPath)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_wx_GraphicsPath, OCCUR_Once);
 }
 
@@ -271,7 +271,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddPath)
 
 Gura_DeclareMethod(wx_GraphicsPath, AddQuadCurveToPoint)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "cx", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "cy", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
@@ -292,7 +292,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddQuadCurveToPoint)
 
 Gura_DeclareMethod(wx_GraphicsPath, AddRectangle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "w", VTYPE_wx_Double, OCCUR_Once);
@@ -313,7 +313,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddRectangle)
 
 Gura_DeclareMethod(wx_GraphicsPath, AddRoundedRectangle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "w", VTYPE_wx_Double, OCCUR_Once);
@@ -336,7 +336,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddRoundedRectangle)
 
 Gura_DeclareMethod(wx_GraphicsPath, CloseSubpath)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GraphicsPath, CloseSubpath)
@@ -349,7 +349,7 @@ Gura_ImplementMethod(wx_GraphicsPath, CloseSubpath)
 
 Gura_DeclareMethod(wx_GraphicsPath, Contains)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_wx_Point2DDouble, OCCUR_Once);
 	DeclareArg(env, "fillStyle", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -368,7 +368,7 @@ Gura_ImplementMethod(wx_GraphicsPath, Contains)
 
 Gura_DeclareMethod(wx_GraphicsPath, Contains_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "fillStyle", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -389,7 +389,7 @@ Gura_ImplementMethod(wx_GraphicsPath, Contains_1)
 
 Gura_DeclareMethod(wx_GraphicsPath, GetBox)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -403,7 +403,7 @@ Gura_ImplementMethod(wx_GraphicsPath, GetBox)
 
 Gura_DeclareMethod(wx_GraphicsPath, GetBox_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "w", VTYPE_wx_Double, OCCUR_Once);
@@ -424,7 +424,7 @@ Gura_ImplementMethod(wx_GraphicsPath, GetBox_1)
 
 Gura_DeclareMethod(wx_GraphicsPath, GetCurrentPoint)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
 }
@@ -441,7 +441,7 @@ Gura_ImplementMethod(wx_GraphicsPath, GetCurrentPoint)
 
 Gura_DeclareMethod(wx_GraphicsPath, GetCurrentPoint_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -455,7 +455,7 @@ Gura_ImplementMethod(wx_GraphicsPath, GetCurrentPoint_1)
 
 Gura_DeclareMethod(wx_GraphicsPath, Transform)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "matrix", VTYPE_wx_GraphicsMatrix, OCCUR_Once);
 }
 
@@ -470,7 +470,7 @@ Gura_ImplementMethod(wx_GraphicsPath, Transform)
 
 Gura_DeclareMethod(wx_GraphicsPath, GetNativePath)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GraphicsPath, GetNativePath)
@@ -483,7 +483,7 @@ Gura_ImplementMethod(wx_GraphicsPath, GetNativePath)
 
 Gura_DeclareMethod(wx_GraphicsPath, UnGetNativePath)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "p", VTYPE_number, OCCUR_Once);
 }
 

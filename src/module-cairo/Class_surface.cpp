@@ -59,7 +59,7 @@ String Object_surface::ToString(bool exprFlag)
 // cairo.surface.create_similar(other:cairo.surface, content:number, width:number, height:number) {block?}
 Gura_DeclareClassMethod(surface, create_similar)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "other", VTYPE_surface);
 	DeclareArg(env, "content", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number);
@@ -91,7 +91,7 @@ Gura_ImplementClassMethod(surface, create_similar)
 // cairo.surface.create_similar(other:cairo.surface, content:number, width:number, height:number) {block?}
 Gura_DeclareClassMethod(surface, create_similar_image)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "other", VTYPE_surface);
 	DeclareArg(env, "format", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number);
@@ -126,7 +126,7 @@ Gura_ImplementClassMethod(surface, create_similar_image)
 // cairo.surface.create_for_rectangle(target:cairo.surface, x:number, y:number, width:number, height:number) {block?}
 Gura_DeclareClassMethod(surface, create_for_rectangle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "other", VTYPE_surface);
 	DeclareArg(env, "format", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number);
@@ -162,7 +162,7 @@ Gura_ImplementClassMethod(surface, create_for_rectangle)
 // cairo.surface#status()
 Gura_DeclareMethod(surface, status)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Checks whether an error has previously occurred for this surface.\n"
 	);
@@ -179,7 +179,7 @@ Gura_ImplementMethod(surface, status)
 // cairo.surface#finish():reduce
 Gura_DeclareMethod(surface, finish)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"This function finishes the surface and drops all references to external resources.\n"
 	"For example, for the Xlib backend it means that cairo will no longer access the drawable, which can be freed.\n"
@@ -204,7 +204,7 @@ Gura_ImplementMethod(surface, finish)
 // cairo.surface#flush():reduce
 Gura_DeclareMethod(surface, flush)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Do any pending drawing for the surface and also restore any temporary modifications cairo has made to the surface's state.\n"
 	"This function must be called before switching from drawing on the surface with cairo to drawing on it directly with native APIs.\n"
@@ -224,7 +224,7 @@ Gura_ImplementMethod(surface, flush)
 // cairo.surface#get_device()
 Gura_DeclareMethod(surface, get_device)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"This function returns the device for a surface. See cairo.device.\n"
 	);
@@ -243,7 +243,7 @@ Gura_ImplementMethod(surface, get_device)
 // cairo.surface#get_font_options()
 Gura_DeclareMethod(surface, get_font_options)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Retrieves the default font rendering options for the surface.\n"
 	"This allows display surfaces to report the correct subpixel order for rendering on them,\n"
@@ -269,7 +269,7 @@ Gura_ImplementMethod(surface, get_font_options)
 // cairo.surface#get_content()
 Gura_DeclareMethod(surface, get_content)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"This function returns the content type of surface which indicates whether the surface contains color and/or alpha information.\n"
 	"See cairo_content_t.\n"
@@ -288,7 +288,7 @@ Gura_ImplementMethod(surface, get_content)
 // cairo.surface#mark_dirty():reduce
 Gura_DeclareMethod(surface, mark_dirty)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Tells cairo that drawing has been done to surface using means other than cairo, and that cairo should reread any cached areas.\n"
 	"Note that you must call cairo.surface#flush() before doing such drawing.\n"
@@ -307,7 +307,7 @@ Gura_ImplementMethod(surface, mark_dirty)
 // cairo.surface#mark_dirty_rectangle(x:number, y:number, width:number, height:number):reduce
 Gura_DeclareMethod(surface, mark_dirty_rectangle)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number);
@@ -333,7 +333,7 @@ Gura_ImplementMethod(surface, mark_dirty_rectangle)
 // cairo.surface#set_device_offset(x_offset:number, y_offset:number):reduce
 Gura_DeclareMethod(surface, set_device_offset)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "x_offset", VTYPE_number);
 	DeclareArg(env, "y_offset", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -360,7 +360,7 @@ Gura_ImplementMethod(surface, set_device_offset)
 // cairo.surface#get_device_offset()
 Gura_DeclareMethod(surface, get_device_offset)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"This function returns the previous device offset set by cairo.surface#set_device_offset().\n"
 	);
@@ -379,7 +379,7 @@ Gura_ImplementMethod(surface, get_device_offset)
 // cairo.surface#set_fallback_resolution(x_pixels_per_inch:number, y_pixels_per_inch:number):reduce
 Gura_DeclareMethod(surface, set_fallback_resolution)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "x_pixels_per_inch", VTYPE_number);
 	DeclareArg(env, "y_pixels_per_inch", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -414,7 +414,7 @@ Gura_ImplementMethod(surface, set_fallback_resolution)
 // cairo.surface#get_fallback_resolution()
 Gura_DeclareMethod(surface, get_fallback_resolution)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"This function returns the previous fallback resolution set by cairo.surface#set_fallback_resolution(), or default fallback resolution if never set.\n"
 	);
@@ -433,7 +433,7 @@ Gura_ImplementMethod(surface, get_fallback_resolution)
 // cairo.surface#get_type()
 Gura_DeclareMethod(surface, get_type)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"This function returns the type of the backend used to create a surface. See cairo_surface_type_t for available types.\n"
 	);
@@ -451,7 +451,7 @@ Gura_ImplementMethod(surface, get_type)
 // cairo.surface#get_reference_count()
 Gura_DeclareMethod(surface, get_reference_count)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Returns the current reference count of surface.\n"
 	);
@@ -472,7 +472,7 @@ Gura_ImplementMethod(surface, get_reference_count)
 // cairo.surface#copy_page():reduce
 Gura_DeclareMethod(surface, copy_page)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Emits the current page for backends that support multiple pages, but doesn't clear it,\n"
 	"so that the contents of the current page will be retained for the next page.\n"
@@ -494,7 +494,7 @@ Gura_ImplementMethod(surface, copy_page)
 // cairo.surface#show_page():reduce
 Gura_DeclareMethod(surface, show_page)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Emits and clears the current page for backends that support multiple pages.\n"
 	"Use cairo.surface#copy_page() if you don't want to clear the page.\n"
@@ -515,7 +515,7 @@ Gura_ImplementMethod(surface, show_page)
 // cairo.surface#has_show_text_glyphs()
 Gura_DeclareMethod(surface, has_show_text_glyphs)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Returns whether the surface supports sophisticated cairo.context#show_text_glyphs() operations.\n"
 	"That is, whether it actually uses the provided text and cluster data to a cairo.context#show_text_glyphs() call.\n"
@@ -538,7 +538,7 @@ Gura_ImplementMethod(surface, has_show_text_glyphs)
 // cairo.surface#set_mime_data():reduce
 Gura_DeclareMethod(surface, set_mime_data)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""
 	);
@@ -557,7 +557,7 @@ Gura_ImplementMethod(surface, set_mime_data)
 // cairo.surface#get_mime_data()
 Gura_DeclareMethod(surface, get_mime_data)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""
 	);
@@ -576,7 +576,7 @@ Gura_ImplementMethod(surface, get_mime_data)
 // cairo.surface#supports_mime_type()
 Gura_DeclareMethod(surface, supports_mime_type)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""
 	);
@@ -595,7 +595,7 @@ Gura_ImplementMethod(surface, supports_mime_type)
 // cairo.surface#map_to_image(extents:cairo.rectangle_int)
 Gura_DeclareMethod(surface, map_to_image)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "extents", VTYPE_rectangle_int);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""
@@ -622,7 +622,7 @@ Gura_ImplementMethod(surface, map_to_image)
 // cairo.surface#unmap_image()
 Gura_DeclareMethod(surface, unmap_image)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""
 	);
@@ -641,7 +641,7 @@ Gura_ImplementMethod(surface, unmap_image)
 // cairo.surface#write_to_png(stream:stream:w):reduce
 Gura_DeclareMethod(surface, write_to_png)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""

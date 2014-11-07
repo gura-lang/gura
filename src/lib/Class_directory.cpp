@@ -36,7 +36,7 @@ String Object_directory::ToString(bool exprFlag)
 // directory(pathname:string):map {block?}
 Gura_DeclareFunction(directory)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_directory));

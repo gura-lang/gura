@@ -60,7 +60,7 @@ bool SymbolToNumber(Signal sig, const Symbol *pSymbol, int *pNum);
 // conio.clear(region?:symbol):void
 Gura_DeclareFunction(clear)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "region", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Clears screen."
@@ -70,7 +70,7 @@ Gura_DeclareFunction(clear)
 // conio.getwinsize()
 Gura_DeclareFunction(getwinsize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Returns window size as a list [width, height]."
 	);
@@ -79,7 +79,7 @@ Gura_DeclareFunction(getwinsize)
 // conio.setcolor(fg:symbol:nil, bg?:symbol):map:void {block?}
 Gura_DeclareFunction(setcolor)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "fg", VTYPE_symbol, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "bg", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -118,7 +118,7 @@ Gura_DeclareFunction(setcolor)
 // conio.moveto(x:number, y:number):map:void {block?}
 Gura_DeclareFunction(moveto)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -130,7 +130,7 @@ Gura_DeclareFunction(moveto)
 // conio.waitkey():[raise]
 Gura_DeclareFunction(waitkey)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(raise));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Waits for a keyboard input and returns a character code number associated with the key.\n"

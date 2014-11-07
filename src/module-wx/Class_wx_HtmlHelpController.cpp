@@ -43,7 +43,7 @@ void wx_HtmlHelpController::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HtmlHelpController)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlHelpController));
 	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "parentWindow", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
@@ -71,7 +71,7 @@ Gura_ImplementFunction(HtmlHelpController)
 
 Gura_DeclareMethod(wx_HtmlHelpController, AddBook)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "bookFile", VTYPE_wx_FileName, OCCUR_Once);
 	DeclareArg(env, "showWaitMsg", VTYPE_boolean, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, AddBook)
 
 Gura_DeclareMethod(wx_HtmlHelpController, AddBook_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "bookUrl", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "showWaitMsg", VTYPE_boolean, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, AddBook_1)
 
 Gura_DeclareMethod(wx_HtmlHelpController, CreateHelpDialog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "data", VTYPE_wx_HtmlHelpData, OCCUR_Once);
 #endif
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, CreateHelpDialog)
 
 Gura_DeclareMethod(wx_HtmlHelpController, CreateHelpFrame)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "data", VTYPE_wx_HtmlHelpData, OCCUR_Once);
 #endif
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, CreateHelpFrame)
 
 Gura_DeclareMethod(wx_HtmlHelpController, Display)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_string, OCCUR_Once);
 }
 
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, Display)
 
 Gura_DeclareMethod(wx_HtmlHelpController, Display_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, Display_1)
 
 Gura_DeclareMethod(wx_HtmlHelpController, DisplayContents)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlHelpController, DisplayContents)
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, DisplayContents)
 
 Gura_DeclareMethod(wx_HtmlHelpController, DisplayIndex)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlHelpController, DisplayIndex)
@@ -207,7 +207,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, DisplayIndex)
 
 Gura_DeclareMethod(wx_HtmlHelpController, KeywordSearch)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "keyword", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -226,7 +226,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, KeywordSearch)
 
 Gura_DeclareMethod(wx_HtmlHelpController, ReadCustomization)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "cfg", VTYPE_wx_ConfigBase, OCCUR_Once);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_ZeroOrOnce);
 }
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, ReadCustomization)
 
 Gura_DeclareMethod(wx_HtmlHelpController, SetTempDir)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
 }
 
@@ -259,7 +259,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, SetTempDir)
 
 Gura_DeclareMethod(wx_HtmlHelpController, SetTitleFormat)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_string, OCCUR_Once);
 }
 
@@ -274,7 +274,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, SetTitleFormat)
 
 Gura_DeclareMethod(wx_HtmlHelpController, UseConfig)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "config", VTYPE_wx_ConfigBase, OCCUR_Once);
 	DeclareArg(env, "rootpath", VTYPE_string, OCCUR_ZeroOrOnce);
 }
@@ -292,7 +292,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, UseConfig)
 
 Gura_DeclareMethod(wx_HtmlHelpController, WriteCustomization)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "cfg", VTYPE_wx_ConfigBase, OCCUR_Once);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_ZeroOrOnce);
 }

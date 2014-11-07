@@ -38,7 +38,7 @@ void wx_PaintDC::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(PaintDC)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_PaintDC));
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);

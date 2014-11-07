@@ -12,7 +12,7 @@ Gura_BeginModuleScope(cairo)
 // cairo.pdf_surface.create(stream:stream:w, width_in_points:number, height_in_points:number) {block?}
 Gura_DeclareClassMethod(pdf_surface, create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "width_in_points", VTYPE_number);
 	DeclareArg(env, "height_in_points", VTYPE_number);
@@ -34,7 +34,7 @@ Gura_ImplementClassMethod(pdf_surface, create)
 // cairo.pdf_surface#restrict_to_version(version:number):reduce
 Gura_DeclareMethod(pdf_surface, restrict_to_version)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "version", VTYPE_number);
 }
 
@@ -51,7 +51,7 @@ Gura_ImplementMethod(pdf_surface, restrict_to_version)
 // cairo.pdf_surface#set_size(width_in_points:number, height_in_points:number)
 Gura_DeclareMethod(pdf_surface, set_size)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "width_in_points", VTYPE_number);
 	DeclareArg(env, "height_in_points", VTYPE_number);
 }

@@ -39,7 +39,7 @@ void wx_Treebook::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(TreebookEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Treebook));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(TreebookEmpty)
 
 Gura_DeclareFunction(Treebook)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Treebook));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -99,7 +99,7 @@ Gura_ImplementFunction(Treebook)
 
 Gura_DeclareMethod(wx_Treebook, AddPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "bSelect", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_Treebook, AddPage)
 
 Gura_DeclareMethod(wx_Treebook, AddSubPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "bSelect", VTYPE_boolean, OCCUR_ZeroOrOnce);
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_Treebook, AddSubPage)
 
 Gura_DeclareMethod(wx_Treebook, AssignImageList)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "imageList", VTYPE_wx_ImageList, OCCUR_Once);
 }
 
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_Treebook, AssignImageList)
 
 Gura_DeclareMethod(wx_Treebook, ChangeSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_Treebook, ChangeSelection)
 
 Gura_DeclareMethod(wx_Treebook, CollapseNode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pageId", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_Treebook, CollapseNode)
 
 Gura_DeclareMethod(wx_Treebook, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
@@ -224,7 +224,7 @@ Gura_ImplementMethod(wx_Treebook, Create)
 
 Gura_DeclareMethod(wx_Treebook, DeleteAllPages)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -238,7 +238,7 @@ Gura_ImplementMethod(wx_Treebook, DeleteAllPages)
 
 Gura_DeclareMethod(wx_Treebook, DeletePage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pagePos", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -254,7 +254,7 @@ Gura_ImplementMethod(wx_Treebook, DeletePage)
 
 Gura_DeclareMethod(wx_Treebook, ExpandNode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pageId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "expand", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -273,7 +273,7 @@ Gura_ImplementMethod(wx_Treebook, ExpandNode)
 
 Gura_DeclareMethod(wx_Treebook, GetPageImage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -289,7 +289,7 @@ Gura_ImplementMethod(wx_Treebook, GetPageImage)
 
 Gura_DeclareMethod(wx_Treebook, GetPageParent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -305,7 +305,7 @@ Gura_ImplementMethod(wx_Treebook, GetPageParent)
 
 Gura_DeclareMethod(wx_Treebook, GetPageText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -321,7 +321,7 @@ Gura_ImplementMethod(wx_Treebook, GetPageText)
 
 Gura_DeclareMethod(wx_Treebook, GetSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -335,7 +335,7 @@ Gura_ImplementMethod(wx_Treebook, GetSelection)
 
 Gura_DeclareMethod(wx_Treebook, InsertPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pagePos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "page", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
@@ -361,7 +361,7 @@ Gura_ImplementMethod(wx_Treebook, InsertPage)
 
 Gura_DeclareMethod(wx_Treebook, InsertSubPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pagePos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "page", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
@@ -387,7 +387,7 @@ Gura_ImplementMethod(wx_Treebook, InsertSubPage)
 
 Gura_DeclareMethod(wx_Treebook, IsNodeExpanded)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pageId", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -403,7 +403,7 @@ Gura_ImplementMethod(wx_Treebook, IsNodeExpanded)
 
 Gura_DeclareMethod(wx_Treebook, SetImageList)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "imageList", VTYPE_wx_ImageList, OCCUR_Once, FLAG_Nil);
 }
 
@@ -419,7 +419,7 @@ Gura_ImplementMethod(wx_Treebook, SetImageList)
 
 Gura_DeclareMethod(wx_Treebook, SetPageImage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "imageId", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -437,7 +437,7 @@ Gura_ImplementMethod(wx_Treebook, SetPageImage)
 
 Gura_DeclareMethod(wx_Treebook, SetPageText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -455,7 +455,7 @@ Gura_ImplementMethod(wx_Treebook, SetPageText)
 
 Gura_DeclareMethod(wx_Treebook, SetSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

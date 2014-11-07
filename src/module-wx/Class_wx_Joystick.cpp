@@ -38,7 +38,7 @@ void wx_Joystick::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(Joystick)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Joystick));
 	DeclareArg(env, "joystick", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(Joystick)
 
 Gura_DeclareMethod(wx_Joystick, GetButtonState)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_Joystick, GetButtonState)
 
 Gura_DeclareMethod(wx_Joystick, GetManufacturerId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_Joystick, GetManufacturerId)
 
 Gura_DeclareMethod(wx_Joystick, GetMovementThreshold)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_Joystick, GetMovementThreshold)
 
 Gura_DeclareMethod(wx_Joystick, GetNumberAxes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_Joystick, GetNumberAxes)
 
 Gura_DeclareMethod(wx_Joystick, GetNumberButtons)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_Joystick, GetNumberButtons)
 
 Gura_DeclareClassMethod(wx_Joystick, GetNumberJoysticks)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -146,7 +146,7 @@ Gura_ImplementClassMethod(wx_Joystick, GetNumberJoysticks)
 
 Gura_DeclareMethod(wx_Joystick, GetPollingMax)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_Joystick, GetPollingMax)
 
 Gura_DeclareMethod(wx_Joystick, GetPollingMin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_Joystick, GetPollingMin)
 
 Gura_DeclareMethod(wx_Joystick, GetProductId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_Joystick, GetProductId)
 
 Gura_DeclareMethod(wx_Joystick, GetProductName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_Joystick, GetProductName)
 
 Gura_DeclareMethod(wx_Joystick, GetPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_Joystick, GetPosition)
 
 Gura_DeclareMethod(wx_Joystick, GetPOVPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_Joystick, GetPOVPosition)
 
 Gura_DeclareMethod(wx_Joystick, GetPOVCTSPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_Joystick, GetPOVCTSPosition)
 
 Gura_DeclareMethod(wx_Joystick, GetRudderMax)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -258,7 +258,7 @@ Gura_ImplementMethod(wx_Joystick, GetRudderMax)
 
 Gura_DeclareMethod(wx_Joystick, GetRudderMin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -272,7 +272,7 @@ Gura_ImplementMethod(wx_Joystick, GetRudderMin)
 
 Gura_DeclareMethod(wx_Joystick, GetRudderPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -286,7 +286,7 @@ Gura_ImplementMethod(wx_Joystick, GetRudderPosition)
 
 Gura_DeclareMethod(wx_Joystick, GetUMax)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -300,7 +300,7 @@ Gura_ImplementMethod(wx_Joystick, GetUMax)
 
 Gura_DeclareMethod(wx_Joystick, GetUMin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -314,7 +314,7 @@ Gura_ImplementMethod(wx_Joystick, GetUMin)
 
 Gura_DeclareMethod(wx_Joystick, GetUPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -328,7 +328,7 @@ Gura_ImplementMethod(wx_Joystick, GetUPosition)
 
 Gura_DeclareMethod(wx_Joystick, GetVMax)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -342,7 +342,7 @@ Gura_ImplementMethod(wx_Joystick, GetVMax)
 
 Gura_DeclareMethod(wx_Joystick, GetVMin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -356,7 +356,7 @@ Gura_ImplementMethod(wx_Joystick, GetVMin)
 
 Gura_DeclareMethod(wx_Joystick, GetVPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -370,7 +370,7 @@ Gura_ImplementMethod(wx_Joystick, GetVPosition)
 
 Gura_DeclareMethod(wx_Joystick, GetXMax)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -384,7 +384,7 @@ Gura_ImplementMethod(wx_Joystick, GetXMax)
 
 Gura_DeclareMethod(wx_Joystick, GetXMin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -398,7 +398,7 @@ Gura_ImplementMethod(wx_Joystick, GetXMin)
 
 Gura_DeclareMethod(wx_Joystick, GetYMax)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -412,7 +412,7 @@ Gura_ImplementMethod(wx_Joystick, GetYMax)
 
 Gura_DeclareMethod(wx_Joystick, GetYMin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -426,7 +426,7 @@ Gura_ImplementMethod(wx_Joystick, GetYMin)
 
 Gura_DeclareMethod(wx_Joystick, GetZMax)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -440,7 +440,7 @@ Gura_ImplementMethod(wx_Joystick, GetZMax)
 
 Gura_DeclareMethod(wx_Joystick, GetZMin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -454,7 +454,7 @@ Gura_ImplementMethod(wx_Joystick, GetZMin)
 
 Gura_DeclareMethod(wx_Joystick, GetZPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -468,7 +468,7 @@ Gura_ImplementMethod(wx_Joystick, GetZPosition)
 
 Gura_DeclareMethod(wx_Joystick, HasPOV)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -482,7 +482,7 @@ Gura_ImplementMethod(wx_Joystick, HasPOV)
 
 Gura_DeclareMethod(wx_Joystick, HasPOV4Dir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -496,7 +496,7 @@ Gura_ImplementMethod(wx_Joystick, HasPOV4Dir)
 
 Gura_DeclareMethod(wx_Joystick, HasPOVCTS)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -510,7 +510,7 @@ Gura_ImplementMethod(wx_Joystick, HasPOVCTS)
 
 Gura_DeclareMethod(wx_Joystick, HasRudder)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -524,7 +524,7 @@ Gura_ImplementMethod(wx_Joystick, HasRudder)
 
 Gura_DeclareMethod(wx_Joystick, HasU)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -538,7 +538,7 @@ Gura_ImplementMethod(wx_Joystick, HasU)
 
 Gura_DeclareMethod(wx_Joystick, HasV)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -552,7 +552,7 @@ Gura_ImplementMethod(wx_Joystick, HasV)
 
 Gura_DeclareMethod(wx_Joystick, HasZ)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -566,7 +566,7 @@ Gura_ImplementMethod(wx_Joystick, HasZ)
 
 Gura_DeclareMethod(wx_Joystick, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -580,7 +580,7 @@ Gura_ImplementMethod(wx_Joystick, IsOk)
 
 Gura_DeclareMethod(wx_Joystick, ReleaseCapture)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -594,7 +594,7 @@ Gura_ImplementMethod(wx_Joystick, ReleaseCapture)
 
 Gura_DeclareMethod(wx_Joystick, SetCapture)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "win", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "pollingFreq", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -613,7 +613,7 @@ Gura_ImplementMethod(wx_Joystick, SetCapture)
 
 Gura_DeclareMethod(wx_Joystick, SetMovementThreshold)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "threshold", VTYPE_number, OCCUR_Once);
 }
 

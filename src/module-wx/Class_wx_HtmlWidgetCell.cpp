@@ -38,7 +38,7 @@ void wx_HtmlWidgetCell::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HtmlWidgetCell)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlWidgetCell));
 	DeclareArg(env, "wnd", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "w", VTYPE_number, OCCUR_ZeroOrOnce);

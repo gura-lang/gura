@@ -49,7 +49,7 @@ void wx_GenericValidator::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GenericValidator)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_GenericValidator));
 	DeclareArg(env, "validator", VTYPE_wx_GenericValidator, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -73,7 +73,7 @@ Gura_ImplementFunction(GenericValidator)
 
 Gura_DeclareFunction(GenericValidator_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_GenericValidator));
 	DeclareArg(env, "valPtr", VTYPE_boolean, OCCUR_Once);
@@ -103,7 +103,7 @@ Gura_ImplementFunction(GenericValidator_1)
 
 Gura_DeclareFunction(GenericValidator_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_GenericValidator));
 	DeclareArg(env, "valPtr", VTYPE_string, OCCUR_Once);
@@ -133,7 +133,7 @@ Gura_ImplementFunction(GenericValidator_2)
 
 Gura_DeclareFunction(GenericValidator_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_GenericValidator));
 	DeclareArg(env, "valPtr", VTYPE_number, OCCUR_Once);
@@ -163,7 +163,7 @@ Gura_ImplementFunction(GenericValidator_3)
 
 Gura_DeclareFunction(GenericValidator_4)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_GenericValidator));
 	DeclareArg(env, "valPtr", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -193,7 +193,7 @@ Gura_ImplementFunction(GenericValidator_4)
 
 Gura_DeclareMethod(wx_GenericValidator, Clone)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -207,7 +207,7 @@ Gura_ImplementMethod(wx_GenericValidator, Clone)
 
 Gura_DeclareMethod(wx_GenericValidator, TransferFromWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -221,7 +221,7 @@ Gura_ImplementMethod(wx_GenericValidator, TransferFromWindow)
 
 Gura_DeclareMethod(wx_GenericValidator, TransferToWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

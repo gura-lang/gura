@@ -38,7 +38,7 @@ void wx_EncodingConverter::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(EncodingConverterEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_EncodingConverter));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(EncodingConverterEmpty)
 
 Gura_DeclareMethod(wx_EncodingConverter, Init)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "input_enc", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "output_enc", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "method", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_EncodingConverter, Init)
 
 Gura_DeclareClassMethod(wx_EncodingConverter, CanConvert)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "encIn", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "encOut", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -98,7 +98,7 @@ Gura_ImplementClassMethod(wx_EncodingConverter, CanConvert)
 
 Gura_DeclareMethod(wx_EncodingConverter, Convert)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "input", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "output", VTYPE_number, OCCUR_Once);
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_EncodingConverter, Convert)
 
 Gura_DeclareMethod(wx_EncodingConverter, Convert_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "input", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "output", VTYPE_number, OCCUR_Once);
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_EncodingConverter, Convert_1)
 
 Gura_DeclareMethod(wx_EncodingConverter, Convert_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "input", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "output", VTYPE_number, OCCUR_Once);
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_EncodingConverter, Convert_2)
 
 Gura_DeclareMethod(wx_EncodingConverter, Convert_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "input", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "output", VTYPE_number, OCCUR_Once);
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_EncodingConverter, Convert_3)
 #if 0
 Gura_DeclareMethod(wx_EncodingConverter, Convert_4)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_EncodingConverter, Convert_4)
 
 Gura_DeclareMethod(wx_EncodingConverter, Convert_5)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 #endif
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_EncodingConverter, Convert_5)
 
 Gura_DeclareMethod(wx_EncodingConverter, Convert_6)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "input", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_EncodingConverter, Convert_6)
 
 Gura_DeclareClassMethod(wx_EncodingConverter, GetPlatformEquivalents)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "enc", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "platform", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -274,7 +274,7 @@ Gura_ImplementClassMethod(wx_EncodingConverter, GetPlatformEquivalents)
 
 Gura_DeclareClassMethod(wx_EncodingConverter, GetAllEquivalents)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "enc", VTYPE_number, OCCUR_Once);
 #endif

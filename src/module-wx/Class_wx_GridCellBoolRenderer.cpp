@@ -61,7 +61,7 @@ void wx_GridCellBoolRenderer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GridCellBoolRenderer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellBoolRenderer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -83,7 +83,7 @@ Gura_ImplementFunction(GridCellBoolRenderer)
 
 Gura_DeclareMethod(wx_GridCellBoolRenderer, Draw)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "grid", VTYPE_wx_Grid, OCCUR_Once);
 	DeclareArg(env, "attr", VTYPE_wx_GridCellAttr, OCCUR_Once);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);

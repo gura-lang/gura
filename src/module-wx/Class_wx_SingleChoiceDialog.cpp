@@ -38,7 +38,7 @@ void wx_SingleChoiceDialog::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(SingleChoiceDialog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_SingleChoiceDialog));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
@@ -76,7 +76,7 @@ Gura_ImplementFunction(SingleChoiceDialog)
 
 Gura_DeclareMethod(wx_SingleChoiceDialog, GetSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_SingleChoiceDialog, GetSelection)
 
 Gura_DeclareMethod(wx_SingleChoiceDialog, GetSelectionClientData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_SingleChoiceDialog, GetSelectionClientData)
 
 Gura_DeclareMethod(wx_SingleChoiceDialog, GetStringSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_SingleChoiceDialog, GetStringSelection)
 
 Gura_DeclareMethod(wx_SingleChoiceDialog, SetSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "selection", VTYPE_number, OCCUR_Once);
 }
 
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_SingleChoiceDialog, SetSelection)
 
 Gura_DeclareMethod(wx_SingleChoiceDialog, ShowModal)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

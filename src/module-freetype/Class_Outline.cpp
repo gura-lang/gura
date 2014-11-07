@@ -67,7 +67,7 @@ Value Object_Outline::DoSetProp(Environment &env, Signal sig, const Symbol *pSym
 // freetype.Outline#Translate(xOffset:number, yOffset:number):reduce
 Gura_DeclareMethod(Outline, Translate)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "xOffset", VTYPE_Matrix);
 	DeclareArg(env, "yOffset", VTYPE_Matrix);
 }
@@ -84,7 +84,7 @@ Gura_ImplementMethod(Outline, Translate)
 // freetype.Outline#Transform(matrix:freetype.Matrix):reduce
 Gura_DeclareMethod(Outline, Transform)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "matrix", VTYPE_Matrix);
 }
 
@@ -99,7 +99,7 @@ Gura_ImplementMethod(Outline, Transform)
 // freetype.Outline#Embolden(strength:number):reduce
 Gura_DeclareMethod(Outline, Embolden)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "strength", VTYPE_number);
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(Outline, Embolden)
 // freetype.Outline#EmboldenXY(xstrength:number, ystrength:number):reduce
 Gura_DeclareMethod(Outline, EmboldenXY)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "xstrength", VTYPE_number);
 	DeclareArg(env, "ystrength", VTYPE_number);
 }
@@ -141,7 +141,7 @@ Gura_ImplementMethod(Outline, EmboldenXY)
 // freetype.Outline#Reverse():reduce
 Gura_DeclareMethod(Outline, Reverse)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 }
 
 Gura_ImplementMethod(Outline, Reverse)

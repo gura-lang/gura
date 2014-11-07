@@ -38,7 +38,7 @@ void wx_UpdateUIEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(UpdateUIEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_UpdateUIEvent));
 	DeclareArg(env, "commandId", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(UpdateUIEvent)
 
 Gura_DeclareClassMethod(wx_UpdateUIEvent, CanUpdate)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -78,7 +78,7 @@ Gura_ImplementClassMethod(wx_UpdateUIEvent, CanUpdate)
 
 Gura_DeclareMethod(wx_UpdateUIEvent, Check)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "check", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, Check)
 
 Gura_DeclareMethod(wx_UpdateUIEvent, Enable)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "enable", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, Enable)
 
 Gura_DeclareMethod(wx_UpdateUIEvent, Show)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "show", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, Show)
 
 Gura_DeclareMethod(wx_UpdateUIEvent, GetChecked)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetChecked)
 
 Gura_DeclareMethod(wx_UpdateUIEvent, GetEnabled)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetEnabled)
 
 Gura_DeclareMethod(wx_UpdateUIEvent, GetShown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetShown)
 
 Gura_DeclareMethod(wx_UpdateUIEvent, GetSetChecked)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetSetChecked)
 
 Gura_DeclareMethod(wx_UpdateUIEvent, GetSetEnabled)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetSetEnabled)
 
 Gura_DeclareMethod(wx_UpdateUIEvent, GetSetShown)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -207,7 +207,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetSetShown)
 
 Gura_DeclareMethod(wx_UpdateUIEvent, GetSetText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -221,7 +221,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetSetText)
 
 Gura_DeclareMethod(wx_UpdateUIEvent, GetText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetText)
 
 Gura_DeclareClassMethod(wx_UpdateUIEvent, GetMode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -248,7 +248,7 @@ Gura_ImplementClassMethod(wx_UpdateUIEvent, GetMode)
 
 Gura_DeclareClassMethod(wx_UpdateUIEvent, GetUpdateInterval)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -261,7 +261,7 @@ Gura_ImplementClassMethod(wx_UpdateUIEvent, GetUpdateInterval)
 
 Gura_DeclareClassMethod(wx_UpdateUIEvent, ResetUpdateTime)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementClassMethod(wx_UpdateUIEvent, ResetUpdateTime)
@@ -273,7 +273,7 @@ Gura_ImplementClassMethod(wx_UpdateUIEvent, ResetUpdateTime)
 
 Gura_DeclareClassMethodAlias(wx_UpdateUIEvent, SetMode_, "SetMode")
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
@@ -287,7 +287,7 @@ Gura_ImplementClassMethod(wx_UpdateUIEvent, SetMode_)
 
 Gura_DeclareMethod(wx_UpdateUIEvent, SetText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 }
 
@@ -302,7 +302,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, SetText)
 
 Gura_DeclareClassMethod(wx_UpdateUIEvent, SetUpdateInterval)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "updateInterval", VTYPE_number, OCCUR_Once);
 }
 

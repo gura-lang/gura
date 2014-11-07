@@ -852,7 +852,7 @@ int Object_parser::ParserEx::OnNotStandalone()
 // xml.parser#parse(stream:stream:r):void
 Gura_DeclareMethod(parser, parse)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 }
 
@@ -1006,7 +1006,7 @@ String Object_element::ToString(bool exprFlag)
 // xml.element#addchild(value):void:map
 Gura_DeclareMethod(element, addchild)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_any);
 }
 
@@ -1020,7 +1020,7 @@ Gura_ImplementMethod(element, addchild)
 // xml.element#gettext()
 Gura_DeclareMethod(element, gettext)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(element, gettext)
@@ -1034,7 +1034,7 @@ Gura_ImplementMethod(element, gettext)
 // xml.element#textize(fancy?:boolean, indentLevel?:number, tabs?:number)
 Gura_DeclareMethod(element, textize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "indentLevel", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "tabs", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1056,7 +1056,7 @@ Gura_ImplementMethod(element, textize)
 // xml.element#write(stream:stream:w, fancy?:boolean, indentLevel?:number, tabs?:number):void
 Gura_DeclareMethod(element, write)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "indentLevel", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1156,7 +1156,7 @@ String Object_document::ToString(bool exprFlag)
 // xml.document#parse(str:string):void
 Gura_DeclareMethod(document, parse)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "str", VTYPE_string);
 }
 
@@ -1171,7 +1171,7 @@ Gura_ImplementMethod(document, parse)
 // xml.document#read(stream:stream:r):void
 Gura_DeclareMethod(document, read)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 }
 
@@ -1185,7 +1185,7 @@ Gura_ImplementMethod(document, read)
 // xml.document#textize(fancy?:boolean, tabs?:number)
 Gura_DeclareMethod(document, textize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "tabs", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -1205,7 +1205,7 @@ Gura_ImplementMethod(document, textize)
 // xml.document#write(stream:stream:w, fancy?:boolean, tabs?:number):void
 Gura_DeclareMethod(document, write)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "tabs", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -1306,7 +1306,7 @@ void Iterator_element::GatherFollower(Environment::Frame *pFrame, EnvironmentSet
 // xml.parser()
 Gura_DeclareFunction(parser)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(parser));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1324,7 +1324,7 @@ Gura_ImplementFunction(parser)
 // xml.element(_tagname_:string, attrs%):map {block?}
 Gura_DeclareFunction(element)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "_tagname_", VTYPE_string);
 	DeclareDictArg("attrs");
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1367,7 +1367,7 @@ Gura_ImplementFunction(element)
 // xml.comment(comment:string)
 Gura_DeclareFunction(comment)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "comment", VTYPE_string);
 }
 
@@ -1381,7 +1381,7 @@ Gura_ImplementFunction(comment)
 // xml.document(stream?:stream:r) {block?}
 Gura_DeclareFunction(document)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

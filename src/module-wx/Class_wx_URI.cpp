@@ -41,7 +41,7 @@ void wx_URI::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(URIEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_URI));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -63,7 +63,7 @@ Gura_ImplementFunction(URIEmpty)
 
 Gura_DeclareFunction(URI)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_URI));
 	DeclareArg(env, "uri", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -87,7 +87,7 @@ Gura_ImplementFunction(URI)
 
 Gura_DeclareFunction(URI_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_URI));
 	DeclareArg(env, "uri", VTYPE_wx_URI, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -111,7 +111,7 @@ Gura_ImplementFunction(URI_1)
 
 Gura_DeclareMethod(wx_URI, BuildURI)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_URI, BuildURI)
 
 Gura_DeclareMethod(wx_URI, BuildUnescapedURI)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_URI, BuildUnescapedURI)
 
 Gura_DeclareMethod(wx_URI, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "uri", VTYPE_string, OCCUR_Once);
 #endif
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_URI, Create)
 
 Gura_DeclareMethod(wx_URI, GetFragment)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_URI, GetFragment)
 
 Gura_DeclareMethod(wx_URI, GetHostType)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_URI, GetHostType)
 
 Gura_DeclareMethod(wx_URI, GetPassword)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_URI, GetPassword)
 
 Gura_DeclareMethod(wx_URI, GetPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_URI, GetPath)
 
 Gura_DeclareMethod(wx_URI, GetPort)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_URI, GetPort)
 
 Gura_DeclareMethod(wx_URI, GetQuery)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_URI, GetQuery)
 
 Gura_DeclareMethod(wx_URI, GetScheme)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -257,7 +257,7 @@ Gura_ImplementMethod(wx_URI, GetScheme)
 
 Gura_DeclareMethod(wx_URI, GetServer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -271,7 +271,7 @@ Gura_ImplementMethod(wx_URI, GetServer)
 
 Gura_DeclareMethod(wx_URI, GetUser)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_URI, GetUser)
 
 Gura_DeclareMethod(wx_URI, GetUserInfo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -299,7 +299,7 @@ Gura_ImplementMethod(wx_URI, GetUserInfo)
 
 Gura_DeclareMethod(wx_URI, HasFragment)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -313,7 +313,7 @@ Gura_ImplementMethod(wx_URI, HasFragment)
 
 Gura_DeclareMethod(wx_URI, HasPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -327,7 +327,7 @@ Gura_ImplementMethod(wx_URI, HasPath)
 
 Gura_DeclareMethod(wx_URI, HasPort)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -341,7 +341,7 @@ Gura_ImplementMethod(wx_URI, HasPort)
 
 Gura_DeclareMethod(wx_URI, HasQuery)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -355,7 +355,7 @@ Gura_ImplementMethod(wx_URI, HasQuery)
 
 Gura_DeclareMethod(wx_URI, HasScheme)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -369,7 +369,7 @@ Gura_ImplementMethod(wx_URI, HasScheme)
 
 Gura_DeclareMethod(wx_URI, HasServer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -383,7 +383,7 @@ Gura_ImplementMethod(wx_URI, HasServer)
 
 Gura_DeclareMethod(wx_URI, HasUser)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -401,7 +401,7 @@ Gura_ImplementMethod(wx_URI, HasUser)
 
 Gura_DeclareMethod(wx_URI, IsReference)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -415,7 +415,7 @@ Gura_ImplementMethod(wx_URI, IsReference)
 
 Gura_DeclareMethod(wx_URI, Resolve)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "base", VTYPE_wx_URI, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -433,7 +433,7 @@ Gura_ImplementMethod(wx_URI, Resolve)
 
 Gura_DeclareMethod(wx_URI, Unescape)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "uri", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

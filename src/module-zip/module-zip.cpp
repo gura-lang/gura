@@ -99,7 +99,7 @@ bool Object_reader::ReadDirectory(Environment &env, Signal sig)
 // zip.reader#entry(name:string) {block?}
 Gura_DeclareMethod(reader, entry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -135,7 +135,7 @@ Gura_ImplementMethod(reader, entry)
 // zip.reader#entries() {block?}
 Gura_DeclareMethod(reader, entries)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -368,7 +368,7 @@ bool Object_writer::Finish()
 // zip.writer#add(stream:stream:r, filename?:string, compression?:symbol):map:reduce
 Gura_DeclareMethod(writer, add)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "compression", VTYPE_symbol, OCCUR_ZeroOrOnce);
@@ -403,7 +403,7 @@ Gura_ImplementMethod(writer, add)
 // zip.writer#close():void
 Gura_DeclareMethod(writer, close)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(writer, close)
@@ -471,7 +471,7 @@ void Iterator_Entry::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &
 // zip.reader(stream:stream:r) {block?}
 Gura_DeclareFunction(reader)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(reader));
@@ -489,7 +489,7 @@ Gura_ImplementFunction(reader)
 // zip.writer(stream:stream:w, compression?:symbol) {block?}
 Gura_DeclareFunction(writer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "compression", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -513,7 +513,7 @@ Gura_ImplementFunction(writer)
 // zip.test(stream:stream:r)
 Gura_DeclareFunction(test)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 }
 

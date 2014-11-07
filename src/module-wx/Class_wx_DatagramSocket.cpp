@@ -38,7 +38,7 @@ void wx_DatagramSocket::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DatagramSocket)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_DatagramSocket));
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(DatagramSocket)
 
 Gura_DeclareMethod(wx_DatagramSocket, ReceiveFrom)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "address", VTYPE_wx_SockAddress, OCCUR_Once);
 	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_DatagramSocket, ReceiveFrom)
 
 Gura_DeclareMethod(wx_DatagramSocket, SendTo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "address", VTYPE_wx_SockAddress, OCCUR_Once);
 	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);

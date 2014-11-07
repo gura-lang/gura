@@ -45,7 +45,7 @@ void wx_StaticBitmap::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(StaticBitmapEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_StaticBitmap));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -67,7 +67,7 @@ Gura_ImplementFunction(StaticBitmapEmpty)
 
 Gura_DeclareFunction(StaticBitmap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_StaticBitmap));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -116,7 +116,7 @@ Gura_ImplementFunction(StaticBitmap)
 
 Gura_DeclareMethod(wx_StaticBitmap, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "label", VTYPE_wx_Bitmap, OCCUR_Once);
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_StaticBitmap, Create)
 
 Gura_DeclareMethod(wx_StaticBitmap, GetBitmap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_StaticBitmap, GetBitmap)
 
 Gura_DeclareMethod(wx_StaticBitmap, GetIcon)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_StaticBitmap, GetIcon)
 
 Gura_DeclareMethod(wx_StaticBitmap, SetBitmap)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_wx_Bitmap, OCCUR_Once);
 }
 
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_StaticBitmap, SetBitmap)
 
 Gura_DeclareMethod(wx_StaticBitmap, SetIcon)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_wx_Icon, OCCUR_Once);
 }
 

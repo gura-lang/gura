@@ -39,7 +39,7 @@ void wx_StaticBoxSizer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(StaticBoxSizer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_StaticBoxSizer));
 	DeclareArg(env, "box", VTYPE_wx_StaticBox, OCCUR_Once);
 	DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_ImplementFunction(StaticBoxSizer)
 
 Gura_DeclareFunction(StaticBoxSizerAuto)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_StaticBoxSizer));
 	DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
@@ -94,7 +94,7 @@ Gura_ImplementFunction(StaticBoxSizerAuto)
 
 Gura_DeclareMethod(wx_StaticBoxSizer, GetStaticBox)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

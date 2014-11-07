@@ -11,7 +11,7 @@ Gura_BeginModuleBody(codecs)
 // codecs.dir()
 Gura_DeclareFunction(dir)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"returns a list that contains registered encodings."
 	);

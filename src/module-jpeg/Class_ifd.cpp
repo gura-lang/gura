@@ -412,7 +412,7 @@ String Object_ifd::ToString(bool exprFlag)
 // jpeg.ifd#each() {block?}
 Gura_DeclareMethod(ifd, each)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

@@ -38,7 +38,7 @@ void wx_CollapsiblePane::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(CollapsiblePane)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_CollapsiblePane));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -81,7 +81,7 @@ Gura_ImplementFunction(CollapsiblePane)
 
 Gura_DeclareMethod(wx_CollapsiblePane, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_CollapsiblePane, Create)
 
 Gura_DeclareMethod(wx_CollapsiblePane, IsCollapsed)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_CollapsiblePane, IsCollapsed)
 
 Gura_DeclareMethod(wx_CollapsiblePane, IsExpanded)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_CollapsiblePane, IsExpanded)
 
 Gura_DeclareMethod(wx_CollapsiblePane, Collapse)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "collapse", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_CollapsiblePane, Collapse)
 
 Gura_DeclareMethod(wx_CollapsiblePane, Expand)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CollapsiblePane, Expand)
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_CollapsiblePane, Expand)
 
 Gura_DeclareMethod(wx_CollapsiblePane, GetPane)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

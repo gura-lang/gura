@@ -38,7 +38,7 @@ void wx_AuiManager::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(AuiManager)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_AuiManager));
 	DeclareArg(env, "managed_wnd", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(AuiManager)
 
 Gura_DeclareMethod(wx_AuiManager, AddPane)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "pane_info", VTYPE_wx_AuiPaneInfo, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_AuiManager, AddPane)
 
 Gura_DeclareMethod(wx_AuiManager, AddPane_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "direction", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "caption", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_AuiManager, AddPane_1)
 
 Gura_DeclareMethod(wx_AuiManager, AddPane_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "pane_info", VTYPE_wx_AuiPaneInfo, OCCUR_Once);
 	DeclareArg(env, "drop_pos", VTYPE_wx_Point, OCCUR_Once);
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_AuiManager, AddPane_2)
 
 Gura_DeclareMethod(wx_AuiManager, DetachPane)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_AuiManager, DetachPane)
 
 Gura_DeclareMethod(wx_AuiManager, GetAllPanes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_AuiManager, GetAllPanes)
 
 Gura_DeclareMethod(wx_AuiManager, GetArtProvider)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_AuiManager, GetArtProvider)
 
 Gura_DeclareMethod(wx_AuiManager, GetDockSizeConstraint)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "widthpct", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "heightpct", VTYPE_number, OCCUR_Once);
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_AuiManager, GetDockSizeConstraint)
 
 Gura_DeclareMethod(wx_AuiManager, GetFlags)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -211,7 +211,7 @@ Gura_ImplementMethod(wx_AuiManager, GetFlags)
 
 Gura_DeclareMethod(wx_AuiManager, GetManagedWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_AuiManager, GetManagedWindow)
 
 Gura_DeclareClassMethod(wx_AuiManager, GetManager)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -240,7 +240,7 @@ Gura_ImplementClassMethod(wx_AuiManager, GetManager)
 
 Gura_DeclareMethod(wx_AuiManager, GetPane)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -256,7 +256,7 @@ Gura_ImplementMethod(wx_AuiManager, GetPane)
 
 Gura_DeclareMethod(wx_AuiManager, GetPane_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -272,7 +272,7 @@ Gura_ImplementMethod(wx_AuiManager, GetPane_1)
 
 Gura_DeclareMethod(wx_AuiManager, HideHint)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiManager, HideHint)
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_AuiManager, HideHint)
 
 Gura_DeclareMethod(wx_AuiManager, InsertPane)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "insert_location", VTYPE_wx_AuiPaneInfo, OCCUR_Once);
 	DeclareArg(env, "insert_level", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -306,7 +306,7 @@ Gura_ImplementMethod(wx_AuiManager, InsertPane)
 
 Gura_DeclareMethod(wx_AuiManager, LoadPaneInfo)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pane_part", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "pane", VTYPE_wx_AuiPaneInfo, OCCUR_Once);
 }
@@ -323,7 +323,7 @@ Gura_ImplementMethod(wx_AuiManager, LoadPaneInfo)
 
 Gura_DeclareMethod(wx_AuiManager, LoadPerspective)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "perspective", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "update", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -342,7 +342,7 @@ Gura_ImplementMethod(wx_AuiManager, LoadPerspective)
 
 Gura_DeclareMethod(wx_AuiManager, ProcessDockResult)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "target", VTYPE_wx_AuiPaneInfo, OCCUR_Once);
 	DeclareArg(env, "new_pos", VTYPE_wx_AuiPaneInfo, OCCUR_Once);
@@ -366,7 +366,7 @@ Gura_ImplementMethod(wx_AuiManager, ProcessDockResult)
 
 Gura_DeclareMethod(wx_AuiManager, SavePaneInfo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pane", VTYPE_wx_AuiPaneInfo, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -382,7 +382,7 @@ Gura_ImplementMethod(wx_AuiManager, SavePaneInfo)
 
 Gura_DeclareMethod(wx_AuiManager, SavePerspective)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -396,7 +396,7 @@ Gura_ImplementMethod(wx_AuiManager, SavePerspective)
 
 Gura_DeclareMethod(wx_AuiManager, SetArtProvider)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "art_provider", VTYPE_wx_AuiDockArt, OCCUR_Once);
 }
 
@@ -411,7 +411,7 @@ Gura_ImplementMethod(wx_AuiManager, SetArtProvider)
 
 Gura_DeclareMethod(wx_AuiManager, SetDockSizeConstraint)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "widthpct", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "heightpct", VTYPE_number, OCCUR_Once);
 }
@@ -428,7 +428,7 @@ Gura_ImplementMethod(wx_AuiManager, SetDockSizeConstraint)
 
 Gura_DeclareMethod(wx_AuiManager, SetFlags)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
@@ -443,7 +443,7 @@ Gura_ImplementMethod(wx_AuiManager, SetFlags)
 
 Gura_DeclareMethod(wx_AuiManager, SetManagedWindow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "managed_wnd", VTYPE_wx_Window, OCCUR_Once);
 }
 
@@ -458,7 +458,7 @@ Gura_ImplementMethod(wx_AuiManager, SetManagedWindow)
 
 Gura_DeclareMethod(wx_AuiManager, ShowHint)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
 }
 
@@ -473,7 +473,7 @@ Gura_ImplementMethod(wx_AuiManager, ShowHint)
 
 Gura_DeclareMethod(wx_AuiManager, UnInit)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiManager, UnInit)
@@ -486,7 +486,7 @@ Gura_ImplementMethod(wx_AuiManager, UnInit)
 
 Gura_DeclareMethod(wx_AuiManager, Update)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiManager, Update)

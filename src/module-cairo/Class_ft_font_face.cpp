@@ -17,7 +17,7 @@ String Object_ft_font_face::ToString(bool exprFlag)
 // cairo.ft_font_face.create_for_ft_face(face:FT_Face, load_flag:number) {block?}
 Gura_DeclareClassMethod(ft_font_face, create_for_ft_face)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "face", VTYPE_number);
 	DeclareArg(env, "load_flag", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);

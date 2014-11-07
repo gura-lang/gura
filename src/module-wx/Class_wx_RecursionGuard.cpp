@@ -38,7 +38,7 @@ void wx_RecursionGuard::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(RecursionGuard)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_RecursionGuard));
 	DeclareArg(env, "flag", VTYPE_wx_RecursionGuardFlag, OCCUR_Once);
@@ -68,7 +68,7 @@ Gura_ImplementFunction(RecursionGuard)
 
 Gura_DeclareMethod(wx_RecursionGuard, IsInside)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

@@ -38,7 +38,7 @@ void wx_GridCellAutoWrapStringRenderer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(GridCellAutoWrapStringRenderer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellAutoWrapStringRenderer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

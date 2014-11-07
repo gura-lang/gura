@@ -38,7 +38,7 @@ void wx_WizardPageSimple::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(WizardPageSimple)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_WizardPageSimple));
 	DeclareArg(env, "parent", VTYPE_wx_Wizard, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "prev", VTYPE_wx_WizardPage, OCCUR_ZeroOrOnce);
@@ -72,7 +72,7 @@ Gura_ImplementFunction(WizardPageSimple)
 
 Gura_DeclareMethod(wx_WizardPageSimple, SetPrev)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "prev", VTYPE_wx_WizardPage, OCCUR_Once);
 }
 
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_WizardPageSimple, SetPrev)
 
 Gura_DeclareMethod(wx_WizardPageSimple, SetNext)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "next", VTYPE_wx_WizardPage, OCCUR_Once);
 }
 
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_WizardPageSimple, SetNext)
 
 Gura_DeclareMethod(wx_WizardPageSimple, Chain)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "next", VTYPE_wx_WizardPageSimple, OCCUR_Once);
 }
 
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_WizardPageSimple, Chain)
 
 Gura_DeclareClassMethod(wx_WizardPageSimple, ChainBoth)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "first", VTYPE_wx_WizardPageSimple, OCCUR_Once);
 	DeclareArg(env, "second", VTYPE_wx_WizardPageSimple, OCCUR_Once);
 }

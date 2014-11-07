@@ -39,7 +39,7 @@ void wx_SpinCtrl::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(SpinCtrlEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SpinCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(SpinCtrlEmpty)
 
 Gura_DeclareFunction(SpinCtrl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_SpinCtrl));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -112,7 +112,7 @@ Gura_ImplementFunction(SpinCtrl)
 
 Gura_DeclareMethod(wx_SpinCtrl, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_SpinCtrl, Create)
 
 Gura_DeclareMethod(wx_SpinCtrl, SetValue)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 }
 
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_SpinCtrl, SetValue)
 
 Gura_DeclareMethod(wx_SpinCtrl, SetValue_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_SpinCtrl, SetValue_1)
 
 Gura_DeclareMethod(wx_SpinCtrl, GetValue)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_SpinCtrl, GetValue)
 
 Gura_DeclareMethod(wx_SpinCtrl, SetRange)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "minVal", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "maxVal", VTYPE_number, OCCUR_Once);
 }
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_SpinCtrl, SetRange)
 
 Gura_DeclareMethod(wx_SpinCtrl, SetSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
 }
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_SpinCtrl, SetSelection)
 
 Gura_DeclareMethod(wx_SpinCtrl, GetMin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -247,7 +247,7 @@ Gura_ImplementMethod(wx_SpinCtrl, GetMin)
 
 Gura_DeclareMethod(wx_SpinCtrl, GetMax)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

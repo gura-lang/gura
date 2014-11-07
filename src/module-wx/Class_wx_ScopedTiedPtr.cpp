@@ -38,7 +38,7 @@ void wx_ScopedTiedPtr::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ScopedTiedPtr)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ScopedTiedPtr));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

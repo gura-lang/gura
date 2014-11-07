@@ -63,7 +63,7 @@ wxWizardPage *wx_WizardPage::GetPrev() const
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(WizardPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_WizardPage));
 	DeclareArg(env, "parent", VTYPE_wx_Wizard, OCCUR_Once);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_ZeroOrOnce);
@@ -90,7 +90,7 @@ Gura_ImplementFunction(WizardPage)
 
 Gura_DeclareMethod(wx_WizardPage, GetPrev)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_WizardPage, GetPrev)
 
 Gura_DeclareMethod(wx_WizardPage, GetNext)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_WizardPage, GetNext)
 
 Gura_DeclareMethod(wx_WizardPage, GetBitmap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

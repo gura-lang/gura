@@ -38,7 +38,7 @@ void wx_MemoryFSHandler::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(MemoryFSHandler)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MemoryFSHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(MemoryFSHandler)
 #if 0
 Gura_DeclareClassMethod(wx_MemoryFSHandler, AddFile)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "image", VTYPE_wx_Image, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -81,7 +81,7 @@ Gura_ImplementClassMethod(wx_MemoryFSHandler, AddFile)
 #if 0
 Gura_DeclareClassMethod(wx_MemoryFSHandler, AddFile_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -100,7 +100,7 @@ Gura_ImplementClassMethod(wx_MemoryFSHandler, AddFile_1)
 
 Gura_DeclareClassMethod(wx_MemoryFSHandler, AddFileWithMimeType)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "textdata", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "mimetype", VTYPE_string, OCCUR_Once);
@@ -118,7 +118,7 @@ Gura_ImplementClassMethod(wx_MemoryFSHandler, AddFileWithMimeType)
 
 Gura_DeclareClassMethod(wx_MemoryFSHandler, AddFileWithMimeType_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "binarydata", VTYPE_number, OCCUR_Once);
@@ -144,7 +144,7 @@ Gura_ImplementClassMethod(wx_MemoryFSHandler, AddFileWithMimeType_1)
 
 Gura_DeclareClassMethod(wx_MemoryFSHandler, RemoveFile)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 }
 

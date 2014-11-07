@@ -43,7 +43,7 @@ void wx_TextOutputStream::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(TextOutputStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_TextOutputStream));
 	DeclareArg(env, "stream", VTYPE_wx_OutputStream, OCCUR_Once);
@@ -79,7 +79,7 @@ Gura_ImplementFunction(TextOutputStream)
 
 Gura_DeclareMethod(wx_TextOutputStream, GetMode)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_TextOutputStream, GetMode)
 
 Gura_DeclareMethod(wx_TextOutputStream, PutChar)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextOutputStream, PutChar)
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_TextOutputStream, PutChar)
 
 Gura_DeclareMethodAlias(wx_TextOutputStream, SetMode_, "SetMode")
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextOutputStream, SetMode_)
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_TextOutputStream, SetMode_)
 
 Gura_DeclareMethod(wx_TextOutputStream, Write8)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextOutputStream, Write8)
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_TextOutputStream, Write8)
 
 Gura_DeclareMethod(wx_TextOutputStream, Write16)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextOutputStream, Write16)
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_TextOutputStream, Write16)
 
 Gura_DeclareMethod(wx_TextOutputStream, Write32)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextOutputStream, Write32)
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_TextOutputStream, Write32)
 
 Gura_DeclareMethod(wx_TextOutputStream, WriteDouble)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextOutputStream, WriteDouble)
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_TextOutputStream, WriteDouble)
 
 Gura_DeclareMethod(wx_TextOutputStream, WriteString)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextOutputStream, WriteString)

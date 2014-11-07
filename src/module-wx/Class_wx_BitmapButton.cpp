@@ -39,7 +39,7 @@ void wx_BitmapButton::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(BitmapButtonEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_BitmapButton));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(BitmapButtonEmpty)
 
 Gura_DeclareFunction(BitmapButton)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_BitmapButton));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -104,7 +104,7 @@ Gura_ImplementFunction(BitmapButton)
 
 Gura_DeclareMethod(wx_BitmapButton, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_BitmapButton, Create)
 
 Gura_DeclareMethod(wx_BitmapButton, GetBitmapDisabled)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_BitmapButton, GetBitmapDisabled)
 
 Gura_DeclareMethod(wx_BitmapButton, GetBitmapDisabled_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_BitmapButton, GetBitmapDisabled_1)
 
 Gura_DeclareMethod(wx_BitmapButton, GetBitmapFocus)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_BitmapButton, GetBitmapFocus)
 
 Gura_DeclareMethod(wx_BitmapButton, GetBitmapFocus_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_BitmapButton, GetBitmapFocus_1)
 
 Gura_DeclareMethod(wx_BitmapButton, GetBitmapHover)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -208,7 +208,7 @@ Gura_ImplementMethod(wx_BitmapButton, GetBitmapHover)
 
 Gura_DeclareMethod(wx_BitmapButton, GetBitmapHover_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_BitmapButton, GetBitmapHover_1)
 
 Gura_DeclareMethod(wx_BitmapButton, GetBitmapLabel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -236,7 +236,7 @@ Gura_ImplementMethod(wx_BitmapButton, GetBitmapLabel)
 
 Gura_DeclareMethod(wx_BitmapButton, GetBitmapLabel_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_BitmapButton, GetBitmapLabel_1)
 
 Gura_DeclareMethod(wx_BitmapButton, GetBitmapSelected)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_BitmapButton, GetBitmapSelected)
 
 Gura_DeclareMethod(wx_BitmapButton, GetBitmapSelected_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -278,7 +278,7 @@ Gura_ImplementMethod(wx_BitmapButton, GetBitmapSelected_1)
 
 Gura_DeclareMethod(wx_BitmapButton, SetBitmapDisabled)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 }
 
@@ -293,7 +293,7 @@ Gura_ImplementMethod(wx_BitmapButton, SetBitmapDisabled)
 
 Gura_DeclareMethod(wx_BitmapButton, SetBitmapFocus)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 }
 
@@ -308,7 +308,7 @@ Gura_ImplementMethod(wx_BitmapButton, SetBitmapFocus)
 
 Gura_DeclareMethod(wx_BitmapButton, SetBitmapHover)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 }
 
@@ -323,7 +323,7 @@ Gura_ImplementMethod(wx_BitmapButton, SetBitmapHover)
 
 Gura_DeclareMethod(wx_BitmapButton, SetBitmapLabel)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 }
 
@@ -338,7 +338,7 @@ Gura_ImplementMethod(wx_BitmapButton, SetBitmapLabel)
 
 Gura_DeclareMethod(wx_BitmapButton, SetBitmapSelected)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 }
 

@@ -43,7 +43,7 @@ void wx_AcceleratorTable::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(AcceleratorTableEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AcceleratorTable));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -65,7 +65,7 @@ Gura_ImplementFunction(AcceleratorTableEmpty)
 
 Gura_DeclareFunction(AcceleratorTable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_AcceleratorTable));
 	DeclareArg(env, "entries", VTYPE_wx_AcceleratorEntry, OCCUR_Once, FLAG_List);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -90,7 +90,7 @@ Gura_ImplementFunction(AcceleratorTable)
 #if 0
 Gura_DeclareFunction(AcceleratorTable_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_AcceleratorTable));
 	DeclareArg(env, "resource", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -115,7 +115,7 @@ Gura_ImplementFunction(AcceleratorTable_2)
 
 Gura_DeclareMethod(wx_AcceleratorTable, IsOk)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

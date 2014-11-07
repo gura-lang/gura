@@ -38,7 +38,7 @@ void wx_RichTextListStyleDefinition::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(RichTextListStyleDefinition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextListStyleDefinition));
 	DeclareArg(env, "name", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(RichTextListStyleDefinition)
 
 Gura_DeclareMethod(wx_RichTextListStyleDefinition, CombineWithParagraphStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "indent", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "paraStyle", VTYPE_wx_RichTextAttr, OCCUR_Once);
 	DeclareArg(env, "styleSheet", VTYPE_wx_RichTextStyleSheet, OCCUR_ZeroOrOnce);
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_RichTextListStyleDefinition, CombineWithParagraphStyle)
 
 Gura_DeclareMethod(wx_RichTextListStyleDefinition, FindLevelForIndent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "indent", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_RichTextListStyleDefinition, FindLevelForIndent)
 
 Gura_DeclareMethod(wx_RichTextListStyleDefinition, GetCombinedStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "indent", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "styleSheet", VTYPE_wx_RichTextStyleSheet, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_RichTextListStyleDefinition, GetCombinedStyle)
 
 Gura_DeclareMethod(wx_RichTextListStyleDefinition, GetCombinedStyleLevel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "styleSheet", VTYPE_wx_RichTextStyleSheet, OCCUR_ZeroOrOnce);
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_RichTextListStyleDefinition, GetCombinedStyleLevel)
 
 Gura_DeclareMethod(wx_RichTextListStyleDefinition, GetLevelAttributes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_RichTextListStyleDefinition, GetLevelAttributes)
 
 Gura_DeclareMethod(wx_RichTextListStyleDefinition, GetLevelCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_RichTextListStyleDefinition, GetLevelCount)
 
 Gura_DeclareMethod(wx_RichTextListStyleDefinition, IsNumbered)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_RichTextListStyleDefinition, IsNumbered)
 
 Gura_DeclareMethod(wx_RichTextListStyleDefinition, SetLevelAttributes)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "attr", VTYPE_wx_RichTextAttr, OCCUR_Once);
 }

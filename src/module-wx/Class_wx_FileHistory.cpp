@@ -38,7 +38,7 @@ void wx_FileHistory::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FileHistory)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_FileHistory));
 	DeclareArg(env, "maxFiles", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "idBase", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(FileHistory)
 
 Gura_DeclareMethod(wx_FileHistory, AddFileToHistory)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_FileHistory, AddFileToHistory)
 
 Gura_DeclareMethod(wx_FileHistory, AddFilesToMenu)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileHistory, AddFilesToMenu)
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_FileHistory, AddFilesToMenu)
 
 Gura_DeclareMethod(wx_FileHistory, AddFilesToMenu_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "menu", VTYPE_wx_Menu, OCCUR_Once);
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_FileHistory, AddFilesToMenu_1)
 
 Gura_DeclareMethod(wx_FileHistory, GetBaseId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_FileHistory, GetBaseId)
 
 Gura_DeclareMethod(wx_FileHistory, GetCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_FileHistory, GetCount)
 
 Gura_DeclareMethod(wx_FileHistory, GetHistoryFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_FileHistory, GetHistoryFile)
 
 Gura_DeclareMethod(wx_FileHistory, GetMaxFiles)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_FileHistory, GetMaxFiles)
 
 Gura_DeclareMethod(wx_FileHistory, GetMenus)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_FileHistory, GetMenus)
 
 Gura_DeclareMethod(wx_FileHistory, Load)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "config", VTYPE_wx_ConfigBase, OCCUR_Once);
 }
 
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_FileHistory, Load)
 
 Gura_DeclareMethod(wx_FileHistory, RemoveFileFromHistory)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 }
 
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_FileHistory, RemoveFileFromHistory)
 
 Gura_DeclareMethod(wx_FileHistory, RemoveMenu)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "menu", VTYPE_wx_Menu, OCCUR_Once);
 }
 
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_FileHistory, RemoveMenu)
 
 Gura_DeclareMethod(wx_FileHistory, Save)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "config", VTYPE_wx_ConfigBase, OCCUR_Once);
 }
 
@@ -245,7 +245,7 @@ Gura_ImplementMethod(wx_FileHistory, Save)
 
 Gura_DeclareMethod(wx_FileHistory, SetBaseId)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "baseId", VTYPE_number, OCCUR_Once);
 }
 
@@ -260,7 +260,7 @@ Gura_ImplementMethod(wx_FileHistory, SetBaseId)
 
 Gura_DeclareMethod(wx_FileHistory, UseMenu)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "menu", VTYPE_wx_Menu, OCCUR_Once);
 }
 

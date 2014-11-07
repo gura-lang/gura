@@ -38,7 +38,7 @@ void wx_DataViewSortedListModel::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DataViewSortedListModel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewSortedListModel));
 	DeclareArg(env, "child", VTYPE_wx_DataViewListModel, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -62,7 +62,7 @@ Gura_ImplementFunction(DataViewSortedListModel)
 
 Gura_DeclareMethod(wx_DataViewSortedListModel, GetAscending)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_DataViewSortedListModel, GetAscending)
 
 Gura_DeclareMethod(wx_DataViewSortedListModel, Resort)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewSortedListModel, Resort)
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_DataViewSortedListModel, Resort)
 
 Gura_DeclareMethod(wx_DataViewSortedListModel, SetAscending)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "ascending", VTYPE_boolean, OCCUR_Once);
 }
 

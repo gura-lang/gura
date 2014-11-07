@@ -55,7 +55,7 @@ void wx_CommandProcessor::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(CommandProcessor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_CommandProcessor));
 	DeclareArg(env, "maxCommands", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -80,7 +80,7 @@ Gura_ImplementFunction(CommandProcessor)
 
 Gura_DeclareMethod(wx_CommandProcessor, CanUndo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_CommandProcessor, CanUndo)
 
 Gura_DeclareMethod(wx_CommandProcessor, ClearCommands)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandProcessor, ClearCommands)
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_CommandProcessor, ClearCommands)
 
 Gura_DeclareMethod(wx_CommandProcessor, Redo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_CommandProcessor, Redo)
 
 Gura_DeclareMethod(wx_CommandProcessor, GetCommands)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_CommandProcessor, GetCommands)
 
 Gura_DeclareMethod(wx_CommandProcessor, GetMaxCommands)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_CommandProcessor, GetMaxCommands)
 
 Gura_DeclareMethod(wx_CommandProcessor, GetEditMenu)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_CommandProcessor, GetEditMenu)
 
 Gura_DeclareMethod(wx_CommandProcessor, GetRedoAccelerator)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_CommandProcessor, GetRedoAccelerator)
 
 Gura_DeclareMethod(wx_CommandProcessor, GetRedoMenuLabel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_CommandProcessor, GetRedoMenuLabel)
 
 Gura_DeclareMethod(wx_CommandProcessor, GetUndoAccelerator)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_CommandProcessor, GetUndoAccelerator)
 
 Gura_DeclareMethod(wx_CommandProcessor, GetUndoMenuLabel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_CommandProcessor, GetUndoMenuLabel)
 
 Gura_DeclareMethod(wx_CommandProcessor, Initialize)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandProcessor, Initialize)
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_CommandProcessor, Initialize)
 
 Gura_DeclareMethod(wx_CommandProcessor, IsDirty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -246,7 +246,7 @@ Gura_ImplementMethod(wx_CommandProcessor, IsDirty)
 
 Gura_DeclareMethod(wx_CommandProcessor, MarkAsSaved)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandProcessor, MarkAsSaved)
@@ -259,7 +259,7 @@ Gura_ImplementMethod(wx_CommandProcessor, MarkAsSaved)
 
 Gura_DeclareMethod(wx_CommandProcessor, SetEditMenu)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "menu", VTYPE_wx_Menu, OCCUR_Once);
 }
 
@@ -274,7 +274,7 @@ Gura_ImplementMethod(wx_CommandProcessor, SetEditMenu)
 
 Gura_DeclareMethod(wx_CommandProcessor, SetMenuStrings)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandProcessor, SetMenuStrings)
@@ -287,7 +287,7 @@ Gura_ImplementMethod(wx_CommandProcessor, SetMenuStrings)
 
 Gura_DeclareMethod(wx_CommandProcessor, SetRedoAccelerator)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "accel", VTYPE_string, OCCUR_Once);
 }
 
@@ -302,7 +302,7 @@ Gura_ImplementMethod(wx_CommandProcessor, SetRedoAccelerator)
 
 Gura_DeclareMethod(wx_CommandProcessor, SetUndoAccelerator)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "accel", VTYPE_string, OCCUR_Once);
 }
 
@@ -317,7 +317,7 @@ Gura_ImplementMethod(wx_CommandProcessor, SetUndoAccelerator)
 
 Gura_DeclareMethod(wx_CommandProcessor, Submit)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "command", VTYPE_wx_Command, OCCUR_Once);
 	DeclareArg(env, "storeIt", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -336,7 +336,7 @@ Gura_ImplementMethod(wx_CommandProcessor, Submit)
 
 Gura_DeclareMethod(wx_CommandProcessor, Undo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

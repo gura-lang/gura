@@ -99,7 +99,7 @@ String Object_mysql::IteratorQuery::ToString() const
 // mysql.mysql#close()
 Gura_DeclareMethod(mysql, close)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Shuts down the connection with an MySQL server.");
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(mysql, close)
 // mysql.mysql#query(stmt:string)
 Gura_DeclareMethod(mysql, query)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stmt", VTYPE_string);
 }
 
@@ -138,7 +138,7 @@ Gura_ImplementUserClass(mysql)
 // mysql.connect(host?:string, user?:string, passwd?:string, db?:string) {block?}
 Gura_DeclareFunction(connect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "host", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "user", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "passwd", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -176,7 +176,7 @@ Gura_ImplementFunction(connect)
 // mysql.test()
 Gura_DeclareFunction(test)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementFunction(test)

@@ -38,7 +38,7 @@ void wx_RichTextPrintout::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(RichTextPrintout)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextPrintout));
 	DeclareArg(env, "title", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(RichTextPrintout)
 
 Gura_DeclareMethod(wx_RichTextPrintout, CalculateScaling)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "textRect", VTYPE_wx_Rect, OCCUR_Once);
 	DeclareArg(env, "headerRect", VTYPE_wx_Rect, OCCUR_Once);
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_RichTextPrintout, CalculateScaling)
 
 Gura_DeclareMethod(wx_RichTextPrintout, GetHeaderFooterData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_RichTextPrintout, GetHeaderFooterData)
 
 Gura_DeclareMethod(wx_RichTextPrintout, GetPageInfo)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "minPage", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "maxPage", VTYPE_number, OCCUR_Once);
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_RichTextPrintout, GetPageInfo)
 
 Gura_DeclareMethod(wx_RichTextPrintout, GetRichTextBuffer)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_RichTextPrintout, GetRichTextBuffer)
 
 Gura_DeclareMethod(wx_RichTextPrintout, HasPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_RichTextPrintout, HasPage)
 
 Gura_DeclareMethod(wx_RichTextPrintout, OnPreparePrinting)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextPrintout, OnPreparePrinting)
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_RichTextPrintout, OnPreparePrinting)
 
 Gura_DeclareMethod(wx_RichTextPrintout, OnPrintPage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_RichTextPrintout, OnPrintPage)
 
 Gura_DeclareMethod(wx_RichTextPrintout, SetHeaderFooterData)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "data", VTYPE_wx_RichTextHeaderFooterData, OCCUR_Once);
 }
 
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_RichTextPrintout, SetHeaderFooterData)
 
 Gura_DeclareMethod(wx_RichTextPrintout, SetMargins)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "top", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "bottom", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "left", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -224,7 +224,7 @@ Gura_ImplementMethod(wx_RichTextPrintout, SetMargins)
 
 Gura_DeclareMethod(wx_RichTextPrintout, SetRichTextBuffer)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "buffer", VTYPE_wx_RichTextBuffer, OCCUR_Once);
 }
 

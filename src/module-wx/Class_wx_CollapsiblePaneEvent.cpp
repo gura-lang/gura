@@ -38,7 +38,7 @@ void wx_CollapsiblePaneEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(CollapsiblePaneEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_CollapsiblePaneEvent));
 	DeclareArg(env, "generator", VTYPE_wx_Object, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(CollapsiblePaneEvent)
 
 Gura_DeclareMethod(wx_CollapsiblePaneEvent, GetCollapsed)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_CollapsiblePaneEvent, GetCollapsed)
 
 Gura_DeclareMethod(wx_CollapsiblePaneEvent, SetCollapsed)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "collapsed", VTYPE_boolean, OCCUR_Once);
 }
 

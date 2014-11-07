@@ -24,7 +24,7 @@ void wx_TreeItemData::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(TreeItemData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_TreeItemData));
 	DeclareArg(env, "data", VTYPE_any, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -47,7 +47,7 @@ Gura_ImplementFunction(TreeItemData)
 
 Gura_DeclareMethod(wx_TreeItemData, GetId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -61,7 +61,7 @@ Gura_ImplementMethod(wx_TreeItemData, GetId)
 
 Gura_DeclareMethod(wx_TreeItemData, SetId)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_wx_TreeItemId, OCCUR_Once);
 }
 
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_TreeItemData, SetId)
 
 Gura_DeclareMethod(wx_TreeItemData, GetData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_TreeItemData, GetData)
 
 Gura_DeclareMethod(wx_TreeItemData, SetData)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "data", VTYPE_any, OCCUR_Once);
 }
 

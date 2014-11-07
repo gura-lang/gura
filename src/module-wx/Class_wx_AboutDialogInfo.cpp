@@ -38,7 +38,7 @@ void wx_AboutDialogInfo::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(AboutDialogInfo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AboutDialogInfo));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -60,7 +60,7 @@ Gura_ImplementFunction(AboutDialogInfo)
 
 Gura_DeclareMethod(wx_AboutDialogInfo, AddArtist)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "artist", VTYPE_string, OCCUR_Once);
 }
 
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, AddArtist)
 
 Gura_DeclareMethod(wx_AboutDialogInfo, AddDeveloper)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
 }
 
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, AddDeveloper)
 
 Gura_DeclareMethod(wx_AboutDialogInfo, AddDocWriter)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "docwriter", VTYPE_string, OCCUR_Once);
 }
 
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, AddDocWriter)
 
 Gura_DeclareMethod(wx_AboutDialogInfo, AddTranslator)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "translator", VTYPE_string, OCCUR_Once);
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, AddTranslator)
 
 Gura_DeclareMethod(wx_AboutDialogInfo, SetArtists)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "artists", VTYPE_string, OCCUR_Once, FLAG_List);
 }
 
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, SetArtists)
 
 Gura_DeclareMethod(wx_AboutDialogInfo, SetCopyright)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "copyright", VTYPE_string, OCCUR_Once);
 }
 
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, SetCopyright)
 
 Gura_DeclareMethod(wx_AboutDialogInfo, SetDescription)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "desc", VTYPE_string, OCCUR_Once);
 }
 
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, SetDescription)
 
 Gura_DeclareMethod(wx_AboutDialogInfo, SetDevelopers)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "developers", VTYPE_string, OCCUR_Once, FLAG_List);
 }
 
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, SetDevelopers)
 
 Gura_DeclareMethod(wx_AboutDialogInfo, SetDocWriters)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "docwriters", VTYPE_string, OCCUR_Once, FLAG_List);
 }
 
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, SetDocWriters)
 
 Gura_DeclareMethod(wx_AboutDialogInfo, SetIcon)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "icon", VTYPE_wx_Icon, OCCUR_Once);
 }
 
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, SetIcon)
 
 Gura_DeclareMethod(wx_AboutDialogInfo, SetLicence)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "licence", VTYPE_string, OCCUR_Once);
 }
 
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, SetLicence)
 
 Gura_DeclareMethod(wx_AboutDialogInfo, SetLicense)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "licence", VTYPE_string, OCCUR_Once);
 }
 
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, SetLicense)
 
 Gura_DeclareMethod(wx_AboutDialogInfo, SetName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 }
 
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, SetName)
 
 Gura_DeclareMethod(wx_AboutDialogInfo, SetTranslators)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "translators", VTYPE_string, OCCUR_Once, FLAG_List);
 }
 
@@ -270,7 +270,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, SetTranslators)
 
 Gura_DeclareMethod(wx_AboutDialogInfo, SetVersion)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "version", VTYPE_string, OCCUR_Once);
 }
 
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, SetVersion)
 
 Gura_DeclareMethod(wx_AboutDialogInfo, SetWebSite)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "url", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "desc", VTYPE_string, OCCUR_ZeroOrOnce);
 }

@@ -37,7 +37,7 @@ void wx_ScopedPtr::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_ScopedPtr, explicit wxScopedPtr)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementMethod(wx_ScopedPtr, explicit wxScopedPtr)
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_ScopedPtr, explicit wxScopedPtr)
 
 Gura_DeclareMethod(wx_ScopedPtr, release)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -62,7 +62,7 @@ Gura_ImplementMethod(wx_ScopedPtr, release)
 
 Gura_DeclareMethod(wx_ScopedPtr, reset)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 }
 
 Gura_ImplementMethod(wx_ScopedPtr, reset)
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_ScopedPtr, reset)
 
 Gura_DeclareMethod(wx_ScopedPtr, get)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_ScopedPtr, get)
 
 Gura_DeclareMethod(wx_ScopedPtr, swap)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "& other", VTYPE_wx_ScopedPtr, OCCUR_Once);
 }
 

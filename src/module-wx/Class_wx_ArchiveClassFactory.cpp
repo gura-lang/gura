@@ -37,7 +37,7 @@ void wx_ArchiveClassFactory::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_ArchiveClassFactory, GetConv)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -55,7 +55,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, GetConv)
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, SetConv)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "conv", VTYPE_wx_MBConv, OCCUR_Once);
 }
 
@@ -70,7 +70,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, SetConv)
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, CanHandle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "protocol", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, CanHandle)
 
 Gura_DeclareClassMethod(wx_ArchiveClassFactory, Find)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "protocol", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -107,7 +107,7 @@ Gura_ImplementClassMethod(wx_ArchiveClassFactory, Find)
 
 Gura_DeclareClassMethod(wx_ArchiveClassFactory, GetFirst)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementClassMethod(wx_ArchiveClassFactory, GetFirst)
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, GetNext)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, GetNext)
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, GetInternalName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, GetInternalName)
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, GetProtocol)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, GetProtocol)
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, GetProtocols)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "type", VTYPE_number, OCCUR_ZeroOrOnce);
 #endif
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, GetProtocols)
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, NewEntry)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, NewEntry)
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, NewStream)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_wx_InputStream, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, NewStream)
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, NewStream_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_wx_OutputStream, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -236,7 +236,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, NewStream_1)
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, NewStream_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_wx_InputStream, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -252,7 +252,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, NewStream_2)
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, NewStream_3)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_wx_OutputStream, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -268,7 +268,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, NewStream_3)
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, PushFront)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArchiveClassFactory, PushFront)
@@ -281,7 +281,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, PushFront)
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, Remove)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArchiveClassFactory, Remove)

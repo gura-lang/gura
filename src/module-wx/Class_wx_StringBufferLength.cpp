@@ -38,7 +38,7 @@ void wx_StringBufferLength::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(StringBufferLength)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_StringBufferLength));
 	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_ImplementFunction(StringBufferLength)
 
 Gura_DeclareMethod(wx_StringBufferLength, SetLength)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "nLength", VTYPE_number, OCCUR_Once);
 }
 

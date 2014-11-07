@@ -75,7 +75,7 @@ void Object_context::Destroy()
 // cairo.context#status()
 Gura_DeclareMethod(context, status)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Checks whether an error has previously occurred for this context."
 	);
@@ -92,7 +92,7 @@ Gura_ImplementMethod(context, status)
 // cairo.context#destroy():reduce
 Gura_DeclareMethod(context, destroy)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Decreases the reference count on cr by one.\n"
 	"If the result is zero, then cr and all associated resources are freed.\n"
@@ -110,7 +110,7 @@ Gura_ImplementMethod(context, destroy)
 // cairo.context#save():reduce {block?}
 Gura_DeclareMethod(context, save)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Makes a copy of the current state of cr and saves it on an internal stack of saved states for cr.\n"
@@ -145,7 +145,7 @@ Gura_ImplementMethod(context, save)
 // cairo.context#restore():reduce
 Gura_DeclareMethod(context, restore)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Restores cr to the state saved by a preceding call to cairo.context#save()\n"
 	"and removes that state from the stack of saved states."
@@ -165,7 +165,7 @@ Gura_ImplementMethod(context, restore)
 // cairo.context#get_target()
 Gura_DeclareMethod(context, get_target)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the target surface for the cairo context as passed to cairo.context constructor.\n"
 	);
@@ -184,7 +184,7 @@ Gura_ImplementMethod(context, get_target)
 // cairo.context#push_group():reduce
 Gura_DeclareMethod(context, push_group)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Temporarily redirects drawing to an intermediate surface known as a group.\n"
 	"The redirection lasts until the group is completed by a call to cairo.context#pop_group() or cairo.context#pop_group_to_source().\n"
@@ -223,7 +223,7 @@ Gura_ImplementMethod(context, push_group)
 // cairo.context#push_group_with_content(content:number):reduce
 Gura_DeclareMethod(context, push_group_with_content)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "content", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Temporarily redirects drawing to an intermediate surface known as a group.\n"
@@ -252,7 +252,7 @@ Gura_ImplementMethod(context, push_group_with_content)
 // cairo.context#pop_group()
 Gura_DeclareMethod(context, pop_group)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Terminates the redirection begun by a call to cairo.context#push_group() or cairo.context#push_group_with_content()\n"
 	"and returns a new pattern containing the results of all drawing operations performed to the group.\n"
@@ -277,7 +277,7 @@ Gura_ImplementMethod(context, pop_group)
 // cairo.context#pop_group_to_source():reduce
 Gura_DeclareMethod(context, pop_group_to_source)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Terminates the redirection begun by a call to cairo.context#push_group() or cairo.context#push_group_with_content()\n"
 	"and installs the resulting pattern as the source pattern in the given cairo context.\n"
@@ -301,7 +301,7 @@ Gura_ImplementMethod(context, pop_group_to_source)
 // cairo.context#get_group_target()
 Gura_DeclareMethod(context, get_group_target)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the current destination surface for the context.\n"
 	"This is either the original target surface as passed to cairo.context constructor\n"
@@ -325,7 +325,7 @@ Gura_ImplementMethod(context, get_group_target)
 // cairo.context#set_source_rgb(red:number, green:number, blue:number):reduce
 Gura_DeclareMethod(context, set_source_rgb)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
@@ -353,7 +353,7 @@ Gura_ImplementMethod(context, set_source_rgb)
 // cairo.context#set_source_rgba(red:number, green:number, blue:number, alpha:number):reduce
 Gura_DeclareMethod(context, set_source_rgba)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
@@ -383,7 +383,7 @@ Gura_ImplementMethod(context, set_source_rgba)
 // cairo.context#set_source_color(color:color, alpha?:number):reduce
 Gura_DeclareMethod(context, set_source_color)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "color", VTYPE_color);
 	DeclareArg(env, "alpha", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -413,7 +413,7 @@ Gura_ImplementMethod(context, set_source_color)
 // cairo.context#set_source(source:cairo.pattern):reduce
 Gura_DeclareMethod(context, set_source)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "source", VTYPE_pattern);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Sets the source pattern within cr to source.\n"
@@ -441,7 +441,7 @@ Gura_ImplementMethod(context, set_source)
 // cairo.context#set_source_surface(surface:cairo.surface, x:number, y:number):reduce
 Gura_DeclareMethod(context, set_source_surface)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_surface);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
@@ -477,7 +477,7 @@ Gura_ImplementMethod(context, set_source_surface)
 // cairo.context#get_source()
 Gura_DeclareMethod(context, get_source)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the current source pattern for cr.\n"
 	);
@@ -498,7 +498,7 @@ Gura_ImplementMethod(context, get_source)
 // cairo.context#set_antialias(antialias:number):reduce
 Gura_DeclareMethod(context, set_antialias)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "antialias", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Set the antialiasing mode of the rasterizer used for drawing shapes.\n"
@@ -524,7 +524,7 @@ Gura_ImplementMethod(context, set_antialias)
 // cairo.context#get_antialias()
 Gura_DeclareMethod(context, get_antialias)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the current shape antialiasing mode, as set by cairo.context#set_antialias().\n"
 	);
@@ -543,7 +543,7 @@ Gura_ImplementMethod(context, get_antialias)
 // cairo.context#set_dash(dashes[]:number, offset:number):reduce
 Gura_DeclareMethod(context, set_dash)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "dashes", VTYPE_number, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "offset", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -590,7 +590,7 @@ Gura_ImplementMethod(context, set_dash)
 // cairo.context#get_dash()
 Gura_DeclareMethod(context, get_dash)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the current dash array."
 	);
@@ -622,7 +622,7 @@ Gura_ImplementMethod(context, get_dash)
 // cairo.context#set_fill_rule(fill_rule:number):reduce
 Gura_DeclareMethod(context, set_fill_rule)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "fill_rule", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Set the current fill rule within the cairo context.\n"
@@ -649,7 +649,7 @@ Gura_ImplementMethod(context, set_fill_rule)
 // cairo.context#get_fill_rule()
 Gura_DeclareMethod(context, get_fill_rule)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the current fill rule, as set by cairo.context#set_fill_rule().\n"
 	);
@@ -668,7 +668,7 @@ Gura_ImplementMethod(context, get_fill_rule)
 // cairo.context#set_line_cap(line_cap:number):reduce
 Gura_DeclareMethod(context, set_line_cap)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "line_cap", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Sets the current line cap style within the cairo context.\n"
@@ -696,7 +696,7 @@ Gura_ImplementMethod(context, set_line_cap)
 // cairo.context#get_line_cap()
 Gura_DeclareMethod(context, get_line_cap)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the current line cap style, as set by cairo.context#set_line_cap()."
 	);
@@ -715,7 +715,7 @@ Gura_ImplementMethod(context, get_line_cap)
 // cairo.context#set_line_join(line_join:number):reduce
 Gura_DeclareMethod(context, set_line_join)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "line_join", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Sets the current line join style within the cairo context.\n"
@@ -743,7 +743,7 @@ Gura_ImplementMethod(context, set_line_join)
 // cairo.context#get_line_join()
 Gura_DeclareMethod(context, get_line_join)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the current line join style, as set by cairo.context#set_line_join().\n"
 	);
@@ -762,7 +762,7 @@ Gura_ImplementMethod(context, get_line_join)
 // cairo.context#set_line_width(width:number):reduce
 Gura_DeclareMethod(context, set_line_width)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "width", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Sets the current line width within the cairo context.\n"
@@ -796,7 +796,7 @@ Gura_ImplementMethod(context, set_line_width)
 // cairo.context#get_line_width()
 Gura_DeclareMethod(context, get_line_width)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"This function returns the current line width value exactly as set by cairo.context#set_line_width().\n"
 	"Note that the value is unchanged even if the CTM has changed between the calls to cairo.context#set_line_width()\n"
@@ -817,7 +817,7 @@ Gura_ImplementMethod(context, get_line_width)
 // cairo.context#set_miter_limit(limit:number):reduce
 Gura_DeclareMethod(context, set_miter_limit)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "limit", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Sets the current miter limit within the cairo context.\n"
@@ -850,7 +850,7 @@ Gura_ImplementMethod(context, set_miter_limit)
 // cairo.context#get_miter_limit()
 Gura_DeclareMethod(context, get_miter_limit)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the current miter limit, as set by cairo.context#set_miter_limit().\n"
 	);
@@ -869,7 +869,7 @@ Gura_ImplementMethod(context, get_miter_limit)
 // cairo.context#set_operator(op:number):reduce
 Gura_DeclareMethod(context, set_operator)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "op", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Sets the compositing operator to be used for all drawing operations.\n"
@@ -894,7 +894,7 @@ Gura_ImplementMethod(context, set_operator)
 // cairo.context#get_operator()
 Gura_DeclareMethod(context, get_operator)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the current compositing operator for a cairo context.\n"
 	);
@@ -913,7 +913,7 @@ Gura_ImplementMethod(context, get_operator)
 // cairo.context#set_tolerance(tolerance:number):reduce
 Gura_DeclareMethod(context, set_tolerance)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "tolerance", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Sets the tolerance used when converting paths into trapezoids.\n"
@@ -940,7 +940,7 @@ Gura_ImplementMethod(context, set_tolerance)
 // cairo.context#get_tolerance()
 Gura_DeclareMethod(context, get_tolerance)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the current tolerance value, as set by cairo.context#set_tolerance()."
 	);
@@ -959,7 +959,7 @@ Gura_ImplementMethod(context, get_tolerance)
 // cairo.context#clip():reduce
 Gura_DeclareMethod(context, clip)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Establishes a new clip region by intersecting the current clip region\n"
 	"with the current path as it would be filled by cairo.context#fill()\n"
@@ -991,7 +991,7 @@ Gura_ImplementMethod(context, clip)
 // cairo.context#clip_preserve():reduce
 Gura_DeclareMethod(context, clip_preserve)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Establishes a new clip region by intersecting the current clip region\n"
 	"with the current path as it would be filled by cairo.context#fill()\n"
@@ -1023,7 +1023,7 @@ Gura_ImplementMethod(context, clip_preserve)
 // cairo.context#clip_extents()
 Gura_DeclareMethod(context, clip_extents)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Computes a bounding box in user coordinates covering the area inside the current clip.\n"
 	);
@@ -1043,7 +1043,7 @@ Gura_ImplementMethod(context, clip_extents)
 // cairo.context#in_clip(x:number, y:number)
 Gura_DeclareMethod(context, in_clip)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1067,7 +1067,7 @@ Gura_ImplementMethod(context, in_clip)
 // cairo.context#reset_clip():reduce
 Gura_DeclareMethod(context, reset_clip)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Reset the current clip region to its original, unrestricted state.\n"
 	"That is, set the clip region to an infinitely large shape containing the target surface.\n"
@@ -1096,7 +1096,7 @@ Gura_ImplementMethod(context, reset_clip)
 // cairo.context#copy_clip_rectangle_list()
 Gura_DeclareMethod(context, copy_clip_rectangle_list)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the current clip region as a list of rectangles in user coordinates.\n"
 	"\n"
@@ -1130,7 +1130,7 @@ Gura_ImplementMethod(context, copy_clip_rectangle_list)
 // cairo.context#fill():reduce
 Gura_DeclareMethod(context, fill)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"A drawing operator that fills the current path according to the current fill rule,\n"
 	"(each sub-path is implicitly closed before being filled).\n"
@@ -1152,7 +1152,7 @@ Gura_ImplementMethod(context, fill)
 // cairo.context#fill_preserve():reduce
 Gura_DeclareMethod(context, fill_preserve)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"A drawing operator that fills the current path according to the current fill rule,\n"
 	"(each sub-path is implicitly closed before being filled).\n"
@@ -1175,7 +1175,7 @@ Gura_ImplementMethod(context, fill_preserve)
 // cairo.context#fill_extents():reduce
 Gura_DeclareMethod(context, fill_extents)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Computes a bounding box in user coordinates covering the area that\n"
 	"would be affected, (the \"inked\" area), by a cairo.context#fill() operation given the current path and fill parameters.\n"
@@ -1206,7 +1206,7 @@ Gura_ImplementMethod(context, fill_extents)
 // cairo.context#in_fill(x:number, y:number)
 Gura_DeclareMethod(context, in_fill)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1230,7 +1230,7 @@ Gura_ImplementMethod(context, in_fill)
 // cairo.context#mask(pattern:cairo.pattern):reduce
 Gura_DeclareMethod(context, mask)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "pattern", VTYPE_pattern);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"A drawing operator that paints the current source using the alpha channel of pattern as a mask.\n"
@@ -1252,7 +1252,7 @@ Gura_ImplementMethod(context, mask)
 // cairo.context#mask_surface(surface:cairo.surface, surface_x:number, surface_y:number):reduce
 Gura_DeclareMethod(context, mask_surface)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_surface);
 	DeclareArg(env, "surface_x", VTYPE_number);
 	DeclareArg(env, "surface_y", VTYPE_number);
@@ -1278,7 +1278,7 @@ Gura_ImplementMethod(context, mask_surface)
 // cairo.context#paint():reduce
 Gura_DeclareMethod(context, paint)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"A drawing operator that paints the current source everywhere within the current clip region.\n"
 	);
@@ -1297,7 +1297,7 @@ Gura_ImplementMethod(context, paint)
 // cairo.context#paint_with_alpha(alpha:number):reduce
 Gura_DeclareMethod(context, paint_with_alpha)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "alpha", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"A drawing operator that paints the current source everywhere within the current clip region using a mask of constant alpha value alpha.\n"
@@ -1318,7 +1318,7 @@ Gura_ImplementMethod(context, paint_with_alpha)
 // cairo.context#stroke():reduce
 Gura_DeclareMethod(context, stroke)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"A drawing operator that strokes the current path according to the current line width, line join, line cap, and dash settings.\n"
 	"After cairo.context#stroke(), the current path will be cleared from the cairo context.\n"
@@ -1352,7 +1352,7 @@ Gura_ImplementMethod(context, stroke)
 // cairo.context#stroke_preserve():reduce
 Gura_DeclareMethod(context, stroke_preserve)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"A drawing operator that strokes the current path according to the current line width, line join, line cap, and dash settings.\n"
 	"Unlike cairo.context#stroke(), cairo.context#stroke_preserve() preserves the path within the cairo context.\n"
@@ -1374,7 +1374,7 @@ Gura_ImplementMethod(context, stroke_preserve)
 // cairo.context#stroke_extents()
 Gura_DeclareMethod(context, stroke_extents)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Computes a bounding box in user coordinates covering the area that would be affected,\n"
 	"(the \"inked\" area), by a cairo.context#stroke() operation given the current path and stroke parameters.\n"
@@ -1405,7 +1405,7 @@ Gura_ImplementMethod(context, stroke_extents)
 // cairo.context#in_stroke(x:number, y:number)
 Gura_DeclareMethod(context, in_stroke)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1428,7 +1428,7 @@ Gura_ImplementMethod(context, in_stroke)
 // cairo.context#copy_page():reduce
 Gura_DeclareMethod(context, copy_page)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Emits the current page for backends that support multiple pages, but doesn't clear it,\n"
 	"so, the contents of the current page will be retained for the next page too.\n"
@@ -1451,7 +1451,7 @@ Gura_ImplementMethod(context, copy_page)
 // cairo.context#show_page():reduce
 Gura_DeclareMethod(context, show_page)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Emits and clears the current page for backends that support multiple pages.\n"
 	"Use cairo.context#copy_page() if you don't want to clear the page.\n"
@@ -1481,7 +1481,7 @@ Gura_ImplementMethod(context, show_page)
 // cairo.context#copy_path()
 Gura_DeclareMethod(context, copy_path)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Creates a copy of the current path and returns it to the user as a cairo.path.\n"
 	"See cairo_path_data_t for hints on how to iterate over the returned data structure.\n"
@@ -1508,7 +1508,7 @@ Gura_ImplementMethod(context, copy_path)
 // cairo.context#copy_path_flat()
 Gura_DeclareMethod(context, copy_path_flat)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets a flattened copy of the current path and returns it to the user as a cairo.path.\n"
 	"See cairo_path_data_t for hints on how to iterate over the returned data structure.\n"
@@ -1539,7 +1539,7 @@ Gura_ImplementMethod(context, copy_path_flat)
 // cairo.context#append_path(path:path):reduce
 Gura_DeclareMethod(context, append_path)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "path", VTYPE_path);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Append the path onto the current path. The path may be either the return value from one of cairo.context#copy_path() or cairo.context#copy_path_flat() or it may be constructed manually.\n"
@@ -1561,7 +1561,7 @@ Gura_ImplementMethod(context, append_path)
 // cairo.context#has_current_point()
 Gura_DeclareMethod(context, has_current_point)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Returns whether a current point is defined on the current path.\n"
 	"See cairo.context#get_current_point() for details on the current point.\n"
@@ -1581,7 +1581,7 @@ Gura_ImplementMethod(context, has_current_point)
 // cairo.context#get_current_point()
 Gura_DeclareMethod(context, get_current_point)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the current point of the current path, which is conceptually the final point reached by the path so far.\n"
 	"\n"
@@ -1617,7 +1617,7 @@ Gura_ImplementMethod(context, get_current_point)
 // cairo.context#new_path():reduce
 Gura_DeclareMethod(context, new_path)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Clears the current path. After this call there will be no path and no current point.\n"
 	);
@@ -1636,7 +1636,7 @@ Gura_ImplementMethod(context, new_path)
 // cairo.context#new_sub_path():reduce
 Gura_DeclareMethod(context, new_sub_path)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Begin a new sub-path. Note that the existing path is not affected. After this call there will be no current point.\n"
 	"\n"
@@ -1660,7 +1660,7 @@ Gura_ImplementMethod(context, new_sub_path)
 // cairo.context#close_path():reduce
 Gura_DeclareMethod(context, close_path)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Adds a line segment to the path from the current point to the beginning of the current sub-path,\n"
 	"(the most recent point passed to cairo.context#move_to()), and closes this sub-path.\n"
@@ -1692,7 +1692,7 @@ Gura_ImplementMethod(context, close_path)
 //                   angle1?:number, angle2?:number):map:reduce:[deg]
 Gura_DeclareMethod(context, arc)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "xc", VTYPE_number);
 	DeclareArg(env, "yc", VTYPE_number);
 	DeclareArg(env, "radius", VTYPE_number);
@@ -1753,7 +1753,7 @@ Gura_ImplementMethod(context, arc)
 //                            angle1?:number, angle2?:number):map:reduce:[deg]
 Gura_DeclareMethod(context, arc_negative)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "xc", VTYPE_number);
 	DeclareArg(env, "yc", VTYPE_number);
 	DeclareArg(env, "radius", VTYPE_number);
@@ -1794,7 +1794,7 @@ Gura_ImplementMethod(context, arc_negative)
 // cairo.context#curve_to(x1:number, y1:number, x2:number, y2:number, x3:number, y3:number):map:reduce
 Gura_DeclareMethod(context, curve_to)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "x1", VTYPE_number);
 	DeclareArg(env, "y1", VTYPE_number);
 	DeclareArg(env, "x2", VTYPE_number);
@@ -1826,7 +1826,7 @@ Gura_ImplementMethod(context, curve_to)
 // cairo.context#line_to(x:number, y:number):map:reduce
 Gura_DeclareMethod(context, line_to)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1850,7 +1850,7 @@ Gura_ImplementMethod(context, line_to)
 // cairo.context#move_to(x:number, y:number):map:reduce
 Gura_DeclareMethod(context, move_to)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1871,7 +1871,7 @@ Gura_ImplementMethod(context, move_to)
 // cairo.context#rectangle(x:number, y:number, width:number, height:number):map:reduce
 Gura_DeclareMethod(context, rectangle)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number);
@@ -1904,7 +1904,7 @@ Gura_ImplementMethod(context, rectangle)
 // cairo.context#glyph_path(glyphs:cairo.glyph):reduce
 Gura_DeclareMethod(context, glyph_path)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "glyphs", VTYPE_glyph);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Adds closed paths for the glyphs to the current path.\n"
@@ -1926,7 +1926,7 @@ Gura_ImplementMethod(context, glyph_path)
 // cairo.context#text_path(text:string):map:reduce
 Gura_DeclareMethod(context, text_path)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Adds closed paths for text to the current path.\n"
@@ -1957,7 +1957,7 @@ Gura_ImplementMethod(context, text_path)
 // cairo.context#rel_curve_to(dx1:number, dy1:number, dx2:number, dy2:number, dx3:number, dy3:number):map:reduce
 Gura_DeclareMethod(context, rel_curve_to)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "dx1", VTYPE_number);
 	DeclareArg(env, "dy1", VTYPE_number);
 	DeclareArg(env, "dx2", VTYPE_number);
@@ -1994,7 +1994,7 @@ Gura_ImplementMethod(context, rel_curve_to)
 // cairo.context#rel_line_to(dx:number, dy:number):map:reduce
 Gura_DeclareMethod(context, rel_line_to)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "dx", VTYPE_number);
 	DeclareArg(env, "dy", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2022,7 +2022,7 @@ Gura_ImplementMethod(context, rel_line_to)
 // cairo.context#rel_move_to(dx:number, dy:number):map:reduce
 Gura_DeclareMethod(context, rel_move_to)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "dx", VTYPE_number);
 	DeclareArg(env, "dy", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2048,7 +2048,7 @@ Gura_ImplementMethod(context, rel_move_to)
 // cairo.context#path_extents()
 Gura_DeclareMethod(context, path_extents)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Computes a bounding box in user-space coordinates covering the points on the current path.\n"
 	"If the current path is empty, returns an empty rectangle ((0,0), (0,0)).\n"
@@ -2084,7 +2084,7 @@ Gura_ImplementMethod(context, path_extents)
 // cairo.context#translate(tx:number, ty:number):reduce
 Gura_DeclareMethod(context, translate)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "tx", VTYPE_number);
 	DeclareArg(env, "ty", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2107,7 +2107,7 @@ Gura_ImplementMethod(context, translate)
 // cairo.context#scale(sx:number, sy:number):reduce
 Gura_DeclareMethod(context, scale)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "sx", VTYPE_number);
 	DeclareArg(env, "sy", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2129,7 +2129,7 @@ Gura_ImplementMethod(context, scale)
 // cairo.context#rotate(angle:number):reduce:[deg]
 Gura_DeclareMethod(context, rotate)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "angle", VTYPE_number);
 	DeclareAttr(Gura_Symbol(deg));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2156,7 +2156,7 @@ Gura_ImplementMethod(context, rotate)
 // cairo.context#transform(matrix:matrix):reduce
 Gura_DeclareMethod(context, transform)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "matrix", VTYPE_matrix);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Modifies the current transformation matrix (CTM) by applying matrix as an additional transformation.\n"
@@ -2180,7 +2180,7 @@ Gura_ImplementMethod(context, transform)
 // cairo.context#set_matrix(matrix:matrix):reduce
 Gura_DeclareMethod(context, set_matrix)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "matrix", VTYPE_matrix);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Modifies the current transformation matrix (CTM) by setting it equal to matrix.\n"
@@ -2203,7 +2203,7 @@ Gura_ImplementMethod(context, set_matrix)
 // cairo.context#get_matrix()
 Gura_DeclareMethod(context, get_matrix)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Stores the current transformation matrix (CTM) into matrix.\n"
 	);
@@ -2225,7 +2225,7 @@ Gura_ImplementMethod(context, get_matrix)
 // cairo.context#identity_matrix():reduce
 Gura_DeclareMethod(context, identity_matrix)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Resets the current transformation matrix (CTM) by setting it equal to the identity matrix.\n"
 	"That is, the user-space and device-space axes will be aligned and one user-space unit will transform to one device-space unit.\n"
@@ -2245,7 +2245,7 @@ Gura_ImplementMethod(context, identity_matrix)
 // cairo.context#user_to_device(x:number, y:number)
 Gura_DeclareMethod(context, user_to_device)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2268,7 +2268,7 @@ Gura_ImplementMethod(context, user_to_device)
 // cairo.context#user_to_device_distance(dx:number, dy:number)
 Gura_DeclareMethod(context, user_to_device_distance)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "dx", VTYPE_number);
 	DeclareArg(env, "dy", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2293,7 +2293,7 @@ Gura_ImplementMethod(context, user_to_device_distance)
 // cairo.context#device_to_user(x:number, y:number)
 Gura_DeclareMethod(context, device_to_user)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2316,7 +2316,7 @@ Gura_ImplementMethod(context, device_to_user)
 // cairo.context#device_to_user_distance(dx:number, dy:number)
 Gura_DeclareMethod(context, device_to_user_distance)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "dx", VTYPE_number);
 	DeclareArg(env, "dy", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2345,7 +2345,7 @@ Gura_ImplementMethod(context, device_to_user_distance)
 // cairo.context#select_font_face(family:string, slant:number, weight:number):reduce
 Gura_DeclareMethod(context, select_font_face)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "family", VTYPE_string);
 	DeclareArg(env, "slant", VTYPE_number);
 	DeclareArg(env, "weight", VTYPE_number);
@@ -2397,7 +2397,7 @@ Gura_ImplementMethod(context, select_font_face)
 // cairo.context#set_font_size(size:number):reduce
 Gura_DeclareMethod(context, set_font_size)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "size", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Sets the current font matrix to a scale by a factor of size, replacing any font matrix previously set with cairo.context#set_font_size() or cairo.context#set_font_matrix().\n"
@@ -2420,7 +2420,7 @@ Gura_ImplementMethod(context, set_font_size)
 // cairo.context#set_font_matrix(matrix:matrix):reduce
 Gura_DeclareMethod(context, set_font_matrix)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "matrix", VTYPE_matrix);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Sets the current font matrix to matrix.\n"
@@ -2445,7 +2445,7 @@ Gura_ImplementMethod(context, set_font_matrix)
 // cairo.context#get_font_matrix()
 Gura_DeclareMethod(context, get_font_matrix)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Stores the current font matrix into matrix. See cairo.context#set_font_matrix().\n"
 	);
@@ -2466,7 +2466,7 @@ Gura_ImplementMethod(context, get_font_matrix)
 // cairo.context#set_font_options(options:cairo.font_options):reduce
 Gura_DeclareMethod(context, set_font_options)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "options", VTYPE_font_options);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Sets a set of custom font rendering options for the cairo_t.\n"
@@ -2489,7 +2489,7 @@ Gura_ImplementMethod(context, set_font_options)
 // cairo.context#get_font_options()
 Gura_DeclareMethod(context, get_font_options)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Retrieves font rendering options set via cairo.context#set_font_options.\n"
 	"Note that the returned options do not include any options derived from the underlying surface;\n"
@@ -2515,7 +2515,7 @@ Gura_ImplementMethod(context, get_font_options)
 // cairo.context#set_font_face(font_face:cairo.font_face):reduce
 Gura_DeclareMethod(context, set_font_face)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "font_face", VTYPE_font_face);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Replaces the current cairo_font_face_t object in the cairo_t with font_face.\n"
@@ -2537,7 +2537,7 @@ Gura_ImplementMethod(context, set_font_face)
 // cairo.context#get_font_face()
 Gura_DeclareMethod(context, get_font_face)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the current font face for a cairo_t.\n"
 	);
@@ -2559,7 +2559,7 @@ Gura_ImplementMethod(context, get_font_face)
 // cairo.context#set_scaled_font(scaled_font:cairo.scaled_font):reduce
 Gura_DeclareMethod(context, set_scaled_font)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "scaled_font", VTYPE_scaled_font);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Replaces the current font face, font matrix, and font options in the cairo_t with those of the cairo_scaled_font_t.\n"
@@ -2582,7 +2582,7 @@ Gura_ImplementMethod(context, set_scaled_font)
 // cairo.context#get_scaled_font()
 Gura_DeclareMethod(context, get_scaled_font)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the current scaled font for a cairo_t.\n"
 	);
@@ -2604,7 +2604,7 @@ Gura_ImplementMethod(context, get_scaled_font)
 // cairo.context#show_text(text:string):reduce
 Gura_DeclareMethod(context, show_text)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "text", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"A drawing operator that generates the shape from a string of UTF-8 characters,\n"
@@ -2637,7 +2637,7 @@ Gura_ImplementMethod(context, show_text)
 // cairo.context#show_glyphs(glyphs:cairo.glyph):reduce
 Gura_DeclareMethod(context, show_glyphs)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "glyphs", VTYPE_glyph);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"A drawing operator that generates the shape from an array of glyphs,\n"
@@ -2660,7 +2660,7 @@ Gura_ImplementMethod(context, show_glyphs)
 //              clusters:cairo.text_cluster, cluster_flags:number):reduce
 Gura_DeclareMethod(context, show_text_glyphs)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "text", VTYPE_string);
 	DeclareArg(env, "glyphs", VTYPE_glyph);
 	DeclareArg(env, "clusters", VTYPE_text_cluster);
@@ -2703,7 +2703,7 @@ Gura_ImplementMethod(context, show_text_glyphs)
 // cairo.context#font_extents()
 Gura_DeclareMethod(context, font_extents)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the font extents for the currently selected font.\n"
 	);
@@ -2724,7 +2724,7 @@ Gura_ImplementMethod(context, font_extents)
 // cairo.context#text_extents(text:string)
 Gura_DeclareMethod(context, text_extents)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "text", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the extents for a string of text.\n"
@@ -2753,7 +2753,7 @@ Gura_ImplementMethod(context, text_extents)
 // cairo.context#glyph_extents(glyphs:cairo.glyph)
 Gura_DeclareMethod(context, glyph_extents)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "glyphs", VTYPE_glyph);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the extents for an array of glyphs.\n"

@@ -39,7 +39,7 @@ void wx_LogStderr::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(LogStderr)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_LogStderr));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

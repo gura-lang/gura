@@ -38,7 +38,7 @@ void wx_SplashScreen::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(SplashScreen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_SplashScreen));
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 	DeclareArg(env, "splashStyle", VTYPE_number, OCCUR_Once);
@@ -79,7 +79,7 @@ Gura_ImplementFunction(SplashScreen)
 
 Gura_DeclareMethod(wx_SplashScreen, OnCloseWindow)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "event", VTYPE_wx_CloseEvent, OCCUR_Once);
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_SplashScreen, OnCloseWindow)
 
 Gura_DeclareMethod(wx_SplashScreen, GetSplashStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_SplashScreen, GetSplashStyle)
 
 Gura_DeclareMethod(wx_SplashScreen, GetSplashWindow)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_SplashScreen, GetSplashWindow)
 
 Gura_DeclareMethod(wx_SplashScreen, GetTimeout)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

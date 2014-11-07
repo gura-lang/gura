@@ -51,7 +51,7 @@ void wx_DataObject::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(DataObject)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_DataObject));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -79,7 +79,7 @@ Gura_ImplementFunction(DataObject)
 
 Gura_DeclareMethod(wx_DataObject, GetAllFormats)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "dir", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_DataObject, GetAllFormats)
 
 Gura_DeclareMethod(wx_DataObject, GetDataHere)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "format", VTYPE_wx_DataFormat, OCCUR_Once);
 	DeclareArg(env, "*buf", VTYPE_number, OCCUR_Once);
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_DataObject, GetDataHere)
 
 Gura_DeclareMethod(wx_DataObject, GetDataSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_wx_DataFormat, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_DataObject, GetDataSize)
 
 Gura_DeclareMethod(wx_DataObject, GetFormatCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_DataObject, GetFormatCount)
 
 Gura_DeclareMethod(wx_DataObject, GetPreferredFormat)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_DataObject, GetPreferredFormat)
 
 Gura_DeclareMethod(wx_DataObject, SetData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "format", VTYPE_wx_DataFormat, OCCUR_Once);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_Once);

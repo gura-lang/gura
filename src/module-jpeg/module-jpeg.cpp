@@ -186,7 +186,7 @@ SymbolAssocOwner g_symbolAssocOwner;
 // image#jpegread(stream:stream:r):reduce
 Gura_DeclareMethod(image, jpegread)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Reads a JPEG image from a stream.");
 }
@@ -203,7 +203,7 @@ Gura_ImplementMethod(image, jpegread)
 // image#jpegwrite(stream:stream:w, quality:number => 75):reduce
 Gura_DeclareMethod(image, jpegwrite)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "quality", VTYPE_number, OCCUR_Once,
 										FLAG_None, new Expr_Value(75));
@@ -223,7 +223,7 @@ Gura_ImplementMethod(image, jpegwrite)
 // jpeg.exif(stream?:stream) {block?}
 Gura_DeclareFunction(exif)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(raise));
@@ -252,7 +252,7 @@ Gura_ImplementFunction(exif)
 // jpeg.test()
 Gura_DeclareFunction(test)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementFunction(test)

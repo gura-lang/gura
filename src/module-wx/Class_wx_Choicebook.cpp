@@ -39,7 +39,7 @@ void wx_Choicebook::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(Choicebook)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Choicebook));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);

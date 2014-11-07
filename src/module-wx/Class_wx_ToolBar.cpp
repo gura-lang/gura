@@ -39,7 +39,7 @@ void wx_ToolBar::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(ToolBarEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ToolBar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(ToolBarEmpty)
 
 Gura_DeclareFunction(ToolBar)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ToolBar));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -99,7 +99,7 @@ Gura_ImplementFunction(ToolBar)
 
 Gura_DeclareMethod(wx_ToolBar, AddControl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "control", VTYPE_wx_Control, OCCUR_Once);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_ToolBar, AddControl)
 
 Gura_DeclareMethod(wx_ToolBar, AddSeparator)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBar, AddSeparator)
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_ToolBar, AddSeparator)
 
 Gura_DeclareMethod(wx_ToolBar, AddStretchableSpace)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBar, AddStretchableSpace)
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_ToolBar, AddStretchableSpace)
 
 Gura_DeclareMethod(wx_ToolBar, AddTool_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "bitmap1", VTYPE_wx_Bitmap, OCCUR_Once);
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_ToolBar, AddTool_1)
 
 Gura_DeclareMethod(wx_ToolBar, AddTool)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "bitmap1", VTYPE_wx_Bitmap, OCCUR_Once);
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_ToolBar, AddTool)
 
 Gura_DeclareMethod(wx_ToolBar, AddTool_2)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "tool", VTYPE_wx_ToolBarToolBase, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -221,7 +221,7 @@ Gura_ImplementMethod(wx_ToolBar, AddTool_2)
 
 Gura_DeclareMethod(wx_ToolBar, AddCheckTool)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "bitmap1", VTYPE_wx_Bitmap, OCCUR_Once);
@@ -252,7 +252,7 @@ Gura_ImplementMethod(wx_ToolBar, AddCheckTool)
 
 Gura_DeclareMethod(wx_ToolBar, AddRadioTool)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "bitmap1", VTYPE_wx_Bitmap, OCCUR_Once);
@@ -283,7 +283,7 @@ Gura_ImplementMethod(wx_ToolBar, AddRadioTool)
 
 Gura_DeclareMethod(wx_ToolBar, ClearTools)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBar, ClearTools)
@@ -296,7 +296,7 @@ Gura_ImplementMethod(wx_ToolBar, ClearTools)
 
 Gura_DeclareMethod(wx_ToolBar, DeleteTool)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -312,7 +312,7 @@ Gura_ImplementMethod(wx_ToolBar, DeleteTool)
 
 Gura_DeclareMethod(wx_ToolBar, DeleteToolByPos)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -328,7 +328,7 @@ Gura_ImplementMethod(wx_ToolBar, DeleteToolByPos)
 
 Gura_DeclareMethod(wx_ToolBar, EnableTool)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "enable", VTYPE_boolean, OCCUR_Once);
 }
@@ -345,7 +345,7 @@ Gura_ImplementMethod(wx_ToolBar, EnableTool)
 
 Gura_DeclareMethod(wx_ToolBar, FindById)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -361,7 +361,7 @@ Gura_ImplementMethod(wx_ToolBar, FindById)
 
 Gura_DeclareMethod(wx_ToolBar, FindControl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -377,7 +377,7 @@ Gura_ImplementMethod(wx_ToolBar, FindControl)
 
 Gura_DeclareMethod(wx_ToolBar, FindToolForPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -395,7 +395,7 @@ Gura_ImplementMethod(wx_ToolBar, FindToolForPosition)
 
 Gura_DeclareMethod(wx_ToolBar, GetToolsCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -409,7 +409,7 @@ Gura_ImplementMethod(wx_ToolBar, GetToolsCount)
 
 Gura_DeclareMethod(wx_ToolBar, GetToolSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -423,7 +423,7 @@ Gura_ImplementMethod(wx_ToolBar, GetToolSize)
 
 Gura_DeclareMethod(wx_ToolBar, GetToolBitmapSize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -437,7 +437,7 @@ Gura_ImplementMethod(wx_ToolBar, GetToolBitmapSize)
 
 Gura_DeclareMethod(wx_ToolBar, GetMargins)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -451,7 +451,7 @@ Gura_ImplementMethod(wx_ToolBar, GetMargins)
 
 Gura_DeclareMethod(wx_ToolBar, GetToolClientData)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -470,7 +470,7 @@ Gura_ImplementMethod(wx_ToolBar, GetToolClientData)
 
 Gura_DeclareMethod(wx_ToolBar, GetToolEnabled)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -486,7 +486,7 @@ Gura_ImplementMethod(wx_ToolBar, GetToolEnabled)
 
 Gura_DeclareMethod(wx_ToolBar, GetToolLongHelp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -502,7 +502,7 @@ Gura_ImplementMethod(wx_ToolBar, GetToolLongHelp)
 
 Gura_DeclareMethod(wx_ToolBar, GetToolPacking)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -516,7 +516,7 @@ Gura_ImplementMethod(wx_ToolBar, GetToolPacking)
 
 Gura_DeclareMethod(wx_ToolBar, GetToolPos)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -532,7 +532,7 @@ Gura_ImplementMethod(wx_ToolBar, GetToolPos)
 
 Gura_DeclareMethod(wx_ToolBar, GetToolSeparation)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -546,7 +546,7 @@ Gura_ImplementMethod(wx_ToolBar, GetToolSeparation)
 
 Gura_DeclareMethod(wx_ToolBar, GetToolShortHelp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -562,7 +562,7 @@ Gura_ImplementMethod(wx_ToolBar, GetToolShortHelp)
 
 Gura_DeclareMethod(wx_ToolBar, GetToolState)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -578,7 +578,7 @@ Gura_ImplementMethod(wx_ToolBar, GetToolState)
 
 Gura_DeclareMethod(wx_ToolBar, InsertControl)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "control", VTYPE_wx_Control, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -596,7 +596,7 @@ Gura_ImplementMethod(wx_ToolBar, InsertControl)
 
 Gura_DeclareMethod(wx_ToolBar, InsertSeparator)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -612,7 +612,7 @@ Gura_ImplementMethod(wx_ToolBar, InsertSeparator)
 
 Gura_DeclareMethod(wx_ToolBar, InsertTool)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "bitmap1", VTYPE_wx_Bitmap, OCCUR_Once);
@@ -647,7 +647,7 @@ Gura_ImplementMethod(wx_ToolBar, InsertTool)
 
 Gura_DeclareMethod(wx_ToolBar, InsertTool_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "tool", VTYPE_wx_ToolBarToolBase, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -665,7 +665,7 @@ Gura_ImplementMethod(wx_ToolBar, InsertTool_1)
 
 Gura_DeclareMethod(wx_ToolBar, OnLeftClick)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "toggleDown", VTYPE_boolean, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -683,7 +683,7 @@ Gura_ImplementMethod(wx_ToolBar, OnLeftClick)
 
 Gura_DeclareMethod(wx_ToolBar, OnMouseEnter)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 }
 
@@ -698,7 +698,7 @@ Gura_ImplementMethod(wx_ToolBar, OnMouseEnter)
 
 Gura_DeclareMethod(wx_ToolBar, OnRightClick)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -717,7 +717,7 @@ Gura_ImplementMethod(wx_ToolBar, OnRightClick)
 
 Gura_DeclareMethod(wx_ToolBar, Realize)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -731,7 +731,7 @@ Gura_ImplementMethod(wx_ToolBar, Realize)
 
 Gura_DeclareMethod(wx_ToolBar, RemoveTool)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -747,7 +747,7 @@ Gura_ImplementMethod(wx_ToolBar, RemoveTool)
 
 Gura_DeclareMethod(wx_ToolBar, SetBitmapResource)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "resourceId", VTYPE_number, OCCUR_Once);
 #endif
@@ -768,7 +768,7 @@ Gura_ImplementMethod(wx_ToolBar, SetBitmapResource)
 
 Gura_DeclareMethod(wx_ToolBar, SetMargins)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -788,7 +788,7 @@ Gura_ImplementMethod(wx_ToolBar, SetMargins)
 
 Gura_DeclareMethod(wx_ToolBar, SetMargins_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -805,7 +805,7 @@ Gura_ImplementMethod(wx_ToolBar, SetMargins_1)
 
 Gura_DeclareMethod(wx_ToolBar, SetToolBitmapSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
 
@@ -820,7 +820,7 @@ Gura_ImplementMethod(wx_ToolBar, SetToolBitmapSize)
 
 Gura_DeclareMethod(wx_ToolBar, SetToolClientData)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "clientData", VTYPE_any, OCCUR_Once);
 }
@@ -837,7 +837,7 @@ Gura_ImplementMethod(wx_ToolBar, SetToolClientData)
 
 Gura_DeclareMethod(wx_ToolBar, SetToolDisabledBitmap)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 }
@@ -854,7 +854,7 @@ Gura_ImplementMethod(wx_ToolBar, SetToolDisabledBitmap)
 
 Gura_DeclareMethod(wx_ToolBar, SetToolLongHelp)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "helpString", VTYPE_string, OCCUR_Once);
 }
@@ -871,7 +871,7 @@ Gura_ImplementMethod(wx_ToolBar, SetToolLongHelp)
 
 Gura_DeclareMethod(wx_ToolBar, SetToolPacking)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "packing", VTYPE_number, OCCUR_Once);
 }
 
@@ -886,7 +886,7 @@ Gura_ImplementMethod(wx_ToolBar, SetToolPacking)
 
 Gura_DeclareMethod(wx_ToolBar, SetToolShortHelp)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "helpString", VTYPE_string, OCCUR_Once);
 }
@@ -903,7 +903,7 @@ Gura_ImplementMethod(wx_ToolBar, SetToolShortHelp)
 
 Gura_DeclareMethod(wx_ToolBar, SetToolNormalBitmap)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
 }
@@ -920,7 +920,7 @@ Gura_ImplementMethod(wx_ToolBar, SetToolNormalBitmap)
 
 Gura_DeclareMethod(wx_ToolBar, SetToolSeparation)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "separation", VTYPE_number, OCCUR_Once);
 }
 
@@ -935,7 +935,7 @@ Gura_ImplementMethod(wx_ToolBar, SetToolSeparation)
 
 Gura_DeclareMethod(wx_ToolBar, ToggleTool)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "toggle", VTYPE_boolean, OCCUR_Once);
 }

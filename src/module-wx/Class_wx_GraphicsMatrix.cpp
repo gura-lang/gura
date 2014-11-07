@@ -37,7 +37,7 @@ void wx_GraphicsMatrix::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareMethod(wx_GraphicsMatrix, Concat)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "t", VTYPE_wx_GraphicsMatrix, OCCUR_Once);
 }
 
@@ -52,7 +52,7 @@ Gura_ImplementMethod(wx_GraphicsMatrix, Concat)
 
 Gura_DeclareMethod(wx_GraphicsMatrix, Concat_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "t", VTYPE_wx_GraphicsMatrix, OCCUR_Once);
 }
 
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_GraphicsMatrix, Concat_1)
 
 Gura_DeclareMethod(wx_GraphicsMatrix, Get)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "a", VTYPE_wx_Double, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "b", VTYPE_wx_Double, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "c", VTYPE_wx_Double, OCCUR_ZeroOrOnce);
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_GraphicsMatrix, Get)
 
 Gura_DeclareMethod(wx_GraphicsMatrix, GetNativeMatrix)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GraphicsMatrix, GetNativeMatrix)
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_GraphicsMatrix, GetNativeMatrix)
 
 Gura_DeclareMethod(wx_GraphicsMatrix, Invert)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GraphicsMatrix, Invert)
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_GraphicsMatrix, Invert)
 
 Gura_DeclareMethod(wx_GraphicsMatrix, IsEqual)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "t", VTYPE_wx_GraphicsMatrix, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_GraphicsMatrix, IsEqual)
 
 Gura_DeclareMethod(wx_GraphicsMatrix, IsIdentity)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_GraphicsMatrix, IsIdentity)
 
 Gura_DeclareMethod(wx_GraphicsMatrix, Rotate)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_wx_Double, OCCUR_Once);
 }
 
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_GraphicsMatrix, Rotate)
 
 Gura_DeclareMethod(wx_GraphicsMatrix, Scale)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "xScale", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "yScale", VTYPE_wx_Double, OCCUR_Once);
 }
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_GraphicsMatrix, Scale)
 
 Gura_DeclareMethod(wx_GraphicsMatrix, Translate)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dx", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "dy", VTYPE_wx_Double, OCCUR_Once);
 }
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_GraphicsMatrix, Translate)
 
 Gura_DeclareMethod(wx_GraphicsMatrix, Set)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "a", VTYPE_wx_Double, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "b", VTYPE_wx_Double, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "c", VTYPE_wx_Double, OCCUR_ZeroOrOnce);
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_GraphicsMatrix, Set)
 
 Gura_DeclareMethod(wx_GraphicsMatrix, TransformPoint)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
 }
@@ -251,7 +251,7 @@ Gura_ImplementMethod(wx_GraphicsMatrix, TransformPoint)
 
 Gura_DeclareMethod(wx_GraphicsMatrix, TransformDistance)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "dx", VTYPE_wx_Double, OCCUR_Once);
 	DeclareArg(env, "dy", VTYPE_wx_Double, OCCUR_Once);
 }

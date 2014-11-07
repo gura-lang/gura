@@ -57,7 +57,7 @@ void wx_HtmlCell::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HtmlCellEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlCell));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -79,7 +79,7 @@ Gura_ImplementFunction(HtmlCellEmpty)
 
 Gura_DeclareMethod(wx_HtmlCell, AdjustPagebreak)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "pagebreak", VTYPE_number, OCCUR_Once);
 #endif
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_HtmlCell, AdjustPagebreak)
 
 Gura_DeclareMethod(wx_HtmlCell, Draw)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_HtmlCell, Draw)
 
 Gura_DeclareMethod(wx_HtmlCell, DrawInvisible)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 #if 0
 	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_HtmlCell, DrawInvisible)
 
 Gura_DeclareMethod(wx_HtmlCell, Find)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "condition", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "param", VTYPE_number, OCCUR_Once);
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_HtmlCell, Find)
 
 Gura_DeclareMethod(wx_HtmlCell, GetDescent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_HtmlCell, GetDescent)
 
 Gura_DeclareMethod(wx_HtmlCell, GetFirstChild)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -207,7 +207,7 @@ Gura_ImplementMethod(wx_HtmlCell, GetFirstChild)
 
 Gura_DeclareMethod(wx_HtmlCell, GetHeight)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -221,7 +221,7 @@ Gura_ImplementMethod(wx_HtmlCell, GetHeight)
 
 Gura_DeclareMethod(wx_HtmlCell, GetId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_HtmlCell, GetId)
 
 Gura_DeclareMethod(wx_HtmlCell, GetLink)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_HtmlCell, GetLink)
 
 Gura_DeclareMethod(wx_HtmlCell, GetMouseCursor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_HtmlWindowInterface, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -271,7 +271,7 @@ Gura_ImplementMethod(wx_HtmlCell, GetMouseCursor)
 
 Gura_DeclareMethod(wx_HtmlCell, GetNext)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_HtmlCell, GetNext)
 
 Gura_DeclareMethod(wx_HtmlCell, GetParent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -299,7 +299,7 @@ Gura_ImplementMethod(wx_HtmlCell, GetParent)
 
 Gura_DeclareMethod(wx_HtmlCell, GetPosX)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -313,7 +313,7 @@ Gura_ImplementMethod(wx_HtmlCell, GetPosX)
 
 Gura_DeclareMethod(wx_HtmlCell, GetPosY)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -327,7 +327,7 @@ Gura_ImplementMethod(wx_HtmlCell, GetPosY)
 
 Gura_DeclareMethod(wx_HtmlCell, GetWidth)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -341,7 +341,7 @@ Gura_ImplementMethod(wx_HtmlCell, GetWidth)
 
 Gura_DeclareMethod(wx_HtmlCell, Layout)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "w", VTYPE_number, OCCUR_Once);
 }
 
@@ -356,7 +356,7 @@ Gura_ImplementMethod(wx_HtmlCell, Layout)
 
 Gura_DeclareMethod(wx_HtmlCell, ProcessMouseClick)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_HtmlWindowInterface, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_Once);
 	DeclareArg(env, "event", VTYPE_wx_MouseEvent, OCCUR_Once);
@@ -376,7 +376,7 @@ Gura_ImplementMethod(wx_HtmlCell, ProcessMouseClick)
 
 Gura_DeclareMethod(wx_HtmlCell, SetId)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_string, OCCUR_Once);
 }
 
@@ -391,7 +391,7 @@ Gura_ImplementMethod(wx_HtmlCell, SetId)
 
 Gura_DeclareMethod(wx_HtmlCell, SetLink)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "link", VTYPE_wx_HtmlLinkInfo, OCCUR_Once);
 }
 
@@ -406,7 +406,7 @@ Gura_ImplementMethod(wx_HtmlCell, SetLink)
 
 Gura_DeclareMethod(wx_HtmlCell, SetNext)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "cell", VTYPE_wx_HtmlCell, OCCUR_Once);
 }
 
@@ -421,7 +421,7 @@ Gura_ImplementMethod(wx_HtmlCell, SetNext)
 
 Gura_DeclareMethod(wx_HtmlCell, SetParent)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "p", VTYPE_wx_HtmlContainerCell, OCCUR_Once);
 }
 
@@ -436,7 +436,7 @@ Gura_ImplementMethod(wx_HtmlCell, SetParent)
 
 Gura_DeclareMethod(wx_HtmlCell, SetPos)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }

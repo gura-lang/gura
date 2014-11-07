@@ -14,7 +14,7 @@ Gura_BeginModuleBody(png)
 // image#pngread(stream:stream:r):reduce
 Gura_DeclareMethod(image, pngread)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Reads a PNG image from a stream.");
 }
@@ -29,7 +29,7 @@ Gura_ImplementMethod(image, pngread)
 // image#pngwrite(stream:stream:w):reduce
 Gura_DeclareMethod(image, pngwrite)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Writes a PNG image to a stream.");
 }

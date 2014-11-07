@@ -38,7 +38,7 @@ void wx_HashTable::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(HashTable)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_HashTable));
 	DeclareArg(env, "key_type", VTYPE_number, OCCUR_Once);
@@ -71,7 +71,7 @@ Gura_ImplementFunction(HashTable)
 
 Gura_DeclareMethod(wx_HashTable, BeginFind)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HashTable, BeginFind)
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_HashTable, BeginFind)
 
 Gura_DeclareMethod(wx_HashTable, Clear)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HashTable, Clear)
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_HashTable, Clear)
 
 Gura_DeclareMethod(wx_HashTable, Delete)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_HashTable, Delete)
 
 Gura_DeclareMethod(wx_HashTable, Delete_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_HashTable, Delete_1)
 
 Gura_DeclareMethod(wx_HashTable, DeleteContents)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
 }
 
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_HashTable, DeleteContents)
 
 Gura_DeclareMethod(wx_HashTable, Get)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_HashTable, Get)
 
 Gura_DeclareMethod(wx_HashTable, Get_1)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_HashTable, Get_1)
 
 Gura_DeclareMethod(wx_HashTable, MakeKey)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "string", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_HashTable, MakeKey)
 
 Gura_DeclareMethod(wx_HashTable, Next)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_HashTable, Next)
 
 Gura_DeclareMethod(wx_HashTable, Put)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "object", VTYPE_wx_Object, OCCUR_Once);
 }
@@ -221,7 +221,7 @@ Gura_ImplementMethod(wx_HashTable, Put)
 
 Gura_DeclareMethod(wx_HashTable, Put_1)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "object", VTYPE_wx_Object, OCCUR_Once);
 }
@@ -238,7 +238,7 @@ Gura_ImplementMethod(wx_HashTable, Put_1)
 
 Gura_DeclareMethod(wx_HashTable, GetCount)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

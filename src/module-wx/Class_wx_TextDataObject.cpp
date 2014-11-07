@@ -45,7 +45,7 @@ void wx_TextDataObject::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(TextDataObject)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_TextDataObject));
 	DeclareArg(env, "text", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -70,7 +70,7 @@ Gura_ImplementFunction(TextDataObject)
 
 Gura_DeclareMethod(wx_TextDataObject, GetTextLength)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_TextDataObject, GetTextLength)
 
 Gura_DeclareMethod(wx_TextDataObject, GetText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_TextDataObject, GetText)
 
 Gura_DeclareMethod(wx_TextDataObject, SetText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "strText", VTYPE_string, OCCUR_Once);
 }
 

@@ -47,7 +47,7 @@ void wx_FileSystemHandler::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FileSystemHandlerEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_FileSystemHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -75,7 +75,7 @@ Gura_ImplementFunction(FileSystemHandlerEmpty)
 
 Gura_DeclareMethod(wx_FileSystemHandler, CanOpen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_FileSystemHandler, CanOpen)
 
 Gura_DeclareMethod(wx_FileSystemHandler, GetAnchor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "location", VTYPE_string, OCCUR_Once);
 #endif
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_FileSystemHandler, GetAnchor)
 
 Gura_DeclareMethod(wx_FileSystemHandler, GetLeftLocation)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "location", VTYPE_string, OCCUR_Once);
 #endif
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_FileSystemHandler, GetLeftLocation)
 
 Gura_DeclareMethod(wx_FileSystemHandler, GetMimeTypeFromExt)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "location", VTYPE_string, OCCUR_Once);
 #endif
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_FileSystemHandler, GetMimeTypeFromExt)
 
 Gura_DeclareMethod(wx_FileSystemHandler, GetProtocol)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "location", VTYPE_string, OCCUR_Once);
 #endif
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_FileSystemHandler, GetProtocol)
 
 Gura_DeclareMethod(wx_FileSystemHandler, GetRightLocation)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "location", VTYPE_string, OCCUR_Once);
 #endif
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_FileSystemHandler, GetRightLocation)
 
 Gura_DeclareMethod(wx_FileSystemHandler, FindFirst)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "wildcard", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_FileSystemHandler, FindFirst)
 
 Gura_DeclareMethod(wx_FileSystemHandler, FindNext)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_FileSystemHandler, FindNext)
 
 Gura_DeclareMethod(wx_FileSystemHandler, OpenFile)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "fs", VTYPE_wx_FileSystem, OCCUR_Once);
 	DeclareArg(env, "location", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);

@@ -193,7 +193,7 @@ void Object_db::IteratorQuery::GatherFollower(Environment::Frame *pFrame, Enviro
 // sqlite3.db#exec(sql:string):map
 Gura_DeclareMethod(db, exec)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "sql", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Executes an SQL statement and returns the result as a list.");
@@ -208,7 +208,7 @@ Gura_ImplementMethod(db, exec)
 // sqlite3.db#query(sql:string):map {block?}
 Gura_DeclareMethod(db, query)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "sql", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
@@ -228,7 +228,7 @@ Gura_ImplementMethod(db, query)
 // sqlite3.db#getcolnames(sql:string):map
 Gura_DeclareMethod(db, getcolnames)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "sql", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -242,7 +242,7 @@ Gura_ImplementMethod(db, getcolnames)
 // sqlite3.db#transaction() {block}
 Gura_DeclareMethod(db, transaction)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Executes the block within a transaction. The process is like follows:\n"
@@ -269,7 +269,7 @@ Gura_ImplementMethod(db, transaction)
 // sqlite3.db#close()
 Gura_DeclareMethod(db, close)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Shuts down the connection with an sqlite3 server.");
 }
 
@@ -296,7 +296,7 @@ Gura_ImplementUserClass(db)
 // db = sqlite3.db(filename:string) {block?}
 Gura_DeclareFunction(db)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "filename", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(db));

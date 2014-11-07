@@ -38,7 +38,7 @@ void wx_FileDialog::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FileDialog)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_FileDialog));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -87,7 +87,7 @@ Gura_ImplementFunction(FileDialog)
 
 Gura_DeclareMethod(wx_FileDialog, GetDirectory)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_FileDialog, GetDirectory)
 
 Gura_DeclareMethod(wx_FileDialog, GetFilename)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_FileDialog, GetFilename)
 
 Gura_DeclareMethod(wx_FileDialog, GetFilenames)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_FileDialog, GetFilenames)
 
 Gura_DeclareMethod(wx_FileDialog, GetFilterIndex)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_FileDialog, GetFilterIndex)
 
 Gura_DeclareMethod(wx_FileDialog, GetMessage)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_FileDialog, GetMessage)
 
 Gura_DeclareMethod(wx_FileDialog, GetPath)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_FileDialog, GetPath)
 
 Gura_DeclareMethod(wx_FileDialog, GetPaths)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_FileDialog, GetPaths)
 
 Gura_DeclareMethod(wx_FileDialog, GetWildcard)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_FileDialog, GetWildcard)
 
 Gura_DeclareMethod(wx_FileDialog, SetDirectory)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "directory", VTYPE_string, OCCUR_Once);
 }
 
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_FileDialog, SetDirectory)
 
 Gura_DeclareMethod(wx_FileDialog, SetFilename)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "setfilename", VTYPE_string, OCCUR_Once);
 }
 
@@ -231,7 +231,7 @@ Gura_ImplementMethod(wx_FileDialog, SetFilename)
 
 Gura_DeclareMethod(wx_FileDialog, SetFilterIndex)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "filterIndex", VTYPE_number, OCCUR_Once);
 }
 
@@ -246,7 +246,7 @@ Gura_ImplementMethod(wx_FileDialog, SetFilterIndex)
 
 Gura_DeclareMethod(wx_FileDialog, SetMessage)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
 }
 
@@ -261,7 +261,7 @@ Gura_ImplementMethod(wx_FileDialog, SetMessage)
 
 Gura_DeclareMethod(wx_FileDialog, SetPath)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once);
 }
 
@@ -276,7 +276,7 @@ Gura_ImplementMethod(wx_FileDialog, SetPath)
 
 Gura_DeclareMethod(wx_FileDialog, SetWildcard)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "wildCard", VTYPE_string, OCCUR_Once);
 }
 
@@ -291,7 +291,7 @@ Gura_ImplementMethod(wx_FileDialog, SetWildcard)
 
 Gura_DeclareMethod(wx_FileDialog, ShowModal)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

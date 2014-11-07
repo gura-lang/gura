@@ -11,7 +11,7 @@ Gura_BeginModuleBody(yaml)
 // yaml.read(stream:stream:r)
 Gura_DeclareFunction(read)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 }
 
@@ -31,7 +31,7 @@ Gura_ImplementFunction(read)
 // yaml.write(stream:stream:w, obj)
 Gura_DeclareFunction(write)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "obj", VTYPE_any);
 }
@@ -47,7 +47,7 @@ Gura_ImplementFunction(write)
 // yaml.parse(str:string)
 Gura_DeclareFunction(parse)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "str", VTYPE_string);
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementFunction(parse)
 // yaml.compose(obj)
 Gura_DeclareFunction(compose)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "obj", VTYPE_any);
 }
 

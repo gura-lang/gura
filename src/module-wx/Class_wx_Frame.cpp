@@ -59,7 +59,7 @@ void wx_Frame::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(FrameEmpty)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Frame));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -81,7 +81,7 @@ Gura_ImplementFunction(FrameEmpty)
 
 Gura_DeclareFunction(Frame)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Frame));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -122,7 +122,7 @@ Gura_ImplementFunction(Frame)
 
 Gura_DeclareMethod(wx_Frame, Centre)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "direction", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_Frame, Centre)
 
 Gura_DeclareMethod(wx_Frame, Create)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once);
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_Frame, Create)
 
 Gura_DeclareMethod(wx_Frame, CreateStatusBar)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "number", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_Frame, CreateStatusBar)
 
 Gura_DeclareMethod(wx_Frame, CreateToolBar)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_Frame, CreateToolBar)
 
 Gura_DeclareMethod(wx_Frame, GetClientAreaOrigin)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_Frame, GetClientAreaOrigin)
 
 Gura_DeclareMethod(wx_Frame, GetMenuBar)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -252,7 +252,7 @@ Gura_ImplementMethod(wx_Frame, GetMenuBar)
 
 Gura_DeclareMethod(wx_Frame, GetStatusBar)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -270,7 +270,7 @@ Gura_ImplementMethod(wx_Frame, GetStatusBar)
 
 Gura_DeclareMethod(wx_Frame, GetStatusBarPane)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -284,7 +284,7 @@ Gura_ImplementMethod(wx_Frame, GetStatusBarPane)
 
 Gura_DeclareMethod(wx_Frame, GetToolBar)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -302,7 +302,7 @@ Gura_ImplementMethod(wx_Frame, GetToolBar)
 
 Gura_DeclareMethod(wx_Frame, OnCreateStatusBar)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "number", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -324,7 +324,7 @@ Gura_ImplementMethod(wx_Frame, OnCreateStatusBar)
 
 Gura_DeclareMethod(wx_Frame, OnCreateToolBar)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
@@ -344,7 +344,7 @@ Gura_ImplementMethod(wx_Frame, OnCreateToolBar)
 
 Gura_DeclareMethod(wx_Frame, ProcessCommand)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -359,7 +359,7 @@ Gura_ImplementMethod(wx_Frame, ProcessCommand)
 
 Gura_DeclareMethod(wx_Frame, SendSizeEvent)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Frame, SendSizeEvent)
@@ -372,7 +372,7 @@ Gura_ImplementMethod(wx_Frame, SendSizeEvent)
 
 Gura_DeclareMethod(wx_Frame, SetMenuBar)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "menuBar", VTYPE_wx_MenuBar, OCCUR_Once);
 }
 
@@ -387,7 +387,7 @@ Gura_ImplementMethod(wx_Frame, SetMenuBar)
 
 Gura_DeclareMethod(wx_Frame, SetStatusBar)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "statusBar", VTYPE_wx_StatusBar, OCCUR_Once, FLAG_Nil);
 }
 
@@ -403,7 +403,7 @@ Gura_ImplementMethod(wx_Frame, SetStatusBar)
 
 Gura_DeclareMethod(wx_Frame, SetStatusBarPane)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -418,7 +418,7 @@ Gura_ImplementMethod(wx_Frame, SetStatusBarPane)
 
 Gura_DeclareMethod(wx_Frame, SetStatusText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "number", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -436,7 +436,7 @@ Gura_ImplementMethod(wx_Frame, SetStatusText)
 
 Gura_DeclareMethod(wx_Frame, SetStatusWidths)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "widths", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
@@ -451,7 +451,7 @@ Gura_ImplementMethod(wx_Frame, SetStatusWidths)
 
 Gura_DeclareMethod(wx_Frame, SetToolBar)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "toolBar", VTYPE_wx_ToolBar, OCCUR_Once);
 }
 
@@ -466,7 +466,7 @@ Gura_ImplementMethod(wx_Frame, SetToolBar)
 
 Gura_DeclareMethod(wx_Frame, PositionMenuBar)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Frame, PositionMenuBar)
@@ -479,7 +479,7 @@ Gura_ImplementMethod(wx_Frame, PositionMenuBar)
 
 Gura_DeclareMethod(wx_Frame, DetachMenuBar)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Frame, DetachMenuBar)
@@ -492,7 +492,7 @@ Gura_ImplementMethod(wx_Frame, DetachMenuBar)
 
 Gura_DeclareMethod(wx_Frame, AttachMenuBar)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "menuBar", VTYPE_wx_MenuBar, OCCUR_Once);
 }
 
@@ -507,7 +507,7 @@ Gura_ImplementMethod(wx_Frame, AttachMenuBar)
 
 Gura_DeclareMethod(wx_Frame, PositionStatusBar)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Frame, PositionStatusBar)
@@ -520,7 +520,7 @@ Gura_ImplementMethod(wx_Frame, PositionStatusBar)
 
 Gura_DeclareMethod(wx_Frame, PositionToolBar)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Frame, PositionToolBar)

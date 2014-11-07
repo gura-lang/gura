@@ -38,7 +38,7 @@ void wx_NotebookEvent::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(NotebookEvent)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_NotebookEvent));
 	DeclareArg(env, "eventType", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -72,7 +72,7 @@ Gura_ImplementFunction(NotebookEvent)
 
 Gura_DeclareMethod(wx_NotebookEvent, GetOldSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_NotebookEvent, GetOldSelection)
 
 Gura_DeclareMethod(wx_NotebookEvent, GetSelection)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_NotebookEvent, GetSelection)
 
 Gura_DeclareMethod(wx_NotebookEvent, SetOldSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_NotebookEvent, SetOldSelection)
 
 Gura_DeclareMethod(wx_NotebookEvent, SetSelection)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 

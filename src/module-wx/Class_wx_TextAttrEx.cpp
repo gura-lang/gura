@@ -39,7 +39,7 @@ void wx_TextAttrEx::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(TextAttrEx)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TextAttrEx));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -61,7 +61,7 @@ Gura_ImplementFunction(TextAttrEx)
 
 Gura_DeclareMethod(wx_TextAttrEx, GetBulletFont)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetBulletFont)
 
 Gura_DeclareMethod(wx_TextAttrEx, GetBulletName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetBulletName)
 
 Gura_DeclareMethod(wx_TextAttrEx, GetBulletNumber)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetBulletNumber)
 
 Gura_DeclareMethod(wx_TextAttrEx, GetBulletStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetBulletStyle)
 
 Gura_DeclareMethod(wx_TextAttrEx, GetBulletText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetBulletText)
 
 Gura_DeclareMethod(wx_TextAttrEx, GetCharacterStyleName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetCharacterStyleName)
 
 Gura_DeclareMethod(wx_TextAttrEx, GetLineSpacing)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetLineSpacing)
 
 Gura_DeclareMethod(wx_TextAttrEx, GetListStyleName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetListStyleName)
 
 Gura_DeclareMethod(wx_TextAttrEx, GetOutlineLevel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetOutlineLevel)
 
 Gura_DeclareMethod(wx_TextAttrEx, GetParagraphSpacingAfter)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetParagraphSpacingAfter)
 
 Gura_DeclareMethod(wx_TextAttrEx, GetParagraphSpacingBefore)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetParagraphSpacingBefore)
 
 Gura_DeclareMethod(wx_TextAttrEx, GetParagraphStyleName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetParagraphStyleName)
 
 Gura_DeclareMethod(wx_TextAttrEx, GetTextEffectFlags)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetTextEffectFlags)
 
 Gura_DeclareMethod(wx_TextAttrEx, GetTextEffects)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -257,7 +257,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetTextEffects)
 
 Gura_DeclareMethod(wx_TextAttrEx, GetURL)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -271,7 +271,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetURL)
 
 Gura_DeclareMethod(wx_TextAttrEx, HasBulletName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasBulletName)
 
 Gura_DeclareMethod(wx_TextAttrEx, HasBulletNumber)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -299,7 +299,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasBulletNumber)
 
 Gura_DeclareMethod(wx_TextAttrEx, HasBulletStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -313,7 +313,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasBulletStyle)
 
 Gura_DeclareMethod(wx_TextAttrEx, HasBulletText)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -327,7 +327,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasBulletText)
 
 Gura_DeclareMethod(wx_TextAttrEx, HasCharacterStyleName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -341,7 +341,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasCharacterStyleName)
 
 Gura_DeclareMethod(wx_TextAttrEx, HasLineSpacing)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -355,7 +355,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasLineSpacing)
 
 Gura_DeclareMethod(wx_TextAttrEx, HasListStyleName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -369,7 +369,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasListStyleName)
 
 Gura_DeclareMethod(wx_TextAttrEx, HasOutlineLevel)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -383,7 +383,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasOutlineLevel)
 
 Gura_DeclareMethod(wx_TextAttrEx, HasPageBreak)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -397,7 +397,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasPageBreak)
 
 Gura_DeclareMethod(wx_TextAttrEx, HasParagraphSpacingAfter)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -411,7 +411,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasParagraphSpacingAfter)
 
 Gura_DeclareMethod(wx_TextAttrEx, HasParagraphSpacingBefore)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -425,7 +425,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasParagraphSpacingBefore)
 
 Gura_DeclareMethod(wx_TextAttrEx, HasParagraphStyleName)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -439,7 +439,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasParagraphStyleName)
 
 Gura_DeclareMethod(wx_TextAttrEx, HasTextEffects)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -453,7 +453,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasTextEffects)
 
 Gura_DeclareMethod(wx_TextAttrEx, HasURL)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -467,7 +467,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasURL)
 
 Gura_DeclareMethod(wx_TextAttrEx, Init)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrEx, Init)
@@ -480,7 +480,7 @@ Gura_ImplementMethod(wx_TextAttrEx, Init)
 
 Gura_DeclareMethod(wx_TextAttrEx, IsCharacterStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -494,7 +494,7 @@ Gura_ImplementMethod(wx_TextAttrEx, IsCharacterStyle)
 
 Gura_DeclareMethod(wx_TextAttrEx, IsDefault)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -508,7 +508,7 @@ Gura_ImplementMethod(wx_TextAttrEx, IsDefault)
 
 Gura_DeclareMethod(wx_TextAttrEx, IsParagraphStyle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -522,7 +522,7 @@ Gura_ImplementMethod(wx_TextAttrEx, IsParagraphStyle)
 
 Gura_DeclareMethod(wx_TextAttrEx, SetBulletFont)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "font", VTYPE_string, OCCUR_Once);
 }
 
@@ -537,7 +537,7 @@ Gura_ImplementMethod(wx_TextAttrEx, SetBulletFont)
 
 Gura_DeclareMethod(wx_TextAttrEx, SetBulletNumber)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -552,7 +552,7 @@ Gura_ImplementMethod(wx_TextAttrEx, SetBulletNumber)
 
 Gura_DeclareMethod(wx_TextAttrEx, SetBulletName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 }
 
@@ -567,7 +567,7 @@ Gura_ImplementMethod(wx_TextAttrEx, SetBulletName)
 
 Gura_DeclareMethod(wx_TextAttrEx, SetBulletStyle)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
@@ -582,7 +582,7 @@ Gura_ImplementMethod(wx_TextAttrEx, SetBulletStyle)
 
 Gura_DeclareMethod(wx_TextAttrEx, SetBulletText)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
 }
 
@@ -597,7 +597,7 @@ Gura_ImplementMethod(wx_TextAttrEx, SetBulletText)
 
 Gura_DeclareMethod(wx_TextAttrEx, SetCharacterStyleName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 }
 
@@ -612,7 +612,7 @@ Gura_ImplementMethod(wx_TextAttrEx, SetCharacterStyleName)
 
 Gura_DeclareMethod(wx_TextAttrEx, SetLineSpacing)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "spacing", VTYPE_number, OCCUR_Once);
 }
 
@@ -627,7 +627,7 @@ Gura_ImplementMethod(wx_TextAttrEx, SetLineSpacing)
 
 Gura_DeclareMethod(wx_TextAttrEx, SetListStyleName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 }
 
@@ -642,7 +642,7 @@ Gura_ImplementMethod(wx_TextAttrEx, SetListStyleName)
 
 Gura_DeclareMethod(wx_TextAttrEx, SetOutlineLevel)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
 }
 
@@ -657,7 +657,7 @@ Gura_ImplementMethod(wx_TextAttrEx, SetOutlineLevel)
 
 Gura_DeclareMethod(wx_TextAttrEx, SetPageBreak)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pageBreak", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
@@ -673,7 +673,7 @@ Gura_ImplementMethod(wx_TextAttrEx, SetPageBreak)
 
 Gura_DeclareMethod(wx_TextAttrEx, SetParagraphSpacingAfter)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "spacing", VTYPE_number, OCCUR_Once);
 }
 
@@ -688,7 +688,7 @@ Gura_ImplementMethod(wx_TextAttrEx, SetParagraphSpacingAfter)
 
 Gura_DeclareMethod(wx_TextAttrEx, SetParagraphSpacingBefore)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "spacing", VTYPE_number, OCCUR_Once);
 }
 
@@ -703,7 +703,7 @@ Gura_ImplementMethod(wx_TextAttrEx, SetParagraphSpacingBefore)
 
 Gura_DeclareMethod(wx_TextAttrEx, SetParagraphStyleName)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 }
 
@@ -718,7 +718,7 @@ Gura_ImplementMethod(wx_TextAttrEx, SetParagraphStyleName)
 
 Gura_DeclareMethod(wx_TextAttrEx, SetTextEffectFlags)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
@@ -733,7 +733,7 @@ Gura_ImplementMethod(wx_TextAttrEx, SetTextEffectFlags)
 
 Gura_DeclareMethod(wx_TextAttrEx, SetTextEffects)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "effects", VTYPE_number, OCCUR_Once);
 }
 
@@ -748,7 +748,7 @@ Gura_ImplementMethod(wx_TextAttrEx, SetTextEffects)
 
 Gura_DeclareMethod(wx_TextAttrEx, SetURL)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "url", VTYPE_string, OCCUR_Once);
 }
 
