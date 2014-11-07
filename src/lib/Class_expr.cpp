@@ -3,9 +3,14 @@
 //=============================================================================
 #include "stdafx.h"
 
-#define ImplementTypeChecker(funcName, func) \
-Gura_DeclareMethod(expr, funcName) {} \
-Gura_ImplementMethod(expr, funcName) { \
+#define ImplementTypeChecker(symbol, func) \
+Gura_DeclareMethod(expr, is##symbol) { \
+	SetMode(RSLTMODE_Normal, FLAG_None); \
+	AddHelp( \
+		Gura_Symbol(en), Help::FMT_markdown, \
+		"Returns `true` if expr is an expression of " #symbol "."); \
+} \
+Gura_ImplementMethod(expr, is##symbol) { \
 	return Value(Object_expr::GetThisObj(args)->GetExpr()->func()); \
 }
 
@@ -342,7 +347,18 @@ Gura_DeclareMethod(expr, textize)
 	DeclareArg(env, "indent", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Composes a script text from a content of expr.\n"
+		"\n"
+		"Argument `style` specifies the text style output, which takes the following symbols.\n"
+		"Default is `fancy`.\n"
+		"\n"
+		"- `crammed` .. puts all the text in one line and removes volatile spaces\n"
+		"- `oneline` .. puts all the text in one line\n"
+		"- `brief` .. omits content of blocks and long strings with \"..\"\n"
+		"- `fancy` .. the most readable style\n"
+		"\n"
+		"Argument `indent` specifies a string for indentation.\n"
+		"Default is a sequence of four spaces.");
 }
 
 Gura_ImplementMethod(expr, textize)
@@ -372,7 +388,7 @@ Gura_DeclareMethod(expr, tofunction)
 	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a function with specified arguments and a body of expr.");
 }
 
 Gura_ImplementMethod(expr, tofunction)
@@ -419,8 +435,20 @@ Gura_DeclareMethod(expr, write)
 	DeclareArg(env, "dst", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "style", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "indent", VTYPE_string, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Outputs a script that describes the expression to the specified `stream`.\n");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Outputs a script that describes the expression to the specified `stream`.\n"
+		"\n"
+		"Argument `style` specifies the text style output, which takes the following symbols.\n"
+		"Default is `fancy`.\n"
+		"\n"
+		"- `crammed` .. puts all the text in one line and removes volatile spaces\n"
+		"- `oneline` .. puts all the text in one line\n"
+		"- `brief` .. omits content of blocks and long strings with \"..\"\n"
+		"- `fancy` .. the most readable style\n"
+		"\n"
+		"Argument `indent` specifies a string for indentation.\n"
+		"Default is a sequence of four spaces.");
 }
 
 Gura_ImplementMethod(expr, write)
@@ -442,28 +470,28 @@ Gura_ImplementMethod(expr, write)
 }
 
 // type chekers - Unary and descendants
-ImplementTypeChecker(isunary,		IsUnary)
-ImplementTypeChecker(isunaryop,		IsUnaryOp)
-ImplementTypeChecker(isquote,		IsQuote)
+ImplementTypeChecker(unary,			IsUnary)
+ImplementTypeChecker(unaryop,		IsUnaryOp)
+ImplementTypeChecker(quote,			IsQuote)
 // type chekers - Binary and descendants
-ImplementTypeChecker(isbinary,		IsBinary)
-ImplementTypeChecker(isbinaryop,	IsBinaryOp)
-ImplementTypeChecker(isassign,		IsAssign)
-ImplementTypeChecker(ismember,		IsMember)
+ImplementTypeChecker(binary,		IsBinary)
+ImplementTypeChecker(binaryop,		IsBinaryOp)
+ImplementTypeChecker(assign,		IsAssign)
+ImplementTypeChecker(member,		IsMember)
 // type chekers - Collector and descendants
-ImplementTypeChecker(iscollector,	IsCollector)
-ImplementTypeChecker(isroot,		IsRoot)
-ImplementTypeChecker(isblock,		IsBlock)
-ImplementTypeChecker(islister,		IsLister)
-ImplementTypeChecker(isiterer,		IsIterer)
+ImplementTypeChecker(collector,		IsCollector)
+ImplementTypeChecker(root,			IsRoot)
+ImplementTypeChecker(block,			IsBlock)
+ImplementTypeChecker(lister,		IsLister)
+ImplementTypeChecker(iterer,		IsIterer)
 // type chekers - Compound and descendants
-ImplementTypeChecker(iscompound,	IsCompound)
-ImplementTypeChecker(isindexer,		IsIndexer)
-ImplementTypeChecker(iscaller,		IsCaller)
+ImplementTypeChecker(compound,		IsCompound)
+ImplementTypeChecker(indexer,		IsIndexer)
+ImplementTypeChecker(caller,		IsCaller)
 // type chekers - others
-ImplementTypeChecker(isvalue,		IsValue)
-ImplementTypeChecker(isidentifier,	IsIdentifier)
-ImplementTypeChecker(issuffixed,	IsSuffixed)
+ImplementTypeChecker(value,			IsValue)
+ImplementTypeChecker(identifier,	IsIdentifier)
+ImplementTypeChecker(suffixed,		IsSuffixed)
 
 //-----------------------------------------------------------------------------
 // Implementation of class
