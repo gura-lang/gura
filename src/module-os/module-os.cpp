@@ -169,7 +169,7 @@ Gura_DeclareFunction(sleep)
 	DeclareArg(env, "secs", VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Sleeps for the specified time in seconds.");
+		"Sleeps for a time specified in seconds.");
 }
 
 Gura_ImplementFunction(sleep)
