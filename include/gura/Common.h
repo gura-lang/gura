@@ -53,7 +53,14 @@
 #include "Version.h"
 #include "PackedNumber.h"
 
-#define ArraySizeOf(array)				(sizeof(array) / sizeof(array[0]))
+#define Gura_BeginNameSpace() \
+namespace Gura {
+
+#define Gura_EndNameSpace()	\
+}
+
+#define ArraySizeOf(array) \
+(sizeof(array) / sizeof(array[0]))
 
 #define foreach(T, i, c) \
 for (T::iterator i = (c).begin(); i != (c).end(); i++)
@@ -84,7 +91,7 @@ inline static void Delete(T *p) { \
 	if (p->_cntRef <= 0) delete p; \
 }
 
-namespace Gura {
+Gura_BeginNameSpace()
 
 #if defined(GURA_ON_MSWIN)
 typedef __int64 int64;
@@ -281,6 +288,6 @@ public:
 	inline const String &GetStringSTL() const { return _str; }
 };
 
-}
+Gura_EndNameSpace()
 
 #endif

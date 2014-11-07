@@ -3,7 +3,7 @@
 //=============================================================================
 #include "stdafx.h"
 
-namespace Gura {
+Gura_BeginNameSpace()
 
 int CalcGCD(int a, int b)
 {
@@ -161,4 +161,4 @@ bool InvertMatrix(ComplexList &mat, size_t nFold, Complex &det)
 	return true;
 }
 
-}
+Gura_EndNameSpace()
