@@ -14,5 +14,7 @@ if (sys.platform == `mswin) {
 	builder.rpmFiles = ['tcl', 'tk']
 	builder.debFilesDevel = ['tk8.5-dev']
 	builder.rpmFilesDevel = ['tcl-devel', 'tk-devel']
+} elsif (sys.platform == `darwin) {
+	// nothing to do
 }
 builder.build('tcl', ['module-tcl.cpp'])
