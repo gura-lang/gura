@@ -42,6 +42,17 @@ namespace OAL {
 const char FileSeparatorWin = '\\';
 const char FileSeparatorUnix = '/';
 
+#if defined(GURA_ON_MSWIN)
+const bool IgnoreCaseInPathNameFlag = true;
+const char FileSeparator = '\\';
+#elif defined(GURA_ON_DARWIN)
+const bool IgnoreCaseInPathNameFlag = true;
+const char FileSeparator = '/';
+#elif defined(GURA_ON_LINUX)
+const bool IgnoreCaseInPathNameFlag = false;
+const char FileSeparator = '/';
+#endif
+
 bool IsAbsPathName(const char *pathName)
 {
 	return IsFileSeparator(*pathName) ||
@@ -554,9 +565,6 @@ static void AppendCmdLine(String &cmdLine, const char *arg)
 //=============================================================================
 // Windows API
 //=============================================================================
-const char FileSeparator = '\\';
-const bool IgnoreCaseInPathNameFlag = true;
-
 int ExecProgram(Environment &env, Signal sig, const char *pathName,
 				const ValueList &valList, Stream *pStreamStdin,
 				Stream *pStreamStdout, Stream *pStreamStderr, bool forkFlag)
@@ -1240,9 +1248,6 @@ void Event::Notify()
 //=============================================================================
 // POSIX
 //=============================================================================
-const char FileSeparator = '/';
-const bool IgnoreCaseInPathNameFlag = false;
-
 int ExecProgram(Environment &env, Signal sig, const char *pathName,
 				const ValueList &valList, Stream *pStreamStdin,
 				Stream *pStreamStdout, Stream *pStreamStderr, bool forkFlag)
