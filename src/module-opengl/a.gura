@@ -7,7 +7,8 @@ lines:*match(r'^extern\s+(.+[\s\*]+)(\w+)\s*\((.*)\)').skipnil() {|m|
 	funcName = m[2].strip()
 	args = m[3].split(',')::strip()
 	print(funcName, '(')
-	print(args.each():iter {|arg|
+	print(args.each():xiter {|arg|
+		(arg == 'void') && continue
 		m2 = arg.match(r'^(.+[\s\*]+)(\w+)')
 		varType = m2[1].strip().sub(r'\s*\*', '@').sub(r'^const\s+(.+)', r'\1:const')
 		varName = m2[2].strip()
