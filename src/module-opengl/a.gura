@@ -6,7 +6,7 @@ lines:*match(r'^extern\s+(.+[\s\*]+)(\w+)\s*\((.*)\)').skipnil() {|m|
 	rtnType = m[1].strip().sub(r'\s*\*', '@').sub(r'^const\s+(.+)', r'\1:const')
 	funcName = m[2].strip()
 	argsRaw = m[3]
-	argsRaw.find('*') && print('//')
+	argsRaw.find('*') && print('$')
 	print(funcName, '(')
 	args = argsRaw.split(',')::strip()
 	print(args.each():xiter {|arg|
