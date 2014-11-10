@@ -3,7 +3,18 @@
 decls = `{
 glAccum(op:GLenum, value:GLfloat):void
 glAlphaFunc(func:GLenum, ref:GLclampf):void
-$glAreTexturesResident(n:GLsizei, textures:GLuint@:const, residences:GLboolean@):GLboolean
+$glAreTexturesResident(textures:GLuint@:const):GLboolean = R'''
+	GLsizei n = textures.GetSize();
+	CArray<GLboolean> residences(n);
+	GLboolean _rtn = glAreTexturesResident(n, textures, residences);
+	if (_rtn == 0) return Value::Null;
+	Value rtn;
+	ValueList &valList = rtn.InitAsList(env, n);
+	for (GLsizei i = 0; i < n; i++) {
+		valList.push_back(residences[i] != 0);
+	}
+	return ReturnValue(env, sig, args, rtn);
+'''
 glArrayElement(i:GLint):void
 glBegin(mode:GLenum):void
 glBindTexture(target:GLenum, texture:GLuint):void
