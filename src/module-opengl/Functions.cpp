@@ -123,25 +123,27 @@ Gura_DeclareFunction(glBitmap)
 	DeclareArg(env, "yorig", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "xmove", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "ymove", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "bitmap", VTYPE_binary, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glBitmap)
 {
-#if 0
 	GLsizei width = args.GetInt(0);
 	GLsizei height = args.GetInt(1);
 	GLfloat xorig = args.GetFloat(2);
 	GLfloat yorig = args.GetFloat(3);
 	GLfloat xmove = args.GetFloat(4);
 	GLfloat ymove = args.GetFloat(5);
-	CArray<GLubyte> bitmap = args.GetList(6);
-	glBitmap(width, height, xorig, yorig, xmove, ymove, bitmap);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glBitmap");
+	const Binary &bitmap = Object_binary::GetObject(args, 6)->GetBinary();
+	size_t bytesReq = ((width + 7) / 8) * height;
+	if (bytesReq < bitmap.size()) {
+		sig.SetError(ERR_ValueError, "binary doesn\'t contain enough data");
+		return Value::Null;
+	}
+	glBitmap(width, height, xorig, yorig, xmove, ymove,
+			 reinterpret_cast<const GLubyte *>(bitmap.data()));
 	return Value::Null;
 }
 
@@ -232,6 +234,87 @@ Gura_ImplementFunction(glCallList)
 {
 	GLuint list = args.GetUInt(0);
 	glCallList(list);
+	return Value::Null;
+}
+
+// opengl.glCallLists
+Gura_DeclareFunction(glCallLists)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "lists", VTYPE_number, OCCUR_Once, FLAG_List);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(glCallLists)
+{
+	GLenum type = static_cast<GLenum>(args.GetInt(0));
+	const ValueList &lists = args.GetList(1);
+	const ValueList &lists_in = args.GetList(1);
+	GLsizei n = static_cast<GLsizei>(lists.size());
+	AutoPtr<Memory> pListsBuff;
+	if (type == GL_BYTE) {
+		pListsBuff.reset(new MemoryHeap(sizeof(GLbyte) * n));
+		GLbyte *p = reinterpret_cast<GLbyte *>(pListsBuff->GetPointer());
+		foreach_const (ValueList, pValue, lists_in) { *p++ = pValue->GetChar(); }
+	} else if (type == GL_UNSIGNED_BYTE) {
+		pListsBuff.reset(new MemoryHeap(sizeof(GLubyte) * n));
+		GLubyte *p = reinterpret_cast<GLubyte *>(pListsBuff->GetPointer());
+		foreach_const (ValueList, pValue, lists_in) { *p++ = pValue->GetUChar(); }
+	} else if (type == GL_SHORT) {
+		pListsBuff.reset(new MemoryHeap(sizeof(GLshort) * n));
+		GLshort *p = reinterpret_cast<GLshort *>(pListsBuff->GetPointer());
+		foreach_const (ValueList, pValue, lists_in) { *p++ = pValue->GetShort(); }
+	} else if (type == GL_UNSIGNED_SHORT) {
+		pListsBuff.reset(new MemoryHeap(sizeof(GLushort) * n));
+		GLushort *p = reinterpret_cast<GLushort *>(pListsBuff->GetPointer());
+		foreach_const (ValueList, pValue, lists_in) { *p++ = pValue->GetUShort(); }
+	} else if (type == GL_INT) {
+		pListsBuff.reset(new MemoryHeap(sizeof(GLint) * n));
+		GLint *p = reinterpret_cast<GLint *>(pListsBuff->GetPointer());
+		foreach_const (ValueList, pValue, lists_in) { *p++ = pValue->GetInt(); }
+	} else if (type == GL_UNSIGNED_INT) {
+		pListsBuff.reset(new MemoryHeap(sizeof(GLuint) * n));
+		GLuint *p = reinterpret_cast<GLuint *>(pListsBuff->GetPointer());
+		foreach_const (ValueList, pValue, lists_in) { *p++ = pValue->GetUInt(); }
+	} else if (type == GL_FLOAT) {
+		pListsBuff.reset(new MemoryHeap(sizeof(GLfloat) * n));
+		GLfloat *p = reinterpret_cast<GLfloat *>(pListsBuff->GetPointer());
+		foreach_const (ValueList, pValue, lists_in) { *p++ = pValue->GetFloat(); }
+	} else if (type == GL_2_BYTES) {
+		pListsBuff.reset(new MemoryHeap(sizeof(GLubyte) * 2 * n));
+		GLubyte *p = reinterpret_cast<GLubyte *>(pListsBuff->GetPointer());
+		foreach_const (ValueList, pValue, lists_in) {
+			UShort num = pValue->GetUShort();
+			*p++ = static_cast<GLubyte>(num >> 8);
+			*p++ = static_cast<GLubyte>(num);
+		}
+	} else if (type == GL_3_BYTES) {
+		pListsBuff.reset(new MemoryHeap(sizeof(GLubyte) * 3 * n));
+		GLubyte *p = reinterpret_cast<GLubyte *>(pListsBuff->GetPointer());
+		foreach_const (ValueList, pValue, lists_in) {
+			ULong num = pValue->GetULong();
+			*p++ = static_cast<GLubyte>(num >> 16);
+			*p++ = static_cast<GLubyte>(num >> 8);
+			*p++ = static_cast<GLubyte>(num);
+		}
+	} else if (type == GL_4_BYTES) {
+		pListsBuff.reset(new MemoryHeap(sizeof(GLubyte) * 4 * n));
+		GLubyte *p = reinterpret_cast<GLubyte *>(pListsBuff->GetPointer());
+		foreach_const (ValueList, pValue, lists_in) {
+			ULong num = pValue->GetULong();
+			*p++ = static_cast<GLubyte>(num >> 24);
+			*p++ = static_cast<GLubyte>(num >> 16);
+			*p++ = static_cast<GLubyte>(num >> 8);
+			*p++ = static_cast<GLubyte>(num);
+		}
+	} else {
+		sig.SetError(ERR_ValueError, "invalid type specification");
+		return Value::Null;
+	}
+	// GLsizei n, GLenum type, const GLvoid *lists
+	glCallLists(n, type, pListsBuff->GetPointer());
 	return Value::Null;
 }
 
@@ -346,23 +429,19 @@ Gura_ImplementFunction(glClearStencil)
 // opengl.glClipPlane
 Gura_DeclareFunction(glClipPlane)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "plane", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "equation", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glClipPlane)
 {
-#if 0
 	GLenum plane = static_cast<GLenum>(args.GetInt(0));
-	CArray<GLdouble> equation = args.GetList(1);
-	glClipPlane(plane, equation);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glClipPlane");
-	return Value::Null;
+	GLdouble equation[4];
+	glGetClipPlane(plane, equation);
+	return Value::CreateList(env, equation, ArraySizeOf(equation));
 }
 
 // opengl.glColor3b
@@ -396,12 +475,9 @@ Gura_DeclareFunction(glColor3bv)
 
 Gura_ImplementFunction(glColor3bv)
 {
-#if 0
 	CArray<GLbyte> v = args.GetList(0);
+
 	glColor3bv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glColor3bv");
 	return Value::Null;
 }
 
@@ -11087,6 +11163,7 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(glBlendEquationSeparate);
 	Gura_AssignFunction(glBlendFunc);
 	Gura_AssignFunction(glCallList);
+	Gura_AssignFunction(glCallLists);
 	Gura_AssignFunction(glClear);
 	Gura_AssignFunction(glClearAccum);
 	Gura_AssignFunction(glClearColor);

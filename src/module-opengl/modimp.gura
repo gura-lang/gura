@@ -45,7 +45,7 @@ ${fi.body}
 	${else}
 	${fi.funcNameC}(${argsJoined});
 	${end}
-${fi.rtnInfo.bodyPre}
+${fi.rtnInfo.codeReturn}
 	${if (fi.rtnInfo.fmtReturn)}
 	return ReturnValue(env, sig, args, ${fi.rtnInfo.fmtReturn});
 	${else}
@@ -69,11 +69,11 @@ ArgInfo = struct(name:string, valType:string:nil, occurPattern:string:nil,
 	GetArg(idx:number) = format(this.fmtGetter, idx)
 }
 
-ReturnInfo = struct(typeC:string, fmtReturn:string:nil, bodyPre:string:nil)
+ReturnInfo = struct(typeC:string, fmtReturn:string:nil, codeReturn:string:nil)
 
 TypeConv = struct(
 		valType:string:nil, occurPattern:string:nil, flags[]:string,
-		typeC:string, fmtGetter:string:nil, fmtReturn:string:nil, bodyPre?:string)
+		typeC:string, fmtGetter:string:nil, fmtReturn:string:nil, codeReturn?:string)
 
 FuncInfo = class {
 	public {
@@ -110,7 +110,7 @@ FuncInfo = class {
 							'proper conversion not found in table "%s"', rtnTypeRaw)
 			sys.exit(1)
 		}
-		this.rtnInfo = ReturnInfo(typeConv.typeC, typeConv.fmtReturn, typeConv.bodyPre)
+		this.rtnInfo = ReturnInfo(typeConv.typeC, typeConv.fmtReturn, typeConv.codeReturn)
 		this.args = caller.cdr.each():list {|arg|
 			if (arg.isindexer()) {
 				identifier = arg.car
@@ -263,6 +263,10 @@ typeConvDict_BuiltIn = %{
 	'unsigned_long[]' => TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<unsigned long>', 'args.GetList(%d)',
+			nil)
+	'number[]' => TypeConv(
+			'number', 'Once', ['List'],
+			'const ValueList &', 'args.GetList(%d)',
 			nil)
 	'char@' => TypeConv(
 			'string', 'Once', [],
