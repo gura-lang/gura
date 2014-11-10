@@ -6,6 +6,8 @@
 
 Gura_BeginModuleBody(opengl)
 
+void AssignFunctions(Environment &env);
+
 //-----------------------------------------------------------------------------
 // helper
 //-----------------------------------------------------------------------------
@@ -315,13 +317,8 @@ Gura_ImplementMethod(image, opengl)
 //-----------------------------------------------------------------------------
 // Gura module functions: opengl
 //-----------------------------------------------------------------------------
-//#include "HandCoded.cpp"
-//#include "Converted.cpp"
-#include "Functions.cpp"
-
 Gura_ModuleEntry()
 {
-	//ModuleEntrySub(env, sig);
 	AssignFunctions(env);
 	Gura_AssignMethodTo(VTYPE_image, image, opengl);
 	return true;

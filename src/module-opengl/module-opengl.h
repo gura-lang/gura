@@ -53,6 +53,7 @@ if (!ToArray(sig, varName, args.GetList(iParam), n_##varName, true, GetName(), #
 size_t GetParamCount(GLenum pname);
 size_t GetLightParamCount(GLenum pname);
 GLenum GetImageFormat(Signal sig, const Image *pImage);
+void SetError_NotImpFunction(Signal &sig, const char *funcName);
 
 Gura_EndModuleHeader(opengl)
 

@@ -1,3 +1,7 @@
+#include "stdafx.h"
+
+Gura_BeginModuleScope(opengl)
+
 // opengl.glAccum
 Gura_DeclareFunction(glAccum)
 {
@@ -46,21 +50,17 @@ Gura_DeclareFunction(glAreTexturesResident)
 
 Gura_ImplementFunction(glAreTexturesResident)
 {
-#if 0
 	CArray<GLuint> textures = args.GetList(0);
 	GLsizei n = textures.GetSize();
 	CArray<GLboolean> residences(n);
 	GLboolean _rtn = glAreTexturesResident(n, textures, residences);
 	if (_rtn == 0) return Value::Null;
-	Value rtn;
-	ValueList &valList = rtn.InitAsList(env, n);
+	Value _rtnVal;
+	ValueList &valList = _rtnVal.InitAsList(env, n);
 	for (GLsizei i = 0; i < n; i++) {
 		valList.push_back(residences[i] != 0);
 	}
-	return ReturnValue(env, sig, args, rtn);
-#endif
-	SetError_NotImpFunction(sig, "glAreTexturesResident");
-	return Value::Null;
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // opengl.glArrayElement
@@ -11612,3 +11612,5 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(glUniformMatrix3x4fv);
 	Gura_AssignFunction(glUniformMatrix4x3fv);
 }
+
+Gura_EndModuleScope(opengl)
