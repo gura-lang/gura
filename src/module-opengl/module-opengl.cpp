@@ -288,6 +288,11 @@ GLenum GetImageFormat(Signal sig, const Image *pImage)
 	return format;
 }
 
+void SetError_NotImpFunction(Signal &sig, const char *funcName)
+{
+	sig.SetError(ERR_RuntimeError, "not implemented function %s", funcName);
+}
+
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_image
 // These method are available after importing opengl module.
@@ -310,12 +315,14 @@ Gura_ImplementMethod(image, opengl)
 //-----------------------------------------------------------------------------
 // Gura module functions: opengl
 //-----------------------------------------------------------------------------
-#include "HandCoded.cpp"
-#include "Converted.cpp"
+//#include "HandCoded.cpp"
+//#include "Converted.cpp"
+#include "Functions.cpp"
 
 Gura_ModuleEntry()
 {
-	ModuleEntrySub(env, sig);
+	//ModuleEntrySub(env, sig);
+	AssignFunctions(env);
 	Gura_AssignMethodTo(VTYPE_image, image, opengl);
 	return true;
 }

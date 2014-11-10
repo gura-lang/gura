@@ -6,10 +6,10 @@ tmplImplementation = R'''
 Gura_DeclareFunction(${fi.funcNameGura})
 {
 	${if (fi.rtnInfo.fmtReturn)}
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	${else}
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	${end}
 	${for (arg in fi.args)}
 	DeclareArg(env, "${arg.name}", VTYPE_${arg.valType}, OCCUR_${arg.occurPattern}, ${('FLAG_' + arg.flags).join('|')});

@@ -161,7 +161,7 @@ $glGetPixelMapusv(map:GLenum, values:GLushort@):void
 //$glGetPointerv(pname:GLenum, params:GLvoid@@):void
 $glGetPolygonStipple(mask:GLubyte@):void
 //$glGetSeparableFilter(target:GLenum, format:GLenum, type:GLenum, row:GLvoid@, column:GLvoid@, span:GLvoid@):void
-glGetString(name:GLenum):GLubyte@:const
+$glGetString(name:GLenum):GLubyte@:const
 $glGetTexEnvfv(target:GLenum, pname:GLenum, params:GLfloat@):void
 $glGetTexEnviv(target:GLenum, pname:GLenum, params:GLint@):void
 $glGetTexGendv(coord:GLenum, pname:GLenum, params:GLdouble@):void
@@ -761,9 +761,9 @@ Renderer('opengl', decls.children, typeConvDict, &{$funcName}) {|renderer|
 		print(renderer.RenderImplementation())
 		print(renderer.RenderAssignment())
 	} else {
-		//fileNameTmpl = 'Functions.cpp.tmpl'
-		//fileNameOut = 'Functions.cpp'
-		//template(fileNameTmpl).render(fileNameOut)
-		//println(fileNameOut, ' was created')
+		fileNameTmpl = 'Functions.cpp.tmpl'
+		fileNameOut = 'Functions.cpp'
+		template(fileNameTmpl).render(fileNameOut)
+		println(fileNameOut, ' was created')
 	}
 }
