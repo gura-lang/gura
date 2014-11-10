@@ -1,14 +1,15 @@
 #!/usr/bin/env gura
+import(re)
 
 tmplImplementation = R'''
-// sdl2.${fi.funcNameGura}
+// ${fi.moduleName}.${fi.funcNameGura}
 Gura_DeclareFunction(${fi.funcNameGura})
 {
 	${if (fi.rtnInfo.fmtReturn)}
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	${else}
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	${end}
 	${for (arg in fi.args)}
 	DeclareArg(env, "${arg.name}", VTYPE_${arg.valType}, OCCUR_${arg.occurPattern}, ${('FLAG_' + arg.flags).join('|')});
@@ -78,7 +79,7 @@ FuncInfo = class {
 	public {
 		funcNameC, funcNameGura, args, rtnInfo, body
 	}
-	__init__(decl:expr, typeConvDict:dict, funcNameTranslator:function):map = {
+	__init__(moduleName:string, decl:expr, typeConvDict:dict, funcNameTranslator:function):map = {
 		if (decl.isassign()) {
 			caller = decl.left
 			if (!(decl.right.isvalue() && isstring(decl.right.value))) {
@@ -91,6 +92,7 @@ FuncInfo = class {
 			body = nil
 		}
 		funcNameRaw:string = caller.car.symbol
+		this.moduleName = moduleName
 		this.funcNameC = funcNameRaw.replace('$', '')
 		this.funcNameGura = funcNameTranslator(this.funcNameC)
 		this.validFlag = !funcNameRaw.find('$')
@@ -293,11 +295,11 @@ typeConvDict_BuiltIn = %{
 }
 
 Renderer = class {
-	__init__(decls:iterator, typeConvDict:dict, funcNameTranslator:function) = {
+	__init__(moduleName:string, decls:iterator, typeConvDict:dict, funcNameTranslator:function) = {
 		typeConvDictWork = %{}
 		typeConvDictWork.store(typeConvDict_BuiltIn)
 		typeConvDictWork.store(typeConvDict)
-		this.funcInfos = FuncInfo(decls, typeConvDictWork, funcNameTranslator):list
+		this.funcInfos = FuncInfo(moduleName, decls, typeConvDictWork, funcNameTranslator):list
 	}
 	RenderImplementation() = {
 		this.funcInfos:*RenderImplementation() + '\n'

@@ -2020,7 +2020,7 @@ typeConvDict = %{
 	TypeConv_Class('SDL_Window@')
 }
 
-Renderer(decls.children, typeConvDict, &{$funcNameC.sub('^SDL_', '')}) {|renderer|
+Renderer('sdl2', decls.children, typeConvDict, &{$funcNameC.sub('^SDL_', '')}) {|renderer|
 	if (sys.argv.len() > 1 && sys.argv[1] == 'test') {
 		print(renderer.RenderImplementation())
 		print(renderer.RenderAssignment())
