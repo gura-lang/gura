@@ -1833,9 +1833,10 @@ import(modimp) {TypeConv, Renderer}
 TypeConv_Enum(typeName:string) = {
 	typeName => TypeConv(
 			'number', 'Once', [],
-			typeName,
-			'static_cast<' + typeName + '>(args.GetInt(%d))',
-			'Value(_rtn)')
+			typeName + ' ${arg.name} = static_cast<' + typeName + '>(args.GetInt(${idx}));',
+			R'''
+			int _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 }
 
 TypeConv_Class(typeName:string) = {
@@ -1850,12 +1851,31 @@ TypeConv_Class(typeName:string) = {
 	pointerFlag = typeNameTmp.find('@')
 	typeNameTmp = typeNameTmp.replace('@', '')
 	typeNameBase = typeNameTmp.replace('SDL_', '')
-	typeName => TypeConv(
-			typeNameBase, 'Once', [],
-			cond(constFlag, 'const ', '') + typeNameTmp + cond(pointerFlag, ' *', ''),
-			'Object_' + typeNameBase + '::GetObject(args, %d)->GetEntity()',
-			'Value(new Object_' + typeNameBase + '(_rtn))',
-			cond(pointerFlag, bodyPrePointer))
+	if (pointerFlag) {
+		typeName => TypeConv(
+				typeNameBase, 'Once', [],
+				cond(constFlag, 'const ', '') + typeNameTmp + ' *${arg.name} = ' \
+					'Object_' + typeNameBase + '::GetObject(args, ${idx})->GetEntity();',
+				R'''
+				SDL_%s *_rtn = ${fi.MakeCaller()};
+				Value _rtnVal;
+				if (_rtn != NULL) {
+					_rtnVal = Value(new Object_%s(_rtn));
+				} else if (*SDL_GetError() != '\0') {
+					SetError_SDL(sig);
+					return Value::Null;
+				}
+				return ReturnValue(env, sig, args, _rtnVal);''' % [typeNameBase, typeNameBase])
+	} else {
+		typeName => TypeConv(
+				typeNameBase, 'Once', [],
+				typeNameTmp + ' ${arg.name} = ' \
+					'Object_' + typeNameBase + '::GetObject(args, ${idx})->GetEntity();',
+				R'''
+				SDL_%s _rtn = ${fi.MakeCaller()};
+				Value _rtnVal(new Object_%s(_rtn));
+				return ReturnValue(env, sig, args, _rtnVal);''' % [typeNameBase, typeNameBase])
+	}
 }
 
 bodyPrePointer = R'''
@@ -1872,108 +1892,150 @@ typeConvDict = %{
 	// overwrite built-in converter
 	'char@' => TypeConv(
 			'string', 'Once', [],
-			'char *', 'args.GetString(%d)',
-			'Value(_rtn)', bodyPrePointer)
+			'char *${arg.name} = args.GetString(${idx});',
+			R'''
+			char *_rtn = ${fi.MakeCaller()};
+			Value _rtnVal;
+			if (_rtn != NULL) {
+				_rtnVal = Value(_rtn);
+				// free buffer of _rtn
+			} else if (*SDL_GetError() != '\0') {
+				SetError_SDL(sig);
+				return Value::Null;
+			}
+			return ReturnValue(env, sig, args, _rtnVal);''')
 	'char@:const' => TypeConv(
 			'string', 'Once', [],
-			'const char *', 'args.GetString(%d)',
-			'Value(_rtn)', bodyPrePointer)
+			'const char *${arg.name} = args.GetString(${idx});',
+			R'''
+			const char *_rtn = ${fi.MakeCaller()};
+			Value _rtnVal;
+			if (_rtn != NULL) {
+				_rtnVal = Value(_rtn);
+			} else if (*SDL_GetError() != '\0') {
+				SetError_SDL(sig);
+				return Value::Null;
+			}
+			return ReturnValue(env, sig, args, _rtnVal);''')
 	// type converter specific to SDL library
 	'Uint16[]' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<Uint16>', 'args.GetList(%d)',
+			'CArray<Uint16> ${arg.name} = args.GetList(${idx});',
 			nil)
 	'Sint8' => TypeConv(
 			'number', 'Once', [],
-			'Sint8', 'args.GetChar(%d)',
-			'Value(_rtn)')
+			'Sint8 ${arg.name} = args.GetChar(${idx});',
+			R'''
+			Sint8 _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'Sint16' => TypeConv(
 			'number', 'Once', [],
-			'Sint16', 'args.GetShort(%d)',
-			'Value(_rtn)')
+			'Sint16 ${arg.name} = args.GetShort(${idx});',
+			R'''
+			Sint16 _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'Sint32' => TypeConv(
 			'number', 'Once', [],
-			'Sint32', 'args.GetLong(%d)',
-			'Value(_rtn)')
+			'Sint32 ${arg.name} = args.GetLong(${idx});',
+			R'''
+			Sint32 _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'Sint64' => TypeConv(
 			'number', 'Once', [],
-			'Sint64', 'static_cast<Sint64>(args.GetDouble(%d))',
-			'Value(_rtn)')
+			'Sint64 ${arg.name} = static_cast<Sint64>(args.GetDouble(${idx}));',
+			R'''
+			Sint64 _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'Uint8' => TypeConv(
 			'number', 'Once', [],
-			'Uint8', 'args.GetUChar(%d)',
-			'Value(_rtn)')
+			'Uint8 ${arg.name} = args.GetUChar(${idx});',
+			R'''
+			Uint8 _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'Uint16' => TypeConv(
 			'number', 'Once', [],
-			'Uint16', 'args.GetUShort(%d)',
-			'Value(_rtn)')
+			'Uint16 ${arg.name} = args.GetUShort(${idx});',
+			R'''
+			Uint16 _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'Uint32' => TypeConv(
 			'number', 'Once', [],
-			'Uint32', 'args.GetULong(%d)',
-			'Value(_rtn)')
+			'Uint32 ${arg.name} = args.GetULong(${idx});',
+			R'''
+			Uint32 _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'Uint64' => TypeConv(
 			'number', 'Once', [],
-			'Uint64', 'static_cast<Uint64>(args.GetDouble(%d))',
-			'Value(_rtn)')
+			'Uint64 ${arg.name} = static_cast<Uint64>(args.GetDouble(${idx}));',
+			R'''
+			Uint64 _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'Wav@' => TypeConv(
 			'Wav', 'Once', [],
-			'Object_Wav *', 'Object_Wav::GetObject(args, %d)',
-			nil, bodyPrePointer)
+			'Object_Wav *${arg.name} = Object_Wav::GetObject(args, ${idx});',
+			nil)
 	'SDL_bool' => TypeConv(
 			'boolean', 'Once', [],
-			'SDL_bool', '(args.GetBoolean(%d)? SDL_TRUE : SDL_FALSE)',
-			'Value(_rtn != SDL_FALSE)')
+			'SDL_bool ${arg.name} = (args.GetBoolean(${idx})? SDL_TRUE : SDL_FALSE);',
+			R'''
+			SDL_bool _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn != SDL_FALSE));''')
 	'SDL_Color[]' => TypeConv(
 			'Color', 'Once', ['List'],
-			'CArray<SDL_Color>',
-			'CreateCArray<SDL_Color, Object_Color>(args.GetList(%d))',
+			'CArray<SDL_Color> ${arg.name} = ' \
+					'CreateCArray<SDL_Color, Object_Color>(args.GetList(${idx}));',
 			nil)
 	'SDL_Event[]' => TypeConv(
 			'Event', 'Once', ['List'],
-			'CArray<SDL_Event>',
-			'CreateCArray<SDL_Event, Object_Event>(args.GetList(%d))',
+			'CArray<SDL_Event> ${arg.name} = ' \
+					'CreateCArray<SDL_Event, Object_Event>(args.GetList(${idx}));',
 			nil)
 	'SDL_Point[]' => TypeConv(
 			'Point', 'Once', ['List'],
-			'CArray<SDL_Point>',
-			'CreateCArray<SDL_Point, Object_Point>(args.GetList(%d))',
+			'CArray<SDL_Point> ${arg.name} = ' \
+					'CreateCArray<SDL_Point, Object_Point>(args.GetList(${idx}));',
 			nil)
 	'SDL_Rect[]' => TypeConv(
 			'Rect', 'Once', ['List'],
-			'CArray<SDL_Rect>',
-			'CreateCArray<SDL_Rect, Object_Rect>(args.GetList(%d))',
+			'CArray<SDL_Rect> ${arg.name} = ' \
+					'CreateCArray<SDL_Rect, Object_Rect>(args.GetList(${idx}));',
 			nil)
 	'negerr' => TypeConv(
 			nil, nil, [],
-			'int', nil,
-			nil, R'''
-				if (_rtn < 0) {
-					SetError_SDL(sig);
-					return Value::Null;
-				}
-			''')
+			nil,
+			R'''
+			int _rtn = ${fi.MakeCaller()};
+			if (_rtn < 0) {
+				SetError_SDL(sig);
+				return Value::Null;
+			}
+			return Value::Null;''')
 	'negerr_boolean' => TypeConv(
 			nil, nil, [],
-			'int', nil,
-			'Value(_rtn != 0)', R'''
-				if (_rtn < 0) {
-					SetError_SDL(sig);
-					return Value::Null;
-				}
-			''')
+			nil,
+			R'''
+			int _rtn = ${fi.MakeCaller()};
+			if (_rtn < 0) {
+				SetError_SDL(sig);
+				return Value::Null;
+			}
+			return ReturnValue(env, sig, args, Value(_rtn != 0));''')
 	'negerr_number' => TypeConv(
 			nil, nil, [],
-			'int', nil,
-			'Value(_rtn)', R'''
-				if (_rtn < 0) {
-					SetError_SDL(sig);
-					return Value::Null;
-				}
-			''')
+			nil,
+			R'''
+			int _rtn = ${fi.MakeCaller()};
+			if (_rtn < 0) {
+				SetError_SDL(sig);
+				return Value::Null;
+			}
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'Uint16_boolean' => TypeConv(
 			nil, nil, [],
-			'Uint16', nil,
-			'Value(_rtn != 0)')
+			nil,
+			R'''
+			Uint16 _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn != 0));''')
 	TypeConv_Enum('SDL_AudioFormat')
 	TypeConv_Enum('SDL_AudioDeviceID')
 	TypeConv_Enum('SDL_AudioStatus')
@@ -1994,8 +2056,17 @@ typeConvDict = %{
 	TypeConv_Class('SDL_AudioSpec@:const')
 	'SDL_Cursor@' => TypeConv(
 			'Cursor', 'Once', [],
-			'SDL_Cursor *', 'Object_Cursor::GetObject(args, %d)->GetEntity()',
-			'Value(new Object_Cursor(_rtn, true))', bodyPrePointer)
+			'SDL_Cursor *${arg.name} = Object_Cursor::GetObject(args, ${idx})->GetEntity();',
+			R'''
+			SDL_Cursor *_rtn = ${fi.MakeCaller()};
+			Value _rtnVal;
+			if (_rtn != NULL) {
+				_rtnVal = Value(new Object_Cursor(_rtn, true));
+			} else if (*SDL_GetError() != '\0') {
+				SetError_SDL(sig);
+				return Value::Null;
+			}
+			return ReturnValue(env, sig, args, _rtnVal);''')
 	TypeConv_Class('SDL_DisplayMode@')
 	TypeConv_Class('SDL_DisplayMode@:const')
 	TypeConv_Class('SDL_Event@')
