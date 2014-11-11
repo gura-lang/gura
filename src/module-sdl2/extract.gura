@@ -1854,16 +1854,8 @@ TypeConv_Class(typeName:string) = {
 	if (pointerFlag) {
 		typeName => TypeConv(
 				typeNameBase, 'Once', [],
-
-
-				// handling optional argument
-
-				
-				cond(constFlag, 'const ', '') + typeNameTmp + ' *${arg.name} = ' \
-					'Object_' + typeNameBase + '::GetObject(args, ${idx})->GetEntity();',
-
-
-
+				'%sSDL_%s *${arg.name} = Object_%s::GetObject(args, ${idx})->GetEntity();' % \
+								[cond(constFlag, 'const ', ''), typeNameBase, typeNameBase]
 				R'''
 				SDL_%s *_rtn = ${fi.MakeCaller()};
 				Value _rtnVal;
@@ -1877,8 +1869,8 @@ TypeConv_Class(typeName:string) = {
 	} else {
 		typeName => TypeConv(
 				typeNameBase, 'Once', [],
-				typeNameTmp + ' ${arg.name} = ' \
-					'Object_' + typeNameBase + '::GetObject(args, ${idx})->GetEntity();',
+				'SDL_%s ${arg.name} = Object_%s::GetObject(args, ${idx})->GetEntity();' % \
+																[typeNameBase, typeNameBase]
 				R'''
 				SDL_%s _rtn = ${fi.MakeCaller()};
 				Value _rtnVal(new Object_%s(_rtn));
