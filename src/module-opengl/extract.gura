@@ -114,35 +114,35 @@ glClipPlane(plane:GLenum) = R'''
 glColor3b(red:GLbyte, green:GLbyte, blue:GLbyte):void
 glColor3bv(v:GLbyte@3:const):void
 glColor3d(red:GLdouble, green:GLdouble, blue:GLdouble):void
-$glColor3dv(v:GLdouble@:const):void
+glColor3dv(v:GLdouble@3:const):void
 glColor3f(red:GLfloat, green:GLfloat, blue:GLfloat):void
-$glColor3fv(v:GLfloat@:const):void
+glColor3fv(v:GLfloat@3:const):void
 glColor3i(red:GLint, green:GLint, blue:GLint):void
-$glColor3iv(v:GLint@:const):void
+glColor3iv(v:GLint@3:const):void
 glColor3s(red:GLshort, green:GLshort, blue:GLshort):void
-$glColor3sv(v:GLshort@:const):void
+glColor3sv(v:GLshort@3:const):void
 glColor3ub(red:GLubyte, green:GLubyte, blue:GLubyte):void
-$glColor3ubv(v:GLubyte@:const):void
+glColor3ubv(v:GLubyte@3:const):void
 glColor3ui(red:GLuint, green:GLuint, blue:GLuint):void
-$glColor3uiv(v:GLuint@:const):void
+glColor3uiv(v:GLuint@3:const):void
 glColor3us(red:GLushort, green:GLushort, blue:GLushort):void
-$glColor3usv(v:GLushort@:const):void
+glColor3usv(v:GLushort@3:const):void
 glColor4b(red:GLbyte, green:GLbyte, blue:GLbyte, alpha:GLbyte):void
-$glColor4bv(v:GLbyte@:const):void
+glColor4bv(v:GLbyte@4:const):void
 glColor4d(red:GLdouble, green:GLdouble, blue:GLdouble, alpha:GLdouble):void
-$glColor4dv(v:GLdouble@:const):void
+glColor4dv(v:GLdouble@4:const):void
 glColor4f(red:GLfloat, green:GLfloat, blue:GLfloat, alpha:GLfloat):void
-$glColor4fv(v:GLfloat@:const):void
+glColor4fv(v:GLfloat@4:const):void
 glColor4i(red:GLint, green:GLint, blue:GLint, alpha:GLint):void
-$glColor4iv(v:GLint@:const):void
+glColor4iv(v:GLint@4:const):void
 glColor4s(red:GLshort, green:GLshort, blue:GLshort, alpha:GLshort):void
-$glColor4sv(v:GLshort@:const):void
+glColor4sv(v:GLshort@4:const):void
 glColor4ub(red:GLubyte, green:GLubyte, blue:GLubyte, alpha:GLubyte):void
-$glColor4ubv(v:GLubyte@:const):void
+glColor4ubv(v:GLubyte@4:const):void
 glColor4ui(red:GLuint, green:GLuint, blue:GLuint, alpha:GLuint):void
-$glColor4uiv(v:GLuint@:const):void
+glColor4uiv(v:GLuint@4:const):void
 glColor4us(red:GLushort, green:GLushort, blue:GLushort, alpha:GLushort):void
-$glColor4usv(v:GLushort@:const):void
+glColor4usv(v:GLushort@4:const):void
 glColorMask(red:GLboolean, green:GLboolean, blue:GLboolean, alpha:GLboolean):void
 glColorMaterial(face:GLenum, mode:GLenum):void
 //$glColorPointer(size:GLint, type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void
@@ -681,10 +681,10 @@ import(modimp) {TypeConv, Renderer}
 TypeConv_Enum(typeName:string) = {
 	typeName => TypeConv(
 			'number', 'Once', [],
-			typeName + ' ${arg.name} = static_cast<' + typeName + '>(args.GetInt(${idx}))',
+			typeName + ' ${arg.name} = static_cast<' + typeName + '>(args.GetInt(${idx}));',
 			typeName + R'''
 			 _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn);''')
+			ReturnValue(env, sig, args, Value(_rtn));''')
 }
 
 
@@ -695,79 +695,79 @@ typeConvDict = %{
 			'GLboolean ${arg.name} = (args.GetBoolean(${idx})? 1 : 0);',
 			R'''
 			GLboolean _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn != 0);''')
+			ReturnValue(env, sig, args, Value(_rtn != 0));''')
 	'GLbitfield' => TypeConv(
 			'number', 'Once', [],
 			'GLbitfield ${arg.name} = args.GetUInt(${idx});',
 			R'''
 			GLbitfield _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn);''')
+			ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLbyte' => TypeConv(
 			'number', 'Once', [],
 			'GLbyte ${arg.name} = args.GetChar(${idx});',
 			R'''
 			GLbyte _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn);''')
+			ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLshort' => TypeConv(
 			'number', 'Once', [],
 			'GLshort ${arg.name} = args.GetShort(${idx});',
 			R'''
 			GLshort _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn);''')
+			ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLint' => TypeConv(
 			'number', 'Once', [],
 			'GLint ${arg.name} = args.GetInt(${idx});',
 			R'''
 			GLint _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn);''')
+			ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLsizei' => TypeConv(
 			'number', 'Once', [],
 			'GLsizei ${arg.name} = args.GetInt(${idx});',
 			R'''
 			GLsizei _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn);''')
+			ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLubyte' => TypeConv(
 			'number', 'Once', [],
 			'GLubyte ${arg.name} = args.GetUChar(${idx});',
 			R'''
 			GLubyte _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn);''')
+			ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLushort' => TypeConv(
 			'number', 'Once', [],
 			'GLushort ${arg.name} = args.GetUShort(${idx});',
 			R'''
 			GLushort _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn);''')
+			ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLuint' => TypeConv(
 			'number', 'Once', [],
 			'GLuint ${arg.name} = args.GetUInt(${idx});',
 			R'''
 			GLuint _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn);''')
+			ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLfloat' => TypeConv(
 			'number', 'Once', [],
 			'GLfloat ${arg.name} = args.GetFloat(${idx});',
 			R'''
 			GLfloat _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn);''')
+			ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLclampf' => TypeConv(
 			'number', 'Once', [],
 			'GLclampf ${arg.name} = args.GetFloat(${idx});',
 			R'''
 			GLclampf _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn);''')
+			ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLdouble' => TypeConv(
 			'number', 'Once', [],
 			'GLdouble ${arg.name} = args.GetDouble(${idx});',
 			R'''
 			GLdouble _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn);''')
+			ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLclampd' => TypeConv(
 			'number', 'Once', [],
 			'GLclampd ${arg.name} = args.GetDouble(${idx});',
 			R'''
 			GLclampd _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn);''')
+			ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLenum@' => TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLenum> ${arg.name} = args.GetList(${idx});',
@@ -790,7 +790,21 @@ typeConvDict = %{
 			nil)
 	'GLbyte@3:const' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLbyte> ${arg.name} = args.GetList(${idx});',
+			R'''
+			CArray<GLbyte> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 3) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil)
+	'GLbyte@4:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLbyte> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 4) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
 			nil)
 	'GLchar@' => TypeConv(
 			'number', 'Once', ['List'],
@@ -808,9 +822,45 @@ typeConvDict = %{
 			'number', 'Once', ['List'],
 			'CArray<GLubyte> ${arg.name} = args.GetList(${idx});',
 			nil)
+	'GLubyte@3:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLubyte> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 3) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil)
+	'GLubyte@4:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLubyte> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 4) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil)
 	'GLshort@:const' => TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLshort> ${arg.name} = args.GetList(${idx});',
+			nil)
+	'GLshort@3:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLshort> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 3) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil)
+	'GLshort@4:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLshort> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 4) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
 			nil)
 	'GLushort@' => TypeConv(
 			'number', 'Once', ['List'],
@@ -820,6 +870,24 @@ typeConvDict = %{
 			'number', 'Once', ['List'],
 			'CArray<GLushort> ${arg.name} = args.GetList(${idx});',
 			nil)
+	'GLushort@3:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLushort> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 3) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil)
+	'GLushort@4:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLushort> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 4) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil)
 	'GLint@' => TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLint> ${arg.name} = args.GetList(${idx});',
@@ -827,6 +895,24 @@ typeConvDict = %{
 	'GLint@:const' => TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLint> ${arg.name} = args.GetList(${idx});',
+			nil)
+	'GLint@3:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLint> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 3) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil)
+	'GLint@4:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLint> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 4) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
 			nil)
 	'GLsizei@' => TypeConv(
 			'number', 'Once', ['List'],
@@ -844,6 +930,24 @@ typeConvDict = %{
 			'number', 'Once', ['List'],
 			'CArray<GLuint> ${arg.name} = args.GetList(${idx});',
 			nil)
+	'GLuint@3:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLuint> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 3) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil)
+	'GLuint@4:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLuint> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 4) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil)
 	'GLfloat@' => TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLfloat> ${arg.name} = args.GetList(${idx});',
@@ -851,6 +955,24 @@ typeConvDict = %{
 	'GLfloat@:const' => TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLfloat> ${arg.name} = args.GetList(${idx});',
+			nil)
+	'GLfloat@3:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 3) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil)
+	'GLfloat@4:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 4) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
 			nil)
 	'GLclampf@:const' => TypeConv(
 			'number', 'Once', ['List'],
@@ -863,6 +985,24 @@ typeConvDict = %{
 	'GLdouble@:const' => TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLdouble> ${arg.name} = args.GetList(${idx});',
+			nil)
+	'GLdouble@3:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 3) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil)
+	'GLdouble@4:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 4) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
 			nil)
 }
 

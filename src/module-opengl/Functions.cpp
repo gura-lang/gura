@@ -250,7 +250,7 @@ Gura_DeclareFunction(glCallLists)
 Gura_ImplementFunction(glCallLists)
 {
 	GLenum type = static_cast<GLenum>(args.GetInt(0));
-	const ValueList &lists = args.GetList(1);
+	const ValueList & lists = args.GetList(1);
 	const ValueList &lists_in = args.GetList(1);
 	GLsizei n = static_cast<GLsizei>(lists.size());
 	AutoPtr<Memory> pListsBuff;
@@ -476,7 +476,10 @@ Gura_DeclareFunction(glColor3bv)
 Gura_ImplementFunction(glColor3bv)
 {
 	CArray<GLbyte> v = args.GetList(0);
-
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glColor3bv(v);
 	return Value::Null;
 }
@@ -512,12 +515,12 @@ Gura_DeclareFunction(glColor3dv)
 
 Gura_ImplementFunction(glColor3dv)
 {
-#if 0
 	CArray<GLdouble> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glColor3dv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glColor3dv");
 	return Value::Null;
 }
 
@@ -552,12 +555,12 @@ Gura_DeclareFunction(glColor3fv)
 
 Gura_ImplementFunction(glColor3fv)
 {
-#if 0
 	CArray<GLfloat> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glColor3fv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glColor3fv");
 	return Value::Null;
 }
 
@@ -592,12 +595,12 @@ Gura_DeclareFunction(glColor3iv)
 
 Gura_ImplementFunction(glColor3iv)
 {
-#if 0
 	CArray<GLint> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glColor3iv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glColor3iv");
 	return Value::Null;
 }
 
@@ -632,12 +635,12 @@ Gura_DeclareFunction(glColor3sv)
 
 Gura_ImplementFunction(glColor3sv)
 {
-#if 0
 	CArray<GLshort> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glColor3sv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glColor3sv");
 	return Value::Null;
 }
 
@@ -672,12 +675,12 @@ Gura_DeclareFunction(glColor3ubv)
 
 Gura_ImplementFunction(glColor3ubv)
 {
-#if 0
 	CArray<GLubyte> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glColor3ubv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glColor3ubv");
 	return Value::Null;
 }
 
@@ -712,12 +715,12 @@ Gura_DeclareFunction(glColor3uiv)
 
 Gura_ImplementFunction(glColor3uiv)
 {
-#if 0
 	CArray<GLuint> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glColor3uiv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glColor3uiv");
 	return Value::Null;
 }
 
@@ -752,12 +755,12 @@ Gura_DeclareFunction(glColor3usv)
 
 Gura_ImplementFunction(glColor3usv)
 {
-#if 0
 	CArray<GLushort> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glColor3usv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glColor3usv");
 	return Value::Null;
 }
 
@@ -794,12 +797,12 @@ Gura_DeclareFunction(glColor4bv)
 
 Gura_ImplementFunction(glColor4bv)
 {
-#if 0
 	CArray<GLbyte> v = args.GetList(0);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glColor4bv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glColor4bv");
 	return Value::Null;
 }
 
@@ -836,12 +839,12 @@ Gura_DeclareFunction(glColor4dv)
 
 Gura_ImplementFunction(glColor4dv)
 {
-#if 0
 	CArray<GLdouble> v = args.GetList(0);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glColor4dv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glColor4dv");
 	return Value::Null;
 }
 
@@ -878,12 +881,12 @@ Gura_DeclareFunction(glColor4fv)
 
 Gura_ImplementFunction(glColor4fv)
 {
-#if 0
 	CArray<GLfloat> v = args.GetList(0);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glColor4fv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glColor4fv");
 	return Value::Null;
 }
 
@@ -920,12 +923,12 @@ Gura_DeclareFunction(glColor4iv)
 
 Gura_ImplementFunction(glColor4iv)
 {
-#if 0
 	CArray<GLint> v = args.GetList(0);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glColor4iv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glColor4iv");
 	return Value::Null;
 }
 
@@ -962,12 +965,12 @@ Gura_DeclareFunction(glColor4sv)
 
 Gura_ImplementFunction(glColor4sv)
 {
-#if 0
 	CArray<GLshort> v = args.GetList(0);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glColor4sv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glColor4sv");
 	return Value::Null;
 }
 
@@ -1004,12 +1007,12 @@ Gura_DeclareFunction(glColor4ubv)
 
 Gura_ImplementFunction(glColor4ubv)
 {
-#if 0
 	CArray<GLubyte> v = args.GetList(0);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glColor4ubv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glColor4ubv");
 	return Value::Null;
 }
 
@@ -1046,12 +1049,12 @@ Gura_DeclareFunction(glColor4uiv)
 
 Gura_ImplementFunction(glColor4uiv)
 {
-#if 0
 	CArray<GLuint> v = args.GetList(0);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glColor4uiv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glColor4uiv");
 	return Value::Null;
 }
 
@@ -1088,12 +1091,12 @@ Gura_DeclareFunction(glColor4usv)
 
 Gura_ImplementFunction(glColor4usv)
 {
-#if 0
 	CArray<GLushort> v = args.GetList(0);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glColor4usv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glColor4usv");
 	return Value::Null;
 }
 
@@ -2225,7 +2228,7 @@ Gura_ImplementFunction(glGenLists)
 {
 	GLsizei range = args.GetInt(0);
 	GLuint _rtn = glGenLists(range);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // opengl.glGenTextures
@@ -2424,7 +2427,7 @@ Gura_DeclareFunction(glGetError)
 Gura_ImplementFunction(glGetError)
 {
 	GLenum _rtn = glGetError();
-	return ReturnValue(env, sig, args, Value(_rtn));
+	ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // opengl.glGetFloatv
@@ -2834,7 +2837,7 @@ Gura_ImplementFunction(glGetString)
 {
 #if 0
 	GLenum name = static_cast<GLenum>(args.GetInt(0));
-	CArray<GLubyte>_rtn = glGetString(name);
+	glGetString(name);
 	return Value::Null;
 #endif
 	SetError_NotImpFunction(sig, "glGetString");
@@ -3325,7 +3328,7 @@ Gura_ImplementFunction(glIsEnabled)
 {
 	GLenum cap = static_cast<GLenum>(args.GetInt(0));
 	GLboolean _rtn = glIsEnabled(cap);
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	ReturnValue(env, sig, args, Value(_rtn != 0));
 }
 
 // opengl.glIsList
@@ -3342,7 +3345,7 @@ Gura_ImplementFunction(glIsList)
 {
 	GLuint list = args.GetUInt(0);
 	GLboolean _rtn = glIsList(list);
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	ReturnValue(env, sig, args, Value(_rtn != 0));
 }
 
 // opengl.glIsTexture
@@ -3359,7 +3362,7 @@ Gura_ImplementFunction(glIsTexture)
 {
 	GLuint texture = args.GetUInt(0);
 	GLboolean _rtn = glIsTexture(texture);
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	ReturnValue(env, sig, args, Value(_rtn != 0));
 }
 
 // opengl.glLightModelf
@@ -5380,7 +5383,7 @@ Gura_ImplementFunction(glRenderMode)
 {
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	GLint _rtn = glRenderMode(mode);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // opengl.glResetHistogram
@@ -8797,7 +8800,7 @@ Gura_ImplementFunction(glIsQuery)
 {
 	GLuint id = args.GetUInt(0);
 	GLboolean _rtn = glIsQuery(id);
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	ReturnValue(env, sig, args, Value(_rtn != 0));
 }
 
 // opengl.glBeginQuery
@@ -8982,7 +8985,7 @@ Gura_ImplementFunction(glIsBuffer)
 {
 	GLuint buffer = args.GetUInt(0);
 	GLboolean _rtn = glIsBuffer(buffer);
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	ReturnValue(env, sig, args, Value(_rtn != 0));
 }
 
 // opengl.glUnmapBuffer
@@ -8999,7 +9002,7 @@ Gura_ImplementFunction(glUnmapBuffer)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLboolean _rtn = glUnmapBuffer(target);
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	ReturnValue(env, sig, args, Value(_rtn != 0));
 }
 
 // opengl.glGetBufferParameteriv
@@ -9982,7 +9985,7 @@ Gura_ImplementFunction(glCreateShader)
 {
 	GLenum type = static_cast<GLenum>(args.GetInt(0));
 	GLuint _rtn = glCreateShader(type);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // opengl.glShaderSource
@@ -10039,7 +10042,7 @@ Gura_DeclareFunction(glCreateProgram)
 Gura_ImplementFunction(glCreateProgram)
 {
 	GLuint _rtn = glCreateProgram();
-	return ReturnValue(env, sig, args, Value(_rtn));
+	ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // opengl.glAttachShader
@@ -10576,7 +10579,7 @@ Gura_ImplementFunction(glIsShader)
 {
 	GLuint shader = args.GetUInt(0);
 	GLboolean _rtn = glIsShader(shader);
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	ReturnValue(env, sig, args, Value(_rtn != 0));
 }
 
 // opengl.glIsProgram
@@ -10593,7 +10596,7 @@ Gura_ImplementFunction(glIsProgram)
 {
 	GLuint program = args.GetUInt(0);
 	GLboolean _rtn = glIsProgram(program);
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	ReturnValue(env, sig, args, Value(_rtn != 0));
 }
 
 // opengl.glGetShaderiv
@@ -10739,7 +10742,7 @@ Gura_ImplementFunction(glGetUniformLocation)
 	GLuint program = args.GetUInt(0);
 	CArray<GLchar> name = args.GetList(1);
 	GLint _rtn = glGetUniformLocation(program, name);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	ReturnValue(env, sig, args, Value(_rtn));
 #endif
 	SetError_NotImpFunction(sig, "glGetUniformLocation");
 	return Value::Null;
@@ -10924,7 +10927,7 @@ Gura_ImplementFunction(glGetAttribLocation)
 	GLuint program = args.GetUInt(0);
 	CArray<GLchar> name = args.GetList(1);
 	GLint _rtn = glGetAttribLocation(program, name);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	ReturnValue(env, sig, args, Value(_rtn));
 #endif
 	SetError_NotImpFunction(sig, "glGetAttribLocation");
 	return Value::Null;
