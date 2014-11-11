@@ -1833,10 +1833,11 @@ import(modimp) {TypeConv, Renderer}
 TypeConv_Enum(typeName:string) = {
 	typeName => TypeConv(
 			'number', 'Once', [],
-			typeName + ' ${arg.name} = static_cast<' + typeName + '>(args.GetInt(${idx}));',
+			'%s ${arg.name} = static_cast<%s>(args.GetInt(${idx}));' % [typeName, typeName],
+			nil,
 			R'''
-			int _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			%s _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''' % [typeName])
 }
 
 TypeConv_Class(typeName:string) = {
@@ -1856,6 +1857,8 @@ TypeConv_Class(typeName:string) = {
 				typeNameBase, 'Once', [],
 				'%sSDL_%s *${arg.name} = Object_%s::GetObject(args, ${idx})->GetEntity();' % \
 								[cond(constFlag, 'const ', ''), typeNameBase, typeNameBase]
+				'%sSDL_%s *${arg.name} = args.IsValid(${idx})? Object_%s::GetObject(args, ${idx})->GetEntity() : NULL;' % \
+								[cond(constFlag, 'const ', ''), typeNameBase, typeNameBase]
 				R'''
 				SDL_%s *_rtn = ${fi.MakeCaller()};
 				Value _rtnVal;
@@ -1871,6 +1874,7 @@ TypeConv_Class(typeName:string) = {
 				typeNameBase, 'Once', [],
 				'SDL_%s ${arg.name} = Object_%s::GetObject(args, ${idx})->GetEntity();' % \
 																[typeNameBase, typeNameBase]
+				nil,
 				R'''
 				SDL_%s _rtn = ${fi.MakeCaller()};
 				Value _rtnVal(new Object_%s(_rtn));
@@ -1893,6 +1897,7 @@ typeConvDict = %{
 	'char@' => TypeConv(
 			'string', 'Once', [],
 			'char *${arg.name} = args.GetString(${idx});',
+			nil,
 			R'''
 			char *_rtn = ${fi.MakeCaller()};
 			Value _rtnVal;
@@ -1907,6 +1912,7 @@ typeConvDict = %{
 	'char@:const' => TypeConv(
 			'string', 'Once', [],
 			'const char *${arg.name} = args.GetString(${idx});',
+			nil,
 			R'''
 			const char *_rtn = ${fi.MakeCaller()};
 			Value _rtnVal;
@@ -1921,87 +1927,103 @@ typeConvDict = %{
 	'Uint16[]' => TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<Uint16> ${arg.name} = args.GetList(${idx});',
+			nil,
 			nil)
 	'Sint8' => TypeConv(
 			'number', 'Once', [],
 			'Sint8 ${arg.name} = args.GetChar(${idx});',
+			nil,
 			R'''
 			Sint8 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'Sint16' => TypeConv(
 			'number', 'Once', [],
 			'Sint16 ${arg.name} = args.GetShort(${idx});',
+			nil,
 			R'''
 			Sint16 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'Sint32' => TypeConv(
 			'number', 'Once', [],
 			'Sint32 ${arg.name} = args.GetLong(${idx});',
+			nil,
 			R'''
 			Sint32 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'Sint64' => TypeConv(
 			'number', 'Once', [],
 			'Sint64 ${arg.name} = static_cast<Sint64>(args.GetDouble(${idx}));',
+			nil,
 			R'''
 			Sint64 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'Uint8' => TypeConv(
 			'number', 'Once', [],
 			'Uint8 ${arg.name} = args.GetUChar(${idx});',
+			nil,
 			R'''
 			Uint8 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'Uint16' => TypeConv(
 			'number', 'Once', [],
 			'Uint16 ${arg.name} = args.GetUShort(${idx});',
+			nil,
 			R'''
 			Uint16 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'Uint32' => TypeConv(
 			'number', 'Once', [],
 			'Uint32 ${arg.name} = args.GetULong(${idx});',
+			nil,
 			R'''
 			Uint32 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'Uint64' => TypeConv(
 			'number', 'Once', [],
 			'Uint64 ${arg.name} = static_cast<Uint64>(args.GetDouble(${idx}));',
+			nil,
 			R'''
 			Uint64 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'Wav@' => TypeConv(
 			'Wav', 'Once', [],
 			'Object_Wav *${arg.name} = Object_Wav::GetObject(args, ${idx});',
+			nil,
 			nil)
 	'SDL_bool' => TypeConv(
 			'boolean', 'Once', [],
 			'SDL_bool ${arg.name} = (args.GetBoolean(${idx})? SDL_TRUE : SDL_FALSE);',
+			nil,
 			R'''
 			SDL_bool _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn != SDL_FALSE));''')
 	'SDL_Color[]' => TypeConv(
 			'Color', 'Once', ['List'],
 			'CArray<SDL_Color> ${arg.name} = ' \
-					'CreateCArray<SDL_Color, Object_Color>(args.GetList(${idx}));',
+			'CreateCArray<SDL_Color, Object_Color>(args.GetList(${idx}));',
+			nil,
 			nil)
 	'SDL_Event[]' => TypeConv(
 			'Event', 'Once', ['List'],
 			'CArray<SDL_Event> ${arg.name} = ' \
 					'CreateCArray<SDL_Event, Object_Event>(args.GetList(${idx}));',
+			nil,
 			nil)
 	'SDL_Point[]' => TypeConv(
 			'Point', 'Once', ['List'],
 			'CArray<SDL_Point> ${arg.name} = ' \
 					'CreateCArray<SDL_Point, Object_Point>(args.GetList(${idx}));',
+			nil,
 			nil)
 	'SDL_Rect[]' => TypeConv(
 			'Rect', 'Once', ['List'],
 			'CArray<SDL_Rect> ${arg.name} = ' \
 					'CreateCArray<SDL_Rect, Object_Rect>(args.GetList(${idx}));',
+			nil,
 			nil)
 	'negerr' => TypeConv(
 			nil, nil, [],
+			nil,
 			nil,
 			R'''
 			int _rtn = ${fi.MakeCaller()};
@@ -2013,6 +2035,7 @@ typeConvDict = %{
 	'negerr_boolean' => TypeConv(
 			nil, nil, [],
 			nil,
+			nil,
 			R'''
 			int _rtn = ${fi.MakeCaller()};
 			if (_rtn < 0) {
@@ -2023,6 +2046,7 @@ typeConvDict = %{
 	'negerr_number' => TypeConv(
 			nil, nil, [],
 			nil,
+			nil,
 			R'''
 			int _rtn = ${fi.MakeCaller()};
 			if (_rtn < 0) {
@@ -2032,6 +2056,7 @@ typeConvDict = %{
 			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'Uint16_boolean' => TypeConv(
 			nil, nil, [],
+			nil,
 			nil,
 			R'''
 			Uint16 _rtn = ${fi.MakeCaller()};
@@ -2057,6 +2082,7 @@ typeConvDict = %{
 	'SDL_Cursor@' => TypeConv(
 			'Cursor', 'Once', [],
 			'SDL_Cursor *${arg.name} = Object_Cursor::GetObject(args, ${idx})->GetEntity();',
+			nil,
 			R'''
 			SDL_Cursor *_rtn = ${fi.MakeCaller()};
 			Value _rtnVal;

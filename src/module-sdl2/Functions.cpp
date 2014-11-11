@@ -241,14 +241,14 @@ Gura_DeclareFunction(GetError)
 Gura_ImplementFunction(GetError)
 {
 	const char *_rtn = SDL_GetError();
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.SetError
@@ -713,14 +713,14 @@ Gura_DeclareFunction(GetRevision)
 Gura_ImplementFunction(GetRevision)
 {
 	const char *_rtn = SDL_GetRevision();
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetRevisionNumber
@@ -817,14 +817,14 @@ Gura_ImplementFunction(CreateWindow)
 	int h = args.GetInt(4);
 	Uint32 flags = args.GetULong(5);
 	SDL_Window *_rtn = SDL_CreateWindow(title, x, y, w, h, flags);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Window(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Window(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.CreateWindowAndRenderer
@@ -1024,14 +1024,14 @@ Gura_DeclareFunction(GL_GetCurrentWindow)
 Gura_ImplementFunction(GL_GetCurrentWindow)
 {
 	SDL_Window *_rtn = SDL_GL_GetCurrentWindow();
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Window(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Window(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GL_GetDrawableSize
@@ -1276,14 +1276,14 @@ Gura_DeclareFunction(GetCurrentVideoDriver)
 Gura_ImplementFunction(GetCurrentVideoDriver)
 {
 	const char *_rtn = SDL_GetCurrentVideoDriver();
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetDesktopDisplayMode
@@ -1368,14 +1368,14 @@ Gura_ImplementFunction(GetDisplayName)
 {
 	int dipslayIndex = args.GetInt(0);
 	const char *_rtn = SDL_GetDisplayName(dipslayIndex);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetNumDisplayModes
@@ -1451,14 +1451,14 @@ Gura_ImplementFunction(GetVideoDriver)
 {
 	int index = args.GetInt(0);
 	const char *_rtn = SDL_GetVideoDriver(index);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetWindowBrightness
@@ -1574,14 +1574,14 @@ Gura_ImplementFunction(GetWindowFromID)
 {
 	Uint32 id = args.GetULong(0);
 	SDL_Window *_rtn = SDL_GetWindowFromID(id);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Window(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Window(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetWindowGammaRamp
@@ -1754,14 +1754,14 @@ Gura_ImplementFunction(GetWindowSurface)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_Surface *_rtn = SDL_GetWindowSurface(window);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Surface(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Surface(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetWindowTitle
@@ -1778,14 +1778,14 @@ Gura_ImplementFunction(GetWindowTitle)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	const char *_rtn = SDL_GetWindowTitle(window);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetWindowWMInfo
@@ -2363,14 +2363,14 @@ Gura_ImplementFunction(CreateRenderer)
 	int index = args.GetInt(1);
 	Uint32 flags = args.GetULong(2);
 	SDL_Renderer *_rtn = SDL_CreateRenderer(window, index, flags);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Renderer(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Renderer(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.CreateSoftwareRenderer
@@ -2387,14 +2387,14 @@ Gura_ImplementFunction(CreateSoftwareRenderer)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	SDL_Renderer *_rtn = SDL_CreateSoftwareRenderer(surface);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Renderer(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Renderer(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.CreateTexture
@@ -2419,14 +2419,14 @@ Gura_ImplementFunction(CreateTexture)
 	int w = args.GetInt(3);
 	int h = args.GetInt(4);
 	SDL_Texture *_rtn = SDL_CreateTexture(renderer, format, access, w, h);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Texture(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Texture(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.CreateTextureFromSurface
@@ -2445,14 +2445,14 @@ Gura_ImplementFunction(CreateTextureFromSurface)
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	SDL_Surface *surface = Object_Surface::GetObject(args, 1)->GetEntity();
 	SDL_Texture *_rtn = SDL_CreateTextureFromSurface(renderer, surface);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Texture(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Texture(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.DestroyRenderer
@@ -2650,14 +2650,14 @@ Gura_ImplementFunction(GetRenderer)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_Renderer *_rtn = SDL_GetRenderer(window);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Renderer(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Renderer(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetRendererInfo
@@ -3571,14 +3571,14 @@ Gura_ImplementFunction(AllocFormat)
 {
 	Uint32 pixel_format = args.GetULong(0);
 	SDL_PixelFormat *_rtn = SDL_AllocFormat(pixel_format);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_PixelFormat(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_PixelFormat(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.AllocPalette
@@ -3595,14 +3595,14 @@ Gura_ImplementFunction(AllocPalette)
 {
 	int ncolors = args.GetInt(0);
 	SDL_Palette *_rtn = SDL_AllocPalette(ncolors);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Palette(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Palette(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.CalculateGammaRamp
@@ -3669,14 +3669,14 @@ Gura_ImplementFunction(GetPixelFormatName)
 {
 	Uint32 format = args.GetULong(0);
 	const char *_rtn = SDL_GetPixelFormatName(format);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetRGB
@@ -4156,14 +4156,14 @@ Gura_ImplementFunction(ConvertSurface)
 	const SDL_PixelFormat *fmt = Object_PixelFormat::GetObject(args, 1)->GetEntity();
 	Uint32 flags = args.GetULong(2);
 	SDL_Surface *_rtn = SDL_ConvertSurface(src, fmt, flags);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Surface(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Surface(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.ConvertSurfaceFormat
@@ -4184,14 +4184,14 @@ Gura_ImplementFunction(ConvertSurfaceFormat)
 	Uint32 pixel_format = args.GetULong(1);
 	Uint32 flags = args.GetULong(2);
 	SDL_Surface *_rtn = SDL_ConvertSurfaceFormat(src, pixel_format, flags);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Surface(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Surface(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.CreateRGBSurface
@@ -4222,14 +4222,14 @@ Gura_ImplementFunction(CreateRGBSurface)
 	Uint32 Bmask = args.GetULong(6);
 	Uint32 Amask = args.GetULong(7);
 	SDL_Surface *_rtn = SDL_CreateRGBSurface(flags, width, height, depth, Rmask, Gmask, Bmask, Amask);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Surface(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Surface(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.CreateRGBSurfaceFrom
@@ -5061,14 +5061,14 @@ Gura_ImplementFunction(GetTouchFinger)
 	SDL_TouchID touchId = static_cast<SDL_TouchID>(args.GetInt(0));
 	int index = args.GetInt(1);
 	SDL_Finger *_rtn = SDL_GetTouchFinger(touchId, index);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Finger(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Finger(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.HasEvent
@@ -5504,14 +5504,14 @@ Gura_ImplementFunction(GetKeyName)
 {
 	SDL_Keycode key = static_cast<SDL_Keycode>(args.GetInt(0));
 	const char *_rtn = SDL_GetKeyName(key);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetKeyboardFocus
@@ -5526,14 +5526,14 @@ Gura_DeclareFunction(GetKeyboardFocus)
 Gura_ImplementFunction(GetKeyboardFocus)
 {
 	SDL_Window *_rtn = SDL_GetKeyboardFocus();
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Window(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Window(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetKeyboardState
@@ -5624,14 +5624,14 @@ Gura_ImplementFunction(GetScancodeName)
 {
 	SDL_Scancode scancode = static_cast<SDL_Scancode>(args.GetInt(0));
 	const char *_rtn = SDL_GetScancodeName(scancode);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.HasScreenKeyboardSupport
@@ -5783,14 +5783,14 @@ Gura_ImplementFunction(CreateColorCursor)
 	int hot_x = args.GetInt(1);
 	int hot_y = args.GetInt(2);
 	SDL_Cursor *_rtn = SDL_CreateColorCursor(surface, hot_x, hot_y);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Cursor(_rtn, true));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Cursor(_rtn, true)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.CreateCursor
@@ -5849,14 +5849,14 @@ Gura_ImplementFunction(CreateSystemCursor)
 {
 	SDL_SystemCursor id = static_cast<SDL_SystemCursor>(args.GetInt(0));
 	SDL_Cursor *_rtn = SDL_CreateSystemCursor(id);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Cursor(_rtn, true));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Cursor(_rtn, true)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.FreeCursor
@@ -5906,14 +5906,14 @@ Gura_DeclareFunction(GetDefaultCursor)
 Gura_ImplementFunction(GetDefaultCursor)
 {
 	SDL_Cursor *_rtn = SDL_GetDefaultCursor();
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Cursor(_rtn, true));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Cursor(_rtn, true)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetGlobalMouseState
@@ -5949,14 +5949,14 @@ Gura_DeclareFunction(GetMouseFocus)
 Gura_ImplementFunction(GetMouseFocus)
 {
 	SDL_Window *_rtn = SDL_GetMouseFocus();
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Window(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Window(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetMouseState
@@ -6239,7 +6239,8 @@ Gura_ImplementFunction(JoystickGetDeviceGUID)
 {
 	int device_index = args.GetInt(0);
 	SDL_JoystickGUID _rtn = SDL_JoystickGetDeviceGUID(device_index);
-	return ReturnValue(env, sig, args, Value(new Object_JoystickGUID(_rtn)));
+	Value _rtnVal(new Object_JoystickGUID(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.JoystickGetGUID
@@ -6256,7 +6257,8 @@ Gura_ImplementFunction(JoystickGetGUID)
 {
 	SDL_Joystick *joystick = Object_Joystick::GetObject(args, 0)->GetEntity();
 	SDL_JoystickGUID _rtn = SDL_JoystickGetGUID(joystick);
-	return ReturnValue(env, sig, args, Value(new Object_JoystickGUID(_rtn)));
+	Value _rtnVal(new Object_JoystickGUID(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.JoystickGetGUIDFromString
@@ -6273,7 +6275,8 @@ Gura_ImplementFunction(JoystickGetGUIDFromString)
 {
 	const char *pchGUID = args.GetString(0);
 	SDL_JoystickGUID _rtn = SDL_JoystickGetGUIDFromString(pchGUID);
-	return ReturnValue(env, sig, args, Value(new Object_JoystickGUID(_rtn)));
+	Value _rtnVal(new Object_JoystickGUID(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.JoystickGetGUIDString
@@ -6349,14 +6352,14 @@ Gura_ImplementFunction(JoystickName)
 {
 	SDL_Joystick *joystick = Object_Joystick::GetObject(args, 0)->GetEntity();
 	const char *_rtn = SDL_JoystickName(joystick);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.JoystickNameForIndex
@@ -6373,14 +6376,14 @@ Gura_ImplementFunction(JoystickNameForIndex)
 {
 	int device_index = args.GetInt(0);
 	const char *_rtn = SDL_JoystickNameForIndex(device_index);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.JoystickNumAxes
@@ -6481,14 +6484,14 @@ Gura_ImplementFunction(JoystickOpen)
 {
 	int device_index = args.GetInt(0);
 	SDL_Joystick *_rtn = SDL_JoystickOpen(device_index);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Joystick(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Joystick(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.JoystickUpdate
@@ -6687,7 +6690,8 @@ Gura_ImplementFunction(GameControllerGetBindForAxis)
 	SDL_GameController *gamecontroller = Object_GameController::GetObject(args, 0)->GetEntity();
 	SDL_GameControllerAxis axis = static_cast<SDL_GameControllerAxis>(args.GetInt(1));
 	SDL_GameControllerButtonBind _rtn = SDL_GameControllerGetBindForAxis(gamecontroller, axis);
-	return ReturnValue(env, sig, args, Value(new Object_GameControllerButtonBind(_rtn)));
+	Value _rtnVal(new Object_GameControllerButtonBind(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GameControllerGetBindForButton
@@ -6706,7 +6710,8 @@ Gura_ImplementFunction(GameControllerGetBindForButton)
 	SDL_GameController *gamecontroller = Object_GameController::GetObject(args, 0)->GetEntity();
 	SDL_GameControllerButton button = static_cast<SDL_GameControllerButton>(args.GetInt(1));
 	SDL_GameControllerButtonBind _rtn = SDL_GameControllerGetBindForButton(gamecontroller, button);
-	return ReturnValue(env, sig, args, Value(new Object_GameControllerButtonBind(_rtn)));
+	Value _rtnVal(new Object_GameControllerButtonBind(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GameControllerGetButton
@@ -6763,14 +6768,14 @@ Gura_ImplementFunction(GameControllerGetJoystick)
 {
 	SDL_GameController *gamecontroller = Object_GameController::GetObject(args, 0)->GetEntity();
 	SDL_Joystick *_rtn = SDL_GameControllerGetJoystick(gamecontroller);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Joystick(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Joystick(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GameControllerGetStringForAxis
@@ -6787,14 +6792,14 @@ Gura_ImplementFunction(GameControllerGetStringForAxis)
 {
 	SDL_GameControllerAxis axis = static_cast<SDL_GameControllerAxis>(args.GetInt(0));
 	const char *_rtn = SDL_GameControllerGetStringForAxis(axis);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GameControllerGetStringForButton
@@ -6811,14 +6816,14 @@ Gura_ImplementFunction(GameControllerGetStringForButton)
 {
 	SDL_GameControllerButton button = static_cast<SDL_GameControllerButton>(args.GetInt(0));
 	const char *_rtn = SDL_GameControllerGetStringForButton(button);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GameControllerMapping
@@ -6835,14 +6840,14 @@ Gura_ImplementFunction(GameControllerMapping)
 {
 	SDL_GameController *gamecontroller = Object_GameController::GetObject(args, 0)->GetEntity();
 	const char *_rtn = SDL_GameControllerMapping(gamecontroller);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GameControllerMappingForGUID
@@ -6859,14 +6864,14 @@ Gura_ImplementFunction(GameControllerMappingForGUID)
 {
 	SDL_JoystickGUID guid = Object_JoystickGUID::GetObject(args, 0)->GetEntity();
 	const char *_rtn = SDL_GameControllerMappingForGUID(guid);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GameControllerName
@@ -6883,14 +6888,14 @@ Gura_ImplementFunction(GameControllerName)
 {
 	SDL_GameController *gamecontroller = Object_GameController::GetObject(args, 0)->GetEntity();
 	const char *_rtn = SDL_GameControllerName(gamecontroller);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GameControllerNameForIndex
@@ -6907,14 +6912,14 @@ Gura_ImplementFunction(GameControllerNameForIndex)
 {
 	int joystick_index = args.GetInt(0);
 	const char *_rtn = SDL_GameControllerNameForIndex(joystick_index);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GameControllerOpen
@@ -6931,14 +6936,14 @@ Gura_ImplementFunction(GameControllerOpen)
 {
 	int joystick_index = args.GetInt(0);
 	SDL_GameController *_rtn = SDL_GameControllerOpen(joystick_index);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_GameController(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_GameController(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GameControllerUpdate
@@ -7087,14 +7092,14 @@ Gura_ImplementFunction(HapticName)
 {
 	int device_index = args.GetInt(0);
 	const char *_rtn = SDL_HapticName(device_index);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.HapticNewEffect
@@ -7197,14 +7202,14 @@ Gura_ImplementFunction(HapticOpen)
 {
 	int device_index = args.GetInt(0);
 	SDL_Haptic *_rtn = SDL_HapticOpen(device_index);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Haptic(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Haptic(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.HapticOpenFromJoystick
@@ -7221,14 +7226,14 @@ Gura_ImplementFunction(HapticOpenFromJoystick)
 {
 	SDL_Joystick *joystick = Object_Joystick::GetObject(args, 0)->GetEntity();
 	SDL_Haptic *_rtn = SDL_HapticOpenFromJoystick(joystick);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Haptic(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Haptic(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.HapticOpenFromMouse
@@ -7243,14 +7248,14 @@ Gura_DeclareFunction(HapticOpenFromMouse)
 Gura_ImplementFunction(HapticOpenFromMouse)
 {
 	SDL_Haptic *_rtn = SDL_HapticOpenFromMouse();
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Haptic(_rtn));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Haptic(_rtn)));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.HapticOpened
@@ -7781,14 +7786,14 @@ Gura_ImplementFunction(GetAudioDeviceName)
 	int index = args.GetInt(0);
 	int iscapture = args.GetInt(1);
 	const char *_rtn = SDL_GetAudioDeviceName(index, iscapture);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetAudioDeviceStatus
@@ -7822,14 +7827,14 @@ Gura_ImplementFunction(GetAudioDriver)
 {
 	int index = args.GetInt(0);
 	const char *_rtn = SDL_GetAudioDriver(index);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetAudioStatus
@@ -7859,14 +7864,14 @@ Gura_DeclareFunction(GetCurrentAudioDriver)
 Gura_ImplementFunction(GetCurrentAudioDriver)
 {
 	const char *_rtn = SDL_GetCurrentAudioDriver();
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetNumAudioDevices
@@ -9166,14 +9171,15 @@ Gura_ImplementFunction(GetBasePath)
 {
 #if 0
 	char *_rtn = SDL_GetBasePath();
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+		// free buffer of _rtn
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 #endif
 	SetError_NotImpFunction(sig, "GetBasePath");
 	return Value::Null;
@@ -9196,14 +9202,15 @@ Gura_ImplementFunction(GetPrefPath)
 	const char *org = args.GetString(0);
 	const char *app = args.GetString(1);
 	char *_rtn = SDL_GetPrefPath(org, app);
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+		// free buffer of _rtn
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 #endif
 	SetError_NotImpFunction(sig, "GetPrefPath");
 	return Value::Null;
@@ -9635,14 +9642,14 @@ Gura_DeclareFunction(GetPlatform)
 Gura_ImplementFunction(GetPlatform)
 {
 	const char *_rtn = SDL_GetPlatform();
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetCPUCacheLineSize
