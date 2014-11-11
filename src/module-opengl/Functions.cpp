@@ -2248,23 +2248,25 @@ Gura_ImplementFunction(glGenTextures)
 // opengl.glGetBooleanv
 Gura_DeclareFunction(glGetBooleanv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_boolean, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetBooleanv)
 {
-#if 0
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
-	CArray<GLboolean> params = args.GetList(1);
+	size_t n = GetParamCount(pname);
+	CArray<GLboolean> params(n);
 	glGetBooleanv(pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetBooleanv");
-	return Value::Null;
+	Value _rtnVal;
+	ValueList &valList = _rtnVal.InitAsList(env, n);
+	for (GLsizei i = 0; i < n; i++) {
+		valList.push_back(params[i] != 0);
+	}
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // opengl.glGetClipPlane
@@ -2388,23 +2390,20 @@ Gura_ImplementFunction(glGetConvolutionParameteriv)
 // opengl.glGetDoublev
 Gura_DeclareFunction(glGetDoublev)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetDoublev)
 {
-#if 0
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
-	CArray<GLdouble> params = args.GetList(1);
+	size_t n = GetParamCount(pname);
+	CArray<GLdouble> params(n);
 	glGetDoublev(pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetDoublev");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetError

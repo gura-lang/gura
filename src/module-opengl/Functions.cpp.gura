@@ -335,7 +335,17 @@ glGenTextures(n:GLsizei) = R'''
 	return Value::CreateList(env, textures, n);
 '''
 
-$glGetBooleanv(pname:GLenum, params:GLboolean@):void
+glGetBooleanv(pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLboolean> params(n);
+	glGetBooleanv(pname, params);
+	Value _rtnVal;
+	ValueList &valList = _rtnVal.InitAsList(env, n);
+	for (GLsizei i = 0; i < n; i++) {
+		valList.push_back(params[i] != 0);
+	}
+	return ReturnValue(env, sig, args, _rtnVal);
+'''
 
 $glGetClipPlane(plane:GLenum, equation:GLdouble@):void
 
@@ -351,7 +361,12 @@ $glGetConvolutionParameterfv(target:GLenum, pname:GLenum, params:GLfloat@):void
 
 $glGetConvolutionParameteriv(target:GLenum, pname:GLenum, params:GLint@):void
 
-$glGetDoublev(pname:GLenum, params:GLdouble@):void
+glGetDoublev(pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLdouble> params(n);
+	glGetDoublev(pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
 glGetError():GLenum
 
