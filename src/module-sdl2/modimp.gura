@@ -5,7 +5,7 @@ tmplImplementation = R'''
 // ${fi.moduleName}.${fi.funcNameGura}
 Gura_DeclareFunction(${fi.funcNameGura})
 {
-	${if (fi.rtnInfo.tmplCaller)}
+	${if (fi.rtnInfo.tmplCaller && !fi.rtnInfo.alwaysVoidFlag)}
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	${else}
@@ -49,11 +49,11 @@ Gura_AssignFunction(${fi.funcNameGura});
 ArgInfo = struct(name:string, valType:string:nil, occurPattern:string:nil,
 				 tmplGetter:template:nil, flags[]:string)
 
-ReturnInfo = struct(tmplCaller:template:nil)
+ReturnInfo = struct(tmplCaller:template:nil, alwaysVoidFlag:boolean)
 
 TypeConv = struct(
 		valType:string:nil, occurPattern:string:nil, flags[]:string,
-		tmplGetter:string:nil, tmplCaller:string:nil)
+		tmplGetter:string:nil, tmplCaller:string:nil, alwaysVoidFlag?:boolean)
 
 FuncInfo = class {
 	public {
@@ -90,7 +90,8 @@ FuncInfo = class {
 							'proper conversion not found in table "%s"', rtnTypeRaw)
 			sys.exit(1)
 		}
-		this.rtnInfo = ReturnInfo(typeConv.tmplCaller && typeConv.tmplCaller.template())
+		this.rtnInfo = ReturnInfo(typeConv.tmplCaller && typeConv.tmplCaller.template(),
+								  typeConv.alwaysVoidFlag)
 		this.args = caller.cdr.each():list {|arg|
 			if (arg.isindexer()) {
 				identifier = arg.car

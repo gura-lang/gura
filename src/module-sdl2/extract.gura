@@ -1854,8 +1854,16 @@ TypeConv_Class(typeName:string) = {
 	if (pointerFlag) {
 		typeName => TypeConv(
 				typeNameBase, 'Once', [],
+
+
+				// handling optional argument
+
+				
 				cond(constFlag, 'const ', '') + typeNameTmp + ' *${arg.name} = ' \
 					'Object_' + typeNameBase + '::GetObject(args, ${idx})->GetEntity();',
+
+
+
 				R'''
 				SDL_%s *_rtn = ${fi.MakeCaller()};
 				Value _rtnVal;
@@ -2009,7 +2017,7 @@ typeConvDict = %{
 				SetError_SDL(sig);
 				return Value::Null;
 			}
-			return Value::Null;''')
+			return Value::Null;''', true)
 	'negerr_boolean' => TypeConv(
 			nil, nil, [],
 			nil,
