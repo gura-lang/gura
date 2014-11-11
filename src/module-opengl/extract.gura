@@ -290,8 +290,8 @@ glLineStipple(factor:GLint, pattern:GLushort):void
 glLineWidth(width:GLfloat):void
 glListBase(base:GLuint):void
 glLoadIdentity():void
-$glLoadMatrixd(m:GLdouble@:const):void
-$glLoadMatrixf(m:GLfloat@:const):void
+glLoadMatrixd(m:GLdouble@16:const):void
+glLoadMatrixf(m:GLfloat@16:const):void
 glLoadName(name:GLuint):void
 glLogicOp(opcode:GLenum):void
 $glMap1d(target:GLenum, u1:GLdouble, u2:GLdouble, stride:GLint, order:GLint, points:GLdouble@:const):void
@@ -647,17 +647,17 @@ glUniform1i(location:GLint, v0:GLint):void
 glUniform2i(location:GLint, v0:GLint, v1:GLint):void
 glUniform3i(location:GLint, v0:GLint, v1:GLint, v2:GLint):void
 glUniform4i(location:GLint, v0:GLint, v1:GLint, v2:GLint, v3:GLint):void
-$glUniform1fv(location:GLint, count:GLsizei, value:GLfloat@:const):void
-$glUniform2fv(location:GLint, count:GLsizei, value:GLfloat@:const):void
-$glUniform3fv(location:GLint, count:GLsizei, value:GLfloat@:const):void
-$glUniform4fv(location:GLint, count:GLsizei, value:GLfloat@:const):void
-$glUniform1iv(location:GLint, count:GLsizei, value:GLint@:const):void
-$glUniform2iv(location:GLint, count:GLsizei, value:GLint@:const):void
-$glUniform3iv(location:GLint, count:GLsizei, value:GLint@:const):void
-$glUniform4iv(location:GLint, count:GLsizei, value:GLint@:const):void
-$glUniformMatrix2fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@:const):void
-$glUniformMatrix3fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@:const):void
-$glUniformMatrix4fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@:const):void
+glUniform1fv(location:GLint, count:GLsizei, value:GLfloat@1:const):void
+glUniform2fv(location:GLint, count:GLsizei, value:GLfloat@2:const):void
+glUniform3fv(location:GLint, count:GLsizei, value:GLfloat@3:const):void
+glUniform4fv(location:GLint, count:GLsizei, value:GLfloat@4:const):void
+glUniform1iv(location:GLint, count:GLsizei, value:GLint@1:const):void
+glUniform2iv(location:GLint, count:GLsizei, value:GLint@2:const):void
+glUniform3iv(location:GLint, count:GLsizei, value:GLint@3:const):void
+glUniform4iv(location:GLint, count:GLsizei, value:GLint@4:const):void
+glUniformMatrix2fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@2:const):void
+glUniformMatrix3fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@3:const):void
+glUniformMatrix4fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@4:const):void
 glIsShader(shader:GLuint):GLboolean
 glIsProgram(program:GLuint):GLboolean
 $glGetShaderiv(shader:GLuint, pname:GLenum, params:GLint@):void

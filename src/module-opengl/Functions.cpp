@@ -3599,12 +3599,12 @@ Gura_DeclareFunction(glLoadMatrixd)
 
 Gura_ImplementFunction(glLoadMatrixd)
 {
-#if 0
 	CArray<GLdouble> m = args.GetList(0);
+	if (m.GetSize() != 16) {
+		sig.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Null;
+	}
 	glLoadMatrixd(m);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glLoadMatrixd");
 	return Value::Null;
 }
 
@@ -3619,12 +3619,12 @@ Gura_DeclareFunction(glLoadMatrixf)
 
 Gura_ImplementFunction(glLoadMatrixf)
 {
-#if 0
 	CArray<GLfloat> m = args.GetList(0);
+	if (m.GetSize() != 16) {
+		sig.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Null;
+	}
 	glLoadMatrixf(m);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glLoadMatrixf");
 	return Value::Null;
 }
 
@@ -10315,14 +10315,14 @@ Gura_DeclareFunction(glUniform1fv)
 
 Gura_ImplementFunction(glUniform1fv)
 {
-#if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
 	CArray<GLfloat> value = args.GetList(2);
+	if (value.GetSize() != 1) {
+		sig.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Null;
+	}
 	glUniform1fv(location, count, value);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glUniform1fv");
 	return Value::Null;
 }
 
@@ -10339,14 +10339,14 @@ Gura_DeclareFunction(glUniform2fv)
 
 Gura_ImplementFunction(glUniform2fv)
 {
-#if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
 	CArray<GLfloat> value = args.GetList(2);
+	if (value.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glUniform2fv(location, count, value);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glUniform2fv");
 	return Value::Null;
 }
 
@@ -10363,14 +10363,14 @@ Gura_DeclareFunction(glUniform3fv)
 
 Gura_ImplementFunction(glUniform3fv)
 {
-#if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
 	CArray<GLfloat> value = args.GetList(2);
+	if (value.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glUniform3fv(location, count, value);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glUniform3fv");
 	return Value::Null;
 }
 
@@ -10387,14 +10387,14 @@ Gura_DeclareFunction(glUniform4fv)
 
 Gura_ImplementFunction(glUniform4fv)
 {
-#if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
 	CArray<GLfloat> value = args.GetList(2);
+	if (value.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Null;
+	}
 	glUniform4fv(location, count, value);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glUniform4fv");
 	return Value::Null;
 }
 
@@ -10411,14 +10411,14 @@ Gura_DeclareFunction(glUniform1iv)
 
 Gura_ImplementFunction(glUniform1iv)
 {
-#if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
 	CArray<GLint> value = args.GetList(2);
+	if (value.GetSize() != 1) {
+		sig.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Null;
+	}
 	glUniform1iv(location, count, value);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glUniform1iv");
 	return Value::Null;
 }
 
@@ -10435,14 +10435,14 @@ Gura_DeclareFunction(glUniform2iv)
 
 Gura_ImplementFunction(glUniform2iv)
 {
-#if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
 	CArray<GLint> value = args.GetList(2);
+	if (value.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glUniform2iv(location, count, value);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glUniform2iv");
 	return Value::Null;
 }
 
@@ -10459,14 +10459,14 @@ Gura_DeclareFunction(glUniform3iv)
 
 Gura_ImplementFunction(glUniform3iv)
 {
-#if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
 	CArray<GLint> value = args.GetList(2);
+	if (value.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glUniform3iv(location, count, value);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glUniform3iv");
 	return Value::Null;
 }
 
@@ -10483,14 +10483,14 @@ Gura_DeclareFunction(glUniform4iv)
 
 Gura_ImplementFunction(glUniform4iv)
 {
-#if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
 	CArray<GLint> value = args.GetList(2);
+	if (value.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glUniform4iv(location, count, value);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glUniform4iv");
 	return Value::Null;
 }
 
@@ -10508,15 +10508,15 @@ Gura_DeclareFunction(glUniformMatrix2fv)
 
 Gura_ImplementFunction(glUniformMatrix2fv)
 {
-#if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
 	GLboolean transpose = (args.GetBoolean(2)? GL_TRUE : GL_FALSE);
 	CArray<GLfloat> value = args.GetList(3);
+	if (value.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glUniformMatrix2fv(location, count, transpose, value);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glUniformMatrix2fv");
 	return Value::Null;
 }
 
@@ -10534,15 +10534,15 @@ Gura_DeclareFunction(glUniformMatrix3fv)
 
 Gura_ImplementFunction(glUniformMatrix3fv)
 {
-#if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
 	GLboolean transpose = (args.GetBoolean(2)? GL_TRUE : GL_FALSE);
 	CArray<GLfloat> value = args.GetList(3);
+	if (value.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glUniformMatrix3fv(location, count, transpose, value);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glUniformMatrix3fv");
 	return Value::Null;
 }
 
@@ -10560,15 +10560,15 @@ Gura_DeclareFunction(glUniformMatrix4fv)
 
 Gura_ImplementFunction(glUniformMatrix4fv)
 {
-#if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
 	GLboolean transpose = (args.GetBoolean(2)? GL_TRUE : GL_FALSE);
 	CArray<GLfloat> value = args.GetList(3);
+	if (value.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Null;
+	}
 	glUniformMatrix4fv(location, count, transpose, value);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glUniformMatrix4fv");
 	return Value::Null;
 }
 
