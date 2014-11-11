@@ -474,19 +474,35 @@ glIsTexture(texture:GLuint):GLboolean
 
 glLightModelf(pname:GLenum, param:GLfloat):void
 
-$glLightModelfv(pname:GLenum, params:GLfloat@:const):void
+glLightModelfv(pname:GLenum, params:GLfloat@:const):void = R'''
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
+	glLightModelfv(pname, params);
+	return Value::Null;
+'''
 
 glLightModeli(pname:GLenum, param:GLint):void
 
-$glLightModeliv(pname:GLenum, params:GLint@:const):void
-
+glLightModeliv(pname:GLenum, params:GLint@:const):void = R'''
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
+	glLightModeliv(pname, params);
+	return Value::Null;
+'''
+	
 glLightf(light:GLenum, pname:GLenum, param:GLfloat):void
 
-$glLightfv(light:GLenum, pname:GLenum, params:GLfloat@:const):void
+glLightfv(light:GLenum, pname:GLenum, params:GLfloat@:const):void = R'''
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
+	glLightfv(light, pname, params);
+	return Value::Null;
+'''
 
 glLighti(light:GLenum, pname:GLenum, param:GLint):void
 
-$glLightiv(light:GLenum, pname:GLenum, params:GLint@:const):void
+glLightiv(light:GLenum, pname:GLenum, params:GLint@:const):void = R'''
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
+	glLightiv(light, pname, params);
+	return Value::Null;
+'''
 
 glLineStipple(factor:GLint, pattern:GLushort):void
 
@@ -522,11 +538,19 @@ glMapGrid2f(un:GLint, u1:GLfloat, u2:GLfloat, vn:GLint, v1:GLfloat, v2:GLfloat):
 
 glMaterialf(face:GLenum, pname:GLenum, param:GLfloat):void
 
-$glMaterialfv(face:GLenum, pname:GLenum, params:GLfloat@:const):void
+glMaterialfv(face:GLenum, pname:GLenum, params:GLfloat@:const):void = R'''
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
+	glMaterialfv(face, pname, params);
+	return Value::Null;
+'''
 
 glMateriali(face:GLenum, pname:GLenum, param:GLint):void
 
-$glMaterialiv(face:GLenum, pname:GLenum, params:GLint@:const):void
+glMaterialiv(face:GLenum, pname:GLenum, params:GLint@:const):void = R'''
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
+	glMaterialiv(face, pname, params);
+	return Value::Null;
+'''
 
 glMatrixMode(mode:GLenum):void
 
@@ -596,7 +620,15 @@ glPopMatrix():void
 
 glPopName():void
 
-$glPrioritizeTextures(n:GLsizei, textures:GLuint@:const, priorities:GLclampf@:const):void
+glPrioritizeTextures(textures:GLuint@:const, priorities:GLclampf@:const):void = R'''
+	GLsizei n = textures.GetSize();
+	if (n != priorities.GetSize()) {
+		sig.SetError(ERR_ValueError, "textures and priorities must have the same number of elements");
+		return Value::Null;
+	}
+	glPrioritizeTextures(n, textures, priorities);
+	return Value::Null;
+'''
 
 glPushAttrib(mask:GLbitfield):void
 
@@ -1046,9 +1078,17 @@ glWindowPos3s(x:GLshort, y:GLshort, z:GLshort):void
 
 glWindowPos3sv(v:GLshort@3:const):void
 
-$glGenQueries(n:GLsizei, ids:GLuint@):void
+glGenQueries(n:GLsizei) = R'''
+	CArray<GLuint> ids(n);
+	glGenQueries(n, ids);
+	return Value::CreateList(env, ids, n);
+'''
 
-$glDeleteQueries(n:GLsizei, ids:GLuint@:const):void
+glDeleteQueries(ids:GLuint@:const):void = R'''
+	GLsizei n = ids.GetSize();
+	glDeleteQueries(n, ids);
+	return Value::Null;
+'''
 
 glIsQuery(id:GLuint):GLboolean
 
@@ -1064,7 +1104,11 @@ $glGetQueryObjectuiv(id:GLuint, pname:GLenum, params:GLuint@):void
 
 glBindBuffer(target:GLenum, buffer:GLuint):void
 
-$glDeleteBuffers(n:GLsizei, buffers:GLuint@:const):void
+glDeleteBuffers(buffers:GLuint@:const):void = R'''
+	GLsizei n = buffers.GetSize();
+	glDeleteBuffers(n, buffers);
+	return Value::Null;
+'''
 
 glGenBuffers(n:GLsizei) = R'''
 	CArray<GLuint> buffers(n);
@@ -1088,7 +1132,11 @@ $glGetBufferParameteriv(target:GLenum, pname:GLenum, params:GLint@):void
 
 //$glGetBufferPointerv(target:GLenum, pname:GLenum, params:GLvoid@@):void
 
-$glDrawBuffers(n:GLsizei, bufs:GLenum@:const):void
+glDrawBuffers(bufs:GLenum@:const):void = R'''
+	GLsizei n = bufs.GetSize();
+	glDrawBuffers(n, bufs);
+	return Value::Null;
+'''
 
 glVertexAttrib1d(index:GLuint, x:GLdouble):void
 

@@ -3386,13 +3386,10 @@ Gura_DeclareFunction(glLightModelfv)
 
 Gura_ImplementFunction(glLightModelfv)
 {
-#if 0
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLfloat> params = args.GetList(1);
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
 	glLightModelfv(pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glLightModelfv");
 	return Value::Null;
 }
 
@@ -3426,13 +3423,10 @@ Gura_DeclareFunction(glLightModeliv)
 
 Gura_ImplementFunction(glLightModeliv)
 {
-#if 0
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLint> params = args.GetList(1);
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
 	glLightModeliv(pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glLightModeliv");
 	return Value::Null;
 }
 
@@ -3469,14 +3463,11 @@ Gura_DeclareFunction(glLightfv)
 
 Gura_ImplementFunction(glLightfv)
 {
-#if 0
 	GLenum light = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLfloat> params = args.GetList(2);
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
 	glLightfv(light, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glLightfv");
 	return Value::Null;
 }
 
@@ -3513,14 +3504,11 @@ Gura_DeclareFunction(glLightiv)
 
 Gura_ImplementFunction(glLightiv)
 {
-#if 0
 	GLenum light = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLint> params = args.GetList(2);
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
 	glLightiv(light, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glLightiv");
 	return Value::Null;
 }
 
@@ -3921,14 +3909,11 @@ Gura_DeclareFunction(glMaterialfv)
 
 Gura_ImplementFunction(glMaterialfv)
 {
-#if 0
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLfloat> params = args.GetList(2);
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
 	glMaterialfv(face, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMaterialfv");
 	return Value::Null;
 }
 
@@ -3965,14 +3950,11 @@ Gura_DeclareFunction(glMaterialiv)
 
 Gura_ImplementFunction(glMaterialiv)
 {
-#if 0
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLint> params = args.GetList(2);
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
 	glMaterialiv(face, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMaterialiv");
 	return Value::Null;
 }
 
@@ -4606,7 +4588,6 @@ Gura_ImplementFunction(glPopName)
 Gura_DeclareFunction(glPrioritizeTextures)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "n", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "textures", VTYPE_number, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "priorities", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -4615,14 +4596,14 @@ Gura_DeclareFunction(glPrioritizeTextures)
 
 Gura_ImplementFunction(glPrioritizeTextures)
 {
-#if 0
-	GLsizei n = args.GetInt(0);
-	CArray<GLuint> textures = args.GetList(1);
-	CArray<GLclampf> priorities = args.GetList(2);
+	CArray<GLuint> textures = args.GetList(0);
+	CArray<GLclampf> priorities = args.GetList(1);
+	GLsizei n = textures.GetSize();
+	if (n != priorities.GetSize()) {
+		sig.SetError(ERR_ValueError, "textures and priorities must have the same number of elements");
+		return Value::Null;
+	}
 	glPrioritizeTextures(n, textures, priorities);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glPrioritizeTextures");
 	return Value::Null;
 }
 
@@ -8752,30 +8733,25 @@ Gura_ImplementFunction(glWindowPos3sv)
 // opengl.glGenQueries
 Gura_DeclareFunction(glGenQueries)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "ids", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGenQueries)
 {
-#if 0
 	GLsizei n = args.GetInt(0);
-	CArray<GLuint> ids = args.GetList(1);
+	CArray<GLuint> ids(n);
 	glGenQueries(n, ids);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGenQueries");
-	return Value::Null;
+	return Value::CreateList(env, ids, n);
 }
 
 // opengl.glDeleteQueries
 Gura_DeclareFunction(glDeleteQueries)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "n", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "ids", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -8783,13 +8759,9 @@ Gura_DeclareFunction(glDeleteQueries)
 
 Gura_ImplementFunction(glDeleteQueries)
 {
-#if 0
-	GLsizei n = args.GetInt(0);
-	CArray<GLuint> ids = args.GetList(1);
+	CArray<GLuint> ids = args.GetList(0);
+	GLsizei n = ids.GetSize();
 	glDeleteQueries(n, ids);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glDeleteQueries");
 	return Value::Null;
 }
 
@@ -8938,7 +8910,6 @@ Gura_ImplementFunction(glBindBuffer)
 Gura_DeclareFunction(glDeleteBuffers)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "n", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "buffers", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -8946,13 +8917,9 @@ Gura_DeclareFunction(glDeleteBuffers)
 
 Gura_ImplementFunction(glDeleteBuffers)
 {
-#if 0
-	GLsizei n = args.GetInt(0);
-	CArray<GLuint> buffers = args.GetList(1);
+	CArray<GLuint> buffers = args.GetList(0);
+	GLsizei n = buffers.GetSize();
 	glDeleteBuffers(n, buffers);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glDeleteBuffers");
 	return Value::Null;
 }
 
@@ -9036,7 +9003,6 @@ Gura_ImplementFunction(glGetBufferParameteriv)
 Gura_DeclareFunction(glDrawBuffers)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "n", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "bufs", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -9044,13 +9010,9 @@ Gura_DeclareFunction(glDrawBuffers)
 
 Gura_ImplementFunction(glDrawBuffers)
 {
-#if 0
-	GLsizei n = args.GetInt(0);
-	CArray<GLenum> bufs = args.GetList(1);
+	CArray<GLenum> bufs = args.GetList(0);
+	GLsizei n = bufs.GetSize();
 	glDrawBuffers(n, bufs);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glDrawBuffers");
 	return Value::Null;
 }
 

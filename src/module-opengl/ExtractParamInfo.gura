@@ -1,3 +1,4 @@
+#!/usr/bin/env gura
 // This scripts analyze the text of:
 // http://www.opengl.org/sdk/docs/man/xhtml/glGet.html
 // and extracts parameter name and length that can be retrieved
