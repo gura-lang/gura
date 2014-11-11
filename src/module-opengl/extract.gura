@@ -168,7 +168,11 @@ glCopyTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, x:
 glCopyTexSubImage3D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, x:GLint, y:GLint, width:GLsizei, height:GLsizei):void
 glCullFace(mode:GLenum):void
 glDeleteLists(list:GLuint, range:GLsizei):void
-$glDeleteTextures(n:GLsizei, textures:GLuint@:const):void
+glDeleteTextures(textures:GLuint@:const):void = R'''
+	GLsizei n = textures.GetSize();
+	glDeleteTextures(n, textures);
+	return Value::Null;
+'''
 glDepthFunc(func:GLenum):void
 glDepthMask(flag:GLboolean):void
 glDepthRange(zNear:GLclampd, zFar:GLclampd):void
@@ -181,19 +185,19 @@ glDrawBuffer(mode:GLenum):void
 //$glDrawRangeElements(mode:GLenum, start:GLuint, end:GLuint, count:GLsizei, type:GLenum, indices:GLvoid@:const):void
 glEdgeFlag(flag:GLboolean):void
 //$glEdgeFlagPointer(stride:GLsizei, pointer:GLvoid@:const):void
-$glEdgeFlagv(flag:GLboolean@:const):void
+glEdgeFlagv(flag:GLboolean@1:const):void
 glEnable(cap:GLenum):void
 glEnableClientState(array:GLenum):void
 glEnd():void
 glEndList():void
 glEvalCoord1d(u:GLdouble):void
-$glEvalCoord1dv(u:GLdouble@:const):void
+glEvalCoord1dv(u:GLdouble@1:const):void
 glEvalCoord1f(u:GLfloat):void
-$glEvalCoord1fv(u:GLfloat@:const):void
+glEvalCoord1fv(u:GLfloat@1:const):void
 glEvalCoord2d(u:GLdouble, v:GLdouble):void
-$glEvalCoord2dv(u:GLdouble@:const):void
+glEvalCoord2dv(u:GLdouble@2:const):void
 glEvalCoord2f(u:GLfloat, v:GLfloat):void
-$glEvalCoord2fv(u:GLfloat@:const):void
+glEvalCoord2fv(u:GLfloat@2:const):void
 glEvalMesh1(mode:GLenum, i1:GLint, i2:GLint):void
 glEvalMesh2(mode:GLenum, i1:GLint, i2:GLint, j1:GLint, j2:GLint):void
 glEvalPoint1(i:GLint):void
@@ -208,7 +212,11 @@ $glFogiv(pname:GLenum, params:GLint@:const):void
 glFrontFace(mode:GLenum):void
 glFrustum(left:GLdouble, right:GLdouble, bottom:GLdouble, top:GLdouble, zNear:GLdouble, zFar:GLdouble):void
 glGenLists(range:GLsizei):GLuint
-$glGenTextures(n:GLsizei, textures:GLuint@):void
+glGenTextures(n:GLsizei) = R'''
+	CArray<GLuint> textures(n);
+	glGenTextures(n, textures);
+	return Value::CreateList(env, textures, n);
+'''
 $glGetBooleanv(pname:GLenum, params:GLboolean@):void
 $glGetClipPlane(plane:GLenum, equation:GLdouble@):void
 //$glGetColorTable(target:GLenum, format:GLenum, type:GLenum, table:GLvoid@):void
@@ -304,15 +312,15 @@ $glMultMatrixd(m:GLdouble@:const):void
 $glMultMatrixf(m:GLfloat@:const):void
 glNewList(list:GLuint, mode:GLenum):void
 glNormal3b(nx:GLbyte, ny:GLbyte, nz:GLbyte):void
-$glNormal3bv(v:GLbyte@:const):void
+glNormal3bv(v:GLbyte@3:const):void
 glNormal3d(nx:GLdouble, ny:GLdouble, nz:GLdouble):void
-$glNormal3dv(v:GLdouble@:const):void
+glNormal3dv(v:GLdouble@3:const):void
 glNormal3f(nx:GLfloat, ny:GLfloat, nz:GLfloat):void
-$glNormal3fv(v:GLfloat@:const):void
+glNormal3fv(v:GLfloat@3:const):void
 glNormal3i(nx:GLint, ny:GLint, nz:GLint):void
-$glNormal3iv(v:GLint@:const):void
+glNormal3iv(v:GLint@3:const):void
 glNormal3s(nx:GLshort, ny:GLshort, nz:GLshort):void
-$glNormal3sv(v:GLshort@:const):void
+glNormal3sv(v:GLshort@3:const):void
 //$glNormalPointer(type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void
 glOrtho(left:GLdouble, right:GLdouble, bottom:GLdouble, top:GLdouble, zNear:GLdouble, zFar:GLdouble):void
 glPassThrough(token:GLfloat):void
@@ -338,39 +346,39 @@ glPushClientAttrib(mask:GLbitfield):void
 glPushMatrix():void
 glPushName(name:GLuint):void
 glRasterPos2d(x:GLdouble, y:GLdouble):void
-$glRasterPos2dv(v:GLdouble@:const):void
+glRasterPos2dv(v:GLdouble@2:const):void
 glRasterPos2f(x:GLfloat, y:GLfloat):void
-$glRasterPos2fv(v:GLfloat@:const):void
+glRasterPos2fv(v:GLfloat@2:const):void
 glRasterPos2i(x:GLint, y:GLint):void
-$glRasterPos2iv(v:GLint@:const):void
+glRasterPos2iv(v:GLint@2:const):void
 glRasterPos2s(x:GLshort, y:GLshort):void
-$glRasterPos2sv(v:GLshort@:const):void
+glRasterPos2sv(v:GLshort@2:const):void
 glRasterPos3d(x:GLdouble, y:GLdouble, z:GLdouble):void
-$glRasterPos3dv(v:GLdouble@:const):void
+glRasterPos3dv(v:GLdouble@3:const):void
 glRasterPos3f(x:GLfloat, y:GLfloat, z:GLfloat):void
-$glRasterPos3fv(v:GLfloat@:const):void
+glRasterPos3fv(v:GLfloat@3:const):void
 glRasterPos3i(x:GLint, y:GLint, z:GLint):void
-$glRasterPos3iv(v:GLint@:const):void
+glRasterPos3iv(v:GLint@3:const):void
 glRasterPos3s(x:GLshort, y:GLshort, z:GLshort):void
-$glRasterPos3sv(v:GLshort@:const):void
+glRasterPos3sv(v:GLshort@3:const):void
 glRasterPos4d(x:GLdouble, y:GLdouble, z:GLdouble, w:GLdouble):void
-$glRasterPos4dv(v:GLdouble@:const):void
+glRasterPos4dv(v:GLdouble@4:const):void
 glRasterPos4f(x:GLfloat, y:GLfloat, z:GLfloat, w:GLfloat):void
-$glRasterPos4fv(v:GLfloat@:const):void
+glRasterPos4fv(v:GLfloat@4:const):void
 glRasterPos4i(x:GLint, y:GLint, z:GLint, w:GLint):void
-$glRasterPos4iv(v:GLint@:const):void
+glRasterPos4iv(v:GLint@4:const):void
 glRasterPos4s(x:GLshort, y:GLshort, z:GLshort, w:GLshort):void
-$glRasterPos4sv(v:GLshort@:const):void
+glRasterPos4sv(v:GLshort@4:const):void
 glReadBuffer(mode:GLenum):void
 //$glReadPixels(x:GLint, y:GLint, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:GLvoid@):void
 glRectd(x1:GLdouble, y1:GLdouble, x2:GLdouble, y2:GLdouble):void
-$glRectdv(v1:GLdouble@:const, v2:GLdouble@:const):void
+glRectdv(v1:GLdouble@2:const, v2:GLdouble@2:const):void
 glRectf(x1:GLfloat, y1:GLfloat, x2:GLfloat, y2:GLfloat):void
-$glRectfv(v1:GLfloat@:const, v2:GLfloat@:const):void
+glRectfv(v1:GLfloat@2:const, v2:GLfloat@2:const):void
 glRecti(x1:GLint, y1:GLint, x2:GLint, y2:GLint):void
-$glRectiv(v1:GLint@:const, v2:GLint@:const):void
+glRectiv(v1:GLint@2:const, v2:GLint@2:const):void
 glRects(x1:GLshort, y1:GLshort, x2:GLshort, y2:GLshort):void
-$glRectsv(v1:GLshort@:const, v2:GLshort@:const):void
+glRectsv(v1:GLshort@2:const, v2:GLshort@2:const):void
 glRenderMode(mode:GLenum):GLint
 glResetHistogram(target:GLenum):void
 glResetMinmax(target:GLenum):void
@@ -386,37 +394,37 @@ glStencilFunc(func:GLenum, ref:GLint, mask:GLuint):void
 glStencilMask(mask:GLuint):void
 glStencilOp(fail:GLenum, zfail:GLenum, zpass:GLenum):void
 glTexCoord1d(s:GLdouble):void
-$glTexCoord1dv(v:GLdouble@:const):void
+glTexCoord1dv(v:GLdouble@1:const):void
 glTexCoord1f(s:GLfloat):void
-$glTexCoord1fv(v:GLfloat@:const):void
+glTexCoord1fv(v:GLfloat@1:const):void
 glTexCoord1i(s:GLint):void
-$glTexCoord1iv(v:GLint@:const):void
+glTexCoord1iv(v:GLint@1:const):void
 glTexCoord1s(s:GLshort):void
-$glTexCoord1sv(v:GLshort@:const):void
+glTexCoord1sv(v:GLshort@1:const):void
 glTexCoord2d(s:GLdouble, t:GLdouble):void
-$glTexCoord2dv(v:GLdouble@:const):void
+glTexCoord2dv(v:GLdouble@2:const):void
 glTexCoord2f(s:GLfloat, t:GLfloat):void
-$glTexCoord2fv(v:GLfloat@:const):void
+glTexCoord2fv(v:GLfloat@2:const):void
 glTexCoord2i(s:GLint, t:GLint):void
-$glTexCoord2iv(v:GLint@:const):void
+glTexCoord2iv(v:GLint@2:const):void
 glTexCoord2s(s:GLshort, t:GLshort):void
-$glTexCoord2sv(v:GLshort@:const):void
+glTexCoord2sv(v:GLshort@2:const):void
 glTexCoord3d(s:GLdouble, t:GLdouble, r:GLdouble):void
-$glTexCoord3dv(v:GLdouble@:const):void
+glTexCoord3dv(v:GLdouble@3:const):void
 glTexCoord3f(s:GLfloat, t:GLfloat, r:GLfloat):void
-$glTexCoord3fv(v:GLfloat@:const):void
+glTexCoord3fv(v:GLfloat@3:const):void
 glTexCoord3i(s:GLint, t:GLint, r:GLint):void
-$glTexCoord3iv(v:GLint@:const):void
+glTexCoord3iv(v:GLint@3:const):void
 glTexCoord3s(s:GLshort, t:GLshort, r:GLshort):void
-$glTexCoord3sv(v:GLshort@:const):void
+glTexCoord3sv(v:GLshort@3:const):void
 glTexCoord4d(s:GLdouble, t:GLdouble, r:GLdouble, q:GLdouble):void
-$glTexCoord4dv(v:GLdouble@:const):void
+glTexCoord4dv(v:GLdouble@4:const):void
 glTexCoord4f(s:GLfloat, t:GLfloat, r:GLfloat, q:GLfloat):void
-$glTexCoord4fv(v:GLfloat@:const):void
+glTexCoord4fv(v:GLfloat@4:const):void
 glTexCoord4i(s:GLint, t:GLint, r:GLint, q:GLint):void
-$glTexCoord4iv(v:GLint@:const):void
+glTexCoord4iv(v:GLint@4:const):void
 glTexCoord4s(s:GLshort, t:GLshort, r:GLshort, q:GLshort):void
-$glTexCoord4sv(v:GLshort@:const):void
+glTexCoord4sv(v:GLshort@4:const):void
 //$glTexCoordPointer(size:GLint, type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void
 glTexEnvf(target:GLenum, pname:GLenum, param:GLfloat):void
 $glTexEnvfv(target:GLenum, pname:GLenum, params:GLfloat@:const):void
@@ -441,36 +449,36 @@ $glTexParameteriv(target:GLenum, pname:GLenum, params:GLint@:const):void
 glTranslated(x:GLdouble, y:GLdouble, z:GLdouble):void
 glTranslatef(x:GLfloat, y:GLfloat, z:GLfloat):void
 glVertex2d(x:GLdouble, y:GLdouble):void
-$glVertex2dv(v:GLdouble@:const):void
+glVertex2dv(v:GLdouble@2:const):void
 glVertex2f(x:GLfloat, y:GLfloat):void
-$glVertex2fv(v:GLfloat@:const):void
+glVertex2fv(v:GLfloat@2:const):void
 glVertex2i(x:GLint, y:GLint):void
-$glVertex2iv(v:GLint@:const):void
+glVertex2iv(v:GLint@2:const):void
 glVertex2s(x:GLshort, y:GLshort):void
-$glVertex2sv(v:GLshort@:const):void
+glVertex2sv(v:GLshort@2:const):void
 glVertex3d(x:GLdouble, y:GLdouble, z:GLdouble):void
-$glVertex3dv(v:GLdouble@:const):void
+glVertex3dv(v:GLdouble@3:const):void
 glVertex3f(x:GLfloat, y:GLfloat, z:GLfloat):void
-$glVertex3fv(v:GLfloat@:const):void
+glVertex3fv(v:GLfloat@3:const):void
 glVertex3i(x:GLint, y:GLint, z:GLint):void
-$glVertex3iv(v:GLint@:const):void
+glVertex3iv(v:GLint@3:const):void
 glVertex3s(x:GLshort, y:GLshort, z:GLshort):void
-$glVertex3sv(v:GLshort@:const):void
+glVertex3sv(v:GLshort@3:const):void
 glVertex4d(x:GLdouble, y:GLdouble, z:GLdouble, w:GLdouble):void
-$glVertex4dv(v:GLdouble@:const):void
+glVertex4dv(v:GLdouble@4:const):void
 glVertex4f(x:GLfloat, y:GLfloat, z:GLfloat, w:GLfloat):void
-$glVertex4fv(v:GLfloat@:const):void
+glVertex4fv(v:GLfloat@4:const):void
 glVertex4i(x:GLint, y:GLint, z:GLint, w:GLint):void
-$glVertex4iv(v:GLint@:const):void
+glVertex4iv(v:GLint@4:const):void
 glVertex4s(x:GLshort, y:GLshort, z:GLshort, w:GLshort):void
-$glVertex4sv(v:GLshort@:const):void
+glVertex4sv(v:GLshort@4:const):void
 //$glVertexPointer(size:GLint, type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void
 glViewport(x:GLint, y:GLint, width:GLsizei, height:GLsizei):void
 glSampleCoverage(value:GLclampf, invert:GLboolean):void
-$glLoadTransposeMatrixf(m:GLfloat@:const):void
-$glLoadTransposeMatrixd(m:GLdouble@:const):void
-$glMultTransposeMatrixf(m:GLfloat@:const):void
-$glMultTransposeMatrixd(m:GLdouble@:const):void
+glLoadTransposeMatrixf(m:GLfloat@16:const):void
+glLoadTransposeMatrixd(m:GLdouble@16:const):void
+glMultTransposeMatrixf(m:GLfloat@16:const):void
+glMultTransposeMatrixd(m:GLdouble@16:const):void
 //$glCompressedTexImage3D(target:GLenum, level:GLint, internalformat:GLenum, width:GLsizei, height:GLsizei, depth:GLsizei, border:GLint, imageSize:GLsizei, data:GLvoid@:const):void
 //$glCompressedTexImage2D(target:GLenum, level:GLint, internalformat:GLenum, width:GLsizei, height:GLsizei, border:GLint, imageSize:GLsizei, data:GLvoid@:const):void
 //$glCompressedTexImage1D(target:GLenum, level:GLint, internalformat:GLenum, width:GLsizei, border:GLint, imageSize:GLsizei, data:GLvoid@:const):void
@@ -481,58 +489,58 @@ $glMultTransposeMatrixd(m:GLdouble@:const):void
 glActiveTexture(texture:GLenum):void
 glClientActiveTexture(texture:GLenum):void
 glMultiTexCoord1d(target:GLenum, s:GLdouble):void
-$glMultiTexCoord1dv(target:GLenum, v:GLdouble@:const):void
+glMultiTexCoord1dv(target:GLenum, v:GLdouble@1:const):void
 glMultiTexCoord1f(target:GLenum, s:GLfloat):void
-$glMultiTexCoord1fv(target:GLenum, v:GLfloat@:const):void
+glMultiTexCoord1fv(target:GLenum, v:GLfloat@1:const):void
 glMultiTexCoord1i(target:GLenum, s:GLint):void
-$glMultiTexCoord1iv(target:GLenum, v:GLint@:const):void
+glMultiTexCoord1iv(target:GLenum, v:GLint@1:const):void
 glMultiTexCoord1s(target:GLenum, s:GLshort):void
-$glMultiTexCoord1sv(target:GLenum, v:GLshort@:const):void
+glMultiTexCoord1sv(target:GLenum, v:GLshort@1:const):void
 glMultiTexCoord2d(target:GLenum, s:GLdouble, t:GLdouble):void
-$glMultiTexCoord2dv(target:GLenum, v:GLdouble@:const):void
+glMultiTexCoord2dv(target:GLenum, v:GLdouble@2:const):void
 glMultiTexCoord2f(target:GLenum, s:GLfloat, t:GLfloat):void
-$glMultiTexCoord2fv(target:GLenum, v:GLfloat@:const):void
+glMultiTexCoord2fv(target:GLenum, v:GLfloat@2:const):void
 glMultiTexCoord2i(target:GLenum, s:GLint, t:GLint):void
-$glMultiTexCoord2iv(target:GLenum, v:GLint@:const):void
+glMultiTexCoord2iv(target:GLenum, v:GLint@2:const):void
 glMultiTexCoord2s(target:GLenum, s:GLshort, t:GLshort):void
-$glMultiTexCoord2sv(target:GLenum, v:GLshort@:const):void
+glMultiTexCoord2sv(target:GLenum, v:GLshort@2:const):void
 glMultiTexCoord3d(target:GLenum, s:GLdouble, t:GLdouble, r:GLdouble):void
-$glMultiTexCoord3dv(target:GLenum, v:GLdouble@:const):void
+glMultiTexCoord3dv(target:GLenum, v:GLdouble@3:const):void
 glMultiTexCoord3f(target:GLenum, s:GLfloat, t:GLfloat, r:GLfloat):void
-$glMultiTexCoord3fv(target:GLenum, v:GLfloat@:const):void
+glMultiTexCoord3fv(target:GLenum, v:GLfloat@3:const):void
 glMultiTexCoord3i(target:GLenum, s:GLint, t:GLint, r:GLint):void
-$glMultiTexCoord3iv(target:GLenum, v:GLint@:const):void
+glMultiTexCoord3iv(target:GLenum, v:GLint@3:const):void
 glMultiTexCoord3s(target:GLenum, s:GLshort, t:GLshort, r:GLshort):void
-$glMultiTexCoord3sv(target:GLenum, v:GLshort@:const):void
+glMultiTexCoord3sv(target:GLenum, v:GLshort@3:const):void
 glMultiTexCoord4d(target:GLenum, s:GLdouble, t:GLdouble, r:GLdouble, q:GLdouble):void
-$glMultiTexCoord4dv(target:GLenum, v:GLdouble@:const):void
+glMultiTexCoord4dv(target:GLenum, v:GLdouble@4:const):void
 glMultiTexCoord4f(target:GLenum, s:GLfloat, t:GLfloat, r:GLfloat, q:GLfloat):void
-$glMultiTexCoord4fv(target:GLenum, v:GLfloat@:const):void
+glMultiTexCoord4fv(target:GLenum, v:GLfloat@4:const):void
 glMultiTexCoord4i(target:GLenum, s:GLint, t:GLint, r:GLint, q:GLint):void
-$glMultiTexCoord4iv(target:GLenum, v:GLint@:const):void
+glMultiTexCoord4iv(target:GLenum, v:GLint@4:const):void
 glMultiTexCoord4s(target:GLenum, s:GLshort, t:GLshort, r:GLshort, q:GLshort):void
-$glMultiTexCoord4sv(target:GLenum, v:GLshort@:const):void
+glMultiTexCoord4sv(target:GLenum, v:GLshort@4:const):void
 glFogCoordf(coord:GLfloat):void
-$glFogCoordfv(coord:GLfloat@:const):void
+glFogCoordfv(coord:GLfloat@1:const):void
 glFogCoordd(coord:GLdouble):void
-$glFogCoorddv(coord:GLdouble@:const):void
+glFogCoorddv(coord:GLdouble@1:const):void
 //$glFogCoordPointer(type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void
 glSecondaryColor3b(red:GLbyte, green:GLbyte, blue:GLbyte):void
-$glSecondaryColor3bv(v:GLbyte@:const):void
+glSecondaryColor3bv(v:GLbyte@3:const):void
 glSecondaryColor3d(red:GLdouble, green:GLdouble, blue:GLdouble):void
-$glSecondaryColor3dv(v:GLdouble@:const):void
+glSecondaryColor3dv(v:GLdouble@3:const):void
 glSecondaryColor3f(red:GLfloat, green:GLfloat, blue:GLfloat):void
-$glSecondaryColor3fv(v:GLfloat@:const):void
+glSecondaryColor3fv(v:GLfloat@3:const):void
 glSecondaryColor3i(red:GLint, green:GLint, blue:GLint):void
-$glSecondaryColor3iv(v:GLint@:const):void
+glSecondaryColor3iv(v:GLint@3:const):void
 glSecondaryColor3s(red:GLshort, green:GLshort, blue:GLshort):void
-$glSecondaryColor3sv(v:GLshort@:const):void
+glSecondaryColor3sv(v:GLshort@3:const):void
 glSecondaryColor3ub(red:GLubyte, green:GLubyte, blue:GLubyte):void
-$glSecondaryColor3ubv(v:GLubyte@:const):void
+glSecondaryColor3ubv(v:GLubyte@3:const):void
 glSecondaryColor3ui(red:GLuint, green:GLuint, blue:GLuint):void
-$glSecondaryColor3uiv(v:GLuint@:const):void
+glSecondaryColor3uiv(v:GLuint@3:const):void
 glSecondaryColor3us(red:GLushort, green:GLushort, blue:GLushort):void
-$glSecondaryColor3usv(v:GLushort@:const):void
+glSecondaryColor3usv(v:GLushort@3:const):void
 //$glSecondaryColorPointer(size:GLint, type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void
 glPointParameterf(pname:GLenum, param:GLfloat):void
 $glPointParameterfv(pname:GLenum, params:GLfloat@:const):void
@@ -542,21 +550,21 @@ glBlendFuncSeparate(srcRGB:GLenum, dstRGB:GLenum, srcAlpha:GLenum, dstAlpha:GLen
 $glMultiDrawArrays(mode:GLenum, first:GLint@:const, count:GLsizei@:const, primcount:GLsizei):void
 //$glMultiDrawElements(mode:GLenum, count:GLsizei@:const, type:GLenum, indices:GLvoid@:const@:const, primcount:GLsizei):void
 glWindowPos2d(x:GLdouble, y:GLdouble):void
-$glWindowPos2dv(v:GLdouble@:const):void
+glWindowPos2dv(v:GLdouble@2:const):void
 glWindowPos2f(x:GLfloat, y:GLfloat):void
-$glWindowPos2fv(v:GLfloat@:const):void
+glWindowPos2fv(v:GLfloat@2:const):void
 glWindowPos2i(x:GLint, y:GLint):void
-$glWindowPos2iv(v:GLint@:const):void
+glWindowPos2iv(v:GLint@2:const):void
 glWindowPos2s(x:GLshort, y:GLshort):void
-$glWindowPos2sv(v:GLshort@:const):void
+glWindowPos2sv(v:GLshort@2:const):void
 glWindowPos3d(x:GLdouble, y:GLdouble, z:GLdouble):void
-$glWindowPos3dv(v:GLdouble@:const):void
+glWindowPos3dv(v:GLdouble@3:const):void
 glWindowPos3f(x:GLfloat, y:GLfloat, z:GLfloat):void
-$glWindowPos3fv(v:GLfloat@:const):void
+glWindowPos3fv(v:GLfloat@3:const):void
 glWindowPos3i(x:GLint, y:GLint, z:GLint):void
-$glWindowPos3iv(v:GLint@:const):void
+glWindowPos3iv(v:GLint@3:const):void
 glWindowPos3s(x:GLshort, y:GLshort, z:GLshort):void
-$glWindowPos3sv(v:GLshort@:const):void
+glWindowPos3sv(v:GLshort@3:const):void
 $glGenQueries(n:GLsizei, ids:GLuint@):void
 $glDeleteQueries(n:GLsizei, ids:GLuint@:const):void
 glIsQuery(id:GLuint):GLboolean
@@ -578,41 +586,41 @@ $glGetBufferParameteriv(target:GLenum, pname:GLenum, params:GLint@):void
 //$glGetBufferPointerv(target:GLenum, pname:GLenum, params:GLvoid@@):void
 $glDrawBuffers(n:GLsizei, bufs:GLenum@:const):void
 glVertexAttrib1d(index:GLuint, x:GLdouble):void
-$glVertexAttrib1dv(index:GLuint, v:GLdouble@:const):void
+glVertexAttrib1dv(index:GLuint, v:GLdouble@1:const):void
 glVertexAttrib1f(index:GLuint, x:GLfloat):void
-$glVertexAttrib1fv(index:GLuint, v:GLfloat@:const):void
+glVertexAttrib1fv(index:GLuint, v:GLfloat@1:const):void
 glVertexAttrib1s(index:GLuint, x:GLshort):void
-$glVertexAttrib1sv(index:GLuint, v:GLshort@:const):void
+glVertexAttrib1sv(index:GLuint, v:GLshort@1:const):void
 glVertexAttrib2d(index:GLuint, x:GLdouble, y:GLdouble):void
-$glVertexAttrib2dv(index:GLuint, v:GLdouble@:const):void
+glVertexAttrib2dv(index:GLuint, v:GLdouble@2:const):void
 glVertexAttrib2f(index:GLuint, x:GLfloat, y:GLfloat):void
-$glVertexAttrib2fv(index:GLuint, v:GLfloat@:const):void
+glVertexAttrib2fv(index:GLuint, v:GLfloat@2:const):void
 glVertexAttrib2s(index:GLuint, x:GLshort, y:GLshort):void
-$glVertexAttrib2sv(index:GLuint, v:GLshort@:const):void
+glVertexAttrib2sv(index:GLuint, v:GLshort@2:const):void
 glVertexAttrib3d(index:GLuint, x:GLdouble, y:GLdouble, z:GLdouble):void
-$glVertexAttrib3dv(index:GLuint, v:GLdouble@:const):void
+glVertexAttrib3dv(index:GLuint, v:GLdouble@3:const):void
 glVertexAttrib3f(index:GLuint, x:GLfloat, y:GLfloat, z:GLfloat):void
-$glVertexAttrib3fv(index:GLuint, v:GLfloat@:const):void
+glVertexAttrib3fv(index:GLuint, v:GLfloat@3:const):void
 glVertexAttrib3s(index:GLuint, x:GLshort, y:GLshort, z:GLshort):void
-$glVertexAttrib3sv(index:GLuint, v:GLshort@:const):void
-$glVertexAttrib4Nbv(index:GLuint, v:GLbyte@:const):void
-$glVertexAttrib4Niv(index:GLuint, v:GLint@:const):void
-$glVertexAttrib4Nsv(index:GLuint, v:GLshort@:const):void
+glVertexAttrib3sv(index:GLuint, v:GLshort@3:const):void
+glVertexAttrib4Nbv(index:GLuint, v:GLbyte@4:const):void
+glVertexAttrib4Niv(index:GLuint, v:GLint@4:const):void
+glVertexAttrib4Nsv(index:GLuint, v:GLshort@4:const):void
 glVertexAttrib4Nub(index:GLuint, x:GLubyte, y:GLubyte, z:GLubyte, w:GLubyte):void
-$glVertexAttrib4Nubv(index:GLuint, v:GLubyte@:const):void
-$glVertexAttrib4Nuiv(index:GLuint, v:GLuint@:const):void
-$glVertexAttrib4Nusv(index:GLuint, v:GLushort@:const):void
-$glVertexAttrib4bv(index:GLuint, v:GLbyte@:const):void
+glVertexAttrib4Nubv(index:GLuint, v:GLubyte@4:const):void
+glVertexAttrib4Nuiv(index:GLuint, v:GLuint@4:const):void
+glVertexAttrib4Nusv(index:GLuint, v:GLushort@4:const):void
+glVertexAttrib4bv(index:GLuint, v:GLbyte@4:const):void
 glVertexAttrib4d(index:GLuint, x:GLdouble, y:GLdouble, z:GLdouble, w:GLdouble):void
-$glVertexAttrib4dv(index:GLuint, v:GLdouble@:const):void
+glVertexAttrib4dv(index:GLuint, v:GLdouble@4:const):void
 glVertexAttrib4f(index:GLuint, x:GLfloat, y:GLfloat, z:GLfloat, w:GLfloat):void
-$glVertexAttrib4fv(index:GLuint, v:GLfloat@:const):void
-$glVertexAttrib4iv(index:GLuint, v:GLint@:const):void
+glVertexAttrib4fv(index:GLuint, v:GLfloat@4:const):void
+glVertexAttrib4iv(index:GLuint, v:GLint@4:const):void
 glVertexAttrib4s(index:GLuint, x:GLshort, y:GLshort, z:GLshort, w:GLshort):void
-$glVertexAttrib4sv(index:GLuint, v:GLshort@:const):void
-$glVertexAttrib4ubv(index:GLuint, v:GLubyte@:const):void
-$glVertexAttrib4uiv(index:GLuint, v:GLuint@:const):void
-$glVertexAttrib4usv(index:GLuint, v:GLushort@:const):void
+glVertexAttrib4sv(index:GLuint, v:GLshort@4:const):void
+glVertexAttrib4ubv(index:GLuint, v:GLubyte@4:const):void
+glVertexAttrib4uiv(index:GLuint, v:GLuint@4:const):void
+glVertexAttrib4usv(index:GLuint, v:GLushort@4:const):void
 //$glVertexAttribPointer(index:GLuint, size:GLint, type:GLenum, normalized:GLboolean, stride:GLsizei, pointer:GLvoid@:const):void
 glEnableVertexAttribArray(index:GLuint):void
 glDisableVertexAttribArray(index:GLuint):void
@@ -692,10 +700,10 @@ typeConvDict = %{
 	TypeConv_Enum('GLenum')
 	'GLboolean' => TypeConv(
 			'boolean', 'Once', [],
-			'GLboolean ${arg.name} = (args.GetBoolean(${idx})? 1 : 0);',
+			'GLboolean ${arg.name} = (args.GetBoolean(${idx})? GL_TRUE : GL_FALSE);',
 			R'''
 			GLboolean _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn != 0));''')
+			ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));''')
 	'GLbitfield' => TypeConv(
 			'number', 'Once', [],
 			'GLbitfield ${arg.name} = args.GetUInt(${idx});',
@@ -784,6 +792,33 @@ typeConvDict = %{
 			'boolean', 'Once', ['List'],
 			'CArray<GLboolean> ${arg.name} = args.GetList(${idx});',
 			nil)
+	'GLboolean@1:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLboolean> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 1) {
+				sig.SetError(ERR_ValueError, "the list must have one element");
+				return Value::Null;
+			}''',
+			nil)
+	'GLboolean@2:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLboolean> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 2) {
+				sig.SetError(ERR_ValueError, "the list must have two elements");
+				return Value::Null;
+			}''',
+			nil)
+	'GLboolean@3:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLboolean> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 3) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil)
 	'GLbyte@:const' => TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLbyte> ${arg.name} = args.GetList(${idx});',
@@ -844,6 +879,24 @@ typeConvDict = %{
 			'number', 'Once', ['List'],
 			'CArray<GLshort> ${arg.name} = args.GetList(${idx});',
 			nil)
+	'GLshort@1:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLshort> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 1) {
+				sig.SetError(ERR_ValueError, "the list must have one element");
+				return Value::Null;
+			}''',
+			nil)
+	'GLshort@2:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLshort> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 2) {
+				sig.SetError(ERR_ValueError, "the list must have two elements");
+				return Value::Null;
+			}''',
+			nil)
 	'GLshort@3:const' => TypeConv(
 			'number', 'Once', ['List'],
 			R'''
@@ -895,6 +948,24 @@ typeConvDict = %{
 	'GLint@:const' => TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLint> ${arg.name} = args.GetList(${idx});',
+			nil)
+	'GLint@1:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLint> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 1) {
+				sig.SetError(ERR_ValueError, "the list must have one element");
+				return Value::Null;
+			}''',
+			nil)
+	'GLint@2:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLint> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 2) {
+				sig.SetError(ERR_ValueError, "the list must have two elements");
+				return Value::Null;
+			}''',
 			nil)
 	'GLint@3:const' => TypeConv(
 			'number', 'Once', ['List'],
@@ -956,6 +1027,24 @@ typeConvDict = %{
 			'number', 'Once', ['List'],
 			'CArray<GLfloat> ${arg.name} = args.GetList(${idx});',
 			nil)
+	'GLfloat@1:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 1) {
+				sig.SetError(ERR_ValueError, "the list must have one element");
+				return Value::Null;
+			}''',
+			nil)
+	'GLfloat@2:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 2) {
+				sig.SetError(ERR_ValueError, "the list must have two elements");
+				return Value::Null;
+			}''',
+			nil)
 	'GLfloat@3:const' => TypeConv(
 			'number', 'Once', ['List'],
 			R'''
@@ -970,7 +1059,16 @@ typeConvDict = %{
 			R'''
 			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
 			if (${arg.name}.GetSize() != 4) {
-				sig.SetError(ERR_ValueError, "the list must have three elements");
+				sig.SetError(ERR_ValueError, "the list must have four elements");
+				return Value::Null;
+			}''',
+			nil)
+	'GLfloat@16:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 16) {
+				sig.SetError(ERR_ValueError, "the list must have four elements");
 				return Value::Null;
 			}''',
 			nil)
@@ -986,6 +1084,24 @@ typeConvDict = %{
 			'number', 'Once', ['List'],
 			'CArray<GLdouble> ${arg.name} = args.GetList(${idx});',
 			nil)
+	'GLdouble@1:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 1) {
+				sig.SetError(ERR_ValueError, "the list must have one element");
+				return Value::Null;
+			}''',
+			nil)
+	'GLdouble@2:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 2) {
+				sig.SetError(ERR_ValueError, "the list must have two elements");
+				return Value::Null;
+			}''',
+			nil)
 	'GLdouble@3:const' => TypeConv(
 			'number', 'Once', ['List'],
 			R'''
@@ -1000,7 +1116,16 @@ typeConvDict = %{
 			R'''
 			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
 			if (${arg.name}.GetSize() != 4) {
-				sig.SetError(ERR_ValueError, "the list must have three elements");
+				sig.SetError(ERR_ValueError, "the list must have four elements");
+				return Value::Null;
+			}''',
+			nil)
+	'GLdouble@16:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 16) {
+				sig.SetError(ERR_ValueError, "the list must have four elements");
 				return Value::Null;
 			}''',
 			nil)

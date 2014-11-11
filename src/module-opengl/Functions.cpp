@@ -841,7 +841,7 @@ Gura_ImplementFunction(glColor4dv)
 {
 	CArray<GLdouble> v = args.GetList(0);
 	if (v.GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		sig.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Null;
 	}
 	glColor4dv(v);
@@ -883,7 +883,7 @@ Gura_ImplementFunction(glColor4fv)
 {
 	CArray<GLfloat> v = args.GetList(0);
 	if (v.GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		sig.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Null;
 	}
 	glColor4fv(v);
@@ -1114,10 +1114,10 @@ Gura_DeclareFunction(glColorMask)
 
 Gura_ImplementFunction(glColorMask)
 {
-	GLboolean red = (args.GetBoolean(0)? 1 : 0);
-	GLboolean green = (args.GetBoolean(1)? 1 : 0);
-	GLboolean blue = (args.GetBoolean(2)? 1 : 0);
-	GLboolean alpha = (args.GetBoolean(3)? 1 : 0);
+	GLboolean red = (args.GetBoolean(0)? GL_TRUE : GL_FALSE);
+	GLboolean green = (args.GetBoolean(1)? GL_TRUE : GL_FALSE);
+	GLboolean blue = (args.GetBoolean(2)? GL_TRUE : GL_FALSE);
+	GLboolean alpha = (args.GetBoolean(3)? GL_TRUE : GL_FALSE);
 	glColorMask(red, green, blue, alpha);
 	return Value::Null;
 }
@@ -1582,7 +1582,6 @@ Gura_ImplementFunction(glDeleteLists)
 Gura_DeclareFunction(glDeleteTextures)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "n", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "textures", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -1590,13 +1589,9 @@ Gura_DeclareFunction(glDeleteTextures)
 
 Gura_ImplementFunction(glDeleteTextures)
 {
-#if 0
-	GLsizei n = args.GetInt(0);
-	CArray<GLuint> textures = args.GetList(1);
+	CArray<GLuint> textures = args.GetList(0);
+	GLsizei n = textures.GetSize();
 	glDeleteTextures(n, textures);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glDeleteTextures");
 	return Value::Null;
 }
 
@@ -1627,7 +1622,7 @@ Gura_DeclareFunction(glDepthMask)
 
 Gura_ImplementFunction(glDepthMask)
 {
-	GLboolean flag = (args.GetBoolean(0)? 1 : 0);
+	GLboolean flag = (args.GetBoolean(0)? GL_TRUE : GL_FALSE);
 	glDepthMask(flag);
 	return Value::Null;
 }
@@ -1729,7 +1724,7 @@ Gura_DeclareFunction(glEdgeFlag)
 
 Gura_ImplementFunction(glEdgeFlag)
 {
-	GLboolean flag = (args.GetBoolean(0)? 1 : 0);
+	GLboolean flag = (args.GetBoolean(0)? GL_TRUE : GL_FALSE);
 	glEdgeFlag(flag);
 	return Value::Null;
 }
@@ -1738,19 +1733,19 @@ Gura_ImplementFunction(glEdgeFlag)
 Gura_DeclareFunction(glEdgeFlagv)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "flag", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glEdgeFlagv)
 {
-#if 0
 	CArray<GLboolean> flag = args.GetList(0);
+	if (flag.GetSize() != 1) {
+		sig.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Null;
+	}
 	glEdgeFlagv(flag);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glEdgeFlagv");
 	return Value::Null;
 }
 
@@ -1841,12 +1836,12 @@ Gura_DeclareFunction(glEvalCoord1dv)
 
 Gura_ImplementFunction(glEvalCoord1dv)
 {
-#if 0
 	CArray<GLdouble> u = args.GetList(0);
+	if (u.GetSize() != 1) {
+		sig.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Null;
+	}
 	glEvalCoord1dv(u);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glEvalCoord1dv");
 	return Value::Null;
 }
 
@@ -1877,12 +1872,12 @@ Gura_DeclareFunction(glEvalCoord1fv)
 
 Gura_ImplementFunction(glEvalCoord1fv)
 {
-#if 0
 	CArray<GLfloat> u = args.GetList(0);
+	if (u.GetSize() != 1) {
+		sig.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Null;
+	}
 	glEvalCoord1fv(u);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glEvalCoord1fv");
 	return Value::Null;
 }
 
@@ -1915,12 +1910,12 @@ Gura_DeclareFunction(glEvalCoord2dv)
 
 Gura_ImplementFunction(glEvalCoord2dv)
 {
-#if 0
 	CArray<GLdouble> u = args.GetList(0);
+	if (u.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glEvalCoord2dv(u);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glEvalCoord2dv");
 	return Value::Null;
 }
 
@@ -1953,12 +1948,12 @@ Gura_DeclareFunction(glEvalCoord2fv)
 
 Gura_ImplementFunction(glEvalCoord2fv)
 {
-#if 0
 	CArray<GLfloat> u = args.GetList(0);
+	if (u.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glEvalCoord2fv(u);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glEvalCoord2fv");
 	return Value::Null;
 }
 
@@ -2234,23 +2229,19 @@ Gura_ImplementFunction(glGenLists)
 // opengl.glGenTextures
 Gura_DeclareFunction(glGenTextures)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "textures", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGenTextures)
 {
-#if 0
 	GLsizei n = args.GetInt(0);
-	CArray<GLuint> textures = args.GetList(1);
+	CArray<GLuint> textures(n);
 	glGenTextures(n, textures);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGenTextures");
-	return Value::Null;
+	return Value::CreateList(env, textures, n);
 }
 
 // opengl.glGetBooleanv
@@ -3099,7 +3090,7 @@ Gura_ImplementFunction(glHistogram)
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLsizei width = args.GetInt(1);
 	GLenum internalformat = static_cast<GLenum>(args.GetInt(2));
-	GLboolean sink = (args.GetBoolean(3)? 1 : 0);
+	GLboolean sink = (args.GetBoolean(3)? GL_TRUE : GL_FALSE);
 	glHistogram(target, width, internalformat, sink);
 	return Value::Null;
 }
@@ -3328,7 +3319,7 @@ Gura_ImplementFunction(glIsEnabled)
 {
 	GLenum cap = static_cast<GLenum>(args.GetInt(0));
 	GLboolean _rtn = glIsEnabled(cap);
-	ReturnValue(env, sig, args, Value(_rtn != 0));
+	ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
 }
 
 // opengl.glIsList
@@ -3345,7 +3336,7 @@ Gura_ImplementFunction(glIsList)
 {
 	GLuint list = args.GetUInt(0);
 	GLboolean _rtn = glIsList(list);
-	ReturnValue(env, sig, args, Value(_rtn != 0));
+	ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
 }
 
 // opengl.glIsTexture
@@ -3362,7 +3353,7 @@ Gura_ImplementFunction(glIsTexture)
 {
 	GLuint texture = args.GetUInt(0);
 	GLboolean _rtn = glIsTexture(texture);
-	ReturnValue(env, sig, args, Value(_rtn != 0));
+	ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
 }
 
 // opengl.glLightModelf
@@ -4016,7 +4007,7 @@ Gura_ImplementFunction(glMinmax)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum internalformat = static_cast<GLenum>(args.GetInt(1));
-	GLboolean sink = (args.GetBoolean(2)? 1 : 0);
+	GLboolean sink = (args.GetBoolean(2)? GL_TRUE : GL_FALSE);
 	glMinmax(target, internalformat, sink);
 	return Value::Null;
 }
@@ -4110,12 +4101,12 @@ Gura_DeclareFunction(glNormal3bv)
 
 Gura_ImplementFunction(glNormal3bv)
 {
-#if 0
 	CArray<GLbyte> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glNormal3bv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glNormal3bv");
 	return Value::Null;
 }
 
@@ -4150,12 +4141,12 @@ Gura_DeclareFunction(glNormal3dv)
 
 Gura_ImplementFunction(glNormal3dv)
 {
-#if 0
 	CArray<GLdouble> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glNormal3dv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glNormal3dv");
 	return Value::Null;
 }
 
@@ -4190,12 +4181,12 @@ Gura_DeclareFunction(glNormal3fv)
 
 Gura_ImplementFunction(glNormal3fv)
 {
-#if 0
 	CArray<GLfloat> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glNormal3fv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glNormal3fv");
 	return Value::Null;
 }
 
@@ -4230,12 +4221,12 @@ Gura_DeclareFunction(glNormal3iv)
 
 Gura_ImplementFunction(glNormal3iv)
 {
-#if 0
 	CArray<GLint> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glNormal3iv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glNormal3iv");
 	return Value::Null;
 }
 
@@ -4270,12 +4261,12 @@ Gura_DeclareFunction(glNormal3sv)
 
 Gura_ImplementFunction(glNormal3sv)
 {
-#if 0
 	CArray<GLshort> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glNormal3sv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glNormal3sv");
 	return Value::Null;
 }
 
@@ -4726,12 +4717,12 @@ Gura_DeclareFunction(glRasterPos2dv)
 
 Gura_ImplementFunction(glRasterPos2dv)
 {
-#if 0
 	CArray<GLdouble> v = args.GetList(0);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glRasterPos2dv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glRasterPos2dv");
 	return Value::Null;
 }
 
@@ -4764,12 +4755,12 @@ Gura_DeclareFunction(glRasterPos2fv)
 
 Gura_ImplementFunction(glRasterPos2fv)
 {
-#if 0
 	CArray<GLfloat> v = args.GetList(0);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glRasterPos2fv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glRasterPos2fv");
 	return Value::Null;
 }
 
@@ -4802,12 +4793,12 @@ Gura_DeclareFunction(glRasterPos2iv)
 
 Gura_ImplementFunction(glRasterPos2iv)
 {
-#if 0
 	CArray<GLint> v = args.GetList(0);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glRasterPos2iv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glRasterPos2iv");
 	return Value::Null;
 }
 
@@ -4840,12 +4831,12 @@ Gura_DeclareFunction(glRasterPos2sv)
 
 Gura_ImplementFunction(glRasterPos2sv)
 {
-#if 0
 	CArray<GLshort> v = args.GetList(0);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glRasterPos2sv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glRasterPos2sv");
 	return Value::Null;
 }
 
@@ -4880,12 +4871,12 @@ Gura_DeclareFunction(glRasterPos3dv)
 
 Gura_ImplementFunction(glRasterPos3dv)
 {
-#if 0
 	CArray<GLdouble> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glRasterPos3dv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glRasterPos3dv");
 	return Value::Null;
 }
 
@@ -4920,12 +4911,12 @@ Gura_DeclareFunction(glRasterPos3fv)
 
 Gura_ImplementFunction(glRasterPos3fv)
 {
-#if 0
 	CArray<GLfloat> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glRasterPos3fv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glRasterPos3fv");
 	return Value::Null;
 }
 
@@ -4960,12 +4951,12 @@ Gura_DeclareFunction(glRasterPos3iv)
 
 Gura_ImplementFunction(glRasterPos3iv)
 {
-#if 0
 	CArray<GLint> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glRasterPos3iv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glRasterPos3iv");
 	return Value::Null;
 }
 
@@ -5000,12 +4991,12 @@ Gura_DeclareFunction(glRasterPos3sv)
 
 Gura_ImplementFunction(glRasterPos3sv)
 {
-#if 0
 	CArray<GLshort> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glRasterPos3sv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glRasterPos3sv");
 	return Value::Null;
 }
 
@@ -5042,12 +5033,12 @@ Gura_DeclareFunction(glRasterPos4dv)
 
 Gura_ImplementFunction(glRasterPos4dv)
 {
-#if 0
 	CArray<GLdouble> v = args.GetList(0);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Null;
+	}
 	glRasterPos4dv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glRasterPos4dv");
 	return Value::Null;
 }
 
@@ -5084,12 +5075,12 @@ Gura_DeclareFunction(glRasterPos4fv)
 
 Gura_ImplementFunction(glRasterPos4fv)
 {
-#if 0
 	CArray<GLfloat> v = args.GetList(0);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Null;
+	}
 	glRasterPos4fv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glRasterPos4fv");
 	return Value::Null;
 }
 
@@ -5126,12 +5117,12 @@ Gura_DeclareFunction(glRasterPos4iv)
 
 Gura_ImplementFunction(glRasterPos4iv)
 {
-#if 0
 	CArray<GLint> v = args.GetList(0);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glRasterPos4iv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glRasterPos4iv");
 	return Value::Null;
 }
 
@@ -5168,12 +5159,12 @@ Gura_DeclareFunction(glRasterPos4sv)
 
 Gura_ImplementFunction(glRasterPos4sv)
 {
-#if 0
 	CArray<GLshort> v = args.GetList(0);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glRasterPos4sv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glRasterPos4sv");
 	return Value::Null;
 }
 
@@ -5227,13 +5218,17 @@ Gura_DeclareFunction(glRectdv)
 
 Gura_ImplementFunction(glRectdv)
 {
-#if 0
 	CArray<GLdouble> v1 = args.GetList(0);
+	if (v1.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	CArray<GLdouble> v2 = args.GetList(1);
+	if (v2.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glRectdv(v1, v2);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glRectdv");
 	return Value::Null;
 }
 
@@ -5271,13 +5266,17 @@ Gura_DeclareFunction(glRectfv)
 
 Gura_ImplementFunction(glRectfv)
 {
-#if 0
 	CArray<GLfloat> v1 = args.GetList(0);
+	if (v1.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	CArray<GLfloat> v2 = args.GetList(1);
+	if (v2.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glRectfv(v1, v2);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glRectfv");
 	return Value::Null;
 }
 
@@ -5315,13 +5314,17 @@ Gura_DeclareFunction(glRectiv)
 
 Gura_ImplementFunction(glRectiv)
 {
-#if 0
 	CArray<GLint> v1 = args.GetList(0);
+	if (v1.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	CArray<GLint> v2 = args.GetList(1);
+	if (v2.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glRectiv(v1, v2);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glRectiv");
 	return Value::Null;
 }
 
@@ -5359,13 +5362,17 @@ Gura_DeclareFunction(glRectsv)
 
 Gura_ImplementFunction(glRectsv)
 {
-#if 0
 	CArray<GLshort> v1 = args.GetList(0);
+	if (v1.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	CArray<GLshort> v2 = args.GetList(1);
+	if (v2.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glRectsv(v1, v2);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glRectsv");
 	return Value::Null;
 }
 
@@ -5645,12 +5652,12 @@ Gura_DeclareFunction(glTexCoord1dv)
 
 Gura_ImplementFunction(glTexCoord1dv)
 {
-#if 0
 	CArray<GLdouble> v = args.GetList(0);
+	if (v.GetSize() != 1) {
+		sig.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Null;
+	}
 	glTexCoord1dv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexCoord1dv");
 	return Value::Null;
 }
 
@@ -5681,12 +5688,12 @@ Gura_DeclareFunction(glTexCoord1fv)
 
 Gura_ImplementFunction(glTexCoord1fv)
 {
-#if 0
 	CArray<GLfloat> v = args.GetList(0);
+	if (v.GetSize() != 1) {
+		sig.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Null;
+	}
 	glTexCoord1fv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexCoord1fv");
 	return Value::Null;
 }
 
@@ -5717,12 +5724,12 @@ Gura_DeclareFunction(glTexCoord1iv)
 
 Gura_ImplementFunction(glTexCoord1iv)
 {
-#if 0
 	CArray<GLint> v = args.GetList(0);
+	if (v.GetSize() != 1) {
+		sig.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Null;
+	}
 	glTexCoord1iv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexCoord1iv");
 	return Value::Null;
 }
 
@@ -5753,12 +5760,12 @@ Gura_DeclareFunction(glTexCoord1sv)
 
 Gura_ImplementFunction(glTexCoord1sv)
 {
-#if 0
 	CArray<GLshort> v = args.GetList(0);
+	if (v.GetSize() != 1) {
+		sig.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Null;
+	}
 	glTexCoord1sv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexCoord1sv");
 	return Value::Null;
 }
 
@@ -5791,12 +5798,12 @@ Gura_DeclareFunction(glTexCoord2dv)
 
 Gura_ImplementFunction(glTexCoord2dv)
 {
-#if 0
 	CArray<GLdouble> v = args.GetList(0);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glTexCoord2dv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexCoord2dv");
 	return Value::Null;
 }
 
@@ -5829,12 +5836,12 @@ Gura_DeclareFunction(glTexCoord2fv)
 
 Gura_ImplementFunction(glTexCoord2fv)
 {
-#if 0
 	CArray<GLfloat> v = args.GetList(0);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glTexCoord2fv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexCoord2fv");
 	return Value::Null;
 }
 
@@ -5867,12 +5874,12 @@ Gura_DeclareFunction(glTexCoord2iv)
 
 Gura_ImplementFunction(glTexCoord2iv)
 {
-#if 0
 	CArray<GLint> v = args.GetList(0);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glTexCoord2iv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexCoord2iv");
 	return Value::Null;
 }
 
@@ -5905,12 +5912,12 @@ Gura_DeclareFunction(glTexCoord2sv)
 
 Gura_ImplementFunction(glTexCoord2sv)
 {
-#if 0
 	CArray<GLshort> v = args.GetList(0);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glTexCoord2sv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexCoord2sv");
 	return Value::Null;
 }
 
@@ -5945,12 +5952,12 @@ Gura_DeclareFunction(glTexCoord3dv)
 
 Gura_ImplementFunction(glTexCoord3dv)
 {
-#if 0
 	CArray<GLdouble> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glTexCoord3dv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexCoord3dv");
 	return Value::Null;
 }
 
@@ -5985,12 +5992,12 @@ Gura_DeclareFunction(glTexCoord3fv)
 
 Gura_ImplementFunction(glTexCoord3fv)
 {
-#if 0
 	CArray<GLfloat> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glTexCoord3fv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexCoord3fv");
 	return Value::Null;
 }
 
@@ -6025,12 +6032,12 @@ Gura_DeclareFunction(glTexCoord3iv)
 
 Gura_ImplementFunction(glTexCoord3iv)
 {
-#if 0
 	CArray<GLint> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glTexCoord3iv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexCoord3iv");
 	return Value::Null;
 }
 
@@ -6065,12 +6072,12 @@ Gura_DeclareFunction(glTexCoord3sv)
 
 Gura_ImplementFunction(glTexCoord3sv)
 {
-#if 0
 	CArray<GLshort> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glTexCoord3sv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexCoord3sv");
 	return Value::Null;
 }
 
@@ -6107,12 +6114,12 @@ Gura_DeclareFunction(glTexCoord4dv)
 
 Gura_ImplementFunction(glTexCoord4dv)
 {
-#if 0
 	CArray<GLdouble> v = args.GetList(0);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Null;
+	}
 	glTexCoord4dv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexCoord4dv");
 	return Value::Null;
 }
 
@@ -6149,12 +6156,12 @@ Gura_DeclareFunction(glTexCoord4fv)
 
 Gura_ImplementFunction(glTexCoord4fv)
 {
-#if 0
 	CArray<GLfloat> v = args.GetList(0);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Null;
+	}
 	glTexCoord4fv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexCoord4fv");
 	return Value::Null;
 }
 
@@ -6191,12 +6198,12 @@ Gura_DeclareFunction(glTexCoord4iv)
 
 Gura_ImplementFunction(glTexCoord4iv)
 {
-#if 0
 	CArray<GLint> v = args.GetList(0);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glTexCoord4iv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexCoord4iv");
 	return Value::Null;
 }
 
@@ -6233,12 +6240,12 @@ Gura_DeclareFunction(glTexCoord4sv)
 
 Gura_ImplementFunction(glTexCoord4sv)
 {
-#if 0
 	CArray<GLshort> v = args.GetList(0);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glTexCoord4sv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexCoord4sv");
 	return Value::Null;
 }
 
@@ -6619,12 +6626,12 @@ Gura_DeclareFunction(glVertex2dv)
 
 Gura_ImplementFunction(glVertex2dv)
 {
-#if 0
 	CArray<GLdouble> v = args.GetList(0);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glVertex2dv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertex2dv");
 	return Value::Null;
 }
 
@@ -6657,12 +6664,12 @@ Gura_DeclareFunction(glVertex2fv)
 
 Gura_ImplementFunction(glVertex2fv)
 {
-#if 0
 	CArray<GLfloat> v = args.GetList(0);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glVertex2fv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertex2fv");
 	return Value::Null;
 }
 
@@ -6695,12 +6702,12 @@ Gura_DeclareFunction(glVertex2iv)
 
 Gura_ImplementFunction(glVertex2iv)
 {
-#if 0
 	CArray<GLint> v = args.GetList(0);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glVertex2iv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertex2iv");
 	return Value::Null;
 }
 
@@ -6733,12 +6740,12 @@ Gura_DeclareFunction(glVertex2sv)
 
 Gura_ImplementFunction(glVertex2sv)
 {
-#if 0
 	CArray<GLshort> v = args.GetList(0);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glVertex2sv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertex2sv");
 	return Value::Null;
 }
 
@@ -6773,12 +6780,12 @@ Gura_DeclareFunction(glVertex3dv)
 
 Gura_ImplementFunction(glVertex3dv)
 {
-#if 0
 	CArray<GLdouble> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glVertex3dv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertex3dv");
 	return Value::Null;
 }
 
@@ -6813,12 +6820,12 @@ Gura_DeclareFunction(glVertex3fv)
 
 Gura_ImplementFunction(glVertex3fv)
 {
-#if 0
 	CArray<GLfloat> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glVertex3fv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertex3fv");
 	return Value::Null;
 }
 
@@ -6853,12 +6860,12 @@ Gura_DeclareFunction(glVertex3iv)
 
 Gura_ImplementFunction(glVertex3iv)
 {
-#if 0
 	CArray<GLint> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glVertex3iv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertex3iv");
 	return Value::Null;
 }
 
@@ -6893,12 +6900,12 @@ Gura_DeclareFunction(glVertex3sv)
 
 Gura_ImplementFunction(glVertex3sv)
 {
-#if 0
 	CArray<GLshort> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glVertex3sv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertex3sv");
 	return Value::Null;
 }
 
@@ -6935,12 +6942,12 @@ Gura_DeclareFunction(glVertex4dv)
 
 Gura_ImplementFunction(glVertex4dv)
 {
-#if 0
 	CArray<GLdouble> v = args.GetList(0);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Null;
+	}
 	glVertex4dv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertex4dv");
 	return Value::Null;
 }
 
@@ -6977,12 +6984,12 @@ Gura_DeclareFunction(glVertex4fv)
 
 Gura_ImplementFunction(glVertex4fv)
 {
-#if 0
 	CArray<GLfloat> v = args.GetList(0);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Null;
+	}
 	glVertex4fv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertex4fv");
 	return Value::Null;
 }
 
@@ -7019,12 +7026,12 @@ Gura_DeclareFunction(glVertex4iv)
 
 Gura_ImplementFunction(glVertex4iv)
 {
-#if 0
 	CArray<GLint> v = args.GetList(0);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glVertex4iv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertex4iv");
 	return Value::Null;
 }
 
@@ -7061,12 +7068,12 @@ Gura_DeclareFunction(glVertex4sv)
 
 Gura_ImplementFunction(glVertex4sv)
 {
-#if 0
 	CArray<GLshort> v = args.GetList(0);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glVertex4sv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertex4sv");
 	return Value::Null;
 }
 
@@ -7105,7 +7112,7 @@ Gura_DeclareFunction(glSampleCoverage)
 Gura_ImplementFunction(glSampleCoverage)
 {
 	GLclampf value = args.GetFloat(0);
-	GLboolean invert = (args.GetBoolean(1)? 1 : 0);
+	GLboolean invert = (args.GetBoolean(1)? GL_TRUE : GL_FALSE);
 	glSampleCoverage(value, invert);
 	return Value::Null;
 }
@@ -7121,12 +7128,12 @@ Gura_DeclareFunction(glLoadTransposeMatrixf)
 
 Gura_ImplementFunction(glLoadTransposeMatrixf)
 {
-#if 0
 	CArray<GLfloat> m = args.GetList(0);
+	if (m.GetSize() != 16) {
+		sig.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Null;
+	}
 	glLoadTransposeMatrixf(m);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glLoadTransposeMatrixf");
 	return Value::Null;
 }
 
@@ -7141,12 +7148,12 @@ Gura_DeclareFunction(glLoadTransposeMatrixd)
 
 Gura_ImplementFunction(glLoadTransposeMatrixd)
 {
-#if 0
 	CArray<GLdouble> m = args.GetList(0);
+	if (m.GetSize() != 16) {
+		sig.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Null;
+	}
 	glLoadTransposeMatrixd(m);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glLoadTransposeMatrixd");
 	return Value::Null;
 }
 
@@ -7161,12 +7168,12 @@ Gura_DeclareFunction(glMultTransposeMatrixf)
 
 Gura_ImplementFunction(glMultTransposeMatrixf)
 {
-#if 0
 	CArray<GLfloat> m = args.GetList(0);
+	if (m.GetSize() != 16) {
+		sig.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Null;
+	}
 	glMultTransposeMatrixf(m);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMultTransposeMatrixf");
 	return Value::Null;
 }
 
@@ -7181,12 +7188,12 @@ Gura_DeclareFunction(glMultTransposeMatrixd)
 
 Gura_ImplementFunction(glMultTransposeMatrixd)
 {
-#if 0
 	CArray<GLdouble> m = args.GetList(0);
+	if (m.GetSize() != 16) {
+		sig.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Null;
+	}
 	glMultTransposeMatrixd(m);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMultTransposeMatrixd");
 	return Value::Null;
 }
 
@@ -7252,13 +7259,13 @@ Gura_DeclareFunction(glMultiTexCoord1dv)
 
 Gura_ImplementFunction(glMultiTexCoord1dv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLdouble> v = args.GetList(1);
+	if (v.GetSize() != 1) {
+		sig.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Null;
+	}
 	glMultiTexCoord1dv(target, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMultiTexCoord1dv");
 	return Value::Null;
 }
 
@@ -7292,13 +7299,13 @@ Gura_DeclareFunction(glMultiTexCoord1fv)
 
 Gura_ImplementFunction(glMultiTexCoord1fv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLfloat> v = args.GetList(1);
+	if (v.GetSize() != 1) {
+		sig.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Null;
+	}
 	glMultiTexCoord1fv(target, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMultiTexCoord1fv");
 	return Value::Null;
 }
 
@@ -7332,13 +7339,13 @@ Gura_DeclareFunction(glMultiTexCoord1iv)
 
 Gura_ImplementFunction(glMultiTexCoord1iv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLint> v = args.GetList(1);
+	if (v.GetSize() != 1) {
+		sig.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Null;
+	}
 	glMultiTexCoord1iv(target, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMultiTexCoord1iv");
 	return Value::Null;
 }
 
@@ -7372,13 +7379,13 @@ Gura_DeclareFunction(glMultiTexCoord1sv)
 
 Gura_ImplementFunction(glMultiTexCoord1sv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLshort> v = args.GetList(1);
+	if (v.GetSize() != 1) {
+		sig.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Null;
+	}
 	glMultiTexCoord1sv(target, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMultiTexCoord1sv");
 	return Value::Null;
 }
 
@@ -7414,13 +7421,13 @@ Gura_DeclareFunction(glMultiTexCoord2dv)
 
 Gura_ImplementFunction(glMultiTexCoord2dv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLdouble> v = args.GetList(1);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glMultiTexCoord2dv(target, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMultiTexCoord2dv");
 	return Value::Null;
 }
 
@@ -7456,13 +7463,13 @@ Gura_DeclareFunction(glMultiTexCoord2fv)
 
 Gura_ImplementFunction(glMultiTexCoord2fv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLfloat> v = args.GetList(1);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glMultiTexCoord2fv(target, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMultiTexCoord2fv");
 	return Value::Null;
 }
 
@@ -7498,13 +7505,13 @@ Gura_DeclareFunction(glMultiTexCoord2iv)
 
 Gura_ImplementFunction(glMultiTexCoord2iv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLint> v = args.GetList(1);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glMultiTexCoord2iv(target, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMultiTexCoord2iv");
 	return Value::Null;
 }
 
@@ -7540,13 +7547,13 @@ Gura_DeclareFunction(glMultiTexCoord2sv)
 
 Gura_ImplementFunction(glMultiTexCoord2sv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLshort> v = args.GetList(1);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glMultiTexCoord2sv(target, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMultiTexCoord2sv");
 	return Value::Null;
 }
 
@@ -7584,13 +7591,13 @@ Gura_DeclareFunction(glMultiTexCoord3dv)
 
 Gura_ImplementFunction(glMultiTexCoord3dv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLdouble> v = args.GetList(1);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glMultiTexCoord3dv(target, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMultiTexCoord3dv");
 	return Value::Null;
 }
 
@@ -7628,13 +7635,13 @@ Gura_DeclareFunction(glMultiTexCoord3fv)
 
 Gura_ImplementFunction(glMultiTexCoord3fv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLfloat> v = args.GetList(1);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glMultiTexCoord3fv(target, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMultiTexCoord3fv");
 	return Value::Null;
 }
 
@@ -7672,13 +7679,13 @@ Gura_DeclareFunction(glMultiTexCoord3iv)
 
 Gura_ImplementFunction(glMultiTexCoord3iv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLint> v = args.GetList(1);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glMultiTexCoord3iv(target, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMultiTexCoord3iv");
 	return Value::Null;
 }
 
@@ -7716,13 +7723,13 @@ Gura_DeclareFunction(glMultiTexCoord3sv)
 
 Gura_ImplementFunction(glMultiTexCoord3sv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLshort> v = args.GetList(1);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glMultiTexCoord3sv(target, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMultiTexCoord3sv");
 	return Value::Null;
 }
 
@@ -7762,13 +7769,13 @@ Gura_DeclareFunction(glMultiTexCoord4dv)
 
 Gura_ImplementFunction(glMultiTexCoord4dv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLdouble> v = args.GetList(1);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Null;
+	}
 	glMultiTexCoord4dv(target, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMultiTexCoord4dv");
 	return Value::Null;
 }
 
@@ -7808,13 +7815,13 @@ Gura_DeclareFunction(glMultiTexCoord4fv)
 
 Gura_ImplementFunction(glMultiTexCoord4fv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLfloat> v = args.GetList(1);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Null;
+	}
 	glMultiTexCoord4fv(target, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMultiTexCoord4fv");
 	return Value::Null;
 }
 
@@ -7854,13 +7861,13 @@ Gura_DeclareFunction(glMultiTexCoord4iv)
 
 Gura_ImplementFunction(glMultiTexCoord4iv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLint> v = args.GetList(1);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glMultiTexCoord4iv(target, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMultiTexCoord4iv");
 	return Value::Null;
 }
 
@@ -7900,13 +7907,13 @@ Gura_DeclareFunction(glMultiTexCoord4sv)
 
 Gura_ImplementFunction(glMultiTexCoord4sv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLshort> v = args.GetList(1);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glMultiTexCoord4sv(target, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMultiTexCoord4sv");
 	return Value::Null;
 }
 
@@ -7937,12 +7944,12 @@ Gura_DeclareFunction(glFogCoordfv)
 
 Gura_ImplementFunction(glFogCoordfv)
 {
-#if 0
 	CArray<GLfloat> coord = args.GetList(0);
+	if (coord.GetSize() != 1) {
+		sig.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Null;
+	}
 	glFogCoordfv(coord);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glFogCoordfv");
 	return Value::Null;
 }
 
@@ -7973,12 +7980,12 @@ Gura_DeclareFunction(glFogCoorddv)
 
 Gura_ImplementFunction(glFogCoorddv)
 {
-#if 0
 	CArray<GLdouble> coord = args.GetList(0);
+	if (coord.GetSize() != 1) {
+		sig.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Null;
+	}
 	glFogCoorddv(coord);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glFogCoorddv");
 	return Value::Null;
 }
 
@@ -8013,12 +8020,12 @@ Gura_DeclareFunction(glSecondaryColor3bv)
 
 Gura_ImplementFunction(glSecondaryColor3bv)
 {
-#if 0
 	CArray<GLbyte> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glSecondaryColor3bv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glSecondaryColor3bv");
 	return Value::Null;
 }
 
@@ -8053,12 +8060,12 @@ Gura_DeclareFunction(glSecondaryColor3dv)
 
 Gura_ImplementFunction(glSecondaryColor3dv)
 {
-#if 0
 	CArray<GLdouble> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glSecondaryColor3dv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glSecondaryColor3dv");
 	return Value::Null;
 }
 
@@ -8093,12 +8100,12 @@ Gura_DeclareFunction(glSecondaryColor3fv)
 
 Gura_ImplementFunction(glSecondaryColor3fv)
 {
-#if 0
 	CArray<GLfloat> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glSecondaryColor3fv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glSecondaryColor3fv");
 	return Value::Null;
 }
 
@@ -8133,12 +8140,12 @@ Gura_DeclareFunction(glSecondaryColor3iv)
 
 Gura_ImplementFunction(glSecondaryColor3iv)
 {
-#if 0
 	CArray<GLint> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glSecondaryColor3iv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glSecondaryColor3iv");
 	return Value::Null;
 }
 
@@ -8173,12 +8180,12 @@ Gura_DeclareFunction(glSecondaryColor3sv)
 
 Gura_ImplementFunction(glSecondaryColor3sv)
 {
-#if 0
 	CArray<GLshort> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glSecondaryColor3sv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glSecondaryColor3sv");
 	return Value::Null;
 }
 
@@ -8213,12 +8220,12 @@ Gura_DeclareFunction(glSecondaryColor3ubv)
 
 Gura_ImplementFunction(glSecondaryColor3ubv)
 {
-#if 0
 	CArray<GLubyte> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glSecondaryColor3ubv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glSecondaryColor3ubv");
 	return Value::Null;
 }
 
@@ -8253,12 +8260,12 @@ Gura_DeclareFunction(glSecondaryColor3uiv)
 
 Gura_ImplementFunction(glSecondaryColor3uiv)
 {
-#if 0
 	CArray<GLuint> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glSecondaryColor3uiv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glSecondaryColor3uiv");
 	return Value::Null;
 }
 
@@ -8293,12 +8300,12 @@ Gura_DeclareFunction(glSecondaryColor3usv)
 
 Gura_ImplementFunction(glSecondaryColor3usv)
 {
-#if 0
 	CArray<GLushort> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glSecondaryColor3usv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glSecondaryColor3usv");
 	return Value::Null;
 }
 
@@ -8459,12 +8466,12 @@ Gura_DeclareFunction(glWindowPos2dv)
 
 Gura_ImplementFunction(glWindowPos2dv)
 {
-#if 0
 	CArray<GLdouble> v = args.GetList(0);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glWindowPos2dv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glWindowPos2dv");
 	return Value::Null;
 }
 
@@ -8497,12 +8504,12 @@ Gura_DeclareFunction(glWindowPos2fv)
 
 Gura_ImplementFunction(glWindowPos2fv)
 {
-#if 0
 	CArray<GLfloat> v = args.GetList(0);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glWindowPos2fv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glWindowPos2fv");
 	return Value::Null;
 }
 
@@ -8535,12 +8542,12 @@ Gura_DeclareFunction(glWindowPos2iv)
 
 Gura_ImplementFunction(glWindowPos2iv)
 {
-#if 0
 	CArray<GLint> v = args.GetList(0);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glWindowPos2iv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glWindowPos2iv");
 	return Value::Null;
 }
 
@@ -8573,12 +8580,12 @@ Gura_DeclareFunction(glWindowPos2sv)
 
 Gura_ImplementFunction(glWindowPos2sv)
 {
-#if 0
 	CArray<GLshort> v = args.GetList(0);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glWindowPos2sv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glWindowPos2sv");
 	return Value::Null;
 }
 
@@ -8613,12 +8620,12 @@ Gura_DeclareFunction(glWindowPos3dv)
 
 Gura_ImplementFunction(glWindowPos3dv)
 {
-#if 0
 	CArray<GLdouble> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glWindowPos3dv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glWindowPos3dv");
 	return Value::Null;
 }
 
@@ -8653,12 +8660,12 @@ Gura_DeclareFunction(glWindowPos3fv)
 
 Gura_ImplementFunction(glWindowPos3fv)
 {
-#if 0
 	CArray<GLfloat> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glWindowPos3fv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glWindowPos3fv");
 	return Value::Null;
 }
 
@@ -8693,12 +8700,12 @@ Gura_DeclareFunction(glWindowPos3iv)
 
 Gura_ImplementFunction(glWindowPos3iv)
 {
-#if 0
 	CArray<GLint> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glWindowPos3iv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glWindowPos3iv");
 	return Value::Null;
 }
 
@@ -8733,12 +8740,12 @@ Gura_DeclareFunction(glWindowPos3sv)
 
 Gura_ImplementFunction(glWindowPos3sv)
 {
-#if 0
 	CArray<GLshort> v = args.GetList(0);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glWindowPos3sv(v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glWindowPos3sv");
 	return Value::Null;
 }
 
@@ -8800,7 +8807,7 @@ Gura_ImplementFunction(glIsQuery)
 {
 	GLuint id = args.GetUInt(0);
 	GLboolean _rtn = glIsQuery(id);
-	ReturnValue(env, sig, args, Value(_rtn != 0));
+	ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
 }
 
 // opengl.glBeginQuery
@@ -8985,7 +8992,7 @@ Gura_ImplementFunction(glIsBuffer)
 {
 	GLuint buffer = args.GetUInt(0);
 	GLboolean _rtn = glIsBuffer(buffer);
-	ReturnValue(env, sig, args, Value(_rtn != 0));
+	ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
 }
 
 // opengl.glUnmapBuffer
@@ -9002,7 +9009,7 @@ Gura_ImplementFunction(glUnmapBuffer)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLboolean _rtn = glUnmapBuffer(target);
-	ReturnValue(env, sig, args, Value(_rtn != 0));
+	ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
 }
 
 // opengl.glGetBufferParameteriv
@@ -9081,13 +9088,13 @@ Gura_DeclareFunction(glVertexAttrib1dv)
 
 Gura_ImplementFunction(glVertexAttrib1dv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLdouble> v = args.GetList(1);
+	if (v.GetSize() != 1) {
+		sig.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Null;
+	}
 	glVertexAttrib1dv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib1dv");
 	return Value::Null;
 }
 
@@ -9121,13 +9128,13 @@ Gura_DeclareFunction(glVertexAttrib1fv)
 
 Gura_ImplementFunction(glVertexAttrib1fv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLfloat> v = args.GetList(1);
+	if (v.GetSize() != 1) {
+		sig.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Null;
+	}
 	glVertexAttrib1fv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib1fv");
 	return Value::Null;
 }
 
@@ -9161,13 +9168,13 @@ Gura_DeclareFunction(glVertexAttrib1sv)
 
 Gura_ImplementFunction(glVertexAttrib1sv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLshort> v = args.GetList(1);
+	if (v.GetSize() != 1) {
+		sig.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Null;
+	}
 	glVertexAttrib1sv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib1sv");
 	return Value::Null;
 }
 
@@ -9203,13 +9210,13 @@ Gura_DeclareFunction(glVertexAttrib2dv)
 
 Gura_ImplementFunction(glVertexAttrib2dv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLdouble> v = args.GetList(1);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glVertexAttrib2dv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib2dv");
 	return Value::Null;
 }
 
@@ -9245,13 +9252,13 @@ Gura_DeclareFunction(glVertexAttrib2fv)
 
 Gura_ImplementFunction(glVertexAttrib2fv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLfloat> v = args.GetList(1);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glVertexAttrib2fv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib2fv");
 	return Value::Null;
 }
 
@@ -9287,13 +9294,13 @@ Gura_DeclareFunction(glVertexAttrib2sv)
 
 Gura_ImplementFunction(glVertexAttrib2sv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLshort> v = args.GetList(1);
+	if (v.GetSize() != 2) {
+		sig.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Null;
+	}
 	glVertexAttrib2sv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib2sv");
 	return Value::Null;
 }
 
@@ -9331,13 +9338,13 @@ Gura_DeclareFunction(glVertexAttrib3dv)
 
 Gura_ImplementFunction(glVertexAttrib3dv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLdouble> v = args.GetList(1);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glVertexAttrib3dv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib3dv");
 	return Value::Null;
 }
 
@@ -9375,13 +9382,13 @@ Gura_DeclareFunction(glVertexAttrib3fv)
 
 Gura_ImplementFunction(glVertexAttrib3fv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLfloat> v = args.GetList(1);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glVertexAttrib3fv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib3fv");
 	return Value::Null;
 }
 
@@ -9419,13 +9426,13 @@ Gura_DeclareFunction(glVertexAttrib3sv)
 
 Gura_ImplementFunction(glVertexAttrib3sv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLshort> v = args.GetList(1);
+	if (v.GetSize() != 3) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glVertexAttrib3sv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib3sv");
 	return Value::Null;
 }
 
@@ -9441,13 +9448,13 @@ Gura_DeclareFunction(glVertexAttrib4Nbv)
 
 Gura_ImplementFunction(glVertexAttrib4Nbv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLbyte> v = args.GetList(1);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glVertexAttrib4Nbv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib4Nbv");
 	return Value::Null;
 }
 
@@ -9463,13 +9470,13 @@ Gura_DeclareFunction(glVertexAttrib4Niv)
 
 Gura_ImplementFunction(glVertexAttrib4Niv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLint> v = args.GetList(1);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glVertexAttrib4Niv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib4Niv");
 	return Value::Null;
 }
 
@@ -9485,13 +9492,13 @@ Gura_DeclareFunction(glVertexAttrib4Nsv)
 
 Gura_ImplementFunction(glVertexAttrib4Nsv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLshort> v = args.GetList(1);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glVertexAttrib4Nsv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib4Nsv");
 	return Value::Null;
 }
 
@@ -9531,13 +9538,13 @@ Gura_DeclareFunction(glVertexAttrib4Nubv)
 
 Gura_ImplementFunction(glVertexAttrib4Nubv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLubyte> v = args.GetList(1);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glVertexAttrib4Nubv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib4Nubv");
 	return Value::Null;
 }
 
@@ -9553,13 +9560,13 @@ Gura_DeclareFunction(glVertexAttrib4Nuiv)
 
 Gura_ImplementFunction(glVertexAttrib4Nuiv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLuint> v = args.GetList(1);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glVertexAttrib4Nuiv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib4Nuiv");
 	return Value::Null;
 }
 
@@ -9575,13 +9582,13 @@ Gura_DeclareFunction(glVertexAttrib4Nusv)
 
 Gura_ImplementFunction(glVertexAttrib4Nusv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLushort> v = args.GetList(1);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glVertexAttrib4Nusv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib4Nusv");
 	return Value::Null;
 }
 
@@ -9597,13 +9604,13 @@ Gura_DeclareFunction(glVertexAttrib4bv)
 
 Gura_ImplementFunction(glVertexAttrib4bv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLbyte> v = args.GetList(1);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glVertexAttrib4bv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib4bv");
 	return Value::Null;
 }
 
@@ -9643,13 +9650,13 @@ Gura_DeclareFunction(glVertexAttrib4dv)
 
 Gura_ImplementFunction(glVertexAttrib4dv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLdouble> v = args.GetList(1);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Null;
+	}
 	glVertexAttrib4dv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib4dv");
 	return Value::Null;
 }
 
@@ -9689,13 +9696,13 @@ Gura_DeclareFunction(glVertexAttrib4fv)
 
 Gura_ImplementFunction(glVertexAttrib4fv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLfloat> v = args.GetList(1);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Null;
+	}
 	glVertexAttrib4fv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib4fv");
 	return Value::Null;
 }
 
@@ -9711,13 +9718,13 @@ Gura_DeclareFunction(glVertexAttrib4iv)
 
 Gura_ImplementFunction(glVertexAttrib4iv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLint> v = args.GetList(1);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glVertexAttrib4iv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib4iv");
 	return Value::Null;
 }
 
@@ -9757,13 +9764,13 @@ Gura_DeclareFunction(glVertexAttrib4sv)
 
 Gura_ImplementFunction(glVertexAttrib4sv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLshort> v = args.GetList(1);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glVertexAttrib4sv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib4sv");
 	return Value::Null;
 }
 
@@ -9779,13 +9786,13 @@ Gura_DeclareFunction(glVertexAttrib4ubv)
 
 Gura_ImplementFunction(glVertexAttrib4ubv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLubyte> v = args.GetList(1);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glVertexAttrib4ubv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib4ubv");
 	return Value::Null;
 }
 
@@ -9801,13 +9808,13 @@ Gura_DeclareFunction(glVertexAttrib4uiv)
 
 Gura_ImplementFunction(glVertexAttrib4uiv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLuint> v = args.GetList(1);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glVertexAttrib4uiv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib4uiv");
 	return Value::Null;
 }
 
@@ -9823,13 +9830,13 @@ Gura_DeclareFunction(glVertexAttrib4usv)
 
 Gura_ImplementFunction(glVertexAttrib4usv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	CArray<GLushort> v = args.GetList(1);
+	if (v.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Null;
+	}
 	glVertexAttrib4usv(index, v);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glVertexAttrib4usv");
 	return Value::Null;
 }
 
@@ -10504,7 +10511,7 @@ Gura_ImplementFunction(glUniformMatrix2fv)
 #if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
-	GLboolean transpose = (args.GetBoolean(2)? 1 : 0);
+	GLboolean transpose = (args.GetBoolean(2)? GL_TRUE : GL_FALSE);
 	CArray<GLfloat> value = args.GetList(3);
 	glUniformMatrix2fv(location, count, transpose, value);
 	return Value::Null;
@@ -10530,7 +10537,7 @@ Gura_ImplementFunction(glUniformMatrix3fv)
 #if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
-	GLboolean transpose = (args.GetBoolean(2)? 1 : 0);
+	GLboolean transpose = (args.GetBoolean(2)? GL_TRUE : GL_FALSE);
 	CArray<GLfloat> value = args.GetList(3);
 	glUniformMatrix3fv(location, count, transpose, value);
 	return Value::Null;
@@ -10556,7 +10563,7 @@ Gura_ImplementFunction(glUniformMatrix4fv)
 #if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
-	GLboolean transpose = (args.GetBoolean(2)? 1 : 0);
+	GLboolean transpose = (args.GetBoolean(2)? GL_TRUE : GL_FALSE);
 	CArray<GLfloat> value = args.GetList(3);
 	glUniformMatrix4fv(location, count, transpose, value);
 	return Value::Null;
@@ -10579,7 +10586,7 @@ Gura_ImplementFunction(glIsShader)
 {
 	GLuint shader = args.GetUInt(0);
 	GLboolean _rtn = glIsShader(shader);
-	ReturnValue(env, sig, args, Value(_rtn != 0));
+	ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
 }
 
 // opengl.glIsProgram
@@ -10596,7 +10603,7 @@ Gura_ImplementFunction(glIsProgram)
 {
 	GLuint program = args.GetUInt(0);
 	GLboolean _rtn = glIsProgram(program);
-	ReturnValue(env, sig, args, Value(_rtn != 0));
+	ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
 }
 
 // opengl.glGetShaderiv
@@ -11012,7 +11019,7 @@ Gura_ImplementFunction(glUniformMatrix2x3fv)
 #if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
-	GLboolean transpose = (args.GetBoolean(2)? 1 : 0);
+	GLboolean transpose = (args.GetBoolean(2)? GL_TRUE : GL_FALSE);
 	CArray<GLfloat> value = args.GetList(3);
 	glUniformMatrix2x3fv(location, count, transpose, value);
 	return Value::Null;
@@ -11038,7 +11045,7 @@ Gura_ImplementFunction(glUniformMatrix3x2fv)
 #if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
-	GLboolean transpose = (args.GetBoolean(2)? 1 : 0);
+	GLboolean transpose = (args.GetBoolean(2)? GL_TRUE : GL_FALSE);
 	CArray<GLfloat> value = args.GetList(3);
 	glUniformMatrix3x2fv(location, count, transpose, value);
 	return Value::Null;
@@ -11064,7 +11071,7 @@ Gura_ImplementFunction(glUniformMatrix2x4fv)
 #if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
-	GLboolean transpose = (args.GetBoolean(2)? 1 : 0);
+	GLboolean transpose = (args.GetBoolean(2)? GL_TRUE : GL_FALSE);
 	CArray<GLfloat> value = args.GetList(3);
 	glUniformMatrix2x4fv(location, count, transpose, value);
 	return Value::Null;
@@ -11090,7 +11097,7 @@ Gura_ImplementFunction(glUniformMatrix4x2fv)
 #if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
-	GLboolean transpose = (args.GetBoolean(2)? 1 : 0);
+	GLboolean transpose = (args.GetBoolean(2)? GL_TRUE : GL_FALSE);
 	CArray<GLfloat> value = args.GetList(3);
 	glUniformMatrix4x2fv(location, count, transpose, value);
 	return Value::Null;
@@ -11116,7 +11123,7 @@ Gura_ImplementFunction(glUniformMatrix3x4fv)
 #if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
-	GLboolean transpose = (args.GetBoolean(2)? 1 : 0);
+	GLboolean transpose = (args.GetBoolean(2)? GL_TRUE : GL_FALSE);
 	CArray<GLfloat> value = args.GetList(3);
 	glUniformMatrix3x4fv(location, count, transpose, value);
 	return Value::Null;
@@ -11142,7 +11149,7 @@ Gura_ImplementFunction(glUniformMatrix4x3fv)
 #if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
-	GLboolean transpose = (args.GetBoolean(2)? 1 : 0);
+	GLboolean transpose = (args.GetBoolean(2)? GL_TRUE : GL_FALSE);
 	CArray<GLfloat> value = args.GetList(3);
 	glUniformMatrix4x3fv(location, count, transpose, value);
 	return Value::Null;
