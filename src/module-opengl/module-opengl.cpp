@@ -12,15 +12,6 @@ void AssignFunctions(Environment &env);
 //-----------------------------------------------------------------------------
 // helper
 //-----------------------------------------------------------------------------
-ToArrayTemplate(GLbyte,		GetChar)
-ToArrayTemplate(GLubyte,	GetUChar)
-ToArrayTemplate(GLshort,	GetShort)
-ToArrayTemplate(GLushort,	GetUShort)
-ToArrayTemplate(GLint,		GetInt)
-ToArrayTemplate(GLuint,		GetUInt)
-ToArrayTemplate(GLfloat,	GetFloat)
-ToArrayTemplate(GLdouble,	GetDouble)
-
 size_t GetParamCount(GLenum pname)
 {
 	static const struct {
@@ -249,16 +240,16 @@ size_t GetParamCount(GLenum pname)
 		{ GL_ZOOM_X,                                 1 },
 		{ GL_ZOOM_Y,                                 1 },
 
-		{ GL_AMBIENT,               4 },
-		{ GL_DIFFUSE,               4 },
-		{ GL_SPECULAR,              4 },
-		{ GL_POSITION,              4 },
-		{ GL_SPOT_DIRECTION,        3 },
-		{ GL_SPOT_EXPONENT,         1 },
-		{ GL_SPOT_CUTOFF,           1 },
-		{ GL_CONSTANT_ATTENUATION,  1 },
-		{ GL_LINEAR_ATTENUATION,    1 },
-		{ GL_QUADRATIC_ATTENUATION, 1 },
+		{ GL_AMBIENT,               				 4 },
+		{ GL_DIFFUSE,               				 4 },
+		{ GL_SPECULAR,              				 4 },
+		{ GL_POSITION,              				 4 },
+		{ GL_SPOT_DIRECTION,        				 3 },
+		{ GL_SPOT_EXPONENT,         				 1 },
+		{ GL_SPOT_CUTOFF,           				 1 },
+		{ GL_CONSTANT_ATTENUATION,  				 1 },
+		{ GL_LINEAR_ATTENUATION,    				 1 },
+		{ GL_QUADRATIC_ATTENUATION, 				 1 },
 	};
 	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].pname == pname) return tbl[i].n;
