@@ -1882,16 +1882,6 @@ TypeConv_Class(typeName:string) = {
 	}
 }
 
-bodyPrePointer = R'''
-	if (_rtn == NULL) {
-		if (*SDL_GetError() != '\0') {
-			SetError_SDL(sig);
-			return Value::Null;
-		}
-		return ReturnValue(env, sig, args, Value::Null);
-	}
-'''
-
 typeConvDict = %{
 	// overwrite built-in converter
 	'char@' => TypeConv(
@@ -2117,14 +2107,43 @@ typeConvDict = %{
 	TypeConv_Class('SDL_Window@')
 }
 
+tmplSource = R"""
+#include "stdafx.h"
+
+#undef CreateWindow
+#undef CreateMutex
+#undef CreateSemaphore
+
+Gura_BeginModuleScope(sdl2)
+
+${renderer.RenderImplementation()}
+
+// sdl2.test()
+Gura_DeclareFunction(test)
+{
+}
+
+Gura_ImplementFunction(test)
+{
+	return Value::Null;
+}
+
+void AssignFunctions(Environment &env)
+{
+	${renderer.RenderAssignment()}
+	Gura_AssignFunction(test);
+}
+
+Gura_EndModuleScope(sdl2)
+""".template()
+
 Renderer('sdl2', decls.children, typeConvDict, &{$funcNameC.sub('^SDL_', '')}) {|renderer|
 	if (sys.argv.len() > 1 && sys.argv[1] == 'test') {
 		print(renderer.RenderImplementation())
 		print(renderer.RenderAssignment())
 	} else {
-		fileNameTmpl = 'Functions.cpp.tmpl'
 		fileNameOut = 'Functions.cpp'
-		template(fileNameTmpl).render(fileNameOut)
+		tmplSource.render(fileNameOut)
 		println(fileNameOut, ' was created')
 	}
 }
