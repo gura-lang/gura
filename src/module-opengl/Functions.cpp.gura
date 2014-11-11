@@ -1066,7 +1066,11 @@ glBindBuffer(target:GLenum, buffer:GLuint):void
 
 $glDeleteBuffers(n:GLsizei, buffers:GLuint@:const):void
 
-$glGenBuffers(n:GLsizei, buffers:GLuint@):void
+glGenBuffers(n:GLsizei) = R'''
+	CArray<GLuint> buffers(n);
+	glGenBuffers(n, buffers);
+	return Value::CreateList(env, buffers, n);
+'''
 
 glIsBuffer(buffer:GLuint):GLboolean
 
@@ -1290,98 +1294,98 @@ typeConvDict = %{
 			nil,
 			R'''
 			GLenum _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLboolean' => TypeConv(
 			'boolean', 'Once', [],
 			'GLboolean ${arg.name} = (args.GetBoolean(${idx})? GL_TRUE : GL_FALSE);',
 			nil,
 			R'''
 			GLboolean _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));''')
+			return ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));''')
 	'GLbitfield' => TypeConv(
 			'number', 'Once', [],
 			'GLbitfield ${arg.name} = args.GetUInt(${idx});',
 			nil,
 			R'''
 			GLbitfield _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLbyte' => TypeConv(
 			'number', 'Once', [],
 			'GLbyte ${arg.name} = args.GetChar(${idx});',
 			nil,
 			R'''
 			GLbyte _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLshort' => TypeConv(
 			'number', 'Once', [],
 			'GLshort ${arg.name} = args.GetShort(${idx});',
 			nil,
 			R'''
 			GLshort _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLint' => TypeConv(
 			'number', 'Once', [],
 			'GLint ${arg.name} = args.GetInt(${idx});',
 			nil,
 			R'''
 			GLint _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLsizei' => TypeConv(
 			'number', 'Once', [],
 			'GLsizei ${arg.name} = args.GetInt(${idx});',
 			nil,
 			R'''
 			GLsizei _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLubyte' => TypeConv(
 			'number', 'Once', [],
 			'GLubyte ${arg.name} = args.GetUChar(${idx});',
 			nil,
 			R'''
 			GLubyte _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLushort' => TypeConv(
 			'number', 'Once', [],
 			'GLushort ${arg.name} = args.GetUShort(${idx});',
 			nil,
 			R'''
 			GLushort _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLuint' => TypeConv(
 			'number', 'Once', [],
 			'GLuint ${arg.name} = args.GetUInt(${idx});',
 			nil,
 			R'''
 			GLuint _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLfloat' => TypeConv(
 			'number', 'Once', [],
 			'GLfloat ${arg.name} = args.GetFloat(${idx});',
 			nil,
 			R'''
 			GLfloat _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLclampf' => TypeConv(
 			'number', 'Once', [],
 			'GLclampf ${arg.name} = args.GetFloat(${idx});',
 			nil,
 			R'''
 			GLclampf _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLdouble' => TypeConv(
 			'number', 'Once', [],
 			'GLdouble ${arg.name} = args.GetDouble(${idx});',
 			nil,
 			R'''
 			GLdouble _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLclampd' => TypeConv(
 			'number', 'Once', [],
 			'GLclampd ${arg.name} = args.GetDouble(${idx});',
 			nil,
 			R'''
 			GLclampd _rtn = ${fi.MakeCaller()};
-			ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));''')
 	'GLenum@' => TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLenum> ${arg.name} = args.GetList(${idx});',

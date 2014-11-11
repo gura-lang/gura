@@ -2224,7 +2224,7 @@ Gura_ImplementFunction(glGenLists)
 {
 	GLsizei range = args.GetInt(0);
 	GLuint _rtn = glGenLists(range);
-	ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // opengl.glGenTextures
@@ -2418,7 +2418,7 @@ Gura_DeclareFunction(glGetError)
 Gura_ImplementFunction(glGetError)
 {
 	GLenum _rtn = glGetError();
-	ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // opengl.glGetFloatv
@@ -3319,7 +3319,7 @@ Gura_ImplementFunction(glIsEnabled)
 {
 	GLenum cap = static_cast<GLenum>(args.GetInt(0));
 	GLboolean _rtn = glIsEnabled(cap);
-	ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
+	return ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
 }
 
 // opengl.glIsList
@@ -3336,7 +3336,7 @@ Gura_ImplementFunction(glIsList)
 {
 	GLuint list = args.GetUInt(0);
 	GLboolean _rtn = glIsList(list);
-	ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
+	return ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
 }
 
 // opengl.glIsTexture
@@ -3353,7 +3353,7 @@ Gura_ImplementFunction(glIsTexture)
 {
 	GLuint texture = args.GetUInt(0);
 	GLboolean _rtn = glIsTexture(texture);
-	ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
+	return ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
 }
 
 // opengl.glLightModelf
@@ -5390,7 +5390,7 @@ Gura_ImplementFunction(glRenderMode)
 {
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	GLint _rtn = glRenderMode(mode);
-	ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // opengl.glResetHistogram
@@ -8807,7 +8807,7 @@ Gura_ImplementFunction(glIsQuery)
 {
 	GLuint id = args.GetUInt(0);
 	GLboolean _rtn = glIsQuery(id);
-	ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
+	return ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
 }
 
 // opengl.glBeginQuery
@@ -8959,23 +8959,19 @@ Gura_ImplementFunction(glDeleteBuffers)
 // opengl.glGenBuffers
 Gura_DeclareFunction(glGenBuffers)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "buffers", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGenBuffers)
 {
-#if 0
 	GLsizei n = args.GetInt(0);
-	CArray<GLuint> buffers = args.GetList(1);
+	CArray<GLuint> buffers(n);
 	glGenBuffers(n, buffers);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGenBuffers");
-	return Value::Null;
+	return Value::CreateList(env, buffers, n);
 }
 
 // opengl.glIsBuffer
@@ -8992,7 +8988,7 @@ Gura_ImplementFunction(glIsBuffer)
 {
 	GLuint buffer = args.GetUInt(0);
 	GLboolean _rtn = glIsBuffer(buffer);
-	ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
+	return ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
 }
 
 // opengl.glUnmapBuffer
@@ -9009,7 +9005,7 @@ Gura_ImplementFunction(glUnmapBuffer)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLboolean _rtn = glUnmapBuffer(target);
-	ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
+	return ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
 }
 
 // opengl.glGetBufferParameteriv
@@ -9992,7 +9988,7 @@ Gura_ImplementFunction(glCreateShader)
 {
 	GLenum type = static_cast<GLenum>(args.GetInt(0));
 	GLuint _rtn = glCreateShader(type);
-	ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // opengl.glShaderSource
@@ -10049,7 +10045,7 @@ Gura_DeclareFunction(glCreateProgram)
 Gura_ImplementFunction(glCreateProgram)
 {
 	GLuint _rtn = glCreateProgram();
-	ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // opengl.glAttachShader
@@ -10586,7 +10582,7 @@ Gura_ImplementFunction(glIsShader)
 {
 	GLuint shader = args.GetUInt(0);
 	GLboolean _rtn = glIsShader(shader);
-	ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
+	return ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
 }
 
 // opengl.glIsProgram
@@ -10603,7 +10599,7 @@ Gura_ImplementFunction(glIsProgram)
 {
 	GLuint program = args.GetUInt(0);
 	GLboolean _rtn = glIsProgram(program);
-	ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
+	return ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
 }
 
 // opengl.glGetShaderiv
@@ -10749,7 +10745,7 @@ Gura_ImplementFunction(glGetUniformLocation)
 	GLuint program = args.GetUInt(0);
 	CArray<GLchar> name = args.GetList(1);
 	GLint _rtn = glGetUniformLocation(program, name);
-	ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, Value(_rtn));
 #endif
 	SetError_NotImpFunction(sig, "glGetUniformLocation");
 	return Value::Null;
@@ -10934,7 +10930,7 @@ Gura_ImplementFunction(glGetAttribLocation)
 	GLuint program = args.GetUInt(0);
 	CArray<GLchar> name = args.GetList(1);
 	GLint _rtn = glGetAttribLocation(program, name);
-	ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, sig, args, Value(_rtn));
 #endif
 	SetError_NotImpFunction(sig, "glGetAttribLocation");
 	return Value::Null;
