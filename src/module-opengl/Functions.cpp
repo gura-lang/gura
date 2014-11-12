@@ -1154,14 +1154,11 @@ Gura_DeclareFunction(glColorTableParameterfv)
 
 Gura_ImplementFunction(glColorTableParameterfv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLfloat> params = args.GetList(2);
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
 	glColorTableParameterfv(target, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glColorTableParameterfv");
 	return Value::Null;
 }
 
@@ -1178,14 +1175,11 @@ Gura_DeclareFunction(glColorTableParameteriv)
 
 Gura_ImplementFunction(glColorTableParameteriv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLint> params = args.GetList(2);
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
 	glColorTableParameteriv(target, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glColorTableParameteriv");
 	return Value::Null;
 }
 
@@ -1222,14 +1216,11 @@ Gura_DeclareFunction(glConvolutionParameterfv)
 
 Gura_ImplementFunction(glConvolutionParameterfv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLfloat> params = args.GetList(2);
-	glConvolutionParameterfv(target, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glConvolutionParameterfv");
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
+	glColorTableParameterfv(target, pname, params);
 	return Value::Null;
 }
 
@@ -1266,14 +1257,11 @@ Gura_DeclareFunction(glConvolutionParameteriv)
 
 Gura_ImplementFunction(glConvolutionParameteriv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLint> params = args.GetList(2);
-	glConvolutionParameteriv(target, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glConvolutionParameteriv");
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
+	glColorTableParameteriv(target, pname, params);
 	return Value::Null;
 }
 
@@ -2118,13 +2106,10 @@ Gura_DeclareFunction(glFogfv)
 
 Gura_ImplementFunction(glFogfv)
 {
-#if 0
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLfloat> params = args.GetList(1);
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
 	glFogfv(pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glFogfv");
 	return Value::Null;
 }
 
@@ -2158,13 +2143,10 @@ Gura_DeclareFunction(glFogiv)
 
 Gura_ImplementFunction(glFogiv)
 {
-#if 0
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLint> params = args.GetList(1);
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
 	glFogiv(pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glFogiv");
 	return Value::Null;
 }
 
@@ -2294,73 +2276,64 @@ Gura_ImplementFunction(glGetClipPlane)
 // opengl.glGetColorTableParameterfv
 Gura_DeclareFunction(glGetColorTableParameterfv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetColorTableParameterfv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLfloat> params = args.GetList(2);
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
 	glGetColorTableParameterfv(target, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetColorTableParameterfv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetColorTableParameteriv
 Gura_DeclareFunction(glGetColorTableParameteriv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetColorTableParameteriv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLint> params = args.GetList(2);
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
 	glGetColorTableParameteriv(target, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetColorTableParameteriv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetConvolutionParameterfv
 Gura_DeclareFunction(glGetConvolutionParameterfv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetConvolutionParameterfv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLfloat> params = args.GetList(2);
-	glGetConvolutionParameterfv(target, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetConvolutionParameterfv");
-	return Value::Null;
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
+	glGetColorTableParameterfv(target, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetConvolutionParameteriv
@@ -2380,8 +2353,10 @@ Gura_ImplementFunction(glGetConvolutionParameteriv)
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLint> params = args.GetList(2);
-	glGetConvolutionParameteriv(target, pname, params);
-	return Value::Null;
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
+	glGetColorTableParameteriv(target, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 #endif
 	SetError_NotImpFunction(sig, "glGetConvolutionParameteriv");
 	return Value::Null;

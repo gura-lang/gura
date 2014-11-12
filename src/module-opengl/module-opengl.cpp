@@ -260,43 +260,10 @@ size_t GetParamCount(GLenum pname)
 bool CheckParamCount(Signal sig, GLenum pname, size_t cnt)
 {
 	size_t cntExpected = GetParamCount(pname);
-	if (cnt == cntExpected) return true;
+	if (cntExpected == 0 || cnt == cntExpected) return true;
 	sig.SetError(ERR_ValueError, "params must have %d element(s)", cntExpected);
 	return false;
 }
-
-#if 0
-size_t GetLightParamCount(GLenum pname)
-{
-	static const struct {
-		GLenum pname;
-		size_t n;
-	} tbl[] = {
-		{ GL_AMBIENT,               4 },
-		{ GL_DIFFUSE,               4 },
-		{ GL_SPECULAR,              4 },
-		{ GL_POSITION,              4 },
-		{ GL_SPOT_DIRECTION,        3 },
-		{ GL_SPOT_EXPONENT,         1 },
-		{ GL_SPOT_CUTOFF,           1 },
-		{ GL_CONSTANT_ATTENUATION,  1 },
-		{ GL_LINEAR_ATTENUATION,    1 },
-		{ GL_QUADRATIC_ATTENUATION, 1 },
-	};
-	for (int i = 0; i < ArraySizeOf(tbl); i++) {
-		if (tbl[i].pname == pname) return tbl[i].n;
-	}
-	return 0;
-}
-
-bool CheckLightParamCount(Signal sig, GLenum pname, size_t cnt)
-{
-	size_t cntExpected = GetLightParamCount(pname);
-	if (cnt == cntExpected) return true;
-	sig.SetError(ERR_ValueError, "params must have %d element(s)", cntExpected);
-	return false;
-}
-#endif
 
 GLenum GetImageFormat(Signal sig, const Image *pImage)
 {

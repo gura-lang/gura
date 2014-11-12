@@ -1,4 +1,5 @@
 #!/usr/bin/env gura
+import(modimp) {TypeConv, Renderer}
 
 decls = `{
 glAccum(op:GLenum, value:GLfloat):void
@@ -205,9 +206,17 @@ glColorMaterial(face:GLenum, mode:GLenum):void
 
 //$glColorTable(target:GLenum, internalformat:GLenum, width:GLsizei, format:GLenum, type:GLenum, table:GLvoid@:const):void
 
-$glColorTableParameterfv(target:GLenum, pname:GLenum, params:GLfloat@:const):void
+glColorTableParameterfv(target:GLenum, pname:GLenum, params:GLfloat@:const):void = R'''
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
+	glColorTableParameterfv(target, pname, params);
+	return Value::Null;
+'''
 	
-$glColorTableParameteriv(target:GLenum, pname:GLenum, params:GLint@:const):void
+glColorTableParameteriv(target:GLenum, pname:GLenum, params:GLint@:const):void = R'''
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
+	glColorTableParameteriv(target, pname, params);
+	return Value::Null;
+'''
 
 //$glConvolutionFilter1D(target:GLenum, internalformat:GLenum, width:GLsizei, format:GLenum, type:GLenum, image:GLvoid@:const):void
 
@@ -215,11 +224,19 @@ $glColorTableParameteriv(target:GLenum, pname:GLenum, params:GLint@:const):void
 
 glConvolutionParameterf(target:GLenum, pname:GLenum, params:GLfloat):void
 
-$glConvolutionParameterfv(target:GLenum, pname:GLenum, params:GLfloat@:const):void
+glConvolutionParameterfv(target:GLenum, pname:GLenum, params:GLfloat@:const):void = R'''
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
+	glColorTableParameterfv(target, pname, params);
+	return Value::Null;
+'''
 
 glConvolutionParameteri(target:GLenum, pname:GLenum, params:GLint):void
 
-$glConvolutionParameteriv(target:GLenum, pname:GLenum, params:GLint@:const):void
+glConvolutionParameteriv(target:GLenum, pname:GLenum, params:GLint@:const):void = R'''
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
+	glColorTableParameteriv(target, pname, params);
+	return Value::Null;
+'''
 
 glCopyColorSubTable(target:GLenum, start:GLsizei, x:GLint, y:GLint, width:GLsizei):void
 
@@ -317,11 +334,19 @@ glFlush():void
 
 glFogf(pname:GLenum, param:GLfloat):void
 
-$glFogfv(pname:GLenum, params:GLfloat@:const):void
+glFogfv(pname:GLenum, params:GLfloat@:const):void = R'''
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
+	glFogfv(pname, params);
+	return Value::Null;
+'''
 
 glFogi(pname:GLenum, param:GLint):void
 
-$glFogiv(pname:GLenum, params:GLint@:const):void
+glFogiv(pname:GLenum, params:GLint@:const):void = R'''
+	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
+	glFogiv(pname, params);
+	return Value::Null;
+'''
 
 glFrontFace(mode:GLenum):void
 
@@ -351,15 +376,35 @@ $glGetClipPlane(plane:GLenum, equation:GLdouble@):void
 
 //$glGetColorTable(target:GLenum, format:GLenum, type:GLenum, table:GLvoid@):void
 
-$glGetColorTableParameterfv(target:GLenum, pname:GLenum, params:GLfloat@):void
+glGetColorTableParameterfv(target:GLenum, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
+	glGetColorTableParameterfv(target, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
-$glGetColorTableParameteriv(target:GLenum, pname:GLenum, params:GLint@):void
+glGetColorTableParameteriv(target:GLenum, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
+	glGetColorTableParameteriv(target, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
 //$glGetConvolutionFilter(target:GLenum, format:GLenum, type:GLenum, image:GLvoid@):void
 
-$glGetConvolutionParameterfv(target:GLenum, pname:GLenum, params:GLfloat@):void
+glGetConvolutionParameterfv(target:GLenum, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
+	glGetColorTableParameterfv(target, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
-$glGetConvolutionParameteriv(target:GLenum, pname:GLenum, params:GLint@):void
+$glGetConvolutionParameteriv(target:GLenum, pname:GLenum, params:GLint@) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
+	glGetColorTableParameteriv(target, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
 glGetDoublev(pname:GLenum) = R'''
 	size_t n = GetParamCount(pname);
@@ -1332,8 +1377,6 @@ $glUniformMatrix3x4fv(location:GLint, count:GLsizei, transpose:GLboolean, value:
 
 $glUniformMatrix4x3fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@:const):void
 }
-
-import(modimp) {TypeConv, Renderer}
 
 typeConvDict = %{
 	'GLenum' => TypeConv(
