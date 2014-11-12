@@ -18,6 +18,7 @@ size_t GetParamCount(GLenum pname)
 		GLenum pname;
 		size_t n;
 	} tbl[] = {
+		// glGet
 		{ GL_ACCUM_ALPHA_BITS,                       1 },
 		{ GL_ACCUM_BLUE_BITS,                        1 },
 		{ GL_ACCUM_CLEAR_VALUE,                      4 },
@@ -239,7 +240,13 @@ size_t GetParamCount(GLenum pname)
 		{ GL_VIEWPORT,                               4 },
 		{ GL_ZOOM_X,                                 1 },
 		{ GL_ZOOM_Y,                                 1 },
+		// glGetColorTableParameter / glColorTableParameter
 
+		// glGetConvolutionParameter / glConvolutionParameter
+
+		// glGetHistogramParameter
+
+		// glGetLight / glLight
 		{ GL_AMBIENT,               				 4 },
 		{ GL_DIFFUSE,               				 4 },
 		{ GL_SPECULAR,              				 4 },
@@ -250,19 +257,29 @@ size_t GetParamCount(GLenum pname)
 		{ GL_CONSTANT_ATTENUATION,  				 1 },
 		{ GL_LINEAR_ATTENUATION,    				 1 },
 		{ GL_QUADRATIC_ATTENUATION, 				 1 },
+
+		// glGetMaterial / glMaterial
+
+		// glGetMinmaxParameter
+
+		// glGetTex / glTex
+
+		// glGetQuery
+
+		// getBufferParameter
+
+		// glGetVertexAttrib
+
+		// glGetShader
+
+		// glGetProgram
+
+		
 	};
 	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].pname == pname) return tbl[i].n;
 	}
-	return 0;
-}
-
-bool CheckParamCount(Signal sig, GLenum pname, size_t cnt)
-{
-	size_t cntExpected = GetParamCount(pname);
-	if (cntExpected == 0 || cnt == cntExpected) return true;
-	sig.SetError(ERR_ValueError, "params must have %d element(s)", cntExpected);
-	return false;
+	return 16;
 }
 
 GLenum GetImageFormat(Signal sig, const Image *pImage)

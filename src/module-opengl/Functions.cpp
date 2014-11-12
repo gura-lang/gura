@@ -1157,7 +1157,6 @@ Gura_ImplementFunction(glColorTableParameterfv)
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLfloat> params = args.GetList(2);
-	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
 	glColorTableParameterfv(target, pname, params);
 	return Value::Null;
 }
@@ -1178,7 +1177,6 @@ Gura_ImplementFunction(glColorTableParameteriv)
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLint> params = args.GetList(2);
-	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
 	glColorTableParameteriv(target, pname, params);
 	return Value::Null;
 }
@@ -1219,7 +1217,6 @@ Gura_ImplementFunction(glConvolutionParameterfv)
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLfloat> params = args.GetList(2);
-	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
 	glColorTableParameterfv(target, pname, params);
 	return Value::Null;
 }
@@ -1260,7 +1257,6 @@ Gura_ImplementFunction(glConvolutionParameteriv)
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLint> params = args.GetList(2);
-	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
 	glColorTableParameteriv(target, pname, params);
 	return Value::Null;
 }
@@ -2108,7 +2104,6 @@ Gura_ImplementFunction(glFogfv)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLfloat> params = args.GetList(1);
-	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
 	glFogfv(pname, params);
 	return Value::Null;
 }
@@ -2145,7 +2140,6 @@ Gura_ImplementFunction(glFogiv)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLint> params = args.GetList(1);
-	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
 	glFogiv(pname, params);
 	return Value::Null;
 }
@@ -2339,27 +2333,22 @@ Gura_ImplementFunction(glGetConvolutionParameterfv)
 // opengl.glGetConvolutionParameteriv
 Gura_DeclareFunction(glGetConvolutionParameteriv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetConvolutionParameteriv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLint> params = args.GetList(2);
 	size_t n = GetParamCount(pname);
 	CArray<GLint> params(n);
 	glGetColorTableParameteriv(target, pname, params);
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
-#endif
-	SetError_NotImpFunction(sig, "glGetConvolutionParameteriv");
-	return Value::Null;
 }
 
 // opengl.glGetDoublev
@@ -2399,23 +2388,20 @@ Gura_ImplementFunction(glGetError)
 // opengl.glGetFloatv
 Gura_DeclareFunction(glGetFloatv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetFloatv)
 {
-#if 0
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
-	CArray<GLfloat> params = args.GetList(1);
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
 	glGetFloatv(pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetFloatv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetHistogramParameterfv
@@ -3363,7 +3349,6 @@ Gura_ImplementFunction(glLightModelfv)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLfloat> params = args.GetList(1);
-	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
 	glLightModelfv(pname, params);
 	return Value::Null;
 }
@@ -3400,7 +3385,6 @@ Gura_ImplementFunction(glLightModeliv)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLint> params = args.GetList(1);
-	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
 	glLightModeliv(pname, params);
 	return Value::Null;
 }
@@ -3441,7 +3425,6 @@ Gura_ImplementFunction(glLightfv)
 	GLenum light = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLfloat> params = args.GetList(2);
-	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
 	glLightfv(light, pname, params);
 	return Value::Null;
 }
@@ -3482,7 +3465,6 @@ Gura_ImplementFunction(glLightiv)
 	GLenum light = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLint> params = args.GetList(2);
-	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
 	glLightiv(light, pname, params);
 	return Value::Null;
 }
@@ -3887,7 +3869,6 @@ Gura_ImplementFunction(glMaterialfv)
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLfloat> params = args.GetList(2);
-	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
 	glMaterialfv(face, pname, params);
 	return Value::Null;
 }
@@ -3928,7 +3909,6 @@ Gura_ImplementFunction(glMaterialiv)
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLint> params = args.GetList(2);
-	if (!CheckParamCount(sig, pname, params.GetSize())) return Value::Null;
 	glMaterialiv(face, pname, params);
 	return Value::Null;
 }
