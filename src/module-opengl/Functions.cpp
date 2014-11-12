@@ -2407,119 +2407,104 @@ Gura_ImplementFunction(glGetFloatv)
 // opengl.glGetHistogramParameterfv
 Gura_DeclareFunction(glGetHistogramParameterfv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetHistogramParameterfv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLfloat> params = args.GetList(2);
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
 	glGetHistogramParameterfv(target, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetHistogramParameterfv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetHistogramParameteriv
 Gura_DeclareFunction(glGetHistogramParameteriv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetHistogramParameteriv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLint> params = args.GetList(2);
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
 	glGetHistogramParameteriv(target, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetHistogramParameteriv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetIntegerv
 Gura_DeclareFunction(glGetIntegerv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetIntegerv)
 {
-#if 0
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
-	CArray<GLint> params = args.GetList(1);
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
 	glGetIntegerv(pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetIntegerv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetLightfv
 Gura_DeclareFunction(glGetLightfv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "light", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetLightfv)
 {
-#if 0
 	GLenum light = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLfloat> params = args.GetList(2);
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
 	glGetLightfv(light, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetLightfv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetLightiv
 Gura_DeclareFunction(glGetLightiv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "light", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetLightiv)
 {
-#if 0
 	GLenum light = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLint> params = args.GetList(2);
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
 	glGetLightiv(light, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetLightiv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetMapdv
@@ -2597,97 +2582,85 @@ Gura_ImplementFunction(glGetMapiv)
 // opengl.glGetMaterialfv
 Gura_DeclareFunction(glGetMaterialfv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "face", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetMaterialfv)
 {
-#if 0
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLfloat> params = args.GetList(2);
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
 	glGetMaterialfv(face, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetMaterialfv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetMaterialiv
 Gura_DeclareFunction(glGetMaterialiv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "face", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetMaterialiv)
 {
-#if 0
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLint> params = args.GetList(2);
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
 	glGetMaterialiv(face, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetMaterialiv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetMinmaxParameterfv
 Gura_DeclareFunction(glGetMinmaxParameterfv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetMinmaxParameterfv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLfloat> params = args.GetList(2);
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
 	glGetMinmaxParameterfv(target, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetMinmaxParameterfv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetMinmaxParameteriv
 Gura_DeclareFunction(glGetMinmaxParameteriv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetMinmaxParameteriv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLint> params = args.GetList(2);
-	glGetMinmaxParameteriv(target, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetMinmaxParameteriv");
-	return Value::Null;
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
+	glGetHistogramParameteriv(target, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetPixelMapfv
@@ -2799,221 +2772,194 @@ Gura_ImplementFunction(glGetString)
 // opengl.glGetTexEnvfv
 Gura_DeclareFunction(glGetTexEnvfv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetTexEnvfv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLfloat> params = args.GetList(2);
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
 	glGetTexEnvfv(target, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetTexEnvfv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetTexEnviv
 Gura_DeclareFunction(glGetTexEnviv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetTexEnviv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLint> params = args.GetList(2);
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
 	glGetTexEnviv(target, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetTexEnviv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetTexGendv
 Gura_DeclareFunction(glGetTexGendv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "coord", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetTexGendv)
 {
-#if 0
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLdouble> params = args.GetList(2);
+	size_t n = GetParamCount(pname);
+	CArray<GLdouble> params(n);
 	glGetTexGendv(coord, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetTexGendv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetTexGenfv
 Gura_DeclareFunction(glGetTexGenfv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "coord", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetTexGenfv)
 {
-#if 0
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLfloat> params = args.GetList(2);
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
 	glGetTexGenfv(coord, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetTexGenfv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetTexGeniv
 Gura_DeclareFunction(glGetTexGeniv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "coord", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetTexGeniv)
 {
-#if 0
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLint> params = args.GetList(2);
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
 	glGetTexGeniv(coord, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetTexGeniv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetTexLevelParameterfv
 Gura_DeclareFunction(glGetTexLevelParameterfv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "level", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetTexLevelParameterfv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLint level = args.GetInt(1);
 	GLenum pname = static_cast<GLenum>(args.GetInt(2));
-	CArray<GLfloat> params = args.GetList(3);
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
 	glGetTexLevelParameterfv(target, level, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetTexLevelParameterfv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetTexLevelParameteriv
 Gura_DeclareFunction(glGetTexLevelParameteriv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "level", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetTexLevelParameteriv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLint level = args.GetInt(1);
 	GLenum pname = static_cast<GLenum>(args.GetInt(2));
-	CArray<GLint> params = args.GetList(3);
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
 	glGetTexLevelParameteriv(target, level, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetTexLevelParameteriv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetTexParameterfv
 Gura_DeclareFunction(glGetTexParameterfv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetTexParameterfv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLfloat> params = args.GetList(2);
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
 	glGetTexParameterfv(target, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetTexParameterfv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetTexParameteriv
 Gura_DeclareFunction(glGetTexParameteriv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetTexParameteriv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLint> params = args.GetList(2);
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
 	glGetTexParameteriv(target, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetTexParameteriv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glHint

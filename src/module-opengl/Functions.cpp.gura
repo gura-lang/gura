@@ -418,15 +418,40 @@ glGetFloatv(pname:GLenum) = R'''
 
 //$glGetHistogram(target:GLenum, reset:GLboolean, format:GLenum, type:GLenum, values:GLvoid@):void
 
-$glGetHistogramParameterfv(target:GLenum, pname:GLenum, params:GLfloat@):void
+glGetHistogramParameterfv(target:GLenum, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
+	glGetHistogramParameterfv(target, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
-$glGetHistogramParameteriv(target:GLenum, pname:GLenum, params:GLint@):void
+glGetHistogramParameteriv(target:GLenum, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
+	glGetHistogramParameteriv(target, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
-$glGetIntegerv(pname:GLenum, params:GLint@):void
+glGetIntegerv(pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
+	glGetIntegerv(pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
-$glGetLightfv(light:GLenum, pname:GLenum, params:GLfloat@):void
+glGetLightfv(light:GLenum, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
+	glGetLightfv(light, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
-$glGetLightiv(light:GLenum, pname:GLenum, params:GLint@):void
+glGetLightiv(light:GLenum, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
+	glGetLightiv(light, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
 $glGetMapdv(target:GLenum, query:GLenum, v:GLdouble@):void
 
@@ -434,15 +459,35 @@ $glGetMapfv(target:GLenum, query:GLenum, v:GLfloat@):void
 
 $glGetMapiv(target:GLenum, query:GLenum, v:GLint@):void
 
-$glGetMaterialfv(face:GLenum, pname:GLenum, params:GLfloat@):void
+glGetMaterialfv(face:GLenum, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
+	glGetMaterialfv(face, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
-$glGetMaterialiv(face:GLenum, pname:GLenum, params:GLint@):void
+glGetMaterialiv(face:GLenum, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
+	glGetMaterialiv(face, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
 //$glGetMinmax(target:GLenum, reset:GLboolean, format:GLenum, type:GLenum, values:GLvoid@):void
 
-$glGetMinmaxParameterfv(target:GLenum, pname:GLenum, params:GLfloat@):void
+glGetMinmaxParameterfv(target:GLenum, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
+	glGetMinmaxParameterfv(target, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
-$glGetMinmaxParameteriv(target:GLenum, pname:GLenum, params:GLint@):void
+glGetMinmaxParameteriv(target:GLenum, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
+	glGetHistogramParameteriv(target, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
 $glGetPixelMapfv(map:GLenum, values:GLfloat@):void
 
@@ -458,25 +503,70 @@ $glGetPolygonStipple(mask:GLubyte@):void
 
 $glGetString(name:GLenum):GLubyte@:const
 
-$glGetTexEnvfv(target:GLenum, pname:GLenum, params:GLfloat@):void
+glGetTexEnvfv(target:GLenum, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
+	glGetTexEnvfv(target, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
-$glGetTexEnviv(target:GLenum, pname:GLenum, params:GLint@):void
+glGetTexEnviv(target:GLenum, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
+	glGetTexEnviv(target, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
-$glGetTexGendv(coord:GLenum, pname:GLenum, params:GLdouble@):void
+glGetTexGendv(coord:GLenum, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLdouble> params(n);
+	glGetTexGendv(coord, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
-$glGetTexGenfv(coord:GLenum, pname:GLenum, params:GLfloat@):void
+glGetTexGenfv(coord:GLenum, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
+	glGetTexGenfv(coord, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
-$glGetTexGeniv(coord:GLenum, pname:GLenum, params:GLint@):void
+glGetTexGeniv(coord:GLenum, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
+	glGetTexGeniv(coord, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
 //$glGetTexImage(target:GLenum, level:GLint, format:GLenum, type:GLenum, pixels:GLvoid@):void
 
-$glGetTexLevelParameterfv(target:GLenum, level:GLint, pname:GLenum, params:GLfloat@):void
+glGetTexLevelParameterfv(target:GLenum, level:GLint, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
+	glGetTexLevelParameterfv(target, level, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
-$glGetTexLevelParameteriv(target:GLenum, level:GLint, pname:GLenum, params:GLint@):void
+glGetTexLevelParameteriv(target:GLenum, level:GLint, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
+	glGetTexLevelParameteriv(target, level, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
-$glGetTexParameterfv(target:GLenum, pname:GLenum, params:GLfloat@):void
+glGetTexParameterfv(target:GLenum, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
+	glGetTexParameterfv(target, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
-$glGetTexParameteriv(target:GLenum, pname:GLenum, params:GLint@):void
+glGetTexParameteriv(target:GLenum, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
+	glGetTexParameteriv(target, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
 glHint(target:GLenum, mode:GLenum):void
 
