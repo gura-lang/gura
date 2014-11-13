@@ -6,7 +6,7 @@ glAccum(op:GLenum, value:GLfloat):void = `auto
 
 glAlphaFunc(func:GLenum, ref:GLclampf):void = `auto
 
-glAreTexturesResident(textures:GLuint@:const):GLboolean {block?} = R'''
+glAreTexturesResident(textures:GLuint@:const):GLboolean:map {block?} = R'''
 	GLsizei n = textures.GetSize();
 	CArray<GLboolean> residences(n);
 	GLboolean _rtn = glAreTexturesResident(n, textures, residences);
