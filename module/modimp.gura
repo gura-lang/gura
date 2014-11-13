@@ -7,9 +7,11 @@ Gura_DeclareFunction(${fi.funcNameGura})
 {
 	${if (fi.rtnInfo.tmplCaller && !fi.rtnInfo.alwaysVoidFlag)}
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
 	${else}
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	${end}
+	${if (fi.blockDeclared)}
+	DeclareBlock(OCCUR_${fi.blockDeclared});
 	${end}
 	${for (arg in fi.args)}
 	DeclareArg(env, "${arg.name}", VTYPE_${arg.valType}, OCCUR_${arg.occurPattern}, ${('FLAG_' + arg.flags).join('|')});
@@ -58,23 +60,58 @@ FuncInfo = class {
 		funcNameC, funcNameGura, args, rtnInfo, body
 	}
 	__init__(moduleName:string, decl:expr, typeConvDict:dict, funcNameTranslator:function):map = {
-		if (decl.isassign()) {
-			caller = decl.left
-			if (!(decl.right.isvalue() && isstring(decl.right.value))) {
-				this.PrintError(decl, 'assigned value must be a string')
+		if (!decl.isassign()) {
+			this.PrintError(decl, 'must be an assignment expression')
+			sys.exit(1)
+		}
+		if (!decl.left.iscaller()) {
+			this.PrintError(decl, "assinged target must be a caller")
+			sys.exit(1)
+		}
+		caller = decl.left
+		this.body = nil
+		this.validFlag = true
+		if (decl.right.isvalue() && isstring(decl.right.value)) {
+			this.body = decl.right.value
+		} elsif (decl.right.isquote() && decl.right.child.isidentifier()) {
+			sym = decl.right.child.symbol
+			if (sym == `auto) {
+				// nothing to do
+			} elsif (sym == `unsupport) {
+				this.validFlag = false
+			} else {
+				this.PrintError(decl, 'invalid symbol for assignment')
 				sys.exit(1)
 			}
-			body = decl.right.value
 		} else {
-			caller = decl
-			body = nil
+			this.PrintError(decl, 'assigned value must be a string')
+			sys.exit(1)
 		}
-		funcNameRaw:string = caller.car.symbol
+		this.blockDeclared = nil
+		if (caller.block) {
+			children = [caller.block.children]
+			if (children.len() != 1) {
+				this.PrintError(decl, 'block must contain a single expression')
+				sys.exit(1)
+			}
+			child = children[0]
+			if (child.isidentifier()) {
+				this.blockDeclared = 'Once'
+			} elsif (child.isunaryop()) {
+				if (child.operator.symbol == `?) {
+					this.blockDeclared = 'ZeroOrOnce'
+				} else {
+					this.PrintError(decl, 'suffixed operator must be ?')
+					sys.exit(1)
+				}
+			} else {
+				this.PrintError(decl, 'syntax error')
+				sys.exit(1)
+			}
+		}
 		this.moduleName = moduleName
-		this.funcNameC = funcNameRaw.replace('$', '')
+		this.funcNameC:string = caller.car.symbol
 		this.funcNameGura = funcNameTranslator(this.funcNameC)
-		this.validFlag = !funcNameRaw.find('$')
-		this.body = body
 		rtnTypeRaw = caller.attrfront.join('.')
 		if (rtnTypeRaw.isempty() && !this.validFlag) {
 			rtnTypeRaw = 'void'
@@ -130,7 +167,7 @@ FuncInfo = class {
 	}
 	MakeCaller() = ('%s(%s)' % [this.funcNameC, this.args:*name.join(', ')])
 	PrintError(decl:expr, fmt:string, args*) = {
-		sys.stderr.printf('%s:%d: %s',
+		sys.stderr.printf('%s:%d: %s\n',
 				  path.filename(decl.source), decl.lineno, format(fmt, args*))
 	}
 	RenderImplementation() = {
