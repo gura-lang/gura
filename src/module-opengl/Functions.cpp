@@ -3054,12 +3054,8 @@ Gura_DeclareFunction(glIndexdv)
 
 Gura_ImplementFunction(glIndexdv)
 {
-#if 0
 	CArray<GLdouble> c = args.GetList(0);
 	glIndexdv(c);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glIndexdv");
 	return Value::Null;
 }
 
@@ -3090,12 +3086,8 @@ Gura_DeclareFunction(glIndexfv)
 
 Gura_ImplementFunction(glIndexfv)
 {
-#if 0
 	CArray<GLfloat> c = args.GetList(0);
 	glIndexfv(c);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glIndexfv");
 	return Value::Null;
 }
 
@@ -3126,12 +3118,8 @@ Gura_DeclareFunction(glIndexiv)
 
 Gura_ImplementFunction(glIndexiv)
 {
-#if 0
 	CArray<GLint> c = args.GetList(0);
 	glIndexiv(c);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glIndexiv");
 	return Value::Null;
 }
 
@@ -3162,12 +3150,8 @@ Gura_DeclareFunction(glIndexsv)
 
 Gura_ImplementFunction(glIndexsv)
 {
-#if 0
 	CArray<GLshort> c = args.GetList(0);
 	glIndexsv(c);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glIndexsv");
 	return Value::Null;
 }
 
@@ -3198,12 +3182,8 @@ Gura_DeclareFunction(glIndexubv)
 
 Gura_ImplementFunction(glIndexubv)
 {
-#if 0
 	CArray<GLubyte> c = args.GetList(0);
 	glIndexubv(c);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glIndexubv");
 	return Value::Null;
 }
 
@@ -3899,12 +3879,12 @@ Gura_DeclareFunction(glMultMatrixd)
 
 Gura_ImplementFunction(glMultMatrixd)
 {
-#if 0
 	CArray<GLdouble> m = args.GetList(0);
+	if (m.GetSize() != 16) {
+		sig.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Null;
+	}
 	glMultMatrixd(m);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMultMatrixd");
 	return Value::Null;
 }
 
@@ -3919,12 +3899,12 @@ Gura_DeclareFunction(glMultMatrixf)
 
 Gura_ImplementFunction(glMultMatrixf)
 {
-#if 0
 	CArray<GLfloat> m = args.GetList(0);
+	if (m.GetSize() != 16) {
+		sig.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Null;
+	}
 	glMultMatrixf(m);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMultMatrixf");
 	return Value::Null;
 }
 
@@ -8269,22 +8249,21 @@ Gura_DeclareFunction(glMultiDrawArrays)
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "first", VTYPE_number, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "primcount", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glMultiDrawArrays)
 {
-#if 0
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLint> first = args.GetList(1);
 	CArray<GLsizei> count = args.GetList(2);
-	GLsizei primcount = args.GetInt(3);
+	GLsizei primcount = first.GetSize();
+	if (primcount != count.GetSize()) {
+		sig.SetError(ERR_ValueError, "first and count must have the same number of elements");
+		return Value::Null;
+	}
 	glMultiDrawArrays(mode, first, count, primcount);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMultiDrawArrays");
 	return Value::Null;
 }
 

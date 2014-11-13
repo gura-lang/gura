@@ -595,23 +595,23 @@ glIndexMask(mask:GLuint):void = `auto
 
 glIndexd(c:GLdouble):void = `auto
 
-glIndexdv(c:GLdouble@:const):void = `unsupport
+glIndexdv(c:GLdouble@:const):void = `auto
 
 glIndexf(c:GLfloat):void = `auto
 
-glIndexfv(c:GLfloat@:const):void = `unsupport
+glIndexfv(c:GLfloat@:const):void = `auto
 
 glIndexi(c:GLint):void = `auto
 
-glIndexiv(c:GLint@:const):void = `unsupport
+glIndexiv(c:GLint@:const):void = `auto
 
 glIndexs(c:GLshort):void = `auto
 
-glIndexsv(c:GLshort@:const):void = `unsupport
+glIndexsv(c:GLshort@:const):void = `auto
 
 glIndexub(c:GLubyte):void = `auto
 
-glIndexubv(c:GLubyte@:const):void = `unsupport
+glIndexubv(c:GLubyte@:const):void = `auto
 
 glInitNames():void = `auto
 
@@ -701,9 +701,9 @@ glMatrixMode(mode:GLenum):void = `auto
 
 glMinmax(target:GLenum, internalformat:GLenum, sink:GLboolean):void = `auto
 
-glMultMatrixd(m:GLdouble@:const):void = `unsupport
+glMultMatrixd(m:GLdouble@16:const):void = `auto
 
-glMultMatrixf(m:GLfloat@:const):void = `unsupport
+glMultMatrixf(m:GLfloat@16:const):void = `auto
 
 glNewList(list:GLuint, mode:GLenum):void {block?} = R'''
 	glNewList(list, mode);
@@ -1231,7 +1231,15 @@ glPointParameteriv(pname:GLenum, params:GLint@:const):void = `auto
 
 glBlendFuncSeparate(srcRGB:GLenum, dstRGB:GLenum, srcAlpha:GLenum, dstAlpha:GLenum):void = `auto
 
-glMultiDrawArrays(mode:GLenum, first:GLint@:const, count:GLsizei@:const, primcount:GLsizei):void = `unsupport
+glMultiDrawArrays(mode:GLenum, first:GLint@:const, count:GLsizei@:const):void = R'''
+	GLsizei primcount = first.GetSize();
+	if (primcount != count.GetSize()) {
+		sig.SetError(ERR_ValueError, "first and count must have the same number of elements");
+		return Value::Null;
+	}
+	glMultiDrawArrays(mode, first, count, primcount);
+	return Value::Null;
+'''
 
 //glMultiDrawElements(mode:GLenum, count:GLsizei@:const, type:GLenum, indices:GLvoid@:const@:const, primcount:GLsizei):void = `unsupport
 
