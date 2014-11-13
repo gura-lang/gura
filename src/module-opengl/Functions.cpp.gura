@@ -21,7 +21,17 @@ glAreTexturesResident(textures:GLuint@:const):GLboolean:map {block?} = R'''
 
 glArrayElement(i:GLint):void = `auto
 
-glBegin(mode:GLenum):void = `auto
+glBegin(mode:GLenum):void {block?} = R'''
+	glBegin(mode);
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		glEnd();
+	}
+	return Value::Null;
+'''
 
 glBindTexture(target:GLenum, texture:GLuint):void = `auto
 
@@ -657,13 +667,13 @@ glLoadName(name:GLuint):void = `auto
 
 glLogicOp(opcode:GLenum):void = `auto
 
-glMap1d(target:GLenum, u1:GLdouble, u2:GLdouble, stride:GLint, order:GLint, points:GLdouble@:const):void = `unsupport
+glMap1d(target:GLenum, u1:GLdouble, u2:GLdouble, stride:GLint, order:GLint, points:GLdouble@:const):void = `auto
 
-glMap1f(target:GLenum, u1:GLfloat, u2:GLfloat, stride:GLint, order:GLint, points:GLfloat@:const):void = `unsupport
+glMap1f(target:GLenum, u1:GLfloat, u2:GLfloat, stride:GLint, order:GLint, points:GLfloat@:const):void = `auto
 
-glMap2d(target:GLenum, u1:GLdouble, u2:GLdouble, ustride:GLint, uorder:GLint, v1:GLdouble, v2:GLdouble, vstride:GLint, vorder:GLint, points:GLdouble@:const):void = `unsupport
+glMap2d(target:GLenum, u1:GLdouble, u2:GLdouble, ustride:GLint, uorder:GLint, v1:GLdouble, v2:GLdouble, vstride:GLint, vorder:GLint, points:GLdouble@:const):void = `auto
 
-glMap2f(target:GLenum, u1:GLfloat, u2:GLfloat, ustride:GLint, uorder:GLint, v1:GLfloat, v2:GLfloat, vstride:GLint, vorder:GLint, points:GLfloat@:const):void = `unsupport
+glMap2f(target:GLenum, u1:GLfloat, u2:GLfloat, ustride:GLint, uorder:GLint, v1:GLfloat, v2:GLfloat, vstride:GLint, vorder:GLint, points:GLfloat@:const):void = `auto
 
 glMapGrid1d(un:GLint, u1:GLdouble, u2:GLdouble):void = `auto
 
@@ -695,7 +705,17 @@ glMultMatrixd(m:GLdouble@:const):void = `unsupport
 
 glMultMatrixf(m:GLfloat@:const):void = `unsupport
 
-glNewList(list:GLuint, mode:GLenum):void = `auto
+glNewList(list:GLuint, mode:GLenum):void {block?} = R'''
+	glNewList(list, mode);
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		glEndList();
+	}
+	return Value::Null;
+'''
 
 glNormal3b(nx:GLbyte, ny:GLbyte, nz:GLbyte):void = `auto
 
@@ -723,11 +743,11 @@ glOrtho(left:GLdouble, right:GLdouble, bottom:GLdouble, top:GLdouble, zNear:GLdo
 
 glPassThrough(token:GLfloat):void = `auto
 
-glPixelMapfv(map:GLenum, mapsize:GLint, values:GLfloat@:const):void = `unsupport
+glPixelMapfv(map:GLenum, mapsize:GLint, values:GLfloat@:const):void = `auto
 
-glPixelMapuiv(map:GLenum, mapsize:GLint, values:GLuint@:const):void = `unsupport
+glPixelMapuiv(map:GLenum, mapsize:GLint, values:GLuint@:const):void = `auto
 
-glPixelMapusv(map:GLenum, mapsize:GLint, values:GLushort@:const):void = `unsupport
+glPixelMapusv(map:GLenum, mapsize:GLint, values:GLushort@:const):void = `auto
 
 glPixelStoref(pname:GLenum, param:GLfloat):void = `auto
 
@@ -745,7 +765,7 @@ glPolygonMode(face:GLenum, mode:GLenum):void = `auto
 
 glPolygonOffset(factor:GLfloat, units:GLfloat):void = `auto
 
-glPolygonStipple(mask:GLubyte@:const):void = `unsupport
+glPolygonStipple(mask:GLubyte@:const):void = `auto
 
 glPopAttrib():void = `auto
 
@@ -767,11 +787,41 @@ glPrioritizeTextures(textures:GLuint@:const, priorities:GLclampf@:const):void = 
 
 glPushAttrib(mask:GLbitfield):void = `auto
 
-glPushClientAttrib(mask:GLbitfield):void = `auto
+glPushClientAttrib(mask:GLbitfield):void {block?} = R'''
+	glPushClientAttrib(mask);
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		glPopClientAttrib();
+	}
+	return Value::Null;
+'''
 
-glPushMatrix():void = `auto
+glPushMatrix():void {block?} = R'''
+	glPushMatrix();
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		glPopMatrix();
+	}
+	return Value::Null;
+'''
 
-glPushName(name:GLuint):void = `auto
+glPushName(name:GLuint):void {block?} = R'''
+	glPushName(name);
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		glPopName();
+	}
+	return Value::Null;
+'''
 
 glRasterPos2d(x:GLdouble, y:GLdouble):void = `auto
 
@@ -857,7 +907,11 @@ glScalef(x:GLfloat, y:GLfloat, z:GLfloat):void = `auto
 
 glScissor(x:GLint, y:GLint, width:GLsizei, height:GLsizei):void = `auto
 
-glSelectBuffer(size:GLsizei, buffer:GLuint@):void = `unsupport
+glSelectBuffer(size:GLsizei) {block?} = R'''
+	CArray<GLuint> buffer(size);
+	glSelectBuffer(size, buffer);
+	return ReturnValue(env, sig, args, Value::CreateList(env, buffer, size));
+'''
 
 //glSeparableFilter2D(target:GLenum, internalformat:GLenum, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, row:GLvoid@:const, column:GLvoid@:const):void = `unsupport
 
@@ -937,23 +991,23 @@ glTexCoord4sv(v:GLshort@4:const):void = `auto
 
 glTexEnvf(target:GLenum, pname:GLenum, param:GLfloat):void = `auto
 
-glTexEnvfv(target:GLenum, pname:GLenum, params:GLfloat@:const):void = `unsupport
+glTexEnvfv(target:GLenum, pname:GLenum, params:GLfloat@:const):void = `auto
 
 glTexEnvi(target:GLenum, pname:GLenum, param:GLint):void = `auto
 
-glTexEnviv(target:GLenum, pname:GLenum, params:GLint@:const):void = `unsupport
+glTexEnviv(target:GLenum, pname:GLenum, params:GLint@:const):void = `auto
 
 glTexGend(coord:GLenum, pname:GLenum, param:GLdouble):void = `auto
 
-glTexGendv(coord:GLenum, pname:GLenum, params:GLdouble@:const):void = `unsupport
+glTexGendv(coord:GLenum, pname:GLenum, params:GLdouble@:const):void = `auto
 
 glTexGenf(coord:GLenum, pname:GLenum, param:GLfloat):void = `auto
 
-glTexGenfv(coord:GLenum, pname:GLenum, params:GLfloat@:const):void = `unsupport
+glTexGenfv(coord:GLenum, pname:GLenum, params:GLfloat@:const):void = `auto
 
 glTexGeni(coord:GLenum, pname:GLenum, param:GLint):void = `auto
 
-glTexGeniv(coord:GLenum, pname:GLenum, params:GLint@:const):void = `unsupport
+glTexGeniv(coord:GLenum, pname:GLenum, params:GLint@:const):void = `auto
 
 //glTexImage1D(target:GLenum, level:GLint, internalformat:GLint, width:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:GLvoid@:const):void = `unsupport
 
@@ -963,11 +1017,11 @@ glTexGeniv(coord:GLenum, pname:GLenum, params:GLint@:const):void = `unsupport
 
 glTexParameterf(target:GLenum, pname:GLenum, param:GLfloat):void = `auto
 
-glTexParameterfv(target:GLenum, pname:GLenum, params:GLfloat@:const):void = `unsupport
+glTexParameterfv(target:GLenum, pname:GLenum, params:GLfloat@:const):void = `auto
 
 glTexParameteri(target:GLenum, pname:GLenum, param:GLint):void = `auto
 
-glTexParameteriv(target:GLenum, pname:GLenum, params:GLint@:const):void = `unsupport
+glTexParameteriv(target:GLenum, pname:GLenum, params:GLint@:const):void = `auto
 
 //glTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint, width:GLsizei, format:GLenum, type:GLenum, pixels:GLvoid@:const):void = `unsupport
 
@@ -1169,11 +1223,11 @@ glSecondaryColor3usv(v:GLushort@3:const):void = `auto
 
 glPointParameterf(pname:GLenum, param:GLfloat):void = `auto
 
-glPointParameterfv(pname:GLenum, params:GLfloat@:const):void = `unsupport
+glPointParameterfv(pname:GLenum, params:GLfloat@:const):void = `auto
 
 glPointParameteri(pname:GLenum, param:GLint):void = `auto
 
-glPointParameteriv(pname:GLenum, params:GLint@:const):void = `unsupport
+glPointParameteriv(pname:GLenum, params:GLint@:const):void = `auto
 
 glBlendFuncSeparate(srcRGB:GLenum, dstRGB:GLenum, srcAlpha:GLenum, dstAlpha:GLenum):void = `auto
 
@@ -1216,7 +1270,7 @@ glWindowPos3sv(v:GLshort@3:const):void = `auto
 glGenQueries(n:GLsizei) {block?} = R'''
 	CArray<GLuint> ids(n);
 	glGenQueries(n, ids);
-	return Value::CreateList(env, ids, n);
+	return ReturnValue(env, sig, args, Value::CreateList(env, ids, n));
 '''
 
 glDeleteQueries(ids:GLuint@:const):void = R'''
@@ -1227,7 +1281,17 @@ glDeleteQueries(ids:GLuint@:const):void = R'''
 
 glIsQuery(id:GLuint):GLboolean {block?} = `auto
 
-glBeginQuery(target:GLenum, id:GLuint):void = `auto
+glBeginQuery(target:GLenum, id:GLuint):void {block?} = R'''
+	glBeginQuery(target, id);
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		glEndQuery(target);
+	}
+	return Value::Null;
+'''
 
 glEndQuery(target:GLenum):void = `auto
 

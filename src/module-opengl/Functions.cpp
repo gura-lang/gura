@@ -84,6 +84,7 @@ Gura_ImplementFunction(glArrayElement)
 Gura_DeclareFunction(glBegin)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -93,6 +94,13 @@ Gura_ImplementFunction(glBegin)
 {
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	glBegin(mode);
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		glEnd();
+	}
 	return Value::Null;
 }
 
@@ -3568,7 +3576,6 @@ Gura_DeclareFunction(glMap1d)
 
 Gura_ImplementFunction(glMap1d)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLdouble u1 = args.GetDouble(1);
 	GLdouble u2 = args.GetDouble(2);
@@ -3576,9 +3583,6 @@ Gura_ImplementFunction(glMap1d)
 	GLint order = args.GetInt(4);
 	CArray<GLdouble> points = args.GetList(5);
 	glMap1d(target, u1, u2, stride, order, points);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMap1d");
 	return Value::Null;
 }
 
@@ -3598,7 +3602,6 @@ Gura_DeclareFunction(glMap1f)
 
 Gura_ImplementFunction(glMap1f)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLfloat u1 = args.GetFloat(1);
 	GLfloat u2 = args.GetFloat(2);
@@ -3606,9 +3609,6 @@ Gura_ImplementFunction(glMap1f)
 	GLint order = args.GetInt(4);
 	CArray<GLfloat> points = args.GetList(5);
 	glMap1f(target, u1, u2, stride, order, points);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMap1f");
 	return Value::Null;
 }
 
@@ -3632,7 +3632,6 @@ Gura_DeclareFunction(glMap2d)
 
 Gura_ImplementFunction(glMap2d)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLdouble u1 = args.GetDouble(1);
 	GLdouble u2 = args.GetDouble(2);
@@ -3644,9 +3643,6 @@ Gura_ImplementFunction(glMap2d)
 	GLint vorder = args.GetInt(8);
 	CArray<GLdouble> points = args.GetList(9);
 	glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMap2d");
 	return Value::Null;
 }
 
@@ -3670,7 +3666,6 @@ Gura_DeclareFunction(glMap2f)
 
 Gura_ImplementFunction(glMap2f)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLfloat u1 = args.GetFloat(1);
 	GLfloat u2 = args.GetFloat(2);
@@ -3682,9 +3677,6 @@ Gura_ImplementFunction(glMap2f)
 	GLint vorder = args.GetInt(8);
 	CArray<GLfloat> points = args.GetList(9);
 	glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glMap2f");
 	return Value::Null;
 }
 
@@ -3940,6 +3932,7 @@ Gura_ImplementFunction(glMultMatrixf)
 Gura_DeclareFunction(glNewList)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "list", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -3951,6 +3944,13 @@ Gura_ImplementFunction(glNewList)
 	GLuint list = args.GetUInt(0);
 	GLenum mode = static_cast<GLenum>(args.GetInt(1));
 	glNewList(list, mode);
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		glEndList();
+	}
 	return Value::Null;
 }
 
@@ -4209,14 +4209,10 @@ Gura_DeclareFunction(glPixelMapfv)
 
 Gura_ImplementFunction(glPixelMapfv)
 {
-#if 0
 	GLenum map = static_cast<GLenum>(args.GetInt(0));
 	GLint mapsize = args.GetInt(1);
 	CArray<GLfloat> values = args.GetList(2);
 	glPixelMapfv(map, mapsize, values);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glPixelMapfv");
 	return Value::Null;
 }
 
@@ -4233,14 +4229,10 @@ Gura_DeclareFunction(glPixelMapuiv)
 
 Gura_ImplementFunction(glPixelMapuiv)
 {
-#if 0
 	GLenum map = static_cast<GLenum>(args.GetInt(0));
 	GLint mapsize = args.GetInt(1);
 	CArray<GLuint> values = args.GetList(2);
 	glPixelMapuiv(map, mapsize, values);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glPixelMapuiv");
 	return Value::Null;
 }
 
@@ -4257,14 +4249,10 @@ Gura_DeclareFunction(glPixelMapusv)
 
 Gura_ImplementFunction(glPixelMapusv)
 {
-#if 0
 	GLenum map = static_cast<GLenum>(args.GetInt(0));
 	GLint mapsize = args.GetInt(1);
 	CArray<GLushort> values = args.GetList(2);
 	glPixelMapusv(map, mapsize, values);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glPixelMapusv");
 	return Value::Null;
 }
 
@@ -4421,12 +4409,8 @@ Gura_DeclareFunction(glPolygonStipple)
 
 Gura_ImplementFunction(glPolygonStipple)
 {
-#if 0
 	CArray<GLubyte> mask = args.GetList(0);
 	glPolygonStipple(mask);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glPolygonStipple");
 	return Value::Null;
 }
 
@@ -4529,6 +4513,7 @@ Gura_ImplementFunction(glPushAttrib)
 Gura_DeclareFunction(glPushClientAttrib)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "mask", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -4538,6 +4523,13 @@ Gura_ImplementFunction(glPushClientAttrib)
 {
 	GLbitfield mask = args.GetUInt(0);
 	glPushClientAttrib(mask);
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		glPopClientAttrib();
+	}
 	return Value::Null;
 }
 
@@ -4545,6 +4537,7 @@ Gura_ImplementFunction(glPushClientAttrib)
 Gura_DeclareFunction(glPushMatrix)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -4552,6 +4545,13 @@ Gura_DeclareFunction(glPushMatrix)
 Gura_ImplementFunction(glPushMatrix)
 {
 	glPushMatrix();
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		glPopMatrix();
+	}
 	return Value::Null;
 }
 
@@ -4559,6 +4559,7 @@ Gura_ImplementFunction(glPushMatrix)
 Gura_DeclareFunction(glPushName)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "name", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -4568,6 +4569,13 @@ Gura_ImplementFunction(glPushName)
 {
 	GLuint name = args.GetUInt(0);
 	glPushName(name);
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		glPopName();
+	}
 	return Value::Null;
 }
 
@@ -5417,23 +5425,19 @@ Gura_ImplementFunction(glScissor)
 // opengl.glSelectBuffer
 Gura_DeclareFunction(glSelectBuffer)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glSelectBuffer)
 {
-#if 0
 	GLsizei size = args.GetInt(0);
-	CArray<GLuint> buffer = args.GetList(1);
+	CArray<GLuint> buffer(size);
 	glSelectBuffer(size, buffer);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glSelectBuffer");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, buffer, size));
 }
 
 // opengl.glShadeModel
@@ -6165,14 +6169,10 @@ Gura_DeclareFunction(glTexEnvfv)
 
 Gura_ImplementFunction(glTexEnvfv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLfloat> params = args.GetList(2);
 	glTexEnvfv(target, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexEnvfv");
 	return Value::Null;
 }
 
@@ -6209,14 +6209,10 @@ Gura_DeclareFunction(glTexEnviv)
 
 Gura_ImplementFunction(glTexEnviv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLint> params = args.GetList(2);
 	glTexEnviv(target, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexEnviv");
 	return Value::Null;
 }
 
@@ -6253,14 +6249,10 @@ Gura_DeclareFunction(glTexGendv)
 
 Gura_ImplementFunction(glTexGendv)
 {
-#if 0
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLdouble> params = args.GetList(2);
 	glTexGendv(coord, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexGendv");
 	return Value::Null;
 }
 
@@ -6297,14 +6289,10 @@ Gura_DeclareFunction(glTexGenfv)
 
 Gura_ImplementFunction(glTexGenfv)
 {
-#if 0
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLfloat> params = args.GetList(2);
 	glTexGenfv(coord, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexGenfv");
 	return Value::Null;
 }
 
@@ -6341,14 +6329,10 @@ Gura_DeclareFunction(glTexGeniv)
 
 Gura_ImplementFunction(glTexGeniv)
 {
-#if 0
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLint> params = args.GetList(2);
 	glTexGeniv(coord, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexGeniv");
 	return Value::Null;
 }
 
@@ -6385,14 +6369,10 @@ Gura_DeclareFunction(glTexParameterfv)
 
 Gura_ImplementFunction(glTexParameterfv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLfloat> params = args.GetList(2);
 	glTexParameterfv(target, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexParameterfv");
 	return Value::Null;
 }
 
@@ -6429,14 +6409,10 @@ Gura_DeclareFunction(glTexParameteriv)
 
 Gura_ImplementFunction(glTexParameteriv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLint> params = args.GetList(2);
 	glTexParameteriv(target, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glTexParameteriv");
 	return Value::Null;
 }
 
@@ -8222,13 +8198,9 @@ Gura_DeclareFunction(glPointParameterfv)
 
 Gura_ImplementFunction(glPointParameterfv)
 {
-#if 0
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLfloat> params = args.GetList(1);
 	glPointParameterfv(pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glPointParameterfv");
 	return Value::Null;
 }
 
@@ -8262,13 +8234,9 @@ Gura_DeclareFunction(glPointParameteriv)
 
 Gura_ImplementFunction(glPointParameteriv)
 {
-#if 0
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLint> params = args.GetList(1);
 	glPointParameteriv(pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glPointParameteriv");
 	return Value::Null;
 }
 
@@ -8647,7 +8615,7 @@ Gura_ImplementFunction(glGenQueries)
 	GLsizei n = args.GetInt(0);
 	CArray<GLuint> ids(n);
 	glGenQueries(n, ids);
-	return Value::CreateList(env, ids, n);
+	return ReturnValue(env, sig, args, Value::CreateList(env, ids, n));
 }
 
 // opengl.glDeleteQueries
@@ -8688,6 +8656,7 @@ Gura_ImplementFunction(glIsQuery)
 Gura_DeclareFunction(glBeginQuery)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -8699,6 +8668,13 @@ Gura_ImplementFunction(glBeginQuery)
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLuint id = args.GetUInt(1);
 	glBeginQuery(target, id);
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		glEndQuery(target);
+	}
 	return Value::Null;
 }
 
