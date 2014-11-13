@@ -1801,13 +1801,8 @@ Gura_ImplementFunction(GetWindowWMInfo)
 {
 #if 0
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
-	SDL_SysWMinfo info;
-	SDL_bool _rtn = SDL_GetWindowWMInfo(window, &info);
-	if (_rtn != SDL_TRUE) {
-		SetError_SDL(sig);
-		return Value::Null;
-	}
-	return ReturnValue(env, sig, args, Value(new Object_SysWMinfo(info)));
+	SDL_GetWindowWMInfo(window);
+	return Value::Null;
 #endif
 	SetError_NotImpFunction(sig, "GetWindowWMInfo");
 	return Value::Null;
@@ -2017,8 +2012,7 @@ Gura_ImplementFunction(SetWindowFullscreen)
 // sdl2.SetWindowGammaRamp
 Gura_DeclareFunction(SetWindowGammaRamp)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "green", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -2290,8 +2284,7 @@ Gura_ImplementFunction(UpdateWindowSurface)
 // sdl2.UpdateWindowSurfaceRects
 Gura_DeclareFunction(UpdateWindowSurfaceRects)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2935,8 +2928,7 @@ Gura_ImplementFunction(RenderDrawLine)
 // sdl2.RenderDrawLines
 Gura_DeclareFunction(RenderDrawLines)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "points", VTYPE_Point, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2983,8 +2975,7 @@ Gura_ImplementFunction(RenderDrawPoint)
 // sdl2.RenderDrawPoints
 Gura_DeclareFunction(RenderDrawPoints)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "points", VTYPE_Point, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -3029,8 +3020,7 @@ Gura_ImplementFunction(RenderDrawRect)
 // sdl2.RenderDrawRects
 Gura_DeclareFunction(RenderDrawRects)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -3075,8 +3065,7 @@ Gura_ImplementFunction(RenderFillRect)
 // sdl2.RenderFillRects
 Gura_DeclareFunction(RenderFillRects)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -3174,7 +3163,6 @@ Gura_ImplementFunction(RenderGetViewport)
 Gura_DeclareFunction(RenderIsClipEnabled)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -3828,8 +3816,7 @@ Gura_ImplementFunction(PixelFormatEnumToMasks)
 // sdl2.SetPaletteColors
 Gura_DeclareFunction(SetPaletteColors)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "palette", VTYPE_Palette, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "colors", VTYPE_Color, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "firstcolor", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3951,7 +3938,6 @@ Gura_ImplementFunction(IntersectRect)
 Gura_DeclareFunction(IntersectRectAndLine)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "X1", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "Y1", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3980,7 +3966,6 @@ Gura_ImplementFunction(IntersectRectAndLine)
 Gura_DeclareFunction(PointInRect)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "p", VTYPE_Point, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "r", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -4320,8 +4305,7 @@ Gura_ImplementFunction(FillRect)
 // sdl2.FillRects
 Gura_DeclareFunction(FillRects)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "dst", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "color", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5349,8 +5333,7 @@ Gura_ImplementFunction(SaveAllDollarTemplates)
 // sdl2.SaveDollarTemplate
 Gura_DeclareFunction(SaveDollarTemplate)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "gestureId", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "dst", VTYPE_stream, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -5927,11 +5910,8 @@ Gura_DeclareFunction(GetGlobalMouseState)
 Gura_ImplementFunction(GetGlobalMouseState)
 {
 #if 0
-	int x = 0;
-	int y = 0;
-	Uint32 _rtn = SDL_GetGlobalMouseState(&x, &y);
-	return ReturnValue(env, sig, args, Value::CreateList(env,
-										Value(_rtn), Value(x), Value(y)));
+	SDL_GetGlobalMouseState();
+	return Value::Null;
 #endif
 	SetError_NotImpFunction(sig, "GetGlobalMouseState");
 	return Value::Null;
@@ -7754,8 +7734,7 @@ Gura_ImplementFunction(ConvertAudio)
 // sdl2.FreeWAV
 Gura_DeclareFunction(FreeWAV)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "wav", VTYPE_Wav, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -7914,7 +7893,6 @@ Gura_ImplementFunction(GetNumAudioDrivers)
 Gura_DeclareFunction(GetQueuedAudioSize)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "dev", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -8072,7 +8050,6 @@ Gura_ImplementFunction(OpenAudio)
 Gura_DeclareFunction(OpenAudioDevice)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "device", VTYPE_string, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "iscapture", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "desired", VTYPE_AudioSpec, OCCUR_Once, FLAG_None);
@@ -9044,7 +9021,6 @@ Gura_ImplementFunction(CompilerBarrier)
 Gura_DeclareFunction(AddTimer)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "interval", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -9162,7 +9138,6 @@ Gura_ImplementFunction(TICKS_PASSED)
 Gura_DeclareFunction(GetBasePath)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -9189,7 +9164,6 @@ Gura_ImplementFunction(GetBasePath)
 Gura_DeclareFunction(GetPrefPath)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "org", VTYPE_string, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "app", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -9731,7 +9705,6 @@ Gura_ImplementFunction(HasAVX)
 Gura_DeclareFunction(HasAVX2)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -10086,7 +10059,6 @@ Gura_ImplementFunction(SwapLE64)
 Gura_DeclareFunction(MostSignificantBitIndex32)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
