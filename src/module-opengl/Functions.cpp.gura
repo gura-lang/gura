@@ -200,11 +200,11 @@ glColorMask(red:GLboolean, green:GLboolean, blue:GLboolean, alpha:GLboolean):voi
 
 glColorMaterial(face:GLenum, mode:GLenum):void = `auto
 
-//$glColorPointer(size:GLint, type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void
+//glColorPointer(size:GLint, type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void = `unsupport
 
-//$glColorSubTable(target:GLenum, start:GLsizei, count:GLsizei, format:GLenum, type:GLenum, data:GLvoid@:const):void
+//glColorSubTable(target:GLenum, start:GLsizei, count:GLsizei, format:GLenum, type:GLenum, data:GLvoid@:const):void = `unsupport
 
-//$glColorTable(target:GLenum, internalformat:GLenum, width:GLsizei, format:GLenum, type:GLenum, table:GLvoid@:const):void
+//glColorTable(target:GLenum, internalformat:GLenum, width:GLsizei, format:GLenum, type:GLenum, table:GLvoid@:const):void = `unsupport
 
 glColorTableParameterfv(target:GLenum, pname:GLenum, params:GLfloat@:const):void = R'''
 	glColorTableParameterfv(target, pname, params);
@@ -216,9 +216,9 @@ glColorTableParameteriv(target:GLenum, pname:GLenum, params:GLint@:const):void =
 	return Value::Null;
 '''
 
-//$glConvolutionFilter1D(target:GLenum, internalformat:GLenum, width:GLsizei, format:GLenum, type:GLenum, image:GLvoid@:const):void
+//glConvolutionFilter1D(target:GLenum, internalformat:GLenum, width:GLsizei, format:GLenum, type:GLenum, image:GLvoid@:const):void = `unsupport
 
-//$glConvolutionFilter2D(target:GLenum, internalformat:GLenum, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, image:GLvoid@:const):void
+//glConvolutionFilter2D(target:GLenum, internalformat:GLenum, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, image:GLvoid@:const):void = `unsupport
 
 glConvolutionParameterf(target:GLenum, pname:GLenum, params:GLfloat):void = `auto
 
@@ -278,15 +278,15 @@ glDrawArrays(mode:GLenum, first:GLint, count:GLsizei):void = `auto
 
 glDrawBuffer(mode:GLenum):void = `auto
 
-//$glDrawElements(mode:GLenum, count:GLsizei, type:GLenum, indices:GLvoid@:const):void
+//glDrawElements(mode:GLenum, count:GLsizei, type:GLenum, indices:GLvoid@:const):void = `unsupport
 
-//$glDrawPixels(width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:GLvoid@:const):void
+//glDrawPixels(width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:GLvoid@:const):void = `unsupport
 
-//$glDrawRangeElements(mode:GLenum, start:GLuint, end:GLuint, count:GLsizei, type:GLenum, indices:GLvoid@:const):void
+//glDrawRangeElements(mode:GLenum, start:GLuint, end:GLuint, count:GLsizei, type:GLenum, indices:GLvoid@:const):void = `unsupport
 
 glEdgeFlag(flag:GLboolean):void = `auto
 
-//$glEdgeFlagPointer(stride:GLsizei, pointer:GLvoid@:const):void
+//glEdgeFlagPointer(stride:GLsizei, pointer:GLvoid@:const):void = `unsupport
 
 glEdgeFlagv(flag:GLboolean@1:const):void = `auto
 
@@ -368,7 +368,7 @@ glGetBooleanv(pname:GLenum) {block?} = R'''
 
 glGetClipPlane(plane:GLenum, equation:GLdouble@):void = `unsupport
 
-//$glGetColorTable(target:GLenum, format:GLenum, type:GLenum, table:GLvoid@):void
+//glGetColorTable(target:GLenum, format:GLenum, type:GLenum, table:GLvoid@):void = `unsupport
 
 glGetColorTableParameterfv(target:GLenum, pname:GLenum) {block?} = R'''
 	size_t n = GetParamCount(pname);
@@ -384,7 +384,7 @@ glGetColorTableParameteriv(target:GLenum, pname:GLenum) {block?} = R'''
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 '''
 
-//$glGetConvolutionFilter(target:GLenum, format:GLenum, type:GLenum, image:GLvoid@):void
+//glGetConvolutionFilter(target:GLenum, format:GLenum, type:GLenum, image:GLvoid@):void = `unsupport
 
 glGetConvolutionParameterfv(target:GLenum, pname:GLenum) {block?} = R'''
 	size_t n = GetParamCount(pname);
@@ -416,7 +416,7 @@ glGetFloatv(pname:GLenum) {block?} = R'''
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 '''
 
-//$glGetHistogram(target:GLenum, reset:GLboolean, format:GLenum, type:GLenum, values:GLvoid@):void
+//glGetHistogram(target:GLenum, reset:GLboolean, format:GLenum, type:GLenum, values:GLvoid@):void = `unsupport
 
 glGetHistogramParameterfv(target:GLenum, pname:GLenum) {block?} = R'''
 	size_t n = GetParamCount(pname);
@@ -473,7 +473,7 @@ glGetMaterialiv(face:GLenum, pname:GLenum) {block?} = R'''
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 '''
 
-//$glGetMinmax(target:GLenum, reset:GLboolean, format:GLenum, type:GLenum, values:GLvoid@):void
+//glGetMinmax(target:GLenum, reset:GLboolean, format:GLenum, type:GLenum, values:GLvoid@):void = `unsupport
 
 glGetMinmaxParameterfv(target:GLenum, pname:GLenum) {block?} = R'''
 	size_t n = GetParamCount(pname);
@@ -495,11 +495,11 @@ glGetPixelMapuiv(map:GLenum, values:GLuint@):void = `unsupport
 
 glGetPixelMapusv(map:GLenum, values:GLushort@):void = `unsupport
 
-//$glGetPointerv(pname:GLenum, params:GLvoid@@):void
+//glGetPointerv(pname:GLenum, params:GLvoid@@):void = `unsupport
 
 glGetPolygonStipple(mask:GLubyte@):void = `unsupport
 
-//$glGetSeparableFilter(target:GLenum, format:GLenum, type:GLenum, row:GLvoid@, column:GLvoid@, span:GLvoid@):void
+//glGetSeparableFilter(target:GLenum, format:GLenum, type:GLenum, row:GLvoid@, column:GLvoid@, span:GLvoid@):void = `unsupport
 
 glGetString(name:GLenum):GLubyte@:const {block?} = `unsupport
 
@@ -538,7 +538,7 @@ glGetTexGeniv(coord:GLenum, pname:GLenum) {block?} = R'''
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 '''
 
-//$glGetTexImage(target:GLenum, level:GLint, format:GLenum, type:GLenum, pixels:GLvoid@):void
+//glGetTexImage(target:GLenum, level:GLint, format:GLenum, type:GLenum, pixels:GLvoid@):void = `unsupport
 
 glGetTexLevelParameterfv(target:GLenum, level:GLint, pname:GLenum) {block?} = R'''
 	size_t n = GetParamCount(pname);
@@ -574,7 +574,7 @@ glHistogram(target:GLenum, width:GLsizei, internalformat:GLenum, sink:GLboolean)
 
 glIndexMask(mask:GLuint):void = `auto
 
-//$glIndexPointer(type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void
+//glIndexPointer(type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void = `unsupport
 
 glIndexd(c:GLdouble):void = `auto
 
@@ -598,7 +598,7 @@ glIndexubv(c:GLubyte@:const):void = `unsupport
 
 glInitNames():void = `auto
 
-//$glInterleavedArrays(format:GLenum, stride:GLsizei, pointer:GLvoid@:const):void
+//glInterleavedArrays(format:GLenum, stride:GLsizei, pointer:GLvoid@:const):void = `unsupport
 
 glIsEnabled(cap:GLenum):GLboolean {block?} = `auto
 
@@ -710,7 +710,7 @@ glNormal3s(nx:GLshort, ny:GLshort, nz:GLshort):void = `auto
 
 glNormal3sv(v:GLshort@3:const):void = `auto
 
-//$glNormalPointer(type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void
+//glNormalPointer(type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void = `unsupport
 
 glOrtho(left:GLdouble, right:GLdouble, bottom:GLdouble, top:GLdouble, zNear:GLdouble, zFar:GLdouble):void = `auto
 
@@ -816,7 +816,7 @@ glRasterPos4sv(v:GLshort@4:const):void = `auto
 
 glReadBuffer(mode:GLenum):void = `auto
 
-//$glReadPixels(x:GLint, y:GLint, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:GLvoid@):void
+//glReadPixels(x:GLint, y:GLint, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:GLvoid@):void = `unsupport
 
 glRectd(x1:GLdouble, y1:GLdouble, x2:GLdouble, y2:GLdouble):void = `auto
 
@@ -852,7 +852,7 @@ glScissor(x:GLint, y:GLint, width:GLsizei, height:GLsizei):void = `auto
 
 glSelectBuffer(size:GLsizei, buffer:GLuint@):void = `unsupport
 
-//$glSeparableFilter2D(target:GLenum, internalformat:GLenum, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, row:GLvoid@:const, column:GLvoid@:const):void
+//glSeparableFilter2D(target:GLenum, internalformat:GLenum, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, row:GLvoid@:const, column:GLvoid@:const):void = `unsupport
 
 glShadeModel(mode:GLenum):void = `auto
 
@@ -926,7 +926,7 @@ glTexCoord4s(s:GLshort, t:GLshort, r:GLshort, q:GLshort):void = `auto
 
 glTexCoord4sv(v:GLshort@4:const):void = `auto
 
-//$glTexCoordPointer(size:GLint, type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void
+//glTexCoordPointer(size:GLint, type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void = `unsupport
 
 glTexEnvf(target:GLenum, pname:GLenum, param:GLfloat):void = `auto
 
@@ -948,11 +948,11 @@ glTexGeni(coord:GLenum, pname:GLenum, param:GLint):void = `auto
 
 glTexGeniv(coord:GLenum, pname:GLenum, params:GLint@:const):void = `unsupport
 
-//$glTexImage1D(target:GLenum, level:GLint, internalformat:GLint, width:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:GLvoid@:const):void
+//glTexImage1D(target:GLenum, level:GLint, internalformat:GLint, width:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:GLvoid@:const):void = `unsupport
 
-//$glTexImage2D(target:GLenum, level:GLint, internalformat:GLint, width:GLsizei, height:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:GLvoid@:const):void
+//glTexImage2D(target:GLenum, level:GLint, internalformat:GLint, width:GLsizei, height:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:GLvoid@:const):void = `unsupport
 
-//$glTexImage3D(target:GLenum, level:GLint, internalformat:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:GLvoid@:const):void
+//glTexImage3D(target:GLenum, level:GLint, internalformat:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:GLvoid@:const):void = `unsupport
 
 glTexParameterf(target:GLenum, pname:GLenum, param:GLfloat):void = `auto
 
@@ -962,11 +962,11 @@ glTexParameteri(target:GLenum, pname:GLenum, param:GLint):void = `auto
 
 glTexParameteriv(target:GLenum, pname:GLenum, params:GLint@:const):void = `unsupport
 
-//$glTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint, width:GLsizei, format:GLenum, type:GLenum, pixels:GLvoid@:const):void
+//glTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint, width:GLsizei, format:GLenum, type:GLenum, pixels:GLvoid@:const):void = `unsupport
 
-//$glTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:GLvoid@:const):void
+//glTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:GLvoid@:const):void = `unsupport
 
-//$glTexSubImage3D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, format:GLenum, type:GLenum, pixels:GLvoid@:const):void
+//glTexSubImage3D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, format:GLenum, type:GLenum, pixels:GLvoid@:const):void = `unsupport
 
 glTranslated(x:GLdouble, y:GLdouble, z:GLdouble):void = `auto
 
@@ -1020,7 +1020,7 @@ glVertex4s(x:GLshort, y:GLshort, z:GLshort, w:GLshort):void = `auto
 
 glVertex4sv(v:GLshort@4:const):void = `auto
 
-//$glVertexPointer(size:GLint, type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void
+//glVertexPointer(size:GLint, type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void = `unsupport
 
 glViewport(x:GLint, y:GLint, width:GLsizei, height:GLsizei):void = `auto
 
@@ -1034,19 +1034,19 @@ glMultTransposeMatrixf(m:GLfloat@16:const):void = `auto
 
 glMultTransposeMatrixd(m:GLdouble@16:const):void = `auto
 
-//$glCompressedTexImage3D(target:GLenum, level:GLint, internalformat:GLenum, width:GLsizei, height:GLsizei, depth:GLsizei, border:GLint, imageSize:GLsizei, data:GLvoid@:const):void
+//glCompressedTexImage3D(target:GLenum, level:GLint, internalformat:GLenum, width:GLsizei, height:GLsizei, depth:GLsizei, border:GLint, imageSize:GLsizei, data:GLvoid@:const):void = `unsupport
 
-//$glCompressedTexImage2D(target:GLenum, level:GLint, internalformat:GLenum, width:GLsizei, height:GLsizei, border:GLint, imageSize:GLsizei, data:GLvoid@:const):void
+//glCompressedTexImage2D(target:GLenum, level:GLint, internalformat:GLenum, width:GLsizei, height:GLsizei, border:GLint, imageSize:GLsizei, data:GLvoid@:const):void = `unsupport
 
-//$glCompressedTexImage1D(target:GLenum, level:GLint, internalformat:GLenum, width:GLsizei, border:GLint, imageSize:GLsizei, data:GLvoid@:const):void
+//glCompressedTexImage1D(target:GLenum, level:GLint, internalformat:GLenum, width:GLsizei, border:GLint, imageSize:GLsizei, data:GLvoid@:const):void = `unsupport
 
-//$glCompressedTexSubImage3D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, format:GLenum, imageSize:GLsizei, data:GLvoid@:const):void
+//glCompressedTexSubImage3D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, format:GLenum, imageSize:GLsizei, data:GLvoid@:const):void = `unsupport
 
-//$glCompressedTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, width:GLsizei, height:GLsizei, format:GLenum, imageSize:GLsizei, data:GLvoid@:const):void
+//glCompressedTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, width:GLsizei, height:GLsizei, format:GLenum, imageSize:GLsizei, data:GLvoid@:const):void = `unsupport
 
-//$glCompressedTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint, width:GLsizei, format:GLenum, imageSize:GLsizei, data:GLvoid@:const):void
+//glCompressedTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint, width:GLsizei, format:GLenum, imageSize:GLsizei, data:GLvoid@:const):void = `unsupport
 
-//$glGetCompressedTexImage(target:GLenum, lod:GLint, img:GLvoid@):void
+//glGetCompressedTexImage(target:GLenum, lod:GLint, img:GLvoid@):void = `unsupport
 
 glActiveTexture(texture:GLenum):void = `auto
 
@@ -1124,7 +1124,7 @@ glFogCoordd(coord:GLdouble):void = `auto
 
 glFogCoorddv(coord:GLdouble@1:const):void = `auto
 
-//$glFogCoordPointer(type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void
+//glFogCoordPointer(type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void = `unsupport
 
 glSecondaryColor3b(red:GLbyte, green:GLbyte, blue:GLbyte):void = `auto
 
@@ -1158,7 +1158,7 @@ glSecondaryColor3us(red:GLushort, green:GLushort, blue:GLushort):void = `auto
 
 glSecondaryColor3usv(v:GLushort@3:const):void = `auto
 
-//$glSecondaryColorPointer(size:GLint, type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void
+//glSecondaryColorPointer(size:GLint, type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void = `unsupport
 
 glPointParameterf(pname:GLenum, param:GLfloat):void = `auto
 
@@ -1172,7 +1172,7 @@ glBlendFuncSeparate(srcRGB:GLenum, dstRGB:GLenum, srcAlpha:GLenum, dstAlpha:GLen
 
 glMultiDrawArrays(mode:GLenum, first:GLint@:const, count:GLsizei@:const, primcount:GLsizei):void = `unsupport
 
-//$glMultiDrawElements(mode:GLenum, count:GLsizei@:const, type:GLenum, indices:GLvoid@:const@:const, primcount:GLsizei):void
+//glMultiDrawElements(mode:GLenum, count:GLsizei@:const, type:GLenum, indices:GLvoid@:const@:const, primcount:GLsizei):void = `unsupport
 
 glWindowPos2d(x:GLdouble, y:GLdouble):void = `auto
 
@@ -1246,11 +1246,11 @@ glGenBuffers(n:GLsizei) {block?} = R'''
 
 glIsBuffer(buffer:GLuint):GLboolean {block?} = `auto
 
-//$glBufferData(target:GLenum, size:GLsizeiptr, data:GLvoid@:const, usage:GLenum):void
+//glBufferData(target:GLenum, size:GLsizeiptr, data:GLvoid@:const, usage:GLenum):void = `unsupport
 
-//$glBufferSubData(target:GLenum, offset:GLintptr, size:GLsizeiptr, data:GLvoid@:const):void
+//glBufferSubData(target:GLenum, offset:GLintptr, size:GLsizeiptr, data:GLvoid@:const):void = `unsupport
 
-//$glGetBufferSubData(target:GLenum, offset:GLintptr, size:GLsizeiptr, data:GLvoid@):void
+//glGetBufferSubData(target:GLenum, offset:GLintptr, size:GLsizeiptr, data:GLvoid@):void = `unsupport
 
 //glMapBuffer(target:GLenum, access:GLenum):GLvoid {block?}@
 
@@ -1258,7 +1258,7 @@ glUnmapBuffer(target:GLenum):GLboolean {block?} = `auto
 
 glGetBufferParameteriv(target:GLenum, pname:GLenum, params:GLint@):void = `unsupport
 
-//$glGetBufferPointerv(target:GLenum, pname:GLenum, params:GLvoid@@):void
+//glGetBufferPointerv(target:GLenum, pname:GLenum, params:GLvoid@@):void = `unsupport
 
 glDrawBuffers(bufs:GLenum@:const):void = R'''
 	GLsizei n = bufs.GetSize();
@@ -1338,7 +1338,7 @@ glVertexAttrib4uiv(index:GLuint, v:GLuint@4:const):void = `auto
 
 glVertexAttrib4usv(index:GLuint, v:GLushort@4:const):void = `auto
 
-//$glVertexAttribPointer(index:GLuint, size:GLint, type:GLenum, normalized:GLboolean, stride:GLsizei, pointer:GLvoid@:const):void
+//glVertexAttribPointer(index:GLuint, size:GLint, type:GLenum, normalized:GLboolean, stride:GLsizei, pointer:GLvoid@:const):void = `unsupport
 
 glEnableVertexAttribArray(index:GLuint):void = `auto
 
@@ -1350,7 +1350,7 @@ glGetVertexAttribfv(index:GLuint, pname:GLenum, params:GLfloat@):void = `unsuppo
 
 glGetVertexAttribiv(index:GLuint, pname:GLenum, params:GLint@):void = `unsupport
 
-//$glGetVertexAttribPointerv(index:GLuint, pname:GLenum, pointer:GLvoid@@):void
+//glGetVertexAttribPointerv(index:GLuint, pname:GLenum, pointer:GLvoid@@):void = `unsupport
 
 glDeleteShader(shader:GLuint):void = `auto
 
