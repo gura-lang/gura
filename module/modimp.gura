@@ -5,16 +5,13 @@ tmplImplementation = R'''
 // ${fi.moduleName}.${fi.funcNameGura}
 Gura_DeclareFunction(${fi.funcNameGura})
 {
-	${if (fi.rtnInfo.tmplCaller && !fi.rtnInfo.alwaysVoidFlag)}
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	${else}
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	${end}
+	SetFuncAttr(VTYPE_any, RSLTMODE_${fi.resultMode}, ${('FLAG_' + fi.flags).join(' | ')});
 	${if (fi.blockDeclared)}
 	DeclareBlock(OCCUR_${fi.blockDeclared});
 	${end}
 	${for (arg in fi.args)}
-	DeclareArg(env, "${arg.name}", VTYPE_${arg.valType}, OCCUR_${arg.occurPattern}, ${('FLAG_' + arg.flags).join('|')});
+	DeclareArg(env, "${arg.name}", VTYPE_${arg.valType}, OCCUR_${
+							arg.occurPattern}, ${('FLAG_' + arg.flags).join(' | ')});
 	${end}
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -31,7 +28,7 @@ Gura_ImplementFunction(${fi.funcNameGura})
 	${if (fi.body)}
 ${fi.body}
 	${else}
-	${fi.rtnInfo.tmplCaller.render()}
+	${fi.tmplCaller.render()}
 	${end}
 	${if (!fi.validFlag)}
 #endif
@@ -48,16 +45,14 @@ Gura_AssignFunction(${fi.funcNameGura});
 ArgInfo = struct(name:string, valType:string:nil, occurPattern:string:nil,
 				 tmplGetter:template, flags[]:string)
 
-ReturnInfo = struct(tmplCaller:template, alwaysVoidFlag:boolean)
-
 TypeConv = struct(
 		valType:string:nil, occurPattern:string:nil, flags[]:string,
 		tmplGetter:string:nil, tmplGetterOpt:string:nil,
-		tmplCaller:string:nil, alwaysVoidFlag?:boolean)
+		tmplCaller:string:nil, voidFlag?:boolean)
 
 FuncInfo = class {
 	public {
-		funcNameC, funcNameGura, args, rtnInfo, body
+		funcNameC, funcNameGura, args, tmplCaller, resultMode, flags, body
 	}
 	__init__(moduleName:string, decl:expr, typeConvDict:dict, funcNameTranslator:function):map = {
 		if (!decl.isassign()) {
@@ -121,15 +116,22 @@ FuncInfo = class {
 		}
 		typeConv = typeConvDict.get(rtnTypeRaw)
 		if (typeConv && typeConv.tmplCaller) {
-			this.rtnInfo = ReturnInfo(typeConv.tmplCaller.template(), typeConv.alwaysVoidFlag)
+			// nothing to do
 		} elsif (!this.validFlag) {
 			typeConv = typeConvDict.get('void')
-			this.rtnInfo = ReturnInfo(typeConv.tmplCaller.template(), typeConv.alwaysVoidFlag)
 		} else {
 			this.PrintError(decl,
 							'failed to convert return information "%s"', rtnTypeRaw)
 			sys.exit(1)
 		}
+		this.tmplCaller = typeConv.tmplCaller.template()
+		this.resultMode = 'Normal'
+		this.flags = []
+		if (typeConv.voidFlag) {
+			this.resultMode = 'Void'
+		}
+		caller.attrs.find(`map) && this.flags.append('Map')
+		this.flags.isempty() && this.flags.append('None')
 		this.args = caller.cdr.each():list {|arg|
 			if (arg.isindexer()) {
 				identifier = arg.car
@@ -153,9 +155,7 @@ FuncInfo = class {
 				flags.append('Nil')
 				tmplGetter = typeConv.tmplGetterOpt
 			}
-			if (flags.isempty()) {
-				flags.append('None')
-			}
+			flags.isempty() && flags.append('None')
 			if (!tmplGetter) {
 				this.PrintError(decl, 'failed to convert argument information %s', argTypeRaw)
 				sys.exit(1)

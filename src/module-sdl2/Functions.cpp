@@ -93,7 +93,7 @@ Gura_ImplementFunction(SetMainReady)
 // sdl2.WasInit
 Gura_DeclareFunction(WasInit)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -232,7 +232,7 @@ Gura_ImplementFunction(ClearError)
 // sdl2.GetError
 Gura_DeclareFunction(GetError)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -704,7 +704,7 @@ Gura_ImplementFunction(assert_release)
 // sdl2.GetRevision
 Gura_DeclareFunction(GetRevision)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -726,7 +726,7 @@ Gura_ImplementFunction(GetRevision)
 // sdl2.GetRevisionNumber
 Gura_DeclareFunction(GetRevisionNumber)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -741,7 +741,7 @@ Gura_ImplementFunction(GetRevisionNumber)
 // sdl2.GetVersion
 Gura_DeclareFunction(GetVersion)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -758,7 +758,7 @@ Gura_ImplementFunction(GetVersion)
 // sdl2.VERSION
 Gura_DeclareFunction(VERSION)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -775,7 +775,7 @@ Gura_ImplementFunction(VERSION)
 // sdl2.VERSION_ATLEAST
 Gura_DeclareFunction(VERSION_ATLEAST)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "X", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "Y", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -796,7 +796,7 @@ Gura_ImplementFunction(VERSION_ATLEAST)
 // sdl2.CreateWindow
 Gura_DeclareFunction(CreateWindow)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -830,7 +830,7 @@ Gura_ImplementFunction(CreateWindow)
 // sdl2.CreateWindowAndRenderer
 Gura_DeclareFunction(CreateWindowAndRenderer)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -920,7 +920,7 @@ Gura_ImplementFunction(EnableScreenSaver)
 // sdl2.GL_CreateContext
 Gura_DeclareFunction(GL_CreateContext)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -957,7 +957,7 @@ Gura_ImplementFunction(GL_DeleteContext)
 // sdl2.GL_ExtensionSupported
 Gura_DeclareFunction(GL_ExtensionSupported)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "extension", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -974,7 +974,7 @@ Gura_ImplementFunction(GL_ExtensionSupported)
 // sdl2.GL_GetAttribute
 Gura_DeclareFunction(GL_GetAttribute)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "attr", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -996,7 +996,7 @@ Gura_ImplementFunction(GL_GetAttribute)
 // sdl2.GL_GetCurrentContext
 Gura_DeclareFunction(GL_GetCurrentContext)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -1015,7 +1015,7 @@ Gura_ImplementFunction(GL_GetCurrentContext)
 // sdl2.GL_GetCurrentWindow
 Gura_DeclareFunction(GL_GetCurrentWindow)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -1037,7 +1037,7 @@ Gura_ImplementFunction(GL_GetCurrentWindow)
 // sdl2.GL_GetDrawableSize
 Gura_DeclareFunction(GL_GetDrawableSize)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1074,7 +1074,7 @@ Gura_ImplementFunction(GL_GetProcAddress)
 // sdl2.GL_GetSwapInterval
 Gura_DeclareFunction(GL_GetSwapInterval)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -1221,7 +1221,7 @@ Gura_ImplementFunction(GL_UnloadLibrary)
 // sdl2.GetClosestDisplayMode
 Gura_DeclareFunction(GetClosestDisplayMode)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "displayIndex", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "mode", VTYPE_DisplayMode, OCCUR_Once, FLAG_None);
@@ -1245,7 +1245,7 @@ Gura_ImplementFunction(GetClosestDisplayMode)
 // sdl2.GetCurrentDisplayMode
 Gura_DeclareFunction(GetCurrentDisplayMode)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "displayIndex", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1267,7 +1267,7 @@ Gura_ImplementFunction(GetCurrentDisplayMode)
 // sdl2.GetCurrentVideoDriver
 Gura_DeclareFunction(GetCurrentVideoDriver)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -1289,7 +1289,7 @@ Gura_ImplementFunction(GetCurrentVideoDriver)
 // sdl2.GetDesktopDisplayMode
 Gura_DeclareFunction(GetDesktopDisplayMode)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "displayIndex", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1311,7 +1311,7 @@ Gura_ImplementFunction(GetDesktopDisplayMode)
 // sdl2.GetDisplayBounds
 Gura_DeclareFunction(GetDisplayBounds)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "displayIndex", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1333,7 +1333,7 @@ Gura_ImplementFunction(GetDisplayBounds)
 // sdl2.GetDisplayMode
 Gura_DeclareFunction(GetDisplayMode)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "displayIndex", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "modeIndex", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1357,7 +1357,7 @@ Gura_ImplementFunction(GetDisplayMode)
 // sdl2.GetDisplayName
 Gura_DeclareFunction(GetDisplayName)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "dipslayIndex", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1381,7 +1381,7 @@ Gura_ImplementFunction(GetDisplayName)
 // sdl2.GetNumDisplayModes
 Gura_DeclareFunction(GetNumDisplayModes)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "displayIndex", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1402,7 +1402,7 @@ Gura_ImplementFunction(GetNumDisplayModes)
 // sdl2.GetNumVideoDisplays
 Gura_DeclareFunction(GetNumVideoDisplays)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -1421,7 +1421,7 @@ Gura_ImplementFunction(GetNumVideoDisplays)
 // sdl2.GetNumVideoDrivers
 Gura_DeclareFunction(GetNumVideoDrivers)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -1440,7 +1440,7 @@ Gura_ImplementFunction(GetNumVideoDrivers)
 // sdl2.GetVideoDriver
 Gura_DeclareFunction(GetVideoDriver)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1464,7 +1464,7 @@ Gura_ImplementFunction(GetVideoDriver)
 // sdl2.GetWindowBrightness
 Gura_DeclareFunction(GetWindowBrightness)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1503,7 +1503,7 @@ Gura_ImplementFunction(GetWindowData)
 // sdl2.GetWindowDisplayIndex
 Gura_DeclareFunction(GetWindowDisplayIndex)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1546,7 +1546,7 @@ Gura_ImplementFunction(GetWindowDisplayMode)
 // sdl2.GetWindowFlags
 Gura_DeclareFunction(GetWindowFlags)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1563,7 +1563,7 @@ Gura_ImplementFunction(GetWindowFlags)
 // sdl2.GetWindowFromID
 Gura_DeclareFunction(GetWindowFromID)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1587,7 +1587,7 @@ Gura_ImplementFunction(GetWindowFromID)
 // sdl2.GetWindowGammaRamp
 Gura_DeclareFunction(GetWindowGammaRamp)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1612,7 +1612,7 @@ Gura_ImplementFunction(GetWindowGammaRamp)
 // sdl2.GetWindowGrab
 Gura_DeclareFunction(GetWindowGrab)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1629,7 +1629,7 @@ Gura_ImplementFunction(GetWindowGrab)
 // sdl2.GetWindowID
 Gura_DeclareFunction(GetWindowID)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1646,7 +1646,7 @@ Gura_ImplementFunction(GetWindowID)
 // sdl2.GetWindowMaximumSize
 Gura_DeclareFunction(GetWindowMaximumSize)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1665,7 +1665,7 @@ Gura_ImplementFunction(GetWindowMaximumSize)
 // sdl2.GetWindowMinimumSize
 Gura_DeclareFunction(GetWindowMinimumSize)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1684,7 +1684,7 @@ Gura_ImplementFunction(GetWindowMinimumSize)
 // sdl2.GetWindowPixelFormat
 Gura_DeclareFunction(GetWindowPixelFormat)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1705,7 +1705,7 @@ Gura_ImplementFunction(GetWindowPixelFormat)
 // sdl2.GetWindowPosition
 Gura_DeclareFunction(GetWindowPosition)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1724,7 +1724,7 @@ Gura_ImplementFunction(GetWindowPosition)
 // sdl2.GetWindowSize
 Gura_DeclareFunction(GetWindowSize)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1743,7 +1743,7 @@ Gura_ImplementFunction(GetWindowSize)
 // sdl2.GetWindowSurface
 Gura_DeclareFunction(GetWindowSurface)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1767,7 +1767,7 @@ Gura_ImplementFunction(GetWindowSurface)
 // sdl2.GetWindowTitle
 Gura_DeclareFunction(GetWindowTitle)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1827,7 +1827,7 @@ Gura_ImplementFunction(HideWindow)
 // sdl2.IsScreenSaverEnabled
 Gura_DeclareFunction(IsScreenSaverEnabled)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -2341,7 +2341,7 @@ Gura_ImplementFunction(VideoQuit)
 // sdl2.CreateRenderer
 Gura_DeclareFunction(CreateRenderer)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -2369,7 +2369,7 @@ Gura_ImplementFunction(CreateRenderer)
 // sdl2.CreateSoftwareRenderer
 Gura_DeclareFunction(CreateSoftwareRenderer)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2393,7 +2393,7 @@ Gura_ImplementFunction(CreateSoftwareRenderer)
 // sdl2.CreateTexture
 Gura_DeclareFunction(CreateTexture)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -2425,7 +2425,7 @@ Gura_ImplementFunction(CreateTexture)
 // sdl2.CreateTextureFromSurface
 Gura_DeclareFunction(CreateTextureFromSurface)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
@@ -2483,7 +2483,7 @@ Gura_ImplementFunction(DestroyTexture)
 // sdl2.GL_BindTexture
 Gura_DeclareFunction(GL_BindTexture)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2522,7 +2522,7 @@ Gura_ImplementFunction(GL_UnbindTexture)
 // sdl2.GetNumRenderDrivers
 Gura_DeclareFunction(GetNumRenderDrivers)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -2541,7 +2541,7 @@ Gura_ImplementFunction(GetNumRenderDrivers)
 // sdl2.GetRenderDrawBlendMode
 Gura_DeclareFunction(GetRenderDrawBlendMode)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2563,7 +2563,7 @@ Gura_ImplementFunction(GetRenderDrawBlendMode)
 // sdl2.GetRenderDrawColor
 Gura_DeclareFunction(GetRenderDrawColor)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2589,7 +2589,7 @@ Gura_ImplementFunction(GetRenderDrawColor)
 // sdl2.GetRenderDriverInfo
 Gura_DeclareFunction(GetRenderDriverInfo)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2611,7 +2611,7 @@ Gura_ImplementFunction(GetRenderDriverInfo)
 // sdl2.GetRenderTarget
 Gura_DeclareFunction(GetRenderTarget)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2632,7 +2632,7 @@ Gura_ImplementFunction(GetRenderTarget)
 // sdl2.GetRenderer
 Gura_DeclareFunction(GetRenderer)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2656,7 +2656,7 @@ Gura_ImplementFunction(GetRenderer)
 // sdl2.GetRendererInfo
 Gura_DeclareFunction(GetRendererInfo)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2678,7 +2678,7 @@ Gura_ImplementFunction(GetRendererInfo)
 // sdl2.GetRenderOutputSize
 Gura_DeclareFunction(GetRenderOutputSize)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2701,7 +2701,7 @@ Gura_ImplementFunction(GetRenderOutputSize)
 // sdl2.GetTextureAlphaMod
 Gura_DeclareFunction(GetTextureAlphaMod)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2723,7 +2723,7 @@ Gura_ImplementFunction(GetTextureAlphaMod)
 // sdl2.GetTextureBlendMode
 Gura_DeclareFunction(GetTextureBlendMode)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2745,7 +2745,7 @@ Gura_ImplementFunction(GetTextureBlendMode)
 // sdl2.GetTextureColorMod
 Gura_DeclareFunction(GetTextureColorMod)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2796,7 +2796,7 @@ Gura_ImplementFunction(LockTexture)
 // sdl2.QueryTexture
 Gura_DeclareFunction(QueryTexture)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -3088,7 +3088,7 @@ Gura_ImplementFunction(RenderFillRects)
 // sdl2.RenderGetClipRect
 Gura_DeclareFunction(RenderGetClipRect)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -3106,7 +3106,7 @@ Gura_ImplementFunction(RenderGetClipRect)
 // sdl2.RenderGetLogicalSize
 Gura_DeclareFunction(RenderGetLogicalSize)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -3125,7 +3125,7 @@ Gura_ImplementFunction(RenderGetLogicalSize)
 // sdl2.RenderGetScale
 Gura_DeclareFunction(RenderGetScale)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -3144,7 +3144,7 @@ Gura_ImplementFunction(RenderGetScale)
 // sdl2.RenderGetViewport
 Gura_DeclareFunction(RenderGetViewport)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -3162,7 +3162,7 @@ Gura_ImplementFunction(RenderGetViewport)
 // sdl2.RenderIsClipEnabled
 Gura_DeclareFunction(RenderIsClipEnabled)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -3198,7 +3198,7 @@ Gura_ImplementFunction(RenderPresent)
 // sdl2.RenderReadPixels
 Gura_DeclareFunction(RenderReadPixels)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
@@ -3331,7 +3331,7 @@ Gura_ImplementFunction(RenderSetViewport)
 // sdl2.RenderTargetSupported
 Gura_DeclareFunction(RenderTargetSupported)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -3548,7 +3548,7 @@ Gura_ImplementFunction(UpdateYUVTexture)
 // sdl2.AllocFormat
 Gura_DeclareFunction(AllocFormat)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pixel_format", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -3572,7 +3572,7 @@ Gura_ImplementFunction(AllocFormat)
 // sdl2.AllocPalette
 Gura_DeclareFunction(AllocPalette)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ncolors", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -3596,7 +3596,7 @@ Gura_ImplementFunction(AllocPalette)
 // sdl2.CalculateGammaRamp
 Gura_DeclareFunction(CalculateGammaRamp)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "gamma", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -3646,7 +3646,7 @@ Gura_ImplementFunction(FreePalette)
 // sdl2.GetPixelFormatName
 Gura_DeclareFunction(GetPixelFormatName)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -3670,7 +3670,7 @@ Gura_ImplementFunction(GetPixelFormatName)
 // sdl2.GetRGB
 Gura_DeclareFunction(GetRGB)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pixel", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_PixelFormat, OCCUR_Once, FLAG_None);
@@ -3692,7 +3692,7 @@ Gura_ImplementFunction(GetRGB)
 // sdl2.GetRGBA
 Gura_DeclareFunction(GetRGBA)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pixel", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_PixelFormat, OCCUR_Once, FLAG_None);
@@ -3716,7 +3716,7 @@ Gura_ImplementFunction(GetRGBA)
 // sdl2.MapRGB
 Gura_DeclareFunction(MapRGB)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "format", VTYPE_PixelFormat, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "r", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3739,7 +3739,7 @@ Gura_ImplementFunction(MapRGB)
 // sdl2.MapRGBA
 Gura_DeclareFunction(MapRGBA)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "format", VTYPE_PixelFormat, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "r", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3764,7 +3764,7 @@ Gura_ImplementFunction(MapRGBA)
 // sdl2.MasksToPixelFormatEnum
 Gura_DeclareFunction(MasksToPixelFormatEnum)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "bpp", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "Rmask", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3789,7 +3789,7 @@ Gura_ImplementFunction(MasksToPixelFormatEnum)
 // sdl2.PixelFormatEnumToMasks
 Gura_DeclareFunction(PixelFormatEnumToMasks)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -3869,7 +3869,7 @@ Gura_ImplementFunction(SetPixelFormatPalette)
 // sdl2.EnclosePoints
 Gura_DeclareFunction(EnclosePoints)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "points", VTYPE_Point, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "clip", VTYPE_Rect, OCCUR_Once, FLAG_None);
@@ -3894,7 +3894,7 @@ Gura_ImplementFunction(EnclosePoints)
 // sdl2.HasIntersection
 Gura_DeclareFunction(HasIntersection)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "A", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "B", VTYPE_Rect, OCCUR_Once, FLAG_None);
@@ -3913,7 +3913,7 @@ Gura_ImplementFunction(HasIntersection)
 // sdl2.IntersectRect
 Gura_DeclareFunction(IntersectRect)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "A", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "B", VTYPE_Rect, OCCUR_Once, FLAG_None);
@@ -3937,7 +3937,7 @@ Gura_ImplementFunction(IntersectRect)
 // sdl2.IntersectRectAndLine
 Gura_DeclareFunction(IntersectRectAndLine)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "X1", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "Y1", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3965,7 +3965,7 @@ Gura_ImplementFunction(IntersectRectAndLine)
 // sdl2.PointInRect
 Gura_DeclareFunction(PointInRect)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "p", VTYPE_Point, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "r", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -3987,7 +3987,7 @@ Gura_ImplementFunction(PointInRect)
 // sdl2.RectEmpty
 Gura_DeclareFunction(RectEmpty)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "r", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -4004,7 +4004,7 @@ Gura_ImplementFunction(RectEmpty)
 // sdl2.RectEquals
 Gura_DeclareFunction(RectEquals)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "a", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "b", VTYPE_Rect, OCCUR_Once, FLAG_None);
@@ -4023,7 +4023,7 @@ Gura_ImplementFunction(RectEquals)
 // sdl2.UnionRect
 Gura_DeclareFunction(UnionRect)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "A", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "B", VTYPE_Rect, OCCUR_Once, FLAG_None);
@@ -4126,7 +4126,7 @@ Gura_ImplementFunction(ConvertPixels)
 // sdl2.ConvertSurface
 Gura_DeclareFunction(ConvertSurface)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "src", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "fmt", VTYPE_PixelFormat, OCCUR_Once, FLAG_None);
@@ -4154,7 +4154,7 @@ Gura_ImplementFunction(ConvertSurface)
 // sdl2.ConvertSurfaceFormat
 Gura_DeclareFunction(ConvertSurfaceFormat)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "src", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pixel_format", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4182,7 +4182,7 @@ Gura_ImplementFunction(ConvertSurfaceFormat)
 // sdl2.CreateRGBSurface
 Gura_DeclareFunction(CreateRGBSurface)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4220,7 +4220,7 @@ Gura_ImplementFunction(CreateRGBSurface)
 // sdl2.CreateRGBSurfaceFrom
 Gura_DeclareFunction(CreateRGBSurfaceFrom)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pixels", VTYPE_binary, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4263,7 +4263,7 @@ Gura_ImplementFunction(CreateRGBSurfaceFrom)
 // sdl2.CreateRGBSurfaceFromImage
 Gura_DeclareFunction(CreateRGBSurfaceFromImage)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "image", VTYPE_image, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -4346,7 +4346,7 @@ Gura_ImplementFunction(FreeSurface)
 // sdl2.GetClipRect
 Gura_DeclareFunction(GetClipRect)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -4364,7 +4364,7 @@ Gura_ImplementFunction(GetClipRect)
 // sdl2.GetColorKey
 Gura_DeclareFunction(GetColorKey)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -4389,7 +4389,7 @@ Gura_ImplementFunction(GetColorKey)
 // sdl2.GetSurfaceAlphaMod
 Gura_DeclareFunction(GetSurfaceAlphaMod)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -4411,7 +4411,7 @@ Gura_ImplementFunction(GetSurfaceAlphaMod)
 // sdl2.GetSurfaceBlendMode
 Gura_DeclareFunction(GetSurfaceBlendMode)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -4433,7 +4433,7 @@ Gura_ImplementFunction(GetSurfaceBlendMode)
 // sdl2.GetSurfaceColorMod
 Gura_DeclareFunction(GetSurfaceColorMod)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -4454,7 +4454,7 @@ Gura_ImplementFunction(GetSurfaceColorMod)
 // sdl2.LoadBMP
 Gura_DeclareFunction(LoadBMP)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "src", VTYPE_stream, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -4566,7 +4566,7 @@ Gura_ImplementFunction(LowerBlitScaled)
 // sdl2.MUSTLOCK
 Gura_DeclareFunction(MUSTLOCK)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -4583,7 +4583,7 @@ Gura_ImplementFunction(MUSTLOCK)
 // sdl2.SaveBMP
 Gura_DeclareFunction(SaveBMP)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "dst", VTYPE_stream, OCCUR_Once, FLAG_None);
@@ -4625,7 +4625,7 @@ Gura_ImplementFunction(SaveBMP_RW)
 // sdl2.SetClipRect
 Gura_DeclareFunction(SetClipRect)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_None);
@@ -4798,7 +4798,7 @@ Gura_ImplementFunction(UnlockSurface)
 // sdl2.GetClipboardText
 Gura_DeclareFunction(GetClipboardText)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -4815,7 +4815,7 @@ Gura_ImplementFunction(GetClipboardText)
 // sdl2.HasClipboardText
 Gura_DeclareFunction(HasClipboardText)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -4886,7 +4886,7 @@ Gura_ImplementFunction(DelEventWatch)
 // sdl2.EventState
 Gura_DeclareFunction(EventState)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "state", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4975,7 +4975,7 @@ Gura_ImplementFunction(GetEventFilter)
 // sdl2.GetNumTouchDevices
 Gura_DeclareFunction(GetNumTouchDevices)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -4990,7 +4990,7 @@ Gura_ImplementFunction(GetNumTouchDevices)
 // sdl2.GetNumTouchFingers
 Gura_DeclareFunction(GetNumTouchFingers)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "touchId", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -5011,7 +5011,7 @@ Gura_ImplementFunction(GetNumTouchFingers)
 // sdl2.GetTouchDevice
 Gura_DeclareFunction(GetTouchDevice)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -5032,7 +5032,7 @@ Gura_ImplementFunction(GetTouchDevice)
 // sdl2.GetTouchFinger
 Gura_DeclareFunction(GetTouchFinger)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "touchId", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5058,7 +5058,7 @@ Gura_ImplementFunction(GetTouchFinger)
 // sdl2.HasEvent
 Gura_DeclareFunction(HasEvent)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -5075,7 +5075,7 @@ Gura_ImplementFunction(HasEvent)
 // sdl2.HasEvents
 Gura_DeclareFunction(HasEvents)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "minType", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "maxType", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5094,7 +5094,7 @@ Gura_ImplementFunction(HasEvents)
 // sdl2.LoadDollarTemplates
 Gura_DeclareFunction(LoadDollarTemplates)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "touchId", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "src", VTYPE_stream, OCCUR_Once, FLAG_None);
@@ -5118,7 +5118,7 @@ Gura_ImplementFunction(LoadDollarTemplates)
 // sdl2.AddEvents
 Gura_DeclareFunction(AddEvents)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "events", VTYPE_Event, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -5140,7 +5140,7 @@ Gura_ImplementFunction(AddEvents)
 // sdl2.PeekEvents
 Gura_DeclareFunction(PeekEvents)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "numevents", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "minType", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5171,7 +5171,7 @@ Gura_ImplementFunction(PeekEvents)
 // sdl2.GetEvents
 Gura_DeclareFunction(GetEvents)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "numevents", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "minType", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5202,7 +5202,7 @@ Gura_ImplementFunction(GetEvents)
 // sdl2.PollEvent
 Gura_DeclareFunction(PollEvent)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -5233,7 +5233,7 @@ Gura_ImplementFunction(PumpEvents)
 // sdl2.PushEvent
 Gura_DeclareFunction(PushEvent)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "event", VTYPE_Event, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -5254,7 +5254,7 @@ Gura_ImplementFunction(PushEvent)
 // sdl2.QuitRequested
 Gura_DeclareFunction(QuitRequested)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -5269,7 +5269,7 @@ Gura_ImplementFunction(QuitRequested)
 // sdl2.RecordGesture
 Gura_DeclareFunction(RecordGesture)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "touchId", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -5290,7 +5290,7 @@ Gura_ImplementFunction(RecordGesture)
 // sdl2.RegisterEvents
 Gura_DeclareFunction(RegisterEvents)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "numevents", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -5311,7 +5311,7 @@ Gura_ImplementFunction(RegisterEvents)
 // sdl2.SaveAllDollarTemplates
 Gura_DeclareFunction(SaveAllDollarTemplates)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "dst", VTYPE_stream, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -5374,7 +5374,7 @@ Gura_ImplementFunction(SetEventFilter)
 // sdl2.WaitEvent
 Gura_DeclareFunction(WaitEvent)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -5394,7 +5394,7 @@ Gura_ImplementFunction(WaitEvent)
 // sdl2.WaitEventTimeout
 Gura_DeclareFunction(WaitEventTimeout)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "timeout", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -5419,7 +5419,7 @@ Gura_ImplementFunction(WaitEventTimeout)
 // sdl2.CheckKeyboardState
 Gura_DeclareFunction(CheckKeyboardState)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "scancode", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -5438,7 +5438,7 @@ Gura_ImplementFunction(CheckKeyboardState)
 // sdl2.GetKeyFromName
 Gura_DeclareFunction(GetKeyFromName)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -5459,7 +5459,7 @@ Gura_ImplementFunction(GetKeyFromName)
 // sdl2.GetKeyFromScancode
 Gura_DeclareFunction(GetKeyFromScancode)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "scancode", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -5476,7 +5476,7 @@ Gura_ImplementFunction(GetKeyFromScancode)
 // sdl2.GetKeyName
 Gura_DeclareFunction(GetKeyName)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "key", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -5500,7 +5500,7 @@ Gura_ImplementFunction(GetKeyName)
 // sdl2.GetKeyboardFocus
 Gura_DeclareFunction(GetKeyboardFocus)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -5522,7 +5522,7 @@ Gura_ImplementFunction(GetKeyboardFocus)
 // sdl2.GetKeyboardState
 Gura_DeclareFunction(GetKeyboardState)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -5543,7 +5543,7 @@ Gura_ImplementFunction(GetKeyboardState)
 // sdl2.GetModState
 Gura_DeclareFunction(GetModState)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -5558,7 +5558,7 @@ Gura_ImplementFunction(GetModState)
 // sdl2.GetScancodeFromKey
 Gura_DeclareFunction(GetScancodeFromKey)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "key", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -5575,7 +5575,7 @@ Gura_ImplementFunction(GetScancodeFromKey)
 // sdl2.GetScancodeFromName
 Gura_DeclareFunction(GetScancodeFromName)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -5596,7 +5596,7 @@ Gura_ImplementFunction(GetScancodeFromName)
 // sdl2.GetScancodeName
 Gura_DeclareFunction(GetScancodeName)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "scancode", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -5620,7 +5620,7 @@ Gura_ImplementFunction(GetScancodeName)
 // sdl2.HasScreenKeyboardSupport
 Gura_DeclareFunction(HasScreenKeyboardSupport)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -5635,7 +5635,7 @@ Gura_ImplementFunction(HasScreenKeyboardSupport)
 // sdl2.IsScreenKeyboardShown
 Gura_DeclareFunction(IsScreenKeyboardShown)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -5652,7 +5652,7 @@ Gura_ImplementFunction(IsScreenKeyboardShown)
 // sdl2.IsTextInputActive
 Gura_DeclareFunction(IsTextInputActive)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -5751,7 +5751,7 @@ Gura_ImplementFunction(CaptureMouse)
 // sdl2.CreateColorCursor
 Gura_DeclareFunction(CreateColorCursor)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "hot_x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5779,7 +5779,7 @@ Gura_ImplementFunction(CreateColorCursor)
 // sdl2.CreateCursor
 Gura_DeclareFunction(CreateCursor)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "data", VTYPE_binary, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "mask", VTYPE_binary, OCCUR_Once, FLAG_None);
@@ -5821,7 +5821,7 @@ Gura_ImplementFunction(CreateCursor)
 // sdl2.CreateSystemCursor
 Gura_DeclareFunction(CreateSystemCursor)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -5861,7 +5861,7 @@ Gura_ImplementFunction(FreeCursor)
 // sdl2.GetCursor
 Gura_DeclareFunction(GetCursor)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -5880,7 +5880,7 @@ Gura_ImplementFunction(GetCursor)
 // sdl2.GetDefaultCursor
 Gura_DeclareFunction(GetDefaultCursor)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -5920,7 +5920,7 @@ Gura_ImplementFunction(GetGlobalMouseState)
 // sdl2.GetMouseFocus
 Gura_DeclareFunction(GetMouseFocus)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -5942,7 +5942,7 @@ Gura_ImplementFunction(GetMouseFocus)
 // sdl2.GetMouseState
 Gura_DeclareFunction(GetMouseState)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -5960,7 +5960,7 @@ Gura_ImplementFunction(GetMouseState)
 // sdl2.GetRelativeMouseMode
 Gura_DeclareFunction(GetRelativeMouseMode)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -5975,7 +5975,7 @@ Gura_ImplementFunction(GetRelativeMouseMode)
 // sdl2.GetRelativeMouseState
 Gura_DeclareFunction(GetRelativeMouseState)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -6107,7 +6107,7 @@ Gura_ImplementFunction(JoystickClose)
 // sdl2.JoystickEventState
 Gura_DeclareFunction(JoystickEventState)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "state", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6128,7 +6128,7 @@ Gura_ImplementFunction(JoystickEventState)
 // sdl2.JoystickGetAttached
 Gura_DeclareFunction(JoystickGetAttached)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6145,7 +6145,7 @@ Gura_ImplementFunction(JoystickGetAttached)
 // sdl2.JoystickGetAxis
 Gura_DeclareFunction(JoystickGetAxis)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "axis", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6164,7 +6164,7 @@ Gura_ImplementFunction(JoystickGetAxis)
 // sdl2.JoystickGetBall
 Gura_DeclareFunction(JoystickGetBall)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "ball", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6189,7 +6189,7 @@ Gura_ImplementFunction(JoystickGetBall)
 // sdl2.JoystickGetButton
 Gura_DeclareFunction(JoystickGetButton)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "button", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6208,7 +6208,7 @@ Gura_ImplementFunction(JoystickGetButton)
 // sdl2.JoystickGetDeviceGUID
 Gura_DeclareFunction(JoystickGetDeviceGUID)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "device_index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6226,7 +6226,7 @@ Gura_ImplementFunction(JoystickGetDeviceGUID)
 // sdl2.JoystickGetGUID
 Gura_DeclareFunction(JoystickGetGUID)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6244,7 +6244,7 @@ Gura_ImplementFunction(JoystickGetGUID)
 // sdl2.JoystickGetGUIDFromString
 Gura_DeclareFunction(JoystickGetGUIDFromString)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pchGUID", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6262,7 +6262,7 @@ Gura_ImplementFunction(JoystickGetGUIDFromString)
 // sdl2.JoystickGetGUIDString
 Gura_DeclareFunction(JoystickGetGUIDString)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "guid", VTYPE_JoystickGUID, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6281,7 +6281,7 @@ Gura_ImplementFunction(JoystickGetGUIDString)
 // sdl2.JoystickGetHat
 Gura_DeclareFunction(JoystickGetHat)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "hat", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6300,7 +6300,7 @@ Gura_ImplementFunction(JoystickGetHat)
 // sdl2.JoystickInstanceID
 Gura_DeclareFunction(JoystickInstanceID)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6321,7 +6321,7 @@ Gura_ImplementFunction(JoystickInstanceID)
 // sdl2.JoystickName
 Gura_DeclareFunction(JoystickName)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6345,7 +6345,7 @@ Gura_ImplementFunction(JoystickName)
 // sdl2.JoystickNameForIndex
 Gura_DeclareFunction(JoystickNameForIndex)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "device_index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6369,7 +6369,7 @@ Gura_ImplementFunction(JoystickNameForIndex)
 // sdl2.JoystickNumAxes
 Gura_DeclareFunction(JoystickNumAxes)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6390,7 +6390,7 @@ Gura_ImplementFunction(JoystickNumAxes)
 // sdl2.JoystickNumBalls
 Gura_DeclareFunction(JoystickNumBalls)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6411,7 +6411,7 @@ Gura_ImplementFunction(JoystickNumBalls)
 // sdl2.JoystickNumButtons
 Gura_DeclareFunction(JoystickNumButtons)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6432,7 +6432,7 @@ Gura_ImplementFunction(JoystickNumButtons)
 // sdl2.JoystickNumHats
 Gura_DeclareFunction(JoystickNumHats)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6453,7 +6453,7 @@ Gura_ImplementFunction(JoystickNumHats)
 // sdl2.JoystickOpen
 Gura_DeclareFunction(JoystickOpen)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "device_index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6491,7 +6491,7 @@ Gura_ImplementFunction(JoystickUpdate)
 // sdl2.NumJoysticks
 Gura_DeclareFunction(NumJoysticks)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -6510,7 +6510,7 @@ Gura_ImplementFunction(NumJoysticks)
 // sdl2.GameControllerAddMapping
 Gura_DeclareFunction(GameControllerAddMapping)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "mappingString", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6531,7 +6531,7 @@ Gura_ImplementFunction(GameControllerAddMapping)
 // sdl2.GameControllerAddMappingsFromFile
 Gura_DeclareFunction(GameControllerAddMappingsFromFile)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "file", VTYPE_stream, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6587,7 +6587,7 @@ Gura_ImplementFunction(GameControllerClose)
 // sdl2.GameControllerEventState
 Gura_DeclareFunction(GameControllerEventState)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "state", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6604,7 +6604,7 @@ Gura_ImplementFunction(GameControllerEventState)
 // sdl2.GameControllerGetAttached
 Gura_DeclareFunction(GameControllerGetAttached)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "gamecontroller", VTYPE_GameController, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6621,7 +6621,7 @@ Gura_ImplementFunction(GameControllerGetAttached)
 // sdl2.GameControllerGetAxis
 Gura_DeclareFunction(GameControllerGetAxis)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "gamecontroller", VTYPE_GameController, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "axis", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6640,7 +6640,7 @@ Gura_ImplementFunction(GameControllerGetAxis)
 // sdl2.GameControllerGetAxisFromString
 Gura_DeclareFunction(GameControllerGetAxisFromString)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pchString", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6657,7 +6657,7 @@ Gura_ImplementFunction(GameControllerGetAxisFromString)
 // sdl2.GameControllerGetBindForAxis
 Gura_DeclareFunction(GameControllerGetBindForAxis)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "gamecontroller", VTYPE_GameController, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "axis", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6677,7 +6677,7 @@ Gura_ImplementFunction(GameControllerGetBindForAxis)
 // sdl2.GameControllerGetBindForButton
 Gura_DeclareFunction(GameControllerGetBindForButton)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "gamecontroller", VTYPE_GameController, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "button", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6697,7 +6697,7 @@ Gura_ImplementFunction(GameControllerGetBindForButton)
 // sdl2.GameControllerGetButton
 Gura_DeclareFunction(GameControllerGetButton)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "gamecontroller", VTYPE_GameController, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "button", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6720,7 +6720,7 @@ Gura_ImplementFunction(GameControllerGetButton)
 // sdl2.GameControllerGetButtonFromString
 Gura_DeclareFunction(GameControllerGetButtonFromString)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pchString", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6737,7 +6737,7 @@ Gura_ImplementFunction(GameControllerGetButtonFromString)
 // sdl2.GameControllerGetJoystick
 Gura_DeclareFunction(GameControllerGetJoystick)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "gamecontroller", VTYPE_GameController, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6761,7 +6761,7 @@ Gura_ImplementFunction(GameControllerGetJoystick)
 // sdl2.GameControllerGetStringForAxis
 Gura_DeclareFunction(GameControllerGetStringForAxis)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "axis", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6785,7 +6785,7 @@ Gura_ImplementFunction(GameControllerGetStringForAxis)
 // sdl2.GameControllerGetStringForButton
 Gura_DeclareFunction(GameControllerGetStringForButton)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "button", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6809,7 +6809,7 @@ Gura_ImplementFunction(GameControllerGetStringForButton)
 // sdl2.GameControllerMapping
 Gura_DeclareFunction(GameControllerMapping)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "gamecontroller", VTYPE_GameController, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6833,7 +6833,7 @@ Gura_ImplementFunction(GameControllerMapping)
 // sdl2.GameControllerMappingForGUID
 Gura_DeclareFunction(GameControllerMappingForGUID)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "guid", VTYPE_JoystickGUID, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6857,7 +6857,7 @@ Gura_ImplementFunction(GameControllerMappingForGUID)
 // sdl2.GameControllerName
 Gura_DeclareFunction(GameControllerName)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "gamecontroller", VTYPE_GameController, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6881,7 +6881,7 @@ Gura_ImplementFunction(GameControllerName)
 // sdl2.GameControllerNameForIndex
 Gura_DeclareFunction(GameControllerNameForIndex)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick_index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6905,7 +6905,7 @@ Gura_ImplementFunction(GameControllerNameForIndex)
 // sdl2.GameControllerOpen
 Gura_DeclareFunction(GameControllerOpen)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick_index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6943,7 +6943,7 @@ Gura_ImplementFunction(GameControllerUpdate)
 // sdl2.IsGameController
 Gura_DeclareFunction(IsGameController)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick_index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6994,7 +6994,7 @@ Gura_ImplementFunction(HapticDestroyEffect)
 // sdl2.HapticEffectSupported
 Gura_DeclareFunction(HapticEffectSupported)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "effect", VTYPE_HapticEffect, OCCUR_Once, FLAG_None);
@@ -7017,7 +7017,7 @@ Gura_ImplementFunction(HapticEffectSupported)
 // sdl2.HapticGetEffectStatus
 Gura_DeclareFunction(HapticGetEffectStatus)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "effect", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -7040,7 +7040,7 @@ Gura_ImplementFunction(HapticGetEffectStatus)
 // sdl2.HapticIndex
 Gura_DeclareFunction(HapticIndex)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -7061,7 +7061,7 @@ Gura_ImplementFunction(HapticIndex)
 // sdl2.HapticName
 Gura_DeclareFunction(HapticName)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "device_index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -7085,7 +7085,7 @@ Gura_ImplementFunction(HapticName)
 // sdl2.HapticNewEffect
 Gura_DeclareFunction(HapticNewEffect)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "effect", VTYPE_HapticEffect, OCCUR_Once, FLAG_None);
@@ -7108,7 +7108,7 @@ Gura_ImplementFunction(HapticNewEffect)
 // sdl2.HapticNumAxes
 Gura_DeclareFunction(HapticNumAxes)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -7129,7 +7129,7 @@ Gura_ImplementFunction(HapticNumAxes)
 // sdl2.HapticNumEffects
 Gura_DeclareFunction(HapticNumEffects)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -7150,7 +7150,7 @@ Gura_ImplementFunction(HapticNumEffects)
 // sdl2.HapticNumEffectsPlaying
 Gura_DeclareFunction(HapticNumEffectsPlaying)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -7171,7 +7171,7 @@ Gura_ImplementFunction(HapticNumEffectsPlaying)
 // sdl2.HapticOpen
 Gura_DeclareFunction(HapticOpen)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "device_index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -7195,7 +7195,7 @@ Gura_ImplementFunction(HapticOpen)
 // sdl2.HapticOpenFromJoystick
 Gura_DeclareFunction(HapticOpenFromJoystick)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -7219,7 +7219,7 @@ Gura_ImplementFunction(HapticOpenFromJoystick)
 // sdl2.HapticOpenFromMouse
 Gura_DeclareFunction(HapticOpenFromMouse)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -7241,7 +7241,7 @@ Gura_ImplementFunction(HapticOpenFromMouse)
 // sdl2.HapticOpened
 Gura_DeclareFunction(HapticOpened)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "device_index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -7282,7 +7282,7 @@ Gura_ImplementFunction(HapticPause)
 // sdl2.HapticQuery
 Gura_DeclareFunction(HapticQuery)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -7363,7 +7363,7 @@ Gura_ImplementFunction(HapticRumbleStop)
 // sdl2.HapticRumbleSupported
 Gura_DeclareFunction(HapticRumbleSupported)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -7538,7 +7538,7 @@ Gura_ImplementFunction(HapticUpdateEffect)
 // sdl2.JoystickIsHaptic
 Gura_DeclareFunction(JoystickIsHaptic)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -7559,7 +7559,7 @@ Gura_ImplementFunction(JoystickIsHaptic)
 // sdl2.MouseIsHaptic
 Gura_DeclareFunction(MouseIsHaptic)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -7578,7 +7578,7 @@ Gura_ImplementFunction(MouseIsHaptic)
 // sdl2.NumHaptics
 Gura_DeclareFunction(NumHaptics)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -7631,7 +7631,7 @@ Gura_ImplementFunction(AudioQuit)
 // sdl2.BuildAudioCVT
 Gura_DeclareFunction(BuildAudioCVT)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "cvt", VTYPE_AudioCVT, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "src_format", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -7752,7 +7752,7 @@ Gura_ImplementFunction(FreeWAV)
 // sdl2.GetAudioDeviceName
 Gura_DeclareFunction(GetAudioDeviceName)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "iscapture", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -7778,7 +7778,7 @@ Gura_ImplementFunction(GetAudioDeviceName)
 // sdl2.GetAudioDeviceStatus
 Gura_DeclareFunction(GetAudioDeviceStatus)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "dev", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -7795,7 +7795,7 @@ Gura_ImplementFunction(GetAudioDeviceStatus)
 // sdl2.GetAudioDriver
 Gura_DeclareFunction(GetAudioDriver)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -7819,7 +7819,7 @@ Gura_ImplementFunction(GetAudioDriver)
 // sdl2.GetAudioStatus
 Gura_DeclareFunction(GetAudioStatus)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -7834,7 +7834,7 @@ Gura_ImplementFunction(GetAudioStatus)
 // sdl2.GetCurrentAudioDriver
 Gura_DeclareFunction(GetCurrentAudioDriver)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -7856,7 +7856,7 @@ Gura_ImplementFunction(GetCurrentAudioDriver)
 // sdl2.GetNumAudioDevices
 Gura_DeclareFunction(GetNumAudioDevices)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "iscapture", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -7877,7 +7877,7 @@ Gura_ImplementFunction(GetNumAudioDevices)
 // sdl2.GetNumAudioDrivers
 Gura_DeclareFunction(GetNumAudioDrivers)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -7892,7 +7892,7 @@ Gura_ImplementFunction(GetNumAudioDrivers)
 // sdl2.GetQueuedAudioSize
 Gura_DeclareFunction(GetQueuedAudioSize)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "dev", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -7912,7 +7912,7 @@ Gura_ImplementFunction(GetQueuedAudioSize)
 // sdl2.LoadWAV
 Gura_DeclareFunction(LoadWAV)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "file", VTYPE_stream, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -8027,7 +8027,7 @@ Gura_ImplementFunction(MixAudioFormat)
 // sdl2.OpenAudio
 Gura_DeclareFunction(OpenAudio)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "desired", VTYPE_AudioSpec, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -8049,7 +8049,7 @@ Gura_ImplementFunction(OpenAudio)
 // sdl2.OpenAudioDevice
 Gura_DeclareFunction(OpenAudioDevice)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "device", VTYPE_string, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "iscapture", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "desired", VTYPE_AudioSpec, OCCUR_Once, FLAG_None);
@@ -8163,7 +8163,7 @@ Gura_ImplementFunction(UnlockAudioDevice)
 // sdl2.AUDIO_BITSIZE
 Gura_DeclareFunction(AUDIO_BITSIZE)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -8180,7 +8180,7 @@ Gura_ImplementFunction(AUDIO_BITSIZE)
 // sdl2.AUDIO_ISFLOAT
 Gura_DeclareFunction(AUDIO_ISFLOAT)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -8197,7 +8197,7 @@ Gura_ImplementFunction(AUDIO_ISFLOAT)
 // sdl2.AUDIO_ISBIGENDIAN
 Gura_DeclareFunction(AUDIO_ISBIGENDIAN)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -8214,7 +8214,7 @@ Gura_ImplementFunction(AUDIO_ISBIGENDIAN)
 // sdl2.AUDIO_ISSIGNED
 Gura_DeclareFunction(AUDIO_ISSIGNED)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -8231,7 +8231,7 @@ Gura_ImplementFunction(AUDIO_ISSIGNED)
 // sdl2.AUDIO_ISINT
 Gura_DeclareFunction(AUDIO_ISINT)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -8248,7 +8248,7 @@ Gura_ImplementFunction(AUDIO_ISINT)
 // sdl2.AUDIO_ISLITTLEENDIAN
 Gura_DeclareFunction(AUDIO_ISLITTLEENDIAN)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -8265,7 +8265,7 @@ Gura_ImplementFunction(AUDIO_ISLITTLEENDIAN)
 // sdl2.AUDIO_ISUNSIGNED
 Gura_DeclareFunction(AUDIO_ISUNSIGNED)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -9020,7 +9020,7 @@ Gura_ImplementFunction(CompilerBarrier)
 // sdl2.AddTimer
 Gura_DeclareFunction(AddTimer)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "interval", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -9056,7 +9056,7 @@ Gura_ImplementFunction(Delay)
 // sdl2.GetPerformanceCounter
 Gura_DeclareFunction(GetPerformanceCounter)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -9071,7 +9071,7 @@ Gura_ImplementFunction(GetPerformanceCounter)
 // sdl2.GetPerformanceFrequency
 Gura_DeclareFunction(GetPerformanceFrequency)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -9086,7 +9086,7 @@ Gura_ImplementFunction(GetPerformanceFrequency)
 // sdl2.GetTicks
 Gura_DeclareFunction(GetTicks)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -9101,7 +9101,7 @@ Gura_ImplementFunction(GetTicks)
 // sdl2.RemoveTimer
 Gura_DeclareFunction(RemoveTimer)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -9118,7 +9118,7 @@ Gura_ImplementFunction(RemoveTimer)
 // sdl2.TICKS_PASSED
 Gura_DeclareFunction(TICKS_PASSED)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "A", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "B", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -9137,7 +9137,7 @@ Gura_ImplementFunction(TICKS_PASSED)
 // sdl2.GetBasePath
 Gura_DeclareFunction(GetBasePath)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -9163,7 +9163,7 @@ Gura_ImplementFunction(GetBasePath)
 // sdl2.GetPrefPath
 Gura_DeclareFunction(GetPrefPath)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "org", VTYPE_string, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "app", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -9607,7 +9607,7 @@ Gura_ImplementFunction(WriteLE64)
 // sdl2.GetPlatform
 Gura_DeclareFunction(GetPlatform)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -9629,7 +9629,7 @@ Gura_ImplementFunction(GetPlatform)
 // sdl2.GetCPUCacheLineSize
 Gura_DeclareFunction(GetCPUCacheLineSize)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -9644,7 +9644,7 @@ Gura_ImplementFunction(GetCPUCacheLineSize)
 // sdl2.GetCPUCount
 Gura_DeclareFunction(GetCPUCount)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -9659,7 +9659,7 @@ Gura_ImplementFunction(GetCPUCount)
 // sdl2.GetSystemRAM
 Gura_DeclareFunction(GetSystemRAM)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -9674,7 +9674,7 @@ Gura_ImplementFunction(GetSystemRAM)
 // sdl2.Has3DNow
 Gura_DeclareFunction(Has3DNow)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -9689,7 +9689,7 @@ Gura_ImplementFunction(Has3DNow)
 // sdl2.HasAVX
 Gura_DeclareFunction(HasAVX)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -9704,7 +9704,7 @@ Gura_ImplementFunction(HasAVX)
 // sdl2.HasAVX2
 Gura_DeclareFunction(HasAVX2)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -9722,7 +9722,7 @@ Gura_ImplementFunction(HasAVX2)
 // sdl2.HasAltiVec
 Gura_DeclareFunction(HasAltiVec)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -9737,7 +9737,7 @@ Gura_ImplementFunction(HasAltiVec)
 // sdl2.HasMMX
 Gura_DeclareFunction(HasMMX)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -9752,7 +9752,7 @@ Gura_ImplementFunction(HasMMX)
 // sdl2.HasRDTSC
 Gura_DeclareFunction(HasRDTSC)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -9767,7 +9767,7 @@ Gura_ImplementFunction(HasRDTSC)
 // sdl2.HasSSE
 Gura_DeclareFunction(HasSSE)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -9782,7 +9782,7 @@ Gura_ImplementFunction(HasSSE)
 // sdl2.HasSSE2
 Gura_DeclareFunction(HasSSE2)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -9797,7 +9797,7 @@ Gura_ImplementFunction(HasSSE2)
 // sdl2.HasSSE3
 Gura_DeclareFunction(HasSSE3)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -9812,7 +9812,7 @@ Gura_ImplementFunction(HasSSE3)
 // sdl2.HasSSE41
 Gura_DeclareFunction(HasSSE41)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -9827,7 +9827,7 @@ Gura_ImplementFunction(HasSSE41)
 // sdl2.HasSSE42
 Gura_DeclareFunction(HasSSE42)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -10058,7 +10058,7 @@ Gura_ImplementFunction(SwapLE64)
 // sdl2.MostSignificantBitIndex32
 Gura_DeclareFunction(MostSignificantBitIndex32)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -10078,7 +10078,7 @@ Gura_ImplementFunction(MostSignificantBitIndex32)
 // sdl2.GetPowerInfo
 Gura_DeclareFunction(GetPowerInfo)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -10186,7 +10186,7 @@ Gura_ImplementFunction(AndroidGetJNIEnv)
 // sdl2.acos
 Gura_DeclareFunction(acos)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
