@@ -501,7 +501,14 @@ glGetPolygonStipple(mask:GLubyte@):void = `unsupport
 
 //glGetSeparableFilter(target:GLenum, format:GLenum, type:GLenum, row:GLvoid@, column:GLvoid@, span:GLvoid@):void = `unsupport
 
-glGetString(name:GLenum):GLubyte@:const {block?} = `unsupport
+glGetString(name:GLenum) {block?} = R'''
+	const GLubyte *_rtn = glGetString(name);
+	if (_rtn == NULL) {
+		sig.SetError(ERR_ValueError, "invalid name");
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(reinterpret_cast<const char *>(_rtn)));
+'''
 
 glGetTexEnvfv(target:GLenum, pname:GLenum) {block?} = R'''
 	size_t n = GetParamCount(pname);

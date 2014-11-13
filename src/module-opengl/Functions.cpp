@@ -2752,7 +2752,7 @@ Gura_ImplementFunction(glGetPolygonStipple)
 // opengl.glGetString
 Gura_DeclareFunction(glGetString)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "name", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2761,13 +2761,13 @@ Gura_DeclareFunction(glGetString)
 
 Gura_ImplementFunction(glGetString)
 {
-#if 0
 	GLenum name = static_cast<GLenum>(args.GetInt(0));
-	glGetString(name);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetString");
-	return Value::Null;
+	const GLubyte *_rtn = glGetString(name);
+	if (_rtn == NULL) {
+		sig.SetError(ERR_ValueError, "invalid name");
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(reinterpret_cast<const char *>(_rtn)));
 }
 
 // opengl.glGetTexEnvfv
