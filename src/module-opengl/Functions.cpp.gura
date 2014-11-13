@@ -6,7 +6,7 @@ glAccum(op:GLenum, value:GLfloat):void
 
 glAlphaFunc(func:GLenum, ref:GLclampf):void
 
-glAreTexturesResident(textures:GLuint@:const):GLboolean = R'''
+glAreTexturesResident(textures:GLuint@:const):GLboolean {block?} = R'''
 	GLsizei n = textures.GetSize();
 	CArray<GLboolean> residences(n);
 	GLboolean _rtn = glAreTexturesResident(n, textures, residences);
@@ -346,7 +346,7 @@ glFrontFace(mode:GLenum):void
 
 glFrustum(left:GLdouble, right:GLdouble, bottom:GLdouble, top:GLdouble, zNear:GLdouble, zFar:GLdouble):void
 
-glGenLists(range:GLsizei):GLuint
+glGenLists(range:GLsizei):GLuint {block?}
 
 glGenTextures(n:GLsizei) = R'''
 	CArray<GLuint> textures(n);
@@ -407,7 +407,7 @@ glGetDoublev(pname:GLenum) = R'''
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 '''
 
-glGetError():GLenum
+glGetError():GLenum {block?}
 
 glGetFloatv(pname:GLenum) = R'''
 	size_t n = GetParamCount(pname);
@@ -501,7 +501,7 @@ $glGetPolygonStipple(mask:GLubyte@):void
 
 //$glGetSeparableFilter(target:GLenum, format:GLenum, type:GLenum, row:GLvoid@, column:GLvoid@, span:GLvoid@):void
 
-$glGetString(name:GLenum):GLubyte@:const
+$glGetString(name:GLenum):GLubyte@:const {block?}
 
 glGetTexEnvfv(target:GLenum, pname:GLenum) = R'''
 	size_t n = GetParamCount(pname);
@@ -600,11 +600,11 @@ glInitNames():void
 
 //$glInterleavedArrays(format:GLenum, stride:GLsizei, pointer:GLvoid@:const):void
 
-glIsEnabled(cap:GLenum):GLboolean
+glIsEnabled(cap:GLenum):GLboolean {block?}
 
-glIsList(list:GLuint):GLboolean
+glIsList(list:GLuint):GLboolean {block?}
 
-glIsTexture(texture:GLuint):GLboolean
+glIsTexture(texture:GLuint):GLboolean {block?}
 
 glLightModelf(pname:GLenum, param:GLfloat):void
 
@@ -834,7 +834,7 @@ glRects(x1:GLshort, y1:GLshort, x2:GLshort, y2:GLshort):void
 
 glRectsv(v1:GLshort@2:const, v2:GLshort@2:const):void
 
-glRenderMode(mode:GLenum):GLint
+glRenderMode(mode:GLenum):GLint {block?}
 
 glResetHistogram(target:GLenum):void
 
@@ -1218,7 +1218,7 @@ glDeleteQueries(ids:GLuint@:const):void = R'''
 	return Value::Null;
 '''
 
-glIsQuery(id:GLuint):GLboolean
+glIsQuery(id:GLuint):GLboolean {block?}
 
 glBeginQuery(target:GLenum, id:GLuint):void
 
@@ -1244,7 +1244,7 @@ glGenBuffers(n:GLsizei) = R'''
 	return Value::CreateList(env, buffers, n);
 '''
 
-glIsBuffer(buffer:GLuint):GLboolean
+glIsBuffer(buffer:GLuint):GLboolean {block?}
 
 //$glBufferData(target:GLenum, size:GLsizeiptr, data:GLvoid@:const, usage:GLenum):void
 
@@ -1252,9 +1252,9 @@ glIsBuffer(buffer:GLuint):GLboolean
 
 //$glGetBufferSubData(target:GLenum, offset:GLintptr, size:GLsizeiptr, data:GLvoid@):void
 
-//glMapBuffer(target:GLenum, access:GLenum):GLvoid@
+//glMapBuffer(target:GLenum, access:GLenum):GLvoid {block?}@
 
-glUnmapBuffer(target:GLenum):GLboolean
+glUnmapBuffer(target:GLenum):GLboolean {block?}
 
 $glGetBufferParameteriv(target:GLenum, pname:GLenum, params:GLint@):void
 
@@ -1356,13 +1356,13 @@ glDeleteShader(shader:GLuint):void
 
 glDetachShader(program:GLuint, shader:GLuint):void
 
-glCreateShader(type:GLenum):GLuint
+glCreateShader(type:GLenum):GLuint {block?}
 
 $glShaderSource(shader:GLuint, count:GLsizei, string:GLchar@:const@:const, length:GLint@:const):void
 
 glCompileShader(shader:GLuint):void
 
-glCreateProgram():GLuint
+glCreateProgram():GLuint {block?}
 
 glAttachShader(program:GLuint, shader:GLuint):void
 
@@ -1412,9 +1412,9 @@ glUniformMatrix3fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLf
 
 glUniformMatrix4fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@4:const):void
 
-glIsShader(shader:GLuint):GLboolean
+glIsShader(shader:GLuint):GLboolean {block?}
 
-glIsProgram(program:GLuint):GLboolean
+glIsProgram(program:GLuint):GLboolean {block?}
 
 $glGetShaderiv(shader:GLuint, pname:GLenum, params:GLint@):void
 
@@ -1426,7 +1426,7 @@ $glGetShaderInfoLog(shader:GLuint, bufSize:GLsizei, length:GLsizei@, infoLog:GLc
 
 $glGetProgramInfoLog(program:GLuint, bufSize:GLsizei, length:GLsizei@, infoLog:GLchar@):void
 
-$glGetUniformLocation(program:GLuint, name:GLchar@:const):GLint
+$glGetUniformLocation(program:GLuint, name:GLchar@:const):GLint {block?}
 
 $glGetActiveUniform(program:GLuint, index:GLuint, bufSize:GLsizei, length:GLsizei@, size:GLint@, type:GLenum@, name:GLchar@):void
 
@@ -1440,7 +1440,7 @@ $glBindAttribLocation(program:GLuint, index:GLuint, name:GLchar@:const):void
 
 $glGetActiveAttrib(program:GLuint, index:GLuint, bufSize:GLsizei, length:GLsizei@, size:GLint@, type:GLenum@, name:GLchar@):void
 
-$glGetAttribLocation(program:GLuint, name:GLchar@:const):GLint
+$glGetAttribLocation(program:GLuint, name:GLchar@:const):GLint {block?}
 
 glStencilFuncSeparate(face:GLenum, func:GLenum, ref:GLint, mask:GLuint):void
 
