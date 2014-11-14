@@ -634,7 +634,7 @@ SDL_RenderIsClipEnabled(renderer:SDL_Renderer@):SDL_bool = `unsupport
 
 SDL_RenderPresent(renderer:SDL_Renderer@):void = `auto
 
-SDL_RenderReadPixels(renderer:SDL_Renderer@, rect:SDL_Rect@:const:nil, format:symbol@) {block?} = R'''
+SDL_RenderReadPixels(renderer:SDL_Renderer@, rect:SDL_Rect@:const:nil, format:symbol) {block?} = R'''
 	Uint32 _format = SDL_PIXELFORMAT_UNKNOWN;
 	Image::Format fmtImage = Image::FORMAT_None;
 	if (format->IsIdentical(Gura_Symbol(rgb))) {

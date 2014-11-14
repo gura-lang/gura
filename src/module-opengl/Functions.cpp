@@ -4496,6 +4496,7 @@ Gura_ImplementFunction(glPrioritizeTextures)
 Gura_DeclareFunction(glPushAttrib)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "mask", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -4505,6 +4506,13 @@ Gura_ImplementFunction(glPushAttrib)
 {
 	GLbitfield mask = args.GetUInt(0);
 	glPushAttrib(mask);
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		glPopAttrib();
+	}
 	return Value::Null;
 }
 
@@ -5072,6 +5080,38 @@ Gura_ImplementFunction(glReadBuffer)
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	glReadBuffer(mode);
 	return Value::Null;
+}
+
+// opengl.glReadPixels
+Gura_DeclareFunction(glReadPixels)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "format", VTYPE_symbol, OCCUR_Once, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(glReadPixels)
+{
+	GLint x = args.GetInt(0);
+	GLint y = args.GetInt(1);
+	GLsizei width = args.GetInt(2);
+	GLsizei height = args.GetInt(3);
+	const Symbol *format = args.GetSymbol(4);
+	Image::Format fmt = Image::SymbolToFormat(sig, format);
+	if (sig.IsSignalled()) return Value::Null;
+	AutoPtr<Image> pImage(new Image(fmt));
+	GLenum _format = GetImageFormat(sig, pImage.get());
+	if (sig.IsSignalled()) return Value::Null;
+	if (!pImage->AllocBuffer(sig, width, height, 0xff)) return Value::Null;
+	GLenum type = GL_UNSIGNED_BYTE;
+	glReadPixels(x, y, width, height, _format, type, pImage->GetBuffer());
+	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
 }
 
 // opengl.glRectd
@@ -11248,6 +11288,7 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(glRasterPos4s);
 	Gura_AssignFunction(glRasterPos4sv);
 	Gura_AssignFunction(glReadBuffer);
+	Gura_AssignFunction(glReadPixels);
 	Gura_AssignFunction(glRectd);
 	Gura_AssignFunction(glRectdv);
 	Gura_AssignFunction(glRectf);

@@ -806,7 +806,17 @@ glPrioritizeTextures(textures:GLuint@:const, priorities:GLclampf@:const):void = 
 	return Value::Null;
 '''
 
-glPushAttrib(mask:GLbitfield):void = `auto
+glPushAttrib(mask:GLbitfield):void {block?} = R'''
+	glPushAttrib(mask);
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		glPopAttrib();
+	}
+	return Value::Null;
+'''
 
 glPushClientAttrib(mask:GLbitfield):void {block?} = R'''
 	glPushClientAttrib(mask);
@@ -894,7 +904,17 @@ glRasterPos4sv(v:GLshort@4:const):void = `auto
 
 glReadBuffer(mode:GLenum):void = `auto
 
-//glReadPixels(x:GLint, y:GLint, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:GLvoid@):void = `unsupport
+glReadPixels(x:GLint, y:GLint, width:GLsizei, height:GLsizei, format:symbol) {block?} = R'''
+	Image::Format fmt = Image::SymbolToFormat(sig, format);
+	if (sig.IsSignalled()) return Value::Null;
+	AutoPtr<Image> pImage(new Image(fmt));
+	GLenum _format = GetImageFormat(sig, pImage.get());
+	if (sig.IsSignalled()) return Value::Null;
+	if (!pImage->AllocBuffer(sig, width, height, 0xff)) return Value::Null;
+	GLenum type = GL_UNSIGNED_BYTE;
+	glReadPixels(x, y, width, height, _format, type, pImage->GetBuffer());
+	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
+'''
 
 glRectd(x1:GLdouble, y1:GLdouble, x2:GLdouble, y2:GLdouble):void = `auto
 

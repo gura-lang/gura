@@ -371,14 +371,7 @@ typeConvDict_BuiltIn = %{
 			R'''
 			const char *_rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'symbol@' => TypeConv(
-			'symbol', 'Once', [],
-			'const Symbol *${arg.name} = args.GetSymbol(${idx});',
-			nil,
-			R'''
-			const Symbol *_rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'symbol@:const' => TypeConv(
+	'symbol' => TypeConv(
 			'symbol', 'Once', [],
 			'const Symbol *${arg.name} = args.GetSymbol(${idx});',
 			nil,
