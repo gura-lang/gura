@@ -1050,10 +1050,29 @@ glTexGeni(coord:GLenum, pname:GLenum, param:GLint):void = `auto
 
 glTexGeniv(coord:GLenum, pname:GLenum, params:GLint@:const):void = `auto
 
-//glTexImage1D(target:GLenum, level:GLint, internalformat:GLint, width:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:GLvoid@:const):void = `unsupport
+glTexImage1D(target:GLenum, level:GLint,
+			 internalformat:GLint, border:GLint, image:image):void = R'''
+	GLsizei width = static_cast<GLsizei>(image->GetWidth()) + border * 2;
+	GLenum format = GetImageFormat(sig, image);
+	if (sig.IsSignalled()) return Value::Null;
+	GLenum type = GL_UNSIGNED_BYTE;
+	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
+	glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
+	return Value::Null;
+'''
 
-//glTexImage2D(target:GLenum, level:GLint, internalformat:GLint, width:GLsizei, height:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:GLvoid@:const):void = `unsupport
-
+glTexImage2D(target:GLenum, level:GLint,
+			 internalformat:GLint, border:GLint, image:image):void = R'''
+	GLsizei width = static_cast<GLsizei>(image->GetWidth()) + border * 2;
+	GLsizei height = static_cast<GLsizei>(image->GetHeight()) + border * 2;
+	GLenum format = GetImageFormat(sig, image);
+	if (sig.IsSignalled()) return Value::Null;
+	GLenum type = GL_UNSIGNED_BYTE;
+	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
+	glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
+	return Value::Null;
+'''
+	
 //glTexImage3D(target:GLenum, level:GLint, internalformat:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:GLvoid@:const):void = `unsupport
 
 glTexParameterf(target:GLenum, pname:GLenum, param:GLfloat):void = `auto
@@ -1064,9 +1083,26 @@ glTexParameteri(target:GLenum, pname:GLenum, param:GLint):void = `auto
 
 glTexParameteriv(target:GLenum, pname:GLenum, params:GLint@:const):void = `auto
 
-//glTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint, width:GLsizei, format:GLenum, type:GLenum, pixels:GLvoid@:const):void = `unsupport
+glTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint, image:image):void = R'''
+	GLsizei width = static_cast<GLsizei>(image->GetWidth());
+	GLenum format = GetImageFormat(sig, image);
+	if (sig.IsSignalled()) return Value::Null;
+	GLenum type = GL_UNSIGNED_BYTE;
+	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
+	glTexSubImage1D(target, level, xoffset, width, format, type, pixels);
+	return Value::Null;
+'''
 
-//glTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:GLvoid@:const):void = `unsupport
+glTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, image:image):void = R'''
+	GLsizei width = static_cast<GLsizei>(image->GetWidth());
+	GLsizei height = static_cast<GLsizei>(image->GetHeight());
+	GLenum format = GetImageFormat(sig, image);
+	if (sig.IsSignalled()) return Value::Null;
+	GLenum type = GL_UNSIGNED_BYTE;
+	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
+	glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
+	return Value::Null;
+'''
 
 //glTexSubImage3D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, format:GLenum, type:GLenum, pixels:GLvoid@:const):void = `unsupport
 

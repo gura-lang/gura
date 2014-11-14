@@ -6375,6 +6375,65 @@ Gura_ImplementFunction(glTexGeniv)
 	return Value::Null;
 }
 
+// opengl.glTexImage1D
+Gura_DeclareFunction(glTexImage1D)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "level", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "internalformat", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "border", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "image", VTYPE_image, OCCUR_Once, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(glTexImage1D)
+{
+	GLenum target = static_cast<GLenum>(args.GetInt(0));
+	GLint level = args.GetInt(1);
+	GLint internalformat = args.GetInt(2);
+	GLint border = args.GetInt(3);
+	Image *image = Object_image::GetObject(args, 4)->GetImage();
+	GLsizei width = static_cast<GLsizei>(image->GetWidth()) + border * 2;
+	GLenum format = GetImageFormat(sig, image);
+	if (sig.IsSignalled()) return Value::Null;
+	GLenum type = GL_UNSIGNED_BYTE;
+	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
+	glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
+	return Value::Null;
+}
+
+// opengl.glTexImage2D
+Gura_DeclareFunction(glTexImage2D)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "level", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "internalformat", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "border", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "image", VTYPE_image, OCCUR_Once, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(glTexImage2D)
+{
+	GLenum target = static_cast<GLenum>(args.GetInt(0));
+	GLint level = args.GetInt(1);
+	GLint internalformat = args.GetInt(2);
+	GLint border = args.GetInt(3);
+	Image *image = Object_image::GetObject(args, 4)->GetImage();
+	GLsizei width = static_cast<GLsizei>(image->GetWidth()) + border * 2;
+	GLsizei height = static_cast<GLsizei>(image->GetHeight()) + border * 2;
+	GLenum format = GetImageFormat(sig, image);
+	if (sig.IsSignalled()) return Value::Null;
+	GLenum type = GL_UNSIGNED_BYTE;
+	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
+	glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
+	return Value::Null;
+}
+
 // opengl.glTexParameterf
 Gura_DeclareFunction(glTexParameterf)
 {
@@ -6452,6 +6511,63 @@ Gura_ImplementFunction(glTexParameteriv)
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLint> params = args.GetList(2);
 	glTexParameteriv(target, pname, params);
+	return Value::Null;
+}
+
+// opengl.glTexSubImage1D
+Gura_DeclareFunction(glTexSubImage1D)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "level", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "xoffset", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "image", VTYPE_image, OCCUR_Once, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(glTexSubImage1D)
+{
+	GLenum target = static_cast<GLenum>(args.GetInt(0));
+	GLint level = args.GetInt(1);
+	GLint xoffset = args.GetInt(2);
+	Image *image = Object_image::GetObject(args, 3)->GetImage();
+	GLsizei width = static_cast<GLsizei>(image->GetWidth());
+	GLenum format = GetImageFormat(sig, image);
+	if (sig.IsSignalled()) return Value::Null;
+	GLenum type = GL_UNSIGNED_BYTE;
+	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
+	glTexSubImage1D(target, level, xoffset, width, format, type, pixels);
+	return Value::Null;
+}
+
+// opengl.glTexSubImage2D
+Gura_DeclareFunction(glTexSubImage2D)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "level", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "xoffset", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "yoffset", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "image", VTYPE_image, OCCUR_Once, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(glTexSubImage2D)
+{
+	GLenum target = static_cast<GLenum>(args.GetInt(0));
+	GLint level = args.GetInt(1);
+	GLint xoffset = args.GetInt(2);
+	GLint yoffset = args.GetInt(3);
+	Image *image = Object_image::GetObject(args, 4)->GetImage();
+	GLsizei width = static_cast<GLsizei>(image->GetWidth());
+	GLsizei height = static_cast<GLsizei>(image->GetHeight());
+	GLenum format = GetImageFormat(sig, image);
+	if (sig.IsSignalled()) return Value::Null;
+	GLenum type = GL_UNSIGNED_BYTE;
+	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
+	glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
 	return Value::Null;
 }
 
@@ -11352,10 +11468,14 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(glTexGenfv);
 	Gura_AssignFunction(glTexGeni);
 	Gura_AssignFunction(glTexGeniv);
+	Gura_AssignFunction(glTexImage1D);
+	Gura_AssignFunction(glTexImage2D);
 	Gura_AssignFunction(glTexParameterf);
 	Gura_AssignFunction(glTexParameterfv);
 	Gura_AssignFunction(glTexParameteri);
 	Gura_AssignFunction(glTexParameteriv);
+	Gura_AssignFunction(glTexSubImage1D);
+	Gura_AssignFunction(glTexSubImage2D);
 	Gura_AssignFunction(glTranslated);
 	Gura_AssignFunction(glTranslatef);
 	Gura_AssignFunction(glVertex2d);
