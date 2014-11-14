@@ -1706,6 +1706,30 @@ Gura_ImplementFunction(glDrawBuffer)
 	return Value::Null;
 }
 
+// opengl.glDrawPixels
+Gura_DeclareFunction(glDrawPixels)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "image", VTYPE_image, OCCUR_Once, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(glDrawPixels)
+{
+	Image *image = Object_image::GetObject(args, 0)->GetImage();
+	
+	GLsizei width = static_cast<GLsizei>(image->GetWidth());
+	GLsizei height = static_cast<GLsizei>(image->GetHeight());
+	GLenum format = GetImageFormat(sig, image);
+	if (sig.IsSignalled()) return Value::Null;
+	GLenum type = GL_UNSIGNED_BYTE;
+	const GLvoid *pixels = image->GetBuffer();
+	// GLsizei width, GLsizei height, GLenum format, GLenum type, const GLvoid *pixels
+	glDrawPixels(width, height, format, type, pixels);
+	return Value::Null;
+}
+
 // opengl.glEdgeFlag
 Gura_DeclareFunction(glEdgeFlag)
 {
@@ -2041,14 +2065,10 @@ Gura_DeclareFunction(glFeedbackBuffer)
 
 Gura_ImplementFunction(glFeedbackBuffer)
 {
-#if 0
 	GLsizei size = args.GetInt(0);
 	GLenum type = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLfloat> buffer = args.GetList(2);
 	glFeedbackBuffer(size, type, buffer);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glFeedbackBuffer");
 	return Value::Null;
 }
 
@@ -2256,23 +2276,18 @@ Gura_ImplementFunction(glGetBooleanv)
 // opengl.glGetClipPlane
 Gura_DeclareFunction(glGetClipPlane)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "plane", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "equation", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetClipPlane)
 {
-#if 0
 	GLenum plane = static_cast<GLenum>(args.GetInt(0));
-	CArray<GLdouble> equation = args.GetList(1);
+	GLdouble equation[4];
 	glGetClipPlane(plane, equation);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetClipPlane");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, equation, ArraySizeOf(equation)));
 }
 
 // opengl.glGetColorTableParameterfv
@@ -4382,15 +4397,19 @@ Gura_ImplementFunction(glPolygonOffset)
 Gura_DeclareFunction(glPolygonStipple)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "mask", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "mask", VTYPE_binary, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glPolygonStipple)
 {
-	CArray<GLubyte> mask = args.GetList(0);
-	glPolygonStipple(mask);
+	const Binary &mask = Object_binary::GetObject(args, 0)->GetBinary();
+	if (mask.size() != 32 * 4) {
+		sig.SetError(ERR_ValueError, "mask must be a binary containing 32 * 4 elements");
+		return Value::Null;
+	}
+	glPolygonStipple(reinterpret_cast<const GLubyte *>(mask.data()));
 	return Value::Null;
 }
 
@@ -11056,6 +11075,7 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(glDisableClientState);
 	Gura_AssignFunction(glDrawArrays);
 	Gura_AssignFunction(glDrawBuffer);
+	Gura_AssignFunction(glDrawPixels);
 	Gura_AssignFunction(glEdgeFlag);
 	Gura_AssignFunction(glEdgeFlagv);
 	Gura_AssignFunction(glEnable);

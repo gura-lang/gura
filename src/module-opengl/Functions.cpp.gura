@@ -290,7 +290,17 @@ glDrawBuffer(mode:GLenum):void = `auto
 
 //glDrawElements(mode:GLenum, count:GLsizei, type:GLenum, indices:GLvoid@:const):void = `unsupport
 
-//glDrawPixels(width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:GLvoid@:const):void = `unsupport
+glDrawPixels(image:image):void = R'''	
+	GLsizei width = static_cast<GLsizei>(image->GetWidth());
+	GLsizei height = static_cast<GLsizei>(image->GetHeight());
+	GLenum format = GetImageFormat(sig, image);
+	if (sig.IsSignalled()) return Value::Null;
+	GLenum type = GL_UNSIGNED_BYTE;
+	const GLvoid *pixels = image->GetBuffer();
+	// GLsizei width, GLsizei height, GLenum format, GLenum type, const GLvoid *pixels
+	glDrawPixels(width, height, format, type, pixels);
+	return Value::Null;
+'''
 
 //glDrawRangeElements(mode:GLenum, start:GLuint, end:GLuint, count:GLsizei, type:GLenum, indices:GLvoid@:const):void = `unsupport
 
@@ -332,7 +342,7 @@ glEvalPoint1(i:GLint):void = `auto
 
 glEvalPoint2(i:GLint, j:GLint):void = `auto
 
-glFeedbackBuffer(size:GLsizei, type:GLenum, buffer:GLfloat@):void = `unsupport
+glFeedbackBuffer(size:GLsizei, type:GLenum, buffer:GLfloat@):void = `auto
 
 glFinish():void = `auto
 
@@ -376,7 +386,11 @@ glGetBooleanv(pname:GLenum) {block?} = R'''
 	return ReturnValue(env, sig, args, _rtnVal);
 '''
 
-glGetClipPlane(plane:GLenum, equation:GLdouble@):void = `unsupport
+glGetClipPlane(plane:GLenum) = R'''
+	GLdouble equation[4];
+	glGetClipPlane(plane, equation);
+	return ReturnValue(env, sig, args, Value::CreateList(env, equation, ArraySizeOf(equation)));
+'''
 
 //glGetColorTable(target:GLenum, format:GLenum, type:GLenum, table:GLvoid@):void = `unsupport
 
@@ -765,7 +779,14 @@ glPolygonMode(face:GLenum, mode:GLenum):void = `auto
 
 glPolygonOffset(factor:GLfloat, units:GLfloat):void = `auto
 
-glPolygonStipple(mask:GLubyte@:const):void = `auto
+glPolygonStipple(mask:binary):void = R'''
+	if (mask.size() != 32 * 4) {
+		sig.SetError(ERR_ValueError, "mask must be a binary containing 32 * 4 elements");
+		return Value::Null;
+	}
+	glPolygonStipple(reinterpret_cast<const GLubyte *>(mask.data()));
+	return Value::Null;
+'''
 
 glPopAttrib():void = `auto
 
