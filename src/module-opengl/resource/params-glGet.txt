@@ -1,3 +1,6 @@
+Extracted from a document of glGet (https://www.opengl.org/sdk/docs/man2/)
+-------------------------------------------------------------------------------
+
 GL_ACCUM_ALPHA_BITS
 params returns one value, the number of alpha bitplanes in the accumulation buffer.
 

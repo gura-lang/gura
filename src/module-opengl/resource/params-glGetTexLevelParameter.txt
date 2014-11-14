@@ -1,0 +1,43 @@
+GL_TEXTURE_WIDTH
+params returns a single value, the width of the texture image. This value includes the border of the texture image. The initial value is 0.
+
+GL_TEXTURE_HEIGHT
+params returns a single value, the height of the texture image. This value includes the border of the texture image. The initial value is 0.
+
+GL_TEXTURE_DEPTH
+params returns a single value, the depth of the texture image. This value includes the border of the texture image. The initial value is 0.
+
+GL_TEXTURE_INTERNAL_FORMAT
+params returns a single value, the internal format of the texture image.
+
+GL_TEXTURE_BORDER
+params returns a single value, the width in pixels of the border of the texture image. The initial value is 0.
+
+GL_TEXTURE_RED_SIZE,
+params returns one
+
+GL_TEXTURE_GREEN_SIZE,
+params returns one
+
+GL_TEXTURE_BLUE_SIZE,
+params returns one
+
+GL_TEXTURE_ALPHA_SIZE,
+params returns one
+
+GL_TEXTURE_LUMINANCE_SIZE,
+params returns one
+
+GL_TEXTURE_INTENSITY_SIZE,
+params returns one
+
+GL_TEXTURE_DEPTH_SIZE
+params returns one
+The internal storage resolution of an individual component. The resolution chosen by the GL will be a close match for the resolution requested by the user with the component argument of glTexImage1D, glTexImage2D, glTexImage3D, glCopyTexImage1D, and glCopyTexImage2D. The initial value is 0.
+
+GL_TEXTURE_COMPRESSED
+params returns a single boolean value indicating if the texture image is stored in a compressed internal format. The initiali value is GL_FALSE.
+
+GL_TEXTURE_COMPRESSED_IMAGE_SIZE
+params returns a single integer value, the number of unsigned bytes of the compressed texture image that would be returned from glGetCompressedTexImage.
+

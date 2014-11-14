@@ -1,0 +1,64 @@
+Extracted from a document of glGetTexEnv (https://www.opengl.org/sdk/docs/man2/)
+-------------------------------------------------------------------------------
+
+GL_TEXTURE_ENV_MODE
+params returns the single-valued texture environment mode, a symbolic constant. The initial value is GL_MODULATE.
+
+GL_TEXTURE_ENV_COLOR
+params returns four integer or floating-point values that are the texture environment color. Integer values, when requested, are linearly mapped from the internal floating-point representation such that 1.0 maps to the most positive representable integer, and 
+-1.0
+ maps to the most negative representable integer. The initial value is (0, 0, 0, 0).
+
+GL_TEXTURE_LOD_BIAS
+params returns a single floating-point value that is the texture level-of-detail bias. The initial value is 0.
+
+GL_COMBINE_RGB
+params returns a single symbolic constant value representing the current RGB combine mode. The initial value is GL_MODULATE.
+
+GL_COMBINE_ALPHA
+params returns a single symbolic constant value representing the current alpha combine mode. The initial value is GL_MODULATE.
+
+GL_SRC0_RGB
+params returns a single symbolic constant value representing the texture combiner zero's RGB source. The initial value is GL_TEXTURE.
+
+GL_SRC1_RGB
+params returns a single symbolic constant value representing the texture combiner one's RGB source. The initial value is GL_PREVIOUS.
+
+GL_SRC2_RGB
+params returns a single symbolic constant value representing the texture combiner two's RGB source. The initial value is GL_CONSTANT.
+
+GL_SRC0_ALPHA
+params returns a single symbolic constant value representing the texture combiner zero's alpha source. The initial value is GL_TEXTURE.
+
+GL_SRC1_ALPHA
+params returns a single symbolic constant value representing the texture combiner one's alpha source. The initial value is GL_PREVIOUS.
+
+GL_SRC2_ALPHA
+params returns a single symbolic constant value representing the texture combiner two's alpha source. The initial value is GL_CONSTANT.
+
+GL_OPERAND0_RGB
+params returns a single symbolic constant value representing the texture combiner zero's RGB operand. The initial value is GL_SRC_COLOR.
+
+GL_OPERAND1_RGB
+params returns a single symbolic constant value representing the texture combiner one's RGB operand. The initial value is GL_SRC_COLOR.
+
+GL_OPERAND2_RGB
+params returns a single symbolic constant value representing the texture combiner two's RGB operand. The initial value is GL_SRC_ALPHA.
+
+GL_OPERAND0_ALPHA
+params returns a single symbolic constant value representing the texture combiner zero's alpha operand. The initial value is GL_SRC_ALPHA.
+
+GL_OPERAND1_ALPHA
+params returns a single symbolic constant value representing the texture combiner one's alpha operand. The initial value is GL_SRC_ALPHA.
+
+GL_OPERAND2_ALPHA
+params returns a single symbolic constant value representing the texture combiner two's alpha operand. The initial value is GL_SRC_ALPHA.
+
+GL_RGB_SCALE
+params returns a single floating-point value representing the current RGB texture combiner scaling factor. The initial value is 1.0.
+
+GL_ALPHA_SCALE
+params returns a single floating-point value representing the current alpha texture combiner scaling factor. The initial value is 1.0.
+
+GL_COORD_REPLACE
+params returns a single boolean value representing the current point sprite texture coordinate replacement enable state. The initial value is GL_FALSE.
