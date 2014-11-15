@@ -1513,7 +1513,19 @@ glDetachShader(program:GLuint, shader:GLuint):void = `auto
 
 glCreateShader(type:GLenum):GLuint {block?} = `auto
 
-glShaderSource(shader:GLuint, count:GLsizei, string:GLchar@:const@:const, length:GLint@:const):void = `unsupport
+glShaderSource(shader:GLuint, string[]:string):void = R'''
+	GLsizei count = static_cast<GLsizei>(string.size());
+	const GLchar **_string = new const GLchar *[count];
+	GLint *length = new GLint[count];
+	for (GLint i = 0; i < count; i++) {
+		_string[i] = reinterpret_cast<const GLchar *>(string[i].GetString());
+		length[i] = static_cast<GLint>(string[i].GetStringSTL().size());
+	}
+	glShaderSource(shader, count, _string, length);
+	delete[] _string;
+	delete[] length;
+	return Value::Null;
+'''
 
 glCompileShader(shader:GLuint):void = `auto
 
@@ -1617,6 +1629,11 @@ glUniformMatrix4x3fv(location:GLint, count:GLsizei, transpose:GLboolean, value:G
 }
 
 typeConvDict = %{
+	'string[]' => TypeConv(
+			'string', 'Once', ['List'],
+			'const ValueList &${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
 	'GLenum' => TypeConv(
 			'number', 'Once', [],
 			'GLenum ${arg.name} = static_cast<GLenum>(args.GetInt(${idx}));',

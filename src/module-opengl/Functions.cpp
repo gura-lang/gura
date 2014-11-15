@@ -10067,24 +10067,25 @@ Gura_DeclareFunction(glShaderSource)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "shader", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "count", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "string", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "length", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "string", VTYPE_string, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glShaderSource)
 {
-#if 0
 	GLuint shader = args.GetUInt(0);
-	GLsizei count = args.GetInt(1);
-	CArray<GLchar> string = args.GetList(2);
-	CArray<GLint> length = args.GetList(3);
-	glShaderSource(shader, count, string, length);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glShaderSource");
+	const ValueList &string = args.GetList(1);
+	GLsizei count = static_cast<GLsizei>(string.size());
+	const GLchar **_string = new const GLchar *[count];
+	GLint *length = new GLint[count];
+	for (GLint i = 0; i < count; i++) {
+		_string[i] = reinterpret_cast<const GLchar *>(string[i].GetString());
+		length[i] = static_cast<GLint>(string[i].GetStringSTL().size());
+	}
+	glShaderSource(shader, count, _string, length);
+	delete[] _string;
+	delete[] length;
 	return Value::Null;
 }
 
