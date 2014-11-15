@@ -1344,11 +1344,26 @@ glBeginQuery(target:GLenum, id:GLuint):void {block?} = R'''
 
 glEndQuery(target:GLenum):void = `auto
 
-glGetQueryiv(target:GLenum, pname:GLenum, params:GLint@):void = `unsupport
+glGetQueryiv(target:GLenum, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
+	glGetQueryiv(target, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
-glGetQueryObjectiv(id:GLuint, pname:GLenum, params:GLint@):void = `unsupport
+glGetQueryObjectiv(id:GLuint, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
+	glGetQueryObjectiv(id, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
-glGetQueryObjectuiv(id:GLuint, pname:GLenum, params:GLuint@):void = `unsupport
+glGetQueryObjectuiv(id:GLuint, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLuint> params(n);
+	glGetQueryObjectuiv(id, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
 glBindBuffer(target:GLenum, buffer:GLuint):void = `auto
 
