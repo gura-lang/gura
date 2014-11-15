@@ -9954,73 +9954,61 @@ Gura_ImplementFunction(glDisableVertexAttribArray)
 // opengl.glGetVertexAttribdv
 Gura_DeclareFunction(glGetVertexAttribdv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetVertexAttribdv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLdouble> params = args.GetList(2);
+	size_t n = GetParamCount(pname);
+	CArray<GLdouble> params(n);
 	glGetVertexAttribdv(index, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetVertexAttribdv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetVertexAttribfv
 Gura_DeclareFunction(glGetVertexAttribfv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetVertexAttribfv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLfloat> params = args.GetList(2);
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
 	glGetVertexAttribfv(index, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetVertexAttribfv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetVertexAttribiv
 Gura_DeclareFunction(glGetVertexAttribiv)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetVertexAttribiv)
 {
-#if 0
 	GLuint index = args.GetUInt(0);
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLint> params = args.GetList(2);
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
 	glGetVertexAttribiv(index, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetVertexAttribiv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glDeleteShader

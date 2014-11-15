@@ -1484,11 +1484,26 @@ glEnableVertexAttribArray(index:GLuint):void = `auto
 
 glDisableVertexAttribArray(index:GLuint):void = `auto
 
-glGetVertexAttribdv(index:GLuint, pname:GLenum, params:GLdouble@):void = `unsupport
+glGetVertexAttribdv(index:GLuint, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLdouble> params(n);
+	glGetVertexAttribdv(index, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
-glGetVertexAttribfv(index:GLuint, pname:GLenum, params:GLfloat@):void = `unsupport
+glGetVertexAttribfv(index:GLuint, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLfloat> params(n);
+	glGetVertexAttribfv(index, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
-glGetVertexAttribiv(index:GLuint, pname:GLenum, params:GLint@):void = `unsupport
+glGetVertexAttribiv(index:GLuint, pname:GLenum) = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
+	glGetVertexAttribiv(index, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
 //glGetVertexAttribPointerv(index:GLuint, pname:GLenum, pointer:GLvoid@@):void = `unsupport
 
