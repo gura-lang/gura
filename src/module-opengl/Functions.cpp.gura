@@ -1391,7 +1391,12 @@ glIsBuffer(buffer:GLuint):GLboolean {block?} = `auto
 
 glUnmapBuffer(target:GLenum):GLboolean {block?} = `auto
 
-glGetBufferParameteriv(target:GLenum, pname:GLenum, params:GLint@):void = `unsupport
+glGetBufferParameteriv(target:GLenum, pname:GLenum):void = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
+	glGetBufferParameteriv(target, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
 //glGetBufferPointerv(target:GLenum, pname:GLenum, params:GLvoid@@):void = `unsupport
 

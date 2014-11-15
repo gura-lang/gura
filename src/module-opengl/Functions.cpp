@@ -9106,22 +9106,18 @@ Gura_DeclareFunction(glGetBufferParameteriv)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetBufferParameteriv)
 {
-#if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLint> params = args.GetList(2);
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
 	glGetBufferParameteriv(target, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetBufferParameteriv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glDrawBuffers
