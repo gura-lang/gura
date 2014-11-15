@@ -1,0 +1,28 @@
+#!/usr/bin/env gura
+import(re)
+
+lines = readlines('glu.h')
+lines:*match(r'^extern\s+(.+[\s\*]+)(\w+)\s*\((.*)\)').skipnil() {|m|
+	rtnType = m[1].strip().sub(r'\s*\*', '@').sub(r'^const\s+(.+)', r'\1:const')
+	funcName = m[2].strip()
+	argsRaw = m[3]
+	print(funcName, '(')
+	args = argsRaw.split(',')::strip()
+	validFlag = !argsRaw.find('*')
+	try {
+		argsJoined = args.each():xiter {|arg|
+			(arg == 'void') && continue
+			m2 = arg.match(r'^(.+[\s\*]+)(\w+)')
+			varTypeRaw = m2[1].strip()
+			varType = varTypeRaw.sub(r'\s*\*', '@').sub(r'^const\s+(.+)', r'\1:const')
+			varName = m2[2].strip()
+			varName + ':' + varType
+		}.join(', ')
+	} catch {
+		validFlag = false
+		argsJoined = ''
+	}
+	print(argsJoined)
+	println('):', rtnType, ' = ', cond(validFlag, '`auto', '`unsupport'))
+	println()
+}
