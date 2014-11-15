@@ -1583,9 +1583,19 @@ glIsShader(shader:GLuint):GLboolean {block?} = `auto
 
 glIsProgram(program:GLuint):GLboolean {block?} = `auto
 
-glGetShaderiv(shader:GLuint, pname:GLenum, params:GLint@):void = `unsupport
+glGetShaderiv(shader:GLuint, pname:GLenum):void = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
+	glGetShaderiv(shader, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
-glGetProgramiv(program:GLuint, pname:GLenum, params:GLint@):void = `unsupport
+glGetProgramiv(program:GLuint, pname:GLenum):void = R'''
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
+	glGetProgramiv(program, pname, params);
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+'''
 
 glGetAttachedShaders(program:GLuint, maxCount:GLsizei, count:GLsizei@, shaders:GLuint@):void = `unsupport
 

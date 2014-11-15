@@ -10680,22 +10680,18 @@ Gura_DeclareFunction(glGetShaderiv)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "shader", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetShaderiv)
 {
-#if 0
 	GLuint shader = args.GetUInt(0);
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLint> params = args.GetList(2);
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
 	glGetShaderiv(shader, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetShaderiv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetProgramiv
@@ -10704,22 +10700,18 @@ Gura_DeclareFunction(glGetProgramiv)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(glGetProgramiv)
 {
-#if 0
 	GLuint program = args.GetUInt(0);
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLint> params = args.GetList(2);
+	size_t n = GetParamCount(pname);
+	CArray<GLint> params(n);
 	glGetProgramiv(program, pname, params);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glGetProgramiv");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetAttachedShaders
