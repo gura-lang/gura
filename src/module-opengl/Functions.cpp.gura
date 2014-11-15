@@ -216,15 +216,9 @@ glColorMaterial(face:GLenum, mode:GLenum):void = `auto
 
 //glColorTable(target:GLenum, internalformat:GLenum, width:GLsizei, format:GLenum, type:GLenum, table:GLvoid@:const):void = `unsupport
 
-glColorTableParameterfv(target:GLenum, pname:GLenum, params:GLfloat@:const):void = R'''
-	glColorTableParameterfv(target, pname, params);
-	return Value::Null;
-'''
+glColorTableParameterfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const):void = `auto
 	
-glColorTableParameteriv(target:GLenum, pname:GLenum, params:GLint@:const):void = R'''
-	glColorTableParameteriv(target, pname, params);
-	return Value::Null;
-'''
+glColorTableParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void = `auto
 
 //glConvolutionFilter1D(target:GLenum, internalformat:GLenum, width:GLsizei, format:GLenum, type:GLenum, image:GLvoid@:const):void = `unsupport
 
@@ -232,17 +226,11 @@ glColorTableParameteriv(target:GLenum, pname:GLenum, params:GLint@:const):void =
 
 glConvolutionParameterf(target:GLenum, pname:GLenum, params:GLfloat):void = `auto
 
-glConvolutionParameterfv(target:GLenum, pname:GLenum, params:GLfloat@:const):void = R'''
-	glColorTableParameterfv(target, pname, params);
-	return Value::Null;
-'''
+glConvolutionParameterfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const):void = `auto
 
 glConvolutionParameteri(target:GLenum, pname:GLenum, params:GLint):void = `auto
 
-glConvolutionParameteriv(target:GLenum, pname:GLenum, params:GLint@:const):void = R'''
-	glColorTableParameteriv(target, pname, params);
-	return Value::Null;
-'''
+glConvolutionParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void = `auto
 
 glCopyColorSubTable(target:GLenum, start:GLsizei, x:GLint, y:GLint, width:GLsizei):void = `auto
 
@@ -350,17 +338,11 @@ glFlush():void = `auto
 
 glFogf(pname:GLenum, param:GLfloat):void = `auto
 
-glFogfv(pname:GLenum, params:GLfloat@:const):void = R'''
-	glFogfv(pname, params);
-	return Value::Null;
-'''
+glFogfv(pname:GLenum, params:GLfloat@pname:const):void = `auto
 
 glFogi(pname:GLenum, param:GLint):void = `auto
 
-glFogiv(pname:GLenum, params:GLint@:const):void = R'''
-	glFogiv(pname, params);
-	return Value::Null;
-'''
+glFogiv(pname:GLenum, params:GLint@pname:const):void = `auto
 
 glFrontFace(mode:GLenum):void = `auto
 
@@ -639,31 +621,19 @@ glIsTexture(texture:GLuint):GLboolean {block?} = `auto
 
 glLightModelf(pname:GLenum, param:GLfloat):void = `auto
 
-glLightModelfv(pname:GLenum, params:GLfloat@:const):void = R'''
-	glLightModelfv(pname, params);
-	return Value::Null;
-'''
+glLightModelfv(pname:GLenum, params:GLfloat@pname:const):void = `auto
 
 glLightModeli(pname:GLenum, param:GLint):void = `auto
 
-glLightModeliv(pname:GLenum, params:GLint@:const):void = R'''
-	glLightModeliv(pname, params);
-	return Value::Null;
-'''
+glLightModeliv(pname:GLenum, params:GLint@pname:const):void = `auto
 	
 glLightf(light:GLenum, pname:GLenum, param:GLfloat):void = `auto
 
-glLightfv(light:GLenum, pname:GLenum, params:GLfloat@:const):void = R'''
-	glLightfv(light, pname, params);
-	return Value::Null;
-'''
+glLightfv(light:GLenum, pname:GLenum, params:GLfloat@pname:const):void = `auto
 
 glLighti(light:GLenum, pname:GLenum, param:GLint):void = `auto
 
-glLightiv(light:GLenum, pname:GLenum, params:GLint@:const):void = R'''
-	glLightiv(light, pname, params);
-	return Value::Null;
-'''
+glLightiv(light:GLenum, pname:GLenum, params:GLint@pname:const):void = `auto
 
 glLineStipple(factor:GLint, pattern:GLushort):void = `auto
 
@@ -699,17 +669,11 @@ glMapGrid2f(un:GLint, u1:GLfloat, u2:GLfloat, vn:GLint, v1:GLfloat, v2:GLfloat):
 
 glMaterialf(face:GLenum, pname:GLenum, param:GLfloat):void = `auto
 
-glMaterialfv(face:GLenum, pname:GLenum, params:GLfloat@:const):void = R'''
-	glMaterialfv(face, pname, params);
-	return Value::Null;
-'''
+glMaterialfv(face:GLenum, pname:GLenum, params:GLfloat@pname:const):void = `auto
 
 glMateriali(face:GLenum, pname:GLenum, param:GLint):void = `auto
 
-glMaterialiv(face:GLenum, pname:GLenum, params:GLint@:const):void = R'''
-	glMaterialiv(face, pname, params);
-	return Value::Null;
-'''
+glMaterialiv(face:GLenum, pname:GLenum, params:GLint@pname:const):void = `auto
 
 glMatrixMode(mode:GLenum):void = `auto
 
@@ -1032,23 +996,23 @@ glTexCoord4sv(v:GLshort@4:const):void = `auto
 
 glTexEnvf(target:GLenum, pname:GLenum, param:GLfloat):void = `auto
 
-glTexEnvfv(target:GLenum, pname:GLenum, params:GLfloat@:const):void = `auto
+glTexEnvfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const):void = `auto
 
 glTexEnvi(target:GLenum, pname:GLenum, param:GLint):void = `auto
 
-glTexEnviv(target:GLenum, pname:GLenum, params:GLint@:const):void = `auto
+glTexEnviv(target:GLenum, pname:GLenum, params:GLint@pname:const):void = `auto
 
 glTexGend(coord:GLenum, pname:GLenum, param:GLdouble):void = `auto
 
-glTexGendv(coord:GLenum, pname:GLenum, params:GLdouble@:const):void = `auto
+glTexGendv(coord:GLenum, pname:GLenum, params:GLdouble@pname:const):void = `auto
 
 glTexGenf(coord:GLenum, pname:GLenum, param:GLfloat):void = `auto
 
-glTexGenfv(coord:GLenum, pname:GLenum, params:GLfloat@:const):void = `auto
+glTexGenfv(coord:GLenum, pname:GLenum, params:GLfloat@pname:const):void = `auto
 
 glTexGeni(coord:GLenum, pname:GLenum, param:GLint):void = `auto
 
-glTexGeniv(coord:GLenum, pname:GLenum, params:GLint@:const):void = `auto
+glTexGeniv(coord:GLenum, pname:GLenum, params:GLint@pname:const):void = `auto
 
 glTexImage1D(target:GLenum, level:GLint,
 			 internalformat:GLint, border:GLint, image:image):void = R'''
@@ -1077,11 +1041,11 @@ glTexImage2D(target:GLenum, level:GLint,
 
 glTexParameterf(target:GLenum, pname:GLenum, param:GLfloat):void = `auto
 
-glTexParameterfv(target:GLenum, pname:GLenum, params:GLfloat@:const):void = `auto
+glTexParameterfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const):void = `auto
 
 glTexParameteri(target:GLenum, pname:GLenum, param:GLint):void = `auto
 
-glTexParameteriv(target:GLenum, pname:GLenum, params:GLint@:const):void = `auto
+glTexParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void = `auto
 
 glTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint, image:image):void = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
@@ -1300,11 +1264,11 @@ glSecondaryColor3usv(v:GLushort@3:const):void = `auto
 
 glPointParameterf(pname:GLenum, param:GLfloat):void = `auto
 
-glPointParameterfv(pname:GLenum, params:GLfloat@:const):void = `auto
+glPointParameterfv(pname:GLenum, params:GLfloat@pname:const):void = `auto
 
 glPointParameteri(pname:GLenum, param:GLint):void = `auto
 
-glPointParameteriv(pname:GLenum, params:GLint@:const):void = `auto
+glPointParameteriv(pname:GLenum, params:GLint@pname:const):void = `auto
 
 glBlendFuncSeparate(srcRGB:GLenum, dstRGB:GLenum, srcAlpha:GLenum, dstAlpha:GLenum):void = `auto
 
@@ -1791,6 +1755,17 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
+	'GLbyte@pname:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLbyte> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+				sig.SetError(ERR_ValueError,
+						"the list must have %d elements", GetParamCount(pname));
+				return Value::Null;
+			}''',
+			nil,
+			nil)
 	'GLchar@' => TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLchar> ${arg.name} = args.GetList(${idx});',
@@ -1827,6 +1802,17 @@ typeConvDict = %{
 			CArray<GLubyte> ${arg.name} = args.GetList(${idx});
 			if (${arg.name}.GetSize() != 4) {
 				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLubyte@pname:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLubyte> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+				sig.SetError(ERR_ValueError,
+						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;
 			}''',
 			nil,
@@ -1876,6 +1862,17 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
+	'GLshort@pname:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLshort> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+				sig.SetError(ERR_ValueError,
+						"the list must have %d elements", GetParamCount(pname));
+				return Value::Null;
+			}''',
+			nil,
+			nil)
 	'GLushort@' => TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLushort> ${arg.name} = args.GetList(${idx});',
@@ -1902,6 +1899,17 @@ typeConvDict = %{
 			CArray<GLushort> ${arg.name} = args.GetList(${idx});
 			if (${arg.name}.GetSize() != 4) {
 				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLushort@pname:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLushort> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+				sig.SetError(ERR_ValueError,
+						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;
 			}''',
 			nil,
@@ -1956,6 +1964,17 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
+	'GLint@pname:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLint> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+				sig.SetError(ERR_ValueError,
+						"the list must have %d elements", GetParamCount(pname));
+				return Value::Null;
+			}''',
+			nil,
+			nil)
 	'GLsizei@' => TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLsizei> ${arg.name} = args.GetList(${idx});',
@@ -1992,6 +2011,17 @@ typeConvDict = %{
 			CArray<GLuint> ${arg.name} = args.GetList(${idx});
 			if (${arg.name}.GetSize() != 4) {
 				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLuint@pname:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLuint> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+				sig.SetError(ERR_ValueError,
+						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;
 			}''',
 			nil,
@@ -2052,6 +2082,17 @@ typeConvDict = %{
 			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
 			if (${arg.name}.GetSize() != 16) {
 				sig.SetError(ERR_ValueError, "the list must have four elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLfloat@pname:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+				sig.SetError(ERR_ValueError,
+						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;
 			}''',
 			nil,
@@ -2117,6 +2158,17 @@ typeConvDict = %{
 			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
 			if (${arg.name}.GetSize() != 16) {
 				sig.SetError(ERR_ValueError, "the list must have four elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLdouble@pname:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+				sig.SetError(ERR_ValueError,
+						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;
 			}''',
 			nil,
