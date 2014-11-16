@@ -210,9 +210,14 @@ void Function::DeclareBlock(OccurPattern occurPattern,
 	_blockInfo.quoteFlag = quoteFlag;
 }
 
+void Function::AddHelp(Help *pHelp)
+{
+	_helpOwner.push_back(pHelp);
+}
+
 void Function::AddHelp(const Symbol *pSymbol, const String &formatName, const String &text)
 {
-	_helpOwner.push_back(new Help(pSymbol, formatName, text));
+	AddHelp(new Help(pSymbol, formatName, text));
 }
 
 const Help *Function::GetHelp(const Symbol *pSymbol) const

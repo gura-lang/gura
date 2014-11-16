@@ -2092,7 +2092,30 @@ Value Expr_Caller::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
 		SetError(sig, ERR_SyntaxError, "invalid function expression");
 		return Value::Null;
 	}
-	Expr *pExprBody = Expr::Reference(valueAssigned.GetExpr());
+	const Expr *pExprBody = valueAssigned.GetExpr();
+	HelpOwner helpOwner;
+	while (pExprBody->IsBinaryOp(OPTYPE_Mod)) {
+		const Expr_BinaryOp *pExprEx = dynamic_cast<const Expr_BinaryOp *>(pExprBody);
+		if (!pExprEx->GetRight()->IsBlock()) break;
+		pExprBody = pExprEx->GetLeft();
+		const ExprList &exprArgs = dynamic_cast<const Expr_Block *>
+									(pExprEx->GetRight())->GetExprOwner();
+		ValueList valListArg;
+		foreach_const (ExprList, ppExprArg, exprArgs) {
+			SeqPostHandler *pSeqPostHandler = NULL;
+			const Expr *pExprArg = *ppExprArg;
+			Value result = pExprArg->Exec2(env, sig, pSeqPostHandler);
+			if (sig.IsSignalled()) return Value::Null;
+			valListArg.push_back(result);
+		}
+		if (!(valListArg.size() == 3 && valListArg[0].Is_symbol() &&
+			  valListArg[1].Is_string() && valListArg[2].Is_string())) {
+			sig.SetError(ERR_ValueError, "invalid format for help");
+			return Value::Null;
+		}
+		helpOwner.push_back(new Help(valListArg[0].GetSymbol(),
+									 valListArg[1].GetString(), valListArg[2].GetString()));
+	}
 	// get symbol part of function's declaration
 	const Symbol *pSymbol;
 	if (GetCar()->IsMember()) {
@@ -2117,7 +2140,7 @@ Value Expr_Caller::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
 	}
 	FunctionType funcType = !env.IsClass()? FUNCTYPE_Function :
 		GetAttrs().IsSet(Gura_Symbol(static_))? FUNCTYPE_Class : FUNCTYPE_Instance;
-	FunctionCustom *pFunc = new FunctionCustom(env, pSymbol, pExprBody, funcType);
+	FunctionCustom *pFunc = new FunctionCustom(env, pSymbol, pExprBody->Reference(), funcType);
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetExprOwnerArg(GetExprOwner().Reference());
 	pArgs->SetAttrs(GetAttrs());
@@ -2131,6 +2154,9 @@ Value Expr_Caller::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
 	GetCar()->Assign(env, sig, valueFunc, pSymbolsAssignable, escalateFlag);
 	if (sig.IsSignalled()) return Value::Null;
 	if (pFunc->GetSymbolFuncFlag()) return Value::Null;
+	foreach (HelpOwner, ppHelp, helpOwner) {
+		pFunc->AddHelp((*ppHelp)->Reference());
+	}
 	return valueFunc;
 }
 
