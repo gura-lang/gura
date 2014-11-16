@@ -77,17 +77,19 @@ draw(c:canvas.canvas, items+:item) {block?:inside_scope} = {
 	c.setfont(c.height() / 30, family => `swiss)
 	if (block != nil) { block(c) }
 	c.close()
+} % {`en, 'markdown'
+	R'''
+	Draw dots or lines on a canvas for specified items. Each item contains
+	x and y coordinates, style and color. style takes one of: `circle`, `box`,
+	`solid`, `dot`, `dash` and `dot_dash`. color takes a list of RGB values, a string
+	or a symbol, and they're like [128, 64, 255], "#8040ff" and `black`.
+	Symbols for colors are: `black`, `blue`, `green`, `light_green`, `red`, `cyan`,
+	`yellow`, `white` and `grey`.
+
+	**Example**
+	    graph.draw(c, item(x, y, `solid, `black))
+	'''
 }
-draw.addhelp(`en, 'markdown', """\
-Draw dots or lines on a canvas for specified items. Each item contains
-x and y coordinates, style and color. style takes one of: `circle, `box,
-`solid, `dot, `dash and `dot_dash. color takes a list of RGB values, a string
-or a symbol, and they're like [128, 64, 255], "#8040ff" and `black.
-Symbols for colors are: `black, `blue, `green, `light_green, `red, `cyan,
-`yellow, `white and `grey.
-Example:
-graph.draw(c, item(x, y, `solid, `black))
-""")
 
 if (__name__ == "__main__") {
 	x = interval(-10, 10, 100)

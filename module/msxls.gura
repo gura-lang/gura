@@ -23,7 +23,7 @@ read(filename:string, sheetindex => 1) {`block?} = {
 	app.Quit()
 	block && return(tbl.each {|block|})
 	tbl.each()
-}
+} % {`en, 'markdown', 'Return an iterator that reads each line of Excel file.'}
 
 writer = class {
 	__init__(filename:string, sheetindex => 1, growvertFlag => true) = {
@@ -40,7 +40,7 @@ writer = class {
 	start(iRow:number => 1, iCol:number => 1) = {
 		[this.iRow, this.iCol] = [iRow, iCol]
 		this.nEntries = 0
-	}
+	} % {`en, 'markdown', 'Set start point to write values.'}
 	write(fields+):map = {
 		if (this.growvertFlag) {
 			for (field in fields) {|idx|
@@ -52,33 +52,27 @@ writer = class {
 			}
 		}
 		this.nEntries += 1
-	}
+	} % {`en, 'markdown', 'Append value of fields into Excel sheet.'}
 	clear() = {
 		lastCell = this.ws.Range('A1').SpecialCells(this.app.xlCellTypeLastCell)
 		this.ws.Range(this.ws.Cells(1, 1), lastCell).ClearContents()
 		this.nEntries = 0
-	}
+	} % {`en, 'markdown', 'Clear contents of Excel sheet.'}
 	autofit() = {
 		lastCell = ws.Range('A1').SpecialCells(app.xlCellTypeLastCell)
 		for (iCol in 1..lastCell.Column) {
 			this.ws.Columns(iCol).EntireColumn().AutoFit()
 		}
-	}
+	} % {`en, 'markdown', 'Fits column width by calculating maximum width of each column.'}
 	close() = {
 		this.wb.SaveAs(path.absname(this.filename))
 		this.wb.Close(0)
 		this.app.Quit()
-	}
+	} % {`en, 'markdown', 'Save file and exit Excel application.'}
 }
 
-read.addhelp(`en, 'markdown', 'Return an iterator that reads each line of Excel file.')
 
-writer.start.addhelp(`en, 'markdown', 'Set start point to write values.')
 
-writer.write.addhelp(`en, 'markdown', 'Append value of fields into Excel sheet.')
 
-writer.clear.addhelp(`en, 'markdown', 'Clear contents of Excel sheet.')
 
-writer.autofit.addhelp(`en, 'markdown', 'Fits column width by calculating maximum width of each column.')
 
-writer.close.addhelp(`en, 'markdown', 'Save file and exit Excel application.')
