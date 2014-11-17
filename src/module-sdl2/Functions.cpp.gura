@@ -7,32 +7,148 @@ decls = `{
 
 SDL_Init(flags:Uint32):negerr = `auto % {`en, 'markdown',
 	R'''
-	Use this function to initialize the SDL library. This must be called before using any other SDL function.
+	Use this function to initialize the SDL library.
+	This must be called before using any other SDL function.
+
+	The Event Handling, File I/O, and Threading subsystems are initialized by default.
+	You must specifically initialize other subsystems if you use them in your application.
+
+	`flags` may be any of the following OR\'d together:
+
+	- `sdl2.INIT_TIMER` .. timer subsystem
+	- `sdl2.INIT_AUDIO` .. audio subsystem
+	- `sdl2.INIT_VIDEO` .. video subsystem
+	- `sdl2.INIT_JOYSTICK` .. joystick subsystem
+	- `sdl2.INIT_HAPTIC` .. haptic (force feedback) subsystem
+	- `sdl2.INIT_GAMECONTROLLER` .. controller subsystem
+	- `sdl2.INIT_EVENTS` .. events subsystem
+	- `sdl2.INIT_EVERYTHING` .. all of the above subsystems
+	- `sdl2.INIT_NOPARACHUTE` .. compatibility; this flag is ignored
+	
+	If you want to initialize subsystems separately you would call `SDL_Init(0)` followed
+	by `SDL_InitSubSystem()` with the desired subsystem flag.
+	'''
+} % {`ja, 'markdown',
+	R'''
+	この関数で SDL ライブラリを初期化します。
+	他の SDL 関数を使う前に呼び出す必要があります。
+
+	イベントハンドリング, ファイル I/O　およびスレッドのサブシステムはデフォルトで初期化されます。
+	他のサブシステムをアプリケーションで使用する場合は個別に初期化する必要があります。
+	
+	`flags` は以下の値を OR したものです。
+
+	- `sdl2.INIT_TIMER` .. タイマーサブシステム
+	- `sdl2.INIT_AUDIO` .. オーディオサブシステム
+	- `sdl2.INIT_VIDEO` .. ビデオサブシステム
+	- `sdl2.INIT_JOYSTICK` .. ジョイスティックサブシステム
+	- `sdl2.INIT_HAPTIC` .. haptic (force feedback) サブシステム
+	- `sdl2.INIT_GAMECONTROLLER` .. コントローラサブシステム
+	- `sdl2.INIT_EVENTS` .. イベントサブシステム
+	- `sdl2.INIT_EVERYTHING` .. all of the above subsystems
+	- `sdl2.INIT_NOPARACHUTE` .. compatibility; this flag is ignored
+
 	'''
 }
 
 SDL_InitSubSystem(flags:Uint32):negerr = `auto % {`en, 'markdown',
 	R'''
+	Use this function to initialize specific SDL subsystems.
+
+	After SDL has been initialized with `SDL_Init()`
+	you may initialize uninitialized subsystems with `SDL_InitSubSystem()`.
+
+	These are the flags which may be passed to `SDL_InitSubSystem()`
+	and may be OR\'d together to initialize multiple subsystems simultaneously.
+
+	- `sdl2.INIT_TIMER` .. timer subsystem
+	- `sdl2.INIT_AUDIO` .. audio subsystem
+	- `sdl2.INIT_VIDEO` .. video subsystem
+	- `sdl2.INIT_JOYSTICK` .. joystick subsystem
+	- `sdl2.INIT_HAPTIC` .. haptic (force feedback) subsystem
+	- `sdl2.INIT_GAMECONTROLLER` .. controller subsystem
+	- `sdl2.INIT_EVENTS` .. events subsystem
+	- `sdl2.INIT_EVERYTHING` .. all of the above subsystems
+	- `sdl2.INIT_NOPARACHUTE` .. compatibility; this flag is ignored
+	
+	If you want to initialize subsystems separately you would call `SDL_Init(0)` followed
+	by `SDL_InitSubSystem()` with the desired subsystem flag.
 	'''
 }
 
 SDL_Quit():void = `auto % {`en, 'markdown',
 	R'''
+	Use this function to clean up all initialized subsystems.
+	You should call it upon all exit conditions.
+
+	You should call this function even if you have already shutdown
+	each initialized subsystem with `SDL_QuitSubSystem()`.
+
+	If you start a subsystem using a call to that subsystem\'s init function
+	(for example `SDL_VideoInit()`) instead of `SDL_Init()` or `SDL_InitSubSystem()`,
+	then you must use that subsystem\'s quit function (`SDL_VideoQuit()`)
+	to shut it down before calling `SDL_Quit()`.
+
+	You can use this function with `atexit()` to ensure that it is run
+	when your application is shutdown,
+	but it is not wise to do this from a library or other dynamically loaded code.
 	'''
 }
 
 SDL_QuitSubSystem(flags:Uint32):void = `auto % {`en, 'markdown',
 	R'''
+	Use this function to shut down specific SDL subsystems.
+
+	These are the flags which may be passed to `SDL_QuitSubSystem()`
+	and may be OR\'d together to quit multiple subsystems simultaneously.
+
+	- `sdl2.INIT_TIMER` .. timer subsystem
+	- `sdl2.INIT_AUDIO` .. audio subsystem
+	- `sdl2.INIT_VIDEO` .. video subsystem
+	- `sdl2.INIT_JOYSTICK` .. joystick subsystem
+	- `sdl2.INIT_HAPTIC` .. haptic (force feedback) subsystem
+	- `sdl2.INIT_GAMECONTROLLER` .. controller subsystem
+	- `sdl2.INIT_EVENTS` .. events subsystem
+	- `sdl2.INIT_EVERYTHING` .. all of the above subsystems
+	- `sdl2.INIT_NOPARACHUTE` .. compatibility; this flag is ignored
+	
+	If you want to initialize subsystems separately you would call `SDL_Init(0)` followed
+	by `SDL_InitSubSystem()` with the desired subsystem flag.
 	'''
 }
 
 SDL_SetMainReady():void = `auto % {`en, 'markdown',
 	R'''
+	Use this function to circumvent failure of `SDL_Init()`
+	when not using `SDL_main()` as an entry point.
+
+	This function is defined in SDL_main.h, along with the preprocessor
+	rule to redefine `main()` as `SDL_main()`.
+	Thus to ensure that your `main()` function will not be changed
+	it is necessary to define `SDL_MAIN_HANDLED` before including SDL.h.
 	'''
 }
 
 SDL_WasInit(flags:Uint32):Uint32 {block?} = `auto % {`en, 'markdown',
 	R'''
+	Use this function to return a mask of the specified subsystems
+	which have previously been initialized.
+
+	These are the flags which may be passed to `SDL_WasInit()`
+	and may be OR\'d together to query multiple subsystems simultaneously.
+
+	- `sdl2.INIT_TIMER` .. timer subsystem
+	- `sdl2.INIT_AUDIO` .. audio subsystem
+	- `sdl2.INIT_VIDEO` .. video subsystem
+	- `sdl2.INIT_JOYSTICK` .. joystick subsystem
+	- `sdl2.INIT_HAPTIC` .. haptic (force feedback) subsystem
+	- `sdl2.INIT_GAMECONTROLLER` .. controller subsystem
+	- `sdl2.INIT_EVENTS` .. events subsystem
+	- `sdl2.INIT_EVERYTHING` .. all of the above subsystems
+	- `sdl2.INIT_NOPARACHUTE` .. compatibility; this flag is ignored
+	
+	If you want to initialize subsystems separately you would call `SDL_Init(0)` followed
+	by `SDL_InitSubSystem()` with the desired subsystem flag.
 	'''
 }
 
@@ -74,11 +190,19 @@ SDL_SetHintWithPriority() = `unsupport % {`en, 'markdown',
 
 SDL_ClearError():void = `auto % {`en, 'markdown',
 	R'''
+	Use this function to clear any previous error message.
 	'''
 }
 
 SDL_GetError():char@:const {block?} = `auto % {`en, 'markdown',
 	R'''
+	Use this function to retrieve a message about the last error that occurred.
+
+	Returns a message with information about the specific error that occurred, or an empty string if there hasn\'t been an error since the last call to `SDL_ClearError()`. Without calling `SDL_ClearError()`, the message is only applicable when an SDL function has signaled an error. You must check the return values of SDL function calls to determine when to appropriately call `SDL_GetError()`.
+
+	This string is statically allocated and must not be freed by the application.
+
+	It is possible for multiple errors to occur before calling `SDL_GetError()`. Only the last error is returned.
 	'''
 }
 

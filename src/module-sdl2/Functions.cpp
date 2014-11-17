@@ -12,8 +12,47 @@ Gura_DeclareFunction(Init)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
+		Gura_Symbol(ja), Help::FMT_markdown,
+		"この関数で SDL ライブラリを初期化します。\n"
+		"他の SDL 関数を使う前に呼び出す必要があります。\n"
+		"\n"
+		"イベントハンドリング, ファイル I/O　およびスレッドのサブシステムはデフォルトで初期化されます。\n"
+		"他のサブシステムをアプリケーションで使用する場合は個別に初期化する必要があります。\n"
+		"\n"
+		"`flags` は以下の値を OR したものです。\n"
+		"\n"
+		"- `sdl2.INIT_TIMER` .. タイマーサブシステム\n"
+		"- `sdl2.INIT_AUDIO` .. オーディオサブシステム\n"
+		"- `sdl2.INIT_VIDEO` .. ビデオサブシステム\n"
+		"- `sdl2.INIT_JOYSTICK` .. ジョイスティックサブシステム\n"
+		"- `sdl2.INIT_HAPTIC` .. haptic (force feedback) サブシステム\n"
+		"- `sdl2.INIT_GAMECONTROLLER` .. コントローラサブシステム\n"
+		"- `sdl2.INIT_EVENTS` .. イベントサブシステム\n"
+		"- `sdl2.INIT_EVERYTHING` .. all of the above subsystems\n"
+		"- `sdl2.INIT_NOPARACHUTE` .. compatibility; this flag is ignored\n"
+		"\n");
+	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Use this function to initialize the SDL library. This must be called before using any other SDL function.\n");
+		"Use this function to initialize the SDL library.\n"
+		"This must be called before using any other SDL function.\n"
+		"\n"
+		"The Event Handling, File I/O, and Threading subsystems are initialized by default.\n"
+		"You must specifically initialize other subsystems if you use them in your application.\n"
+		"\n"
+		"`flags` may be any of the following OR\'d together:\n"
+		"\n"
+		"- `sdl2.INIT_TIMER` .. timer subsystem\n"
+		"- `sdl2.INIT_AUDIO` .. audio subsystem\n"
+		"- `sdl2.INIT_VIDEO` .. video subsystem\n"
+		"- `sdl2.INIT_JOYSTICK` .. joystick subsystem\n"
+		"- `sdl2.INIT_HAPTIC` .. haptic (force feedback) subsystem\n"
+		"- `sdl2.INIT_GAMECONTROLLER` .. controller subsystem\n"
+		"- `sdl2.INIT_EVENTS` .. events subsystem\n"
+		"- `sdl2.INIT_EVERYTHING` .. all of the above subsystems\n"
+		"- `sdl2.INIT_NOPARACHUTE` .. compatibility; this flag is ignored\n"
+		"\n"
+		"If you want to initialize subsystems separately you would call `SDL_Init(0)` followed\n"
+		"by `SDL_InitSubSystem()` with the desired subsystem flag.\n");
 }
 
 Gura_ImplementFunction(Init)
@@ -34,7 +73,26 @@ Gura_DeclareFunction(InitSubSystem)
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Use this function to initialize specific SDL subsystems.\n"
+		"\n"
+		"After SDL has been initialized with `SDL_Init()`\n"
+		"you may initialize uninitialized subsystems with `SDL_InitSubSystem()`.\n"
+		"\n"
+		"These are the flags which may be passed to `SDL_InitSubSystem()`\n"
+		"and may be OR\'d together to initialize multiple subsystems simultaneously.\n"
+		"\n"
+		"- `sdl2.INIT_TIMER` .. timer subsystem\n"
+		"- `sdl2.INIT_AUDIO` .. audio subsystem\n"
+		"- `sdl2.INIT_VIDEO` .. video subsystem\n"
+		"- `sdl2.INIT_JOYSTICK` .. joystick subsystem\n"
+		"- `sdl2.INIT_HAPTIC` .. haptic (force feedback) subsystem\n"
+		"- `sdl2.INIT_GAMECONTROLLER` .. controller subsystem\n"
+		"- `sdl2.INIT_EVENTS` .. events subsystem\n"
+		"- `sdl2.INIT_EVERYTHING` .. all of the above subsystems\n"
+		"- `sdl2.INIT_NOPARACHUTE` .. compatibility; this flag is ignored\n"
+		"\n"
+		"If you want to initialize subsystems separately you would call `SDL_Init(0)` followed\n"
+		"by `SDL_InitSubSystem()` with the desired subsystem flag.\n");
 }
 
 Gura_ImplementFunction(InitSubSystem)
@@ -54,7 +112,20 @@ Gura_DeclareFunction(Quit)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Use this function to clean up all initialized subsystems.\n"
+		"You should call it upon all exit conditions.\n"
+		"\n"
+		"You should call this function even if you have already shutdown\n"
+		"each initialized subsystem with `SDL_QuitSubSystem()`.\n"
+		"\n"
+		"If you start a subsystem using a call to that subsystem\'s init function\n"
+		"(for example `SDL_VideoInit()`) instead of `SDL_Init()` or `SDL_InitSubSystem()`,\n"
+		"then you must use that subsystem\'s quit function (`SDL_VideoQuit()`)\n"
+		"to shut it down before calling `SDL_Quit()`.\n"
+		"\n"
+		"You can use this function with `atexit()` to ensure that it is run\n"
+		"when your application is shutdown,\n"
+		"but it is not wise to do this from a library or other dynamically loaded code.\n");
 }
 
 Gura_ImplementFunction(Quit)
@@ -70,7 +141,23 @@ Gura_DeclareFunction(QuitSubSystem)
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Use this function to shut down specific SDL subsystems.\n"
+		"\n"
+		"These are the flags which may be passed to `SDL_QuitSubSystem()`\n"
+		"and may be OR\'d together to quit multiple subsystems simultaneously.\n"
+		"\n"
+		"- `sdl2.INIT_TIMER` .. timer subsystem\n"
+		"- `sdl2.INIT_AUDIO` .. audio subsystem\n"
+		"- `sdl2.INIT_VIDEO` .. video subsystem\n"
+		"- `sdl2.INIT_JOYSTICK` .. joystick subsystem\n"
+		"- `sdl2.INIT_HAPTIC` .. haptic (force feedback) subsystem\n"
+		"- `sdl2.INIT_GAMECONTROLLER` .. controller subsystem\n"
+		"- `sdl2.INIT_EVENTS` .. events subsystem\n"
+		"- `sdl2.INIT_EVERYTHING` .. all of the above subsystems\n"
+		"- `sdl2.INIT_NOPARACHUTE` .. compatibility; this flag is ignored\n"
+		"\n"
+		"If you want to initialize subsystems separately you would call `SDL_Init(0)` followed\n"
+		"by `SDL_InitSubSystem()` with the desired subsystem flag.\n");
 }
 
 Gura_ImplementFunction(QuitSubSystem)
@@ -86,7 +173,13 @@ Gura_DeclareFunction(SetMainReady)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Use this function to circumvent failure of `SDL_Init()`\n"
+		"when not using `SDL_main()` as an entry point.\n"
+		"\n"
+		"This function is defined in SDL_main.h, along with the preprocessor\n"
+		"rule to redefine `main()` as `SDL_main()`.\n"
+		"Thus to ensure that your `main()` function will not be changed\n"
+		"it is necessary to define `SDL_MAIN_HANDLED` before including SDL.h.\n");
 }
 
 Gura_ImplementFunction(SetMainReady)
@@ -103,7 +196,24 @@ Gura_DeclareFunction(WasInit)
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Use this function to return a mask of the specified subsystems\n"
+		"which have previously been initialized.\n"
+		"\n"
+		"These are the flags which may be passed to `SDL_WasInit()`\n"
+		"and may be OR\'d together to query multiple subsystems simultaneously.\n"
+		"\n"
+		"- `sdl2.INIT_TIMER` .. timer subsystem\n"
+		"- `sdl2.INIT_AUDIO` .. audio subsystem\n"
+		"- `sdl2.INIT_VIDEO` .. video subsystem\n"
+		"- `sdl2.INIT_JOYSTICK` .. joystick subsystem\n"
+		"- `sdl2.INIT_HAPTIC` .. haptic (force feedback) subsystem\n"
+		"- `sdl2.INIT_GAMECONTROLLER` .. controller subsystem\n"
+		"- `sdl2.INIT_EVENTS` .. events subsystem\n"
+		"- `sdl2.INIT_EVERYTHING` .. all of the above subsystems\n"
+		"- `sdl2.INIT_NOPARACHUTE` .. compatibility; this flag is ignored\n"
+		"\n"
+		"If you want to initialize subsystems separately you would call `SDL_Init(0)` followed\n"
+		"by `SDL_InitSubSystem()` with the desired subsystem flag.\n");
 }
 
 Gura_ImplementFunction(WasInit)
@@ -233,7 +343,7 @@ Gura_DeclareFunction(ClearError)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Use this function to clear any previous error message.\n");
 }
 
 Gura_ImplementFunction(ClearError)
@@ -249,7 +359,13 @@ Gura_DeclareFunction(GetError)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Use this function to retrieve a message about the last error that occurred.\n"
+		"\n"
+		"Returns a message with information about the specific error that occurred, or an empty string if there hasn\'t been an error since the last call to `SDL_ClearError()`. Without calling `SDL_ClearError()`, the message is only applicable when an SDL function has signaled an error. You must check the return values of SDL function calls to determine when to appropriately call `SDL_GetError()`.\n"
+		"\n"
+		"This string is statically allocated and must not be freed by the application.\n"
+		"\n"
+		"It is possible for multiple errors to occur before calling `SDL_GetError()`. Only the last error is returned.\n");
 }
 
 Gura_ImplementFunction(GetError)
