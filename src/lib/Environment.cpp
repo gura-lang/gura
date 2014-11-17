@@ -847,6 +847,16 @@ const char *Environment::GetPrompt(bool indentFlag)
 	return (pValue == NULL || !pValue->Is_string())? "" : pValue->GetString();
 }
 
+const Symbol *Environment::GetLangCode()
+{
+	Value *pValue = GetGlobal()->GetModule_sys()->
+					LookupValue(Gura_Symbol(langcode), ENVREF_NoEscalate);
+	if (pValue == NULL || !pValue->IsInstanceOf(VTYPE_symbol)) {
+		return Gura_Symbol(en);
+	}
+	return pValue->GetSymbol();
+}
+
 Stream *Environment::GetConsole()
 {
 	Value *pValue = GetGlobal()->GetModule_sys()->

@@ -367,6 +367,7 @@ public:
 	const char *GetPrompt(bool indentFlag);
 	void SetConsole(Stream *pConsole);
 	void SetConsoleErr(Stream *pConsole);
+	const Symbol *GetLangCode();
 	Stream *GetConsole();
 	Stream *GetConsoleErr();
 	Stream *GetConsoleDumb();

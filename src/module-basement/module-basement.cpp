@@ -1308,14 +1308,15 @@ Gura_DeclareFunction(help)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_function);
 	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Print a help message for the specified function object.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Print a help message for the specified function object.");
 }
 
 Gura_ImplementFunction(help)
 {
 	Object_function *pFuncObj = Object_function::GetObject(args, 0);
-	const Symbol *pSymbol = args.Is_symbol(1)? args.GetSymbol(1) : NULL;
+	const Symbol *pSymbol = args.Is_symbol(1)? args.GetSymbol(1) : env.GetLangCode();
 	HelpPresenter::Present(env, sig, pFuncObj->ToString(true).c_str(),
 									pFuncObj->GetFunction()->GetHelp(pSymbol));
 	return Value::Null;

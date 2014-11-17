@@ -425,3 +425,8 @@ testcase('attribute after membered type') {
 	f(x:m.A:nil) = {}
 	println(f)
 }
+testcase('help') {
+	f() = {} % {`en, 'markdown', 'foo'} % {`ja, 'markdown', 'hoge'}
+	println('`en ..', f.gethelp(`en).text)
+	println('`ja ..', f.gethelp(`ja).text)
+}

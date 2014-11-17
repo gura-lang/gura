@@ -267,7 +267,7 @@ Gura_DeclareMethod(function, gethelp)
 Gura_ImplementMethod(function, gethelp)
 {
 	Object_function *pThis = Object_function::GetThisObj(args);
-	const Symbol *pSymbol = args.Is_symbol(0)? args.GetSymbol(0) : NULL;
+	const Symbol *pSymbol = args.Is_symbol(0)? args.GetSymbol(0) : env.GetLangCode();
 	const Help *pHelp = pThis->GetFunction()->GetHelp(pSymbol);
 	if (pHelp == NULL) return Value::Null;
 	return Value(new Object_help(env, pHelp->Reference()));
@@ -288,7 +288,7 @@ Gura_DeclareMethod(function, help)
 Gura_ImplementMethod(function, help)
 {
 	Object_function *pThis = Object_function::GetThisObj(args);
-	const Symbol *pSymbol = args.Is_symbol(0)? args.GetSymbol(0) : NULL;
+	const Symbol *pSymbol = args.Is_symbol(0)? args.GetSymbol(0) : env.GetLangCode();
 	HelpPresenter::Present(env, sig, pThis->ToString(true).c_str(),
 									pThis->GetFunction()->GetHelp(pSymbol));
 	return Value::Null;

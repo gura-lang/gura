@@ -316,6 +316,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(l);
 	Gura_RealizeSymbol(lang);
 	Gura_RealizeSymbol(last_index);
+	Gura_RealizeSymbol(langcode);
 	Gura_RealizeSymbol(lasteol);
 	Gura_RealizeSymbol(leader);
 	Gura_RealizeSymbol(left);

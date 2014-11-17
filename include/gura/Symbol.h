@@ -299,6 +299,7 @@ public:
 	Gura_DeclareSymbol(l);
 	Gura_DeclareSymbol(lang);
 	Gura_DeclareSymbol(last_index);
+	Gura_DeclareSymbol(langcode);
 	Gura_DeclareSymbol(lasteol);
 	Gura_DeclareSymbol(leader);
 	Gura_DeclareSymbol(left);
