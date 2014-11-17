@@ -11,7 +11,7 @@ Gura_DeclareFunction(glAccum)
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"operate on the accumulation buffer\n");
 }
 
 Gura_ImplementFunction(glAccum)
@@ -30,7 +30,7 @@ Gura_DeclareFunction(glAlphaFunc)
 	DeclareArg(env, "ref", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"specify the alpha test function\n");
 }
 
 Gura_ImplementFunction(glAlphaFunc)
@@ -49,7 +49,7 @@ Gura_DeclareFunction(glAreTexturesResident)
 	DeclareArg(env, "textures", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"determine if textures are loaded in texture memory\n");
 }
 
 Gura_ImplementFunction(glAreTexturesResident)
@@ -74,7 +74,7 @@ Gura_DeclareFunction(glArrayElement)
 	DeclareArg(env, "i", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"render a vertex using the specified vertex array element\n");
 }
 
 Gura_ImplementFunction(glArrayElement)
@@ -92,7 +92,7 @@ Gura_DeclareFunction(glBegin)
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"delimit the vertices of a primitive or a group of like primitives\n");
 }
 
 Gura_ImplementFunction(glBegin)

@@ -4,11 +4,13 @@ import(modimp) {TypeConv, Renderer}
 decls = `{
 glAccum(op:GLenum, value:GLfloat):void = `auto % {`en, 'markdown',
 	R'''
+	operate on the accumulation buffer
 	'''
 }
 
 glAlphaFunc(func:GLenum, ref:GLclampf):void = `auto % {`en, 'markdown',
 	R'''
+	specify the alpha test function
 	'''
 }
 
@@ -25,11 +27,13 @@ glAreTexturesResident(textures:GLuint@:const):GLboolean:map {block?} = R'''
 	return ReturnValue(env, sig, args, _rtnVal);
 ''' % {`en, 'markdown',
 	R'''
+	determine if textures are loaded in texture memory
 	'''
 }
 
 glArrayElement(i:GLint):void = `auto % {`en, 'markdown',
 	R'''
+	render a vertex using the specified vertex array element
 	'''
 }
 
@@ -45,6 +49,7 @@ glBegin(mode:GLenum):void {block?} = R'''
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
+	delimit the vertices of a primitive or a group of like primitives
 	'''
 }
 
