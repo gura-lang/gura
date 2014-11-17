@@ -2154,7 +2154,7 @@ Value Expr_Caller::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
 	GetCar()->Assign(env, sig, valueFunc, pSymbolsAssignable, escalateFlag);
 	if (sig.IsSignalled()) return Value::Null;
 	if (pFunc->GetSymbolFuncFlag()) return Value::Null;
-	foreach (HelpOwner, ppHelp, helpOwner) {
+	foreach_reverse (HelpOwner, ppHelp, helpOwner) {
 		pFunc->AddHelp((*ppHelp)->Reference());
 	}
 	return valueFunc;

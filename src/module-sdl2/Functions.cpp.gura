@@ -5,7 +5,10 @@ decls = `{
 //-----------------------------------------------------------------------------
 // Basics - Initialization and Shutdown
 
-SDL_Init(flags:Uint32):negerr = `auto
+SDL_Init(flags:Uint32):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_InitSubSystem(flags:Uint32):negerr = `auto
 
