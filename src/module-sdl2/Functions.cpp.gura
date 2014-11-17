@@ -10,97 +10,217 @@ SDL_Init(flags:Uint32):negerr = `auto % {`en, 'markdown',
 	'''
 }
 
-SDL_InitSubSystem(flags:Uint32):negerr = `auto
+SDL_InitSubSystem(flags:Uint32):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_Quit():void = `auto
+SDL_Quit():void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_QuitSubSystem(flags:Uint32):void = `auto
+SDL_QuitSubSystem(flags:Uint32):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetMainReady():void = `auto
+SDL_SetMainReady():void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_WasInit(flags:Uint32):Uint32 {block?} = `auto
+SDL_WasInit(flags:Uint32):Uint32 {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Basics - Configuration Variables
 
-SDL_AddHintCallback() = `unsupport
+SDL_AddHintCallback() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_ClearHints() = `unsupport
+SDL_ClearHints() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_DelhintCallback() = `unsupport
+SDL_DelhintCallback() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetHint() = `unsupport
+SDL_GetHint() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetHint() = `unsupport
+SDL_SetHint() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetHintWithPriority() = `unsupport
+SDL_SetHintWithPriority() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Basics - Error Handling
 
-SDL_ClearError():void = `auto
+SDL_ClearError():void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetError():char@:const {block?} = `auto
+SDL_GetError():char@:const {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetError() = `unsupport
+SDL_SetError() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Basics - Log Handling
 
-SDL_Log() = `unsupport
+SDL_Log() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LogCritical() = `unsupport
+SDL_LogCritical() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LogDebug() = `unsupport
+SDL_LogDebug() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LogError() = `unsupport
+SDL_LogError() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LogGetOutputFunction() = `unsupport
+SDL_LogGetOutputFunction() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LogGetPriority() = `unsupport
+SDL_LogGetPriority() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LogInfo() = `unsupport
+SDL_LogInfo() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LogMessage() = `unsupport
+SDL_LogMessage() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LogMessageV() = `unsupport
+SDL_LogMessageV() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LogResetPriorities() = `unsupport
+SDL_LogResetPriorities() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LogSetAllPriority() = `unsupport
+SDL_LogSetAllPriority() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LogSetOutputFunction() = `unsupport
+SDL_LogSetOutputFunction() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LogSetPriority() = `unsupport
+SDL_LogSetPriority() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LogVerbose() = `unsupport
+SDL_LogVerbose() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LogWarn() = `unsupport
+SDL_LogWarn() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Basics - Assertions
 
-SDL_GetAssertionHandler() = `unsupport
+SDL_GetAssertionHandler() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetAssertionReport() = `unsupport
+SDL_GetAssertionReport() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetDefaultAssertionHandler() = `unsupport
+SDL_GetDefaultAssertionHandler() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_ResetAssertionReport() = `unsupport
+SDL_ResetAssertionReport() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetAssertionHandler() = `unsupport
+SDL_SetAssertionHandler() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_TriggerBreakpoint() = `unsupport
+SDL_TriggerBreakpoint() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_assert() = `unsupport
+SDL_assert() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_assert_paranoid() = `unsupport
+SDL_assert_paranoid() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_assert_release() = `unsupport
+SDL_assert_release() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetRevision():char@:const {block?} = `auto
+SDL_GetRevision():char@:const {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetRevisionNumber():int {block?} = `auto
+SDL_GetRevisionNumber():int {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Basics - Querying SDL Version
@@ -110,21 +230,33 @@ SDL_GetVersion() {block?} = R'''
 	SDL_GetVersion(&ver);
 	return ReturnValue(env, sig, args, Value::CreateList(env,
 					Value(ver.major), Value(ver.minor), Value(ver.patch)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_VERSION() {block?} = R'''
 	SDL_version ver;
 	SDL_VERSION(&ver);
 	return ReturnValue(env, sig, args, Value::CreateList(env,
 					Value(ver.major), Value(ver.minor), Value(ver.patch)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_VERSION_ATLEAST(X:int, Y:int, Z:int):bool {block?} = `auto
+SDL_VERSION_ATLEAST(X:int, Y:int, Z:int):bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Video - Display and Window Management
 
-SDL_CreateWindow(title:char@:const, x:int, y:int, w:int, h:int, flags:Uint32):SDL_Window@ {block?} = `auto
+SDL_CreateWindow(title:char@:const, x:int, y:int, w:int, h:int, flags:Uint32):SDL_Window@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_CreateWindowAndRenderer(width:int, height:int, window_flags:Uint32) {block?} = R'''
 	SDL_Window *window = NULL;
@@ -136,15 +268,30 @@ SDL_CreateWindowAndRenderer(width:int, height:int, window_flags:Uint32) {block?}
 	}
 	return ReturnValue(env, sig, args, Value::CreateList(env,
 			Value(new Object_Window(window)), Value(new Object_Renderer(renderer))));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_CreateWindowFrom() = `unsupport
+SDL_CreateWindowFrom() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_DestroyWindow(window:SDL_Window@):void = `auto
+SDL_DestroyWindow(window:SDL_Window@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_DisableScreenSaver():void = `auto
+SDL_DisableScreenSaver():void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_EnableScreenSaver():void = `auto
+SDL_EnableScreenSaver():void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GL_CreateContext(window:SDL_Window@) {block?} = R'''
 	SDL_GLContext _rtn = SDL_GL_CreateContext(window);
@@ -153,11 +300,20 @@ SDL_GL_CreateContext(window:SDL_Window@) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_GLContext(_rtn)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GL_DeleteContext(context:SDL_GLContext):void = `auto
+SDL_GL_DeleteContext(context:SDL_GLContext):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GL_ExtensionSupported(extension:char@:const):SDL_bool {block?} = `auto
+SDL_GL_ExtensionSupported(extension:char@:const):SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GL_GetAttribute(attr:SDL_GLattr) {block?} = R'''
 	int value = 0;
@@ -167,7 +323,10 @@ SDL_GL_GetAttribute(attr:SDL_GLattr) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(value));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GL_GetCurrentContext() {block?} = R'''
 	SDL_GLContext _rtn = SDL_GL_GetCurrentContext();
@@ -176,34 +335,70 @@ SDL_GL_GetCurrentContext() {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_GLContext(_rtn)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GL_GetCurrentWindow():SDL_Window@ {block?} = `auto
+SDL_GL_GetCurrentWindow():SDL_Window@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GL_GetDrawableSize(window:SDL_Window@) {block?} = R'''
 	int w = 0;
 	int h = 0;
 	SDL_GL_GetDrawableSize(window, &w, &h);
 	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GL_GetProcAddress() = `unsupport
+SDL_GL_GetProcAddress() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GL_GetSwapInterval():negerr_boolean {block?} = `auto
+SDL_GL_GetSwapInterval():negerr_boolean {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GL_LoadLibrary(path:char@:const):negerr = `auto
+SDL_GL_LoadLibrary(path:char@:const):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GL_MakeCurrent(window:SDL_Window@, context:SDL_GLContext):negerr = `auto
+SDL_GL_MakeCurrent(window:SDL_Window@, context:SDL_GLContext):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GL_ResetAttributes():void = `auto
+SDL_GL_ResetAttributes():void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GL_SetAttribute(attr:SDL_GLattr, value:int):negerr = `auto
+SDL_GL_SetAttribute(attr:SDL_GLattr, value:int):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GL_SetSwapInterval(interval:int):negerr = `auto
+SDL_GL_SetSwapInterval(interval:int):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GL_SwapWindow(window:SDL_Window@):void = `auto
+SDL_GL_SwapWindow(window:SDL_Window@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GL_UnloadLibrary():void = `auto
+SDL_GL_UnloadLibrary():void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetClosestDisplayMode(displayIndex:int, mode:SDL_DisplayMode@:const) {block?} = R'''
 	SDL_DisplayMode closest;
@@ -213,7 +408,10 @@ SDL_GetClosestDisplayMode(displayIndex:int, mode:SDL_DisplayMode@:const) {block?
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_DisplayMode(closest)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetCurrentDisplayMode(displayIndex:int) {block?} = R'''
 	SDL_DisplayMode mode;
@@ -223,9 +421,15 @@ SDL_GetCurrentDisplayMode(displayIndex:int) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_DisplayMode(mode)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetCurrentVideoDriver():char@:const {block?} = `auto
+SDL_GetCurrentVideoDriver():char@:const {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetDesktopDisplayMode(displayIndex:int) {block?} = R'''
 	SDL_DisplayMode mode;
@@ -235,7 +439,10 @@ SDL_GetDesktopDisplayMode(displayIndex:int) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_DisplayMode(mode)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetDisplayBounds(displayIndex:int) {block?} = R'''
 	SDL_Rect rect;
@@ -245,7 +452,10 @@ SDL_GetDisplayBounds(displayIndex:int) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_Rect(rect)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetDisplayMode(displayIndex:int, modeIndex:int) {block?} = R'''
 	SDL_DisplayMode mode;
@@ -255,29 +465,65 @@ SDL_GetDisplayMode(displayIndex:int, modeIndex:int) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_DisplayMode(mode)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetDisplayName(dipslayIndex:int):char@:const {block?} = `auto
+SDL_GetDisplayName(dipslayIndex:int):char@:const {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetNumDisplayModes(displayIndex:int):negerr_number {block?} = `auto
+SDL_GetNumDisplayModes(displayIndex:int):negerr_number {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetNumVideoDisplays():negerr_number {block?} = `auto
+SDL_GetNumVideoDisplays():negerr_number {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetNumVideoDrivers():negerr_number {block?} = `auto
+SDL_GetNumVideoDrivers():negerr_number {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetVideoDriver(index:int):char@:const {block?} = `auto
+SDL_GetVideoDriver(index:int):char@:const {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetWindowBrightness(window:SDL_Window@):float {block?} = `auto
+SDL_GetWindowBrightness(window:SDL_Window@):float {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetWindowData(window:SDL_Window@, name:char@:const) = `unsupport
+SDL_GetWindowData(window:SDL_Window@, name:char@:const) = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetWindowDisplayIndex(window:SDL_Window@):negerr_number {block?} = `auto
+SDL_GetWindowDisplayIndex(window:SDL_Window@):negerr_number {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetWindowDisplayMode(window:SDL_Window@, mode:SDL_DisplayMode@):negerr = `auto
+SDL_GetWindowDisplayMode(window:SDL_Window@, mode:SDL_DisplayMode@):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetWindowFlags(window:SDL_Window@):Uint32 {block?} = `auto
+SDL_GetWindowFlags(window:SDL_Window@):Uint32 {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetWindowFromID(id:Uint32):SDL_Window@ {block?} = `auto
+SDL_GetWindowFromID(id:Uint32):SDL_Window@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetWindowGammaRamp(window:SDL_Window@) {block?} = R'''
 	Uint16 red = 0;
@@ -290,25 +536,40 @@ SDL_GetWindowGammaRamp(window:SDL_Window@) {block?} = R'''
 	}
 	return ReturnValue(env, sig, args, Value::CreateList(env,
 								Value(red), Value(green), Value(blue)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetWindowGrab(window:SDL_Window@):SDL_bool {block?} = `auto
+SDL_GetWindowGrab(window:SDL_Window@):SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetWindowID(window:SDL_Window@):Uint32 {block?} = `auto
+SDL_GetWindowID(window:SDL_Window@):Uint32 {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetWindowMaximumSize(window:SDL_Window@) {block?} = R'''
 	int w = 0;
 	int h = 0;
 	SDL_GetWindowMaximumSize(window, &w, &h);
 	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetWindowMinimumSize(window:SDL_Window@) {block?} = R'''
 	int w = 0;
 	int h = 0;
 	SDL_GetWindowMinimumSize(window, &w, &h);
 	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetWindowPixelFormat(window:SDL_Window@) {block?} = R'''
 	Uint32 _rtn = SDL_GetWindowPixelFormat(window);
@@ -317,49 +578,100 @@ SDL_GetWindowPixelFormat(window:SDL_Window@) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetWindowPosition(window:SDL_Window@) {block?} = R'''
 	int x = 0;
 	int y = 0;
 	SDL_GetWindowPosition(window, &x, &y);
 	return ReturnValue(env, sig, args, Value::CreateList(env, Value(x), Value(y)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetWindowSize(window:SDL_Window@) {block?} = R'''
 	int w = 0;
 	int h = 0;
 	SDL_GetWindowSize(window, &w, &h);
 	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetWindowSurface(window:SDL_Window@):SDL_Surface@ {block?} = `auto
+SDL_GetWindowSurface(window:SDL_Window@):SDL_Surface@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetWindowTitle(window:SDL_Window@):char@:const {block?} = `auto
+SDL_GetWindowTitle(window:SDL_Window@):char@:const {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetWindowWMInfo(window:SDL_Window@) = `unsupport
+SDL_GetWindowWMInfo(window:SDL_Window@) = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HideWindow(window:SDL_Window@):void = `auto
+SDL_HideWindow(window:SDL_Window@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_IsScreenSaverEnabled():SDL_bool {block?} = `auto
+SDL_IsScreenSaverEnabled():SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_MaximizeWindow(window:SDL_Window@):void = `auto
+SDL_MaximizeWindow(window:SDL_Window@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_MinimizeWindow(window:SDL_Window@):void = `auto
+SDL_MinimizeWindow(window:SDL_Window@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RaiseWindow(window:SDL_Window@):void = `auto
+SDL_RaiseWindow(window:SDL_Window@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RestoreWindow(window:SDL_Window@):void = `auto
+SDL_RestoreWindow(window:SDL_Window@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetWindowBordered(window:SDL_Window@, bordered:SDL_bool):void = `auto
+SDL_SetWindowBordered(window:SDL_Window@, bordered:SDL_bool):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetWindowBrightness(window:SDL_Window@, brightness:float):negerr = `auto
+SDL_SetWindowBrightness(window:SDL_Window@, brightness:float):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetWindowData(window:SDL_Window@, name:char@:const) = `unsupport
+SDL_SetWindowData(window:SDL_Window@, name:char@:const) = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetWindowDisplayMode(window:SDL_Window@, mode:SDL_DisplayMode@:const):negerr = `auto
+SDL_SetWindowDisplayMode(window:SDL_Window@, mode:SDL_DisplayMode@:const):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetWindowFullscreen(window:SDL_Window@, flags:Uint32):negerr = `auto
+SDL_SetWindowFullscreen(window:SDL_Window@, flags:Uint32):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_SetWindowGammaRamp(window:SDL_Window@, red[]:Uint16, green[]:Uint16, blue[]:Uint16):void = R'''
 	if (red.GetSize() != 256 || green.GetSize() != 256 || blue.GetSize() != 256) {
@@ -372,31 +684,70 @@ SDL_SetWindowGammaRamp(window:SDL_Window@, red[]:Uint16, green[]:Uint16, blue[]:
 		return Value::Null;
 	}
 	return Value::Null;
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetWindowGrab(window:SDL_Window@, grabbed:SDL_bool):void = `auto
+SDL_SetWindowGrab(window:SDL_Window@, grabbed:SDL_bool):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetWindowHitTest(window:SDL_Window@):negerr = `unsupport
+SDL_SetWindowHitTest(window:SDL_Window@):negerr = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetWindowIcon(window:SDL_Window@, icon:SDL_Surface@):void = `auto
+SDL_SetWindowIcon(window:SDL_Window@, icon:SDL_Surface@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetWindowMaximumSize(window:SDL_Window@, max_w:int, max_h:int):void = `auto
+SDL_SetWindowMaximumSize(window:SDL_Window@, max_w:int, max_h:int):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetWindowMinimumSize(window:SDL_Window@, min_w:int, min_h:int):void = `auto
+SDL_SetWindowMinimumSize(window:SDL_Window@, min_w:int, min_h:int):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetWindowPosition(window:SDL_Window@, x:int, y:int):void = `auto
+SDL_SetWindowPosition(window:SDL_Window@, x:int, y:int):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetWindowSize(window:SDL_Window@, w:int, h:int):void = `auto
+SDL_SetWindowSize(window:SDL_Window@, w:int, h:int):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetWindowTitle(window:SDL_Window@, title:char@:const):void = `auto
+SDL_SetWindowTitle(window:SDL_Window@, title:char@:const):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_ShowMessageBox():negerr = `unsupport
+SDL_ShowMessageBox():negerr = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_ShowSimpleMessageBox(flags:Uint32, title:char@:const, message:char@:const, window:SDL_Window@):negerr = `auto
+SDL_ShowSimpleMessageBox(flags:Uint32, title:char@:const, message:char@:const, window:SDL_Window@):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_ShowWindow(window:SDL_Window@):void = `auto
+SDL_ShowWindow(window:SDL_Window@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_UpdateWindowSurface(window:SDL_Window@):negerr = `auto
+SDL_UpdateWindowSurface(window:SDL_Window@):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_UpdateWindowSurfaceRects(window:SDL_Window@, rects[]:SDL_Rect):void = R'''
 	int numrects = static_cast<int>(rects.GetSize());
@@ -406,37 +757,73 @@ SDL_UpdateWindowSurfaceRects(window:SDL_Window@, rects[]:SDL_Rect):void = R'''
 		return Value::Null;
 	}
 	return Value::Null;
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_VideoInit(driver_name:char@:const):negerr = `auto
+SDL_VideoInit(driver_name:char@:const):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_VideoQuit():void = `auto
+SDL_VideoQuit():void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Video - 2D Accelerated Rendering
 
-SDL_CreateRenderer(window:SDL_Window@, index:int, flags:Uint32):SDL_Renderer@ {block?} = `auto
+SDL_CreateRenderer(window:SDL_Window@, index:int, flags:Uint32):SDL_Renderer@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_CreateSoftwareRenderer(surface:SDL_Surface@):SDL_Renderer@ {block?} = `auto
+SDL_CreateSoftwareRenderer(surface:SDL_Surface@):SDL_Renderer@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_CreateTexture(renderer:SDL_Renderer@, format:Uint32, access:int, w:int, h:int):SDL_Texture@ {block?} = `auto
+SDL_CreateTexture(renderer:SDL_Renderer@, format:Uint32, access:int, w:int, h:int):SDL_Texture@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_CreateTextureFromSurface(renderer:SDL_Renderer@, surface:SDL_Surface@):SDL_Texture@ {block?} = `auto
+SDL_CreateTextureFromSurface(renderer:SDL_Renderer@, surface:SDL_Surface@):SDL_Texture@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_DestroyRenderer(renderer:SDL_Renderer@):void = `auto
+SDL_DestroyRenderer(renderer:SDL_Renderer@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_DestroyTexture(texture:SDL_Texture@):void = `auto
+SDL_DestroyTexture(texture:SDL_Texture@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GL_BindTexture(texture:SDL_Texture@) {block?} = R'''
 	float texw = 0;
 	float texh = 0;
 	SDL_GL_BindTexture(texture, &texw, &texh);
 	return ReturnValue(env, sig, args, Value::CreateList(env, Value(texw), Value(texh)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GL_UnbindTexture(texture:SDL_Texture@):negerr = `auto
+SDL_GL_UnbindTexture(texture:SDL_Texture@):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetNumRenderDrivers():negerr_number {block?} = `auto
+SDL_GetNumRenderDrivers():negerr_number {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetRenderDrawBlendMode(renderer:SDL_Renderer@) {block?} = R'''
 	SDL_BlendMode blendMode = SDL_BLENDMODE_NONE;
@@ -446,7 +833,10 @@ SDL_GetRenderDrawBlendMode(renderer:SDL_Renderer@) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(blendMode));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetRenderDrawColor(renderer:SDL_Renderer@) {block?} = R'''
 	Uint8 r = 0;
@@ -460,7 +850,10 @@ SDL_GetRenderDrawColor(renderer:SDL_Renderer@) {block?} = R'''
 	}
 	return ReturnValue(env, sig, args, Value::CreateList(env,
 								Value(r), Value(g), Value(b), Value(a)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetRenderDriverInfo(index:int) {block?} = R'''
 	SDL_RendererInfo info;
@@ -470,7 +863,10 @@ SDL_GetRenderDriverInfo(index:int) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_RendererInfo(info)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetRenderTarget(renderer:SDL_Renderer@) {block?} = R'''
 	SDL_Texture *_rtn = SDL_GetRenderTarget(renderer);
@@ -479,9 +875,15 @@ SDL_GetRenderTarget(renderer:SDL_Renderer@) {block?} = R'''
 		_rtnVal = Value(new Object_Texture(_rtn));
 	}
 	return ReturnValue(env, sig, args, _rtnVal);
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetRenderer(window:SDL_Window@):SDL_Renderer@ {block?} = `auto
+SDL_GetRenderer(window:SDL_Window@):SDL_Renderer@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetRendererInfo(renderer:SDL_Renderer@) {block?} = R'''
 	SDL_RendererInfo info;
@@ -491,7 +893,10 @@ SDL_GetRendererInfo(renderer:SDL_Renderer@) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_RendererInfo(info)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetRenderOutputSize(renderer:SDL_Renderer@) {block?} = R'''
 	int w = 0;
@@ -502,7 +907,10 @@ SDL_GetRenderOutputSize(renderer:SDL_Renderer@) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetTextureAlphaMod(texture:SDL_Texture@) {block?} = R'''
 	Uint8 alpha = 0;
@@ -512,7 +920,10 @@ SDL_GetTextureAlphaMod(texture:SDL_Texture@) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(alpha));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetTextureBlendMode(texture:SDL_Texture@) {block?} = R'''
 	SDL_BlendMode blendMode = SDL_BLENDMODE_NONE;
@@ -522,7 +933,10 @@ SDL_GetTextureBlendMode(texture:SDL_Texture@) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(blendMode));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetTextureColorMod(texture:SDL_Texture@) {block?} = R'''
 	Uint8 r = 0;
@@ -535,9 +949,15 @@ SDL_GetTextureColorMod(texture:SDL_Texture@) {block?} = R'''
 	}
 	return ReturnValue(env, sig, args, Value::CreateList(env,
 											Value(r), Value(g), Value(b)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LockTexture(texture:SDL_Texture@, rect:SDL_Rect@:const):negerr = `unsupport
+SDL_LockTexture(texture:SDL_Texture@, rect:SDL_Rect@:const):negerr = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_QueryTexture(texture:SDL_Texture@) {block?} = R'''
 	Uint32 format = 0;
@@ -551,15 +971,30 @@ SDL_QueryTexture(texture:SDL_Texture@) {block?} = R'''
 	}
 	return ReturnValue(env, sig, args, Value::CreateList(env,
 							Value(format), Value(access), Value(w), Value(h)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RenderClear(renderer:SDL_Renderer@):negerr = `auto
+SDL_RenderClear(renderer:SDL_Renderer@):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RenderCopy(renderer:SDL_Renderer@, texture:SDL_Texture@, srcrect:SDL_Rect@:const:nil, dstrect:SDL_Rect@:const:nil):negerr = `auto
+SDL_RenderCopy(renderer:SDL_Renderer@, texture:SDL_Texture@, srcrect:SDL_Rect@:const:nil, dstrect:SDL_Rect@:const:nil):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RenderCopyEx(renderer:SDL_Renderer@, texture:SDL_Texture@, srcrect:SDL_Rect@:const:nil, dstrect:SDL_Rect@:const:nil, angle:double, center:SDL_Point@:const:nil, flip:SDL_RendererFlip):negerr = `auto
+SDL_RenderCopyEx(renderer:SDL_Renderer@, texture:SDL_Texture@, srcrect:SDL_Rect@:const:nil, dstrect:SDL_Rect@:const:nil, angle:double, center:SDL_Point@:const:nil, flip:SDL_RendererFlip):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RenderDrawLine(renderer:SDL_Renderer@, x1:int, y1:int, x2:int, y2:int):negerr = `auto
+SDL_RenderDrawLine(renderer:SDL_Renderer@, x1:int, y1:int, x2:int, y2:int):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_RenderDrawLines(renderer:SDL_Renderer@, points[]:SDL_Point):void = R'''
 	int count = static_cast<int>(points.GetSize());
@@ -569,9 +1004,15 @@ SDL_RenderDrawLines(renderer:SDL_Renderer@, points[]:SDL_Point):void = R'''
 		return Value::Null;
 	}
 	return Value::Null;
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RenderDrawPoint(renderer:SDL_Renderer@, x:int, y:int):negerr = `auto
+SDL_RenderDrawPoint(renderer:SDL_Renderer@, x:int, y:int):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_RenderDrawPoints(renderer:SDL_Renderer@, points[]:SDL_Point):void = R'''
 	int count = static_cast<int>(points.GetSize());
@@ -581,9 +1022,15 @@ SDL_RenderDrawPoints(renderer:SDL_Renderer@, points[]:SDL_Point):void = R'''
 		return Value::Null;
 	}
 	return Value::Null;
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RenderDrawRect(renderer:SDL_Renderer@, rect:SDL_Rect@:const:nil):negerr = `auto
+SDL_RenderDrawRect(renderer:SDL_Renderer@, rect:SDL_Rect@:const:nil):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_RenderDrawRects(renderer:SDL_Renderer@, rects[]:SDL_Rect):void = R'''
 	int count = static_cast<int>(rects.GetSize());
@@ -593,9 +1040,15 @@ SDL_RenderDrawRects(renderer:SDL_Renderer@, rects[]:SDL_Rect):void = R'''
 		return Value::Null;
 	}
 	return Value::Null;
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RenderFillRect(renderer:SDL_Renderer@, rect:SDL_Rect@:const:nil):negerr = `auto
+SDL_RenderFillRect(renderer:SDL_Renderer@, rect:SDL_Rect@:const:nil):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_RenderFillRects(renderer:SDL_Renderer@, rects[]:SDL_Rect):void = R'''
 	int count = static_cast<int>(rects.GetSize());
@@ -605,37 +1058,58 @@ SDL_RenderFillRects(renderer:SDL_Renderer@, rects[]:SDL_Rect):void = R'''
 		return Value::Null;
 	}
 	return Value::Null;
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_RenderGetClipRect(renderer:SDL_Renderer@) {block?} = R'''
 	SDL_Rect rect;
 	SDL_RenderGetClipRect(renderer, &rect);
 	return ReturnValue(env, sig, args, Value(new Object_Rect(rect)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_RenderGetLogicalSize(renderer:SDL_Renderer@) {block?} = R'''
 	int w = 0;
 	int h = 0;
 	SDL_RenderGetLogicalSize(renderer, &w, &h);
 	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_RenderGetScale(renderer:SDL_Renderer@) {block?} = R'''
 	float scaleX = 0;
 	float scaleY = 0;
 	SDL_RenderGetScale(renderer, &scaleX, &scaleY);
 	return ReturnValue(env, sig, args, Value::CreateList(env, Value(scaleX), Value(scaleY)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_RenderGetViewport(renderer:SDL_Renderer@) {block?} = R'''
 	SDL_Rect rect;
 	SDL_RenderGetViewport(renderer, &rect);
 	return ReturnValue(env, sig, args, Value(new Object_Rect(rect)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RenderIsClipEnabled(renderer:SDL_Renderer@):SDL_bool = `unsupport
+SDL_RenderIsClipEnabled(renderer:SDL_Renderer@):SDL_bool = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RenderPresent(renderer:SDL_Renderer@):void = `auto
+SDL_RenderPresent(renderer:SDL_Renderer@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_RenderReadPixels(renderer:SDL_Renderer@, rect:SDL_Rect@:const:nil, format:symbol) {block?} = R'''
 	Uint32 _format = SDL_PIXELFORMAT_UNKNOWN;
@@ -660,54 +1134,117 @@ SDL_RenderReadPixels(renderer:SDL_Renderer@, rect:SDL_Rect@:const:nil, format:sy
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RenderSetClipRect(renderer:SDL_Renderer@, rect:SDL_Rect@:const:nil):negerr = `auto
+SDL_RenderSetClipRect(renderer:SDL_Renderer@, rect:SDL_Rect@:const:nil):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RenderSetLogicalSize(renderer:SDL_Renderer@, w:int, h:int):negerr = `auto
+SDL_RenderSetLogicalSize(renderer:SDL_Renderer@, w:int, h:int):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RenderSetScale(renderer:SDL_Renderer@, scaleX:float, scaleY:float):negerr = `auto
+SDL_RenderSetScale(renderer:SDL_Renderer@, scaleX:float, scaleY:float):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RenderSetViewport(renderer:SDL_Renderer@, rect:SDL_Rect@:const:nil):negerr = `auto
+SDL_RenderSetViewport(renderer:SDL_Renderer@, rect:SDL_Rect@:const:nil):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RenderTargetSupported(renderer:SDL_Renderer@):SDL_bool {block?} = `auto
+SDL_RenderTargetSupported(renderer:SDL_Renderer@):SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetRenderDrawBlendMode(renderer:SDL_Renderer@, blendMode:SDL_BlendMode):void = `auto
+SDL_SetRenderDrawBlendMode(renderer:SDL_Renderer@, blendMode:SDL_BlendMode):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetRenderDrawColor(renderer:SDL_Renderer@, r:Uint8, g:Uint8, b:Uint8, a:Uint8):negerr = `auto
+SDL_SetRenderDrawColor(renderer:SDL_Renderer@, r:Uint8, g:Uint8, b:Uint8, a:Uint8):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetRenderTarget(renderer:SDL_Renderer@, texture:SDL_Texture@:nil):negerr = `auto
+SDL_SetRenderTarget(renderer:SDL_Renderer@, texture:SDL_Texture@:nil):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetTextureAlphaMod(texture:SDL_Texture@, alpha:Uint8):negerr = `auto
+SDL_SetTextureAlphaMod(texture:SDL_Texture@, alpha:Uint8):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetTextureBlendMode(texture:SDL_Texture@, blendMode:SDL_BlendMode):negerr = `auto
+SDL_SetTextureBlendMode(texture:SDL_Texture@, blendMode:SDL_BlendMode):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetTextureColorMod(texture:SDL_Texture@, r:Uint8, g:Uint8, b:Uint8):negerr = `auto
+SDL_SetTextureColorMod(texture:SDL_Texture@, r:Uint8, g:Uint8, b:Uint8):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_UnlockTexture(texture:SDL_Texture@):void = `auto
+SDL_UnlockTexture(texture:SDL_Texture@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_UpdateTexture(texture:SDL_Texture@, rect:SDL_Rect@:const:nil, pitch:int):negerr = `unsupport
+SDL_UpdateTexture(texture:SDL_Texture@, rect:SDL_Rect@:const:nil, pitch:int):negerr = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_UpdateYUVTexture() = `unsupport
+SDL_UpdateYUVTexture() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Video - Pixel Formats and Conversion Routines
 
-SDL_AllocFormat(pixel_format:Uint32):SDL_PixelFormat@ {block?} = `auto
+SDL_AllocFormat(pixel_format:Uint32):SDL_PixelFormat@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AllocPalette(ncolors:int):SDL_Palette@ {block?} = `auto
+SDL_AllocPalette(ncolors:int):SDL_Palette@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_CalculateGammaRamp(gamma:float) {block?} = R'''
 	Uint16 ramp[256];
 	SDL_CalculateGammaRamp(gamma, ramp);
 	return ReturnValue(env, sig, args, Value::CreateList(env, ramp, ArraySizeOf(ramp)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_FreeFormat(format:SDL_PixelFormat@):void = `auto
+SDL_FreeFormat(format:SDL_PixelFormat@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_FreePalette(palette:SDL_Palette@):void = `auto
+SDL_FreePalette(palette:SDL_Palette@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetPixelFormatName(format:Uint32):char@:const {block?} = `auto
+SDL_GetPixelFormatName(format:Uint32):char@:const {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetRGB(pixel:Uint32, format:SDL_PixelFormat@:const) {block?} = R'''
 	Uint8 r = 0;
@@ -715,7 +1252,10 @@ SDL_GetRGB(pixel:Uint32, format:SDL_PixelFormat@:const) {block?} = R'''
 	Uint8 b = 0;
 	SDL_GetRGB(pixel, format, &r, &g, &b);
 	return ReturnValue(env, sig, args, Value::CreateList(env, Value(r), Value(g), Value(b)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetRGBA(pixel:Uint32, format:SDL_PixelFormat@:const) {block?} = R'''
 	Uint8 r = 0;
@@ -725,13 +1265,25 @@ SDL_GetRGBA(pixel:Uint32, format:SDL_PixelFormat@:const) {block?} = R'''
 	SDL_GetRGBA(pixel, format, &r, &g, &b, &a);
 	return ReturnValue(env, sig, args,
 			Value::CreateList(env, Value(r), Value(g), Value(b), Value(a)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_MapRGB(format:SDL_PixelFormat@:const, r:Uint8, g:Uint8, b:Uint8):Uint32 {block?} = `auto
+SDL_MapRGB(format:SDL_PixelFormat@:const, r:Uint8, g:Uint8, b:Uint8):Uint32 {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_MapRGBA(format:SDL_PixelFormat@:const, r:Uint8, g:Uint8, b:Uint8, a:Uint8):Uint32 {block?} = `auto
+SDL_MapRGBA(format:SDL_PixelFormat@:const, r:Uint8, g:Uint8, b:Uint8, a:Uint8):Uint32 {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_MasksToPixelFormatEnum(bpp:int, Rmask:Uint32, Gmask:Uint32, Bmask:Uint32, Amask:Uint32):Uint32 {block?} = `auto
+SDL_MasksToPixelFormatEnum(bpp:int, Rmask:Uint32, Gmask:Uint32, Bmask:Uint32, Amask:Uint32):Uint32 {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_PixelFormatEnumToMasks(format:Uint32) {block?} = R'''
 	int bpp = 0;
@@ -746,7 +1298,10 @@ SDL_PixelFormatEnumToMasks(format:Uint32) {block?} = R'''
 	}
 	return ReturnValue(env, sig, args,
 			Value::CreateList(env, Value(bpp), Value(Rmask), Value(Gmask), Value(Bmask), Value(Amask)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_SetPaletteColors(palette:SDL_Palette@, colors[]:SDL_Color, firstcolor:int, ncolors:int):void = R'''
 	int nmax = static_cast<int>(colors.GetSize());
@@ -760,9 +1315,15 @@ SDL_SetPaletteColors(palette:SDL_Palette@, colors[]:SDL_Color, firstcolor:int, n
 		return Value::Null;
 	}
 	return Value::Null;
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetPixelFormatPalette(format:SDL_PixelFormat@, palette:SDL_Palette@):negerr = `auto
+SDL_SetPixelFormatPalette(format:SDL_PixelFormat@, palette:SDL_Palette@):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Video - Rectangle Functions
@@ -776,9 +1337,15 @@ SDL_EnclosePoints(points[]:SDL_Point, clip:SDL_Rect@:const) {block?} = R'''
 		_rtnVal = Value(new Object_Rect(result));
 	}
 	return ReturnValue(env, sig, args, _rtnVal);
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HasIntersection(A:SDL_Rect@:const, B:SDL_Rect@:const):SDL_bool {block?} = `auto
+SDL_HasIntersection(A:SDL_Rect@:const, B:SDL_Rect@:const):SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_IntersectRect(A:SDL_Rect@:const, B:SDL_Rect@:const) {block?} = R'''
 	SDL_Rect result;
@@ -788,37 +1355,73 @@ SDL_IntersectRect(A:SDL_Rect@:const, B:SDL_Rect@:const) {block?} = R'''
 		_rtnVal = Value(new Object_Rect(result));
 	}
 	return ReturnValue(env, sig, args, _rtnVal);
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_IntersectRectAndLine(rect:SDL_Rect@:const, X1:int, Y1:int, X2:int, Y2:int):SDL_bool = `unsupport
+SDL_IntersectRectAndLine(rect:SDL_Rect@:const, X1:int, Y1:int, X2:int, Y2:int):SDL_bool = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_PointInRect(p:SDL_Point@:const, r:SDL_Rect@:const):SDL_bool = `unsupport
+SDL_PointInRect(p:SDL_Point@:const, r:SDL_Rect@:const):SDL_bool = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RectEmpty(r:SDL_Rect@:const):SDL_bool {block?} = `auto
+SDL_RectEmpty(r:SDL_Rect@:const):SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RectEquals(a:SDL_Rect@:const, b:SDL_Rect@:const):SDL_bool {block?} = `auto
+SDL_RectEquals(a:SDL_Rect@:const, b:SDL_Rect@:const):SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_UnionRect(A:SDL_Rect@:const, B:SDL_Rect@:const) {block?} = R'''
 	SDL_Rect result;
 	SDL_UnionRect(A, B, &result);
 	Value _rtnVal = Value(new Object_Rect(result));
 	return ReturnValue(env, sig, args, _rtnVal);
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Video - Surface Creation and Simple Drawing
 
-SDL_BlitScaled(src:SDL_Surface@, srcrect:SDL_Rect@:const:nil, dst:SDL_Surface@, dstrect:SDL_Rect@:nil):negerr = `auto
+SDL_BlitScaled(src:SDL_Surface@, srcrect:SDL_Rect@:const:nil, dst:SDL_Surface@, dstrect:SDL_Rect@:nil):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_BlitSurface(src:SDL_Surface@, srcrect:SDL_Rect@:const:nil, dst:SDL_Surface@, dstrect:SDL_Rect@:nil):negerr = `auto
+SDL_BlitSurface(src:SDL_Surface@, srcrect:SDL_Rect@:const:nil, dst:SDL_Surface@, dstrect:SDL_Rect@:nil):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_ConvertPixels(width:int, height:int, src_format:Uint32, dst_format:Uint32):negerr = `unsupport
+SDL_ConvertPixels(width:int, height:int, src_format:Uint32, dst_format:Uint32):negerr = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_ConvertSurface(src:SDL_Surface@, fmt:SDL_PixelFormat@:const, flags:Uint32):SDL_Surface@ {block?} = `auto
+SDL_ConvertSurface(src:SDL_Surface@, fmt:SDL_PixelFormat@:const, flags:Uint32):SDL_Surface@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_ConvertSurfaceFormat(src:SDL_Surface@, pixel_format:Uint32, flags:Uint32):SDL_Surface@ {block?} = `auto
+SDL_ConvertSurfaceFormat(src:SDL_Surface@, pixel_format:Uint32, flags:Uint32):SDL_Surface@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_CreateRGBSurface(flags:Uint32, width:int, height:int, depth:int, Rmask:Uint32, Gmask:Uint32, Bmask:Uint32, Amask:Uint32):SDL_Surface@ {block?} = `auto
+SDL_CreateRGBSurface(flags:Uint32, width:int, height:int, depth:int, Rmask:Uint32, Gmask:Uint32, Bmask:Uint32, Amask:Uint32):SDL_Surface@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_CreateRGBSurfaceFrom(pixels:binary, width:int, height:int, depth:int, pitch:int, Rmask:Uint32, Gmask:Uint32, Bmask:Uint32, Amask:Uint32) {block?} = R'''
 	if (pixels.size() < static_cast<size_t>(height * pitch)) {
@@ -833,15 +1436,24 @@ SDL_CreateRGBSurfaceFrom(pixels:binary, width:int, height:int, depth:int, pitch:
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_Surface(_rtn)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_CreateRGBSurfaceFromImage(image:image) {block?} = R'''
 	Object_Surface *pObjSurface = Object_Surface::CreateSurfaceFromImage(sig, image);
 	if (pObjSurface == NULL) return Value::Null;
 	return ReturnValue(env, sig, args, Value(pObjSurface));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_FillRect(dst:SDL_Surface@, rect:SDL_Rect@:const:nil, color:Uint32):negerr = `auto
+SDL_FillRect(dst:SDL_Surface@, rect:SDL_Rect@:const:nil, color:Uint32):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_FillRects(dst:SDL_Surface@, rects[]:SDL_Rect, color:Uint32):void = R'''
 	int count = static_cast<int>(rects.GetSize());
@@ -851,15 +1463,24 @@ SDL_FillRects(dst:SDL_Surface@, rects[]:SDL_Rect, color:Uint32):void = R'''
 		return Value::Null;
 	}
 	return Value::Null;
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_FreeSurface(surface:SDL_Surface@):void = `auto
+SDL_FreeSurface(surface:SDL_Surface@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetClipRect(surface:SDL_Surface@) {block?} = R'''
 	SDL_Rect rect;
 	SDL_GetClipRect(surface, &rect);
 	return ReturnValue(env, sig, args, Value(new Object_Rect(rect)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetColorKey(surface:SDL_Surface@) {block?} = R'''
 	Uint32 key = 0;
@@ -872,7 +1493,10 @@ SDL_GetColorKey(surface:SDL_Surface@) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, _rtnVal);
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetSurfaceAlphaMod(surface:SDL_Surface@) {block?} = R'''
 	Uint8 alpha = 0;
@@ -882,7 +1506,10 @@ SDL_GetSurfaceAlphaMod(surface:SDL_Surface@) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(alpha));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetSurfaceBlendMode(surface:SDL_Surface@) {block?} = R'''
 	SDL_BlendMode blendMode = SDL_BLENDMODE_NONE;
@@ -892,7 +1519,10 @@ SDL_GetSurfaceBlendMode(surface:SDL_Surface@) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(blendMode));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetSurfaceColorMod(surface:SDL_Surface@) {block?} = R'''
 	Uint8 r = 0;
@@ -901,7 +1531,10 @@ SDL_GetSurfaceColorMod(surface:SDL_Surface@) {block?} = R'''
 	int _rtn = SDL_GetSurfaceColorMod(surface, &r, &g, &b);
 	return ReturnValue(env, sig, args,
 			Value::CreateList(env, Value(r), Value(g), Value(b)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_LoadBMP(src:stream) {block?} = R'''
 	std::auto_ptr<SDL_RWops> _src(CreateRWopsStream(&src, &sig));
@@ -911,17 +1544,35 @@ SDL_LoadBMP(src:stream) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_Surface(_rtn)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LoadBMP_RW() = `unsupport
+SDL_LoadBMP_RW() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LockSurface(surface:SDL_Surface@):negerr = `auto
+SDL_LockSurface(surface:SDL_Surface@):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LowerBlit(src:SDL_Surface@, srcrect:SDL_Rect@:nil, dst:SDL_Surface@, dstrect:SDL_Rect@:nil):negerr = `auto
+SDL_LowerBlit(src:SDL_Surface@, srcrect:SDL_Rect@:nil, dst:SDL_Surface@, dstrect:SDL_Rect@:nil):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LowerBlitScaled(src:SDL_Surface@, srcrect:SDL_Rect@:nil, dst:SDL_Surface@, dstrect:SDL_Rect@:nil):negerr = `auto
+SDL_LowerBlitScaled(src:SDL_Surface@, srcrect:SDL_Rect@:nil, dst:SDL_Surface@, dstrect:SDL_Rect@:nil):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_MUSTLOCK(surface:SDL_Surface@):bool {block?} = `auto
+SDL_MUSTLOCK(surface:SDL_Surface@):bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_SaveBMP(surface:SDL_Surface@, dst:stream) {block?} = R'''
 	std::auto_ptr<SDL_RWops> context(CreateRWopsStream(&dst, &sig));
@@ -931,25 +1582,55 @@ SDL_SaveBMP(surface:SDL_Surface@, dst:stream) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SaveBMP_RW() = `unsupport
+SDL_SaveBMP_RW() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetClipRect(surface:SDL_Surface@, rect:SDL_Rect@:const):SDL_bool {block?} = `auto
+SDL_SetClipRect(surface:SDL_Surface@, rect:SDL_Rect@:const):SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetColorKey(surface:SDL_Surface@, flag:int, key:Uint32):negerr = `auto
+SDL_SetColorKey(surface:SDL_Surface@, flag:int, key:Uint32):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetSurfaceAlphaMod(surface:SDL_Surface@, alpha:Uint8):negerr = `auto
+SDL_SetSurfaceAlphaMod(surface:SDL_Surface@, alpha:Uint8):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetSurfaceBlendMode(surface:SDL_Surface@, blendMode:SDL_BlendMode):negerr = `auto
+SDL_SetSurfaceBlendMode(surface:SDL_Surface@, blendMode:SDL_BlendMode):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetSurfaceColorMod(surface:SDL_Surface@, r:Uint8, g:Uint8, b:Uint8):negerr = `auto
+SDL_SetSurfaceColorMod(surface:SDL_Surface@, r:Uint8, g:Uint8, b:Uint8):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetSurfacePalette(surface:SDL_Surface@, palette:SDL_Palette@):negerr = `auto
+SDL_SetSurfacePalette(surface:SDL_Surface@, palette:SDL_Palette@):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetSurfaceRLE(surface:SDL_Surface@, flag:int):negerr = `auto
+SDL_SetSurfaceRLE(surface:SDL_Surface@, flag:int):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_UnlockSurface(surface:SDL_Surface@):void = `auto
+SDL_UnlockSurface(surface:SDL_Surface@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Video - Clipboard Handling
@@ -959,32 +1640,68 @@ SDL_GetClipboardText() {block?} = R'''
 	Value _rtnVal(_rtn);
 	SDL_free(_rtn);
 	return ReturnValue(env, sig, args, _rtnVal);
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HasClipboardText():SDL_bool {block?} = `auto
+SDL_HasClipboardText():SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Input Events - Event Handling
 
-SDL_SetClipboardText(text:char@:const):negerr = `auto
+SDL_SetClipboardText(text:char@:const):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AddEventWatch() = `unsupport
+SDL_AddEventWatch() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_DelEventWatch() = `unsupport
+SDL_DelEventWatch() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_EventState(type:Uint32, state:int):Uint8 {block?} = `auto
+SDL_EventState(type:Uint32, state:int):Uint8 {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_FilterEvents() = `unsupport
+SDL_FilterEvents() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_FlushEvent(type:Uint32):void = `auto
+SDL_FlushEvent(type:Uint32):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_FlushEvents(minType:Uint32, maxType:Uint32):void = `auto
+SDL_FlushEvents(minType:Uint32, maxType:Uint32):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetEventFilter() = `unsupport
+SDL_GetEventFilter() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetNumTouchDevices():int {block?} = `auto
+SDL_GetNumTouchDevices():int {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetNumTouchFingers(touchId:SDL_TouchID):negerr_number {block?} = `auto
+SDL_GetNumTouchFingers(touchId:SDL_TouchID):negerr_number {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetTouchDevice(index:int) {block?} = R'''
 	SDL_TouchID _rtn = SDL_GetTouchDevice(index);
@@ -993,13 +1710,25 @@ SDL_GetTouchDevice(index:int) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetTouchFinger(touchId:SDL_TouchID, index:int):SDL_Finger@ {block?} = `auto
+SDL_GetTouchFinger(touchId:SDL_TouchID, index:int):SDL_Finger@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HasEvent(type:Uint32):SDL_bool {block?} = `auto
+SDL_HasEvent(type:Uint32):SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HasEvents(minType:Uint32, maxType:Uint32):SDL_bool {block?} = `auto
+SDL_HasEvents(minType:Uint32, maxType:Uint32):SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_LoadDollarTemplates(touchId:SDL_TouchID, src:stream) {block?} = R'''
 	std::auto_ptr<SDL_RWops> _src(CreateRWopsStream(&src, &sig));
@@ -1009,7 +1738,10 @@ SDL_LoadDollarTemplates(touchId:SDL_TouchID, src:stream) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_AddEvents(events[]:SDL_Event) {block?} = R'''
 	int numevents = static_cast<int>(events.GetSize());
@@ -1019,7 +1751,10 @@ SDL_AddEvents(events[]:SDL_Event) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_PeekEvents(numevents:int, minType:Uint32, maxType:Uint32) {block?} = R'''
 	CArray<SDL_Event> events(numevents);
@@ -1034,7 +1769,10 @@ SDL_PeekEvents(numevents:int, minType:Uint32, maxType:Uint32) {block?} = R'''
 		_valList.push_back(Value(new Object_Event(events[i])));
 	}
 	return ReturnValue(env, sig, args, _rtnVal);
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetEvents(numevents:int, minType:Uint32, maxType:Uint32) {block?} = R'''
 	CArray<SDL_Event> events(numevents);
@@ -1049,22 +1787,40 @@ SDL_GetEvents(numevents:int, minType:Uint32, maxType:Uint32) {block?} = R'''
 		_valList.push_back(Value(new Object_Event(events[i])));
 	}
 	return ReturnValue(env, sig, args, _rtnVal);
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_PollEvent() {block?} = R'''
 	SDL_Event event;
 	int _rtn = SDL_PollEvent(&event);
 	if (_rtn == 0) return Value::Null;
 	return ReturnValue(env, sig, args, Value(new Object_Event(event)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_PumpEvents():void = `auto
+SDL_PumpEvents():void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_PushEvent(event:SDL_Event@):negerr_boolean {block?} = `auto
+SDL_PushEvent(event:SDL_Event@):negerr_boolean {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_QuitRequested():bool {block?} = `auto
+SDL_QuitRequested():bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RecordGesture(touchId:SDL_TouchID):negerr_number {block?} = `auto
+SDL_RecordGesture(touchId:SDL_TouchID):negerr_number {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_RegisterEvents(numevents:int) {block?} = R'''
 	Uint32 _rtn = SDL_RegisterEvents(numevents);
@@ -1073,7 +1829,10 @@ SDL_RegisterEvents(numevents:int) {block?} = R'''
 		_rtnVal = Value(_rtn);
 	}
 	return ReturnValue(env, sig, args, _rtnVal);
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_SaveAllDollarTemplates(dst:stream) {block?} = R'''
 	std::auto_ptr<SDL_RWops> _dst(CreateRWopsStream(&dst, &sig));
@@ -1083,7 +1842,10 @@ SDL_SaveAllDollarTemplates(dst:stream) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_SaveDollarTemplate(gestureId:SDL_GestureID, dst:stream):void = R'''
 	std::auto_ptr<SDL_RWops> _dst(CreateRWopsStream(&dst, &sig));
@@ -1093,9 +1855,15 @@ SDL_SaveDollarTemplate(gestureId:SDL_GestureID, dst:stream):void = R'''
 		return Value::Null;
 	}
 	return Value::Null;
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetEventFilter() = `unsupport
+SDL_SetEventFilter() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_WaitEvent() {block?} = R'''
 	SDL_Event event;
@@ -1105,7 +1873,10 @@ SDL_WaitEvent() {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_Event(event)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_WaitEventTimeout(timeout:int) {block?} = R'''
 	SDL_Event event;
@@ -1118,7 +1889,10 @@ SDL_WaitEventTimeout(timeout:int) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, _rtnVal);
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Input Events - Keyboard Support
@@ -1128,7 +1902,10 @@ SDL_CheckKeyboardState(scancode:SDL_Scancode) {block?} = R'''
 	const Uint8 *_keystate = SDL_GetKeyboardState(&numkeys);
 	bool _rtn = (0 <= scancode && scancode < numkeys && _keystate[scancode] != 0);
 	return ReturnValue(env, sig, args, Value(_rtn));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetKeyFromName(name:char@:const) {block?} = R'''
 	SDL_Keycode _rtn = SDL_GetKeyFromName(name);
@@ -1137,13 +1914,25 @@ SDL_GetKeyFromName(name:char@:const) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetKeyFromScancode(scancode:SDL_Scancode):SDL_Keycode {block?} = `auto
+SDL_GetKeyFromScancode(scancode:SDL_Scancode):SDL_Keycode {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetKeyName(key:SDL_Keycode):char@:const {block?} = `auto
+SDL_GetKeyName(key:SDL_Keycode):char@:const {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetKeyboardFocus():SDL_Window@ {block?} = `auto
+SDL_GetKeyboardFocus():SDL_Window@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetKeyboardState() {block?} = R'''
 	int numkeys = 0;
@@ -1154,11 +1943,20 @@ SDL_GetKeyboardState() {block?} = R'''
 		_valList.push_back(Value(_keystate[i] != 0));
 	}
 	return ReturnValue(env, sig, args, _rtnVal);
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetModState():SDL_Keymod {block?} = `auto
+SDL_GetModState():SDL_Keymod {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetScancodeFromKey(key:SDL_Keycode):SDL_Scancode {block?} = `auto
+SDL_GetScancodeFromKey(key:SDL_Keycode):SDL_Scancode {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetScancodeFromName(name:char@:const) {block?} = R'''
 	SDL_Scancode _rtn = SDL_GetScancodeFromName(name);
@@ -1167,30 +1965,63 @@ SDL_GetScancodeFromName(name:char@:const) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetScancodeName(scancode:SDL_Scancode):char@:const {block?} = `auto
+SDL_GetScancodeName(scancode:SDL_Scancode):char@:const {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HasScreenKeyboardSupport():SDL_bool {block?} = `auto
+SDL_HasScreenKeyboardSupport():SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_IsScreenKeyboardShown(window:SDL_Window@):SDL_bool {block?} = `auto
+SDL_IsScreenKeyboardShown(window:SDL_Window@):SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_IsTextInputActive():SDL_bool {block?} = `auto
+SDL_IsTextInputActive():SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetModState(modstate:SDL_Keymod):void = `auto
+SDL_SetModState(modstate:SDL_Keymod):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetTextInputRect(rect:SDL_Rect@):void = `auto
+SDL_SetTextInputRect(rect:SDL_Rect@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_StartTextInput():void = `auto
+SDL_StartTextInput():void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_StopTextInput():void = `auto
+SDL_StopTextInput():void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Input Events - Mouse Support
 
-SDL_CaptureMouse(enalbed:SDL_bool):negerr = `unsupport
+SDL_CaptureMouse(enalbed:SDL_bool):negerr = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_CreateColorCursor(surface:SDL_Surface@, hot_x:int, hot_y:int):SDL_Cursor@ {block?} = `auto
+SDL_CreateColorCursor(surface:SDL_Surface@, hot_x:int, hot_y:int):SDL_Cursor@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_CreateCursor(data:binary, mask:binary, w:int, h:int, hot_x:int, hot_y:int) {block?} = R'''
 	size_t bytesLeast = int((w + 7) / 8) * h;
@@ -1210,11 +2041,20 @@ SDL_CreateCursor(data:binary, mask:binary, w:int, h:int, hot_x:int, hot_y:int) {
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_Cursor(_rtn, true)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_CreateSystemCursor(id:SDL_SystemCursor):SDL_Cursor@ {block?} = `auto
+SDL_CreateSystemCursor(id:SDL_SystemCursor):SDL_Cursor@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_FreeCursor(cursor:SDL_Cursor@):void = `auto
+SDL_FreeCursor(cursor:SDL_Cursor@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetCursor() {block?} = R'''
 	SDL_Cursor *_rtn = SDL_GetCursor();
@@ -1223,13 +2063,25 @@ SDL_GetCursor() {block?} = R'''
 		_rtnVal = Value(new Object_Cursor(_rtn, false));
 	}
 	return ReturnValue(env, sig, args, _rtnVal);
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetDefaultCursor():SDL_Cursor@ {block?} = `auto
+SDL_GetDefaultCursor():SDL_Cursor@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetGlobalMouseState() = `unsupport
+SDL_GetGlobalMouseState() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetMouseFocus():SDL_Window@ {block?} = `auto
+SDL_GetMouseFocus():SDL_Window@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetMouseState() {block?} = R'''
 	int x = 0;
@@ -1237,9 +2089,15 @@ SDL_GetMouseState() {block?} = R'''
 	Uint32 _rtn = SDL_GetMouseState(&x, &y);
 	return ReturnValue(env, sig, args, Value::CreateList(env,
 										Value(_rtn), Value(x), Value(y)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetRelativeMouseMode():SDL_bool {block?} = `auto
+SDL_GetRelativeMouseMode():SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GetRelativeMouseState() {block?} = R'''
 	int x = 0;
@@ -1247,28 +2105,58 @@ SDL_GetRelativeMouseState() {block?} = R'''
 	Uint32 _rtn = SDL_GetRelativeMouseState(&x, &y);
 	return ReturnValue(env, sig, args, Value::CreateList(env,
 										Value(_rtn), Value(x), Value(y)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetCursor(cursor:SDL_Cursor@):void = `auto
+SDL_SetCursor(cursor:SDL_Cursor@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SetRelativeMouseMode(enabled:SDL_bool):negerr = `auto
+SDL_SetRelativeMouseMode(enabled:SDL_bool):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_ShowCursor(toggle:int):negerr = `auto
+SDL_ShowCursor(toggle:int):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_WarpMouseGlobal(x:int, y:int) = `unsupport
+SDL_WarpMouseGlobal(x:int, y:int) = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_WarpMouseInWindow(window:SDL_Window@, x:int, y:int):void = `auto
+SDL_WarpMouseInWindow(window:SDL_Window@, x:int, y:int):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Input Events - Joystick Support
 
-SDL_JoystickClose(joystick:SDL_Joystick@):void = `auto
+SDL_JoystickClose(joystick:SDL_Joystick@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_JoystickEventState(state:int):negerr_boolean {block?} = `auto
+SDL_JoystickEventState(state:int):negerr_boolean {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_JoystickGetAttached(joystick:SDL_Joystick@):SDL_bool {block?} = `auto
+SDL_JoystickGetAttached(joystick:SDL_Joystick@):SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_JoystickGetAxis(joystick:SDL_Joystick@, axis:int):Sint16 {block?} = `auto
+SDL_JoystickGetAxis(joystick:SDL_Joystick@, axis:int):Sint16 {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_JoystickGetBall(joystick:SDL_Joystick@, ball:int) {block?} = R'''
 	int dx = 0;
@@ -1279,27 +2167,48 @@ SDL_JoystickGetBall(joystick:SDL_Joystick@, ball:int) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value::CreateList(env, Value(dx), Value(dy)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_JoystickGetButton(joystick:SDL_Joystick@, button:int) {block?} = R'''
 	Uint8 _rtn = SDL_JoystickGetButton(joystick, button);
 	return ReturnValue(env, sig, args, Value(_rtn != 0));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_JoystickGetDeviceGUID(device_index:int):SDL_JoystickGUID {block?} = `auto
+SDL_JoystickGetDeviceGUID(device_index:int):SDL_JoystickGUID {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_JoystickGetGUID(joystick:SDL_Joystick@):SDL_JoystickGUID {block?} = `auto
+SDL_JoystickGetGUID(joystick:SDL_Joystick@):SDL_JoystickGUID {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_JoystickGetGUIDFromString(pchGUID:char@:const):SDL_JoystickGUID {block?} = `auto
+SDL_JoystickGetGUIDFromString(pchGUID:char@:const):SDL_JoystickGUID {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_JoystickGetGUIDString(guid:SDL_JoystickGUID) {block?} = R'''
 	char szGUID[64];
 	int cbGUID = sizeof(szGUID);
 	SDL_JoystickGetGUIDString(guid, szGUID, cbGUID);
 	return ReturnValue(env, sig, args, Value(szGUID));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_JoystickGetHat(joystick:SDL_Joystick@, hat:int):Uint8 {block?} = `auto
+SDL_JoystickGetHat(joystick:SDL_Joystick@, hat:int):Uint8 {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_JoystickInstanceID(joystick:SDL_Joystick@) {block?} = R'''
 	SDL_JoystickID _rtn = SDL_JoystickInstanceID(joystick);
@@ -1308,30 +2217,63 @@ SDL_JoystickInstanceID(joystick:SDL_Joystick@) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_JoystickName(joystick:SDL_Joystick@):char@:const {block?} = `auto
+SDL_JoystickName(joystick:SDL_Joystick@):char@:const {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_JoystickNameForIndex(device_index:int):char@:const {block?} = `auto
+SDL_JoystickNameForIndex(device_index:int):char@:const {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_JoystickNumAxes(joystick:SDL_Joystick@):negerr_number {block?} = `auto
+SDL_JoystickNumAxes(joystick:SDL_Joystick@):negerr_number {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_JoystickNumBalls(joystick:SDL_Joystick@):negerr_number {block?} = `auto
+SDL_JoystickNumBalls(joystick:SDL_Joystick@):negerr_number {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_JoystickNumButtons(joystick:SDL_Joystick@):negerr_number {block?} = `auto
+SDL_JoystickNumButtons(joystick:SDL_Joystick@):negerr_number {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_JoystickNumHats(joystick:SDL_Joystick@):negerr_number {block?} = `auto
+SDL_JoystickNumHats(joystick:SDL_Joystick@):negerr_number {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_JoystickOpen(device_index:int):SDL_Joystick@ {block?} = `auto
+SDL_JoystickOpen(device_index:int):SDL_Joystick@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_JoystickUpdate():void = `auto
+SDL_JoystickUpdate():void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_NumJoysticks():negerr_number {block?} = `auto
+SDL_NumJoysticks():negerr_number {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Input Events - Game Controller Support
 
-SDL_GameControllerAddMapping(mappingString:char@:const):negerr_boolean {block?} = `auto
+SDL_GameControllerAddMapping(mappingString:char@:const):negerr_boolean {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GameControllerAddMappingsFromFile(file:stream) {block?} = R'''
 	std::auto_ptr<SDL_RWops> _file(CreateRWopsStream(&file, &sig));
@@ -1341,23 +2283,50 @@ SDL_GameControllerAddMappingsFromFile(file:stream) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GameControllerAddMappingsFromRW() = `unsupport
+SDL_GameControllerAddMappingsFromRW() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GameControllerClose(gamecontroller:SDL_GameController@):void = `auto
+SDL_GameControllerClose(gamecontroller:SDL_GameController@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GameControllerEventState(state:int):int {block?} = `auto
+SDL_GameControllerEventState(state:int):int {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GameControllerGetAttached(gamecontroller:SDL_GameController@):SDL_bool {block?} = `auto
+SDL_GameControllerGetAttached(gamecontroller:SDL_GameController@):SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GameControllerGetAxis(gamecontroller:SDL_GameController@, axis:SDL_GameControllerAxis):Sint16 {block?} = `auto
+SDL_GameControllerGetAxis(gamecontroller:SDL_GameController@, axis:SDL_GameControllerAxis):Sint16 {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GameControllerGetAxisFromString(pchString:char@:const):SDL_GameControllerAxis {block?} = `auto
+SDL_GameControllerGetAxisFromString(pchString:char@:const):SDL_GameControllerAxis {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GameControllerGetBindForAxis(gamecontroller:SDL_GameController@, axis:SDL_GameControllerAxis):SDL_GameControllerButtonBind {block?} = `auto
+SDL_GameControllerGetBindForAxis(gamecontroller:SDL_GameController@, axis:SDL_GameControllerAxis):SDL_GameControllerButtonBind {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GameControllerGetBindForButton(gamecontroller:SDL_GameController@, button:SDL_GameControllerButton):SDL_GameControllerButtonBind {block?} = `auto
+SDL_GameControllerGetBindForButton(gamecontroller:SDL_GameController@, button:SDL_GameControllerButton):SDL_GameControllerButtonBind {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_GameControllerGetButton(gamecontroller:SDL_GameController@, button:SDL_GameControllerButton) {block?} = R'''
 	Uint8 _rtn = SDL_GameControllerGetButton(gamecontroller, button);
@@ -1366,132 +2335,306 @@ SDL_GameControllerGetButton(gamecontroller:SDL_GameController@, button:SDL_GameC
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn != 0));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GameControllerGetButtonFromString(pchString:char@:const):SDL_GameControllerButton {block?} = `auto
+SDL_GameControllerGetButtonFromString(pchString:char@:const):SDL_GameControllerButton {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GameControllerGetJoystick(gamecontroller:SDL_GameController@):SDL_Joystick@ {block?} = `auto
+SDL_GameControllerGetJoystick(gamecontroller:SDL_GameController@):SDL_Joystick@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GameControllerGetStringForAxis(axis:SDL_GameControllerAxis):char@:const {block?} = `auto
+SDL_GameControllerGetStringForAxis(axis:SDL_GameControllerAxis):char@:const {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GameControllerGetStringForButton(button:SDL_GameControllerButton):char@:const {block?} = `auto
+SDL_GameControllerGetStringForButton(button:SDL_GameControllerButton):char@:const {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GameControllerMapping(gamecontroller:SDL_GameController@):char@:const {block?} = `auto
+SDL_GameControllerMapping(gamecontroller:SDL_GameController@):char@:const {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GameControllerMappingForGUID(guid:SDL_JoystickGUID):char@:const {block?} = `auto
+SDL_GameControllerMappingForGUID(guid:SDL_JoystickGUID):char@:const {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GameControllerName(gamecontroller:SDL_GameController@):char@:const {block?} = `auto
+SDL_GameControllerName(gamecontroller:SDL_GameController@):char@:const {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GameControllerNameForIndex(joystick_index:int):char@:const {block?} = `auto
+SDL_GameControllerNameForIndex(joystick_index:int):char@:const {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GameControllerOpen(joystick_index:int):SDL_GameController@ {block?} = `auto
+SDL_GameControllerOpen(joystick_index:int):SDL_GameController@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GameControllerUpdate():void = `auto
+SDL_GameControllerUpdate():void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_IsGameController(joystick_index:int):SDL_bool {block?} = `auto
+SDL_IsGameController(joystick_index:int):SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Force Feedback - Force Feedback Support
 
-SDL_HapticClose(haptic:SDL_Haptic@):void = `auto
+SDL_HapticClose(haptic:SDL_Haptic@):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticDestroyEffect(haptic:SDL_Haptic@, effect:int):void = `auto
+SDL_HapticDestroyEffect(haptic:SDL_Haptic@, effect:int):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticEffectSupported(haptic:SDL_Haptic@, effect:SDL_HapticEffect@):negerr_boolean {block?} = `auto
+SDL_HapticEffectSupported(haptic:SDL_Haptic@, effect:SDL_HapticEffect@):negerr_boolean {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticGetEffectStatus(haptic:SDL_Haptic@, effect:int):negerr_boolean {block?} = `auto
+SDL_HapticGetEffectStatus(haptic:SDL_Haptic@, effect:int):negerr_boolean {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticIndex(haptic:SDL_Haptic@):negerr_number {block?} = `auto
+SDL_HapticIndex(haptic:SDL_Haptic@):negerr_number {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticName(device_index:int):char@:const {block?} = `auto
+SDL_HapticName(device_index:int):char@:const {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticNewEffect(haptic:SDL_Haptic@, effect:SDL_HapticEffect@):negerr_number {block?} = `auto
+SDL_HapticNewEffect(haptic:SDL_Haptic@, effect:SDL_HapticEffect@):negerr_number {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticNumAxes(haptic:SDL_Haptic@):negerr_number {block?} = `auto
+SDL_HapticNumAxes(haptic:SDL_Haptic@):negerr_number {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticNumEffects(haptic:SDL_Haptic@):negerr_number {block?} = `auto
+SDL_HapticNumEffects(haptic:SDL_Haptic@):negerr_number {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticNumEffectsPlaying(haptic:SDL_Haptic@):negerr_number {block?} = `auto
+SDL_HapticNumEffectsPlaying(haptic:SDL_Haptic@):negerr_number {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticOpen(device_index:int):SDL_Haptic@ {block?} = `auto
+SDL_HapticOpen(device_index:int):SDL_Haptic@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticOpenFromJoystick(joystick:SDL_Joystick@):SDL_Haptic@ {block?} = `auto
+SDL_HapticOpenFromJoystick(joystick:SDL_Joystick@):SDL_Haptic@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticOpenFromMouse():SDL_Haptic@ {block?} = `auto
+SDL_HapticOpenFromMouse():SDL_Haptic@ {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticOpened(device_index:int):negerr_boolean {block?} = `auto
+SDL_HapticOpened(device_index:int):negerr_boolean {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticPause(haptic:SDL_Haptic@):negerr = `auto
+SDL_HapticPause(haptic:SDL_Haptic@):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticQuery(haptic:SDL_Haptic@):unsigned_int {block?} = `auto
+SDL_HapticQuery(haptic:SDL_Haptic@):unsigned_int {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticRumbleInit(haptic:SDL_Haptic@):negerr = `auto
+SDL_HapticRumbleInit(haptic:SDL_Haptic@):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticRumblePlay(haptic:SDL_Haptic@, strength:float, length:Uint32):negerr = `auto
+SDL_HapticRumblePlay(haptic:SDL_Haptic@, strength:float, length:Uint32):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticRumbleStop(haptic:SDL_Haptic@):negerr = `auto
+SDL_HapticRumbleStop(haptic:SDL_Haptic@):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticRumbleSupported(haptic:SDL_Haptic@):negerr_boolean {block?} = `auto
+SDL_HapticRumbleSupported(haptic:SDL_Haptic@):negerr_boolean {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticRunEffect(haptic:SDL_Haptic@, effect:int, iterations:Uint32):negerr = `auto
+SDL_HapticRunEffect(haptic:SDL_Haptic@, effect:int, iterations:Uint32):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticSetAutocenter(haptic:SDL_Haptic@, autocenter:int):negerr = `auto
+SDL_HapticSetAutocenter(haptic:SDL_Haptic@, autocenter:int):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticSetGain(haptic:SDL_Haptic@, gain:int):negerr = `auto
+SDL_HapticSetGain(haptic:SDL_Haptic@, gain:int):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticStopAll(haptic:SDL_Haptic@):negerr = `auto
+SDL_HapticStopAll(haptic:SDL_Haptic@):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticStopEffect(haptic:SDL_Haptic@, effect:int):negerr = `auto
+SDL_HapticStopEffect(haptic:SDL_Haptic@, effect:int):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticUnpause(haptic:SDL_Haptic@):negerr = `auto
+SDL_HapticUnpause(haptic:SDL_Haptic@):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HapticUpdateEffect(haptic:SDL_Haptic@, effect:int, data:SDL_HapticEffect@):negerr = `auto
+SDL_HapticUpdateEffect(haptic:SDL_Haptic@, effect:int, data:SDL_HapticEffect@):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_JoystickIsHaptic(joystick:SDL_Joystick@):negerr_boolean {block?} = `auto
+SDL_JoystickIsHaptic(joystick:SDL_Joystick@):negerr_boolean {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_MouseIsHaptic():negerr_boolean {block?} = `auto
+SDL_MouseIsHaptic():negerr_boolean {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_NumHaptics():negerr_number {block?} = `auto
+SDL_NumHaptics():negerr_number {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Audio - Audio Device Management, Playing and Recording
 
-SDL_AudioInit(driver_name:char@:const):negerr = `auto
+SDL_AudioInit(driver_name:char@:const):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AudioQuit():void = `auto
+SDL_AudioQuit():void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_BuildAudioCVT(cvt:SDL_AudioCVT@, src_format:SDL_AudioFormat, src_channels:Uint8, src_rate:int, dst_format:SDL_AudioFormat, dst_channels:Uint8, dst_rate:int):negerr_boolean {block?} = `auto
+SDL_BuildAudioCVT(cvt:SDL_AudioCVT@, src_format:SDL_AudioFormat, src_channels:Uint8, src_rate:int, dst_format:SDL_AudioFormat, dst_channels:Uint8, dst_rate:int):negerr_boolean {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_ClearQueuedAudio(dev:SDL_AudioDeviceID) = `unsupport
+SDL_ClearQueuedAudio(dev:SDL_AudioDeviceID) = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_CloseAudio():void = `auto
+SDL_CloseAudio():void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_CloseAudioDevice(dev:SDL_AudioDeviceID):void = `auto
+SDL_CloseAudioDevice(dev:SDL_AudioDeviceID):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_ConvertAudio(cvt:SDL_AudioCVT@):negerr = `auto
+SDL_ConvertAudio(cvt:SDL_AudioCVT@):negerr = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_FreeWAV(wav:Wav@):void = R'''
 	Object_Wav *pObj = Object_Wav::GetObject(args, 0);
 	Uint8 *buffer = pObj->GetBuffer();
 	SDL_FreeWAV(buffer);
 	return Value::Null;
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetAudioDeviceName(index:int, iscapture:int):char@:const {block?} = `auto
+SDL_GetAudioDeviceName(index:int, iscapture:int):char@:const {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetAudioDeviceStatus(dev:SDL_AudioDeviceID):SDL_AudioStatus {block?} = `auto
+SDL_GetAudioDeviceStatus(dev:SDL_AudioDeviceID):SDL_AudioStatus {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetAudioDriver(index:int):char@:const {block?} = `auto
+SDL_GetAudioDriver(index:int):char@:const {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetAudioStatus():SDL_AudioStatus {block?} = `auto
+SDL_GetAudioStatus():SDL_AudioStatus {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetCurrentAudioDriver():char@:const {block?} = `auto
+SDL_GetCurrentAudioDriver():char@:const {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetNumAudioDevices(iscapture:int):negerr_number {block?} = `auto
+SDL_GetNumAudioDevices(iscapture:int):negerr_number {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetNumAudioDrivers():int {block?} = `auto
+SDL_GetNumAudioDrivers():int {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetQueuedAudioSize(dev:SDL_AudioDeviceID):Uint32 = `unsupport
+SDL_GetQueuedAudioSize(dev:SDL_AudioDeviceID):Uint32 = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_LoadWAV(file:stream) {block?} = R'''
 	std::auto_ptr<SDL_RWops> _file(CreateRWopsStream(&file, &sig));
@@ -1504,17 +2647,35 @@ SDL_LoadWAV(file:stream) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_Wav(spec, audio_buf, audio_len)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LoadWAV_RW() = `unsupport
+SDL_LoadWAV_RW() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LockAudio():void = `auto
+SDL_LockAudio():void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LockAudioDevice(dev:SDL_AudioDeviceID):void = `auto
+SDL_LockAudioDevice(dev:SDL_AudioDeviceID):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_MixAudio(volume:int) = `unsupport
+SDL_MixAudio(volume:int) = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_MixAudioFormat(format:SDL_AudioFormat, volume:int) = `unsupport
+SDL_MixAudioFormat(format:SDL_AudioFormat, volume:int) = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
 SDL_OpenAudio(desired:SDL_AudioSpec@) {block?} = R'''
 	SDL_AudioSpec obtained;
@@ -1524,197 +2685,458 @@ SDL_OpenAudio(desired:SDL_AudioSpec@) {block?} = R'''
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_AudioSpec(obtained)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_OpenAudioDevice(device:char@:const, iscapture:int, desired:SDL_AudioSpec@:const, allowed_changes:int):SDL_AudioDeviceID = `unsupport
+SDL_OpenAudioDevice(device:char@:const, iscapture:int, desired:SDL_AudioSpec@:const, allowed_changes:int):SDL_AudioDeviceID = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_PauseAudio(pause_on:int):void = `auto
+SDL_PauseAudio(pause_on:int):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_PauseAudioDevice(dev:SDL_AudioDeviceID, pause_on:int):void = `auto
+SDL_PauseAudioDevice(dev:SDL_AudioDeviceID, pause_on:int):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_QueueAudio(dev:SDL_AudioDeviceID):negerr = `unsupport
+SDL_QueueAudio(dev:SDL_AudioDeviceID):negerr = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_UnlockAudio():void = `auto
+SDL_UnlockAudio():void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_UnlockAudioDevice(dev:SDL_AudioDeviceID):void = `auto
+SDL_UnlockAudioDevice(dev:SDL_AudioDeviceID):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AUDIO_BITSIZE(x:Uint16):Uint16 {block?} = `auto
+SDL_AUDIO_BITSIZE(x:Uint16):Uint16 {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AUDIO_ISFLOAT(x:Uint16):Uint16_boolean {block?} = `auto
+SDL_AUDIO_ISFLOAT(x:Uint16):Uint16_boolean {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AUDIO_ISBIGENDIAN(x:Uint16):Uint16_boolean {block?} = `auto
+SDL_AUDIO_ISBIGENDIAN(x:Uint16):Uint16_boolean {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AUDIO_ISSIGNED(x:Uint16):Uint16_boolean {block?} = `auto
+SDL_AUDIO_ISSIGNED(x:Uint16):Uint16_boolean {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AUDIO_ISINT(x:Uint16):bool {block?} = `auto
+SDL_AUDIO_ISINT(x:Uint16):bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AUDIO_ISLITTLEENDIAN(x:Uint16):bool {block?} = `auto
+SDL_AUDIO_ISLITTLEENDIAN(x:Uint16):bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AUDIO_ISUNSIGNED(x:Uint16):bool {block?} = `auto
+SDL_AUDIO_ISUNSIGNED(x:Uint16):bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Threads - Thread Management
 
-SDL_CreateThread() = `unsupport
+SDL_CreateThread() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_DetachThread() = `unsupport
+SDL_DetachThread() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetThreadID() = `unsupport
+SDL_GetThreadID() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetThreadName() = `unsupport
+SDL_GetThreadName() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetThreadPriority() = `unsupport
+SDL_GetThreadPriority() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_TLSCreate() = `unsupport
+SDL_TLSCreate() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_TLSGet() = `unsupport
+SDL_TLSGet() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_TLSSet() = `unsupport
+SDL_TLSSet() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_ThreadID() = `unsupport
+SDL_ThreadID() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_WaitThread() = `unsupport
+SDL_WaitThread() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Threads - Thread Synchronization Primitives
 
-SDL_CondBroadcast() = `unsupport
+SDL_CondBroadcast() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_CondSignal() = `unsupport
+SDL_CondSignal() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_CondWait() = `unsupport
+SDL_CondWait() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_CondWaitTimeout() = `unsupport
+SDL_CondWaitTimeout() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_CreateCond() = `unsupport
+SDL_CreateCond() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_CreateMutex() = `unsupport
+SDL_CreateMutex() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_CreateSemaphore() = `unsupport
+SDL_CreateSemaphore() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_DestroyCond() = `unsupport
+SDL_DestroyCond() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_DestroyMutex() = `unsupport
+SDL_DestroyMutex() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_DestroySemaphore() = `unsupport
+SDL_DestroySemaphore() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_LockMutex() = `unsupport
+SDL_LockMutex() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SemPost() = `unsupport
+SDL_SemPost() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SemTryWait() = `unsupport
+SDL_SemTryWait() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SemValue() = `unsupport
+SDL_SemValue() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SemWait() = `unsupport
+SDL_SemWait() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SemWaitTimeout() = `unsupport
+SDL_SemWaitTimeout() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_TryLockMutex() = `unsupport
+SDL_TryLockMutex() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_UnlockMutex() = `unsupport
+SDL_UnlockMutex() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Threads - Atomic Operations
 
-SDL_AtomicAdd() = `unsupport
+SDL_AtomicAdd() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AtomicCAS() = `unsupport
+SDL_AtomicCAS() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AtomicCASPtr() = `unsupport
+SDL_AtomicCASPtr() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AtomicDecRef() = `unsupport
+SDL_AtomicDecRef() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AtomicGet() = `unsupport
+SDL_AtomicGet() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AtomicGetPtr() = `unsupport
+SDL_AtomicGetPtr() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AtomicIncRef() = `unsupport
+SDL_AtomicIncRef() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AtomicLock() = `unsupport
+SDL_AtomicLock() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AtomicSet() = `unsupport
+SDL_AtomicSet() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AtomicSetPtr() = `unsupport
+SDL_AtomicSetPtr() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AtomicTryLock() = `unsupport
+SDL_AtomicTryLock() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AtomicUnlock() = `unsupport
+SDL_AtomicUnlock() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_CompilerBarrier() = `unsupport
+SDL_CompilerBarrier() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Timers - Timer Support
 
-SDL_AddTimer(interval:Uint32):SDL_TimerID = `unsupport
+SDL_AddTimer(interval:Uint32):SDL_TimerID = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_Delay(ms:Uint32):void = `auto
+SDL_Delay(ms:Uint32):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetPerformanceCounter():Uint64 {block?} = `auto
+SDL_GetPerformanceCounter():Uint64 {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetPerformanceFrequency():Uint64 {block?} = `auto
+SDL_GetPerformanceFrequency():Uint64 {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetTicks():Uint32 {block?} = `auto
+SDL_GetTicks():Uint32 {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RemoveTimer(id:SDL_TimerID):SDL_bool {block?} = `auto
+SDL_RemoveTimer(id:SDL_TimerID):SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_TICKS_PASSED(A:Uint32, B:Uint32):bool {block?} = `auto
+SDL_TICKS_PASSED(A:Uint32, B:Uint32):bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // File Abstraction - Filesystem Paths
 
-SDL_GetBasePath():char@ = `unsupport
+SDL_GetBasePath():char@ = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetPrefPath(org:char@:const, app:char@:const):char@ = `unsupport
+SDL_GetPrefPath(org:char@:const, app:char@:const):char@ = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // File Abstraction - File I/O Abstraction
 
-SDL_AllocRW() = `unsupport
+SDL_AllocRW() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_FreeRW() = `unsupport
+SDL_FreeRW() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RWFromConstMem() = `unsupport
+SDL_RWFromConstMem() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RWFromFP() = `unsupport
+SDL_RWFromFP() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RWFromFile() = `unsupport
+SDL_RWFromFile() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RWFromMem() = `unsupport
+SDL_RWFromMem() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RWclose() = `unsupport
+SDL_RWclose() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RWread() = `unsupport
+SDL_RWread() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RWseek() = `unsupport
+SDL_RWseek() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RWtell() = `unsupport
+SDL_RWtell() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_RWwrite() = `unsupport
+SDL_RWwrite() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_ReadBE16() = `unsupport
+SDL_ReadBE16() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_ReadBE32() = `unsupport
+SDL_ReadBE32() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_ReadBE64() = `unsupport
+SDL_ReadBE64() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_ReadLE16() = `unsupport
+SDL_ReadLE16() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_ReadLE32() = `unsupport
+SDL_ReadLE32() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_ReadLE64() = `unsupport
+SDL_ReadLE64() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_WriteBE16() = `unsupport
+SDL_WriteBE16() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_WriteBE32() = `unsupport
+SDL_WriteBE32() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_WriteBE64() = `unsupport
+SDL_WriteBE64() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_WriteLE16() = `unsupport
+SDL_WriteLE16() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_WriteLE32() = `unsupport
+SDL_WriteLE32() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_WriteLE64() = `unsupport
+SDL_WriteLE64() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Shared Object Support - Shared Object Loading and Function Lookup
@@ -1722,70 +3144,154 @@ SDL_WriteLE64() = `unsupport
 //-----------------------------------------------------------------------------
 // Platform and CPU Information - Platform Detection
 
-SDL_GetPlatform():char@:const {block?} = `auto
+SDL_GetPlatform():char@:const {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Platform and CPU Information - CPU Feature Detection
 
-SDL_GetCPUCacheLineSize():int {block?} = `auto
+SDL_GetCPUCacheLineSize():int {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetCPUCount():int {block?} = `auto
+SDL_GetCPUCount():int {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_GetSystemRAM():int {block?} = `auto
+SDL_GetSystemRAM():int {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_Has3DNow():SDL_bool {block?} = `auto
+SDL_Has3DNow():SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HasAVX():SDL_bool {block?} = `auto
+SDL_HasAVX():SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HasAVX2():SDL_bool = `unsupport
+SDL_HasAVX2():SDL_bool = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HasAltiVec():SDL_bool {block?} = `auto
+SDL_HasAltiVec():SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HasMMX():SDL_bool {block?} = `auto
+SDL_HasMMX():SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HasRDTSC():SDL_bool {block?} = `auto
+SDL_HasRDTSC():SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HasSSE():SDL_bool {block?} = `auto
+SDL_HasSSE():SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HasSSE2():SDL_bool {block?} = `auto
+SDL_HasSSE2():SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HasSSE3():SDL_bool {block?} = `auto
+SDL_HasSSE3():SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HasSSE41():SDL_bool {block?} = `auto
+SDL_HasSSE41():SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_HasSSE42():SDL_bool {block?} = `auto
+SDL_HasSSE42():SDL_bool {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Platform and CPU Information - Byte Order and Byte Swapping
 
-SDL_Swap16() = `unsupport
+SDL_Swap16() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_Swap32() = `unsupport
+SDL_Swap32() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_Swap64() = `unsupport
+SDL_Swap64() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SwapBE16() = `unsupport
+SDL_SwapBE16() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SwapBE32() = `unsupport
+SDL_SwapBE32() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SwapBE64() = `unsupport
+SDL_SwapBE64() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SwapFloat() = `unsupport
+SDL_SwapFloat() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SwapFloatBE() = `unsupport
+SDL_SwapFloatBE() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SwapFloatLE() = `unsupport
+SDL_SwapFloatLE() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SwapLE16() = `unsupport
+SDL_SwapLE16() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SwapLE32() = `unsupport
+SDL_SwapLE32() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_SwapLE64() = `unsupport
+SDL_SwapLE64() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Platform and CPU Information - Bit Manipulation
 
-SDL_MostSignificantBitIndex32(x:Uint32):int = `unsupport
+SDL_MostSignificantBitIndex32(x:Uint32):int = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Power Management - Power Management Status
@@ -1796,25 +3302,46 @@ SDL_GetPowerInfo() {block?} = R'''
 	SDL_PowerState _rtn = SDL_GetPowerInfo(&secs, &pct);
 	return ReturnValue(env, sig, args, Value::CreateList(env,
 									Value(_rtn), Value(secs), Value(pct)));
-'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Additional - Platform-specific functionality
 
-SDL_AndroidGetActivity() = `unsupport
+SDL_AndroidGetActivity() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AndroidGetExternalStoragePath() = `unsupport
+SDL_AndroidGetExternalStoragePath() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AndroidGetExternalStorageState() = `unsupport
+SDL_AndroidGetExternalStorageState() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AndroidGetInternalStoragePath() = `unsupport
+SDL_AndroidGetInternalStoragePath() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-SDL_AndroidGetJNIEnv() = `unsupport
+SDL_AndroidGetJNIEnv() = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //-----------------------------------------------------------------------------
 // Additional - Other
 
-SDL_acos(x:double):double {block?} = `auto
+SDL_acos(x:double):double {block?} = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 }
 
 import(modimp) {TypeConv, Renderer}
