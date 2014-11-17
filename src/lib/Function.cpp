@@ -220,7 +220,7 @@ void Function::AddHelp(const Symbol *pSymbol, const String &formatName, const St
 	AddHelp(new Help(pSymbol, formatName, text));
 }
 
-const Help *Function::GetHelp(const Symbol *pSymbol) const
+const Help *Function::GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) const
 {
 	if (_helpOwner.empty()) return NULL;
 	if (pSymbol == NULL) return _helpOwner.front();
@@ -228,7 +228,7 @@ const Help *Function::GetHelp(const Symbol *pSymbol) const
 		Help *pHelp = *ppHelp;
 		if (pHelp->GetSymbol() == pSymbol) return pHelp;
 	}
-	return NULL;
+	return defaultFirstFlag? _helpOwner.front() : NULL;
 }
 
 Value Function::Call(Environment &env, Signal sig, Args &args) const

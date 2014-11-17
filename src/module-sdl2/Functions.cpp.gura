@@ -7,6 +7,7 @@ decls = `{
 
 SDL_Init(flags:Uint32):negerr = `auto % {`en, 'markdown',
 	R'''
+	Use this function to initialize the SDL library. This must be called before using any other SDL function.
 	'''
 }
 

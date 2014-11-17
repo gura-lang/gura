@@ -13,7 +13,7 @@ Gura_DeclareFunction(Init)
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Use this function to initialize the SDL library. This must be called before using any other SDL function.\n");
 }
 
 Gura_ImplementFunction(Init)

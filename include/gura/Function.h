@@ -339,7 +339,7 @@ public:
 			BlockScope blockScope = BLKSCOPE_Through, bool quoteFlag = false);
 	void AddHelp(Help *pHelp);
 	void AddHelp(const Symbol *pSymbol, const String &formatName, const String &text);
-	const Help *GetHelp(const Symbol *pSymbol) const;
+	const Help *GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) const;
 	String ToString() const;
 	void SetError_DivideByZero(Signal sig) const;
 	void SetError_UnsupportedAttr(Signal sig, const SymbolSet &attrs) const;
