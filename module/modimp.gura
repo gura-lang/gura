@@ -13,8 +13,9 @@ Gura_DeclareFunction(${fi.funcNameGura})
 	DeclareArg(env, "${arg.name}", VTYPE_${arg.valType}, OCCUR_${
 							arg.occurPattern}, ${('FLAG_' + arg.flags).join(' | ')});
 	${end}
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"");
+	${fi.helps.each {|help|}}
+	${help.ToString()}
+	${end}
 }
 
 Gura_ImplementFunction(${fi.funcNameGura})
@@ -50,9 +51,23 @@ TypeConv = struct(
 		tmplGetter:string:nil, tmplGetterOpt:string:nil,
 		tmplCaller:string:nil, voidFlag?:boolean)
 
+Help = struct(lang:symbol, format:string, help:string) {
+	ToString() = {
+		str = 'AddHelp(\n'
+		str += format('\tGura_Symbol(%s), Help::FMT_%s,\n', this.lang, this.format)
+		text = this.help.replace('"', '\\"')
+		if (text.isempty()) {
+			str += '\t""'
+		} else {
+			str += ('\t"' + text.eachline():chop + '\\n"').join('\n')
+		}
+		str += ');\n'
+	}
+}
+
 FuncInfo = class {
 	public {
-		funcNameC, funcNameGura, args, tmplCaller, resultMode, flags, body
+		funcNameC, funcNameGura, args, tmplCaller, resultMode, flags, body, helps
 	}
 	__init__(moduleName:string, decl:expr, typeConvDict:dict, funcNameTranslator:function):map = {
 		if (!decl.isassign()) {
@@ -66,10 +81,23 @@ FuncInfo = class {
 		caller = decl.left
 		this.body = nil
 		this.validFlag = true
-		if (decl.right.isvalue() && isstring(decl.right.value)) {
-			this.body = decl.right.value
-		} elsif (decl.right.isquote() && decl.right.child.isidentifier()) {
-			sym = decl.right.child.symbol
+		this.helps = []
+		exprAssigned = decl.right
+		while (exprAssigned.isbinaryop() && exprAssigned.operator.symbol == `% && \
+												exprAssigned.right.isblock()) {
+			args = exprAssigned.right.children::eval()
+			if (!(args.len() == 3 && args[0].istype(`symbol) && \
+						  args[1].istype(`string) && args[2].istype(`string))) {
+				this.PrintError(decl, 'invalid format for help')
+				sys.exit(1)
+			}
+			this.helps.add(Help(args*))
+			exprAssigned = exprAssigned.left
+		}
+		if (exprAssigned.isvalue() && isstring(exprAssigned.value)) {
+			this.body = exprAssigned.value
+		} elsif (exprAssigned.isquote() && exprAssigned.child.isidentifier()) {
+			sym = exprAssigned.child.symbol
 			if (sym == `auto) {
 				// nothing to do
 			} elsif (sym == `unsupport) {

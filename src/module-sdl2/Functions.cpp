@@ -13,7 +13,7 @@ Gura_DeclareFunction(Init)
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"")
+		"");
 }
 
 Gura_ImplementFunction(Init)
