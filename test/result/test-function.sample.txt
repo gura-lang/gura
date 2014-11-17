@@ -293,3 +293,8 @@ trailer
 ======== #40 attribute after membered type ========
 
 f(x:m.A:nil)
+
+======== #41 help ========
+
+`en ..foo
+`ja ..hoge
