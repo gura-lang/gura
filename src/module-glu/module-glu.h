@@ -21,6 +21,7 @@ Gura_BeginModuleHeader(glu)
 //-----------------------------------------------------------------------------
 // helper
 //-----------------------------------------------------------------------------
+GLenum GetImageFormat(Signal sig, Image *pImage);
 void SetError_NotImpFunction(Signal &sig, const char *funcName);
 
 //-----------------------------------------------------------------------------

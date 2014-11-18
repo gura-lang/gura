@@ -27,10 +27,19 @@ gluBeginTrim(nurb:GLUnurbs@):void = `auto % {`en, 'markdown',
 //	'''
 //}
 
-//gluBuild1DMipmaps(target:GLenum, internalFormat:GLint, width:GLsizei, format:GLenum, type:GLenum, data:void@:const):GLint = `unsupport % {`en, 'markdown',
-//	R'''
-//	'''
-//}
+gluBuild1DMipmaps(target:GLenum, internalFormat:GLint, image:image):GLint = R'''
+	GLsizei width = static_cast<GLsizei>(image->GetWidth());
+	GLenum format = static_cast<GLsizei>(GetImageFormat(sig, image));
+	if (sig.IsSignalled()) return Value::Null;
+	GLenum type = GL_UNSIGNED_BYTE;
+	const void *data = image->GetBuffer();
+	GLint _rtn = ::gluBuild1DMipmaps(target,
+					internalFormat, width, format, type, data);
+	return Value(_rtn);
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //gluBuild2DMipmapLevels(target:GLenum, internalFormat:GLint, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, level:GLint, base:GLint, max:GLint, data:void@:const):GLint = `unsupport % {`en, 'markdown',
 //	R'''

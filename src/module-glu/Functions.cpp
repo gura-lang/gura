@@ -71,6 +71,33 @@ Gura_ImplementFunction(gluBeginTrim)
 	return Value::Null;
 }
 
+// glu.gluBuild1DMipmaps
+Gura_DeclareFunction(gluBuild1DMipmaps)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "internalFormat", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "image", VTYPE_image, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(gluBuild1DMipmaps)
+{
+	GLenum target = static_cast<GLenum>(args.GetInt(0));
+	GLint internalFormat = args.GetInt(1);
+	Image *image = Object_image::GetObject(args, 2)->GetImage();
+	GLsizei width = static_cast<GLsizei>(image->GetWidth());
+	GLenum format = static_cast<GLsizei>(GetImageFormat(sig, image));
+	if (sig.IsSignalled()) return Value::Null;
+	GLenum type = GL_UNSIGNED_BYTE;
+	const void *data = image->GetBuffer();
+	GLint _rtn = ::gluBuild1DMipmaps(target,
+					internalFormat, width, format, type, data);
+	return Value(_rtn);
+}
+
 // glu.gluCheckExtension
 Gura_DeclareFunction(gluCheckExtension)
 {
@@ -981,6 +1008,7 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(gluBeginPolygon);
 	Gura_AssignFunction(gluBeginSurface);
 	Gura_AssignFunction(gluBeginTrim);
+	Gura_AssignFunction(gluBuild1DMipmaps);
 	Gura_AssignFunction(gluCheckExtension);
 	Gura_AssignFunction(gluCylinder);
 	Gura_AssignFunction(gluDeleteNurbsRenderer);
