@@ -2,22 +2,22 @@
 import(modimp) {TypeConv, Renderer}
 
 decls = `{
-gluBeginCurve(nurb:GLUnurbs@):void = `unsupport % {`en, 'markdown',
+gluBeginCurve(nurb:GLUnurbs@):void = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-gluBeginPolygon(tess:GLUtesselator@):void = `unsupport % {`en, 'markdown',
+gluBeginPolygon(tess:GLUtesselator@):void = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-gluBeginSurface(nurb:GLUnurbs@):void = `unsupport % {`en, 'markdown',
+gluBeginSurface(nurb:GLUnurbs@):void = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-gluBeginTrim(nurb:GLUnurbs@):void = `unsupport % {`en, 'markdown',
+gluBeginTrim(nurb:GLUnurbs@):void = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -52,7 +52,7 @@ gluBeginTrim(nurb:GLUnurbs@):void = `unsupport % {`en, 'markdown',
 //	'''
 //}
 
-gluCheckExtension(extName:GLubyte@:const, extString:GLubyte@:const):GLboolean = `unsupport % {`en, 'markdown',
+gluCheckExtension(extName:GLubyte@:const, extString:GLubyte@:const):GLboolean = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -102,20 +102,20 @@ gluEndTrim(nurb:GLUnurbs@):void = `unsupport % {`en, 'markdown',
 	'''
 }
 
-//gluErrorString(error:GLenum):GLubyte@:const = `auto % {`en, 'markdown',
-//	R'''
-//	'''
-//}
+gluErrorString(error:GLenum):GLubyte@:const = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 gluGetNurbsProperty(nurb:GLUnurbs@, property:GLenum, data:GLfloat@):void = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-//gluGetString(name:GLenum):GLubyte@:const = `auto % {`en, 'markdown',
-//	R'''
-//	'''
-//}
+gluGetString(name:GLenum):GLubyte@:const = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
 
 gluGetTessProperty(tess:GLUtesselator@, which:GLenum, data:GLdouble@):void = `unsupport % {`en, 'markdown',
 	R'''
@@ -501,9 +501,11 @@ typeConvDict = %{
 			nil)
 	'GLubyte@:const' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLubyte> ${arg.name} = args.GetList(${idx});',
+			'const GLubyte *${arg.name} = reinterpret_cast<const GLubyte *>(args.GetString(${idx}));',
 			nil,
-			nil)
+			R'''
+			const GLubyte *_rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(reinterpret_cast<const char *>(_rtn)));''')
 	'GLubyte@' => TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLubyte> ${arg.name} = args.GetList(${idx});',
