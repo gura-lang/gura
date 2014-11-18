@@ -4,58 +4,12 @@
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
-#if defined(GURA_ON_MSWIN)
-#else
-#define __stdcall
-#endif
 
 Gura_BeginModuleBody(glu)
 
 //-----------------------------------------------------------------------------
 // helper
 //-----------------------------------------------------------------------------
-#define ToArrayTemplate(type, getFunc) \
-bool ToArray(Signal sig, type v[], const ValueList &valList, size_t n, \
-			bool checkFlag, const char *funcName, const char *paramName) \
-{ \
-	if (checkFlag && valList.size() != n) { \
-		sig.SetError(ERR_ValueError, \
-				"%s's %s parameter takes a list with %d elements", \
-				funcName, paramName, n); \
-		return false; \
-	} \
-	size_t i = 0; \
-	foreach_const (ValueList, pValue, valList) { \
-		if (i >= n) break; \
-		v[i++] = pValue->getFunc(); \
-	} \
-	return true; \
-}
-
-#define DeclareArray(type, varName, n, iParam) \
-type varName[n]; \
-if (!ToArray(sig, varName, args.GetList(iParam), n, true, GetName(), #varName)) { \
-	return Value::Null; \
-}
-
-#define DeclareNewArray(type, varName, iParam) \
-type *varName = new type[args.GetList(iParam).size()]; \
-do { \
-	size_t i = 0; \
-	foreach_const (ValueList, pValue, args.GetList(iParam)) { \
-		varName[i++] = static_cast<type>(pValue->GetNumber()); \
-	} \
-} while (0);
-
-ToArrayTemplate(GLbyte,		GetChar)
-ToArrayTemplate(GLubyte,	GetUChar)
-ToArrayTemplate(GLshort,	GetShort)
-ToArrayTemplate(GLushort,	GetUShort)
-ToArrayTemplate(GLint,		GetInt)
-ToArrayTemplate(GLuint,		GetUInt)
-ToArrayTemplate(GLfloat,	GetFloat)
-ToArrayTemplate(GLdouble,	GetDouble)
-
 GLenum GetImageFormat(Signal sig, Image *pImage)
 {
 	GLenum format = 0;

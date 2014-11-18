@@ -11,6 +11,11 @@
 #include <GL/glu.h>
 #endif
 
+#if defined(GURA_ON_MSWIN)
+#else
+#define __stdcall
+#endif
+
 Gura_BeginModuleHeader(glu)
 
 //-----------------------------------------------------------------------------
