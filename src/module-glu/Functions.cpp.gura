@@ -195,20 +195,20 @@ gluNextContour(tess:GLUtesselator@, type:GLenum):void = `auto % {`en, 'markdown'
 	'''
 }
 
-//GLvoid():void gluNurbsCallback (GLUnurbs@ nurb, GLenum which, = `unsupport % {`en, 'markdown',
-//	R'''
-//	'''
-//}
+gluNurbsCallback(nurbs:GLUnurbs@, which:GLenum, CallBackFunc:int) = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-//gluNurbsCallbackData(nurb:GLUnurbs@, userData:GLvoid@):void = `unsupport % {`en, 'markdown',
-//	R'''
-//	'''
-//}
+gluNurbsCallbackData(nurb:GLUnurbs@, userData:int):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-//gluNurbsCallbackDataEXT(nurb:GLUnurbs@, userData:GLvoid@):void = `unsupport % {`en, 'markdown',
-//	R'''
-//	'''
-//}
+gluNurbsCallbackDataEXT(nurb:GLUnurbs@, userData:int):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
 gluNurbsCurve(nurb:GLUnurbs@, knotCount:GLint, knots:GLfloat@, stride:GLint, control:GLfloat@, order:GLint, type:GLenum):void = `auto % {`en, 'markdown',
 	R'''
@@ -230,7 +230,7 @@ gluOrtho2D(left:GLdouble, right:GLdouble, bottom:GLdouble, top:GLdouble):void = 
 	'''
 }
 
-gluPartialDisk(quad:GLUquadric@, inner:GLdouble, outer:GLdouble, slices:GLint, loops:GLint, start:GLdouble, sweep:GLdouble):void = `unsupport % {`en, 'markdown',
+gluPartialDisk(quad:GLUquadric@, inner:GLdouble, outer:GLdouble, slices:GLint, loops:GLint, start:GLdouble, sweep:GLdouble):void = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -255,10 +255,10 @@ gluPwlCurve(nurb:GLUnurbs@, count:GLint, data:GLfloat@, stride:GLint, type:GLenu
 	'''
 }
 
-//GLvoid():void gluQuadricCallback (GLUquadric@ quad, GLenum which, = `unsupport % {`en, 'markdown',
-//	R'''
-//	'''
-//}
+gluQuadricCallback(quad:GLUquadric@, which:GLenum, CallbackFunc:int) = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
 gluQuadricDrawStyle(quad:GLUquadric@, draw:GLenum):void = `auto % {`en, 'markdown',
 	R'''
@@ -280,10 +280,31 @@ gluQuadricTexture(quad:GLUquadric@, texture:GLboolean):void = `auto % {`en, 'mar
 	'''
 }
 
-//gluScaleImage(format:GLenum, wIn:GLsizei, hIn:GLsizei, typeIn:GLenum, dataIn:void@:const, wOut:GLsizei, hOut:GLsizei, typeOut:GLenum, dataOut:GLvoid@):GLint = `unsupport % {`en, 'markdown',
-//	R'''
-//	'''
-//}
+gluScaleImage(imageIn:image, wOut:GLsizei, hOut:GLsizei):GLint = R'''
+	GLenum format = GetImageFormat(sig, imageIn);
+	if (sig.IsSignalled()) return Value::Null;
+	GLsizei wIn = static_cast<GLsizei>(imageIn->GetWidth());
+	GLsizei hIn = static_cast<GLsizei>(imageIn->GetHeight());
+	GLenum typeIn = GL_UNSIGNED_BYTE;
+	const void *dataIn = imageIn->GetBuffer();
+	GLenum typeOut = GL_UNSIGNED_BYTE;
+	if (sig.IsSignalled()) return Value::Null;
+	AutoPtr<Image> imageOut(new Image(imageIn->GetFormat()));
+	if (!imageOut->AllocBuffer(sig, wOut, hOut, 0xff)) {
+		return Value::Null;
+	}
+	GLvoid *dataOut = imageOut->GetBuffer();
+	GLint rtn = ::gluScaleImage(format, wIn, hIn, typeIn, dataIn,
+										 	wOut, hOut, typeOut, dataOut);
+	if (rtn != 0) {
+		sig.SetError(ERR_RuntimeError, "gluScaleImage error");
+		return Value::Null;
+	}
+	return Value(new Object_image(env, imageOut.release()));
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 gluSphere(quad:GLUquadric@, radius:GLdouble, slices:GLint, stacks:GLint):void = `auto % {`en, 'markdown',
 	R'''
@@ -295,15 +316,15 @@ gluTessBeginContour(tess:GLUtesselator@):void = `auto % {`en, 'markdown',
 	'''
 }
 
-//gluTessBeginPolygon(tess:GLUtesselator@, data:GLvoid@):void = `unsupport % {`en, 'markdown',
-//	R'''
-//	'''
-//}
+gluTessBeginPolygon(tess:GLUtesselator@, data:int):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
-//GLvoid():void gluTessCallback (GLUtesselator@ tess, GLenum which, = `unsupport % {`en, 'markdown',
-//	R'''
-//	'''
-//}
+gluTessCallback(tess:GLUtesselator@, which:GLenum, CallBackFunc:int) = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
 
 gluTessEndContour(tess:GLUtesselator@):void = `auto % {`en, 'markdown',
 	R'''
@@ -325,10 +346,13 @@ gluTessProperty(tess:GLUtesselator@, which:GLenum, data:GLdouble):void = `auto %
 	'''
 }
 
-//gluTessVertex(tess:GLUtesselator@, location:GLdouble@, data:GLvoid@):void = `unsupport % {`en, 'markdown',
-//	R'''
-//	'''
-//}
+gluTessVertex(tess:GLUtesselator@, location:GLdouble@):void = R'''
+	gluTessVertex(tess, location, tess); // pass this object pointer to callback
+	return Value::Null;
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 gluUnProject(winX:GLdouble, winY:GLdouble, winZ:GLdouble, model:GLdouble@:const, proj:GLdouble@:const, view:GLint@:const, objX:GLdouble@, objY:GLdouble@, objZ:GLdouble@):GLint = `auto % {`en, 'markdown',
 	R'''

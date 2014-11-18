@@ -580,6 +580,77 @@ Gura_ImplementFunction(gluNextContour)
 	return Value::Null;
 }
 
+// glu.gluNurbsCallback
+Gura_DeclareFunction(gluNurbsCallback)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "nurbs", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "which", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "CallBackFunc", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(gluNurbsCallback)
+{
+#if 0
+	GLUnurbs *nurbs = Object_Nurbs::GetObject(args, 0)->GetNurbs();
+	GLenum which = static_cast<GLenum>(args.GetInt(1));
+	int CallBackFunc = args.GetInt(2);
+	gluNurbsCallback(nurbs, which, CallBackFunc);
+	return Value::Null;
+#endif
+	SetError_NotImpFunction(sig, "gluNurbsCallback");
+	return Value::Null;
+}
+
+// glu.gluNurbsCallbackData
+Gura_DeclareFunction(gluNurbsCallbackData)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "userData", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(gluNurbsCallbackData)
+{
+#if 0
+	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
+	int userData = args.GetInt(1);
+	gluNurbsCallbackData(nurb, userData);
+	return Value::Null;
+#endif
+	SetError_NotImpFunction(sig, "gluNurbsCallbackData");
+	return Value::Null;
+}
+
+// glu.gluNurbsCallbackDataEXT
+Gura_DeclareFunction(gluNurbsCallbackDataEXT)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "userData", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(gluNurbsCallbackDataEXT)
+{
+#if 0
+	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
+	int userData = args.GetInt(1);
+	gluNurbsCallbackDataEXT(nurb, userData);
+	return Value::Null;
+#endif
+	SetError_NotImpFunction(sig, "gluNurbsCallbackDataEXT");
+	return Value::Null;
+}
+
 // glu.gluNurbsCurve
 Gura_DeclareFunction(gluNurbsCurve)
 {
@@ -708,7 +779,6 @@ Gura_DeclareFunction(gluPartialDisk)
 
 Gura_ImplementFunction(gluPartialDisk)
 {
-#if 0
 	GLUquadric *quad = Object_Quadric::GetObject(args, 0)->GetQuadric();
 	GLdouble inner = args.GetDouble(1);
 	GLdouble outer = args.GetDouble(2);
@@ -717,9 +787,6 @@ Gura_ImplementFunction(gluPartialDisk)
 	GLdouble start = args.GetDouble(5);
 	GLdouble sweep = args.GetDouble(6);
 	gluPartialDisk(quad, inner, outer, slices, loops, start, sweep);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "gluPartialDisk");
 	return Value::Null;
 }
 
@@ -829,6 +896,31 @@ Gura_ImplementFunction(gluPwlCurve)
 	return Value::Null;
 }
 
+// glu.gluQuadricCallback
+Gura_DeclareFunction(gluQuadricCallback)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "quad", VTYPE_Quadric, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "which", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "CallbackFunc", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(gluQuadricCallback)
+{
+#if 0
+	GLUquadric *quad = Object_Quadric::GetObject(args, 0)->GetQuadric();
+	GLenum which = static_cast<GLenum>(args.GetInt(1));
+	int CallbackFunc = args.GetInt(2);
+	gluQuadricCallback(quad, which, CallbackFunc);
+	return Value::Null;
+#endif
+	SetError_NotImpFunction(sig, "gluQuadricCallback");
+	return Value::Null;
+}
+
 // glu.gluQuadricDrawStyle
 Gura_DeclareFunction(gluQuadricDrawStyle)
 {
@@ -905,6 +997,45 @@ Gura_ImplementFunction(gluQuadricTexture)
 	return Value::Null;
 }
 
+// glu.gluScaleImage
+Gura_DeclareFunction(gluScaleImage)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "imageIn", VTYPE_image, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "wOut", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "hOut", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(gluScaleImage)
+{
+	Image *imageIn = Object_image::GetObject(args, 0)->GetImage();
+	GLsizei wOut = args.GetInt(1);
+	GLsizei hOut = args.GetInt(2);
+	GLenum format = GetImageFormat(sig, imageIn);
+	if (sig.IsSignalled()) return Value::Null;
+	GLsizei wIn = static_cast<GLsizei>(imageIn->GetWidth());
+	GLsizei hIn = static_cast<GLsizei>(imageIn->GetHeight());
+	GLenum typeIn = GL_UNSIGNED_BYTE;
+	const void *dataIn = imageIn->GetBuffer();
+	GLenum typeOut = GL_UNSIGNED_BYTE;
+	if (sig.IsSignalled()) return Value::Null;
+	AutoPtr<Image> imageOut(new Image(imageIn->GetFormat()));
+	if (!imageOut->AllocBuffer(sig, wOut, hOut, 0xff)) {
+		return Value::Null;
+	}
+	GLvoid *dataOut = imageOut->GetBuffer();
+	GLint rtn = ::gluScaleImage(format, wIn, hIn, typeIn, dataIn,
+										 	wOut, hOut, typeOut, dataOut);
+	if (rtn != 0) {
+		sig.SetError(ERR_RuntimeError, "gluScaleImage error");
+		return Value::Null;
+	}
+	return Value(new Object_image(env, imageOut.release()));
+}
+
 // glu.gluSphere
 Gura_DeclareFunction(gluSphere)
 {
@@ -942,6 +1073,54 @@ Gura_ImplementFunction(gluTessBeginContour)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	gluTessBeginContour(tess);
+	return Value::Null;
+}
+
+// glu.gluTessBeginPolygon
+Gura_DeclareFunction(gluTessBeginPolygon)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "data", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(gluTessBeginPolygon)
+{
+#if 0
+	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
+	int data = args.GetInt(1);
+	gluTessBeginPolygon(tess, data);
+	return Value::Null;
+#endif
+	SetError_NotImpFunction(sig, "gluTessBeginPolygon");
+	return Value::Null;
+}
+
+// glu.gluTessCallback
+Gura_DeclareFunction(gluTessCallback)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "which", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "CallBackFunc", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(gluTessCallback)
+{
+#if 0
+	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
+	GLenum which = static_cast<GLenum>(args.GetInt(1));
+	int CallBackFunc = args.GetInt(2);
+	gluTessCallback(tess, which, CallBackFunc);
+	return Value::Null;
+#endif
+	SetError_NotImpFunction(sig, "gluTessCallback");
 	return Value::Null;
 }
 
@@ -1020,6 +1199,25 @@ Gura_ImplementFunction(gluTessProperty)
 	GLenum which = static_cast<GLenum>(args.GetInt(1));
 	GLdouble data = args.GetDouble(2);
 	gluTessProperty(tess, which, data);
+	return Value::Null;
+}
+
+// glu.gluTessVertex
+Gura_DeclareFunction(gluTessVertex)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_List);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(gluTessVertex)
+{
+	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
+	CArray<GLdouble> location = args.GetList(1);
+	gluTessVertex(tess, location, tess); // pass this object pointer to callback
 	return Value::Null;
 }
 
@@ -1128,6 +1326,9 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(gluNewQuadric);
 	Gura_AssignFunction(gluNewTess);
 	Gura_AssignFunction(gluNextContour);
+	Gura_AssignFunction(gluNurbsCallback);
+	Gura_AssignFunction(gluNurbsCallbackData);
+	Gura_AssignFunction(gluNurbsCallbackDataEXT);
 	Gura_AssignFunction(gluNurbsCurve);
 	Gura_AssignFunction(gluNurbsProperty);
 	Gura_AssignFunction(gluNurbsSurface);
@@ -1137,16 +1338,21 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(gluPickMatrix);
 	Gura_AssignFunction(gluProject);
 	Gura_AssignFunction(gluPwlCurve);
+	Gura_AssignFunction(gluQuadricCallback);
 	Gura_AssignFunction(gluQuadricDrawStyle);
 	Gura_AssignFunction(gluQuadricNormals);
 	Gura_AssignFunction(gluQuadricOrientation);
 	Gura_AssignFunction(gluQuadricTexture);
+	Gura_AssignFunction(gluScaleImage);
 	Gura_AssignFunction(gluSphere);
 	Gura_AssignFunction(gluTessBeginContour);
+	Gura_AssignFunction(gluTessBeginPolygon);
+	Gura_AssignFunction(gluTessCallback);
 	Gura_AssignFunction(gluTessEndContour);
 	Gura_AssignFunction(gluTessEndPolygon);
 	Gura_AssignFunction(gluTessNormal);
 	Gura_AssignFunction(gluTessProperty);
+	Gura_AssignFunction(gluTessVertex);
 	Gura_AssignFunction(gluUnProject);
 	Gura_AssignFunction(gluUnProject4);
 }
