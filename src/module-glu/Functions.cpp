@@ -71,6 +71,39 @@ Gura_ImplementFunction(gluBeginTrim)
 	return Value::Null;
 }
 
+// glu.gluBuild1DMipmapLevels
+Gura_DeclareFunction(gluBuild1DMipmapLevels)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "internalFormat", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "level", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "base", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "max", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "image", VTYPE_image, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(gluBuild1DMipmapLevels)
+{
+	GLenum target = static_cast<GLenum>(args.GetInt(0));
+	GLint internalFormat = args.GetInt(1);
+	GLint level = args.GetInt(2);
+	GLint base = args.GetInt(3);
+	GLint max = args.GetInt(4);
+	Image *image = Object_image::GetObject(args, 5)->GetImage();
+	GLsizei width = static_cast<GLsizei>(image->GetWidth());
+	GLenum format = static_cast<GLsizei>(GetImageFormat(sig, image));
+	if (sig.IsSignalled()) return Value::Null;
+	GLenum type = GL_UNSIGNED_BYTE;
+	const void *data = image->GetBuffer();
+	GLint _rtn = gluBuild1DMipmapLevels(target,
+					internalFormat, width, format, type, level, base, max, data);
+	return Value(_rtn);
+}
+
 // glu.gluBuild1DMipmaps
 Gura_DeclareFunction(gluBuild1DMipmaps)
 {
@@ -93,9 +126,72 @@ Gura_ImplementFunction(gluBuild1DMipmaps)
 	if (sig.IsSignalled()) return Value::Null;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const void *data = image->GetBuffer();
-	GLint _rtn = ::gluBuild1DMipmaps(target,
+	GLint _rtn = gluBuild1DMipmaps(target,
 					internalFormat, width, format, type, data);
 	return Value(_rtn);
+}
+
+// glu.gluBuild2DMipmapLevels
+Gura_DeclareFunction(gluBuild2DMipmapLevels)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "internalFormat", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "level", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "base", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "max", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "image", VTYPE_image, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(gluBuild2DMipmapLevels)
+{
+	GLenum target = static_cast<GLenum>(args.GetInt(0));
+	GLint internalFormat = args.GetInt(1);
+	GLint level = args.GetInt(2);
+	GLint base = args.GetInt(3);
+	GLint max = args.GetInt(4);
+	Image *image = Object_image::GetObject(args, 5)->GetImage();
+	GLsizei width = static_cast<GLsizei>(image->GetWidth());
+	GLsizei height = static_cast<GLsizei>(image->GetHeight());
+	GLenum format = static_cast<GLsizei>(GetImageFormat(sig, image));
+	if (sig.IsSignalled()) return Value::Null;
+	GLenum type = GL_UNSIGNED_BYTE;
+	const void *data = image->GetBuffer();
+	GLint _rtn = gluBuild2DMipmapLevels(target,
+					internalFormat, width, height, format, type, level, base, max, data);
+	return Value(_rtn);
+}
+
+// glu.gluBuild2DMipmaps
+Gura_DeclareFunction(gluBuild2DMipmaps)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "internalFormat", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "image", VTYPE_image, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(gluBuild2DMipmaps)
+{
+	GLenum target = static_cast<GLenum>(args.GetInt(0));
+	GLint internalFormat = args.GetInt(1);
+	Image *image = Object_image::GetObject(args, 2)->GetImage();
+	GLsizei width = static_cast<GLsizei>(image->GetWidth());
+	GLsizei height = static_cast<GLsizei>(image->GetHeight());
+	GLenum format = static_cast<GLsizei>(GetImageFormat(sig, image));
+	if (sig.IsSignalled()) return Value::Null;
+	GLenum type = GL_UNSIGNED_BYTE;
+	const void *data = image->GetBuffer();
+	GLint _rtn = gluBuild2DMipmaps(target,
+					internalFormat, width, height, format, type, data);
+	return Value(_rtn);
+ 
 }
 
 // glu.gluCheckExtension
@@ -1008,7 +1104,10 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(gluBeginPolygon);
 	Gura_AssignFunction(gluBeginSurface);
 	Gura_AssignFunction(gluBeginTrim);
+	Gura_AssignFunction(gluBuild1DMipmapLevels);
 	Gura_AssignFunction(gluBuild1DMipmaps);
+	Gura_AssignFunction(gluBuild2DMipmapLevels);
+	Gura_AssignFunction(gluBuild2DMipmaps);
 	Gura_AssignFunction(gluCheckExtension);
 	Gura_AssignFunction(gluCylinder);
 	Gura_AssignFunction(gluDeleteNurbsRenderer);

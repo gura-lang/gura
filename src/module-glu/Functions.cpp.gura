@@ -22,10 +22,19 @@ gluBeginTrim(nurb:GLUnurbs@):void = `auto % {`en, 'markdown',
 	'''
 }
 
-//gluBuild1DMipmapLevels(target:GLenum, internalFormat:GLint, width:GLsizei, format:GLenum, type:GLenum, level:GLint, base:GLint, max:GLint, data:void@:const):GLint = `unsupport % {`en, 'markdown',
-//	R'''
-//	'''
-//}
+gluBuild1DMipmapLevels(target:GLenum, internalFormat:GLint, level:GLint, base:GLint, max:GLint, image:image):GLint = R'''
+	GLsizei width = static_cast<GLsizei>(image->GetWidth());
+	GLenum format = static_cast<GLsizei>(GetImageFormat(sig, image));
+	if (sig.IsSignalled()) return Value::Null;
+	GLenum type = GL_UNSIGNED_BYTE;
+	const void *data = image->GetBuffer();
+	GLint _rtn = gluBuild1DMipmapLevels(target,
+					internalFormat, width, format, type, level, base, max, data);
+	return Value(_rtn);
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 gluBuild1DMipmaps(target:GLenum, internalFormat:GLint, image:image):GLint = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
@@ -33,7 +42,7 @@ gluBuild1DMipmaps(target:GLenum, internalFormat:GLint, image:image):GLint = R'''
 	if (sig.IsSignalled()) return Value::Null;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const void *data = image->GetBuffer();
-	GLint _rtn = ::gluBuild1DMipmaps(target,
+	GLint _rtn = gluBuild1DMipmaps(target,
 					internalFormat, width, format, type, data);
 	return Value(_rtn);
 ''' % {`en, 'markdown',
@@ -41,25 +50,50 @@ gluBuild1DMipmaps(target:GLenum, internalFormat:GLint, image:image):GLint = R'''
 	'''
 }
 
-//gluBuild2DMipmapLevels(target:GLenum, internalFormat:GLint, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, level:GLint, base:GLint, max:GLint, data:void@:const):GLint = `unsupport % {`en, 'markdown',
-//	R'''
-//	'''
-//}
+gluBuild2DMipmapLevels(target:GLenum, internalFormat:GLint, level:GLint, base:GLint, max:GLint, image:image):GLint = R'''
+	GLsizei width = static_cast<GLsizei>(image->GetWidth());
+	GLsizei height = static_cast<GLsizei>(image->GetHeight());
+	GLenum format = static_cast<GLsizei>(GetImageFormat(sig, image));
+	if (sig.IsSignalled()) return Value::Null;
+	GLenum type = GL_UNSIGNED_BYTE;
+	const void *data = image->GetBuffer();
+	GLint _rtn = gluBuild2DMipmapLevels(target,
+					internalFormat, width, height, format, type, level, base, max, data);
+	return Value(_rtn);
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-//gluBuild2DMipmaps(target:GLenum, internalFormat:GLint, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, data:void@:const):GLint = `unsupport % {`en, 'markdown',
-//	R'''
-//	'''
-//}
+gluBuild2DMipmaps(target:GLenum, internalFormat:GLint, image:image):GLint = R'''
+	GLsizei width = static_cast<GLsizei>(image->GetWidth());
+	GLsizei height = static_cast<GLsizei>(image->GetHeight());
+	GLenum format = static_cast<GLsizei>(GetImageFormat(sig, image));
+	if (sig.IsSignalled()) return Value::Null;
+	GLenum type = GL_UNSIGNED_BYTE;
+	const void *data = image->GetBuffer();
+	GLint _rtn = gluBuild2DMipmaps(target,
+					internalFormat, width, height, format, type, data);
+	return Value(_rtn);
+ ''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-//gluBuild3DMipmapLevels(target:GLenum, internalFormat:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, format:GLenum, type:GLenum, level:GLint, base:GLint, max:GLint, data:void@:const):GLint = `unsupport % {`en, 'markdown',
-//	R'''
-//	'''
-//}
+/*
+gluBuild3DMipmapLevels(target:GLenum, internalFormat:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, format:GLenum, type:GLenum, level:GLint, base:GLint, max:GLint, data:void@:const):GLint = R'''
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
-//gluBuild3DMipmaps(target:GLenum, internalFormat:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, format:GLenum, type:GLenum, data:void@:const):GLint = `unsupport % {`en, 'markdown',
-//	R'''
-//	'''
-//}
+gluBuild3DMipmaps(target:GLenum, internalFormat:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, format:GLenum, type:GLenum, data:void@:const):GLint = R'''
+
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
+*/
 
 gluCheckExtension(extName:GLubyte@:const, extString:GLubyte@:const):GLboolean = `auto % {`en, 'markdown',
 	R'''
