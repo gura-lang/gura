@@ -1,0 +1,954 @@
+#!/usr/bin/env gura
+import(modimp) {TypeConv, Renderer}
+
+decls = `{
+gluBeginCurve(nurb:GLUnurbs@):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluBeginPolygon(tess:GLUtesselator@):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluBeginSurface(nurb:GLUnurbs@):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluBeginTrim(nurb:GLUnurbs@):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+//gluBuild1DMipmapLevels(target:GLenum, internalFormat:GLint, width:GLsizei, format:GLenum, type:GLenum, level:GLint, base:GLint, max:GLint, data:void@:const):GLint = `unsupport % {`en, 'markdown',
+//	R'''
+//	'''
+//}
+
+//gluBuild1DMipmaps(target:GLenum, internalFormat:GLint, width:GLsizei, format:GLenum, type:GLenum, data:void@:const):GLint = `unsupport % {`en, 'markdown',
+//	R'''
+//	'''
+//}
+
+//gluBuild2DMipmapLevels(target:GLenum, internalFormat:GLint, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, level:GLint, base:GLint, max:GLint, data:void@:const):GLint = `unsupport % {`en, 'markdown',
+//	R'''
+//	'''
+//}
+
+//gluBuild2DMipmaps(target:GLenum, internalFormat:GLint, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, data:void@:const):GLint = `unsupport % {`en, 'markdown',
+//	R'''
+//	'''
+//}
+
+//gluBuild3DMipmapLevels(target:GLenum, internalFormat:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, format:GLenum, type:GLenum, level:GLint, base:GLint, max:GLint, data:void@:const):GLint = `unsupport % {`en, 'markdown',
+//	R'''
+//	'''
+//}
+
+//gluBuild3DMipmaps(target:GLenum, internalFormat:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, format:GLenum, type:GLenum, data:void@:const):GLint = `unsupport % {`en, 'markdown',
+//	R'''
+//	'''
+//}
+
+gluCheckExtension(extName:GLubyte@:const, extString:GLubyte@:const):GLboolean = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluCylinder(quad:GLUquadric@, base:GLdouble, top:GLdouble, height:GLdouble, slices:GLint, stacks:GLint):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluDeleteNurbsRenderer(nurb:GLUnurbs@):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluDeleteQuadric(quad:GLUquadric@):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluDeleteTess(tess:GLUtesselator@):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluDisk(quad:GLUquadric@, inner:GLdouble, outer:GLdouble, slices:GLint, loops:GLint):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluEndCurve(nurb:GLUnurbs@):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluEndPolygon(tess:GLUtesselator@):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluEndSurface(nurb:GLUnurbs@):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluEndTrim(nurb:GLUnurbs@):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+//gluErrorString(error:GLenum):GLubyte@:const = `auto % {`en, 'markdown',
+//	R'''
+//	'''
+//}
+
+gluGetNurbsProperty(nurb:GLUnurbs@, property:GLenum, data:GLfloat@):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+//gluGetString(name:GLenum):GLubyte@:const = `auto % {`en, 'markdown',
+//	R'''
+//	'''
+//}
+
+gluGetTessProperty(tess:GLUtesselator@, which:GLenum, data:GLdouble@):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluLoadSamplingMatrices(nurb:GLUnurbs@, model:GLfloat@:const, perspective:GLfloat@:const, view:GLint@:const):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluLookAt(eyeX:GLdouble, eyeY:GLdouble, eyeZ:GLdouble, centerX:GLdouble, centerY:GLdouble, centerZ:GLdouble, upX:GLdouble, upY:GLdouble, upZ:GLdouble):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluNewNurbsRenderer():GLUnurbs@ = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluNewQuadric():GLUquadric@ = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluNewTess():GLUtesselator@ = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluNextContour(tess:GLUtesselator@, type:GLenum):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+//GLvoid():void gluNurbsCallback (GLUnurbs@ nurb, GLenum which, = `unsupport % {`en, 'markdown',
+//	R'''
+//	'''
+//}
+
+//gluNurbsCallbackData(nurb:GLUnurbs@, userData:GLvoid@):void = `unsupport % {`en, 'markdown',
+//	R'''
+//	'''
+//}
+
+//gluNurbsCallbackDataEXT(nurb:GLUnurbs@, userData:GLvoid@):void = `unsupport % {`en, 'markdown',
+//	R'''
+//	'''
+//}
+
+gluNurbsCurve(nurb:GLUnurbs@, knotCount:GLint, knots:GLfloat@, stride:GLint, control:GLfloat@, order:GLint, type:GLenum):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluNurbsProperty(nurb:GLUnurbs@, property:GLenum, value:GLfloat):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluNurbsSurface(nurb:GLUnurbs@, sKnotCount:GLint, sKnots:GLfloat@, tKnotCount:GLint, tKnots:GLfloat@, sStride:GLint, tStride:GLint, control:GLfloat@, sOrder:GLint, tOrder:GLint, type:GLenum):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluOrtho2D(left:GLdouble, right:GLdouble, bottom:GLdouble, top:GLdouble):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluPartialDisk(quad:GLUquadric@, inner:GLdouble, outer:GLdouble, slices:GLint, loops:GLint, start:GLdouble, sweep:GLdouble):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluPerspective(fovy:GLdouble, aspect:GLdouble, zNear:GLdouble, zFar:GLdouble):void = `auto % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluPickMatrix(x:GLdouble, y:GLdouble, delX:GLdouble, delY:GLdouble, viewport:GLint@):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluProject(objX:GLdouble, objY:GLdouble, objZ:GLdouble, model:GLdouble@:const, proj:GLdouble@:const, view:GLint@:const, winX:GLdouble@, winY:GLdouble@, winZ:GLdouble@):GLint = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluPwlCurve(nurb:GLUnurbs@, count:GLint, data:GLfloat@, stride:GLint, type:GLenum):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+//GLvoid():void gluQuadricCallback (GLUquadric@ quad, GLenum which, = `unsupport % {`en, 'markdown',
+//	R'''
+//	'''
+//}
+
+gluQuadricDrawStyle(quad:GLUquadric@, draw:GLenum):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluQuadricNormals(quad:GLUquadric@, normal:GLenum):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluQuadricOrientation(quad:GLUquadric@, orientation:GLenum):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluQuadricTexture(quad:GLUquadric@, texture:GLboolean):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+//gluScaleImage(format:GLenum, wIn:GLsizei, hIn:GLsizei, typeIn:GLenum, dataIn:void@:const, wOut:GLsizei, hOut:GLsizei, typeOut:GLenum, dataOut:GLvoid@):GLint = `unsupport % {`en, 'markdown',
+//	R'''
+//	'''
+//}
+
+gluSphere(quad:GLUquadric@, radius:GLdouble, slices:GLint, stacks:GLint):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluTessBeginContour(tess:GLUtesselator@):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+//gluTessBeginPolygon(tess:GLUtesselator@, data:GLvoid@):void = `unsupport % {`en, 'markdown',
+//	R'''
+//	'''
+//}
+
+//GLvoid():void gluTessCallback (GLUtesselator@ tess, GLenum which, = `unsupport % {`en, 'markdown',
+//	R'''
+//	'''
+//}
+
+gluTessEndContour(tess:GLUtesselator@):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluTessEndPolygon(tess:GLUtesselator@):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluTessNormal(tess:GLUtesselator@, valueX:GLdouble, valueY:GLdouble, valueZ:GLdouble):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluTessProperty(tess:GLUtesselator@, which:GLenum, data:GLdouble):void = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+//gluTessVertex(tess:GLUtesselator@, location:GLdouble@, data:GLvoid@):void = `unsupport % {`en, 'markdown',
+//	R'''
+//	'''
+//}
+
+gluUnProject(winX:GLdouble, winY:GLdouble, winZ:GLdouble, model:GLdouble@:const, proj:GLdouble@:const, view:GLint@:const, objX:GLdouble@, objY:GLdouble@, objZ:GLdouble@):GLint = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluUnProject4(winX:GLdouble, winY:GLdouble, winZ:GLdouble, clipW:GLdouble, model:GLdouble@:const, proj:GLdouble@:const, view:GLint@:const, nearPlane:GLdouble, farPlane:GLdouble, objX:GLdouble@, objY:GLdouble@, objZ:GLdouble@, objW:GLdouble@):GLint = `unsupport % {`en, 'markdown',
+	R'''
+	'''
+}
+
+}
+
+typeConvDict = %{
+	'string[]' => TypeConv(
+			'string', 'Once', ['List'],
+			'const ValueList &${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLenum' => TypeConv(
+			'number', 'Once', [],
+			'GLenum ${arg.name} = static_cast<GLenum>(args.GetInt(${idx}));',
+			nil,
+			R'''
+			GLenum _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''')
+	'GLboolean' => TypeConv(
+			'boolean', 'Once', [],
+			'GLboolean ${arg.name} = (args.GetBoolean(${idx})? GL_TRUE : GL_FALSE);',
+			nil,
+			R'''
+			GLboolean _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));''')
+	'GLbitfield' => TypeConv(
+			'number', 'Once', [],
+			'GLbitfield ${arg.name} = args.GetUInt(${idx});',
+			nil,
+			R'''
+			GLbitfield _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''')
+	'GLbyte' => TypeConv(
+			'number', 'Once', [],
+			'GLbyte ${arg.name} = args.GetChar(${idx});',
+			nil,
+			R'''
+			GLbyte _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''')
+	'GLshort' => TypeConv(
+			'number', 'Once', [],
+			'GLshort ${arg.name} = args.GetShort(${idx});',
+			nil,
+			R'''
+			GLshort _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''')
+	'GLint' => TypeConv(
+			'number', 'Once', [],
+			'GLint ${arg.name} = args.GetInt(${idx});',
+			nil,
+			R'''
+			GLint _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''')
+	'GLsizei' => TypeConv(
+			'number', 'Once', [],
+			'GLsizei ${arg.name} = args.GetInt(${idx});',
+			nil,
+			R'''
+			GLsizei _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''')
+	'GLubyte' => TypeConv(
+			'number', 'Once', [],
+			'GLubyte ${arg.name} = args.GetUChar(${idx});',
+			nil,
+			R'''
+			GLubyte _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''')
+	'GLushort' => TypeConv(
+			'number', 'Once', [],
+			'GLushort ${arg.name} = args.GetUShort(${idx});',
+			nil,
+			R'''
+			GLushort _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''')
+	'GLuint' => TypeConv(
+			'number', 'Once', [],
+			'GLuint ${arg.name} = args.GetUInt(${idx});',
+			nil,
+			R'''
+			GLuint _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''')
+	'GLfloat' => TypeConv(
+			'number', 'Once', [],
+			'GLfloat ${arg.name} = args.GetFloat(${idx});',
+			nil,
+			R'''
+			GLfloat _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''')
+	'GLclampf' => TypeConv(
+			'number', 'Once', [],
+			'GLclampf ${arg.name} = args.GetFloat(${idx});',
+			nil,
+			R'''
+			GLclampf _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''')
+	'GLdouble' => TypeConv(
+			'number', 'Once', [],
+			'GLdouble ${arg.name} = args.GetDouble(${idx});',
+			nil,
+			R'''
+			GLdouble _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''')
+	'GLclampd' => TypeConv(
+			'number', 'Once', [],
+			'GLclampd ${arg.name} = args.GetDouble(${idx});',
+			nil,
+			R'''
+			GLclampd _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(_rtn));''')
+	'GLenum@' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<GLenum> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLenum@:const' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<GLenum> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLboolean@' => TypeConv(
+			'boolean', 'Once', ['List'],
+			'CArray<GLboolean> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLboolean@:const' => TypeConv(
+			'boolean', 'Once', ['List'],
+			'CArray<GLboolean> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLboolean@1:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLboolean> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 1) {
+				sig.SetError(ERR_ValueError, "the list must have one element");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLboolean@2:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLboolean> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 2) {
+				sig.SetError(ERR_ValueError, "the list must have two elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLboolean@3:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLboolean> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 3) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLbyte@:const' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<GLbyte> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLbyte@3:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLbyte> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 3) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLbyte@4:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLbyte> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 4) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLbyte@pname:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLbyte> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+				sig.SetError(ERR_ValueError,
+						"the list must have %d elements", GetParamCount(pname));
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLchar@' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<GLchar> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLchar@:const' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<GLchar> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLubyte@:const' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<GLubyte> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLubyte@' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<GLubyte> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLubyte@3:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLubyte> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 3) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLubyte@4:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLubyte> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 4) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLubyte@pname:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLubyte> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+				sig.SetError(ERR_ValueError,
+						"the list must have %d elements", GetParamCount(pname));
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLshort@:const' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<GLshort> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLshort@1:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLshort> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 1) {
+				sig.SetError(ERR_ValueError, "the list must have one element");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLshort@2:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLshort> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 2) {
+				sig.SetError(ERR_ValueError, "the list must have two elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLshort@3:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLshort> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 3) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLshort@4:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLshort> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 4) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLshort@pname:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLshort> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+				sig.SetError(ERR_ValueError,
+						"the list must have %d elements", GetParamCount(pname));
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLushort@' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<GLushort> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLushort@:const' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<GLushort> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLushort@3:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLushort> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 3) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLushort@4:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLushort> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 4) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLushort@pname:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLushort> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+				sig.SetError(ERR_ValueError,
+						"the list must have %d elements", GetParamCount(pname));
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLint@' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<GLint> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLint@:const' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<GLint> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLint@1:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLint> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 1) {
+				sig.SetError(ERR_ValueError, "the list must have one element");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLint@2:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLint> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 2) {
+				sig.SetError(ERR_ValueError, "the list must have two elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLint@3:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLint> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 3) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLint@4:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLint> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 4) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLint@pname:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLint> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+				sig.SetError(ERR_ValueError,
+						"the list must have %d elements", GetParamCount(pname));
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLsizei@' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<GLsizei> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLsizei@:const' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<GLsizei> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLuint@' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<GLuint> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLuint@:const' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<GLuint> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLuint@3:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLuint> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 3) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLuint@4:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLuint> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 4) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLuint@pname:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLuint> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+				sig.SetError(ERR_ValueError,
+						"the list must have %d elements", GetParamCount(pname));
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLfloat@' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<GLfloat> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLfloat@:const' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<GLfloat> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLfloat@1:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 1) {
+				sig.SetError(ERR_ValueError, "the list must have one element");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLfloat@2:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 2) {
+				sig.SetError(ERR_ValueError, "the list must have two elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLfloat@3:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 3) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLfloat@4:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 4) {
+				sig.SetError(ERR_ValueError, "the list must have four elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLfloat@16:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 16) {
+				sig.SetError(ERR_ValueError, "the list must have four elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLfloat@pname:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+				sig.SetError(ERR_ValueError,
+						"the list must have %d elements", GetParamCount(pname));
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLclampf@:const' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<GLclampf> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLdouble@' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<GLdouble> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLdouble@:const' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<GLdouble> ${arg.name} = args.GetList(${idx});',
+			nil,
+			nil)
+	'GLdouble@1:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 1) {
+				sig.SetError(ERR_ValueError, "the list must have one element");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLdouble@2:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 2) {
+				sig.SetError(ERR_ValueError, "the list must have two elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLdouble@3:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 3) {
+				sig.SetError(ERR_ValueError, "the list must have three elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLdouble@4:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 4) {
+				sig.SetError(ERR_ValueError, "the list must have four elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLdouble@16:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 16) {
+				sig.SetError(ERR_ValueError, "the list must have four elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLdouble@pname:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+				sig.SetError(ERR_ValueError,
+						"the list must have %d elements", GetParamCount(pname));
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	// GLU-specific
+	'GLUnurbs@' => TypeConv(
+			'Nurbs', 'Once', [],
+			R'''
+			GLUnurbs *${arg.name} = Object_Nurbs::GetObject(args, ${idx})->GetNurbs();
+			''',
+			nil,
+			R'''
+			GLUnurbs *_rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(new Object_Nurbs(_rtn)));''')
+	'GLUtesselator@' => TypeConv(
+			'Tesselator', 'Once', [],
+			R'''
+			GLUtesselator *${arg.name} = Object_Tesselator::GetObject(args, ${idx})->GetTesselator();
+			''',
+			nil,
+			R'''
+			GLUtesselator *_rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(new Object_Tesselator(_rtn)));''')
+	'GLUquadric@' => TypeConv(
+			'Quadric', 'Once', [],
+			R'''
+			GLUquadric *${arg.name} = Object_Quadric::GetObject(args, ${idx})->GetQuadric();
+			''',
+			nil,
+			R'''
+			GLUquadric *_rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, sig, args, Value(new Object_Quadric(_rtn)));''')
+}
+
+tmplSource = R"""
+// Don't edit this file. This has been generated by Functions.cpp.gura.
+#include "stdafx.h"
+
+Gura_BeginModuleScope(glu)
+
+${renderer.RenderImplementation()}
+
+void AssignFunctions(Environment &env)
+{
+	${renderer.RenderAssignment()}
+}
+
+Gura_EndModuleScope(glu)
+""".template()
+
+Renderer('glu', decls.children, typeConvDict, &{$funcName}) {|renderer|
+	if (sys.argv.len() > 1 && sys.argv[1] == 'test') {
+		print(renderer.RenderImplementation())
+		print(renderer.RenderAssignment())
+	} else {
+		fileNameOut = 'Functions.cpp'
+		tmplSource.render(fileNameOut)
+		println(fileNameOut, ' was created')
+	}
+}

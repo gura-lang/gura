@@ -23,6 +23,9 @@ lines:*match(r'^extern\s+(.+[\s\*]+)(\w+)\s*\((.*)\)').skipnil() {|m|
 		argsJoined = ''
 	}
 	print(argsJoined)
-	println('):', rtnType, ' = ', cond(validFlag, '`auto', '`unsupport'))
+	println('):', rtnType, ' = ', cond(validFlag, '`auto', '`unsupport'), " % {`en, 'markdown',")
+	println("\tR'''")
+	println("\t'''")
+	println('}')
 	println()
 }

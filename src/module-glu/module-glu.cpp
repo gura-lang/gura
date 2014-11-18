@@ -69,6 +69,11 @@ GLenum GetImageFormat(Signal sig, Image *pImage)
 	return format;
 }
 
+void SetError_NotImpFunction(Signal &sig, const char *funcName)
+{
+	sig.SetError(ERR_RuntimeError, "not implemented function %s", funcName);
+}
+
 //-----------------------------------------------------------------------------
 // Object_Quadric
 //-----------------------------------------------------------------------------
@@ -106,6 +111,7 @@ void Object_Quadric::Callback_QuadricErrorProc(GLenum err)
 	_pFunc_QuadricErrorProc->Eval(env, sig, *pArgs);
 }
 
+#if 0
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_Quadric
 //-----------------------------------------------------------------------------
@@ -289,10 +295,12 @@ Gura_ImplementFunction(gluQuadricCallback)
 		reinterpret_cast<funcType>(Object_Quadric::Callback_QuadricErrorProc));
 	return Value::Null;
 }
+#endif
 
 // implementation of class Quadric
 Gura_ImplementUserClass(Quadric)
 {
+#if 0
 	Gura_AssignFunction(gluQuadricNormals);
 	Gura_AssignFunction(gluQuadricTexture);
 	Gura_AssignFunction(gluQuadricOrientation);
@@ -302,6 +310,7 @@ Gura_ImplementUserClass(Quadric)
 	Gura_AssignFunction(gluPartialDisk);
 	Gura_AssignFunction(gluSphere);
 	Gura_AssignFunction(gluQuadricCallback);
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -322,6 +331,7 @@ String Object_Tesselator::ToString(bool exprFlag)
 	return String("<tesselator>");
 }
 
+#if 0
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_Tesselator
 //-----------------------------------------------------------------------------
@@ -543,9 +553,12 @@ Gura_ImplementFunction(gluEndPolygon)
 	return Value::Null;
 }
 
+#endif
+
 // implementation of class Tesselator
 Gura_ImplementUserClass(Tesselator)
 {
+#if 0
 	Gura_AssignFunction(gluTessBeginPolygon);
 	Gura_AssignFunction(gluTessBeginContour);
 	Gura_AssignFunction(gluTessVertex);
@@ -558,6 +571,7 @@ Gura_ImplementUserClass(Tesselator)
 	Gura_AssignFunction(gluBeginPolygon);
 	Gura_AssignFunction(gluNextContour);
 	Gura_AssignFunction(gluEndPolygon);
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -578,6 +592,7 @@ String Object_Nurbs::ToString(bool exprFlag)
 	return String("<nurbs>");
 }
 
+#if 0
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_Nurbs
 //-----------------------------------------------------------------------------
@@ -853,10 +868,12 @@ Gura_ImplementFunction(gluNurbsCallback)
 	sig.SetError(ERR_SystemError, "not implemented");
 	return Value::Null;
 }
+#endif
 
 // implementation of class Nurbs
 Gura_ImplementUserClass(Nurbs)
 {
+#if 0
 	Gura_AssignFunction(gluBeginSurface);
 	Gura_AssignFunction(gluBeginCurve);
 	Gura_AssignFunction(gluEndCurve);
@@ -870,8 +887,10 @@ Gura_ImplementUserClass(Nurbs)
 	Gura_AssignFunction(gluNurbsProperty);
 	Gura_AssignFunction(gluGetNurbsProperty);
 	Gura_AssignFunction(gluNurbsCallback);
+#endif
 }
 
+#if 0
 //-----------------------------------------------------------------------------
 // Gura module functions: glu
 //-----------------------------------------------------------------------------
@@ -1212,6 +1231,8 @@ Gura_ImplementFunction(gluNewNurbsRenderer)
 	return Object_Nurbs::CreateValue(nobj);
 }
 
+#endif
+
 // Module entry
 Gura_ModuleEntry()
 {
@@ -1219,6 +1240,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(Quadric,		env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Tesselator,	env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Nurbs,		env.LookupClass(VTYPE_object));
+#if 0
 	// value assignment
 	Gura_AssignValue(GLU_VERSION_1_1,                Value(GLU_VERSION_1_1));
 	Gura_AssignValue(GLU_VERSION_1_2,                Value(GLU_VERSION_1_2));
@@ -1353,6 +1375,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(gluNewQuadric);
 	Gura_AssignFunction(gluNewTess);
 	Gura_AssignFunction(gluNewNurbsRenderer);
+#endif
 	return true;
 }
 
