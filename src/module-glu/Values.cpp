@@ -126,4 +126,3 @@ void AssignValues(Environment &env)
 }
 
 Gura_EndModuleScope(glu)
-
