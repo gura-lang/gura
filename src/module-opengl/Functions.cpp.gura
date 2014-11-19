@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(modimp) {TypeConv, Renderer}
+import(cbridge) {TypeConv, Renderer}
 
 decls = `{
 glAccum(op:GLenum, value:GLfloat):void = `auto % {`en, 'markdown',
@@ -3887,13 +3887,4 @@ void AssignFunctions(Environment &env)
 Gura_EndModuleScope(opengl)
 """.template()
 
-Renderer('opengl', decls.children, typeConvDict, &{$funcName}) {|renderer|
-	if (sys.argv.len() > 1 && sys.argv[1] == 'test') {
-		print(renderer.RenderImplementation())
-		print(renderer.RenderAssignment())
-	} else {
-		fileNameOut = 'Functions.cpp'
-		tmplSource.render(fileNameOut)
-		println(fileNameOut, ' was created')
-	}
-}
+Renderer('opengl', decls.children, typeConvDict, nil).Render(tmplSource, 'Functions.cpp')

@@ -69,7 +69,7 @@ FuncInfo = class {
 	public {
 		funcNameC, funcNameGura, args, tmplCaller, resultMode, flags, body, helps
 	}
-	__init__(moduleName:string, decl:expr, typeConvDict:dict, funcNameTranslator:function):map = {
+	__init__(moduleName:string, decl:expr, typeConvDict:dict, funcNameTranslator:function:nil):map = {
 		if (!decl.isassign()) {
 			this.PrintError(decl, 'must be an assignment expression')
 			sys.exit(1)
@@ -134,7 +134,11 @@ FuncInfo = class {
 		}
 		this.moduleName = moduleName
 		this.funcNameC:string = caller.car.symbol
-		this.funcNameGura = funcNameTranslator(this.funcNameC)
+		if (funcNameTranslator) {
+			this.funcNameGura = funcNameTranslator(this.funcNameC)
+		} else {
+			this.funcNameGura = this.funcNameC
+		}
 		rtnTypeRaw = caller.attrfront.join('.')
 		if (rtnTypeRaw.isempty() && !this.validFlag) {
 			rtnTypeRaw = 'void'
@@ -424,11 +428,21 @@ typeConvDict_BuiltIn = %{
 }
 
 Renderer = class {
-	__init__(moduleName:string, decls:iterator, typeConvDict:dict, funcNameTranslator:function) = {
+	__init__(moduleName:string, decls:iterator,
+			 typeConvDict:dict, funcNameTranslator:function:nil) = {
 		typeConvDictWork = %{}
 		typeConvDictWork.store(typeConvDict_BuiltIn)
 		typeConvDictWork.store(typeConvDict)
 		this.funcInfos = FuncInfo(moduleName, decls, typeConvDictWork, funcNameTranslator):list
+	}
+	Render(tmplSource:template, fileNameOut:string) = {
+		renderer = this
+		if (sys.argv.len() > 1 && sys.argv[1] == 'test') {
+			tmplSource.render(sys.stdout)
+		} else {
+			tmplSource.render(fileNameOut)
+			sys.stderr.println(fileNameOut, ' was created.')
+		}
 	}
 	RenderImplementation() = {
 		this.funcInfos:*RenderImplementation() + '\n'
