@@ -2,7 +2,7 @@
 import(re)
 
 lines = readlines('glu.h')
-lines:*match(r'^extern\s+(.+[\s\*]+)(\w+)\s*\((.*)\)').skipnil() {|m|
+lines:*match(r'^extern\s+(.+[\s\*]+)(\w+)\s*\((.*)\)').skipnil {|m|
 	rtnType = m[1].strip().sub(r'\s*\*', '@').sub(r'^const\s+(.+)', r'\1:const')
 	funcName = m[2].strip()
 	argsRaw = m[3]
@@ -28,4 +28,7 @@ lines:*match(r'^extern\s+(.+[\s\*]+)(\w+)\s*\((.*)\)').skipnil() {|m|
 	println("\t'''")
 	println('}')
 	println()
+}
+lines:*match(r'^#define\s+GLU_(\w+)').skipnil {|m|
+	printf('Gura_AssignValueGLU(%s);\n', m[1])
 }
