@@ -17,11 +17,12 @@ Route = class {
 		this.stations:public = stations
 		this.fares:public = LookupFare(this.stations, this.stations.offset(1)):list
 		this.fareSum:public = this.fares.sum()
+		this.markFlag:public = false
 	}
 	ToString() = {
-		format('%s%s %6d',
+		format('%s%s %6d%s',
 			   format('%s-[%d]-', this.stations, this.fares).join(),
-			   this.stations.last(), this.fareSum)
+			   this.stations.last(), this.fareSum, cond(this.markFlag, ' *', ''))
 	}
 }
 
@@ -32,10 +33,10 @@ doSolve(stations[]:string, stationStart:string, stationGoal:string) = {
 		stationsExt.append(stationGoal)
 		Route(stationsExt)
 	}
-	routes = routes.sort(`ascend, routes::fareSum)
+	routes = routes.sort(`ascend, routes::fareSum):list
 	printf('%s -> %s\n', stationStart, stationGoal)
-	indices = routes:*fareSum.min():indices
-	printf('%s%s\n', routes:*ToString(), cond(0.. in indices, ' *', ''))
+	routes[routes:*fareSum.min():indices]:*markFlag = true
+	println(routes:*ToString())
 }
 stations = ['東京', '新宿', '渋谷', '三鷹', '錦糸町', '北千住']
 doSolve(stations, '東京', '東京')
