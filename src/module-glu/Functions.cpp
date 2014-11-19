@@ -7,6 +7,7 @@ Gura_BeginModuleScope(glu)
 Gura_DeclareFunction(gluBeginCurve)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -17,6 +18,13 @@ Gura_ImplementFunction(gluBeginCurve)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	gluBeginCurve(nurb);
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		gluEndCurve(nurb);
+	}
 	return Value::Null;
 }
 
@@ -24,6 +32,7 @@ Gura_ImplementFunction(gluBeginCurve)
 Gura_DeclareFunction(gluBeginPolygon)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -34,6 +43,13 @@ Gura_ImplementFunction(gluBeginPolygon)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	gluBeginPolygon(tess);
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		gluEndPolygon(tess);
+	}
 	return Value::Null;
 }
 
@@ -41,6 +57,7 @@ Gura_ImplementFunction(gluBeginPolygon)
 Gura_DeclareFunction(gluBeginSurface)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -51,6 +68,13 @@ Gura_ImplementFunction(gluBeginSurface)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	gluBeginSurface(nurb);
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		gluEndSurface(nurb);
+	}
 	return Value::Null;
 }
 
@@ -58,6 +82,7 @@ Gura_ImplementFunction(gluBeginSurface)
 Gura_DeclareFunction(gluBeginTrim)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -68,6 +93,13 @@ Gura_ImplementFunction(gluBeginTrim)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	gluBeginTrim(nurb);
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		gluEndTrim(nurb);
+	}
 	return Value::Null;
 }
 
@@ -656,7 +688,6 @@ Gura_DeclareFunction(gluNurbsCurve)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "knotCount", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "knots", VTYPE_number, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "stride", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "control", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -670,12 +701,12 @@ Gura_DeclareFunction(gluNurbsCurve)
 Gura_ImplementFunction(gluNurbsCurve)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
-	GLint knotCount = args.GetInt(1);
-	CArray<GLfloat> knots = args.GetList(2);
-	GLint stride = args.GetInt(3);
-	CArray<GLfloat> control = args.GetList(4);
-	GLint order = args.GetInt(5);
-	GLenum type = static_cast<GLenum>(args.GetInt(6));
+	CArray<GLfloat> knots = args.GetList(1);
+	GLint stride = args.GetInt(2);
+	CArray<GLfloat> control = args.GetList(3);
+	GLint order = args.GetInt(4);
+	GLenum type = static_cast<GLenum>(args.GetInt(5));
+	GLint knotCount = static_cast<GLint>(knots.GetSize());
 	gluNurbsCurve(nurb, knotCount, knots, stride, control, order, type);
 	return Value::Null;
 }
@@ -706,9 +737,7 @@ Gura_DeclareFunction(gluNurbsSurface)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "sKnotCount", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "sKnots", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "tKnotCount", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "tKnots", VTYPE_number, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "sStride", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "tStride", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -724,17 +753,18 @@ Gura_DeclareFunction(gluNurbsSurface)
 Gura_ImplementFunction(gluNurbsSurface)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
-	GLint sKnotCount = args.GetInt(1);
-	CArray<GLfloat> sKnots = args.GetList(2);
-	GLint tKnotCount = args.GetInt(3);
-	CArray<GLfloat> tKnots = args.GetList(4);
-	GLint sStride = args.GetInt(5);
-	GLint tStride = args.GetInt(6);
-	CArray<GLfloat> control = args.GetList(7);
-	GLint sOrder = args.GetInt(8);
-	GLint tOrder = args.GetInt(9);
-	GLenum type = static_cast<GLenum>(args.GetInt(10));
-	gluNurbsSurface(nurb, sKnotCount, sKnots, tKnotCount, tKnots, sStride, tStride, control, sOrder, tOrder, type);
+	CArray<GLfloat> sKnots = args.GetList(1);
+	CArray<GLfloat> tKnots = args.GetList(2);
+	GLint sStride = args.GetInt(3);
+	GLint tStride = args.GetInt(4);
+	CArray<GLfloat> control = args.GetList(5);
+	GLint sOrder = args.GetInt(6);
+	GLint tOrder = args.GetInt(7);
+	GLenum type = static_cast<GLenum>(args.GetInt(8));
+	GLint sKnotCount = static_cast<GLint>(sKnots.GetSize());
+	GLint tKnotCount = static_cast<GLint>(tKnots.GetSize());
+	gluNurbsSurface(nurb, sKnotCount, sKnots, tKnotCount, tKnots, sStride, tStride,
+	control, sOrder, tOrder, type);
 	return Value::Null;
 }
 
@@ -876,7 +906,6 @@ Gura_DeclareFunction(gluPwlCurve)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "count", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "data", VTYPE_number, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "stride", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -888,10 +917,10 @@ Gura_DeclareFunction(gluPwlCurve)
 Gura_ImplementFunction(gluPwlCurve)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
-	GLint count = args.GetInt(1);
-	CArray<GLfloat> data = args.GetList(2);
-	GLint stride = args.GetInt(3);
-	GLenum type = static_cast<GLenum>(args.GetInt(4));
+	CArray<GLfloat> data = args.GetList(1);
+	GLint stride = args.GetInt(2);
+	GLenum type = static_cast<GLenum>(args.GetInt(3));
+	GLint count = static_cast<GLint>(data.GetSize());
 	gluPwlCurve(nurb, count, data, stride, type);
 	return Value::Null;
 }
@@ -902,7 +931,7 @@ Gura_DeclareFunction(gluQuadricCallback)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "quad", VTYPE_Quadric, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "which", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "CallbackFunc", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "CallbackFunc", VTYPE_function, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -910,14 +939,13 @@ Gura_DeclareFunction(gluQuadricCallback)
 
 Gura_ImplementFunction(gluQuadricCallback)
 {
-#if 0
 	GLUquadric *quad = Object_Quadric::GetObject(args, 0)->GetQuadric();
 	GLenum which = static_cast<GLenum>(args.GetInt(1));
-	int CallbackFunc = args.GetInt(2);
-	gluQuadricCallback(quad, which, CallbackFunc);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "gluQuadricCallback");
+	const Function *CallbackFunc = Object_function::GetObject(args, 2)->GetFunction();
+	typedef void (__stdcall *funcType)();
+	Object_Quadric::GetObject(args, 0)->SetQuadricErrorProc(CallbackFunc->Reference());
+	gluQuadricCallback(quad, which,
+		reinterpret_cast<funcType>(Object_Quadric::Callback_QuadricErrorProc));
 	return Value::Null;
 }
 
@@ -1027,7 +1055,7 @@ Gura_ImplementFunction(gluScaleImage)
 		return Value::Null;
 	}
 	GLvoid *dataOut = imageOut->GetBuffer();
-	GLint rtn = ::gluScaleImage(format, wIn, hIn, typeIn, dataIn,
+	GLint rtn = gluScaleImage(format, wIn, hIn, typeIn, dataIn,
 										 	wOut, hOut, typeOut, dataOut);
 	if (rtn != 0) {
 		sig.SetError(ERR_RuntimeError, "gluScaleImage error");
@@ -1063,6 +1091,7 @@ Gura_ImplementFunction(gluSphere)
 Gura_DeclareFunction(gluTessBeginContour)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -1073,6 +1102,13 @@ Gura_ImplementFunction(gluTessBeginContour)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	gluTessBeginContour(tess);
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		gluTessEndContour(tess);
+	}
 	return Value::Null;
 }
 
@@ -1080,6 +1116,7 @@ Gura_ImplementFunction(gluTessBeginContour)
 Gura_DeclareFunction(gluTessBeginPolygon)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "data", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
@@ -1089,13 +1126,16 @@ Gura_DeclareFunction(gluTessBeginPolygon)
 
 Gura_ImplementFunction(gluTessBeginPolygon)
 {
-#if 0
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	int data = args.GetInt(1);
-	gluTessBeginPolygon(tess, data);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "gluTessBeginPolygon");
+	gluTessBeginPolygon(tess, tess); // pass this object pointer to callback
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		gluTessEndPolygon(tess);
+	}
 	return Value::Null;
 }
 

@@ -2,22 +2,62 @@
 import(modimp) {TypeConv, Renderer}
 
 decls = `{
-gluBeginCurve(nurb:GLUnurbs@):void = `auto % {`en, 'markdown',
+gluBeginCurve(nurb:GLUnurbs@):void {block?} = R'''
+	gluBeginCurve(nurb);
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		gluEndCurve(nurb);
+	}
+	return Value::Null;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-gluBeginPolygon(tess:GLUtesselator@):void = `auto % {`en, 'markdown',
+gluBeginPolygon(tess:GLUtesselator@):void {block?} = R'''
+	gluBeginPolygon(tess);
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		gluEndPolygon(tess);
+	}
+	return Value::Null;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-gluBeginSurface(nurb:GLUnurbs@):void = `auto % {`en, 'markdown',
+gluBeginSurface(nurb:GLUnurbs@):void {block?} = R'''
+	gluBeginSurface(nurb);
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		gluEndSurface(nurb);
+	}
+	return Value::Null;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-gluBeginTrim(nurb:GLUnurbs@):void = `auto % {`en, 'markdown',
+gluBeginTrim(nurb:GLUnurbs@):void {block?} = R'''
+	gluBeginTrim(nurb);
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		gluEndTrim(nurb);
+	}
+	return Value::Null;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -210,7 +250,12 @@ gluNurbsCallbackDataEXT(nurb:GLUnurbs@, userData:int):void = `unsupport % {`en, 
 	'''
 }
 
-gluNurbsCurve(nurb:GLUnurbs@, knotCount:GLint, knots:GLfloat@, stride:GLint, control:GLfloat@, order:GLint, type:GLenum):void = `auto % {`en, 'markdown',
+gluNurbsCurve(nurb:GLUnurbs@, knots:GLfloat@, stride:GLint,
+			  control:GLfloat@, order:GLint, type:GLenum):void = R'''
+	GLint knotCount = static_cast<GLint>(knots.GetSize());
+	gluNurbsCurve(nurb, knotCount, knots, stride, control, order, type);
+	return Value::Null;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -220,7 +265,14 @@ gluNurbsProperty(nurb:GLUnurbs@, property:GLenum, value:GLfloat):void = `auto % 
 	'''
 }
 
-gluNurbsSurface(nurb:GLUnurbs@, sKnotCount:GLint, sKnots:GLfloat@, tKnotCount:GLint, tKnots:GLfloat@, sStride:GLint, tStride:GLint, control:GLfloat@, sOrder:GLint, tOrder:GLint, type:GLenum):void = `auto % {`en, 'markdown',
+gluNurbsSurface(nurb:GLUnurbs@, sKnots:GLfloat@, tKnots:GLfloat@, sStride:GLint, tStride:GLint,
+				control:GLfloat@, sOrder:GLint, tOrder:GLint, type:GLenum):void = R'''
+	GLint sKnotCount = static_cast<GLint>(sKnots.GetSize());
+	GLint tKnotCount = static_cast<GLint>(tKnots.GetSize());
+	gluNurbsSurface(nurb, sKnotCount, sKnots, tKnotCount, tKnots, sStride, tStride,
+					control, sOrder, tOrder, type);
+	return Value::Null;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -245,17 +297,29 @@ gluPickMatrix(x:GLdouble, y:GLdouble, delX:GLdouble, delY:GLdouble, viewport:GLi
 	'''
 }
 
-gluProject(objX:GLdouble, objY:GLdouble, objZ:GLdouble, model:GLdouble@:const, proj:GLdouble@:const, view:GLint@:const, winX:GLdouble@, winY:GLdouble@, winZ:GLdouble@):GLint = `auto % {`en, 'markdown',
+gluProject(objX:GLdouble, objY:GLdouble, objZ:GLdouble,
+		   model:GLdouble@:const, proj:GLdouble@:const, view:GLint@:const,
+		   winX:GLdouble@, winY:GLdouble@, winZ:GLdouble@):GLint = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-gluPwlCurve(nurb:GLUnurbs@, count:GLint, data:GLfloat@, stride:GLint, type:GLenum):void = `auto % {`en, 'markdown',
+gluPwlCurve(nurb:GLUnurbs@, data:GLfloat@, stride:GLint, type:GLenum):void = R'''
+	GLint count = static_cast<GLint>(data.GetSize());
+	gluPwlCurve(nurb, count, data, stride, type);
+	return Value::Null;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-gluQuadricCallback(quad:GLUquadric@, which:GLenum, CallbackFunc:int) = `unsupport % {`en, 'markdown',
+gluQuadricCallback(quad:GLUquadric@, which:GLenum, CallbackFunc:function):void = R'''
+	typedef void (__stdcall *funcType)();
+	Object_Quadric::GetObject(args, 0)->SetQuadricErrorProc(CallbackFunc->Reference());
+	gluQuadricCallback(quad, which,
+		reinterpret_cast<funcType>(Object_Quadric::Callback_QuadricErrorProc));
+	return Value::Null;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -294,7 +358,7 @@ gluScaleImage(imageIn:image, wOut:GLsizei, hOut:GLsizei):GLint = R'''
 		return Value::Null;
 	}
 	GLvoid *dataOut = imageOut->GetBuffer();
-	GLint rtn = ::gluScaleImage(format, wIn, hIn, typeIn, dataIn,
+	GLint rtn = gluScaleImage(format, wIn, hIn, typeIn, dataIn,
 										 	wOut, hOut, typeOut, dataOut);
 	if (rtn != 0) {
 		sig.SetError(ERR_RuntimeError, "gluScaleImage error");
@@ -311,12 +375,32 @@ gluSphere(quad:GLUquadric@, radius:GLdouble, slices:GLint, stacks:GLint):void = 
 	'''
 }
 
-gluTessBeginContour(tess:GLUtesselator@):void = `auto % {`en, 'markdown',
+gluTessBeginContour(tess:GLUtesselator@):void {block?} = R'''
+	gluTessBeginContour(tess);
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		gluTessEndContour(tess);
+	}
+	return Value::Null;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-gluTessBeginPolygon(tess:GLUtesselator@, data:int):void = `unsupport % {`en, 'markdown',
+gluTessBeginPolygon(tess:GLUtesselator@, data:int):void {block?} = R'''
+	gluTessBeginPolygon(tess, tess); // pass this object pointer to callback
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		gluTessEndPolygon(tess);
+	}
+	return Value::Null;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }

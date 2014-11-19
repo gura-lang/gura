@@ -34,7 +34,7 @@ public:
 	Gura_DeclareObjectAccessor(Quadric)
 private:
 	GLUquadric *_qobj;
-	static Function *_pFunc_QuadricErrorProc;
+	static AutoPtr<Function> _pFunc_QuadricErrorProc;
 public:
 	inline Object_Quadric(GLUquadric *qobj) :
 			Object(Gura_UserClass(Quadric)), _qobj(qobj) {}
