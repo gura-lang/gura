@@ -125,6 +125,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(Quadric,		env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Tesselator,	env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Nurbs,		env.LookupClass(VTYPE_object));
+	AssignValues(env);
 	AssignFunctions(env);
 	return true;
 }
