@@ -502,6 +502,7 @@ public:
 	void ExtractFlat(ValueList &valList) const;
 	bool Accept(ValueVisitor &visitor) const;
 	void Append(const ValueList &valList);
+	bool Append(Environment &env, Signal sig, Iterator *pIterator);
 	void Print(Signal sig, int indentLevel = 0) const;
 	bool ToStringList(Signal sig, StringList &strList) const;
 	static bool AssumeSameLength(Signal sig,

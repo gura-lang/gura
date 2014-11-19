@@ -2002,44 +2002,23 @@ Gura_ImplementBinaryOperator(Cmp, timedelta, timedelta)
 Gura_ImplementBinaryOperator(Contains, any, any)
 {
 	if (valueLeft.Is_list() || valueLeft.Is_iterator()) {
-		Value result;
-		ValueList &valList = result.InitAsList(env);
-		AutoPtr<Iterator> pIterator(valueLeft.CreateIterator(sig));
-		if (pIterator.IsNull()) return Value::Null;
+		AutoPtr<Iterator_Contains> pIterator(new Iterator_Contains(valueLeft.CreateIterator(sig)));
+		if (sig.IsSignalled()) return Value::Null;
+		ValueList &valListToFind = pIterator->GetValueListToFind();
 		if (valueRight.Is_list()) {
-			const ValueList &valListToFind = valueRight.GetList();
-			Value value;
-			while (pIterator->Next(env, sig, value)) {
-				valList.push_back(valListToFind.DoesContain(env, sig, value));
-				if (sig.IsSignalled()) return Value::Null;
-			}
-			if (sig.IsSignalled()) {
-				return Value::Null;
-			}
+			valListToFind.Append(valueRight.GetList());
 		} else if (valueRight.Is_iterator()) {
-			Value value;
-			while (pIterator->Next(env, sig, value)) {
-				AutoPtr<Iterator> pIteratorToFind(valueRight.CreateIterator(sig));
-				if (pIteratorToFind.IsNull()) break;
-				bool foundFlag = pIteratorToFind->DoesContain(env, sig, value);
-				if (sig.IsSignalled()) break;
-				valList.push_back(foundFlag);
-			}
-			if (sig.IsSignalled()) {
-				return Value::Null;
-			}
+			AutoPtr<Iterator> pIteratorToFind(valueRight.CreateIterator(sig));
+			if (pIteratorToFind.IsNull()) return Value::Null;
+			valListToFind.Append(env, sig, pIteratorToFind.get());
+			if (sig.IsSignalled()) return Value::Null;
 		} else {
-			Value value;
-			while (pIterator->Next(env, sig, value)) {
-				int cmp = Value::Compare(env, sig, value, valueRight);
-				if (sig.IsSignalled()) return Value::Null;
-				valList.push_back(cmp == 0);
-			}
-			if (sig.IsSignalled()) {
-				return Value::Null;
-			}
+			valListToFind.push_back(valueRight);
 		}
-		return result;
+		if (valueLeft.Is_iterator()) {
+			return Value(new Object_iterator(env, pIterator.release()));
+		}
+		return pIterator->ToList(env, sig, true, false);
 	} else if (valueRight.Is_list()) {
 		bool foundFlag = valueRight.GetList().DoesContain(env, sig, valueLeft);
 		if (sig.IsSignalled()) return Value::Null;

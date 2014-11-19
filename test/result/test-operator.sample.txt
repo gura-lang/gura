@@ -118,12 +118,12 @@ nil & nil .. nil
 2 in 4 .. 10 .. false
 2 in [0 .. 10] .. true
 2 in [4 .. 10] .. false
-0 .. 10 in 4 .. [false, false, false, false, true, false, false, false, false, false, false]
-0 .. 10 in (-2) .. [false, false, false, false, false, false, false, false, false, false, false]
-0 .. 10 in 0 .. 5 .. [true, true, true, true, true, true, false, false, false, false, false]
-0 .. 10 in 4 .. 8 .. [false, false, false, false, true, true, true, true, true, false, false]
-0 .. 10 in [0 .. 5] .. [true, true, true, true, true, true, false, false, false, false, false]
-0 .. 10 in [4 .. 8] .. [false, false, false, false, true, true, true, true, true, false, false]
+[0 .. 10 in 4] .. [false, false, false, false, true, false, false, false, false, false, false]
+[0 .. 10 in (-2)] .. [false, false, false, false, false, false, false, false, false, false, false]
+[0 .. 10 in 0 .. 5] .. [true, true, true, true, true, true, false, false, false, false, false]
+[0 .. 10 in 4 .. 8] .. [false, false, false, false, true, true, true, true, true, false, false]
+[0 .. 10 in [0 .. 5]] .. [true, true, true, true, true, true, false, false, false, false, false]
+[0 .. 10 in [4 .. 8]] .. [false, false, false, false, true, true, true, true, true, false, false]
 [0 .. 10] in 4 .. [false, false, false, false, true, false, false, false, false, false, false]
 [0 .. 10] in (-2) .. [false, false, false, false, false, false, false, false, false, false, false]
 [0 .. 10] in 0 .. 5 .. [true, true, true, true, true, true, false, false, false, false, false]

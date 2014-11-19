@@ -407,6 +407,23 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// Iterator_Contains
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Iterator_Contains : public Iterator {
+private:
+	AutoPtr<Iterator> _pIterator;
+	ValueList _valListToFind;
+public:
+	inline Iterator_Contains(Iterator *pIterator) :
+		Iterator(pIterator->IsInfinite()), _pIterator(pIterator) {}
+	ValueList &GetValueListToFind() { return _valListToFind; }
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual String ToString() const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+};
+
+//-----------------------------------------------------------------------------
 // Iterator_Skip
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_Skip : public Iterator {

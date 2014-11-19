@@ -904,6 +904,19 @@ void ValueList::Append(const ValueList &valList)
 	}
 }
 
+bool ValueList::Append(Environment &env, Signal sig, Iterator *pIterator)
+{
+	if (pIterator->IsInfinite()) {
+		Iterator::SetError_InfiniteNotAllowed(sig);
+		return false;
+	}
+	Value value;
+	while (pIterator->Next(env, sig, value)) {
+		push_back(value);
+	}
+	return !sig.IsSignalled();
+}
+
 void ValueList::Print(Signal sig, int indentLevel) const
 {
 	foreach_const (ValueList, pValue, *this) {

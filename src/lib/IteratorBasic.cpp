@@ -890,6 +890,36 @@ void Iterator_Delay::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &
 }
 
 //-----------------------------------------------------------------------------
+// Iterator_Contains
+//-----------------------------------------------------------------------------
+Iterator *Iterator_Contains::GetSource()
+{
+	return _pIterator.get();
+}
+
+bool Iterator_Contains::DoNext(Environment &env, Signal sig, Value &value)
+{
+	Value valueElem;
+	if (!_pIterator->Next(env, sig, valueElem)) return false;
+	value = Value(_valListToFind.DoesContain(env, sig, valueElem));
+	return !sig.IsSignalled();
+}
+
+String Iterator_Contains::ToString() const
+{
+	String rtn;
+	rtn += "Contains";
+	return rtn;
+}
+
+void Iterator_Contains::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+	if (_cntRef == 1) {
+		_pIterator->GatherFollower(pFrame, envSet);
+	}
+}
+
+//-----------------------------------------------------------------------------
 // Iterator_Skip
 //-----------------------------------------------------------------------------
 Iterator *Iterator_Skip::GetSource()
