@@ -33,9 +33,9 @@ doSolve(stations[]:string, stationStart:string, stationGoal:string) = {
 		Route(stationsExt)
 	}
 	routes = routes.sort(`ascend, routes::fareSum)
-	indices = routes:*fareSum.min():indices
 	printf('%s -> %s\n', stationStart, stationGoal)
-	printf('%s%s\n', routes:*ToString(), cond(range(routes.len()) in indices, ' *', ''))
+	indices = routes:*fareSum.min():indices
+	printf('%s%s\n', routes:*ToString(), cond(0.. in indices, ' *', ''))
 }
 stations = ['東京', '新宿', '渋谷', '三鷹', '錦糸町', '北千住']
 doSolve(stations, '東京', '東京')
