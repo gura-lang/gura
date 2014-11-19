@@ -1,5 +1,6 @@
 #!/usr/bin/env gura
 import(re)
+import(cbridge) {TypeConv, Renderer}
 
 decls = `{
 //-----------------------------------------------------------------------------
@@ -3469,8 +3470,6 @@ SDL_acos(x:double):double {block?} = `auto % {`en, 'markdown',
 }
 }
 
-import(modimp) {TypeConv, Renderer}
-
 TypeConv_Enum(typeName:string) = {
 	typeName => TypeConv(
 			'number', 'Once', [],
@@ -3778,13 +3777,5 @@ void AssignFunctions(Environment &env)
 Gura_EndModuleScope(sdl2)
 """.template()
 
-Renderer('sdl2', decls.children, typeConvDict, &{$funcNameC.sub('^SDL_', '')}) {|renderer|
-	if (sys.argv.len() > 1 && sys.argv[1] == 'test') {
-		print(renderer.RenderImplementation())
-		print(renderer.RenderAssignment())
-	} else {
-		fileNameOut = 'Functions.cpp'
-		tmplSource.render(fileNameOut)
-		println(fileNameOut, ' was created')
-	}
-}
+Renderer('sdl2', decls.children, typeConvDict,
+		 &{$funcNameC.sub('^SDL_', '')}).Render(tmplSource, 'Functions.cpp')
