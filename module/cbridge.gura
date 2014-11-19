@@ -425,6 +425,11 @@ typeConvDict_BuiltIn = %{
 			'Image *${arg.name} = Object_image::GetObject(args, ${idx})->GetImage();',
 			nil,
 			nil)
+	'function' => TypeConv(
+			'function', 'Once', [],
+			'const Function *${arg.name} = Object_function::GetObject(args, ${idx})->GetFunction();',
+			nil,
+			nil)
 }
 
 Renderer = class {

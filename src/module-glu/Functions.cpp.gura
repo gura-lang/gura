@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(modimp) {TypeConv, Renderer}
+import(cbridge) {TypeConv, Renderer}
 
 decls = `{
 gluBeginCurve(nurb:GLUnurbs@):void {block?} = R'''
@@ -1095,13 +1095,4 @@ void AssignFunctions(Environment &env)
 Gura_EndModuleScope(glu)
 """.template()
 
-Renderer('glu', decls.children, typeConvDict, &{$funcName}) {|renderer|
-	if (sys.argv.len() > 1 && sys.argv[1] == 'test') {
-		print(renderer.RenderImplementation())
-		print(renderer.RenderAssignment())
-	} else {
-		fileNameOut = 'Functions.cpp'
-		tmplSource.render(fileNameOut)
-		println(fileNameOut, ' was created')
-	}
-}
+Renderer('glu', decls.children, typeConvDict, nil).Render(tmplSource, 'Functions.cpp')
