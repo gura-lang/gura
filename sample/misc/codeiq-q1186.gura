@@ -1,0 +1,42 @@
+#!/usr/bin/env gura
+// Answer for the question: https://codeiq.jp/ace/egi/q1186
+
+fareTable = %{
+	'東京' => %{             '新宿' => 200, '渋谷' => 200, '三鷹' => 390, '錦糸町' => 160, '北千住' => 220}
+	'新宿' => %{'東京' => 200,              '渋谷' => 160, '三鷹' => 220, '錦糸町' => 220, '北千住' => 310}
+	'渋谷' => %{'東京' => 200, '新宿' => 160,              '三鷹' => 310, '錦糸町' => 220, '北千住' => 310}
+	'三鷹' => %{'東京' => 390, '新宿' => 220, '渋谷' => 310,              '錦糸町' => 470, '北千住' => 550}
+	'錦糸町' => %{'東京' => 160, '新宿' => 220, '渋谷' => 220, '三鷹' => 470,              '北千住' => 220}
+	'北千住' => %{'東京' => 220, '新宿' => 310, '渋谷' => 310, '三鷹' => 550, '錦糸町' => 220             }
+}
+
+LookupFare(start:string, end:string):map = fareTable[start][end]
+
+Route = class {
+	__init__(stations[]:string) = {
+		this.stations:public = stations
+		this.fares:public = LookupFare(this.stations, this.stations.offset(1)):list
+		this.fareSum:public = this.fares.sum()
+	}
+	ToString() = {
+		format('%s%s %6d',
+			   format('%s-[%d]-', this.stations, this.fares).join(),
+			   this.stations.last(), this.fareSum)
+	}
+}
+
+doSolve(stations[]:string, stationStart:string, stationGoal:string) = {
+	stationsMid = stations.filter(!(stations in [stationStart, stationGoal])):list
+	routes = stationsMid.permutation():list {|stationsExt|
+		stationsExt.insert(0, stationStart)
+		stationsExt.append(stationGoal)
+		Route(stationsExt)
+	}
+	routes = routes.sort(`ascend, routes::fareSum)
+	indices = routes:*fareSum.min():indices
+	printf('%s -> %s\n', stationStart, stationGoal)
+	printf('%s%s\n', routes:*ToString(), cond(range(routes.len()) in indices, ' *', ''))
+}
+stations = ['東京', '新宿', '渋谷', '三鷹', '錦糸町', '北千住']
+doSolve(stations, '東京', '東京')
+doSolve(stations, '東京', '錦糸町')
