@@ -446,7 +446,7 @@ Renderer = class {
 			tmplSource.render(sys.stdout)
 		} else {
 			tmplSource.render(fileNameOut)
-			sys.stderr.println(fileNameOut, ' was created.')
+			sys.stderr.println(fileNameOut, ' was created')
 		}
 	}
 	RenderImplementation() = {
