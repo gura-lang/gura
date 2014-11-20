@@ -198,10 +198,9 @@ glClearStencil(s:GLint):void:map = `auto % {`en, 'markdown',
 	'''
 }
 
-glClipPlane(plane:GLenum):map {block?} = R'''
-	GLdouble equation[4];
+glClipPlane(plane:GLenum, equation:GLdouble@4):map {block?} = R'''
 	glGetClipPlane(plane, equation);
-	return Value::CreateList(env, equation, ArraySizeOf(equation));
+	return Value::CreateList(env, equation, equation.GetSize());
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -3839,6 +3838,16 @@ typeConvDict = %{
 			nil,
 			nil)
 	'GLdouble@4:const' => TypeConv(
+			'number', 'Once', ['List'],
+			R'''
+			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
+			if (${arg.name}.GetSize() != 4) {
+				sig.SetError(ERR_ValueError, "the list must have four elements");
+				return Value::Null;
+			}''',
+			nil,
+			nil)
+	'GLdouble@4' => TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLdouble> ${arg.name} = args.GetList(${idx});

@@ -460,6 +460,7 @@ Gura_DeclareFunction(glClipPlane)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "plane", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "equation", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -468,9 +469,13 @@ Gura_DeclareFunction(glClipPlane)
 Gura_ImplementFunction(glClipPlane)
 {
 	GLenum plane = static_cast<GLenum>(args.GetInt(0));
-	GLdouble equation[4];
+	CArray<GLdouble> equation = args.GetList(1);
+	if (equation.GetSize() != 4) {
+		sig.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Null;
+	}
 	glGetClipPlane(plane, equation);
-	return Value::CreateList(env, equation, ArraySizeOf(equation));
+	return Value::CreateList(env, equation, equation.GetSize());
 }
 
 // opengl.glColor3b
