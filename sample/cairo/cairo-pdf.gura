@@ -21,5 +21,6 @@ cairo.create(cairo.pdf_surface.create('cairo-pdf.pdf', units.mm$pt(100), units.m
 	cr.rectangle(0.0, 0.0, 1, 1)
 	cr.set_source(linear)
 	cr.fill()
+	cr.show_page()
 }
 println('cairo-pdf.pdf was created')
