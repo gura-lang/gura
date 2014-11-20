@@ -1,26 +1,71 @@
 #!/usr/bin/env gura
 import(re)
 
-lines = readlines('gl.h')
-lines:*match(r'^extern\s+(.+[\s\*]+)(\w+)\s*\((.*)\)').skipnil() {|m|
-	rtnType = m[1].strip().sub(r'\s*\*', '@').sub(r'^const\s+(.+)', r'\1:const')
-	funcName = m[2].strip()
-	argsRaw = m[3]
-	print(funcName, '(')
-	args = argsRaw.split(',')::strip()
-	print(args.each():xiter {|arg|
-		(arg == 'void') && continue
-		m2 = arg.match(r'^(.+[\s\*]+)(\w+)')
-		varTypeRaw = m2[1].strip()
-		varType = varTypeRaw.sub(r'\s*\*', '@').sub(r'^const\s+(.+)', r'\1:const')
-		varName = m2[2].strip()
-		varName + ':' + varType
-	}.join(', '))
-	print('):', rtnType)
-	if (argsRaw.find('*')) {
-		println(' = `unsupport')
-	} else {
-		println(' = `auto')
-	}
-	println()
+fileNameHdr = 'gl.h'
+fileNameFunctions = 'Functions.cpp'
+fileNameValues = 'Values.cpp'
+moduleName = 'opengl'
+patternConst = r'^#define\s+(GL_\w+)'
+
+tmplFunction = R"""
+${funcName}(${argsJoined}):${rtnType} = ${
+				cond(validFlag, '`auto', '`unsupport')} % {`en, 'markdown',
+	R'''
+	'''
 }
+""".template()
+
+tmplValuesFile = R'''
+#include "stdafx.h"
+
+Gura_BeginModuleScope(${moduleName})
+
+void AssignValues(Environment &env)
+{
+${valueAssignments}
+}
+
+Gura_EndModuleScope(${moduleName})
+'''.template()
+
+tmplValue = R'''
+#if defined(${varName})
+	Gura_AssignValue(${varName}, Value(${varName}));
+#endif
+'''.template()
+
+lines = readlines(fileNameHdr):list
+
+open(fileNameFunctions, 'w') {|f|
+	lines:*match(r'^extern\s+(.+[\s\*]+)(\w+)\s*\((.*)\)').skipnil {|m|
+		rtnType = m[1].strip().sub(r'\s*\*', '@').sub(r'^const\s+(.+)', r'\1:const')
+		funcName = m[2].strip()
+		argsRaw = m[3]
+		args = argsRaw.split(',')::strip()
+		validFlag = !argsRaw.find('*')
+		try {
+			argsJoined = args.each():xiter {|arg|
+				(arg == 'void') && continue
+				m2 = arg.match(r'^(.+[\s\*]+)(\w+)')
+				varTypeRaw = m2[1].strip()
+				varType = varTypeRaw.sub(r'\s*\*', '@').sub(r'^const\s+(.+)', r'\1:const')
+				varName = m2[2].strip()
+				varName + ':' + varType
+			}.join(', ')
+		} catch {
+			validFlag = false
+			argsJoined = ''
+		}
+		tmplFunction.render(f)
+	}
+}
+sys.stderr.println(fileNameFunctions, ' was created')
+
+open(fileNameValues, 'w') {|f|
+	valueAssignments = lines:*match(patternConst).skipnil():iter {|m|
+		varName = m[1]
+		tmplValue.render()
+	}
+	tmplValuesFile.render(f)
+}
+sys.stderr.println(fileNameValues, ' was created')
