@@ -117,7 +117,8 @@ ExportResult() = {
 	keys = constNameDict.keys().sort():list
 	keysEx = '{ ' + keys + ','
 	aligner = utils.Aligner(keysEx)
-	printf('%s%s%2d },\n', keysEx, aligner.tab(keysEx), constNameDict.get(keys))
+	printf('#if defined(%s)\n\t\t%s%s%2d },\n#endif\n',
+		   keys, keysEx, aligner.tab(keysEx), constNameDict.get(keys))
 }
 
 ParseFile(path.glob('params-*.txt'))
