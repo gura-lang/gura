@@ -11,7 +11,9 @@ Gura_RealizeUserClassExWithoutPrepare(className, #className, env.LookupClass(VTY
 #define PrepareClass(className) \
 Gura_UserClass(className)->Prepare(env)
 
-#define Gura_AssignValueConst(name) Gura_AssignValue(name, Value(name))
+#define Gura_AssignValueKMOD(name) Gura_AssignValue(KMOD_##name, Value(KMOD_##name))
+
+#define Gura_AssignValueAUDIO(name) Gura_AssignValue(AUDIO_##name, Value(AUDIO_##name))
 
 #define Gura_AssignValueSDL(name) Gura_AssignValue(name, Value(SDL_##name))
 
@@ -685,23 +687,23 @@ void AssignValues(Environment &env)
 	Gura_AssignValueKeycode(QUOTEDBL);
 	Gura_AssignValueKeycode(RIGHTPAREN);
 	Gura_AssignValueKeycode(UNDERSCORE);
-	Gura_AssignValueConst(KMOD_NONE);
-	Gura_AssignValueConst(KMOD_LSHIFT);
-	Gura_AssignValueConst(KMOD_RSHIFT);
-	Gura_AssignValueConst(KMOD_LCTRL);
-	Gura_AssignValueConst(KMOD_RCTRL);
-	Gura_AssignValueConst(KMOD_LALT);
-	Gura_AssignValueConst(KMOD_RALT);
-	Gura_AssignValueConst(KMOD_LGUI);
-	Gura_AssignValueConst(KMOD_RGUI);
-	Gura_AssignValueConst(KMOD_NUM);
-	Gura_AssignValueConst(KMOD_CAPS);
-	Gura_AssignValueConst(KMOD_MODE);
-	Gura_AssignValueConst(KMOD_CTRL);
-	Gura_AssignValueConst(KMOD_SHIFT);
-	Gura_AssignValueConst(KMOD_ALT);
-	Gura_AssignValueConst(KMOD_GUI);
-	Gura_AssignValueConst(KMOD_RESERVED);
+	Gura_AssignValueKMOD(NONE);
+	Gura_AssignValueKMOD(LSHIFT);
+	Gura_AssignValueKMOD(RSHIFT);
+	Gura_AssignValueKMOD(LCTRL);
+	Gura_AssignValueKMOD(RCTRL);
+	Gura_AssignValueKMOD(LALT);
+	Gura_AssignValueKMOD(RALT);
+	Gura_AssignValueKMOD(LGUI);
+	Gura_AssignValueKMOD(RGUI);
+	Gura_AssignValueKMOD(NUM);
+	Gura_AssignValueKMOD(CAPS);
+	Gura_AssignValueKMOD(MODE);
+	Gura_AssignValueKMOD(CTRL);
+	Gura_AssignValueKMOD(SHIFT);
+	Gura_AssignValueKMOD(ALT);
+	Gura_AssignValueKMOD(GUI);
+	Gura_AssignValueKMOD(RESERVED);
 	// Input Events - Mouse Support
 	// Input Events - Joystick Support
 	Gura_AssignValueSDL(HAT_CENTERED);
@@ -761,24 +763,24 @@ void AssignValues(Environment &env)
 	Gura_AssignValueSDL(AUDIO_MASK_DATATYPE);
 	Gura_AssignValueSDL(AUDIO_MASK_ENDIAN);
 	Gura_AssignValueSDL(AUDIO_MASK_SIGNED);
-	Gura_AssignValueConst(AUDIO_S8);			// Audio Format Values
-	Gura_AssignValueConst(AUDIO_U8);
-	Gura_AssignValueConst(AUDIO_S16LSB);
-	Gura_AssignValueConst(AUDIO_S16MSB);
-	Gura_AssignValueConst(AUDIO_S16SYS);
-	Gura_AssignValueConst(AUDIO_S16);
-	Gura_AssignValueConst(AUDIO_U16LSB);
-	Gura_AssignValueConst(AUDIO_U16MSB);
-	Gura_AssignValueConst(AUDIO_U16SYS);
-	Gura_AssignValueConst(AUDIO_U16);
-	Gura_AssignValueConst(AUDIO_S32LSB);
-	Gura_AssignValueConst(AUDIO_S32MSB);
-	Gura_AssignValueConst(AUDIO_S32SYS);
-	Gura_AssignValueConst(AUDIO_S32);
-	Gura_AssignValueConst(AUDIO_F32LSB);
-	Gura_AssignValueConst(AUDIO_F32MSB);
-	Gura_AssignValueConst(AUDIO_F32SYS);
-	Gura_AssignValueConst(AUDIO_F32);
+	Gura_AssignValueAUDIO(S8);					// Audio Format Values
+	Gura_AssignValueAUDIO(U8);
+	Gura_AssignValueAUDIO(S16LSB);
+	Gura_AssignValueAUDIO(S16MSB);
+	Gura_AssignValueAUDIO(S16SYS);
+	Gura_AssignValueAUDIO(S16);
+	Gura_AssignValueAUDIO(U16LSB);
+	Gura_AssignValueAUDIO(U16MSB);
+	Gura_AssignValueAUDIO(U16SYS);
+	Gura_AssignValueAUDIO(U16);
+	Gura_AssignValueAUDIO(S32LSB);
+	Gura_AssignValueAUDIO(S32MSB);
+	Gura_AssignValueAUDIO(S32SYS);
+	Gura_AssignValueAUDIO(S32);
+	Gura_AssignValueAUDIO(F32LSB);
+	Gura_AssignValueAUDIO(F32MSB);
+	Gura_AssignValueAUDIO(F32SYS);
+	Gura_AssignValueAUDIO(F32);
 	Gura_AssignValueSDL(AUDIO_STOPPED);			// Audio Status
 	Gura_AssignValueSDL(AUDIO_PLAYING);
 	Gura_AssignValueSDL(AUDIO_PAUSED);
