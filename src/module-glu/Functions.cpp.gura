@@ -62,6 +62,7 @@ gluBeginTrim(nurb:GLUnurbs@):void {block?} = R'''
 	'''
 }
 
+/*
 gluBuild1DMipmapLevels(target:GLenum, internalFormat:GLint, level:GLint, base:GLint, max:GLint, image:image):GLint = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLenum format = static_cast<GLsizei>(GetImageFormat(sig, image));
@@ -75,6 +76,7 @@ gluBuild1DMipmapLevels(target:GLenum, internalFormat:GLint, level:GLint, base:GL
 	R'''
 	'''
 }
+*/
 
 gluBuild1DMipmaps(target:GLenum, internalFormat:GLint, image:image):GLint = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
@@ -90,6 +92,7 @@ gluBuild1DMipmaps(target:GLenum, internalFormat:GLint, image:image):GLint = R'''
 	'''
 }
 
+/*
 gluBuild2DMipmapLevels(target:GLenum, internalFormat:GLint, level:GLint, base:GLint, max:GLint, image:image):GLint = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLsizei height = static_cast<GLsizei>(image->GetHeight());
@@ -104,6 +107,7 @@ gluBuild2DMipmapLevels(target:GLenum, internalFormat:GLint, level:GLint, base:GL
 	R'''
 	'''
 }
+*/
 
 gluBuild2DMipmaps(target:GLenum, internalFormat:GLint, image:image):GLint = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
@@ -135,10 +139,12 @@ gluBuild3DMipmaps(target:GLenum, internalFormat:GLint, width:GLsizei, height:GLs
 }
 */
 
+/*
 gluCheckExtension(extName:GLubyte@:const, extString:GLubyte@:const):GLboolean = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
 gluCylinder(quad:GLUquadric@, base:GLdouble, top:GLdouble, height:GLdouble, slices:GLint, stacks:GLint):void = `auto % {`en, 'markdown',
 	R'''
@@ -443,10 +449,12 @@ gluUnProject(winX:GLdouble, winY:GLdouble, winZ:GLdouble, model:GLdouble@:const,
 	'''
 }
 
+/*
 gluUnProject4(winX:GLdouble, winY:GLdouble, winZ:GLdouble, clipW:GLdouble, model:GLdouble@:const, proj:GLdouble@:const, view:GLint@:const, nearPlane:GLdouble, farPlane:GLdouble, objX:GLdouble@, objY:GLdouble@, objZ:GLdouble@, objW:GLdouble@):GLint = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
 }
 
