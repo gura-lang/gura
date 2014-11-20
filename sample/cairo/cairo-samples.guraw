@@ -498,7 +498,7 @@ Frame = class(wx.Frame) {
 				vbox.Add(ctrl, wx.SizerFlags().Centre().Border(wx.TOP, 4))
 				this.canvas = ctrl
 			}
-			wx.TextCtrl(panel, wx.ID_ANY) {|ctrl|
+			wx.TextCtrl(panel, wx.ID_ANY, style => wx.TE_MULTILINE) {|ctrl|
 				ctrl.SetFont(wx.Font(12, wx.FONTFAMILY_TELETYPE,
 									 wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL))
 				vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 4))
