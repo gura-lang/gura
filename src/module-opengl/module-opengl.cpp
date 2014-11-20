@@ -23,6 +23,13 @@ size_t GetParamCount(GLenum pname)
 	return iter->second;
 }
 
+bool CheckParamCount(GLenum pname, size_t n)
+{
+	ParamInfoDict::iterator iter = _pParamInfoDict->find(pname);
+	if (iter == _pParamInfoDict->end()) return true;
+	return n == iter->second;
+}
+
 void PrepareParamInfoDict()
 {
 	_pParamInfoDict = new ParamInfoDict();

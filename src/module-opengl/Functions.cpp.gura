@@ -2,13 +2,13 @@
 import(cbridge) {TypeConv, Renderer}
 
 decls = `{
-glAccum(op:GLenum, value:GLfloat):void = `auto % {`en, 'markdown',
+glAccum(op:GLenum, value:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	operate on the accumulation buffer
 	'''
 }
 
-glAlphaFunc(func:GLenum, ref:GLclampf):void = `auto % {`en, 'markdown',
+glAlphaFunc(func:GLenum, ref:GLclampf):void:map = `auto % {`en, 'markdown',
 	R'''
 	specify the alpha test function
 	'''
@@ -31,13 +31,13 @@ glAreTexturesResident(textures:GLuint@:const):GLboolean:map {block?} = R'''
 	'''
 }
 
-glArrayElement(i:GLint):void = `auto % {`en, 'markdown',
+glArrayElement(i:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	render a vertex using the specified vertex array element
 	'''
 }
 
-glBegin(mode:GLenum):void {block?} = R'''
+glBegin(mode:GLenum):void:map {block?} = R'''
 	glBegin(mode);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = NULL;
@@ -53,14 +53,14 @@ glBegin(mode:GLenum):void {block?} = R'''
 	'''
 }
 
-glBindTexture(target:GLenum, texture:GLuint):void = `auto % {`en, 'markdown',
+glBindTexture(target:GLenum, texture:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glBitmap(width:GLsizei, height:GLsizei, xorig:GLfloat, yorig:GLfloat, xmove:GLfloat, ymove:GLfloat, bitmap:binary):void = R'''
+glBitmap(width:GLsizei, height:GLsizei, xorig:GLfloat, yorig:GLfloat, xmove:GLfloat, ymove:GLfloat, bitmap:binary):void:map = R'''
 	size_t bytesReq = ((width + 7) / 8) * height;
-	if (bytesReq < bitmap.size()) {
+	if (bitmap.size() < bytesReq) {
 		sig.SetError(ERR_ValueError, "binary doesn\'t contain enough data");
 		return Value::Null;
 	}
@@ -72,32 +72,32 @@ glBitmap(width:GLsizei, height:GLsizei, xorig:GLfloat, yorig:GLfloat, xmove:GLfl
 	'''
 }
 
-glBlendColor(red:GLclampf, green:GLclampf, blue:GLclampf, alpha:GLclampf):void = `auto % {`en, 'markdown',
+glBlendColor(red:GLclampf, green:GLclampf, blue:GLclampf, alpha:GLclampf):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glBlendEquation(mode:GLenum):void = `auto % {`en, 'markdown',
+glBlendEquation(mode:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glBlendEquationSeparate(modeRGB:GLenum, modeAlpha:GLenum):void = `auto % {`en, 'markdown',
+glBlendEquationSeparate(modeRGB:GLenum, modeAlpha:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glBlendFunc(sfactor:GLenum, dfactor:GLenum):void = `auto % {`en, 'markdown',
+glBlendFunc(sfactor:GLenum, dfactor:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glCallList(list:GLuint):void = `auto % {`en, 'markdown',
+glCallList(list:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glCallLists(type:GLenum, lists[]:number):void = R'''
+glCallLists(type:GLenum, lists[]:number):void:map = R'''
 	const ValueList &lists_in = args.GetList(1);
 	GLsizei n = static_cast<GLsizei>(lists.size());
 	AutoPtr<Memory> pListsBuff;
@@ -168,37 +168,37 @@ glCallLists(type:GLenum, lists[]:number):void = R'''
 	'''
 }
 
-glClear(mask:GLbitfield):void = `auto % {`en, 'markdown',
+glClear(mask:GLbitfield):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glClearAccum(red:GLfloat, green:GLfloat, blue:GLfloat, alpha:GLfloat):void = `auto % {`en, 'markdown',
+glClearAccum(red:GLfloat, green:GLfloat, blue:GLfloat, alpha:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glClearColor(red:GLclampf, green:GLclampf, blue:GLclampf, alpha:GLclampf):void = `auto % {`en, 'markdown',
+glClearColor(red:GLclampf, green:GLclampf, blue:GLclampf, alpha:GLclampf):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glClearDepth(depth:GLclampd):void = `auto % {`en, 'markdown',
+glClearDepth(depth:GLclampd):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glClearIndex(c:GLfloat):void = `auto % {`en, 'markdown',
+glClearIndex(c:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glClearStencil(s:GLint):void = `auto % {`en, 'markdown',
+glClearStencil(s:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glClipPlane(plane:GLenum) {block?} = R'''
+glClipPlane(plane:GLenum):map {block?} = R'''
 	GLdouble equation[4];
 	glGetClipPlane(plane, equation);
 	return Value::CreateList(env, equation, ArraySizeOf(equation));
@@ -207,277 +207,277 @@ glClipPlane(plane:GLenum) {block?} = R'''
 	'''
 }
 
-glColor3b(red:GLbyte, green:GLbyte, blue:GLbyte):void = `auto % {`en, 'markdown',
+glColor3b(red:GLbyte, green:GLbyte, blue:GLbyte):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor3bv(v:GLbyte@3:const):void = `auto % {`en, 'markdown',
+glColor3bv(v:GLbyte@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor3d(red:GLdouble, green:GLdouble, blue:GLdouble):void = `auto % {`en, 'markdown',
+glColor3d(red:GLdouble, green:GLdouble, blue:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor3dv(v:GLdouble@3:const):void = `auto % {`en, 'markdown',
+glColor3dv(v:GLdouble@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor3f(red:GLfloat, green:GLfloat, blue:GLfloat):void = `auto % {`en, 'markdown',
+glColor3f(red:GLfloat, green:GLfloat, blue:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor3fv(v:GLfloat@3:const):void = `auto % {`en, 'markdown',
+glColor3fv(v:GLfloat@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor3i(red:GLint, green:GLint, blue:GLint):void = `auto % {`en, 'markdown',
+glColor3i(red:GLint, green:GLint, blue:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor3iv(v:GLint@3:const):void = `auto % {`en, 'markdown',
+glColor3iv(v:GLint@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor3s(red:GLshort, green:GLshort, blue:GLshort):void = `auto % {`en, 'markdown',
+glColor3s(red:GLshort, green:GLshort, blue:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor3sv(v:GLshort@3:const):void = `auto % {`en, 'markdown',
+glColor3sv(v:GLshort@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor3ub(red:GLubyte, green:GLubyte, blue:GLubyte):void = `auto % {`en, 'markdown',
+glColor3ub(red:GLubyte, green:GLubyte, blue:GLubyte):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor3ubv(v:GLubyte@3:const):void = `auto % {`en, 'markdown',
+glColor3ubv(v:GLubyte@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor3ui(red:GLuint, green:GLuint, blue:GLuint):void = `auto % {`en, 'markdown',
+glColor3ui(red:GLuint, green:GLuint, blue:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor3uiv(v:GLuint@3:const):void = `auto % {`en, 'markdown',
+glColor3uiv(v:GLuint@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor3us(red:GLushort, green:GLushort, blue:GLushort):void = `auto % {`en, 'markdown',
+glColor3us(red:GLushort, green:GLushort, blue:GLushort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor3usv(v:GLushort@3:const):void = `auto % {`en, 'markdown',
+glColor3usv(v:GLushort@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor4b(red:GLbyte, green:GLbyte, blue:GLbyte, alpha:GLbyte):void = `auto % {`en, 'markdown',
+glColor4b(red:GLbyte, green:GLbyte, blue:GLbyte, alpha:GLbyte):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor4bv(v:GLbyte@4:const):void = `auto % {`en, 'markdown',
+glColor4bv(v:GLbyte@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor4d(red:GLdouble, green:GLdouble, blue:GLdouble, alpha:GLdouble):void = `auto % {`en, 'markdown',
+glColor4d(red:GLdouble, green:GLdouble, blue:GLdouble, alpha:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor4dv(v:GLdouble@4:const):void = `auto % {`en, 'markdown',
+glColor4dv(v:GLdouble@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor4f(red:GLfloat, green:GLfloat, blue:GLfloat, alpha:GLfloat):void = `auto % {`en, 'markdown',
+glColor4f(red:GLfloat, green:GLfloat, blue:GLfloat, alpha:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor4fv(v:GLfloat@4:const):void = `auto % {`en, 'markdown',
+glColor4fv(v:GLfloat@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor4i(red:GLint, green:GLint, blue:GLint, alpha:GLint):void = `auto % {`en, 'markdown',
+glColor4i(red:GLint, green:GLint, blue:GLint, alpha:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor4iv(v:GLint@4:const):void = `auto % {`en, 'markdown',
+glColor4iv(v:GLint@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor4s(red:GLshort, green:GLshort, blue:GLshort, alpha:GLshort):void = `auto % {`en, 'markdown',
+glColor4s(red:GLshort, green:GLshort, blue:GLshort, alpha:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor4sv(v:GLshort@4:const):void = `auto % {`en, 'markdown',
+glColor4sv(v:GLshort@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor4ub(red:GLubyte, green:GLubyte, blue:GLubyte, alpha:GLubyte):void = `auto % {`en, 'markdown',
+glColor4ub(red:GLubyte, green:GLubyte, blue:GLubyte, alpha:GLubyte):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor4ubv(v:GLubyte@4:const):void = `auto % {`en, 'markdown',
+glColor4ubv(v:GLubyte@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor4ui(red:GLuint, green:GLuint, blue:GLuint, alpha:GLuint):void = `auto % {`en, 'markdown',
+glColor4ui(red:GLuint, green:GLuint, blue:GLuint, alpha:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor4uiv(v:GLuint@4:const):void = `auto % {`en, 'markdown',
+glColor4uiv(v:GLuint@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor4us(red:GLushort, green:GLushort, blue:GLushort, alpha:GLushort):void = `auto % {`en, 'markdown',
+glColor4us(red:GLushort, green:GLushort, blue:GLushort, alpha:GLushort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColor4usv(v:GLushort@4:const):void = `auto % {`en, 'markdown',
+glColor4usv(v:GLushort@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColorMask(red:GLboolean, green:GLboolean, blue:GLboolean, alpha:GLboolean):void = `auto % {`en, 'markdown',
+glColorMask(red:GLboolean, green:GLboolean, blue:GLboolean, alpha:GLboolean):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glColorMaterial(face:GLenum, mode:GLenum):void = `auto % {`en, 'markdown',
+glColorMaterial(face:GLenum, mode:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-//glColorPointer(size:GLint, type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void = `unsupport
+//glColorPointer(size:GLint, type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void:map = `unsupport
 
-//glColorSubTable(target:GLenum, start:GLsizei, count:GLsizei, format:GLenum, type:GLenum, data:GLvoid@:const):void = `unsupport
+//glColorSubTable(target:GLenum, start:GLsizei, count:GLsizei, format:GLenum, type:GLenum, data:GLvoid@:const):void:map = `unsupport
 
-//glColorTable(target:GLenum, internalformat:GLenum, width:GLsizei, format:GLenum, type:GLenum, table:GLvoid@:const):void = `unsupport
+//glColorTable(target:GLenum, internalformat:GLenum, width:GLsizei, format:GLenum, type:GLenum, table:GLvoid@:const):void:map = `unsupport
 
-glColorTableParameterfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const):void = `auto % {`en, 'markdown',
+glColorTableParameterfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 	
-glColorTableParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void = `auto % {`en, 'markdown',
+glColorTableParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-//glConvolutionFilter1D(target:GLenum, internalformat:GLenum, width:GLsizei, format:GLenum, type:GLenum, image:GLvoid@:const):void = `unsupport
+//glConvolutionFilter1D(target:GLenum, internalformat:GLenum, width:GLsizei, format:GLenum, type:GLenum, image:GLvoid@:const):void:map = `unsupport
 
-//glConvolutionFilter2D(target:GLenum, internalformat:GLenum, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, image:GLvoid@:const):void = `unsupport
+//glConvolutionFilter2D(target:GLenum, internalformat:GLenum, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, image:GLvoid@:const):void:map = `unsupport
 
-glConvolutionParameterf(target:GLenum, pname:GLenum, params:GLfloat):void = `auto % {`en, 'markdown',
+glConvolutionParameterf(target:GLenum, pname:GLenum, params:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glConvolutionParameterfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const):void = `auto % {`en, 'markdown',
+glConvolutionParameterfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glConvolutionParameteri(target:GLenum, pname:GLenum, params:GLint):void = `auto % {`en, 'markdown',
+glConvolutionParameteri(target:GLenum, pname:GLenum, params:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glConvolutionParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void = `auto % {`en, 'markdown',
+glConvolutionParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glCopyColorSubTable(target:GLenum, start:GLsizei, x:GLint, y:GLint, width:GLsizei):void = `auto % {`en, 'markdown',
+glCopyColorSubTable(target:GLenum, start:GLsizei, x:GLint, y:GLint, width:GLsizei):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glCopyColorTable(target:GLenum, internalformat:GLenum, x:GLint, y:GLint, width:GLsizei):void = `auto % {`en, 'markdown',
+glCopyColorTable(target:GLenum, internalformat:GLenum, x:GLint, y:GLint, width:GLsizei):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glCopyConvolutionFilter1D(target:GLenum, internalformat:GLenum, x:GLint, y:GLint, width:GLsizei):void = `auto % {`en, 'markdown',
+glCopyConvolutionFilter1D(target:GLenum, internalformat:GLenum, x:GLint, y:GLint, width:GLsizei):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glCopyConvolutionFilter2D(target:GLenum, internalformat:GLenum, x:GLint, y:GLint, width:GLsizei, height:GLsizei):void = `auto % {`en, 'markdown',
+glCopyConvolutionFilter2D(target:GLenum, internalformat:GLenum, x:GLint, y:GLint, width:GLsizei, height:GLsizei):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glCopyPixels(x:GLint, y:GLint, width:GLsizei, height:GLsizei, type:GLenum):void = `auto % {`en, 'markdown',
+glCopyPixels(x:GLint, y:GLint, width:GLsizei, height:GLsizei, type:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glCopyTexImage1D(target:GLenum, level:GLint, internalformat:GLenum, x:GLint, y:GLint, width:GLsizei, border:GLint):void = `auto % {`en, 'markdown',
+glCopyTexImage1D(target:GLenum, level:GLint, internalformat:GLenum, x:GLint, y:GLint, width:GLsizei, border:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glCopyTexImage2D(target:GLenum, level:GLint, internalformat:GLenum, x:GLint, y:GLint, width:GLsizei, height:GLsizei, border:GLint):void = `auto % {`en, 'markdown',
+glCopyTexImage2D(target:GLenum, level:GLint, internalformat:GLenum, x:GLint, y:GLint, width:GLsizei, height:GLsizei, border:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glCopyTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint, x:GLint, y:GLint, width:GLsizei):void = `auto % {`en, 'markdown',
+glCopyTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint, x:GLint, y:GLint, width:GLsizei):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glCopyTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, x:GLint, y:GLint, width:GLsizei, height:GLsizei):void = `auto % {`en, 'markdown',
+glCopyTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, x:GLint, y:GLint, width:GLsizei, height:GLsizei):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glCopyTexSubImage3D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, x:GLint, y:GLint, width:GLsizei, height:GLsizei):void = `auto % {`en, 'markdown',
+glCopyTexSubImage3D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, x:GLint, y:GLint, width:GLsizei, height:GLsizei):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glCullFace(mode:GLenum):void = `auto % {`en, 'markdown',
+glCullFace(mode:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glDeleteLists(list:GLuint, range:GLsizei):void = `auto % {`en, 'markdown',
+glDeleteLists(list:GLuint, range:GLsizei):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glDeleteTextures(textures:GLuint@:const):void = R'''
+glDeleteTextures(textures:GLuint@:const):void:map = R'''
 	GLsizei n = textures.GetSize();
 	glDeleteTextures(n, textures);
 	return Value::Null;
@@ -486,44 +486,44 @@ glDeleteTextures(textures:GLuint@:const):void = R'''
 	'''
 }
 
-glDepthFunc(func:GLenum):void = `auto % {`en, 'markdown',
+glDepthFunc(func:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glDepthMask(flag:GLboolean):void = `auto % {`en, 'markdown',
+glDepthMask(flag:GLboolean):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glDepthRange(zNear:GLclampd, zFar:GLclampd):void = `auto % {`en, 'markdown',
+glDepthRange(zNear:GLclampd, zFar:GLclampd):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glDisable(cap:GLenum):void = `auto % {`en, 'markdown',
+glDisable(cap:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glDisableClientState(array:GLenum):void = `auto % {`en, 'markdown',
+glDisableClientState(array:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glDrawArrays(mode:GLenum, first:GLint, count:GLsizei):void = `auto % {`en, 'markdown',
+glDrawArrays(mode:GLenum, first:GLint, count:GLsizei):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glDrawBuffer(mode:GLenum):void = `auto % {`en, 'markdown',
+glDrawBuffer(mode:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-//glDrawElements(mode:GLenum, count:GLsizei, type:GLenum, indices:GLvoid@:const):void = `unsupport
+//glDrawElements(mode:GLenum, count:GLsizei, type:GLenum, indices:GLvoid@:const):void:map = `unsupport
 
-glDrawPixels(image:image):void = R'''	
+glDrawPixels(image:image):void:map = R'''	
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLsizei height = static_cast<GLsizei>(image->GetHeight());
 	GLenum format = GetImageFormat(sig, image);
@@ -538,26 +538,26 @@ glDrawPixels(image:image):void = R'''
 	'''
 }
 
-//glDrawRangeElements(mode:GLenum, start:GLuint, end:GLuint, count:GLsizei, type:GLenum, indices:GLvoid@:const):void = `unsupport
+//glDrawRangeElements(mode:GLenum, start:GLuint, end:GLuint, count:GLsizei, type:GLenum, indices:GLvoid@:const):void:map = `unsupport
 
-glEdgeFlag(flag:GLboolean):void = `auto % {`en, 'markdown',
+glEdgeFlag(flag:GLboolean):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-//glEdgeFlagPointer(stride:GLsizei, pointer:GLvoid@:const):void = `unsupport
+//glEdgeFlagPointer(stride:GLsizei, pointer:GLvoid@:const):void:map = `unsupport
 
-glEdgeFlagv(flag:GLboolean@1:const):void = `auto % {`en, 'markdown',
+glEdgeFlagv(flag:GLboolean@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glEnable(cap:GLenum):void = `auto % {`en, 'markdown',
+glEnable(cap:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glEnableClientState(array:GLenum):void = `auto % {`en, 'markdown',
+glEnableClientState(array:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -572,67 +572,67 @@ glEndList():void = `auto % {`en, 'markdown',
 	'''
 }
 
-glEvalCoord1d(u:GLdouble):void = `auto % {`en, 'markdown',
+glEvalCoord1d(u:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glEvalCoord1dv(u:GLdouble@1:const):void = `auto % {`en, 'markdown',
+glEvalCoord1dv(u:GLdouble@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glEvalCoord1f(u:GLfloat):void = `auto % {`en, 'markdown',
+glEvalCoord1f(u:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glEvalCoord1fv(u:GLfloat@1:const):void = `auto % {`en, 'markdown',
+glEvalCoord1fv(u:GLfloat@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glEvalCoord2d(u:GLdouble, v:GLdouble):void = `auto % {`en, 'markdown',
+glEvalCoord2d(u:GLdouble, v:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glEvalCoord2dv(u:GLdouble@2:const):void = `auto % {`en, 'markdown',
+glEvalCoord2dv(u:GLdouble@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glEvalCoord2f(u:GLfloat, v:GLfloat):void = `auto % {`en, 'markdown',
+glEvalCoord2f(u:GLfloat, v:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glEvalCoord2fv(u:GLfloat@2:const):void = `auto % {`en, 'markdown',
+glEvalCoord2fv(u:GLfloat@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glEvalMesh1(mode:GLenum, i1:GLint, i2:GLint):void = `auto % {`en, 'markdown',
+glEvalMesh1(mode:GLenum, i1:GLint, i2:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glEvalMesh2(mode:GLenum, i1:GLint, i2:GLint, j1:GLint, j2:GLint):void = `auto % {`en, 'markdown',
+glEvalMesh2(mode:GLenum, i1:GLint, i2:GLint, j1:GLint, j2:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glEvalPoint1(i:GLint):void = `auto % {`en, 'markdown',
+glEvalPoint1(i:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glEvalPoint2(i:GLint, j:GLint):void = `auto % {`en, 'markdown',
+glEvalPoint2(i:GLint, j:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glFeedbackBuffer(size:GLsizei, type:GLenum, buffer:GLfloat@):void = `auto % {`en, 'markdown',
+glFeedbackBuffer(size:GLsizei, type:GLenum, buffer:GLfloat@):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -647,42 +647,42 @@ glFlush():void = `auto % {`en, 'markdown',
 	'''
 }
 
-glFogf(pname:GLenum, param:GLfloat):void = `auto % {`en, 'markdown',
+glFogf(pname:GLenum, param:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glFogfv(pname:GLenum, params:GLfloat@pname:const):void = `auto % {`en, 'markdown',
+glFogfv(pname:GLenum, params:GLfloat@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glFogi(pname:GLenum, param:GLint):void = `auto % {`en, 'markdown',
+glFogi(pname:GLenum, param:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glFogiv(pname:GLenum, params:GLint@pname:const):void = `auto % {`en, 'markdown',
+glFogiv(pname:GLenum, params:GLint@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glFrontFace(mode:GLenum):void = `auto % {`en, 'markdown',
+glFrontFace(mode:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glFrustum(left:GLdouble, right:GLdouble, bottom:GLdouble, top:GLdouble, zNear:GLdouble, zFar:GLdouble):void = `auto % {`en, 'markdown',
+glFrustum(left:GLdouble, right:GLdouble, bottom:GLdouble, top:GLdouble, zNear:GLdouble, zFar:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGenLists(range:GLsizei):GLuint {block?} = `auto % {`en, 'markdown',
+glGenLists(range:GLsizei):GLuint:map {block?} = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGenTextures(n:GLsizei) {block?} = R'''
+glGenTextures(n:GLsizei):map {block?} = R'''
 	CArray<GLuint> textures(n);
 	glGenTextures(n, textures);
 	return Value::CreateList(env, textures, n);
@@ -691,7 +691,7 @@ glGenTextures(n:GLsizei) {block?} = R'''
 	'''
 }
 
-glGetBooleanv(pname:GLenum) {block?} = R'''
+glGetBooleanv(pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLboolean> params(n);
 	glGetBooleanv(pname, params);
@@ -706,7 +706,7 @@ glGetBooleanv(pname:GLenum) {block?} = R'''
 	'''
 }
 
-glGetClipPlane(plane:GLenum) = R'''
+glGetClipPlane(plane:GLenum):map = R'''
 	GLdouble equation[4];
 	glGetClipPlane(plane, equation);
 	return ReturnValue(env, sig, args, Value::CreateList(env, equation, ArraySizeOf(equation)));
@@ -715,9 +715,9 @@ glGetClipPlane(plane:GLenum) = R'''
 	'''
 }
 
-//glGetColorTable(target:GLenum, format:GLenum, type:GLenum, table:GLvoid@):void = `unsupport
+//glGetColorTable(target:GLenum, format:GLenum, type:GLenum, table:GLvoid@):void:map = `unsupport
 
-glGetColorTableParameterfv(target:GLenum, pname:GLenum) {block?} = R'''
+glGetColorTableParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLfloat> params(n);
 	glGetColorTableParameterfv(target, pname, params);
@@ -727,7 +727,7 @@ glGetColorTableParameterfv(target:GLenum, pname:GLenum) {block?} = R'''
 	'''
 }
 
-glGetColorTableParameteriv(target:GLenum, pname:GLenum) {block?} = R'''
+glGetColorTableParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLint> params(n);
 	glGetColorTableParameteriv(target, pname, params);
@@ -737,9 +737,9 @@ glGetColorTableParameteriv(target:GLenum, pname:GLenum) {block?} = R'''
 	'''
 }
 
-//glGetConvolutionFilter(target:GLenum, format:GLenum, type:GLenum, image:GLvoid@):void = `unsupport
+//glGetConvolutionFilter(target:GLenum, format:GLenum, type:GLenum, image:GLvoid@):void:map = `unsupport
 
-glGetConvolutionParameterfv(target:GLenum, pname:GLenum) {block?} = R'''
+glGetConvolutionParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLfloat> params(n);
 	glGetColorTableParameterfv(target, pname, params);
@@ -749,7 +749,7 @@ glGetConvolutionParameterfv(target:GLenum, pname:GLenum) {block?} = R'''
 	'''
 }
 
-glGetConvolutionParameteriv(target:GLenum, pname:GLenum) {block?} = R'''
+glGetConvolutionParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLint> params(n);
 	glGetColorTableParameteriv(target, pname, params);
@@ -759,7 +759,7 @@ glGetConvolutionParameteriv(target:GLenum, pname:GLenum) {block?} = R'''
 	'''
 }
 
-glGetDoublev(pname:GLenum) {block?} = R'''
+glGetDoublev(pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLdouble> params(n);
 	glGetDoublev(pname, params);
@@ -774,7 +774,7 @@ glGetError():GLenum {block?} = `auto % {`en, 'markdown',
 	'''
 }
 
-glGetFloatv(pname:GLenum) {block?} = R'''
+glGetFloatv(pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLfloat> params(n);
 	glGetFloatv(pname, params);
@@ -784,9 +784,9 @@ glGetFloatv(pname:GLenum) {block?} = R'''
 	'''
 }
 
-//glGetHistogram(target:GLenum, reset:GLboolean, format:GLenum, type:GLenum, values:GLvoid@):void = `unsupport
+//glGetHistogram(target:GLenum, reset:GLboolean, format:GLenum, type:GLenum, values:GLvoid@):void:map = `unsupport
 
-glGetHistogramParameterfv(target:GLenum, pname:GLenum) {block?} = R'''
+glGetHistogramParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLfloat> params(n);
 	glGetHistogramParameterfv(target, pname, params);
@@ -796,7 +796,7 @@ glGetHistogramParameterfv(target:GLenum, pname:GLenum) {block?} = R'''
 	'''
 }
 
-glGetHistogramParameteriv(target:GLenum, pname:GLenum) {block?} = R'''
+glGetHistogramParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLint> params(n);
 	glGetHistogramParameteriv(target, pname, params);
@@ -806,7 +806,7 @@ glGetHistogramParameteriv(target:GLenum, pname:GLenum) {block?} = R'''
 	'''
 }
 
-glGetIntegerv(pname:GLenum) {block?} = R'''
+glGetIntegerv(pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLint> params(n);
 	glGetIntegerv(pname, params);
@@ -816,7 +816,7 @@ glGetIntegerv(pname:GLenum) {block?} = R'''
 	'''
 }
 
-glGetLightfv(light:GLenum, pname:GLenum) {block?} = R'''
+glGetLightfv(light:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLfloat> params(n);
 	glGetLightfv(light, pname, params);
@@ -826,7 +826,7 @@ glGetLightfv(light:GLenum, pname:GLenum) {block?} = R'''
 	'''
 }
 
-glGetLightiv(light:GLenum, pname:GLenum) {block?} = R'''
+glGetLightiv(light:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLint> params(n);
 	glGetLightiv(light, pname, params);
@@ -836,22 +836,22 @@ glGetLightiv(light:GLenum, pname:GLenum) {block?} = R'''
 	'''
 }
 
-glGetMapdv(target:GLenum, query:GLenum, v:GLdouble@):void = `unsupport % {`en, 'markdown',
+glGetMapdv(target:GLenum, query:GLenum, v:GLdouble@):void:map = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGetMapfv(target:GLenum, query:GLenum, v:GLfloat@):void = `unsupport % {`en, 'markdown',
+glGetMapfv(target:GLenum, query:GLenum, v:GLfloat@):void:map = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGetMapiv(target:GLenum, query:GLenum, v:GLint@):void = `unsupport % {`en, 'markdown',
+glGetMapiv(target:GLenum, query:GLenum, v:GLint@):void:map = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGetMaterialfv(face:GLenum, pname:GLenum) {block?} = R'''
+glGetMaterialfv(face:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLfloat> params(n);
 	glGetMaterialfv(face, pname, params);
@@ -861,7 +861,7 @@ glGetMaterialfv(face:GLenum, pname:GLenum) {block?} = R'''
 	'''
 }
 
-glGetMaterialiv(face:GLenum, pname:GLenum) {block?} = R'''
+glGetMaterialiv(face:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLint> params(n);
 	glGetMaterialiv(face, pname, params);
@@ -871,9 +871,9 @@ glGetMaterialiv(face:GLenum, pname:GLenum) {block?} = R'''
 	'''
 }
 
-//glGetMinmax(target:GLenum, reset:GLboolean, format:GLenum, type:GLenum, values:GLvoid@):void = `unsupport
+//glGetMinmax(target:GLenum, reset:GLboolean, format:GLenum, type:GLenum, values:GLvoid@):void:map = `unsupport
 
-glGetMinmaxParameterfv(target:GLenum, pname:GLenum) {block?} = R'''
+glGetMinmaxParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLfloat> params(n);
 	glGetMinmaxParameterfv(target, pname, params);
@@ -883,7 +883,7 @@ glGetMinmaxParameterfv(target:GLenum, pname:GLenum) {block?} = R'''
 	'''
 }
 
-glGetMinmaxParameteriv(target:GLenum, pname:GLenum) {block?} = R'''
+glGetMinmaxParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLint> params(n);
 	glGetHistogramParameteriv(target, pname, params);
@@ -893,31 +893,31 @@ glGetMinmaxParameteriv(target:GLenum, pname:GLenum) {block?} = R'''
 	'''
 }
 
-glGetPixelMapfv(map:GLenum, values:GLfloat@):void = `unsupport % {`en, 'markdown',
+glGetPixelMapfv(map:GLenum, values:GLfloat@):void:map = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGetPixelMapuiv(map:GLenum, values:GLuint@):void = `unsupport % {`en, 'markdown',
+glGetPixelMapuiv(map:GLenum, values:GLuint@):void:map = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGetPixelMapusv(map:GLenum, values:GLushort@):void = `unsupport % {`en, 'markdown',
+glGetPixelMapusv(map:GLenum, values:GLushort@):void:map = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-//glGetPointerv(pname:GLenum, params:GLvoid@@):void = `unsupport
+//glGetPointerv(pname:GLenum, params:GLvoid@@):void:map = `unsupport
 
-glGetPolygonStipple(mask:GLubyte@):void = `unsupport % {`en, 'markdown',
+glGetPolygonStipple(mask:GLubyte@):void:map = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-//glGetSeparableFilter(target:GLenum, format:GLenum, type:GLenum, row:GLvoid@, column:GLvoid@, span:GLvoid@):void = `unsupport
+//glGetSeparableFilter(target:GLenum, format:GLenum, type:GLenum, row:GLvoid@, column:GLvoid@, span:GLvoid@):void:map = `unsupport
 
-glGetString(name:GLenum) {block?} = R'''
+glGetString(name:GLenum):map {block?} = R'''
 	const GLubyte *_rtn = glGetString(name);
 	if (_rtn == NULL) {
 		sig.SetError(ERR_ValueError, "invalid name");
@@ -929,7 +929,7 @@ glGetString(name:GLenum) {block?} = R'''
 	'''
 }
 
-glGetTexEnvfv(target:GLenum, pname:GLenum) {block?} = R'''
+glGetTexEnvfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLfloat> params(n);
 	glGetTexEnvfv(target, pname, params);
@@ -939,7 +939,7 @@ glGetTexEnvfv(target:GLenum, pname:GLenum) {block?} = R'''
 	'''
 }
 
-glGetTexEnviv(target:GLenum, pname:GLenum) {block?} = R'''
+glGetTexEnviv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLint> params(n);
 	glGetTexEnviv(target, pname, params);
@@ -949,7 +949,7 @@ glGetTexEnviv(target:GLenum, pname:GLenum) {block?} = R'''
 	'''
 }
 
-glGetTexGendv(coord:GLenum, pname:GLenum) {block?} = R'''
+glGetTexGendv(coord:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLdouble> params(n);
 	glGetTexGendv(coord, pname, params);
@@ -959,7 +959,7 @@ glGetTexGendv(coord:GLenum, pname:GLenum) {block?} = R'''
 	'''
 }
 
-glGetTexGenfv(coord:GLenum, pname:GLenum) {block?} = R'''
+glGetTexGenfv(coord:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLfloat> params(n);
 	glGetTexGenfv(coord, pname, params);
@@ -969,7 +969,7 @@ glGetTexGenfv(coord:GLenum, pname:GLenum) {block?} = R'''
 	'''
 }
 
-glGetTexGeniv(coord:GLenum, pname:GLenum) {block?} = R'''
+glGetTexGeniv(coord:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLint> params(n);
 	glGetTexGeniv(coord, pname, params);
@@ -979,9 +979,9 @@ glGetTexGeniv(coord:GLenum, pname:GLenum) {block?} = R'''
 	'''
 }
 
-//glGetTexImage(target:GLenum, level:GLint, format:GLenum, type:GLenum, pixels:GLvoid@):void = `unsupport
+//glGetTexImage(target:GLenum, level:GLint, format:GLenum, type:GLenum, pixels:GLvoid@):void:map = `unsupport
 
-glGetTexLevelParameterfv(target:GLenum, level:GLint, pname:GLenum) {block?} = R'''
+glGetTexLevelParameterfv(target:GLenum, level:GLint, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLfloat> params(n);
 	glGetTexLevelParameterfv(target, level, pname, params);
@@ -991,7 +991,7 @@ glGetTexLevelParameterfv(target:GLenum, level:GLint, pname:GLenum) {block?} = R'
 	'''
 }
 
-glGetTexLevelParameteriv(target:GLenum, level:GLint, pname:GLenum) {block?} = R'''
+glGetTexLevelParameteriv(target:GLenum, level:GLint, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLint> params(n);
 	glGetTexLevelParameteriv(target, level, pname, params);
@@ -1001,7 +1001,7 @@ glGetTexLevelParameteriv(target:GLenum, level:GLint, pname:GLenum) {block?} = R'
 	'''
 }
 
-glGetTexParameterfv(target:GLenum, pname:GLenum) {block?} = R'''
+glGetTexParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLfloat> params(n);
 	glGetTexParameterfv(target, pname, params);
@@ -1011,7 +1011,7 @@ glGetTexParameterfv(target:GLenum, pname:GLenum) {block?} = R'''
 	'''
 }
 
-glGetTexParameteriv(target:GLenum, pname:GLenum) {block?} = R'''
+glGetTexParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLint> params(n);
 	glGetTexParameteriv(target, pname, params);
@@ -1021,69 +1021,69 @@ glGetTexParameteriv(target:GLenum, pname:GLenum) {block?} = R'''
 	'''
 }
 
-glHint(target:GLenum, mode:GLenum):void = `auto % {`en, 'markdown',
+glHint(target:GLenum, mode:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glHistogram(target:GLenum, width:GLsizei, internalformat:GLenum, sink:GLboolean):void = `auto % {`en, 'markdown',
+glHistogram(target:GLenum, width:GLsizei, internalformat:GLenum, sink:GLboolean):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glIndexMask(mask:GLuint):void = `auto % {`en, 'markdown',
+glIndexMask(mask:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-//glIndexPointer(type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void = `unsupport
+//glIndexPointer(type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void:map = `unsupport
 
-glIndexd(c:GLdouble):void = `auto % {`en, 'markdown',
+glIndexd(c:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glIndexdv(c:GLdouble@:const):void = `auto % {`en, 'markdown',
+glIndexdv(c:GLdouble@:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glIndexf(c:GLfloat):void = `auto % {`en, 'markdown',
+glIndexf(c:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glIndexfv(c:GLfloat@:const):void = `auto % {`en, 'markdown',
+glIndexfv(c:GLfloat@:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glIndexi(c:GLint):void = `auto % {`en, 'markdown',
+glIndexi(c:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glIndexiv(c:GLint@:const):void = `auto % {`en, 'markdown',
+glIndexiv(c:GLint@:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glIndexs(c:GLshort):void = `auto % {`en, 'markdown',
+glIndexs(c:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glIndexsv(c:GLshort@:const):void = `auto % {`en, 'markdown',
+glIndexsv(c:GLshort@:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glIndexub(c:GLubyte):void = `auto % {`en, 'markdown',
+glIndexub(c:GLubyte):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glIndexubv(c:GLubyte@:const):void = `auto % {`en, 'markdown',
+glIndexubv(c:GLubyte@:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -1093,74 +1093,74 @@ glInitNames():void = `auto % {`en, 'markdown',
 	'''
 }
 
-//glInterleavedArrays(format:GLenum, stride:GLsizei, pointer:GLvoid@:const):void = `unsupport
+//glInterleavedArrays(format:GLenum, stride:GLsizei, pointer:GLvoid@:const):void:map = `unsupport
 
-glIsEnabled(cap:GLenum):GLboolean {block?} = `auto % {`en, 'markdown',
+glIsEnabled(cap:GLenum):GLboolean:map {block?} = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glIsList(list:GLuint):GLboolean {block?} = `auto % {`en, 'markdown',
+glIsList(list:GLuint):GLboolean:map {block?} = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glIsTexture(texture:GLuint):GLboolean {block?} = `auto % {`en, 'markdown',
+glIsTexture(texture:GLuint):GLboolean:map {block?} = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glLightModelf(pname:GLenum, param:GLfloat):void = `auto % {`en, 'markdown',
+glLightModelf(pname:GLenum, param:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glLightModelfv(pname:GLenum, params:GLfloat@pname:const):void = `auto % {`en, 'markdown',
+glLightModelfv(pname:GLenum, params:GLfloat@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glLightModeli(pname:GLenum, param:GLint):void = `auto % {`en, 'markdown',
+glLightModeli(pname:GLenum, param:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glLightModeliv(pname:GLenum, params:GLint@pname:const):void = `auto % {`en, 'markdown',
+glLightModeliv(pname:GLenum, params:GLint@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 	
-glLightf(light:GLenum, pname:GLenum, param:GLfloat):void = `auto % {`en, 'markdown',
+glLightf(light:GLenum, pname:GLenum, param:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glLightfv(light:GLenum, pname:GLenum, params:GLfloat@pname:const):void = `auto % {`en, 'markdown',
+glLightfv(light:GLenum, pname:GLenum, params:GLfloat@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glLighti(light:GLenum, pname:GLenum, param:GLint):void = `auto % {`en, 'markdown',
+glLighti(light:GLenum, pname:GLenum, param:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glLightiv(light:GLenum, pname:GLenum, params:GLint@pname:const):void = `auto % {`en, 'markdown',
+glLightiv(light:GLenum, pname:GLenum, params:GLint@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glLineStipple(factor:GLint, pattern:GLushort):void = `auto % {`en, 'markdown',
+glLineStipple(factor:GLint, pattern:GLushort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glLineWidth(width:GLfloat):void = `auto % {`en, 'markdown',
+glLineWidth(width:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glListBase(base:GLuint):void = `auto % {`en, 'markdown',
+glListBase(base:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -1170,107 +1170,107 @@ glLoadIdentity():void = `auto % {`en, 'markdown',
 	'''
 }
 
-glLoadMatrixd(m:GLdouble@16:const):void = `auto % {`en, 'markdown',
+glLoadMatrixd(m:GLdouble@16:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glLoadMatrixf(m:GLfloat@16:const):void = `auto % {`en, 'markdown',
+glLoadMatrixf(m:GLfloat@16:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glLoadName(name:GLuint):void = `auto % {`en, 'markdown',
+glLoadName(name:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glLogicOp(opcode:GLenum):void = `auto % {`en, 'markdown',
+glLogicOp(opcode:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMap1d(target:GLenum, u1:GLdouble, u2:GLdouble, stride:GLint, order:GLint, points:GLdouble@:const):void = `auto % {`en, 'markdown',
+glMap1d(target:GLenum, u1:GLdouble, u2:GLdouble, stride:GLint, order:GLint, points:GLdouble@:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMap1f(target:GLenum, u1:GLfloat, u2:GLfloat, stride:GLint, order:GLint, points:GLfloat@:const):void = `auto % {`en, 'markdown',
+glMap1f(target:GLenum, u1:GLfloat, u2:GLfloat, stride:GLint, order:GLint, points:GLfloat@:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMap2d(target:GLenum, u1:GLdouble, u2:GLdouble, ustride:GLint, uorder:GLint, v1:GLdouble, v2:GLdouble, vstride:GLint, vorder:GLint, points:GLdouble@:const):void = `auto % {`en, 'markdown',
+glMap2d(target:GLenum, u1:GLdouble, u2:GLdouble, ustride:GLint, uorder:GLint, v1:GLdouble, v2:GLdouble, vstride:GLint, vorder:GLint, points:GLdouble@:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMap2f(target:GLenum, u1:GLfloat, u2:GLfloat, ustride:GLint, uorder:GLint, v1:GLfloat, v2:GLfloat, vstride:GLint, vorder:GLint, points:GLfloat@:const):void = `auto % {`en, 'markdown',
+glMap2f(target:GLenum, u1:GLfloat, u2:GLfloat, ustride:GLint, uorder:GLint, v1:GLfloat, v2:GLfloat, vstride:GLint, vorder:GLint, points:GLfloat@:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMapGrid1d(un:GLint, u1:GLdouble, u2:GLdouble):void = `auto % {`en, 'markdown',
+glMapGrid1d(un:GLint, u1:GLdouble, u2:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMapGrid1f(un:GLint, u1:GLfloat, u2:GLfloat):void = `auto % {`en, 'markdown',
+glMapGrid1f(un:GLint, u1:GLfloat, u2:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMapGrid2d(un:GLint, u1:GLdouble, u2:GLdouble, vn:GLint, v1:GLdouble, v2:GLdouble):void = `auto % {`en, 'markdown',
+glMapGrid2d(un:GLint, u1:GLdouble, u2:GLdouble, vn:GLint, v1:GLdouble, v2:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMapGrid2f(un:GLint, u1:GLfloat, u2:GLfloat, vn:GLint, v1:GLfloat, v2:GLfloat):void = `auto % {`en, 'markdown',
+glMapGrid2f(un:GLint, u1:GLfloat, u2:GLfloat, vn:GLint, v1:GLfloat, v2:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMaterialf(face:GLenum, pname:GLenum, param:GLfloat):void = `auto % {`en, 'markdown',
+glMaterialf(face:GLenum, pname:GLenum, param:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMaterialfv(face:GLenum, pname:GLenum, params:GLfloat@pname:const):void = `auto % {`en, 'markdown',
+glMaterialfv(face:GLenum, pname:GLenum, params:GLfloat@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMateriali(face:GLenum, pname:GLenum, param:GLint):void = `auto % {`en, 'markdown',
+glMateriali(face:GLenum, pname:GLenum, param:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMaterialiv(face:GLenum, pname:GLenum, params:GLint@pname:const):void = `auto % {`en, 'markdown',
+glMaterialiv(face:GLenum, pname:GLenum, params:GLint@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMatrixMode(mode:GLenum):void = `auto % {`en, 'markdown',
+glMatrixMode(mode:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMinmax(target:GLenum, internalformat:GLenum, sink:GLboolean):void = `auto % {`en, 'markdown',
+glMinmax(target:GLenum, internalformat:GLenum, sink:GLboolean):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultMatrixd(m:GLdouble@16:const):void = `auto % {`en, 'markdown',
+glMultMatrixd(m:GLdouble@16:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultMatrixf(m:GLfloat@16:const):void = `auto % {`en, 'markdown',
+glMultMatrixf(m:GLfloat@16:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glNewList(list:GLuint, mode:GLenum):void {block?} = R'''
+glNewList(list:GLuint, mode:GLenum):void:map {block?} = R'''
 	glNewList(list, mode);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = NULL;
@@ -1285,124 +1285,124 @@ glNewList(list:GLuint, mode:GLenum):void {block?} = R'''
 	'''
 }
 
-glNormal3b(nx:GLbyte, ny:GLbyte, nz:GLbyte):void = `auto % {`en, 'markdown',
+glNormal3b(nx:GLbyte, ny:GLbyte, nz:GLbyte):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glNormal3bv(v:GLbyte@3:const):void = `auto % {`en, 'markdown',
+glNormal3bv(v:GLbyte@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glNormal3d(nx:GLdouble, ny:GLdouble, nz:GLdouble):void = `auto % {`en, 'markdown',
+glNormal3d(nx:GLdouble, ny:GLdouble, nz:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glNormal3dv(v:GLdouble@3:const):void = `auto % {`en, 'markdown',
+glNormal3dv(v:GLdouble@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glNormal3f(nx:GLfloat, ny:GLfloat, nz:GLfloat):void = `auto % {`en, 'markdown',
+glNormal3f(nx:GLfloat, ny:GLfloat, nz:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glNormal3fv(v:GLfloat@3:const):void = `auto % {`en, 'markdown',
+glNormal3fv(v:GLfloat@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glNormal3i(nx:GLint, ny:GLint, nz:GLint):void = `auto % {`en, 'markdown',
+glNormal3i(nx:GLint, ny:GLint, nz:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glNormal3iv(v:GLint@3:const):void = `auto % {`en, 'markdown',
+glNormal3iv(v:GLint@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glNormal3s(nx:GLshort, ny:GLshort, nz:GLshort):void = `auto % {`en, 'markdown',
+glNormal3s(nx:GLshort, ny:GLshort, nz:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glNormal3sv(v:GLshort@3:const):void = `auto % {`en, 'markdown',
+glNormal3sv(v:GLshort@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-//glNormalPointer(type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void = `unsupport
+//glNormalPointer(type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void:map = `unsupport
 
-glOrtho(left:GLdouble, right:GLdouble, bottom:GLdouble, top:GLdouble, zNear:GLdouble, zFar:GLdouble):void = `auto % {`en, 'markdown',
+glOrtho(left:GLdouble, right:GLdouble, bottom:GLdouble, top:GLdouble, zNear:GLdouble, zFar:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glPassThrough(token:GLfloat):void = `auto % {`en, 'markdown',
+glPassThrough(token:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glPixelMapfv(map:GLenum, mapsize:GLint, values:GLfloat@:const):void = `auto % {`en, 'markdown',
+glPixelMapfv(map:GLenum, mapsize:GLint, values:GLfloat@:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glPixelMapuiv(map:GLenum, mapsize:GLint, values:GLuint@:const):void = `auto % {`en, 'markdown',
+glPixelMapuiv(map:GLenum, mapsize:GLint, values:GLuint@:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glPixelMapusv(map:GLenum, mapsize:GLint, values:GLushort@:const):void = `auto % {`en, 'markdown',
+glPixelMapusv(map:GLenum, mapsize:GLint, values:GLushort@:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glPixelStoref(pname:GLenum, param:GLfloat):void = `auto % {`en, 'markdown',
+glPixelStoref(pname:GLenum, param:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glPixelStorei(pname:GLenum, param:GLint):void = `auto % {`en, 'markdown',
+glPixelStorei(pname:GLenum, param:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glPixelTransferf(pname:GLenum, param:GLfloat):void = `auto % {`en, 'markdown',
+glPixelTransferf(pname:GLenum, param:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glPixelTransferi(pname:GLenum, param:GLint):void = `auto % {`en, 'markdown',
+glPixelTransferi(pname:GLenum, param:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glPixelZoom(xfactor:GLfloat, yfactor:GLfloat):void = `auto % {`en, 'markdown',
+glPixelZoom(xfactor:GLfloat, yfactor:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glPointSize(size:GLfloat):void = `auto % {`en, 'markdown',
+glPointSize(size:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glPolygonMode(face:GLenum, mode:GLenum):void = `auto % {`en, 'markdown',
+glPolygonMode(face:GLenum, mode:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glPolygonOffset(factor:GLfloat, units:GLfloat):void = `auto % {`en, 'markdown',
+glPolygonOffset(factor:GLfloat, units:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glPolygonStipple(mask:binary):void = R'''
+glPolygonStipple(mask:binary):void:map = R'''
 	if (mask.size() != 32 * 4) {
 		sig.SetError(ERR_ValueError, "mask must be a binary containing 32 * 4 elements");
 		return Value::Null;
@@ -1434,7 +1434,7 @@ glPopName():void = `auto % {`en, 'markdown',
 	'''
 }
 
-glPrioritizeTextures(textures:GLuint@:const, priorities:GLclampf@:const):void = R'''
+glPrioritizeTextures(textures:GLuint@:const, priorities:GLclampf@:const):void:map = R'''
 	GLsizei n = textures.GetSize();
 	if (n != priorities.GetSize()) {
 		sig.SetError(ERR_ValueError, "textures and priorities must have the same number of elements");
@@ -1447,7 +1447,7 @@ glPrioritizeTextures(textures:GLuint@:const, priorities:GLclampf@:const):void = 
 	'''
 }
 
-glPushAttrib(mask:GLbitfield):void {block?} = R'''
+glPushAttrib(mask:GLbitfield):void:map {block?} = R'''
 	glPushAttrib(mask);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = NULL;
@@ -1462,7 +1462,7 @@ glPushAttrib(mask:GLbitfield):void {block?} = R'''
 	'''
 }
 
-glPushClientAttrib(mask:GLbitfield):void {block?} = R'''
+glPushClientAttrib(mask:GLbitfield):void:map {block?} = R'''
 	glPushClientAttrib(mask);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = NULL;
@@ -1492,7 +1492,7 @@ glPushMatrix():void {block?} = R'''
 	'''
 }
 
-glPushName(name:GLuint):void {block?} = R'''
+glPushName(name:GLuint):void:map {block?} = R'''
 	glPushName(name);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = NULL;
@@ -1507,132 +1507,132 @@ glPushName(name:GLuint):void {block?} = R'''
 	'''
 }
 
-glRasterPos2d(x:GLdouble, y:GLdouble):void = `auto % {`en, 'markdown',
+glRasterPos2d(x:GLdouble, y:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos2dv(v:GLdouble@2:const):void = `auto % {`en, 'markdown',
+glRasterPos2dv(v:GLdouble@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos2f(x:GLfloat, y:GLfloat):void = `auto % {`en, 'markdown',
+glRasterPos2f(x:GLfloat, y:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos2fv(v:GLfloat@2:const):void = `auto % {`en, 'markdown',
+glRasterPos2fv(v:GLfloat@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos2i(x:GLint, y:GLint):void = `auto % {`en, 'markdown',
+glRasterPos2i(x:GLint, y:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos2iv(v:GLint@2:const):void = `auto % {`en, 'markdown',
+glRasterPos2iv(v:GLint@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos2s(x:GLshort, y:GLshort):void = `auto % {`en, 'markdown',
+glRasterPos2s(x:GLshort, y:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos2sv(v:GLshort@2:const):void = `auto % {`en, 'markdown',
+glRasterPos2sv(v:GLshort@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos3d(x:GLdouble, y:GLdouble, z:GLdouble):void = `auto % {`en, 'markdown',
+glRasterPos3d(x:GLdouble, y:GLdouble, z:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos3dv(v:GLdouble@3:const):void = `auto % {`en, 'markdown',
+glRasterPos3dv(v:GLdouble@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos3f(x:GLfloat, y:GLfloat, z:GLfloat):void = `auto % {`en, 'markdown',
+glRasterPos3f(x:GLfloat, y:GLfloat, z:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos3fv(v:GLfloat@3:const):void = `auto % {`en, 'markdown',
+glRasterPos3fv(v:GLfloat@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos3i(x:GLint, y:GLint, z:GLint):void = `auto % {`en, 'markdown',
+glRasterPos3i(x:GLint, y:GLint, z:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos3iv(v:GLint@3:const):void = `auto % {`en, 'markdown',
+glRasterPos3iv(v:GLint@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos3s(x:GLshort, y:GLshort, z:GLshort):void = `auto % {`en, 'markdown',
+glRasterPos3s(x:GLshort, y:GLshort, z:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos3sv(v:GLshort@3:const):void = `auto % {`en, 'markdown',
+glRasterPos3sv(v:GLshort@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos4d(x:GLdouble, y:GLdouble, z:GLdouble, w:GLdouble):void = `auto % {`en, 'markdown',
+glRasterPos4d(x:GLdouble, y:GLdouble, z:GLdouble, w:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos4dv(v:GLdouble@4:const):void = `auto % {`en, 'markdown',
+glRasterPos4dv(v:GLdouble@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos4f(x:GLfloat, y:GLfloat, z:GLfloat, w:GLfloat):void = `auto % {`en, 'markdown',
+glRasterPos4f(x:GLfloat, y:GLfloat, z:GLfloat, w:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos4fv(v:GLfloat@4:const):void = `auto % {`en, 'markdown',
+glRasterPos4fv(v:GLfloat@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos4i(x:GLint, y:GLint, z:GLint, w:GLint):void = `auto % {`en, 'markdown',
+glRasterPos4i(x:GLint, y:GLint, z:GLint, w:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos4iv(v:GLint@4:const):void = `auto % {`en, 'markdown',
+glRasterPos4iv(v:GLint@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos4s(x:GLshort, y:GLshort, z:GLshort, w:GLshort):void = `auto % {`en, 'markdown',
+glRasterPos4s(x:GLshort, y:GLshort, z:GLshort, w:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRasterPos4sv(v:GLshort@4:const):void = `auto % {`en, 'markdown',
+glRasterPos4sv(v:GLshort@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glReadBuffer(mode:GLenum):void = `auto % {`en, 'markdown',
+glReadBuffer(mode:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glReadPixels(x:GLint, y:GLint, width:GLsizei, height:GLsizei, format:symbol) {block?} = R'''
+glReadPixels(x:GLint, y:GLint, width:GLsizei, height:GLsizei, format:symbol):map {block?} = R'''
 	Image::Format fmt = Image::SymbolToFormat(sig, format);
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<Image> pImage(new Image(fmt));
@@ -1647,87 +1647,87 @@ glReadPixels(x:GLint, y:GLint, width:GLsizei, height:GLsizei, format:symbol) {bl
 	'''
 }
 
-glRectd(x1:GLdouble, y1:GLdouble, x2:GLdouble, y2:GLdouble):void = `auto % {`en, 'markdown',
+glRectd(x1:GLdouble, y1:GLdouble, x2:GLdouble, y2:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRectdv(v1:GLdouble@2:const, v2:GLdouble@2:const):void = `auto % {`en, 'markdown',
+glRectdv(v1:GLdouble@2:const, v2:GLdouble@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRectf(x1:GLfloat, y1:GLfloat, x2:GLfloat, y2:GLfloat):void = `auto % {`en, 'markdown',
+glRectf(x1:GLfloat, y1:GLfloat, x2:GLfloat, y2:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRectfv(v1:GLfloat@2:const, v2:GLfloat@2:const):void = `auto % {`en, 'markdown',
+glRectfv(v1:GLfloat@2:const, v2:GLfloat@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRecti(x1:GLint, y1:GLint, x2:GLint, y2:GLint):void = `auto % {`en, 'markdown',
+glRecti(x1:GLint, y1:GLint, x2:GLint, y2:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRectiv(v1:GLint@2:const, v2:GLint@2:const):void = `auto % {`en, 'markdown',
+glRectiv(v1:GLint@2:const, v2:GLint@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRects(x1:GLshort, y1:GLshort, x2:GLshort, y2:GLshort):void = `auto % {`en, 'markdown',
+glRects(x1:GLshort, y1:GLshort, x2:GLshort, y2:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRectsv(v1:GLshort@2:const, v2:GLshort@2:const):void = `auto % {`en, 'markdown',
+glRectsv(v1:GLshort@2:const, v2:GLshort@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRenderMode(mode:GLenum):GLint {block?} = `auto % {`en, 'markdown',
+glRenderMode(mode:GLenum):GLint:map {block?} = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glResetHistogram(target:GLenum):void = `auto % {`en, 'markdown',
+glResetHistogram(target:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glResetMinmax(target:GLenum):void = `auto % {`en, 'markdown',
+glResetMinmax(target:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRotated(angle:GLdouble, x:GLdouble, y:GLdouble, z:GLdouble):void = `auto % {`en, 'markdown',
+glRotated(angle:GLdouble, x:GLdouble, y:GLdouble, z:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glRotatef(angle:GLfloat, x:GLfloat, y:GLfloat, z:GLfloat):void = `auto % {`en, 'markdown',
+glRotatef(angle:GLfloat, x:GLfloat, y:GLfloat, z:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glScaled(x:GLdouble, y:GLdouble, z:GLdouble):void = `auto % {`en, 'markdown',
+glScaled(x:GLdouble, y:GLdouble, z:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glScalef(x:GLfloat, y:GLfloat, z:GLfloat):void = `auto % {`en, 'markdown',
+glScalef(x:GLfloat, y:GLfloat, z:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glScissor(x:GLint, y:GLint, width:GLsizei, height:GLsizei):void = `auto % {`en, 'markdown',
+glScissor(x:GLint, y:GLint, width:GLsizei, height:GLsizei):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSelectBuffer(size:GLsizei) {block?} = R'''
+glSelectBuffer(size:GLsizei):map {block?} = R'''
 	CArray<GLuint> buffer(size);
 	glSelectBuffer(size, buffer);
 	return ReturnValue(env, sig, args, Value::CreateList(env, buffer, size));
@@ -1736,242 +1736,242 @@ glSelectBuffer(size:GLsizei) {block?} = R'''
 	'''
 }
 
-//glSeparableFilter2D(target:GLenum, internalformat:GLenum, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, row:GLvoid@:const, column:GLvoid@:const):void = `unsupport
+//glSeparableFilter2D(target:GLenum, internalformat:GLenum, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, row:GLvoid@:const, column:GLvoid@:const):void:map = `unsupport
 
-glShadeModel(mode:GLenum):void = `auto % {`en, 'markdown',
+glShadeModel(mode:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glStencilFunc(func:GLenum, ref:GLint, mask:GLuint):void = `auto % {`en, 'markdown',
+glStencilFunc(func:GLenum, ref:GLint, mask:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glStencilMask(mask:GLuint):void = `auto % {`en, 'markdown',
+glStencilMask(mask:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glStencilOp(fail:GLenum, zfail:GLenum, zpass:GLenum):void = `auto % {`en, 'markdown',
+glStencilOp(fail:GLenum, zfail:GLenum, zpass:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord1d(s:GLdouble):void = `auto % {`en, 'markdown',
+glTexCoord1d(s:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord1dv(v:GLdouble@1:const):void = `auto % {`en, 'markdown',
+glTexCoord1dv(v:GLdouble@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord1f(s:GLfloat):void = `auto % {`en, 'markdown',
+glTexCoord1f(s:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord1fv(v:GLfloat@1:const):void = `auto % {`en, 'markdown',
+glTexCoord1fv(v:GLfloat@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord1i(s:GLint):void = `auto % {`en, 'markdown',
+glTexCoord1i(s:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord1iv(v:GLint@1:const):void = `auto % {`en, 'markdown',
+glTexCoord1iv(v:GLint@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord1s(s:GLshort):void = `auto % {`en, 'markdown',
+glTexCoord1s(s:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord1sv(v:GLshort@1:const):void = `auto % {`en, 'markdown',
+glTexCoord1sv(v:GLshort@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord2d(s:GLdouble, t:GLdouble):void = `auto % {`en, 'markdown',
+glTexCoord2d(s:GLdouble, t:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord2dv(v:GLdouble@2:const):void = `auto % {`en, 'markdown',
+glTexCoord2dv(v:GLdouble@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord2f(s:GLfloat, t:GLfloat):void = `auto % {`en, 'markdown',
+glTexCoord2f(s:GLfloat, t:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord2fv(v:GLfloat@2:const):void = `auto % {`en, 'markdown',
+glTexCoord2fv(v:GLfloat@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord2i(s:GLint, t:GLint):void = `auto % {`en, 'markdown',
+glTexCoord2i(s:GLint, t:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord2iv(v:GLint@2:const):void = `auto % {`en, 'markdown',
+glTexCoord2iv(v:GLint@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord2s(s:GLshort, t:GLshort):void = `auto % {`en, 'markdown',
+glTexCoord2s(s:GLshort, t:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord2sv(v:GLshort@2:const):void = `auto % {`en, 'markdown',
+glTexCoord2sv(v:GLshort@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord3d(s:GLdouble, t:GLdouble, r:GLdouble):void = `auto % {`en, 'markdown',
+glTexCoord3d(s:GLdouble, t:GLdouble, r:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord3dv(v:GLdouble@3:const):void = `auto % {`en, 'markdown',
+glTexCoord3dv(v:GLdouble@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord3f(s:GLfloat, t:GLfloat, r:GLfloat):void = `auto % {`en, 'markdown',
+glTexCoord3f(s:GLfloat, t:GLfloat, r:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord3fv(v:GLfloat@3:const):void = `auto % {`en, 'markdown',
+glTexCoord3fv(v:GLfloat@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord3i(s:GLint, t:GLint, r:GLint):void = `auto % {`en, 'markdown',
+glTexCoord3i(s:GLint, t:GLint, r:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord3iv(v:GLint@3:const):void = `auto % {`en, 'markdown',
+glTexCoord3iv(v:GLint@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord3s(s:GLshort, t:GLshort, r:GLshort):void = `auto % {`en, 'markdown',
+glTexCoord3s(s:GLshort, t:GLshort, r:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord3sv(v:GLshort@3:const):void = `auto % {`en, 'markdown',
+glTexCoord3sv(v:GLshort@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord4d(s:GLdouble, t:GLdouble, r:GLdouble, q:GLdouble):void = `auto % {`en, 'markdown',
+glTexCoord4d(s:GLdouble, t:GLdouble, r:GLdouble, q:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord4dv(v:GLdouble@4:const):void = `auto % {`en, 'markdown',
+glTexCoord4dv(v:GLdouble@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord4f(s:GLfloat, t:GLfloat, r:GLfloat, q:GLfloat):void = `auto % {`en, 'markdown',
+glTexCoord4f(s:GLfloat, t:GLfloat, r:GLfloat, q:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord4fv(v:GLfloat@4:const):void = `auto % {`en, 'markdown',
+glTexCoord4fv(v:GLfloat@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord4i(s:GLint, t:GLint, r:GLint, q:GLint):void = `auto % {`en, 'markdown',
+glTexCoord4i(s:GLint, t:GLint, r:GLint, q:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord4iv(v:GLint@4:const):void = `auto % {`en, 'markdown',
+glTexCoord4iv(v:GLint@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord4s(s:GLshort, t:GLshort, r:GLshort, q:GLshort):void = `auto % {`en, 'markdown',
+glTexCoord4s(s:GLshort, t:GLshort, r:GLshort, q:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexCoord4sv(v:GLshort@4:const):void = `auto % {`en, 'markdown',
+glTexCoord4sv(v:GLshort@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-//glTexCoordPointer(size:GLint, type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void = `unsupport
+//glTexCoordPointer(size:GLint, type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void:map = `unsupport
 
-glTexEnvf(target:GLenum, pname:GLenum, param:GLfloat):void = `auto % {`en, 'markdown',
+glTexEnvf(target:GLenum, pname:GLenum, param:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexEnvfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const):void = `auto % {`en, 'markdown',
+glTexEnvfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexEnvi(target:GLenum, pname:GLenum, param:GLint):void = `auto % {`en, 'markdown',
+glTexEnvi(target:GLenum, pname:GLenum, param:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexEnviv(target:GLenum, pname:GLenum, params:GLint@pname:const):void = `auto % {`en, 'markdown',
+glTexEnviv(target:GLenum, pname:GLenum, params:GLint@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexGend(coord:GLenum, pname:GLenum, param:GLdouble):void = `auto % {`en, 'markdown',
+glTexGend(coord:GLenum, pname:GLenum, param:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexGendv(coord:GLenum, pname:GLenum, params:GLdouble@pname:const):void = `auto % {`en, 'markdown',
+glTexGendv(coord:GLenum, pname:GLenum, params:GLdouble@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexGenf(coord:GLenum, pname:GLenum, param:GLfloat):void = `auto % {`en, 'markdown',
+glTexGenf(coord:GLenum, pname:GLenum, param:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexGenfv(coord:GLenum, pname:GLenum, params:GLfloat@pname:const):void = `auto % {`en, 'markdown',
+glTexGenfv(coord:GLenum, pname:GLenum, params:GLfloat@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexGeni(coord:GLenum, pname:GLenum, param:GLint):void = `auto % {`en, 'markdown',
+glTexGeni(coord:GLenum, pname:GLenum, param:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexGeniv(coord:GLenum, pname:GLenum, params:GLint@pname:const):void = `auto % {`en, 'markdown',
+glTexGeniv(coord:GLenum, pname:GLenum, params:GLint@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glTexImage1D(target:GLenum, level:GLint,
-			 internalformat:GLint, border:GLint, image:image):void = R'''
+			 internalformat:GLint, border:GLint, image:image):void:map = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth()) + border * 2;
 	GLenum format = GetImageFormat(sig, image);
 	if (sig.IsSignalled()) return Value::Null;
@@ -1985,7 +1985,7 @@ glTexImage1D(target:GLenum, level:GLint,
 }
 
 glTexImage2D(target:GLenum, level:GLint,
-			 internalformat:GLint, border:GLint, image:image):void = R'''
+			 internalformat:GLint, border:GLint, image:image):void:map = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth()) + border * 2;
 	GLsizei height = static_cast<GLsizei>(image->GetHeight()) + border * 2;
 	GLenum format = GetImageFormat(sig, image);
@@ -1999,29 +1999,29 @@ glTexImage2D(target:GLenum, level:GLint,
 	'''
 }
 	
-//glTexImage3D(target:GLenum, level:GLint, internalformat:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:GLvoid@:const):void = `unsupport
+//glTexImage3D(target:GLenum, level:GLint, internalformat:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:GLvoid@:const):void:map = `unsupport
 
-glTexParameterf(target:GLenum, pname:GLenum, param:GLfloat):void = `auto % {`en, 'markdown',
+glTexParameterf(target:GLenum, pname:GLenum, param:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexParameterfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const):void = `auto % {`en, 'markdown',
+glTexParameterfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexParameteri(target:GLenum, pname:GLenum, param:GLint):void = `auto % {`en, 'markdown',
+glTexParameteri(target:GLenum, pname:GLenum, param:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void = `auto % {`en, 'markdown',
+glTexParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint, image:image):void = R'''
+glTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint, image:image):void:map = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLenum format = GetImageFormat(sig, image);
 	if (sig.IsSignalled()) return Value::Null;
@@ -2034,7 +2034,7 @@ glTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint, image:image):void = R
 	'''
 }
 
-glTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, image:image):void = R'''
+glTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, image:image):void:map = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLsizei height = static_cast<GLsizei>(image->GetHeight());
 	GLenum format = GetImageFormat(sig, image);
@@ -2048,484 +2048,484 @@ glTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, image:
 	'''
 }
 
-//glTexSubImage3D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, format:GLenum, type:GLenum, pixels:GLvoid@:const):void = `unsupport
+//glTexSubImage3D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, format:GLenum, type:GLenum, pixels:GLvoid@:const):void:map = `unsupport
 
-glTranslated(x:GLdouble, y:GLdouble, z:GLdouble):void = `auto % {`en, 'markdown',
+glTranslated(x:GLdouble, y:GLdouble, z:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glTranslatef(x:GLfloat, y:GLfloat, z:GLfloat):void = `auto % {`en, 'markdown',
+glTranslatef(x:GLfloat, y:GLfloat, z:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex2d(x:GLdouble, y:GLdouble):void = `auto % {`en, 'markdown',
+glVertex2d(x:GLdouble, y:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex2dv(v:GLdouble@2:const):void = `auto % {`en, 'markdown',
+glVertex2dv(v:GLdouble@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex2f(x:GLfloat, y:GLfloat):void = `auto % {`en, 'markdown',
+glVertex2f(x:GLfloat, y:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex2fv(v:GLfloat@2:const):void = `auto % {`en, 'markdown',
+glVertex2fv(v:GLfloat@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex2i(x:GLint, y:GLint):void = `auto % {`en, 'markdown',
+glVertex2i(x:GLint, y:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex2iv(v:GLint@2:const):void = `auto % {`en, 'markdown',
+glVertex2iv(v:GLint@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex2s(x:GLshort, y:GLshort):void = `auto % {`en, 'markdown',
+glVertex2s(x:GLshort, y:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex2sv(v:GLshort@2:const):void = `auto % {`en, 'markdown',
+glVertex2sv(v:GLshort@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex3d(x:GLdouble, y:GLdouble, z:GLdouble):void = `auto % {`en, 'markdown',
+glVertex3d(x:GLdouble, y:GLdouble, z:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex3dv(v:GLdouble@3:const):void = `auto % {`en, 'markdown',
+glVertex3dv(v:GLdouble@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex3f(x:GLfloat, y:GLfloat, z:GLfloat):void = `auto % {`en, 'markdown',
+glVertex3f(x:GLfloat, y:GLfloat, z:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex3fv(v:GLfloat@3:const):void = `auto % {`en, 'markdown',
+glVertex3fv(v:GLfloat@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex3i(x:GLint, y:GLint, z:GLint):void = `auto % {`en, 'markdown',
+glVertex3i(x:GLint, y:GLint, z:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex3iv(v:GLint@3:const):void = `auto % {`en, 'markdown',
+glVertex3iv(v:GLint@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex3s(x:GLshort, y:GLshort, z:GLshort):void = `auto % {`en, 'markdown',
+glVertex3s(x:GLshort, y:GLshort, z:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex3sv(v:GLshort@3:const):void = `auto % {`en, 'markdown',
+glVertex3sv(v:GLshort@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex4d(x:GLdouble, y:GLdouble, z:GLdouble, w:GLdouble):void = `auto % {`en, 'markdown',
+glVertex4d(x:GLdouble, y:GLdouble, z:GLdouble, w:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex4dv(v:GLdouble@4:const):void = `auto % {`en, 'markdown',
+glVertex4dv(v:GLdouble@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex4f(x:GLfloat, y:GLfloat, z:GLfloat, w:GLfloat):void = `auto % {`en, 'markdown',
+glVertex4f(x:GLfloat, y:GLfloat, z:GLfloat, w:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex4fv(v:GLfloat@4:const):void = `auto % {`en, 'markdown',
+glVertex4fv(v:GLfloat@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex4i(x:GLint, y:GLint, z:GLint, w:GLint):void = `auto % {`en, 'markdown',
+glVertex4i(x:GLint, y:GLint, z:GLint, w:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex4iv(v:GLint@4:const):void = `auto % {`en, 'markdown',
+glVertex4iv(v:GLint@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex4s(x:GLshort, y:GLshort, z:GLshort, w:GLshort):void = `auto % {`en, 'markdown',
+glVertex4s(x:GLshort, y:GLshort, z:GLshort, w:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertex4sv(v:GLshort@4:const):void = `auto % {`en, 'markdown',
+glVertex4sv(v:GLshort@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-//glVertexPointer(size:GLint, type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void = `unsupport
+//glVertexPointer(size:GLint, type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void:map = `unsupport
 
-glViewport(x:GLint, y:GLint, width:GLsizei, height:GLsizei):void = `auto % {`en, 'markdown',
+glViewport(x:GLint, y:GLint, width:GLsizei, height:GLsizei):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSampleCoverage(value:GLclampf, invert:GLboolean):void = `auto % {`en, 'markdown',
+glSampleCoverage(value:GLclampf, invert:GLboolean):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glLoadTransposeMatrixf(m:GLfloat@16:const):void = `auto % {`en, 'markdown',
+glLoadTransposeMatrixf(m:GLfloat@16:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glLoadTransposeMatrixd(m:GLdouble@16:const):void = `auto % {`en, 'markdown',
+glLoadTransposeMatrixd(m:GLdouble@16:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultTransposeMatrixf(m:GLfloat@16:const):void = `auto % {`en, 'markdown',
+glMultTransposeMatrixf(m:GLfloat@16:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultTransposeMatrixd(m:GLdouble@16:const):void = `auto % {`en, 'markdown',
+glMultTransposeMatrixd(m:GLdouble@16:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-//glCompressedTexImage3D(target:GLenum, level:GLint, internalformat:GLenum, width:GLsizei, height:GLsizei, depth:GLsizei, border:GLint, imageSize:GLsizei, data:GLvoid@:const):void = `unsupport
+//glCompressedTexImage3D(target:GLenum, level:GLint, internalformat:GLenum, width:GLsizei, height:GLsizei, depth:GLsizei, border:GLint, imageSize:GLsizei, data:GLvoid@:const):void:map = `unsupport
 
-//glCompressedTexImage2D(target:GLenum, level:GLint, internalformat:GLenum, width:GLsizei, height:GLsizei, border:GLint, imageSize:GLsizei, data:GLvoid@:const):void = `unsupport
+//glCompressedTexImage2D(target:GLenum, level:GLint, internalformat:GLenum, width:GLsizei, height:GLsizei, border:GLint, imageSize:GLsizei, data:GLvoid@:const):void:map = `unsupport
 
-//glCompressedTexImage1D(target:GLenum, level:GLint, internalformat:GLenum, width:GLsizei, border:GLint, imageSize:GLsizei, data:GLvoid@:const):void = `unsupport
+//glCompressedTexImage1D(target:GLenum, level:GLint, internalformat:GLenum, width:GLsizei, border:GLint, imageSize:GLsizei, data:GLvoid@:const):void:map = `unsupport
 
-//glCompressedTexSubImage3D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, format:GLenum, imageSize:GLsizei, data:GLvoid@:const):void = `unsupport
+//glCompressedTexSubImage3D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, format:GLenum, imageSize:GLsizei, data:GLvoid@:const):void:map = `unsupport
 
-//glCompressedTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, width:GLsizei, height:GLsizei, format:GLenum, imageSize:GLsizei, data:GLvoid@:const):void = `unsupport
+//glCompressedTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, width:GLsizei, height:GLsizei, format:GLenum, imageSize:GLsizei, data:GLvoid@:const):void:map = `unsupport
 
-//glCompressedTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint, width:GLsizei, format:GLenum, imageSize:GLsizei, data:GLvoid@:const):void = `unsupport
+//glCompressedTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint, width:GLsizei, format:GLenum, imageSize:GLsizei, data:GLvoid@:const):void:map = `unsupport
 
-//glGetCompressedTexImage(target:GLenum, lod:GLint, img:GLvoid@):void = `unsupport
+//glGetCompressedTexImage(target:GLenum, lod:GLint, img:GLvoid@):void:map = `unsupport
 
-glActiveTexture(texture:GLenum):void = `auto % {`en, 'markdown',
+glActiveTexture(texture:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glClientActiveTexture(texture:GLenum):void = `auto % {`en, 'markdown',
+glClientActiveTexture(texture:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord1d(target:GLenum, s:GLdouble):void = `auto % {`en, 'markdown',
+glMultiTexCoord1d(target:GLenum, s:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord1dv(target:GLenum, v:GLdouble@1:const):void = `auto % {`en, 'markdown',
+glMultiTexCoord1dv(target:GLenum, v:GLdouble@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord1f(target:GLenum, s:GLfloat):void = `auto % {`en, 'markdown',
+glMultiTexCoord1f(target:GLenum, s:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord1fv(target:GLenum, v:GLfloat@1:const):void = `auto % {`en, 'markdown',
+glMultiTexCoord1fv(target:GLenum, v:GLfloat@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord1i(target:GLenum, s:GLint):void = `auto % {`en, 'markdown',
+glMultiTexCoord1i(target:GLenum, s:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord1iv(target:GLenum, v:GLint@1:const):void = `auto % {`en, 'markdown',
+glMultiTexCoord1iv(target:GLenum, v:GLint@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord1s(target:GLenum, s:GLshort):void = `auto % {`en, 'markdown',
+glMultiTexCoord1s(target:GLenum, s:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord1sv(target:GLenum, v:GLshort@1:const):void = `auto % {`en, 'markdown',
+glMultiTexCoord1sv(target:GLenum, v:GLshort@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord2d(target:GLenum, s:GLdouble, t:GLdouble):void = `auto % {`en, 'markdown',
+glMultiTexCoord2d(target:GLenum, s:GLdouble, t:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord2dv(target:GLenum, v:GLdouble@2:const):void = `auto % {`en, 'markdown',
+glMultiTexCoord2dv(target:GLenum, v:GLdouble@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord2f(target:GLenum, s:GLfloat, t:GLfloat):void = `auto % {`en, 'markdown',
+glMultiTexCoord2f(target:GLenum, s:GLfloat, t:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord2fv(target:GLenum, v:GLfloat@2:const):void = `auto % {`en, 'markdown',
+glMultiTexCoord2fv(target:GLenum, v:GLfloat@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord2i(target:GLenum, s:GLint, t:GLint):void = `auto % {`en, 'markdown',
+glMultiTexCoord2i(target:GLenum, s:GLint, t:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord2iv(target:GLenum, v:GLint@2:const):void = `auto % {`en, 'markdown',
+glMultiTexCoord2iv(target:GLenum, v:GLint@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord2s(target:GLenum, s:GLshort, t:GLshort):void = `auto % {`en, 'markdown',
+glMultiTexCoord2s(target:GLenum, s:GLshort, t:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord2sv(target:GLenum, v:GLshort@2:const):void = `auto % {`en, 'markdown',
+glMultiTexCoord2sv(target:GLenum, v:GLshort@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord3d(target:GLenum, s:GLdouble, t:GLdouble, r:GLdouble):void = `auto % {`en, 'markdown',
+glMultiTexCoord3d(target:GLenum, s:GLdouble, t:GLdouble, r:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord3dv(target:GLenum, v:GLdouble@3:const):void = `auto % {`en, 'markdown',
+glMultiTexCoord3dv(target:GLenum, v:GLdouble@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord3f(target:GLenum, s:GLfloat, t:GLfloat, r:GLfloat):void = `auto % {`en, 'markdown',
+glMultiTexCoord3f(target:GLenum, s:GLfloat, t:GLfloat, r:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord3fv(target:GLenum, v:GLfloat@3:const):void = `auto % {`en, 'markdown',
+glMultiTexCoord3fv(target:GLenum, v:GLfloat@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord3i(target:GLenum, s:GLint, t:GLint, r:GLint):void = `auto % {`en, 'markdown',
+glMultiTexCoord3i(target:GLenum, s:GLint, t:GLint, r:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord3iv(target:GLenum, v:GLint@3:const):void = `auto % {`en, 'markdown',
+glMultiTexCoord3iv(target:GLenum, v:GLint@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord3s(target:GLenum, s:GLshort, t:GLshort, r:GLshort):void = `auto % {`en, 'markdown',
+glMultiTexCoord3s(target:GLenum, s:GLshort, t:GLshort, r:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord3sv(target:GLenum, v:GLshort@3:const):void = `auto % {`en, 'markdown',
+glMultiTexCoord3sv(target:GLenum, v:GLshort@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord4d(target:GLenum, s:GLdouble, t:GLdouble, r:GLdouble, q:GLdouble):void = `auto % {`en, 'markdown',
+glMultiTexCoord4d(target:GLenum, s:GLdouble, t:GLdouble, r:GLdouble, q:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord4dv(target:GLenum, v:GLdouble@4:const):void = `auto % {`en, 'markdown',
+glMultiTexCoord4dv(target:GLenum, v:GLdouble@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord4f(target:GLenum, s:GLfloat, t:GLfloat, r:GLfloat, q:GLfloat):void = `auto % {`en, 'markdown',
+glMultiTexCoord4f(target:GLenum, s:GLfloat, t:GLfloat, r:GLfloat, q:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord4fv(target:GLenum, v:GLfloat@4:const):void = `auto % {`en, 'markdown',
+glMultiTexCoord4fv(target:GLenum, v:GLfloat@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord4i(target:GLenum, s:GLint, t:GLint, r:GLint, q:GLint):void = `auto % {`en, 'markdown',
+glMultiTexCoord4i(target:GLenum, s:GLint, t:GLint, r:GLint, q:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord4iv(target:GLenum, v:GLint@4:const):void = `auto % {`en, 'markdown',
+glMultiTexCoord4iv(target:GLenum, v:GLint@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord4s(target:GLenum, s:GLshort, t:GLshort, r:GLshort, q:GLshort):void = `auto % {`en, 'markdown',
+glMultiTexCoord4s(target:GLenum, s:GLshort, t:GLshort, r:GLshort, q:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiTexCoord4sv(target:GLenum, v:GLshort@4:const):void = `auto % {`en, 'markdown',
+glMultiTexCoord4sv(target:GLenum, v:GLshort@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glFogCoordf(coord:GLfloat):void = `auto % {`en, 'markdown',
+glFogCoordf(coord:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glFogCoordfv(coord:GLfloat@1:const):void = `auto % {`en, 'markdown',
+glFogCoordfv(coord:GLfloat@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glFogCoordd(coord:GLdouble):void = `auto % {`en, 'markdown',
+glFogCoordd(coord:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glFogCoorddv(coord:GLdouble@1:const):void = `auto % {`en, 'markdown',
+glFogCoorddv(coord:GLdouble@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-//glFogCoordPointer(type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void = `unsupport
+//glFogCoordPointer(type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void:map = `unsupport
 
-glSecondaryColor3b(red:GLbyte, green:GLbyte, blue:GLbyte):void = `auto % {`en, 'markdown',
+glSecondaryColor3b(red:GLbyte, green:GLbyte, blue:GLbyte):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3bv(v:GLbyte@3:const):void = `auto % {`en, 'markdown',
+glSecondaryColor3bv(v:GLbyte@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3d(red:GLdouble, green:GLdouble, blue:GLdouble):void = `auto % {`en, 'markdown',
+glSecondaryColor3d(red:GLdouble, green:GLdouble, blue:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3dv(v:GLdouble@3:const):void = `auto % {`en, 'markdown',
+glSecondaryColor3dv(v:GLdouble@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3f(red:GLfloat, green:GLfloat, blue:GLfloat):void = `auto % {`en, 'markdown',
+glSecondaryColor3f(red:GLfloat, green:GLfloat, blue:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3fv(v:GLfloat@3:const):void = `auto % {`en, 'markdown',
+glSecondaryColor3fv(v:GLfloat@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3i(red:GLint, green:GLint, blue:GLint):void = `auto % {`en, 'markdown',
+glSecondaryColor3i(red:GLint, green:GLint, blue:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3iv(v:GLint@3:const):void = `auto % {`en, 'markdown',
+glSecondaryColor3iv(v:GLint@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3s(red:GLshort, green:GLshort, blue:GLshort):void = `auto % {`en, 'markdown',
+glSecondaryColor3s(red:GLshort, green:GLshort, blue:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3sv(v:GLshort@3:const):void = `auto % {`en, 'markdown',
+glSecondaryColor3sv(v:GLshort@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3ub(red:GLubyte, green:GLubyte, blue:GLubyte):void = `auto % {`en, 'markdown',
+glSecondaryColor3ub(red:GLubyte, green:GLubyte, blue:GLubyte):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3ubv(v:GLubyte@3:const):void = `auto % {`en, 'markdown',
+glSecondaryColor3ubv(v:GLubyte@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3ui(red:GLuint, green:GLuint, blue:GLuint):void = `auto % {`en, 'markdown',
+glSecondaryColor3ui(red:GLuint, green:GLuint, blue:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3uiv(v:GLuint@3:const):void = `auto % {`en, 'markdown',
+glSecondaryColor3uiv(v:GLuint@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3us(red:GLushort, green:GLushort, blue:GLushort):void = `auto % {`en, 'markdown',
+glSecondaryColor3us(red:GLushort, green:GLushort, blue:GLushort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3usv(v:GLushort@3:const):void = `auto % {`en, 'markdown',
+glSecondaryColor3usv(v:GLushort@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-//glSecondaryColorPointer(size:GLint, type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void = `unsupport
+//glSecondaryColorPointer(size:GLint, type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void:map = `unsupport
 
-glPointParameterf(pname:GLenum, param:GLfloat):void = `auto % {`en, 'markdown',
+glPointParameterf(pname:GLenum, param:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glPointParameterfv(pname:GLenum, params:GLfloat@pname:const):void = `auto % {`en, 'markdown',
+glPointParameterfv(pname:GLenum, params:GLfloat@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glPointParameteri(pname:GLenum, param:GLint):void = `auto % {`en, 'markdown',
+glPointParameteri(pname:GLenum, param:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glPointParameteriv(pname:GLenum, params:GLint@pname:const):void = `auto % {`en, 'markdown',
+glPointParameteriv(pname:GLenum, params:GLint@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glBlendFuncSeparate(srcRGB:GLenum, dstRGB:GLenum, srcAlpha:GLenum, dstAlpha:GLenum):void = `auto % {`en, 'markdown',
+glBlendFuncSeparate(srcRGB:GLenum, dstRGB:GLenum, srcAlpha:GLenum, dstAlpha:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultiDrawArrays(mode:GLenum, first:GLint@:const, count:GLsizei@:const):void = R'''
+glMultiDrawArrays(mode:GLenum, first:GLint@:const, count:GLsizei@:const):void:map = R'''
 	GLsizei primcount = first.GetSize();
 	if (primcount != count.GetSize()) {
 		sig.SetError(ERR_ValueError, "first and count must have the same number of elements");
@@ -2538,89 +2538,89 @@ glMultiDrawArrays(mode:GLenum, first:GLint@:const, count:GLsizei@:const):void = 
 	'''
 }
 
-//glMultiDrawElements(mode:GLenum, count:GLsizei@:const, type:GLenum, indices:GLvoid@:const@:const, primcount:GLsizei):void = `unsupport
+//glMultiDrawElements(mode:GLenum, count:GLsizei@:const, type:GLenum, indices:GLvoid@:const@:const, primcount:GLsizei):void:map = `unsupport
 
-glWindowPos2d(x:GLdouble, y:GLdouble):void = `auto % {`en, 'markdown',
+glWindowPos2d(x:GLdouble, y:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos2dv(v:GLdouble@2:const):void = `auto % {`en, 'markdown',
+glWindowPos2dv(v:GLdouble@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos2f(x:GLfloat, y:GLfloat):void = `auto % {`en, 'markdown',
+glWindowPos2f(x:GLfloat, y:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos2fv(v:GLfloat@2:const):void = `auto % {`en, 'markdown',
+glWindowPos2fv(v:GLfloat@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos2i(x:GLint, y:GLint):void = `auto % {`en, 'markdown',
+glWindowPos2i(x:GLint, y:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos2iv(v:GLint@2:const):void = `auto % {`en, 'markdown',
+glWindowPos2iv(v:GLint@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos2s(x:GLshort, y:GLshort):void = `auto % {`en, 'markdown',
+glWindowPos2s(x:GLshort, y:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos2sv(v:GLshort@2:const):void = `auto % {`en, 'markdown',
+glWindowPos2sv(v:GLshort@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos3d(x:GLdouble, y:GLdouble, z:GLdouble):void = `auto % {`en, 'markdown',
+glWindowPos3d(x:GLdouble, y:GLdouble, z:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos3dv(v:GLdouble@3:const):void = `auto % {`en, 'markdown',
+glWindowPos3dv(v:GLdouble@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos3f(x:GLfloat, y:GLfloat, z:GLfloat):void = `auto % {`en, 'markdown',
+glWindowPos3f(x:GLfloat, y:GLfloat, z:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos3fv(v:GLfloat@3:const):void = `auto % {`en, 'markdown',
+glWindowPos3fv(v:GLfloat@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos3i(x:GLint, y:GLint, z:GLint):void = `auto % {`en, 'markdown',
+glWindowPos3i(x:GLint, y:GLint, z:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos3iv(v:GLint@3:const):void = `auto % {`en, 'markdown',
+glWindowPos3iv(v:GLint@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos3s(x:GLshort, y:GLshort, z:GLshort):void = `auto % {`en, 'markdown',
+glWindowPos3s(x:GLshort, y:GLshort, z:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos3sv(v:GLshort@3:const):void = `auto % {`en, 'markdown',
+glWindowPos3sv(v:GLshort@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGenQueries(n:GLsizei) {block?} = R'''
+glGenQueries(n:GLsizei):map {block?} = R'''
 	CArray<GLuint> ids(n);
 	glGenQueries(n, ids);
 	return ReturnValue(env, sig, args, Value::CreateList(env, ids, n));
@@ -2629,7 +2629,7 @@ glGenQueries(n:GLsizei) {block?} = R'''
 	'''
 }
 
-glDeleteQueries(ids:GLuint@:const):void = R'''
+glDeleteQueries(ids:GLuint@:const):void:map = R'''
 	GLsizei n = ids.GetSize();
 	glDeleteQueries(n, ids);
 	return Value::Null;
@@ -2638,12 +2638,12 @@ glDeleteQueries(ids:GLuint@:const):void = R'''
 	'''
 }
 
-glIsQuery(id:GLuint):GLboolean {block?} = `auto % {`en, 'markdown',
+glIsQuery(id:GLuint):GLboolean:map {block?} = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glBeginQuery(target:GLenum, id:GLuint):void {block?} = R'''
+glBeginQuery(target:GLenum, id:GLuint):void:map {block?} = R'''
 	glBeginQuery(target, id);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = NULL;
@@ -2658,12 +2658,12 @@ glBeginQuery(target:GLenum, id:GLuint):void {block?} = R'''
 	'''
 }
 
-glEndQuery(target:GLenum):void = `auto % {`en, 'markdown',
+glEndQuery(target:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGetQueryiv(target:GLenum, pname:GLenum) = R'''
+glGetQueryiv(target:GLenum, pname:GLenum):map = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLint> params(n);
 	glGetQueryiv(target, pname, params);
@@ -2673,7 +2673,7 @@ glGetQueryiv(target:GLenum, pname:GLenum) = R'''
 	'''
 }
 
-glGetQueryObjectiv(id:GLuint, pname:GLenum) = R'''
+glGetQueryObjectiv(id:GLuint, pname:GLenum):map = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLint> params(n);
 	glGetQueryObjectiv(id, pname, params);
@@ -2683,7 +2683,7 @@ glGetQueryObjectiv(id:GLuint, pname:GLenum) = R'''
 	'''
 }
 
-glGetQueryObjectuiv(id:GLuint, pname:GLenum) = R'''
+glGetQueryObjectuiv(id:GLuint, pname:GLenum):map = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLuint> params(n);
 	glGetQueryObjectuiv(id, pname, params);
@@ -2693,12 +2693,12 @@ glGetQueryObjectuiv(id:GLuint, pname:GLenum) = R'''
 	'''
 }
 
-glBindBuffer(target:GLenum, buffer:GLuint):void = `auto % {`en, 'markdown',
+glBindBuffer(target:GLenum, buffer:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glDeleteBuffers(buffers:GLuint@:const):void = R'''
+glDeleteBuffers(buffers:GLuint@:const):void:map = R'''
 	GLsizei n = buffers.GetSize();
 	glDeleteBuffers(n, buffers);
 	return Value::Null;
@@ -2707,7 +2707,7 @@ glDeleteBuffers(buffers:GLuint@:const):void = R'''
 	'''
 }
 
-glGenBuffers(n:GLsizei) {block?} = R'''
+glGenBuffers(n:GLsizei):map {block?} = R'''
 	CArray<GLuint> buffers(n);
 	glGenBuffers(n, buffers);
 	return Value::CreateList(env, buffers, n);
@@ -2716,25 +2716,25 @@ glGenBuffers(n:GLsizei) {block?} = R'''
 	'''
 }
 
-glIsBuffer(buffer:GLuint):GLboolean {block?} = `auto % {`en, 'markdown',
+glIsBuffer(buffer:GLuint):GLboolean:map {block?} = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-//glBufferData(target:GLenum, size:GLsizeiptr, data:GLvoid@:const, usage:GLenum):void = `unsupport
+//glBufferData(target:GLenum, size:GLsizeiptr, data:GLvoid@:const, usage:GLenum):void:map = `unsupport
 
-//glBufferSubData(target:GLenum, offset:GLintptr, size:GLsizeiptr, data:GLvoid@:const):void = `unsupport
+//glBufferSubData(target:GLenum, offset:GLintptr, size:GLsizeiptr, data:GLvoid@:const):void:map = `unsupport
 
-//glGetBufferSubData(target:GLenum, offset:GLintptr, size:GLsizeiptr, data:GLvoid@):void = `unsupport
+//glGetBufferSubData(target:GLenum, offset:GLintptr, size:GLsizeiptr, data:GLvoid@):void:map = `unsupport
 
 //glMapBuffer(target:GLenum, access:GLenum):GLvoid {block?}@
 
-glUnmapBuffer(target:GLenum):GLboolean {block?} = `auto % {`en, 'markdown',
+glUnmapBuffer(target:GLenum):GLboolean:map {block?} = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGetBufferParameteriv(target:GLenum, pname:GLenum):void = R'''
+glGetBufferParameteriv(target:GLenum, pname:GLenum):void:map = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLint> params(n);
 	glGetBufferParameteriv(target, pname, params);
@@ -2744,9 +2744,9 @@ glGetBufferParameteriv(target:GLenum, pname:GLenum):void = R'''
 	'''
 }
 
-//glGetBufferPointerv(target:GLenum, pname:GLenum, params:GLvoid@@):void = `unsupport
+//glGetBufferPointerv(target:GLenum, pname:GLenum, params:GLvoid@@):void:map = `unsupport
 
-glDrawBuffers(bufs:GLenum@:const):void = R'''
+glDrawBuffers(bufs:GLenum@:const):void:map = R'''
 	GLsizei n = bufs.GetSize();
 	glDrawBuffers(n, bufs);
 	return Value::Null;
@@ -2755,199 +2755,199 @@ glDrawBuffers(bufs:GLenum@:const):void = R'''
 	'''
 }
 
-glVertexAttrib1d(index:GLuint, x:GLdouble):void = `auto % {`en, 'markdown',
+glVertexAttrib1d(index:GLuint, x:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib1dv(index:GLuint, v:GLdouble@1:const):void = `auto % {`en, 'markdown',
+glVertexAttrib1dv(index:GLuint, v:GLdouble@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib1f(index:GLuint, x:GLfloat):void = `auto % {`en, 'markdown',
+glVertexAttrib1f(index:GLuint, x:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib1fv(index:GLuint, v:GLfloat@1:const):void = `auto % {`en, 'markdown',
+glVertexAttrib1fv(index:GLuint, v:GLfloat@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib1s(index:GLuint, x:GLshort):void = `auto % {`en, 'markdown',
+glVertexAttrib1s(index:GLuint, x:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib1sv(index:GLuint, v:GLshort@1:const):void = `auto % {`en, 'markdown',
+glVertexAttrib1sv(index:GLuint, v:GLshort@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib2d(index:GLuint, x:GLdouble, y:GLdouble):void = `auto % {`en, 'markdown',
+glVertexAttrib2d(index:GLuint, x:GLdouble, y:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib2dv(index:GLuint, v:GLdouble@2:const):void = `auto % {`en, 'markdown',
+glVertexAttrib2dv(index:GLuint, v:GLdouble@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib2f(index:GLuint, x:GLfloat, y:GLfloat):void = `auto % {`en, 'markdown',
+glVertexAttrib2f(index:GLuint, x:GLfloat, y:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib2fv(index:GLuint, v:GLfloat@2:const):void = `auto % {`en, 'markdown',
+glVertexAttrib2fv(index:GLuint, v:GLfloat@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib2s(index:GLuint, x:GLshort, y:GLshort):void = `auto % {`en, 'markdown',
+glVertexAttrib2s(index:GLuint, x:GLshort, y:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib2sv(index:GLuint, v:GLshort@2:const):void = `auto % {`en, 'markdown',
+glVertexAttrib2sv(index:GLuint, v:GLshort@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib3d(index:GLuint, x:GLdouble, y:GLdouble, z:GLdouble):void = `auto % {`en, 'markdown',
+glVertexAttrib3d(index:GLuint, x:GLdouble, y:GLdouble, z:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib3dv(index:GLuint, v:GLdouble@3:const):void = `auto % {`en, 'markdown',
+glVertexAttrib3dv(index:GLuint, v:GLdouble@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib3f(index:GLuint, x:GLfloat, y:GLfloat, z:GLfloat):void = `auto % {`en, 'markdown',
+glVertexAttrib3f(index:GLuint, x:GLfloat, y:GLfloat, z:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib3fv(index:GLuint, v:GLfloat@3:const):void = `auto % {`en, 'markdown',
+glVertexAttrib3fv(index:GLuint, v:GLfloat@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib3s(index:GLuint, x:GLshort, y:GLshort, z:GLshort):void = `auto % {`en, 'markdown',
+glVertexAttrib3s(index:GLuint, x:GLshort, y:GLshort, z:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib3sv(index:GLuint, v:GLshort@3:const):void = `auto % {`en, 'markdown',
+glVertexAttrib3sv(index:GLuint, v:GLshort@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4Nbv(index:GLuint, v:GLbyte@4:const):void = `auto % {`en, 'markdown',
+glVertexAttrib4Nbv(index:GLuint, v:GLbyte@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4Niv(index:GLuint, v:GLint@4:const):void = `auto % {`en, 'markdown',
+glVertexAttrib4Niv(index:GLuint, v:GLint@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4Nsv(index:GLuint, v:GLshort@4:const):void = `auto % {`en, 'markdown',
+glVertexAttrib4Nsv(index:GLuint, v:GLshort@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4Nub(index:GLuint, x:GLubyte, y:GLubyte, z:GLubyte, w:GLubyte):void = `auto % {`en, 'markdown',
+glVertexAttrib4Nub(index:GLuint, x:GLubyte, y:GLubyte, z:GLubyte, w:GLubyte):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4Nubv(index:GLuint, v:GLubyte@4:const):void = `auto % {`en, 'markdown',
+glVertexAttrib4Nubv(index:GLuint, v:GLubyte@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4Nuiv(index:GLuint, v:GLuint@4:const):void = `auto % {`en, 'markdown',
+glVertexAttrib4Nuiv(index:GLuint, v:GLuint@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4Nusv(index:GLuint, v:GLushort@4:const):void = `auto % {`en, 'markdown',
+glVertexAttrib4Nusv(index:GLuint, v:GLushort@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4bv(index:GLuint, v:GLbyte@4:const):void = `auto % {`en, 'markdown',
+glVertexAttrib4bv(index:GLuint, v:GLbyte@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4d(index:GLuint, x:GLdouble, y:GLdouble, z:GLdouble, w:GLdouble):void = `auto % {`en, 'markdown',
+glVertexAttrib4d(index:GLuint, x:GLdouble, y:GLdouble, z:GLdouble, w:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4dv(index:GLuint, v:GLdouble@4:const):void = `auto % {`en, 'markdown',
+glVertexAttrib4dv(index:GLuint, v:GLdouble@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4f(index:GLuint, x:GLfloat, y:GLfloat, z:GLfloat, w:GLfloat):void = `auto % {`en, 'markdown',
+glVertexAttrib4f(index:GLuint, x:GLfloat, y:GLfloat, z:GLfloat, w:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4fv(index:GLuint, v:GLfloat@4:const):void = `auto % {`en, 'markdown',
+glVertexAttrib4fv(index:GLuint, v:GLfloat@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4iv(index:GLuint, v:GLint@4:const):void = `auto % {`en, 'markdown',
+glVertexAttrib4iv(index:GLuint, v:GLint@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4s(index:GLuint, x:GLshort, y:GLshort, z:GLshort, w:GLshort):void = `auto % {`en, 'markdown',
+glVertexAttrib4s(index:GLuint, x:GLshort, y:GLshort, z:GLshort, w:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4sv(index:GLuint, v:GLshort@4:const):void = `auto % {`en, 'markdown',
+glVertexAttrib4sv(index:GLuint, v:GLshort@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4ubv(index:GLuint, v:GLubyte@4:const):void = `auto % {`en, 'markdown',
+glVertexAttrib4ubv(index:GLuint, v:GLubyte@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4uiv(index:GLuint, v:GLuint@4:const):void = `auto % {`en, 'markdown',
+glVertexAttrib4uiv(index:GLuint, v:GLuint@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4usv(index:GLuint, v:GLushort@4:const):void = `auto % {`en, 'markdown',
+glVertexAttrib4usv(index:GLuint, v:GLushort@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-//glVertexAttribPointer(index:GLuint, size:GLint, type:GLenum, normalized:GLboolean, stride:GLsizei, pointer:GLvoid@:const):void = `unsupport
+//glVertexAttribPointer(index:GLuint, size:GLint, type:GLenum, normalized:GLboolean, stride:GLsizei, pointer:GLvoid@:const):void:map = `unsupport
 
-glEnableVertexAttribArray(index:GLuint):void = `auto % {`en, 'markdown',
+glEnableVertexAttribArray(index:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glDisableVertexAttribArray(index:GLuint):void = `auto % {`en, 'markdown',
+glDisableVertexAttribArray(index:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGetVertexAttribdv(index:GLuint, pname:GLenum) = R'''
+glGetVertexAttribdv(index:GLuint, pname:GLenum):map = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLdouble> params(n);
 	glGetVertexAttribdv(index, pname, params);
@@ -2957,7 +2957,7 @@ glGetVertexAttribdv(index:GLuint, pname:GLenum) = R'''
 	'''
 }
 
-glGetVertexAttribfv(index:GLuint, pname:GLenum) = R'''
+glGetVertexAttribfv(index:GLuint, pname:GLenum):map = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLfloat> params(n);
 	glGetVertexAttribfv(index, pname, params);
@@ -2967,7 +2967,7 @@ glGetVertexAttribfv(index:GLuint, pname:GLenum) = R'''
 	'''
 }
 
-glGetVertexAttribiv(index:GLuint, pname:GLenum) = R'''
+glGetVertexAttribiv(index:GLuint, pname:GLenum):map = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLint> params(n);
 	glGetVertexAttribiv(index, pname, params);
@@ -2977,24 +2977,24 @@ glGetVertexAttribiv(index:GLuint, pname:GLenum) = R'''
 	'''
 }
 
-//glGetVertexAttribPointerv(index:GLuint, pname:GLenum, pointer:GLvoid@@):void = `unsupport
+//glGetVertexAttribPointerv(index:GLuint, pname:GLenum, pointer:GLvoid@@):void:map = `unsupport
 
-glDeleteShader(shader:GLuint):void = `auto % {`en, 'markdown',
+glDeleteShader(shader:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glDetachShader(program:GLuint, shader:GLuint):void = `auto % {`en, 'markdown',
+glDetachShader(program:GLuint, shader:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glCreateShader(type:GLenum):GLuint {block?} = `auto % {`en, 'markdown',
+glCreateShader(type:GLenum):GLuint:map {block?} = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glShaderSource(shader:GLuint, string[]:string):void = R'''
+glShaderSource(shader:GLuint, string[]:string):void:map = R'''
 	GLsizei count = static_cast<GLsizei>(string.size());
 	const GLchar **_string = new const GLchar *[count];
 	GLint *length = new GLint[count];
@@ -3011,7 +3011,7 @@ glShaderSource(shader:GLuint, string[]:string):void = R'''
 	'''
 }
 
-glCompileShader(shader:GLuint):void = `auto % {`en, 'markdown',
+glCompileShader(shader:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -3021,137 +3021,137 @@ glCreateProgram():GLuint {block?} = `auto % {`en, 'markdown',
 	'''
 }
 
-glAttachShader(program:GLuint, shader:GLuint):void = `auto % {`en, 'markdown',
+glAttachShader(program:GLuint, shader:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glLinkProgram(program:GLuint):void = `auto % {`en, 'markdown',
+glLinkProgram(program:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUseProgram(program:GLuint):void = `auto % {`en, 'markdown',
+glUseProgram(program:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glDeleteProgram(program:GLuint):void = `auto % {`en, 'markdown',
+glDeleteProgram(program:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glValidateProgram(program:GLuint):void = `auto % {`en, 'markdown',
+glValidateProgram(program:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform1f(location:GLint, v0:GLfloat):void = `auto % {`en, 'markdown',
+glUniform1f(location:GLint, v0:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform2f(location:GLint, v0:GLfloat, v1:GLfloat):void = `auto % {`en, 'markdown',
+glUniform2f(location:GLint, v0:GLfloat, v1:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform3f(location:GLint, v0:GLfloat, v1:GLfloat, v2:GLfloat):void = `auto % {`en, 'markdown',
+glUniform3f(location:GLint, v0:GLfloat, v1:GLfloat, v2:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform4f(location:GLint, v0:GLfloat, v1:GLfloat, v2:GLfloat, v3:GLfloat):void = `auto % {`en, 'markdown',
+glUniform4f(location:GLint, v0:GLfloat, v1:GLfloat, v2:GLfloat, v3:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform1i(location:GLint, v0:GLint):void = `auto % {`en, 'markdown',
+glUniform1i(location:GLint, v0:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform2i(location:GLint, v0:GLint, v1:GLint):void = `auto % {`en, 'markdown',
+glUniform2i(location:GLint, v0:GLint, v1:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform3i(location:GLint, v0:GLint, v1:GLint, v2:GLint):void = `auto % {`en, 'markdown',
+glUniform3i(location:GLint, v0:GLint, v1:GLint, v2:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform4i(location:GLint, v0:GLint, v1:GLint, v2:GLint, v3:GLint):void = `auto % {`en, 'markdown',
+glUniform4i(location:GLint, v0:GLint, v1:GLint, v2:GLint, v3:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform1fv(location:GLint, count:GLsizei, value:GLfloat@1:const):void = `auto % {`en, 'markdown',
+glUniform1fv(location:GLint, count:GLsizei, value:GLfloat@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform2fv(location:GLint, count:GLsizei, value:GLfloat@2:const):void = `auto % {`en, 'markdown',
+glUniform2fv(location:GLint, count:GLsizei, value:GLfloat@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform3fv(location:GLint, count:GLsizei, value:GLfloat@3:const):void = `auto % {`en, 'markdown',
+glUniform3fv(location:GLint, count:GLsizei, value:GLfloat@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform4fv(location:GLint, count:GLsizei, value:GLfloat@4:const):void = `auto % {`en, 'markdown',
+glUniform4fv(location:GLint, count:GLsizei, value:GLfloat@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform1iv(location:GLint, count:GLsizei, value:GLint@1:const):void = `auto % {`en, 'markdown',
+glUniform1iv(location:GLint, count:GLsizei, value:GLint@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform2iv(location:GLint, count:GLsizei, value:GLint@2:const):void = `auto % {`en, 'markdown',
+glUniform2iv(location:GLint, count:GLsizei, value:GLint@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform3iv(location:GLint, count:GLsizei, value:GLint@3:const):void = `auto % {`en, 'markdown',
+glUniform3iv(location:GLint, count:GLsizei, value:GLint@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform4iv(location:GLint, count:GLsizei, value:GLint@4:const):void = `auto % {`en, 'markdown',
+glUniform4iv(location:GLint, count:GLsizei, value:GLint@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniformMatrix2fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@2:const):void = `auto % {`en, 'markdown',
+glUniformMatrix2fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniformMatrix3fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@3:const):void = `auto % {`en, 'markdown',
+glUniformMatrix3fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniformMatrix4fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@4:const):void = `auto % {`en, 'markdown',
+glUniformMatrix4fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glIsShader(shader:GLuint):GLboolean {block?} = `auto % {`en, 'markdown',
+glIsShader(shader:GLuint):GLboolean:map {block?} = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glIsProgram(program:GLuint):GLboolean {block?} = `auto % {`en, 'markdown',
+glIsProgram(program:GLuint):GLboolean:map {block?} = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGetShaderiv(shader:GLuint, pname:GLenum):void = R'''
+glGetShaderiv(shader:GLuint, pname:GLenum):void:map = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLint> params(n);
 	glGetShaderiv(shader, pname, params);
@@ -3161,7 +3161,7 @@ glGetShaderiv(shader:GLuint, pname:GLenum):void = R'''
 	'''
 }
 
-glGetProgramiv(program:GLuint, pname:GLenum):void = R'''
+glGetProgramiv(program:GLuint, pname:GLenum):void:map = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLint> params(n);
 	glGetProgramiv(program, pname, params);
@@ -3171,102 +3171,102 @@ glGetProgramiv(program:GLuint, pname:GLenum):void = R'''
 	'''
 }
 
-glGetAttachedShaders(program:GLuint, maxCount:GLsizei, count:GLsizei@, shaders:GLuint@):void = `unsupport % {`en, 'markdown',
+glGetAttachedShaders(program:GLuint, maxCount:GLsizei, count:GLsizei@, shaders:GLuint@):void:map = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGetShaderInfoLog(shader:GLuint, bufSize:GLsizei, length:GLsizei@, infoLog:GLchar@):void = `unsupport % {`en, 'markdown',
+glGetShaderInfoLog(shader:GLuint, bufSize:GLsizei, length:GLsizei@, infoLog:GLchar@):void:map = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGetProgramInfoLog(program:GLuint, bufSize:GLsizei, length:GLsizei@, infoLog:GLchar@):void = `unsupport % {`en, 'markdown',
+glGetProgramInfoLog(program:GLuint, bufSize:GLsizei, length:GLsizei@, infoLog:GLchar@):void:map = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGetUniformLocation(program:GLuint, name:GLchar@:const):GLint {block?} = `unsupport % {`en, 'markdown',
+glGetUniformLocation(program:GLuint, name:GLchar@:const):GLint:map {block?} = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGetActiveUniform(program:GLuint, index:GLuint, bufSize:GLsizei, length:GLsizei@, size:GLint@, type:GLenum@, name:GLchar@):void = `unsupport % {`en, 'markdown',
+glGetActiveUniform(program:GLuint, index:GLuint, bufSize:GLsizei, length:GLsizei@, size:GLint@, type:GLenum@, name:GLchar@):void:map = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGetUniformfv(program:GLuint, location:GLint, params:GLfloat@):void = `unsupport % {`en, 'markdown',
+glGetUniformfv(program:GLuint, location:GLint, params:GLfloat@):void:map = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGetUniformiv(program:GLuint, location:GLint, params:GLint@):void = `unsupport % {`en, 'markdown',
+glGetUniformiv(program:GLuint, location:GLint, params:GLint@):void:map = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGetShaderSource(shader:GLuint, bufSize:GLsizei, length:GLsizei@, source:GLchar@):void = `unsupport % {`en, 'markdown',
+glGetShaderSource(shader:GLuint, bufSize:GLsizei, length:GLsizei@, source:GLchar@):void:map = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glBindAttribLocation(program:GLuint, index:GLuint, name:GLchar@:const):void = `unsupport % {`en, 'markdown',
+glBindAttribLocation(program:GLuint, index:GLuint, name:GLchar@:const):void:map = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGetActiveAttrib(program:GLuint, index:GLuint, bufSize:GLsizei, length:GLsizei@, size:GLint@, type:GLenum@, name:GLchar@):void = `unsupport % {`en, 'markdown',
+glGetActiveAttrib(program:GLuint, index:GLuint, bufSize:GLsizei, length:GLsizei@, size:GLint@, type:GLenum@, name:GLchar@):void:map = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGetAttribLocation(program:GLuint, name:GLchar@:const):GLint {block?} = `unsupport % {`en, 'markdown',
+glGetAttribLocation(program:GLuint, name:GLchar@:const):GLint:map {block?} = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glStencilFuncSeparate(face:GLenum, func:GLenum, ref:GLint, mask:GLuint):void = `auto % {`en, 'markdown',
+glStencilFuncSeparate(face:GLenum, func:GLenum, ref:GLint, mask:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glStencilOpSeparate(face:GLenum, fail:GLenum, zfail:GLenum, zpass:GLenum):void = `auto % {`en, 'markdown',
+glStencilOpSeparate(face:GLenum, fail:GLenum, zfail:GLenum, zpass:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glStencilMaskSeparate(face:GLenum, mask:GLuint):void = `auto % {`en, 'markdown',
+glStencilMaskSeparate(face:GLenum, mask:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniformMatrix2x3fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@:const):void = `unsupport % {`en, 'markdown',
+glUniformMatrix2x3fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@:const):void:map = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniformMatrix3x2fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@:const):void = `unsupport % {`en, 'markdown',
+glUniformMatrix3x2fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@:const):void:map = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniformMatrix2x4fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@:const):void = `unsupport % {`en, 'markdown',
+glUniformMatrix2x4fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@:const):void:map = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniformMatrix4x2fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@:const):void = `unsupport % {`en, 'markdown',
+glUniformMatrix4x2fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@:const):void:map = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniformMatrix3x4fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@:const):void = `unsupport % {`en, 'markdown',
+glUniformMatrix3x4fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@:const):void:map = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniformMatrix4x3fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@:const):void = `unsupport % {`en, 'markdown',
+glUniformMatrix4x3fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@:const):void:map = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -3455,7 +3455,7 @@ typeConvDict = %{
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLbyte> ${arg.name} = args.GetList(${idx});
-			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+			if (CheckParamCount(pname, ${arg.name}.GetSize())) {
 				sig.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;
@@ -3506,7 +3506,7 @@ typeConvDict = %{
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLubyte> ${arg.name} = args.GetList(${idx});
-			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+			if (CheckParamCount(pname, ${arg.name}.GetSize())) {
 				sig.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;
@@ -3562,7 +3562,7 @@ typeConvDict = %{
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLshort> ${arg.name} = args.GetList(${idx});
-			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+			if (CheckParamCount(pname, ${arg.name}.GetSize())) {
 				sig.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;
@@ -3603,7 +3603,7 @@ typeConvDict = %{
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLushort> ${arg.name} = args.GetList(${idx});
-			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+			if (CheckParamCount(pname, ${arg.name}.GetSize())) {
 				sig.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;
@@ -3664,7 +3664,7 @@ typeConvDict = %{
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLint> ${arg.name} = args.GetList(${idx});
-			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+			if (CheckParamCount(pname, ${arg.name}.GetSize())) {
 				sig.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;
@@ -3715,7 +3715,7 @@ typeConvDict = %{
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLuint> ${arg.name} = args.GetList(${idx});
-			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+			if (CheckParamCount(pname, ${arg.name}.GetSize())) {
 				sig.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;
@@ -3786,7 +3786,7 @@ typeConvDict = %{
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
-			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+			if (CheckParamCount(pname, ${arg.name}.GetSize())) {
 				sig.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;
@@ -3862,7 +3862,7 @@ typeConvDict = %{
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
-			if (${arg.name}.GetSize() != GetParamCount(pname)) {
+			if (CheckParamCount(pname, ${arg.name}.GetSize())) {
 				sig.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;

@@ -140,6 +140,9 @@ FuncInfo = class {
 			this.funcNameGura = this.funcNameC
 		}
 		rtnTypeRaw = caller.attrfront.join('.')
+		if (rtnTypeRaw == 'map') {
+			rtnTypeRaw = ''
+		}
 		if (rtnTypeRaw.isempty() && !this.validFlag) {
 			rtnTypeRaw = 'void'
 		}

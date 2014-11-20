@@ -19,6 +19,7 @@ bool DoGLSection(Environment &env, Signal sig, Args &args, Image *pImage);
 // helper
 //-----------------------------------------------------------------------------
 size_t GetParamCount(GLenum pname);
+bool CheckParamCount(GLenum pname, size_t n);
 
 GLenum GetImageFormat(Signal sig, const Image *pImage);
 void SetError_NotImpFunction(Signal &sig, const char *funcName);
