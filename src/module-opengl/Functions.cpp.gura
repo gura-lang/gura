@@ -3455,7 +3455,7 @@ typeConvDict = %{
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLbyte> ${arg.name} = args.GetList(${idx});
-			if (CheckParamCount(pname, ${arg.name}.GetSize())) {
+			if (!CheckParamCount(pname, ${arg.name}.GetSize())) {
 				sig.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;
@@ -3506,7 +3506,7 @@ typeConvDict = %{
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLubyte> ${arg.name} = args.GetList(${idx});
-			if (CheckParamCount(pname, ${arg.name}.GetSize())) {
+			if (!CheckParamCount(pname, ${arg.name}.GetSize())) {
 				sig.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;
@@ -3562,7 +3562,7 @@ typeConvDict = %{
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLshort> ${arg.name} = args.GetList(${idx});
-			if (CheckParamCount(pname, ${arg.name}.GetSize())) {
+			if (!CheckParamCount(pname, ${arg.name}.GetSize())) {
 				sig.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;
@@ -3603,7 +3603,7 @@ typeConvDict = %{
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLushort> ${arg.name} = args.GetList(${idx});
-			if (CheckParamCount(pname, ${arg.name}.GetSize())) {
+			if (!CheckParamCount(pname, ${arg.name}.GetSize())) {
 				sig.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;
@@ -3664,7 +3664,7 @@ typeConvDict = %{
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLint> ${arg.name} = args.GetList(${idx});
-			if (CheckParamCount(pname, ${arg.name}.GetSize())) {
+			if (!CheckParamCount(pname, ${arg.name}.GetSize())) {
 				sig.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;
@@ -3715,7 +3715,7 @@ typeConvDict = %{
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLuint> ${arg.name} = args.GetList(${idx});
-			if (CheckParamCount(pname, ${arg.name}.GetSize())) {
+			if (!CheckParamCount(pname, ${arg.name}.GetSize())) {
 				sig.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;
@@ -3786,7 +3786,7 @@ typeConvDict = %{
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
-			if (CheckParamCount(pname, ${arg.name}.GetSize())) {
+			if (!CheckParamCount(pname, ${arg.name}.GetSize())) {
 				sig.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;
@@ -3862,7 +3862,7 @@ typeConvDict = %{
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
-			if (CheckParamCount(pname, ${arg.name}.GetSize())) {
+			if (!CheckParamCount(pname, ${arg.name}.GetSize())) {
 				sig.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;

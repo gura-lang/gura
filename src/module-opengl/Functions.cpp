@@ -1220,7 +1220,7 @@ Gura_ImplementFunction(glColorTableParameterfv)
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLfloat> params = args.GetList(2);
-	if (CheckParamCount(pname, params.GetSize())) {
+	if (!CheckParamCount(pname, params.GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -1246,7 +1246,7 @@ Gura_ImplementFunction(glColorTableParameteriv)
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLint> params = args.GetList(2);
-	if (CheckParamCount(pname, params.GetSize())) {
+	if (!CheckParamCount(pname, params.GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -1293,7 +1293,7 @@ Gura_ImplementFunction(glConvolutionParameterfv)
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLfloat> params = args.GetList(2);
-	if (CheckParamCount(pname, params.GetSize())) {
+	if (!CheckParamCount(pname, params.GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -1340,7 +1340,7 @@ Gura_ImplementFunction(glConvolutionParameteriv)
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLint> params = args.GetList(2);
-	if (CheckParamCount(pname, params.GetSize())) {
+	if (!CheckParamCount(pname, params.GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -2256,7 +2256,7 @@ Gura_ImplementFunction(glFogfv)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLfloat> params = args.GetList(1);
-	if (CheckParamCount(pname, params.GetSize())) {
+	if (!CheckParamCount(pname, params.GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -2299,7 +2299,7 @@ Gura_ImplementFunction(glFogiv)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLint> params = args.GetList(1);
-	if (CheckParamCount(pname, params.GetSize())) {
+	if (!CheckParamCount(pname, params.GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -3493,7 +3493,7 @@ Gura_ImplementFunction(glLightModelfv)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLfloat> params = args.GetList(1);
-	if (CheckParamCount(pname, params.GetSize())) {
+	if (!CheckParamCount(pname, params.GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -3536,7 +3536,7 @@ Gura_ImplementFunction(glLightModeliv)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLint> params = args.GetList(1);
-	if (CheckParamCount(pname, params.GetSize())) {
+	if (!CheckParamCount(pname, params.GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -3583,7 +3583,7 @@ Gura_ImplementFunction(glLightfv)
 	GLenum light = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLfloat> params = args.GetList(2);
-	if (CheckParamCount(pname, params.GetSize())) {
+	if (!CheckParamCount(pname, params.GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -3630,7 +3630,7 @@ Gura_ImplementFunction(glLightiv)
 	GLenum light = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLint> params = args.GetList(2);
-	if (CheckParamCount(pname, params.GetSize())) {
+	if (!CheckParamCount(pname, params.GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -4041,7 +4041,7 @@ Gura_ImplementFunction(glMaterialfv)
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLfloat> params = args.GetList(2);
-	if (CheckParamCount(pname, params.GetSize())) {
+	if (!CheckParamCount(pname, params.GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -4088,7 +4088,7 @@ Gura_ImplementFunction(glMaterialiv)
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLint> params = args.GetList(2);
-	if (CheckParamCount(pname, params.GetSize())) {
+	if (!CheckParamCount(pname, params.GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -6580,7 +6580,7 @@ Gura_ImplementFunction(glTexEnvfv)
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLfloat> params = args.GetList(2);
-	if (CheckParamCount(pname, params.GetSize())) {
+	if (!CheckParamCount(pname, params.GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -6627,7 +6627,7 @@ Gura_ImplementFunction(glTexEnviv)
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLint> params = args.GetList(2);
-	if (CheckParamCount(pname, params.GetSize())) {
+	if (!CheckParamCount(pname, params.GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -6674,7 +6674,7 @@ Gura_ImplementFunction(glTexGendv)
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLdouble> params = args.GetList(2);
-	if (CheckParamCount(pname, params.GetSize())) {
+	if (!CheckParamCount(pname, params.GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -6721,7 +6721,7 @@ Gura_ImplementFunction(glTexGenfv)
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLfloat> params = args.GetList(2);
-	if (CheckParamCount(pname, params.GetSize())) {
+	if (!CheckParamCount(pname, params.GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -6768,7 +6768,7 @@ Gura_ImplementFunction(glTexGeniv)
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLint> params = args.GetList(2);
-	if (CheckParamCount(pname, params.GetSize())) {
+	if (!CheckParamCount(pname, params.GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -6876,7 +6876,7 @@ Gura_ImplementFunction(glTexParameterfv)
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLfloat> params = args.GetList(2);
-	if (CheckParamCount(pname, params.GetSize())) {
+	if (!CheckParamCount(pname, params.GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -6923,7 +6923,7 @@ Gura_ImplementFunction(glTexParameteriv)
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	CArray<GLint> params = args.GetList(2);
-	if (CheckParamCount(pname, params.GetSize())) {
+	if (!CheckParamCount(pname, params.GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -8863,7 +8863,7 @@ Gura_ImplementFunction(glPointParameterfv)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLfloat> params = args.GetList(1);
-	if (CheckParamCount(pname, params.GetSize())) {
+	if (!CheckParamCount(pname, params.GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -8906,7 +8906,7 @@ Gura_ImplementFunction(glPointParameteriv)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLint> params = args.GetList(1);
-	if (CheckParamCount(pname, params.GetSize())) {
+	if (!CheckParamCount(pname, params.GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
