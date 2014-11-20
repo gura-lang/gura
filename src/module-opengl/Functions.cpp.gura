@@ -72,20 +72,26 @@ glBitmap(width:GLsizei, height:GLsizei, xorig:GLfloat, yorig:GLfloat, xmove:GLfl
 	'''
 }
 
+/*
 glBlendColor(red:GLclampf, green:GLclampf, blue:GLclampf, alpha:GLclampf):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
-
+*/
+	
+/*
 glBlendEquation(mode:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glBlendEquationSeparate(modeRGB:GLenum, modeAlpha:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
 glBlendFunc(sfactor:GLenum, dfactor:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
@@ -382,59 +388,79 @@ glColorMaterial(face:GLenum, mode:GLenum):void:map = `auto % {`en, 'markdown',
 
 //glColorTable(target:GLenum, internalformat:GLenum, width:GLsizei, format:GLenum, type:GLenum, table:GLvoid@:const):void:map = `unsupport
 
+/*
 glColorTableParameterfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
-	
+*/
+
+/*
 glColorTableParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
 //glConvolutionFilter1D(target:GLenum, internalformat:GLenum, width:GLsizei, format:GLenum, type:GLenum, image:GLvoid@:const):void:map = `unsupport
 
 //glConvolutionFilter2D(target:GLenum, internalformat:GLenum, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, image:GLvoid@:const):void:map = `unsupport
 
+/*
 glConvolutionParameterf(target:GLenum, pname:GLenum, params:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glConvolutionParameterfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glConvolutionParameteri(target:GLenum, pname:GLenum, params:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glConvolutionParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glCopyColorSubTable(target:GLenum, start:GLsizei, x:GLint, y:GLint, width:GLsizei):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glCopyColorTable(target:GLenum, internalformat:GLenum, x:GLint, y:GLint, width:GLsizei):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glCopyConvolutionFilter1D(target:GLenum, internalformat:GLenum, x:GLint, y:GLint, width:GLsizei):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glCopyConvolutionFilter2D(target:GLenum, internalformat:GLenum, x:GLint, y:GLint, width:GLsizei, height:GLsizei):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
 glCopyPixels(x:GLint, y:GLint, width:GLsizei, height:GLsizei, type:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
@@ -461,10 +487,12 @@ glCopyTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, x:
 	'''
 }
 
+/*
 glCopyTexSubImage3D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, x:GLint, y:GLint, width:GLsizei, height:GLsizei):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
 glCullFace(mode:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
@@ -716,6 +744,7 @@ glGetClipPlane(plane:GLenum):map = R'''
 
 //glGetColorTable(target:GLenum, format:GLenum, type:GLenum, table:GLvoid@):void:map = `unsupport
 
+/*
 glGetColorTableParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLfloat> params(n);
@@ -725,7 +754,9 @@ glGetColorTableParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	R'''
 	'''
 }
+*/
 
+/*
 glGetColorTableParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLint> params(n);
@@ -735,9 +766,11 @@ glGetColorTableParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 	R'''
 	'''
 }
+*/
 
 //glGetConvolutionFilter(target:GLenum, format:GLenum, type:GLenum, image:GLvoid@):void:map = `unsupport
 
+/*
 glGetConvolutionParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLfloat> params(n);
@@ -747,7 +780,9 @@ glGetConvolutionParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	R'''
 	'''
 }
+*/
 
+/*
 glGetConvolutionParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLint> params(n);
@@ -757,6 +792,7 @@ glGetConvolutionParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 	R'''
 	'''
 }
+*/
 
 glGetDoublev(pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
@@ -785,6 +821,7 @@ glGetFloatv(pname:GLenum):map {block?} = R'''
 
 //glGetHistogram(target:GLenum, reset:GLboolean, format:GLenum, type:GLenum, values:GLvoid@):void:map = `unsupport
 
+/*
 glGetHistogramParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLfloat> params(n);
@@ -794,7 +831,9 @@ glGetHistogramParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	R'''
 	'''
 }
+*/
 
+/*
 glGetHistogramParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLint> params(n);
@@ -804,6 +843,7 @@ glGetHistogramParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 	R'''
 	'''
 }
+*/
 
 glGetIntegerv(pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
@@ -872,6 +912,7 @@ glGetMaterialiv(face:GLenum, pname:GLenum):map {block?} = R'''
 
 //glGetMinmax(target:GLenum, reset:GLboolean, format:GLenum, type:GLenum, values:GLvoid@):void:map = `unsupport
 
+/*
 glGetMinmaxParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLfloat> params(n);
@@ -881,6 +922,7 @@ glGetMinmaxParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	R'''
 	'''
 }
+*/
 
 glGetMinmaxParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
@@ -1025,10 +1067,12 @@ glHint(target:GLenum, mode:GLenum):void:map = `auto % {`en, 'markdown',
 	'''
 }
 
+/*
 glHistogram(target:GLenum, width:GLsizei, internalformat:GLenum, sink:GLboolean):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
 glIndexMask(mask:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
@@ -1254,10 +1298,12 @@ glMatrixMode(mode:GLenum):void:map = `auto % {`en, 'markdown',
 	'''
 }
 
+/*
 glMinmax(target:GLenum, internalformat:GLenum, sink:GLboolean):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
 glMultMatrixd(m:GLdouble@16:const):void:map = `auto % {`en, 'markdown',
 	R'''
@@ -1691,15 +1737,19 @@ glRenderMode(mode:GLenum):GLint:map {block?} = `auto % {`en, 'markdown',
 	'''
 }
 
+/*
 glResetHistogram(target:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glResetMinmax(target:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
 glRotated(angle:GLdouble, x:GLdouble, y:GLdouble, z:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
@@ -2186,30 +2236,40 @@ glViewport(x:GLint, y:GLint, width:GLsizei, height:GLsizei):void:map = `auto % {
 	'''
 }
 
+/*
 glSampleCoverage(value:GLclampf, invert:GLboolean):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glLoadTransposeMatrixf(m:GLfloat@16:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glLoadTransposeMatrixd(m:GLdouble@16:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultTransposeMatrixf(m:GLfloat@16:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultTransposeMatrixd(m:GLdouble@16:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
 //glCompressedTexImage3D(target:GLenum, level:GLint, internalformat:GLenum, width:GLsizei, height:GLsizei, depth:GLsizei, border:GLint, imageSize:GLsizei, data:GLvoid@:const):void:map = `unsupport
 
@@ -2225,198 +2285,275 @@ glMultTransposeMatrixd(m:GLdouble@16:const):void:map = `auto % {`en, 'markdown',
 
 //glGetCompressedTexImage(target:GLenum, lod:GLint, img:GLvoid@):void:map = `unsupport
 
+/*
 glActiveTexture(texture:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glClientActiveTexture(texture:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord1d(target:GLenum, s:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord1dv(target:GLenum, v:GLdouble@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord1f(target:GLenum, s:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord1fv(target:GLenum, v:GLfloat@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord1i(target:GLenum, s:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord1iv(target:GLenum, v:GLint@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord1s(target:GLenum, s:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord1sv(target:GLenum, v:GLshort@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord2d(target:GLenum, s:GLdouble, t:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord2dv(target:GLenum, v:GLdouble@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord2f(target:GLenum, s:GLfloat, t:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord2fv(target:GLenum, v:GLfloat@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord2i(target:GLenum, s:GLint, t:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord2iv(target:GLenum, v:GLint@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord2s(target:GLenum, s:GLshort, t:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord2sv(target:GLenum, v:GLshort@2:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord3d(target:GLenum, s:GLdouble, t:GLdouble, r:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord3dv(target:GLenum, v:GLdouble@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord3f(target:GLenum, s:GLfloat, t:GLfloat, r:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord3fv(target:GLenum, v:GLfloat@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord3i(target:GLenum, s:GLint, t:GLint, r:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord3iv(target:GLenum, v:GLint@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord3s(target:GLenum, s:GLshort, t:GLshort, r:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord3sv(target:GLenum, v:GLshort@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord4d(target:GLenum, s:GLdouble, t:GLdouble, r:GLdouble, q:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord4dv(target:GLenum, v:GLdouble@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord4f(target:GLenum, s:GLfloat, t:GLfloat, r:GLfloat, q:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord4fv(target:GLenum, v:GLfloat@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord4i(target:GLenum, s:GLint, t:GLint, r:GLint, q:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord4iv(target:GLenum, v:GLint@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord4s(target:GLenum, s:GLshort, t:GLshort, r:GLshort, q:GLshort):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiTexCoord4sv(target:GLenum, v:GLshort@4:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glFogCoordf(coord:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glFogCoordfv(coord:GLfloat@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glFogCoordd(coord:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glFogCoorddv(coord:GLdouble@1:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
 //glFogCoordPointer(type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void:map = `unsupport
 
+/*
 glSecondaryColor3b(red:GLbyte, green:GLbyte, blue:GLbyte):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
@@ -2496,9 +2633,11 @@ glSecondaryColor3usv(v:GLushort@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
 //glSecondaryColorPointer(size:GLint, type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void:map = `unsupport
 
+/*
 glPointParameterf(pname:GLenum, param:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
@@ -2518,12 +2657,16 @@ glPointParameteriv(pname:GLenum, params:GLint@pname:const):void:map = `auto % {`
 	R'''
 	'''
 }
+*/
 
+/*
 glBlendFuncSeparate(srcRGB:GLenum, dstRGB:GLenum, srcAlpha:GLenum, dstAlpha:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glMultiDrawArrays(mode:GLenum, first:GLint@:const, count:GLsizei@:const):void:map = R'''
 	GLsizei primcount = first.GetSize();
 	if (primcount != count.GetSize()) {
@@ -2536,9 +2679,11 @@ glMultiDrawArrays(mode:GLenum, first:GLint@:const, count:GLsizei@:const):void:ma
 	R'''
 	'''
 }
+*/
 
 //glMultiDrawElements(mode:GLenum, count:GLsizei@:const, type:GLenum, indices:GLvoid@:const@:const, primcount:GLsizei):void:map = `unsupport
 
+/*
 glWindowPos2d(x:GLdouble, y:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
@@ -2618,6 +2763,7 @@ glWindowPos3sv(v:GLshort@3:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
 glGenQueries(n:GLsizei):map {block?} = R'''
 	CArray<GLuint> ids(n);
