@@ -22,13 +22,13 @@ Gura_BeginModuleScope(${moduleName})
 
 void AssignValues(Environment &env)
 {
-${valueAssignments}
+${valueAssigns}
 }
 
 Gura_EndModuleScope(${moduleName})
 '''.template()
 
-tmplValue = R'''
+tmplValueAssign = R'''
 #if defined(${varName})
 	Gura_AssignValue(${varName}, Value(${varName}));
 #endif
@@ -62,9 +62,9 @@ open(fileNameFunctions, 'w') {|f|
 sys.stderr.println(fileNameFunctions, ' was created')
 
 open(fileNameValues, 'w') {|f|
-	valueAssignments = lines:*match(patternConst).skipnil():iter {|m|
+	valueAssigns = lines:*match(patternConst).skipnil():iter {|m|
 		varName = m[1]
-		tmplValue.render()
+		tmplValueAssign.render()
 	}
 	tmplValuesFile.render(f)
 }
