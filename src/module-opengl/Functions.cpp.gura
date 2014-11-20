@@ -927,7 +927,7 @@ glGetMinmaxParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 glGetMinmaxParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	CArray<GLint> params(n);
-	glGetHistogramParameteriv(target, pname, params);
+	glGetMinmaxParameteriv(target, pname, params);
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
@@ -2765,6 +2765,7 @@ glWindowPos3sv(v:GLshort@3:const):void:map = `auto % {`en, 'markdown',
 }
 */
 
+/*
 glGenQueries(n:GLsizei):map {block?} = R'''
 	CArray<GLuint> ids(n);
 	glGenQueries(n, ids);
@@ -2837,7 +2838,9 @@ glGetQueryObjectuiv(id:GLuint, pname:GLenum):map = R'''
 	R'''
 	'''
 }
-
+*/
+	
+/*
 glBindBuffer(target:GLenum, buffer:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
@@ -2899,7 +2902,9 @@ glDrawBuffers(bufs:GLenum@:const):void:map = R'''
 	R'''
 	'''
 }
+*/
 
+/*
 glVertexAttrib1d(index:GLuint, x:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
@@ -3123,7 +3128,9 @@ glGetVertexAttribiv(index:GLuint, pname:GLenum):map = R'''
 }
 
 //glGetVertexAttribPointerv(index:GLuint, pname:GLenum, pointer:GLvoid@@):void:map = `unsupport
+*/
 
+/*
 glDeleteShader(shader:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
@@ -3138,6 +3145,7 @@ glCreateShader(type:GLenum):GLuint:map {block?} = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
 glShaderSource(shader:GLuint, string[]:string):void:map = R'''
 	GLsizei count = static_cast<GLsizei>(string.size());
