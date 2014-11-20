@@ -2,7 +2,7 @@
 import(re)
 
 fileNameHdr = 'gl.h'
-fileNameFunctions = 'Functions.cpp'
+fileNameFunctions = 'Functions.cpp.gura'
 fileNameValues = 'Values.cpp'
 moduleName = 'opengl'
 patternConst = r'^#define\s+(GL_\w+)'
