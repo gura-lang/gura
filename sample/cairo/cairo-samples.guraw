@@ -3,6 +3,7 @@ import(wx)
 import(cairo)
 import(gif)
 import(jpeg)
+import(units)
 
 [wdCanvas, htCanvas] = [256, 256]
 
@@ -466,6 +467,10 @@ Canvas = class(wx.Panel) {
 	}
 }
 
+[
+	ID_SavePDF
+] = wx.ID_HIGHEST..
+
 Entry = struct(name:string, func:function)
 
 Frame = class(wx.Frame) {
@@ -473,6 +478,12 @@ Frame = class(wx.Frame) {
 								   size => wx.Size(800, 640)|
 		this.SetIcon(wx.IconFromXPMData(sample_xpm))
 		wx.MenuBar {|menuBar|
+			// create a menu bar
+			wx.Menu() {|menu|
+				menuBar.Append(menu, '&File')
+				menu.Append(ID_SavePDF, 'Save &PDF')
+				menu.Append(wx.ID_EXIT, 'E&xit')
+			}
 			this.SetMenuBar(menuBar)
 		}
 		panel = wx.Panel(this)
@@ -498,7 +509,7 @@ Frame = class(wx.Frame) {
 				vbox.Add(ctrl, wx.SizerFlags().Centre().Border(wx.TOP, 4))
 				this.canvas = ctrl
 			}
-			wx.TextCtrl(panel, wx.ID_ANY) {|ctrl|
+			wx.TextCtrl(panel, wx.ID_ANY, style => wx.TE_MULTILINE) {|ctrl|
 				ctrl.SetFont(wx.Font(12, wx.FONTFAMILY_TELETYPE,
 									 wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL))
 				vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 4))
@@ -510,6 +521,20 @@ Frame = class(wx.Frame) {
 		this.listCtrl.Bind(wx.EVT_LIST_ITEM_SELECTED) {|event|
 			this.EvalFunction(event.GetIndex())
 		}
+		this.Bind(wx.EVT_MENU, ID_SavePDF) {|event| this.OnMenu_SavePDF(event)}
+		this.Bind(wx.EVT_MENU, wx.ID_EXIT) {|event| this.OnMenu_Exit(event)}
+	}
+	OnMenu_SavePDF(event:wx.CommandEvent) = {
+		fileName = 'tmp.pdf'
+		cairo.create(cairo.pdf_surface.create(fileName,
+						units.mm$pt(100), units.mm$pt(100))) {|cr|
+			scale = 72 / 25.4
+			cr.scale(scale, scale)
+			cr.show_page()
+		}
+	}
+	OnMenu_Exit(event:wx.CommandEvent) = {
+		this.Close()
 	}
 	EvalFunction(idx:number) = {
 		img = image(`rgba, wdCanvas, htCanvas)
