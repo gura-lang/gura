@@ -26,15 +26,16 @@ if not exist buildtools-mswin git clone https://github.com/gura-lang/buildtools-
 %UNZIP% x -y -obuildtools-mswin\wix38-binaries buildtools-mswin\wix38-binaries.zip
 rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTURL%/bzip2-1.0.6.tar.gz
-%CURL% -O %GUESTURL%/cairo-1.12.16.tar.xz
-%CURL% -O %GUESTURL%/cairo-1.12.16-gurapatch.zip
+%CURL% -O %GUESTURL%/cairo-1.12.18.tar.xz
+%CURL% -O %GUESTURL%/cairo-1.12.18-gurapatch.zip
 %CURL% -O %GUESTURL%/curl-7.38.0.zip
 %CURL% -O %GUESTURL%/expat-2.1.0.tar.gz
 %CURL% -O %GUESTURL%/expat-2.1.0-gurapatch.zip
 %CURL% -O %GUESTURL%/fontconfig-2.11.tar.bz2
 %CURL% -O %GUESTURL%/freetype-2.5.3.tar.bz2
 %CURL% -O %GUESTURL%/jpegsrc.v9a.tar.gz
-%CURL% -O %GUESTURL%/lpng1612.zip
+%CURL% -O %GUESTURL%/lpng1520.zip
+%CURL% -O %GUESTURL%/lpng1520-gurapatch.zip
 %CURL% -O %GUESTURL%/mpir-2.6.0.tar.bz2
 %CURL% -O %GUESTURL%/onig-5.9.5.tar.gz
 %CURL% -O %GUESTURL%/pixman-0.32.6.tar.gz
@@ -50,14 +51,12 @@ rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTURL%/wxWidgets-3.0.1.7z
 %CURL% -O %GUESTURL%/yaml-0.1.5.tar.gz
 %CURL% -O %GUESTURL%/yaml-0.1.5-gurapatch.zip
-%CURL% -O %GUESTURL%/zlib-1.2.8.tar.gz
+%CURL% -O %GUESTURL%/zlib127.zip
 rem ---------------------------------------------------------------------------
 %UNZIP% x -y -osqlite-amalgamation sqlite-amalgamation-201409011821.zip
 rem ---------------------------------------------------------------------------
-%UNZIP% x -y zlib-1.2.8.tar.gz
-%UNZIP% x -y zlib-1.2.8.tar
-del zlib-1.2.8.tar
-pushd zlib-1.2.8
+%UNZIP% x -y zlib127.zip
+pushd zlib-1.2.7
 nmake -f win32\Makefile.msc
 popd
 rem ---------------------------------------------------------------------------
@@ -76,9 +75,10 @@ copy jconfig.vc jconfig.h
 nmake -f makefile.vc nodebug=1
 popd
 rem ---------------------------------------------------------------------------
-rem You cannot build source code in libpng-1.6.12.tar.gz properly under Windows.
-%UNZIP% x -y lpng1612.zip
-msbuild lpng1612\projects\vstudio\vstudio.sln /clp:DisableConsoleColor /t:Build /p:Configuration="Release Library" /p:Platform=win32
+rem You cannot build source code in libpng-x.x.x.tar.gz properly under Windows.
+%UNZIP% x -y lpng1520.zip
+%UNZIP% x -y lpng1520-gurapatch.zip
+msbuild lpng1520\projects\vstudio\vstudio.sln /clp:DisableConsoleColor /t:Build /p:Configuration="Release Library" /p:Platform=win32
 rem ---------------------------------------------------------------------------
 rem You cannot build source code in tiff-3.8.2.tar.gz properly under Windows.
 %UNZIP% x -y tiff-3.8.2.zip
@@ -137,13 +137,11 @@ rem ---------------------------------------------------------------------------
 del freetype-2.5.3.tar
 msbuild freetype-2.5.3\builds\windows\vc2010\freetype.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
 rem ---------------------------------------------------------------------------
-%UNZIP% x -y cairo-1.12.16.tar.xz
-%UNZIP% x -y cairo-1.12.16.tar
-%UNZIP% x -y cairo-1.12.16-gurapatch.zip
-del cairo-1.12.16.tar
-pushd cairo-1.12.16\src
-if not exist release mkdir release
-if not exist release\win32 mkdir release\win32
+%UNZIP% x -y cairo-1.12.18.tar.xz
+%UNZIP% x -y cairo-1.12.18.tar
+%UNZIP% x -y cairo-1.12.18-gurapatch.zip
+del cairo-1.12.18.tar
+pushd cairo-1.12.18\src
 %GNUMAKE% -f Makefile.win32 CFG=release
 popd
 rem ---------------------------------------------------------------------------
@@ -161,8 +159,8 @@ mkdir deps
 mkdir deps\lib
 mkdir deps\include
 mkdir deps\bin
-copy zlib-1.2.8\*.h deps\include
-copy zlib-1.2.8\zlib.lib deps\lib\zlib_a.lib
+copy zlib-1.2.7\*.h deps\include
+copy zlib-1.2.7\zlib.lib deps\lib\zlib_a.lib
 %UNZIP% x -y curl-7.38.0.zip
 pushd curl-7.38.0\winbuild
 nmake -f Makefile.vc mode=static WITH_ZLIB=static

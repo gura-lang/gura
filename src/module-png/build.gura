@@ -2,10 +2,10 @@
 import(modbuild)
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	baseDir = path.join(builder.guestDir, 'lpng1612')
+	baseDir = path.join(builder.guestDir, 'lpng1520')
 	builder.incDirs.append(baseDir)
 	builder.libDirs.append(path.join(baseDir, 'projects/vstudio/Release Library'))
-	builder.libs.append('libpng16.lib', 'zlib.lib')
+	builder.libs.append('libpng15.lib', 'zlib.lib')
 } elsif (sys.platform == `linux) {
 	builder.libs.append('png')
 	builder.debFiles = ['libpng']
