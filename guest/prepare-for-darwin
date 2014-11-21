@@ -11,7 +11,7 @@ fi
 files=""
 files="$files SDL-1.2.15.tar.gz"
 files="$files SDL2-2.0.3.tar.gz"
-files="$files cairo-1.12.16.tar.xz"
+files="$files cairo-1.12.18.tar.xz"
 files="$files freetype-2.5.3.tar.bz2"
 files="$files fontconfig-2.11.1.tar.bz2"
 files="$files gmp-6.0.0a.tar.bz2"
@@ -162,11 +162,11 @@ ln -sf ../yaml-0.1.5/include/ include/yaml
 ln -sf ../yaml-0.1.5/src/.libs/libyaml.a lib/libyaml.a
 #---------------------------------------------------------------------------
 # depends on: fontconfig, freetype, pixman, png
-tar xfJ cairo-1.12.16.tar.xz
-pushd cairo-1.12.16
+tar xfJ cairo-1.12.18.tar.xz
+pushd cairo-1.12.18
 ./configure pixman_CFLAGS=-I`pwd`/../include/pixman pixman_LIBS="-L`pwd`/../lib -lpixman-1" PKG_CONFIG=../pkg-config-fake png_CFLAGS=-I`pwd`/../include/png png_LIBS="-L`pwd`/../lib -lpng16" FONTCONFIG_CFLAGS=-I`pwd`/../include/fontconfig FONTCONFIG_LDFLAGS="-L`pwd`/../dylib -lfontconfig" FREETYPE_CFLAGS=-I`pwd`/../include/freetype FREETYPE_LIBS="-L`pwd`/../lib -lfreetype -lbz2" --disable-xlib --disable-xcb --disable-gobject --disable-fc --disable-ps
 make $make_option
 popd
 rm -f include/cairo
-ln -sf ../cairo-1.12.16/src/ include/cairo
-setup_dylib cairo-1.12.16/src/.libs dylib
+ln -sf ../cairo-1.12.18/src/ include/cairo
+setup_dylib cairo-1.12.18/src/.libs dylib
