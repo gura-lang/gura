@@ -3,6 +3,35 @@
 
 Gura_BeginModuleScope(glut)
 
+// glut.glutInit
+Gura_DeclareFunction(glutInit)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "argv", VTYPE_string, OCCUR_Once, FLAG_List);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutInit)
+{
+	const ValueList &argv = args.GetList(0);
+	int argc = static_cast<int>(argv.size());
+	char **_argv = new char *[argc];
+	int i = 0;
+	foreach_const (ValueList, pValue, argv) {
+		_argv[i++] = strdup(pValue->GetString());
+	}
+	glutInit(&argc, _argv);
+	Value _rtnVal(Value::CreateList(env, _argv, argc));
+	for (int i = 0; i < argc; i++) {
+		::free(_argv[i]);
+	}
+	delete[] _argv;
+	return ReturnValue(env, sig, args, _rtnVal);
+}
+
 // glut.glutInitDisplayMode
 Gura_DeclareFunction(glutInitDisplayMode)
 {
@@ -98,6 +127,7 @@ Gura_ImplementFunction(glutMainLoop)
 Gura_DeclareFunction(glutCreateWindow)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -119,6 +149,7 @@ Gura_ImplementFunction(glutCreateWindow)
 Gura_DeclareFunction(glutCreateSubWindow)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "win", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -208,6 +239,7 @@ Gura_ImplementFunction(glutSwapBuffers)
 Gura_DeclareFunction(glutGetWindow)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -607,6 +639,7 @@ Gura_ImplementFunction(glutHideOverlay)
 Gura_DeclareFunction(glutCreateMenu)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -643,6 +676,7 @@ Gura_ImplementFunction(glutDestroyMenu)
 Gura_DeclareFunction(glutGetMenu)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -841,6 +875,7 @@ Gura_ImplementFunction(glutSetColor)
 Gura_DeclareFunction(glutGetColor)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ndx", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "component", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
@@ -877,6 +912,7 @@ Gura_ImplementFunction(glutCopyColormap)
 Gura_DeclareFunction(glutGet)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -894,6 +930,7 @@ Gura_ImplementFunction(glutGet)
 Gura_DeclareFunction(glutDeviceGet)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -911,6 +948,7 @@ Gura_ImplementFunction(glutDeviceGet)
 Gura_DeclareFunction(glutExtensionSupported)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -932,6 +970,7 @@ Gura_ImplementFunction(glutExtensionSupported)
 Gura_DeclareFunction(glutGetModifiers)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -947,6 +986,7 @@ Gura_ImplementFunction(glutGetModifiers)
 Gura_DeclareFunction(glutLayerGet)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -1286,6 +1326,7 @@ Gura_ImplementFunction(glutSolidIcosahedron)
 Gura_DeclareFunction(glutVideoResizeGet)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "param", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -1464,6 +1505,7 @@ Gura_ImplementFunction(glutGameModeString)
 Gura_DeclareFunction(glutEnterGameMode)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1494,6 +1536,7 @@ Gura_ImplementFunction(glutLeaveGameMode)
 Gura_DeclareFunction(glutGameModeGet)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -1510,6 +1553,7 @@ Gura_ImplementFunction(glutGameModeGet)
 
 void AssignFunctions(Environment &env)
 {
+	Gura_AssignFunction(glutInit);
 	Gura_AssignFunction(glutInitDisplayMode);
 	Gura_AssignFunction(glutInitDisplayString);
 	Gura_AssignFunction(glutInitWindowPosition);
