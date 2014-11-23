@@ -13,4 +13,4 @@ if (sys.platform == `mswin) {
 	builder.cflags.append('-framework', 'GLUT')
 	builder.ldflags.append('-framework', 'GLUT')
 }
-builder.build('glut', ['module-glut.cpp'])
+builder.build('glut', ['module-glut.cpp', 'Values.cpp', 'Functions.cpp'])

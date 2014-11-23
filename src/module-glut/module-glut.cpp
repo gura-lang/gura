@@ -33,12 +33,22 @@ Gura_ImplementFunction(test)
 }
 
 //-----------------------------------------------------------------------------
+// helper
+//-----------------------------------------------------------------------------
+void SetError_NotImpFunction(Signal &sig, const char *funcName)
+{
+	sig.SetError(ERR_RuntimeError, "not implemented function %s", funcName);
+}
+
+//-----------------------------------------------------------------------------
 // Module entry
 //-----------------------------------------------------------------------------
 Gura_ModuleEntry()
 {
 	// function assignment
 	Gura_AssignFunction(test);
+	AssignValues(env);
+	AssignFunctions(env);
 	return true;
 }
 

@@ -7,6 +7,11 @@
 #include <glut/glut.h>
 
 Gura_BeginModuleHeader(glut)
+
+void SetError_NotImpFunction(Signal &sig, const char *funcName);
+void AssignValues(Environment &env);
+void AssignFunctions(Environment &env);
+
 Gura_EndModuleHeader(glut)
 
 #endif

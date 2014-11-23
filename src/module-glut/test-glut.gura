@@ -3,5 +3,5 @@ import(helper.test) {*}
 import(glut)
 
 testcase {
-	println(glut.test(3, 4))
+	glut.test()
 }
