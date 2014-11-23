@@ -1324,101 +1324,151 @@ tmplSource = R"""
 
 Gura_BeginModuleScope(glut)
 
+AutoPtr<Function> _pFuncDisplay;
+
 void OnDisplay(void)
 {
 }
+
+AutoPtr<Function> _pFuncReshape;
 
 void OnReshape(int width, int height)
 {
 }
 
+AutoPtr<Function> _pFuncKeyboard;
+
 void OnKeyboard(unsigned char key, int x, int y)
 {
 }
+
+AutoPtr<Function> _pFuncMouse;
 
 void OnMouse(int button, int state, int x, int y)
 {
 }
 
+AutoPtr<Function> _pFuncMotion;
+
 void OnMotion(int x, int y)
 {
 }
+
+AutoPtr<Function> _pFuncPassiveMotion;
 
 void OnPassiveMotion(int x, int y)
 {
 }
 
+AutoPtr<Function> _pFuncEntry;
+
 void OnEntry(int state)
 {
 }
+
+AutoPtr<Function> _pFuncVisibility;
 
 void OnVisibility(int state)
 {
 }
 
+AutoPtr<Function> _pFuncIdle;
+
 void OnIdle(void)
 {
 }
+
+AutoPtr<Function> _pFuncTimer;
 
 void OnTimer(int value)
 {
 }
 
+AutoPtr<Function> _pFuncMenuState;
+
 void OnMenuState(int state)
 {
 }
+
+AutoPtr<Function> _pFuncSpecial;
 
 void OnSpecial(int key, int x, int y)
 {
 }
 
+AutoPtr<Function> _pFuncSpaceballMotion;
+
 void OnSpaceballMotion(int x, int y, int z)
 {
 }
+
+AutoPtr<Function> _pFuncSpaceballRotate;
 
 void OnSpaceballRotate(int x, int y, int z)
 {
 }
 
+AutoPtr<Function> _pFuncSpaceballButto;
+
 void OnSpaceballButton(int button, int state)
 {
 }
+
+AutoPtr<Function> _pFuncButtonBox;
 
 void OnButtonBox(int button, int state)
 {
 }
 
+AutoPtr<Function> _pFuncDials;
+
 void OnDials(int dial, int value)
 {
 }
+
+AutoPtr<Function> _pFuncTabletMotion;
 
 void OnTabletMotion(int x, int y)
 {
 }
 
+AutoPtr<Function> _pFuncTabletButton;
+
 void OnTabletButton(int button, int state, int x, int y)
 {
 }
+
+AutoPtr<Function> _pFuncMenuStatus;
 
 void OnMenuStatus(int status, int x, int y)
 {
 }
 
+AutoPtr<Function> _pFuncOverlayDisplay;
+
 void OnOverlayDisplay(void)
 {
 }
+
+AutoPtr<Function> _pFuncWindowStatus;
 
 void OnWindowStatus(int state)
 {
 }
 
+AutoPtr<Function> _pFuncKeyboardUp;
+
 void OnKeyboardUp(unsigned char key, int x, int y)
 {
 }
 
+AutoPtr<Function> _pFuncSpecialUp;
+
 void OnSpecialUp(int key, int x, int y)
 {
 }
+
+AutoPtr<Function> _pFuncJoystick;
 
 void OnJoystick(unsigned int buttonMask, int x, int y, int z)
 {
