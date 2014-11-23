@@ -6,7 +6,7 @@ Gura_BeginModuleScope(glut)
 // glut.glutInitDisplayMode
 Gura_DeclareFunction(glutInitDisplayMode)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -23,7 +23,7 @@ Gura_ImplementFunction(glutInitDisplayMode)
 // glut.glutInitDisplayString
 Gura_DeclareFunction(glutInitDisplayString)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "string", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -44,7 +44,7 @@ Gura_ImplementFunction(glutInitDisplayString)
 // glut.glutInitWindowPosition
 Gura_DeclareFunction(glutInitWindowPosition)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
@@ -63,7 +63,7 @@ Gura_ImplementFunction(glutInitWindowPosition)
 // glut.glutInitWindowSize
 Gura_DeclareFunction(glutInitWindowSize)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
@@ -97,7 +97,7 @@ Gura_ImplementFunction(glutMainLoop)
 // glut.glutCreateWindow
 Gura_DeclareFunction(glutCreateWindow)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -118,7 +118,7 @@ Gura_ImplementFunction(glutCreateWindow)
 // glut.glutCreateSubWindow
 Gura_DeclareFunction(glutCreateSubWindow)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "win", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -143,7 +143,7 @@ Gura_ImplementFunction(glutCreateSubWindow)
 // glut.glutDestroyWindow
 Gura_DeclareFunction(glutDestroyWindow)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "win", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -175,7 +175,7 @@ Gura_ImplementFunction(glutPostRedisplay)
 // glut.glutPostWindowRedisplay
 Gura_DeclareFunction(glutPostWindowRedisplay)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "win", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -222,7 +222,7 @@ Gura_ImplementFunction(glutGetWindow)
 // glut.glutSetWindow
 Gura_DeclareFunction(glutSetWindow)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "win", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -239,7 +239,7 @@ Gura_ImplementFunction(glutSetWindow)
 // glut.glutSetWindowTitle
 Gura_DeclareFunction(glutSetWindowTitle)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -260,7 +260,7 @@ Gura_ImplementFunction(glutSetWindowTitle)
 // glut.glutSetIconTitle
 Gura_DeclareFunction(glutSetIconTitle)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -281,7 +281,7 @@ Gura_ImplementFunction(glutSetIconTitle)
 // glut.glutPositionWindow
 Gura_DeclareFunction(glutPositionWindow)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
@@ -300,7 +300,7 @@ Gura_ImplementFunction(glutPositionWindow)
 // glut.glutReshapeWindow
 Gura_DeclareFunction(glutReshapeWindow)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
@@ -409,7 +409,7 @@ Gura_ImplementFunction(glutFullScreen)
 // glut.glutSetCursor
 Gura_DeclareFunction(glutSetCursor)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -426,7 +426,7 @@ Gura_ImplementFunction(glutSetCursor)
 // glut.glutWarpPointer
 Gura_DeclareFunction(glutWarpPointer)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
@@ -445,7 +445,7 @@ Gura_ImplementFunction(glutWarpPointer)
 // glut.glutSurfaceTexture
 Gura_DeclareFunction(glutSurfaceTexture)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "internalformat", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "surfacewin", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -460,6 +460,22 @@ Gura_ImplementFunction(glutSurfaceTexture)
 	GLenum internalformat = static_cast<GLenum>(args.GetInt(1));
 	int surfacewin = args.GetInt(2);
 	glutSurfaceTexture(target, internalformat, surfacewin);
+	return Value::Null;
+}
+
+// glut.glutWMCloseFunc
+Gura_DeclareFunction(glutWMCloseFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutWMCloseFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
 	return Value::Null;
 }
 
@@ -511,7 +527,7 @@ Gura_ImplementFunction(glutRemoveOverlay)
 // glut.glutUseLayer
 Gura_DeclareFunction(glutUseLayer)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "layer", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -543,7 +559,7 @@ Gura_ImplementFunction(glutPostOverlayRedisplay)
 // glut.glutPostWindowOverlayRedisplay
 Gura_DeclareFunction(glutPostWindowOverlayRedisplay)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "win", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -609,7 +625,7 @@ Gura_ImplementFunction(glutCreateMenu)
 // glut.glutDestroyMenu
 Gura_DeclareFunction(glutDestroyMenu)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "menu", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -641,7 +657,7 @@ Gura_ImplementFunction(glutGetMenu)
 // glut.glutSetMenu
 Gura_DeclareFunction(glutSetMenu)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "menu", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -658,7 +674,7 @@ Gura_ImplementFunction(glutSetMenu)
 // glut.glutAddMenuEntry
 Gura_DeclareFunction(glutAddMenuEntry)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
@@ -681,7 +697,7 @@ Gura_ImplementFunction(glutAddMenuEntry)
 // glut.glutAddSubMenu
 Gura_DeclareFunction(glutAddSubMenu)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "submenu", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
@@ -704,7 +720,7 @@ Gura_ImplementFunction(glutAddSubMenu)
 // glut.glutChangeToMenuEntry
 Gura_DeclareFunction(glutChangeToMenuEntry)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -729,7 +745,7 @@ Gura_ImplementFunction(glutChangeToMenuEntry)
 // glut.glutChangeToSubMenu
 Gura_DeclareFunction(glutChangeToSubMenu)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "submenu", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -754,7 +770,7 @@ Gura_ImplementFunction(glutChangeToSubMenu)
 // glut.glutRemoveMenuItem
 Gura_DeclareFunction(glutRemoveMenuItem)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -771,7 +787,7 @@ Gura_ImplementFunction(glutRemoveMenuItem)
 // glut.glutAttachMenu
 Gura_DeclareFunction(glutAttachMenu)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "button", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -788,7 +804,7 @@ Gura_ImplementFunction(glutAttachMenu)
 // glut.glutDetachMenu
 Gura_DeclareFunction(glutDetachMenu)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "button", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -824,7 +840,7 @@ Gura_ImplementFunction(glutSetColor)
 // glut.glutGetColor
 Gura_DeclareFunction(glutGetColor)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "ndx", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "component", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
@@ -843,7 +859,7 @@ Gura_ImplementFunction(glutGetColor)
 // glut.glutCopyColormap
 Gura_DeclareFunction(glutCopyColormap)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "win", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -860,7 +876,7 @@ Gura_ImplementFunction(glutCopyColormap)
 // glut.glutGet
 Gura_DeclareFunction(glutGet)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -877,7 +893,7 @@ Gura_ImplementFunction(glutGet)
 // glut.glutDeviceGet
 Gura_DeclareFunction(glutDeviceGet)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -894,7 +910,7 @@ Gura_ImplementFunction(glutDeviceGet)
 // glut.glutExtensionSupported
 Gura_DeclareFunction(glutExtensionSupported)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -930,7 +946,7 @@ Gura_ImplementFunction(glutGetModifiers)
 // glut.glutLayerGet
 Gura_DeclareFunction(glutLayerGet)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -947,7 +963,7 @@ Gura_ImplementFunction(glutLayerGet)
 // glut.glutWireSphere
 Gura_DeclareFunction(glutWireSphere)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "radius", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "slices", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "stacks", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -968,7 +984,7 @@ Gura_ImplementFunction(glutWireSphere)
 // glut.glutSolidSphere
 Gura_DeclareFunction(glutSolidSphere)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "radius", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "slices", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "stacks", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -989,7 +1005,7 @@ Gura_ImplementFunction(glutSolidSphere)
 // glut.glutWireCone
 Gura_DeclareFunction(glutWireCone)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "base", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "slices", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1012,7 +1028,7 @@ Gura_ImplementFunction(glutWireCone)
 // glut.glutSolidCone
 Gura_DeclareFunction(glutSolidCone)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "base", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "slices", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1035,7 +1051,7 @@ Gura_ImplementFunction(glutSolidCone)
 // glut.glutWireCube
 Gura_DeclareFunction(glutWireCube)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -1052,7 +1068,7 @@ Gura_ImplementFunction(glutWireCube)
 // glut.glutSolidCube
 Gura_DeclareFunction(glutSolidCube)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -1069,7 +1085,7 @@ Gura_ImplementFunction(glutSolidCube)
 // glut.glutWireTorus
 Gura_DeclareFunction(glutWireTorus)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "innerRadius", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "outerRadius", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "sides", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1092,7 +1108,7 @@ Gura_ImplementFunction(glutWireTorus)
 // glut.glutSolidTorus
 Gura_DeclareFunction(glutSolidTorus)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "innerRadius", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "outerRadius", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "sides", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1145,7 +1161,7 @@ Gura_ImplementFunction(glutSolidDodecahedron)
 // glut.glutWireTeapot
 Gura_DeclareFunction(glutWireTeapot)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -1162,7 +1178,7 @@ Gura_ImplementFunction(glutWireTeapot)
 // glut.glutSolidTeapot
 Gura_DeclareFunction(glutSolidTeapot)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -1269,7 +1285,7 @@ Gura_ImplementFunction(glutSolidIcosahedron)
 // glut.glutVideoResizeGet
 Gura_DeclareFunction(glutVideoResizeGet)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "param", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -1316,7 +1332,7 @@ Gura_ImplementFunction(glutStopVideoResizing)
 // glut.glutVideoResize
 Gura_DeclareFunction(glutVideoResize)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1339,7 +1355,7 @@ Gura_ImplementFunction(glutVideoResize)
 // glut.glutVideoPan
 Gura_DeclareFunction(glutVideoPan)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1377,7 +1393,7 @@ Gura_ImplementFunction(glutReportErrors)
 // glut.glutIgnoreKeyRepeat
 Gura_DeclareFunction(glutIgnoreKeyRepeat)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "ignore", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -1394,7 +1410,7 @@ Gura_ImplementFunction(glutIgnoreKeyRepeat)
 // glut.glutSetKeyRepeat
 Gura_DeclareFunction(glutSetKeyRepeat)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "repeatMode", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -1426,7 +1442,7 @@ Gura_ImplementFunction(glutForceJoystickFunc)
 // glut.glutGameModeString
 Gura_DeclareFunction(glutGameModeString)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "string", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -1477,7 +1493,7 @@ Gura_ImplementFunction(glutLeaveGameMode)
 // glut.glutGameModeGet
 Gura_DeclareFunction(glutGameModeGet)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -1520,6 +1536,7 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(glutSetCursor);
 	Gura_AssignFunction(glutWarpPointer);
 	Gura_AssignFunction(glutSurfaceTexture);
+	Gura_AssignFunction(glutWMCloseFunc);
 	Gura_AssignFunction(glutCheckLoop);
 	Gura_AssignFunction(glutEstablishOverlay);
 	Gura_AssignFunction(glutRemoveOverlay);
