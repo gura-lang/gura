@@ -3,6 +3,106 @@
 
 Gura_BeginModuleScope(glut)
 
+void OnDisplay(void)
+{
+}
+
+void OnReshape(int width, int height)
+{
+}
+
+void OnKeyboard(unsigned char key, int x, int y)
+{
+}
+
+void OnMouse(int button, int state, int x, int y)
+{
+}
+
+void OnMotion(int x, int y)
+{
+}
+
+void OnPassiveMotion(int x, int y)
+{
+}
+
+void OnEntry(int state)
+{
+}
+
+void OnVisibility(int state)
+{
+}
+
+void OnIdle(void)
+{
+}
+
+void OnTimer(int value)
+{
+}
+
+void OnMenuState(int state)
+{
+}
+
+void OnSpecial(int key, int x, int y)
+{
+}
+
+void OnSpaceballMotion(int x, int y, int z)
+{
+}
+
+void OnSpaceballRotate(int x, int y, int z)
+{
+}
+
+void OnSpaceballButton(int button, int state)
+{
+}
+
+void OnButtonBox(int button, int state)
+{
+}
+
+void OnDials(int dial, int value)
+{
+}
+
+void OnTabletMotion(int x, int y)
+{
+}
+
+void OnTabletButton(int button, int state, int x, int y)
+{
+}
+
+void OnMenuStatus(int status, int x, int y)
+{
+}
+
+void OnOverlayDisplay(void)
+{
+}
+
+void OnWindowStatus(int state)
+{
+}
+
+void OnKeyboardUp(unsigned char key, int x, int y)
+{
+}
+
+void OnSpecialUp(int key, int x, int y)
+{
+}
+
+void OnJoystick(unsigned int buttonMask, int x, int y, int z)
+{
+}
+
 // glut.glutInit
 Gura_DeclareFunction(glutInit)
 {
@@ -852,6 +952,437 @@ Gura_ImplementFunction(glutDetachMenu)
 	return Value::Null;
 }
 
+// glut.glutDisplayFunc
+Gura_DeclareFunction(glutDisplayFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutDisplayFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutDisplayFunc(OnDisplay);
+	return Value::Null;
+}
+
+// glut.glutReshapeFunc
+Gura_DeclareFunction(glutReshapeFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutReshapeFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutReshapeFunc(OnReshape);
+	return Value::Null;
+}
+
+// glut.glutKeyboardFunc
+Gura_DeclareFunction(glutKeyboardFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutKeyboardFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutKeyboardFunc(OnKeyboard);
+	return Value::Null;
+}
+
+// glut.glutMouseFunc
+Gura_DeclareFunction(glutMouseFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutMouseFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutMouseFunc(OnMouse);
+	return Value::Null;
+}
+
+// glut.glutMotionFunc
+Gura_DeclareFunction(glutMotionFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutMotionFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutMotionFunc(OnMotion);
+	return Value::Null;
+}
+
+// glut.glutPassiveMotionFunc
+Gura_DeclareFunction(glutPassiveMotionFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutPassiveMotionFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutPassiveMotionFunc(OnPassiveMotion);
+	return Value::Null;
+}
+
+// glut.glutEntryFunc
+Gura_DeclareFunction(glutEntryFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutEntryFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutEntryFunc(OnEntry);
+	return Value::Null;
+}
+
+// glut.glutVisibilityFunc
+Gura_DeclareFunction(glutVisibilityFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutVisibilityFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutVisibilityFunc(OnVisibility);
+	return Value::Null;
+}
+
+// glut.glutIdleFunc
+Gura_DeclareFunction(glutIdleFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutIdleFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutIdleFunc(OnIdle);
+	return Value::Null;
+}
+
+// glut.glutTimerFunc
+Gura_DeclareFunction(glutTimerFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "millis", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "value", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutTimerFunc)
+{
+	unsigned int millis = args.GetUInt(0);
+	const Function *func = Object_function::GetObject(args, 1)->GetFunction();
+	int value = args.GetInt(2);
+	glutTimerFunc(millis, OnTimer, value);
+	return Value::Null;
+}
+
+// glut.glutMenuStateFunc
+Gura_DeclareFunction(glutMenuStateFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutMenuStateFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutMenuStateFunc(OnMenuState);
+	return Value::Null;
+}
+
+// glut.glutSpecialFunc
+Gura_DeclareFunction(glutSpecialFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutSpecialFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutSpecialFunc(OnSpecial);
+	return Value::Null;
+}
+
+// glut.glutSpaceballMotionFunc
+Gura_DeclareFunction(glutSpaceballMotionFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutSpaceballMotionFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutSpaceballMotionFunc(OnSpaceballMotion);
+	return Value::Null;
+}
+
+// glut.glutSpaceballRotateFunc
+Gura_DeclareFunction(glutSpaceballRotateFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutSpaceballRotateFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutSpaceballRotateFunc(OnSpaceballRotate);
+	return Value::Null;
+}
+
+// glut.glutSpaceballButtonFunc
+Gura_DeclareFunction(glutSpaceballButtonFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutSpaceballButtonFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutSpaceballButtonFunc(OnSpaceballButton);
+	return Value::Null;
+}
+
+// glut.glutButtonBoxFunc
+Gura_DeclareFunction(glutButtonBoxFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutButtonBoxFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutButtonBoxFunc(OnButtonBox);
+	return Value::Null;
+}
+
+// glut.glutDialsFunc
+Gura_DeclareFunction(glutDialsFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutDialsFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutDialsFunc(OnDials);
+	return Value::Null;
+}
+
+// glut.glutTabletMotionFunc
+Gura_DeclareFunction(glutTabletMotionFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutTabletMotionFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutTabletMotionFunc(OnTabletMotion);
+	return Value::Null;
+}
+
+// glut.glutTabletButtonFunc
+Gura_DeclareFunction(glutTabletButtonFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutTabletButtonFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutTabletButtonFunc(OnTabletButton);
+	return Value::Null;
+}
+
+// glut.glutMenuStatusFunc
+Gura_DeclareFunction(glutMenuStatusFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutMenuStatusFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutMenuStatusFunc(OnMenuStatus);
+	return Value::Null;
+}
+
+// glut.glutOverlayDisplayFunc
+Gura_DeclareFunction(glutOverlayDisplayFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutOverlayDisplayFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutOverlayDisplayFunc(OnOverlayDisplay);
+	return Value::Null;
+}
+
+// glut.glutWindowStatusFunc
+Gura_DeclareFunction(glutWindowStatusFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutWindowStatusFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutWindowStatusFunc(OnWindowStatus);
+	return Value::Null;
+}
+
+// glut.glutKeyboardUpFunc
+Gura_DeclareFunction(glutKeyboardUpFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutKeyboardUpFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutKeyboardUpFunc(OnKeyboardUp);
+	return Value::Null;
+}
+
+// glut.glutSpecialUpFunc
+Gura_DeclareFunction(glutSpecialUpFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutSpecialUpFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	glutSpecialUpFunc(OnSpecialUp);
+	return Value::Null;
+}
+
+// glut.glutJoystickFunc
+Gura_DeclareFunction(glutJoystickFunc)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pollInterval", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(glutJoystickFunc)
+{
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	int pollInterval = args.GetInt(1);
+	glutJoystickFunc(OnJoystick, pollInterval);
+	return Value::Null;
+}
+
 // glut.glutSetColor
 Gura_DeclareFunction(glutSetColor)
 {
@@ -1600,6 +2131,31 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(glutRemoveMenuItem);
 	Gura_AssignFunction(glutAttachMenu);
 	Gura_AssignFunction(glutDetachMenu);
+	Gura_AssignFunction(glutDisplayFunc);
+	Gura_AssignFunction(glutReshapeFunc);
+	Gura_AssignFunction(glutKeyboardFunc);
+	Gura_AssignFunction(glutMouseFunc);
+	Gura_AssignFunction(glutMotionFunc);
+	Gura_AssignFunction(glutPassiveMotionFunc);
+	Gura_AssignFunction(glutEntryFunc);
+	Gura_AssignFunction(glutVisibilityFunc);
+	Gura_AssignFunction(glutIdleFunc);
+	Gura_AssignFunction(glutTimerFunc);
+	Gura_AssignFunction(glutMenuStateFunc);
+	Gura_AssignFunction(glutSpecialFunc);
+	Gura_AssignFunction(glutSpaceballMotionFunc);
+	Gura_AssignFunction(glutSpaceballRotateFunc);
+	Gura_AssignFunction(glutSpaceballButtonFunc);
+	Gura_AssignFunction(glutButtonBoxFunc);
+	Gura_AssignFunction(glutDialsFunc);
+	Gura_AssignFunction(glutTabletMotionFunc);
+	Gura_AssignFunction(glutTabletButtonFunc);
+	Gura_AssignFunction(glutMenuStatusFunc);
+	Gura_AssignFunction(glutOverlayDisplayFunc);
+	Gura_AssignFunction(glutWindowStatusFunc);
+	Gura_AssignFunction(glutKeyboardUpFunc);
+	Gura_AssignFunction(glutSpecialUpFunc);
+	Gura_AssignFunction(glutJoystickFunc);
 	Gura_AssignFunction(glutSetColor);
 	Gura_AssignFunction(glutGetColor);
 	Gura_AssignFunction(glutCopyColormap);
