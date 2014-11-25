@@ -10,7 +10,7 @@ fareTable = %{
 	'北千住' => %{'東京' => 220, '新宿' => 310, '渋谷' => 310, '三鷹' => 550, '錦糸町' => 220             }
 }
 
-LookupFare(start:string, end:string):map = fareTable[start][end]
+LookupFare(stationStart:string, stationGoal:string):map = fareTable[stationStart][stationGoal]
 
 Route = class {
 	__init__(stations[]:string) = {
@@ -28,16 +28,17 @@ Route = class {
 
 doSolve(stations[]:string, stationStart:string, stationGoal:string) = {
 	stationsMid = stations.filter(!(stations in [stationStart, stationGoal])):list
-	routes = stationsMid.permutation():list {|stationsExt|
-		stationsExt.insert(0, stationStart)
-		stationsExt.append(stationGoal)
-		Route(stationsExt)
+	routes = stationsMid.permutation():list {|stationsRoute|
+		stationsRoute.insert(0, stationStart)
+		stationsRoute.append(stationGoal)
+		Route(stationsRoute)
 	}
 	routes = routes.sort(`ascend, routes::fareSum):list
 	printf('%s -> %s\n', stationStart, stationGoal)
 	routes[routes:*fareSum.min():indices]:*markFlag = true
 	println(routes:*ToString())
 }
-stations = ['東京', '新宿', '渋谷', '三鷹', '錦糸町', '北千住']
+
+stations = fareTable.keys().sort()
 doSolve(stations, '東京', '東京')
 doSolve(stations, '東京', '錦糸町')
