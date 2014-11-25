@@ -57,7 +57,7 @@
 	(,(rx symbol-start (group (1+ word)) (0+ space) "(")
 	 (1 font-lock-function-name-face))
 	;; module/class/instance name
-	(,(rx symbol-start (group (1+ word)) (0+ space) ".")
+	(,(rx symbol-start (group (or alpha "_" "$" "@") (0+ word)) (0+ space) ".")
 	 (1 font-lock-variable-name-face))
 	;; top-level assignment
 	(,(rx line-start (group (1+ word)) (? ":" (1+ (or word ","))) (0+ space) "=")
