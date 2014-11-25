@@ -3,40 +3,60 @@
 
 Gura_BeginModuleScope(glut)
 
+class FunctionPack {
+private:
+	AutoPtr<Environment> _pEnv;
+	Signal _sig;
+	AutoPtr<Function> _pFunc;
+public:
+	inline FunctionPack() {}
+	inline void SetFunc(Environment &env, Signal sig, Function *pFunc) {
+		_pEnv.reset(new Environment(env));
+		_sig = sig;
+		_pFunc.reset(pFunc);
+	}
+	inline Value Eval(Args &args) {
+		if (_pFunc.IsNull()) return Value::Null;
+		return _pFunc->Eval(*_pEnv, _sig, args);
+	}
+};
+
 struct Context {
-	AutoPtr<Function> pFuncOnWMClose;
-	AutoPtr<Function> pFuncOnMenu;
-	AutoPtr<Function> pFuncOnDisplay;
-	AutoPtr<Function> pFuncOnReshape;
-	AutoPtr<Function> pFuncOnKeyboard;
-	AutoPtr<Function> pFuncOnMouse;
-	AutoPtr<Function> pFuncOnMotion;
-	AutoPtr<Function> pFuncOnPassiveMotion;
-	AutoPtr<Function> pFuncOnEntry;
-	AutoPtr<Function> pFuncOnVisibility;
-	AutoPtr<Function> pFuncOnIdle;
-	AutoPtr<Function> pFuncOnTimer;
-	AutoPtr<Function> pFuncOnMenuState;
-	AutoPtr<Function> pFuncOnSpecial;
-	AutoPtr<Function> pFuncOnSpaceballMotion;
-	AutoPtr<Function> pFuncOnSpaceballRotate;
-	AutoPtr<Function> pFuncOnSpaceballButton;
-	AutoPtr<Function> pFuncOnButtonBox;
-	AutoPtr<Function> pFuncOnDials;
-	AutoPtr<Function> pFuncOnTabletMotion;
-	AutoPtr<Function> pFuncOnTabletButton;
-	AutoPtr<Function> pFuncOnMenuStatus;
-	AutoPtr<Function> pFuncOnOverlayDisplay;
-	AutoPtr<Function> pFuncOnWindowStatus;
-	AutoPtr<Function> pFuncOnKeyboardUp;
-	AutoPtr<Function> pFuncOnSpecialUp;
-	AutoPtr<Function> pFuncOnJoystick;
+	FunctionPack funcPackOnWMClose;
+	FunctionPack funcPackOnMenu;
+	FunctionPack funcPackOnDisplay;
+	FunctionPack funcPackOnReshape;
+	FunctionPack funcPackOnKeyboard;
+	FunctionPack funcPackOnMouse;
+	FunctionPack funcPackOnMotion;
+	FunctionPack funcPackOnPassiveMotion;
+	FunctionPack funcPackOnEntry;
+	FunctionPack funcPackOnVisibility;
+	FunctionPack funcPackOnIdle;
+	FunctionPack funcPackOnTimer;
+	FunctionPack funcPackOnMenuState;
+	FunctionPack funcPackOnSpecial;
+	FunctionPack funcPackOnSpaceballMotion;
+	FunctionPack funcPackOnSpaceballRotate;
+	FunctionPack funcPackOnSpaceballButton;
+	FunctionPack funcPackOnButtonBox;
+	FunctionPack funcPackOnDials;
+	FunctionPack funcPackOnTabletMotion;
+	FunctionPack funcPackOnTabletButton;
+	FunctionPack funcPackOnMenuStatus;
+	FunctionPack funcPackOnOverlayDisplay;
+	FunctionPack funcPackOnWindowStatus;
+	FunctionPack funcPackOnKeyboardUp;
+	FunctionPack funcPackOnSpecialUp;
+	FunctionPack funcPackOnJoystick;
 };
 
 Context *g_pContext = NULL;
 
 void OnWMClose()
 {
+	AutoPtr<Args> pArgs(new Args());
+	g_pContext->funcPackOnWMClose.Eval(*pArgs);
 }
 
 void OnMenu(int value)
@@ -151,7 +171,7 @@ Gura_DeclareFunction(glutInit)
 	DeclareArg(env, "argv", VTYPE_string, OCCUR_Once, FLAG_List);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"`glutInit` is used to initialize the GLUT library.\n");
 }
 
 Gura_ImplementFunction(glutInit)
@@ -179,7 +199,7 @@ Gura_DeclareFunction(glutInitDisplayMode)
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"`glutInitDisplayMode` sets the *initial display mode*.\n");
 }
 
 Gura_ImplementFunction(glutInitDisplayMode)
@@ -214,7 +234,7 @@ Gura_DeclareFunction(glutInitWindowPosition)
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"`glutInitWindowPosition` sets the initial window position.	\n");
 }
 
 Gura_ImplementFunction(glutInitWindowPosition)
@@ -233,7 +253,7 @@ Gura_DeclareFunction(glutInitWindowSize)
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"`glutInitWindowSize` sets the initial window size.	\n");
 }
 
 Gura_ImplementFunction(glutInitWindowSize)
@@ -250,7 +270,7 @@ Gura_DeclareFunction(glutMainLoop)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"`glutMainLoop` enters the GLUT event processing loop.\n");
 }
 
 Gura_ImplementFunction(glutMainLoop)
@@ -267,7 +287,7 @@ Gura_DeclareFunction(glutCreateWindow)
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"`glutCreateWindow` creates a top-level window.\n");
 }
 
 Gura_ImplementFunction(glutCreateWindow)
@@ -289,7 +309,7 @@ Gura_DeclareFunction(glutCreateSubWindow)
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"`glutCreateSubWindow` creates a subwindow.\n");
 }
 
 Gura_ImplementFunction(glutCreateSubWindow)
@@ -310,7 +330,7 @@ Gura_DeclareFunction(glutDestroyWindow)
 	DeclareArg(env, "win", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"`glutDestroyWindow` destroys the specified window.\n");
 }
 
 Gura_ImplementFunction(glutDestroyWindow)
@@ -326,7 +346,7 @@ Gura_DeclareFunction(glutPostRedisplay)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"`glutPostRedisplay marks the *current window* as needing to be redisplayed.\n");
 }
 
 Gura_ImplementFunction(glutPostRedisplay)
@@ -358,7 +378,7 @@ Gura_DeclareFunction(glutSwapBuffers)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"`glutSwapBuffers` swaps the buffers of the *current window* if double buffered.\n");
 }
 
 Gura_ImplementFunction(glutSwapBuffers)
@@ -374,7 +394,7 @@ Gura_DeclareFunction(glutGetWindow)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"`glutGetWindow` returns the identifier of the *current window*.\n");
 }
 
 Gura_ImplementFunction(glutGetWindow)
@@ -390,7 +410,7 @@ Gura_DeclareFunction(glutSetWindow)
 	DeclareArg(env, "win", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"`glutSetWindow` sets the *current window*.\n");
 }
 
 Gura_ImplementFunction(glutSetWindow)
@@ -407,7 +427,7 @@ Gura_DeclareFunction(glutSetWindowTitle)
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"`glutSetWindowTitle` changes the window title of the current top-level window.\n");
 }
 
 Gura_ImplementFunction(glutSetWindowTitle)
@@ -424,7 +444,7 @@ Gura_DeclareFunction(glutSetIconTitle)
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"`glutSetIconTitle` changes the icon title of the current top-level window.\n");
 }
 
 Gura_ImplementFunction(glutSetIconTitle)
@@ -442,7 +462,7 @@ Gura_DeclareFunction(glutPositionWindow)
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"`glutPositionWindow` requests a change to the position of the *current window*.\n");
 }
 
 Gura_ImplementFunction(glutPositionWindow)
@@ -461,7 +481,7 @@ Gura_DeclareFunction(glutReshapeWindow)
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"`glutReshapeWindow` requests a change to the size of the *current window*.\n");
 }
 
 Gura_ImplementFunction(glutReshapeWindow)
@@ -632,7 +652,7 @@ Gura_DeclareFunction(glutWMCloseFunc)
 Gura_ImplementFunction(glutWMCloseFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnWMClose.reset(func->Reference());
+	g_pContext->funcPackOnWMClose.SetFunc(env, sig, func->Reference());
 	glutWMCloseFunc(OnWMClose);
 	return Value::Null;
 }
@@ -775,9 +795,9 @@ Gura_DeclareFunction(glutCreateMenu)
 Gura_ImplementFunction(glutCreateMenu)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnMenu.reset(func->Reference());
-	glutCreateMenu(OnMenu);
-	return Value::Null;
+	g_pContext->funcPackOnMenu.SetFunc(env, sig, func->Reference());
+	int _rtn = glutCreateMenu(OnMenu);
+	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // glut.glutDestroyMenu
@@ -974,7 +994,7 @@ Gura_DeclareFunction(glutDisplayFunc)
 Gura_ImplementFunction(glutDisplayFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnDisplay.reset(func->Reference());
+	g_pContext->funcPackOnDisplay.SetFunc(env, sig, func->Reference());
 	glutDisplayFunc(OnDisplay);
 	return Value::Null;
 }
@@ -992,7 +1012,7 @@ Gura_DeclareFunction(glutReshapeFunc)
 Gura_ImplementFunction(glutReshapeFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnReshape.reset(func->Reference());
+	g_pContext->funcPackOnReshape.SetFunc(env, sig, func->Reference());
 	glutReshapeFunc(OnReshape);
 	return Value::Null;
 }
@@ -1010,7 +1030,7 @@ Gura_DeclareFunction(glutKeyboardFunc)
 Gura_ImplementFunction(glutKeyboardFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnKeyboard.reset(func->Reference());
+	g_pContext->funcPackOnKeyboard.SetFunc(env, sig, func->Reference());
 	glutKeyboardFunc(OnKeyboard);
 	return Value::Null;
 }
@@ -1028,7 +1048,7 @@ Gura_DeclareFunction(glutMouseFunc)
 Gura_ImplementFunction(glutMouseFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnMouse.reset(func->Reference());
+	g_pContext->funcPackOnMouse.SetFunc(env, sig, func->Reference());
 	glutMouseFunc(OnMouse);
 	return Value::Null;
 }
@@ -1046,7 +1066,7 @@ Gura_DeclareFunction(glutMotionFunc)
 Gura_ImplementFunction(glutMotionFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnMotion.reset(func->Reference());
+	g_pContext->funcPackOnMotion.SetFunc(env, sig, func->Reference());
 	glutMotionFunc(OnMotion);
 	return Value::Null;
 }
@@ -1064,7 +1084,7 @@ Gura_DeclareFunction(glutPassiveMotionFunc)
 Gura_ImplementFunction(glutPassiveMotionFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnPassiveMotion.reset(func->Reference());
+	g_pContext->funcPackOnPassiveMotion.SetFunc(env, sig, func->Reference());
 	glutPassiveMotionFunc(OnPassiveMotion);
 	return Value::Null;
 }
@@ -1082,7 +1102,7 @@ Gura_DeclareFunction(glutEntryFunc)
 Gura_ImplementFunction(glutEntryFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnEntry.reset(func->Reference());
+	g_pContext->funcPackOnEntry.SetFunc(env, sig, func->Reference());
 	glutEntryFunc(OnEntry);
 	return Value::Null;
 }
@@ -1100,7 +1120,7 @@ Gura_DeclareFunction(glutVisibilityFunc)
 Gura_ImplementFunction(glutVisibilityFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnVisibility.reset(func->Reference());
+	g_pContext->funcPackOnVisibility.SetFunc(env, sig, func->Reference());
 	glutVisibilityFunc(OnVisibility);
 	return Value::Null;
 }
@@ -1118,7 +1138,7 @@ Gura_DeclareFunction(glutIdleFunc)
 Gura_ImplementFunction(glutIdleFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnIdle.reset(func->Reference());
+	g_pContext->funcPackOnIdle.SetFunc(env, sig, func->Reference());
 	glutIdleFunc(OnIdle);
 	return Value::Null;
 }
@@ -1140,7 +1160,7 @@ Gura_ImplementFunction(glutTimerFunc)
 	unsigned int millis = args.GetUInt(0);
 	const Function *func = Object_function::GetObject(args, 1)->GetFunction();
 	int value = args.GetInt(2);
-	g_pContext->pFuncOnTimer.reset(func->Reference());
+	g_pContext->funcPackOnTimer.SetFunc(env, sig, func->Reference());
 	glutTimerFunc(millis, OnTimer, value);
 	return Value::Null;
 }
@@ -1158,7 +1178,7 @@ Gura_DeclareFunction(glutMenuStateFunc)
 Gura_ImplementFunction(glutMenuStateFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnMenuState.reset(func->Reference());
+	g_pContext->funcPackOnMenuState.SetFunc(env, sig, func->Reference());
 	glutMenuStateFunc(OnMenuState);
 	return Value::Null;
 }
@@ -1176,7 +1196,7 @@ Gura_DeclareFunction(glutSpecialFunc)
 Gura_ImplementFunction(glutSpecialFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnSpecial.reset(func->Reference());
+	g_pContext->funcPackOnSpecial.SetFunc(env, sig, func->Reference());
 	glutSpecialFunc(OnSpecial);
 	return Value::Null;
 }
@@ -1194,7 +1214,7 @@ Gura_DeclareFunction(glutSpaceballMotionFunc)
 Gura_ImplementFunction(glutSpaceballMotionFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnSpaceballMotion.reset(func->Reference());
+	g_pContext->funcPackOnSpaceballMotion.SetFunc(env, sig, func->Reference());
 	glutSpaceballMotionFunc(OnSpaceballMotion);
 	return Value::Null;
 }
@@ -1212,7 +1232,7 @@ Gura_DeclareFunction(glutSpaceballRotateFunc)
 Gura_ImplementFunction(glutSpaceballRotateFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnSpaceballRotate.reset(func->Reference());
+	g_pContext->funcPackOnSpaceballRotate.SetFunc(env, sig, func->Reference());
 	glutSpaceballRotateFunc(OnSpaceballRotate);
 	return Value::Null;
 }
@@ -1230,7 +1250,7 @@ Gura_DeclareFunction(glutSpaceballButtonFunc)
 Gura_ImplementFunction(glutSpaceballButtonFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnSpaceballButton.reset(func->Reference());
+	g_pContext->funcPackOnSpaceballButton.SetFunc(env, sig, func->Reference());
 	glutSpaceballButtonFunc(OnSpaceballButton);
 	return Value::Null;
 }
@@ -1248,7 +1268,7 @@ Gura_DeclareFunction(glutButtonBoxFunc)
 Gura_ImplementFunction(glutButtonBoxFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnButtonBox.reset(func->Reference());
+	g_pContext->funcPackOnButtonBox.SetFunc(env, sig, func->Reference());
 	glutButtonBoxFunc(OnButtonBox);
 	return Value::Null;
 }
@@ -1266,7 +1286,7 @@ Gura_DeclareFunction(glutDialsFunc)
 Gura_ImplementFunction(glutDialsFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnDials.reset(func->Reference());
+	g_pContext->funcPackOnDials.SetFunc(env, sig, func->Reference());
 	glutDialsFunc(OnDials);
 	return Value::Null;
 }
@@ -1284,7 +1304,7 @@ Gura_DeclareFunction(glutTabletMotionFunc)
 Gura_ImplementFunction(glutTabletMotionFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnTabletMotion.reset(func->Reference());
+	g_pContext->funcPackOnTabletMotion.SetFunc(env, sig, func->Reference());
 	glutTabletMotionFunc(OnTabletMotion);
 	return Value::Null;
 }
@@ -1302,7 +1322,7 @@ Gura_DeclareFunction(glutTabletButtonFunc)
 Gura_ImplementFunction(glutTabletButtonFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnTabletButton.reset(func->Reference());
+	g_pContext->funcPackOnTabletButton.SetFunc(env, sig, func->Reference());
 	glutTabletButtonFunc(OnTabletButton);
 	return Value::Null;
 }
@@ -1320,7 +1340,7 @@ Gura_DeclareFunction(glutMenuStatusFunc)
 Gura_ImplementFunction(glutMenuStatusFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnMenuStatus.reset(func->Reference());
+	g_pContext->funcPackOnMenuStatus.SetFunc(env, sig, func->Reference());
 	glutMenuStatusFunc(OnMenuStatus);
 	return Value::Null;
 }
@@ -1338,7 +1358,7 @@ Gura_DeclareFunction(glutOverlayDisplayFunc)
 Gura_ImplementFunction(glutOverlayDisplayFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnOverlayDisplay.reset(func->Reference());
+	g_pContext->funcPackOnOverlayDisplay.SetFunc(env, sig, func->Reference());
 	glutOverlayDisplayFunc(OnOverlayDisplay);
 	return Value::Null;
 }
@@ -1356,7 +1376,7 @@ Gura_DeclareFunction(glutWindowStatusFunc)
 Gura_ImplementFunction(glutWindowStatusFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnWindowStatus.reset(func->Reference());
+	g_pContext->funcPackOnWindowStatus.SetFunc(env, sig, func->Reference());
 	glutWindowStatusFunc(OnWindowStatus);
 	return Value::Null;
 }
@@ -1374,7 +1394,7 @@ Gura_DeclareFunction(glutKeyboardUpFunc)
 Gura_ImplementFunction(glutKeyboardUpFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnKeyboardUp.reset(func->Reference());
+	g_pContext->funcPackOnKeyboardUp.SetFunc(env, sig, func->Reference());
 	glutKeyboardUpFunc(OnKeyboardUp);
 	return Value::Null;
 }
@@ -1392,7 +1412,7 @@ Gura_DeclareFunction(glutSpecialUpFunc)
 Gura_ImplementFunction(glutSpecialUpFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOnSpecialUp.reset(func->Reference());
+	g_pContext->funcPackOnSpecialUp.SetFunc(env, sig, func->Reference());
 	glutSpecialUpFunc(OnSpecialUp);
 	return Value::Null;
 }
@@ -1412,7 +1432,7 @@ Gura_ImplementFunction(glutJoystickFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
 	int pollInterval = args.GetInt(1);
-	g_pContext->pFuncOnJoystick.reset(func->Reference());
+	g_pContext->funcPackOnJoystick.SetFunc(env, sig, func->Reference());
 	glutJoystickFunc(OnJoystick, pollInterval);
 	return Value::Null;
 }
@@ -1421,6 +1441,10 @@ Gura_ImplementFunction(glutJoystickFunc)
 Gura_DeclareFunction(glutSetColor)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "ndx", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "green", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "blue", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1428,11 +1452,11 @@ Gura_DeclareFunction(glutSetColor)
 
 Gura_ImplementFunction(glutSetColor)
 {
-#if 0
-	glutSetColor();
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glutSetColor");
+	int ndx = args.GetInt(0);
+	GLfloat red = args.GetFloat(1);
+	GLfloat green = args.GetFloat(2);
+	GLfloat blue = args.GetFloat(3);
+	glutSetColor(ndx, red, green, blue);
 	return Value::Null;
 }
 

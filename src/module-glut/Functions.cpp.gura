@@ -18,11 +18,13 @@ glutInit(argv[]:string) {block?} = R'''
 	return ReturnValue(env, sig, args, _rtnVal);
 ''' % {`en, 'markdown',
 	R'''
+	`glutInit` is used to initialize the GLUT library.
 	'''
 }
 
 glutInitDisplayMode(mode:unsigned_int):void:map = `auto % {`en, 'markdown',
 	R'''
+	`glutInitDisplayMode` sets the *initial display mode*.
 	'''
 }
 
@@ -33,36 +35,43 @@ glutInitDisplayString(string:char@:const):void:map = `auto % {`en, 'markdown',
 
 glutInitWindowPosition(x:int, y:int):void:map = `auto % {`en, 'markdown',
 	R'''
+	`glutInitWindowPosition` sets the initial window position.	
 	'''
 }
 
 glutInitWindowSize(width:int, height:int):void:map = `auto % {`en, 'markdown',
 	R'''
+	`glutInitWindowSize` sets the initial window size.	
 	'''
 }
 
 glutMainLoop():void = `auto % {`en, 'markdown',
 	R'''
+	`glutMainLoop` enters the GLUT event processing loop.
 	'''
 }
 
 glutCreateWindow(title:char@:const):int:map {block?} = `auto % {`en, 'markdown',
 	R'''
+	`glutCreateWindow` creates a top-level window.
 	'''
 }
 
 glutCreateSubWindow(win:int, x:int, y:int, width:int, height:int):int:map {block?} = `auto % {`en, 'markdown',
 	R'''
+	`glutCreateSubWindow` creates a subwindow.
 	'''
 }
 
 glutDestroyWindow(win:int):void:map = `auto % {`en, 'markdown',
 	R'''
+	`glutDestroyWindow` destroys the specified window.
 	'''
 }
 
 glutPostRedisplay():void = `auto % {`en, 'markdown',
 	R'''
+	`glutPostRedisplay marks the *current window* as needing to be redisplayed.
 	'''
 }
 
@@ -73,36 +82,43 @@ glutPostWindowRedisplay(win:int):void:map = `auto % {`en, 'markdown',
 
 glutSwapBuffers():void = `auto % {`en, 'markdown',
 	R'''
+	`glutSwapBuffers` swaps the buffers of the *current window* if double buffered.
 	'''
 }
 
 glutGetWindow():int {block?} = `auto % {`en, 'markdown',
 	R'''
+	`glutGetWindow` returns the identifier of the *current window*.
 	'''
 }
 
 glutSetWindow(win:int):void:map = `auto % {`en, 'markdown',
 	R'''
+	`glutSetWindow` sets the *current window*.
 	'''
 }
 
 glutSetWindowTitle(title:char@:const):void:map = `auto % {`en, 'markdown',
 	R'''
+	`glutSetWindowTitle` changes the window title of the current top-level window.
 	'''
 }
 
 glutSetIconTitle(title:char@:const):void:map = `auto % {`en, 'markdown',
 	R'''
+	`glutSetIconTitle` changes the icon title of the current top-level window.
 	'''
 }
 
 glutPositionWindow(x:int, y:int):void:map = `auto % {`en, 'markdown',
 	R'''
+	`glutPositionWindow` requests a change to the position of the *current window*.
 	'''
 }
 
 glutReshapeWindow(width:int, height:int):void:map = `auto % {`en, 'markdown',
 	R'''
+	`glutReshapeWindow` requests a change to the size of the *current window*.
 	'''
 }
 
@@ -152,7 +168,7 @@ glutSurfaceTexture(target:GLenum, internalformat:GLenum, surfacewin:int):void:ma
 }
 
 glutWMCloseFunc(func:function):void = R'''
-	g_pContext->pFuncOnWMClose.reset(func->Reference());
+	g_pContext->funcPackOnWMClose.SetFunc(env, sig, func->Reference());
 	glutWMCloseFunc(OnWMClose);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -201,9 +217,9 @@ glutHideOverlay():void = `auto % {`en, 'markdown',
 }
 
 glutCreateMenu(func:function):int {block?} = R'''
-	g_pContext->pFuncOnMenu.reset(func->Reference());
-	glutCreateMenu(OnMenu);
-	return Value::Null;
+	g_pContext->funcPackOnMenu.SetFunc(env, sig, func->Reference());
+	int _rtn = glutCreateMenu(OnMenu);
+	return ReturnValue(env, sig, args, Value(_rtn));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -260,7 +276,7 @@ glutDetachMenu(button:int):void:map = `auto % {`en, 'markdown',
 }
 
 glutDisplayFunc(func:function):void = R'''
-	g_pContext->pFuncOnDisplay.reset(func->Reference());
+	g_pContext->funcPackOnDisplay.SetFunc(env, sig, func->Reference());
 	glutDisplayFunc(OnDisplay);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -269,7 +285,7 @@ glutDisplayFunc(func:function):void = R'''
 }
 
 glutReshapeFunc(func:function):void = R'''
-	g_pContext->pFuncOnReshape.reset(func->Reference());
+	g_pContext->funcPackOnReshape.SetFunc(env, sig, func->Reference());
 	glutReshapeFunc(OnReshape);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -278,7 +294,7 @@ glutReshapeFunc(func:function):void = R'''
 }
 
 glutKeyboardFunc(func:function):void = R'''
-	g_pContext->pFuncOnKeyboard.reset(func->Reference());
+	g_pContext->funcPackOnKeyboard.SetFunc(env, sig, func->Reference());
 	glutKeyboardFunc(OnKeyboard);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -287,7 +303,7 @@ glutKeyboardFunc(func:function):void = R'''
 }
 
 glutMouseFunc(func:function):void = R'''
-	g_pContext->pFuncOnMouse.reset(func->Reference());
+	g_pContext->funcPackOnMouse.SetFunc(env, sig, func->Reference());
 	glutMouseFunc(OnMouse);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -296,7 +312,7 @@ glutMouseFunc(func:function):void = R'''
 }
 
 glutMotionFunc(func:function):void = R'''
-	g_pContext->pFuncOnMotion.reset(func->Reference());
+	g_pContext->funcPackOnMotion.SetFunc(env, sig, func->Reference());
 	glutMotionFunc(OnMotion);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -305,7 +321,7 @@ glutMotionFunc(func:function):void = R'''
 }
 
 glutPassiveMotionFunc(func:function):void = R'''
-	g_pContext->pFuncOnPassiveMotion.reset(func->Reference());
+	g_pContext->funcPackOnPassiveMotion.SetFunc(env, sig, func->Reference());
 	glutPassiveMotionFunc(OnPassiveMotion);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -314,7 +330,7 @@ glutPassiveMotionFunc(func:function):void = R'''
 }
 
 glutEntryFunc(func:function):void = R'''
-	g_pContext->pFuncOnEntry.reset(func->Reference());
+	g_pContext->funcPackOnEntry.SetFunc(env, sig, func->Reference());
 	glutEntryFunc(OnEntry);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -323,7 +339,7 @@ glutEntryFunc(func:function):void = R'''
 }
 
 glutVisibilityFunc(func:function):void = R'''
-	g_pContext->pFuncOnVisibility.reset(func->Reference());
+	g_pContext->funcPackOnVisibility.SetFunc(env, sig, func->Reference());
 	glutVisibilityFunc(OnVisibility);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -332,7 +348,7 @@ glutVisibilityFunc(func:function):void = R'''
 }
 
 glutIdleFunc(func:function):void = R'''
-	g_pContext->pFuncOnIdle.reset(func->Reference());
+	g_pContext->funcPackOnIdle.SetFunc(env, sig, func->Reference());
 	glutIdleFunc(OnIdle);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -341,7 +357,7 @@ glutIdleFunc(func:function):void = R'''
 }
 
 glutTimerFunc(millis:unsigned_int, func:function, value:int):void = R'''
-	g_pContext->pFuncOnTimer.reset(func->Reference());
+	g_pContext->funcPackOnTimer.SetFunc(env, sig, func->Reference());
 	glutTimerFunc(millis, OnTimer, value);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -350,7 +366,7 @@ glutTimerFunc(millis:unsigned_int, func:function, value:int):void = R'''
 }
 
 glutMenuStateFunc(func:function):void = R'''
-	g_pContext->pFuncOnMenuState.reset(func->Reference());
+	g_pContext->funcPackOnMenuState.SetFunc(env, sig, func->Reference());
 	glutMenuStateFunc(OnMenuState);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -359,7 +375,7 @@ glutMenuStateFunc(func:function):void = R'''
 }
 
 glutSpecialFunc(func:function):void = R'''
-	g_pContext->pFuncOnSpecial.reset(func->Reference());
+	g_pContext->funcPackOnSpecial.SetFunc(env, sig, func->Reference());
 	glutSpecialFunc(OnSpecial);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -368,7 +384,7 @@ glutSpecialFunc(func:function):void = R'''
 }
 
 glutSpaceballMotionFunc(func:function):void = R'''
-	g_pContext->pFuncOnSpaceballMotion.reset(func->Reference());
+	g_pContext->funcPackOnSpaceballMotion.SetFunc(env, sig, func->Reference());
 	glutSpaceballMotionFunc(OnSpaceballMotion);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -377,7 +393,7 @@ glutSpaceballMotionFunc(func:function):void = R'''
 }
 
 glutSpaceballRotateFunc(func:function):void = R'''
-	g_pContext->pFuncOnSpaceballRotate.reset(func->Reference());
+	g_pContext->funcPackOnSpaceballRotate.SetFunc(env, sig, func->Reference());
 	glutSpaceballRotateFunc(OnSpaceballRotate);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -386,7 +402,7 @@ glutSpaceballRotateFunc(func:function):void = R'''
 }
 
 glutSpaceballButtonFunc(func:function):void = R'''
-	g_pContext->pFuncOnSpaceballButton.reset(func->Reference());
+	g_pContext->funcPackOnSpaceballButton.SetFunc(env, sig, func->Reference());
 	glutSpaceballButtonFunc(OnSpaceballButton);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -395,7 +411,7 @@ glutSpaceballButtonFunc(func:function):void = R'''
 }
 
 glutButtonBoxFunc(func:function):void = R'''
-	g_pContext->pFuncOnButtonBox.reset(func->Reference());
+	g_pContext->funcPackOnButtonBox.SetFunc(env, sig, func->Reference());
 	glutButtonBoxFunc(OnButtonBox);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -404,7 +420,7 @@ glutButtonBoxFunc(func:function):void = R'''
 }
 
 glutDialsFunc(func:function):void = R'''
-	g_pContext->pFuncOnDials.reset(func->Reference());
+	g_pContext->funcPackOnDials.SetFunc(env, sig, func->Reference());
 	glutDialsFunc(OnDials);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -413,7 +429,7 @@ glutDialsFunc(func:function):void = R'''
 }
 
 glutTabletMotionFunc(func:function):void = R'''
-	g_pContext->pFuncOnTabletMotion.reset(func->Reference());
+	g_pContext->funcPackOnTabletMotion.SetFunc(env, sig, func->Reference());
 	glutTabletMotionFunc(OnTabletMotion);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -422,7 +438,7 @@ glutTabletMotionFunc(func:function):void = R'''
 }
 
 glutTabletButtonFunc(func:function):void = R'''
-	g_pContext->pFuncOnTabletButton.reset(func->Reference());
+	g_pContext->funcPackOnTabletButton.SetFunc(env, sig, func->Reference());
 	glutTabletButtonFunc(OnTabletButton);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -431,7 +447,7 @@ glutTabletButtonFunc(func:function):void = R'''
 }
 
 glutMenuStatusFunc(func:function):void = R'''
-	g_pContext->pFuncOnMenuStatus.reset(func->Reference());
+	g_pContext->funcPackOnMenuStatus.SetFunc(env, sig, func->Reference());
 	glutMenuStatusFunc(OnMenuStatus);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -440,7 +456,7 @@ glutMenuStatusFunc(func:function):void = R'''
 }
 
 glutOverlayDisplayFunc(func:function):void = R'''
-	g_pContext->pFuncOnOverlayDisplay.reset(func->Reference());
+	g_pContext->funcPackOnOverlayDisplay.SetFunc(env, sig, func->Reference());
 	glutOverlayDisplayFunc(OnOverlayDisplay);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -449,7 +465,7 @@ glutOverlayDisplayFunc(func:function):void = R'''
 }
 
 glutWindowStatusFunc(func:function):void = R'''
-	g_pContext->pFuncOnWindowStatus.reset(func->Reference());
+	g_pContext->funcPackOnWindowStatus.SetFunc(env, sig, func->Reference());
 	glutWindowStatusFunc(OnWindowStatus);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -458,7 +474,7 @@ glutWindowStatusFunc(func:function):void = R'''
 }
 
 glutKeyboardUpFunc(func:function):void = R'''
-	g_pContext->pFuncOnKeyboardUp.reset(func->Reference());
+	g_pContext->funcPackOnKeyboardUp.SetFunc(env, sig, func->Reference());
 	glutKeyboardUpFunc(OnKeyboardUp);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -467,7 +483,7 @@ glutKeyboardUpFunc(func:function):void = R'''
 }
 
 glutSpecialUpFunc(func:function):void = R'''
-	g_pContext->pFuncOnSpecialUp.reset(func->Reference());
+	g_pContext->funcPackOnSpecialUp.SetFunc(env, sig, func->Reference());
 	glutSpecialUpFunc(OnSpecialUp);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -476,7 +492,7 @@ glutSpecialUpFunc(func:function):void = R'''
 }
 
 glutJoystickFunc(func:function, pollInterval:int):void = R'''
-	g_pContext->pFuncOnJoystick.reset(func->Reference());
+	g_pContext->funcPackOnJoystick.SetFunc(env, sig, func->Reference());
 	glutJoystickFunc(OnJoystick, pollInterval);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -484,7 +500,7 @@ glutJoystickFunc(func:function, pollInterval:int):void = R'''
 	'''
 }
 			
-glutSetColor():void = `unsupport % {`en, 'markdown',
+glutSetColor(ndx:int, red:GLfloat, green:GLfloat, blue:GLfloat):void = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -1355,40 +1371,60 @@ tmplSource = R"""
 
 Gura_BeginModuleScope(glut)
 
+class FunctionPack {
+private:
+	AutoPtr<Environment> _pEnv;
+	Signal _sig;
+	AutoPtr<Function> _pFunc;
+public:
+	inline FunctionPack() {}
+	inline void SetFunc(Environment &env, Signal sig, Function *pFunc) {
+		_pEnv.reset(new Environment(env));
+		_sig = sig;
+		_pFunc.reset(pFunc);
+	}
+	inline Value Eval(Args &args) {
+		if (_pFunc.IsNull()) return Value::Null;
+		return _pFunc->Eval(*_pEnv, _sig, args);
+	}
+};
+
 struct Context {
-	AutoPtr<Function> pFuncOnWMClose;
-	AutoPtr<Function> pFuncOnMenu;
-	AutoPtr<Function> pFuncOnDisplay;
-	AutoPtr<Function> pFuncOnReshape;
-	AutoPtr<Function> pFuncOnKeyboard;
-	AutoPtr<Function> pFuncOnMouse;
-	AutoPtr<Function> pFuncOnMotion;
-	AutoPtr<Function> pFuncOnPassiveMotion;
-	AutoPtr<Function> pFuncOnEntry;
-	AutoPtr<Function> pFuncOnVisibility;
-	AutoPtr<Function> pFuncOnIdle;
-	AutoPtr<Function> pFuncOnTimer;
-	AutoPtr<Function> pFuncOnMenuState;
-	AutoPtr<Function> pFuncOnSpecial;
-	AutoPtr<Function> pFuncOnSpaceballMotion;
-	AutoPtr<Function> pFuncOnSpaceballRotate;
-	AutoPtr<Function> pFuncOnSpaceballButton;
-	AutoPtr<Function> pFuncOnButtonBox;
-	AutoPtr<Function> pFuncOnDials;
-	AutoPtr<Function> pFuncOnTabletMotion;
-	AutoPtr<Function> pFuncOnTabletButton;
-	AutoPtr<Function> pFuncOnMenuStatus;
-	AutoPtr<Function> pFuncOnOverlayDisplay;
-	AutoPtr<Function> pFuncOnWindowStatus;
-	AutoPtr<Function> pFuncOnKeyboardUp;
-	AutoPtr<Function> pFuncOnSpecialUp;
-	AutoPtr<Function> pFuncOnJoystick;
+	FunctionPack funcPackOnWMClose;
+	FunctionPack funcPackOnMenu;
+	FunctionPack funcPackOnDisplay;
+	FunctionPack funcPackOnReshape;
+	FunctionPack funcPackOnKeyboard;
+	FunctionPack funcPackOnMouse;
+	FunctionPack funcPackOnMotion;
+	FunctionPack funcPackOnPassiveMotion;
+	FunctionPack funcPackOnEntry;
+	FunctionPack funcPackOnVisibility;
+	FunctionPack funcPackOnIdle;
+	FunctionPack funcPackOnTimer;
+	FunctionPack funcPackOnMenuState;
+	FunctionPack funcPackOnSpecial;
+	FunctionPack funcPackOnSpaceballMotion;
+	FunctionPack funcPackOnSpaceballRotate;
+	FunctionPack funcPackOnSpaceballButton;
+	FunctionPack funcPackOnButtonBox;
+	FunctionPack funcPackOnDials;
+	FunctionPack funcPackOnTabletMotion;
+	FunctionPack funcPackOnTabletButton;
+	FunctionPack funcPackOnMenuStatus;
+	FunctionPack funcPackOnOverlayDisplay;
+	FunctionPack funcPackOnWindowStatus;
+	FunctionPack funcPackOnKeyboardUp;
+	FunctionPack funcPackOnSpecialUp;
+	FunctionPack funcPackOnJoystick;
 };
 
 Context *g_pContext = NULL;
 
 void OnWMClose()
 {
+	AutoPtr<Args> pArgs(new Args());
+	g_pContext->funcPackOnWMClose.Eval(*pArgs);
 }
 
 void OnMenu(int value)
