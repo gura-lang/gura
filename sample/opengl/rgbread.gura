@@ -36,5 +36,4 @@ classref(`image).rgbread(stream:stream) = {
 		raise(ValueError, 'unknown image format')
 	}
 	this
-}
-classref(`image).rgbread.help = '''Reads an image in RGB format'''
+} % {`en, 'markdown', R'''Reads an image in RGB format.'''}
