@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(cbridge) {TypeConv, Renderer}
+import(cbridge)
 
 decls = `{
 glutInit(argv[]:string) {block?} = R'''
@@ -26,7 +26,7 @@ glutInitDisplayMode(mode:unsigned_int):void:map = `auto % {`en, 'markdown',
 	'''
 }
 
-glutInitDisplayString(string:char@:const):void:map = `unsupport % {`en, 'markdown',
+glutInitDisplayString(string:char@:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -46,7 +46,7 @@ glutMainLoop():void = `auto % {`en, 'markdown',
 	'''
 }
 
-glutCreateWindow(title:char@:const):int:map {block?} = `unsupport % {`en, 'markdown',
+glutCreateWindow(title:char@:const):int:map {block?} = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -86,12 +86,12 @@ glutSetWindow(win:int):void:map = `auto % {`en, 'markdown',
 	'''
 }
 
-glutSetWindowTitle(title:char@:const):void:map = `unsupport % {`en, 'markdown',
+glutSetWindowTitle(title:char@:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutSetIconTitle(title:char@:const):void:map = `unsupport % {`en, 'markdown',
+glutSetIconTitle(title:char@:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -220,22 +220,22 @@ glutSetMenu(menu:int):void:map = `auto % {`en, 'markdown',
 	'''
 }
 
-glutAddMenuEntry(label:char@:const, value:int):void:map = `unsupport % {`en, 'markdown',
+glutAddMenuEntry(label:char@:const, value:int):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutAddSubMenu(label:char@:const, submenu:int):void:map = `unsupport % {`en, 'markdown',
+glutAddSubMenu(label:char@:const, submenu:int):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutChangeToMenuEntry(item:int, label:char@:const, value:int):void:map = `unsupport % {`en, 'markdown',
+glutChangeToMenuEntry(item:int, label:char@:const, value:int):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutChangeToSubMenu(item:int, label:char@:const, submenu:int):void:map = `unsupport % {`en, 'markdown',
+glutChangeToSubMenu(item:int, label:char@:const, submenu:int):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -505,7 +505,7 @@ glutDeviceGet(type:GLenum):int:map {block?} = `auto % {`en, 'markdown',
 	'''
 }
 
-glutExtensionSupported(name:char@:const):int:map {block?} = `unsupport % {`en, 'markdown',
+glutExtensionSupported(name:char@:const):int:map {block?} = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -694,7 +694,7 @@ glutForceJoystickFunc():void = `auto % {`en, 'markdown',
 	'''
 }
 
-glutGameModeString(string:char@:const):void:map = `unsupport % {`en, 'markdown',
+glutGameModeString(string:char@:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -717,130 +717,130 @@ glutGameModeGet(mode:GLenum):int:map {block?} = `auto % {`en, 'markdown',
 }
 
 typeConvDict = %{
-	'string[]' => TypeConv(
+	'string[]' => cbridge.TypeConv(
 			'string', 'Once', ['List'],
 			'const ValueList &${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLenum' => TypeConv(
+	'GLenum' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLenum ${arg.name} = static_cast<GLenum>(args.GetInt(${idx}));',
 			nil,
 			R'''
 			GLenum _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'GLboolean' => TypeConv(
+	'GLboolean' => cbridge.TypeConv(
 			'boolean', 'Once', [],
 			'GLboolean ${arg.name} = (args.GetBoolean(${idx})? GL_TRUE : GL_FALSE);',
 			nil,
 			R'''
 			GLboolean _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));''')
-	'GLbitfield' => TypeConv(
+	'GLbitfield' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLbitfield ${arg.name} = args.GetUInt(${idx});',
 			nil,
 			R'''
 			GLbitfield _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'GLbyte' => TypeConv(
+	'GLbyte' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLbyte ${arg.name} = args.GetChar(${idx});',
 			nil,
 			R'''
 			GLbyte _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'GLshort' => TypeConv(
+	'GLshort' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLshort ${arg.name} = args.GetShort(${idx});',
 			nil,
 			R'''
 			GLshort _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'GLint' => TypeConv(
+	'GLint' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLint ${arg.name} = args.GetInt(${idx});',
 			nil,
 			R'''
 			GLint _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'GLsizei' => TypeConv(
+	'GLsizei' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLsizei ${arg.name} = args.GetInt(${idx});',
 			nil,
 			R'''
 			GLsizei _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'GLubyte' => TypeConv(
+	'GLubyte' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLubyte ${arg.name} = args.GetUChar(${idx});',
 			nil,
 			R'''
 			GLubyte _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'GLushort' => TypeConv(
+	'GLushort' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLushort ${arg.name} = args.GetUShort(${idx});',
 			nil,
 			R'''
 			GLushort _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'GLuint' => TypeConv(
+	'GLuint' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLuint ${arg.name} = args.GetUInt(${idx});',
 			nil,
 			R'''
 			GLuint _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'GLfloat' => TypeConv(
+	'GLfloat' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLfloat ${arg.name} = args.GetFloat(${idx});',
 			nil,
 			R'''
 			GLfloat _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'GLclampf' => TypeConv(
+	'GLclampf' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLclampf ${arg.name} = args.GetFloat(${idx});',
 			nil,
 			R'''
 			GLclampf _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'GLdouble' => TypeConv(
+	'GLdouble' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLdouble ${arg.name} = args.GetDouble(${idx});',
 			nil,
 			R'''
 			GLdouble _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'GLclampd' => TypeConv(
+	'GLclampd' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLclampd ${arg.name} = args.GetDouble(${idx});',
 			nil,
 			R'''
 			GLclampd _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'GLenum@' => TypeConv(
+	'GLenum@' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLenum> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLenum@:const' => TypeConv(
+	'GLenum@:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLenum> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLboolean@' => TypeConv(
+	'GLboolean@' => cbridge.TypeConv(
 			'boolean', 'Once', ['List'],
 			'CArray<GLboolean> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLboolean@:const' => TypeConv(
+	'GLboolean@:const' => cbridge.TypeConv(
 			'boolean', 'Once', ['List'],
 			'CArray<GLboolean> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLboolean@1:const' => TypeConv(
+	'GLboolean@1:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLboolean> ${arg.name} = args.GetList(${idx});
@@ -850,7 +850,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLboolean@2:const' => TypeConv(
+	'GLboolean@2:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLboolean> ${arg.name} = args.GetList(${idx});
@@ -860,7 +860,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLboolean@3:const' => TypeConv(
+	'GLboolean@3:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLboolean> ${arg.name} = args.GetList(${idx});
@@ -870,12 +870,12 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLbyte@:const' => TypeConv(
+	'GLbyte@:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLbyte> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLbyte@3:const' => TypeConv(
+	'GLbyte@3:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLbyte> ${arg.name} = args.GetList(${idx});
@@ -885,7 +885,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLbyte@4:const' => TypeConv(
+	'GLbyte@4:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLbyte> ${arg.name} = args.GetList(${idx});
@@ -895,7 +895,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLbyte@pname:const' => TypeConv(
+	'GLbyte@pname:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLbyte> ${arg.name} = args.GetList(${idx});
@@ -906,29 +906,29 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLchar@' => TypeConv(
+	'GLchar@' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLchar> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLchar@:const' => TypeConv(
+	'GLchar@:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLchar> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLubyte@:const' => TypeConv(
+	'GLubyte@:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'const GLubyte *${arg.name} = reinterpret_cast<const GLubyte *>(args.GetString(${idx}));',
 			nil,
 			R'''
 			const GLubyte *_rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(reinterpret_cast<const char *>(_rtn)));''')
-	'GLubyte@' => TypeConv(
+	'GLubyte@' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLubyte> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLubyte@3:const' => TypeConv(
+	'GLubyte@3:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLubyte> ${arg.name} = args.GetList(${idx});
@@ -938,7 +938,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLubyte@4:const' => TypeConv(
+	'GLubyte@4:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLubyte> ${arg.name} = args.GetList(${idx});
@@ -948,7 +948,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLubyte@pname:const' => TypeConv(
+	'GLubyte@pname:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLubyte> ${arg.name} = args.GetList(${idx});
@@ -959,12 +959,12 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLshort@:const' => TypeConv(
+	'GLshort@:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLshort> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLshort@1:const' => TypeConv(
+	'GLshort@1:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLshort> ${arg.name} = args.GetList(${idx});
@@ -974,7 +974,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLshort@2:const' => TypeConv(
+	'GLshort@2:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLshort> ${arg.name} = args.GetList(${idx});
@@ -984,7 +984,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLshort@3:const' => TypeConv(
+	'GLshort@3:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLshort> ${arg.name} = args.GetList(${idx});
@@ -994,7 +994,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLshort@4:const' => TypeConv(
+	'GLshort@4:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLshort> ${arg.name} = args.GetList(${idx});
@@ -1004,7 +1004,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLshort@pname:const' => TypeConv(
+	'GLshort@pname:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLshort> ${arg.name} = args.GetList(${idx});
@@ -1015,17 +1015,17 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLushort@' => TypeConv(
+	'GLushort@' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLushort> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLushort@:const' => TypeConv(
+	'GLushort@:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLushort> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLushort@3:const' => TypeConv(
+	'GLushort@3:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLushort> ${arg.name} = args.GetList(${idx});
@@ -1035,7 +1035,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLushort@4:const' => TypeConv(
+	'GLushort@4:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLushort> ${arg.name} = args.GetList(${idx});
@@ -1045,7 +1045,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLushort@pname:const' => TypeConv(
+	'GLushort@pname:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLushort> ${arg.name} = args.GetList(${idx});
@@ -1056,17 +1056,17 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLint@' => TypeConv(
+	'GLint@' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLint> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLint@:const' => TypeConv(
+	'GLint@:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLint> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLint@1:const' => TypeConv(
+	'GLint@1:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLint> ${arg.name} = args.GetList(${idx});
@@ -1076,7 +1076,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLint@2:const' => TypeConv(
+	'GLint@2:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLint> ${arg.name} = args.GetList(${idx});
@@ -1086,7 +1086,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLint@3:const' => TypeConv(
+	'GLint@3:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLint> ${arg.name} = args.GetList(${idx});
@@ -1096,7 +1096,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLint@4:const' => TypeConv(
+	'GLint@4:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLint> ${arg.name} = args.GetList(${idx});
@@ -1106,7 +1106,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLint@pname:const' => TypeConv(
+	'GLint@pname:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLint> ${arg.name} = args.GetList(${idx});
@@ -1117,27 +1117,27 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLsizei@' => TypeConv(
+	'GLsizei@' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLsizei> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLsizei@:const' => TypeConv(
+	'GLsizei@:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLsizei> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLuint@' => TypeConv(
+	'GLuint@' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLuint> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLuint@:const' => TypeConv(
+	'GLuint@:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLuint> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLuint@3:const' => TypeConv(
+	'GLuint@3:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLuint> ${arg.name} = args.GetList(${idx});
@@ -1147,7 +1147,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLuint@4:const' => TypeConv(
+	'GLuint@4:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLuint> ${arg.name} = args.GetList(${idx});
@@ -1157,7 +1157,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLuint@pname:const' => TypeConv(
+	'GLuint@pname:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLuint> ${arg.name} = args.GetList(${idx});
@@ -1168,17 +1168,17 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLfloat@' => TypeConv(
+	'GLfloat@' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLfloat> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLfloat@:const' => TypeConv(
+	'GLfloat@:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLfloat> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLfloat@1:const' => TypeConv(
+	'GLfloat@1:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
@@ -1188,7 +1188,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLfloat@2:const' => TypeConv(
+	'GLfloat@2:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
@@ -1198,7 +1198,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLfloat@3:const' => TypeConv(
+	'GLfloat@3:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
@@ -1208,7 +1208,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLfloat@4:const' => TypeConv(
+	'GLfloat@4:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
@@ -1218,7 +1218,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLfloat@16:const' => TypeConv(
+	'GLfloat@16:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
@@ -1228,7 +1228,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLfloat@pname:const' => TypeConv(
+	'GLfloat@pname:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
@@ -1239,22 +1239,22 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLclampf@:const' => TypeConv(
+	'GLclampf@:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLclampf> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLdouble@' => TypeConv(
+	'GLdouble@' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLdouble> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLdouble@:const' => TypeConv(
+	'GLdouble@:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLdouble> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'GLdouble@1:const' => TypeConv(
+	'GLdouble@1:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
@@ -1264,7 +1264,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLdouble@2:const' => TypeConv(
+	'GLdouble@2:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
@@ -1274,7 +1274,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLdouble@3:const' => TypeConv(
+	'GLdouble@3:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
@@ -1284,7 +1284,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLdouble@4:const' => TypeConv(
+	'GLdouble@4:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
@@ -1294,7 +1294,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLdouble@16:const' => TypeConv(
+	'GLdouble@16:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
@@ -1304,7 +1304,7 @@ typeConvDict = %{
 			}''',
 			nil,
 			nil)
-	'GLdouble@pname:const' => TypeConv(
+	'GLdouble@pname:const' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
@@ -1316,7 +1316,7 @@ typeConvDict = %{
 			nil,
 			nil)
 	// GLU-specific
-	'GLUnurbs@' => TypeConv(
+	'GLUnurbs@' => cbridge.TypeConv(
 			'Nurbs', 'Once', [],
 			R'''
 			GLUnurbs *${arg.name} = Object_Nurbs::GetObject(args, ${idx})->GetNurbs();
@@ -1325,7 +1325,7 @@ typeConvDict = %{
 			R'''
 			GLUnurbs *_rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(new Object_Nurbs(_rtn)));''')
-	'GLUtesselator@' => TypeConv(
+	'GLUtesselator@' => cbridge.TypeConv(
 			'Tesselator', 'Once', [],
 			R'''
 			GLUtesselator *${arg.name} = Object_Tesselator::GetObject(args, ${idx})->GetTesselator();
@@ -1334,7 +1334,7 @@ typeConvDict = %{
 			R'''
 			GLUtesselator *_rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(new Object_Tesselator(_rtn)));''')
-	'GLUquadric@' => TypeConv(
+	'GLUquadric@' => cbridge.TypeConv(
 			'Quadric', 'Once', [],
 			R'''
 			GLUquadric *${arg.name} = Object_Quadric::GetObject(args, ${idx})->GetQuadric();
@@ -1493,4 +1493,4 @@ void AssignFunctions(Environment &env)
 Gura_EndModuleScope(glut)
 """.template()
 
-Renderer('glut', decls.children, typeConvDict, nil).Render(tmplSource, 'Functions.cpp')
+cbridge.Renderer('glut', decls.children, typeConvDict, nil).Render(tmplSource, 'Functions.cpp')

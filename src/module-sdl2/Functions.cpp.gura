@@ -1,6 +1,6 @@
 #!/usr/bin/env gura
 import(re)
-import(cbridge) {TypeConv, Renderer}
+import(cbridge)
 
 decls = `{
 //-----------------------------------------------------------------------------
@@ -3471,7 +3471,7 @@ SDL_acos(x:double):double {block?} = `auto % {`en, 'markdown',
 }
 
 TypeConv_Enum(typeName:string) = {
-	typeName => TypeConv(
+	typeName => cbridge.TypeConv(
 			'number', 'Once', [],
 			'%s ${arg.name} = static_cast<%s>(args.GetInt(${idx}));' % [typeName, typeName],
 			nil,
@@ -3493,7 +3493,7 @@ TypeConv_Class(typeName:string) = {
 	typeNameTmp = typeNameTmp.replace('@', '')
 	typeNameBase = typeNameTmp.replace('SDL_', '')
 	if (pointerFlag) {
-		typeName => TypeConv(
+		typeName => cbridge.TypeConv(
 				typeNameBase, 'Once', [],
 				'%sSDL_%s *${arg.name} = Object_%s::GetObject(args, ${idx})->GetEntity();' % \
 								[cond(constFlag, 'const ', ''), typeNameBase, typeNameBase]
@@ -3510,7 +3510,7 @@ TypeConv_Class(typeName:string) = {
 				}
 				return ReturnValue(env, sig, args, _rtnVal);''' % [typeNameBase, typeNameBase])
 	} else {
-		typeName => TypeConv(
+		typeName => cbridge.TypeConv(
 				typeNameBase, 'Once', [],
 				'SDL_%s ${arg.name} = Object_%s::GetObject(args, ${idx})->GetEntity();' % \
 																[typeNameBase, typeNameBase]
@@ -3524,7 +3524,7 @@ TypeConv_Class(typeName:string) = {
 
 typeConvDict = %{
 	// overwrite built-in converter
-	'char@' => TypeConv(
+	'char@' => cbridge.TypeConv(
 			'string', 'Once', [],
 			'char *${arg.name} = args.GetString(${idx});',
 			nil,
@@ -3539,7 +3539,7 @@ typeConvDict = %{
 				return Value::Null;
 			}
 			return ReturnValue(env, sig, args, _rtnVal);''')
-	'char@:const' => TypeConv(
+	'char@:const' => cbridge.TypeConv(
 			'string', 'Once', [],
 			'const char *${arg.name} = args.GetString(${idx});',
 			nil,
@@ -3554,104 +3554,104 @@ typeConvDict = %{
 			}
 			return ReturnValue(env, sig, args, _rtnVal);''')
 	// type converter specific to SDL library
-	'Uint16[]' => TypeConv(
+	'Uint16[]' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<Uint16> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'Sint8' => TypeConv(
+	'Sint8' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'Sint8 ${arg.name} = args.GetChar(${idx});',
 			nil,
 			R'''
 			Sint8 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'Sint16' => TypeConv(
+	'Sint16' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'Sint16 ${arg.name} = args.GetShort(${idx});',
 			nil,
 			R'''
 			Sint16 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'Sint32' => TypeConv(
+	'Sint32' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'Sint32 ${arg.name} = args.GetLong(${idx});',
 			nil,
 			R'''
 			Sint32 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'Sint64' => TypeConv(
+	'Sint64' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'Sint64 ${arg.name} = static_cast<Sint64>(args.GetDouble(${idx}));',
 			nil,
 			R'''
 			Sint64 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'Uint8' => TypeConv(
+	'Uint8' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'Uint8 ${arg.name} = args.GetUChar(${idx});',
 			nil,
 			R'''
 			Uint8 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'Uint16' => TypeConv(
+	'Uint16' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'Uint16 ${arg.name} = args.GetUShort(${idx});',
 			nil,
 			R'''
 			Uint16 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'Uint32' => TypeConv(
+	'Uint32' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'Uint32 ${arg.name} = args.GetULong(${idx});',
 			nil,
 			R'''
 			Uint32 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'Uint64' => TypeConv(
+	'Uint64' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'Uint64 ${arg.name} = static_cast<Uint64>(args.GetDouble(${idx}));',
 			nil,
 			R'''
 			Uint64 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'Wav@' => TypeConv(
+	'Wav@' => cbridge.TypeConv(
 			'Wav', 'Once', [],
 			'Object_Wav *${arg.name} = Object_Wav::GetObject(args, ${idx});',
 			nil,
 			nil)
-	'SDL_bool' => TypeConv(
+	'SDL_bool' => cbridge.TypeConv(
 			'boolean', 'Once', [],
 			'SDL_bool ${arg.name} = (args.GetBoolean(${idx})? SDL_TRUE : SDL_FALSE);',
 			nil,
 			R'''
 			SDL_bool _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn != SDL_FALSE));''')
-	'SDL_Color[]' => TypeConv(
+	'SDL_Color[]' => cbridge.TypeConv(
 			'Color', 'Once', ['List'],
 			'CArray<SDL_Color> ${arg.name} = ' \
 			'CreateCArray<SDL_Color, Object_Color>(args.GetList(${idx}));',
 			nil,
 			nil)
-	'SDL_Event[]' => TypeConv(
+	'SDL_Event[]' => cbridge.TypeConv(
 			'Event', 'Once', ['List'],
 			'CArray<SDL_Event> ${arg.name} = ' \
 					'CreateCArray<SDL_Event, Object_Event>(args.GetList(${idx}));',
 			nil,
 			nil)
-	'SDL_Point[]' => TypeConv(
+	'SDL_Point[]' => cbridge.TypeConv(
 			'Point', 'Once', ['List'],
 			'CArray<SDL_Point> ${arg.name} = ' \
 					'CreateCArray<SDL_Point, Object_Point>(args.GetList(${idx}));',
 			nil,
 			nil)
-	'SDL_Rect[]' => TypeConv(
+	'SDL_Rect[]' => cbridge.TypeConv(
 			'Rect', 'Once', ['List'],
 			'CArray<SDL_Rect> ${arg.name} = ' \
 					'CreateCArray<SDL_Rect, Object_Rect>(args.GetList(${idx}));',
 			nil,
 			nil)
-	'negerr' => TypeConv(
+	'negerr' => cbridge.TypeConv(
 			nil, nil, [],
 			nil,
 			nil,
@@ -3662,7 +3662,7 @@ typeConvDict = %{
 				return Value::Null;
 			}
 			return Value::Null;''', true)
-	'negerr_boolean' => TypeConv(
+	'negerr_boolean' => cbridge.TypeConv(
 			nil, nil, [],
 			nil,
 			nil,
@@ -3673,7 +3673,7 @@ typeConvDict = %{
 				return Value::Null;
 			}
 			return ReturnValue(env, sig, args, Value(_rtn != 0));''')
-	'negerr_number' => TypeConv(
+	'negerr_number' => cbridge.TypeConv(
 			nil, nil, [],
 			nil,
 			nil,
@@ -3684,7 +3684,7 @@ typeConvDict = %{
 				return Value::Null;
 			}
 			return ReturnValue(env, sig, args, Value(_rtn));''')
-	'Uint16_boolean' => TypeConv(
+	'Uint16_boolean' => cbridge.TypeConv(
 			nil, nil, [],
 			nil,
 			nil,
@@ -3709,7 +3709,7 @@ typeConvDict = %{
 	TypeConv_Class('SDL_AudioCVT@')
 	TypeConv_Class('SDL_AudioSpec@')
 	TypeConv_Class('SDL_AudioSpec@:const')
-	'SDL_Cursor@' => TypeConv(
+	'SDL_Cursor@' => cbridge.TypeConv(
 			'Cursor', 'Once', [],
 			'SDL_Cursor *${arg.name} = Object_Cursor::GetObject(args, ${idx})->GetEntity();',
 			nil,
@@ -3777,5 +3777,5 @@ void AssignFunctions(Environment &env)
 Gura_EndModuleScope(sdl2)
 """.template()
 
-Renderer('sdl2', decls.children, typeConvDict,
+cbridge.Renderer('sdl2', decls.children, typeConvDict,
 		 &{$funcNameC.sub('^SDL_', '')}).Render(tmplSource, 'Functions.cpp')

@@ -192,12 +192,8 @@ Gura_DeclareFunction(glutInitDisplayString)
 
 Gura_ImplementFunction(glutInitDisplayString)
 {
-#if 0
 	const char *string = args.GetString(0);
 	glutInitDisplayString(string);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glutInitDisplayString");
 	return Value::Null;
 }
 
@@ -267,13 +263,9 @@ Gura_DeclareFunction(glutCreateWindow)
 
 Gura_ImplementFunction(glutCreateWindow)
 {
-#if 0
 	const char *title = args.GetString(0);
 	int _rtn = glutCreateWindow(title);
 	return ReturnValue(env, sig, args, Value(_rtn));
-#endif
-	SetError_NotImpFunction(sig, "glutCreateWindow");
-	return Value::Null;
 }
 
 // glut.glutCreateSubWindow
@@ -411,12 +403,8 @@ Gura_DeclareFunction(glutSetWindowTitle)
 
 Gura_ImplementFunction(glutSetWindowTitle)
 {
-#if 0
 	const char *title = args.GetString(0);
 	glutSetWindowTitle(title);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glutSetWindowTitle");
 	return Value::Null;
 }
 
@@ -432,12 +420,8 @@ Gura_DeclareFunction(glutSetIconTitle)
 
 Gura_ImplementFunction(glutSetIconTitle)
 {
-#if 0
 	const char *title = args.GetString(0);
 	glutSetIconTitle(title);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glutSetIconTitle");
 	return Value::Null;
 }
 
@@ -851,13 +835,9 @@ Gura_DeclareFunction(glutAddMenuEntry)
 
 Gura_ImplementFunction(glutAddMenuEntry)
 {
-#if 0
 	const char *label = args.GetString(0);
 	int value = args.GetInt(1);
 	glutAddMenuEntry(label, value);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glutAddMenuEntry");
 	return Value::Null;
 }
 
@@ -874,13 +854,9 @@ Gura_DeclareFunction(glutAddSubMenu)
 
 Gura_ImplementFunction(glutAddSubMenu)
 {
-#if 0
 	const char *label = args.GetString(0);
 	int submenu = args.GetInt(1);
 	glutAddSubMenu(label, submenu);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glutAddSubMenu");
 	return Value::Null;
 }
 
@@ -898,14 +874,10 @@ Gura_DeclareFunction(glutChangeToMenuEntry)
 
 Gura_ImplementFunction(glutChangeToMenuEntry)
 {
-#if 0
 	int item = args.GetInt(0);
 	const char *label = args.GetString(1);
 	int value = args.GetInt(2);
 	glutChangeToMenuEntry(item, label, value);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glutChangeToMenuEntry");
 	return Value::Null;
 }
 
@@ -923,14 +895,10 @@ Gura_DeclareFunction(glutChangeToSubMenu)
 
 Gura_ImplementFunction(glutChangeToSubMenu)
 {
-#if 0
 	int item = args.GetInt(0);
 	const char *label = args.GetString(1);
 	int submenu = args.GetInt(2);
 	glutChangeToSubMenu(item, label, submenu);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glutChangeToSubMenu");
 	return Value::Null;
 }
 
@@ -1546,13 +1514,9 @@ Gura_DeclareFunction(glutExtensionSupported)
 
 Gura_ImplementFunction(glutExtensionSupported)
 {
-#if 0
 	const char *name = args.GetString(0);
 	int _rtn = glutExtensionSupported(name);
 	return ReturnValue(env, sig, args, Value(_rtn));
-#endif
-	SetError_NotImpFunction(sig, "glutExtensionSupported");
-	return Value::Null;
 }
 
 // glut.glutGetModifiers
@@ -2081,12 +2045,8 @@ Gura_DeclareFunction(glutGameModeString)
 
 Gura_ImplementFunction(glutGameModeString)
 {
-#if 0
 	const char *string = args.GetString(0);
 	glutGameModeString(string);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "glutGameModeString");
 	return Value::Null;
 }
 
