@@ -1,0 +1,64 @@
+#!/usr/bin/env gura
+import(opengl) {*}
+import(glut) {*}
+
+display() = {
+	glClear(GL_COLOR_BUFFER_BIT)
+	glFlush()
+}
+
+resize(w:number, h:number) = {
+	glViewport(0, 0, w, h)
+	glLoadIdentity()
+	glOrtho(-w / 200.0, w / 200.0, -h / 200.0, h / 200.0, -1.0, 1.0)
+}
+
+mouse(button:number, state:number, x:number, y:number) = {
+	if (button == GLUT_LEFT_BUTTON) {
+		print('left')
+	} elsif (button == GLUT_MIDDLE_BUTTON) {
+		print('middle')
+	} elsif (button == GLUT_RIGHT_BUTTON) {
+		print('right')
+	} else {
+		// nothing to do
+	}
+	print(' button is ')
+	if (state == GLUT_UP) {
+		print('up')
+	} elsif (state == GLUT_DOWN) {
+		print('down')
+	} else {
+		// nothing to do
+	}
+	printf(' at (%d, %d)\n', x, y)
+}
+
+motion(x:number, y:number) = {
+	printf('motion (%d, %d)\n', x, y)
+}
+
+keyboard(key:number, x:number, y:number) = {
+	printf('keyboard 0x%02x at (%d, %d)\n', key, x, y)
+}
+
+init() = {
+	glClearColor(0.0, 0.0, 1.0, 1.0)
+}
+
+main() = {
+	glutInitWindowPosition(100, 100)
+	glutInitWindowSize(320, 240)
+	glutInit(sys.argv)
+	glutInitDisplayMode(GLUT_RGBA)
+	glutCreateWindow(sys.argv[0])
+	glutDisplayFunc(display)
+	glutReshapeFunc(resize)
+	glutMouseFunc(mouse)
+	glutMotionFunc(motion)
+	glutKeyboardFunc(keyboard)
+	init()
+	glutMainLoop()
+}
+
+main()
