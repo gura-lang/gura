@@ -3538,7 +3538,8 @@ typeConvDict = %{
 				SetError_SDL(sig);
 				return Value::Null;
 			}
-			return ReturnValue(env, sig, args, _rtnVal);''')
+			return ReturnValue(env, sig, args, _rtnVal);
+			''')
 	'char@:const' => cbridge.TypeConv(
 			'string', 'Once', [],
 			'const char *${arg.name} = args.GetString(${idx});',
@@ -3552,7 +3553,8 @@ typeConvDict = %{
 				SetError_SDL(sig);
 				return Value::Null;
 			}
-			return ReturnValue(env, sig, args, _rtnVal);''')
+			return ReturnValue(env, sig, args, _rtnVal);
+			''')
 	// type converter specific to SDL library
 	'Uint16[]' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
@@ -3565,56 +3567,64 @@ typeConvDict = %{
 			nil,
 			R'''
 			Sint8 _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'Sint16' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'Sint16 ${arg.name} = args.GetShort(${idx});',
 			nil,
 			R'''
 			Sint16 _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'Sint32' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'Sint32 ${arg.name} = args.GetLong(${idx});',
 			nil,
 			R'''
 			Sint32 _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'Sint64' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'Sint64 ${arg.name} = static_cast<Sint64>(args.GetDouble(${idx}));',
 			nil,
 			R'''
 			Sint64 _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'Uint8' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'Uint8 ${arg.name} = args.GetUChar(${idx});',
 			nil,
 			R'''
 			Uint8 _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'Uint16' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'Uint16 ${arg.name} = args.GetUShort(${idx});',
 			nil,
 			R'''
 			Uint16 _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'Uint32' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'Uint32 ${arg.name} = args.GetULong(${idx});',
 			nil,
 			R'''
 			Uint32 _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'Uint64' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'Uint64 ${arg.name} = static_cast<Uint64>(args.GetDouble(${idx}));',
 			nil,
 			R'''
 			Uint64 _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'Wav@' => cbridge.TypeConv(
 			'Wav', 'Once', [],
 			'Object_Wav *${arg.name} = Object_Wav::GetObject(args, ${idx});',
@@ -3626,7 +3636,8 @@ typeConvDict = %{
 			nil,
 			R'''
 			SDL_bool _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn != SDL_FALSE));''')
+			return ReturnValue(env, sig, args, Value(_rtn != SDL_FALSE));
+			''')
 	'SDL_Color[]' => cbridge.TypeConv(
 			'Color', 'Once', ['List'],
 			'CArray<SDL_Color> ${arg.name} = ' \
@@ -3672,7 +3683,8 @@ typeConvDict = %{
 				SetError_SDL(sig);
 				return Value::Null;
 			}
-			return ReturnValue(env, sig, args, Value(_rtn != 0));''')
+			return ReturnValue(env, sig, args, Value(_rtn != 0));
+			''')
 	'negerr_number' => cbridge.TypeConv(
 			nil, nil, [],
 			nil,
@@ -3683,14 +3695,16 @@ typeConvDict = %{
 				SetError_SDL(sig);
 				return Value::Null;
 			}
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'Uint16_boolean' => cbridge.TypeConv(
 			nil, nil, [],
 			nil,
 			nil,
 			R'''
 			Uint16 _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn != 0));''')
+			return ReturnValue(env, sig, args, Value(_rtn != 0));
+			''')
 	TypeConv_Enum('SDL_AudioFormat')
 	TypeConv_Enum('SDL_AudioDeviceID')
 	TypeConv_Enum('SDL_AudioStatus')
@@ -3722,7 +3736,8 @@ typeConvDict = %{
 				SetError_SDL(sig);
 				return Value::Null;
 			}
-			return ReturnValue(env, sig, args, _rtnVal);''')
+			return ReturnValue(env, sig, args, _rtnVal);
+			''')
 	TypeConv_Class('SDL_DisplayMode@')
 	TypeConv_Class('SDL_DisplayMode@:const')
 	TypeConv_Class('SDL_Event@')
