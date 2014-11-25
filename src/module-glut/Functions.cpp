@@ -258,17 +258,25 @@ Gura_ImplementFunction(glutInit)
 {
 	const ValueList &argv = args.GetList(0);
 	int argc = static_cast<int>(argv.size());
-	char **_argv = new char *[argc];
-	int i = 0;
-	foreach_const (ValueList, pValue, argv) {
-		_argv[i++] = strdup(pValue->GetString());
+	char **_argv = NULL;
+	if (argc > 0) {
+		_argv = new char *[argc];
+		int i = 0;
+		foreach_const (ValueList, pValue, argv) {
+			_argv[i++] = strdup(pValue->GetString());
+		}
 	}
 	glutInit(&argc, _argv);
-	Value _rtnVal(Value::CreateList(env, _argv, argc));
-	for (int i = 0; i < argc; i++) {
-		::free(_argv[i]);
+	Value _rtnVal;
+	ValueList &valList = _rtnVal.InitAsList(env);
+	if (argc > 0) {
+		valList.reserve(argc);
+		for (int i = 0; i < argc; i++) {
+			valList.push_back(Value(_argv[i]));
+			::free(_argv[i]);
+		}
+		delete[] _argv;
 	}
-	delete[] _argv;
 	return ReturnValue(env, sig, args, _rtnVal);
 }
 
