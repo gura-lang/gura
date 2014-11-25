@@ -748,98 +748,112 @@ typeConvDict = %{
 			nil,
 			R'''
 			GLenum _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'GLboolean' => cbridge.TypeConv(
 			'boolean', 'Once', [],
 			'GLboolean ${arg.name} = (args.GetBoolean(${idx})? GL_TRUE : GL_FALSE);',
 			nil,
 			R'''
 			GLboolean _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));''')
+			return ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
+			''')
 	'GLbitfield' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLbitfield ${arg.name} = args.GetUInt(${idx});',
 			nil,
 			R'''
 			GLbitfield _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'GLbyte' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLbyte ${arg.name} = args.GetChar(${idx});',
 			nil,
 			R'''
 			GLbyte _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'GLshort' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLshort ${arg.name} = args.GetShort(${idx});',
 			nil,
 			R'''
 			GLshort _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'GLint' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLint ${arg.name} = args.GetInt(${idx});',
 			nil,
 			R'''
 			GLint _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'GLsizei' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLsizei ${arg.name} = args.GetInt(${idx});',
 			nil,
 			R'''
 			GLsizei _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'GLubyte' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLubyte ${arg.name} = args.GetUChar(${idx});',
 			nil,
 			R'''
 			GLubyte _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'GLushort' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLushort ${arg.name} = args.GetUShort(${idx});',
 			nil,
 			R'''
 			GLushort _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'GLuint' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLuint ${arg.name} = args.GetUInt(${idx});',
 			nil,
 			R'''
 			GLuint _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'GLfloat' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLfloat ${arg.name} = args.GetFloat(${idx});',
 			nil,
 			R'''
 			GLfloat _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'GLclampf' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLclampf ${arg.name} = args.GetFloat(${idx});',
 			nil,
 			R'''
 			GLclampf _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'GLdouble' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLdouble ${arg.name} = args.GetDouble(${idx});',
 			nil,
 			R'''
 			GLdouble _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'GLclampd' => cbridge.TypeConv(
 			'number', 'Once', [],
 			'GLclampd ${arg.name} = args.GetDouble(${idx});',
 			nil,
 			R'''
 			GLclampd _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''')
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'GLenum@' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLenum> ${arg.name} = args.GetList(${idx});',
@@ -942,7 +956,8 @@ typeConvDict = %{
 			nil,
 			R'''
 			const GLubyte *_rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(reinterpret_cast<const char *>(_rtn)));''')
+			return ReturnValue(env, sig, args, Value(reinterpret_cast<const char *>(_rtn)));
+			''')
 	'GLubyte@' => cbridge.TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<GLubyte> ${arg.name} = args.GetList(${idx});',
@@ -1344,7 +1359,8 @@ typeConvDict = %{
 			nil,
 			R'''
 			GLUnurbs *_rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(new Object_Nurbs(_rtn)));''')
+			return ReturnValue(env, sig, args, Value(new Object_Nurbs(_rtn)));
+			''')
 	'GLUtesselator@' => cbridge.TypeConv(
 			'Tesselator', 'Once', [],
 			R'''
@@ -1353,7 +1369,8 @@ typeConvDict = %{
 			nil,
 			R'''
 			GLUtesselator *_rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(new Object_Tesselator(_rtn)));''')
+			return ReturnValue(env, sig, args, Value(new Object_Tesselator(_rtn)));
+			''')
 	'GLUquadric@' => cbridge.TypeConv(
 			'Quadric', 'Once', [],
 			R'''
@@ -1362,7 +1379,8 @@ typeConvDict = %{
 			nil,
 			R'''
 			GLUquadric *_rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(new Object_Quadric(_rtn)));''')
+			return ReturnValue(env, sig, args, Value(new Object_Quadric(_rtn)));
+			''')
 }
 
 tmplSource = R"""
