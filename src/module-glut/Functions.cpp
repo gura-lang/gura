@@ -4,35 +4,44 @@
 Gura_BeginModuleScope(glut)
 
 struct Context {
-	AutoPtr<Function> pFuncWMClose;
-	AutoPtr<Function> pFuncDisplay;
-	AutoPtr<Function> pFuncReshape;
-	AutoPtr<Function> pFuncKeyboard;
-	AutoPtr<Function> pFuncMouse;
-	AutoPtr<Function> pFuncMotion;
-	AutoPtr<Function> pFuncPassiveMotion;
-	AutoPtr<Function> pFuncEntry;
-	AutoPtr<Function> pFuncVisibility;
-	AutoPtr<Function> pFuncIdle;
-	AutoPtr<Function> pFuncTimer;
-	AutoPtr<Function> pFuncMenuState;
-	AutoPtr<Function> pFuncSpecial;
-	AutoPtr<Function> pFuncSpaceballMotion;
-	AutoPtr<Function> pFuncSpaceballRotate;
-	AutoPtr<Function> pFuncSpaceballButton;
-	AutoPtr<Function> pFuncButtonBox;
-	AutoPtr<Function> pFuncDials;
-	AutoPtr<Function> pFuncTabletMotion;
-	AutoPtr<Function> pFuncTabletButton;
-	AutoPtr<Function> pFuncMenuStatus;
-	AutoPtr<Function> pFuncOverlayDisplay;
-	AutoPtr<Function> pFuncWindowStatus;
-	AutoPtr<Function> pFuncKeyboardUp;
-	AutoPtr<Function> pFuncSpecialUp;
-	AutoPtr<Function> pFuncJoystick;
+	AutoPtr<Function> pFuncOnWMClose;
+	AutoPtr<Function> pFuncOnMenu;
+	AutoPtr<Function> pFuncOnDisplay;
+	AutoPtr<Function> pFuncOnReshape;
+	AutoPtr<Function> pFuncOnKeyboard;
+	AutoPtr<Function> pFuncOnMouse;
+	AutoPtr<Function> pFuncOnMotion;
+	AutoPtr<Function> pFuncOnPassiveMotion;
+	AutoPtr<Function> pFuncOnEntry;
+	AutoPtr<Function> pFuncOnVisibility;
+	AutoPtr<Function> pFuncOnIdle;
+	AutoPtr<Function> pFuncOnTimer;
+	AutoPtr<Function> pFuncOnMenuState;
+	AutoPtr<Function> pFuncOnSpecial;
+	AutoPtr<Function> pFuncOnSpaceballMotion;
+	AutoPtr<Function> pFuncOnSpaceballRotate;
+	AutoPtr<Function> pFuncOnSpaceballButton;
+	AutoPtr<Function> pFuncOnButtonBox;
+	AutoPtr<Function> pFuncOnDials;
+	AutoPtr<Function> pFuncOnTabletMotion;
+	AutoPtr<Function> pFuncOnTabletButton;
+	AutoPtr<Function> pFuncOnMenuStatus;
+	AutoPtr<Function> pFuncOnOverlayDisplay;
+	AutoPtr<Function> pFuncOnWindowStatus;
+	AutoPtr<Function> pFuncOnKeyboardUp;
+	AutoPtr<Function> pFuncOnSpecialUp;
+	AutoPtr<Function> pFuncOnJoystick;
 };
 
 Context *g_pContext = NULL;
+
+void OnWMClose()
+{
+}
+
+void OnMenu(int value)
+{
+}
 
 void OnDisplay(void)
 {
@@ -623,8 +632,8 @@ Gura_DeclareFunction(glutWMCloseFunc)
 Gura_ImplementFunction(glutWMCloseFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncWMClose.reset(func->Reference());
-	glutWMCloseFunc(OnDisplay);
+	g_pContext->pFuncOnWMClose.reset(func->Reference());
+	glutWMCloseFunc(OnWMClose);
 	return Value::Null;
 }
 
@@ -757,6 +766,7 @@ Gura_DeclareFunction(glutCreateMenu)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -764,11 +774,9 @@ Gura_DeclareFunction(glutCreateMenu)
 
 Gura_ImplementFunction(glutCreateMenu)
 {
-#if 0
-	int _rtn = glutCreateMenu();
-	return ReturnValue(env, sig, args, Value(_rtn));
-#endif
-	SetError_NotImpFunction(sig, "glutCreateMenu");
+	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	g_pContext->pFuncOnMenu.reset(func->Reference());
+	glutCreateMenu(OnMenu);
 	return Value::Null;
 }
 
@@ -966,7 +974,7 @@ Gura_DeclareFunction(glutDisplayFunc)
 Gura_ImplementFunction(glutDisplayFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncDisplay.reset(func->Reference());
+	g_pContext->pFuncOnDisplay.reset(func->Reference());
 	glutDisplayFunc(OnDisplay);
 	return Value::Null;
 }
@@ -984,7 +992,7 @@ Gura_DeclareFunction(glutReshapeFunc)
 Gura_ImplementFunction(glutReshapeFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncReshape.reset(func->Reference());
+	g_pContext->pFuncOnReshape.reset(func->Reference());
 	glutReshapeFunc(OnReshape);
 	return Value::Null;
 }
@@ -1002,7 +1010,7 @@ Gura_DeclareFunction(glutKeyboardFunc)
 Gura_ImplementFunction(glutKeyboardFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncKeyboard.reset(func->Reference());
+	g_pContext->pFuncOnKeyboard.reset(func->Reference());
 	glutKeyboardFunc(OnKeyboard);
 	return Value::Null;
 }
@@ -1020,7 +1028,7 @@ Gura_DeclareFunction(glutMouseFunc)
 Gura_ImplementFunction(glutMouseFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncMouse.reset(func->Reference());
+	g_pContext->pFuncOnMouse.reset(func->Reference());
 	glutMouseFunc(OnMouse);
 	return Value::Null;
 }
@@ -1038,7 +1046,7 @@ Gura_DeclareFunction(glutMotionFunc)
 Gura_ImplementFunction(glutMotionFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncMotion.reset(func->Reference());
+	g_pContext->pFuncOnMotion.reset(func->Reference());
 	glutMotionFunc(OnMotion);
 	return Value::Null;
 }
@@ -1056,7 +1064,7 @@ Gura_DeclareFunction(glutPassiveMotionFunc)
 Gura_ImplementFunction(glutPassiveMotionFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncPassiveMotion.reset(func->Reference());
+	g_pContext->pFuncOnPassiveMotion.reset(func->Reference());
 	glutPassiveMotionFunc(OnPassiveMotion);
 	return Value::Null;
 }
@@ -1074,7 +1082,7 @@ Gura_DeclareFunction(glutEntryFunc)
 Gura_ImplementFunction(glutEntryFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncEntry.reset(func->Reference());
+	g_pContext->pFuncOnEntry.reset(func->Reference());
 	glutEntryFunc(OnEntry);
 	return Value::Null;
 }
@@ -1092,7 +1100,7 @@ Gura_DeclareFunction(glutVisibilityFunc)
 Gura_ImplementFunction(glutVisibilityFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncVisibility.reset(func->Reference());
+	g_pContext->pFuncOnVisibility.reset(func->Reference());
 	glutVisibilityFunc(OnVisibility);
 	return Value::Null;
 }
@@ -1110,7 +1118,7 @@ Gura_DeclareFunction(glutIdleFunc)
 Gura_ImplementFunction(glutIdleFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncIdle.reset(func->Reference());
+	g_pContext->pFuncOnIdle.reset(func->Reference());
 	glutIdleFunc(OnIdle);
 	return Value::Null;
 }
@@ -1132,7 +1140,7 @@ Gura_ImplementFunction(glutTimerFunc)
 	unsigned int millis = args.GetUInt(0);
 	const Function *func = Object_function::GetObject(args, 1)->GetFunction();
 	int value = args.GetInt(2);
-	g_pContext->pFuncTimer.reset(func->Reference());
+	g_pContext->pFuncOnTimer.reset(func->Reference());
 	glutTimerFunc(millis, OnTimer, value);
 	return Value::Null;
 }
@@ -1150,7 +1158,7 @@ Gura_DeclareFunction(glutMenuStateFunc)
 Gura_ImplementFunction(glutMenuStateFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncMenuState.reset(func->Reference());
+	g_pContext->pFuncOnMenuState.reset(func->Reference());
 	glutMenuStateFunc(OnMenuState);
 	return Value::Null;
 }
@@ -1168,7 +1176,7 @@ Gura_DeclareFunction(glutSpecialFunc)
 Gura_ImplementFunction(glutSpecialFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncSpecial.reset(func->Reference());
+	g_pContext->pFuncOnSpecial.reset(func->Reference());
 	glutSpecialFunc(OnSpecial);
 	return Value::Null;
 }
@@ -1186,7 +1194,7 @@ Gura_DeclareFunction(glutSpaceballMotionFunc)
 Gura_ImplementFunction(glutSpaceballMotionFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncSpaceballMotion.reset(func->Reference());
+	g_pContext->pFuncOnSpaceballMotion.reset(func->Reference());
 	glutSpaceballMotionFunc(OnSpaceballMotion);
 	return Value::Null;
 }
@@ -1204,7 +1212,7 @@ Gura_DeclareFunction(glutSpaceballRotateFunc)
 Gura_ImplementFunction(glutSpaceballRotateFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncSpaceballRotate.reset(func->Reference());
+	g_pContext->pFuncOnSpaceballRotate.reset(func->Reference());
 	glutSpaceballRotateFunc(OnSpaceballRotate);
 	return Value::Null;
 }
@@ -1222,7 +1230,7 @@ Gura_DeclareFunction(glutSpaceballButtonFunc)
 Gura_ImplementFunction(glutSpaceballButtonFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncSpaceballButton.reset(func->Reference());
+	g_pContext->pFuncOnSpaceballButton.reset(func->Reference());
 	glutSpaceballButtonFunc(OnSpaceballButton);
 	return Value::Null;
 }
@@ -1240,7 +1248,7 @@ Gura_DeclareFunction(glutButtonBoxFunc)
 Gura_ImplementFunction(glutButtonBoxFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncButtonBox.reset(func->Reference());
+	g_pContext->pFuncOnButtonBox.reset(func->Reference());
 	glutButtonBoxFunc(OnButtonBox);
 	return Value::Null;
 }
@@ -1258,7 +1266,7 @@ Gura_DeclareFunction(glutDialsFunc)
 Gura_ImplementFunction(glutDialsFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncDials.reset(func->Reference());
+	g_pContext->pFuncOnDials.reset(func->Reference());
 	glutDialsFunc(OnDials);
 	return Value::Null;
 }
@@ -1276,7 +1284,7 @@ Gura_DeclareFunction(glutTabletMotionFunc)
 Gura_ImplementFunction(glutTabletMotionFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncTabletMotion.reset(func->Reference());
+	g_pContext->pFuncOnTabletMotion.reset(func->Reference());
 	glutTabletMotionFunc(OnTabletMotion);
 	return Value::Null;
 }
@@ -1294,7 +1302,7 @@ Gura_DeclareFunction(glutTabletButtonFunc)
 Gura_ImplementFunction(glutTabletButtonFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncTabletButton.reset(func->Reference());
+	g_pContext->pFuncOnTabletButton.reset(func->Reference());
 	glutTabletButtonFunc(OnTabletButton);
 	return Value::Null;
 }
@@ -1312,7 +1320,7 @@ Gura_DeclareFunction(glutMenuStatusFunc)
 Gura_ImplementFunction(glutMenuStatusFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncMenuStatus.reset(func->Reference());
+	g_pContext->pFuncOnMenuStatus.reset(func->Reference());
 	glutMenuStatusFunc(OnMenuStatus);
 	return Value::Null;
 }
@@ -1330,7 +1338,7 @@ Gura_DeclareFunction(glutOverlayDisplayFunc)
 Gura_ImplementFunction(glutOverlayDisplayFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncOverlayDisplay.reset(func->Reference());
+	g_pContext->pFuncOnOverlayDisplay.reset(func->Reference());
 	glutOverlayDisplayFunc(OnOverlayDisplay);
 	return Value::Null;
 }
@@ -1348,7 +1356,7 @@ Gura_DeclareFunction(glutWindowStatusFunc)
 Gura_ImplementFunction(glutWindowStatusFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncWindowStatus.reset(func->Reference());
+	g_pContext->pFuncOnWindowStatus.reset(func->Reference());
 	glutWindowStatusFunc(OnWindowStatus);
 	return Value::Null;
 }
@@ -1366,7 +1374,7 @@ Gura_DeclareFunction(glutKeyboardUpFunc)
 Gura_ImplementFunction(glutKeyboardUpFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncKeyboardUp.reset(func->Reference());
+	g_pContext->pFuncOnKeyboardUp.reset(func->Reference());
 	glutKeyboardUpFunc(OnKeyboardUp);
 	return Value::Null;
 }
@@ -1384,7 +1392,7 @@ Gura_DeclareFunction(glutSpecialUpFunc)
 Gura_ImplementFunction(glutSpecialUpFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->pFuncSpecialUp.reset(func->Reference());
+	g_pContext->pFuncOnSpecialUp.reset(func->Reference());
 	glutSpecialUpFunc(OnSpecialUp);
 	return Value::Null;
 }
@@ -1404,7 +1412,7 @@ Gura_ImplementFunction(glutJoystickFunc)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
 	int pollInterval = args.GetInt(1);
-	g_pContext->pFuncJoystick.reset(func->Reference());
+	g_pContext->pFuncOnJoystick.reset(func->Reference());
 	glutJoystickFunc(OnJoystick, pollInterval);
 	return Value::Null;
 }
