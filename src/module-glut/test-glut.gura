@@ -1,7 +1,13 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
-import(glut)
+import(glut) {*}
 
 testcase {
-	glut.test()
+	display() = {
+		println('display')
+	}
+	glutInit(sys.argv);
+	glutCreateWindow("hello");
+	glutDisplayFunc(display);
+	glutMainLoop();
 }
