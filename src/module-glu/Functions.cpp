@@ -156,7 +156,6 @@ Gura_ImplementFunction(gluBuild2DMipmaps)
 	GLint _rtn = gluBuild2DMipmaps(target,
 					internalFormat, width, height, format, type, data);
 	return Value(_rtn);
- 
 }
 
 // glu.gluCylinder
