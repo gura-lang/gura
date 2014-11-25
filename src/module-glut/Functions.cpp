@@ -17,7 +17,12 @@ public:
 	}
 	inline Value Eval(Args &args) {
 		if (_pFunc.IsNull()) return Value::Null;
-		return _pFunc->Eval(*_pEnv, _sig, args);
+		Value result = _pFunc->Eval(*_pEnv, _sig, args);
+		if (_sig.IsSignalled()) {
+			_sig.PrintSignal(*_pEnv->GetConsoleErr());
+			exit(1);
+		}
+		return result;
 	}
 };
 
