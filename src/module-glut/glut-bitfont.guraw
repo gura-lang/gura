@@ -20,7 +20,7 @@ defaultMessage = "GLUT means OpenGL.";
 message = defaultMessage;
 
 selectFont(newfont:number) = {
-	font = fonts[newfont];
+	font:extern = fonts[newfont];
 	glutPostRedisplay();
 }
 
@@ -34,7 +34,6 @@ selectMessage(msg:number) = {
 }
 
 selectColor(color:number) = {
-	println('selectColor')
 	if (color == 1) {
 		glColor3f(0.0, 1.0, 0.0);
 	} elsif (color == 2) {
@@ -73,7 +72,7 @@ reshape(w:number, h:number) = {
 main() = {
 	argv = glutInit(sys.argv);
 	if (argv.find('-mono')) {
-		font = GLUT_BITMAP_9_BY_15;
+		font:extern = GLUT_BITMAP_9_BY_15;
 	}
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutInitWindowSize(500, 150);

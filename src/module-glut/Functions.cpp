@@ -27,8 +27,10 @@ public:
 };
 
 struct Context {
+	int idxMenu;
 	FunctionPack funcPackOnWMClose;
-	FunctionPack funcPackOnMenu;
+	//FunctionPack funcPackOnMenu;
+	FunctionPack funcPackOnMenuTbl[256];
 	FunctionPack funcPackOnDisplay;
 	FunctionPack funcPackOnReshape;
 	FunctionPack funcPackOnKeyboard;
@@ -54,9 +56,86 @@ struct Context {
 	FunctionPack funcPackOnKeyboardUp;
 	FunctionPack funcPackOnSpecialUp;
 	FunctionPack funcPackOnJoystick;
+	inline Context() : idxMenu(0) {}
 };
 
 Context *g_pContext = NULL;
+
+template<int idx> void OnMenuTmpl(int value)
+{
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValue(Value(value));
+	g_pContext->funcPackOnMenuTbl[idx].Eval(*pArgs);
+}
+
+typedef void (*OnMenuType)(int value);
+
+OnMenuType g_OnMenus[] = {
+	OnMenuTmpl<0>, OnMenuTmpl<1>, OnMenuTmpl<2>, OnMenuTmpl<3>,
+	OnMenuTmpl<4>, OnMenuTmpl<5>, OnMenuTmpl<6>, OnMenuTmpl<7>,
+	OnMenuTmpl<8>, OnMenuTmpl<9>, OnMenuTmpl<10>, OnMenuTmpl<11>,
+	OnMenuTmpl<12>, OnMenuTmpl<13>, OnMenuTmpl<14>, OnMenuTmpl<15>,
+	OnMenuTmpl<16>, OnMenuTmpl<17>, OnMenuTmpl<18>, OnMenuTmpl<19>,
+	OnMenuTmpl<20>, OnMenuTmpl<21>, OnMenuTmpl<22>, OnMenuTmpl<23>,
+	OnMenuTmpl<24>, OnMenuTmpl<25>, OnMenuTmpl<26>, OnMenuTmpl<27>,
+	OnMenuTmpl<28>, OnMenuTmpl<29>, OnMenuTmpl<30>, OnMenuTmpl<31>,
+	OnMenuTmpl<32>, OnMenuTmpl<33>, OnMenuTmpl<34>, OnMenuTmpl<35>,
+	OnMenuTmpl<36>, OnMenuTmpl<37>, OnMenuTmpl<38>, OnMenuTmpl<39>,
+	OnMenuTmpl<40>, OnMenuTmpl<41>, OnMenuTmpl<42>, OnMenuTmpl<43>,
+	OnMenuTmpl<44>, OnMenuTmpl<45>, OnMenuTmpl<46>, OnMenuTmpl<47>,
+	OnMenuTmpl<48>, OnMenuTmpl<49>, OnMenuTmpl<50>, OnMenuTmpl<51>,
+	OnMenuTmpl<52>, OnMenuTmpl<53>, OnMenuTmpl<54>, OnMenuTmpl<55>,
+	OnMenuTmpl<56>, OnMenuTmpl<57>, OnMenuTmpl<58>, OnMenuTmpl<59>,
+	OnMenuTmpl<60>, OnMenuTmpl<61>, OnMenuTmpl<62>, OnMenuTmpl<63>,
+	OnMenuTmpl<64>, OnMenuTmpl<65>, OnMenuTmpl<66>, OnMenuTmpl<67>,
+	OnMenuTmpl<68>, OnMenuTmpl<69>, OnMenuTmpl<70>, OnMenuTmpl<71>,
+	OnMenuTmpl<72>, OnMenuTmpl<73>, OnMenuTmpl<74>, OnMenuTmpl<75>,
+	OnMenuTmpl<76>, OnMenuTmpl<77>, OnMenuTmpl<78>, OnMenuTmpl<79>,
+	OnMenuTmpl<80>, OnMenuTmpl<81>, OnMenuTmpl<82>, OnMenuTmpl<83>,
+	OnMenuTmpl<84>, OnMenuTmpl<85>, OnMenuTmpl<86>, OnMenuTmpl<87>,
+	OnMenuTmpl<88>, OnMenuTmpl<89>, OnMenuTmpl<90>, OnMenuTmpl<91>,
+	OnMenuTmpl<92>, OnMenuTmpl<93>, OnMenuTmpl<94>, OnMenuTmpl<95>,
+	OnMenuTmpl<96>, OnMenuTmpl<97>, OnMenuTmpl<98>, OnMenuTmpl<99>,
+	OnMenuTmpl<100>, OnMenuTmpl<101>, OnMenuTmpl<102>, OnMenuTmpl<103>,
+	OnMenuTmpl<104>, OnMenuTmpl<105>, OnMenuTmpl<106>, OnMenuTmpl<107>,
+	OnMenuTmpl<108>, OnMenuTmpl<109>, OnMenuTmpl<110>, OnMenuTmpl<111>,
+	OnMenuTmpl<112>, OnMenuTmpl<113>, OnMenuTmpl<114>, OnMenuTmpl<115>,
+	OnMenuTmpl<116>, OnMenuTmpl<117>, OnMenuTmpl<118>, OnMenuTmpl<119>,
+	OnMenuTmpl<120>, OnMenuTmpl<121>, OnMenuTmpl<122>, OnMenuTmpl<123>,
+	OnMenuTmpl<124>, OnMenuTmpl<125>, OnMenuTmpl<126>, OnMenuTmpl<127>,
+	OnMenuTmpl<128>, OnMenuTmpl<129>, OnMenuTmpl<130>, OnMenuTmpl<131>,
+	OnMenuTmpl<132>, OnMenuTmpl<133>, OnMenuTmpl<134>, OnMenuTmpl<135>,
+	OnMenuTmpl<136>, OnMenuTmpl<137>, OnMenuTmpl<138>, OnMenuTmpl<139>,
+	OnMenuTmpl<140>, OnMenuTmpl<141>, OnMenuTmpl<142>, OnMenuTmpl<143>,
+	OnMenuTmpl<144>, OnMenuTmpl<145>, OnMenuTmpl<146>, OnMenuTmpl<147>,
+	OnMenuTmpl<148>, OnMenuTmpl<149>, OnMenuTmpl<150>, OnMenuTmpl<151>,
+	OnMenuTmpl<152>, OnMenuTmpl<153>, OnMenuTmpl<154>, OnMenuTmpl<155>,
+	OnMenuTmpl<156>, OnMenuTmpl<157>, OnMenuTmpl<158>, OnMenuTmpl<159>,
+	OnMenuTmpl<160>, OnMenuTmpl<161>, OnMenuTmpl<162>, OnMenuTmpl<163>,
+	OnMenuTmpl<164>, OnMenuTmpl<165>, OnMenuTmpl<166>, OnMenuTmpl<167>,
+	OnMenuTmpl<168>, OnMenuTmpl<169>, OnMenuTmpl<170>, OnMenuTmpl<171>,
+	OnMenuTmpl<172>, OnMenuTmpl<173>, OnMenuTmpl<174>, OnMenuTmpl<175>,
+	OnMenuTmpl<176>, OnMenuTmpl<177>, OnMenuTmpl<178>, OnMenuTmpl<179>,
+	OnMenuTmpl<180>, OnMenuTmpl<181>, OnMenuTmpl<182>, OnMenuTmpl<183>,
+	OnMenuTmpl<184>, OnMenuTmpl<185>, OnMenuTmpl<186>, OnMenuTmpl<187>,
+	OnMenuTmpl<188>, OnMenuTmpl<189>, OnMenuTmpl<190>, OnMenuTmpl<191>,
+	OnMenuTmpl<192>, OnMenuTmpl<193>, OnMenuTmpl<194>, OnMenuTmpl<195>,
+	OnMenuTmpl<196>, OnMenuTmpl<197>, OnMenuTmpl<198>, OnMenuTmpl<199>,
+	OnMenuTmpl<200>, OnMenuTmpl<201>, OnMenuTmpl<202>, OnMenuTmpl<203>,
+	OnMenuTmpl<204>, OnMenuTmpl<205>, OnMenuTmpl<206>, OnMenuTmpl<207>,
+	OnMenuTmpl<208>, OnMenuTmpl<209>, OnMenuTmpl<210>, OnMenuTmpl<211>,
+	OnMenuTmpl<212>, OnMenuTmpl<213>, OnMenuTmpl<214>, OnMenuTmpl<215>,
+	OnMenuTmpl<216>, OnMenuTmpl<217>, OnMenuTmpl<218>, OnMenuTmpl<219>,
+	OnMenuTmpl<220>, OnMenuTmpl<221>, OnMenuTmpl<222>, OnMenuTmpl<223>,
+	OnMenuTmpl<224>, OnMenuTmpl<225>, OnMenuTmpl<226>, OnMenuTmpl<227>,
+	OnMenuTmpl<228>, OnMenuTmpl<229>, OnMenuTmpl<230>, OnMenuTmpl<231>,
+	OnMenuTmpl<232>, OnMenuTmpl<233>, OnMenuTmpl<234>, OnMenuTmpl<235>,
+	OnMenuTmpl<236>, OnMenuTmpl<237>, OnMenuTmpl<238>, OnMenuTmpl<239>,
+	OnMenuTmpl<240>, OnMenuTmpl<241>, OnMenuTmpl<242>, OnMenuTmpl<243>,
+	OnMenuTmpl<244>, OnMenuTmpl<245>, OnMenuTmpl<246>, OnMenuTmpl<247>,
+	OnMenuTmpl<248>, OnMenuTmpl<249>, OnMenuTmpl<250>, OnMenuTmpl<251>,
+	OnMenuTmpl<252>, OnMenuTmpl<253>, OnMenuTmpl<254>, OnMenuTmpl<255>,
+};
 
 void OnWMClose()
 {
@@ -64,12 +143,14 @@ void OnWMClose()
 	g_pContext->funcPackOnWMClose.Eval(*pArgs);
 }
 
+/*
 void OnMenu(int value)
 {
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValue(Value(value));
 	g_pContext->funcPackOnMenu.Eval(*pArgs);
 }
+*/
 
 void OnDisplay(void)
 {
@@ -829,8 +910,9 @@ Gura_DeclareFunctionAlias(__glutCreateMenu, "glutCreateMenu")
 Gura_ImplementFunction(__glutCreateMenu)
 {
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
-	g_pContext->funcPackOnMenu.SetFunc(env, sig, func->Reference());
-	int _rtn = glutCreateMenu(OnMenu);
+	int idxMenu = g_pContext->idxMenu++;
+	g_pContext->funcPackOnMenuTbl[idxMenu].SetFunc(env, sig, func->Reference());
+	int _rtn = glutCreateMenu(g_OnMenus[idxMenu]);
 	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
