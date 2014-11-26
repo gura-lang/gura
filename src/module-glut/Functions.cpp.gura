@@ -548,12 +548,10 @@ glutLayerGet(type:GLenum):int:map {block?} = `auto % {`en, 'markdown',
 	'''
 }
 
-/*
-glutGetProcAddress(procName:char@:const):void@:map {block?} = `unsupport % {`en, 'markdown',
+glutGetProcAddress(procName:char@:const):void:map {block?} = `unsupport % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 glutBitmapCharacter(font:Font, character:int):void:map = `auto % {`en, 'markdown',
 	R'''

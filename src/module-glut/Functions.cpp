@@ -1619,6 +1619,28 @@ Gura_ImplementFunction(__glutLayerGet)
 	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
+// glut.glutGetProcAddress
+Gura_DeclareFunctionAlias(__glutGetProcAddress, "glutGetProcAddress")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "procName", VTYPE_string, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glutGetProcAddress)
+{
+#if 0
+	const char *procName = args.GetString(0);
+	glutGetProcAddress(procName);
+	return Value::Null;
+#endif
+	SetError_NotImpFunction(sig, "glutGetProcAddress");
+	return Value::Null;
+}
+
 // glut.glutBitmapCharacter
 Gura_DeclareFunctionAlias(__glutBitmapCharacter, "glutBitmapCharacter")
 {
@@ -2364,6 +2386,7 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glutExtensionSupported);
 	Gura_AssignFunction(__glutGetModifiers);
 	Gura_AssignFunction(__glutLayerGet);
+	Gura_AssignFunction(__glutGetProcAddress);
 	Gura_AssignFunction(__glutBitmapCharacter);
 	Gura_AssignFunction(__glutBitmapWidth);
 	Gura_AssignFunction(__glutStrokeCharacter);
