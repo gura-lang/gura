@@ -1,0 +1,102 @@
+#!/usr/bin/env gura
+/* Copyright (c) Mark J. Kilgard, 1994. */
+
+/* This program is freely distributable without licensing fees 
+   and is provided without guarantee or warrantee expressed or 
+   implied. This program is -not- in the public domain. */
+
+import(opengl) {*}
+import(glu) {*}
+import(glut) {*}
+
+font = GLUT_BITMAP_TIMES_ROMAN_24;
+
+fonts = [
+	GLUT_BITMAP_9_BY_15,
+	GLUT_BITMAP_TIMES_ROMAN_10,
+	GLUT_BITMAP_TIMES_ROMAN_24
+]
+defaultMessage = "GLUT means OpenGL.";
+message = defaultMessage;
+
+selectFont(newfont:number) = {
+	font = fonts[newfont];
+	glutPostRedisplay();
+}
+
+selectMessage(msg:number) = {
+	extern(message)
+	if (msg == 1) {
+		message = "abcdefghijklmnop";
+	} elsif (msg == 2) {
+		message = "ABCDEFGHIJKLMNOP";
+	}
+}
+
+selectColor(color:number) = {
+	println('selectColor')
+	if (color == 1) {
+		glColor3f(0.0, 1.0, 0.0);
+	} elsif (color == 2) {
+		glColor3f(1.0, 0.0, 0.0);
+	} elsif (color == 3) {
+		glColor3f(1.0, 1.0, 1.0);
+	}
+	glutPostRedisplay();
+}
+
+tick() = {
+	glutPostRedisplay();
+}
+
+output(x:number, y:number, string:string) = {
+	glRasterPos2f(x, y);
+    glutBitmapCharacter(font, string.each():utf8);
+}
+
+display() = {
+	glClear(GL_COLOR_BUFFER_BIT);
+	output(0, 24, "This is written in a GLUT bitmap font.");
+	output(100, 100, message);
+	output(50, 145, "(positioned in pixels with upper-left origin)");
+	glutSwapBuffers();
+}
+
+reshape(w:number, h:number) = {
+	glViewport(0, 0, w, h);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(0, w, h, 0);
+	glMatrixMode(GL_MODELVIEW);
+}
+
+main() = {
+	argv = glutInit(sys.argv);
+	if (argv.find('-mono')) {
+		font = GLUT_BITMAP_9_BY_15;
+	}
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+	glutInitWindowSize(500, 150);
+	glutCreateWindow("GLUT bitmap font example");
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+	glutDisplayFunc(display);
+	glutReshapeFunc(reshape);
+	glutIdleFunc(tick);
+	msg_submenu = glutCreateMenu(selectMessage);
+	glutAddMenuEntry("abc", 1);
+	glutAddMenuEntry("ABC", 2);
+	color_submenu = glutCreateMenu(selectColor);
+	glutAddMenuEntry("Green", 1);
+	glutAddMenuEntry("Red", 2);
+	glutAddMenuEntry("White", 3);
+	glutCreateMenu(selectFont);
+	glutAddMenuEntry("9 by 15", 0);
+	glutAddMenuEntry("Times Roman 10", 1);
+	glutAddMenuEntry("Times Roman 24", 2);
+	glutAddSubMenu("Messages", msg_submenu);
+	glutAddSubMenu("Color", color_submenu);
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+	glutMainLoop();
+}
+
+main()
