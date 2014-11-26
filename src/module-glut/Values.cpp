@@ -182,58 +182,31 @@ void AssignValues(Environment &env)
 	Gura_AssignValue(GLUT_OVERLAY, Value(GLUT_OVERLAY));
 #endif
 #if defined(GLUT_STROKE_ROMAN)
-	Gura_AssignValue(GLUT_STROKE_ROMAN, Value(GLUT_STROKE_ROMAN));
+	Gura_AssignValue(GLUT_STROKE_ROMAN, Value(new Object_Font(GLUT_STROKE_ROMAN)));
 #endif
 #if defined(GLUT_STROKE_MONO_ROMAN)
-	Gura_AssignValue(GLUT_STROKE_MONO_ROMAN, Value(GLUT_STROKE_MONO_ROMAN));
+	Gura_AssignValue(GLUT_STROKE_MONO_ROMAN, Value(new Object_Font(GLUT_STROKE_MONO_ROMAN)));
 #endif
 #if defined(GLUT_BITMAP_9_BY_15)
-	Gura_AssignValue(GLUT_BITMAP_9_BY_15, Value(GLUT_BITMAP_9_BY_15));
+	Gura_AssignValue(GLUT_BITMAP_9_BY_15, Value(new Object_Font(GLUT_BITMAP_9_BY_15)));
 #endif
 #if defined(GLUT_BITMAP_8_BY_13)
-	Gura_AssignValue(GLUT_BITMAP_8_BY_13, Value(GLUT_BITMAP_8_BY_13));
+	Gura_AssignValue(GLUT_BITMAP_8_BY_13, Value(new Object_Font(GLUT_BITMAP_8_BY_13)));
 #endif
 #if defined(GLUT_BITMAP_TIMES_ROMAN_10)
-	Gura_AssignValue(GLUT_BITMAP_TIMES_ROMAN_10, Value(GLUT_BITMAP_TIMES_ROMAN_10));
+	Gura_AssignValue(GLUT_BITMAP_TIMES_ROMAN_10, Value(new Object_Font(GLUT_BITMAP_TIMES_ROMAN_10)));
 #endif
 #if defined(GLUT_BITMAP_TIMES_ROMAN_24)
-	Gura_AssignValue(GLUT_BITMAP_TIMES_ROMAN_24, Value(GLUT_BITMAP_TIMES_ROMAN_24));
+	Gura_AssignValue(GLUT_BITMAP_TIMES_ROMAN_24, Value(new Object_Font(GLUT_BITMAP_TIMES_ROMAN_24)));
 #endif
 #if defined(GLUT_BITMAP_HELVETICA_10)
-	Gura_AssignValue(GLUT_BITMAP_HELVETICA_10, Value(GLUT_BITMAP_HELVETICA_10));
+	Gura_AssignValue(GLUT_BITMAP_HELVETICA_10, Value(new Object_Font(GLUT_BITMAP_HELVETICA_10)));
 #endif
 #if defined(GLUT_BITMAP_HELVETICA_12)
-	Gura_AssignValue(GLUT_BITMAP_HELVETICA_12, Value(GLUT_BITMAP_HELVETICA_12));
+	Gura_AssignValue(GLUT_BITMAP_HELVETICA_12, Value(new Object_Font(GLUT_BITMAP_HELVETICA_12)));
 #endif
 #if defined(GLUT_BITMAP_HELVETICA_18)
-	Gura_AssignValue(GLUT_BITMAP_HELVETICA_18, Value(GLUT_BITMAP_HELVETICA_18));
-#endif
-#if defined(GLUT_STROKE_ROMAN)
-	Gura_AssignValue(GLUT_STROKE_ROMAN, Value(GLUT_STROKE_ROMAN));
-#endif
-#if defined(GLUT_STROKE_MONO_ROMAN)
-	Gura_AssignValue(GLUT_STROKE_MONO_ROMAN, Value(GLUT_STROKE_MONO_ROMAN));
-#endif
-#if defined(GLUT_BITMAP_9_BY_15)
-	Gura_AssignValue(GLUT_BITMAP_9_BY_15, Value(GLUT_BITMAP_9_BY_15));
-#endif
-#if defined(GLUT_BITMAP_8_BY_13)
-	Gura_AssignValue(GLUT_BITMAP_8_BY_13, Value(GLUT_BITMAP_8_BY_13));
-#endif
-#if defined(GLUT_BITMAP_TIMES_ROMAN_10)
-	Gura_AssignValue(GLUT_BITMAP_TIMES_ROMAN_10, Value(GLUT_BITMAP_TIMES_ROMAN_10));
-#endif
-#if defined(GLUT_BITMAP_TIMES_ROMAN_24)
-	Gura_AssignValue(GLUT_BITMAP_TIMES_ROMAN_24, Value(GLUT_BITMAP_TIMES_ROMAN_24));
-#endif
-#if defined(GLUT_BITMAP_HELVETICA_10)
-	Gura_AssignValue(GLUT_BITMAP_HELVETICA_10, Value(GLUT_BITMAP_HELVETICA_10));
-#endif
-#if defined(GLUT_BITMAP_HELVETICA_12)
-	Gura_AssignValue(GLUT_BITMAP_HELVETICA_12, Value(GLUT_BITMAP_HELVETICA_12));
-#endif
-#if defined(GLUT_BITMAP_HELVETICA_18)
-	Gura_AssignValue(GLUT_BITMAP_HELVETICA_18, Value(GLUT_BITMAP_HELVETICA_18));
+	Gura_AssignValue(GLUT_BITMAP_HELVETICA_18, Value(new Object_Font(GLUT_BITMAP_HELVETICA_18)));
 #endif
 #if defined(GLUT_WINDOW_X)
 	Gura_AssignValue(GLUT_WINDOW_X, Value(GLUT_WINDOW_X));

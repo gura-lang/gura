@@ -3,12 +3,36 @@
 //=============================================================================
 #include "stdafx.h"
 
+#define Gura_AssignValueFont(name) \
+
 Gura_BeginModuleBody(glut)
+
+//-----------------------------------------------------------------------------
+// Object_Font
+//-----------------------------------------------------------------------------
+Object_Font::~Object_Font()
+{
+}
+
+Object *Object_Font::Clone() const
+{
+	return NULL;
+}
+
+String Object_Font::ToString(bool exprFlag)
+{
+	return String("<glut.font>");
+}
+
+// implementation of class Font
+Gura_ImplementUserClass(Font)
+{
+}
 
 //-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
-// glut.test(num1:number, num2:number)
+// glut.test()
 Gura_DeclareFunction(test)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
@@ -17,18 +41,8 @@ Gura_DeclareFunction(test)
 	);
 }
 
-void display()
-{
-}
-
 Gura_ImplementFunction(test)
 {
-	int argc = 0;
-	char *argv[1];
-	glutInit(&argc, argv);
-	glutCreateWindow("hello");
-	glutDisplayFunc(display);
-	glutMainLoop();
 	return Value::Null;
 }
 
@@ -45,6 +59,8 @@ void SetError_NotImpFunction(Signal &sig, const char *funcName)
 //-----------------------------------------------------------------------------
 Gura_ModuleEntry()
 {
+	// class realization
+	Gura_RealizeUserClass(Font, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(test);
 	AssignValues(env);

@@ -555,37 +555,35 @@ glutGetProcAddress(procName:char@:const):void@:map {block?} = `unsupport % {`en,
 }
 */
 
-/*
-glutBitmapCharacter(font:void@, character:int):void:map = `unsupport % {`en, 'markdown',
+glutBitmapCharacter(font:Font, character:int):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutBitmapWidth(font:void@, character:int):int:map {block?} = `unsupport % {`en, 'markdown',
+glutBitmapWidth(font:Font, character:int):int:map {block?} = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutStrokeCharacter(font:void@, character:int):void:map = `unsupport % {`en, 'markdown',
+glutStrokeCharacter(font:Font, character:int):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutStrokeWidth(font:void@, character:int):int:map {block?} = `unsupport % {`en, 'markdown',
+glutStrokeWidth(font:Font, character:int):int:map {block?} = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutBitmapLength(font:void@, string:unsigned_char@:const):int:map {block?} = `unsupport % {`en, 'markdown',
+glutBitmapLength(font:Font, string:unsigned_char@:const):int:map {block?} = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutStrokeLength(font:void@, string:unsigned_char@:const):int:map {block?} = `unsupport % {`en, 'markdown',
+glutStrokeLength(font:Font, string:unsigned_char@:const):int:map {block?} = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 glutWireSphere(radius:GLdouble, slices:GLint, stacks:GLint):void:map = `auto % {`en, 'markdown',
 	R'''
@@ -745,6 +743,14 @@ glutGameModeGet(mode:GLenum):int:map {block?} = `auto % {`en, 'markdown',
 }
 
 typeConvDict = %{
+	'unsigned_char@:const' => cbridge.TypeConv(
+			'string', 'Once', [],
+			'const unsigned char *${arg.name} = reinterpret_cast<const unsigned char *>(args.GetString(${idx}));',
+			nil,
+			R'''
+			const char *_rtn = reinterpret_cast<const char *>(${fi.MakeCaller()});
+			return ReturnValue(env, sig, args, Value(_rtn));
+			''')
 	'string[]' => cbridge.TypeConv(
 			'string', 'Once', ['List'],
 			'const ValueList &${arg.name} = args.GetList(${idx});',
@@ -1389,6 +1395,14 @@ typeConvDict = %{
 			GLUquadric *_rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(new Object_Quadric(_rtn)));
 			''')
+	// GLUT-specific
+	'Font' => cbridge.TypeConv(
+			'Font', 'Once', [],
+			R'''
+			void *${arg.name} = Object_Font::GetObject(args, ${idx})->GetEntity();
+			''',
+			nil,
+			nil)
 }
 
 tmplSource = R"""

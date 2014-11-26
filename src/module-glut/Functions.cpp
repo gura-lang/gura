@@ -1619,6 +1619,124 @@ Gura_ImplementFunction(__glutLayerGet)
 	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
+// glut.glutBitmapCharacter
+Gura_DeclareFunctionAlias(__glutBitmapCharacter, "glutBitmapCharacter")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "font", VTYPE_Font, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "character", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glutBitmapCharacter)
+{
+	void *font = Object_Font::GetObject(args, 0)->GetEntity();
+	int character = args.GetInt(1);
+	glutBitmapCharacter(font, character);
+	return Value::Null;
+}
+
+// glut.glutBitmapWidth
+Gura_DeclareFunctionAlias(__glutBitmapWidth, "glutBitmapWidth")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "font", VTYPE_Font, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "character", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glutBitmapWidth)
+{
+	void *font = Object_Font::GetObject(args, 0)->GetEntity();
+	int character = args.GetInt(1);
+	int _rtn = glutBitmapWidth(font, character);
+	return ReturnValue(env, sig, args, Value(_rtn));
+}
+
+// glut.glutStrokeCharacter
+Gura_DeclareFunctionAlias(__glutStrokeCharacter, "glutStrokeCharacter")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "font", VTYPE_Font, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "character", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glutStrokeCharacter)
+{
+	void *font = Object_Font::GetObject(args, 0)->GetEntity();
+	int character = args.GetInt(1);
+	glutStrokeCharacter(font, character);
+	return Value::Null;
+}
+
+// glut.glutStrokeWidth
+Gura_DeclareFunctionAlias(__glutStrokeWidth, "glutStrokeWidth")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "font", VTYPE_Font, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "character", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glutStrokeWidth)
+{
+	void *font = Object_Font::GetObject(args, 0)->GetEntity();
+	int character = args.GetInt(1);
+	int _rtn = glutStrokeWidth(font, character);
+	return ReturnValue(env, sig, args, Value(_rtn));
+}
+
+// glut.glutBitmapLength
+Gura_DeclareFunctionAlias(__glutBitmapLength, "glutBitmapLength")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "font", VTYPE_Font, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "string", VTYPE_string, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glutBitmapLength)
+{
+	void *font = Object_Font::GetObject(args, 0)->GetEntity();
+	const unsigned char *string = reinterpret_cast<const unsigned char *>(args.GetString(1));
+	int _rtn = glutBitmapLength(font, string);
+	return ReturnValue(env, sig, args, Value(_rtn));
+}
+
+// glut.glutStrokeLength
+Gura_DeclareFunctionAlias(__glutStrokeLength, "glutStrokeLength")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "font", VTYPE_Font, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "string", VTYPE_string, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glutStrokeLength)
+{
+	void *font = Object_Font::GetObject(args, 0)->GetEntity();
+	const unsigned char *string = reinterpret_cast<const unsigned char *>(args.GetString(1));
+	int _rtn = glutStrokeLength(font, string);
+	return ReturnValue(env, sig, args, Value(_rtn));
+}
+
 // glut.glutWireSphere
 Gura_DeclareFunctionAlias(__glutWireSphere, "glutWireSphere")
 {
@@ -2246,6 +2364,12 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glutExtensionSupported);
 	Gura_AssignFunction(__glutGetModifiers);
 	Gura_AssignFunction(__glutLayerGet);
+	Gura_AssignFunction(__glutBitmapCharacter);
+	Gura_AssignFunction(__glutBitmapWidth);
+	Gura_AssignFunction(__glutStrokeCharacter);
+	Gura_AssignFunction(__glutStrokeWidth);
+	Gura_AssignFunction(__glutBitmapLength);
+	Gura_AssignFunction(__glutStrokeLength);
 	Gura_AssignFunction(__glutWireSphere);
 	Gura_AssignFunction(__glutSolidSphere);
 	Gura_AssignFunction(__glutWireCone);
