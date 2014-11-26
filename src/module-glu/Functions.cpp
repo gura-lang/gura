@@ -4,7 +4,7 @@
 Gura_BeginModuleScope(glu)
 
 // glu.gluBeginCurve
-Gura_DeclareFunction(gluBeginCurve)
+Gura_DeclareFunctionAlias(__gluBeginCurve, "gluBeginCurve")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -14,7 +14,7 @@ Gura_DeclareFunction(gluBeginCurve)
 		"");
 }
 
-Gura_ImplementFunction(gluBeginCurve)
+Gura_ImplementFunction(__gluBeginCurve)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	gluBeginCurve(nurb);
@@ -29,7 +29,7 @@ Gura_ImplementFunction(gluBeginCurve)
 }
 
 // glu.gluBeginPolygon
-Gura_DeclareFunction(gluBeginPolygon)
+Gura_DeclareFunctionAlias(__gluBeginPolygon, "gluBeginPolygon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -39,7 +39,7 @@ Gura_DeclareFunction(gluBeginPolygon)
 		"");
 }
 
-Gura_ImplementFunction(gluBeginPolygon)
+Gura_ImplementFunction(__gluBeginPolygon)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	gluBeginPolygon(tess);
@@ -54,7 +54,7 @@ Gura_ImplementFunction(gluBeginPolygon)
 }
 
 // glu.gluBeginSurface
-Gura_DeclareFunction(gluBeginSurface)
+Gura_DeclareFunctionAlias(__gluBeginSurface, "gluBeginSurface")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -64,7 +64,7 @@ Gura_DeclareFunction(gluBeginSurface)
 		"");
 }
 
-Gura_ImplementFunction(gluBeginSurface)
+Gura_ImplementFunction(__gluBeginSurface)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	gluBeginSurface(nurb);
@@ -79,7 +79,7 @@ Gura_ImplementFunction(gluBeginSurface)
 }
 
 // glu.gluBeginTrim
-Gura_DeclareFunction(gluBeginTrim)
+Gura_DeclareFunctionAlias(__gluBeginTrim, "gluBeginTrim")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -89,7 +89,7 @@ Gura_DeclareFunction(gluBeginTrim)
 		"");
 }
 
-Gura_ImplementFunction(gluBeginTrim)
+Gura_ImplementFunction(__gluBeginTrim)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	gluBeginTrim(nurb);
@@ -104,7 +104,7 @@ Gura_ImplementFunction(gluBeginTrim)
 }
 
 // glu.gluBuild1DMipmaps
-Gura_DeclareFunction(gluBuild1DMipmaps)
+Gura_DeclareFunctionAlias(__gluBuild1DMipmaps, "gluBuild1DMipmaps")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -115,7 +115,7 @@ Gura_DeclareFunction(gluBuild1DMipmaps)
 		"");
 }
 
-Gura_ImplementFunction(gluBuild1DMipmaps)
+Gura_ImplementFunction(__gluBuild1DMipmaps)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLint internalFormat = args.GetInt(1);
@@ -131,7 +131,7 @@ Gura_ImplementFunction(gluBuild1DMipmaps)
 }
 
 // glu.gluBuild2DMipmaps
-Gura_DeclareFunction(gluBuild2DMipmaps)
+Gura_DeclareFunctionAlias(__gluBuild2DMipmaps, "gluBuild2DMipmaps")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -142,7 +142,7 @@ Gura_DeclareFunction(gluBuild2DMipmaps)
 		"");
 }
 
-Gura_ImplementFunction(gluBuild2DMipmaps)
+Gura_ImplementFunction(__gluBuild2DMipmaps)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLint internalFormat = args.GetInt(1);
@@ -159,7 +159,7 @@ Gura_ImplementFunction(gluBuild2DMipmaps)
 }
 
 // glu.gluCylinder
-Gura_DeclareFunction(gluCylinder)
+Gura_DeclareFunctionAlias(__gluCylinder, "gluCylinder")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "quad", VTYPE_Quadric, OCCUR_Once, FLAG_None);
@@ -173,7 +173,7 @@ Gura_DeclareFunction(gluCylinder)
 		"");
 }
 
-Gura_ImplementFunction(gluCylinder)
+Gura_ImplementFunction(__gluCylinder)
 {
 	GLUquadric *quad = Object_Quadric::GetObject(args, 0)->GetQuadric();
 	GLdouble base = args.GetDouble(1);
@@ -186,7 +186,7 @@ Gura_ImplementFunction(gluCylinder)
 }
 
 // glu.gluDeleteNurbsRenderer
-Gura_DeclareFunction(gluDeleteNurbsRenderer)
+Gura_DeclareFunctionAlias(__gluDeleteNurbsRenderer, "gluDeleteNurbsRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
@@ -195,7 +195,7 @@ Gura_DeclareFunction(gluDeleteNurbsRenderer)
 		"");
 }
 
-Gura_ImplementFunction(gluDeleteNurbsRenderer)
+Gura_ImplementFunction(__gluDeleteNurbsRenderer)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	gluDeleteNurbsRenderer(nurb);
@@ -203,7 +203,7 @@ Gura_ImplementFunction(gluDeleteNurbsRenderer)
 }
 
 // glu.gluDeleteQuadric
-Gura_DeclareFunction(gluDeleteQuadric)
+Gura_DeclareFunctionAlias(__gluDeleteQuadric, "gluDeleteQuadric")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "quad", VTYPE_Quadric, OCCUR_Once, FLAG_None);
@@ -212,7 +212,7 @@ Gura_DeclareFunction(gluDeleteQuadric)
 		"");
 }
 
-Gura_ImplementFunction(gluDeleteQuadric)
+Gura_ImplementFunction(__gluDeleteQuadric)
 {
 	GLUquadric *quad = Object_Quadric::GetObject(args, 0)->GetQuadric();
 	gluDeleteQuadric(quad);
@@ -220,7 +220,7 @@ Gura_ImplementFunction(gluDeleteQuadric)
 }
 
 // glu.gluDeleteTess
-Gura_DeclareFunction(gluDeleteTess)
+Gura_DeclareFunctionAlias(__gluDeleteTess, "gluDeleteTess")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
@@ -229,7 +229,7 @@ Gura_DeclareFunction(gluDeleteTess)
 		"");
 }
 
-Gura_ImplementFunction(gluDeleteTess)
+Gura_ImplementFunction(__gluDeleteTess)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	gluDeleteTess(tess);
@@ -237,7 +237,7 @@ Gura_ImplementFunction(gluDeleteTess)
 }
 
 // glu.gluDisk
-Gura_DeclareFunction(gluDisk)
+Gura_DeclareFunctionAlias(__gluDisk, "gluDisk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "quad", VTYPE_Quadric, OCCUR_Once, FLAG_None);
@@ -250,7 +250,7 @@ Gura_DeclareFunction(gluDisk)
 		"");
 }
 
-Gura_ImplementFunction(gluDisk)
+Gura_ImplementFunction(__gluDisk)
 {
 	GLUquadric *quad = Object_Quadric::GetObject(args, 0)->GetQuadric();
 	GLdouble inner = args.GetDouble(1);
@@ -262,7 +262,7 @@ Gura_ImplementFunction(gluDisk)
 }
 
 // glu.gluEndCurve
-Gura_DeclareFunction(gluEndCurve)
+Gura_DeclareFunctionAlias(__gluEndCurve, "gluEndCurve")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
@@ -271,7 +271,7 @@ Gura_DeclareFunction(gluEndCurve)
 		"");
 }
 
-Gura_ImplementFunction(gluEndCurve)
+Gura_ImplementFunction(__gluEndCurve)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	gluEndCurve(nurb);
@@ -279,7 +279,7 @@ Gura_ImplementFunction(gluEndCurve)
 }
 
 // glu.gluEndPolygon
-Gura_DeclareFunction(gluEndPolygon)
+Gura_DeclareFunctionAlias(__gluEndPolygon, "gluEndPolygon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
@@ -288,7 +288,7 @@ Gura_DeclareFunction(gluEndPolygon)
 		"");
 }
 
-Gura_ImplementFunction(gluEndPolygon)
+Gura_ImplementFunction(__gluEndPolygon)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	gluEndPolygon(tess);
@@ -296,7 +296,7 @@ Gura_ImplementFunction(gluEndPolygon)
 }
 
 // glu.gluEndSurface
-Gura_DeclareFunction(gluEndSurface)
+Gura_DeclareFunctionAlias(__gluEndSurface, "gluEndSurface")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
@@ -305,7 +305,7 @@ Gura_DeclareFunction(gluEndSurface)
 		"");
 }
 
-Gura_ImplementFunction(gluEndSurface)
+Gura_ImplementFunction(__gluEndSurface)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	gluEndSurface(nurb);
@@ -313,7 +313,7 @@ Gura_ImplementFunction(gluEndSurface)
 }
 
 // glu.gluEndTrim
-Gura_DeclareFunction(gluEndTrim)
+Gura_DeclareFunctionAlias(__gluEndTrim, "gluEndTrim")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
@@ -322,7 +322,7 @@ Gura_DeclareFunction(gluEndTrim)
 		"");
 }
 
-Gura_ImplementFunction(gluEndTrim)
+Gura_ImplementFunction(__gluEndTrim)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	gluEndTrim(nurb);
@@ -330,7 +330,7 @@ Gura_ImplementFunction(gluEndTrim)
 }
 
 // glu.gluErrorString
-Gura_DeclareFunction(gluErrorString)
+Gura_DeclareFunctionAlias(__gluErrorString, "gluErrorString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "error", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -339,7 +339,7 @@ Gura_DeclareFunction(gluErrorString)
 		"");
 }
 
-Gura_ImplementFunction(gluErrorString)
+Gura_ImplementFunction(__gluErrorString)
 {
 	GLenum error = static_cast<GLenum>(args.GetInt(0));
 	const GLubyte *_rtn = gluErrorString(error);
@@ -347,7 +347,7 @@ Gura_ImplementFunction(gluErrorString)
 }
 
 // glu.gluGetNurbsProperty
-Gura_DeclareFunction(gluGetNurbsProperty)
+Gura_DeclareFunctionAlias(__gluGetNurbsProperty, "gluGetNurbsProperty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
@@ -358,7 +358,7 @@ Gura_DeclareFunction(gluGetNurbsProperty)
 		"");
 }
 
-Gura_ImplementFunction(gluGetNurbsProperty)
+Gura_ImplementFunction(__gluGetNurbsProperty)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	GLenum property = static_cast<GLenum>(args.GetInt(1));
@@ -368,7 +368,7 @@ Gura_ImplementFunction(gluGetNurbsProperty)
 }
 
 // glu.gluGetString
-Gura_DeclareFunction(gluGetString)
+Gura_DeclareFunctionAlias(__gluGetString, "gluGetString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "name", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -377,7 +377,7 @@ Gura_DeclareFunction(gluGetString)
 		"");
 }
 
-Gura_ImplementFunction(gluGetString)
+Gura_ImplementFunction(__gluGetString)
 {
 	GLenum name = static_cast<GLenum>(args.GetInt(0));
 	const GLubyte *_rtn = gluGetString(name);
@@ -385,7 +385,7 @@ Gura_ImplementFunction(gluGetString)
 }
 
 // glu.gluGetTessProperty
-Gura_DeclareFunction(gluGetTessProperty)
+Gura_DeclareFunctionAlias(__gluGetTessProperty, "gluGetTessProperty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
@@ -396,7 +396,7 @@ Gura_DeclareFunction(gluGetTessProperty)
 		"");
 }
 
-Gura_ImplementFunction(gluGetTessProperty)
+Gura_ImplementFunction(__gluGetTessProperty)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	GLenum which = static_cast<GLenum>(args.GetInt(1));
@@ -406,7 +406,7 @@ Gura_ImplementFunction(gluGetTessProperty)
 }
 
 // glu.gluLoadSamplingMatrices
-Gura_DeclareFunction(gluLoadSamplingMatrices)
+Gura_DeclareFunctionAlias(__gluLoadSamplingMatrices, "gluLoadSamplingMatrices")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
@@ -418,7 +418,7 @@ Gura_DeclareFunction(gluLoadSamplingMatrices)
 		"");
 }
 
-Gura_ImplementFunction(gluLoadSamplingMatrices)
+Gura_ImplementFunction(__gluLoadSamplingMatrices)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	CArray<GLfloat> model = args.GetList(1);
@@ -429,7 +429,7 @@ Gura_ImplementFunction(gluLoadSamplingMatrices)
 }
 
 // glu.gluLookAt
-Gura_DeclareFunction(gluLookAt)
+Gura_DeclareFunctionAlias(__gluLookAt, "gluLookAt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "eyeX", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -446,7 +446,7 @@ Gura_DeclareFunction(gluLookAt)
 		"");
 }
 
-Gura_ImplementFunction(gluLookAt)
+Gura_ImplementFunction(__gluLookAt)
 {
 	GLdouble eyeX = args.GetDouble(0);
 	GLdouble eyeY = args.GetDouble(1);
@@ -462,7 +462,7 @@ Gura_ImplementFunction(gluLookAt)
 }
 
 // glu.gluNewNurbsRenderer
-Gura_DeclareFunction(gluNewNurbsRenderer)
+Gura_DeclareFunctionAlias(__gluNewNurbsRenderer, "gluNewNurbsRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
@@ -470,14 +470,14 @@ Gura_DeclareFunction(gluNewNurbsRenderer)
 		"");
 }
 
-Gura_ImplementFunction(gluNewNurbsRenderer)
+Gura_ImplementFunction(__gluNewNurbsRenderer)
 {
 	GLUnurbs *_rtn = gluNewNurbsRenderer();
 	return ReturnValue(env, sig, args, Value(new Object_Nurbs(_rtn)));
 }
 
 // glu.gluNewQuadric
-Gura_DeclareFunction(gluNewQuadric)
+Gura_DeclareFunctionAlias(__gluNewQuadric, "gluNewQuadric")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
@@ -485,14 +485,14 @@ Gura_DeclareFunction(gluNewQuadric)
 		"");
 }
 
-Gura_ImplementFunction(gluNewQuadric)
+Gura_ImplementFunction(__gluNewQuadric)
 {
 	GLUquadric *_rtn = gluNewQuadric();
 	return ReturnValue(env, sig, args, Value(new Object_Quadric(_rtn)));
 }
 
 // glu.gluNewTess
-Gura_DeclareFunction(gluNewTess)
+Gura_DeclareFunctionAlias(__gluNewTess, "gluNewTess")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
@@ -500,14 +500,14 @@ Gura_DeclareFunction(gluNewTess)
 		"");
 }
 
-Gura_ImplementFunction(gluNewTess)
+Gura_ImplementFunction(__gluNewTess)
 {
 	GLUtesselator *_rtn = gluNewTess();
 	return ReturnValue(env, sig, args, Value(new Object_Tesselator(_rtn)));
 }
 
 // glu.gluNextContour
-Gura_DeclareFunction(gluNextContour)
+Gura_DeclareFunctionAlias(__gluNextContour, "gluNextContour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
@@ -517,7 +517,7 @@ Gura_DeclareFunction(gluNextContour)
 		"");
 }
 
-Gura_ImplementFunction(gluNextContour)
+Gura_ImplementFunction(__gluNextContour)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	GLenum type = static_cast<GLenum>(args.GetInt(1));
@@ -526,7 +526,7 @@ Gura_ImplementFunction(gluNextContour)
 }
 
 // glu.gluNurbsCallback
-Gura_DeclareFunction(gluNurbsCallback)
+Gura_DeclareFunctionAlias(__gluNurbsCallback, "gluNurbsCallback")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurbs", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
@@ -537,7 +537,7 @@ Gura_DeclareFunction(gluNurbsCallback)
 		"");
 }
 
-Gura_ImplementFunction(gluNurbsCallback)
+Gura_ImplementFunction(__gluNurbsCallback)
 {
 #if 0
 	GLUnurbs *nurbs = Object_Nurbs::GetObject(args, 0)->GetNurbs();
@@ -551,7 +551,7 @@ Gura_ImplementFunction(gluNurbsCallback)
 }
 
 // glu.gluNurbsCallbackData
-Gura_DeclareFunction(gluNurbsCallbackData)
+Gura_DeclareFunctionAlias(__gluNurbsCallbackData, "gluNurbsCallbackData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
@@ -561,7 +561,7 @@ Gura_DeclareFunction(gluNurbsCallbackData)
 		"");
 }
 
-Gura_ImplementFunction(gluNurbsCallbackData)
+Gura_ImplementFunction(__gluNurbsCallbackData)
 {
 #if 0
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
@@ -574,7 +574,7 @@ Gura_ImplementFunction(gluNurbsCallbackData)
 }
 
 // glu.gluNurbsCallbackDataEXT
-Gura_DeclareFunction(gluNurbsCallbackDataEXT)
+Gura_DeclareFunctionAlias(__gluNurbsCallbackDataEXT, "gluNurbsCallbackDataEXT")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
@@ -584,7 +584,7 @@ Gura_DeclareFunction(gluNurbsCallbackDataEXT)
 		"");
 }
 
-Gura_ImplementFunction(gluNurbsCallbackDataEXT)
+Gura_ImplementFunction(__gluNurbsCallbackDataEXT)
 {
 #if 0
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
@@ -597,7 +597,7 @@ Gura_ImplementFunction(gluNurbsCallbackDataEXT)
 }
 
 // glu.gluNurbsCurve
-Gura_DeclareFunction(gluNurbsCurve)
+Gura_DeclareFunctionAlias(__gluNurbsCurve, "gluNurbsCurve")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
@@ -611,7 +611,7 @@ Gura_DeclareFunction(gluNurbsCurve)
 		"");
 }
 
-Gura_ImplementFunction(gluNurbsCurve)
+Gura_ImplementFunction(__gluNurbsCurve)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	CArray<GLfloat> knots = args.GetList(1);
@@ -625,7 +625,7 @@ Gura_ImplementFunction(gluNurbsCurve)
 }
 
 // glu.gluNurbsProperty
-Gura_DeclareFunction(gluNurbsProperty)
+Gura_DeclareFunctionAlias(__gluNurbsProperty, "gluNurbsProperty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
@@ -636,7 +636,7 @@ Gura_DeclareFunction(gluNurbsProperty)
 		"");
 }
 
-Gura_ImplementFunction(gluNurbsProperty)
+Gura_ImplementFunction(__gluNurbsProperty)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	GLenum property = static_cast<GLenum>(args.GetInt(1));
@@ -646,7 +646,7 @@ Gura_ImplementFunction(gluNurbsProperty)
 }
 
 // glu.gluNurbsSurface
-Gura_DeclareFunction(gluNurbsSurface)
+Gura_DeclareFunctionAlias(__gluNurbsSurface, "gluNurbsSurface")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
@@ -663,7 +663,7 @@ Gura_DeclareFunction(gluNurbsSurface)
 		"");
 }
 
-Gura_ImplementFunction(gluNurbsSurface)
+Gura_ImplementFunction(__gluNurbsSurface)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	CArray<GLfloat> sKnots = args.GetList(1);
@@ -682,7 +682,7 @@ Gura_ImplementFunction(gluNurbsSurface)
 }
 
 // glu.gluOrtho2D
-Gura_DeclareFunction(gluOrtho2D)
+Gura_DeclareFunctionAlias(__gluOrtho2D, "gluOrtho2D")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "left", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -694,7 +694,7 @@ Gura_DeclareFunction(gluOrtho2D)
 		"");
 }
 
-Gura_ImplementFunction(gluOrtho2D)
+Gura_ImplementFunction(__gluOrtho2D)
 {
 	GLdouble left = args.GetDouble(0);
 	GLdouble right = args.GetDouble(1);
@@ -705,7 +705,7 @@ Gura_ImplementFunction(gluOrtho2D)
 }
 
 // glu.gluPartialDisk
-Gura_DeclareFunction(gluPartialDisk)
+Gura_DeclareFunctionAlias(__gluPartialDisk, "gluPartialDisk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "quad", VTYPE_Quadric, OCCUR_Once, FLAG_None);
@@ -720,7 +720,7 @@ Gura_DeclareFunction(gluPartialDisk)
 		"");
 }
 
-Gura_ImplementFunction(gluPartialDisk)
+Gura_ImplementFunction(__gluPartialDisk)
 {
 	GLUquadric *quad = Object_Quadric::GetObject(args, 0)->GetQuadric();
 	GLdouble inner = args.GetDouble(1);
@@ -734,7 +734,7 @@ Gura_ImplementFunction(gluPartialDisk)
 }
 
 // glu.gluPerspective
-Gura_DeclareFunction(gluPerspective)
+Gura_DeclareFunctionAlias(__gluPerspective, "gluPerspective")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "fovy", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -746,7 +746,7 @@ Gura_DeclareFunction(gluPerspective)
 		"");
 }
 
-Gura_ImplementFunction(gluPerspective)
+Gura_ImplementFunction(__gluPerspective)
 {
 	GLdouble fovy = args.GetDouble(0);
 	GLdouble aspect = args.GetDouble(1);
@@ -757,7 +757,7 @@ Gura_ImplementFunction(gluPerspective)
 }
 
 // glu.gluPickMatrix
-Gura_DeclareFunction(gluPickMatrix)
+Gura_DeclareFunctionAlias(__gluPickMatrix, "gluPickMatrix")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -770,7 +770,7 @@ Gura_DeclareFunction(gluPickMatrix)
 		"");
 }
 
-Gura_ImplementFunction(gluPickMatrix)
+Gura_ImplementFunction(__gluPickMatrix)
 {
 	GLdouble x = args.GetDouble(0);
 	GLdouble y = args.GetDouble(1);
@@ -782,7 +782,7 @@ Gura_ImplementFunction(gluPickMatrix)
 }
 
 // glu.gluProject
-Gura_DeclareFunction(gluProject)
+Gura_DeclareFunctionAlias(__gluProject, "gluProject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "objX", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -799,7 +799,7 @@ Gura_DeclareFunction(gluProject)
 		"");
 }
 
-Gura_ImplementFunction(gluProject)
+Gura_ImplementFunction(__gluProject)
 {
 	GLdouble objX = args.GetDouble(0);
 	GLdouble objY = args.GetDouble(1);
@@ -815,7 +815,7 @@ Gura_ImplementFunction(gluProject)
 }
 
 // glu.gluPwlCurve
-Gura_DeclareFunction(gluPwlCurve)
+Gura_DeclareFunctionAlias(__gluPwlCurve, "gluPwlCurve")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
@@ -827,7 +827,7 @@ Gura_DeclareFunction(gluPwlCurve)
 		"");
 }
 
-Gura_ImplementFunction(gluPwlCurve)
+Gura_ImplementFunction(__gluPwlCurve)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	CArray<GLfloat> data = args.GetList(1);
@@ -839,7 +839,7 @@ Gura_ImplementFunction(gluPwlCurve)
 }
 
 // glu.gluQuadricCallback
-Gura_DeclareFunction(gluQuadricCallback)
+Gura_DeclareFunctionAlias(__gluQuadricCallback, "gluQuadricCallback")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "quad", VTYPE_Quadric, OCCUR_Once, FLAG_None);
@@ -850,7 +850,7 @@ Gura_DeclareFunction(gluQuadricCallback)
 		"");
 }
 
-Gura_ImplementFunction(gluQuadricCallback)
+Gura_ImplementFunction(__gluQuadricCallback)
 {
 	GLUquadric *quad = Object_Quadric::GetObject(args, 0)->GetQuadric();
 	GLenum which = static_cast<GLenum>(args.GetInt(1));
@@ -863,7 +863,7 @@ Gura_ImplementFunction(gluQuadricCallback)
 }
 
 // glu.gluQuadricDrawStyle
-Gura_DeclareFunction(gluQuadricDrawStyle)
+Gura_DeclareFunctionAlias(__gluQuadricDrawStyle, "gluQuadricDrawStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "quad", VTYPE_Quadric, OCCUR_Once, FLAG_None);
@@ -873,7 +873,7 @@ Gura_DeclareFunction(gluQuadricDrawStyle)
 		"");
 }
 
-Gura_ImplementFunction(gluQuadricDrawStyle)
+Gura_ImplementFunction(__gluQuadricDrawStyle)
 {
 	GLUquadric *quad = Object_Quadric::GetObject(args, 0)->GetQuadric();
 	GLenum draw = static_cast<GLenum>(args.GetInt(1));
@@ -882,7 +882,7 @@ Gura_ImplementFunction(gluQuadricDrawStyle)
 }
 
 // glu.gluQuadricNormals
-Gura_DeclareFunction(gluQuadricNormals)
+Gura_DeclareFunctionAlias(__gluQuadricNormals, "gluQuadricNormals")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "quad", VTYPE_Quadric, OCCUR_Once, FLAG_None);
@@ -892,7 +892,7 @@ Gura_DeclareFunction(gluQuadricNormals)
 		"");
 }
 
-Gura_ImplementFunction(gluQuadricNormals)
+Gura_ImplementFunction(__gluQuadricNormals)
 {
 	GLUquadric *quad = Object_Quadric::GetObject(args, 0)->GetQuadric();
 	GLenum normal = static_cast<GLenum>(args.GetInt(1));
@@ -901,7 +901,7 @@ Gura_ImplementFunction(gluQuadricNormals)
 }
 
 // glu.gluQuadricOrientation
-Gura_DeclareFunction(gluQuadricOrientation)
+Gura_DeclareFunctionAlias(__gluQuadricOrientation, "gluQuadricOrientation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "quad", VTYPE_Quadric, OCCUR_Once, FLAG_None);
@@ -911,7 +911,7 @@ Gura_DeclareFunction(gluQuadricOrientation)
 		"");
 }
 
-Gura_ImplementFunction(gluQuadricOrientation)
+Gura_ImplementFunction(__gluQuadricOrientation)
 {
 	GLUquadric *quad = Object_Quadric::GetObject(args, 0)->GetQuadric();
 	GLenum orientation = static_cast<GLenum>(args.GetInt(1));
@@ -920,7 +920,7 @@ Gura_ImplementFunction(gluQuadricOrientation)
 }
 
 // glu.gluQuadricTexture
-Gura_DeclareFunction(gluQuadricTexture)
+Gura_DeclareFunctionAlias(__gluQuadricTexture, "gluQuadricTexture")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "quad", VTYPE_Quadric, OCCUR_Once, FLAG_None);
@@ -930,7 +930,7 @@ Gura_DeclareFunction(gluQuadricTexture)
 		"");
 }
 
-Gura_ImplementFunction(gluQuadricTexture)
+Gura_ImplementFunction(__gluQuadricTexture)
 {
 	GLUquadric *quad = Object_Quadric::GetObject(args, 0)->GetQuadric();
 	GLboolean texture = (args.GetBoolean(1)? GL_TRUE : GL_FALSE);
@@ -939,7 +939,7 @@ Gura_ImplementFunction(gluQuadricTexture)
 }
 
 // glu.gluScaleImage
-Gura_DeclareFunction(gluScaleImage)
+Gura_DeclareFunctionAlias(__gluScaleImage, "gluScaleImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "imageIn", VTYPE_image, OCCUR_Once, FLAG_None);
@@ -950,7 +950,7 @@ Gura_DeclareFunction(gluScaleImage)
 		"");
 }
 
-Gura_ImplementFunction(gluScaleImage)
+Gura_ImplementFunction(__gluScaleImage)
 {
 	Image *imageIn = Object_image::GetObject(args, 0)->GetImage();
 	GLsizei wOut = args.GetInt(1);
@@ -978,7 +978,7 @@ Gura_ImplementFunction(gluScaleImage)
 }
 
 // glu.gluSphere
-Gura_DeclareFunction(gluSphere)
+Gura_DeclareFunctionAlias(__gluSphere, "gluSphere")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "quad", VTYPE_Quadric, OCCUR_Once, FLAG_None);
@@ -990,7 +990,7 @@ Gura_DeclareFunction(gluSphere)
 		"");
 }
 
-Gura_ImplementFunction(gluSphere)
+Gura_ImplementFunction(__gluSphere)
 {
 	GLUquadric *quad = Object_Quadric::GetObject(args, 0)->GetQuadric();
 	GLdouble radius = args.GetDouble(1);
@@ -1001,7 +1001,7 @@ Gura_ImplementFunction(gluSphere)
 }
 
 // glu.gluTessBeginContour
-Gura_DeclareFunction(gluTessBeginContour)
+Gura_DeclareFunctionAlias(__gluTessBeginContour, "gluTessBeginContour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1011,7 +1011,7 @@ Gura_DeclareFunction(gluTessBeginContour)
 		"");
 }
 
-Gura_ImplementFunction(gluTessBeginContour)
+Gura_ImplementFunction(__gluTessBeginContour)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	gluTessBeginContour(tess);
@@ -1026,7 +1026,7 @@ Gura_ImplementFunction(gluTessBeginContour)
 }
 
 // glu.gluTessBeginPolygon
-Gura_DeclareFunction(gluTessBeginPolygon)
+Gura_DeclareFunctionAlias(__gluTessBeginPolygon, "gluTessBeginPolygon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1037,7 +1037,7 @@ Gura_DeclareFunction(gluTessBeginPolygon)
 		"");
 }
 
-Gura_ImplementFunction(gluTessBeginPolygon)
+Gura_ImplementFunction(__gluTessBeginPolygon)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	int data = args.GetInt(1);
@@ -1053,7 +1053,7 @@ Gura_ImplementFunction(gluTessBeginPolygon)
 }
 
 // glu.gluTessCallback
-Gura_DeclareFunction(gluTessCallback)
+Gura_DeclareFunctionAlias(__gluTessCallback, "gluTessCallback")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
@@ -1064,7 +1064,7 @@ Gura_DeclareFunction(gluTessCallback)
 		"");
 }
 
-Gura_ImplementFunction(gluTessCallback)
+Gura_ImplementFunction(__gluTessCallback)
 {
 #if 0
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
@@ -1078,7 +1078,7 @@ Gura_ImplementFunction(gluTessCallback)
 }
 
 // glu.gluTessEndContour
-Gura_DeclareFunction(gluTessEndContour)
+Gura_DeclareFunctionAlias(__gluTessEndContour, "gluTessEndContour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
@@ -1087,7 +1087,7 @@ Gura_DeclareFunction(gluTessEndContour)
 		"");
 }
 
-Gura_ImplementFunction(gluTessEndContour)
+Gura_ImplementFunction(__gluTessEndContour)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	gluTessEndContour(tess);
@@ -1095,7 +1095,7 @@ Gura_ImplementFunction(gluTessEndContour)
 }
 
 // glu.gluTessEndPolygon
-Gura_DeclareFunction(gluTessEndPolygon)
+Gura_DeclareFunctionAlias(__gluTessEndPolygon, "gluTessEndPolygon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
@@ -1104,7 +1104,7 @@ Gura_DeclareFunction(gluTessEndPolygon)
 		"");
 }
 
-Gura_ImplementFunction(gluTessEndPolygon)
+Gura_ImplementFunction(__gluTessEndPolygon)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	gluTessEndPolygon(tess);
@@ -1112,7 +1112,7 @@ Gura_ImplementFunction(gluTessEndPolygon)
 }
 
 // glu.gluTessNormal
-Gura_DeclareFunction(gluTessNormal)
+Gura_DeclareFunctionAlias(__gluTessNormal, "gluTessNormal")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
@@ -1124,7 +1124,7 @@ Gura_DeclareFunction(gluTessNormal)
 		"");
 }
 
-Gura_ImplementFunction(gluTessNormal)
+Gura_ImplementFunction(__gluTessNormal)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	GLdouble valueX = args.GetDouble(1);
@@ -1135,7 +1135,7 @@ Gura_ImplementFunction(gluTessNormal)
 }
 
 // glu.gluTessProperty
-Gura_DeclareFunction(gluTessProperty)
+Gura_DeclareFunctionAlias(__gluTessProperty, "gluTessProperty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
@@ -1146,7 +1146,7 @@ Gura_DeclareFunction(gluTessProperty)
 		"");
 }
 
-Gura_ImplementFunction(gluTessProperty)
+Gura_ImplementFunction(__gluTessProperty)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	GLenum which = static_cast<GLenum>(args.GetInt(1));
@@ -1156,7 +1156,7 @@ Gura_ImplementFunction(gluTessProperty)
 }
 
 // glu.gluTessVertex
-Gura_DeclareFunction(gluTessVertex)
+Gura_DeclareFunctionAlias(__gluTessVertex, "gluTessVertex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
@@ -1166,7 +1166,7 @@ Gura_DeclareFunction(gluTessVertex)
 		"");
 }
 
-Gura_ImplementFunction(gluTessVertex)
+Gura_ImplementFunction(__gluTessVertex)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	CArray<GLdouble> location = args.GetList(1);
@@ -1175,7 +1175,7 @@ Gura_ImplementFunction(gluTessVertex)
 }
 
 // glu.gluUnProject
-Gura_DeclareFunction(gluUnProject)
+Gura_DeclareFunctionAlias(__gluUnProject, "gluUnProject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "winX", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1192,7 +1192,7 @@ Gura_DeclareFunction(gluUnProject)
 		"");
 }
 
-Gura_ImplementFunction(gluUnProject)
+Gura_ImplementFunction(__gluUnProject)
 {
 	GLdouble winX = args.GetDouble(0);
 	GLdouble winY = args.GetDouble(1);
@@ -1210,59 +1210,59 @@ Gura_ImplementFunction(gluUnProject)
 
 void AssignFunctions(Environment &env)
 {
-	Gura_AssignFunction(gluBeginCurve);
-	Gura_AssignFunction(gluBeginPolygon);
-	Gura_AssignFunction(gluBeginSurface);
-	Gura_AssignFunction(gluBeginTrim);
-	Gura_AssignFunction(gluBuild1DMipmaps);
-	Gura_AssignFunction(gluBuild2DMipmaps);
-	Gura_AssignFunction(gluCylinder);
-	Gura_AssignFunction(gluDeleteNurbsRenderer);
-	Gura_AssignFunction(gluDeleteQuadric);
-	Gura_AssignFunction(gluDeleteTess);
-	Gura_AssignFunction(gluDisk);
-	Gura_AssignFunction(gluEndCurve);
-	Gura_AssignFunction(gluEndPolygon);
-	Gura_AssignFunction(gluEndSurface);
-	Gura_AssignFunction(gluEndTrim);
-	Gura_AssignFunction(gluErrorString);
-	Gura_AssignFunction(gluGetNurbsProperty);
-	Gura_AssignFunction(gluGetString);
-	Gura_AssignFunction(gluGetTessProperty);
-	Gura_AssignFunction(gluLoadSamplingMatrices);
-	Gura_AssignFunction(gluLookAt);
-	Gura_AssignFunction(gluNewNurbsRenderer);
-	Gura_AssignFunction(gluNewQuadric);
-	Gura_AssignFunction(gluNewTess);
-	Gura_AssignFunction(gluNextContour);
-	Gura_AssignFunction(gluNurbsCallback);
-	Gura_AssignFunction(gluNurbsCallbackData);
-	Gura_AssignFunction(gluNurbsCallbackDataEXT);
-	Gura_AssignFunction(gluNurbsCurve);
-	Gura_AssignFunction(gluNurbsProperty);
-	Gura_AssignFunction(gluNurbsSurface);
-	Gura_AssignFunction(gluOrtho2D);
-	Gura_AssignFunction(gluPartialDisk);
-	Gura_AssignFunction(gluPerspective);
-	Gura_AssignFunction(gluPickMatrix);
-	Gura_AssignFunction(gluProject);
-	Gura_AssignFunction(gluPwlCurve);
-	Gura_AssignFunction(gluQuadricCallback);
-	Gura_AssignFunction(gluQuadricDrawStyle);
-	Gura_AssignFunction(gluQuadricNormals);
-	Gura_AssignFunction(gluQuadricOrientation);
-	Gura_AssignFunction(gluQuadricTexture);
-	Gura_AssignFunction(gluScaleImage);
-	Gura_AssignFunction(gluSphere);
-	Gura_AssignFunction(gluTessBeginContour);
-	Gura_AssignFunction(gluTessBeginPolygon);
-	Gura_AssignFunction(gluTessCallback);
-	Gura_AssignFunction(gluTessEndContour);
-	Gura_AssignFunction(gluTessEndPolygon);
-	Gura_AssignFunction(gluTessNormal);
-	Gura_AssignFunction(gluTessProperty);
-	Gura_AssignFunction(gluTessVertex);
-	Gura_AssignFunction(gluUnProject);
+	Gura_AssignFunction(__gluBeginCurve);
+	Gura_AssignFunction(__gluBeginPolygon);
+	Gura_AssignFunction(__gluBeginSurface);
+	Gura_AssignFunction(__gluBeginTrim);
+	Gura_AssignFunction(__gluBuild1DMipmaps);
+	Gura_AssignFunction(__gluBuild2DMipmaps);
+	Gura_AssignFunction(__gluCylinder);
+	Gura_AssignFunction(__gluDeleteNurbsRenderer);
+	Gura_AssignFunction(__gluDeleteQuadric);
+	Gura_AssignFunction(__gluDeleteTess);
+	Gura_AssignFunction(__gluDisk);
+	Gura_AssignFunction(__gluEndCurve);
+	Gura_AssignFunction(__gluEndPolygon);
+	Gura_AssignFunction(__gluEndSurface);
+	Gura_AssignFunction(__gluEndTrim);
+	Gura_AssignFunction(__gluErrorString);
+	Gura_AssignFunction(__gluGetNurbsProperty);
+	Gura_AssignFunction(__gluGetString);
+	Gura_AssignFunction(__gluGetTessProperty);
+	Gura_AssignFunction(__gluLoadSamplingMatrices);
+	Gura_AssignFunction(__gluLookAt);
+	Gura_AssignFunction(__gluNewNurbsRenderer);
+	Gura_AssignFunction(__gluNewQuadric);
+	Gura_AssignFunction(__gluNewTess);
+	Gura_AssignFunction(__gluNextContour);
+	Gura_AssignFunction(__gluNurbsCallback);
+	Gura_AssignFunction(__gluNurbsCallbackData);
+	Gura_AssignFunction(__gluNurbsCallbackDataEXT);
+	Gura_AssignFunction(__gluNurbsCurve);
+	Gura_AssignFunction(__gluNurbsProperty);
+	Gura_AssignFunction(__gluNurbsSurface);
+	Gura_AssignFunction(__gluOrtho2D);
+	Gura_AssignFunction(__gluPartialDisk);
+	Gura_AssignFunction(__gluPerspective);
+	Gura_AssignFunction(__gluPickMatrix);
+	Gura_AssignFunction(__gluProject);
+	Gura_AssignFunction(__gluPwlCurve);
+	Gura_AssignFunction(__gluQuadricCallback);
+	Gura_AssignFunction(__gluQuadricDrawStyle);
+	Gura_AssignFunction(__gluQuadricNormals);
+	Gura_AssignFunction(__gluQuadricOrientation);
+	Gura_AssignFunction(__gluQuadricTexture);
+	Gura_AssignFunction(__gluScaleImage);
+	Gura_AssignFunction(__gluSphere);
+	Gura_AssignFunction(__gluTessBeginContour);
+	Gura_AssignFunction(__gluTessBeginPolygon);
+	Gura_AssignFunction(__gluTessCallback);
+	Gura_AssignFunction(__gluTessEndContour);
+	Gura_AssignFunction(__gluTessEndPolygon);
+	Gura_AssignFunction(__gluTessNormal);
+	Gura_AssignFunction(__gluTessProperty);
+	Gura_AssignFunction(__gluTessVertex);
+	Gura_AssignFunction(__gluUnProject);
 }
 
 Gura_EndModuleScope(glu)

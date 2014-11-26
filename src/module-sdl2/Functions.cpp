@@ -7,7 +7,7 @@
 Gura_BeginModuleScope(sdl2)
 
 // sdl2.Init
-Gura_DeclareFunction(Init)
+Gura_DeclareFunctionAlias(__Init, "Init")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -55,7 +55,7 @@ Gura_DeclareFunction(Init)
 		"by `SDL_InitSubSystem()` with the desired subsystem flag.\n");
 }
 
-Gura_ImplementFunction(Init)
+Gura_ImplementFunction(__Init)
 {
 	Uint32 flags = args.GetULong(0);
 	int _rtn = SDL_Init(flags);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(Init)
 }
 
 // sdl2.InitSubSystem
-Gura_DeclareFunction(InitSubSystem)
+Gura_DeclareFunctionAlias(__InitSubSystem, "InitSubSystem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -95,7 +95,7 @@ Gura_DeclareFunction(InitSubSystem)
 		"by `SDL_InitSubSystem()` with the desired subsystem flag.\n");
 }
 
-Gura_ImplementFunction(InitSubSystem)
+Gura_ImplementFunction(__InitSubSystem)
 {
 	Uint32 flags = args.GetULong(0);
 	int _rtn = SDL_InitSubSystem(flags);
@@ -107,7 +107,7 @@ Gura_ImplementFunction(InitSubSystem)
 }
 
 // sdl2.Quit
-Gura_DeclareFunction(Quit)
+Gura_DeclareFunctionAlias(__Quit, "Quit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -128,14 +128,14 @@ Gura_DeclareFunction(Quit)
 		"but it is not wise to do this from a library or other dynamically loaded code.\n");
 }
 
-Gura_ImplementFunction(Quit)
+Gura_ImplementFunction(__Quit)
 {
 	SDL_Quit();
 	return Value::Null;
 }
 
 // sdl2.QuitSubSystem
-Gura_DeclareFunction(QuitSubSystem)
+Gura_DeclareFunctionAlias(__QuitSubSystem, "QuitSubSystem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -160,7 +160,7 @@ Gura_DeclareFunction(QuitSubSystem)
 		"by `SDL_InitSubSystem()` with the desired subsystem flag.\n");
 }
 
-Gura_ImplementFunction(QuitSubSystem)
+Gura_ImplementFunction(__QuitSubSystem)
 {
 	Uint32 flags = args.GetULong(0);
 	SDL_QuitSubSystem(flags);
@@ -168,7 +168,7 @@ Gura_ImplementFunction(QuitSubSystem)
 }
 
 // sdl2.SetMainReady
-Gura_DeclareFunction(SetMainReady)
+Gura_DeclareFunctionAlias(__SetMainReady, "SetMainReady")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -182,14 +182,14 @@ Gura_DeclareFunction(SetMainReady)
 		"it is necessary to define `SDL_MAIN_HANDLED` before including SDL.h.\n");
 }
 
-Gura_ImplementFunction(SetMainReady)
+Gura_ImplementFunction(__SetMainReady)
 {
 	SDL_SetMainReady();
 	return Value::Null;
 }
 
 // sdl2.WasInit
-Gura_DeclareFunction(WasInit)
+Gura_DeclareFunctionAlias(__WasInit, "WasInit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -216,7 +216,7 @@ Gura_DeclareFunction(WasInit)
 		"by `SDL_InitSubSystem()` with the desired subsystem flag.\n");
 }
 
-Gura_ImplementFunction(WasInit)
+Gura_ImplementFunction(__WasInit)
 {
 	Uint32 flags = args.GetULong(0);
 	Uint32 _rtn = SDL_WasInit(flags);
@@ -224,7 +224,7 @@ Gura_ImplementFunction(WasInit)
 }
 
 // sdl2.AddHintCallback
-Gura_DeclareFunction(AddHintCallback)
+Gura_DeclareFunctionAlias(__AddHintCallback, "AddHintCallback")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -232,7 +232,7 @@ Gura_DeclareFunction(AddHintCallback)
 		"");
 }
 
-Gura_ImplementFunction(AddHintCallback)
+Gura_ImplementFunction(__AddHintCallback)
 {
 #if 0
 	SDL_AddHintCallback();
@@ -243,7 +243,7 @@ Gura_ImplementFunction(AddHintCallback)
 }
 
 // sdl2.ClearHints
-Gura_DeclareFunction(ClearHints)
+Gura_DeclareFunctionAlias(__ClearHints, "ClearHints")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -251,7 +251,7 @@ Gura_DeclareFunction(ClearHints)
 		"");
 }
 
-Gura_ImplementFunction(ClearHints)
+Gura_ImplementFunction(__ClearHints)
 {
 #if 0
 	SDL_ClearHints();
@@ -262,7 +262,7 @@ Gura_ImplementFunction(ClearHints)
 }
 
 // sdl2.DelhintCallback
-Gura_DeclareFunction(DelhintCallback)
+Gura_DeclareFunctionAlias(__DelhintCallback, "DelhintCallback")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -270,7 +270,7 @@ Gura_DeclareFunction(DelhintCallback)
 		"");
 }
 
-Gura_ImplementFunction(DelhintCallback)
+Gura_ImplementFunction(__DelhintCallback)
 {
 #if 0
 	SDL_DelhintCallback();
@@ -281,7 +281,7 @@ Gura_ImplementFunction(DelhintCallback)
 }
 
 // sdl2.GetHint
-Gura_DeclareFunction(GetHint)
+Gura_DeclareFunctionAlias(__GetHint, "GetHint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -289,7 +289,7 @@ Gura_DeclareFunction(GetHint)
 		"");
 }
 
-Gura_ImplementFunction(GetHint)
+Gura_ImplementFunction(__GetHint)
 {
 #if 0
 	SDL_GetHint();
@@ -300,7 +300,7 @@ Gura_ImplementFunction(GetHint)
 }
 
 // sdl2.SetHint
-Gura_DeclareFunction(SetHint)
+Gura_DeclareFunctionAlias(__SetHint, "SetHint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -308,7 +308,7 @@ Gura_DeclareFunction(SetHint)
 		"");
 }
 
-Gura_ImplementFunction(SetHint)
+Gura_ImplementFunction(__SetHint)
 {
 #if 0
 	SDL_SetHint();
@@ -319,7 +319,7 @@ Gura_ImplementFunction(SetHint)
 }
 
 // sdl2.SetHintWithPriority
-Gura_DeclareFunction(SetHintWithPriority)
+Gura_DeclareFunctionAlias(__SetHintWithPriority, "SetHintWithPriority")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -327,7 +327,7 @@ Gura_DeclareFunction(SetHintWithPriority)
 		"");
 }
 
-Gura_ImplementFunction(SetHintWithPriority)
+Gura_ImplementFunction(__SetHintWithPriority)
 {
 #if 0
 	SDL_SetHintWithPriority();
@@ -338,7 +338,7 @@ Gura_ImplementFunction(SetHintWithPriority)
 }
 
 // sdl2.ClearError
-Gura_DeclareFunction(ClearError)
+Gura_DeclareFunctionAlias(__ClearError, "ClearError")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -346,14 +346,14 @@ Gura_DeclareFunction(ClearError)
 		"Use this function to clear any previous error message.\n");
 }
 
-Gura_ImplementFunction(ClearError)
+Gura_ImplementFunction(__ClearError)
 {
 	SDL_ClearError();
 	return Value::Null;
 }
 
 // sdl2.GetError
-Gura_DeclareFunction(GetError)
+Gura_DeclareFunctionAlias(__GetError, "GetError")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -368,7 +368,7 @@ Gura_DeclareFunction(GetError)
 		"It is possible for multiple errors to occur before calling `SDL_GetError()`. Only the last error is returned.\n");
 }
 
-Gura_ImplementFunction(GetError)
+Gura_ImplementFunction(__GetError)
 {
 	const char *_rtn = SDL_GetError();
 	Value _rtnVal;
@@ -382,7 +382,7 @@ Gura_ImplementFunction(GetError)
 }
 
 // sdl2.SetError
-Gura_DeclareFunction(SetError)
+Gura_DeclareFunctionAlias(__SetError, "SetError")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -390,7 +390,7 @@ Gura_DeclareFunction(SetError)
 		"");
 }
 
-Gura_ImplementFunction(SetError)
+Gura_ImplementFunction(__SetError)
 {
 #if 0
 	SDL_SetError();
@@ -401,7 +401,7 @@ Gura_ImplementFunction(SetError)
 }
 
 // sdl2.Log
-Gura_DeclareFunction(Log)
+Gura_DeclareFunctionAlias(__Log, "Log")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -409,7 +409,7 @@ Gura_DeclareFunction(Log)
 		"");
 }
 
-Gura_ImplementFunction(Log)
+Gura_ImplementFunction(__Log)
 {
 #if 0
 	SDL_Log();
@@ -420,7 +420,7 @@ Gura_ImplementFunction(Log)
 }
 
 // sdl2.LogCritical
-Gura_DeclareFunction(LogCritical)
+Gura_DeclareFunctionAlias(__LogCritical, "LogCritical")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -428,7 +428,7 @@ Gura_DeclareFunction(LogCritical)
 		"");
 }
 
-Gura_ImplementFunction(LogCritical)
+Gura_ImplementFunction(__LogCritical)
 {
 #if 0
 	SDL_LogCritical();
@@ -439,7 +439,7 @@ Gura_ImplementFunction(LogCritical)
 }
 
 // sdl2.LogDebug
-Gura_DeclareFunction(LogDebug)
+Gura_DeclareFunctionAlias(__LogDebug, "LogDebug")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -447,7 +447,7 @@ Gura_DeclareFunction(LogDebug)
 		"");
 }
 
-Gura_ImplementFunction(LogDebug)
+Gura_ImplementFunction(__LogDebug)
 {
 #if 0
 	SDL_LogDebug();
@@ -458,7 +458,7 @@ Gura_ImplementFunction(LogDebug)
 }
 
 // sdl2.LogError
-Gura_DeclareFunction(LogError)
+Gura_DeclareFunctionAlias(__LogError, "LogError")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -466,7 +466,7 @@ Gura_DeclareFunction(LogError)
 		"");
 }
 
-Gura_ImplementFunction(LogError)
+Gura_ImplementFunction(__LogError)
 {
 #if 0
 	SDL_LogError();
@@ -477,7 +477,7 @@ Gura_ImplementFunction(LogError)
 }
 
 // sdl2.LogGetOutputFunction
-Gura_DeclareFunction(LogGetOutputFunction)
+Gura_DeclareFunctionAlias(__LogGetOutputFunction, "LogGetOutputFunction")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -485,7 +485,7 @@ Gura_DeclareFunction(LogGetOutputFunction)
 		"");
 }
 
-Gura_ImplementFunction(LogGetOutputFunction)
+Gura_ImplementFunction(__LogGetOutputFunction)
 {
 #if 0
 	SDL_LogGetOutputFunction();
@@ -496,7 +496,7 @@ Gura_ImplementFunction(LogGetOutputFunction)
 }
 
 // sdl2.LogGetPriority
-Gura_DeclareFunction(LogGetPriority)
+Gura_DeclareFunctionAlias(__LogGetPriority, "LogGetPriority")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -504,7 +504,7 @@ Gura_DeclareFunction(LogGetPriority)
 		"");
 }
 
-Gura_ImplementFunction(LogGetPriority)
+Gura_ImplementFunction(__LogGetPriority)
 {
 #if 0
 	SDL_LogGetPriority();
@@ -515,7 +515,7 @@ Gura_ImplementFunction(LogGetPriority)
 }
 
 // sdl2.LogInfo
-Gura_DeclareFunction(LogInfo)
+Gura_DeclareFunctionAlias(__LogInfo, "LogInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -523,7 +523,7 @@ Gura_DeclareFunction(LogInfo)
 		"");
 }
 
-Gura_ImplementFunction(LogInfo)
+Gura_ImplementFunction(__LogInfo)
 {
 #if 0
 	SDL_LogInfo();
@@ -534,7 +534,7 @@ Gura_ImplementFunction(LogInfo)
 }
 
 // sdl2.LogMessage
-Gura_DeclareFunction(LogMessage)
+Gura_DeclareFunctionAlias(__LogMessage, "LogMessage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -542,7 +542,7 @@ Gura_DeclareFunction(LogMessage)
 		"");
 }
 
-Gura_ImplementFunction(LogMessage)
+Gura_ImplementFunction(__LogMessage)
 {
 #if 0
 	SDL_LogMessage();
@@ -553,7 +553,7 @@ Gura_ImplementFunction(LogMessage)
 }
 
 // sdl2.LogMessageV
-Gura_DeclareFunction(LogMessageV)
+Gura_DeclareFunctionAlias(__LogMessageV, "LogMessageV")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -561,7 +561,7 @@ Gura_DeclareFunction(LogMessageV)
 		"");
 }
 
-Gura_ImplementFunction(LogMessageV)
+Gura_ImplementFunction(__LogMessageV)
 {
 #if 0
 	SDL_LogMessageV();
@@ -572,7 +572,7 @@ Gura_ImplementFunction(LogMessageV)
 }
 
 // sdl2.LogResetPriorities
-Gura_DeclareFunction(LogResetPriorities)
+Gura_DeclareFunctionAlias(__LogResetPriorities, "LogResetPriorities")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -580,7 +580,7 @@ Gura_DeclareFunction(LogResetPriorities)
 		"");
 }
 
-Gura_ImplementFunction(LogResetPriorities)
+Gura_ImplementFunction(__LogResetPriorities)
 {
 #if 0
 	SDL_LogResetPriorities();
@@ -591,7 +591,7 @@ Gura_ImplementFunction(LogResetPriorities)
 }
 
 // sdl2.LogSetAllPriority
-Gura_DeclareFunction(LogSetAllPriority)
+Gura_DeclareFunctionAlias(__LogSetAllPriority, "LogSetAllPriority")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -599,7 +599,7 @@ Gura_DeclareFunction(LogSetAllPriority)
 		"");
 }
 
-Gura_ImplementFunction(LogSetAllPriority)
+Gura_ImplementFunction(__LogSetAllPriority)
 {
 #if 0
 	SDL_LogSetAllPriority();
@@ -610,7 +610,7 @@ Gura_ImplementFunction(LogSetAllPriority)
 }
 
 // sdl2.LogSetOutputFunction
-Gura_DeclareFunction(LogSetOutputFunction)
+Gura_DeclareFunctionAlias(__LogSetOutputFunction, "LogSetOutputFunction")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -618,7 +618,7 @@ Gura_DeclareFunction(LogSetOutputFunction)
 		"");
 }
 
-Gura_ImplementFunction(LogSetOutputFunction)
+Gura_ImplementFunction(__LogSetOutputFunction)
 {
 #if 0
 	SDL_LogSetOutputFunction();
@@ -629,7 +629,7 @@ Gura_ImplementFunction(LogSetOutputFunction)
 }
 
 // sdl2.LogSetPriority
-Gura_DeclareFunction(LogSetPriority)
+Gura_DeclareFunctionAlias(__LogSetPriority, "LogSetPriority")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -637,7 +637,7 @@ Gura_DeclareFunction(LogSetPriority)
 		"");
 }
 
-Gura_ImplementFunction(LogSetPriority)
+Gura_ImplementFunction(__LogSetPriority)
 {
 #if 0
 	SDL_LogSetPriority();
@@ -648,7 +648,7 @@ Gura_ImplementFunction(LogSetPriority)
 }
 
 // sdl2.LogVerbose
-Gura_DeclareFunction(LogVerbose)
+Gura_DeclareFunctionAlias(__LogVerbose, "LogVerbose")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -656,7 +656,7 @@ Gura_DeclareFunction(LogVerbose)
 		"");
 }
 
-Gura_ImplementFunction(LogVerbose)
+Gura_ImplementFunction(__LogVerbose)
 {
 #if 0
 	SDL_LogVerbose();
@@ -667,7 +667,7 @@ Gura_ImplementFunction(LogVerbose)
 }
 
 // sdl2.LogWarn
-Gura_DeclareFunction(LogWarn)
+Gura_DeclareFunctionAlias(__LogWarn, "LogWarn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -675,7 +675,7 @@ Gura_DeclareFunction(LogWarn)
 		"");
 }
 
-Gura_ImplementFunction(LogWarn)
+Gura_ImplementFunction(__LogWarn)
 {
 #if 0
 	SDL_LogWarn();
@@ -686,7 +686,7 @@ Gura_ImplementFunction(LogWarn)
 }
 
 // sdl2.GetAssertionHandler
-Gura_DeclareFunction(GetAssertionHandler)
+Gura_DeclareFunctionAlias(__GetAssertionHandler, "GetAssertionHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -694,7 +694,7 @@ Gura_DeclareFunction(GetAssertionHandler)
 		"");
 }
 
-Gura_ImplementFunction(GetAssertionHandler)
+Gura_ImplementFunction(__GetAssertionHandler)
 {
 #if 0
 	SDL_GetAssertionHandler();
@@ -705,7 +705,7 @@ Gura_ImplementFunction(GetAssertionHandler)
 }
 
 // sdl2.GetAssertionReport
-Gura_DeclareFunction(GetAssertionReport)
+Gura_DeclareFunctionAlias(__GetAssertionReport, "GetAssertionReport")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -713,7 +713,7 @@ Gura_DeclareFunction(GetAssertionReport)
 		"");
 }
 
-Gura_ImplementFunction(GetAssertionReport)
+Gura_ImplementFunction(__GetAssertionReport)
 {
 #if 0
 	SDL_GetAssertionReport();
@@ -724,7 +724,7 @@ Gura_ImplementFunction(GetAssertionReport)
 }
 
 // sdl2.GetDefaultAssertionHandler
-Gura_DeclareFunction(GetDefaultAssertionHandler)
+Gura_DeclareFunctionAlias(__GetDefaultAssertionHandler, "GetDefaultAssertionHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -732,7 +732,7 @@ Gura_DeclareFunction(GetDefaultAssertionHandler)
 		"");
 }
 
-Gura_ImplementFunction(GetDefaultAssertionHandler)
+Gura_ImplementFunction(__GetDefaultAssertionHandler)
 {
 #if 0
 	SDL_GetDefaultAssertionHandler();
@@ -743,7 +743,7 @@ Gura_ImplementFunction(GetDefaultAssertionHandler)
 }
 
 // sdl2.ResetAssertionReport
-Gura_DeclareFunction(ResetAssertionReport)
+Gura_DeclareFunctionAlias(__ResetAssertionReport, "ResetAssertionReport")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -751,7 +751,7 @@ Gura_DeclareFunction(ResetAssertionReport)
 		"");
 }
 
-Gura_ImplementFunction(ResetAssertionReport)
+Gura_ImplementFunction(__ResetAssertionReport)
 {
 #if 0
 	SDL_ResetAssertionReport();
@@ -762,7 +762,7 @@ Gura_ImplementFunction(ResetAssertionReport)
 }
 
 // sdl2.SetAssertionHandler
-Gura_DeclareFunction(SetAssertionHandler)
+Gura_DeclareFunctionAlias(__SetAssertionHandler, "SetAssertionHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -770,7 +770,7 @@ Gura_DeclareFunction(SetAssertionHandler)
 		"");
 }
 
-Gura_ImplementFunction(SetAssertionHandler)
+Gura_ImplementFunction(__SetAssertionHandler)
 {
 #if 0
 	SDL_SetAssertionHandler();
@@ -781,7 +781,7 @@ Gura_ImplementFunction(SetAssertionHandler)
 }
 
 // sdl2.TriggerBreakpoint
-Gura_DeclareFunction(TriggerBreakpoint)
+Gura_DeclareFunctionAlias(__TriggerBreakpoint, "TriggerBreakpoint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -789,7 +789,7 @@ Gura_DeclareFunction(TriggerBreakpoint)
 		"");
 }
 
-Gura_ImplementFunction(TriggerBreakpoint)
+Gura_ImplementFunction(__TriggerBreakpoint)
 {
 #if 0
 	SDL_TriggerBreakpoint();
@@ -800,7 +800,7 @@ Gura_ImplementFunction(TriggerBreakpoint)
 }
 
 // sdl2.assert
-Gura_DeclareFunction(assert)
+Gura_DeclareFunctionAlias(__assert, "assert")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -808,7 +808,7 @@ Gura_DeclareFunction(assert)
 		"");
 }
 
-Gura_ImplementFunction(assert)
+Gura_ImplementFunction(__assert)
 {
 #if 0
 	SDL_assert();
@@ -819,7 +819,7 @@ Gura_ImplementFunction(assert)
 }
 
 // sdl2.assert_paranoid
-Gura_DeclareFunction(assert_paranoid)
+Gura_DeclareFunctionAlias(__assert_paranoid, "assert_paranoid")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -827,7 +827,7 @@ Gura_DeclareFunction(assert_paranoid)
 		"");
 }
 
-Gura_ImplementFunction(assert_paranoid)
+Gura_ImplementFunction(__assert_paranoid)
 {
 #if 0
 	SDL_assert_paranoid();
@@ -838,7 +838,7 @@ Gura_ImplementFunction(assert_paranoid)
 }
 
 // sdl2.assert_release
-Gura_DeclareFunction(assert_release)
+Gura_DeclareFunctionAlias(__assert_release, "assert_release")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -846,7 +846,7 @@ Gura_DeclareFunction(assert_release)
 		"");
 }
 
-Gura_ImplementFunction(assert_release)
+Gura_ImplementFunction(__assert_release)
 {
 #if 0
 	SDL_assert_release();
@@ -857,7 +857,7 @@ Gura_ImplementFunction(assert_release)
 }
 
 // sdl2.GetRevision
-Gura_DeclareFunction(GetRevision)
+Gura_DeclareFunctionAlias(__GetRevision, "GetRevision")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -866,7 +866,7 @@ Gura_DeclareFunction(GetRevision)
 		"");
 }
 
-Gura_ImplementFunction(GetRevision)
+Gura_ImplementFunction(__GetRevision)
 {
 	const char *_rtn = SDL_GetRevision();
 	Value _rtnVal;
@@ -880,7 +880,7 @@ Gura_ImplementFunction(GetRevision)
 }
 
 // sdl2.GetRevisionNumber
-Gura_DeclareFunction(GetRevisionNumber)
+Gura_DeclareFunctionAlias(__GetRevisionNumber, "GetRevisionNumber")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -889,14 +889,14 @@ Gura_DeclareFunction(GetRevisionNumber)
 		"");
 }
 
-Gura_ImplementFunction(GetRevisionNumber)
+Gura_ImplementFunction(__GetRevisionNumber)
 {
 	int _rtn = SDL_GetRevisionNumber();
 	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // sdl2.GetVersion
-Gura_DeclareFunction(GetVersion)
+Gura_DeclareFunctionAlias(__GetVersion, "GetVersion")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -905,7 +905,7 @@ Gura_DeclareFunction(GetVersion)
 		"");
 }
 
-Gura_ImplementFunction(GetVersion)
+Gura_ImplementFunction(__GetVersion)
 {
 	SDL_version ver;
 	SDL_GetVersion(&ver);
@@ -914,7 +914,7 @@ Gura_ImplementFunction(GetVersion)
 }
 
 // sdl2.VERSION
-Gura_DeclareFunction(VERSION)
+Gura_DeclareFunctionAlias(__VERSION, "VERSION")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -923,7 +923,7 @@ Gura_DeclareFunction(VERSION)
 		"");
 }
 
-Gura_ImplementFunction(VERSION)
+Gura_ImplementFunction(__VERSION)
 {
 	SDL_version ver;
 	SDL_VERSION(&ver);
@@ -932,7 +932,7 @@ Gura_ImplementFunction(VERSION)
 }
 
 // sdl2.VERSION_ATLEAST
-Gura_DeclareFunction(VERSION_ATLEAST)
+Gura_DeclareFunctionAlias(__VERSION_ATLEAST, "VERSION_ATLEAST")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -944,7 +944,7 @@ Gura_DeclareFunction(VERSION_ATLEAST)
 		"");
 }
 
-Gura_ImplementFunction(VERSION_ATLEAST)
+Gura_ImplementFunction(__VERSION_ATLEAST)
 {
 	int X = args.GetInt(0);
 	int Y = args.GetInt(1);
@@ -954,7 +954,7 @@ Gura_ImplementFunction(VERSION_ATLEAST)
 }
 
 // sdl2.CreateWindow
-Gura_DeclareFunction(CreateWindow)
+Gura_DeclareFunctionAlias(__CreateWindow, "CreateWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -969,7 +969,7 @@ Gura_DeclareFunction(CreateWindow)
 		"");
 }
 
-Gura_ImplementFunction(CreateWindow)
+Gura_ImplementFunction(__CreateWindow)
 {
 	const char *title = args.GetString(0);
 	int x = args.GetInt(1);
@@ -989,7 +989,7 @@ Gura_ImplementFunction(CreateWindow)
 }
 
 // sdl2.CreateWindowAndRenderer
-Gura_DeclareFunction(CreateWindowAndRenderer)
+Gura_DeclareFunctionAlias(__CreateWindowAndRenderer, "CreateWindowAndRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1001,7 +1001,7 @@ Gura_DeclareFunction(CreateWindowAndRenderer)
 		"");
 }
 
-Gura_ImplementFunction(CreateWindowAndRenderer)
+Gura_ImplementFunction(__CreateWindowAndRenderer)
 {
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
@@ -1018,7 +1018,7 @@ Gura_ImplementFunction(CreateWindowAndRenderer)
 }
 
 // sdl2.CreateWindowFrom
-Gura_DeclareFunction(CreateWindowFrom)
+Gura_DeclareFunctionAlias(__CreateWindowFrom, "CreateWindowFrom")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -1026,7 +1026,7 @@ Gura_DeclareFunction(CreateWindowFrom)
 		"");
 }
 
-Gura_ImplementFunction(CreateWindowFrom)
+Gura_ImplementFunction(__CreateWindowFrom)
 {
 #if 0
 	SDL_CreateWindowFrom();
@@ -1037,7 +1037,7 @@ Gura_ImplementFunction(CreateWindowFrom)
 }
 
 // sdl2.DestroyWindow
-Gura_DeclareFunction(DestroyWindow)
+Gura_DeclareFunctionAlias(__DestroyWindow, "DestroyWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -1046,7 +1046,7 @@ Gura_DeclareFunction(DestroyWindow)
 		"");
 }
 
-Gura_ImplementFunction(DestroyWindow)
+Gura_ImplementFunction(__DestroyWindow)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_DestroyWindow(window);
@@ -1054,7 +1054,7 @@ Gura_ImplementFunction(DestroyWindow)
 }
 
 // sdl2.DisableScreenSaver
-Gura_DeclareFunction(DisableScreenSaver)
+Gura_DeclareFunctionAlias(__DisableScreenSaver, "DisableScreenSaver")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -1062,14 +1062,14 @@ Gura_DeclareFunction(DisableScreenSaver)
 		"");
 }
 
-Gura_ImplementFunction(DisableScreenSaver)
+Gura_ImplementFunction(__DisableScreenSaver)
 {
 	SDL_DisableScreenSaver();
 	return Value::Null;
 }
 
 // sdl2.EnableScreenSaver
-Gura_DeclareFunction(EnableScreenSaver)
+Gura_DeclareFunctionAlias(__EnableScreenSaver, "EnableScreenSaver")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -1077,14 +1077,14 @@ Gura_DeclareFunction(EnableScreenSaver)
 		"");
 }
 
-Gura_ImplementFunction(EnableScreenSaver)
+Gura_ImplementFunction(__EnableScreenSaver)
 {
 	SDL_EnableScreenSaver();
 	return Value::Null;
 }
 
 // sdl2.GL_CreateContext
-Gura_DeclareFunction(GL_CreateContext)
+Gura_DeclareFunctionAlias(__GL_CreateContext, "GL_CreateContext")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1094,7 +1094,7 @@ Gura_DeclareFunction(GL_CreateContext)
 		"");
 }
 
-Gura_ImplementFunction(GL_CreateContext)
+Gura_ImplementFunction(__GL_CreateContext)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_GLContext _rtn = SDL_GL_CreateContext(window);
@@ -1106,7 +1106,7 @@ Gura_ImplementFunction(GL_CreateContext)
 }
 
 // sdl2.GL_DeleteContext
-Gura_DeclareFunction(GL_DeleteContext)
+Gura_DeclareFunctionAlias(__GL_DeleteContext, "GL_DeleteContext")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "context", VTYPE_GLContext, OCCUR_Once, FLAG_None);
@@ -1115,7 +1115,7 @@ Gura_DeclareFunction(GL_DeleteContext)
 		"");
 }
 
-Gura_ImplementFunction(GL_DeleteContext)
+Gura_ImplementFunction(__GL_DeleteContext)
 {
 	SDL_GLContext context = Object_GLContext::GetObject(args, 0)->GetEntity();
 	SDL_GL_DeleteContext(context);
@@ -1123,7 +1123,7 @@ Gura_ImplementFunction(GL_DeleteContext)
 }
 
 // sdl2.GL_ExtensionSupported
-Gura_DeclareFunction(GL_ExtensionSupported)
+Gura_DeclareFunctionAlias(__GL_ExtensionSupported, "GL_ExtensionSupported")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1133,7 +1133,7 @@ Gura_DeclareFunction(GL_ExtensionSupported)
 		"");
 }
 
-Gura_ImplementFunction(GL_ExtensionSupported)
+Gura_ImplementFunction(__GL_ExtensionSupported)
 {
 	const char *extension = args.GetString(0);
 	SDL_bool _rtn = SDL_GL_ExtensionSupported(extension);
@@ -1141,7 +1141,7 @@ Gura_ImplementFunction(GL_ExtensionSupported)
 }
 
 // sdl2.GL_GetAttribute
-Gura_DeclareFunction(GL_GetAttribute)
+Gura_DeclareFunctionAlias(__GL_GetAttribute, "GL_GetAttribute")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1151,7 +1151,7 @@ Gura_DeclareFunction(GL_GetAttribute)
 		"");
 }
 
-Gura_ImplementFunction(GL_GetAttribute)
+Gura_ImplementFunction(__GL_GetAttribute)
 {
 	SDL_GLattr attr = static_cast<SDL_GLattr>(args.GetInt(0));
 	int value = 0;
@@ -1164,7 +1164,7 @@ Gura_ImplementFunction(GL_GetAttribute)
 }
 
 // sdl2.GL_GetCurrentContext
-Gura_DeclareFunction(GL_GetCurrentContext)
+Gura_DeclareFunctionAlias(__GL_GetCurrentContext, "GL_GetCurrentContext")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1173,7 +1173,7 @@ Gura_DeclareFunction(GL_GetCurrentContext)
 		"");
 }
 
-Gura_ImplementFunction(GL_GetCurrentContext)
+Gura_ImplementFunction(__GL_GetCurrentContext)
 {
 	SDL_GLContext _rtn = SDL_GL_GetCurrentContext();
 	if (_rtn == NULL) {
@@ -1184,7 +1184,7 @@ Gura_ImplementFunction(GL_GetCurrentContext)
 }
 
 // sdl2.GL_GetCurrentWindow
-Gura_DeclareFunction(GL_GetCurrentWindow)
+Gura_DeclareFunctionAlias(__GL_GetCurrentWindow, "GL_GetCurrentWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1193,7 +1193,7 @@ Gura_DeclareFunction(GL_GetCurrentWindow)
 		"");
 }
 
-Gura_ImplementFunction(GL_GetCurrentWindow)
+Gura_ImplementFunction(__GL_GetCurrentWindow)
 {
 	SDL_Window *_rtn = SDL_GL_GetCurrentWindow();
 	Value _rtnVal;
@@ -1207,7 +1207,7 @@ Gura_ImplementFunction(GL_GetCurrentWindow)
 }
 
 // sdl2.GL_GetDrawableSize
-Gura_DeclareFunction(GL_GetDrawableSize)
+Gura_DeclareFunctionAlias(__GL_GetDrawableSize, "GL_GetDrawableSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1217,7 +1217,7 @@ Gura_DeclareFunction(GL_GetDrawableSize)
 		"");
 }
 
-Gura_ImplementFunction(GL_GetDrawableSize)
+Gura_ImplementFunction(__GL_GetDrawableSize)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	int w = 0;
@@ -1227,7 +1227,7 @@ Gura_ImplementFunction(GL_GetDrawableSize)
 }
 
 // sdl2.GL_GetProcAddress
-Gura_DeclareFunction(GL_GetProcAddress)
+Gura_DeclareFunctionAlias(__GL_GetProcAddress, "GL_GetProcAddress")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -1235,7 +1235,7 @@ Gura_DeclareFunction(GL_GetProcAddress)
 		"");
 }
 
-Gura_ImplementFunction(GL_GetProcAddress)
+Gura_ImplementFunction(__GL_GetProcAddress)
 {
 #if 0
 	SDL_GL_GetProcAddress();
@@ -1246,7 +1246,7 @@ Gura_ImplementFunction(GL_GetProcAddress)
 }
 
 // sdl2.GL_GetSwapInterval
-Gura_DeclareFunction(GL_GetSwapInterval)
+Gura_DeclareFunctionAlias(__GL_GetSwapInterval, "GL_GetSwapInterval")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1255,7 +1255,7 @@ Gura_DeclareFunction(GL_GetSwapInterval)
 		"");
 }
 
-Gura_ImplementFunction(GL_GetSwapInterval)
+Gura_ImplementFunction(__GL_GetSwapInterval)
 {
 	int _rtn = SDL_GL_GetSwapInterval();
 	if (_rtn < 0) {
@@ -1266,7 +1266,7 @@ Gura_ImplementFunction(GL_GetSwapInterval)
 }
 
 // sdl2.GL_LoadLibrary
-Gura_DeclareFunction(GL_LoadLibrary)
+Gura_DeclareFunctionAlias(__GL_LoadLibrary, "GL_LoadLibrary")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once, FLAG_None);
@@ -1275,7 +1275,7 @@ Gura_DeclareFunction(GL_LoadLibrary)
 		"");
 }
 
-Gura_ImplementFunction(GL_LoadLibrary)
+Gura_ImplementFunction(__GL_LoadLibrary)
 {
 	const char *path = args.GetString(0);
 	int _rtn = SDL_GL_LoadLibrary(path);
@@ -1287,7 +1287,7 @@ Gura_ImplementFunction(GL_LoadLibrary)
 }
 
 // sdl2.GL_MakeCurrent
-Gura_DeclareFunction(GL_MakeCurrent)
+Gura_DeclareFunctionAlias(__GL_MakeCurrent, "GL_MakeCurrent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -1297,7 +1297,7 @@ Gura_DeclareFunction(GL_MakeCurrent)
 		"");
 }
 
-Gura_ImplementFunction(GL_MakeCurrent)
+Gura_ImplementFunction(__GL_MakeCurrent)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_GLContext context = Object_GLContext::GetObject(args, 1)->GetEntity();
@@ -1310,7 +1310,7 @@ Gura_ImplementFunction(GL_MakeCurrent)
 }
 
 // sdl2.GL_ResetAttributes
-Gura_DeclareFunction(GL_ResetAttributes)
+Gura_DeclareFunctionAlias(__GL_ResetAttributes, "GL_ResetAttributes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -1318,14 +1318,14 @@ Gura_DeclareFunction(GL_ResetAttributes)
 		"");
 }
 
-Gura_ImplementFunction(GL_ResetAttributes)
+Gura_ImplementFunction(__GL_ResetAttributes)
 {
 	SDL_GL_ResetAttributes();
 	return Value::Null;
 }
 
 // sdl2.GL_SetAttribute
-Gura_DeclareFunction(GL_SetAttribute)
+Gura_DeclareFunctionAlias(__GL_SetAttribute, "GL_SetAttribute")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "attr", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1335,7 +1335,7 @@ Gura_DeclareFunction(GL_SetAttribute)
 		"");
 }
 
-Gura_ImplementFunction(GL_SetAttribute)
+Gura_ImplementFunction(__GL_SetAttribute)
 {
 	SDL_GLattr attr = static_cast<SDL_GLattr>(args.GetInt(0));
 	int value = args.GetInt(1);
@@ -1348,7 +1348,7 @@ Gura_ImplementFunction(GL_SetAttribute)
 }
 
 // sdl2.GL_SetSwapInterval
-Gura_DeclareFunction(GL_SetSwapInterval)
+Gura_DeclareFunctionAlias(__GL_SetSwapInterval, "GL_SetSwapInterval")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "interval", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1357,7 +1357,7 @@ Gura_DeclareFunction(GL_SetSwapInterval)
 		"");
 }
 
-Gura_ImplementFunction(GL_SetSwapInterval)
+Gura_ImplementFunction(__GL_SetSwapInterval)
 {
 	int interval = args.GetInt(0);
 	int _rtn = SDL_GL_SetSwapInterval(interval);
@@ -1369,7 +1369,7 @@ Gura_ImplementFunction(GL_SetSwapInterval)
 }
 
 // sdl2.GL_SwapWindow
-Gura_DeclareFunction(GL_SwapWindow)
+Gura_DeclareFunctionAlias(__GL_SwapWindow, "GL_SwapWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -1378,7 +1378,7 @@ Gura_DeclareFunction(GL_SwapWindow)
 		"");
 }
 
-Gura_ImplementFunction(GL_SwapWindow)
+Gura_ImplementFunction(__GL_SwapWindow)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_GL_SwapWindow(window);
@@ -1386,7 +1386,7 @@ Gura_ImplementFunction(GL_SwapWindow)
 }
 
 // sdl2.GL_UnloadLibrary
-Gura_DeclareFunction(GL_UnloadLibrary)
+Gura_DeclareFunctionAlias(__GL_UnloadLibrary, "GL_UnloadLibrary")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -1394,14 +1394,14 @@ Gura_DeclareFunction(GL_UnloadLibrary)
 		"");
 }
 
-Gura_ImplementFunction(GL_UnloadLibrary)
+Gura_ImplementFunction(__GL_UnloadLibrary)
 {
 	SDL_GL_UnloadLibrary();
 	return Value::Null;
 }
 
 // sdl2.GetClosestDisplayMode
-Gura_DeclareFunction(GetClosestDisplayMode)
+Gura_DeclareFunctionAlias(__GetClosestDisplayMode, "GetClosestDisplayMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1412,7 +1412,7 @@ Gura_DeclareFunction(GetClosestDisplayMode)
 		"");
 }
 
-Gura_ImplementFunction(GetClosestDisplayMode)
+Gura_ImplementFunction(__GetClosestDisplayMode)
 {
 	int displayIndex = args.GetInt(0);
 	const SDL_DisplayMode *mode = Object_DisplayMode::GetObject(args, 1)->GetEntity();
@@ -1426,7 +1426,7 @@ Gura_ImplementFunction(GetClosestDisplayMode)
 }
 
 // sdl2.GetCurrentDisplayMode
-Gura_DeclareFunction(GetCurrentDisplayMode)
+Gura_DeclareFunctionAlias(__GetCurrentDisplayMode, "GetCurrentDisplayMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1436,7 +1436,7 @@ Gura_DeclareFunction(GetCurrentDisplayMode)
 		"");
 }
 
-Gura_ImplementFunction(GetCurrentDisplayMode)
+Gura_ImplementFunction(__GetCurrentDisplayMode)
 {
 	int displayIndex = args.GetInt(0);
 	SDL_DisplayMode mode;
@@ -1449,7 +1449,7 @@ Gura_ImplementFunction(GetCurrentDisplayMode)
 }
 
 // sdl2.GetCurrentVideoDriver
-Gura_DeclareFunction(GetCurrentVideoDriver)
+Gura_DeclareFunctionAlias(__GetCurrentVideoDriver, "GetCurrentVideoDriver")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1458,7 +1458,7 @@ Gura_DeclareFunction(GetCurrentVideoDriver)
 		"");
 }
 
-Gura_ImplementFunction(GetCurrentVideoDriver)
+Gura_ImplementFunction(__GetCurrentVideoDriver)
 {
 	const char *_rtn = SDL_GetCurrentVideoDriver();
 	Value _rtnVal;
@@ -1472,7 +1472,7 @@ Gura_ImplementFunction(GetCurrentVideoDriver)
 }
 
 // sdl2.GetDesktopDisplayMode
-Gura_DeclareFunction(GetDesktopDisplayMode)
+Gura_DeclareFunctionAlias(__GetDesktopDisplayMode, "GetDesktopDisplayMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1482,7 +1482,7 @@ Gura_DeclareFunction(GetDesktopDisplayMode)
 		"");
 }
 
-Gura_ImplementFunction(GetDesktopDisplayMode)
+Gura_ImplementFunction(__GetDesktopDisplayMode)
 {
 	int displayIndex = args.GetInt(0);
 	SDL_DisplayMode mode;
@@ -1495,7 +1495,7 @@ Gura_ImplementFunction(GetDesktopDisplayMode)
 }
 
 // sdl2.GetDisplayBounds
-Gura_DeclareFunction(GetDisplayBounds)
+Gura_DeclareFunctionAlias(__GetDisplayBounds, "GetDisplayBounds")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1505,7 +1505,7 @@ Gura_DeclareFunction(GetDisplayBounds)
 		"");
 }
 
-Gura_ImplementFunction(GetDisplayBounds)
+Gura_ImplementFunction(__GetDisplayBounds)
 {
 	int displayIndex = args.GetInt(0);
 	SDL_Rect rect;
@@ -1518,7 +1518,7 @@ Gura_ImplementFunction(GetDisplayBounds)
 }
 
 // sdl2.GetDisplayMode
-Gura_DeclareFunction(GetDisplayMode)
+Gura_DeclareFunctionAlias(__GetDisplayMode, "GetDisplayMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1529,7 +1529,7 @@ Gura_DeclareFunction(GetDisplayMode)
 		"");
 }
 
-Gura_ImplementFunction(GetDisplayMode)
+Gura_ImplementFunction(__GetDisplayMode)
 {
 	int displayIndex = args.GetInt(0);
 	int modeIndex = args.GetInt(1);
@@ -1543,7 +1543,7 @@ Gura_ImplementFunction(GetDisplayMode)
 }
 
 // sdl2.GetDisplayName
-Gura_DeclareFunction(GetDisplayName)
+Gura_DeclareFunctionAlias(__GetDisplayName, "GetDisplayName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1553,7 +1553,7 @@ Gura_DeclareFunction(GetDisplayName)
 		"");
 }
 
-Gura_ImplementFunction(GetDisplayName)
+Gura_ImplementFunction(__GetDisplayName)
 {
 	int dipslayIndex = args.GetInt(0);
 	const char *_rtn = SDL_GetDisplayName(dipslayIndex);
@@ -1568,7 +1568,7 @@ Gura_ImplementFunction(GetDisplayName)
 }
 
 // sdl2.GetNumDisplayModes
-Gura_DeclareFunction(GetNumDisplayModes)
+Gura_DeclareFunctionAlias(__GetNumDisplayModes, "GetNumDisplayModes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1578,7 +1578,7 @@ Gura_DeclareFunction(GetNumDisplayModes)
 		"");
 }
 
-Gura_ImplementFunction(GetNumDisplayModes)
+Gura_ImplementFunction(__GetNumDisplayModes)
 {
 	int displayIndex = args.GetInt(0);
 	int _rtn = SDL_GetNumDisplayModes(displayIndex);
@@ -1590,7 +1590,7 @@ Gura_ImplementFunction(GetNumDisplayModes)
 }
 
 // sdl2.GetNumVideoDisplays
-Gura_DeclareFunction(GetNumVideoDisplays)
+Gura_DeclareFunctionAlias(__GetNumVideoDisplays, "GetNumVideoDisplays")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1599,7 +1599,7 @@ Gura_DeclareFunction(GetNumVideoDisplays)
 		"");
 }
 
-Gura_ImplementFunction(GetNumVideoDisplays)
+Gura_ImplementFunction(__GetNumVideoDisplays)
 {
 	int _rtn = SDL_GetNumVideoDisplays();
 	if (_rtn < 0) {
@@ -1610,7 +1610,7 @@ Gura_ImplementFunction(GetNumVideoDisplays)
 }
 
 // sdl2.GetNumVideoDrivers
-Gura_DeclareFunction(GetNumVideoDrivers)
+Gura_DeclareFunctionAlias(__GetNumVideoDrivers, "GetNumVideoDrivers")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1619,7 +1619,7 @@ Gura_DeclareFunction(GetNumVideoDrivers)
 		"");
 }
 
-Gura_ImplementFunction(GetNumVideoDrivers)
+Gura_ImplementFunction(__GetNumVideoDrivers)
 {
 	int _rtn = SDL_GetNumVideoDrivers();
 	if (_rtn < 0) {
@@ -1630,7 +1630,7 @@ Gura_ImplementFunction(GetNumVideoDrivers)
 }
 
 // sdl2.GetVideoDriver
-Gura_DeclareFunction(GetVideoDriver)
+Gura_DeclareFunctionAlias(__GetVideoDriver, "GetVideoDriver")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1640,7 +1640,7 @@ Gura_DeclareFunction(GetVideoDriver)
 		"");
 }
 
-Gura_ImplementFunction(GetVideoDriver)
+Gura_ImplementFunction(__GetVideoDriver)
 {
 	int index = args.GetInt(0);
 	const char *_rtn = SDL_GetVideoDriver(index);
@@ -1655,7 +1655,7 @@ Gura_ImplementFunction(GetVideoDriver)
 }
 
 // sdl2.GetWindowBrightness
-Gura_DeclareFunction(GetWindowBrightness)
+Gura_DeclareFunctionAlias(__GetWindowBrightness, "GetWindowBrightness")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1665,7 +1665,7 @@ Gura_DeclareFunction(GetWindowBrightness)
 		"");
 }
 
-Gura_ImplementFunction(GetWindowBrightness)
+Gura_ImplementFunction(__GetWindowBrightness)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	float _rtn = SDL_GetWindowBrightness(window);
@@ -1673,7 +1673,7 @@ Gura_ImplementFunction(GetWindowBrightness)
 }
 
 // sdl2.GetWindowData
-Gura_DeclareFunction(GetWindowData)
+Gura_DeclareFunctionAlias(__GetWindowData, "GetWindowData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -1683,7 +1683,7 @@ Gura_DeclareFunction(GetWindowData)
 		"");
 }
 
-Gura_ImplementFunction(GetWindowData)
+Gura_ImplementFunction(__GetWindowData)
 {
 #if 0
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
@@ -1696,7 +1696,7 @@ Gura_ImplementFunction(GetWindowData)
 }
 
 // sdl2.GetWindowDisplayIndex
-Gura_DeclareFunction(GetWindowDisplayIndex)
+Gura_DeclareFunctionAlias(__GetWindowDisplayIndex, "GetWindowDisplayIndex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1706,7 +1706,7 @@ Gura_DeclareFunction(GetWindowDisplayIndex)
 		"");
 }
 
-Gura_ImplementFunction(GetWindowDisplayIndex)
+Gura_ImplementFunction(__GetWindowDisplayIndex)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_GetWindowDisplayIndex(window);
@@ -1718,7 +1718,7 @@ Gura_ImplementFunction(GetWindowDisplayIndex)
 }
 
 // sdl2.GetWindowDisplayMode
-Gura_DeclareFunction(GetWindowDisplayMode)
+Gura_DeclareFunctionAlias(__GetWindowDisplayMode, "GetWindowDisplayMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -1728,7 +1728,7 @@ Gura_DeclareFunction(GetWindowDisplayMode)
 		"");
 }
 
-Gura_ImplementFunction(GetWindowDisplayMode)
+Gura_ImplementFunction(__GetWindowDisplayMode)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_DisplayMode *mode = Object_DisplayMode::GetObject(args, 1)->GetEntity();
@@ -1741,7 +1741,7 @@ Gura_ImplementFunction(GetWindowDisplayMode)
 }
 
 // sdl2.GetWindowFlags
-Gura_DeclareFunction(GetWindowFlags)
+Gura_DeclareFunctionAlias(__GetWindowFlags, "GetWindowFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1751,7 +1751,7 @@ Gura_DeclareFunction(GetWindowFlags)
 		"");
 }
 
-Gura_ImplementFunction(GetWindowFlags)
+Gura_ImplementFunction(__GetWindowFlags)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	Uint32 _rtn = SDL_GetWindowFlags(window);
@@ -1759,7 +1759,7 @@ Gura_ImplementFunction(GetWindowFlags)
 }
 
 // sdl2.GetWindowFromID
-Gura_DeclareFunction(GetWindowFromID)
+Gura_DeclareFunctionAlias(__GetWindowFromID, "GetWindowFromID")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1769,7 +1769,7 @@ Gura_DeclareFunction(GetWindowFromID)
 		"");
 }
 
-Gura_ImplementFunction(GetWindowFromID)
+Gura_ImplementFunction(__GetWindowFromID)
 {
 	Uint32 id = args.GetULong(0);
 	SDL_Window *_rtn = SDL_GetWindowFromID(id);
@@ -1784,7 +1784,7 @@ Gura_ImplementFunction(GetWindowFromID)
 }
 
 // sdl2.GetWindowGammaRamp
-Gura_DeclareFunction(GetWindowGammaRamp)
+Gura_DeclareFunctionAlias(__GetWindowGammaRamp, "GetWindowGammaRamp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1794,7 +1794,7 @@ Gura_DeclareFunction(GetWindowGammaRamp)
 		"");
 }
 
-Gura_ImplementFunction(GetWindowGammaRamp)
+Gura_ImplementFunction(__GetWindowGammaRamp)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	Uint16 red = 0;
@@ -1810,7 +1810,7 @@ Gura_ImplementFunction(GetWindowGammaRamp)
 }
 
 // sdl2.GetWindowGrab
-Gura_DeclareFunction(GetWindowGrab)
+Gura_DeclareFunctionAlias(__GetWindowGrab, "GetWindowGrab")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1820,7 +1820,7 @@ Gura_DeclareFunction(GetWindowGrab)
 		"");
 }
 
-Gura_ImplementFunction(GetWindowGrab)
+Gura_ImplementFunction(__GetWindowGrab)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_bool _rtn = SDL_GetWindowGrab(window);
@@ -1828,7 +1828,7 @@ Gura_ImplementFunction(GetWindowGrab)
 }
 
 // sdl2.GetWindowID
-Gura_DeclareFunction(GetWindowID)
+Gura_DeclareFunctionAlias(__GetWindowID, "GetWindowID")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1838,7 +1838,7 @@ Gura_DeclareFunction(GetWindowID)
 		"");
 }
 
-Gura_ImplementFunction(GetWindowID)
+Gura_ImplementFunction(__GetWindowID)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	Uint32 _rtn = SDL_GetWindowID(window);
@@ -1846,7 +1846,7 @@ Gura_ImplementFunction(GetWindowID)
 }
 
 // sdl2.GetWindowMaximumSize
-Gura_DeclareFunction(GetWindowMaximumSize)
+Gura_DeclareFunctionAlias(__GetWindowMaximumSize, "GetWindowMaximumSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1856,7 +1856,7 @@ Gura_DeclareFunction(GetWindowMaximumSize)
 		"");
 }
 
-Gura_ImplementFunction(GetWindowMaximumSize)
+Gura_ImplementFunction(__GetWindowMaximumSize)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	int w = 0;
@@ -1866,7 +1866,7 @@ Gura_ImplementFunction(GetWindowMaximumSize)
 }
 
 // sdl2.GetWindowMinimumSize
-Gura_DeclareFunction(GetWindowMinimumSize)
+Gura_DeclareFunctionAlias(__GetWindowMinimumSize, "GetWindowMinimumSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1876,7 +1876,7 @@ Gura_DeclareFunction(GetWindowMinimumSize)
 		"");
 }
 
-Gura_ImplementFunction(GetWindowMinimumSize)
+Gura_ImplementFunction(__GetWindowMinimumSize)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	int w = 0;
@@ -1886,7 +1886,7 @@ Gura_ImplementFunction(GetWindowMinimumSize)
 }
 
 // sdl2.GetWindowPixelFormat
-Gura_DeclareFunction(GetWindowPixelFormat)
+Gura_DeclareFunctionAlias(__GetWindowPixelFormat, "GetWindowPixelFormat")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1896,7 +1896,7 @@ Gura_DeclareFunction(GetWindowPixelFormat)
 		"");
 }
 
-Gura_ImplementFunction(GetWindowPixelFormat)
+Gura_ImplementFunction(__GetWindowPixelFormat)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	Uint32 _rtn = SDL_GetWindowPixelFormat(window);
@@ -1908,7 +1908,7 @@ Gura_ImplementFunction(GetWindowPixelFormat)
 }
 
 // sdl2.GetWindowPosition
-Gura_DeclareFunction(GetWindowPosition)
+Gura_DeclareFunctionAlias(__GetWindowPosition, "GetWindowPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1918,7 +1918,7 @@ Gura_DeclareFunction(GetWindowPosition)
 		"");
 }
 
-Gura_ImplementFunction(GetWindowPosition)
+Gura_ImplementFunction(__GetWindowPosition)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	int x = 0;
@@ -1928,7 +1928,7 @@ Gura_ImplementFunction(GetWindowPosition)
 }
 
 // sdl2.GetWindowSize
-Gura_DeclareFunction(GetWindowSize)
+Gura_DeclareFunctionAlias(__GetWindowSize, "GetWindowSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1938,7 +1938,7 @@ Gura_DeclareFunction(GetWindowSize)
 		"");
 }
 
-Gura_ImplementFunction(GetWindowSize)
+Gura_ImplementFunction(__GetWindowSize)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	int w = 0;
@@ -1948,7 +1948,7 @@ Gura_ImplementFunction(GetWindowSize)
 }
 
 // sdl2.GetWindowSurface
-Gura_DeclareFunction(GetWindowSurface)
+Gura_DeclareFunctionAlias(__GetWindowSurface, "GetWindowSurface")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1958,7 +1958,7 @@ Gura_DeclareFunction(GetWindowSurface)
 		"");
 }
 
-Gura_ImplementFunction(GetWindowSurface)
+Gura_ImplementFunction(__GetWindowSurface)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_Surface *_rtn = SDL_GetWindowSurface(window);
@@ -1973,7 +1973,7 @@ Gura_ImplementFunction(GetWindowSurface)
 }
 
 // sdl2.GetWindowTitle
-Gura_DeclareFunction(GetWindowTitle)
+Gura_DeclareFunctionAlias(__GetWindowTitle, "GetWindowTitle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1983,7 +1983,7 @@ Gura_DeclareFunction(GetWindowTitle)
 		"");
 }
 
-Gura_ImplementFunction(GetWindowTitle)
+Gura_ImplementFunction(__GetWindowTitle)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	const char *_rtn = SDL_GetWindowTitle(window);
@@ -1998,7 +1998,7 @@ Gura_ImplementFunction(GetWindowTitle)
 }
 
 // sdl2.GetWindowWMInfo
-Gura_DeclareFunction(GetWindowWMInfo)
+Gura_DeclareFunctionAlias(__GetWindowWMInfo, "GetWindowWMInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2007,7 +2007,7 @@ Gura_DeclareFunction(GetWindowWMInfo)
 		"");
 }
 
-Gura_ImplementFunction(GetWindowWMInfo)
+Gura_ImplementFunction(__GetWindowWMInfo)
 {
 #if 0
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
@@ -2019,7 +2019,7 @@ Gura_ImplementFunction(GetWindowWMInfo)
 }
 
 // sdl2.HideWindow
-Gura_DeclareFunction(HideWindow)
+Gura_DeclareFunctionAlias(__HideWindow, "HideWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2028,7 +2028,7 @@ Gura_DeclareFunction(HideWindow)
 		"");
 }
 
-Gura_ImplementFunction(HideWindow)
+Gura_ImplementFunction(__HideWindow)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_HideWindow(window);
@@ -2036,7 +2036,7 @@ Gura_ImplementFunction(HideWindow)
 }
 
 // sdl2.IsScreenSaverEnabled
-Gura_DeclareFunction(IsScreenSaverEnabled)
+Gura_DeclareFunctionAlias(__IsScreenSaverEnabled, "IsScreenSaverEnabled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2045,14 +2045,14 @@ Gura_DeclareFunction(IsScreenSaverEnabled)
 		"");
 }
 
-Gura_ImplementFunction(IsScreenSaverEnabled)
+Gura_ImplementFunction(__IsScreenSaverEnabled)
 {
 	SDL_bool _rtn = SDL_IsScreenSaverEnabled();
 	return ReturnValue(env, sig, args, Value(_rtn != SDL_FALSE));
 }
 
 // sdl2.MaximizeWindow
-Gura_DeclareFunction(MaximizeWindow)
+Gura_DeclareFunctionAlias(__MaximizeWindow, "MaximizeWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2061,7 +2061,7 @@ Gura_DeclareFunction(MaximizeWindow)
 		"");
 }
 
-Gura_ImplementFunction(MaximizeWindow)
+Gura_ImplementFunction(__MaximizeWindow)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_MaximizeWindow(window);
@@ -2069,7 +2069,7 @@ Gura_ImplementFunction(MaximizeWindow)
 }
 
 // sdl2.MinimizeWindow
-Gura_DeclareFunction(MinimizeWindow)
+Gura_DeclareFunctionAlias(__MinimizeWindow, "MinimizeWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2078,7 +2078,7 @@ Gura_DeclareFunction(MinimizeWindow)
 		"");
 }
 
-Gura_ImplementFunction(MinimizeWindow)
+Gura_ImplementFunction(__MinimizeWindow)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_MinimizeWindow(window);
@@ -2086,7 +2086,7 @@ Gura_ImplementFunction(MinimizeWindow)
 }
 
 // sdl2.RaiseWindow
-Gura_DeclareFunction(RaiseWindow)
+Gura_DeclareFunctionAlias(__RaiseWindow, "RaiseWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2095,7 +2095,7 @@ Gura_DeclareFunction(RaiseWindow)
 		"");
 }
 
-Gura_ImplementFunction(RaiseWindow)
+Gura_ImplementFunction(__RaiseWindow)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_RaiseWindow(window);
@@ -2103,7 +2103,7 @@ Gura_ImplementFunction(RaiseWindow)
 }
 
 // sdl2.RestoreWindow
-Gura_DeclareFunction(RestoreWindow)
+Gura_DeclareFunctionAlias(__RestoreWindow, "RestoreWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2112,7 +2112,7 @@ Gura_DeclareFunction(RestoreWindow)
 		"");
 }
 
-Gura_ImplementFunction(RestoreWindow)
+Gura_ImplementFunction(__RestoreWindow)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_RestoreWindow(window);
@@ -2120,7 +2120,7 @@ Gura_ImplementFunction(RestoreWindow)
 }
 
 // sdl2.SetWindowBordered
-Gura_DeclareFunction(SetWindowBordered)
+Gura_DeclareFunctionAlias(__SetWindowBordered, "SetWindowBordered")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2130,7 +2130,7 @@ Gura_DeclareFunction(SetWindowBordered)
 		"");
 }
 
-Gura_ImplementFunction(SetWindowBordered)
+Gura_ImplementFunction(__SetWindowBordered)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_bool bordered = (args.GetBoolean(1)? SDL_TRUE : SDL_FALSE);
@@ -2139,7 +2139,7 @@ Gura_ImplementFunction(SetWindowBordered)
 }
 
 // sdl2.SetWindowBrightness
-Gura_DeclareFunction(SetWindowBrightness)
+Gura_DeclareFunctionAlias(__SetWindowBrightness, "SetWindowBrightness")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2149,7 +2149,7 @@ Gura_DeclareFunction(SetWindowBrightness)
 		"");
 }
 
-Gura_ImplementFunction(SetWindowBrightness)
+Gura_ImplementFunction(__SetWindowBrightness)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	float brightness = args.GetFloat(1);
@@ -2162,7 +2162,7 @@ Gura_ImplementFunction(SetWindowBrightness)
 }
 
 // sdl2.SetWindowData
-Gura_DeclareFunction(SetWindowData)
+Gura_DeclareFunctionAlias(__SetWindowData, "SetWindowData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2172,7 +2172,7 @@ Gura_DeclareFunction(SetWindowData)
 		"");
 }
 
-Gura_ImplementFunction(SetWindowData)
+Gura_ImplementFunction(__SetWindowData)
 {
 #if 0
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
@@ -2185,7 +2185,7 @@ Gura_ImplementFunction(SetWindowData)
 }
 
 // sdl2.SetWindowDisplayMode
-Gura_DeclareFunction(SetWindowDisplayMode)
+Gura_DeclareFunctionAlias(__SetWindowDisplayMode, "SetWindowDisplayMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2195,7 +2195,7 @@ Gura_DeclareFunction(SetWindowDisplayMode)
 		"");
 }
 
-Gura_ImplementFunction(SetWindowDisplayMode)
+Gura_ImplementFunction(__SetWindowDisplayMode)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	const SDL_DisplayMode *mode = Object_DisplayMode::GetObject(args, 1)->GetEntity();
@@ -2208,7 +2208,7 @@ Gura_ImplementFunction(SetWindowDisplayMode)
 }
 
 // sdl2.SetWindowFullscreen
-Gura_DeclareFunction(SetWindowFullscreen)
+Gura_DeclareFunctionAlias(__SetWindowFullscreen, "SetWindowFullscreen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2218,7 +2218,7 @@ Gura_DeclareFunction(SetWindowFullscreen)
 		"");
 }
 
-Gura_ImplementFunction(SetWindowFullscreen)
+Gura_ImplementFunction(__SetWindowFullscreen)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	Uint32 flags = args.GetULong(1);
@@ -2231,7 +2231,7 @@ Gura_ImplementFunction(SetWindowFullscreen)
 }
 
 // sdl2.SetWindowGammaRamp
-Gura_DeclareFunction(SetWindowGammaRamp)
+Gura_DeclareFunctionAlias(__SetWindowGammaRamp, "SetWindowGammaRamp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2243,7 +2243,7 @@ Gura_DeclareFunction(SetWindowGammaRamp)
 		"");
 }
 
-Gura_ImplementFunction(SetWindowGammaRamp)
+Gura_ImplementFunction(__SetWindowGammaRamp)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	CArray<Uint16> red = args.GetList(1);
@@ -2262,7 +2262,7 @@ Gura_ImplementFunction(SetWindowGammaRamp)
 }
 
 // sdl2.SetWindowGrab
-Gura_DeclareFunction(SetWindowGrab)
+Gura_DeclareFunctionAlias(__SetWindowGrab, "SetWindowGrab")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2272,7 +2272,7 @@ Gura_DeclareFunction(SetWindowGrab)
 		"");
 }
 
-Gura_ImplementFunction(SetWindowGrab)
+Gura_ImplementFunction(__SetWindowGrab)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_bool grabbed = (args.GetBoolean(1)? SDL_TRUE : SDL_FALSE);
@@ -2281,7 +2281,7 @@ Gura_ImplementFunction(SetWindowGrab)
 }
 
 // sdl2.SetWindowHitTest
-Gura_DeclareFunction(SetWindowHitTest)
+Gura_DeclareFunctionAlias(__SetWindowHitTest, "SetWindowHitTest")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2290,7 +2290,7 @@ Gura_DeclareFunction(SetWindowHitTest)
 		"");
 }
 
-Gura_ImplementFunction(SetWindowHitTest)
+Gura_ImplementFunction(__SetWindowHitTest)
 {
 #if 0
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
@@ -2306,7 +2306,7 @@ Gura_ImplementFunction(SetWindowHitTest)
 }
 
 // sdl2.SetWindowIcon
-Gura_DeclareFunction(SetWindowIcon)
+Gura_DeclareFunctionAlias(__SetWindowIcon, "SetWindowIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2316,7 +2316,7 @@ Gura_DeclareFunction(SetWindowIcon)
 		"");
 }
 
-Gura_ImplementFunction(SetWindowIcon)
+Gura_ImplementFunction(__SetWindowIcon)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_Surface *icon = Object_Surface::GetObject(args, 1)->GetEntity();
@@ -2325,7 +2325,7 @@ Gura_ImplementFunction(SetWindowIcon)
 }
 
 // sdl2.SetWindowMaximumSize
-Gura_DeclareFunction(SetWindowMaximumSize)
+Gura_DeclareFunctionAlias(__SetWindowMaximumSize, "SetWindowMaximumSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2336,7 +2336,7 @@ Gura_DeclareFunction(SetWindowMaximumSize)
 		"");
 }
 
-Gura_ImplementFunction(SetWindowMaximumSize)
+Gura_ImplementFunction(__SetWindowMaximumSize)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	int max_w = args.GetInt(1);
@@ -2346,7 +2346,7 @@ Gura_ImplementFunction(SetWindowMaximumSize)
 }
 
 // sdl2.SetWindowMinimumSize
-Gura_DeclareFunction(SetWindowMinimumSize)
+Gura_DeclareFunctionAlias(__SetWindowMinimumSize, "SetWindowMinimumSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2357,7 +2357,7 @@ Gura_DeclareFunction(SetWindowMinimumSize)
 		"");
 }
 
-Gura_ImplementFunction(SetWindowMinimumSize)
+Gura_ImplementFunction(__SetWindowMinimumSize)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	int min_w = args.GetInt(1);
@@ -2367,7 +2367,7 @@ Gura_ImplementFunction(SetWindowMinimumSize)
 }
 
 // sdl2.SetWindowPosition
-Gura_DeclareFunction(SetWindowPosition)
+Gura_DeclareFunctionAlias(__SetWindowPosition, "SetWindowPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2378,7 +2378,7 @@ Gura_DeclareFunction(SetWindowPosition)
 		"");
 }
 
-Gura_ImplementFunction(SetWindowPosition)
+Gura_ImplementFunction(__SetWindowPosition)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	int x = args.GetInt(1);
@@ -2388,7 +2388,7 @@ Gura_ImplementFunction(SetWindowPosition)
 }
 
 // sdl2.SetWindowSize
-Gura_DeclareFunction(SetWindowSize)
+Gura_DeclareFunctionAlias(__SetWindowSize, "SetWindowSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2399,7 +2399,7 @@ Gura_DeclareFunction(SetWindowSize)
 		"");
 }
 
-Gura_ImplementFunction(SetWindowSize)
+Gura_ImplementFunction(__SetWindowSize)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	int w = args.GetInt(1);
@@ -2409,7 +2409,7 @@ Gura_ImplementFunction(SetWindowSize)
 }
 
 // sdl2.SetWindowTitle
-Gura_DeclareFunction(SetWindowTitle)
+Gura_DeclareFunctionAlias(__SetWindowTitle, "SetWindowTitle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2419,7 +2419,7 @@ Gura_DeclareFunction(SetWindowTitle)
 		"");
 }
 
-Gura_ImplementFunction(SetWindowTitle)
+Gura_ImplementFunction(__SetWindowTitle)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	const char *title = args.GetString(1);
@@ -2428,7 +2428,7 @@ Gura_ImplementFunction(SetWindowTitle)
 }
 
 // sdl2.ShowMessageBox
-Gura_DeclareFunction(ShowMessageBox)
+Gura_DeclareFunctionAlias(__ShowMessageBox, "ShowMessageBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -2436,7 +2436,7 @@ Gura_DeclareFunction(ShowMessageBox)
 		"");
 }
 
-Gura_ImplementFunction(ShowMessageBox)
+Gura_ImplementFunction(__ShowMessageBox)
 {
 #if 0
 	int _rtn = SDL_ShowMessageBox();
@@ -2451,7 +2451,7 @@ Gura_ImplementFunction(ShowMessageBox)
 }
 
 // sdl2.ShowSimpleMessageBox
-Gura_DeclareFunction(ShowSimpleMessageBox)
+Gura_DeclareFunctionAlias(__ShowSimpleMessageBox, "ShowSimpleMessageBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -2463,7 +2463,7 @@ Gura_DeclareFunction(ShowSimpleMessageBox)
 		"");
 }
 
-Gura_ImplementFunction(ShowSimpleMessageBox)
+Gura_ImplementFunction(__ShowSimpleMessageBox)
 {
 	Uint32 flags = args.GetULong(0);
 	const char *title = args.GetString(1);
@@ -2478,7 +2478,7 @@ Gura_ImplementFunction(ShowSimpleMessageBox)
 }
 
 // sdl2.ShowWindow
-Gura_DeclareFunction(ShowWindow)
+Gura_DeclareFunctionAlias(__ShowWindow, "ShowWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2487,7 +2487,7 @@ Gura_DeclareFunction(ShowWindow)
 		"");
 }
 
-Gura_ImplementFunction(ShowWindow)
+Gura_ImplementFunction(__ShowWindow)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_ShowWindow(window);
@@ -2495,7 +2495,7 @@ Gura_ImplementFunction(ShowWindow)
 }
 
 // sdl2.UpdateWindowSurface
-Gura_DeclareFunction(UpdateWindowSurface)
+Gura_DeclareFunctionAlias(__UpdateWindowSurface, "UpdateWindowSurface")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2504,7 +2504,7 @@ Gura_DeclareFunction(UpdateWindowSurface)
 		"");
 }
 
-Gura_ImplementFunction(UpdateWindowSurface)
+Gura_ImplementFunction(__UpdateWindowSurface)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_UpdateWindowSurface(window);
@@ -2516,7 +2516,7 @@ Gura_ImplementFunction(UpdateWindowSurface)
 }
 
 // sdl2.UpdateWindowSurfaceRects
-Gura_DeclareFunction(UpdateWindowSurfaceRects)
+Gura_DeclareFunctionAlias(__UpdateWindowSurfaceRects, "UpdateWindowSurfaceRects")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -2526,7 +2526,7 @@ Gura_DeclareFunction(UpdateWindowSurfaceRects)
 		"");
 }
 
-Gura_ImplementFunction(UpdateWindowSurfaceRects)
+Gura_ImplementFunction(__UpdateWindowSurfaceRects)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	CArray<SDL_Rect> rects = CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1));
@@ -2540,7 +2540,7 @@ Gura_ImplementFunction(UpdateWindowSurfaceRects)
 }
 
 // sdl2.VideoInit
-Gura_DeclareFunction(VideoInit)
+Gura_DeclareFunctionAlias(__VideoInit, "VideoInit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "driver_name", VTYPE_string, OCCUR_Once, FLAG_None);
@@ -2549,7 +2549,7 @@ Gura_DeclareFunction(VideoInit)
 		"");
 }
 
-Gura_ImplementFunction(VideoInit)
+Gura_ImplementFunction(__VideoInit)
 {
 	const char *driver_name = args.GetString(0);
 	int _rtn = SDL_VideoInit(driver_name);
@@ -2561,7 +2561,7 @@ Gura_ImplementFunction(VideoInit)
 }
 
 // sdl2.VideoQuit
-Gura_DeclareFunction(VideoQuit)
+Gura_DeclareFunctionAlias(__VideoQuit, "VideoQuit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -2569,14 +2569,14 @@ Gura_DeclareFunction(VideoQuit)
 		"");
 }
 
-Gura_ImplementFunction(VideoQuit)
+Gura_ImplementFunction(__VideoQuit)
 {
 	SDL_VideoQuit();
 	return Value::Null;
 }
 
 // sdl2.CreateRenderer
-Gura_DeclareFunction(CreateRenderer)
+Gura_DeclareFunctionAlias(__CreateRenderer, "CreateRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2588,7 +2588,7 @@ Gura_DeclareFunction(CreateRenderer)
 		"");
 }
 
-Gura_ImplementFunction(CreateRenderer)
+Gura_ImplementFunction(__CreateRenderer)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	int index = args.GetInt(1);
@@ -2605,7 +2605,7 @@ Gura_ImplementFunction(CreateRenderer)
 }
 
 // sdl2.CreateSoftwareRenderer
-Gura_DeclareFunction(CreateSoftwareRenderer)
+Gura_DeclareFunctionAlias(__CreateSoftwareRenderer, "CreateSoftwareRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2615,7 +2615,7 @@ Gura_DeclareFunction(CreateSoftwareRenderer)
 		"");
 }
 
-Gura_ImplementFunction(CreateSoftwareRenderer)
+Gura_ImplementFunction(__CreateSoftwareRenderer)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	SDL_Renderer *_rtn = SDL_CreateSoftwareRenderer(surface);
@@ -2630,7 +2630,7 @@ Gura_ImplementFunction(CreateSoftwareRenderer)
 }
 
 // sdl2.CreateTexture
-Gura_DeclareFunction(CreateTexture)
+Gura_DeclareFunctionAlias(__CreateTexture, "CreateTexture")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2644,7 +2644,7 @@ Gura_DeclareFunction(CreateTexture)
 		"");
 }
 
-Gura_ImplementFunction(CreateTexture)
+Gura_ImplementFunction(__CreateTexture)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	Uint32 format = args.GetULong(1);
@@ -2663,7 +2663,7 @@ Gura_ImplementFunction(CreateTexture)
 }
 
 // sdl2.CreateTextureFromSurface
-Gura_DeclareFunction(CreateTextureFromSurface)
+Gura_DeclareFunctionAlias(__CreateTextureFromSurface, "CreateTextureFromSurface")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2674,7 +2674,7 @@ Gura_DeclareFunction(CreateTextureFromSurface)
 		"");
 }
 
-Gura_ImplementFunction(CreateTextureFromSurface)
+Gura_ImplementFunction(__CreateTextureFromSurface)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	SDL_Surface *surface = Object_Surface::GetObject(args, 1)->GetEntity();
@@ -2690,7 +2690,7 @@ Gura_ImplementFunction(CreateTextureFromSurface)
 }
 
 // sdl2.DestroyRenderer
-Gura_DeclareFunction(DestroyRenderer)
+Gura_DeclareFunctionAlias(__DestroyRenderer, "DestroyRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -2699,7 +2699,7 @@ Gura_DeclareFunction(DestroyRenderer)
 		"");
 }
 
-Gura_ImplementFunction(DestroyRenderer)
+Gura_ImplementFunction(__DestroyRenderer)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	SDL_DestroyRenderer(renderer);
@@ -2707,7 +2707,7 @@ Gura_ImplementFunction(DestroyRenderer)
 }
 
 // sdl2.DestroyTexture
-Gura_DeclareFunction(DestroyTexture)
+Gura_DeclareFunctionAlias(__DestroyTexture, "DestroyTexture")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
@@ -2716,7 +2716,7 @@ Gura_DeclareFunction(DestroyTexture)
 		"");
 }
 
-Gura_ImplementFunction(DestroyTexture)
+Gura_ImplementFunction(__DestroyTexture)
 {
 	SDL_Texture *texture = Object_Texture::GetObject(args, 0)->GetEntity();
 	SDL_DestroyTexture(texture);
@@ -2724,7 +2724,7 @@ Gura_ImplementFunction(DestroyTexture)
 }
 
 // sdl2.GL_BindTexture
-Gura_DeclareFunction(GL_BindTexture)
+Gura_DeclareFunctionAlias(__GL_BindTexture, "GL_BindTexture")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2734,7 +2734,7 @@ Gura_DeclareFunction(GL_BindTexture)
 		"");
 }
 
-Gura_ImplementFunction(GL_BindTexture)
+Gura_ImplementFunction(__GL_BindTexture)
 {
 	SDL_Texture *texture = Object_Texture::GetObject(args, 0)->GetEntity();
 	float texw = 0;
@@ -2744,7 +2744,7 @@ Gura_ImplementFunction(GL_BindTexture)
 }
 
 // sdl2.GL_UnbindTexture
-Gura_DeclareFunction(GL_UnbindTexture)
+Gura_DeclareFunctionAlias(__GL_UnbindTexture, "GL_UnbindTexture")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
@@ -2753,7 +2753,7 @@ Gura_DeclareFunction(GL_UnbindTexture)
 		"");
 }
 
-Gura_ImplementFunction(GL_UnbindTexture)
+Gura_ImplementFunction(__GL_UnbindTexture)
 {
 	SDL_Texture *texture = Object_Texture::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_GL_UnbindTexture(texture);
@@ -2765,7 +2765,7 @@ Gura_ImplementFunction(GL_UnbindTexture)
 }
 
 // sdl2.GetNumRenderDrivers
-Gura_DeclareFunction(GetNumRenderDrivers)
+Gura_DeclareFunctionAlias(__GetNumRenderDrivers, "GetNumRenderDrivers")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2774,7 +2774,7 @@ Gura_DeclareFunction(GetNumRenderDrivers)
 		"");
 }
 
-Gura_ImplementFunction(GetNumRenderDrivers)
+Gura_ImplementFunction(__GetNumRenderDrivers)
 {
 	int _rtn = SDL_GetNumRenderDrivers();
 	if (_rtn < 0) {
@@ -2785,7 +2785,7 @@ Gura_ImplementFunction(GetNumRenderDrivers)
 }
 
 // sdl2.GetRenderDrawBlendMode
-Gura_DeclareFunction(GetRenderDrawBlendMode)
+Gura_DeclareFunctionAlias(__GetRenderDrawBlendMode, "GetRenderDrawBlendMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2795,7 +2795,7 @@ Gura_DeclareFunction(GetRenderDrawBlendMode)
 		"");
 }
 
-Gura_ImplementFunction(GetRenderDrawBlendMode)
+Gura_ImplementFunction(__GetRenderDrawBlendMode)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	SDL_BlendMode blendMode = SDL_BLENDMODE_NONE;
@@ -2808,7 +2808,7 @@ Gura_ImplementFunction(GetRenderDrawBlendMode)
 }
 
 // sdl2.GetRenderDrawColor
-Gura_DeclareFunction(GetRenderDrawColor)
+Gura_DeclareFunctionAlias(__GetRenderDrawColor, "GetRenderDrawColor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2818,7 +2818,7 @@ Gura_DeclareFunction(GetRenderDrawColor)
 		"");
 }
 
-Gura_ImplementFunction(GetRenderDrawColor)
+Gura_ImplementFunction(__GetRenderDrawColor)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	Uint8 r = 0;
@@ -2835,7 +2835,7 @@ Gura_ImplementFunction(GetRenderDrawColor)
 }
 
 // sdl2.GetRenderDriverInfo
-Gura_DeclareFunction(GetRenderDriverInfo)
+Gura_DeclareFunctionAlias(__GetRenderDriverInfo, "GetRenderDriverInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2845,7 +2845,7 @@ Gura_DeclareFunction(GetRenderDriverInfo)
 		"");
 }
 
-Gura_ImplementFunction(GetRenderDriverInfo)
+Gura_ImplementFunction(__GetRenderDriverInfo)
 {
 	int index = args.GetInt(0);
 	SDL_RendererInfo info;
@@ -2858,7 +2858,7 @@ Gura_ImplementFunction(GetRenderDriverInfo)
 }
 
 // sdl2.GetRenderTarget
-Gura_DeclareFunction(GetRenderTarget)
+Gura_DeclareFunctionAlias(__GetRenderTarget, "GetRenderTarget")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2868,7 +2868,7 @@ Gura_DeclareFunction(GetRenderTarget)
 		"");
 }
 
-Gura_ImplementFunction(GetRenderTarget)
+Gura_ImplementFunction(__GetRenderTarget)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	SDL_Texture *_rtn = SDL_GetRenderTarget(renderer);
@@ -2880,7 +2880,7 @@ Gura_ImplementFunction(GetRenderTarget)
 }
 
 // sdl2.GetRenderer
-Gura_DeclareFunction(GetRenderer)
+Gura_DeclareFunctionAlias(__GetRenderer, "GetRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2890,7 +2890,7 @@ Gura_DeclareFunction(GetRenderer)
 		"");
 }
 
-Gura_ImplementFunction(GetRenderer)
+Gura_ImplementFunction(__GetRenderer)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_Renderer *_rtn = SDL_GetRenderer(window);
@@ -2905,7 +2905,7 @@ Gura_ImplementFunction(GetRenderer)
 }
 
 // sdl2.GetRendererInfo
-Gura_DeclareFunction(GetRendererInfo)
+Gura_DeclareFunctionAlias(__GetRendererInfo, "GetRendererInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2915,7 +2915,7 @@ Gura_DeclareFunction(GetRendererInfo)
 		"");
 }
 
-Gura_ImplementFunction(GetRendererInfo)
+Gura_ImplementFunction(__GetRendererInfo)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	SDL_RendererInfo info;
@@ -2928,7 +2928,7 @@ Gura_ImplementFunction(GetRendererInfo)
 }
 
 // sdl2.GetRenderOutputSize
-Gura_DeclareFunction(GetRenderOutputSize)
+Gura_DeclareFunctionAlias(__GetRenderOutputSize, "GetRenderOutputSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2938,7 +2938,7 @@ Gura_DeclareFunction(GetRenderOutputSize)
 		"");
 }
 
-Gura_ImplementFunction(GetRenderOutputSize)
+Gura_ImplementFunction(__GetRenderOutputSize)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	int w = 0;
@@ -2952,7 +2952,7 @@ Gura_ImplementFunction(GetRenderOutputSize)
 }
 
 // sdl2.GetTextureAlphaMod
-Gura_DeclareFunction(GetTextureAlphaMod)
+Gura_DeclareFunctionAlias(__GetTextureAlphaMod, "GetTextureAlphaMod")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2962,7 +2962,7 @@ Gura_DeclareFunction(GetTextureAlphaMod)
 		"");
 }
 
-Gura_ImplementFunction(GetTextureAlphaMod)
+Gura_ImplementFunction(__GetTextureAlphaMod)
 {
 	SDL_Texture *texture = Object_Texture::GetObject(args, 0)->GetEntity();
 	Uint8 alpha = 0;
@@ -2975,7 +2975,7 @@ Gura_ImplementFunction(GetTextureAlphaMod)
 }
 
 // sdl2.GetTextureBlendMode
-Gura_DeclareFunction(GetTextureBlendMode)
+Gura_DeclareFunctionAlias(__GetTextureBlendMode, "GetTextureBlendMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2985,7 +2985,7 @@ Gura_DeclareFunction(GetTextureBlendMode)
 		"");
 }
 
-Gura_ImplementFunction(GetTextureBlendMode)
+Gura_ImplementFunction(__GetTextureBlendMode)
 {
 	SDL_Texture *texture = Object_Texture::GetObject(args, 0)->GetEntity();
 	SDL_BlendMode blendMode = SDL_BLENDMODE_NONE;
@@ -2998,7 +2998,7 @@ Gura_ImplementFunction(GetTextureBlendMode)
 }
 
 // sdl2.GetTextureColorMod
-Gura_DeclareFunction(GetTextureColorMod)
+Gura_DeclareFunctionAlias(__GetTextureColorMod, "GetTextureColorMod")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3008,7 +3008,7 @@ Gura_DeclareFunction(GetTextureColorMod)
 		"");
 }
 
-Gura_ImplementFunction(GetTextureColorMod)
+Gura_ImplementFunction(__GetTextureColorMod)
 {
 	SDL_Texture *texture = Object_Texture::GetObject(args, 0)->GetEntity();
 	Uint8 r = 0;
@@ -3024,7 +3024,7 @@ Gura_ImplementFunction(GetTextureColorMod)
 }
 
 // sdl2.LockTexture
-Gura_DeclareFunction(LockTexture)
+Gura_DeclareFunctionAlias(__LockTexture, "LockTexture")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
@@ -3034,7 +3034,7 @@ Gura_DeclareFunction(LockTexture)
 		"");
 }
 
-Gura_ImplementFunction(LockTexture)
+Gura_ImplementFunction(__LockTexture)
 {
 #if 0
 	SDL_Texture *texture = Object_Texture::GetObject(args, 0)->GetEntity();
@@ -3051,7 +3051,7 @@ Gura_ImplementFunction(LockTexture)
 }
 
 // sdl2.QueryTexture
-Gura_DeclareFunction(QueryTexture)
+Gura_DeclareFunctionAlias(__QueryTexture, "QueryTexture")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3061,7 +3061,7 @@ Gura_DeclareFunction(QueryTexture)
 		"");
 }
 
-Gura_ImplementFunction(QueryTexture)
+Gura_ImplementFunction(__QueryTexture)
 {
 	SDL_Texture *texture = Object_Texture::GetObject(args, 0)->GetEntity();
 	Uint32 format = 0;
@@ -3078,7 +3078,7 @@ Gura_ImplementFunction(QueryTexture)
 }
 
 // sdl2.RenderClear
-Gura_DeclareFunction(RenderClear)
+Gura_DeclareFunctionAlias(__RenderClear, "RenderClear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -3087,7 +3087,7 @@ Gura_DeclareFunction(RenderClear)
 		"");
 }
 
-Gura_ImplementFunction(RenderClear)
+Gura_ImplementFunction(__RenderClear)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_RenderClear(renderer);
@@ -3099,7 +3099,7 @@ Gura_ImplementFunction(RenderClear)
 }
 
 // sdl2.RenderCopy
-Gura_DeclareFunction(RenderCopy)
+Gura_DeclareFunctionAlias(__RenderCopy, "RenderCopy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -3111,7 +3111,7 @@ Gura_DeclareFunction(RenderCopy)
 		"");
 }
 
-Gura_ImplementFunction(RenderCopy)
+Gura_ImplementFunction(__RenderCopy)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	SDL_Texture *texture = Object_Texture::GetObject(args, 1)->GetEntity();
@@ -3126,7 +3126,7 @@ Gura_ImplementFunction(RenderCopy)
 }
 
 // sdl2.RenderCopyEx
-Gura_DeclareFunction(RenderCopyEx)
+Gura_DeclareFunctionAlias(__RenderCopyEx, "RenderCopyEx")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -3141,7 +3141,7 @@ Gura_DeclareFunction(RenderCopyEx)
 		"");
 }
 
-Gura_ImplementFunction(RenderCopyEx)
+Gura_ImplementFunction(__RenderCopyEx)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	SDL_Texture *texture = Object_Texture::GetObject(args, 1)->GetEntity();
@@ -3159,7 +3159,7 @@ Gura_ImplementFunction(RenderCopyEx)
 }
 
 // sdl2.RenderDrawLine
-Gura_DeclareFunction(RenderDrawLine)
+Gura_DeclareFunctionAlias(__RenderDrawLine, "RenderDrawLine")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -3172,7 +3172,7 @@ Gura_DeclareFunction(RenderDrawLine)
 		"");
 }
 
-Gura_ImplementFunction(RenderDrawLine)
+Gura_ImplementFunction(__RenderDrawLine)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	int x1 = args.GetInt(1);
@@ -3188,7 +3188,7 @@ Gura_ImplementFunction(RenderDrawLine)
 }
 
 // sdl2.RenderDrawLines
-Gura_DeclareFunction(RenderDrawLines)
+Gura_DeclareFunctionAlias(__RenderDrawLines, "RenderDrawLines")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -3198,7 +3198,7 @@ Gura_DeclareFunction(RenderDrawLines)
 		"");
 }
 
-Gura_ImplementFunction(RenderDrawLines)
+Gura_ImplementFunction(__RenderDrawLines)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	CArray<SDL_Point> points = CreateCArray<SDL_Point, Object_Point>(args.GetList(1));
@@ -3212,7 +3212,7 @@ Gura_ImplementFunction(RenderDrawLines)
 }
 
 // sdl2.RenderDrawPoint
-Gura_DeclareFunction(RenderDrawPoint)
+Gura_DeclareFunctionAlias(__RenderDrawPoint, "RenderDrawPoint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -3223,7 +3223,7 @@ Gura_DeclareFunction(RenderDrawPoint)
 		"");
 }
 
-Gura_ImplementFunction(RenderDrawPoint)
+Gura_ImplementFunction(__RenderDrawPoint)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	int x = args.GetInt(1);
@@ -3237,7 +3237,7 @@ Gura_ImplementFunction(RenderDrawPoint)
 }
 
 // sdl2.RenderDrawPoints
-Gura_DeclareFunction(RenderDrawPoints)
+Gura_DeclareFunctionAlias(__RenderDrawPoints, "RenderDrawPoints")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -3247,7 +3247,7 @@ Gura_DeclareFunction(RenderDrawPoints)
 		"");
 }
 
-Gura_ImplementFunction(RenderDrawPoints)
+Gura_ImplementFunction(__RenderDrawPoints)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	CArray<SDL_Point> points = CreateCArray<SDL_Point, Object_Point>(args.GetList(1));
@@ -3261,7 +3261,7 @@ Gura_ImplementFunction(RenderDrawPoints)
 }
 
 // sdl2.RenderDrawRect
-Gura_DeclareFunction(RenderDrawRect)
+Gura_DeclareFunctionAlias(__RenderDrawRect, "RenderDrawRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -3271,7 +3271,7 @@ Gura_DeclareFunction(RenderDrawRect)
 		"");
 }
 
-Gura_ImplementFunction(RenderDrawRect)
+Gura_ImplementFunction(__RenderDrawRect)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	const SDL_Rect *rect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
@@ -3284,7 +3284,7 @@ Gura_ImplementFunction(RenderDrawRect)
 }
 
 // sdl2.RenderDrawRects
-Gura_DeclareFunction(RenderDrawRects)
+Gura_DeclareFunctionAlias(__RenderDrawRects, "RenderDrawRects")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -3294,7 +3294,7 @@ Gura_DeclareFunction(RenderDrawRects)
 		"");
 }
 
-Gura_ImplementFunction(RenderDrawRects)
+Gura_ImplementFunction(__RenderDrawRects)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	CArray<SDL_Rect> rects = CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1));
@@ -3308,7 +3308,7 @@ Gura_ImplementFunction(RenderDrawRects)
 }
 
 // sdl2.RenderFillRect
-Gura_DeclareFunction(RenderFillRect)
+Gura_DeclareFunctionAlias(__RenderFillRect, "RenderFillRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -3318,7 +3318,7 @@ Gura_DeclareFunction(RenderFillRect)
 		"");
 }
 
-Gura_ImplementFunction(RenderFillRect)
+Gura_ImplementFunction(__RenderFillRect)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	const SDL_Rect *rect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
@@ -3331,7 +3331,7 @@ Gura_ImplementFunction(RenderFillRect)
 }
 
 // sdl2.RenderFillRects
-Gura_DeclareFunction(RenderFillRects)
+Gura_DeclareFunctionAlias(__RenderFillRects, "RenderFillRects")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -3341,7 +3341,7 @@ Gura_DeclareFunction(RenderFillRects)
 		"");
 }
 
-Gura_ImplementFunction(RenderFillRects)
+Gura_ImplementFunction(__RenderFillRects)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	CArray<SDL_Rect> rects = CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1));
@@ -3355,7 +3355,7 @@ Gura_ImplementFunction(RenderFillRects)
 }
 
 // sdl2.RenderGetClipRect
-Gura_DeclareFunction(RenderGetClipRect)
+Gura_DeclareFunctionAlias(__RenderGetClipRect, "RenderGetClipRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3365,7 +3365,7 @@ Gura_DeclareFunction(RenderGetClipRect)
 		"");
 }
 
-Gura_ImplementFunction(RenderGetClipRect)
+Gura_ImplementFunction(__RenderGetClipRect)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	SDL_Rect rect;
@@ -3374,7 +3374,7 @@ Gura_ImplementFunction(RenderGetClipRect)
 }
 
 // sdl2.RenderGetLogicalSize
-Gura_DeclareFunction(RenderGetLogicalSize)
+Gura_DeclareFunctionAlias(__RenderGetLogicalSize, "RenderGetLogicalSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3384,7 +3384,7 @@ Gura_DeclareFunction(RenderGetLogicalSize)
 		"");
 }
 
-Gura_ImplementFunction(RenderGetLogicalSize)
+Gura_ImplementFunction(__RenderGetLogicalSize)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	int w = 0;
@@ -3394,7 +3394,7 @@ Gura_ImplementFunction(RenderGetLogicalSize)
 }
 
 // sdl2.RenderGetScale
-Gura_DeclareFunction(RenderGetScale)
+Gura_DeclareFunctionAlias(__RenderGetScale, "RenderGetScale")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3404,7 +3404,7 @@ Gura_DeclareFunction(RenderGetScale)
 		"");
 }
 
-Gura_ImplementFunction(RenderGetScale)
+Gura_ImplementFunction(__RenderGetScale)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	float scaleX = 0;
@@ -3414,7 +3414,7 @@ Gura_ImplementFunction(RenderGetScale)
 }
 
 // sdl2.RenderGetViewport
-Gura_DeclareFunction(RenderGetViewport)
+Gura_DeclareFunctionAlias(__RenderGetViewport, "RenderGetViewport")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3424,7 +3424,7 @@ Gura_DeclareFunction(RenderGetViewport)
 		"");
 }
 
-Gura_ImplementFunction(RenderGetViewport)
+Gura_ImplementFunction(__RenderGetViewport)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	SDL_Rect rect;
@@ -3433,7 +3433,7 @@ Gura_ImplementFunction(RenderGetViewport)
 }
 
 // sdl2.RenderIsClipEnabled
-Gura_DeclareFunction(RenderIsClipEnabled)
+Gura_DeclareFunctionAlias(__RenderIsClipEnabled, "RenderIsClipEnabled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -3442,7 +3442,7 @@ Gura_DeclareFunction(RenderIsClipEnabled)
 		"");
 }
 
-Gura_ImplementFunction(RenderIsClipEnabled)
+Gura_ImplementFunction(__RenderIsClipEnabled)
 {
 #if 0
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
@@ -3454,7 +3454,7 @@ Gura_ImplementFunction(RenderIsClipEnabled)
 }
 
 // sdl2.RenderPresent
-Gura_DeclareFunction(RenderPresent)
+Gura_DeclareFunctionAlias(__RenderPresent, "RenderPresent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -3463,7 +3463,7 @@ Gura_DeclareFunction(RenderPresent)
 		"");
 }
 
-Gura_ImplementFunction(RenderPresent)
+Gura_ImplementFunction(__RenderPresent)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	SDL_RenderPresent(renderer);
@@ -3471,7 +3471,7 @@ Gura_ImplementFunction(RenderPresent)
 }
 
 // sdl2.RenderReadPixels
-Gura_DeclareFunction(RenderReadPixels)
+Gura_DeclareFunctionAlias(__RenderReadPixels, "RenderReadPixels")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3483,7 +3483,7 @@ Gura_DeclareFunction(RenderReadPixels)
 		"");
 }
 
-Gura_ImplementFunction(RenderReadPixels)
+Gura_ImplementFunction(__RenderReadPixels)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	const SDL_Rect *rect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
@@ -3513,7 +3513,7 @@ Gura_ImplementFunction(RenderReadPixels)
 }
 
 // sdl2.RenderSetClipRect
-Gura_DeclareFunction(RenderSetClipRect)
+Gura_DeclareFunctionAlias(__RenderSetClipRect, "RenderSetClipRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -3523,7 +3523,7 @@ Gura_DeclareFunction(RenderSetClipRect)
 		"");
 }
 
-Gura_ImplementFunction(RenderSetClipRect)
+Gura_ImplementFunction(__RenderSetClipRect)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	const SDL_Rect *rect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
@@ -3536,7 +3536,7 @@ Gura_ImplementFunction(RenderSetClipRect)
 }
 
 // sdl2.RenderSetLogicalSize
-Gura_DeclareFunction(RenderSetLogicalSize)
+Gura_DeclareFunctionAlias(__RenderSetLogicalSize, "RenderSetLogicalSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -3547,7 +3547,7 @@ Gura_DeclareFunction(RenderSetLogicalSize)
 		"");
 }
 
-Gura_ImplementFunction(RenderSetLogicalSize)
+Gura_ImplementFunction(__RenderSetLogicalSize)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	int w = args.GetInt(1);
@@ -3561,7 +3561,7 @@ Gura_ImplementFunction(RenderSetLogicalSize)
 }
 
 // sdl2.RenderSetScale
-Gura_DeclareFunction(RenderSetScale)
+Gura_DeclareFunctionAlias(__RenderSetScale, "RenderSetScale")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -3572,7 +3572,7 @@ Gura_DeclareFunction(RenderSetScale)
 		"");
 }
 
-Gura_ImplementFunction(RenderSetScale)
+Gura_ImplementFunction(__RenderSetScale)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	float scaleX = args.GetFloat(1);
@@ -3586,7 +3586,7 @@ Gura_ImplementFunction(RenderSetScale)
 }
 
 // sdl2.RenderSetViewport
-Gura_DeclareFunction(RenderSetViewport)
+Gura_DeclareFunctionAlias(__RenderSetViewport, "RenderSetViewport")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -3596,7 +3596,7 @@ Gura_DeclareFunction(RenderSetViewport)
 		"");
 }
 
-Gura_ImplementFunction(RenderSetViewport)
+Gura_ImplementFunction(__RenderSetViewport)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	const SDL_Rect *rect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
@@ -3609,7 +3609,7 @@ Gura_ImplementFunction(RenderSetViewport)
 }
 
 // sdl2.RenderTargetSupported
-Gura_DeclareFunction(RenderTargetSupported)
+Gura_DeclareFunctionAlias(__RenderTargetSupported, "RenderTargetSupported")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3619,7 +3619,7 @@ Gura_DeclareFunction(RenderTargetSupported)
 		"");
 }
 
-Gura_ImplementFunction(RenderTargetSupported)
+Gura_ImplementFunction(__RenderTargetSupported)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	SDL_bool _rtn = SDL_RenderTargetSupported(renderer);
@@ -3627,7 +3627,7 @@ Gura_ImplementFunction(RenderTargetSupported)
 }
 
 // sdl2.SetRenderDrawBlendMode
-Gura_DeclareFunction(SetRenderDrawBlendMode)
+Gura_DeclareFunctionAlias(__SetRenderDrawBlendMode, "SetRenderDrawBlendMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -3637,7 +3637,7 @@ Gura_DeclareFunction(SetRenderDrawBlendMode)
 		"");
 }
 
-Gura_ImplementFunction(SetRenderDrawBlendMode)
+Gura_ImplementFunction(__SetRenderDrawBlendMode)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	SDL_BlendMode blendMode = static_cast<SDL_BlendMode>(args.GetInt(1));
@@ -3646,7 +3646,7 @@ Gura_ImplementFunction(SetRenderDrawBlendMode)
 }
 
 // sdl2.SetRenderDrawColor
-Gura_DeclareFunction(SetRenderDrawColor)
+Gura_DeclareFunctionAlias(__SetRenderDrawColor, "SetRenderDrawColor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -3659,7 +3659,7 @@ Gura_DeclareFunction(SetRenderDrawColor)
 		"");
 }
 
-Gura_ImplementFunction(SetRenderDrawColor)
+Gura_ImplementFunction(__SetRenderDrawColor)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	Uint8 r = args.GetUChar(1);
@@ -3675,7 +3675,7 @@ Gura_ImplementFunction(SetRenderDrawColor)
 }
 
 // sdl2.SetRenderTarget
-Gura_DeclareFunction(SetRenderTarget)
+Gura_DeclareFunctionAlias(__SetRenderTarget, "SetRenderTarget")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -3685,7 +3685,7 @@ Gura_DeclareFunction(SetRenderTarget)
 		"");
 }
 
-Gura_ImplementFunction(SetRenderTarget)
+Gura_ImplementFunction(__SetRenderTarget)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	SDL_Texture *texture = args.IsValid(1)? Object_Texture::GetObject(args, 1)->GetEntity() : NULL;
@@ -3698,7 +3698,7 @@ Gura_ImplementFunction(SetRenderTarget)
 }
 
 // sdl2.SetTextureAlphaMod
-Gura_DeclareFunction(SetTextureAlphaMod)
+Gura_DeclareFunctionAlias(__SetTextureAlphaMod, "SetTextureAlphaMod")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
@@ -3708,7 +3708,7 @@ Gura_DeclareFunction(SetTextureAlphaMod)
 		"");
 }
 
-Gura_ImplementFunction(SetTextureAlphaMod)
+Gura_ImplementFunction(__SetTextureAlphaMod)
 {
 	SDL_Texture *texture = Object_Texture::GetObject(args, 0)->GetEntity();
 	Uint8 alpha = args.GetUChar(1);
@@ -3721,7 +3721,7 @@ Gura_ImplementFunction(SetTextureAlphaMod)
 }
 
 // sdl2.SetTextureBlendMode
-Gura_DeclareFunction(SetTextureBlendMode)
+Gura_DeclareFunctionAlias(__SetTextureBlendMode, "SetTextureBlendMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
@@ -3731,7 +3731,7 @@ Gura_DeclareFunction(SetTextureBlendMode)
 		"");
 }
 
-Gura_ImplementFunction(SetTextureBlendMode)
+Gura_ImplementFunction(__SetTextureBlendMode)
 {
 	SDL_Texture *texture = Object_Texture::GetObject(args, 0)->GetEntity();
 	SDL_BlendMode blendMode = static_cast<SDL_BlendMode>(args.GetInt(1));
@@ -3744,7 +3744,7 @@ Gura_ImplementFunction(SetTextureBlendMode)
 }
 
 // sdl2.SetTextureColorMod
-Gura_DeclareFunction(SetTextureColorMod)
+Gura_DeclareFunctionAlias(__SetTextureColorMod, "SetTextureColorMod")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
@@ -3756,7 +3756,7 @@ Gura_DeclareFunction(SetTextureColorMod)
 		"");
 }
 
-Gura_ImplementFunction(SetTextureColorMod)
+Gura_ImplementFunction(__SetTextureColorMod)
 {
 	SDL_Texture *texture = Object_Texture::GetObject(args, 0)->GetEntity();
 	Uint8 r = args.GetUChar(1);
@@ -3771,7 +3771,7 @@ Gura_ImplementFunction(SetTextureColorMod)
 }
 
 // sdl2.UnlockTexture
-Gura_DeclareFunction(UnlockTexture)
+Gura_DeclareFunctionAlias(__UnlockTexture, "UnlockTexture")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
@@ -3780,7 +3780,7 @@ Gura_DeclareFunction(UnlockTexture)
 		"");
 }
 
-Gura_ImplementFunction(UnlockTexture)
+Gura_ImplementFunction(__UnlockTexture)
 {
 	SDL_Texture *texture = Object_Texture::GetObject(args, 0)->GetEntity();
 	SDL_UnlockTexture(texture);
@@ -3788,7 +3788,7 @@ Gura_ImplementFunction(UnlockTexture)
 }
 
 // sdl2.UpdateTexture
-Gura_DeclareFunction(UpdateTexture)
+Gura_DeclareFunctionAlias(__UpdateTexture, "UpdateTexture")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
@@ -3799,7 +3799,7 @@ Gura_DeclareFunction(UpdateTexture)
 		"");
 }
 
-Gura_ImplementFunction(UpdateTexture)
+Gura_ImplementFunction(__UpdateTexture)
 {
 #if 0
 	SDL_Texture *texture = Object_Texture::GetObject(args, 0)->GetEntity();
@@ -3817,7 +3817,7 @@ Gura_ImplementFunction(UpdateTexture)
 }
 
 // sdl2.UpdateYUVTexture
-Gura_DeclareFunction(UpdateYUVTexture)
+Gura_DeclareFunctionAlias(__UpdateYUVTexture, "UpdateYUVTexture")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -3825,7 +3825,7 @@ Gura_DeclareFunction(UpdateYUVTexture)
 		"");
 }
 
-Gura_ImplementFunction(UpdateYUVTexture)
+Gura_ImplementFunction(__UpdateYUVTexture)
 {
 #if 0
 	SDL_UpdateYUVTexture();
@@ -3836,7 +3836,7 @@ Gura_ImplementFunction(UpdateYUVTexture)
 }
 
 // sdl2.AllocFormat
-Gura_DeclareFunction(AllocFormat)
+Gura_DeclareFunctionAlias(__AllocFormat, "AllocFormat")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3846,7 +3846,7 @@ Gura_DeclareFunction(AllocFormat)
 		"");
 }
 
-Gura_ImplementFunction(AllocFormat)
+Gura_ImplementFunction(__AllocFormat)
 {
 	Uint32 pixel_format = args.GetULong(0);
 	SDL_PixelFormat *_rtn = SDL_AllocFormat(pixel_format);
@@ -3861,7 +3861,7 @@ Gura_ImplementFunction(AllocFormat)
 }
 
 // sdl2.AllocPalette
-Gura_DeclareFunction(AllocPalette)
+Gura_DeclareFunctionAlias(__AllocPalette, "AllocPalette")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3871,7 +3871,7 @@ Gura_DeclareFunction(AllocPalette)
 		"");
 }
 
-Gura_ImplementFunction(AllocPalette)
+Gura_ImplementFunction(__AllocPalette)
 {
 	int ncolors = args.GetInt(0);
 	SDL_Palette *_rtn = SDL_AllocPalette(ncolors);
@@ -3886,7 +3886,7 @@ Gura_ImplementFunction(AllocPalette)
 }
 
 // sdl2.CalculateGammaRamp
-Gura_DeclareFunction(CalculateGammaRamp)
+Gura_DeclareFunctionAlias(__CalculateGammaRamp, "CalculateGammaRamp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3896,7 +3896,7 @@ Gura_DeclareFunction(CalculateGammaRamp)
 		"");
 }
 
-Gura_ImplementFunction(CalculateGammaRamp)
+Gura_ImplementFunction(__CalculateGammaRamp)
 {
 	float gamma = args.GetFloat(0);
 	Uint16 ramp[256];
@@ -3905,7 +3905,7 @@ Gura_ImplementFunction(CalculateGammaRamp)
 }
 
 // sdl2.FreeFormat
-Gura_DeclareFunction(FreeFormat)
+Gura_DeclareFunctionAlias(__FreeFormat, "FreeFormat")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "format", VTYPE_PixelFormat, OCCUR_Once, FLAG_None);
@@ -3914,7 +3914,7 @@ Gura_DeclareFunction(FreeFormat)
 		"");
 }
 
-Gura_ImplementFunction(FreeFormat)
+Gura_ImplementFunction(__FreeFormat)
 {
 	SDL_PixelFormat *format = Object_PixelFormat::GetObject(args, 0)->GetEntity();
 	SDL_FreeFormat(format);
@@ -3922,7 +3922,7 @@ Gura_ImplementFunction(FreeFormat)
 }
 
 // sdl2.FreePalette
-Gura_DeclareFunction(FreePalette)
+Gura_DeclareFunctionAlias(__FreePalette, "FreePalette")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "palette", VTYPE_Palette, OCCUR_Once, FLAG_None);
@@ -3931,7 +3931,7 @@ Gura_DeclareFunction(FreePalette)
 		"");
 }
 
-Gura_ImplementFunction(FreePalette)
+Gura_ImplementFunction(__FreePalette)
 {
 	SDL_Palette *palette = Object_Palette::GetObject(args, 0)->GetEntity();
 	SDL_FreePalette(palette);
@@ -3939,7 +3939,7 @@ Gura_ImplementFunction(FreePalette)
 }
 
 // sdl2.GetPixelFormatName
-Gura_DeclareFunction(GetPixelFormatName)
+Gura_DeclareFunctionAlias(__GetPixelFormatName, "GetPixelFormatName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3949,7 +3949,7 @@ Gura_DeclareFunction(GetPixelFormatName)
 		"");
 }
 
-Gura_ImplementFunction(GetPixelFormatName)
+Gura_ImplementFunction(__GetPixelFormatName)
 {
 	Uint32 format = args.GetULong(0);
 	const char *_rtn = SDL_GetPixelFormatName(format);
@@ -3964,7 +3964,7 @@ Gura_ImplementFunction(GetPixelFormatName)
 }
 
 // sdl2.GetRGB
-Gura_DeclareFunction(GetRGB)
+Gura_DeclareFunctionAlias(__GetRGB, "GetRGB")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3975,7 +3975,7 @@ Gura_DeclareFunction(GetRGB)
 		"");
 }
 
-Gura_ImplementFunction(GetRGB)
+Gura_ImplementFunction(__GetRGB)
 {
 	Uint32 pixel = args.GetULong(0);
 	const SDL_PixelFormat *format = Object_PixelFormat::GetObject(args, 1)->GetEntity();
@@ -3987,7 +3987,7 @@ Gura_ImplementFunction(GetRGB)
 }
 
 // sdl2.GetRGBA
-Gura_DeclareFunction(GetRGBA)
+Gura_DeclareFunctionAlias(__GetRGBA, "GetRGBA")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3998,7 +3998,7 @@ Gura_DeclareFunction(GetRGBA)
 		"");
 }
 
-Gura_ImplementFunction(GetRGBA)
+Gura_ImplementFunction(__GetRGBA)
 {
 	Uint32 pixel = args.GetULong(0);
 	const SDL_PixelFormat *format = Object_PixelFormat::GetObject(args, 1)->GetEntity();
@@ -4012,7 +4012,7 @@ Gura_ImplementFunction(GetRGBA)
 }
 
 // sdl2.MapRGB
-Gura_DeclareFunction(MapRGB)
+Gura_DeclareFunctionAlias(__MapRGB, "MapRGB")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4025,7 +4025,7 @@ Gura_DeclareFunction(MapRGB)
 		"");
 }
 
-Gura_ImplementFunction(MapRGB)
+Gura_ImplementFunction(__MapRGB)
 {
 	const SDL_PixelFormat *format = Object_PixelFormat::GetObject(args, 0)->GetEntity();
 	Uint8 r = args.GetUChar(1);
@@ -4036,7 +4036,7 @@ Gura_ImplementFunction(MapRGB)
 }
 
 // sdl2.MapRGBA
-Gura_DeclareFunction(MapRGBA)
+Gura_DeclareFunctionAlias(__MapRGBA, "MapRGBA")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4050,7 +4050,7 @@ Gura_DeclareFunction(MapRGBA)
 		"");
 }
 
-Gura_ImplementFunction(MapRGBA)
+Gura_ImplementFunction(__MapRGBA)
 {
 	const SDL_PixelFormat *format = Object_PixelFormat::GetObject(args, 0)->GetEntity();
 	Uint8 r = args.GetUChar(1);
@@ -4062,7 +4062,7 @@ Gura_ImplementFunction(MapRGBA)
 }
 
 // sdl2.MasksToPixelFormatEnum
-Gura_DeclareFunction(MasksToPixelFormatEnum)
+Gura_DeclareFunctionAlias(__MasksToPixelFormatEnum, "MasksToPixelFormatEnum")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4076,7 +4076,7 @@ Gura_DeclareFunction(MasksToPixelFormatEnum)
 		"");
 }
 
-Gura_ImplementFunction(MasksToPixelFormatEnum)
+Gura_ImplementFunction(__MasksToPixelFormatEnum)
 {
 	int bpp = args.GetInt(0);
 	Uint32 Rmask = args.GetULong(1);
@@ -4088,7 +4088,7 @@ Gura_ImplementFunction(MasksToPixelFormatEnum)
 }
 
 // sdl2.PixelFormatEnumToMasks
-Gura_DeclareFunction(PixelFormatEnumToMasks)
+Gura_DeclareFunctionAlias(__PixelFormatEnumToMasks, "PixelFormatEnumToMasks")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4098,7 +4098,7 @@ Gura_DeclareFunction(PixelFormatEnumToMasks)
 		"");
 }
 
-Gura_ImplementFunction(PixelFormatEnumToMasks)
+Gura_ImplementFunction(__PixelFormatEnumToMasks)
 {
 	Uint32 format = args.GetULong(0);
 	int bpp = 0;
@@ -4116,7 +4116,7 @@ Gura_ImplementFunction(PixelFormatEnumToMasks)
 }
 
 // sdl2.SetPaletteColors
-Gura_DeclareFunction(SetPaletteColors)
+Gura_DeclareFunctionAlias(__SetPaletteColors, "SetPaletteColors")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "palette", VTYPE_Palette, OCCUR_Once, FLAG_None);
@@ -4128,7 +4128,7 @@ Gura_DeclareFunction(SetPaletteColors)
 		"");
 }
 
-Gura_ImplementFunction(SetPaletteColors)
+Gura_ImplementFunction(__SetPaletteColors)
 {
 	SDL_Palette *palette = Object_Palette::GetObject(args, 0)->GetEntity();
 	CArray<SDL_Color> colors = CreateCArray<SDL_Color, Object_Color>(args.GetList(1));
@@ -4148,7 +4148,7 @@ Gura_ImplementFunction(SetPaletteColors)
 }
 
 // sdl2.SetPixelFormatPalette
-Gura_DeclareFunction(SetPixelFormatPalette)
+Gura_DeclareFunctionAlias(__SetPixelFormatPalette, "SetPixelFormatPalette")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "format", VTYPE_PixelFormat, OCCUR_Once, FLAG_None);
@@ -4158,7 +4158,7 @@ Gura_DeclareFunction(SetPixelFormatPalette)
 		"");
 }
 
-Gura_ImplementFunction(SetPixelFormatPalette)
+Gura_ImplementFunction(__SetPixelFormatPalette)
 {
 	SDL_PixelFormat *format = Object_PixelFormat::GetObject(args, 0)->GetEntity();
 	SDL_Palette *palette = Object_Palette::GetObject(args, 1)->GetEntity();
@@ -4171,7 +4171,7 @@ Gura_ImplementFunction(SetPixelFormatPalette)
 }
 
 // sdl2.EnclosePoints
-Gura_DeclareFunction(EnclosePoints)
+Gura_DeclareFunctionAlias(__EnclosePoints, "EnclosePoints")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4182,7 +4182,7 @@ Gura_DeclareFunction(EnclosePoints)
 		"");
 }
 
-Gura_ImplementFunction(EnclosePoints)
+Gura_ImplementFunction(__EnclosePoints)
 {
 	CArray<SDL_Point> points = CreateCArray<SDL_Point, Object_Point>(args.GetList(0));
 	const SDL_Rect *clip = Object_Rect::GetObject(args, 1)->GetEntity();
@@ -4197,7 +4197,7 @@ Gura_ImplementFunction(EnclosePoints)
 }
 
 // sdl2.HasIntersection
-Gura_DeclareFunction(HasIntersection)
+Gura_DeclareFunctionAlias(__HasIntersection, "HasIntersection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4208,7 +4208,7 @@ Gura_DeclareFunction(HasIntersection)
 		"");
 }
 
-Gura_ImplementFunction(HasIntersection)
+Gura_ImplementFunction(__HasIntersection)
 {
 	const SDL_Rect *A = Object_Rect::GetObject(args, 0)->GetEntity();
 	const SDL_Rect *B = Object_Rect::GetObject(args, 1)->GetEntity();
@@ -4217,7 +4217,7 @@ Gura_ImplementFunction(HasIntersection)
 }
 
 // sdl2.IntersectRect
-Gura_DeclareFunction(IntersectRect)
+Gura_DeclareFunctionAlias(__IntersectRect, "IntersectRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4228,7 +4228,7 @@ Gura_DeclareFunction(IntersectRect)
 		"");
 }
 
-Gura_ImplementFunction(IntersectRect)
+Gura_ImplementFunction(__IntersectRect)
 {
 	const SDL_Rect *A = Object_Rect::GetObject(args, 0)->GetEntity();
 	const SDL_Rect *B = Object_Rect::GetObject(args, 1)->GetEntity();
@@ -4242,7 +4242,7 @@ Gura_ImplementFunction(IntersectRect)
 }
 
 // sdl2.IntersectRectAndLine
-Gura_DeclareFunction(IntersectRectAndLine)
+Gura_DeclareFunctionAlias(__IntersectRectAndLine, "IntersectRectAndLine")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_None);
@@ -4255,7 +4255,7 @@ Gura_DeclareFunction(IntersectRectAndLine)
 		"");
 }
 
-Gura_ImplementFunction(IntersectRectAndLine)
+Gura_ImplementFunction(__IntersectRectAndLine)
 {
 #if 0
 	const SDL_Rect *rect = Object_Rect::GetObject(args, 0)->GetEntity();
@@ -4271,7 +4271,7 @@ Gura_ImplementFunction(IntersectRectAndLine)
 }
 
 // sdl2.PointInRect
-Gura_DeclareFunction(PointInRect)
+Gura_DeclareFunctionAlias(__PointInRect, "PointInRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "p", VTYPE_Point, OCCUR_Once, FLAG_None);
@@ -4281,7 +4281,7 @@ Gura_DeclareFunction(PointInRect)
 		"");
 }
 
-Gura_ImplementFunction(PointInRect)
+Gura_ImplementFunction(__PointInRect)
 {
 #if 0
 	const SDL_Point *p = Object_Point::GetObject(args, 0)->GetEntity();
@@ -4294,7 +4294,7 @@ Gura_ImplementFunction(PointInRect)
 }
 
 // sdl2.RectEmpty
-Gura_DeclareFunction(RectEmpty)
+Gura_DeclareFunctionAlias(__RectEmpty, "RectEmpty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4304,7 +4304,7 @@ Gura_DeclareFunction(RectEmpty)
 		"");
 }
 
-Gura_ImplementFunction(RectEmpty)
+Gura_ImplementFunction(__RectEmpty)
 {
 	const SDL_Rect *r = Object_Rect::GetObject(args, 0)->GetEntity();
 	SDL_bool _rtn = SDL_RectEmpty(r);
@@ -4312,7 +4312,7 @@ Gura_ImplementFunction(RectEmpty)
 }
 
 // sdl2.RectEquals
-Gura_DeclareFunction(RectEquals)
+Gura_DeclareFunctionAlias(__RectEquals, "RectEquals")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4323,7 +4323,7 @@ Gura_DeclareFunction(RectEquals)
 		"");
 }
 
-Gura_ImplementFunction(RectEquals)
+Gura_ImplementFunction(__RectEquals)
 {
 	const SDL_Rect *a = Object_Rect::GetObject(args, 0)->GetEntity();
 	const SDL_Rect *b = Object_Rect::GetObject(args, 1)->GetEntity();
@@ -4332,7 +4332,7 @@ Gura_ImplementFunction(RectEquals)
 }
 
 // sdl2.UnionRect
-Gura_DeclareFunction(UnionRect)
+Gura_DeclareFunctionAlias(__UnionRect, "UnionRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4343,7 +4343,7 @@ Gura_DeclareFunction(UnionRect)
 		"");
 }
 
-Gura_ImplementFunction(UnionRect)
+Gura_ImplementFunction(__UnionRect)
 {
 	const SDL_Rect *A = Object_Rect::GetObject(args, 0)->GetEntity();
 	const SDL_Rect *B = Object_Rect::GetObject(args, 1)->GetEntity();
@@ -4354,7 +4354,7 @@ Gura_ImplementFunction(UnionRect)
 }
 
 // sdl2.BlitScaled
-Gura_DeclareFunction(BlitScaled)
+Gura_DeclareFunctionAlias(__BlitScaled, "BlitScaled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "src", VTYPE_Surface, OCCUR_Once, FLAG_None);
@@ -4366,7 +4366,7 @@ Gura_DeclareFunction(BlitScaled)
 		"");
 }
 
-Gura_ImplementFunction(BlitScaled)
+Gura_ImplementFunction(__BlitScaled)
 {
 	SDL_Surface *src = Object_Surface::GetObject(args, 0)->GetEntity();
 	const SDL_Rect *srcrect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
@@ -4381,7 +4381,7 @@ Gura_ImplementFunction(BlitScaled)
 }
 
 // sdl2.BlitSurface
-Gura_DeclareFunction(BlitSurface)
+Gura_DeclareFunctionAlias(__BlitSurface, "BlitSurface")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "src", VTYPE_Surface, OCCUR_Once, FLAG_None);
@@ -4393,7 +4393,7 @@ Gura_DeclareFunction(BlitSurface)
 		"");
 }
 
-Gura_ImplementFunction(BlitSurface)
+Gura_ImplementFunction(__BlitSurface)
 {
 	SDL_Surface *src = Object_Surface::GetObject(args, 0)->GetEntity();
 	const SDL_Rect *srcrect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
@@ -4408,7 +4408,7 @@ Gura_ImplementFunction(BlitSurface)
 }
 
 // sdl2.ConvertPixels
-Gura_DeclareFunction(ConvertPixels)
+Gura_DeclareFunctionAlias(__ConvertPixels, "ConvertPixels")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4420,7 +4420,7 @@ Gura_DeclareFunction(ConvertPixels)
 		"");
 }
 
-Gura_ImplementFunction(ConvertPixels)
+Gura_ImplementFunction(__ConvertPixels)
 {
 #if 0
 	int width = args.GetInt(0);
@@ -4439,7 +4439,7 @@ Gura_ImplementFunction(ConvertPixels)
 }
 
 // sdl2.ConvertSurface
-Gura_DeclareFunction(ConvertSurface)
+Gura_DeclareFunctionAlias(__ConvertSurface, "ConvertSurface")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4451,7 +4451,7 @@ Gura_DeclareFunction(ConvertSurface)
 		"");
 }
 
-Gura_ImplementFunction(ConvertSurface)
+Gura_ImplementFunction(__ConvertSurface)
 {
 	SDL_Surface *src = Object_Surface::GetObject(args, 0)->GetEntity();
 	const SDL_PixelFormat *fmt = Object_PixelFormat::GetObject(args, 1)->GetEntity();
@@ -4468,7 +4468,7 @@ Gura_ImplementFunction(ConvertSurface)
 }
 
 // sdl2.ConvertSurfaceFormat
-Gura_DeclareFunction(ConvertSurfaceFormat)
+Gura_DeclareFunctionAlias(__ConvertSurfaceFormat, "ConvertSurfaceFormat")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4480,7 +4480,7 @@ Gura_DeclareFunction(ConvertSurfaceFormat)
 		"");
 }
 
-Gura_ImplementFunction(ConvertSurfaceFormat)
+Gura_ImplementFunction(__ConvertSurfaceFormat)
 {
 	SDL_Surface *src = Object_Surface::GetObject(args, 0)->GetEntity();
 	Uint32 pixel_format = args.GetULong(1);
@@ -4497,7 +4497,7 @@ Gura_ImplementFunction(ConvertSurfaceFormat)
 }
 
 // sdl2.CreateRGBSurface
-Gura_DeclareFunction(CreateRGBSurface)
+Gura_DeclareFunctionAlias(__CreateRGBSurface, "CreateRGBSurface")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4514,7 +4514,7 @@ Gura_DeclareFunction(CreateRGBSurface)
 		"");
 }
 
-Gura_ImplementFunction(CreateRGBSurface)
+Gura_ImplementFunction(__CreateRGBSurface)
 {
 	Uint32 flags = args.GetULong(0);
 	int width = args.GetInt(1);
@@ -4536,7 +4536,7 @@ Gura_ImplementFunction(CreateRGBSurface)
 }
 
 // sdl2.CreateRGBSurfaceFrom
-Gura_DeclareFunction(CreateRGBSurfaceFrom)
+Gura_DeclareFunctionAlias(__CreateRGBSurfaceFrom, "CreateRGBSurfaceFrom")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4554,7 +4554,7 @@ Gura_DeclareFunction(CreateRGBSurfaceFrom)
 		"");
 }
 
-Gura_ImplementFunction(CreateRGBSurfaceFrom)
+Gura_ImplementFunction(__CreateRGBSurfaceFrom)
 {
 	const Binary &pixels = Object_binary::GetObject(args, 0)->GetBinary();
 	int width = args.GetInt(1);
@@ -4580,7 +4580,7 @@ Gura_ImplementFunction(CreateRGBSurfaceFrom)
 }
 
 // sdl2.CreateRGBSurfaceFromImage
-Gura_DeclareFunction(CreateRGBSurfaceFromImage)
+Gura_DeclareFunctionAlias(__CreateRGBSurfaceFromImage, "CreateRGBSurfaceFromImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4590,7 +4590,7 @@ Gura_DeclareFunction(CreateRGBSurfaceFromImage)
 		"");
 }
 
-Gura_ImplementFunction(CreateRGBSurfaceFromImage)
+Gura_ImplementFunction(__CreateRGBSurfaceFromImage)
 {
 	Image *image = Object_image::GetObject(args, 0)->GetImage();
 	Object_Surface *pObjSurface = Object_Surface::CreateSurfaceFromImage(sig, image);
@@ -4599,7 +4599,7 @@ Gura_ImplementFunction(CreateRGBSurfaceFromImage)
 }
 
 // sdl2.FillRect
-Gura_DeclareFunction(FillRect)
+Gura_DeclareFunctionAlias(__FillRect, "FillRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "dst", VTYPE_Surface, OCCUR_Once, FLAG_None);
@@ -4610,7 +4610,7 @@ Gura_DeclareFunction(FillRect)
 		"");
 }
 
-Gura_ImplementFunction(FillRect)
+Gura_ImplementFunction(__FillRect)
 {
 	SDL_Surface *dst = Object_Surface::GetObject(args, 0)->GetEntity();
 	const SDL_Rect *rect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
@@ -4624,7 +4624,7 @@ Gura_ImplementFunction(FillRect)
 }
 
 // sdl2.FillRects
-Gura_DeclareFunction(FillRects)
+Gura_DeclareFunctionAlias(__FillRects, "FillRects")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "dst", VTYPE_Surface, OCCUR_Once, FLAG_None);
@@ -4635,7 +4635,7 @@ Gura_DeclareFunction(FillRects)
 		"");
 }
 
-Gura_ImplementFunction(FillRects)
+Gura_ImplementFunction(__FillRects)
 {
 	SDL_Surface *dst = Object_Surface::GetObject(args, 0)->GetEntity();
 	CArray<SDL_Rect> rects = CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1));
@@ -4650,7 +4650,7 @@ Gura_ImplementFunction(FillRects)
 }
 
 // sdl2.FreeSurface
-Gura_DeclareFunction(FreeSurface)
+Gura_DeclareFunctionAlias(__FreeSurface, "FreeSurface")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
@@ -4659,7 +4659,7 @@ Gura_DeclareFunction(FreeSurface)
 		"");
 }
 
-Gura_ImplementFunction(FreeSurface)
+Gura_ImplementFunction(__FreeSurface)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	SDL_FreeSurface(surface);
@@ -4667,7 +4667,7 @@ Gura_ImplementFunction(FreeSurface)
 }
 
 // sdl2.GetClipRect
-Gura_DeclareFunction(GetClipRect)
+Gura_DeclareFunctionAlias(__GetClipRect, "GetClipRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4677,7 +4677,7 @@ Gura_DeclareFunction(GetClipRect)
 		"");
 }
 
-Gura_ImplementFunction(GetClipRect)
+Gura_ImplementFunction(__GetClipRect)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	SDL_Rect rect;
@@ -4686,7 +4686,7 @@ Gura_ImplementFunction(GetClipRect)
 }
 
 // sdl2.GetColorKey
-Gura_DeclareFunction(GetColorKey)
+Gura_DeclareFunctionAlias(__GetColorKey, "GetColorKey")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4696,7 +4696,7 @@ Gura_DeclareFunction(GetColorKey)
 		"");
 }
 
-Gura_ImplementFunction(GetColorKey)
+Gura_ImplementFunction(__GetColorKey)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	Uint32 key = 0;
@@ -4712,7 +4712,7 @@ Gura_ImplementFunction(GetColorKey)
 }
 
 // sdl2.GetSurfaceAlphaMod
-Gura_DeclareFunction(GetSurfaceAlphaMod)
+Gura_DeclareFunctionAlias(__GetSurfaceAlphaMod, "GetSurfaceAlphaMod")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4722,7 +4722,7 @@ Gura_DeclareFunction(GetSurfaceAlphaMod)
 		"");
 }
 
-Gura_ImplementFunction(GetSurfaceAlphaMod)
+Gura_ImplementFunction(__GetSurfaceAlphaMod)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	Uint8 alpha = 0;
@@ -4735,7 +4735,7 @@ Gura_ImplementFunction(GetSurfaceAlphaMod)
 }
 
 // sdl2.GetSurfaceBlendMode
-Gura_DeclareFunction(GetSurfaceBlendMode)
+Gura_DeclareFunctionAlias(__GetSurfaceBlendMode, "GetSurfaceBlendMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4745,7 +4745,7 @@ Gura_DeclareFunction(GetSurfaceBlendMode)
 		"");
 }
 
-Gura_ImplementFunction(GetSurfaceBlendMode)
+Gura_ImplementFunction(__GetSurfaceBlendMode)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	SDL_BlendMode blendMode = SDL_BLENDMODE_NONE;
@@ -4758,7 +4758,7 @@ Gura_ImplementFunction(GetSurfaceBlendMode)
 }
 
 // sdl2.GetSurfaceColorMod
-Gura_DeclareFunction(GetSurfaceColorMod)
+Gura_DeclareFunctionAlias(__GetSurfaceColorMod, "GetSurfaceColorMod")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4768,7 +4768,7 @@ Gura_DeclareFunction(GetSurfaceColorMod)
 		"");
 }
 
-Gura_ImplementFunction(GetSurfaceColorMod)
+Gura_ImplementFunction(__GetSurfaceColorMod)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	Uint8 r = 0;
@@ -4780,7 +4780,7 @@ Gura_ImplementFunction(GetSurfaceColorMod)
 }
 
 // sdl2.LoadBMP
-Gura_DeclareFunction(LoadBMP)
+Gura_DeclareFunctionAlias(__LoadBMP, "LoadBMP")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4790,7 +4790,7 @@ Gura_DeclareFunction(LoadBMP)
 		"");
 }
 
-Gura_ImplementFunction(LoadBMP)
+Gura_ImplementFunction(__LoadBMP)
 {
 	Stream &src = Object_stream::GetObject(args, 0)->GetStream();
 	std::auto_ptr<SDL_RWops> _src(CreateRWopsStream(&src, &sig));
@@ -4803,7 +4803,7 @@ Gura_ImplementFunction(LoadBMP)
 }
 
 // sdl2.LoadBMP_RW
-Gura_DeclareFunction(LoadBMP_RW)
+Gura_DeclareFunctionAlias(__LoadBMP_RW, "LoadBMP_RW")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -4811,7 +4811,7 @@ Gura_DeclareFunction(LoadBMP_RW)
 		"");
 }
 
-Gura_ImplementFunction(LoadBMP_RW)
+Gura_ImplementFunction(__LoadBMP_RW)
 {
 #if 0
 	SDL_LoadBMP_RW();
@@ -4822,7 +4822,7 @@ Gura_ImplementFunction(LoadBMP_RW)
 }
 
 // sdl2.LockSurface
-Gura_DeclareFunction(LockSurface)
+Gura_DeclareFunctionAlias(__LockSurface, "LockSurface")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
@@ -4831,7 +4831,7 @@ Gura_DeclareFunction(LockSurface)
 		"");
 }
 
-Gura_ImplementFunction(LockSurface)
+Gura_ImplementFunction(__LockSurface)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_LockSurface(surface);
@@ -4843,7 +4843,7 @@ Gura_ImplementFunction(LockSurface)
 }
 
 // sdl2.LowerBlit
-Gura_DeclareFunction(LowerBlit)
+Gura_DeclareFunctionAlias(__LowerBlit, "LowerBlit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "src", VTYPE_Surface, OCCUR_Once, FLAG_None);
@@ -4855,7 +4855,7 @@ Gura_DeclareFunction(LowerBlit)
 		"");
 }
 
-Gura_ImplementFunction(LowerBlit)
+Gura_ImplementFunction(__LowerBlit)
 {
 	SDL_Surface *src = Object_Surface::GetObject(args, 0)->GetEntity();
 	SDL_Rect *srcrect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
@@ -4870,7 +4870,7 @@ Gura_ImplementFunction(LowerBlit)
 }
 
 // sdl2.LowerBlitScaled
-Gura_DeclareFunction(LowerBlitScaled)
+Gura_DeclareFunctionAlias(__LowerBlitScaled, "LowerBlitScaled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "src", VTYPE_Surface, OCCUR_Once, FLAG_None);
@@ -4882,7 +4882,7 @@ Gura_DeclareFunction(LowerBlitScaled)
 		"");
 }
 
-Gura_ImplementFunction(LowerBlitScaled)
+Gura_ImplementFunction(__LowerBlitScaled)
 {
 	SDL_Surface *src = Object_Surface::GetObject(args, 0)->GetEntity();
 	SDL_Rect *srcrect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
@@ -4897,7 +4897,7 @@ Gura_ImplementFunction(LowerBlitScaled)
 }
 
 // sdl2.MUSTLOCK
-Gura_DeclareFunction(MUSTLOCK)
+Gura_DeclareFunctionAlias(__MUSTLOCK, "MUSTLOCK")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4907,7 +4907,7 @@ Gura_DeclareFunction(MUSTLOCK)
 		"");
 }
 
-Gura_ImplementFunction(MUSTLOCK)
+Gura_ImplementFunction(__MUSTLOCK)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	bool _rtn = SDL_MUSTLOCK(surface);
@@ -4915,7 +4915,7 @@ Gura_ImplementFunction(MUSTLOCK)
 }
 
 // sdl2.SaveBMP
-Gura_DeclareFunction(SaveBMP)
+Gura_DeclareFunctionAlias(__SaveBMP, "SaveBMP")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4926,7 +4926,7 @@ Gura_DeclareFunction(SaveBMP)
 		"");
 }
 
-Gura_ImplementFunction(SaveBMP)
+Gura_ImplementFunction(__SaveBMP)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	Stream &dst = Object_stream::GetObject(args, 1)->GetStream();
@@ -4940,7 +4940,7 @@ Gura_ImplementFunction(SaveBMP)
 }
 
 // sdl2.SaveBMP_RW
-Gura_DeclareFunction(SaveBMP_RW)
+Gura_DeclareFunctionAlias(__SaveBMP_RW, "SaveBMP_RW")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -4948,7 +4948,7 @@ Gura_DeclareFunction(SaveBMP_RW)
 		"");
 }
 
-Gura_ImplementFunction(SaveBMP_RW)
+Gura_ImplementFunction(__SaveBMP_RW)
 {
 #if 0
 	SDL_SaveBMP_RW();
@@ -4959,7 +4959,7 @@ Gura_ImplementFunction(SaveBMP_RW)
 }
 
 // sdl2.SetClipRect
-Gura_DeclareFunction(SetClipRect)
+Gura_DeclareFunctionAlias(__SetClipRect, "SetClipRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4970,7 +4970,7 @@ Gura_DeclareFunction(SetClipRect)
 		"");
 }
 
-Gura_ImplementFunction(SetClipRect)
+Gura_ImplementFunction(__SetClipRect)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	const SDL_Rect *rect = Object_Rect::GetObject(args, 1)->GetEntity();
@@ -4979,7 +4979,7 @@ Gura_ImplementFunction(SetClipRect)
 }
 
 // sdl2.SetColorKey
-Gura_DeclareFunction(SetColorKey)
+Gura_DeclareFunctionAlias(__SetColorKey, "SetColorKey")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
@@ -4990,7 +4990,7 @@ Gura_DeclareFunction(SetColorKey)
 		"");
 }
 
-Gura_ImplementFunction(SetColorKey)
+Gura_ImplementFunction(__SetColorKey)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	int flag = args.GetInt(1);
@@ -5004,7 +5004,7 @@ Gura_ImplementFunction(SetColorKey)
 }
 
 // sdl2.SetSurfaceAlphaMod
-Gura_DeclareFunction(SetSurfaceAlphaMod)
+Gura_DeclareFunctionAlias(__SetSurfaceAlphaMod, "SetSurfaceAlphaMod")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
@@ -5014,7 +5014,7 @@ Gura_DeclareFunction(SetSurfaceAlphaMod)
 		"");
 }
 
-Gura_ImplementFunction(SetSurfaceAlphaMod)
+Gura_ImplementFunction(__SetSurfaceAlphaMod)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	Uint8 alpha = args.GetUChar(1);
@@ -5027,7 +5027,7 @@ Gura_ImplementFunction(SetSurfaceAlphaMod)
 }
 
 // sdl2.SetSurfaceBlendMode
-Gura_DeclareFunction(SetSurfaceBlendMode)
+Gura_DeclareFunctionAlias(__SetSurfaceBlendMode, "SetSurfaceBlendMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
@@ -5037,7 +5037,7 @@ Gura_DeclareFunction(SetSurfaceBlendMode)
 		"");
 }
 
-Gura_ImplementFunction(SetSurfaceBlendMode)
+Gura_ImplementFunction(__SetSurfaceBlendMode)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	SDL_BlendMode blendMode = static_cast<SDL_BlendMode>(args.GetInt(1));
@@ -5050,7 +5050,7 @@ Gura_ImplementFunction(SetSurfaceBlendMode)
 }
 
 // sdl2.SetSurfaceColorMod
-Gura_DeclareFunction(SetSurfaceColorMod)
+Gura_DeclareFunctionAlias(__SetSurfaceColorMod, "SetSurfaceColorMod")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
@@ -5062,7 +5062,7 @@ Gura_DeclareFunction(SetSurfaceColorMod)
 		"");
 }
 
-Gura_ImplementFunction(SetSurfaceColorMod)
+Gura_ImplementFunction(__SetSurfaceColorMod)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	Uint8 r = args.GetUChar(1);
@@ -5077,7 +5077,7 @@ Gura_ImplementFunction(SetSurfaceColorMod)
 }
 
 // sdl2.SetSurfacePalette
-Gura_DeclareFunction(SetSurfacePalette)
+Gura_DeclareFunctionAlias(__SetSurfacePalette, "SetSurfacePalette")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
@@ -5087,7 +5087,7 @@ Gura_DeclareFunction(SetSurfacePalette)
 		"");
 }
 
-Gura_ImplementFunction(SetSurfacePalette)
+Gura_ImplementFunction(__SetSurfacePalette)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	SDL_Palette *palette = Object_Palette::GetObject(args, 1)->GetEntity();
@@ -5100,7 +5100,7 @@ Gura_ImplementFunction(SetSurfacePalette)
 }
 
 // sdl2.SetSurfaceRLE
-Gura_DeclareFunction(SetSurfaceRLE)
+Gura_DeclareFunctionAlias(__SetSurfaceRLE, "SetSurfaceRLE")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
@@ -5110,7 +5110,7 @@ Gura_DeclareFunction(SetSurfaceRLE)
 		"");
 }
 
-Gura_ImplementFunction(SetSurfaceRLE)
+Gura_ImplementFunction(__SetSurfaceRLE)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	int flag = args.GetInt(1);
@@ -5123,7 +5123,7 @@ Gura_ImplementFunction(SetSurfaceRLE)
 }
 
 // sdl2.UnlockSurface
-Gura_DeclareFunction(UnlockSurface)
+Gura_DeclareFunctionAlias(__UnlockSurface, "UnlockSurface")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
@@ -5132,7 +5132,7 @@ Gura_DeclareFunction(UnlockSurface)
 		"");
 }
 
-Gura_ImplementFunction(UnlockSurface)
+Gura_ImplementFunction(__UnlockSurface)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	SDL_UnlockSurface(surface);
@@ -5140,7 +5140,7 @@ Gura_ImplementFunction(UnlockSurface)
 }
 
 // sdl2.GetClipboardText
-Gura_DeclareFunction(GetClipboardText)
+Gura_DeclareFunctionAlias(__GetClipboardText, "GetClipboardText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5149,7 +5149,7 @@ Gura_DeclareFunction(GetClipboardText)
 		"");
 }
 
-Gura_ImplementFunction(GetClipboardText)
+Gura_ImplementFunction(__GetClipboardText)
 {
 	char *_rtn = SDL_GetClipboardText();
 	Value _rtnVal(_rtn);
@@ -5158,7 +5158,7 @@ Gura_ImplementFunction(GetClipboardText)
 }
 
 // sdl2.HasClipboardText
-Gura_DeclareFunction(HasClipboardText)
+Gura_DeclareFunctionAlias(__HasClipboardText, "HasClipboardText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5167,14 +5167,14 @@ Gura_DeclareFunction(HasClipboardText)
 		"");
 }
 
-Gura_ImplementFunction(HasClipboardText)
+Gura_ImplementFunction(__HasClipboardText)
 {
 	SDL_bool _rtn = SDL_HasClipboardText();
 	return ReturnValue(env, sig, args, Value(_rtn != SDL_FALSE));
 }
 
 // sdl2.SetClipboardText
-Gura_DeclareFunction(SetClipboardText)
+Gura_DeclareFunctionAlias(__SetClipboardText, "SetClipboardText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once, FLAG_None);
@@ -5183,7 +5183,7 @@ Gura_DeclareFunction(SetClipboardText)
 		"");
 }
 
-Gura_ImplementFunction(SetClipboardText)
+Gura_ImplementFunction(__SetClipboardText)
 {
 	const char *text = args.GetString(0);
 	int _rtn = SDL_SetClipboardText(text);
@@ -5195,7 +5195,7 @@ Gura_ImplementFunction(SetClipboardText)
 }
 
 // sdl2.AddEventWatch
-Gura_DeclareFunction(AddEventWatch)
+Gura_DeclareFunctionAlias(__AddEventWatch, "AddEventWatch")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -5203,7 +5203,7 @@ Gura_DeclareFunction(AddEventWatch)
 		"");
 }
 
-Gura_ImplementFunction(AddEventWatch)
+Gura_ImplementFunction(__AddEventWatch)
 {
 #if 0
 	SDL_AddEventWatch();
@@ -5214,7 +5214,7 @@ Gura_ImplementFunction(AddEventWatch)
 }
 
 // sdl2.DelEventWatch
-Gura_DeclareFunction(DelEventWatch)
+Gura_DeclareFunctionAlias(__DelEventWatch, "DelEventWatch")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -5222,7 +5222,7 @@ Gura_DeclareFunction(DelEventWatch)
 		"");
 }
 
-Gura_ImplementFunction(DelEventWatch)
+Gura_ImplementFunction(__DelEventWatch)
 {
 #if 0
 	SDL_DelEventWatch();
@@ -5233,7 +5233,7 @@ Gura_ImplementFunction(DelEventWatch)
 }
 
 // sdl2.EventState
-Gura_DeclareFunction(EventState)
+Gura_DeclareFunctionAlias(__EventState, "EventState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5244,7 +5244,7 @@ Gura_DeclareFunction(EventState)
 		"");
 }
 
-Gura_ImplementFunction(EventState)
+Gura_ImplementFunction(__EventState)
 {
 	Uint32 type = args.GetULong(0);
 	int state = args.GetInt(1);
@@ -5253,7 +5253,7 @@ Gura_ImplementFunction(EventState)
 }
 
 // sdl2.FilterEvents
-Gura_DeclareFunction(FilterEvents)
+Gura_DeclareFunctionAlias(__FilterEvents, "FilterEvents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -5261,7 +5261,7 @@ Gura_DeclareFunction(FilterEvents)
 		"");
 }
 
-Gura_ImplementFunction(FilterEvents)
+Gura_ImplementFunction(__FilterEvents)
 {
 #if 0
 	SDL_FilterEvents();
@@ -5272,7 +5272,7 @@ Gura_ImplementFunction(FilterEvents)
 }
 
 // sdl2.FlushEvent
-Gura_DeclareFunction(FlushEvent)
+Gura_DeclareFunctionAlias(__FlushEvent, "FlushEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5281,7 +5281,7 @@ Gura_DeclareFunction(FlushEvent)
 		"");
 }
 
-Gura_ImplementFunction(FlushEvent)
+Gura_ImplementFunction(__FlushEvent)
 {
 	Uint32 type = args.GetULong(0);
 	SDL_FlushEvent(type);
@@ -5289,7 +5289,7 @@ Gura_ImplementFunction(FlushEvent)
 }
 
 // sdl2.FlushEvents
-Gura_DeclareFunction(FlushEvents)
+Gura_DeclareFunctionAlias(__FlushEvents, "FlushEvents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "minType", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5299,7 +5299,7 @@ Gura_DeclareFunction(FlushEvents)
 		"");
 }
 
-Gura_ImplementFunction(FlushEvents)
+Gura_ImplementFunction(__FlushEvents)
 {
 	Uint32 minType = args.GetULong(0);
 	Uint32 maxType = args.GetULong(1);
@@ -5308,7 +5308,7 @@ Gura_ImplementFunction(FlushEvents)
 }
 
 // sdl2.GetEventFilter
-Gura_DeclareFunction(GetEventFilter)
+Gura_DeclareFunctionAlias(__GetEventFilter, "GetEventFilter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -5316,7 +5316,7 @@ Gura_DeclareFunction(GetEventFilter)
 		"");
 }
 
-Gura_ImplementFunction(GetEventFilter)
+Gura_ImplementFunction(__GetEventFilter)
 {
 #if 0
 	SDL_GetEventFilter();
@@ -5327,7 +5327,7 @@ Gura_ImplementFunction(GetEventFilter)
 }
 
 // sdl2.GetNumTouchDevices
-Gura_DeclareFunction(GetNumTouchDevices)
+Gura_DeclareFunctionAlias(__GetNumTouchDevices, "GetNumTouchDevices")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5336,14 +5336,14 @@ Gura_DeclareFunction(GetNumTouchDevices)
 		"");
 }
 
-Gura_ImplementFunction(GetNumTouchDevices)
+Gura_ImplementFunction(__GetNumTouchDevices)
 {
 	int _rtn = SDL_GetNumTouchDevices();
 	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // sdl2.GetNumTouchFingers
-Gura_DeclareFunction(GetNumTouchFingers)
+Gura_DeclareFunctionAlias(__GetNumTouchFingers, "GetNumTouchFingers")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5353,7 +5353,7 @@ Gura_DeclareFunction(GetNumTouchFingers)
 		"");
 }
 
-Gura_ImplementFunction(GetNumTouchFingers)
+Gura_ImplementFunction(__GetNumTouchFingers)
 {
 	SDL_TouchID touchId = static_cast<SDL_TouchID>(args.GetInt(0));
 	int _rtn = SDL_GetNumTouchFingers(touchId);
@@ -5365,7 +5365,7 @@ Gura_ImplementFunction(GetNumTouchFingers)
 }
 
 // sdl2.GetTouchDevice
-Gura_DeclareFunction(GetTouchDevice)
+Gura_DeclareFunctionAlias(__GetTouchDevice, "GetTouchDevice")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5375,7 +5375,7 @@ Gura_DeclareFunction(GetTouchDevice)
 		"");
 }
 
-Gura_ImplementFunction(GetTouchDevice)
+Gura_ImplementFunction(__GetTouchDevice)
 {
 	int index = args.GetInt(0);
 	SDL_TouchID _rtn = SDL_GetTouchDevice(index);
@@ -5387,7 +5387,7 @@ Gura_ImplementFunction(GetTouchDevice)
 }
 
 // sdl2.GetTouchFinger
-Gura_DeclareFunction(GetTouchFinger)
+Gura_DeclareFunctionAlias(__GetTouchFinger, "GetTouchFinger")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5398,7 +5398,7 @@ Gura_DeclareFunction(GetTouchFinger)
 		"");
 }
 
-Gura_ImplementFunction(GetTouchFinger)
+Gura_ImplementFunction(__GetTouchFinger)
 {
 	SDL_TouchID touchId = static_cast<SDL_TouchID>(args.GetInt(0));
 	int index = args.GetInt(1);
@@ -5414,7 +5414,7 @@ Gura_ImplementFunction(GetTouchFinger)
 }
 
 // sdl2.HasEvent
-Gura_DeclareFunction(HasEvent)
+Gura_DeclareFunctionAlias(__HasEvent, "HasEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5424,7 +5424,7 @@ Gura_DeclareFunction(HasEvent)
 		"");
 }
 
-Gura_ImplementFunction(HasEvent)
+Gura_ImplementFunction(__HasEvent)
 {
 	Uint32 type = args.GetULong(0);
 	SDL_bool _rtn = SDL_HasEvent(type);
@@ -5432,7 +5432,7 @@ Gura_ImplementFunction(HasEvent)
 }
 
 // sdl2.HasEvents
-Gura_DeclareFunction(HasEvents)
+Gura_DeclareFunctionAlias(__HasEvents, "HasEvents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5443,7 +5443,7 @@ Gura_DeclareFunction(HasEvents)
 		"");
 }
 
-Gura_ImplementFunction(HasEvents)
+Gura_ImplementFunction(__HasEvents)
 {
 	Uint32 minType = args.GetULong(0);
 	Uint32 maxType = args.GetULong(1);
@@ -5452,7 +5452,7 @@ Gura_ImplementFunction(HasEvents)
 }
 
 // sdl2.LoadDollarTemplates
-Gura_DeclareFunction(LoadDollarTemplates)
+Gura_DeclareFunctionAlias(__LoadDollarTemplates, "LoadDollarTemplates")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5463,7 +5463,7 @@ Gura_DeclareFunction(LoadDollarTemplates)
 		"");
 }
 
-Gura_ImplementFunction(LoadDollarTemplates)
+Gura_ImplementFunction(__LoadDollarTemplates)
 {
 	SDL_TouchID touchId = static_cast<SDL_TouchID>(args.GetInt(0));
 	Stream &src = Object_stream::GetObject(args, 1)->GetStream();
@@ -5477,7 +5477,7 @@ Gura_ImplementFunction(LoadDollarTemplates)
 }
 
 // sdl2.AddEvents
-Gura_DeclareFunction(AddEvents)
+Gura_DeclareFunctionAlias(__AddEvents, "AddEvents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5487,7 +5487,7 @@ Gura_DeclareFunction(AddEvents)
 		"");
 }
 
-Gura_ImplementFunction(AddEvents)
+Gura_ImplementFunction(__AddEvents)
 {
 	CArray<SDL_Event> events = CreateCArray<SDL_Event, Object_Event>(args.GetList(0));
 	int numevents = static_cast<int>(events.GetSize());
@@ -5500,7 +5500,7 @@ Gura_ImplementFunction(AddEvents)
 }
 
 // sdl2.PeekEvents
-Gura_DeclareFunction(PeekEvents)
+Gura_DeclareFunctionAlias(__PeekEvents, "PeekEvents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5512,7 +5512,7 @@ Gura_DeclareFunction(PeekEvents)
 		"");
 }
 
-Gura_ImplementFunction(PeekEvents)
+Gura_ImplementFunction(__PeekEvents)
 {
 	int numevents = args.GetInt(0);
 	Uint32 minType = args.GetULong(1);
@@ -5532,7 +5532,7 @@ Gura_ImplementFunction(PeekEvents)
 }
 
 // sdl2.GetEvents
-Gura_DeclareFunction(GetEvents)
+Gura_DeclareFunctionAlias(__GetEvents, "GetEvents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5544,7 +5544,7 @@ Gura_DeclareFunction(GetEvents)
 		"");
 }
 
-Gura_ImplementFunction(GetEvents)
+Gura_ImplementFunction(__GetEvents)
 {
 	int numevents = args.GetInt(0);
 	Uint32 minType = args.GetULong(1);
@@ -5564,7 +5564,7 @@ Gura_ImplementFunction(GetEvents)
 }
 
 // sdl2.PollEvent
-Gura_DeclareFunction(PollEvent)
+Gura_DeclareFunctionAlias(__PollEvent, "PollEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5573,7 +5573,7 @@ Gura_DeclareFunction(PollEvent)
 		"");
 }
 
-Gura_ImplementFunction(PollEvent)
+Gura_ImplementFunction(__PollEvent)
 {
 	SDL_Event event;
 	int _rtn = SDL_PollEvent(&event);
@@ -5582,7 +5582,7 @@ Gura_ImplementFunction(PollEvent)
 }
 
 // sdl2.PumpEvents
-Gura_DeclareFunction(PumpEvents)
+Gura_DeclareFunctionAlias(__PumpEvents, "PumpEvents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -5590,14 +5590,14 @@ Gura_DeclareFunction(PumpEvents)
 		"");
 }
 
-Gura_ImplementFunction(PumpEvents)
+Gura_ImplementFunction(__PumpEvents)
 {
 	SDL_PumpEvents();
 	return Value::Null;
 }
 
 // sdl2.PushEvent
-Gura_DeclareFunction(PushEvent)
+Gura_DeclareFunctionAlias(__PushEvent, "PushEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5607,7 +5607,7 @@ Gura_DeclareFunction(PushEvent)
 		"");
 }
 
-Gura_ImplementFunction(PushEvent)
+Gura_ImplementFunction(__PushEvent)
 {
 	SDL_Event *event = Object_Event::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_PushEvent(event);
@@ -5619,7 +5619,7 @@ Gura_ImplementFunction(PushEvent)
 }
 
 // sdl2.QuitRequested
-Gura_DeclareFunction(QuitRequested)
+Gura_DeclareFunctionAlias(__QuitRequested, "QuitRequested")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5628,14 +5628,14 @@ Gura_DeclareFunction(QuitRequested)
 		"");
 }
 
-Gura_ImplementFunction(QuitRequested)
+Gura_ImplementFunction(__QuitRequested)
 {
 	bool _rtn = SDL_QuitRequested();
 	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // sdl2.RecordGesture
-Gura_DeclareFunction(RecordGesture)
+Gura_DeclareFunctionAlias(__RecordGesture, "RecordGesture")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5645,7 +5645,7 @@ Gura_DeclareFunction(RecordGesture)
 		"");
 }
 
-Gura_ImplementFunction(RecordGesture)
+Gura_ImplementFunction(__RecordGesture)
 {
 	SDL_TouchID touchId = static_cast<SDL_TouchID>(args.GetInt(0));
 	int _rtn = SDL_RecordGesture(touchId);
@@ -5657,7 +5657,7 @@ Gura_ImplementFunction(RecordGesture)
 }
 
 // sdl2.RegisterEvents
-Gura_DeclareFunction(RegisterEvents)
+Gura_DeclareFunctionAlias(__RegisterEvents, "RegisterEvents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5667,7 +5667,7 @@ Gura_DeclareFunction(RegisterEvents)
 		"");
 }
 
-Gura_ImplementFunction(RegisterEvents)
+Gura_ImplementFunction(__RegisterEvents)
 {
 	int numevents = args.GetInt(0);
 	Uint32 _rtn = SDL_RegisterEvents(numevents);
@@ -5679,7 +5679,7 @@ Gura_ImplementFunction(RegisterEvents)
 }
 
 // sdl2.SaveAllDollarTemplates
-Gura_DeclareFunction(SaveAllDollarTemplates)
+Gura_DeclareFunctionAlias(__SaveAllDollarTemplates, "SaveAllDollarTemplates")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5689,7 +5689,7 @@ Gura_DeclareFunction(SaveAllDollarTemplates)
 		"");
 }
 
-Gura_ImplementFunction(SaveAllDollarTemplates)
+Gura_ImplementFunction(__SaveAllDollarTemplates)
 {
 	Stream &dst = Object_stream::GetObject(args, 0)->GetStream();
 	std::auto_ptr<SDL_RWops> _dst(CreateRWopsStream(&dst, &sig));
@@ -5702,7 +5702,7 @@ Gura_ImplementFunction(SaveAllDollarTemplates)
 }
 
 // sdl2.SaveDollarTemplate
-Gura_DeclareFunction(SaveDollarTemplate)
+Gura_DeclareFunctionAlias(__SaveDollarTemplate, "SaveDollarTemplate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "gestureId", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5712,7 +5712,7 @@ Gura_DeclareFunction(SaveDollarTemplate)
 		"");
 }
 
-Gura_ImplementFunction(SaveDollarTemplate)
+Gura_ImplementFunction(__SaveDollarTemplate)
 {
 	SDL_GestureID gestureId = static_cast<SDL_GestureID>(args.GetInt(0));
 	Stream &dst = Object_stream::GetObject(args, 1)->GetStream();
@@ -5726,7 +5726,7 @@ Gura_ImplementFunction(SaveDollarTemplate)
 }
 
 // sdl2.SetEventFilter
-Gura_DeclareFunction(SetEventFilter)
+Gura_DeclareFunctionAlias(__SetEventFilter, "SetEventFilter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -5734,7 +5734,7 @@ Gura_DeclareFunction(SetEventFilter)
 		"");
 }
 
-Gura_ImplementFunction(SetEventFilter)
+Gura_ImplementFunction(__SetEventFilter)
 {
 #if 0
 	SDL_SetEventFilter();
@@ -5745,7 +5745,7 @@ Gura_ImplementFunction(SetEventFilter)
 }
 
 // sdl2.WaitEvent
-Gura_DeclareFunction(WaitEvent)
+Gura_DeclareFunctionAlias(__WaitEvent, "WaitEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5754,7 +5754,7 @@ Gura_DeclareFunction(WaitEvent)
 		"");
 }
 
-Gura_ImplementFunction(WaitEvent)
+Gura_ImplementFunction(__WaitEvent)
 {
 	SDL_Event event;
 	int _rtn = SDL_WaitEvent(&event);
@@ -5766,7 +5766,7 @@ Gura_ImplementFunction(WaitEvent)
 }
 
 // sdl2.WaitEventTimeout
-Gura_DeclareFunction(WaitEventTimeout)
+Gura_DeclareFunctionAlias(__WaitEventTimeout, "WaitEventTimeout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5776,7 +5776,7 @@ Gura_DeclareFunction(WaitEventTimeout)
 		"");
 }
 
-Gura_ImplementFunction(WaitEventTimeout)
+Gura_ImplementFunction(__WaitEventTimeout)
 {
 	int timeout = args.GetInt(0);
 	SDL_Event event;
@@ -5792,7 +5792,7 @@ Gura_ImplementFunction(WaitEventTimeout)
 }
 
 // sdl2.CheckKeyboardState
-Gura_DeclareFunction(CheckKeyboardState)
+Gura_DeclareFunctionAlias(__CheckKeyboardState, "CheckKeyboardState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5802,7 +5802,7 @@ Gura_DeclareFunction(CheckKeyboardState)
 		"");
 }
 
-Gura_ImplementFunction(CheckKeyboardState)
+Gura_ImplementFunction(__CheckKeyboardState)
 {
 	SDL_Scancode scancode = static_cast<SDL_Scancode>(args.GetInt(0));
 	int numkeys = 0;
@@ -5812,7 +5812,7 @@ Gura_ImplementFunction(CheckKeyboardState)
 }
 
 // sdl2.GetKeyFromName
-Gura_DeclareFunction(GetKeyFromName)
+Gura_DeclareFunctionAlias(__GetKeyFromName, "GetKeyFromName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5822,7 +5822,7 @@ Gura_DeclareFunction(GetKeyFromName)
 		"");
 }
 
-Gura_ImplementFunction(GetKeyFromName)
+Gura_ImplementFunction(__GetKeyFromName)
 {
 	const char *name = args.GetString(0);
 	SDL_Keycode _rtn = SDL_GetKeyFromName(name);
@@ -5834,7 +5834,7 @@ Gura_ImplementFunction(GetKeyFromName)
 }
 
 // sdl2.GetKeyFromScancode
-Gura_DeclareFunction(GetKeyFromScancode)
+Gura_DeclareFunctionAlias(__GetKeyFromScancode, "GetKeyFromScancode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5844,7 +5844,7 @@ Gura_DeclareFunction(GetKeyFromScancode)
 		"");
 }
 
-Gura_ImplementFunction(GetKeyFromScancode)
+Gura_ImplementFunction(__GetKeyFromScancode)
 {
 	SDL_Scancode scancode = static_cast<SDL_Scancode>(args.GetInt(0));
 	SDL_Keycode _rtn = SDL_GetKeyFromScancode(scancode);
@@ -5852,7 +5852,7 @@ Gura_ImplementFunction(GetKeyFromScancode)
 }
 
 // sdl2.GetKeyName
-Gura_DeclareFunction(GetKeyName)
+Gura_DeclareFunctionAlias(__GetKeyName, "GetKeyName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5862,7 +5862,7 @@ Gura_DeclareFunction(GetKeyName)
 		"");
 }
 
-Gura_ImplementFunction(GetKeyName)
+Gura_ImplementFunction(__GetKeyName)
 {
 	SDL_Keycode key = static_cast<SDL_Keycode>(args.GetInt(0));
 	const char *_rtn = SDL_GetKeyName(key);
@@ -5877,7 +5877,7 @@ Gura_ImplementFunction(GetKeyName)
 }
 
 // sdl2.GetKeyboardFocus
-Gura_DeclareFunction(GetKeyboardFocus)
+Gura_DeclareFunctionAlias(__GetKeyboardFocus, "GetKeyboardFocus")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5886,7 +5886,7 @@ Gura_DeclareFunction(GetKeyboardFocus)
 		"");
 }
 
-Gura_ImplementFunction(GetKeyboardFocus)
+Gura_ImplementFunction(__GetKeyboardFocus)
 {
 	SDL_Window *_rtn = SDL_GetKeyboardFocus();
 	Value _rtnVal;
@@ -5900,7 +5900,7 @@ Gura_ImplementFunction(GetKeyboardFocus)
 }
 
 // sdl2.GetKeyboardState
-Gura_DeclareFunction(GetKeyboardState)
+Gura_DeclareFunctionAlias(__GetKeyboardState, "GetKeyboardState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5909,7 +5909,7 @@ Gura_DeclareFunction(GetKeyboardState)
 		"");
 }
 
-Gura_ImplementFunction(GetKeyboardState)
+Gura_ImplementFunction(__GetKeyboardState)
 {
 	int numkeys = 0;
 	const Uint8 *_keystate = SDL_GetKeyboardState(&numkeys);
@@ -5922,7 +5922,7 @@ Gura_ImplementFunction(GetKeyboardState)
 }
 
 // sdl2.GetModState
-Gura_DeclareFunction(GetModState)
+Gura_DeclareFunctionAlias(__GetModState, "GetModState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5931,14 +5931,14 @@ Gura_DeclareFunction(GetModState)
 		"");
 }
 
-Gura_ImplementFunction(GetModState)
+Gura_ImplementFunction(__GetModState)
 {
 	SDL_Keymod _rtn = SDL_GetModState();
 	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // sdl2.GetScancodeFromKey
-Gura_DeclareFunction(GetScancodeFromKey)
+Gura_DeclareFunctionAlias(__GetScancodeFromKey, "GetScancodeFromKey")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5948,7 +5948,7 @@ Gura_DeclareFunction(GetScancodeFromKey)
 		"");
 }
 
-Gura_ImplementFunction(GetScancodeFromKey)
+Gura_ImplementFunction(__GetScancodeFromKey)
 {
 	SDL_Keycode key = static_cast<SDL_Keycode>(args.GetInt(0));
 	SDL_Scancode _rtn = SDL_GetScancodeFromKey(key);
@@ -5956,7 +5956,7 @@ Gura_ImplementFunction(GetScancodeFromKey)
 }
 
 // sdl2.GetScancodeFromName
-Gura_DeclareFunction(GetScancodeFromName)
+Gura_DeclareFunctionAlias(__GetScancodeFromName, "GetScancodeFromName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5966,7 +5966,7 @@ Gura_DeclareFunction(GetScancodeFromName)
 		"");
 }
 
-Gura_ImplementFunction(GetScancodeFromName)
+Gura_ImplementFunction(__GetScancodeFromName)
 {
 	const char *name = args.GetString(0);
 	SDL_Scancode _rtn = SDL_GetScancodeFromName(name);
@@ -5978,7 +5978,7 @@ Gura_ImplementFunction(GetScancodeFromName)
 }
 
 // sdl2.GetScancodeName
-Gura_DeclareFunction(GetScancodeName)
+Gura_DeclareFunctionAlias(__GetScancodeName, "GetScancodeName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5988,7 +5988,7 @@ Gura_DeclareFunction(GetScancodeName)
 		"");
 }
 
-Gura_ImplementFunction(GetScancodeName)
+Gura_ImplementFunction(__GetScancodeName)
 {
 	SDL_Scancode scancode = static_cast<SDL_Scancode>(args.GetInt(0));
 	const char *_rtn = SDL_GetScancodeName(scancode);
@@ -6003,7 +6003,7 @@ Gura_ImplementFunction(GetScancodeName)
 }
 
 // sdl2.HasScreenKeyboardSupport
-Gura_DeclareFunction(HasScreenKeyboardSupport)
+Gura_DeclareFunctionAlias(__HasScreenKeyboardSupport, "HasScreenKeyboardSupport")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6012,14 +6012,14 @@ Gura_DeclareFunction(HasScreenKeyboardSupport)
 		"");
 }
 
-Gura_ImplementFunction(HasScreenKeyboardSupport)
+Gura_ImplementFunction(__HasScreenKeyboardSupport)
 {
 	SDL_bool _rtn = SDL_HasScreenKeyboardSupport();
 	return ReturnValue(env, sig, args, Value(_rtn != SDL_FALSE));
 }
 
 // sdl2.IsScreenKeyboardShown
-Gura_DeclareFunction(IsScreenKeyboardShown)
+Gura_DeclareFunctionAlias(__IsScreenKeyboardShown, "IsScreenKeyboardShown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6029,7 +6029,7 @@ Gura_DeclareFunction(IsScreenKeyboardShown)
 		"");
 }
 
-Gura_ImplementFunction(IsScreenKeyboardShown)
+Gura_ImplementFunction(__IsScreenKeyboardShown)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_bool _rtn = SDL_IsScreenKeyboardShown(window);
@@ -6037,7 +6037,7 @@ Gura_ImplementFunction(IsScreenKeyboardShown)
 }
 
 // sdl2.IsTextInputActive
-Gura_DeclareFunction(IsTextInputActive)
+Gura_DeclareFunctionAlias(__IsTextInputActive, "IsTextInputActive")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6046,14 +6046,14 @@ Gura_DeclareFunction(IsTextInputActive)
 		"");
 }
 
-Gura_ImplementFunction(IsTextInputActive)
+Gura_ImplementFunction(__IsTextInputActive)
 {
 	SDL_bool _rtn = SDL_IsTextInputActive();
 	return ReturnValue(env, sig, args, Value(_rtn != SDL_FALSE));
 }
 
 // sdl2.SetModState
-Gura_DeclareFunction(SetModState)
+Gura_DeclareFunctionAlias(__SetModState, "SetModState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "modstate", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6062,7 +6062,7 @@ Gura_DeclareFunction(SetModState)
 		"");
 }
 
-Gura_ImplementFunction(SetModState)
+Gura_ImplementFunction(__SetModState)
 {
 	SDL_Keymod modstate = static_cast<SDL_Keymod>(args.GetInt(0));
 	SDL_SetModState(modstate);
@@ -6070,7 +6070,7 @@ Gura_ImplementFunction(SetModState)
 }
 
 // sdl2.SetTextInputRect
-Gura_DeclareFunction(SetTextInputRect)
+Gura_DeclareFunctionAlias(__SetTextInputRect, "SetTextInputRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_None);
@@ -6079,7 +6079,7 @@ Gura_DeclareFunction(SetTextInputRect)
 		"");
 }
 
-Gura_ImplementFunction(SetTextInputRect)
+Gura_ImplementFunction(__SetTextInputRect)
 {
 	SDL_Rect *rect = Object_Rect::GetObject(args, 0)->GetEntity();
 	SDL_SetTextInputRect(rect);
@@ -6087,7 +6087,7 @@ Gura_ImplementFunction(SetTextInputRect)
 }
 
 // sdl2.StartTextInput
-Gura_DeclareFunction(StartTextInput)
+Gura_DeclareFunctionAlias(__StartTextInput, "StartTextInput")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -6095,14 +6095,14 @@ Gura_DeclareFunction(StartTextInput)
 		"");
 }
 
-Gura_ImplementFunction(StartTextInput)
+Gura_ImplementFunction(__StartTextInput)
 {
 	SDL_StartTextInput();
 	return Value::Null;
 }
 
 // sdl2.StopTextInput
-Gura_DeclareFunction(StopTextInput)
+Gura_DeclareFunctionAlias(__StopTextInput, "StopTextInput")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -6110,14 +6110,14 @@ Gura_DeclareFunction(StopTextInput)
 		"");
 }
 
-Gura_ImplementFunction(StopTextInput)
+Gura_ImplementFunction(__StopTextInput)
 {
 	SDL_StopTextInput();
 	return Value::Null;
 }
 
 // sdl2.CaptureMouse
-Gura_DeclareFunction(CaptureMouse)
+Gura_DeclareFunctionAlias(__CaptureMouse, "CaptureMouse")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "enalbed", VTYPE_boolean, OCCUR_Once, FLAG_None);
@@ -6126,7 +6126,7 @@ Gura_DeclareFunction(CaptureMouse)
 		"");
 }
 
-Gura_ImplementFunction(CaptureMouse)
+Gura_ImplementFunction(__CaptureMouse)
 {
 #if 0
 	SDL_bool enalbed = (args.GetBoolean(0)? SDL_TRUE : SDL_FALSE);
@@ -6142,7 +6142,7 @@ Gura_ImplementFunction(CaptureMouse)
 }
 
 // sdl2.CreateColorCursor
-Gura_DeclareFunction(CreateColorCursor)
+Gura_DeclareFunctionAlias(__CreateColorCursor, "CreateColorCursor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6154,7 +6154,7 @@ Gura_DeclareFunction(CreateColorCursor)
 		"");
 }
 
-Gura_ImplementFunction(CreateColorCursor)
+Gura_ImplementFunction(__CreateColorCursor)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	int hot_x = args.GetInt(1);
@@ -6171,7 +6171,7 @@ Gura_ImplementFunction(CreateColorCursor)
 }
 
 // sdl2.CreateCursor
-Gura_DeclareFunction(CreateCursor)
+Gura_DeclareFunctionAlias(__CreateCursor, "CreateCursor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6186,7 +6186,7 @@ Gura_DeclareFunction(CreateCursor)
 		"");
 }
 
-Gura_ImplementFunction(CreateCursor)
+Gura_ImplementFunction(__CreateCursor)
 {
 	const Binary &data = Object_binary::GetObject(args, 0)->GetBinary();
 	const Binary &mask = Object_binary::GetObject(args, 1)->GetBinary();
@@ -6214,7 +6214,7 @@ Gura_ImplementFunction(CreateCursor)
 }
 
 // sdl2.CreateSystemCursor
-Gura_DeclareFunction(CreateSystemCursor)
+Gura_DeclareFunctionAlias(__CreateSystemCursor, "CreateSystemCursor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6224,7 +6224,7 @@ Gura_DeclareFunction(CreateSystemCursor)
 		"");
 }
 
-Gura_ImplementFunction(CreateSystemCursor)
+Gura_ImplementFunction(__CreateSystemCursor)
 {
 	SDL_SystemCursor id = static_cast<SDL_SystemCursor>(args.GetInt(0));
 	SDL_Cursor *_rtn = SDL_CreateSystemCursor(id);
@@ -6239,7 +6239,7 @@ Gura_ImplementFunction(CreateSystemCursor)
 }
 
 // sdl2.FreeCursor
-Gura_DeclareFunction(FreeCursor)
+Gura_DeclareFunctionAlias(__FreeCursor, "FreeCursor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "cursor", VTYPE_Cursor, OCCUR_Once, FLAG_None);
@@ -6248,7 +6248,7 @@ Gura_DeclareFunction(FreeCursor)
 		"");
 }
 
-Gura_ImplementFunction(FreeCursor)
+Gura_ImplementFunction(__FreeCursor)
 {
 	SDL_Cursor *cursor = Object_Cursor::GetObject(args, 0)->GetEntity();
 	SDL_FreeCursor(cursor);
@@ -6256,7 +6256,7 @@ Gura_ImplementFunction(FreeCursor)
 }
 
 // sdl2.GetCursor
-Gura_DeclareFunction(GetCursor)
+Gura_DeclareFunctionAlias(__GetCursor, "GetCursor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6265,7 +6265,7 @@ Gura_DeclareFunction(GetCursor)
 		"");
 }
 
-Gura_ImplementFunction(GetCursor)
+Gura_ImplementFunction(__GetCursor)
 {
 	SDL_Cursor *_rtn = SDL_GetCursor();
 	Value _rtnVal;
@@ -6276,7 +6276,7 @@ Gura_ImplementFunction(GetCursor)
 }
 
 // sdl2.GetDefaultCursor
-Gura_DeclareFunction(GetDefaultCursor)
+Gura_DeclareFunctionAlias(__GetDefaultCursor, "GetDefaultCursor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6285,7 +6285,7 @@ Gura_DeclareFunction(GetDefaultCursor)
 		"");
 }
 
-Gura_ImplementFunction(GetDefaultCursor)
+Gura_ImplementFunction(__GetDefaultCursor)
 {
 	SDL_Cursor *_rtn = SDL_GetDefaultCursor();
 	Value _rtnVal;
@@ -6299,7 +6299,7 @@ Gura_ImplementFunction(GetDefaultCursor)
 }
 
 // sdl2.GetGlobalMouseState
-Gura_DeclareFunction(GetGlobalMouseState)
+Gura_DeclareFunctionAlias(__GetGlobalMouseState, "GetGlobalMouseState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -6307,7 +6307,7 @@ Gura_DeclareFunction(GetGlobalMouseState)
 		"");
 }
 
-Gura_ImplementFunction(GetGlobalMouseState)
+Gura_ImplementFunction(__GetGlobalMouseState)
 {
 #if 0
 	SDL_GetGlobalMouseState();
@@ -6318,7 +6318,7 @@ Gura_ImplementFunction(GetGlobalMouseState)
 }
 
 // sdl2.GetMouseFocus
-Gura_DeclareFunction(GetMouseFocus)
+Gura_DeclareFunctionAlias(__GetMouseFocus, "GetMouseFocus")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6327,7 +6327,7 @@ Gura_DeclareFunction(GetMouseFocus)
 		"");
 }
 
-Gura_ImplementFunction(GetMouseFocus)
+Gura_ImplementFunction(__GetMouseFocus)
 {
 	SDL_Window *_rtn = SDL_GetMouseFocus();
 	Value _rtnVal;
@@ -6341,7 +6341,7 @@ Gura_ImplementFunction(GetMouseFocus)
 }
 
 // sdl2.GetMouseState
-Gura_DeclareFunction(GetMouseState)
+Gura_DeclareFunctionAlias(__GetMouseState, "GetMouseState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6350,7 +6350,7 @@ Gura_DeclareFunction(GetMouseState)
 		"");
 }
 
-Gura_ImplementFunction(GetMouseState)
+Gura_ImplementFunction(__GetMouseState)
 {
 	int x = 0;
 	int y = 0;
@@ -6360,7 +6360,7 @@ Gura_ImplementFunction(GetMouseState)
 }
 
 // sdl2.GetRelativeMouseMode
-Gura_DeclareFunction(GetRelativeMouseMode)
+Gura_DeclareFunctionAlias(__GetRelativeMouseMode, "GetRelativeMouseMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6369,14 +6369,14 @@ Gura_DeclareFunction(GetRelativeMouseMode)
 		"");
 }
 
-Gura_ImplementFunction(GetRelativeMouseMode)
+Gura_ImplementFunction(__GetRelativeMouseMode)
 {
 	SDL_bool _rtn = SDL_GetRelativeMouseMode();
 	return ReturnValue(env, sig, args, Value(_rtn != SDL_FALSE));
 }
 
 // sdl2.GetRelativeMouseState
-Gura_DeclareFunction(GetRelativeMouseState)
+Gura_DeclareFunctionAlias(__GetRelativeMouseState, "GetRelativeMouseState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6385,7 +6385,7 @@ Gura_DeclareFunction(GetRelativeMouseState)
 		"");
 }
 
-Gura_ImplementFunction(GetRelativeMouseState)
+Gura_ImplementFunction(__GetRelativeMouseState)
 {
 	int x = 0;
 	int y = 0;
@@ -6395,7 +6395,7 @@ Gura_ImplementFunction(GetRelativeMouseState)
 }
 
 // sdl2.SetCursor
-Gura_DeclareFunction(SetCursor)
+Gura_DeclareFunctionAlias(__SetCursor, "SetCursor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "cursor", VTYPE_Cursor, OCCUR_Once, FLAG_None);
@@ -6404,7 +6404,7 @@ Gura_DeclareFunction(SetCursor)
 		"");
 }
 
-Gura_ImplementFunction(SetCursor)
+Gura_ImplementFunction(__SetCursor)
 {
 	SDL_Cursor *cursor = Object_Cursor::GetObject(args, 0)->GetEntity();
 	SDL_SetCursor(cursor);
@@ -6412,7 +6412,7 @@ Gura_ImplementFunction(SetCursor)
 }
 
 // sdl2.SetRelativeMouseMode
-Gura_DeclareFunction(SetRelativeMouseMode)
+Gura_DeclareFunctionAlias(__SetRelativeMouseMode, "SetRelativeMouseMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "enabled", VTYPE_boolean, OCCUR_Once, FLAG_None);
@@ -6421,7 +6421,7 @@ Gura_DeclareFunction(SetRelativeMouseMode)
 		"");
 }
 
-Gura_ImplementFunction(SetRelativeMouseMode)
+Gura_ImplementFunction(__SetRelativeMouseMode)
 {
 	SDL_bool enabled = (args.GetBoolean(0)? SDL_TRUE : SDL_FALSE);
 	int _rtn = SDL_SetRelativeMouseMode(enabled);
@@ -6433,7 +6433,7 @@ Gura_ImplementFunction(SetRelativeMouseMode)
 }
 
 // sdl2.ShowCursor
-Gura_DeclareFunction(ShowCursor)
+Gura_DeclareFunctionAlias(__ShowCursor, "ShowCursor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "toggle", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6442,7 +6442,7 @@ Gura_DeclareFunction(ShowCursor)
 		"");
 }
 
-Gura_ImplementFunction(ShowCursor)
+Gura_ImplementFunction(__ShowCursor)
 {
 	int toggle = args.GetInt(0);
 	int _rtn = SDL_ShowCursor(toggle);
@@ -6454,7 +6454,7 @@ Gura_ImplementFunction(ShowCursor)
 }
 
 // sdl2.WarpMouseGlobal
-Gura_DeclareFunction(WarpMouseGlobal)
+Gura_DeclareFunctionAlias(__WarpMouseGlobal, "WarpMouseGlobal")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6464,7 +6464,7 @@ Gura_DeclareFunction(WarpMouseGlobal)
 		"");
 }
 
-Gura_ImplementFunction(WarpMouseGlobal)
+Gura_ImplementFunction(__WarpMouseGlobal)
 {
 #if 0
 	int x = args.GetInt(0);
@@ -6477,7 +6477,7 @@ Gura_ImplementFunction(WarpMouseGlobal)
 }
 
 // sdl2.WarpMouseInWindow
-Gura_DeclareFunction(WarpMouseInWindow)
+Gura_DeclareFunctionAlias(__WarpMouseInWindow, "WarpMouseInWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -6488,7 +6488,7 @@ Gura_DeclareFunction(WarpMouseInWindow)
 		"");
 }
 
-Gura_ImplementFunction(WarpMouseInWindow)
+Gura_ImplementFunction(__WarpMouseInWindow)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	int x = args.GetInt(1);
@@ -6498,7 +6498,7 @@ Gura_ImplementFunction(WarpMouseInWindow)
 }
 
 // sdl2.JoystickClose
-Gura_DeclareFunction(JoystickClose)
+Gura_DeclareFunctionAlias(__JoystickClose, "JoystickClose")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
@@ -6507,7 +6507,7 @@ Gura_DeclareFunction(JoystickClose)
 		"");
 }
 
-Gura_ImplementFunction(JoystickClose)
+Gura_ImplementFunction(__JoystickClose)
 {
 	SDL_Joystick *joystick = Object_Joystick::GetObject(args, 0)->GetEntity();
 	SDL_JoystickClose(joystick);
@@ -6515,7 +6515,7 @@ Gura_ImplementFunction(JoystickClose)
 }
 
 // sdl2.JoystickEventState
-Gura_DeclareFunction(JoystickEventState)
+Gura_DeclareFunctionAlias(__JoystickEventState, "JoystickEventState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6525,7 +6525,7 @@ Gura_DeclareFunction(JoystickEventState)
 		"");
 }
 
-Gura_ImplementFunction(JoystickEventState)
+Gura_ImplementFunction(__JoystickEventState)
 {
 	int state = args.GetInt(0);
 	int _rtn = SDL_JoystickEventState(state);
@@ -6537,7 +6537,7 @@ Gura_ImplementFunction(JoystickEventState)
 }
 
 // sdl2.JoystickGetAttached
-Gura_DeclareFunction(JoystickGetAttached)
+Gura_DeclareFunctionAlias(__JoystickGetAttached, "JoystickGetAttached")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6547,7 +6547,7 @@ Gura_DeclareFunction(JoystickGetAttached)
 		"");
 }
 
-Gura_ImplementFunction(JoystickGetAttached)
+Gura_ImplementFunction(__JoystickGetAttached)
 {
 	SDL_Joystick *joystick = Object_Joystick::GetObject(args, 0)->GetEntity();
 	SDL_bool _rtn = SDL_JoystickGetAttached(joystick);
@@ -6555,7 +6555,7 @@ Gura_ImplementFunction(JoystickGetAttached)
 }
 
 // sdl2.JoystickGetAxis
-Gura_DeclareFunction(JoystickGetAxis)
+Gura_DeclareFunctionAlias(__JoystickGetAxis, "JoystickGetAxis")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6566,7 +6566,7 @@ Gura_DeclareFunction(JoystickGetAxis)
 		"");
 }
 
-Gura_ImplementFunction(JoystickGetAxis)
+Gura_ImplementFunction(__JoystickGetAxis)
 {
 	SDL_Joystick *joystick = Object_Joystick::GetObject(args, 0)->GetEntity();
 	int axis = args.GetInt(1);
@@ -6575,7 +6575,7 @@ Gura_ImplementFunction(JoystickGetAxis)
 }
 
 // sdl2.JoystickGetBall
-Gura_DeclareFunction(JoystickGetBall)
+Gura_DeclareFunctionAlias(__JoystickGetBall, "JoystickGetBall")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6586,7 +6586,7 @@ Gura_DeclareFunction(JoystickGetBall)
 		"");
 }
 
-Gura_ImplementFunction(JoystickGetBall)
+Gura_ImplementFunction(__JoystickGetBall)
 {
 	SDL_Joystick *joystick = Object_Joystick::GetObject(args, 0)->GetEntity();
 	int ball = args.GetInt(1);
@@ -6601,7 +6601,7 @@ Gura_ImplementFunction(JoystickGetBall)
 }
 
 // sdl2.JoystickGetButton
-Gura_DeclareFunction(JoystickGetButton)
+Gura_DeclareFunctionAlias(__JoystickGetButton, "JoystickGetButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6612,7 +6612,7 @@ Gura_DeclareFunction(JoystickGetButton)
 		"");
 }
 
-Gura_ImplementFunction(JoystickGetButton)
+Gura_ImplementFunction(__JoystickGetButton)
 {
 	SDL_Joystick *joystick = Object_Joystick::GetObject(args, 0)->GetEntity();
 	int button = args.GetInt(1);
@@ -6621,7 +6621,7 @@ Gura_ImplementFunction(JoystickGetButton)
 }
 
 // sdl2.JoystickGetDeviceGUID
-Gura_DeclareFunction(JoystickGetDeviceGUID)
+Gura_DeclareFunctionAlias(__JoystickGetDeviceGUID, "JoystickGetDeviceGUID")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6631,7 +6631,7 @@ Gura_DeclareFunction(JoystickGetDeviceGUID)
 		"");
 }
 
-Gura_ImplementFunction(JoystickGetDeviceGUID)
+Gura_ImplementFunction(__JoystickGetDeviceGUID)
 {
 	int device_index = args.GetInt(0);
 	SDL_JoystickGUID _rtn = SDL_JoystickGetDeviceGUID(device_index);
@@ -6640,7 +6640,7 @@ Gura_ImplementFunction(JoystickGetDeviceGUID)
 }
 
 // sdl2.JoystickGetGUID
-Gura_DeclareFunction(JoystickGetGUID)
+Gura_DeclareFunctionAlias(__JoystickGetGUID, "JoystickGetGUID")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6650,7 +6650,7 @@ Gura_DeclareFunction(JoystickGetGUID)
 		"");
 }
 
-Gura_ImplementFunction(JoystickGetGUID)
+Gura_ImplementFunction(__JoystickGetGUID)
 {
 	SDL_Joystick *joystick = Object_Joystick::GetObject(args, 0)->GetEntity();
 	SDL_JoystickGUID _rtn = SDL_JoystickGetGUID(joystick);
@@ -6659,7 +6659,7 @@ Gura_ImplementFunction(JoystickGetGUID)
 }
 
 // sdl2.JoystickGetGUIDFromString
-Gura_DeclareFunction(JoystickGetGUIDFromString)
+Gura_DeclareFunctionAlias(__JoystickGetGUIDFromString, "JoystickGetGUIDFromString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6669,7 +6669,7 @@ Gura_DeclareFunction(JoystickGetGUIDFromString)
 		"");
 }
 
-Gura_ImplementFunction(JoystickGetGUIDFromString)
+Gura_ImplementFunction(__JoystickGetGUIDFromString)
 {
 	const char *pchGUID = args.GetString(0);
 	SDL_JoystickGUID _rtn = SDL_JoystickGetGUIDFromString(pchGUID);
@@ -6678,7 +6678,7 @@ Gura_ImplementFunction(JoystickGetGUIDFromString)
 }
 
 // sdl2.JoystickGetGUIDString
-Gura_DeclareFunction(JoystickGetGUIDString)
+Gura_DeclareFunctionAlias(__JoystickGetGUIDString, "JoystickGetGUIDString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6688,7 +6688,7 @@ Gura_DeclareFunction(JoystickGetGUIDString)
 		"");
 }
 
-Gura_ImplementFunction(JoystickGetGUIDString)
+Gura_ImplementFunction(__JoystickGetGUIDString)
 {
 	SDL_JoystickGUID guid = Object_JoystickGUID::GetObject(args, 0)->GetEntity();
 	char szGUID[64];
@@ -6698,7 +6698,7 @@ Gura_ImplementFunction(JoystickGetGUIDString)
 }
 
 // sdl2.JoystickGetHat
-Gura_DeclareFunction(JoystickGetHat)
+Gura_DeclareFunctionAlias(__JoystickGetHat, "JoystickGetHat")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6709,7 +6709,7 @@ Gura_DeclareFunction(JoystickGetHat)
 		"");
 }
 
-Gura_ImplementFunction(JoystickGetHat)
+Gura_ImplementFunction(__JoystickGetHat)
 {
 	SDL_Joystick *joystick = Object_Joystick::GetObject(args, 0)->GetEntity();
 	int hat = args.GetInt(1);
@@ -6718,7 +6718,7 @@ Gura_ImplementFunction(JoystickGetHat)
 }
 
 // sdl2.JoystickInstanceID
-Gura_DeclareFunction(JoystickInstanceID)
+Gura_DeclareFunctionAlias(__JoystickInstanceID, "JoystickInstanceID")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6728,7 +6728,7 @@ Gura_DeclareFunction(JoystickInstanceID)
 		"");
 }
 
-Gura_ImplementFunction(JoystickInstanceID)
+Gura_ImplementFunction(__JoystickInstanceID)
 {
 	SDL_Joystick *joystick = Object_Joystick::GetObject(args, 0)->GetEntity();
 	SDL_JoystickID _rtn = SDL_JoystickInstanceID(joystick);
@@ -6740,7 +6740,7 @@ Gura_ImplementFunction(JoystickInstanceID)
 }
 
 // sdl2.JoystickName
-Gura_DeclareFunction(JoystickName)
+Gura_DeclareFunctionAlias(__JoystickName, "JoystickName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6750,7 +6750,7 @@ Gura_DeclareFunction(JoystickName)
 		"");
 }
 
-Gura_ImplementFunction(JoystickName)
+Gura_ImplementFunction(__JoystickName)
 {
 	SDL_Joystick *joystick = Object_Joystick::GetObject(args, 0)->GetEntity();
 	const char *_rtn = SDL_JoystickName(joystick);
@@ -6765,7 +6765,7 @@ Gura_ImplementFunction(JoystickName)
 }
 
 // sdl2.JoystickNameForIndex
-Gura_DeclareFunction(JoystickNameForIndex)
+Gura_DeclareFunctionAlias(__JoystickNameForIndex, "JoystickNameForIndex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6775,7 +6775,7 @@ Gura_DeclareFunction(JoystickNameForIndex)
 		"");
 }
 
-Gura_ImplementFunction(JoystickNameForIndex)
+Gura_ImplementFunction(__JoystickNameForIndex)
 {
 	int device_index = args.GetInt(0);
 	const char *_rtn = SDL_JoystickNameForIndex(device_index);
@@ -6790,7 +6790,7 @@ Gura_ImplementFunction(JoystickNameForIndex)
 }
 
 // sdl2.JoystickNumAxes
-Gura_DeclareFunction(JoystickNumAxes)
+Gura_DeclareFunctionAlias(__JoystickNumAxes, "JoystickNumAxes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6800,7 +6800,7 @@ Gura_DeclareFunction(JoystickNumAxes)
 		"");
 }
 
-Gura_ImplementFunction(JoystickNumAxes)
+Gura_ImplementFunction(__JoystickNumAxes)
 {
 	SDL_Joystick *joystick = Object_Joystick::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_JoystickNumAxes(joystick);
@@ -6812,7 +6812,7 @@ Gura_ImplementFunction(JoystickNumAxes)
 }
 
 // sdl2.JoystickNumBalls
-Gura_DeclareFunction(JoystickNumBalls)
+Gura_DeclareFunctionAlias(__JoystickNumBalls, "JoystickNumBalls")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6822,7 +6822,7 @@ Gura_DeclareFunction(JoystickNumBalls)
 		"");
 }
 
-Gura_ImplementFunction(JoystickNumBalls)
+Gura_ImplementFunction(__JoystickNumBalls)
 {
 	SDL_Joystick *joystick = Object_Joystick::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_JoystickNumBalls(joystick);
@@ -6834,7 +6834,7 @@ Gura_ImplementFunction(JoystickNumBalls)
 }
 
 // sdl2.JoystickNumButtons
-Gura_DeclareFunction(JoystickNumButtons)
+Gura_DeclareFunctionAlias(__JoystickNumButtons, "JoystickNumButtons")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6844,7 +6844,7 @@ Gura_DeclareFunction(JoystickNumButtons)
 		"");
 }
 
-Gura_ImplementFunction(JoystickNumButtons)
+Gura_ImplementFunction(__JoystickNumButtons)
 {
 	SDL_Joystick *joystick = Object_Joystick::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_JoystickNumButtons(joystick);
@@ -6856,7 +6856,7 @@ Gura_ImplementFunction(JoystickNumButtons)
 }
 
 // sdl2.JoystickNumHats
-Gura_DeclareFunction(JoystickNumHats)
+Gura_DeclareFunctionAlias(__JoystickNumHats, "JoystickNumHats")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6866,7 +6866,7 @@ Gura_DeclareFunction(JoystickNumHats)
 		"");
 }
 
-Gura_ImplementFunction(JoystickNumHats)
+Gura_ImplementFunction(__JoystickNumHats)
 {
 	SDL_Joystick *joystick = Object_Joystick::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_JoystickNumHats(joystick);
@@ -6878,7 +6878,7 @@ Gura_ImplementFunction(JoystickNumHats)
 }
 
 // sdl2.JoystickOpen
-Gura_DeclareFunction(JoystickOpen)
+Gura_DeclareFunctionAlias(__JoystickOpen, "JoystickOpen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6888,7 +6888,7 @@ Gura_DeclareFunction(JoystickOpen)
 		"");
 }
 
-Gura_ImplementFunction(JoystickOpen)
+Gura_ImplementFunction(__JoystickOpen)
 {
 	int device_index = args.GetInt(0);
 	SDL_Joystick *_rtn = SDL_JoystickOpen(device_index);
@@ -6903,7 +6903,7 @@ Gura_ImplementFunction(JoystickOpen)
 }
 
 // sdl2.JoystickUpdate
-Gura_DeclareFunction(JoystickUpdate)
+Gura_DeclareFunctionAlias(__JoystickUpdate, "JoystickUpdate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -6911,14 +6911,14 @@ Gura_DeclareFunction(JoystickUpdate)
 		"");
 }
 
-Gura_ImplementFunction(JoystickUpdate)
+Gura_ImplementFunction(__JoystickUpdate)
 {
 	SDL_JoystickUpdate();
 	return Value::Null;
 }
 
 // sdl2.NumJoysticks
-Gura_DeclareFunction(NumJoysticks)
+Gura_DeclareFunctionAlias(__NumJoysticks, "NumJoysticks")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6927,7 +6927,7 @@ Gura_DeclareFunction(NumJoysticks)
 		"");
 }
 
-Gura_ImplementFunction(NumJoysticks)
+Gura_ImplementFunction(__NumJoysticks)
 {
 	int _rtn = SDL_NumJoysticks();
 	if (_rtn < 0) {
@@ -6938,7 +6938,7 @@ Gura_ImplementFunction(NumJoysticks)
 }
 
 // sdl2.GameControllerAddMapping
-Gura_DeclareFunction(GameControllerAddMapping)
+Gura_DeclareFunctionAlias(__GameControllerAddMapping, "GameControllerAddMapping")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6948,7 +6948,7 @@ Gura_DeclareFunction(GameControllerAddMapping)
 		"");
 }
 
-Gura_ImplementFunction(GameControllerAddMapping)
+Gura_ImplementFunction(__GameControllerAddMapping)
 {
 	const char *mappingString = args.GetString(0);
 	int _rtn = SDL_GameControllerAddMapping(mappingString);
@@ -6960,7 +6960,7 @@ Gura_ImplementFunction(GameControllerAddMapping)
 }
 
 // sdl2.GameControllerAddMappingsFromFile
-Gura_DeclareFunction(GameControllerAddMappingsFromFile)
+Gura_DeclareFunctionAlias(__GameControllerAddMappingsFromFile, "GameControllerAddMappingsFromFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -6970,7 +6970,7 @@ Gura_DeclareFunction(GameControllerAddMappingsFromFile)
 		"");
 }
 
-Gura_ImplementFunction(GameControllerAddMappingsFromFile)
+Gura_ImplementFunction(__GameControllerAddMappingsFromFile)
 {
 	Stream &file = Object_stream::GetObject(args, 0)->GetStream();
 	std::auto_ptr<SDL_RWops> _file(CreateRWopsStream(&file, &sig));
@@ -6983,7 +6983,7 @@ Gura_ImplementFunction(GameControllerAddMappingsFromFile)
 }
 
 // sdl2.GameControllerAddMappingsFromRW
-Gura_DeclareFunction(GameControllerAddMappingsFromRW)
+Gura_DeclareFunctionAlias(__GameControllerAddMappingsFromRW, "GameControllerAddMappingsFromRW")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -6991,7 +6991,7 @@ Gura_DeclareFunction(GameControllerAddMappingsFromRW)
 		"");
 }
 
-Gura_ImplementFunction(GameControllerAddMappingsFromRW)
+Gura_ImplementFunction(__GameControllerAddMappingsFromRW)
 {
 #if 0
 	SDL_GameControllerAddMappingsFromRW();
@@ -7002,7 +7002,7 @@ Gura_ImplementFunction(GameControllerAddMappingsFromRW)
 }
 
 // sdl2.GameControllerClose
-Gura_DeclareFunction(GameControllerClose)
+Gura_DeclareFunctionAlias(__GameControllerClose, "GameControllerClose")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "gamecontroller", VTYPE_GameController, OCCUR_Once, FLAG_None);
@@ -7011,7 +7011,7 @@ Gura_DeclareFunction(GameControllerClose)
 		"");
 }
 
-Gura_ImplementFunction(GameControllerClose)
+Gura_ImplementFunction(__GameControllerClose)
 {
 	SDL_GameController *gamecontroller = Object_GameController::GetObject(args, 0)->GetEntity();
 	SDL_GameControllerClose(gamecontroller);
@@ -7019,7 +7019,7 @@ Gura_ImplementFunction(GameControllerClose)
 }
 
 // sdl2.GameControllerEventState
-Gura_DeclareFunction(GameControllerEventState)
+Gura_DeclareFunctionAlias(__GameControllerEventState, "GameControllerEventState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7029,7 +7029,7 @@ Gura_DeclareFunction(GameControllerEventState)
 		"");
 }
 
-Gura_ImplementFunction(GameControllerEventState)
+Gura_ImplementFunction(__GameControllerEventState)
 {
 	int state = args.GetInt(0);
 	int _rtn = SDL_GameControllerEventState(state);
@@ -7037,7 +7037,7 @@ Gura_ImplementFunction(GameControllerEventState)
 }
 
 // sdl2.GameControllerGetAttached
-Gura_DeclareFunction(GameControllerGetAttached)
+Gura_DeclareFunctionAlias(__GameControllerGetAttached, "GameControllerGetAttached")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7047,7 +7047,7 @@ Gura_DeclareFunction(GameControllerGetAttached)
 		"");
 }
 
-Gura_ImplementFunction(GameControllerGetAttached)
+Gura_ImplementFunction(__GameControllerGetAttached)
 {
 	SDL_GameController *gamecontroller = Object_GameController::GetObject(args, 0)->GetEntity();
 	SDL_bool _rtn = SDL_GameControllerGetAttached(gamecontroller);
@@ -7055,7 +7055,7 @@ Gura_ImplementFunction(GameControllerGetAttached)
 }
 
 // sdl2.GameControllerGetAxis
-Gura_DeclareFunction(GameControllerGetAxis)
+Gura_DeclareFunctionAlias(__GameControllerGetAxis, "GameControllerGetAxis")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7066,7 +7066,7 @@ Gura_DeclareFunction(GameControllerGetAxis)
 		"");
 }
 
-Gura_ImplementFunction(GameControllerGetAxis)
+Gura_ImplementFunction(__GameControllerGetAxis)
 {
 	SDL_GameController *gamecontroller = Object_GameController::GetObject(args, 0)->GetEntity();
 	SDL_GameControllerAxis axis = static_cast<SDL_GameControllerAxis>(args.GetInt(1));
@@ -7075,7 +7075,7 @@ Gura_ImplementFunction(GameControllerGetAxis)
 }
 
 // sdl2.GameControllerGetAxisFromString
-Gura_DeclareFunction(GameControllerGetAxisFromString)
+Gura_DeclareFunctionAlias(__GameControllerGetAxisFromString, "GameControllerGetAxisFromString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7085,7 +7085,7 @@ Gura_DeclareFunction(GameControllerGetAxisFromString)
 		"");
 }
 
-Gura_ImplementFunction(GameControllerGetAxisFromString)
+Gura_ImplementFunction(__GameControllerGetAxisFromString)
 {
 	const char *pchString = args.GetString(0);
 	SDL_GameControllerAxis _rtn = SDL_GameControllerGetAxisFromString(pchString);
@@ -7093,7 +7093,7 @@ Gura_ImplementFunction(GameControllerGetAxisFromString)
 }
 
 // sdl2.GameControllerGetBindForAxis
-Gura_DeclareFunction(GameControllerGetBindForAxis)
+Gura_DeclareFunctionAlias(__GameControllerGetBindForAxis, "GameControllerGetBindForAxis")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7104,7 +7104,7 @@ Gura_DeclareFunction(GameControllerGetBindForAxis)
 		"");
 }
 
-Gura_ImplementFunction(GameControllerGetBindForAxis)
+Gura_ImplementFunction(__GameControllerGetBindForAxis)
 {
 	SDL_GameController *gamecontroller = Object_GameController::GetObject(args, 0)->GetEntity();
 	SDL_GameControllerAxis axis = static_cast<SDL_GameControllerAxis>(args.GetInt(1));
@@ -7114,7 +7114,7 @@ Gura_ImplementFunction(GameControllerGetBindForAxis)
 }
 
 // sdl2.GameControllerGetBindForButton
-Gura_DeclareFunction(GameControllerGetBindForButton)
+Gura_DeclareFunctionAlias(__GameControllerGetBindForButton, "GameControllerGetBindForButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7125,7 +7125,7 @@ Gura_DeclareFunction(GameControllerGetBindForButton)
 		"");
 }
 
-Gura_ImplementFunction(GameControllerGetBindForButton)
+Gura_ImplementFunction(__GameControllerGetBindForButton)
 {
 	SDL_GameController *gamecontroller = Object_GameController::GetObject(args, 0)->GetEntity();
 	SDL_GameControllerButton button = static_cast<SDL_GameControllerButton>(args.GetInt(1));
@@ -7135,7 +7135,7 @@ Gura_ImplementFunction(GameControllerGetBindForButton)
 }
 
 // sdl2.GameControllerGetButton
-Gura_DeclareFunction(GameControllerGetButton)
+Gura_DeclareFunctionAlias(__GameControllerGetButton, "GameControllerGetButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7146,7 +7146,7 @@ Gura_DeclareFunction(GameControllerGetButton)
 		"");
 }
 
-Gura_ImplementFunction(GameControllerGetButton)
+Gura_ImplementFunction(__GameControllerGetButton)
 {
 	SDL_GameController *gamecontroller = Object_GameController::GetObject(args, 0)->GetEntity();
 	SDL_GameControllerButton button = static_cast<SDL_GameControllerButton>(args.GetInt(1));
@@ -7159,7 +7159,7 @@ Gura_ImplementFunction(GameControllerGetButton)
 }
 
 // sdl2.GameControllerGetButtonFromString
-Gura_DeclareFunction(GameControllerGetButtonFromString)
+Gura_DeclareFunctionAlias(__GameControllerGetButtonFromString, "GameControllerGetButtonFromString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7169,7 +7169,7 @@ Gura_DeclareFunction(GameControllerGetButtonFromString)
 		"");
 }
 
-Gura_ImplementFunction(GameControllerGetButtonFromString)
+Gura_ImplementFunction(__GameControllerGetButtonFromString)
 {
 	const char *pchString = args.GetString(0);
 	SDL_GameControllerButton _rtn = SDL_GameControllerGetButtonFromString(pchString);
@@ -7177,7 +7177,7 @@ Gura_ImplementFunction(GameControllerGetButtonFromString)
 }
 
 // sdl2.GameControllerGetJoystick
-Gura_DeclareFunction(GameControllerGetJoystick)
+Gura_DeclareFunctionAlias(__GameControllerGetJoystick, "GameControllerGetJoystick")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7187,7 +7187,7 @@ Gura_DeclareFunction(GameControllerGetJoystick)
 		"");
 }
 
-Gura_ImplementFunction(GameControllerGetJoystick)
+Gura_ImplementFunction(__GameControllerGetJoystick)
 {
 	SDL_GameController *gamecontroller = Object_GameController::GetObject(args, 0)->GetEntity();
 	SDL_Joystick *_rtn = SDL_GameControllerGetJoystick(gamecontroller);
@@ -7202,7 +7202,7 @@ Gura_ImplementFunction(GameControllerGetJoystick)
 }
 
 // sdl2.GameControllerGetStringForAxis
-Gura_DeclareFunction(GameControllerGetStringForAxis)
+Gura_DeclareFunctionAlias(__GameControllerGetStringForAxis, "GameControllerGetStringForAxis")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7212,7 +7212,7 @@ Gura_DeclareFunction(GameControllerGetStringForAxis)
 		"");
 }
 
-Gura_ImplementFunction(GameControllerGetStringForAxis)
+Gura_ImplementFunction(__GameControllerGetStringForAxis)
 {
 	SDL_GameControllerAxis axis = static_cast<SDL_GameControllerAxis>(args.GetInt(0));
 	const char *_rtn = SDL_GameControllerGetStringForAxis(axis);
@@ -7227,7 +7227,7 @@ Gura_ImplementFunction(GameControllerGetStringForAxis)
 }
 
 // sdl2.GameControllerGetStringForButton
-Gura_DeclareFunction(GameControllerGetStringForButton)
+Gura_DeclareFunctionAlias(__GameControllerGetStringForButton, "GameControllerGetStringForButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7237,7 +7237,7 @@ Gura_DeclareFunction(GameControllerGetStringForButton)
 		"");
 }
 
-Gura_ImplementFunction(GameControllerGetStringForButton)
+Gura_ImplementFunction(__GameControllerGetStringForButton)
 {
 	SDL_GameControllerButton button = static_cast<SDL_GameControllerButton>(args.GetInt(0));
 	const char *_rtn = SDL_GameControllerGetStringForButton(button);
@@ -7252,7 +7252,7 @@ Gura_ImplementFunction(GameControllerGetStringForButton)
 }
 
 // sdl2.GameControllerMapping
-Gura_DeclareFunction(GameControllerMapping)
+Gura_DeclareFunctionAlias(__GameControllerMapping, "GameControllerMapping")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7262,7 +7262,7 @@ Gura_DeclareFunction(GameControllerMapping)
 		"");
 }
 
-Gura_ImplementFunction(GameControllerMapping)
+Gura_ImplementFunction(__GameControllerMapping)
 {
 	SDL_GameController *gamecontroller = Object_GameController::GetObject(args, 0)->GetEntity();
 	const char *_rtn = SDL_GameControllerMapping(gamecontroller);
@@ -7277,7 +7277,7 @@ Gura_ImplementFunction(GameControllerMapping)
 }
 
 // sdl2.GameControllerMappingForGUID
-Gura_DeclareFunction(GameControllerMappingForGUID)
+Gura_DeclareFunctionAlias(__GameControllerMappingForGUID, "GameControllerMappingForGUID")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7287,7 +7287,7 @@ Gura_DeclareFunction(GameControllerMappingForGUID)
 		"");
 }
 
-Gura_ImplementFunction(GameControllerMappingForGUID)
+Gura_ImplementFunction(__GameControllerMappingForGUID)
 {
 	SDL_JoystickGUID guid = Object_JoystickGUID::GetObject(args, 0)->GetEntity();
 	const char *_rtn = SDL_GameControllerMappingForGUID(guid);
@@ -7302,7 +7302,7 @@ Gura_ImplementFunction(GameControllerMappingForGUID)
 }
 
 // sdl2.GameControllerName
-Gura_DeclareFunction(GameControllerName)
+Gura_DeclareFunctionAlias(__GameControllerName, "GameControllerName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7312,7 +7312,7 @@ Gura_DeclareFunction(GameControllerName)
 		"");
 }
 
-Gura_ImplementFunction(GameControllerName)
+Gura_ImplementFunction(__GameControllerName)
 {
 	SDL_GameController *gamecontroller = Object_GameController::GetObject(args, 0)->GetEntity();
 	const char *_rtn = SDL_GameControllerName(gamecontroller);
@@ -7327,7 +7327,7 @@ Gura_ImplementFunction(GameControllerName)
 }
 
 // sdl2.GameControllerNameForIndex
-Gura_DeclareFunction(GameControllerNameForIndex)
+Gura_DeclareFunctionAlias(__GameControllerNameForIndex, "GameControllerNameForIndex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7337,7 +7337,7 @@ Gura_DeclareFunction(GameControllerNameForIndex)
 		"");
 }
 
-Gura_ImplementFunction(GameControllerNameForIndex)
+Gura_ImplementFunction(__GameControllerNameForIndex)
 {
 	int joystick_index = args.GetInt(0);
 	const char *_rtn = SDL_GameControllerNameForIndex(joystick_index);
@@ -7352,7 +7352,7 @@ Gura_ImplementFunction(GameControllerNameForIndex)
 }
 
 // sdl2.GameControllerOpen
-Gura_DeclareFunction(GameControllerOpen)
+Gura_DeclareFunctionAlias(__GameControllerOpen, "GameControllerOpen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7362,7 +7362,7 @@ Gura_DeclareFunction(GameControllerOpen)
 		"");
 }
 
-Gura_ImplementFunction(GameControllerOpen)
+Gura_ImplementFunction(__GameControllerOpen)
 {
 	int joystick_index = args.GetInt(0);
 	SDL_GameController *_rtn = SDL_GameControllerOpen(joystick_index);
@@ -7377,7 +7377,7 @@ Gura_ImplementFunction(GameControllerOpen)
 }
 
 // sdl2.GameControllerUpdate
-Gura_DeclareFunction(GameControllerUpdate)
+Gura_DeclareFunctionAlias(__GameControllerUpdate, "GameControllerUpdate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -7385,14 +7385,14 @@ Gura_DeclareFunction(GameControllerUpdate)
 		"");
 }
 
-Gura_ImplementFunction(GameControllerUpdate)
+Gura_ImplementFunction(__GameControllerUpdate)
 {
 	SDL_GameControllerUpdate();
 	return Value::Null;
 }
 
 // sdl2.IsGameController
-Gura_DeclareFunction(IsGameController)
+Gura_DeclareFunctionAlias(__IsGameController, "IsGameController")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7402,7 +7402,7 @@ Gura_DeclareFunction(IsGameController)
 		"");
 }
 
-Gura_ImplementFunction(IsGameController)
+Gura_ImplementFunction(__IsGameController)
 {
 	int joystick_index = args.GetInt(0);
 	SDL_bool _rtn = SDL_IsGameController(joystick_index);
@@ -7410,7 +7410,7 @@ Gura_ImplementFunction(IsGameController)
 }
 
 // sdl2.HapticClose
-Gura_DeclareFunction(HapticClose)
+Gura_DeclareFunctionAlias(__HapticClose, "HapticClose")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
@@ -7419,7 +7419,7 @@ Gura_DeclareFunction(HapticClose)
 		"");
 }
 
-Gura_ImplementFunction(HapticClose)
+Gura_ImplementFunction(__HapticClose)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	SDL_HapticClose(haptic);
@@ -7427,7 +7427,7 @@ Gura_ImplementFunction(HapticClose)
 }
 
 // sdl2.HapticDestroyEffect
-Gura_DeclareFunction(HapticDestroyEffect)
+Gura_DeclareFunctionAlias(__HapticDestroyEffect, "HapticDestroyEffect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
@@ -7437,7 +7437,7 @@ Gura_DeclareFunction(HapticDestroyEffect)
 		"");
 }
 
-Gura_ImplementFunction(HapticDestroyEffect)
+Gura_ImplementFunction(__HapticDestroyEffect)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	int effect = args.GetInt(1);
@@ -7446,7 +7446,7 @@ Gura_ImplementFunction(HapticDestroyEffect)
 }
 
 // sdl2.HapticEffectSupported
-Gura_DeclareFunction(HapticEffectSupported)
+Gura_DeclareFunctionAlias(__HapticEffectSupported, "HapticEffectSupported")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7457,7 +7457,7 @@ Gura_DeclareFunction(HapticEffectSupported)
 		"");
 }
 
-Gura_ImplementFunction(HapticEffectSupported)
+Gura_ImplementFunction(__HapticEffectSupported)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	SDL_HapticEffect *effect = Object_HapticEffect::GetObject(args, 1)->GetEntity();
@@ -7470,7 +7470,7 @@ Gura_ImplementFunction(HapticEffectSupported)
 }
 
 // sdl2.HapticGetEffectStatus
-Gura_DeclareFunction(HapticGetEffectStatus)
+Gura_DeclareFunctionAlias(__HapticGetEffectStatus, "HapticGetEffectStatus")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7481,7 +7481,7 @@ Gura_DeclareFunction(HapticGetEffectStatus)
 		"");
 }
 
-Gura_ImplementFunction(HapticGetEffectStatus)
+Gura_ImplementFunction(__HapticGetEffectStatus)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	int effect = args.GetInt(1);
@@ -7494,7 +7494,7 @@ Gura_ImplementFunction(HapticGetEffectStatus)
 }
 
 // sdl2.HapticIndex
-Gura_DeclareFunction(HapticIndex)
+Gura_DeclareFunctionAlias(__HapticIndex, "HapticIndex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7504,7 +7504,7 @@ Gura_DeclareFunction(HapticIndex)
 		"");
 }
 
-Gura_ImplementFunction(HapticIndex)
+Gura_ImplementFunction(__HapticIndex)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_HapticIndex(haptic);
@@ -7516,7 +7516,7 @@ Gura_ImplementFunction(HapticIndex)
 }
 
 // sdl2.HapticName
-Gura_DeclareFunction(HapticName)
+Gura_DeclareFunctionAlias(__HapticName, "HapticName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7526,7 +7526,7 @@ Gura_DeclareFunction(HapticName)
 		"");
 }
 
-Gura_ImplementFunction(HapticName)
+Gura_ImplementFunction(__HapticName)
 {
 	int device_index = args.GetInt(0);
 	const char *_rtn = SDL_HapticName(device_index);
@@ -7541,7 +7541,7 @@ Gura_ImplementFunction(HapticName)
 }
 
 // sdl2.HapticNewEffect
-Gura_DeclareFunction(HapticNewEffect)
+Gura_DeclareFunctionAlias(__HapticNewEffect, "HapticNewEffect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7552,7 +7552,7 @@ Gura_DeclareFunction(HapticNewEffect)
 		"");
 }
 
-Gura_ImplementFunction(HapticNewEffect)
+Gura_ImplementFunction(__HapticNewEffect)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	SDL_HapticEffect *effect = Object_HapticEffect::GetObject(args, 1)->GetEntity();
@@ -7565,7 +7565,7 @@ Gura_ImplementFunction(HapticNewEffect)
 }
 
 // sdl2.HapticNumAxes
-Gura_DeclareFunction(HapticNumAxes)
+Gura_DeclareFunctionAlias(__HapticNumAxes, "HapticNumAxes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7575,7 +7575,7 @@ Gura_DeclareFunction(HapticNumAxes)
 		"");
 }
 
-Gura_ImplementFunction(HapticNumAxes)
+Gura_ImplementFunction(__HapticNumAxes)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_HapticNumAxes(haptic);
@@ -7587,7 +7587,7 @@ Gura_ImplementFunction(HapticNumAxes)
 }
 
 // sdl2.HapticNumEffects
-Gura_DeclareFunction(HapticNumEffects)
+Gura_DeclareFunctionAlias(__HapticNumEffects, "HapticNumEffects")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7597,7 +7597,7 @@ Gura_DeclareFunction(HapticNumEffects)
 		"");
 }
 
-Gura_ImplementFunction(HapticNumEffects)
+Gura_ImplementFunction(__HapticNumEffects)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_HapticNumEffects(haptic);
@@ -7609,7 +7609,7 @@ Gura_ImplementFunction(HapticNumEffects)
 }
 
 // sdl2.HapticNumEffectsPlaying
-Gura_DeclareFunction(HapticNumEffectsPlaying)
+Gura_DeclareFunctionAlias(__HapticNumEffectsPlaying, "HapticNumEffectsPlaying")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7619,7 +7619,7 @@ Gura_DeclareFunction(HapticNumEffectsPlaying)
 		"");
 }
 
-Gura_ImplementFunction(HapticNumEffectsPlaying)
+Gura_ImplementFunction(__HapticNumEffectsPlaying)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_HapticNumEffectsPlaying(haptic);
@@ -7631,7 +7631,7 @@ Gura_ImplementFunction(HapticNumEffectsPlaying)
 }
 
 // sdl2.HapticOpen
-Gura_DeclareFunction(HapticOpen)
+Gura_DeclareFunctionAlias(__HapticOpen, "HapticOpen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7641,7 +7641,7 @@ Gura_DeclareFunction(HapticOpen)
 		"");
 }
 
-Gura_ImplementFunction(HapticOpen)
+Gura_ImplementFunction(__HapticOpen)
 {
 	int device_index = args.GetInt(0);
 	SDL_Haptic *_rtn = SDL_HapticOpen(device_index);
@@ -7656,7 +7656,7 @@ Gura_ImplementFunction(HapticOpen)
 }
 
 // sdl2.HapticOpenFromJoystick
-Gura_DeclareFunction(HapticOpenFromJoystick)
+Gura_DeclareFunctionAlias(__HapticOpenFromJoystick, "HapticOpenFromJoystick")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7666,7 +7666,7 @@ Gura_DeclareFunction(HapticOpenFromJoystick)
 		"");
 }
 
-Gura_ImplementFunction(HapticOpenFromJoystick)
+Gura_ImplementFunction(__HapticOpenFromJoystick)
 {
 	SDL_Joystick *joystick = Object_Joystick::GetObject(args, 0)->GetEntity();
 	SDL_Haptic *_rtn = SDL_HapticOpenFromJoystick(joystick);
@@ -7681,7 +7681,7 @@ Gura_ImplementFunction(HapticOpenFromJoystick)
 }
 
 // sdl2.HapticOpenFromMouse
-Gura_DeclareFunction(HapticOpenFromMouse)
+Gura_DeclareFunctionAlias(__HapticOpenFromMouse, "HapticOpenFromMouse")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7690,7 +7690,7 @@ Gura_DeclareFunction(HapticOpenFromMouse)
 		"");
 }
 
-Gura_ImplementFunction(HapticOpenFromMouse)
+Gura_ImplementFunction(__HapticOpenFromMouse)
 {
 	SDL_Haptic *_rtn = SDL_HapticOpenFromMouse();
 	Value _rtnVal;
@@ -7704,7 +7704,7 @@ Gura_ImplementFunction(HapticOpenFromMouse)
 }
 
 // sdl2.HapticOpened
-Gura_DeclareFunction(HapticOpened)
+Gura_DeclareFunctionAlias(__HapticOpened, "HapticOpened")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7714,7 +7714,7 @@ Gura_DeclareFunction(HapticOpened)
 		"");
 }
 
-Gura_ImplementFunction(HapticOpened)
+Gura_ImplementFunction(__HapticOpened)
 {
 	int device_index = args.GetInt(0);
 	int _rtn = SDL_HapticOpened(device_index);
@@ -7726,7 +7726,7 @@ Gura_ImplementFunction(HapticOpened)
 }
 
 // sdl2.HapticPause
-Gura_DeclareFunction(HapticPause)
+Gura_DeclareFunctionAlias(__HapticPause, "HapticPause")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
@@ -7735,7 +7735,7 @@ Gura_DeclareFunction(HapticPause)
 		"");
 }
 
-Gura_ImplementFunction(HapticPause)
+Gura_ImplementFunction(__HapticPause)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_HapticPause(haptic);
@@ -7747,7 +7747,7 @@ Gura_ImplementFunction(HapticPause)
 }
 
 // sdl2.HapticQuery
-Gura_DeclareFunction(HapticQuery)
+Gura_DeclareFunctionAlias(__HapticQuery, "HapticQuery")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7757,7 +7757,7 @@ Gura_DeclareFunction(HapticQuery)
 		"");
 }
 
-Gura_ImplementFunction(HapticQuery)
+Gura_ImplementFunction(__HapticQuery)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	unsigned int _rtn = SDL_HapticQuery(haptic);
@@ -7765,7 +7765,7 @@ Gura_ImplementFunction(HapticQuery)
 }
 
 // sdl2.HapticRumbleInit
-Gura_DeclareFunction(HapticRumbleInit)
+Gura_DeclareFunctionAlias(__HapticRumbleInit, "HapticRumbleInit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
@@ -7774,7 +7774,7 @@ Gura_DeclareFunction(HapticRumbleInit)
 		"");
 }
 
-Gura_ImplementFunction(HapticRumbleInit)
+Gura_ImplementFunction(__HapticRumbleInit)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_HapticRumbleInit(haptic);
@@ -7786,7 +7786,7 @@ Gura_ImplementFunction(HapticRumbleInit)
 }
 
 // sdl2.HapticRumblePlay
-Gura_DeclareFunction(HapticRumblePlay)
+Gura_DeclareFunctionAlias(__HapticRumblePlay, "HapticRumblePlay")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
@@ -7797,7 +7797,7 @@ Gura_DeclareFunction(HapticRumblePlay)
 		"");
 }
 
-Gura_ImplementFunction(HapticRumblePlay)
+Gura_ImplementFunction(__HapticRumblePlay)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	float strength = args.GetFloat(1);
@@ -7811,7 +7811,7 @@ Gura_ImplementFunction(HapticRumblePlay)
 }
 
 // sdl2.HapticRumbleStop
-Gura_DeclareFunction(HapticRumbleStop)
+Gura_DeclareFunctionAlias(__HapticRumbleStop, "HapticRumbleStop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
@@ -7820,7 +7820,7 @@ Gura_DeclareFunction(HapticRumbleStop)
 		"");
 }
 
-Gura_ImplementFunction(HapticRumbleStop)
+Gura_ImplementFunction(__HapticRumbleStop)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_HapticRumbleStop(haptic);
@@ -7832,7 +7832,7 @@ Gura_ImplementFunction(HapticRumbleStop)
 }
 
 // sdl2.HapticRumbleSupported
-Gura_DeclareFunction(HapticRumbleSupported)
+Gura_DeclareFunctionAlias(__HapticRumbleSupported, "HapticRumbleSupported")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7842,7 +7842,7 @@ Gura_DeclareFunction(HapticRumbleSupported)
 		"");
 }
 
-Gura_ImplementFunction(HapticRumbleSupported)
+Gura_ImplementFunction(__HapticRumbleSupported)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_HapticRumbleSupported(haptic);
@@ -7854,7 +7854,7 @@ Gura_ImplementFunction(HapticRumbleSupported)
 }
 
 // sdl2.HapticRunEffect
-Gura_DeclareFunction(HapticRunEffect)
+Gura_DeclareFunctionAlias(__HapticRunEffect, "HapticRunEffect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
@@ -7865,7 +7865,7 @@ Gura_DeclareFunction(HapticRunEffect)
 		"");
 }
 
-Gura_ImplementFunction(HapticRunEffect)
+Gura_ImplementFunction(__HapticRunEffect)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	int effect = args.GetInt(1);
@@ -7879,7 +7879,7 @@ Gura_ImplementFunction(HapticRunEffect)
 }
 
 // sdl2.HapticSetAutocenter
-Gura_DeclareFunction(HapticSetAutocenter)
+Gura_DeclareFunctionAlias(__HapticSetAutocenter, "HapticSetAutocenter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
@@ -7889,7 +7889,7 @@ Gura_DeclareFunction(HapticSetAutocenter)
 		"");
 }
 
-Gura_ImplementFunction(HapticSetAutocenter)
+Gura_ImplementFunction(__HapticSetAutocenter)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	int autocenter = args.GetInt(1);
@@ -7902,7 +7902,7 @@ Gura_ImplementFunction(HapticSetAutocenter)
 }
 
 // sdl2.HapticSetGain
-Gura_DeclareFunction(HapticSetGain)
+Gura_DeclareFunctionAlias(__HapticSetGain, "HapticSetGain")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
@@ -7912,7 +7912,7 @@ Gura_DeclareFunction(HapticSetGain)
 		"");
 }
 
-Gura_ImplementFunction(HapticSetGain)
+Gura_ImplementFunction(__HapticSetGain)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	int gain = args.GetInt(1);
@@ -7925,7 +7925,7 @@ Gura_ImplementFunction(HapticSetGain)
 }
 
 // sdl2.HapticStopAll
-Gura_DeclareFunction(HapticStopAll)
+Gura_DeclareFunctionAlias(__HapticStopAll, "HapticStopAll")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
@@ -7934,7 +7934,7 @@ Gura_DeclareFunction(HapticStopAll)
 		"");
 }
 
-Gura_ImplementFunction(HapticStopAll)
+Gura_ImplementFunction(__HapticStopAll)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_HapticStopAll(haptic);
@@ -7946,7 +7946,7 @@ Gura_ImplementFunction(HapticStopAll)
 }
 
 // sdl2.HapticStopEffect
-Gura_DeclareFunction(HapticStopEffect)
+Gura_DeclareFunctionAlias(__HapticStopEffect, "HapticStopEffect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
@@ -7956,7 +7956,7 @@ Gura_DeclareFunction(HapticStopEffect)
 		"");
 }
 
-Gura_ImplementFunction(HapticStopEffect)
+Gura_ImplementFunction(__HapticStopEffect)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	int effect = args.GetInt(1);
@@ -7969,7 +7969,7 @@ Gura_ImplementFunction(HapticStopEffect)
 }
 
 // sdl2.HapticUnpause
-Gura_DeclareFunction(HapticUnpause)
+Gura_DeclareFunctionAlias(__HapticUnpause, "HapticUnpause")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
@@ -7978,7 +7978,7 @@ Gura_DeclareFunction(HapticUnpause)
 		"");
 }
 
-Gura_ImplementFunction(HapticUnpause)
+Gura_ImplementFunction(__HapticUnpause)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_HapticUnpause(haptic);
@@ -7990,7 +7990,7 @@ Gura_ImplementFunction(HapticUnpause)
 }
 
 // sdl2.HapticUpdateEffect
-Gura_DeclareFunction(HapticUpdateEffect)
+Gura_DeclareFunctionAlias(__HapticUpdateEffect, "HapticUpdateEffect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
@@ -8001,7 +8001,7 @@ Gura_DeclareFunction(HapticUpdateEffect)
 		"");
 }
 
-Gura_ImplementFunction(HapticUpdateEffect)
+Gura_ImplementFunction(__HapticUpdateEffect)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	int effect = args.GetInt(1);
@@ -8015,7 +8015,7 @@ Gura_ImplementFunction(HapticUpdateEffect)
 }
 
 // sdl2.JoystickIsHaptic
-Gura_DeclareFunction(JoystickIsHaptic)
+Gura_DeclareFunctionAlias(__JoystickIsHaptic, "JoystickIsHaptic")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -8025,7 +8025,7 @@ Gura_DeclareFunction(JoystickIsHaptic)
 		"");
 }
 
-Gura_ImplementFunction(JoystickIsHaptic)
+Gura_ImplementFunction(__JoystickIsHaptic)
 {
 	SDL_Joystick *joystick = Object_Joystick::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_JoystickIsHaptic(joystick);
@@ -8037,7 +8037,7 @@ Gura_ImplementFunction(JoystickIsHaptic)
 }
 
 // sdl2.MouseIsHaptic
-Gura_DeclareFunction(MouseIsHaptic)
+Gura_DeclareFunctionAlias(__MouseIsHaptic, "MouseIsHaptic")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -8046,7 +8046,7 @@ Gura_DeclareFunction(MouseIsHaptic)
 		"");
 }
 
-Gura_ImplementFunction(MouseIsHaptic)
+Gura_ImplementFunction(__MouseIsHaptic)
 {
 	int _rtn = SDL_MouseIsHaptic();
 	if (_rtn < 0) {
@@ -8057,7 +8057,7 @@ Gura_ImplementFunction(MouseIsHaptic)
 }
 
 // sdl2.NumHaptics
-Gura_DeclareFunction(NumHaptics)
+Gura_DeclareFunctionAlias(__NumHaptics, "NumHaptics")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -8066,7 +8066,7 @@ Gura_DeclareFunction(NumHaptics)
 		"");
 }
 
-Gura_ImplementFunction(NumHaptics)
+Gura_ImplementFunction(__NumHaptics)
 {
 	int _rtn = SDL_NumHaptics();
 	if (_rtn < 0) {
@@ -8077,7 +8077,7 @@ Gura_ImplementFunction(NumHaptics)
 }
 
 // sdl2.AudioInit
-Gura_DeclareFunction(AudioInit)
+Gura_DeclareFunctionAlias(__AudioInit, "AudioInit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "driver_name", VTYPE_string, OCCUR_Once, FLAG_None);
@@ -8086,7 +8086,7 @@ Gura_DeclareFunction(AudioInit)
 		"");
 }
 
-Gura_ImplementFunction(AudioInit)
+Gura_ImplementFunction(__AudioInit)
 {
 	const char *driver_name = args.GetString(0);
 	int _rtn = SDL_AudioInit(driver_name);
@@ -8098,7 +8098,7 @@ Gura_ImplementFunction(AudioInit)
 }
 
 // sdl2.AudioQuit
-Gura_DeclareFunction(AudioQuit)
+Gura_DeclareFunctionAlias(__AudioQuit, "AudioQuit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -8106,14 +8106,14 @@ Gura_DeclareFunction(AudioQuit)
 		"");
 }
 
-Gura_ImplementFunction(AudioQuit)
+Gura_ImplementFunction(__AudioQuit)
 {
 	SDL_AudioQuit();
 	return Value::Null;
 }
 
 // sdl2.BuildAudioCVT
-Gura_DeclareFunction(BuildAudioCVT)
+Gura_DeclareFunctionAlias(__BuildAudioCVT, "BuildAudioCVT")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -8129,7 +8129,7 @@ Gura_DeclareFunction(BuildAudioCVT)
 		"");
 }
 
-Gura_ImplementFunction(BuildAudioCVT)
+Gura_ImplementFunction(__BuildAudioCVT)
 {
 	SDL_AudioCVT *cvt = Object_AudioCVT::GetObject(args, 0)->GetEntity();
 	SDL_AudioFormat src_format = static_cast<SDL_AudioFormat>(args.GetInt(1));
@@ -8147,7 +8147,7 @@ Gura_ImplementFunction(BuildAudioCVT)
 }
 
 // sdl2.ClearQueuedAudio
-Gura_DeclareFunction(ClearQueuedAudio)
+Gura_DeclareFunctionAlias(__ClearQueuedAudio, "ClearQueuedAudio")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "dev", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -8156,7 +8156,7 @@ Gura_DeclareFunction(ClearQueuedAudio)
 		"");
 }
 
-Gura_ImplementFunction(ClearQueuedAudio)
+Gura_ImplementFunction(__ClearQueuedAudio)
 {
 #if 0
 	SDL_AudioDeviceID dev = static_cast<SDL_AudioDeviceID>(args.GetInt(0));
@@ -8168,7 +8168,7 @@ Gura_ImplementFunction(ClearQueuedAudio)
 }
 
 // sdl2.CloseAudio
-Gura_DeclareFunction(CloseAudio)
+Gura_DeclareFunctionAlias(__CloseAudio, "CloseAudio")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -8176,14 +8176,14 @@ Gura_DeclareFunction(CloseAudio)
 		"");
 }
 
-Gura_ImplementFunction(CloseAudio)
+Gura_ImplementFunction(__CloseAudio)
 {
 	SDL_CloseAudio();
 	return Value::Null;
 }
 
 // sdl2.CloseAudioDevice
-Gura_DeclareFunction(CloseAudioDevice)
+Gura_DeclareFunctionAlias(__CloseAudioDevice, "CloseAudioDevice")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "dev", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -8192,7 +8192,7 @@ Gura_DeclareFunction(CloseAudioDevice)
 		"");
 }
 
-Gura_ImplementFunction(CloseAudioDevice)
+Gura_ImplementFunction(__CloseAudioDevice)
 {
 	SDL_AudioDeviceID dev = static_cast<SDL_AudioDeviceID>(args.GetInt(0));
 	SDL_CloseAudioDevice(dev);
@@ -8200,7 +8200,7 @@ Gura_ImplementFunction(CloseAudioDevice)
 }
 
 // sdl2.ConvertAudio
-Gura_DeclareFunction(ConvertAudio)
+Gura_DeclareFunctionAlias(__ConvertAudio, "ConvertAudio")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "cvt", VTYPE_AudioCVT, OCCUR_Once, FLAG_None);
@@ -8209,7 +8209,7 @@ Gura_DeclareFunction(ConvertAudio)
 		"");
 }
 
-Gura_ImplementFunction(ConvertAudio)
+Gura_ImplementFunction(__ConvertAudio)
 {
 	SDL_AudioCVT *cvt = Object_AudioCVT::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_ConvertAudio(cvt);
@@ -8221,7 +8221,7 @@ Gura_ImplementFunction(ConvertAudio)
 }
 
 // sdl2.FreeWAV
-Gura_DeclareFunction(FreeWAV)
+Gura_DeclareFunctionAlias(__FreeWAV, "FreeWAV")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "wav", VTYPE_Wav, OCCUR_Once, FLAG_None);
@@ -8230,7 +8230,7 @@ Gura_DeclareFunction(FreeWAV)
 		"");
 }
 
-Gura_ImplementFunction(FreeWAV)
+Gura_ImplementFunction(__FreeWAV)
 {
 	Object_Wav *wav = Object_Wav::GetObject(args, 0);
 	Object_Wav *pObj = Object_Wav::GetObject(args, 0);
@@ -8240,7 +8240,7 @@ Gura_ImplementFunction(FreeWAV)
 }
 
 // sdl2.GetAudioDeviceName
-Gura_DeclareFunction(GetAudioDeviceName)
+Gura_DeclareFunctionAlias(__GetAudioDeviceName, "GetAudioDeviceName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -8251,7 +8251,7 @@ Gura_DeclareFunction(GetAudioDeviceName)
 		"");
 }
 
-Gura_ImplementFunction(GetAudioDeviceName)
+Gura_ImplementFunction(__GetAudioDeviceName)
 {
 	int index = args.GetInt(0);
 	int iscapture = args.GetInt(1);
@@ -8267,7 +8267,7 @@ Gura_ImplementFunction(GetAudioDeviceName)
 }
 
 // sdl2.GetAudioDeviceStatus
-Gura_DeclareFunction(GetAudioDeviceStatus)
+Gura_DeclareFunctionAlias(__GetAudioDeviceStatus, "GetAudioDeviceStatus")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -8277,7 +8277,7 @@ Gura_DeclareFunction(GetAudioDeviceStatus)
 		"");
 }
 
-Gura_ImplementFunction(GetAudioDeviceStatus)
+Gura_ImplementFunction(__GetAudioDeviceStatus)
 {
 	SDL_AudioDeviceID dev = static_cast<SDL_AudioDeviceID>(args.GetInt(0));
 	SDL_AudioStatus _rtn = SDL_GetAudioDeviceStatus(dev);
@@ -8285,7 +8285,7 @@ Gura_ImplementFunction(GetAudioDeviceStatus)
 }
 
 // sdl2.GetAudioDriver
-Gura_DeclareFunction(GetAudioDriver)
+Gura_DeclareFunctionAlias(__GetAudioDriver, "GetAudioDriver")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -8295,7 +8295,7 @@ Gura_DeclareFunction(GetAudioDriver)
 		"");
 }
 
-Gura_ImplementFunction(GetAudioDriver)
+Gura_ImplementFunction(__GetAudioDriver)
 {
 	int index = args.GetInt(0);
 	const char *_rtn = SDL_GetAudioDriver(index);
@@ -8310,7 +8310,7 @@ Gura_ImplementFunction(GetAudioDriver)
 }
 
 // sdl2.GetAudioStatus
-Gura_DeclareFunction(GetAudioStatus)
+Gura_DeclareFunctionAlias(__GetAudioStatus, "GetAudioStatus")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -8319,14 +8319,14 @@ Gura_DeclareFunction(GetAudioStatus)
 		"");
 }
 
-Gura_ImplementFunction(GetAudioStatus)
+Gura_ImplementFunction(__GetAudioStatus)
 {
 	SDL_AudioStatus _rtn = SDL_GetAudioStatus();
 	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // sdl2.GetCurrentAudioDriver
-Gura_DeclareFunction(GetCurrentAudioDriver)
+Gura_DeclareFunctionAlias(__GetCurrentAudioDriver, "GetCurrentAudioDriver")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -8335,7 +8335,7 @@ Gura_DeclareFunction(GetCurrentAudioDriver)
 		"");
 }
 
-Gura_ImplementFunction(GetCurrentAudioDriver)
+Gura_ImplementFunction(__GetCurrentAudioDriver)
 {
 	const char *_rtn = SDL_GetCurrentAudioDriver();
 	Value _rtnVal;
@@ -8349,7 +8349,7 @@ Gura_ImplementFunction(GetCurrentAudioDriver)
 }
 
 // sdl2.GetNumAudioDevices
-Gura_DeclareFunction(GetNumAudioDevices)
+Gura_DeclareFunctionAlias(__GetNumAudioDevices, "GetNumAudioDevices")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -8359,7 +8359,7 @@ Gura_DeclareFunction(GetNumAudioDevices)
 		"");
 }
 
-Gura_ImplementFunction(GetNumAudioDevices)
+Gura_ImplementFunction(__GetNumAudioDevices)
 {
 	int iscapture = args.GetInt(0);
 	int _rtn = SDL_GetNumAudioDevices(iscapture);
@@ -8371,7 +8371,7 @@ Gura_ImplementFunction(GetNumAudioDevices)
 }
 
 // sdl2.GetNumAudioDrivers
-Gura_DeclareFunction(GetNumAudioDrivers)
+Gura_DeclareFunctionAlias(__GetNumAudioDrivers, "GetNumAudioDrivers")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -8380,14 +8380,14 @@ Gura_DeclareFunction(GetNumAudioDrivers)
 		"");
 }
 
-Gura_ImplementFunction(GetNumAudioDrivers)
+Gura_ImplementFunction(__GetNumAudioDrivers)
 {
 	int _rtn = SDL_GetNumAudioDrivers();
 	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // sdl2.GetQueuedAudioSize
-Gura_DeclareFunction(GetQueuedAudioSize)
+Gura_DeclareFunctionAlias(__GetQueuedAudioSize, "GetQueuedAudioSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "dev", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -8396,7 +8396,7 @@ Gura_DeclareFunction(GetQueuedAudioSize)
 		"");
 }
 
-Gura_ImplementFunction(GetQueuedAudioSize)
+Gura_ImplementFunction(__GetQueuedAudioSize)
 {
 #if 0
 	SDL_AudioDeviceID dev = static_cast<SDL_AudioDeviceID>(args.GetInt(0));
@@ -8408,7 +8408,7 @@ Gura_ImplementFunction(GetQueuedAudioSize)
 }
 
 // sdl2.LoadWAV
-Gura_DeclareFunction(LoadWAV)
+Gura_DeclareFunctionAlias(__LoadWAV, "LoadWAV")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -8418,7 +8418,7 @@ Gura_DeclareFunction(LoadWAV)
 		"");
 }
 
-Gura_ImplementFunction(LoadWAV)
+Gura_ImplementFunction(__LoadWAV)
 {
 	Stream &file = Object_stream::GetObject(args, 0)->GetStream();
 	std::auto_ptr<SDL_RWops> _file(CreateRWopsStream(&file, &sig));
@@ -8434,7 +8434,7 @@ Gura_ImplementFunction(LoadWAV)
 }
 
 // sdl2.LoadWAV_RW
-Gura_DeclareFunction(LoadWAV_RW)
+Gura_DeclareFunctionAlias(__LoadWAV_RW, "LoadWAV_RW")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -8442,7 +8442,7 @@ Gura_DeclareFunction(LoadWAV_RW)
 		"");
 }
 
-Gura_ImplementFunction(LoadWAV_RW)
+Gura_ImplementFunction(__LoadWAV_RW)
 {
 #if 0
 	SDL_LoadWAV_RW();
@@ -8453,7 +8453,7 @@ Gura_ImplementFunction(LoadWAV_RW)
 }
 
 // sdl2.LockAudio
-Gura_DeclareFunction(LockAudio)
+Gura_DeclareFunctionAlias(__LockAudio, "LockAudio")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -8461,14 +8461,14 @@ Gura_DeclareFunction(LockAudio)
 		"");
 }
 
-Gura_ImplementFunction(LockAudio)
+Gura_ImplementFunction(__LockAudio)
 {
 	SDL_LockAudio();
 	return Value::Null;
 }
 
 // sdl2.LockAudioDevice
-Gura_DeclareFunction(LockAudioDevice)
+Gura_DeclareFunctionAlias(__LockAudioDevice, "LockAudioDevice")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "dev", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -8477,7 +8477,7 @@ Gura_DeclareFunction(LockAudioDevice)
 		"");
 }
 
-Gura_ImplementFunction(LockAudioDevice)
+Gura_ImplementFunction(__LockAudioDevice)
 {
 	SDL_AudioDeviceID dev = static_cast<SDL_AudioDeviceID>(args.GetInt(0));
 	SDL_LockAudioDevice(dev);
@@ -8485,7 +8485,7 @@ Gura_ImplementFunction(LockAudioDevice)
 }
 
 // sdl2.MixAudio
-Gura_DeclareFunction(MixAudio)
+Gura_DeclareFunctionAlias(__MixAudio, "MixAudio")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "volume", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -8494,7 +8494,7 @@ Gura_DeclareFunction(MixAudio)
 		"");
 }
 
-Gura_ImplementFunction(MixAudio)
+Gura_ImplementFunction(__MixAudio)
 {
 #if 0
 	int volume = args.GetInt(0);
@@ -8506,7 +8506,7 @@ Gura_ImplementFunction(MixAudio)
 }
 
 // sdl2.MixAudioFormat
-Gura_DeclareFunction(MixAudioFormat)
+Gura_DeclareFunctionAlias(__MixAudioFormat, "MixAudioFormat")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -8516,7 +8516,7 @@ Gura_DeclareFunction(MixAudioFormat)
 		"");
 }
 
-Gura_ImplementFunction(MixAudioFormat)
+Gura_ImplementFunction(__MixAudioFormat)
 {
 #if 0
 	SDL_AudioFormat format = static_cast<SDL_AudioFormat>(args.GetInt(0));
@@ -8529,7 +8529,7 @@ Gura_ImplementFunction(MixAudioFormat)
 }
 
 // sdl2.OpenAudio
-Gura_DeclareFunction(OpenAudio)
+Gura_DeclareFunctionAlias(__OpenAudio, "OpenAudio")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -8539,7 +8539,7 @@ Gura_DeclareFunction(OpenAudio)
 		"");
 }
 
-Gura_ImplementFunction(OpenAudio)
+Gura_ImplementFunction(__OpenAudio)
 {
 	SDL_AudioSpec *desired = Object_AudioSpec::GetObject(args, 0)->GetEntity();
 	SDL_AudioSpec obtained;
@@ -8552,7 +8552,7 @@ Gura_ImplementFunction(OpenAudio)
 }
 
 // sdl2.OpenAudioDevice
-Gura_DeclareFunction(OpenAudioDevice)
+Gura_DeclareFunctionAlias(__OpenAudioDevice, "OpenAudioDevice")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "device", VTYPE_string, OCCUR_Once, FLAG_None);
@@ -8564,7 +8564,7 @@ Gura_DeclareFunction(OpenAudioDevice)
 		"");
 }
 
-Gura_ImplementFunction(OpenAudioDevice)
+Gura_ImplementFunction(__OpenAudioDevice)
 {
 #if 0
 	const char *device = args.GetString(0);
@@ -8579,7 +8579,7 @@ Gura_ImplementFunction(OpenAudioDevice)
 }
 
 // sdl2.PauseAudio
-Gura_DeclareFunction(PauseAudio)
+Gura_DeclareFunctionAlias(__PauseAudio, "PauseAudio")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "pause_on", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -8588,7 +8588,7 @@ Gura_DeclareFunction(PauseAudio)
 		"");
 }
 
-Gura_ImplementFunction(PauseAudio)
+Gura_ImplementFunction(__PauseAudio)
 {
 	int pause_on = args.GetInt(0);
 	SDL_PauseAudio(pause_on);
@@ -8596,7 +8596,7 @@ Gura_ImplementFunction(PauseAudio)
 }
 
 // sdl2.PauseAudioDevice
-Gura_DeclareFunction(PauseAudioDevice)
+Gura_DeclareFunctionAlias(__PauseAudioDevice, "PauseAudioDevice")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "dev", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -8606,7 +8606,7 @@ Gura_DeclareFunction(PauseAudioDevice)
 		"");
 }
 
-Gura_ImplementFunction(PauseAudioDevice)
+Gura_ImplementFunction(__PauseAudioDevice)
 {
 	SDL_AudioDeviceID dev = static_cast<SDL_AudioDeviceID>(args.GetInt(0));
 	int pause_on = args.GetInt(1);
@@ -8615,7 +8615,7 @@ Gura_ImplementFunction(PauseAudioDevice)
 }
 
 // sdl2.QueueAudio
-Gura_DeclareFunction(QueueAudio)
+Gura_DeclareFunctionAlias(__QueueAudio, "QueueAudio")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "dev", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -8624,7 +8624,7 @@ Gura_DeclareFunction(QueueAudio)
 		"");
 }
 
-Gura_ImplementFunction(QueueAudio)
+Gura_ImplementFunction(__QueueAudio)
 {
 #if 0
 	SDL_AudioDeviceID dev = static_cast<SDL_AudioDeviceID>(args.GetInt(0));
@@ -8640,7 +8640,7 @@ Gura_ImplementFunction(QueueAudio)
 }
 
 // sdl2.UnlockAudio
-Gura_DeclareFunction(UnlockAudio)
+Gura_DeclareFunctionAlias(__UnlockAudio, "UnlockAudio")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -8648,14 +8648,14 @@ Gura_DeclareFunction(UnlockAudio)
 		"");
 }
 
-Gura_ImplementFunction(UnlockAudio)
+Gura_ImplementFunction(__UnlockAudio)
 {
 	SDL_UnlockAudio();
 	return Value::Null;
 }
 
 // sdl2.UnlockAudioDevice
-Gura_DeclareFunction(UnlockAudioDevice)
+Gura_DeclareFunctionAlias(__UnlockAudioDevice, "UnlockAudioDevice")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "dev", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -8664,7 +8664,7 @@ Gura_DeclareFunction(UnlockAudioDevice)
 		"");
 }
 
-Gura_ImplementFunction(UnlockAudioDevice)
+Gura_ImplementFunction(__UnlockAudioDevice)
 {
 	SDL_AudioDeviceID dev = static_cast<SDL_AudioDeviceID>(args.GetInt(0));
 	SDL_UnlockAudioDevice(dev);
@@ -8672,7 +8672,7 @@ Gura_ImplementFunction(UnlockAudioDevice)
 }
 
 // sdl2.AUDIO_BITSIZE
-Gura_DeclareFunction(AUDIO_BITSIZE)
+Gura_DeclareFunctionAlias(__AUDIO_BITSIZE, "AUDIO_BITSIZE")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -8682,7 +8682,7 @@ Gura_DeclareFunction(AUDIO_BITSIZE)
 		"");
 }
 
-Gura_ImplementFunction(AUDIO_BITSIZE)
+Gura_ImplementFunction(__AUDIO_BITSIZE)
 {
 	Uint16 x = args.GetUShort(0);
 	Uint16 _rtn = SDL_AUDIO_BITSIZE(x);
@@ -8690,7 +8690,7 @@ Gura_ImplementFunction(AUDIO_BITSIZE)
 }
 
 // sdl2.AUDIO_ISFLOAT
-Gura_DeclareFunction(AUDIO_ISFLOAT)
+Gura_DeclareFunctionAlias(__AUDIO_ISFLOAT, "AUDIO_ISFLOAT")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -8700,7 +8700,7 @@ Gura_DeclareFunction(AUDIO_ISFLOAT)
 		"");
 }
 
-Gura_ImplementFunction(AUDIO_ISFLOAT)
+Gura_ImplementFunction(__AUDIO_ISFLOAT)
 {
 	Uint16 x = args.GetUShort(0);
 	Uint16 _rtn = SDL_AUDIO_ISFLOAT(x);
@@ -8708,7 +8708,7 @@ Gura_ImplementFunction(AUDIO_ISFLOAT)
 }
 
 // sdl2.AUDIO_ISBIGENDIAN
-Gura_DeclareFunction(AUDIO_ISBIGENDIAN)
+Gura_DeclareFunctionAlias(__AUDIO_ISBIGENDIAN, "AUDIO_ISBIGENDIAN")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -8718,7 +8718,7 @@ Gura_DeclareFunction(AUDIO_ISBIGENDIAN)
 		"");
 }
 
-Gura_ImplementFunction(AUDIO_ISBIGENDIAN)
+Gura_ImplementFunction(__AUDIO_ISBIGENDIAN)
 {
 	Uint16 x = args.GetUShort(0);
 	Uint16 _rtn = SDL_AUDIO_ISBIGENDIAN(x);
@@ -8726,7 +8726,7 @@ Gura_ImplementFunction(AUDIO_ISBIGENDIAN)
 }
 
 // sdl2.AUDIO_ISSIGNED
-Gura_DeclareFunction(AUDIO_ISSIGNED)
+Gura_DeclareFunctionAlias(__AUDIO_ISSIGNED, "AUDIO_ISSIGNED")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -8736,7 +8736,7 @@ Gura_DeclareFunction(AUDIO_ISSIGNED)
 		"");
 }
 
-Gura_ImplementFunction(AUDIO_ISSIGNED)
+Gura_ImplementFunction(__AUDIO_ISSIGNED)
 {
 	Uint16 x = args.GetUShort(0);
 	Uint16 _rtn = SDL_AUDIO_ISSIGNED(x);
@@ -8744,7 +8744,7 @@ Gura_ImplementFunction(AUDIO_ISSIGNED)
 }
 
 // sdl2.AUDIO_ISINT
-Gura_DeclareFunction(AUDIO_ISINT)
+Gura_DeclareFunctionAlias(__AUDIO_ISINT, "AUDIO_ISINT")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -8754,7 +8754,7 @@ Gura_DeclareFunction(AUDIO_ISINT)
 		"");
 }
 
-Gura_ImplementFunction(AUDIO_ISINT)
+Gura_ImplementFunction(__AUDIO_ISINT)
 {
 	Uint16 x = args.GetUShort(0);
 	bool _rtn = SDL_AUDIO_ISINT(x);
@@ -8762,7 +8762,7 @@ Gura_ImplementFunction(AUDIO_ISINT)
 }
 
 // sdl2.AUDIO_ISLITTLEENDIAN
-Gura_DeclareFunction(AUDIO_ISLITTLEENDIAN)
+Gura_DeclareFunctionAlias(__AUDIO_ISLITTLEENDIAN, "AUDIO_ISLITTLEENDIAN")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -8772,7 +8772,7 @@ Gura_DeclareFunction(AUDIO_ISLITTLEENDIAN)
 		"");
 }
 
-Gura_ImplementFunction(AUDIO_ISLITTLEENDIAN)
+Gura_ImplementFunction(__AUDIO_ISLITTLEENDIAN)
 {
 	Uint16 x = args.GetUShort(0);
 	bool _rtn = SDL_AUDIO_ISLITTLEENDIAN(x);
@@ -8780,7 +8780,7 @@ Gura_ImplementFunction(AUDIO_ISLITTLEENDIAN)
 }
 
 // sdl2.AUDIO_ISUNSIGNED
-Gura_DeclareFunction(AUDIO_ISUNSIGNED)
+Gura_DeclareFunctionAlias(__AUDIO_ISUNSIGNED, "AUDIO_ISUNSIGNED")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -8790,7 +8790,7 @@ Gura_DeclareFunction(AUDIO_ISUNSIGNED)
 		"");
 }
 
-Gura_ImplementFunction(AUDIO_ISUNSIGNED)
+Gura_ImplementFunction(__AUDIO_ISUNSIGNED)
 {
 	Uint16 x = args.GetUShort(0);
 	bool _rtn = SDL_AUDIO_ISUNSIGNED(x);
@@ -8798,7 +8798,7 @@ Gura_ImplementFunction(AUDIO_ISUNSIGNED)
 }
 
 // sdl2.CreateThread
-Gura_DeclareFunction(CreateThread)
+Gura_DeclareFunctionAlias(__CreateThread, "CreateThread")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -8806,7 +8806,7 @@ Gura_DeclareFunction(CreateThread)
 		"");
 }
 
-Gura_ImplementFunction(CreateThread)
+Gura_ImplementFunction(__CreateThread)
 {
 #if 0
 	SDL_CreateThread();
@@ -8817,7 +8817,7 @@ Gura_ImplementFunction(CreateThread)
 }
 
 // sdl2.DetachThread
-Gura_DeclareFunction(DetachThread)
+Gura_DeclareFunctionAlias(__DetachThread, "DetachThread")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -8825,7 +8825,7 @@ Gura_DeclareFunction(DetachThread)
 		"");
 }
 
-Gura_ImplementFunction(DetachThread)
+Gura_ImplementFunction(__DetachThread)
 {
 #if 0
 	SDL_DetachThread();
@@ -8836,7 +8836,7 @@ Gura_ImplementFunction(DetachThread)
 }
 
 // sdl2.GetThreadID
-Gura_DeclareFunction(GetThreadID)
+Gura_DeclareFunctionAlias(__GetThreadID, "GetThreadID")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -8844,7 +8844,7 @@ Gura_DeclareFunction(GetThreadID)
 		"");
 }
 
-Gura_ImplementFunction(GetThreadID)
+Gura_ImplementFunction(__GetThreadID)
 {
 #if 0
 	SDL_GetThreadID();
@@ -8855,7 +8855,7 @@ Gura_ImplementFunction(GetThreadID)
 }
 
 // sdl2.GetThreadName
-Gura_DeclareFunction(GetThreadName)
+Gura_DeclareFunctionAlias(__GetThreadName, "GetThreadName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -8863,7 +8863,7 @@ Gura_DeclareFunction(GetThreadName)
 		"");
 }
 
-Gura_ImplementFunction(GetThreadName)
+Gura_ImplementFunction(__GetThreadName)
 {
 #if 0
 	SDL_GetThreadName();
@@ -8874,7 +8874,7 @@ Gura_ImplementFunction(GetThreadName)
 }
 
 // sdl2.GetThreadPriority
-Gura_DeclareFunction(GetThreadPriority)
+Gura_DeclareFunctionAlias(__GetThreadPriority, "GetThreadPriority")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -8882,7 +8882,7 @@ Gura_DeclareFunction(GetThreadPriority)
 		"");
 }
 
-Gura_ImplementFunction(GetThreadPriority)
+Gura_ImplementFunction(__GetThreadPriority)
 {
 #if 0
 	SDL_GetThreadPriority();
@@ -8893,7 +8893,7 @@ Gura_ImplementFunction(GetThreadPriority)
 }
 
 // sdl2.TLSCreate
-Gura_DeclareFunction(TLSCreate)
+Gura_DeclareFunctionAlias(__TLSCreate, "TLSCreate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -8901,7 +8901,7 @@ Gura_DeclareFunction(TLSCreate)
 		"");
 }
 
-Gura_ImplementFunction(TLSCreate)
+Gura_ImplementFunction(__TLSCreate)
 {
 #if 0
 	SDL_TLSCreate();
@@ -8912,7 +8912,7 @@ Gura_ImplementFunction(TLSCreate)
 }
 
 // sdl2.TLSGet
-Gura_DeclareFunction(TLSGet)
+Gura_DeclareFunctionAlias(__TLSGet, "TLSGet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -8920,7 +8920,7 @@ Gura_DeclareFunction(TLSGet)
 		"");
 }
 
-Gura_ImplementFunction(TLSGet)
+Gura_ImplementFunction(__TLSGet)
 {
 #if 0
 	SDL_TLSGet();
@@ -8931,7 +8931,7 @@ Gura_ImplementFunction(TLSGet)
 }
 
 // sdl2.TLSSet
-Gura_DeclareFunction(TLSSet)
+Gura_DeclareFunctionAlias(__TLSSet, "TLSSet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -8939,7 +8939,7 @@ Gura_DeclareFunction(TLSSet)
 		"");
 }
 
-Gura_ImplementFunction(TLSSet)
+Gura_ImplementFunction(__TLSSet)
 {
 #if 0
 	SDL_TLSSet();
@@ -8950,7 +8950,7 @@ Gura_ImplementFunction(TLSSet)
 }
 
 // sdl2.ThreadID
-Gura_DeclareFunction(ThreadID)
+Gura_DeclareFunctionAlias(__ThreadID, "ThreadID")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -8958,7 +8958,7 @@ Gura_DeclareFunction(ThreadID)
 		"");
 }
 
-Gura_ImplementFunction(ThreadID)
+Gura_ImplementFunction(__ThreadID)
 {
 #if 0
 	SDL_ThreadID();
@@ -8969,7 +8969,7 @@ Gura_ImplementFunction(ThreadID)
 }
 
 // sdl2.WaitThread
-Gura_DeclareFunction(WaitThread)
+Gura_DeclareFunctionAlias(__WaitThread, "WaitThread")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -8977,7 +8977,7 @@ Gura_DeclareFunction(WaitThread)
 		"");
 }
 
-Gura_ImplementFunction(WaitThread)
+Gura_ImplementFunction(__WaitThread)
 {
 #if 0
 	SDL_WaitThread();
@@ -8988,7 +8988,7 @@ Gura_ImplementFunction(WaitThread)
 }
 
 // sdl2.CondBroadcast
-Gura_DeclareFunction(CondBroadcast)
+Gura_DeclareFunctionAlias(__CondBroadcast, "CondBroadcast")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -8996,7 +8996,7 @@ Gura_DeclareFunction(CondBroadcast)
 		"");
 }
 
-Gura_ImplementFunction(CondBroadcast)
+Gura_ImplementFunction(__CondBroadcast)
 {
 #if 0
 	SDL_CondBroadcast();
@@ -9007,7 +9007,7 @@ Gura_ImplementFunction(CondBroadcast)
 }
 
 // sdl2.CondSignal
-Gura_DeclareFunction(CondSignal)
+Gura_DeclareFunctionAlias(__CondSignal, "CondSignal")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9015,7 +9015,7 @@ Gura_DeclareFunction(CondSignal)
 		"");
 }
 
-Gura_ImplementFunction(CondSignal)
+Gura_ImplementFunction(__CondSignal)
 {
 #if 0
 	SDL_CondSignal();
@@ -9026,7 +9026,7 @@ Gura_ImplementFunction(CondSignal)
 }
 
 // sdl2.CondWait
-Gura_DeclareFunction(CondWait)
+Gura_DeclareFunctionAlias(__CondWait, "CondWait")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9034,7 +9034,7 @@ Gura_DeclareFunction(CondWait)
 		"");
 }
 
-Gura_ImplementFunction(CondWait)
+Gura_ImplementFunction(__CondWait)
 {
 #if 0
 	SDL_CondWait();
@@ -9045,7 +9045,7 @@ Gura_ImplementFunction(CondWait)
 }
 
 // sdl2.CondWaitTimeout
-Gura_DeclareFunction(CondWaitTimeout)
+Gura_DeclareFunctionAlias(__CondWaitTimeout, "CondWaitTimeout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9053,7 +9053,7 @@ Gura_DeclareFunction(CondWaitTimeout)
 		"");
 }
 
-Gura_ImplementFunction(CondWaitTimeout)
+Gura_ImplementFunction(__CondWaitTimeout)
 {
 #if 0
 	SDL_CondWaitTimeout();
@@ -9064,7 +9064,7 @@ Gura_ImplementFunction(CondWaitTimeout)
 }
 
 // sdl2.CreateCond
-Gura_DeclareFunction(CreateCond)
+Gura_DeclareFunctionAlias(__CreateCond, "CreateCond")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9072,7 +9072,7 @@ Gura_DeclareFunction(CreateCond)
 		"");
 }
 
-Gura_ImplementFunction(CreateCond)
+Gura_ImplementFunction(__CreateCond)
 {
 #if 0
 	SDL_CreateCond();
@@ -9083,7 +9083,7 @@ Gura_ImplementFunction(CreateCond)
 }
 
 // sdl2.CreateMutex
-Gura_DeclareFunction(CreateMutex)
+Gura_DeclareFunctionAlias(__CreateMutex, "CreateMutex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9091,7 +9091,7 @@ Gura_DeclareFunction(CreateMutex)
 		"");
 }
 
-Gura_ImplementFunction(CreateMutex)
+Gura_ImplementFunction(__CreateMutex)
 {
 #if 0
 	SDL_CreateMutex();
@@ -9102,7 +9102,7 @@ Gura_ImplementFunction(CreateMutex)
 }
 
 // sdl2.CreateSemaphore
-Gura_DeclareFunction(CreateSemaphore)
+Gura_DeclareFunctionAlias(__CreateSemaphore, "CreateSemaphore")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9110,7 +9110,7 @@ Gura_DeclareFunction(CreateSemaphore)
 		"");
 }
 
-Gura_ImplementFunction(CreateSemaphore)
+Gura_ImplementFunction(__CreateSemaphore)
 {
 #if 0
 	SDL_CreateSemaphore();
@@ -9121,7 +9121,7 @@ Gura_ImplementFunction(CreateSemaphore)
 }
 
 // sdl2.DestroyCond
-Gura_DeclareFunction(DestroyCond)
+Gura_DeclareFunctionAlias(__DestroyCond, "DestroyCond")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9129,7 +9129,7 @@ Gura_DeclareFunction(DestroyCond)
 		"");
 }
 
-Gura_ImplementFunction(DestroyCond)
+Gura_ImplementFunction(__DestroyCond)
 {
 #if 0
 	SDL_DestroyCond();
@@ -9140,7 +9140,7 @@ Gura_ImplementFunction(DestroyCond)
 }
 
 // sdl2.DestroyMutex
-Gura_DeclareFunction(DestroyMutex)
+Gura_DeclareFunctionAlias(__DestroyMutex, "DestroyMutex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9148,7 +9148,7 @@ Gura_DeclareFunction(DestroyMutex)
 		"");
 }
 
-Gura_ImplementFunction(DestroyMutex)
+Gura_ImplementFunction(__DestroyMutex)
 {
 #if 0
 	SDL_DestroyMutex();
@@ -9159,7 +9159,7 @@ Gura_ImplementFunction(DestroyMutex)
 }
 
 // sdl2.DestroySemaphore
-Gura_DeclareFunction(DestroySemaphore)
+Gura_DeclareFunctionAlias(__DestroySemaphore, "DestroySemaphore")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9167,7 +9167,7 @@ Gura_DeclareFunction(DestroySemaphore)
 		"");
 }
 
-Gura_ImplementFunction(DestroySemaphore)
+Gura_ImplementFunction(__DestroySemaphore)
 {
 #if 0
 	SDL_DestroySemaphore();
@@ -9178,7 +9178,7 @@ Gura_ImplementFunction(DestroySemaphore)
 }
 
 // sdl2.LockMutex
-Gura_DeclareFunction(LockMutex)
+Gura_DeclareFunctionAlias(__LockMutex, "LockMutex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9186,7 +9186,7 @@ Gura_DeclareFunction(LockMutex)
 		"");
 }
 
-Gura_ImplementFunction(LockMutex)
+Gura_ImplementFunction(__LockMutex)
 {
 #if 0
 	SDL_LockMutex();
@@ -9197,7 +9197,7 @@ Gura_ImplementFunction(LockMutex)
 }
 
 // sdl2.SemPost
-Gura_DeclareFunction(SemPost)
+Gura_DeclareFunctionAlias(__SemPost, "SemPost")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9205,7 +9205,7 @@ Gura_DeclareFunction(SemPost)
 		"");
 }
 
-Gura_ImplementFunction(SemPost)
+Gura_ImplementFunction(__SemPost)
 {
 #if 0
 	SDL_SemPost();
@@ -9216,7 +9216,7 @@ Gura_ImplementFunction(SemPost)
 }
 
 // sdl2.SemTryWait
-Gura_DeclareFunction(SemTryWait)
+Gura_DeclareFunctionAlias(__SemTryWait, "SemTryWait")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9224,7 +9224,7 @@ Gura_DeclareFunction(SemTryWait)
 		"");
 }
 
-Gura_ImplementFunction(SemTryWait)
+Gura_ImplementFunction(__SemTryWait)
 {
 #if 0
 	SDL_SemTryWait();
@@ -9235,7 +9235,7 @@ Gura_ImplementFunction(SemTryWait)
 }
 
 // sdl2.SemValue
-Gura_DeclareFunction(SemValue)
+Gura_DeclareFunctionAlias(__SemValue, "SemValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9243,7 +9243,7 @@ Gura_DeclareFunction(SemValue)
 		"");
 }
 
-Gura_ImplementFunction(SemValue)
+Gura_ImplementFunction(__SemValue)
 {
 #if 0
 	SDL_SemValue();
@@ -9254,7 +9254,7 @@ Gura_ImplementFunction(SemValue)
 }
 
 // sdl2.SemWait
-Gura_DeclareFunction(SemWait)
+Gura_DeclareFunctionAlias(__SemWait, "SemWait")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9262,7 +9262,7 @@ Gura_DeclareFunction(SemWait)
 		"");
 }
 
-Gura_ImplementFunction(SemWait)
+Gura_ImplementFunction(__SemWait)
 {
 #if 0
 	SDL_SemWait();
@@ -9273,7 +9273,7 @@ Gura_ImplementFunction(SemWait)
 }
 
 // sdl2.SemWaitTimeout
-Gura_DeclareFunction(SemWaitTimeout)
+Gura_DeclareFunctionAlias(__SemWaitTimeout, "SemWaitTimeout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9281,7 +9281,7 @@ Gura_DeclareFunction(SemWaitTimeout)
 		"");
 }
 
-Gura_ImplementFunction(SemWaitTimeout)
+Gura_ImplementFunction(__SemWaitTimeout)
 {
 #if 0
 	SDL_SemWaitTimeout();
@@ -9292,7 +9292,7 @@ Gura_ImplementFunction(SemWaitTimeout)
 }
 
 // sdl2.TryLockMutex
-Gura_DeclareFunction(TryLockMutex)
+Gura_DeclareFunctionAlias(__TryLockMutex, "TryLockMutex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9300,7 +9300,7 @@ Gura_DeclareFunction(TryLockMutex)
 		"");
 }
 
-Gura_ImplementFunction(TryLockMutex)
+Gura_ImplementFunction(__TryLockMutex)
 {
 #if 0
 	SDL_TryLockMutex();
@@ -9311,7 +9311,7 @@ Gura_ImplementFunction(TryLockMutex)
 }
 
 // sdl2.UnlockMutex
-Gura_DeclareFunction(UnlockMutex)
+Gura_DeclareFunctionAlias(__UnlockMutex, "UnlockMutex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9319,7 +9319,7 @@ Gura_DeclareFunction(UnlockMutex)
 		"");
 }
 
-Gura_ImplementFunction(UnlockMutex)
+Gura_ImplementFunction(__UnlockMutex)
 {
 #if 0
 	SDL_UnlockMutex();
@@ -9330,7 +9330,7 @@ Gura_ImplementFunction(UnlockMutex)
 }
 
 // sdl2.AtomicAdd
-Gura_DeclareFunction(AtomicAdd)
+Gura_DeclareFunctionAlias(__AtomicAdd, "AtomicAdd")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9338,7 +9338,7 @@ Gura_DeclareFunction(AtomicAdd)
 		"");
 }
 
-Gura_ImplementFunction(AtomicAdd)
+Gura_ImplementFunction(__AtomicAdd)
 {
 #if 0
 	SDL_AtomicAdd();
@@ -9349,7 +9349,7 @@ Gura_ImplementFunction(AtomicAdd)
 }
 
 // sdl2.AtomicCAS
-Gura_DeclareFunction(AtomicCAS)
+Gura_DeclareFunctionAlias(__AtomicCAS, "AtomicCAS")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9357,7 +9357,7 @@ Gura_DeclareFunction(AtomicCAS)
 		"");
 }
 
-Gura_ImplementFunction(AtomicCAS)
+Gura_ImplementFunction(__AtomicCAS)
 {
 #if 0
 	SDL_AtomicCAS();
@@ -9368,7 +9368,7 @@ Gura_ImplementFunction(AtomicCAS)
 }
 
 // sdl2.AtomicCASPtr
-Gura_DeclareFunction(AtomicCASPtr)
+Gura_DeclareFunctionAlias(__AtomicCASPtr, "AtomicCASPtr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9376,7 +9376,7 @@ Gura_DeclareFunction(AtomicCASPtr)
 		"");
 }
 
-Gura_ImplementFunction(AtomicCASPtr)
+Gura_ImplementFunction(__AtomicCASPtr)
 {
 #if 0
 	SDL_AtomicCASPtr();
@@ -9387,7 +9387,7 @@ Gura_ImplementFunction(AtomicCASPtr)
 }
 
 // sdl2.AtomicDecRef
-Gura_DeclareFunction(AtomicDecRef)
+Gura_DeclareFunctionAlias(__AtomicDecRef, "AtomicDecRef")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9395,7 +9395,7 @@ Gura_DeclareFunction(AtomicDecRef)
 		"");
 }
 
-Gura_ImplementFunction(AtomicDecRef)
+Gura_ImplementFunction(__AtomicDecRef)
 {
 #if 0
 	SDL_AtomicDecRef();
@@ -9406,7 +9406,7 @@ Gura_ImplementFunction(AtomicDecRef)
 }
 
 // sdl2.AtomicGet
-Gura_DeclareFunction(AtomicGet)
+Gura_DeclareFunctionAlias(__AtomicGet, "AtomicGet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9414,7 +9414,7 @@ Gura_DeclareFunction(AtomicGet)
 		"");
 }
 
-Gura_ImplementFunction(AtomicGet)
+Gura_ImplementFunction(__AtomicGet)
 {
 #if 0
 	SDL_AtomicGet();
@@ -9425,7 +9425,7 @@ Gura_ImplementFunction(AtomicGet)
 }
 
 // sdl2.AtomicGetPtr
-Gura_DeclareFunction(AtomicGetPtr)
+Gura_DeclareFunctionAlias(__AtomicGetPtr, "AtomicGetPtr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9433,7 +9433,7 @@ Gura_DeclareFunction(AtomicGetPtr)
 		"");
 }
 
-Gura_ImplementFunction(AtomicGetPtr)
+Gura_ImplementFunction(__AtomicGetPtr)
 {
 #if 0
 	SDL_AtomicGetPtr();
@@ -9444,7 +9444,7 @@ Gura_ImplementFunction(AtomicGetPtr)
 }
 
 // sdl2.AtomicIncRef
-Gura_DeclareFunction(AtomicIncRef)
+Gura_DeclareFunctionAlias(__AtomicIncRef, "AtomicIncRef")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9452,7 +9452,7 @@ Gura_DeclareFunction(AtomicIncRef)
 		"");
 }
 
-Gura_ImplementFunction(AtomicIncRef)
+Gura_ImplementFunction(__AtomicIncRef)
 {
 #if 0
 	SDL_AtomicIncRef();
@@ -9463,7 +9463,7 @@ Gura_ImplementFunction(AtomicIncRef)
 }
 
 // sdl2.AtomicLock
-Gura_DeclareFunction(AtomicLock)
+Gura_DeclareFunctionAlias(__AtomicLock, "AtomicLock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9471,7 +9471,7 @@ Gura_DeclareFunction(AtomicLock)
 		"");
 }
 
-Gura_ImplementFunction(AtomicLock)
+Gura_ImplementFunction(__AtomicLock)
 {
 #if 0
 	SDL_AtomicLock();
@@ -9482,7 +9482,7 @@ Gura_ImplementFunction(AtomicLock)
 }
 
 // sdl2.AtomicSet
-Gura_DeclareFunction(AtomicSet)
+Gura_DeclareFunctionAlias(__AtomicSet, "AtomicSet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9490,7 +9490,7 @@ Gura_DeclareFunction(AtomicSet)
 		"");
 }
 
-Gura_ImplementFunction(AtomicSet)
+Gura_ImplementFunction(__AtomicSet)
 {
 #if 0
 	SDL_AtomicSet();
@@ -9501,7 +9501,7 @@ Gura_ImplementFunction(AtomicSet)
 }
 
 // sdl2.AtomicSetPtr
-Gura_DeclareFunction(AtomicSetPtr)
+Gura_DeclareFunctionAlias(__AtomicSetPtr, "AtomicSetPtr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9509,7 +9509,7 @@ Gura_DeclareFunction(AtomicSetPtr)
 		"");
 }
 
-Gura_ImplementFunction(AtomicSetPtr)
+Gura_ImplementFunction(__AtomicSetPtr)
 {
 #if 0
 	SDL_AtomicSetPtr();
@@ -9520,7 +9520,7 @@ Gura_ImplementFunction(AtomicSetPtr)
 }
 
 // sdl2.AtomicTryLock
-Gura_DeclareFunction(AtomicTryLock)
+Gura_DeclareFunctionAlias(__AtomicTryLock, "AtomicTryLock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9528,7 +9528,7 @@ Gura_DeclareFunction(AtomicTryLock)
 		"");
 }
 
-Gura_ImplementFunction(AtomicTryLock)
+Gura_ImplementFunction(__AtomicTryLock)
 {
 #if 0
 	SDL_AtomicTryLock();
@@ -9539,7 +9539,7 @@ Gura_ImplementFunction(AtomicTryLock)
 }
 
 // sdl2.AtomicUnlock
-Gura_DeclareFunction(AtomicUnlock)
+Gura_DeclareFunctionAlias(__AtomicUnlock, "AtomicUnlock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9547,7 +9547,7 @@ Gura_DeclareFunction(AtomicUnlock)
 		"");
 }
 
-Gura_ImplementFunction(AtomicUnlock)
+Gura_ImplementFunction(__AtomicUnlock)
 {
 #if 0
 	SDL_AtomicUnlock();
@@ -9558,7 +9558,7 @@ Gura_ImplementFunction(AtomicUnlock)
 }
 
 // sdl2.CompilerBarrier
-Gura_DeclareFunction(CompilerBarrier)
+Gura_DeclareFunctionAlias(__CompilerBarrier, "CompilerBarrier")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9566,7 +9566,7 @@ Gura_DeclareFunction(CompilerBarrier)
 		"");
 }
 
-Gura_ImplementFunction(CompilerBarrier)
+Gura_ImplementFunction(__CompilerBarrier)
 {
 #if 0
 	SDL_CompilerBarrier();
@@ -9577,7 +9577,7 @@ Gura_ImplementFunction(CompilerBarrier)
 }
 
 // sdl2.AddTimer
-Gura_DeclareFunction(AddTimer)
+Gura_DeclareFunctionAlias(__AddTimer, "AddTimer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "interval", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -9586,7 +9586,7 @@ Gura_DeclareFunction(AddTimer)
 		"");
 }
 
-Gura_ImplementFunction(AddTimer)
+Gura_ImplementFunction(__AddTimer)
 {
 #if 0
 	Uint32 interval = args.GetULong(0);
@@ -9598,7 +9598,7 @@ Gura_ImplementFunction(AddTimer)
 }
 
 // sdl2.Delay
-Gura_DeclareFunction(Delay)
+Gura_DeclareFunctionAlias(__Delay, "Delay")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "ms", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -9607,7 +9607,7 @@ Gura_DeclareFunction(Delay)
 		"");
 }
 
-Gura_ImplementFunction(Delay)
+Gura_ImplementFunction(__Delay)
 {
 	Uint32 ms = args.GetULong(0);
 	SDL_Delay(ms);
@@ -9615,7 +9615,7 @@ Gura_ImplementFunction(Delay)
 }
 
 // sdl2.GetPerformanceCounter
-Gura_DeclareFunction(GetPerformanceCounter)
+Gura_DeclareFunctionAlias(__GetPerformanceCounter, "GetPerformanceCounter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -9624,14 +9624,14 @@ Gura_DeclareFunction(GetPerformanceCounter)
 		"");
 }
 
-Gura_ImplementFunction(GetPerformanceCounter)
+Gura_ImplementFunction(__GetPerformanceCounter)
 {
 	Uint64 _rtn = SDL_GetPerformanceCounter();
 	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // sdl2.GetPerformanceFrequency
-Gura_DeclareFunction(GetPerformanceFrequency)
+Gura_DeclareFunctionAlias(__GetPerformanceFrequency, "GetPerformanceFrequency")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -9640,14 +9640,14 @@ Gura_DeclareFunction(GetPerformanceFrequency)
 		"");
 }
 
-Gura_ImplementFunction(GetPerformanceFrequency)
+Gura_ImplementFunction(__GetPerformanceFrequency)
 {
 	Uint64 _rtn = SDL_GetPerformanceFrequency();
 	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // sdl2.GetTicks
-Gura_DeclareFunction(GetTicks)
+Gura_DeclareFunctionAlias(__GetTicks, "GetTicks")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -9656,14 +9656,14 @@ Gura_DeclareFunction(GetTicks)
 		"");
 }
 
-Gura_ImplementFunction(GetTicks)
+Gura_ImplementFunction(__GetTicks)
 {
 	Uint32 _rtn = SDL_GetTicks();
 	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // sdl2.RemoveTimer
-Gura_DeclareFunction(RemoveTimer)
+Gura_DeclareFunctionAlias(__RemoveTimer, "RemoveTimer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -9673,7 +9673,7 @@ Gura_DeclareFunction(RemoveTimer)
 		"");
 }
 
-Gura_ImplementFunction(RemoveTimer)
+Gura_ImplementFunction(__RemoveTimer)
 {
 	SDL_TimerID id = static_cast<SDL_TimerID>(args.GetInt(0));
 	SDL_bool _rtn = SDL_RemoveTimer(id);
@@ -9681,7 +9681,7 @@ Gura_ImplementFunction(RemoveTimer)
 }
 
 // sdl2.TICKS_PASSED
-Gura_DeclareFunction(TICKS_PASSED)
+Gura_DeclareFunctionAlias(__TICKS_PASSED, "TICKS_PASSED")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -9692,7 +9692,7 @@ Gura_DeclareFunction(TICKS_PASSED)
 		"");
 }
 
-Gura_ImplementFunction(TICKS_PASSED)
+Gura_ImplementFunction(__TICKS_PASSED)
 {
 	Uint32 A = args.GetULong(0);
 	Uint32 B = args.GetULong(1);
@@ -9701,7 +9701,7 @@ Gura_ImplementFunction(TICKS_PASSED)
 }
 
 // sdl2.GetBasePath
-Gura_DeclareFunction(GetBasePath)
+Gura_DeclareFunctionAlias(__GetBasePath, "GetBasePath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
@@ -9709,7 +9709,7 @@ Gura_DeclareFunction(GetBasePath)
 		"");
 }
 
-Gura_ImplementFunction(GetBasePath)
+Gura_ImplementFunction(__GetBasePath)
 {
 #if 0
 	char *_rtn = SDL_GetBasePath();
@@ -9728,7 +9728,7 @@ Gura_ImplementFunction(GetBasePath)
 }
 
 // sdl2.GetPrefPath
-Gura_DeclareFunction(GetPrefPath)
+Gura_DeclareFunctionAlias(__GetPrefPath, "GetPrefPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "org", VTYPE_string, OCCUR_Once, FLAG_None);
@@ -9738,7 +9738,7 @@ Gura_DeclareFunction(GetPrefPath)
 		"");
 }
 
-Gura_ImplementFunction(GetPrefPath)
+Gura_ImplementFunction(__GetPrefPath)
 {
 #if 0
 	const char *org = args.GetString(0);
@@ -9759,7 +9759,7 @@ Gura_ImplementFunction(GetPrefPath)
 }
 
 // sdl2.AllocRW
-Gura_DeclareFunction(AllocRW)
+Gura_DeclareFunctionAlias(__AllocRW, "AllocRW")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9767,7 +9767,7 @@ Gura_DeclareFunction(AllocRW)
 		"");
 }
 
-Gura_ImplementFunction(AllocRW)
+Gura_ImplementFunction(__AllocRW)
 {
 #if 0
 	SDL_AllocRW();
@@ -9778,7 +9778,7 @@ Gura_ImplementFunction(AllocRW)
 }
 
 // sdl2.FreeRW
-Gura_DeclareFunction(FreeRW)
+Gura_DeclareFunctionAlias(__FreeRW, "FreeRW")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9786,7 +9786,7 @@ Gura_DeclareFunction(FreeRW)
 		"");
 }
 
-Gura_ImplementFunction(FreeRW)
+Gura_ImplementFunction(__FreeRW)
 {
 #if 0
 	SDL_FreeRW();
@@ -9797,7 +9797,7 @@ Gura_ImplementFunction(FreeRW)
 }
 
 // sdl2.RWFromConstMem
-Gura_DeclareFunction(RWFromConstMem)
+Gura_DeclareFunctionAlias(__RWFromConstMem, "RWFromConstMem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9805,7 +9805,7 @@ Gura_DeclareFunction(RWFromConstMem)
 		"");
 }
 
-Gura_ImplementFunction(RWFromConstMem)
+Gura_ImplementFunction(__RWFromConstMem)
 {
 #if 0
 	SDL_RWFromConstMem();
@@ -9816,7 +9816,7 @@ Gura_ImplementFunction(RWFromConstMem)
 }
 
 // sdl2.RWFromFP
-Gura_DeclareFunction(RWFromFP)
+Gura_DeclareFunctionAlias(__RWFromFP, "RWFromFP")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9824,7 +9824,7 @@ Gura_DeclareFunction(RWFromFP)
 		"");
 }
 
-Gura_ImplementFunction(RWFromFP)
+Gura_ImplementFunction(__RWFromFP)
 {
 #if 0
 	SDL_RWFromFP();
@@ -9835,7 +9835,7 @@ Gura_ImplementFunction(RWFromFP)
 }
 
 // sdl2.RWFromFile
-Gura_DeclareFunction(RWFromFile)
+Gura_DeclareFunctionAlias(__RWFromFile, "RWFromFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9843,7 +9843,7 @@ Gura_DeclareFunction(RWFromFile)
 		"");
 }
 
-Gura_ImplementFunction(RWFromFile)
+Gura_ImplementFunction(__RWFromFile)
 {
 #if 0
 	SDL_RWFromFile();
@@ -9854,7 +9854,7 @@ Gura_ImplementFunction(RWFromFile)
 }
 
 // sdl2.RWFromMem
-Gura_DeclareFunction(RWFromMem)
+Gura_DeclareFunctionAlias(__RWFromMem, "RWFromMem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9862,7 +9862,7 @@ Gura_DeclareFunction(RWFromMem)
 		"");
 }
 
-Gura_ImplementFunction(RWFromMem)
+Gura_ImplementFunction(__RWFromMem)
 {
 #if 0
 	SDL_RWFromMem();
@@ -9873,7 +9873,7 @@ Gura_ImplementFunction(RWFromMem)
 }
 
 // sdl2.RWclose
-Gura_DeclareFunction(RWclose)
+Gura_DeclareFunctionAlias(__RWclose, "RWclose")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9881,7 +9881,7 @@ Gura_DeclareFunction(RWclose)
 		"");
 }
 
-Gura_ImplementFunction(RWclose)
+Gura_ImplementFunction(__RWclose)
 {
 #if 0
 	SDL_RWclose();
@@ -9892,7 +9892,7 @@ Gura_ImplementFunction(RWclose)
 }
 
 // sdl2.RWread
-Gura_DeclareFunction(RWread)
+Gura_DeclareFunctionAlias(__RWread, "RWread")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9900,7 +9900,7 @@ Gura_DeclareFunction(RWread)
 		"");
 }
 
-Gura_ImplementFunction(RWread)
+Gura_ImplementFunction(__RWread)
 {
 #if 0
 	SDL_RWread();
@@ -9911,7 +9911,7 @@ Gura_ImplementFunction(RWread)
 }
 
 // sdl2.RWseek
-Gura_DeclareFunction(RWseek)
+Gura_DeclareFunctionAlias(__RWseek, "RWseek")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9919,7 +9919,7 @@ Gura_DeclareFunction(RWseek)
 		"");
 }
 
-Gura_ImplementFunction(RWseek)
+Gura_ImplementFunction(__RWseek)
 {
 #if 0
 	SDL_RWseek();
@@ -9930,7 +9930,7 @@ Gura_ImplementFunction(RWseek)
 }
 
 // sdl2.RWtell
-Gura_DeclareFunction(RWtell)
+Gura_DeclareFunctionAlias(__RWtell, "RWtell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9938,7 +9938,7 @@ Gura_DeclareFunction(RWtell)
 		"");
 }
 
-Gura_ImplementFunction(RWtell)
+Gura_ImplementFunction(__RWtell)
 {
 #if 0
 	SDL_RWtell();
@@ -9949,7 +9949,7 @@ Gura_ImplementFunction(RWtell)
 }
 
 // sdl2.RWwrite
-Gura_DeclareFunction(RWwrite)
+Gura_DeclareFunctionAlias(__RWwrite, "RWwrite")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9957,7 +9957,7 @@ Gura_DeclareFunction(RWwrite)
 		"");
 }
 
-Gura_ImplementFunction(RWwrite)
+Gura_ImplementFunction(__RWwrite)
 {
 #if 0
 	SDL_RWwrite();
@@ -9968,7 +9968,7 @@ Gura_ImplementFunction(RWwrite)
 }
 
 // sdl2.ReadBE16
-Gura_DeclareFunction(ReadBE16)
+Gura_DeclareFunctionAlias(__ReadBE16, "ReadBE16")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9976,7 +9976,7 @@ Gura_DeclareFunction(ReadBE16)
 		"");
 }
 
-Gura_ImplementFunction(ReadBE16)
+Gura_ImplementFunction(__ReadBE16)
 {
 #if 0
 	SDL_ReadBE16();
@@ -9987,7 +9987,7 @@ Gura_ImplementFunction(ReadBE16)
 }
 
 // sdl2.ReadBE32
-Gura_DeclareFunction(ReadBE32)
+Gura_DeclareFunctionAlias(__ReadBE32, "ReadBE32")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -9995,7 +9995,7 @@ Gura_DeclareFunction(ReadBE32)
 		"");
 }
 
-Gura_ImplementFunction(ReadBE32)
+Gura_ImplementFunction(__ReadBE32)
 {
 #if 0
 	SDL_ReadBE32();
@@ -10006,7 +10006,7 @@ Gura_ImplementFunction(ReadBE32)
 }
 
 // sdl2.ReadBE64
-Gura_DeclareFunction(ReadBE64)
+Gura_DeclareFunctionAlias(__ReadBE64, "ReadBE64")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10014,7 +10014,7 @@ Gura_DeclareFunction(ReadBE64)
 		"");
 }
 
-Gura_ImplementFunction(ReadBE64)
+Gura_ImplementFunction(__ReadBE64)
 {
 #if 0
 	SDL_ReadBE64();
@@ -10025,7 +10025,7 @@ Gura_ImplementFunction(ReadBE64)
 }
 
 // sdl2.ReadLE16
-Gura_DeclareFunction(ReadLE16)
+Gura_DeclareFunctionAlias(__ReadLE16, "ReadLE16")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10033,7 +10033,7 @@ Gura_DeclareFunction(ReadLE16)
 		"");
 }
 
-Gura_ImplementFunction(ReadLE16)
+Gura_ImplementFunction(__ReadLE16)
 {
 #if 0
 	SDL_ReadLE16();
@@ -10044,7 +10044,7 @@ Gura_ImplementFunction(ReadLE16)
 }
 
 // sdl2.ReadLE32
-Gura_DeclareFunction(ReadLE32)
+Gura_DeclareFunctionAlias(__ReadLE32, "ReadLE32")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10052,7 +10052,7 @@ Gura_DeclareFunction(ReadLE32)
 		"");
 }
 
-Gura_ImplementFunction(ReadLE32)
+Gura_ImplementFunction(__ReadLE32)
 {
 #if 0
 	SDL_ReadLE32();
@@ -10063,7 +10063,7 @@ Gura_ImplementFunction(ReadLE32)
 }
 
 // sdl2.ReadLE64
-Gura_DeclareFunction(ReadLE64)
+Gura_DeclareFunctionAlias(__ReadLE64, "ReadLE64")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10071,7 +10071,7 @@ Gura_DeclareFunction(ReadLE64)
 		"");
 }
 
-Gura_ImplementFunction(ReadLE64)
+Gura_ImplementFunction(__ReadLE64)
 {
 #if 0
 	SDL_ReadLE64();
@@ -10082,7 +10082,7 @@ Gura_ImplementFunction(ReadLE64)
 }
 
 // sdl2.WriteBE16
-Gura_DeclareFunction(WriteBE16)
+Gura_DeclareFunctionAlias(__WriteBE16, "WriteBE16")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10090,7 +10090,7 @@ Gura_DeclareFunction(WriteBE16)
 		"");
 }
 
-Gura_ImplementFunction(WriteBE16)
+Gura_ImplementFunction(__WriteBE16)
 {
 #if 0
 	SDL_WriteBE16();
@@ -10101,7 +10101,7 @@ Gura_ImplementFunction(WriteBE16)
 }
 
 // sdl2.WriteBE32
-Gura_DeclareFunction(WriteBE32)
+Gura_DeclareFunctionAlias(__WriteBE32, "WriteBE32")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10109,7 +10109,7 @@ Gura_DeclareFunction(WriteBE32)
 		"");
 }
 
-Gura_ImplementFunction(WriteBE32)
+Gura_ImplementFunction(__WriteBE32)
 {
 #if 0
 	SDL_WriteBE32();
@@ -10120,7 +10120,7 @@ Gura_ImplementFunction(WriteBE32)
 }
 
 // sdl2.WriteBE64
-Gura_DeclareFunction(WriteBE64)
+Gura_DeclareFunctionAlias(__WriteBE64, "WriteBE64")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10128,7 +10128,7 @@ Gura_DeclareFunction(WriteBE64)
 		"");
 }
 
-Gura_ImplementFunction(WriteBE64)
+Gura_ImplementFunction(__WriteBE64)
 {
 #if 0
 	SDL_WriteBE64();
@@ -10139,7 +10139,7 @@ Gura_ImplementFunction(WriteBE64)
 }
 
 // sdl2.WriteLE16
-Gura_DeclareFunction(WriteLE16)
+Gura_DeclareFunctionAlias(__WriteLE16, "WriteLE16")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10147,7 +10147,7 @@ Gura_DeclareFunction(WriteLE16)
 		"");
 }
 
-Gura_ImplementFunction(WriteLE16)
+Gura_ImplementFunction(__WriteLE16)
 {
 #if 0
 	SDL_WriteLE16();
@@ -10158,7 +10158,7 @@ Gura_ImplementFunction(WriteLE16)
 }
 
 // sdl2.WriteLE32
-Gura_DeclareFunction(WriteLE32)
+Gura_DeclareFunctionAlias(__WriteLE32, "WriteLE32")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10166,7 +10166,7 @@ Gura_DeclareFunction(WriteLE32)
 		"");
 }
 
-Gura_ImplementFunction(WriteLE32)
+Gura_ImplementFunction(__WriteLE32)
 {
 #if 0
 	SDL_WriteLE32();
@@ -10177,7 +10177,7 @@ Gura_ImplementFunction(WriteLE32)
 }
 
 // sdl2.WriteLE64
-Gura_DeclareFunction(WriteLE64)
+Gura_DeclareFunctionAlias(__WriteLE64, "WriteLE64")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10185,7 +10185,7 @@ Gura_DeclareFunction(WriteLE64)
 		"");
 }
 
-Gura_ImplementFunction(WriteLE64)
+Gura_ImplementFunction(__WriteLE64)
 {
 #if 0
 	SDL_WriteLE64();
@@ -10196,7 +10196,7 @@ Gura_ImplementFunction(WriteLE64)
 }
 
 // sdl2.GetPlatform
-Gura_DeclareFunction(GetPlatform)
+Gura_DeclareFunctionAlias(__GetPlatform, "GetPlatform")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -10205,7 +10205,7 @@ Gura_DeclareFunction(GetPlatform)
 		"");
 }
 
-Gura_ImplementFunction(GetPlatform)
+Gura_ImplementFunction(__GetPlatform)
 {
 	const char *_rtn = SDL_GetPlatform();
 	Value _rtnVal;
@@ -10219,7 +10219,7 @@ Gura_ImplementFunction(GetPlatform)
 }
 
 // sdl2.GetCPUCacheLineSize
-Gura_DeclareFunction(GetCPUCacheLineSize)
+Gura_DeclareFunctionAlias(__GetCPUCacheLineSize, "GetCPUCacheLineSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -10228,14 +10228,14 @@ Gura_DeclareFunction(GetCPUCacheLineSize)
 		"");
 }
 
-Gura_ImplementFunction(GetCPUCacheLineSize)
+Gura_ImplementFunction(__GetCPUCacheLineSize)
 {
 	int _rtn = SDL_GetCPUCacheLineSize();
 	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // sdl2.GetCPUCount
-Gura_DeclareFunction(GetCPUCount)
+Gura_DeclareFunctionAlias(__GetCPUCount, "GetCPUCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -10244,14 +10244,14 @@ Gura_DeclareFunction(GetCPUCount)
 		"");
 }
 
-Gura_ImplementFunction(GetCPUCount)
+Gura_ImplementFunction(__GetCPUCount)
 {
 	int _rtn = SDL_GetCPUCount();
 	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // sdl2.GetSystemRAM
-Gura_DeclareFunction(GetSystemRAM)
+Gura_DeclareFunctionAlias(__GetSystemRAM, "GetSystemRAM")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -10260,14 +10260,14 @@ Gura_DeclareFunction(GetSystemRAM)
 		"");
 }
 
-Gura_ImplementFunction(GetSystemRAM)
+Gura_ImplementFunction(__GetSystemRAM)
 {
 	int _rtn = SDL_GetSystemRAM();
 	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // sdl2.Has3DNow
-Gura_DeclareFunction(Has3DNow)
+Gura_DeclareFunctionAlias(__Has3DNow, "Has3DNow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -10276,14 +10276,14 @@ Gura_DeclareFunction(Has3DNow)
 		"");
 }
 
-Gura_ImplementFunction(Has3DNow)
+Gura_ImplementFunction(__Has3DNow)
 {
 	SDL_bool _rtn = SDL_Has3DNow();
 	return ReturnValue(env, sig, args, Value(_rtn != SDL_FALSE));
 }
 
 // sdl2.HasAVX
-Gura_DeclareFunction(HasAVX)
+Gura_DeclareFunctionAlias(__HasAVX, "HasAVX")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -10292,14 +10292,14 @@ Gura_DeclareFunction(HasAVX)
 		"");
 }
 
-Gura_ImplementFunction(HasAVX)
+Gura_ImplementFunction(__HasAVX)
 {
 	SDL_bool _rtn = SDL_HasAVX();
 	return ReturnValue(env, sig, args, Value(_rtn != SDL_FALSE));
 }
 
 // sdl2.HasAVX2
-Gura_DeclareFunction(HasAVX2)
+Gura_DeclareFunctionAlias(__HasAVX2, "HasAVX2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
@@ -10307,7 +10307,7 @@ Gura_DeclareFunction(HasAVX2)
 		"");
 }
 
-Gura_ImplementFunction(HasAVX2)
+Gura_ImplementFunction(__HasAVX2)
 {
 #if 0
 	SDL_bool _rtn = SDL_HasAVX2();
@@ -10318,7 +10318,7 @@ Gura_ImplementFunction(HasAVX2)
 }
 
 // sdl2.HasAltiVec
-Gura_DeclareFunction(HasAltiVec)
+Gura_DeclareFunctionAlias(__HasAltiVec, "HasAltiVec")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -10327,14 +10327,14 @@ Gura_DeclareFunction(HasAltiVec)
 		"");
 }
 
-Gura_ImplementFunction(HasAltiVec)
+Gura_ImplementFunction(__HasAltiVec)
 {
 	SDL_bool _rtn = SDL_HasAltiVec();
 	return ReturnValue(env, sig, args, Value(_rtn != SDL_FALSE));
 }
 
 // sdl2.HasMMX
-Gura_DeclareFunction(HasMMX)
+Gura_DeclareFunctionAlias(__HasMMX, "HasMMX")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -10343,14 +10343,14 @@ Gura_DeclareFunction(HasMMX)
 		"");
 }
 
-Gura_ImplementFunction(HasMMX)
+Gura_ImplementFunction(__HasMMX)
 {
 	SDL_bool _rtn = SDL_HasMMX();
 	return ReturnValue(env, sig, args, Value(_rtn != SDL_FALSE));
 }
 
 // sdl2.HasRDTSC
-Gura_DeclareFunction(HasRDTSC)
+Gura_DeclareFunctionAlias(__HasRDTSC, "HasRDTSC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -10359,14 +10359,14 @@ Gura_DeclareFunction(HasRDTSC)
 		"");
 }
 
-Gura_ImplementFunction(HasRDTSC)
+Gura_ImplementFunction(__HasRDTSC)
 {
 	SDL_bool _rtn = SDL_HasRDTSC();
 	return ReturnValue(env, sig, args, Value(_rtn != SDL_FALSE));
 }
 
 // sdl2.HasSSE
-Gura_DeclareFunction(HasSSE)
+Gura_DeclareFunctionAlias(__HasSSE, "HasSSE")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -10375,14 +10375,14 @@ Gura_DeclareFunction(HasSSE)
 		"");
 }
 
-Gura_ImplementFunction(HasSSE)
+Gura_ImplementFunction(__HasSSE)
 {
 	SDL_bool _rtn = SDL_HasSSE();
 	return ReturnValue(env, sig, args, Value(_rtn != SDL_FALSE));
 }
 
 // sdl2.HasSSE2
-Gura_DeclareFunction(HasSSE2)
+Gura_DeclareFunctionAlias(__HasSSE2, "HasSSE2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -10391,14 +10391,14 @@ Gura_DeclareFunction(HasSSE2)
 		"");
 }
 
-Gura_ImplementFunction(HasSSE2)
+Gura_ImplementFunction(__HasSSE2)
 {
 	SDL_bool _rtn = SDL_HasSSE2();
 	return ReturnValue(env, sig, args, Value(_rtn != SDL_FALSE));
 }
 
 // sdl2.HasSSE3
-Gura_DeclareFunction(HasSSE3)
+Gura_DeclareFunctionAlias(__HasSSE3, "HasSSE3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -10407,14 +10407,14 @@ Gura_DeclareFunction(HasSSE3)
 		"");
 }
 
-Gura_ImplementFunction(HasSSE3)
+Gura_ImplementFunction(__HasSSE3)
 {
 	SDL_bool _rtn = SDL_HasSSE3();
 	return ReturnValue(env, sig, args, Value(_rtn != SDL_FALSE));
 }
 
 // sdl2.HasSSE41
-Gura_DeclareFunction(HasSSE41)
+Gura_DeclareFunctionAlias(__HasSSE41, "HasSSE41")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -10423,14 +10423,14 @@ Gura_DeclareFunction(HasSSE41)
 		"");
 }
 
-Gura_ImplementFunction(HasSSE41)
+Gura_ImplementFunction(__HasSSE41)
 {
 	SDL_bool _rtn = SDL_HasSSE41();
 	return ReturnValue(env, sig, args, Value(_rtn != SDL_FALSE));
 }
 
 // sdl2.HasSSE42
-Gura_DeclareFunction(HasSSE42)
+Gura_DeclareFunctionAlias(__HasSSE42, "HasSSE42")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -10439,14 +10439,14 @@ Gura_DeclareFunction(HasSSE42)
 		"");
 }
 
-Gura_ImplementFunction(HasSSE42)
+Gura_ImplementFunction(__HasSSE42)
 {
 	SDL_bool _rtn = SDL_HasSSE42();
 	return ReturnValue(env, sig, args, Value(_rtn != SDL_FALSE));
 }
 
 // sdl2.Swap16
-Gura_DeclareFunction(Swap16)
+Gura_DeclareFunctionAlias(__Swap16, "Swap16")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10454,7 +10454,7 @@ Gura_DeclareFunction(Swap16)
 		"");
 }
 
-Gura_ImplementFunction(Swap16)
+Gura_ImplementFunction(__Swap16)
 {
 #if 0
 	SDL_Swap16();
@@ -10465,7 +10465,7 @@ Gura_ImplementFunction(Swap16)
 }
 
 // sdl2.Swap32
-Gura_DeclareFunction(Swap32)
+Gura_DeclareFunctionAlias(__Swap32, "Swap32")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10473,7 +10473,7 @@ Gura_DeclareFunction(Swap32)
 		"");
 }
 
-Gura_ImplementFunction(Swap32)
+Gura_ImplementFunction(__Swap32)
 {
 #if 0
 	SDL_Swap32();
@@ -10484,7 +10484,7 @@ Gura_ImplementFunction(Swap32)
 }
 
 // sdl2.Swap64
-Gura_DeclareFunction(Swap64)
+Gura_DeclareFunctionAlias(__Swap64, "Swap64")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10492,7 +10492,7 @@ Gura_DeclareFunction(Swap64)
 		"");
 }
 
-Gura_ImplementFunction(Swap64)
+Gura_ImplementFunction(__Swap64)
 {
 #if 0
 	SDL_Swap64();
@@ -10503,7 +10503,7 @@ Gura_ImplementFunction(Swap64)
 }
 
 // sdl2.SwapBE16
-Gura_DeclareFunction(SwapBE16)
+Gura_DeclareFunctionAlias(__SwapBE16, "SwapBE16")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10511,7 +10511,7 @@ Gura_DeclareFunction(SwapBE16)
 		"");
 }
 
-Gura_ImplementFunction(SwapBE16)
+Gura_ImplementFunction(__SwapBE16)
 {
 #if 0
 	SDL_SwapBE16();
@@ -10522,7 +10522,7 @@ Gura_ImplementFunction(SwapBE16)
 }
 
 // sdl2.SwapBE32
-Gura_DeclareFunction(SwapBE32)
+Gura_DeclareFunctionAlias(__SwapBE32, "SwapBE32")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10530,7 +10530,7 @@ Gura_DeclareFunction(SwapBE32)
 		"");
 }
 
-Gura_ImplementFunction(SwapBE32)
+Gura_ImplementFunction(__SwapBE32)
 {
 #if 0
 	SDL_SwapBE32();
@@ -10541,7 +10541,7 @@ Gura_ImplementFunction(SwapBE32)
 }
 
 // sdl2.SwapBE64
-Gura_DeclareFunction(SwapBE64)
+Gura_DeclareFunctionAlias(__SwapBE64, "SwapBE64")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10549,7 +10549,7 @@ Gura_DeclareFunction(SwapBE64)
 		"");
 }
 
-Gura_ImplementFunction(SwapBE64)
+Gura_ImplementFunction(__SwapBE64)
 {
 #if 0
 	SDL_SwapBE64();
@@ -10560,7 +10560,7 @@ Gura_ImplementFunction(SwapBE64)
 }
 
 // sdl2.SwapFloat
-Gura_DeclareFunction(SwapFloat)
+Gura_DeclareFunctionAlias(__SwapFloat, "SwapFloat")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10568,7 +10568,7 @@ Gura_DeclareFunction(SwapFloat)
 		"");
 }
 
-Gura_ImplementFunction(SwapFloat)
+Gura_ImplementFunction(__SwapFloat)
 {
 #if 0
 	SDL_SwapFloat();
@@ -10579,7 +10579,7 @@ Gura_ImplementFunction(SwapFloat)
 }
 
 // sdl2.SwapFloatBE
-Gura_DeclareFunction(SwapFloatBE)
+Gura_DeclareFunctionAlias(__SwapFloatBE, "SwapFloatBE")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10587,7 +10587,7 @@ Gura_DeclareFunction(SwapFloatBE)
 		"");
 }
 
-Gura_ImplementFunction(SwapFloatBE)
+Gura_ImplementFunction(__SwapFloatBE)
 {
 #if 0
 	SDL_SwapFloatBE();
@@ -10598,7 +10598,7 @@ Gura_ImplementFunction(SwapFloatBE)
 }
 
 // sdl2.SwapFloatLE
-Gura_DeclareFunction(SwapFloatLE)
+Gura_DeclareFunctionAlias(__SwapFloatLE, "SwapFloatLE")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10606,7 +10606,7 @@ Gura_DeclareFunction(SwapFloatLE)
 		"");
 }
 
-Gura_ImplementFunction(SwapFloatLE)
+Gura_ImplementFunction(__SwapFloatLE)
 {
 #if 0
 	SDL_SwapFloatLE();
@@ -10617,7 +10617,7 @@ Gura_ImplementFunction(SwapFloatLE)
 }
 
 // sdl2.SwapLE16
-Gura_DeclareFunction(SwapLE16)
+Gura_DeclareFunctionAlias(__SwapLE16, "SwapLE16")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10625,7 +10625,7 @@ Gura_DeclareFunction(SwapLE16)
 		"");
 }
 
-Gura_ImplementFunction(SwapLE16)
+Gura_ImplementFunction(__SwapLE16)
 {
 #if 0
 	SDL_SwapLE16();
@@ -10636,7 +10636,7 @@ Gura_ImplementFunction(SwapLE16)
 }
 
 // sdl2.SwapLE32
-Gura_DeclareFunction(SwapLE32)
+Gura_DeclareFunctionAlias(__SwapLE32, "SwapLE32")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10644,7 +10644,7 @@ Gura_DeclareFunction(SwapLE32)
 		"");
 }
 
-Gura_ImplementFunction(SwapLE32)
+Gura_ImplementFunction(__SwapLE32)
 {
 #if 0
 	SDL_SwapLE32();
@@ -10655,7 +10655,7 @@ Gura_ImplementFunction(SwapLE32)
 }
 
 // sdl2.SwapLE64
-Gura_DeclareFunction(SwapLE64)
+Gura_DeclareFunctionAlias(__SwapLE64, "SwapLE64")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10663,7 +10663,7 @@ Gura_DeclareFunction(SwapLE64)
 		"");
 }
 
-Gura_ImplementFunction(SwapLE64)
+Gura_ImplementFunction(__SwapLE64)
 {
 #if 0
 	SDL_SwapLE64();
@@ -10674,7 +10674,7 @@ Gura_ImplementFunction(SwapLE64)
 }
 
 // sdl2.MostSignificantBitIndex32
-Gura_DeclareFunction(MostSignificantBitIndex32)
+Gura_DeclareFunctionAlias(__MostSignificantBitIndex32, "MostSignificantBitIndex32")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -10683,7 +10683,7 @@ Gura_DeclareFunction(MostSignificantBitIndex32)
 		"");
 }
 
-Gura_ImplementFunction(MostSignificantBitIndex32)
+Gura_ImplementFunction(__MostSignificantBitIndex32)
 {
 #if 0
 	Uint32 x = args.GetULong(0);
@@ -10695,7 +10695,7 @@ Gura_ImplementFunction(MostSignificantBitIndex32)
 }
 
 // sdl2.GetPowerInfo
-Gura_DeclareFunction(GetPowerInfo)
+Gura_DeclareFunctionAlias(__GetPowerInfo, "GetPowerInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -10704,7 +10704,7 @@ Gura_DeclareFunction(GetPowerInfo)
 		"");
 }
 
-Gura_ImplementFunction(GetPowerInfo)
+Gura_ImplementFunction(__GetPowerInfo)
 {
 	int secs = 0;
 	int pct = 0;
@@ -10714,7 +10714,7 @@ Gura_ImplementFunction(GetPowerInfo)
 }
 
 // sdl2.AndroidGetActivity
-Gura_DeclareFunction(AndroidGetActivity)
+Gura_DeclareFunctionAlias(__AndroidGetActivity, "AndroidGetActivity")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10722,7 +10722,7 @@ Gura_DeclareFunction(AndroidGetActivity)
 		"");
 }
 
-Gura_ImplementFunction(AndroidGetActivity)
+Gura_ImplementFunction(__AndroidGetActivity)
 {
 #if 0
 	SDL_AndroidGetActivity();
@@ -10733,7 +10733,7 @@ Gura_ImplementFunction(AndroidGetActivity)
 }
 
 // sdl2.AndroidGetExternalStoragePath
-Gura_DeclareFunction(AndroidGetExternalStoragePath)
+Gura_DeclareFunctionAlias(__AndroidGetExternalStoragePath, "AndroidGetExternalStoragePath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10741,7 +10741,7 @@ Gura_DeclareFunction(AndroidGetExternalStoragePath)
 		"");
 }
 
-Gura_ImplementFunction(AndroidGetExternalStoragePath)
+Gura_ImplementFunction(__AndroidGetExternalStoragePath)
 {
 #if 0
 	SDL_AndroidGetExternalStoragePath();
@@ -10752,7 +10752,7 @@ Gura_ImplementFunction(AndroidGetExternalStoragePath)
 }
 
 // sdl2.AndroidGetExternalStorageState
-Gura_DeclareFunction(AndroidGetExternalStorageState)
+Gura_DeclareFunctionAlias(__AndroidGetExternalStorageState, "AndroidGetExternalStorageState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10760,7 +10760,7 @@ Gura_DeclareFunction(AndroidGetExternalStorageState)
 		"");
 }
 
-Gura_ImplementFunction(AndroidGetExternalStorageState)
+Gura_ImplementFunction(__AndroidGetExternalStorageState)
 {
 #if 0
 	SDL_AndroidGetExternalStorageState();
@@ -10771,7 +10771,7 @@ Gura_ImplementFunction(AndroidGetExternalStorageState)
 }
 
 // sdl2.AndroidGetInternalStoragePath
-Gura_DeclareFunction(AndroidGetInternalStoragePath)
+Gura_DeclareFunctionAlias(__AndroidGetInternalStoragePath, "AndroidGetInternalStoragePath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10779,7 +10779,7 @@ Gura_DeclareFunction(AndroidGetInternalStoragePath)
 		"");
 }
 
-Gura_ImplementFunction(AndroidGetInternalStoragePath)
+Gura_ImplementFunction(__AndroidGetInternalStoragePath)
 {
 #if 0
 	SDL_AndroidGetInternalStoragePath();
@@ -10790,7 +10790,7 @@ Gura_ImplementFunction(AndroidGetInternalStoragePath)
 }
 
 // sdl2.AndroidGetJNIEnv
-Gura_DeclareFunction(AndroidGetJNIEnv)
+Gura_DeclareFunctionAlias(__AndroidGetJNIEnv, "AndroidGetJNIEnv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -10798,7 +10798,7 @@ Gura_DeclareFunction(AndroidGetJNIEnv)
 		"");
 }
 
-Gura_ImplementFunction(AndroidGetJNIEnv)
+Gura_ImplementFunction(__AndroidGetJNIEnv)
 {
 #if 0
 	SDL_AndroidGetJNIEnv();
@@ -10809,7 +10809,7 @@ Gura_ImplementFunction(AndroidGetJNIEnv)
 }
 
 // sdl2.acos
-Gura_DeclareFunction(acos)
+Gura_DeclareFunctionAlias(__acos, "acos")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -10819,7 +10819,7 @@ Gura_DeclareFunction(acos)
 		"");
 }
 
-Gura_ImplementFunction(acos)
+Gura_ImplementFunction(__acos)
 {
 	double x = args.GetDouble(0);
 	double _rtn = SDL_acos(x);
@@ -10839,516 +10839,516 @@ Gura_ImplementFunction(test)
 
 void AssignFunctions(Environment &env)
 {
-	Gura_AssignFunction(Init);
-	Gura_AssignFunction(InitSubSystem);
-	Gura_AssignFunction(Quit);
-	Gura_AssignFunction(QuitSubSystem);
-	Gura_AssignFunction(SetMainReady);
-	Gura_AssignFunction(WasInit);
-	Gura_AssignFunction(AddHintCallback);
-	Gura_AssignFunction(ClearHints);
-	Gura_AssignFunction(DelhintCallback);
-	Gura_AssignFunction(GetHint);
-	Gura_AssignFunction(SetHint);
-	Gura_AssignFunction(SetHintWithPriority);
-	Gura_AssignFunction(ClearError);
-	Gura_AssignFunction(GetError);
-	Gura_AssignFunction(SetError);
-	Gura_AssignFunction(Log);
-	Gura_AssignFunction(LogCritical);
-	Gura_AssignFunction(LogDebug);
-	Gura_AssignFunction(LogError);
-	Gura_AssignFunction(LogGetOutputFunction);
-	Gura_AssignFunction(LogGetPriority);
-	Gura_AssignFunction(LogInfo);
-	Gura_AssignFunction(LogMessage);
-	Gura_AssignFunction(LogMessageV);
-	Gura_AssignFunction(LogResetPriorities);
-	Gura_AssignFunction(LogSetAllPriority);
-	Gura_AssignFunction(LogSetOutputFunction);
-	Gura_AssignFunction(LogSetPriority);
-	Gura_AssignFunction(LogVerbose);
-	Gura_AssignFunction(LogWarn);
-	Gura_AssignFunction(GetAssertionHandler);
-	Gura_AssignFunction(GetAssertionReport);
-	Gura_AssignFunction(GetDefaultAssertionHandler);
-	Gura_AssignFunction(ResetAssertionReport);
-	Gura_AssignFunction(SetAssertionHandler);
-	Gura_AssignFunction(TriggerBreakpoint);
-	Gura_AssignFunction(assert);
-	Gura_AssignFunction(assert_paranoid);
-	Gura_AssignFunction(assert_release);
-	Gura_AssignFunction(GetRevision);
-	Gura_AssignFunction(GetRevisionNumber);
-	Gura_AssignFunction(GetVersion);
-	Gura_AssignFunction(VERSION);
-	Gura_AssignFunction(VERSION_ATLEAST);
-	Gura_AssignFunction(CreateWindow);
-	Gura_AssignFunction(CreateWindowAndRenderer);
-	Gura_AssignFunction(CreateWindowFrom);
-	Gura_AssignFunction(DestroyWindow);
-	Gura_AssignFunction(DisableScreenSaver);
-	Gura_AssignFunction(EnableScreenSaver);
-	Gura_AssignFunction(GL_CreateContext);
-	Gura_AssignFunction(GL_DeleteContext);
-	Gura_AssignFunction(GL_ExtensionSupported);
-	Gura_AssignFunction(GL_GetAttribute);
-	Gura_AssignFunction(GL_GetCurrentContext);
-	Gura_AssignFunction(GL_GetCurrentWindow);
-	Gura_AssignFunction(GL_GetDrawableSize);
-	Gura_AssignFunction(GL_GetProcAddress);
-	Gura_AssignFunction(GL_GetSwapInterval);
-	Gura_AssignFunction(GL_LoadLibrary);
-	Gura_AssignFunction(GL_MakeCurrent);
-	Gura_AssignFunction(GL_ResetAttributes);
-	Gura_AssignFunction(GL_SetAttribute);
-	Gura_AssignFunction(GL_SetSwapInterval);
-	Gura_AssignFunction(GL_SwapWindow);
-	Gura_AssignFunction(GL_UnloadLibrary);
-	Gura_AssignFunction(GetClosestDisplayMode);
-	Gura_AssignFunction(GetCurrentDisplayMode);
-	Gura_AssignFunction(GetCurrentVideoDriver);
-	Gura_AssignFunction(GetDesktopDisplayMode);
-	Gura_AssignFunction(GetDisplayBounds);
-	Gura_AssignFunction(GetDisplayMode);
-	Gura_AssignFunction(GetDisplayName);
-	Gura_AssignFunction(GetNumDisplayModes);
-	Gura_AssignFunction(GetNumVideoDisplays);
-	Gura_AssignFunction(GetNumVideoDrivers);
-	Gura_AssignFunction(GetVideoDriver);
-	Gura_AssignFunction(GetWindowBrightness);
-	Gura_AssignFunction(GetWindowData);
-	Gura_AssignFunction(GetWindowDisplayIndex);
-	Gura_AssignFunction(GetWindowDisplayMode);
-	Gura_AssignFunction(GetWindowFlags);
-	Gura_AssignFunction(GetWindowFromID);
-	Gura_AssignFunction(GetWindowGammaRamp);
-	Gura_AssignFunction(GetWindowGrab);
-	Gura_AssignFunction(GetWindowID);
-	Gura_AssignFunction(GetWindowMaximumSize);
-	Gura_AssignFunction(GetWindowMinimumSize);
-	Gura_AssignFunction(GetWindowPixelFormat);
-	Gura_AssignFunction(GetWindowPosition);
-	Gura_AssignFunction(GetWindowSize);
-	Gura_AssignFunction(GetWindowSurface);
-	Gura_AssignFunction(GetWindowTitle);
-	Gura_AssignFunction(GetWindowWMInfo);
-	Gura_AssignFunction(HideWindow);
-	Gura_AssignFunction(IsScreenSaverEnabled);
-	Gura_AssignFunction(MaximizeWindow);
-	Gura_AssignFunction(MinimizeWindow);
-	Gura_AssignFunction(RaiseWindow);
-	Gura_AssignFunction(RestoreWindow);
-	Gura_AssignFunction(SetWindowBordered);
-	Gura_AssignFunction(SetWindowBrightness);
-	Gura_AssignFunction(SetWindowData);
-	Gura_AssignFunction(SetWindowDisplayMode);
-	Gura_AssignFunction(SetWindowFullscreen);
-	Gura_AssignFunction(SetWindowGammaRamp);
-	Gura_AssignFunction(SetWindowGrab);
-	Gura_AssignFunction(SetWindowHitTest);
-	Gura_AssignFunction(SetWindowIcon);
-	Gura_AssignFunction(SetWindowMaximumSize);
-	Gura_AssignFunction(SetWindowMinimumSize);
-	Gura_AssignFunction(SetWindowPosition);
-	Gura_AssignFunction(SetWindowSize);
-	Gura_AssignFunction(SetWindowTitle);
-	Gura_AssignFunction(ShowMessageBox);
-	Gura_AssignFunction(ShowSimpleMessageBox);
-	Gura_AssignFunction(ShowWindow);
-	Gura_AssignFunction(UpdateWindowSurface);
-	Gura_AssignFunction(UpdateWindowSurfaceRects);
-	Gura_AssignFunction(VideoInit);
-	Gura_AssignFunction(VideoQuit);
-	Gura_AssignFunction(CreateRenderer);
-	Gura_AssignFunction(CreateSoftwareRenderer);
-	Gura_AssignFunction(CreateTexture);
-	Gura_AssignFunction(CreateTextureFromSurface);
-	Gura_AssignFunction(DestroyRenderer);
-	Gura_AssignFunction(DestroyTexture);
-	Gura_AssignFunction(GL_BindTexture);
-	Gura_AssignFunction(GL_UnbindTexture);
-	Gura_AssignFunction(GetNumRenderDrivers);
-	Gura_AssignFunction(GetRenderDrawBlendMode);
-	Gura_AssignFunction(GetRenderDrawColor);
-	Gura_AssignFunction(GetRenderDriverInfo);
-	Gura_AssignFunction(GetRenderTarget);
-	Gura_AssignFunction(GetRenderer);
-	Gura_AssignFunction(GetRendererInfo);
-	Gura_AssignFunction(GetRenderOutputSize);
-	Gura_AssignFunction(GetTextureAlphaMod);
-	Gura_AssignFunction(GetTextureBlendMode);
-	Gura_AssignFunction(GetTextureColorMod);
-	Gura_AssignFunction(LockTexture);
-	Gura_AssignFunction(QueryTexture);
-	Gura_AssignFunction(RenderClear);
-	Gura_AssignFunction(RenderCopy);
-	Gura_AssignFunction(RenderCopyEx);
-	Gura_AssignFunction(RenderDrawLine);
-	Gura_AssignFunction(RenderDrawLines);
-	Gura_AssignFunction(RenderDrawPoint);
-	Gura_AssignFunction(RenderDrawPoints);
-	Gura_AssignFunction(RenderDrawRect);
-	Gura_AssignFunction(RenderDrawRects);
-	Gura_AssignFunction(RenderFillRect);
-	Gura_AssignFunction(RenderFillRects);
-	Gura_AssignFunction(RenderGetClipRect);
-	Gura_AssignFunction(RenderGetLogicalSize);
-	Gura_AssignFunction(RenderGetScale);
-	Gura_AssignFunction(RenderGetViewport);
-	Gura_AssignFunction(RenderIsClipEnabled);
-	Gura_AssignFunction(RenderPresent);
-	Gura_AssignFunction(RenderReadPixels);
-	Gura_AssignFunction(RenderSetClipRect);
-	Gura_AssignFunction(RenderSetLogicalSize);
-	Gura_AssignFunction(RenderSetScale);
-	Gura_AssignFunction(RenderSetViewport);
-	Gura_AssignFunction(RenderTargetSupported);
-	Gura_AssignFunction(SetRenderDrawBlendMode);
-	Gura_AssignFunction(SetRenderDrawColor);
-	Gura_AssignFunction(SetRenderTarget);
-	Gura_AssignFunction(SetTextureAlphaMod);
-	Gura_AssignFunction(SetTextureBlendMode);
-	Gura_AssignFunction(SetTextureColorMod);
-	Gura_AssignFunction(UnlockTexture);
-	Gura_AssignFunction(UpdateTexture);
-	Gura_AssignFunction(UpdateYUVTexture);
-	Gura_AssignFunction(AllocFormat);
-	Gura_AssignFunction(AllocPalette);
-	Gura_AssignFunction(CalculateGammaRamp);
-	Gura_AssignFunction(FreeFormat);
-	Gura_AssignFunction(FreePalette);
-	Gura_AssignFunction(GetPixelFormatName);
-	Gura_AssignFunction(GetRGB);
-	Gura_AssignFunction(GetRGBA);
-	Gura_AssignFunction(MapRGB);
-	Gura_AssignFunction(MapRGBA);
-	Gura_AssignFunction(MasksToPixelFormatEnum);
-	Gura_AssignFunction(PixelFormatEnumToMasks);
-	Gura_AssignFunction(SetPaletteColors);
-	Gura_AssignFunction(SetPixelFormatPalette);
-	Gura_AssignFunction(EnclosePoints);
-	Gura_AssignFunction(HasIntersection);
-	Gura_AssignFunction(IntersectRect);
-	Gura_AssignFunction(IntersectRectAndLine);
-	Gura_AssignFunction(PointInRect);
-	Gura_AssignFunction(RectEmpty);
-	Gura_AssignFunction(RectEquals);
-	Gura_AssignFunction(UnionRect);
-	Gura_AssignFunction(BlitScaled);
-	Gura_AssignFunction(BlitSurface);
-	Gura_AssignFunction(ConvertPixels);
-	Gura_AssignFunction(ConvertSurface);
-	Gura_AssignFunction(ConvertSurfaceFormat);
-	Gura_AssignFunction(CreateRGBSurface);
-	Gura_AssignFunction(CreateRGBSurfaceFrom);
-	Gura_AssignFunction(CreateRGBSurfaceFromImage);
-	Gura_AssignFunction(FillRect);
-	Gura_AssignFunction(FillRects);
-	Gura_AssignFunction(FreeSurface);
-	Gura_AssignFunction(GetClipRect);
-	Gura_AssignFunction(GetColorKey);
-	Gura_AssignFunction(GetSurfaceAlphaMod);
-	Gura_AssignFunction(GetSurfaceBlendMode);
-	Gura_AssignFunction(GetSurfaceColorMod);
-	Gura_AssignFunction(LoadBMP);
-	Gura_AssignFunction(LoadBMP_RW);
-	Gura_AssignFunction(LockSurface);
-	Gura_AssignFunction(LowerBlit);
-	Gura_AssignFunction(LowerBlitScaled);
-	Gura_AssignFunction(MUSTLOCK);
-	Gura_AssignFunction(SaveBMP);
-	Gura_AssignFunction(SaveBMP_RW);
-	Gura_AssignFunction(SetClipRect);
-	Gura_AssignFunction(SetColorKey);
-	Gura_AssignFunction(SetSurfaceAlphaMod);
-	Gura_AssignFunction(SetSurfaceBlendMode);
-	Gura_AssignFunction(SetSurfaceColorMod);
-	Gura_AssignFunction(SetSurfacePalette);
-	Gura_AssignFunction(SetSurfaceRLE);
-	Gura_AssignFunction(UnlockSurface);
-	Gura_AssignFunction(GetClipboardText);
-	Gura_AssignFunction(HasClipboardText);
-	Gura_AssignFunction(SetClipboardText);
-	Gura_AssignFunction(AddEventWatch);
-	Gura_AssignFunction(DelEventWatch);
-	Gura_AssignFunction(EventState);
-	Gura_AssignFunction(FilterEvents);
-	Gura_AssignFunction(FlushEvent);
-	Gura_AssignFunction(FlushEvents);
-	Gura_AssignFunction(GetEventFilter);
-	Gura_AssignFunction(GetNumTouchDevices);
-	Gura_AssignFunction(GetNumTouchFingers);
-	Gura_AssignFunction(GetTouchDevice);
-	Gura_AssignFunction(GetTouchFinger);
-	Gura_AssignFunction(HasEvent);
-	Gura_AssignFunction(HasEvents);
-	Gura_AssignFunction(LoadDollarTemplates);
-	Gura_AssignFunction(AddEvents);
-	Gura_AssignFunction(PeekEvents);
-	Gura_AssignFunction(GetEvents);
-	Gura_AssignFunction(PollEvent);
-	Gura_AssignFunction(PumpEvents);
-	Gura_AssignFunction(PushEvent);
-	Gura_AssignFunction(QuitRequested);
-	Gura_AssignFunction(RecordGesture);
-	Gura_AssignFunction(RegisterEvents);
-	Gura_AssignFunction(SaveAllDollarTemplates);
-	Gura_AssignFunction(SaveDollarTemplate);
-	Gura_AssignFunction(SetEventFilter);
-	Gura_AssignFunction(WaitEvent);
-	Gura_AssignFunction(WaitEventTimeout);
-	Gura_AssignFunction(CheckKeyboardState);
-	Gura_AssignFunction(GetKeyFromName);
-	Gura_AssignFunction(GetKeyFromScancode);
-	Gura_AssignFunction(GetKeyName);
-	Gura_AssignFunction(GetKeyboardFocus);
-	Gura_AssignFunction(GetKeyboardState);
-	Gura_AssignFunction(GetModState);
-	Gura_AssignFunction(GetScancodeFromKey);
-	Gura_AssignFunction(GetScancodeFromName);
-	Gura_AssignFunction(GetScancodeName);
-	Gura_AssignFunction(HasScreenKeyboardSupport);
-	Gura_AssignFunction(IsScreenKeyboardShown);
-	Gura_AssignFunction(IsTextInputActive);
-	Gura_AssignFunction(SetModState);
-	Gura_AssignFunction(SetTextInputRect);
-	Gura_AssignFunction(StartTextInput);
-	Gura_AssignFunction(StopTextInput);
-	Gura_AssignFunction(CaptureMouse);
-	Gura_AssignFunction(CreateColorCursor);
-	Gura_AssignFunction(CreateCursor);
-	Gura_AssignFunction(CreateSystemCursor);
-	Gura_AssignFunction(FreeCursor);
-	Gura_AssignFunction(GetCursor);
-	Gura_AssignFunction(GetDefaultCursor);
-	Gura_AssignFunction(GetGlobalMouseState);
-	Gura_AssignFunction(GetMouseFocus);
-	Gura_AssignFunction(GetMouseState);
-	Gura_AssignFunction(GetRelativeMouseMode);
-	Gura_AssignFunction(GetRelativeMouseState);
-	Gura_AssignFunction(SetCursor);
-	Gura_AssignFunction(SetRelativeMouseMode);
-	Gura_AssignFunction(ShowCursor);
-	Gura_AssignFunction(WarpMouseGlobal);
-	Gura_AssignFunction(WarpMouseInWindow);
-	Gura_AssignFunction(JoystickClose);
-	Gura_AssignFunction(JoystickEventState);
-	Gura_AssignFunction(JoystickGetAttached);
-	Gura_AssignFunction(JoystickGetAxis);
-	Gura_AssignFunction(JoystickGetBall);
-	Gura_AssignFunction(JoystickGetButton);
-	Gura_AssignFunction(JoystickGetDeviceGUID);
-	Gura_AssignFunction(JoystickGetGUID);
-	Gura_AssignFunction(JoystickGetGUIDFromString);
-	Gura_AssignFunction(JoystickGetGUIDString);
-	Gura_AssignFunction(JoystickGetHat);
-	Gura_AssignFunction(JoystickInstanceID);
-	Gura_AssignFunction(JoystickName);
-	Gura_AssignFunction(JoystickNameForIndex);
-	Gura_AssignFunction(JoystickNumAxes);
-	Gura_AssignFunction(JoystickNumBalls);
-	Gura_AssignFunction(JoystickNumButtons);
-	Gura_AssignFunction(JoystickNumHats);
-	Gura_AssignFunction(JoystickOpen);
-	Gura_AssignFunction(JoystickUpdate);
-	Gura_AssignFunction(NumJoysticks);
-	Gura_AssignFunction(GameControllerAddMapping);
-	Gura_AssignFunction(GameControllerAddMappingsFromFile);
-	Gura_AssignFunction(GameControllerAddMappingsFromRW);
-	Gura_AssignFunction(GameControllerClose);
-	Gura_AssignFunction(GameControllerEventState);
-	Gura_AssignFunction(GameControllerGetAttached);
-	Gura_AssignFunction(GameControllerGetAxis);
-	Gura_AssignFunction(GameControllerGetAxisFromString);
-	Gura_AssignFunction(GameControllerGetBindForAxis);
-	Gura_AssignFunction(GameControllerGetBindForButton);
-	Gura_AssignFunction(GameControllerGetButton);
-	Gura_AssignFunction(GameControllerGetButtonFromString);
-	Gura_AssignFunction(GameControllerGetJoystick);
-	Gura_AssignFunction(GameControllerGetStringForAxis);
-	Gura_AssignFunction(GameControllerGetStringForButton);
-	Gura_AssignFunction(GameControllerMapping);
-	Gura_AssignFunction(GameControllerMappingForGUID);
-	Gura_AssignFunction(GameControllerName);
-	Gura_AssignFunction(GameControllerNameForIndex);
-	Gura_AssignFunction(GameControllerOpen);
-	Gura_AssignFunction(GameControllerUpdate);
-	Gura_AssignFunction(IsGameController);
-	Gura_AssignFunction(HapticClose);
-	Gura_AssignFunction(HapticDestroyEffect);
-	Gura_AssignFunction(HapticEffectSupported);
-	Gura_AssignFunction(HapticGetEffectStatus);
-	Gura_AssignFunction(HapticIndex);
-	Gura_AssignFunction(HapticName);
-	Gura_AssignFunction(HapticNewEffect);
-	Gura_AssignFunction(HapticNumAxes);
-	Gura_AssignFunction(HapticNumEffects);
-	Gura_AssignFunction(HapticNumEffectsPlaying);
-	Gura_AssignFunction(HapticOpen);
-	Gura_AssignFunction(HapticOpenFromJoystick);
-	Gura_AssignFunction(HapticOpenFromMouse);
-	Gura_AssignFunction(HapticOpened);
-	Gura_AssignFunction(HapticPause);
-	Gura_AssignFunction(HapticQuery);
-	Gura_AssignFunction(HapticRumbleInit);
-	Gura_AssignFunction(HapticRumblePlay);
-	Gura_AssignFunction(HapticRumbleStop);
-	Gura_AssignFunction(HapticRumbleSupported);
-	Gura_AssignFunction(HapticRunEffect);
-	Gura_AssignFunction(HapticSetAutocenter);
-	Gura_AssignFunction(HapticSetGain);
-	Gura_AssignFunction(HapticStopAll);
-	Gura_AssignFunction(HapticStopEffect);
-	Gura_AssignFunction(HapticUnpause);
-	Gura_AssignFunction(HapticUpdateEffect);
-	Gura_AssignFunction(JoystickIsHaptic);
-	Gura_AssignFunction(MouseIsHaptic);
-	Gura_AssignFunction(NumHaptics);
-	Gura_AssignFunction(AudioInit);
-	Gura_AssignFunction(AudioQuit);
-	Gura_AssignFunction(BuildAudioCVT);
-	Gura_AssignFunction(ClearQueuedAudio);
-	Gura_AssignFunction(CloseAudio);
-	Gura_AssignFunction(CloseAudioDevice);
-	Gura_AssignFunction(ConvertAudio);
-	Gura_AssignFunction(FreeWAV);
-	Gura_AssignFunction(GetAudioDeviceName);
-	Gura_AssignFunction(GetAudioDeviceStatus);
-	Gura_AssignFunction(GetAudioDriver);
-	Gura_AssignFunction(GetAudioStatus);
-	Gura_AssignFunction(GetCurrentAudioDriver);
-	Gura_AssignFunction(GetNumAudioDevices);
-	Gura_AssignFunction(GetNumAudioDrivers);
-	Gura_AssignFunction(GetQueuedAudioSize);
-	Gura_AssignFunction(LoadWAV);
-	Gura_AssignFunction(LoadWAV_RW);
-	Gura_AssignFunction(LockAudio);
-	Gura_AssignFunction(LockAudioDevice);
-	Gura_AssignFunction(MixAudio);
-	Gura_AssignFunction(MixAudioFormat);
-	Gura_AssignFunction(OpenAudio);
-	Gura_AssignFunction(OpenAudioDevice);
-	Gura_AssignFunction(PauseAudio);
-	Gura_AssignFunction(PauseAudioDevice);
-	Gura_AssignFunction(QueueAudio);
-	Gura_AssignFunction(UnlockAudio);
-	Gura_AssignFunction(UnlockAudioDevice);
-	Gura_AssignFunction(AUDIO_BITSIZE);
-	Gura_AssignFunction(AUDIO_ISFLOAT);
-	Gura_AssignFunction(AUDIO_ISBIGENDIAN);
-	Gura_AssignFunction(AUDIO_ISSIGNED);
-	Gura_AssignFunction(AUDIO_ISINT);
-	Gura_AssignFunction(AUDIO_ISLITTLEENDIAN);
-	Gura_AssignFunction(AUDIO_ISUNSIGNED);
-	Gura_AssignFunction(CreateThread);
-	Gura_AssignFunction(DetachThread);
-	Gura_AssignFunction(GetThreadID);
-	Gura_AssignFunction(GetThreadName);
-	Gura_AssignFunction(GetThreadPriority);
-	Gura_AssignFunction(TLSCreate);
-	Gura_AssignFunction(TLSGet);
-	Gura_AssignFunction(TLSSet);
-	Gura_AssignFunction(ThreadID);
-	Gura_AssignFunction(WaitThread);
-	Gura_AssignFunction(CondBroadcast);
-	Gura_AssignFunction(CondSignal);
-	Gura_AssignFunction(CondWait);
-	Gura_AssignFunction(CondWaitTimeout);
-	Gura_AssignFunction(CreateCond);
-	Gura_AssignFunction(CreateMutex);
-	Gura_AssignFunction(CreateSemaphore);
-	Gura_AssignFunction(DestroyCond);
-	Gura_AssignFunction(DestroyMutex);
-	Gura_AssignFunction(DestroySemaphore);
-	Gura_AssignFunction(LockMutex);
-	Gura_AssignFunction(SemPost);
-	Gura_AssignFunction(SemTryWait);
-	Gura_AssignFunction(SemValue);
-	Gura_AssignFunction(SemWait);
-	Gura_AssignFunction(SemWaitTimeout);
-	Gura_AssignFunction(TryLockMutex);
-	Gura_AssignFunction(UnlockMutex);
-	Gura_AssignFunction(AtomicAdd);
-	Gura_AssignFunction(AtomicCAS);
-	Gura_AssignFunction(AtomicCASPtr);
-	Gura_AssignFunction(AtomicDecRef);
-	Gura_AssignFunction(AtomicGet);
-	Gura_AssignFunction(AtomicGetPtr);
-	Gura_AssignFunction(AtomicIncRef);
-	Gura_AssignFunction(AtomicLock);
-	Gura_AssignFunction(AtomicSet);
-	Gura_AssignFunction(AtomicSetPtr);
-	Gura_AssignFunction(AtomicTryLock);
-	Gura_AssignFunction(AtomicUnlock);
-	Gura_AssignFunction(CompilerBarrier);
-	Gura_AssignFunction(AddTimer);
-	Gura_AssignFunction(Delay);
-	Gura_AssignFunction(GetPerformanceCounter);
-	Gura_AssignFunction(GetPerformanceFrequency);
-	Gura_AssignFunction(GetTicks);
-	Gura_AssignFunction(RemoveTimer);
-	Gura_AssignFunction(TICKS_PASSED);
-	Gura_AssignFunction(GetBasePath);
-	Gura_AssignFunction(GetPrefPath);
-	Gura_AssignFunction(AllocRW);
-	Gura_AssignFunction(FreeRW);
-	Gura_AssignFunction(RWFromConstMem);
-	Gura_AssignFunction(RWFromFP);
-	Gura_AssignFunction(RWFromFile);
-	Gura_AssignFunction(RWFromMem);
-	Gura_AssignFunction(RWclose);
-	Gura_AssignFunction(RWread);
-	Gura_AssignFunction(RWseek);
-	Gura_AssignFunction(RWtell);
-	Gura_AssignFunction(RWwrite);
-	Gura_AssignFunction(ReadBE16);
-	Gura_AssignFunction(ReadBE32);
-	Gura_AssignFunction(ReadBE64);
-	Gura_AssignFunction(ReadLE16);
-	Gura_AssignFunction(ReadLE32);
-	Gura_AssignFunction(ReadLE64);
-	Gura_AssignFunction(WriteBE16);
-	Gura_AssignFunction(WriteBE32);
-	Gura_AssignFunction(WriteBE64);
-	Gura_AssignFunction(WriteLE16);
-	Gura_AssignFunction(WriteLE32);
-	Gura_AssignFunction(WriteLE64);
-	Gura_AssignFunction(GetPlatform);
-	Gura_AssignFunction(GetCPUCacheLineSize);
-	Gura_AssignFunction(GetCPUCount);
-	Gura_AssignFunction(GetSystemRAM);
-	Gura_AssignFunction(Has3DNow);
-	Gura_AssignFunction(HasAVX);
-	Gura_AssignFunction(HasAVX2);
-	Gura_AssignFunction(HasAltiVec);
-	Gura_AssignFunction(HasMMX);
-	Gura_AssignFunction(HasRDTSC);
-	Gura_AssignFunction(HasSSE);
-	Gura_AssignFunction(HasSSE2);
-	Gura_AssignFunction(HasSSE3);
-	Gura_AssignFunction(HasSSE41);
-	Gura_AssignFunction(HasSSE42);
-	Gura_AssignFunction(Swap16);
-	Gura_AssignFunction(Swap32);
-	Gura_AssignFunction(Swap64);
-	Gura_AssignFunction(SwapBE16);
-	Gura_AssignFunction(SwapBE32);
-	Gura_AssignFunction(SwapBE64);
-	Gura_AssignFunction(SwapFloat);
-	Gura_AssignFunction(SwapFloatBE);
-	Gura_AssignFunction(SwapFloatLE);
-	Gura_AssignFunction(SwapLE16);
-	Gura_AssignFunction(SwapLE32);
-	Gura_AssignFunction(SwapLE64);
-	Gura_AssignFunction(MostSignificantBitIndex32);
-	Gura_AssignFunction(GetPowerInfo);
-	Gura_AssignFunction(AndroidGetActivity);
-	Gura_AssignFunction(AndroidGetExternalStoragePath);
-	Gura_AssignFunction(AndroidGetExternalStorageState);
-	Gura_AssignFunction(AndroidGetInternalStoragePath);
-	Gura_AssignFunction(AndroidGetJNIEnv);
-	Gura_AssignFunction(acos);
+	Gura_AssignFunction(__Init);
+	Gura_AssignFunction(__InitSubSystem);
+	Gura_AssignFunction(__Quit);
+	Gura_AssignFunction(__QuitSubSystem);
+	Gura_AssignFunction(__SetMainReady);
+	Gura_AssignFunction(__WasInit);
+	Gura_AssignFunction(__AddHintCallback);
+	Gura_AssignFunction(__ClearHints);
+	Gura_AssignFunction(__DelhintCallback);
+	Gura_AssignFunction(__GetHint);
+	Gura_AssignFunction(__SetHint);
+	Gura_AssignFunction(__SetHintWithPriority);
+	Gura_AssignFunction(__ClearError);
+	Gura_AssignFunction(__GetError);
+	Gura_AssignFunction(__SetError);
+	Gura_AssignFunction(__Log);
+	Gura_AssignFunction(__LogCritical);
+	Gura_AssignFunction(__LogDebug);
+	Gura_AssignFunction(__LogError);
+	Gura_AssignFunction(__LogGetOutputFunction);
+	Gura_AssignFunction(__LogGetPriority);
+	Gura_AssignFunction(__LogInfo);
+	Gura_AssignFunction(__LogMessage);
+	Gura_AssignFunction(__LogMessageV);
+	Gura_AssignFunction(__LogResetPriorities);
+	Gura_AssignFunction(__LogSetAllPriority);
+	Gura_AssignFunction(__LogSetOutputFunction);
+	Gura_AssignFunction(__LogSetPriority);
+	Gura_AssignFunction(__LogVerbose);
+	Gura_AssignFunction(__LogWarn);
+	Gura_AssignFunction(__GetAssertionHandler);
+	Gura_AssignFunction(__GetAssertionReport);
+	Gura_AssignFunction(__GetDefaultAssertionHandler);
+	Gura_AssignFunction(__ResetAssertionReport);
+	Gura_AssignFunction(__SetAssertionHandler);
+	Gura_AssignFunction(__TriggerBreakpoint);
+	Gura_AssignFunction(__assert);
+	Gura_AssignFunction(__assert_paranoid);
+	Gura_AssignFunction(__assert_release);
+	Gura_AssignFunction(__GetRevision);
+	Gura_AssignFunction(__GetRevisionNumber);
+	Gura_AssignFunction(__GetVersion);
+	Gura_AssignFunction(__VERSION);
+	Gura_AssignFunction(__VERSION_ATLEAST);
+	Gura_AssignFunction(__CreateWindow);
+	Gura_AssignFunction(__CreateWindowAndRenderer);
+	Gura_AssignFunction(__CreateWindowFrom);
+	Gura_AssignFunction(__DestroyWindow);
+	Gura_AssignFunction(__DisableScreenSaver);
+	Gura_AssignFunction(__EnableScreenSaver);
+	Gura_AssignFunction(__GL_CreateContext);
+	Gura_AssignFunction(__GL_DeleteContext);
+	Gura_AssignFunction(__GL_ExtensionSupported);
+	Gura_AssignFunction(__GL_GetAttribute);
+	Gura_AssignFunction(__GL_GetCurrentContext);
+	Gura_AssignFunction(__GL_GetCurrentWindow);
+	Gura_AssignFunction(__GL_GetDrawableSize);
+	Gura_AssignFunction(__GL_GetProcAddress);
+	Gura_AssignFunction(__GL_GetSwapInterval);
+	Gura_AssignFunction(__GL_LoadLibrary);
+	Gura_AssignFunction(__GL_MakeCurrent);
+	Gura_AssignFunction(__GL_ResetAttributes);
+	Gura_AssignFunction(__GL_SetAttribute);
+	Gura_AssignFunction(__GL_SetSwapInterval);
+	Gura_AssignFunction(__GL_SwapWindow);
+	Gura_AssignFunction(__GL_UnloadLibrary);
+	Gura_AssignFunction(__GetClosestDisplayMode);
+	Gura_AssignFunction(__GetCurrentDisplayMode);
+	Gura_AssignFunction(__GetCurrentVideoDriver);
+	Gura_AssignFunction(__GetDesktopDisplayMode);
+	Gura_AssignFunction(__GetDisplayBounds);
+	Gura_AssignFunction(__GetDisplayMode);
+	Gura_AssignFunction(__GetDisplayName);
+	Gura_AssignFunction(__GetNumDisplayModes);
+	Gura_AssignFunction(__GetNumVideoDisplays);
+	Gura_AssignFunction(__GetNumVideoDrivers);
+	Gura_AssignFunction(__GetVideoDriver);
+	Gura_AssignFunction(__GetWindowBrightness);
+	Gura_AssignFunction(__GetWindowData);
+	Gura_AssignFunction(__GetWindowDisplayIndex);
+	Gura_AssignFunction(__GetWindowDisplayMode);
+	Gura_AssignFunction(__GetWindowFlags);
+	Gura_AssignFunction(__GetWindowFromID);
+	Gura_AssignFunction(__GetWindowGammaRamp);
+	Gura_AssignFunction(__GetWindowGrab);
+	Gura_AssignFunction(__GetWindowID);
+	Gura_AssignFunction(__GetWindowMaximumSize);
+	Gura_AssignFunction(__GetWindowMinimumSize);
+	Gura_AssignFunction(__GetWindowPixelFormat);
+	Gura_AssignFunction(__GetWindowPosition);
+	Gura_AssignFunction(__GetWindowSize);
+	Gura_AssignFunction(__GetWindowSurface);
+	Gura_AssignFunction(__GetWindowTitle);
+	Gura_AssignFunction(__GetWindowWMInfo);
+	Gura_AssignFunction(__HideWindow);
+	Gura_AssignFunction(__IsScreenSaverEnabled);
+	Gura_AssignFunction(__MaximizeWindow);
+	Gura_AssignFunction(__MinimizeWindow);
+	Gura_AssignFunction(__RaiseWindow);
+	Gura_AssignFunction(__RestoreWindow);
+	Gura_AssignFunction(__SetWindowBordered);
+	Gura_AssignFunction(__SetWindowBrightness);
+	Gura_AssignFunction(__SetWindowData);
+	Gura_AssignFunction(__SetWindowDisplayMode);
+	Gura_AssignFunction(__SetWindowFullscreen);
+	Gura_AssignFunction(__SetWindowGammaRamp);
+	Gura_AssignFunction(__SetWindowGrab);
+	Gura_AssignFunction(__SetWindowHitTest);
+	Gura_AssignFunction(__SetWindowIcon);
+	Gura_AssignFunction(__SetWindowMaximumSize);
+	Gura_AssignFunction(__SetWindowMinimumSize);
+	Gura_AssignFunction(__SetWindowPosition);
+	Gura_AssignFunction(__SetWindowSize);
+	Gura_AssignFunction(__SetWindowTitle);
+	Gura_AssignFunction(__ShowMessageBox);
+	Gura_AssignFunction(__ShowSimpleMessageBox);
+	Gura_AssignFunction(__ShowWindow);
+	Gura_AssignFunction(__UpdateWindowSurface);
+	Gura_AssignFunction(__UpdateWindowSurfaceRects);
+	Gura_AssignFunction(__VideoInit);
+	Gura_AssignFunction(__VideoQuit);
+	Gura_AssignFunction(__CreateRenderer);
+	Gura_AssignFunction(__CreateSoftwareRenderer);
+	Gura_AssignFunction(__CreateTexture);
+	Gura_AssignFunction(__CreateTextureFromSurface);
+	Gura_AssignFunction(__DestroyRenderer);
+	Gura_AssignFunction(__DestroyTexture);
+	Gura_AssignFunction(__GL_BindTexture);
+	Gura_AssignFunction(__GL_UnbindTexture);
+	Gura_AssignFunction(__GetNumRenderDrivers);
+	Gura_AssignFunction(__GetRenderDrawBlendMode);
+	Gura_AssignFunction(__GetRenderDrawColor);
+	Gura_AssignFunction(__GetRenderDriverInfo);
+	Gura_AssignFunction(__GetRenderTarget);
+	Gura_AssignFunction(__GetRenderer);
+	Gura_AssignFunction(__GetRendererInfo);
+	Gura_AssignFunction(__GetRenderOutputSize);
+	Gura_AssignFunction(__GetTextureAlphaMod);
+	Gura_AssignFunction(__GetTextureBlendMode);
+	Gura_AssignFunction(__GetTextureColorMod);
+	Gura_AssignFunction(__LockTexture);
+	Gura_AssignFunction(__QueryTexture);
+	Gura_AssignFunction(__RenderClear);
+	Gura_AssignFunction(__RenderCopy);
+	Gura_AssignFunction(__RenderCopyEx);
+	Gura_AssignFunction(__RenderDrawLine);
+	Gura_AssignFunction(__RenderDrawLines);
+	Gura_AssignFunction(__RenderDrawPoint);
+	Gura_AssignFunction(__RenderDrawPoints);
+	Gura_AssignFunction(__RenderDrawRect);
+	Gura_AssignFunction(__RenderDrawRects);
+	Gura_AssignFunction(__RenderFillRect);
+	Gura_AssignFunction(__RenderFillRects);
+	Gura_AssignFunction(__RenderGetClipRect);
+	Gura_AssignFunction(__RenderGetLogicalSize);
+	Gura_AssignFunction(__RenderGetScale);
+	Gura_AssignFunction(__RenderGetViewport);
+	Gura_AssignFunction(__RenderIsClipEnabled);
+	Gura_AssignFunction(__RenderPresent);
+	Gura_AssignFunction(__RenderReadPixels);
+	Gura_AssignFunction(__RenderSetClipRect);
+	Gura_AssignFunction(__RenderSetLogicalSize);
+	Gura_AssignFunction(__RenderSetScale);
+	Gura_AssignFunction(__RenderSetViewport);
+	Gura_AssignFunction(__RenderTargetSupported);
+	Gura_AssignFunction(__SetRenderDrawBlendMode);
+	Gura_AssignFunction(__SetRenderDrawColor);
+	Gura_AssignFunction(__SetRenderTarget);
+	Gura_AssignFunction(__SetTextureAlphaMod);
+	Gura_AssignFunction(__SetTextureBlendMode);
+	Gura_AssignFunction(__SetTextureColorMod);
+	Gura_AssignFunction(__UnlockTexture);
+	Gura_AssignFunction(__UpdateTexture);
+	Gura_AssignFunction(__UpdateYUVTexture);
+	Gura_AssignFunction(__AllocFormat);
+	Gura_AssignFunction(__AllocPalette);
+	Gura_AssignFunction(__CalculateGammaRamp);
+	Gura_AssignFunction(__FreeFormat);
+	Gura_AssignFunction(__FreePalette);
+	Gura_AssignFunction(__GetPixelFormatName);
+	Gura_AssignFunction(__GetRGB);
+	Gura_AssignFunction(__GetRGBA);
+	Gura_AssignFunction(__MapRGB);
+	Gura_AssignFunction(__MapRGBA);
+	Gura_AssignFunction(__MasksToPixelFormatEnum);
+	Gura_AssignFunction(__PixelFormatEnumToMasks);
+	Gura_AssignFunction(__SetPaletteColors);
+	Gura_AssignFunction(__SetPixelFormatPalette);
+	Gura_AssignFunction(__EnclosePoints);
+	Gura_AssignFunction(__HasIntersection);
+	Gura_AssignFunction(__IntersectRect);
+	Gura_AssignFunction(__IntersectRectAndLine);
+	Gura_AssignFunction(__PointInRect);
+	Gura_AssignFunction(__RectEmpty);
+	Gura_AssignFunction(__RectEquals);
+	Gura_AssignFunction(__UnionRect);
+	Gura_AssignFunction(__BlitScaled);
+	Gura_AssignFunction(__BlitSurface);
+	Gura_AssignFunction(__ConvertPixels);
+	Gura_AssignFunction(__ConvertSurface);
+	Gura_AssignFunction(__ConvertSurfaceFormat);
+	Gura_AssignFunction(__CreateRGBSurface);
+	Gura_AssignFunction(__CreateRGBSurfaceFrom);
+	Gura_AssignFunction(__CreateRGBSurfaceFromImage);
+	Gura_AssignFunction(__FillRect);
+	Gura_AssignFunction(__FillRects);
+	Gura_AssignFunction(__FreeSurface);
+	Gura_AssignFunction(__GetClipRect);
+	Gura_AssignFunction(__GetColorKey);
+	Gura_AssignFunction(__GetSurfaceAlphaMod);
+	Gura_AssignFunction(__GetSurfaceBlendMode);
+	Gura_AssignFunction(__GetSurfaceColorMod);
+	Gura_AssignFunction(__LoadBMP);
+	Gura_AssignFunction(__LoadBMP_RW);
+	Gura_AssignFunction(__LockSurface);
+	Gura_AssignFunction(__LowerBlit);
+	Gura_AssignFunction(__LowerBlitScaled);
+	Gura_AssignFunction(__MUSTLOCK);
+	Gura_AssignFunction(__SaveBMP);
+	Gura_AssignFunction(__SaveBMP_RW);
+	Gura_AssignFunction(__SetClipRect);
+	Gura_AssignFunction(__SetColorKey);
+	Gura_AssignFunction(__SetSurfaceAlphaMod);
+	Gura_AssignFunction(__SetSurfaceBlendMode);
+	Gura_AssignFunction(__SetSurfaceColorMod);
+	Gura_AssignFunction(__SetSurfacePalette);
+	Gura_AssignFunction(__SetSurfaceRLE);
+	Gura_AssignFunction(__UnlockSurface);
+	Gura_AssignFunction(__GetClipboardText);
+	Gura_AssignFunction(__HasClipboardText);
+	Gura_AssignFunction(__SetClipboardText);
+	Gura_AssignFunction(__AddEventWatch);
+	Gura_AssignFunction(__DelEventWatch);
+	Gura_AssignFunction(__EventState);
+	Gura_AssignFunction(__FilterEvents);
+	Gura_AssignFunction(__FlushEvent);
+	Gura_AssignFunction(__FlushEvents);
+	Gura_AssignFunction(__GetEventFilter);
+	Gura_AssignFunction(__GetNumTouchDevices);
+	Gura_AssignFunction(__GetNumTouchFingers);
+	Gura_AssignFunction(__GetTouchDevice);
+	Gura_AssignFunction(__GetTouchFinger);
+	Gura_AssignFunction(__HasEvent);
+	Gura_AssignFunction(__HasEvents);
+	Gura_AssignFunction(__LoadDollarTemplates);
+	Gura_AssignFunction(__AddEvents);
+	Gura_AssignFunction(__PeekEvents);
+	Gura_AssignFunction(__GetEvents);
+	Gura_AssignFunction(__PollEvent);
+	Gura_AssignFunction(__PumpEvents);
+	Gura_AssignFunction(__PushEvent);
+	Gura_AssignFunction(__QuitRequested);
+	Gura_AssignFunction(__RecordGesture);
+	Gura_AssignFunction(__RegisterEvents);
+	Gura_AssignFunction(__SaveAllDollarTemplates);
+	Gura_AssignFunction(__SaveDollarTemplate);
+	Gura_AssignFunction(__SetEventFilter);
+	Gura_AssignFunction(__WaitEvent);
+	Gura_AssignFunction(__WaitEventTimeout);
+	Gura_AssignFunction(__CheckKeyboardState);
+	Gura_AssignFunction(__GetKeyFromName);
+	Gura_AssignFunction(__GetKeyFromScancode);
+	Gura_AssignFunction(__GetKeyName);
+	Gura_AssignFunction(__GetKeyboardFocus);
+	Gura_AssignFunction(__GetKeyboardState);
+	Gura_AssignFunction(__GetModState);
+	Gura_AssignFunction(__GetScancodeFromKey);
+	Gura_AssignFunction(__GetScancodeFromName);
+	Gura_AssignFunction(__GetScancodeName);
+	Gura_AssignFunction(__HasScreenKeyboardSupport);
+	Gura_AssignFunction(__IsScreenKeyboardShown);
+	Gura_AssignFunction(__IsTextInputActive);
+	Gura_AssignFunction(__SetModState);
+	Gura_AssignFunction(__SetTextInputRect);
+	Gura_AssignFunction(__StartTextInput);
+	Gura_AssignFunction(__StopTextInput);
+	Gura_AssignFunction(__CaptureMouse);
+	Gura_AssignFunction(__CreateColorCursor);
+	Gura_AssignFunction(__CreateCursor);
+	Gura_AssignFunction(__CreateSystemCursor);
+	Gura_AssignFunction(__FreeCursor);
+	Gura_AssignFunction(__GetCursor);
+	Gura_AssignFunction(__GetDefaultCursor);
+	Gura_AssignFunction(__GetGlobalMouseState);
+	Gura_AssignFunction(__GetMouseFocus);
+	Gura_AssignFunction(__GetMouseState);
+	Gura_AssignFunction(__GetRelativeMouseMode);
+	Gura_AssignFunction(__GetRelativeMouseState);
+	Gura_AssignFunction(__SetCursor);
+	Gura_AssignFunction(__SetRelativeMouseMode);
+	Gura_AssignFunction(__ShowCursor);
+	Gura_AssignFunction(__WarpMouseGlobal);
+	Gura_AssignFunction(__WarpMouseInWindow);
+	Gura_AssignFunction(__JoystickClose);
+	Gura_AssignFunction(__JoystickEventState);
+	Gura_AssignFunction(__JoystickGetAttached);
+	Gura_AssignFunction(__JoystickGetAxis);
+	Gura_AssignFunction(__JoystickGetBall);
+	Gura_AssignFunction(__JoystickGetButton);
+	Gura_AssignFunction(__JoystickGetDeviceGUID);
+	Gura_AssignFunction(__JoystickGetGUID);
+	Gura_AssignFunction(__JoystickGetGUIDFromString);
+	Gura_AssignFunction(__JoystickGetGUIDString);
+	Gura_AssignFunction(__JoystickGetHat);
+	Gura_AssignFunction(__JoystickInstanceID);
+	Gura_AssignFunction(__JoystickName);
+	Gura_AssignFunction(__JoystickNameForIndex);
+	Gura_AssignFunction(__JoystickNumAxes);
+	Gura_AssignFunction(__JoystickNumBalls);
+	Gura_AssignFunction(__JoystickNumButtons);
+	Gura_AssignFunction(__JoystickNumHats);
+	Gura_AssignFunction(__JoystickOpen);
+	Gura_AssignFunction(__JoystickUpdate);
+	Gura_AssignFunction(__NumJoysticks);
+	Gura_AssignFunction(__GameControllerAddMapping);
+	Gura_AssignFunction(__GameControllerAddMappingsFromFile);
+	Gura_AssignFunction(__GameControllerAddMappingsFromRW);
+	Gura_AssignFunction(__GameControllerClose);
+	Gura_AssignFunction(__GameControllerEventState);
+	Gura_AssignFunction(__GameControllerGetAttached);
+	Gura_AssignFunction(__GameControllerGetAxis);
+	Gura_AssignFunction(__GameControllerGetAxisFromString);
+	Gura_AssignFunction(__GameControllerGetBindForAxis);
+	Gura_AssignFunction(__GameControllerGetBindForButton);
+	Gura_AssignFunction(__GameControllerGetButton);
+	Gura_AssignFunction(__GameControllerGetButtonFromString);
+	Gura_AssignFunction(__GameControllerGetJoystick);
+	Gura_AssignFunction(__GameControllerGetStringForAxis);
+	Gura_AssignFunction(__GameControllerGetStringForButton);
+	Gura_AssignFunction(__GameControllerMapping);
+	Gura_AssignFunction(__GameControllerMappingForGUID);
+	Gura_AssignFunction(__GameControllerName);
+	Gura_AssignFunction(__GameControllerNameForIndex);
+	Gura_AssignFunction(__GameControllerOpen);
+	Gura_AssignFunction(__GameControllerUpdate);
+	Gura_AssignFunction(__IsGameController);
+	Gura_AssignFunction(__HapticClose);
+	Gura_AssignFunction(__HapticDestroyEffect);
+	Gura_AssignFunction(__HapticEffectSupported);
+	Gura_AssignFunction(__HapticGetEffectStatus);
+	Gura_AssignFunction(__HapticIndex);
+	Gura_AssignFunction(__HapticName);
+	Gura_AssignFunction(__HapticNewEffect);
+	Gura_AssignFunction(__HapticNumAxes);
+	Gura_AssignFunction(__HapticNumEffects);
+	Gura_AssignFunction(__HapticNumEffectsPlaying);
+	Gura_AssignFunction(__HapticOpen);
+	Gura_AssignFunction(__HapticOpenFromJoystick);
+	Gura_AssignFunction(__HapticOpenFromMouse);
+	Gura_AssignFunction(__HapticOpened);
+	Gura_AssignFunction(__HapticPause);
+	Gura_AssignFunction(__HapticQuery);
+	Gura_AssignFunction(__HapticRumbleInit);
+	Gura_AssignFunction(__HapticRumblePlay);
+	Gura_AssignFunction(__HapticRumbleStop);
+	Gura_AssignFunction(__HapticRumbleSupported);
+	Gura_AssignFunction(__HapticRunEffect);
+	Gura_AssignFunction(__HapticSetAutocenter);
+	Gura_AssignFunction(__HapticSetGain);
+	Gura_AssignFunction(__HapticStopAll);
+	Gura_AssignFunction(__HapticStopEffect);
+	Gura_AssignFunction(__HapticUnpause);
+	Gura_AssignFunction(__HapticUpdateEffect);
+	Gura_AssignFunction(__JoystickIsHaptic);
+	Gura_AssignFunction(__MouseIsHaptic);
+	Gura_AssignFunction(__NumHaptics);
+	Gura_AssignFunction(__AudioInit);
+	Gura_AssignFunction(__AudioQuit);
+	Gura_AssignFunction(__BuildAudioCVT);
+	Gura_AssignFunction(__ClearQueuedAudio);
+	Gura_AssignFunction(__CloseAudio);
+	Gura_AssignFunction(__CloseAudioDevice);
+	Gura_AssignFunction(__ConvertAudio);
+	Gura_AssignFunction(__FreeWAV);
+	Gura_AssignFunction(__GetAudioDeviceName);
+	Gura_AssignFunction(__GetAudioDeviceStatus);
+	Gura_AssignFunction(__GetAudioDriver);
+	Gura_AssignFunction(__GetAudioStatus);
+	Gura_AssignFunction(__GetCurrentAudioDriver);
+	Gura_AssignFunction(__GetNumAudioDevices);
+	Gura_AssignFunction(__GetNumAudioDrivers);
+	Gura_AssignFunction(__GetQueuedAudioSize);
+	Gura_AssignFunction(__LoadWAV);
+	Gura_AssignFunction(__LoadWAV_RW);
+	Gura_AssignFunction(__LockAudio);
+	Gura_AssignFunction(__LockAudioDevice);
+	Gura_AssignFunction(__MixAudio);
+	Gura_AssignFunction(__MixAudioFormat);
+	Gura_AssignFunction(__OpenAudio);
+	Gura_AssignFunction(__OpenAudioDevice);
+	Gura_AssignFunction(__PauseAudio);
+	Gura_AssignFunction(__PauseAudioDevice);
+	Gura_AssignFunction(__QueueAudio);
+	Gura_AssignFunction(__UnlockAudio);
+	Gura_AssignFunction(__UnlockAudioDevice);
+	Gura_AssignFunction(__AUDIO_BITSIZE);
+	Gura_AssignFunction(__AUDIO_ISFLOAT);
+	Gura_AssignFunction(__AUDIO_ISBIGENDIAN);
+	Gura_AssignFunction(__AUDIO_ISSIGNED);
+	Gura_AssignFunction(__AUDIO_ISINT);
+	Gura_AssignFunction(__AUDIO_ISLITTLEENDIAN);
+	Gura_AssignFunction(__AUDIO_ISUNSIGNED);
+	Gura_AssignFunction(__CreateThread);
+	Gura_AssignFunction(__DetachThread);
+	Gura_AssignFunction(__GetThreadID);
+	Gura_AssignFunction(__GetThreadName);
+	Gura_AssignFunction(__GetThreadPriority);
+	Gura_AssignFunction(__TLSCreate);
+	Gura_AssignFunction(__TLSGet);
+	Gura_AssignFunction(__TLSSet);
+	Gura_AssignFunction(__ThreadID);
+	Gura_AssignFunction(__WaitThread);
+	Gura_AssignFunction(__CondBroadcast);
+	Gura_AssignFunction(__CondSignal);
+	Gura_AssignFunction(__CondWait);
+	Gura_AssignFunction(__CondWaitTimeout);
+	Gura_AssignFunction(__CreateCond);
+	Gura_AssignFunction(__CreateMutex);
+	Gura_AssignFunction(__CreateSemaphore);
+	Gura_AssignFunction(__DestroyCond);
+	Gura_AssignFunction(__DestroyMutex);
+	Gura_AssignFunction(__DestroySemaphore);
+	Gura_AssignFunction(__LockMutex);
+	Gura_AssignFunction(__SemPost);
+	Gura_AssignFunction(__SemTryWait);
+	Gura_AssignFunction(__SemValue);
+	Gura_AssignFunction(__SemWait);
+	Gura_AssignFunction(__SemWaitTimeout);
+	Gura_AssignFunction(__TryLockMutex);
+	Gura_AssignFunction(__UnlockMutex);
+	Gura_AssignFunction(__AtomicAdd);
+	Gura_AssignFunction(__AtomicCAS);
+	Gura_AssignFunction(__AtomicCASPtr);
+	Gura_AssignFunction(__AtomicDecRef);
+	Gura_AssignFunction(__AtomicGet);
+	Gura_AssignFunction(__AtomicGetPtr);
+	Gura_AssignFunction(__AtomicIncRef);
+	Gura_AssignFunction(__AtomicLock);
+	Gura_AssignFunction(__AtomicSet);
+	Gura_AssignFunction(__AtomicSetPtr);
+	Gura_AssignFunction(__AtomicTryLock);
+	Gura_AssignFunction(__AtomicUnlock);
+	Gura_AssignFunction(__CompilerBarrier);
+	Gura_AssignFunction(__AddTimer);
+	Gura_AssignFunction(__Delay);
+	Gura_AssignFunction(__GetPerformanceCounter);
+	Gura_AssignFunction(__GetPerformanceFrequency);
+	Gura_AssignFunction(__GetTicks);
+	Gura_AssignFunction(__RemoveTimer);
+	Gura_AssignFunction(__TICKS_PASSED);
+	Gura_AssignFunction(__GetBasePath);
+	Gura_AssignFunction(__GetPrefPath);
+	Gura_AssignFunction(__AllocRW);
+	Gura_AssignFunction(__FreeRW);
+	Gura_AssignFunction(__RWFromConstMem);
+	Gura_AssignFunction(__RWFromFP);
+	Gura_AssignFunction(__RWFromFile);
+	Gura_AssignFunction(__RWFromMem);
+	Gura_AssignFunction(__RWclose);
+	Gura_AssignFunction(__RWread);
+	Gura_AssignFunction(__RWseek);
+	Gura_AssignFunction(__RWtell);
+	Gura_AssignFunction(__RWwrite);
+	Gura_AssignFunction(__ReadBE16);
+	Gura_AssignFunction(__ReadBE32);
+	Gura_AssignFunction(__ReadBE64);
+	Gura_AssignFunction(__ReadLE16);
+	Gura_AssignFunction(__ReadLE32);
+	Gura_AssignFunction(__ReadLE64);
+	Gura_AssignFunction(__WriteBE16);
+	Gura_AssignFunction(__WriteBE32);
+	Gura_AssignFunction(__WriteBE64);
+	Gura_AssignFunction(__WriteLE16);
+	Gura_AssignFunction(__WriteLE32);
+	Gura_AssignFunction(__WriteLE64);
+	Gura_AssignFunction(__GetPlatform);
+	Gura_AssignFunction(__GetCPUCacheLineSize);
+	Gura_AssignFunction(__GetCPUCount);
+	Gura_AssignFunction(__GetSystemRAM);
+	Gura_AssignFunction(__Has3DNow);
+	Gura_AssignFunction(__HasAVX);
+	Gura_AssignFunction(__HasAVX2);
+	Gura_AssignFunction(__HasAltiVec);
+	Gura_AssignFunction(__HasMMX);
+	Gura_AssignFunction(__HasRDTSC);
+	Gura_AssignFunction(__HasSSE);
+	Gura_AssignFunction(__HasSSE2);
+	Gura_AssignFunction(__HasSSE3);
+	Gura_AssignFunction(__HasSSE41);
+	Gura_AssignFunction(__HasSSE42);
+	Gura_AssignFunction(__Swap16);
+	Gura_AssignFunction(__Swap32);
+	Gura_AssignFunction(__Swap64);
+	Gura_AssignFunction(__SwapBE16);
+	Gura_AssignFunction(__SwapBE32);
+	Gura_AssignFunction(__SwapBE64);
+	Gura_AssignFunction(__SwapFloat);
+	Gura_AssignFunction(__SwapFloatBE);
+	Gura_AssignFunction(__SwapFloatLE);
+	Gura_AssignFunction(__SwapLE16);
+	Gura_AssignFunction(__SwapLE32);
+	Gura_AssignFunction(__SwapLE64);
+	Gura_AssignFunction(__MostSignificantBitIndex32);
+	Gura_AssignFunction(__GetPowerInfo);
+	Gura_AssignFunction(__AndroidGetActivity);
+	Gura_AssignFunction(__AndroidGetExternalStoragePath);
+	Gura_AssignFunction(__AndroidGetExternalStorageState);
+	Gura_AssignFunction(__AndroidGetInternalStoragePath);
+	Gura_AssignFunction(__AndroidGetJNIEnv);
+	Gura_AssignFunction(__acos);
 	Gura_AssignFunction(test);
 }
 

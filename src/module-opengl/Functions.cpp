@@ -8,7 +8,7 @@ typedef char GLchar;
 Gura_BeginModuleScope(opengl)
 
 // opengl.glAccum
-Gura_DeclareFunction(glAccum)
+Gura_DeclareFunctionAlias(__glAccum, "glAccum")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "op", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -18,7 +18,7 @@ Gura_DeclareFunction(glAccum)
 		"operate on the accumulation buffer\n");
 }
 
-Gura_ImplementFunction(glAccum)
+Gura_ImplementFunction(__glAccum)
 {
 	GLenum op = static_cast<GLenum>(args.GetInt(0));
 	GLfloat value = args.GetFloat(1);
@@ -27,7 +27,7 @@ Gura_ImplementFunction(glAccum)
 }
 
 // opengl.glAlphaFunc
-Gura_DeclareFunction(glAlphaFunc)
+Gura_DeclareFunctionAlias(__glAlphaFunc, "glAlphaFunc")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -37,7 +37,7 @@ Gura_DeclareFunction(glAlphaFunc)
 		"specify the alpha test function\n");
 }
 
-Gura_ImplementFunction(glAlphaFunc)
+Gura_ImplementFunction(__glAlphaFunc)
 {
 	GLenum func = static_cast<GLenum>(args.GetInt(0));
 	GLclampf ref = args.GetFloat(1);
@@ -46,7 +46,7 @@ Gura_ImplementFunction(glAlphaFunc)
 }
 
 // opengl.glAreTexturesResident
-Gura_DeclareFunction(glAreTexturesResident)
+Gura_DeclareFunctionAlias(__glAreTexturesResident, "glAreTexturesResident")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -56,7 +56,7 @@ Gura_DeclareFunction(glAreTexturesResident)
 		"determine if textures are loaded in texture memory\n");
 }
 
-Gura_ImplementFunction(glAreTexturesResident)
+Gura_ImplementFunction(__glAreTexturesResident)
 {
 	CArray<GLuint> textures = args.GetList(0);
 	GLsizei n = textures.GetSize();
@@ -72,7 +72,7 @@ Gura_ImplementFunction(glAreTexturesResident)
 }
 
 // opengl.glArrayElement
-Gura_DeclareFunction(glArrayElement)
+Gura_DeclareFunctionAlias(__glArrayElement, "glArrayElement")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "i", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -81,7 +81,7 @@ Gura_DeclareFunction(glArrayElement)
 		"render a vertex using the specified vertex array element\n");
 }
 
-Gura_ImplementFunction(glArrayElement)
+Gura_ImplementFunction(__glArrayElement)
 {
 	GLint i = args.GetInt(0);
 	glArrayElement(i);
@@ -89,7 +89,7 @@ Gura_ImplementFunction(glArrayElement)
 }
 
 // opengl.glBegin
-Gura_DeclareFunction(glBegin)
+Gura_DeclareFunctionAlias(__glBegin, "glBegin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -99,7 +99,7 @@ Gura_DeclareFunction(glBegin)
 		"delimit the vertices of a primitive or a group of like primitives\n");
 }
 
-Gura_ImplementFunction(glBegin)
+Gura_ImplementFunction(__glBegin)
 {
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	glBegin(mode);
@@ -114,7 +114,7 @@ Gura_ImplementFunction(glBegin)
 }
 
 // opengl.glBindTexture
-Gura_DeclareFunction(glBindTexture)
+Gura_DeclareFunctionAlias(__glBindTexture, "glBindTexture")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -124,7 +124,7 @@ Gura_DeclareFunction(glBindTexture)
 		"");
 }
 
-Gura_ImplementFunction(glBindTexture)
+Gura_ImplementFunction(__glBindTexture)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLuint texture = args.GetUInt(1);
@@ -133,7 +133,7 @@ Gura_ImplementFunction(glBindTexture)
 }
 
 // opengl.glBitmap
-Gura_DeclareFunction(glBitmap)
+Gura_DeclareFunctionAlias(__glBitmap, "glBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -148,7 +148,7 @@ Gura_DeclareFunction(glBitmap)
 		"");
 }
 
-Gura_ImplementFunction(glBitmap)
+Gura_ImplementFunction(__glBitmap)
 {
 	GLsizei width = args.GetInt(0);
 	GLsizei height = args.GetInt(1);
@@ -168,7 +168,7 @@ Gura_ImplementFunction(glBitmap)
 }
 
 // opengl.glBlendFunc
-Gura_DeclareFunction(glBlendFunc)
+Gura_DeclareFunctionAlias(__glBlendFunc, "glBlendFunc")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "sfactor", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -178,7 +178,7 @@ Gura_DeclareFunction(glBlendFunc)
 		"");
 }
 
-Gura_ImplementFunction(glBlendFunc)
+Gura_ImplementFunction(__glBlendFunc)
 {
 	GLenum sfactor = static_cast<GLenum>(args.GetInt(0));
 	GLenum dfactor = static_cast<GLenum>(args.GetInt(1));
@@ -187,7 +187,7 @@ Gura_ImplementFunction(glBlendFunc)
 }
 
 // opengl.glCallList
-Gura_DeclareFunction(glCallList)
+Gura_DeclareFunctionAlias(__glCallList, "glCallList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "list", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -196,7 +196,7 @@ Gura_DeclareFunction(glCallList)
 		"");
 }
 
-Gura_ImplementFunction(glCallList)
+Gura_ImplementFunction(__glCallList)
 {
 	GLuint list = args.GetUInt(0);
 	glCallList(list);
@@ -204,7 +204,7 @@ Gura_ImplementFunction(glCallList)
 }
 
 // opengl.glCallLists
-Gura_DeclareFunction(glCallLists)
+Gura_DeclareFunctionAlias(__glCallLists, "glCallLists")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -214,7 +214,7 @@ Gura_DeclareFunction(glCallLists)
 		"");
 }
 
-Gura_ImplementFunction(glCallLists)
+Gura_ImplementFunction(__glCallLists)
 {
 	GLenum type = static_cast<GLenum>(args.GetInt(0));
 	const ValueList & lists = args.GetList(1);
@@ -286,7 +286,7 @@ Gura_ImplementFunction(glCallLists)
 }
 
 // opengl.glClear
-Gura_DeclareFunction(glClear)
+Gura_DeclareFunctionAlias(__glClear, "glClear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mask", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -295,7 +295,7 @@ Gura_DeclareFunction(glClear)
 		"");
 }
 
-Gura_ImplementFunction(glClear)
+Gura_ImplementFunction(__glClear)
 {
 	GLbitfield mask = args.GetUInt(0);
 	glClear(mask);
@@ -303,7 +303,7 @@ Gura_ImplementFunction(glClear)
 }
 
 // opengl.glClearAccum
-Gura_DeclareFunction(glClearAccum)
+Gura_DeclareFunctionAlias(__glClearAccum, "glClearAccum")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -315,7 +315,7 @@ Gura_DeclareFunction(glClearAccum)
 		"");
 }
 
-Gura_ImplementFunction(glClearAccum)
+Gura_ImplementFunction(__glClearAccum)
 {
 	GLfloat red = args.GetFloat(0);
 	GLfloat green = args.GetFloat(1);
@@ -326,7 +326,7 @@ Gura_ImplementFunction(glClearAccum)
 }
 
 // opengl.glClearColor
-Gura_DeclareFunction(glClearColor)
+Gura_DeclareFunctionAlias(__glClearColor, "glClearColor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -338,7 +338,7 @@ Gura_DeclareFunction(glClearColor)
 		"");
 }
 
-Gura_ImplementFunction(glClearColor)
+Gura_ImplementFunction(__glClearColor)
 {
 	GLclampf red = args.GetFloat(0);
 	GLclampf green = args.GetFloat(1);
@@ -349,7 +349,7 @@ Gura_ImplementFunction(glClearColor)
 }
 
 // opengl.glClearDepth
-Gura_DeclareFunction(glClearDepth)
+Gura_DeclareFunctionAlias(__glClearDepth, "glClearDepth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "depth", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -358,7 +358,7 @@ Gura_DeclareFunction(glClearDepth)
 		"");
 }
 
-Gura_ImplementFunction(glClearDepth)
+Gura_ImplementFunction(__glClearDepth)
 {
 	GLclampd depth = args.GetDouble(0);
 	glClearDepth(depth);
@@ -366,7 +366,7 @@ Gura_ImplementFunction(glClearDepth)
 }
 
 // opengl.glClearIndex
-Gura_DeclareFunction(glClearIndex)
+Gura_DeclareFunctionAlias(__glClearIndex, "glClearIndex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -375,7 +375,7 @@ Gura_DeclareFunction(glClearIndex)
 		"");
 }
 
-Gura_ImplementFunction(glClearIndex)
+Gura_ImplementFunction(__glClearIndex)
 {
 	GLfloat c = args.GetFloat(0);
 	glClearIndex(c);
@@ -383,7 +383,7 @@ Gura_ImplementFunction(glClearIndex)
 }
 
 // opengl.glClearStencil
-Gura_DeclareFunction(glClearStencil)
+Gura_DeclareFunctionAlias(__glClearStencil, "glClearStencil")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -392,7 +392,7 @@ Gura_DeclareFunction(glClearStencil)
 		"");
 }
 
-Gura_ImplementFunction(glClearStencil)
+Gura_ImplementFunction(__glClearStencil)
 {
 	GLint s = args.GetInt(0);
 	glClearStencil(s);
@@ -400,7 +400,7 @@ Gura_ImplementFunction(glClearStencil)
 }
 
 // opengl.glClipPlane
-Gura_DeclareFunction(glClipPlane)
+Gura_DeclareFunctionAlias(__glClipPlane, "glClipPlane")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -411,7 +411,7 @@ Gura_DeclareFunction(glClipPlane)
 		"");
 }
 
-Gura_ImplementFunction(glClipPlane)
+Gura_ImplementFunction(__glClipPlane)
 {
 	GLenum plane = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLdouble> equation = args.GetList(1);
@@ -424,7 +424,7 @@ Gura_ImplementFunction(glClipPlane)
 }
 
 // opengl.glColor3b
-Gura_DeclareFunction(glColor3b)
+Gura_DeclareFunctionAlias(__glColor3b, "glColor3b")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -435,7 +435,7 @@ Gura_DeclareFunction(glColor3b)
 		"");
 }
 
-Gura_ImplementFunction(glColor3b)
+Gura_ImplementFunction(__glColor3b)
 {
 	GLbyte red = args.GetChar(0);
 	GLbyte green = args.GetChar(1);
@@ -445,7 +445,7 @@ Gura_ImplementFunction(glColor3b)
 }
 
 // opengl.glColor3bv
-Gura_DeclareFunction(glColor3bv)
+Gura_DeclareFunctionAlias(__glColor3bv, "glColor3bv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -454,7 +454,7 @@ Gura_DeclareFunction(glColor3bv)
 		"");
 }
 
-Gura_ImplementFunction(glColor3bv)
+Gura_ImplementFunction(__glColor3bv)
 {
 	CArray<GLbyte> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -466,7 +466,7 @@ Gura_ImplementFunction(glColor3bv)
 }
 
 // opengl.glColor3d
-Gura_DeclareFunction(glColor3d)
+Gura_DeclareFunctionAlias(__glColor3d, "glColor3d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -477,7 +477,7 @@ Gura_DeclareFunction(glColor3d)
 		"");
 }
 
-Gura_ImplementFunction(glColor3d)
+Gura_ImplementFunction(__glColor3d)
 {
 	GLdouble red = args.GetDouble(0);
 	GLdouble green = args.GetDouble(1);
@@ -487,7 +487,7 @@ Gura_ImplementFunction(glColor3d)
 }
 
 // opengl.glColor3dv
-Gura_DeclareFunction(glColor3dv)
+Gura_DeclareFunctionAlias(__glColor3dv, "glColor3dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -496,7 +496,7 @@ Gura_DeclareFunction(glColor3dv)
 		"");
 }
 
-Gura_ImplementFunction(glColor3dv)
+Gura_ImplementFunction(__glColor3dv)
 {
 	CArray<GLdouble> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -508,7 +508,7 @@ Gura_ImplementFunction(glColor3dv)
 }
 
 // opengl.glColor3f
-Gura_DeclareFunction(glColor3f)
+Gura_DeclareFunctionAlias(__glColor3f, "glColor3f")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -519,7 +519,7 @@ Gura_DeclareFunction(glColor3f)
 		"");
 }
 
-Gura_ImplementFunction(glColor3f)
+Gura_ImplementFunction(__glColor3f)
 {
 	GLfloat red = args.GetFloat(0);
 	GLfloat green = args.GetFloat(1);
@@ -529,7 +529,7 @@ Gura_ImplementFunction(glColor3f)
 }
 
 // opengl.glColor3fv
-Gura_DeclareFunction(glColor3fv)
+Gura_DeclareFunctionAlias(__glColor3fv, "glColor3fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -538,7 +538,7 @@ Gura_DeclareFunction(glColor3fv)
 		"");
 }
 
-Gura_ImplementFunction(glColor3fv)
+Gura_ImplementFunction(__glColor3fv)
 {
 	CArray<GLfloat> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -550,7 +550,7 @@ Gura_ImplementFunction(glColor3fv)
 }
 
 // opengl.glColor3i
-Gura_DeclareFunction(glColor3i)
+Gura_DeclareFunctionAlias(__glColor3i, "glColor3i")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -561,7 +561,7 @@ Gura_DeclareFunction(glColor3i)
 		"");
 }
 
-Gura_ImplementFunction(glColor3i)
+Gura_ImplementFunction(__glColor3i)
 {
 	GLint red = args.GetInt(0);
 	GLint green = args.GetInt(1);
@@ -571,7 +571,7 @@ Gura_ImplementFunction(glColor3i)
 }
 
 // opengl.glColor3iv
-Gura_DeclareFunction(glColor3iv)
+Gura_DeclareFunctionAlias(__glColor3iv, "glColor3iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -580,7 +580,7 @@ Gura_DeclareFunction(glColor3iv)
 		"");
 }
 
-Gura_ImplementFunction(glColor3iv)
+Gura_ImplementFunction(__glColor3iv)
 {
 	CArray<GLint> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -592,7 +592,7 @@ Gura_ImplementFunction(glColor3iv)
 }
 
 // opengl.glColor3s
-Gura_DeclareFunction(glColor3s)
+Gura_DeclareFunctionAlias(__glColor3s, "glColor3s")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -603,7 +603,7 @@ Gura_DeclareFunction(glColor3s)
 		"");
 }
 
-Gura_ImplementFunction(glColor3s)
+Gura_ImplementFunction(__glColor3s)
 {
 	GLshort red = args.GetShort(0);
 	GLshort green = args.GetShort(1);
@@ -613,7 +613,7 @@ Gura_ImplementFunction(glColor3s)
 }
 
 // opengl.glColor3sv
-Gura_DeclareFunction(glColor3sv)
+Gura_DeclareFunctionAlias(__glColor3sv, "glColor3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -622,7 +622,7 @@ Gura_DeclareFunction(glColor3sv)
 		"");
 }
 
-Gura_ImplementFunction(glColor3sv)
+Gura_ImplementFunction(__glColor3sv)
 {
 	CArray<GLshort> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -634,7 +634,7 @@ Gura_ImplementFunction(glColor3sv)
 }
 
 // opengl.glColor3ub
-Gura_DeclareFunction(glColor3ub)
+Gura_DeclareFunctionAlias(__glColor3ub, "glColor3ub")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -645,7 +645,7 @@ Gura_DeclareFunction(glColor3ub)
 		"");
 }
 
-Gura_ImplementFunction(glColor3ub)
+Gura_ImplementFunction(__glColor3ub)
 {
 	GLubyte red = args.GetUChar(0);
 	GLubyte green = args.GetUChar(1);
@@ -655,7 +655,7 @@ Gura_ImplementFunction(glColor3ub)
 }
 
 // opengl.glColor3ubv
-Gura_DeclareFunction(glColor3ubv)
+Gura_DeclareFunctionAlias(__glColor3ubv, "glColor3ubv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -664,7 +664,7 @@ Gura_DeclareFunction(glColor3ubv)
 		"");
 }
 
-Gura_ImplementFunction(glColor3ubv)
+Gura_ImplementFunction(__glColor3ubv)
 {
 	CArray<GLubyte> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -676,7 +676,7 @@ Gura_ImplementFunction(glColor3ubv)
 }
 
 // opengl.glColor3ui
-Gura_DeclareFunction(glColor3ui)
+Gura_DeclareFunctionAlias(__glColor3ui, "glColor3ui")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -687,7 +687,7 @@ Gura_DeclareFunction(glColor3ui)
 		"");
 }
 
-Gura_ImplementFunction(glColor3ui)
+Gura_ImplementFunction(__glColor3ui)
 {
 	GLuint red = args.GetUInt(0);
 	GLuint green = args.GetUInt(1);
@@ -697,7 +697,7 @@ Gura_ImplementFunction(glColor3ui)
 }
 
 // opengl.glColor3uiv
-Gura_DeclareFunction(glColor3uiv)
+Gura_DeclareFunctionAlias(__glColor3uiv, "glColor3uiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -706,7 +706,7 @@ Gura_DeclareFunction(glColor3uiv)
 		"");
 }
 
-Gura_ImplementFunction(glColor3uiv)
+Gura_ImplementFunction(__glColor3uiv)
 {
 	CArray<GLuint> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -718,7 +718,7 @@ Gura_ImplementFunction(glColor3uiv)
 }
 
 // opengl.glColor3us
-Gura_DeclareFunction(glColor3us)
+Gura_DeclareFunctionAlias(__glColor3us, "glColor3us")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -729,7 +729,7 @@ Gura_DeclareFunction(glColor3us)
 		"");
 }
 
-Gura_ImplementFunction(glColor3us)
+Gura_ImplementFunction(__glColor3us)
 {
 	GLushort red = args.GetUShort(0);
 	GLushort green = args.GetUShort(1);
@@ -739,7 +739,7 @@ Gura_ImplementFunction(glColor3us)
 }
 
 // opengl.glColor3usv
-Gura_DeclareFunction(glColor3usv)
+Gura_DeclareFunctionAlias(__glColor3usv, "glColor3usv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -748,7 +748,7 @@ Gura_DeclareFunction(glColor3usv)
 		"");
 }
 
-Gura_ImplementFunction(glColor3usv)
+Gura_ImplementFunction(__glColor3usv)
 {
 	CArray<GLushort> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -760,7 +760,7 @@ Gura_ImplementFunction(glColor3usv)
 }
 
 // opengl.glColor4b
-Gura_DeclareFunction(glColor4b)
+Gura_DeclareFunctionAlias(__glColor4b, "glColor4b")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -772,7 +772,7 @@ Gura_DeclareFunction(glColor4b)
 		"");
 }
 
-Gura_ImplementFunction(glColor4b)
+Gura_ImplementFunction(__glColor4b)
 {
 	GLbyte red = args.GetChar(0);
 	GLbyte green = args.GetChar(1);
@@ -783,7 +783,7 @@ Gura_ImplementFunction(glColor4b)
 }
 
 // opengl.glColor4bv
-Gura_DeclareFunction(glColor4bv)
+Gura_DeclareFunctionAlias(__glColor4bv, "glColor4bv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -792,7 +792,7 @@ Gura_DeclareFunction(glColor4bv)
 		"");
 }
 
-Gura_ImplementFunction(glColor4bv)
+Gura_ImplementFunction(__glColor4bv)
 {
 	CArray<GLbyte> v = args.GetList(0);
 	if (v.GetSize() != 4) {
@@ -804,7 +804,7 @@ Gura_ImplementFunction(glColor4bv)
 }
 
 // opengl.glColor4d
-Gura_DeclareFunction(glColor4d)
+Gura_DeclareFunctionAlias(__glColor4d, "glColor4d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -816,7 +816,7 @@ Gura_DeclareFunction(glColor4d)
 		"");
 }
 
-Gura_ImplementFunction(glColor4d)
+Gura_ImplementFunction(__glColor4d)
 {
 	GLdouble red = args.GetDouble(0);
 	GLdouble green = args.GetDouble(1);
@@ -827,7 +827,7 @@ Gura_ImplementFunction(glColor4d)
 }
 
 // opengl.glColor4dv
-Gura_DeclareFunction(glColor4dv)
+Gura_DeclareFunctionAlias(__glColor4dv, "glColor4dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -836,7 +836,7 @@ Gura_DeclareFunction(glColor4dv)
 		"");
 }
 
-Gura_ImplementFunction(glColor4dv)
+Gura_ImplementFunction(__glColor4dv)
 {
 	CArray<GLdouble> v = args.GetList(0);
 	if (v.GetSize() != 4) {
@@ -848,7 +848,7 @@ Gura_ImplementFunction(glColor4dv)
 }
 
 // opengl.glColor4f
-Gura_DeclareFunction(glColor4f)
+Gura_DeclareFunctionAlias(__glColor4f, "glColor4f")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -860,7 +860,7 @@ Gura_DeclareFunction(glColor4f)
 		"");
 }
 
-Gura_ImplementFunction(glColor4f)
+Gura_ImplementFunction(__glColor4f)
 {
 	GLfloat red = args.GetFloat(0);
 	GLfloat green = args.GetFloat(1);
@@ -871,7 +871,7 @@ Gura_ImplementFunction(glColor4f)
 }
 
 // opengl.glColor4fv
-Gura_DeclareFunction(glColor4fv)
+Gura_DeclareFunctionAlias(__glColor4fv, "glColor4fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -880,7 +880,7 @@ Gura_DeclareFunction(glColor4fv)
 		"");
 }
 
-Gura_ImplementFunction(glColor4fv)
+Gura_ImplementFunction(__glColor4fv)
 {
 	CArray<GLfloat> v = args.GetList(0);
 	if (v.GetSize() != 4) {
@@ -892,7 +892,7 @@ Gura_ImplementFunction(glColor4fv)
 }
 
 // opengl.glColor4i
-Gura_DeclareFunction(glColor4i)
+Gura_DeclareFunctionAlias(__glColor4i, "glColor4i")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -904,7 +904,7 @@ Gura_DeclareFunction(glColor4i)
 		"");
 }
 
-Gura_ImplementFunction(glColor4i)
+Gura_ImplementFunction(__glColor4i)
 {
 	GLint red = args.GetInt(0);
 	GLint green = args.GetInt(1);
@@ -915,7 +915,7 @@ Gura_ImplementFunction(glColor4i)
 }
 
 // opengl.glColor4iv
-Gura_DeclareFunction(glColor4iv)
+Gura_DeclareFunctionAlias(__glColor4iv, "glColor4iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -924,7 +924,7 @@ Gura_DeclareFunction(glColor4iv)
 		"");
 }
 
-Gura_ImplementFunction(glColor4iv)
+Gura_ImplementFunction(__glColor4iv)
 {
 	CArray<GLint> v = args.GetList(0);
 	if (v.GetSize() != 4) {
@@ -936,7 +936,7 @@ Gura_ImplementFunction(glColor4iv)
 }
 
 // opengl.glColor4s
-Gura_DeclareFunction(glColor4s)
+Gura_DeclareFunctionAlias(__glColor4s, "glColor4s")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -948,7 +948,7 @@ Gura_DeclareFunction(glColor4s)
 		"");
 }
 
-Gura_ImplementFunction(glColor4s)
+Gura_ImplementFunction(__glColor4s)
 {
 	GLshort red = args.GetShort(0);
 	GLshort green = args.GetShort(1);
@@ -959,7 +959,7 @@ Gura_ImplementFunction(glColor4s)
 }
 
 // opengl.glColor4sv
-Gura_DeclareFunction(glColor4sv)
+Gura_DeclareFunctionAlias(__glColor4sv, "glColor4sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -968,7 +968,7 @@ Gura_DeclareFunction(glColor4sv)
 		"");
 }
 
-Gura_ImplementFunction(glColor4sv)
+Gura_ImplementFunction(__glColor4sv)
 {
 	CArray<GLshort> v = args.GetList(0);
 	if (v.GetSize() != 4) {
@@ -980,7 +980,7 @@ Gura_ImplementFunction(glColor4sv)
 }
 
 // opengl.glColor4ub
-Gura_DeclareFunction(glColor4ub)
+Gura_DeclareFunctionAlias(__glColor4ub, "glColor4ub")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -992,7 +992,7 @@ Gura_DeclareFunction(glColor4ub)
 		"");
 }
 
-Gura_ImplementFunction(glColor4ub)
+Gura_ImplementFunction(__glColor4ub)
 {
 	GLubyte red = args.GetUChar(0);
 	GLubyte green = args.GetUChar(1);
@@ -1003,7 +1003,7 @@ Gura_ImplementFunction(glColor4ub)
 }
 
 // opengl.glColor4ubv
-Gura_DeclareFunction(glColor4ubv)
+Gura_DeclareFunctionAlias(__glColor4ubv, "glColor4ubv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -1012,7 +1012,7 @@ Gura_DeclareFunction(glColor4ubv)
 		"");
 }
 
-Gura_ImplementFunction(glColor4ubv)
+Gura_ImplementFunction(__glColor4ubv)
 {
 	CArray<GLubyte> v = args.GetList(0);
 	if (v.GetSize() != 4) {
@@ -1024,7 +1024,7 @@ Gura_ImplementFunction(glColor4ubv)
 }
 
 // opengl.glColor4ui
-Gura_DeclareFunction(glColor4ui)
+Gura_DeclareFunctionAlias(__glColor4ui, "glColor4ui")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1036,7 +1036,7 @@ Gura_DeclareFunction(glColor4ui)
 		"");
 }
 
-Gura_ImplementFunction(glColor4ui)
+Gura_ImplementFunction(__glColor4ui)
 {
 	GLuint red = args.GetUInt(0);
 	GLuint green = args.GetUInt(1);
@@ -1047,7 +1047,7 @@ Gura_ImplementFunction(glColor4ui)
 }
 
 // opengl.glColor4uiv
-Gura_DeclareFunction(glColor4uiv)
+Gura_DeclareFunctionAlias(__glColor4uiv, "glColor4uiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -1056,7 +1056,7 @@ Gura_DeclareFunction(glColor4uiv)
 		"");
 }
 
-Gura_ImplementFunction(glColor4uiv)
+Gura_ImplementFunction(__glColor4uiv)
 {
 	CArray<GLuint> v = args.GetList(0);
 	if (v.GetSize() != 4) {
@@ -1068,7 +1068,7 @@ Gura_ImplementFunction(glColor4uiv)
 }
 
 // opengl.glColor4us
-Gura_DeclareFunction(glColor4us)
+Gura_DeclareFunctionAlias(__glColor4us, "glColor4us")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1080,7 +1080,7 @@ Gura_DeclareFunction(glColor4us)
 		"");
 }
 
-Gura_ImplementFunction(glColor4us)
+Gura_ImplementFunction(__glColor4us)
 {
 	GLushort red = args.GetUShort(0);
 	GLushort green = args.GetUShort(1);
@@ -1091,7 +1091,7 @@ Gura_ImplementFunction(glColor4us)
 }
 
 // opengl.glColor4usv
-Gura_DeclareFunction(glColor4usv)
+Gura_DeclareFunctionAlias(__glColor4usv, "glColor4usv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -1100,7 +1100,7 @@ Gura_DeclareFunction(glColor4usv)
 		"");
 }
 
-Gura_ImplementFunction(glColor4usv)
+Gura_ImplementFunction(__glColor4usv)
 {
 	CArray<GLushort> v = args.GetList(0);
 	if (v.GetSize() != 4) {
@@ -1112,7 +1112,7 @@ Gura_ImplementFunction(glColor4usv)
 }
 
 // opengl.glColorMask
-Gura_DeclareFunction(glColorMask)
+Gura_DeclareFunctionAlias(__glColorMask, "glColorMask")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "red", VTYPE_boolean, OCCUR_Once, FLAG_None);
@@ -1124,7 +1124,7 @@ Gura_DeclareFunction(glColorMask)
 		"");
 }
 
-Gura_ImplementFunction(glColorMask)
+Gura_ImplementFunction(__glColorMask)
 {
 	GLboolean red = (args.GetBoolean(0)? GL_TRUE : GL_FALSE);
 	GLboolean green = (args.GetBoolean(1)? GL_TRUE : GL_FALSE);
@@ -1135,7 +1135,7 @@ Gura_ImplementFunction(glColorMask)
 }
 
 // opengl.glColorMaterial
-Gura_DeclareFunction(glColorMaterial)
+Gura_DeclareFunctionAlias(__glColorMaterial, "glColorMaterial")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "face", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1145,7 +1145,7 @@ Gura_DeclareFunction(glColorMaterial)
 		"");
 }
 
-Gura_ImplementFunction(glColorMaterial)
+Gura_ImplementFunction(__glColorMaterial)
 {
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum mode = static_cast<GLenum>(args.GetInt(1));
@@ -1154,7 +1154,7 @@ Gura_ImplementFunction(glColorMaterial)
 }
 
 // opengl.glCopyPixels
-Gura_DeclareFunction(glCopyPixels)
+Gura_DeclareFunctionAlias(__glCopyPixels, "glCopyPixels")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1167,7 +1167,7 @@ Gura_DeclareFunction(glCopyPixels)
 		"");
 }
 
-Gura_ImplementFunction(glCopyPixels)
+Gura_ImplementFunction(__glCopyPixels)
 {
 	GLint x = args.GetInt(0);
 	GLint y = args.GetInt(1);
@@ -1179,7 +1179,7 @@ Gura_ImplementFunction(glCopyPixels)
 }
 
 // opengl.glCopyTexImage1D
-Gura_DeclareFunction(glCopyTexImage1D)
+Gura_DeclareFunctionAlias(__glCopyTexImage1D, "glCopyTexImage1D")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1194,7 +1194,7 @@ Gura_DeclareFunction(glCopyTexImage1D)
 		"");
 }
 
-Gura_ImplementFunction(glCopyTexImage1D)
+Gura_ImplementFunction(__glCopyTexImage1D)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLint level = args.GetInt(1);
@@ -1208,7 +1208,7 @@ Gura_ImplementFunction(glCopyTexImage1D)
 }
 
 // opengl.glCopyTexImage2D
-Gura_DeclareFunction(glCopyTexImage2D)
+Gura_DeclareFunctionAlias(__glCopyTexImage2D, "glCopyTexImage2D")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1224,7 +1224,7 @@ Gura_DeclareFunction(glCopyTexImage2D)
 		"");
 }
 
-Gura_ImplementFunction(glCopyTexImage2D)
+Gura_ImplementFunction(__glCopyTexImage2D)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLint level = args.GetInt(1);
@@ -1239,7 +1239,7 @@ Gura_ImplementFunction(glCopyTexImage2D)
 }
 
 // opengl.glCopyTexSubImage1D
-Gura_DeclareFunction(glCopyTexSubImage1D)
+Gura_DeclareFunctionAlias(__glCopyTexSubImage1D, "glCopyTexSubImage1D")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1253,7 +1253,7 @@ Gura_DeclareFunction(glCopyTexSubImage1D)
 		"");
 }
 
-Gura_ImplementFunction(glCopyTexSubImage1D)
+Gura_ImplementFunction(__glCopyTexSubImage1D)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLint level = args.GetInt(1);
@@ -1266,7 +1266,7 @@ Gura_ImplementFunction(glCopyTexSubImage1D)
 }
 
 // opengl.glCopyTexSubImage2D
-Gura_DeclareFunction(glCopyTexSubImage2D)
+Gura_DeclareFunctionAlias(__glCopyTexSubImage2D, "glCopyTexSubImage2D")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1282,7 +1282,7 @@ Gura_DeclareFunction(glCopyTexSubImage2D)
 		"");
 }
 
-Gura_ImplementFunction(glCopyTexSubImage2D)
+Gura_ImplementFunction(__glCopyTexSubImage2D)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLint level = args.GetInt(1);
@@ -1297,7 +1297,7 @@ Gura_ImplementFunction(glCopyTexSubImage2D)
 }
 
 // opengl.glCullFace
-Gura_DeclareFunction(glCullFace)
+Gura_DeclareFunctionAlias(__glCullFace, "glCullFace")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1306,7 +1306,7 @@ Gura_DeclareFunction(glCullFace)
 		"");
 }
 
-Gura_ImplementFunction(glCullFace)
+Gura_ImplementFunction(__glCullFace)
 {
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	glCullFace(mode);
@@ -1314,7 +1314,7 @@ Gura_ImplementFunction(glCullFace)
 }
 
 // opengl.glDeleteLists
-Gura_DeclareFunction(glDeleteLists)
+Gura_DeclareFunctionAlias(__glDeleteLists, "glDeleteLists")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "list", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1324,7 +1324,7 @@ Gura_DeclareFunction(glDeleteLists)
 		"");
 }
 
-Gura_ImplementFunction(glDeleteLists)
+Gura_ImplementFunction(__glDeleteLists)
 {
 	GLuint list = args.GetUInt(0);
 	GLsizei range = args.GetInt(1);
@@ -1333,7 +1333,7 @@ Gura_ImplementFunction(glDeleteLists)
 }
 
 // opengl.glDeleteTextures
-Gura_DeclareFunction(glDeleteTextures)
+Gura_DeclareFunctionAlias(__glDeleteTextures, "glDeleteTextures")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "textures", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -1342,7 +1342,7 @@ Gura_DeclareFunction(glDeleteTextures)
 		"");
 }
 
-Gura_ImplementFunction(glDeleteTextures)
+Gura_ImplementFunction(__glDeleteTextures)
 {
 	CArray<GLuint> textures = args.GetList(0);
 	GLsizei n = textures.GetSize();
@@ -1351,7 +1351,7 @@ Gura_ImplementFunction(glDeleteTextures)
 }
 
 // opengl.glDepthFunc
-Gura_DeclareFunction(glDepthFunc)
+Gura_DeclareFunctionAlias(__glDepthFunc, "glDepthFunc")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1360,7 +1360,7 @@ Gura_DeclareFunction(glDepthFunc)
 		"");
 }
 
-Gura_ImplementFunction(glDepthFunc)
+Gura_ImplementFunction(__glDepthFunc)
 {
 	GLenum func = static_cast<GLenum>(args.GetInt(0));
 	glDepthFunc(func);
@@ -1368,7 +1368,7 @@ Gura_ImplementFunction(glDepthFunc)
 }
 
 // opengl.glDepthMask
-Gura_DeclareFunction(glDepthMask)
+Gura_DeclareFunctionAlias(__glDepthMask, "glDepthMask")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once, FLAG_None);
@@ -1377,7 +1377,7 @@ Gura_DeclareFunction(glDepthMask)
 		"");
 }
 
-Gura_ImplementFunction(glDepthMask)
+Gura_ImplementFunction(__glDepthMask)
 {
 	GLboolean flag = (args.GetBoolean(0)? GL_TRUE : GL_FALSE);
 	glDepthMask(flag);
@@ -1385,7 +1385,7 @@ Gura_ImplementFunction(glDepthMask)
 }
 
 // opengl.glDepthRange
-Gura_DeclareFunction(glDepthRange)
+Gura_DeclareFunctionAlias(__glDepthRange, "glDepthRange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "zNear", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1395,7 +1395,7 @@ Gura_DeclareFunction(glDepthRange)
 		"");
 }
 
-Gura_ImplementFunction(glDepthRange)
+Gura_ImplementFunction(__glDepthRange)
 {
 	GLclampd zNear = args.GetDouble(0);
 	GLclampd zFar = args.GetDouble(1);
@@ -1404,7 +1404,7 @@ Gura_ImplementFunction(glDepthRange)
 }
 
 // opengl.glDisable
-Gura_DeclareFunction(glDisable)
+Gura_DeclareFunctionAlias(__glDisable, "glDisable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "cap", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1413,7 +1413,7 @@ Gura_DeclareFunction(glDisable)
 		"");
 }
 
-Gura_ImplementFunction(glDisable)
+Gura_ImplementFunction(__glDisable)
 {
 	GLenum cap = static_cast<GLenum>(args.GetInt(0));
 	glDisable(cap);
@@ -1421,7 +1421,7 @@ Gura_ImplementFunction(glDisable)
 }
 
 // opengl.glDisableClientState
-Gura_DeclareFunction(glDisableClientState)
+Gura_DeclareFunctionAlias(__glDisableClientState, "glDisableClientState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "array", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1430,7 +1430,7 @@ Gura_DeclareFunction(glDisableClientState)
 		"");
 }
 
-Gura_ImplementFunction(glDisableClientState)
+Gura_ImplementFunction(__glDisableClientState)
 {
 	GLenum array = static_cast<GLenum>(args.GetInt(0));
 	glDisableClientState(array);
@@ -1438,7 +1438,7 @@ Gura_ImplementFunction(glDisableClientState)
 }
 
 // opengl.glDrawArrays
-Gura_DeclareFunction(glDrawArrays)
+Gura_DeclareFunctionAlias(__glDrawArrays, "glDrawArrays")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1449,7 +1449,7 @@ Gura_DeclareFunction(glDrawArrays)
 		"");
 }
 
-Gura_ImplementFunction(glDrawArrays)
+Gura_ImplementFunction(__glDrawArrays)
 {
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	GLint first = args.GetInt(1);
@@ -1459,7 +1459,7 @@ Gura_ImplementFunction(glDrawArrays)
 }
 
 // opengl.glDrawBuffer
-Gura_DeclareFunction(glDrawBuffer)
+Gura_DeclareFunctionAlias(__glDrawBuffer, "glDrawBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1468,7 +1468,7 @@ Gura_DeclareFunction(glDrawBuffer)
 		"");
 }
 
-Gura_ImplementFunction(glDrawBuffer)
+Gura_ImplementFunction(__glDrawBuffer)
 {
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	glDrawBuffer(mode);
@@ -1476,7 +1476,7 @@ Gura_ImplementFunction(glDrawBuffer)
 }
 
 // opengl.glDrawPixels
-Gura_DeclareFunction(glDrawPixels)
+Gura_DeclareFunctionAlias(__glDrawPixels, "glDrawPixels")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "image", VTYPE_image, OCCUR_Once, FLAG_None);
@@ -1485,7 +1485,7 @@ Gura_DeclareFunction(glDrawPixels)
 		"");
 }
 
-Gura_ImplementFunction(glDrawPixels)
+Gura_ImplementFunction(__glDrawPixels)
 {
 	Image *image = Object_image::GetObject(args, 0)->GetImage();
 	
@@ -1501,7 +1501,7 @@ Gura_ImplementFunction(glDrawPixels)
 }
 
 // opengl.glEdgeFlag
-Gura_DeclareFunction(glEdgeFlag)
+Gura_DeclareFunctionAlias(__glEdgeFlag, "glEdgeFlag")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once, FLAG_None);
@@ -1510,7 +1510,7 @@ Gura_DeclareFunction(glEdgeFlag)
 		"");
 }
 
-Gura_ImplementFunction(glEdgeFlag)
+Gura_ImplementFunction(__glEdgeFlag)
 {
 	GLboolean flag = (args.GetBoolean(0)? GL_TRUE : GL_FALSE);
 	glEdgeFlag(flag);
@@ -1518,7 +1518,7 @@ Gura_ImplementFunction(glEdgeFlag)
 }
 
 // opengl.glEdgeFlagv
-Gura_DeclareFunction(glEdgeFlagv)
+Gura_DeclareFunctionAlias(__glEdgeFlagv, "glEdgeFlagv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "flag", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -1527,7 +1527,7 @@ Gura_DeclareFunction(glEdgeFlagv)
 		"");
 }
 
-Gura_ImplementFunction(glEdgeFlagv)
+Gura_ImplementFunction(__glEdgeFlagv)
 {
 	CArray<GLboolean> flag = args.GetList(0);
 	if (flag.GetSize() != 1) {
@@ -1539,7 +1539,7 @@ Gura_ImplementFunction(glEdgeFlagv)
 }
 
 // opengl.glEnable
-Gura_DeclareFunction(glEnable)
+Gura_DeclareFunctionAlias(__glEnable, "glEnable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "cap", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1548,7 +1548,7 @@ Gura_DeclareFunction(glEnable)
 		"");
 }
 
-Gura_ImplementFunction(glEnable)
+Gura_ImplementFunction(__glEnable)
 {
 	GLenum cap = static_cast<GLenum>(args.GetInt(0));
 	glEnable(cap);
@@ -1556,7 +1556,7 @@ Gura_ImplementFunction(glEnable)
 }
 
 // opengl.glEnableClientState
-Gura_DeclareFunction(glEnableClientState)
+Gura_DeclareFunctionAlias(__glEnableClientState, "glEnableClientState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "array", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1565,7 +1565,7 @@ Gura_DeclareFunction(glEnableClientState)
 		"");
 }
 
-Gura_ImplementFunction(glEnableClientState)
+Gura_ImplementFunction(__glEnableClientState)
 {
 	GLenum array = static_cast<GLenum>(args.GetInt(0));
 	glEnableClientState(array);
@@ -1573,7 +1573,7 @@ Gura_ImplementFunction(glEnableClientState)
 }
 
 // opengl.glEnd
-Gura_DeclareFunction(glEnd)
+Gura_DeclareFunctionAlias(__glEnd, "glEnd")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -1581,14 +1581,14 @@ Gura_DeclareFunction(glEnd)
 		"");
 }
 
-Gura_ImplementFunction(glEnd)
+Gura_ImplementFunction(__glEnd)
 {
 	glEnd();
 	return Value::Null;
 }
 
 // opengl.glEndList
-Gura_DeclareFunction(glEndList)
+Gura_DeclareFunctionAlias(__glEndList, "glEndList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -1596,14 +1596,14 @@ Gura_DeclareFunction(glEndList)
 		"");
 }
 
-Gura_ImplementFunction(glEndList)
+Gura_ImplementFunction(__glEndList)
 {
 	glEndList();
 	return Value::Null;
 }
 
 // opengl.glEvalCoord1d
-Gura_DeclareFunction(glEvalCoord1d)
+Gura_DeclareFunctionAlias(__glEvalCoord1d, "glEvalCoord1d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "u", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1612,7 +1612,7 @@ Gura_DeclareFunction(glEvalCoord1d)
 		"");
 }
 
-Gura_ImplementFunction(glEvalCoord1d)
+Gura_ImplementFunction(__glEvalCoord1d)
 {
 	GLdouble u = args.GetDouble(0);
 	glEvalCoord1d(u);
@@ -1620,7 +1620,7 @@ Gura_ImplementFunction(glEvalCoord1d)
 }
 
 // opengl.glEvalCoord1dv
-Gura_DeclareFunction(glEvalCoord1dv)
+Gura_DeclareFunctionAlias(__glEvalCoord1dv, "glEvalCoord1dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "u", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -1629,7 +1629,7 @@ Gura_DeclareFunction(glEvalCoord1dv)
 		"");
 }
 
-Gura_ImplementFunction(glEvalCoord1dv)
+Gura_ImplementFunction(__glEvalCoord1dv)
 {
 	CArray<GLdouble> u = args.GetList(0);
 	if (u.GetSize() != 1) {
@@ -1641,7 +1641,7 @@ Gura_ImplementFunction(glEvalCoord1dv)
 }
 
 // opengl.glEvalCoord1f
-Gura_DeclareFunction(glEvalCoord1f)
+Gura_DeclareFunctionAlias(__glEvalCoord1f, "glEvalCoord1f")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "u", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1650,7 +1650,7 @@ Gura_DeclareFunction(glEvalCoord1f)
 		"");
 }
 
-Gura_ImplementFunction(glEvalCoord1f)
+Gura_ImplementFunction(__glEvalCoord1f)
 {
 	GLfloat u = args.GetFloat(0);
 	glEvalCoord1f(u);
@@ -1658,7 +1658,7 @@ Gura_ImplementFunction(glEvalCoord1f)
 }
 
 // opengl.glEvalCoord1fv
-Gura_DeclareFunction(glEvalCoord1fv)
+Gura_DeclareFunctionAlias(__glEvalCoord1fv, "glEvalCoord1fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "u", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -1667,7 +1667,7 @@ Gura_DeclareFunction(glEvalCoord1fv)
 		"");
 }
 
-Gura_ImplementFunction(glEvalCoord1fv)
+Gura_ImplementFunction(__glEvalCoord1fv)
 {
 	CArray<GLfloat> u = args.GetList(0);
 	if (u.GetSize() != 1) {
@@ -1679,7 +1679,7 @@ Gura_ImplementFunction(glEvalCoord1fv)
 }
 
 // opengl.glEvalCoord2d
-Gura_DeclareFunction(glEvalCoord2d)
+Gura_DeclareFunctionAlias(__glEvalCoord2d, "glEvalCoord2d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "u", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1689,7 +1689,7 @@ Gura_DeclareFunction(glEvalCoord2d)
 		"");
 }
 
-Gura_ImplementFunction(glEvalCoord2d)
+Gura_ImplementFunction(__glEvalCoord2d)
 {
 	GLdouble u = args.GetDouble(0);
 	GLdouble v = args.GetDouble(1);
@@ -1698,7 +1698,7 @@ Gura_ImplementFunction(glEvalCoord2d)
 }
 
 // opengl.glEvalCoord2dv
-Gura_DeclareFunction(glEvalCoord2dv)
+Gura_DeclareFunctionAlias(__glEvalCoord2dv, "glEvalCoord2dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "u", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -1707,7 +1707,7 @@ Gura_DeclareFunction(glEvalCoord2dv)
 		"");
 }
 
-Gura_ImplementFunction(glEvalCoord2dv)
+Gura_ImplementFunction(__glEvalCoord2dv)
 {
 	CArray<GLdouble> u = args.GetList(0);
 	if (u.GetSize() != 2) {
@@ -1719,7 +1719,7 @@ Gura_ImplementFunction(glEvalCoord2dv)
 }
 
 // opengl.glEvalCoord2f
-Gura_DeclareFunction(glEvalCoord2f)
+Gura_DeclareFunctionAlias(__glEvalCoord2f, "glEvalCoord2f")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "u", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1729,7 +1729,7 @@ Gura_DeclareFunction(glEvalCoord2f)
 		"");
 }
 
-Gura_ImplementFunction(glEvalCoord2f)
+Gura_ImplementFunction(__glEvalCoord2f)
 {
 	GLfloat u = args.GetFloat(0);
 	GLfloat v = args.GetFloat(1);
@@ -1738,7 +1738,7 @@ Gura_ImplementFunction(glEvalCoord2f)
 }
 
 // opengl.glEvalCoord2fv
-Gura_DeclareFunction(glEvalCoord2fv)
+Gura_DeclareFunctionAlias(__glEvalCoord2fv, "glEvalCoord2fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "u", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -1747,7 +1747,7 @@ Gura_DeclareFunction(glEvalCoord2fv)
 		"");
 }
 
-Gura_ImplementFunction(glEvalCoord2fv)
+Gura_ImplementFunction(__glEvalCoord2fv)
 {
 	CArray<GLfloat> u = args.GetList(0);
 	if (u.GetSize() != 2) {
@@ -1759,7 +1759,7 @@ Gura_ImplementFunction(glEvalCoord2fv)
 }
 
 // opengl.glEvalMesh1
-Gura_DeclareFunction(glEvalMesh1)
+Gura_DeclareFunctionAlias(__glEvalMesh1, "glEvalMesh1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1770,7 +1770,7 @@ Gura_DeclareFunction(glEvalMesh1)
 		"");
 }
 
-Gura_ImplementFunction(glEvalMesh1)
+Gura_ImplementFunction(__glEvalMesh1)
 {
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	GLint i1 = args.GetInt(1);
@@ -1780,7 +1780,7 @@ Gura_ImplementFunction(glEvalMesh1)
 }
 
 // opengl.glEvalMesh2
-Gura_DeclareFunction(glEvalMesh2)
+Gura_DeclareFunctionAlias(__glEvalMesh2, "glEvalMesh2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1793,7 +1793,7 @@ Gura_DeclareFunction(glEvalMesh2)
 		"");
 }
 
-Gura_ImplementFunction(glEvalMesh2)
+Gura_ImplementFunction(__glEvalMesh2)
 {
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	GLint i1 = args.GetInt(1);
@@ -1805,7 +1805,7 @@ Gura_ImplementFunction(glEvalMesh2)
 }
 
 // opengl.glEvalPoint1
-Gura_DeclareFunction(glEvalPoint1)
+Gura_DeclareFunctionAlias(__glEvalPoint1, "glEvalPoint1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "i", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1814,7 +1814,7 @@ Gura_DeclareFunction(glEvalPoint1)
 		"");
 }
 
-Gura_ImplementFunction(glEvalPoint1)
+Gura_ImplementFunction(__glEvalPoint1)
 {
 	GLint i = args.GetInt(0);
 	glEvalPoint1(i);
@@ -1822,7 +1822,7 @@ Gura_ImplementFunction(glEvalPoint1)
 }
 
 // opengl.glEvalPoint2
-Gura_DeclareFunction(glEvalPoint2)
+Gura_DeclareFunctionAlias(__glEvalPoint2, "glEvalPoint2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "i", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1832,7 +1832,7 @@ Gura_DeclareFunction(glEvalPoint2)
 		"");
 }
 
-Gura_ImplementFunction(glEvalPoint2)
+Gura_ImplementFunction(__glEvalPoint2)
 {
 	GLint i = args.GetInt(0);
 	GLint j = args.GetInt(1);
@@ -1841,7 +1841,7 @@ Gura_ImplementFunction(glEvalPoint2)
 }
 
 // opengl.glFeedbackBuffer
-Gura_DeclareFunction(glFeedbackBuffer)
+Gura_DeclareFunctionAlias(__glFeedbackBuffer, "glFeedbackBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1852,7 +1852,7 @@ Gura_DeclareFunction(glFeedbackBuffer)
 		"");
 }
 
-Gura_ImplementFunction(glFeedbackBuffer)
+Gura_ImplementFunction(__glFeedbackBuffer)
 {
 	GLsizei size = args.GetInt(0);
 	GLenum type = static_cast<GLenum>(args.GetInt(1));
@@ -1862,7 +1862,7 @@ Gura_ImplementFunction(glFeedbackBuffer)
 }
 
 // opengl.glFinish
-Gura_DeclareFunction(glFinish)
+Gura_DeclareFunctionAlias(__glFinish, "glFinish")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -1870,14 +1870,14 @@ Gura_DeclareFunction(glFinish)
 		"");
 }
 
-Gura_ImplementFunction(glFinish)
+Gura_ImplementFunction(__glFinish)
 {
 	glFinish();
 	return Value::Null;
 }
 
 // opengl.glFlush
-Gura_DeclareFunction(glFlush)
+Gura_DeclareFunctionAlias(__glFlush, "glFlush")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -1885,14 +1885,14 @@ Gura_DeclareFunction(glFlush)
 		"");
 }
 
-Gura_ImplementFunction(glFlush)
+Gura_ImplementFunction(__glFlush)
 {
 	glFlush();
 	return Value::Null;
 }
 
 // opengl.glFogf
-Gura_DeclareFunction(glFogf)
+Gura_DeclareFunctionAlias(__glFogf, "glFogf")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1902,7 +1902,7 @@ Gura_DeclareFunction(glFogf)
 		"");
 }
 
-Gura_ImplementFunction(glFogf)
+Gura_ImplementFunction(__glFogf)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	GLfloat param = args.GetFloat(1);
@@ -1911,7 +1911,7 @@ Gura_ImplementFunction(glFogf)
 }
 
 // opengl.glFogfv
-Gura_DeclareFunction(glFogfv)
+Gura_DeclareFunctionAlias(__glFogfv, "glFogfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1921,7 +1921,7 @@ Gura_DeclareFunction(glFogfv)
 		"");
 }
 
-Gura_ImplementFunction(glFogfv)
+Gura_ImplementFunction(__glFogfv)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLfloat> params = args.GetList(1);
@@ -1935,7 +1935,7 @@ Gura_ImplementFunction(glFogfv)
 }
 
 // opengl.glFogi
-Gura_DeclareFunction(glFogi)
+Gura_DeclareFunctionAlias(__glFogi, "glFogi")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1945,7 +1945,7 @@ Gura_DeclareFunction(glFogi)
 		"");
 }
 
-Gura_ImplementFunction(glFogi)
+Gura_ImplementFunction(__glFogi)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	GLint param = args.GetInt(1);
@@ -1954,7 +1954,7 @@ Gura_ImplementFunction(glFogi)
 }
 
 // opengl.glFogiv
-Gura_DeclareFunction(glFogiv)
+Gura_DeclareFunctionAlias(__glFogiv, "glFogiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1964,7 +1964,7 @@ Gura_DeclareFunction(glFogiv)
 		"");
 }
 
-Gura_ImplementFunction(glFogiv)
+Gura_ImplementFunction(__glFogiv)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLint> params = args.GetList(1);
@@ -1978,7 +1978,7 @@ Gura_ImplementFunction(glFogiv)
 }
 
 // opengl.glFrontFace
-Gura_DeclareFunction(glFrontFace)
+Gura_DeclareFunctionAlias(__glFrontFace, "glFrontFace")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -1987,7 +1987,7 @@ Gura_DeclareFunction(glFrontFace)
 		"");
 }
 
-Gura_ImplementFunction(glFrontFace)
+Gura_ImplementFunction(__glFrontFace)
 {
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	glFrontFace(mode);
@@ -1995,7 +1995,7 @@ Gura_ImplementFunction(glFrontFace)
 }
 
 // opengl.glFrustum
-Gura_DeclareFunction(glFrustum)
+Gura_DeclareFunctionAlias(__glFrustum, "glFrustum")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "left", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -2009,7 +2009,7 @@ Gura_DeclareFunction(glFrustum)
 		"");
 }
 
-Gura_ImplementFunction(glFrustum)
+Gura_ImplementFunction(__glFrustum)
 {
 	GLdouble left = args.GetDouble(0);
 	GLdouble right = args.GetDouble(1);
@@ -2022,7 +2022,7 @@ Gura_ImplementFunction(glFrustum)
 }
 
 // opengl.glGenLists
-Gura_DeclareFunction(glGenLists)
+Gura_DeclareFunctionAlias(__glGenLists, "glGenLists")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2032,7 +2032,7 @@ Gura_DeclareFunction(glGenLists)
 		"");
 }
 
-Gura_ImplementFunction(glGenLists)
+Gura_ImplementFunction(__glGenLists)
 {
 	GLsizei range = args.GetInt(0);
 	GLuint _rtn = glGenLists(range);
@@ -2040,7 +2040,7 @@ Gura_ImplementFunction(glGenLists)
 }
 
 // opengl.glGenTextures
-Gura_DeclareFunction(glGenTextures)
+Gura_DeclareFunctionAlias(__glGenTextures, "glGenTextures")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2050,7 +2050,7 @@ Gura_DeclareFunction(glGenTextures)
 		"");
 }
 
-Gura_ImplementFunction(glGenTextures)
+Gura_ImplementFunction(__glGenTextures)
 {
 	GLsizei n = args.GetInt(0);
 	CArray<GLuint> textures(n);
@@ -2059,7 +2059,7 @@ Gura_ImplementFunction(glGenTextures)
 }
 
 // opengl.glGetBooleanv
-Gura_DeclareFunction(glGetBooleanv)
+Gura_DeclareFunctionAlias(__glGetBooleanv, "glGetBooleanv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2069,7 +2069,7 @@ Gura_DeclareFunction(glGetBooleanv)
 		"");
 }
 
-Gura_ImplementFunction(glGetBooleanv)
+Gura_ImplementFunction(__glGetBooleanv)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	size_t n = GetParamCount(pname);
@@ -2084,7 +2084,7 @@ Gura_ImplementFunction(glGetBooleanv)
 }
 
 // opengl.glGetClipPlane
-Gura_DeclareFunction(glGetClipPlane)
+Gura_DeclareFunctionAlias(__glGetClipPlane, "glGetClipPlane")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "plane", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -2093,7 +2093,7 @@ Gura_DeclareFunction(glGetClipPlane)
 		"");
 }
 
-Gura_ImplementFunction(glGetClipPlane)
+Gura_ImplementFunction(__glGetClipPlane)
 {
 	GLenum plane = static_cast<GLenum>(args.GetInt(0));
 	GLdouble equation[4];
@@ -2102,7 +2102,7 @@ Gura_ImplementFunction(glGetClipPlane)
 }
 
 // opengl.glGetDoublev
-Gura_DeclareFunction(glGetDoublev)
+Gura_DeclareFunctionAlias(__glGetDoublev, "glGetDoublev")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2112,7 +2112,7 @@ Gura_DeclareFunction(glGetDoublev)
 		"");
 }
 
-Gura_ImplementFunction(glGetDoublev)
+Gura_ImplementFunction(__glGetDoublev)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	size_t n = GetParamCount(pname);
@@ -2122,7 +2122,7 @@ Gura_ImplementFunction(glGetDoublev)
 }
 
 // opengl.glGetError
-Gura_DeclareFunction(glGetError)
+Gura_DeclareFunctionAlias(__glGetError, "glGetError")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2131,14 +2131,14 @@ Gura_DeclareFunction(glGetError)
 		"");
 }
 
-Gura_ImplementFunction(glGetError)
+Gura_ImplementFunction(__glGetError)
 {
 	GLenum _rtn = glGetError();
 	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // opengl.glGetFloatv
-Gura_DeclareFunction(glGetFloatv)
+Gura_DeclareFunctionAlias(__glGetFloatv, "glGetFloatv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2148,7 +2148,7 @@ Gura_DeclareFunction(glGetFloatv)
 		"");
 }
 
-Gura_ImplementFunction(glGetFloatv)
+Gura_ImplementFunction(__glGetFloatv)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	size_t n = GetParamCount(pname);
@@ -2158,7 +2158,7 @@ Gura_ImplementFunction(glGetFloatv)
 }
 
 // opengl.glGetIntegerv
-Gura_DeclareFunction(glGetIntegerv)
+Gura_DeclareFunctionAlias(__glGetIntegerv, "glGetIntegerv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2168,7 +2168,7 @@ Gura_DeclareFunction(glGetIntegerv)
 		"");
 }
 
-Gura_ImplementFunction(glGetIntegerv)
+Gura_ImplementFunction(__glGetIntegerv)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	size_t n = GetParamCount(pname);
@@ -2178,7 +2178,7 @@ Gura_ImplementFunction(glGetIntegerv)
 }
 
 // opengl.glGetLightfv
-Gura_DeclareFunction(glGetLightfv)
+Gura_DeclareFunctionAlias(__glGetLightfv, "glGetLightfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2189,7 +2189,7 @@ Gura_DeclareFunction(glGetLightfv)
 		"");
 }
 
-Gura_ImplementFunction(glGetLightfv)
+Gura_ImplementFunction(__glGetLightfv)
 {
 	GLenum light = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -2200,7 +2200,7 @@ Gura_ImplementFunction(glGetLightfv)
 }
 
 // opengl.glGetLightiv
-Gura_DeclareFunction(glGetLightiv)
+Gura_DeclareFunctionAlias(__glGetLightiv, "glGetLightiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2211,7 +2211,7 @@ Gura_DeclareFunction(glGetLightiv)
 		"");
 }
 
-Gura_ImplementFunction(glGetLightiv)
+Gura_ImplementFunction(__glGetLightiv)
 {
 	GLenum light = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -2222,7 +2222,7 @@ Gura_ImplementFunction(glGetLightiv)
 }
 
 // opengl.glGetMapdv
-Gura_DeclareFunction(glGetMapdv)
+Gura_DeclareFunctionAlias(__glGetMapdv, "glGetMapdv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -2233,7 +2233,7 @@ Gura_DeclareFunction(glGetMapdv)
 		"");
 }
 
-Gura_ImplementFunction(glGetMapdv)
+Gura_ImplementFunction(__glGetMapdv)
 {
 #if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
@@ -2247,7 +2247,7 @@ Gura_ImplementFunction(glGetMapdv)
 }
 
 // opengl.glGetMapfv
-Gura_DeclareFunction(glGetMapfv)
+Gura_DeclareFunctionAlias(__glGetMapfv, "glGetMapfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -2258,7 +2258,7 @@ Gura_DeclareFunction(glGetMapfv)
 		"");
 }
 
-Gura_ImplementFunction(glGetMapfv)
+Gura_ImplementFunction(__glGetMapfv)
 {
 #if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
@@ -2272,7 +2272,7 @@ Gura_ImplementFunction(glGetMapfv)
 }
 
 // opengl.glGetMapiv
-Gura_DeclareFunction(glGetMapiv)
+Gura_DeclareFunctionAlias(__glGetMapiv, "glGetMapiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -2283,7 +2283,7 @@ Gura_DeclareFunction(glGetMapiv)
 		"");
 }
 
-Gura_ImplementFunction(glGetMapiv)
+Gura_ImplementFunction(__glGetMapiv)
 {
 #if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
@@ -2297,7 +2297,7 @@ Gura_ImplementFunction(glGetMapiv)
 }
 
 // opengl.glGetMaterialfv
-Gura_DeclareFunction(glGetMaterialfv)
+Gura_DeclareFunctionAlias(__glGetMaterialfv, "glGetMaterialfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2308,7 +2308,7 @@ Gura_DeclareFunction(glGetMaterialfv)
 		"");
 }
 
-Gura_ImplementFunction(glGetMaterialfv)
+Gura_ImplementFunction(__glGetMaterialfv)
 {
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -2319,7 +2319,7 @@ Gura_ImplementFunction(glGetMaterialfv)
 }
 
 // opengl.glGetMaterialiv
-Gura_DeclareFunction(glGetMaterialiv)
+Gura_DeclareFunctionAlias(__glGetMaterialiv, "glGetMaterialiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2330,7 +2330,7 @@ Gura_DeclareFunction(glGetMaterialiv)
 		"");
 }
 
-Gura_ImplementFunction(glGetMaterialiv)
+Gura_ImplementFunction(__glGetMaterialiv)
 {
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -2341,7 +2341,7 @@ Gura_ImplementFunction(glGetMaterialiv)
 }
 
 // opengl.glGetPixelMapfv
-Gura_DeclareFunction(glGetPixelMapfv)
+Gura_DeclareFunctionAlias(__glGetPixelMapfv, "glGetPixelMapfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "map", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -2351,7 +2351,7 @@ Gura_DeclareFunction(glGetPixelMapfv)
 		"");
 }
 
-Gura_ImplementFunction(glGetPixelMapfv)
+Gura_ImplementFunction(__glGetPixelMapfv)
 {
 #if 0
 	GLenum map = static_cast<GLenum>(args.GetInt(0));
@@ -2364,7 +2364,7 @@ Gura_ImplementFunction(glGetPixelMapfv)
 }
 
 // opengl.glGetPixelMapuiv
-Gura_DeclareFunction(glGetPixelMapuiv)
+Gura_DeclareFunctionAlias(__glGetPixelMapuiv, "glGetPixelMapuiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "map", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -2374,7 +2374,7 @@ Gura_DeclareFunction(glGetPixelMapuiv)
 		"");
 }
 
-Gura_ImplementFunction(glGetPixelMapuiv)
+Gura_ImplementFunction(__glGetPixelMapuiv)
 {
 #if 0
 	GLenum map = static_cast<GLenum>(args.GetInt(0));
@@ -2387,7 +2387,7 @@ Gura_ImplementFunction(glGetPixelMapuiv)
 }
 
 // opengl.glGetPixelMapusv
-Gura_DeclareFunction(glGetPixelMapusv)
+Gura_DeclareFunctionAlias(__glGetPixelMapusv, "glGetPixelMapusv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "map", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -2397,7 +2397,7 @@ Gura_DeclareFunction(glGetPixelMapusv)
 		"");
 }
 
-Gura_ImplementFunction(glGetPixelMapusv)
+Gura_ImplementFunction(__glGetPixelMapusv)
 {
 #if 0
 	GLenum map = static_cast<GLenum>(args.GetInt(0));
@@ -2410,7 +2410,7 @@ Gura_ImplementFunction(glGetPixelMapusv)
 }
 
 // opengl.glGetPolygonStipple
-Gura_DeclareFunction(glGetPolygonStipple)
+Gura_DeclareFunctionAlias(__glGetPolygonStipple, "glGetPolygonStipple")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mask", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -2419,7 +2419,7 @@ Gura_DeclareFunction(glGetPolygonStipple)
 		"");
 }
 
-Gura_ImplementFunction(glGetPolygonStipple)
+Gura_ImplementFunction(__glGetPolygonStipple)
 {
 #if 0
 	CArray<GLubyte> mask = args.GetList(0);
@@ -2431,7 +2431,7 @@ Gura_ImplementFunction(glGetPolygonStipple)
 }
 
 // opengl.glGetString
-Gura_DeclareFunction(glGetString)
+Gura_DeclareFunctionAlias(__glGetString, "glGetString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2441,7 +2441,7 @@ Gura_DeclareFunction(glGetString)
 		"");
 }
 
-Gura_ImplementFunction(glGetString)
+Gura_ImplementFunction(__glGetString)
 {
 	GLenum name = static_cast<GLenum>(args.GetInt(0));
 	const GLubyte *_rtn = glGetString(name);
@@ -2453,7 +2453,7 @@ Gura_ImplementFunction(glGetString)
 }
 
 // opengl.glGetTexEnvfv
-Gura_DeclareFunction(glGetTexEnvfv)
+Gura_DeclareFunctionAlias(__glGetTexEnvfv, "glGetTexEnvfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2464,7 +2464,7 @@ Gura_DeclareFunction(glGetTexEnvfv)
 		"");
 }
 
-Gura_ImplementFunction(glGetTexEnvfv)
+Gura_ImplementFunction(__glGetTexEnvfv)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -2475,7 +2475,7 @@ Gura_ImplementFunction(glGetTexEnvfv)
 }
 
 // opengl.glGetTexEnviv
-Gura_DeclareFunction(glGetTexEnviv)
+Gura_DeclareFunctionAlias(__glGetTexEnviv, "glGetTexEnviv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2486,7 +2486,7 @@ Gura_DeclareFunction(glGetTexEnviv)
 		"");
 }
 
-Gura_ImplementFunction(glGetTexEnviv)
+Gura_ImplementFunction(__glGetTexEnviv)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -2497,7 +2497,7 @@ Gura_ImplementFunction(glGetTexEnviv)
 }
 
 // opengl.glGetTexGendv
-Gura_DeclareFunction(glGetTexGendv)
+Gura_DeclareFunctionAlias(__glGetTexGendv, "glGetTexGendv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2508,7 +2508,7 @@ Gura_DeclareFunction(glGetTexGendv)
 		"");
 }
 
-Gura_ImplementFunction(glGetTexGendv)
+Gura_ImplementFunction(__glGetTexGendv)
 {
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -2519,7 +2519,7 @@ Gura_ImplementFunction(glGetTexGendv)
 }
 
 // opengl.glGetTexGenfv
-Gura_DeclareFunction(glGetTexGenfv)
+Gura_DeclareFunctionAlias(__glGetTexGenfv, "glGetTexGenfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2530,7 +2530,7 @@ Gura_DeclareFunction(glGetTexGenfv)
 		"");
 }
 
-Gura_ImplementFunction(glGetTexGenfv)
+Gura_ImplementFunction(__glGetTexGenfv)
 {
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -2541,7 +2541,7 @@ Gura_ImplementFunction(glGetTexGenfv)
 }
 
 // opengl.glGetTexGeniv
-Gura_DeclareFunction(glGetTexGeniv)
+Gura_DeclareFunctionAlias(__glGetTexGeniv, "glGetTexGeniv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2552,7 +2552,7 @@ Gura_DeclareFunction(glGetTexGeniv)
 		"");
 }
 
-Gura_ImplementFunction(glGetTexGeniv)
+Gura_ImplementFunction(__glGetTexGeniv)
 {
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -2563,7 +2563,7 @@ Gura_ImplementFunction(glGetTexGeniv)
 }
 
 // opengl.glGetTexLevelParameterfv
-Gura_DeclareFunction(glGetTexLevelParameterfv)
+Gura_DeclareFunctionAlias(__glGetTexLevelParameterfv, "glGetTexLevelParameterfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2575,7 +2575,7 @@ Gura_DeclareFunction(glGetTexLevelParameterfv)
 		"");
 }
 
-Gura_ImplementFunction(glGetTexLevelParameterfv)
+Gura_ImplementFunction(__glGetTexLevelParameterfv)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLint level = args.GetInt(1);
@@ -2587,7 +2587,7 @@ Gura_ImplementFunction(glGetTexLevelParameterfv)
 }
 
 // opengl.glGetTexLevelParameteriv
-Gura_DeclareFunction(glGetTexLevelParameteriv)
+Gura_DeclareFunctionAlias(__glGetTexLevelParameteriv, "glGetTexLevelParameteriv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2599,7 +2599,7 @@ Gura_DeclareFunction(glGetTexLevelParameteriv)
 		"");
 }
 
-Gura_ImplementFunction(glGetTexLevelParameteriv)
+Gura_ImplementFunction(__glGetTexLevelParameteriv)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLint level = args.GetInt(1);
@@ -2611,7 +2611,7 @@ Gura_ImplementFunction(glGetTexLevelParameteriv)
 }
 
 // opengl.glGetTexParameterfv
-Gura_DeclareFunction(glGetTexParameterfv)
+Gura_DeclareFunctionAlias(__glGetTexParameterfv, "glGetTexParameterfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2622,7 +2622,7 @@ Gura_DeclareFunction(glGetTexParameterfv)
 		"");
 }
 
-Gura_ImplementFunction(glGetTexParameterfv)
+Gura_ImplementFunction(__glGetTexParameterfv)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -2633,7 +2633,7 @@ Gura_ImplementFunction(glGetTexParameterfv)
 }
 
 // opengl.glGetTexParameteriv
-Gura_DeclareFunction(glGetTexParameteriv)
+Gura_DeclareFunctionAlias(__glGetTexParameteriv, "glGetTexParameteriv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2644,7 +2644,7 @@ Gura_DeclareFunction(glGetTexParameteriv)
 		"");
 }
 
-Gura_ImplementFunction(glGetTexParameteriv)
+Gura_ImplementFunction(__glGetTexParameteriv)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -2655,7 +2655,7 @@ Gura_ImplementFunction(glGetTexParameteriv)
 }
 
 // opengl.glHint
-Gura_DeclareFunction(glHint)
+Gura_DeclareFunctionAlias(__glHint, "glHint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -2665,7 +2665,7 @@ Gura_DeclareFunction(glHint)
 		"");
 }
 
-Gura_ImplementFunction(glHint)
+Gura_ImplementFunction(__glHint)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum mode = static_cast<GLenum>(args.GetInt(1));
@@ -2674,7 +2674,7 @@ Gura_ImplementFunction(glHint)
 }
 
 // opengl.glIndexMask
-Gura_DeclareFunction(glIndexMask)
+Gura_DeclareFunctionAlias(__glIndexMask, "glIndexMask")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mask", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -2683,7 +2683,7 @@ Gura_DeclareFunction(glIndexMask)
 		"");
 }
 
-Gura_ImplementFunction(glIndexMask)
+Gura_ImplementFunction(__glIndexMask)
 {
 	GLuint mask = args.GetUInt(0);
 	glIndexMask(mask);
@@ -2691,7 +2691,7 @@ Gura_ImplementFunction(glIndexMask)
 }
 
 // opengl.glIndexd
-Gura_DeclareFunction(glIndexd)
+Gura_DeclareFunctionAlias(__glIndexd, "glIndexd")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -2700,7 +2700,7 @@ Gura_DeclareFunction(glIndexd)
 		"");
 }
 
-Gura_ImplementFunction(glIndexd)
+Gura_ImplementFunction(__glIndexd)
 {
 	GLdouble c = args.GetDouble(0);
 	glIndexd(c);
@@ -2708,7 +2708,7 @@ Gura_ImplementFunction(glIndexd)
 }
 
 // opengl.glIndexdv
-Gura_DeclareFunction(glIndexdv)
+Gura_DeclareFunctionAlias(__glIndexdv, "glIndexdv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -2717,7 +2717,7 @@ Gura_DeclareFunction(glIndexdv)
 		"");
 }
 
-Gura_ImplementFunction(glIndexdv)
+Gura_ImplementFunction(__glIndexdv)
 {
 	CArray<GLdouble> c = args.GetList(0);
 	glIndexdv(c);
@@ -2725,7 +2725,7 @@ Gura_ImplementFunction(glIndexdv)
 }
 
 // opengl.glIndexf
-Gura_DeclareFunction(glIndexf)
+Gura_DeclareFunctionAlias(__glIndexf, "glIndexf")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -2734,7 +2734,7 @@ Gura_DeclareFunction(glIndexf)
 		"");
 }
 
-Gura_ImplementFunction(glIndexf)
+Gura_ImplementFunction(__glIndexf)
 {
 	GLfloat c = args.GetFloat(0);
 	glIndexf(c);
@@ -2742,7 +2742,7 @@ Gura_ImplementFunction(glIndexf)
 }
 
 // opengl.glIndexfv
-Gura_DeclareFunction(glIndexfv)
+Gura_DeclareFunctionAlias(__glIndexfv, "glIndexfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -2751,7 +2751,7 @@ Gura_DeclareFunction(glIndexfv)
 		"");
 }
 
-Gura_ImplementFunction(glIndexfv)
+Gura_ImplementFunction(__glIndexfv)
 {
 	CArray<GLfloat> c = args.GetList(0);
 	glIndexfv(c);
@@ -2759,7 +2759,7 @@ Gura_ImplementFunction(glIndexfv)
 }
 
 // opengl.glIndexi
-Gura_DeclareFunction(glIndexi)
+Gura_DeclareFunctionAlias(__glIndexi, "glIndexi")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -2768,7 +2768,7 @@ Gura_DeclareFunction(glIndexi)
 		"");
 }
 
-Gura_ImplementFunction(glIndexi)
+Gura_ImplementFunction(__glIndexi)
 {
 	GLint c = args.GetInt(0);
 	glIndexi(c);
@@ -2776,7 +2776,7 @@ Gura_ImplementFunction(glIndexi)
 }
 
 // opengl.glIndexiv
-Gura_DeclareFunction(glIndexiv)
+Gura_DeclareFunctionAlias(__glIndexiv, "glIndexiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -2785,7 +2785,7 @@ Gura_DeclareFunction(glIndexiv)
 		"");
 }
 
-Gura_ImplementFunction(glIndexiv)
+Gura_ImplementFunction(__glIndexiv)
 {
 	CArray<GLint> c = args.GetList(0);
 	glIndexiv(c);
@@ -2793,7 +2793,7 @@ Gura_ImplementFunction(glIndexiv)
 }
 
 // opengl.glIndexs
-Gura_DeclareFunction(glIndexs)
+Gura_DeclareFunctionAlias(__glIndexs, "glIndexs")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -2802,7 +2802,7 @@ Gura_DeclareFunction(glIndexs)
 		"");
 }
 
-Gura_ImplementFunction(glIndexs)
+Gura_ImplementFunction(__glIndexs)
 {
 	GLshort c = args.GetShort(0);
 	glIndexs(c);
@@ -2810,7 +2810,7 @@ Gura_ImplementFunction(glIndexs)
 }
 
 // opengl.glIndexsv
-Gura_DeclareFunction(glIndexsv)
+Gura_DeclareFunctionAlias(__glIndexsv, "glIndexsv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -2819,7 +2819,7 @@ Gura_DeclareFunction(glIndexsv)
 		"");
 }
 
-Gura_ImplementFunction(glIndexsv)
+Gura_ImplementFunction(__glIndexsv)
 {
 	CArray<GLshort> c = args.GetList(0);
 	glIndexsv(c);
@@ -2827,7 +2827,7 @@ Gura_ImplementFunction(glIndexsv)
 }
 
 // opengl.glIndexub
-Gura_DeclareFunction(glIndexub)
+Gura_DeclareFunctionAlias(__glIndexub, "glIndexub")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -2836,7 +2836,7 @@ Gura_DeclareFunction(glIndexub)
 		"");
 }
 
-Gura_ImplementFunction(glIndexub)
+Gura_ImplementFunction(__glIndexub)
 {
 	GLubyte c = args.GetUChar(0);
 	glIndexub(c);
@@ -2844,7 +2844,7 @@ Gura_ImplementFunction(glIndexub)
 }
 
 // opengl.glIndexubv
-Gura_DeclareFunction(glIndexubv)
+Gura_DeclareFunctionAlias(__glIndexubv, "glIndexubv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "c", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -2853,7 +2853,7 @@ Gura_DeclareFunction(glIndexubv)
 		"");
 }
 
-Gura_ImplementFunction(glIndexubv)
+Gura_ImplementFunction(__glIndexubv)
 {
 	CArray<GLubyte> c = args.GetList(0);
 	glIndexubv(c);
@@ -2861,7 +2861,7 @@ Gura_ImplementFunction(glIndexubv)
 }
 
 // opengl.glInitNames
-Gura_DeclareFunction(glInitNames)
+Gura_DeclareFunctionAlias(__glInitNames, "glInitNames")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -2869,14 +2869,14 @@ Gura_DeclareFunction(glInitNames)
 		"");
 }
 
-Gura_ImplementFunction(glInitNames)
+Gura_ImplementFunction(__glInitNames)
 {
 	glInitNames();
 	return Value::Null;
 }
 
 // opengl.glIsEnabled
-Gura_DeclareFunction(glIsEnabled)
+Gura_DeclareFunctionAlias(__glIsEnabled, "glIsEnabled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2886,7 +2886,7 @@ Gura_DeclareFunction(glIsEnabled)
 		"");
 }
 
-Gura_ImplementFunction(glIsEnabled)
+Gura_ImplementFunction(__glIsEnabled)
 {
 	GLenum cap = static_cast<GLenum>(args.GetInt(0));
 	GLboolean _rtn = glIsEnabled(cap);
@@ -2894,7 +2894,7 @@ Gura_ImplementFunction(glIsEnabled)
 }
 
 // opengl.glIsList
-Gura_DeclareFunction(glIsList)
+Gura_DeclareFunctionAlias(__glIsList, "glIsList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2904,7 +2904,7 @@ Gura_DeclareFunction(glIsList)
 		"");
 }
 
-Gura_ImplementFunction(glIsList)
+Gura_ImplementFunction(__glIsList)
 {
 	GLuint list = args.GetUInt(0);
 	GLboolean _rtn = glIsList(list);
@@ -2912,7 +2912,7 @@ Gura_ImplementFunction(glIsList)
 }
 
 // opengl.glIsTexture
-Gura_DeclareFunction(glIsTexture)
+Gura_DeclareFunctionAlias(__glIsTexture, "glIsTexture")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -2922,7 +2922,7 @@ Gura_DeclareFunction(glIsTexture)
 		"");
 }
 
-Gura_ImplementFunction(glIsTexture)
+Gura_ImplementFunction(__glIsTexture)
 {
 	GLuint texture = args.GetUInt(0);
 	GLboolean _rtn = glIsTexture(texture);
@@ -2930,7 +2930,7 @@ Gura_ImplementFunction(glIsTexture)
 }
 
 // opengl.glLightModelf
-Gura_DeclareFunction(glLightModelf)
+Gura_DeclareFunctionAlias(__glLightModelf, "glLightModelf")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -2940,7 +2940,7 @@ Gura_DeclareFunction(glLightModelf)
 		"");
 }
 
-Gura_ImplementFunction(glLightModelf)
+Gura_ImplementFunction(__glLightModelf)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	GLfloat param = args.GetFloat(1);
@@ -2949,7 +2949,7 @@ Gura_ImplementFunction(glLightModelf)
 }
 
 // opengl.glLightModelfv
-Gura_DeclareFunction(glLightModelfv)
+Gura_DeclareFunctionAlias(__glLightModelfv, "glLightModelfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -2959,7 +2959,7 @@ Gura_DeclareFunction(glLightModelfv)
 		"");
 }
 
-Gura_ImplementFunction(glLightModelfv)
+Gura_ImplementFunction(__glLightModelfv)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLfloat> params = args.GetList(1);
@@ -2973,7 +2973,7 @@ Gura_ImplementFunction(glLightModelfv)
 }
 
 // opengl.glLightModeli
-Gura_DeclareFunction(glLightModeli)
+Gura_DeclareFunctionAlias(__glLightModeli, "glLightModeli")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -2983,7 +2983,7 @@ Gura_DeclareFunction(glLightModeli)
 		"");
 }
 
-Gura_ImplementFunction(glLightModeli)
+Gura_ImplementFunction(__glLightModeli)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	GLint param = args.GetInt(1);
@@ -2992,7 +2992,7 @@ Gura_ImplementFunction(glLightModeli)
 }
 
 // opengl.glLightModeliv
-Gura_DeclareFunction(glLightModeliv)
+Gura_DeclareFunctionAlias(__glLightModeliv, "glLightModeliv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3002,7 +3002,7 @@ Gura_DeclareFunction(glLightModeliv)
 		"");
 }
 
-Gura_ImplementFunction(glLightModeliv)
+Gura_ImplementFunction(__glLightModeliv)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	CArray<GLint> params = args.GetList(1);
@@ -3016,7 +3016,7 @@ Gura_ImplementFunction(glLightModeliv)
 }
 
 // opengl.glLightf
-Gura_DeclareFunction(glLightf)
+Gura_DeclareFunctionAlias(__glLightf, "glLightf")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "light", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3027,7 +3027,7 @@ Gura_DeclareFunction(glLightf)
 		"");
 }
 
-Gura_ImplementFunction(glLightf)
+Gura_ImplementFunction(__glLightf)
 {
 	GLenum light = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -3037,7 +3037,7 @@ Gura_ImplementFunction(glLightf)
 }
 
 // opengl.glLightfv
-Gura_DeclareFunction(glLightfv)
+Gura_DeclareFunctionAlias(__glLightfv, "glLightfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "light", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3048,7 +3048,7 @@ Gura_DeclareFunction(glLightfv)
 		"");
 }
 
-Gura_ImplementFunction(glLightfv)
+Gura_ImplementFunction(__glLightfv)
 {
 	GLenum light = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -3063,7 +3063,7 @@ Gura_ImplementFunction(glLightfv)
 }
 
 // opengl.glLighti
-Gura_DeclareFunction(glLighti)
+Gura_DeclareFunctionAlias(__glLighti, "glLighti")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "light", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3074,7 +3074,7 @@ Gura_DeclareFunction(glLighti)
 		"");
 }
 
-Gura_ImplementFunction(glLighti)
+Gura_ImplementFunction(__glLighti)
 {
 	GLenum light = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -3084,7 +3084,7 @@ Gura_ImplementFunction(glLighti)
 }
 
 // opengl.glLightiv
-Gura_DeclareFunction(glLightiv)
+Gura_DeclareFunctionAlias(__glLightiv, "glLightiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "light", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3095,7 +3095,7 @@ Gura_DeclareFunction(glLightiv)
 		"");
 }
 
-Gura_ImplementFunction(glLightiv)
+Gura_ImplementFunction(__glLightiv)
 {
 	GLenum light = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -3110,7 +3110,7 @@ Gura_ImplementFunction(glLightiv)
 }
 
 // opengl.glLineStipple
-Gura_DeclareFunction(glLineStipple)
+Gura_DeclareFunctionAlias(__glLineStipple, "glLineStipple")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "factor", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3120,7 +3120,7 @@ Gura_DeclareFunction(glLineStipple)
 		"");
 }
 
-Gura_ImplementFunction(glLineStipple)
+Gura_ImplementFunction(__glLineStipple)
 {
 	GLint factor = args.GetInt(0);
 	GLushort pattern = args.GetUShort(1);
@@ -3129,7 +3129,7 @@ Gura_ImplementFunction(glLineStipple)
 }
 
 // opengl.glLineWidth
-Gura_DeclareFunction(glLineWidth)
+Gura_DeclareFunctionAlias(__glLineWidth, "glLineWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3138,7 +3138,7 @@ Gura_DeclareFunction(glLineWidth)
 		"");
 }
 
-Gura_ImplementFunction(glLineWidth)
+Gura_ImplementFunction(__glLineWidth)
 {
 	GLfloat width = args.GetFloat(0);
 	glLineWidth(width);
@@ -3146,7 +3146,7 @@ Gura_ImplementFunction(glLineWidth)
 }
 
 // opengl.glListBase
-Gura_DeclareFunction(glListBase)
+Gura_DeclareFunctionAlias(__glListBase, "glListBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "base", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3155,7 +3155,7 @@ Gura_DeclareFunction(glListBase)
 		"");
 }
 
-Gura_ImplementFunction(glListBase)
+Gura_ImplementFunction(__glListBase)
 {
 	GLuint base = args.GetUInt(0);
 	glListBase(base);
@@ -3163,7 +3163,7 @@ Gura_ImplementFunction(glListBase)
 }
 
 // opengl.glLoadIdentity
-Gura_DeclareFunction(glLoadIdentity)
+Gura_DeclareFunctionAlias(__glLoadIdentity, "glLoadIdentity")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -3171,14 +3171,14 @@ Gura_DeclareFunction(glLoadIdentity)
 		"");
 }
 
-Gura_ImplementFunction(glLoadIdentity)
+Gura_ImplementFunction(__glLoadIdentity)
 {
 	glLoadIdentity();
 	return Value::Null;
 }
 
 // opengl.glLoadMatrixd
-Gura_DeclareFunction(glLoadMatrixd)
+Gura_DeclareFunctionAlias(__glLoadMatrixd, "glLoadMatrixd")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "m", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -3187,7 +3187,7 @@ Gura_DeclareFunction(glLoadMatrixd)
 		"");
 }
 
-Gura_ImplementFunction(glLoadMatrixd)
+Gura_ImplementFunction(__glLoadMatrixd)
 {
 	CArray<GLdouble> m = args.GetList(0);
 	if (m.GetSize() != 16) {
@@ -3199,7 +3199,7 @@ Gura_ImplementFunction(glLoadMatrixd)
 }
 
 // opengl.glLoadMatrixf
-Gura_DeclareFunction(glLoadMatrixf)
+Gura_DeclareFunctionAlias(__glLoadMatrixf, "glLoadMatrixf")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "m", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -3208,7 +3208,7 @@ Gura_DeclareFunction(glLoadMatrixf)
 		"");
 }
 
-Gura_ImplementFunction(glLoadMatrixf)
+Gura_ImplementFunction(__glLoadMatrixf)
 {
 	CArray<GLfloat> m = args.GetList(0);
 	if (m.GetSize() != 16) {
@@ -3220,7 +3220,7 @@ Gura_ImplementFunction(glLoadMatrixf)
 }
 
 // opengl.glLoadName
-Gura_DeclareFunction(glLoadName)
+Gura_DeclareFunctionAlias(__glLoadName, "glLoadName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3229,7 +3229,7 @@ Gura_DeclareFunction(glLoadName)
 		"");
 }
 
-Gura_ImplementFunction(glLoadName)
+Gura_ImplementFunction(__glLoadName)
 {
 	GLuint name = args.GetUInt(0);
 	glLoadName(name);
@@ -3237,7 +3237,7 @@ Gura_ImplementFunction(glLoadName)
 }
 
 // opengl.glLogicOp
-Gura_DeclareFunction(glLogicOp)
+Gura_DeclareFunctionAlias(__glLogicOp, "glLogicOp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "opcode", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3246,7 +3246,7 @@ Gura_DeclareFunction(glLogicOp)
 		"");
 }
 
-Gura_ImplementFunction(glLogicOp)
+Gura_ImplementFunction(__glLogicOp)
 {
 	GLenum opcode = static_cast<GLenum>(args.GetInt(0));
 	glLogicOp(opcode);
@@ -3254,7 +3254,7 @@ Gura_ImplementFunction(glLogicOp)
 }
 
 // opengl.glMap1d
-Gura_DeclareFunction(glMap1d)
+Gura_DeclareFunctionAlias(__glMap1d, "glMap1d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3268,7 +3268,7 @@ Gura_DeclareFunction(glMap1d)
 		"");
 }
 
-Gura_ImplementFunction(glMap1d)
+Gura_ImplementFunction(__glMap1d)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLdouble u1 = args.GetDouble(1);
@@ -3281,7 +3281,7 @@ Gura_ImplementFunction(glMap1d)
 }
 
 // opengl.glMap1f
-Gura_DeclareFunction(glMap1f)
+Gura_DeclareFunctionAlias(__glMap1f, "glMap1f")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3295,7 +3295,7 @@ Gura_DeclareFunction(glMap1f)
 		"");
 }
 
-Gura_ImplementFunction(glMap1f)
+Gura_ImplementFunction(__glMap1f)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLfloat u1 = args.GetFloat(1);
@@ -3308,7 +3308,7 @@ Gura_ImplementFunction(glMap1f)
 }
 
 // opengl.glMap2d
-Gura_DeclareFunction(glMap2d)
+Gura_DeclareFunctionAlias(__glMap2d, "glMap2d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3326,7 +3326,7 @@ Gura_DeclareFunction(glMap2d)
 		"");
 }
 
-Gura_ImplementFunction(glMap2d)
+Gura_ImplementFunction(__glMap2d)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLdouble u1 = args.GetDouble(1);
@@ -3343,7 +3343,7 @@ Gura_ImplementFunction(glMap2d)
 }
 
 // opengl.glMap2f
-Gura_DeclareFunction(glMap2f)
+Gura_DeclareFunctionAlias(__glMap2f, "glMap2f")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3361,7 +3361,7 @@ Gura_DeclareFunction(glMap2f)
 		"");
 }
 
-Gura_ImplementFunction(glMap2f)
+Gura_ImplementFunction(__glMap2f)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLfloat u1 = args.GetFloat(1);
@@ -3378,7 +3378,7 @@ Gura_ImplementFunction(glMap2f)
 }
 
 // opengl.glMapGrid1d
-Gura_DeclareFunction(glMapGrid1d)
+Gura_DeclareFunctionAlias(__glMapGrid1d, "glMapGrid1d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "un", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3389,7 +3389,7 @@ Gura_DeclareFunction(glMapGrid1d)
 		"");
 }
 
-Gura_ImplementFunction(glMapGrid1d)
+Gura_ImplementFunction(__glMapGrid1d)
 {
 	GLint un = args.GetInt(0);
 	GLdouble u1 = args.GetDouble(1);
@@ -3399,7 +3399,7 @@ Gura_ImplementFunction(glMapGrid1d)
 }
 
 // opengl.glMapGrid1f
-Gura_DeclareFunction(glMapGrid1f)
+Gura_DeclareFunctionAlias(__glMapGrid1f, "glMapGrid1f")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "un", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3410,7 +3410,7 @@ Gura_DeclareFunction(glMapGrid1f)
 		"");
 }
 
-Gura_ImplementFunction(glMapGrid1f)
+Gura_ImplementFunction(__glMapGrid1f)
 {
 	GLint un = args.GetInt(0);
 	GLfloat u1 = args.GetFloat(1);
@@ -3420,7 +3420,7 @@ Gura_ImplementFunction(glMapGrid1f)
 }
 
 // opengl.glMapGrid2d
-Gura_DeclareFunction(glMapGrid2d)
+Gura_DeclareFunctionAlias(__glMapGrid2d, "glMapGrid2d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "un", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3434,7 +3434,7 @@ Gura_DeclareFunction(glMapGrid2d)
 		"");
 }
 
-Gura_ImplementFunction(glMapGrid2d)
+Gura_ImplementFunction(__glMapGrid2d)
 {
 	GLint un = args.GetInt(0);
 	GLdouble u1 = args.GetDouble(1);
@@ -3447,7 +3447,7 @@ Gura_ImplementFunction(glMapGrid2d)
 }
 
 // opengl.glMapGrid2f
-Gura_DeclareFunction(glMapGrid2f)
+Gura_DeclareFunctionAlias(__glMapGrid2f, "glMapGrid2f")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "un", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3461,7 +3461,7 @@ Gura_DeclareFunction(glMapGrid2f)
 		"");
 }
 
-Gura_ImplementFunction(glMapGrid2f)
+Gura_ImplementFunction(__glMapGrid2f)
 {
 	GLint un = args.GetInt(0);
 	GLfloat u1 = args.GetFloat(1);
@@ -3474,7 +3474,7 @@ Gura_ImplementFunction(glMapGrid2f)
 }
 
 // opengl.glMaterialf
-Gura_DeclareFunction(glMaterialf)
+Gura_DeclareFunctionAlias(__glMaterialf, "glMaterialf")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "face", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3485,7 +3485,7 @@ Gura_DeclareFunction(glMaterialf)
 		"");
 }
 
-Gura_ImplementFunction(glMaterialf)
+Gura_ImplementFunction(__glMaterialf)
 {
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -3495,7 +3495,7 @@ Gura_ImplementFunction(glMaterialf)
 }
 
 // opengl.glMaterialfv
-Gura_DeclareFunction(glMaterialfv)
+Gura_DeclareFunctionAlias(__glMaterialfv, "glMaterialfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "face", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3506,7 +3506,7 @@ Gura_DeclareFunction(glMaterialfv)
 		"");
 }
 
-Gura_ImplementFunction(glMaterialfv)
+Gura_ImplementFunction(__glMaterialfv)
 {
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -3521,7 +3521,7 @@ Gura_ImplementFunction(glMaterialfv)
 }
 
 // opengl.glMateriali
-Gura_DeclareFunction(glMateriali)
+Gura_DeclareFunctionAlias(__glMateriali, "glMateriali")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "face", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3532,7 +3532,7 @@ Gura_DeclareFunction(glMateriali)
 		"");
 }
 
-Gura_ImplementFunction(glMateriali)
+Gura_ImplementFunction(__glMateriali)
 {
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -3542,7 +3542,7 @@ Gura_ImplementFunction(glMateriali)
 }
 
 // opengl.glMaterialiv
-Gura_DeclareFunction(glMaterialiv)
+Gura_DeclareFunctionAlias(__glMaterialiv, "glMaterialiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "face", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3553,7 +3553,7 @@ Gura_DeclareFunction(glMaterialiv)
 		"");
 }
 
-Gura_ImplementFunction(glMaterialiv)
+Gura_ImplementFunction(__glMaterialiv)
 {
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -3568,7 +3568,7 @@ Gura_ImplementFunction(glMaterialiv)
 }
 
 // opengl.glMatrixMode
-Gura_DeclareFunction(glMatrixMode)
+Gura_DeclareFunctionAlias(__glMatrixMode, "glMatrixMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3577,7 +3577,7 @@ Gura_DeclareFunction(glMatrixMode)
 		"");
 }
 
-Gura_ImplementFunction(glMatrixMode)
+Gura_ImplementFunction(__glMatrixMode)
 {
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	glMatrixMode(mode);
@@ -3585,7 +3585,7 @@ Gura_ImplementFunction(glMatrixMode)
 }
 
 // opengl.glMultMatrixd
-Gura_DeclareFunction(glMultMatrixd)
+Gura_DeclareFunctionAlias(__glMultMatrixd, "glMultMatrixd")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "m", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -3594,7 +3594,7 @@ Gura_DeclareFunction(glMultMatrixd)
 		"");
 }
 
-Gura_ImplementFunction(glMultMatrixd)
+Gura_ImplementFunction(__glMultMatrixd)
 {
 	CArray<GLdouble> m = args.GetList(0);
 	if (m.GetSize() != 16) {
@@ -3606,7 +3606,7 @@ Gura_ImplementFunction(glMultMatrixd)
 }
 
 // opengl.glMultMatrixf
-Gura_DeclareFunction(glMultMatrixf)
+Gura_DeclareFunctionAlias(__glMultMatrixf, "glMultMatrixf")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "m", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -3615,7 +3615,7 @@ Gura_DeclareFunction(glMultMatrixf)
 		"");
 }
 
-Gura_ImplementFunction(glMultMatrixf)
+Gura_ImplementFunction(__glMultMatrixf)
 {
 	CArray<GLfloat> m = args.GetList(0);
 	if (m.GetSize() != 16) {
@@ -3627,7 +3627,7 @@ Gura_ImplementFunction(glMultMatrixf)
 }
 
 // opengl.glNewList
-Gura_DeclareFunction(glNewList)
+Gura_DeclareFunctionAlias(__glNewList, "glNewList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -3638,7 +3638,7 @@ Gura_DeclareFunction(glNewList)
 		"");
 }
 
-Gura_ImplementFunction(glNewList)
+Gura_ImplementFunction(__glNewList)
 {
 	GLuint list = args.GetUInt(0);
 	GLenum mode = static_cast<GLenum>(args.GetInt(1));
@@ -3654,7 +3654,7 @@ Gura_ImplementFunction(glNewList)
 }
 
 // opengl.glNormal3b
-Gura_DeclareFunction(glNormal3b)
+Gura_DeclareFunctionAlias(__glNormal3b, "glNormal3b")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "nx", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3665,7 +3665,7 @@ Gura_DeclareFunction(glNormal3b)
 		"");
 }
 
-Gura_ImplementFunction(glNormal3b)
+Gura_ImplementFunction(__glNormal3b)
 {
 	GLbyte nx = args.GetChar(0);
 	GLbyte ny = args.GetChar(1);
@@ -3675,7 +3675,7 @@ Gura_ImplementFunction(glNormal3b)
 }
 
 // opengl.glNormal3bv
-Gura_DeclareFunction(glNormal3bv)
+Gura_DeclareFunctionAlias(__glNormal3bv, "glNormal3bv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -3684,7 +3684,7 @@ Gura_DeclareFunction(glNormal3bv)
 		"");
 }
 
-Gura_ImplementFunction(glNormal3bv)
+Gura_ImplementFunction(__glNormal3bv)
 {
 	CArray<GLbyte> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -3696,7 +3696,7 @@ Gura_ImplementFunction(glNormal3bv)
 }
 
 // opengl.glNormal3d
-Gura_DeclareFunction(glNormal3d)
+Gura_DeclareFunctionAlias(__glNormal3d, "glNormal3d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "nx", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3707,7 +3707,7 @@ Gura_DeclareFunction(glNormal3d)
 		"");
 }
 
-Gura_ImplementFunction(glNormal3d)
+Gura_ImplementFunction(__glNormal3d)
 {
 	GLdouble nx = args.GetDouble(0);
 	GLdouble ny = args.GetDouble(1);
@@ -3717,7 +3717,7 @@ Gura_ImplementFunction(glNormal3d)
 }
 
 // opengl.glNormal3dv
-Gura_DeclareFunction(glNormal3dv)
+Gura_DeclareFunctionAlias(__glNormal3dv, "glNormal3dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -3726,7 +3726,7 @@ Gura_DeclareFunction(glNormal3dv)
 		"");
 }
 
-Gura_ImplementFunction(glNormal3dv)
+Gura_ImplementFunction(__glNormal3dv)
 {
 	CArray<GLdouble> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -3738,7 +3738,7 @@ Gura_ImplementFunction(glNormal3dv)
 }
 
 // opengl.glNormal3f
-Gura_DeclareFunction(glNormal3f)
+Gura_DeclareFunctionAlias(__glNormal3f, "glNormal3f")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "nx", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3749,7 +3749,7 @@ Gura_DeclareFunction(glNormal3f)
 		"");
 }
 
-Gura_ImplementFunction(glNormal3f)
+Gura_ImplementFunction(__glNormal3f)
 {
 	GLfloat nx = args.GetFloat(0);
 	GLfloat ny = args.GetFloat(1);
@@ -3759,7 +3759,7 @@ Gura_ImplementFunction(glNormal3f)
 }
 
 // opengl.glNormal3fv
-Gura_DeclareFunction(glNormal3fv)
+Gura_DeclareFunctionAlias(__glNormal3fv, "glNormal3fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -3768,7 +3768,7 @@ Gura_DeclareFunction(glNormal3fv)
 		"");
 }
 
-Gura_ImplementFunction(glNormal3fv)
+Gura_ImplementFunction(__glNormal3fv)
 {
 	CArray<GLfloat> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -3780,7 +3780,7 @@ Gura_ImplementFunction(glNormal3fv)
 }
 
 // opengl.glNormal3i
-Gura_DeclareFunction(glNormal3i)
+Gura_DeclareFunctionAlias(__glNormal3i, "glNormal3i")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "nx", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3791,7 +3791,7 @@ Gura_DeclareFunction(glNormal3i)
 		"");
 }
 
-Gura_ImplementFunction(glNormal3i)
+Gura_ImplementFunction(__glNormal3i)
 {
 	GLint nx = args.GetInt(0);
 	GLint ny = args.GetInt(1);
@@ -3801,7 +3801,7 @@ Gura_ImplementFunction(glNormal3i)
 }
 
 // opengl.glNormal3iv
-Gura_DeclareFunction(glNormal3iv)
+Gura_DeclareFunctionAlias(__glNormal3iv, "glNormal3iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -3810,7 +3810,7 @@ Gura_DeclareFunction(glNormal3iv)
 		"");
 }
 
-Gura_ImplementFunction(glNormal3iv)
+Gura_ImplementFunction(__glNormal3iv)
 {
 	CArray<GLint> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -3822,7 +3822,7 @@ Gura_ImplementFunction(glNormal3iv)
 }
 
 // opengl.glNormal3s
-Gura_DeclareFunction(glNormal3s)
+Gura_DeclareFunctionAlias(__glNormal3s, "glNormal3s")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "nx", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3833,7 +3833,7 @@ Gura_DeclareFunction(glNormal3s)
 		"");
 }
 
-Gura_ImplementFunction(glNormal3s)
+Gura_ImplementFunction(__glNormal3s)
 {
 	GLshort nx = args.GetShort(0);
 	GLshort ny = args.GetShort(1);
@@ -3843,7 +3843,7 @@ Gura_ImplementFunction(glNormal3s)
 }
 
 // opengl.glNormal3sv
-Gura_DeclareFunction(glNormal3sv)
+Gura_DeclareFunctionAlias(__glNormal3sv, "glNormal3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -3852,7 +3852,7 @@ Gura_DeclareFunction(glNormal3sv)
 		"");
 }
 
-Gura_ImplementFunction(glNormal3sv)
+Gura_ImplementFunction(__glNormal3sv)
 {
 	CArray<GLshort> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -3864,7 +3864,7 @@ Gura_ImplementFunction(glNormal3sv)
 }
 
 // opengl.glOrtho
-Gura_DeclareFunction(glOrtho)
+Gura_DeclareFunctionAlias(__glOrtho, "glOrtho")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "left", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3878,7 +3878,7 @@ Gura_DeclareFunction(glOrtho)
 		"");
 }
 
-Gura_ImplementFunction(glOrtho)
+Gura_ImplementFunction(__glOrtho)
 {
 	GLdouble left = args.GetDouble(0);
 	GLdouble right = args.GetDouble(1);
@@ -3891,7 +3891,7 @@ Gura_ImplementFunction(glOrtho)
 }
 
 // opengl.glPassThrough
-Gura_DeclareFunction(glPassThrough)
+Gura_DeclareFunctionAlias(__glPassThrough, "glPassThrough")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "token", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3900,7 +3900,7 @@ Gura_DeclareFunction(glPassThrough)
 		"");
 }
 
-Gura_ImplementFunction(glPassThrough)
+Gura_ImplementFunction(__glPassThrough)
 {
 	GLfloat token = args.GetFloat(0);
 	glPassThrough(token);
@@ -3908,7 +3908,7 @@ Gura_ImplementFunction(glPassThrough)
 }
 
 // opengl.glPixelMapfv
-Gura_DeclareFunction(glPixelMapfv)
+Gura_DeclareFunctionAlias(__glPixelMapfv, "glPixelMapfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "map", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3919,7 +3919,7 @@ Gura_DeclareFunction(glPixelMapfv)
 		"");
 }
 
-Gura_ImplementFunction(glPixelMapfv)
+Gura_ImplementFunction(__glPixelMapfv)
 {
 	GLenum map = static_cast<GLenum>(args.GetInt(0));
 	GLint mapsize = args.GetInt(1);
@@ -3929,7 +3929,7 @@ Gura_ImplementFunction(glPixelMapfv)
 }
 
 // opengl.glPixelMapuiv
-Gura_DeclareFunction(glPixelMapuiv)
+Gura_DeclareFunctionAlias(__glPixelMapuiv, "glPixelMapuiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "map", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3940,7 +3940,7 @@ Gura_DeclareFunction(glPixelMapuiv)
 		"");
 }
 
-Gura_ImplementFunction(glPixelMapuiv)
+Gura_ImplementFunction(__glPixelMapuiv)
 {
 	GLenum map = static_cast<GLenum>(args.GetInt(0));
 	GLint mapsize = args.GetInt(1);
@@ -3950,7 +3950,7 @@ Gura_ImplementFunction(glPixelMapuiv)
 }
 
 // opengl.glPixelMapusv
-Gura_DeclareFunction(glPixelMapusv)
+Gura_DeclareFunctionAlias(__glPixelMapusv, "glPixelMapusv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "map", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3961,7 +3961,7 @@ Gura_DeclareFunction(glPixelMapusv)
 		"");
 }
 
-Gura_ImplementFunction(glPixelMapusv)
+Gura_ImplementFunction(__glPixelMapusv)
 {
 	GLenum map = static_cast<GLenum>(args.GetInt(0));
 	GLint mapsize = args.GetInt(1);
@@ -3971,7 +3971,7 @@ Gura_ImplementFunction(glPixelMapusv)
 }
 
 // opengl.glPixelStoref
-Gura_DeclareFunction(glPixelStoref)
+Gura_DeclareFunctionAlias(__glPixelStoref, "glPixelStoref")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3981,7 +3981,7 @@ Gura_DeclareFunction(glPixelStoref)
 		"");
 }
 
-Gura_ImplementFunction(glPixelStoref)
+Gura_ImplementFunction(__glPixelStoref)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	GLfloat param = args.GetFloat(1);
@@ -3990,7 +3990,7 @@ Gura_ImplementFunction(glPixelStoref)
 }
 
 // opengl.glPixelStorei
-Gura_DeclareFunction(glPixelStorei)
+Gura_DeclareFunctionAlias(__glPixelStorei, "glPixelStorei")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4000,7 +4000,7 @@ Gura_DeclareFunction(glPixelStorei)
 		"");
 }
 
-Gura_ImplementFunction(glPixelStorei)
+Gura_ImplementFunction(__glPixelStorei)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	GLint param = args.GetInt(1);
@@ -4009,7 +4009,7 @@ Gura_ImplementFunction(glPixelStorei)
 }
 
 // opengl.glPixelTransferf
-Gura_DeclareFunction(glPixelTransferf)
+Gura_DeclareFunctionAlias(__glPixelTransferf, "glPixelTransferf")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4019,7 +4019,7 @@ Gura_DeclareFunction(glPixelTransferf)
 		"");
 }
 
-Gura_ImplementFunction(glPixelTransferf)
+Gura_ImplementFunction(__glPixelTransferf)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	GLfloat param = args.GetFloat(1);
@@ -4028,7 +4028,7 @@ Gura_ImplementFunction(glPixelTransferf)
 }
 
 // opengl.glPixelTransferi
-Gura_DeclareFunction(glPixelTransferi)
+Gura_DeclareFunctionAlias(__glPixelTransferi, "glPixelTransferi")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4038,7 +4038,7 @@ Gura_DeclareFunction(glPixelTransferi)
 		"");
 }
 
-Gura_ImplementFunction(glPixelTransferi)
+Gura_ImplementFunction(__glPixelTransferi)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	GLint param = args.GetInt(1);
@@ -4047,7 +4047,7 @@ Gura_ImplementFunction(glPixelTransferi)
 }
 
 // opengl.glPixelZoom
-Gura_DeclareFunction(glPixelZoom)
+Gura_DeclareFunctionAlias(__glPixelZoom, "glPixelZoom")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "xfactor", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4057,7 +4057,7 @@ Gura_DeclareFunction(glPixelZoom)
 		"");
 }
 
-Gura_ImplementFunction(glPixelZoom)
+Gura_ImplementFunction(__glPixelZoom)
 {
 	GLfloat xfactor = args.GetFloat(0);
 	GLfloat yfactor = args.GetFloat(1);
@@ -4066,7 +4066,7 @@ Gura_ImplementFunction(glPixelZoom)
 }
 
 // opengl.glPointSize
-Gura_DeclareFunction(glPointSize)
+Gura_DeclareFunctionAlias(__glPointSize, "glPointSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4075,7 +4075,7 @@ Gura_DeclareFunction(glPointSize)
 		"");
 }
 
-Gura_ImplementFunction(glPointSize)
+Gura_ImplementFunction(__glPointSize)
 {
 	GLfloat size = args.GetFloat(0);
 	glPointSize(size);
@@ -4083,7 +4083,7 @@ Gura_ImplementFunction(glPointSize)
 }
 
 // opengl.glPolygonMode
-Gura_DeclareFunction(glPolygonMode)
+Gura_DeclareFunctionAlias(__glPolygonMode, "glPolygonMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "face", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4093,7 +4093,7 @@ Gura_DeclareFunction(glPolygonMode)
 		"");
 }
 
-Gura_ImplementFunction(glPolygonMode)
+Gura_ImplementFunction(__glPolygonMode)
 {
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum mode = static_cast<GLenum>(args.GetInt(1));
@@ -4102,7 +4102,7 @@ Gura_ImplementFunction(glPolygonMode)
 }
 
 // opengl.glPolygonOffset
-Gura_DeclareFunction(glPolygonOffset)
+Gura_DeclareFunctionAlias(__glPolygonOffset, "glPolygonOffset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "factor", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4112,7 +4112,7 @@ Gura_DeclareFunction(glPolygonOffset)
 		"");
 }
 
-Gura_ImplementFunction(glPolygonOffset)
+Gura_ImplementFunction(__glPolygonOffset)
 {
 	GLfloat factor = args.GetFloat(0);
 	GLfloat units = args.GetFloat(1);
@@ -4121,7 +4121,7 @@ Gura_ImplementFunction(glPolygonOffset)
 }
 
 // opengl.glPolygonStipple
-Gura_DeclareFunction(glPolygonStipple)
+Gura_DeclareFunctionAlias(__glPolygonStipple, "glPolygonStipple")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mask", VTYPE_binary, OCCUR_Once, FLAG_None);
@@ -4130,7 +4130,7 @@ Gura_DeclareFunction(glPolygonStipple)
 		"");
 }
 
-Gura_ImplementFunction(glPolygonStipple)
+Gura_ImplementFunction(__glPolygonStipple)
 {
 	const Binary &mask = Object_binary::GetObject(args, 0)->GetBinary();
 	if (mask.size() != 32 * 4) {
@@ -4142,7 +4142,7 @@ Gura_ImplementFunction(glPolygonStipple)
 }
 
 // opengl.glPopAttrib
-Gura_DeclareFunction(glPopAttrib)
+Gura_DeclareFunctionAlias(__glPopAttrib, "glPopAttrib")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -4150,14 +4150,14 @@ Gura_DeclareFunction(glPopAttrib)
 		"");
 }
 
-Gura_ImplementFunction(glPopAttrib)
+Gura_ImplementFunction(__glPopAttrib)
 {
 	glPopAttrib();
 	return Value::Null;
 }
 
 // opengl.glPopClientAttrib
-Gura_DeclareFunction(glPopClientAttrib)
+Gura_DeclareFunctionAlias(__glPopClientAttrib, "glPopClientAttrib")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -4165,14 +4165,14 @@ Gura_DeclareFunction(glPopClientAttrib)
 		"");
 }
 
-Gura_ImplementFunction(glPopClientAttrib)
+Gura_ImplementFunction(__glPopClientAttrib)
 {
 	glPopClientAttrib();
 	return Value::Null;
 }
 
 // opengl.glPopMatrix
-Gura_DeclareFunction(glPopMatrix)
+Gura_DeclareFunctionAlias(__glPopMatrix, "glPopMatrix")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -4180,14 +4180,14 @@ Gura_DeclareFunction(glPopMatrix)
 		"");
 }
 
-Gura_ImplementFunction(glPopMatrix)
+Gura_ImplementFunction(__glPopMatrix)
 {
 	glPopMatrix();
 	return Value::Null;
 }
 
 // opengl.glPopName
-Gura_DeclareFunction(glPopName)
+Gura_DeclareFunctionAlias(__glPopName, "glPopName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
@@ -4195,14 +4195,14 @@ Gura_DeclareFunction(glPopName)
 		"");
 }
 
-Gura_ImplementFunction(glPopName)
+Gura_ImplementFunction(__glPopName)
 {
 	glPopName();
 	return Value::Null;
 }
 
 // opengl.glPrioritizeTextures
-Gura_DeclareFunction(glPrioritizeTextures)
+Gura_DeclareFunctionAlias(__glPrioritizeTextures, "glPrioritizeTextures")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "textures", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -4212,7 +4212,7 @@ Gura_DeclareFunction(glPrioritizeTextures)
 		"");
 }
 
-Gura_ImplementFunction(glPrioritizeTextures)
+Gura_ImplementFunction(__glPrioritizeTextures)
 {
 	CArray<GLuint> textures = args.GetList(0);
 	CArray<GLclampf> priorities = args.GetList(1);
@@ -4226,7 +4226,7 @@ Gura_ImplementFunction(glPrioritizeTextures)
 }
 
 // opengl.glPushAttrib
-Gura_DeclareFunction(glPushAttrib)
+Gura_DeclareFunctionAlias(__glPushAttrib, "glPushAttrib")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4236,7 +4236,7 @@ Gura_DeclareFunction(glPushAttrib)
 		"");
 }
 
-Gura_ImplementFunction(glPushAttrib)
+Gura_ImplementFunction(__glPushAttrib)
 {
 	GLbitfield mask = args.GetUInt(0);
 	glPushAttrib(mask);
@@ -4251,7 +4251,7 @@ Gura_ImplementFunction(glPushAttrib)
 }
 
 // opengl.glPushClientAttrib
-Gura_DeclareFunction(glPushClientAttrib)
+Gura_DeclareFunctionAlias(__glPushClientAttrib, "glPushClientAttrib")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4261,7 +4261,7 @@ Gura_DeclareFunction(glPushClientAttrib)
 		"");
 }
 
-Gura_ImplementFunction(glPushClientAttrib)
+Gura_ImplementFunction(__glPushClientAttrib)
 {
 	GLbitfield mask = args.GetUInt(0);
 	glPushClientAttrib(mask);
@@ -4276,7 +4276,7 @@ Gura_ImplementFunction(glPushClientAttrib)
 }
 
 // opengl.glPushMatrix
-Gura_DeclareFunction(glPushMatrix)
+Gura_DeclareFunctionAlias(__glPushMatrix, "glPushMatrix")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4285,7 +4285,7 @@ Gura_DeclareFunction(glPushMatrix)
 		"");
 }
 
-Gura_ImplementFunction(glPushMatrix)
+Gura_ImplementFunction(__glPushMatrix)
 {
 	glPushMatrix();
 	if (args.IsBlockSpecified()) {
@@ -4299,7 +4299,7 @@ Gura_ImplementFunction(glPushMatrix)
 }
 
 // opengl.glPushName
-Gura_DeclareFunction(glPushName)
+Gura_DeclareFunctionAlias(__glPushName, "glPushName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4309,7 +4309,7 @@ Gura_DeclareFunction(glPushName)
 		"");
 }
 
-Gura_ImplementFunction(glPushName)
+Gura_ImplementFunction(__glPushName)
 {
 	GLuint name = args.GetUInt(0);
 	glPushName(name);
@@ -4324,7 +4324,7 @@ Gura_ImplementFunction(glPushName)
 }
 
 // opengl.glRasterPos2d
-Gura_DeclareFunction(glRasterPos2d)
+Gura_DeclareFunctionAlias(__glRasterPos2d, "glRasterPos2d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4334,7 +4334,7 @@ Gura_DeclareFunction(glRasterPos2d)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos2d)
+Gura_ImplementFunction(__glRasterPos2d)
 {
 	GLdouble x = args.GetDouble(0);
 	GLdouble y = args.GetDouble(1);
@@ -4343,7 +4343,7 @@ Gura_ImplementFunction(glRasterPos2d)
 }
 
 // opengl.glRasterPos2dv
-Gura_DeclareFunction(glRasterPos2dv)
+Gura_DeclareFunctionAlias(__glRasterPos2dv, "glRasterPos2dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -4352,7 +4352,7 @@ Gura_DeclareFunction(glRasterPos2dv)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos2dv)
+Gura_ImplementFunction(__glRasterPos2dv)
 {
 	CArray<GLdouble> v = args.GetList(0);
 	if (v.GetSize() != 2) {
@@ -4364,7 +4364,7 @@ Gura_ImplementFunction(glRasterPos2dv)
 }
 
 // opengl.glRasterPos2f
-Gura_DeclareFunction(glRasterPos2f)
+Gura_DeclareFunctionAlias(__glRasterPos2f, "glRasterPos2f")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4374,7 +4374,7 @@ Gura_DeclareFunction(glRasterPos2f)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos2f)
+Gura_ImplementFunction(__glRasterPos2f)
 {
 	GLfloat x = args.GetFloat(0);
 	GLfloat y = args.GetFloat(1);
@@ -4383,7 +4383,7 @@ Gura_ImplementFunction(glRasterPos2f)
 }
 
 // opengl.glRasterPos2fv
-Gura_DeclareFunction(glRasterPos2fv)
+Gura_DeclareFunctionAlias(__glRasterPos2fv, "glRasterPos2fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -4392,7 +4392,7 @@ Gura_DeclareFunction(glRasterPos2fv)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos2fv)
+Gura_ImplementFunction(__glRasterPos2fv)
 {
 	CArray<GLfloat> v = args.GetList(0);
 	if (v.GetSize() != 2) {
@@ -4404,7 +4404,7 @@ Gura_ImplementFunction(glRasterPos2fv)
 }
 
 // opengl.glRasterPos2i
-Gura_DeclareFunction(glRasterPos2i)
+Gura_DeclareFunctionAlias(__glRasterPos2i, "glRasterPos2i")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4414,7 +4414,7 @@ Gura_DeclareFunction(glRasterPos2i)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos2i)
+Gura_ImplementFunction(__glRasterPos2i)
 {
 	GLint x = args.GetInt(0);
 	GLint y = args.GetInt(1);
@@ -4423,7 +4423,7 @@ Gura_ImplementFunction(glRasterPos2i)
 }
 
 // opengl.glRasterPos2iv
-Gura_DeclareFunction(glRasterPos2iv)
+Gura_DeclareFunctionAlias(__glRasterPos2iv, "glRasterPos2iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -4432,7 +4432,7 @@ Gura_DeclareFunction(glRasterPos2iv)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos2iv)
+Gura_ImplementFunction(__glRasterPos2iv)
 {
 	CArray<GLint> v = args.GetList(0);
 	if (v.GetSize() != 2) {
@@ -4444,7 +4444,7 @@ Gura_ImplementFunction(glRasterPos2iv)
 }
 
 // opengl.glRasterPos2s
-Gura_DeclareFunction(glRasterPos2s)
+Gura_DeclareFunctionAlias(__glRasterPos2s, "glRasterPos2s")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4454,7 +4454,7 @@ Gura_DeclareFunction(glRasterPos2s)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos2s)
+Gura_ImplementFunction(__glRasterPos2s)
 {
 	GLshort x = args.GetShort(0);
 	GLshort y = args.GetShort(1);
@@ -4463,7 +4463,7 @@ Gura_ImplementFunction(glRasterPos2s)
 }
 
 // opengl.glRasterPos2sv
-Gura_DeclareFunction(glRasterPos2sv)
+Gura_DeclareFunctionAlias(__glRasterPos2sv, "glRasterPos2sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -4472,7 +4472,7 @@ Gura_DeclareFunction(glRasterPos2sv)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos2sv)
+Gura_ImplementFunction(__glRasterPos2sv)
 {
 	CArray<GLshort> v = args.GetList(0);
 	if (v.GetSize() != 2) {
@@ -4484,7 +4484,7 @@ Gura_ImplementFunction(glRasterPos2sv)
 }
 
 // opengl.glRasterPos3d
-Gura_DeclareFunction(glRasterPos3d)
+Gura_DeclareFunctionAlias(__glRasterPos3d, "glRasterPos3d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4495,7 +4495,7 @@ Gura_DeclareFunction(glRasterPos3d)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos3d)
+Gura_ImplementFunction(__glRasterPos3d)
 {
 	GLdouble x = args.GetDouble(0);
 	GLdouble y = args.GetDouble(1);
@@ -4505,7 +4505,7 @@ Gura_ImplementFunction(glRasterPos3d)
 }
 
 // opengl.glRasterPos3dv
-Gura_DeclareFunction(glRasterPos3dv)
+Gura_DeclareFunctionAlias(__glRasterPos3dv, "glRasterPos3dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -4514,7 +4514,7 @@ Gura_DeclareFunction(glRasterPos3dv)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos3dv)
+Gura_ImplementFunction(__glRasterPos3dv)
 {
 	CArray<GLdouble> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -4526,7 +4526,7 @@ Gura_ImplementFunction(glRasterPos3dv)
 }
 
 // opengl.glRasterPos3f
-Gura_DeclareFunction(glRasterPos3f)
+Gura_DeclareFunctionAlias(__glRasterPos3f, "glRasterPos3f")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4537,7 +4537,7 @@ Gura_DeclareFunction(glRasterPos3f)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos3f)
+Gura_ImplementFunction(__glRasterPos3f)
 {
 	GLfloat x = args.GetFloat(0);
 	GLfloat y = args.GetFloat(1);
@@ -4547,7 +4547,7 @@ Gura_ImplementFunction(glRasterPos3f)
 }
 
 // opengl.glRasterPos3fv
-Gura_DeclareFunction(glRasterPos3fv)
+Gura_DeclareFunctionAlias(__glRasterPos3fv, "glRasterPos3fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -4556,7 +4556,7 @@ Gura_DeclareFunction(glRasterPos3fv)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos3fv)
+Gura_ImplementFunction(__glRasterPos3fv)
 {
 	CArray<GLfloat> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -4568,7 +4568,7 @@ Gura_ImplementFunction(glRasterPos3fv)
 }
 
 // opengl.glRasterPos3i
-Gura_DeclareFunction(glRasterPos3i)
+Gura_DeclareFunctionAlias(__glRasterPos3i, "glRasterPos3i")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4579,7 +4579,7 @@ Gura_DeclareFunction(glRasterPos3i)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos3i)
+Gura_ImplementFunction(__glRasterPos3i)
 {
 	GLint x = args.GetInt(0);
 	GLint y = args.GetInt(1);
@@ -4589,7 +4589,7 @@ Gura_ImplementFunction(glRasterPos3i)
 }
 
 // opengl.glRasterPos3iv
-Gura_DeclareFunction(glRasterPos3iv)
+Gura_DeclareFunctionAlias(__glRasterPos3iv, "glRasterPos3iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -4598,7 +4598,7 @@ Gura_DeclareFunction(glRasterPos3iv)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos3iv)
+Gura_ImplementFunction(__glRasterPos3iv)
 {
 	CArray<GLint> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -4610,7 +4610,7 @@ Gura_ImplementFunction(glRasterPos3iv)
 }
 
 // opengl.glRasterPos3s
-Gura_DeclareFunction(glRasterPos3s)
+Gura_DeclareFunctionAlias(__glRasterPos3s, "glRasterPos3s")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4621,7 +4621,7 @@ Gura_DeclareFunction(glRasterPos3s)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos3s)
+Gura_ImplementFunction(__glRasterPos3s)
 {
 	GLshort x = args.GetShort(0);
 	GLshort y = args.GetShort(1);
@@ -4631,7 +4631,7 @@ Gura_ImplementFunction(glRasterPos3s)
 }
 
 // opengl.glRasterPos3sv
-Gura_DeclareFunction(glRasterPos3sv)
+Gura_DeclareFunctionAlias(__glRasterPos3sv, "glRasterPos3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -4640,7 +4640,7 @@ Gura_DeclareFunction(glRasterPos3sv)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos3sv)
+Gura_ImplementFunction(__glRasterPos3sv)
 {
 	CArray<GLshort> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -4652,7 +4652,7 @@ Gura_ImplementFunction(glRasterPos3sv)
 }
 
 // opengl.glRasterPos4d
-Gura_DeclareFunction(glRasterPos4d)
+Gura_DeclareFunctionAlias(__glRasterPos4d, "glRasterPos4d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4664,7 +4664,7 @@ Gura_DeclareFunction(glRasterPos4d)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos4d)
+Gura_ImplementFunction(__glRasterPos4d)
 {
 	GLdouble x = args.GetDouble(0);
 	GLdouble y = args.GetDouble(1);
@@ -4675,7 +4675,7 @@ Gura_ImplementFunction(glRasterPos4d)
 }
 
 // opengl.glRasterPos4dv
-Gura_DeclareFunction(glRasterPos4dv)
+Gura_DeclareFunctionAlias(__glRasterPos4dv, "glRasterPos4dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -4684,7 +4684,7 @@ Gura_DeclareFunction(glRasterPos4dv)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos4dv)
+Gura_ImplementFunction(__glRasterPos4dv)
 {
 	CArray<GLdouble> v = args.GetList(0);
 	if (v.GetSize() != 4) {
@@ -4696,7 +4696,7 @@ Gura_ImplementFunction(glRasterPos4dv)
 }
 
 // opengl.glRasterPos4f
-Gura_DeclareFunction(glRasterPos4f)
+Gura_DeclareFunctionAlias(__glRasterPos4f, "glRasterPos4f")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4708,7 +4708,7 @@ Gura_DeclareFunction(glRasterPos4f)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos4f)
+Gura_ImplementFunction(__glRasterPos4f)
 {
 	GLfloat x = args.GetFloat(0);
 	GLfloat y = args.GetFloat(1);
@@ -4719,7 +4719,7 @@ Gura_ImplementFunction(glRasterPos4f)
 }
 
 // opengl.glRasterPos4fv
-Gura_DeclareFunction(glRasterPos4fv)
+Gura_DeclareFunctionAlias(__glRasterPos4fv, "glRasterPos4fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -4728,7 +4728,7 @@ Gura_DeclareFunction(glRasterPos4fv)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos4fv)
+Gura_ImplementFunction(__glRasterPos4fv)
 {
 	CArray<GLfloat> v = args.GetList(0);
 	if (v.GetSize() != 4) {
@@ -4740,7 +4740,7 @@ Gura_ImplementFunction(glRasterPos4fv)
 }
 
 // opengl.glRasterPos4i
-Gura_DeclareFunction(glRasterPos4i)
+Gura_DeclareFunctionAlias(__glRasterPos4i, "glRasterPos4i")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4752,7 +4752,7 @@ Gura_DeclareFunction(glRasterPos4i)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos4i)
+Gura_ImplementFunction(__glRasterPos4i)
 {
 	GLint x = args.GetInt(0);
 	GLint y = args.GetInt(1);
@@ -4763,7 +4763,7 @@ Gura_ImplementFunction(glRasterPos4i)
 }
 
 // opengl.glRasterPos4iv
-Gura_DeclareFunction(glRasterPos4iv)
+Gura_DeclareFunctionAlias(__glRasterPos4iv, "glRasterPos4iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -4772,7 +4772,7 @@ Gura_DeclareFunction(glRasterPos4iv)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos4iv)
+Gura_ImplementFunction(__glRasterPos4iv)
 {
 	CArray<GLint> v = args.GetList(0);
 	if (v.GetSize() != 4) {
@@ -4784,7 +4784,7 @@ Gura_ImplementFunction(glRasterPos4iv)
 }
 
 // opengl.glRasterPos4s
-Gura_DeclareFunction(glRasterPos4s)
+Gura_DeclareFunctionAlias(__glRasterPos4s, "glRasterPos4s")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4796,7 +4796,7 @@ Gura_DeclareFunction(glRasterPos4s)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos4s)
+Gura_ImplementFunction(__glRasterPos4s)
 {
 	GLshort x = args.GetShort(0);
 	GLshort y = args.GetShort(1);
@@ -4807,7 +4807,7 @@ Gura_ImplementFunction(glRasterPos4s)
 }
 
 // opengl.glRasterPos4sv
-Gura_DeclareFunction(glRasterPos4sv)
+Gura_DeclareFunctionAlias(__glRasterPos4sv, "glRasterPos4sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -4816,7 +4816,7 @@ Gura_DeclareFunction(glRasterPos4sv)
 		"");
 }
 
-Gura_ImplementFunction(glRasterPos4sv)
+Gura_ImplementFunction(__glRasterPos4sv)
 {
 	CArray<GLshort> v = args.GetList(0);
 	if (v.GetSize() != 4) {
@@ -4828,7 +4828,7 @@ Gura_ImplementFunction(glRasterPos4sv)
 }
 
 // opengl.glReadBuffer
-Gura_DeclareFunction(glReadBuffer)
+Gura_DeclareFunctionAlias(__glReadBuffer, "glReadBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4837,7 +4837,7 @@ Gura_DeclareFunction(glReadBuffer)
 		"");
 }
 
-Gura_ImplementFunction(glReadBuffer)
+Gura_ImplementFunction(__glReadBuffer)
 {
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	glReadBuffer(mode);
@@ -4845,7 +4845,7 @@ Gura_ImplementFunction(glReadBuffer)
 }
 
 // opengl.glReadPixels
-Gura_DeclareFunction(glReadPixels)
+Gura_DeclareFunctionAlias(__glReadPixels, "glReadPixels")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -4859,7 +4859,7 @@ Gura_DeclareFunction(glReadPixels)
 		"");
 }
 
-Gura_ImplementFunction(glReadPixels)
+Gura_ImplementFunction(__glReadPixels)
 {
 	GLint x = args.GetInt(0);
 	GLint y = args.GetInt(1);
@@ -4878,7 +4878,7 @@ Gura_ImplementFunction(glReadPixels)
 }
 
 // opengl.glRectd
-Gura_DeclareFunction(glRectd)
+Gura_DeclareFunctionAlias(__glRectd, "glRectd")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x1", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4890,7 +4890,7 @@ Gura_DeclareFunction(glRectd)
 		"");
 }
 
-Gura_ImplementFunction(glRectd)
+Gura_ImplementFunction(__glRectd)
 {
 	GLdouble x1 = args.GetDouble(0);
 	GLdouble y1 = args.GetDouble(1);
@@ -4901,7 +4901,7 @@ Gura_ImplementFunction(glRectd)
 }
 
 // opengl.glRectdv
-Gura_DeclareFunction(glRectdv)
+Gura_DeclareFunctionAlias(__glRectdv, "glRectdv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v1", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -4911,7 +4911,7 @@ Gura_DeclareFunction(glRectdv)
 		"");
 }
 
-Gura_ImplementFunction(glRectdv)
+Gura_ImplementFunction(__glRectdv)
 {
 	CArray<GLdouble> v1 = args.GetList(0);
 	if (v1.GetSize() != 2) {
@@ -4928,7 +4928,7 @@ Gura_ImplementFunction(glRectdv)
 }
 
 // opengl.glRectf
-Gura_DeclareFunction(glRectf)
+Gura_DeclareFunctionAlias(__glRectf, "glRectf")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x1", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4940,7 +4940,7 @@ Gura_DeclareFunction(glRectf)
 		"");
 }
 
-Gura_ImplementFunction(glRectf)
+Gura_ImplementFunction(__glRectf)
 {
 	GLfloat x1 = args.GetFloat(0);
 	GLfloat y1 = args.GetFloat(1);
@@ -4951,7 +4951,7 @@ Gura_ImplementFunction(glRectf)
 }
 
 // opengl.glRectfv
-Gura_DeclareFunction(glRectfv)
+Gura_DeclareFunctionAlias(__glRectfv, "glRectfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v1", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -4961,7 +4961,7 @@ Gura_DeclareFunction(glRectfv)
 		"");
 }
 
-Gura_ImplementFunction(glRectfv)
+Gura_ImplementFunction(__glRectfv)
 {
 	CArray<GLfloat> v1 = args.GetList(0);
 	if (v1.GetSize() != 2) {
@@ -4978,7 +4978,7 @@ Gura_ImplementFunction(glRectfv)
 }
 
 // opengl.glRecti
-Gura_DeclareFunction(glRecti)
+Gura_DeclareFunctionAlias(__glRecti, "glRecti")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x1", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4990,7 +4990,7 @@ Gura_DeclareFunction(glRecti)
 		"");
 }
 
-Gura_ImplementFunction(glRecti)
+Gura_ImplementFunction(__glRecti)
 {
 	GLint x1 = args.GetInt(0);
 	GLint y1 = args.GetInt(1);
@@ -5001,7 +5001,7 @@ Gura_ImplementFunction(glRecti)
 }
 
 // opengl.glRectiv
-Gura_DeclareFunction(glRectiv)
+Gura_DeclareFunctionAlias(__glRectiv, "glRectiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v1", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -5011,7 +5011,7 @@ Gura_DeclareFunction(glRectiv)
 		"");
 }
 
-Gura_ImplementFunction(glRectiv)
+Gura_ImplementFunction(__glRectiv)
 {
 	CArray<GLint> v1 = args.GetList(0);
 	if (v1.GetSize() != 2) {
@@ -5028,7 +5028,7 @@ Gura_ImplementFunction(glRectiv)
 }
 
 // opengl.glRects
-Gura_DeclareFunction(glRects)
+Gura_DeclareFunctionAlias(__glRects, "glRects")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x1", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5040,7 +5040,7 @@ Gura_DeclareFunction(glRects)
 		"");
 }
 
-Gura_ImplementFunction(glRects)
+Gura_ImplementFunction(__glRects)
 {
 	GLshort x1 = args.GetShort(0);
 	GLshort y1 = args.GetShort(1);
@@ -5051,7 +5051,7 @@ Gura_ImplementFunction(glRects)
 }
 
 // opengl.glRectsv
-Gura_DeclareFunction(glRectsv)
+Gura_DeclareFunctionAlias(__glRectsv, "glRectsv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v1", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -5061,7 +5061,7 @@ Gura_DeclareFunction(glRectsv)
 		"");
 }
 
-Gura_ImplementFunction(glRectsv)
+Gura_ImplementFunction(__glRectsv)
 {
 	CArray<GLshort> v1 = args.GetList(0);
 	if (v1.GetSize() != 2) {
@@ -5078,7 +5078,7 @@ Gura_ImplementFunction(glRectsv)
 }
 
 // opengl.glRenderMode
-Gura_DeclareFunction(glRenderMode)
+Gura_DeclareFunctionAlias(__glRenderMode, "glRenderMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5088,7 +5088,7 @@ Gura_DeclareFunction(glRenderMode)
 		"");
 }
 
-Gura_ImplementFunction(glRenderMode)
+Gura_ImplementFunction(__glRenderMode)
 {
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	GLint _rtn = glRenderMode(mode);
@@ -5096,7 +5096,7 @@ Gura_ImplementFunction(glRenderMode)
 }
 
 // opengl.glRotated
-Gura_DeclareFunction(glRotated)
+Gura_DeclareFunctionAlias(__glRotated, "glRotated")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5108,7 +5108,7 @@ Gura_DeclareFunction(glRotated)
 		"");
 }
 
-Gura_ImplementFunction(glRotated)
+Gura_ImplementFunction(__glRotated)
 {
 	GLdouble angle = args.GetDouble(0);
 	GLdouble x = args.GetDouble(1);
@@ -5119,7 +5119,7 @@ Gura_ImplementFunction(glRotated)
 }
 
 // opengl.glRotatef
-Gura_DeclareFunction(glRotatef)
+Gura_DeclareFunctionAlias(__glRotatef, "glRotatef")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5131,7 +5131,7 @@ Gura_DeclareFunction(glRotatef)
 		"");
 }
 
-Gura_ImplementFunction(glRotatef)
+Gura_ImplementFunction(__glRotatef)
 {
 	GLfloat angle = args.GetFloat(0);
 	GLfloat x = args.GetFloat(1);
@@ -5142,7 +5142,7 @@ Gura_ImplementFunction(glRotatef)
 }
 
 // opengl.glScaled
-Gura_DeclareFunction(glScaled)
+Gura_DeclareFunctionAlias(__glScaled, "glScaled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5153,7 +5153,7 @@ Gura_DeclareFunction(glScaled)
 		"");
 }
 
-Gura_ImplementFunction(glScaled)
+Gura_ImplementFunction(__glScaled)
 {
 	GLdouble x = args.GetDouble(0);
 	GLdouble y = args.GetDouble(1);
@@ -5163,7 +5163,7 @@ Gura_ImplementFunction(glScaled)
 }
 
 // opengl.glScalef
-Gura_DeclareFunction(glScalef)
+Gura_DeclareFunctionAlias(__glScalef, "glScalef")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5174,7 +5174,7 @@ Gura_DeclareFunction(glScalef)
 		"");
 }
 
-Gura_ImplementFunction(glScalef)
+Gura_ImplementFunction(__glScalef)
 {
 	GLfloat x = args.GetFloat(0);
 	GLfloat y = args.GetFloat(1);
@@ -5184,7 +5184,7 @@ Gura_ImplementFunction(glScalef)
 }
 
 // opengl.glScissor
-Gura_DeclareFunction(glScissor)
+Gura_DeclareFunctionAlias(__glScissor, "glScissor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5196,7 +5196,7 @@ Gura_DeclareFunction(glScissor)
 		"");
 }
 
-Gura_ImplementFunction(glScissor)
+Gura_ImplementFunction(__glScissor)
 {
 	GLint x = args.GetInt(0);
 	GLint y = args.GetInt(1);
@@ -5207,7 +5207,7 @@ Gura_ImplementFunction(glScissor)
 }
 
 // opengl.glSelectBuffer
-Gura_DeclareFunction(glSelectBuffer)
+Gura_DeclareFunctionAlias(__glSelectBuffer, "glSelectBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -5217,7 +5217,7 @@ Gura_DeclareFunction(glSelectBuffer)
 		"");
 }
 
-Gura_ImplementFunction(glSelectBuffer)
+Gura_ImplementFunction(__glSelectBuffer)
 {
 	GLsizei size = args.GetInt(0);
 	CArray<GLuint> buffer(size);
@@ -5226,7 +5226,7 @@ Gura_ImplementFunction(glSelectBuffer)
 }
 
 // opengl.glShadeModel
-Gura_DeclareFunction(glShadeModel)
+Gura_DeclareFunctionAlias(__glShadeModel, "glShadeModel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5235,7 +5235,7 @@ Gura_DeclareFunction(glShadeModel)
 		"");
 }
 
-Gura_ImplementFunction(glShadeModel)
+Gura_ImplementFunction(__glShadeModel)
 {
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	glShadeModel(mode);
@@ -5243,7 +5243,7 @@ Gura_ImplementFunction(glShadeModel)
 }
 
 // opengl.glStencilFunc
-Gura_DeclareFunction(glStencilFunc)
+Gura_DeclareFunctionAlias(__glStencilFunc, "glStencilFunc")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5254,7 +5254,7 @@ Gura_DeclareFunction(glStencilFunc)
 		"");
 }
 
-Gura_ImplementFunction(glStencilFunc)
+Gura_ImplementFunction(__glStencilFunc)
 {
 	GLenum func = static_cast<GLenum>(args.GetInt(0));
 	GLint ref = args.GetInt(1);
@@ -5264,7 +5264,7 @@ Gura_ImplementFunction(glStencilFunc)
 }
 
 // opengl.glStencilMask
-Gura_DeclareFunction(glStencilMask)
+Gura_DeclareFunctionAlias(__glStencilMask, "glStencilMask")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mask", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5273,7 +5273,7 @@ Gura_DeclareFunction(glStencilMask)
 		"");
 }
 
-Gura_ImplementFunction(glStencilMask)
+Gura_ImplementFunction(__glStencilMask)
 {
 	GLuint mask = args.GetUInt(0);
 	glStencilMask(mask);
@@ -5281,7 +5281,7 @@ Gura_ImplementFunction(glStencilMask)
 }
 
 // opengl.glStencilOp
-Gura_DeclareFunction(glStencilOp)
+Gura_DeclareFunctionAlias(__glStencilOp, "glStencilOp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "fail", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5292,7 +5292,7 @@ Gura_DeclareFunction(glStencilOp)
 		"");
 }
 
-Gura_ImplementFunction(glStencilOp)
+Gura_ImplementFunction(__glStencilOp)
 {
 	GLenum fail = static_cast<GLenum>(args.GetInt(0));
 	GLenum zfail = static_cast<GLenum>(args.GetInt(1));
@@ -5302,7 +5302,7 @@ Gura_ImplementFunction(glStencilOp)
 }
 
 // opengl.glTexCoord1d
-Gura_DeclareFunction(glTexCoord1d)
+Gura_DeclareFunctionAlias(__glTexCoord1d, "glTexCoord1d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5311,7 +5311,7 @@ Gura_DeclareFunction(glTexCoord1d)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord1d)
+Gura_ImplementFunction(__glTexCoord1d)
 {
 	GLdouble s = args.GetDouble(0);
 	glTexCoord1d(s);
@@ -5319,7 +5319,7 @@ Gura_ImplementFunction(glTexCoord1d)
 }
 
 // opengl.glTexCoord1dv
-Gura_DeclareFunction(glTexCoord1dv)
+Gura_DeclareFunctionAlias(__glTexCoord1dv, "glTexCoord1dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -5328,7 +5328,7 @@ Gura_DeclareFunction(glTexCoord1dv)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord1dv)
+Gura_ImplementFunction(__glTexCoord1dv)
 {
 	CArray<GLdouble> v = args.GetList(0);
 	if (v.GetSize() != 1) {
@@ -5340,7 +5340,7 @@ Gura_ImplementFunction(glTexCoord1dv)
 }
 
 // opengl.glTexCoord1f
-Gura_DeclareFunction(glTexCoord1f)
+Gura_DeclareFunctionAlias(__glTexCoord1f, "glTexCoord1f")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5349,7 +5349,7 @@ Gura_DeclareFunction(glTexCoord1f)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord1f)
+Gura_ImplementFunction(__glTexCoord1f)
 {
 	GLfloat s = args.GetFloat(0);
 	glTexCoord1f(s);
@@ -5357,7 +5357,7 @@ Gura_ImplementFunction(glTexCoord1f)
 }
 
 // opengl.glTexCoord1fv
-Gura_DeclareFunction(glTexCoord1fv)
+Gura_DeclareFunctionAlias(__glTexCoord1fv, "glTexCoord1fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -5366,7 +5366,7 @@ Gura_DeclareFunction(glTexCoord1fv)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord1fv)
+Gura_ImplementFunction(__glTexCoord1fv)
 {
 	CArray<GLfloat> v = args.GetList(0);
 	if (v.GetSize() != 1) {
@@ -5378,7 +5378,7 @@ Gura_ImplementFunction(glTexCoord1fv)
 }
 
 // opengl.glTexCoord1i
-Gura_DeclareFunction(glTexCoord1i)
+Gura_DeclareFunctionAlias(__glTexCoord1i, "glTexCoord1i")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5387,7 +5387,7 @@ Gura_DeclareFunction(glTexCoord1i)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord1i)
+Gura_ImplementFunction(__glTexCoord1i)
 {
 	GLint s = args.GetInt(0);
 	glTexCoord1i(s);
@@ -5395,7 +5395,7 @@ Gura_ImplementFunction(glTexCoord1i)
 }
 
 // opengl.glTexCoord1iv
-Gura_DeclareFunction(glTexCoord1iv)
+Gura_DeclareFunctionAlias(__glTexCoord1iv, "glTexCoord1iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -5404,7 +5404,7 @@ Gura_DeclareFunction(glTexCoord1iv)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord1iv)
+Gura_ImplementFunction(__glTexCoord1iv)
 {
 	CArray<GLint> v = args.GetList(0);
 	if (v.GetSize() != 1) {
@@ -5416,7 +5416,7 @@ Gura_ImplementFunction(glTexCoord1iv)
 }
 
 // opengl.glTexCoord1s
-Gura_DeclareFunction(glTexCoord1s)
+Gura_DeclareFunctionAlias(__glTexCoord1s, "glTexCoord1s")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5425,7 +5425,7 @@ Gura_DeclareFunction(glTexCoord1s)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord1s)
+Gura_ImplementFunction(__glTexCoord1s)
 {
 	GLshort s = args.GetShort(0);
 	glTexCoord1s(s);
@@ -5433,7 +5433,7 @@ Gura_ImplementFunction(glTexCoord1s)
 }
 
 // opengl.glTexCoord1sv
-Gura_DeclareFunction(glTexCoord1sv)
+Gura_DeclareFunctionAlias(__glTexCoord1sv, "glTexCoord1sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -5442,7 +5442,7 @@ Gura_DeclareFunction(glTexCoord1sv)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord1sv)
+Gura_ImplementFunction(__glTexCoord1sv)
 {
 	CArray<GLshort> v = args.GetList(0);
 	if (v.GetSize() != 1) {
@@ -5454,7 +5454,7 @@ Gura_ImplementFunction(glTexCoord1sv)
 }
 
 // opengl.glTexCoord2d
-Gura_DeclareFunction(glTexCoord2d)
+Gura_DeclareFunctionAlias(__glTexCoord2d, "glTexCoord2d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5464,7 +5464,7 @@ Gura_DeclareFunction(glTexCoord2d)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord2d)
+Gura_ImplementFunction(__glTexCoord2d)
 {
 	GLdouble s = args.GetDouble(0);
 	GLdouble t = args.GetDouble(1);
@@ -5473,7 +5473,7 @@ Gura_ImplementFunction(glTexCoord2d)
 }
 
 // opengl.glTexCoord2dv
-Gura_DeclareFunction(glTexCoord2dv)
+Gura_DeclareFunctionAlias(__glTexCoord2dv, "glTexCoord2dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -5482,7 +5482,7 @@ Gura_DeclareFunction(glTexCoord2dv)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord2dv)
+Gura_ImplementFunction(__glTexCoord2dv)
 {
 	CArray<GLdouble> v = args.GetList(0);
 	if (v.GetSize() != 2) {
@@ -5494,7 +5494,7 @@ Gura_ImplementFunction(glTexCoord2dv)
 }
 
 // opengl.glTexCoord2f
-Gura_DeclareFunction(glTexCoord2f)
+Gura_DeclareFunctionAlias(__glTexCoord2f, "glTexCoord2f")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5504,7 +5504,7 @@ Gura_DeclareFunction(glTexCoord2f)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord2f)
+Gura_ImplementFunction(__glTexCoord2f)
 {
 	GLfloat s = args.GetFloat(0);
 	GLfloat t = args.GetFloat(1);
@@ -5513,7 +5513,7 @@ Gura_ImplementFunction(glTexCoord2f)
 }
 
 // opengl.glTexCoord2fv
-Gura_DeclareFunction(glTexCoord2fv)
+Gura_DeclareFunctionAlias(__glTexCoord2fv, "glTexCoord2fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -5522,7 +5522,7 @@ Gura_DeclareFunction(glTexCoord2fv)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord2fv)
+Gura_ImplementFunction(__glTexCoord2fv)
 {
 	CArray<GLfloat> v = args.GetList(0);
 	if (v.GetSize() != 2) {
@@ -5534,7 +5534,7 @@ Gura_ImplementFunction(glTexCoord2fv)
 }
 
 // opengl.glTexCoord2i
-Gura_DeclareFunction(glTexCoord2i)
+Gura_DeclareFunctionAlias(__glTexCoord2i, "glTexCoord2i")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5544,7 +5544,7 @@ Gura_DeclareFunction(glTexCoord2i)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord2i)
+Gura_ImplementFunction(__glTexCoord2i)
 {
 	GLint s = args.GetInt(0);
 	GLint t = args.GetInt(1);
@@ -5553,7 +5553,7 @@ Gura_ImplementFunction(glTexCoord2i)
 }
 
 // opengl.glTexCoord2iv
-Gura_DeclareFunction(glTexCoord2iv)
+Gura_DeclareFunctionAlias(__glTexCoord2iv, "glTexCoord2iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -5562,7 +5562,7 @@ Gura_DeclareFunction(glTexCoord2iv)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord2iv)
+Gura_ImplementFunction(__glTexCoord2iv)
 {
 	CArray<GLint> v = args.GetList(0);
 	if (v.GetSize() != 2) {
@@ -5574,7 +5574,7 @@ Gura_ImplementFunction(glTexCoord2iv)
 }
 
 // opengl.glTexCoord2s
-Gura_DeclareFunction(glTexCoord2s)
+Gura_DeclareFunctionAlias(__glTexCoord2s, "glTexCoord2s")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5584,7 +5584,7 @@ Gura_DeclareFunction(glTexCoord2s)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord2s)
+Gura_ImplementFunction(__glTexCoord2s)
 {
 	GLshort s = args.GetShort(0);
 	GLshort t = args.GetShort(1);
@@ -5593,7 +5593,7 @@ Gura_ImplementFunction(glTexCoord2s)
 }
 
 // opengl.glTexCoord2sv
-Gura_DeclareFunction(glTexCoord2sv)
+Gura_DeclareFunctionAlias(__glTexCoord2sv, "glTexCoord2sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -5602,7 +5602,7 @@ Gura_DeclareFunction(glTexCoord2sv)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord2sv)
+Gura_ImplementFunction(__glTexCoord2sv)
 {
 	CArray<GLshort> v = args.GetList(0);
 	if (v.GetSize() != 2) {
@@ -5614,7 +5614,7 @@ Gura_ImplementFunction(glTexCoord2sv)
 }
 
 // opengl.glTexCoord3d
-Gura_DeclareFunction(glTexCoord3d)
+Gura_DeclareFunctionAlias(__glTexCoord3d, "glTexCoord3d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5625,7 +5625,7 @@ Gura_DeclareFunction(glTexCoord3d)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord3d)
+Gura_ImplementFunction(__glTexCoord3d)
 {
 	GLdouble s = args.GetDouble(0);
 	GLdouble t = args.GetDouble(1);
@@ -5635,7 +5635,7 @@ Gura_ImplementFunction(glTexCoord3d)
 }
 
 // opengl.glTexCoord3dv
-Gura_DeclareFunction(glTexCoord3dv)
+Gura_DeclareFunctionAlias(__glTexCoord3dv, "glTexCoord3dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -5644,7 +5644,7 @@ Gura_DeclareFunction(glTexCoord3dv)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord3dv)
+Gura_ImplementFunction(__glTexCoord3dv)
 {
 	CArray<GLdouble> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -5656,7 +5656,7 @@ Gura_ImplementFunction(glTexCoord3dv)
 }
 
 // opengl.glTexCoord3f
-Gura_DeclareFunction(glTexCoord3f)
+Gura_DeclareFunctionAlias(__glTexCoord3f, "glTexCoord3f")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5667,7 +5667,7 @@ Gura_DeclareFunction(glTexCoord3f)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord3f)
+Gura_ImplementFunction(__glTexCoord3f)
 {
 	GLfloat s = args.GetFloat(0);
 	GLfloat t = args.GetFloat(1);
@@ -5677,7 +5677,7 @@ Gura_ImplementFunction(glTexCoord3f)
 }
 
 // opengl.glTexCoord3fv
-Gura_DeclareFunction(glTexCoord3fv)
+Gura_DeclareFunctionAlias(__glTexCoord3fv, "glTexCoord3fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -5686,7 +5686,7 @@ Gura_DeclareFunction(glTexCoord3fv)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord3fv)
+Gura_ImplementFunction(__glTexCoord3fv)
 {
 	CArray<GLfloat> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -5698,7 +5698,7 @@ Gura_ImplementFunction(glTexCoord3fv)
 }
 
 // opengl.glTexCoord3i
-Gura_DeclareFunction(glTexCoord3i)
+Gura_DeclareFunctionAlias(__glTexCoord3i, "glTexCoord3i")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5709,7 +5709,7 @@ Gura_DeclareFunction(glTexCoord3i)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord3i)
+Gura_ImplementFunction(__glTexCoord3i)
 {
 	GLint s = args.GetInt(0);
 	GLint t = args.GetInt(1);
@@ -5719,7 +5719,7 @@ Gura_ImplementFunction(glTexCoord3i)
 }
 
 // opengl.glTexCoord3iv
-Gura_DeclareFunction(glTexCoord3iv)
+Gura_DeclareFunctionAlias(__glTexCoord3iv, "glTexCoord3iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -5728,7 +5728,7 @@ Gura_DeclareFunction(glTexCoord3iv)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord3iv)
+Gura_ImplementFunction(__glTexCoord3iv)
 {
 	CArray<GLint> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -5740,7 +5740,7 @@ Gura_ImplementFunction(glTexCoord3iv)
 }
 
 // opengl.glTexCoord3s
-Gura_DeclareFunction(glTexCoord3s)
+Gura_DeclareFunctionAlias(__glTexCoord3s, "glTexCoord3s")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5751,7 +5751,7 @@ Gura_DeclareFunction(glTexCoord3s)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord3s)
+Gura_ImplementFunction(__glTexCoord3s)
 {
 	GLshort s = args.GetShort(0);
 	GLshort t = args.GetShort(1);
@@ -5761,7 +5761,7 @@ Gura_ImplementFunction(glTexCoord3s)
 }
 
 // opengl.glTexCoord3sv
-Gura_DeclareFunction(glTexCoord3sv)
+Gura_DeclareFunctionAlias(__glTexCoord3sv, "glTexCoord3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -5770,7 +5770,7 @@ Gura_DeclareFunction(glTexCoord3sv)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord3sv)
+Gura_ImplementFunction(__glTexCoord3sv)
 {
 	CArray<GLshort> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -5782,7 +5782,7 @@ Gura_ImplementFunction(glTexCoord3sv)
 }
 
 // opengl.glTexCoord4d
-Gura_DeclareFunction(glTexCoord4d)
+Gura_DeclareFunctionAlias(__glTexCoord4d, "glTexCoord4d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5794,7 +5794,7 @@ Gura_DeclareFunction(glTexCoord4d)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord4d)
+Gura_ImplementFunction(__glTexCoord4d)
 {
 	GLdouble s = args.GetDouble(0);
 	GLdouble t = args.GetDouble(1);
@@ -5805,7 +5805,7 @@ Gura_ImplementFunction(glTexCoord4d)
 }
 
 // opengl.glTexCoord4dv
-Gura_DeclareFunction(glTexCoord4dv)
+Gura_DeclareFunctionAlias(__glTexCoord4dv, "glTexCoord4dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -5814,7 +5814,7 @@ Gura_DeclareFunction(glTexCoord4dv)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord4dv)
+Gura_ImplementFunction(__glTexCoord4dv)
 {
 	CArray<GLdouble> v = args.GetList(0);
 	if (v.GetSize() != 4) {
@@ -5826,7 +5826,7 @@ Gura_ImplementFunction(glTexCoord4dv)
 }
 
 // opengl.glTexCoord4f
-Gura_DeclareFunction(glTexCoord4f)
+Gura_DeclareFunctionAlias(__glTexCoord4f, "glTexCoord4f")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5838,7 +5838,7 @@ Gura_DeclareFunction(glTexCoord4f)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord4f)
+Gura_ImplementFunction(__glTexCoord4f)
 {
 	GLfloat s = args.GetFloat(0);
 	GLfloat t = args.GetFloat(1);
@@ -5849,7 +5849,7 @@ Gura_ImplementFunction(glTexCoord4f)
 }
 
 // opengl.glTexCoord4fv
-Gura_DeclareFunction(glTexCoord4fv)
+Gura_DeclareFunctionAlias(__glTexCoord4fv, "glTexCoord4fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -5858,7 +5858,7 @@ Gura_DeclareFunction(glTexCoord4fv)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord4fv)
+Gura_ImplementFunction(__glTexCoord4fv)
 {
 	CArray<GLfloat> v = args.GetList(0);
 	if (v.GetSize() != 4) {
@@ -5870,7 +5870,7 @@ Gura_ImplementFunction(glTexCoord4fv)
 }
 
 // opengl.glTexCoord4i
-Gura_DeclareFunction(glTexCoord4i)
+Gura_DeclareFunctionAlias(__glTexCoord4i, "glTexCoord4i")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5882,7 +5882,7 @@ Gura_DeclareFunction(glTexCoord4i)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord4i)
+Gura_ImplementFunction(__glTexCoord4i)
 {
 	GLint s = args.GetInt(0);
 	GLint t = args.GetInt(1);
@@ -5893,7 +5893,7 @@ Gura_ImplementFunction(glTexCoord4i)
 }
 
 // opengl.glTexCoord4iv
-Gura_DeclareFunction(glTexCoord4iv)
+Gura_DeclareFunctionAlias(__glTexCoord4iv, "glTexCoord4iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -5902,7 +5902,7 @@ Gura_DeclareFunction(glTexCoord4iv)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord4iv)
+Gura_ImplementFunction(__glTexCoord4iv)
 {
 	CArray<GLint> v = args.GetList(0);
 	if (v.GetSize() != 4) {
@@ -5914,7 +5914,7 @@ Gura_ImplementFunction(glTexCoord4iv)
 }
 
 // opengl.glTexCoord4s
-Gura_DeclareFunction(glTexCoord4s)
+Gura_DeclareFunctionAlias(__glTexCoord4s, "glTexCoord4s")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5926,7 +5926,7 @@ Gura_DeclareFunction(glTexCoord4s)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord4s)
+Gura_ImplementFunction(__glTexCoord4s)
 {
 	GLshort s = args.GetShort(0);
 	GLshort t = args.GetShort(1);
@@ -5937,7 +5937,7 @@ Gura_ImplementFunction(glTexCoord4s)
 }
 
 // opengl.glTexCoord4sv
-Gura_DeclareFunction(glTexCoord4sv)
+Gura_DeclareFunctionAlias(__glTexCoord4sv, "glTexCoord4sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -5946,7 +5946,7 @@ Gura_DeclareFunction(glTexCoord4sv)
 		"");
 }
 
-Gura_ImplementFunction(glTexCoord4sv)
+Gura_ImplementFunction(__glTexCoord4sv)
 {
 	CArray<GLshort> v = args.GetList(0);
 	if (v.GetSize() != 4) {
@@ -5958,7 +5958,7 @@ Gura_ImplementFunction(glTexCoord4sv)
 }
 
 // opengl.glTexEnvf
-Gura_DeclareFunction(glTexEnvf)
+Gura_DeclareFunctionAlias(__glTexEnvf, "glTexEnvf")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5969,7 +5969,7 @@ Gura_DeclareFunction(glTexEnvf)
 		"");
 }
 
-Gura_ImplementFunction(glTexEnvf)
+Gura_ImplementFunction(__glTexEnvf)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -5979,7 +5979,7 @@ Gura_ImplementFunction(glTexEnvf)
 }
 
 // opengl.glTexEnvfv
-Gura_DeclareFunction(glTexEnvfv)
+Gura_DeclareFunctionAlias(__glTexEnvfv, "glTexEnvfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5990,7 +5990,7 @@ Gura_DeclareFunction(glTexEnvfv)
 		"");
 }
 
-Gura_ImplementFunction(glTexEnvfv)
+Gura_ImplementFunction(__glTexEnvfv)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -6005,7 +6005,7 @@ Gura_ImplementFunction(glTexEnvfv)
 }
 
 // opengl.glTexEnvi
-Gura_DeclareFunction(glTexEnvi)
+Gura_DeclareFunctionAlias(__glTexEnvi, "glTexEnvi")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6016,7 +6016,7 @@ Gura_DeclareFunction(glTexEnvi)
 		"");
 }
 
-Gura_ImplementFunction(glTexEnvi)
+Gura_ImplementFunction(__glTexEnvi)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -6026,7 +6026,7 @@ Gura_ImplementFunction(glTexEnvi)
 }
 
 // opengl.glTexEnviv
-Gura_DeclareFunction(glTexEnviv)
+Gura_DeclareFunctionAlias(__glTexEnviv, "glTexEnviv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6037,7 +6037,7 @@ Gura_DeclareFunction(glTexEnviv)
 		"");
 }
 
-Gura_ImplementFunction(glTexEnviv)
+Gura_ImplementFunction(__glTexEnviv)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -6052,7 +6052,7 @@ Gura_ImplementFunction(glTexEnviv)
 }
 
 // opengl.glTexGend
-Gura_DeclareFunction(glTexGend)
+Gura_DeclareFunctionAlias(__glTexGend, "glTexGend")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "coord", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6063,7 +6063,7 @@ Gura_DeclareFunction(glTexGend)
 		"");
 }
 
-Gura_ImplementFunction(glTexGend)
+Gura_ImplementFunction(__glTexGend)
 {
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -6073,7 +6073,7 @@ Gura_ImplementFunction(glTexGend)
 }
 
 // opengl.glTexGendv
-Gura_DeclareFunction(glTexGendv)
+Gura_DeclareFunctionAlias(__glTexGendv, "glTexGendv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "coord", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6084,7 +6084,7 @@ Gura_DeclareFunction(glTexGendv)
 		"");
 }
 
-Gura_ImplementFunction(glTexGendv)
+Gura_ImplementFunction(__glTexGendv)
 {
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -6099,7 +6099,7 @@ Gura_ImplementFunction(glTexGendv)
 }
 
 // opengl.glTexGenf
-Gura_DeclareFunction(glTexGenf)
+Gura_DeclareFunctionAlias(__glTexGenf, "glTexGenf")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "coord", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6110,7 +6110,7 @@ Gura_DeclareFunction(glTexGenf)
 		"");
 }
 
-Gura_ImplementFunction(glTexGenf)
+Gura_ImplementFunction(__glTexGenf)
 {
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -6120,7 +6120,7 @@ Gura_ImplementFunction(glTexGenf)
 }
 
 // opengl.glTexGenfv
-Gura_DeclareFunction(glTexGenfv)
+Gura_DeclareFunctionAlias(__glTexGenfv, "glTexGenfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "coord", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6131,7 +6131,7 @@ Gura_DeclareFunction(glTexGenfv)
 		"");
 }
 
-Gura_ImplementFunction(glTexGenfv)
+Gura_ImplementFunction(__glTexGenfv)
 {
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -6146,7 +6146,7 @@ Gura_ImplementFunction(glTexGenfv)
 }
 
 // opengl.glTexGeni
-Gura_DeclareFunction(glTexGeni)
+Gura_DeclareFunctionAlias(__glTexGeni, "glTexGeni")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "coord", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6157,7 +6157,7 @@ Gura_DeclareFunction(glTexGeni)
 		"");
 }
 
-Gura_ImplementFunction(glTexGeni)
+Gura_ImplementFunction(__glTexGeni)
 {
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -6167,7 +6167,7 @@ Gura_ImplementFunction(glTexGeni)
 }
 
 // opengl.glTexGeniv
-Gura_DeclareFunction(glTexGeniv)
+Gura_DeclareFunctionAlias(__glTexGeniv, "glTexGeniv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "coord", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6178,7 +6178,7 @@ Gura_DeclareFunction(glTexGeniv)
 		"");
 }
 
-Gura_ImplementFunction(glTexGeniv)
+Gura_ImplementFunction(__glTexGeniv)
 {
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -6193,7 +6193,7 @@ Gura_ImplementFunction(glTexGeniv)
 }
 
 // opengl.glTexImage1D
-Gura_DeclareFunction(glTexImage1D)
+Gura_DeclareFunctionAlias(__glTexImage1D, "glTexImage1D")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6206,7 +6206,7 @@ Gura_DeclareFunction(glTexImage1D)
 		"");
 }
 
-Gura_ImplementFunction(glTexImage1D)
+Gura_ImplementFunction(__glTexImage1D)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLint level = args.GetInt(1);
@@ -6223,7 +6223,7 @@ Gura_ImplementFunction(glTexImage1D)
 }
 
 // opengl.glTexImage2D
-Gura_DeclareFunction(glTexImage2D)
+Gura_DeclareFunctionAlias(__glTexImage2D, "glTexImage2D")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6236,7 +6236,7 @@ Gura_DeclareFunction(glTexImage2D)
 		"");
 }
 
-Gura_ImplementFunction(glTexImage2D)
+Gura_ImplementFunction(__glTexImage2D)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLint level = args.GetInt(1);
@@ -6254,7 +6254,7 @@ Gura_ImplementFunction(glTexImage2D)
 }
 
 // opengl.glTexParameterf
-Gura_DeclareFunction(glTexParameterf)
+Gura_DeclareFunctionAlias(__glTexParameterf, "glTexParameterf")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6265,7 +6265,7 @@ Gura_DeclareFunction(glTexParameterf)
 		"");
 }
 
-Gura_ImplementFunction(glTexParameterf)
+Gura_ImplementFunction(__glTexParameterf)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -6275,7 +6275,7 @@ Gura_ImplementFunction(glTexParameterf)
 }
 
 // opengl.glTexParameterfv
-Gura_DeclareFunction(glTexParameterfv)
+Gura_DeclareFunctionAlias(__glTexParameterfv, "glTexParameterfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6286,7 +6286,7 @@ Gura_DeclareFunction(glTexParameterfv)
 		"");
 }
 
-Gura_ImplementFunction(glTexParameterfv)
+Gura_ImplementFunction(__glTexParameterfv)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -6301,7 +6301,7 @@ Gura_ImplementFunction(glTexParameterfv)
 }
 
 // opengl.glTexParameteri
-Gura_DeclareFunction(glTexParameteri)
+Gura_DeclareFunctionAlias(__glTexParameteri, "glTexParameteri")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6312,7 +6312,7 @@ Gura_DeclareFunction(glTexParameteri)
 		"");
 }
 
-Gura_ImplementFunction(glTexParameteri)
+Gura_ImplementFunction(__glTexParameteri)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -6322,7 +6322,7 @@ Gura_ImplementFunction(glTexParameteri)
 }
 
 // opengl.glTexParameteriv
-Gura_DeclareFunction(glTexParameteriv)
+Gura_DeclareFunctionAlias(__glTexParameteriv, "glTexParameteriv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6333,7 +6333,7 @@ Gura_DeclareFunction(glTexParameteriv)
 		"");
 }
 
-Gura_ImplementFunction(glTexParameteriv)
+Gura_ImplementFunction(__glTexParameteriv)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
@@ -6348,7 +6348,7 @@ Gura_ImplementFunction(glTexParameteriv)
 }
 
 // opengl.glTexSubImage1D
-Gura_DeclareFunction(glTexSubImage1D)
+Gura_DeclareFunctionAlias(__glTexSubImage1D, "glTexSubImage1D")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6360,7 +6360,7 @@ Gura_DeclareFunction(glTexSubImage1D)
 		"");
 }
 
-Gura_ImplementFunction(glTexSubImage1D)
+Gura_ImplementFunction(__glTexSubImage1D)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLint level = args.GetInt(1);
@@ -6376,7 +6376,7 @@ Gura_ImplementFunction(glTexSubImage1D)
 }
 
 // opengl.glTexSubImage2D
-Gura_DeclareFunction(glTexSubImage2D)
+Gura_DeclareFunctionAlias(__glTexSubImage2D, "glTexSubImage2D")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6389,7 +6389,7 @@ Gura_DeclareFunction(glTexSubImage2D)
 		"");
 }
 
-Gura_ImplementFunction(glTexSubImage2D)
+Gura_ImplementFunction(__glTexSubImage2D)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLint level = args.GetInt(1);
@@ -6407,7 +6407,7 @@ Gura_ImplementFunction(glTexSubImage2D)
 }
 
 // opengl.glTranslated
-Gura_DeclareFunction(glTranslated)
+Gura_DeclareFunctionAlias(__glTranslated, "glTranslated")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6418,7 +6418,7 @@ Gura_DeclareFunction(glTranslated)
 		"");
 }
 
-Gura_ImplementFunction(glTranslated)
+Gura_ImplementFunction(__glTranslated)
 {
 	GLdouble x = args.GetDouble(0);
 	GLdouble y = args.GetDouble(1);
@@ -6428,7 +6428,7 @@ Gura_ImplementFunction(glTranslated)
 }
 
 // opengl.glTranslatef
-Gura_DeclareFunction(glTranslatef)
+Gura_DeclareFunctionAlias(__glTranslatef, "glTranslatef")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6439,7 +6439,7 @@ Gura_DeclareFunction(glTranslatef)
 		"");
 }
 
-Gura_ImplementFunction(glTranslatef)
+Gura_ImplementFunction(__glTranslatef)
 {
 	GLfloat x = args.GetFloat(0);
 	GLfloat y = args.GetFloat(1);
@@ -6449,7 +6449,7 @@ Gura_ImplementFunction(glTranslatef)
 }
 
 // opengl.glVertex2d
-Gura_DeclareFunction(glVertex2d)
+Gura_DeclareFunctionAlias(__glVertex2d, "glVertex2d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6459,7 +6459,7 @@ Gura_DeclareFunction(glVertex2d)
 		"");
 }
 
-Gura_ImplementFunction(glVertex2d)
+Gura_ImplementFunction(__glVertex2d)
 {
 	GLdouble x = args.GetDouble(0);
 	GLdouble y = args.GetDouble(1);
@@ -6468,7 +6468,7 @@ Gura_ImplementFunction(glVertex2d)
 }
 
 // opengl.glVertex2dv
-Gura_DeclareFunction(glVertex2dv)
+Gura_DeclareFunctionAlias(__glVertex2dv, "glVertex2dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -6477,7 +6477,7 @@ Gura_DeclareFunction(glVertex2dv)
 		"");
 }
 
-Gura_ImplementFunction(glVertex2dv)
+Gura_ImplementFunction(__glVertex2dv)
 {
 	CArray<GLdouble> v = args.GetList(0);
 	if (v.GetSize() != 2) {
@@ -6489,7 +6489,7 @@ Gura_ImplementFunction(glVertex2dv)
 }
 
 // opengl.glVertex2f
-Gura_DeclareFunction(glVertex2f)
+Gura_DeclareFunctionAlias(__glVertex2f, "glVertex2f")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6499,7 +6499,7 @@ Gura_DeclareFunction(glVertex2f)
 		"");
 }
 
-Gura_ImplementFunction(glVertex2f)
+Gura_ImplementFunction(__glVertex2f)
 {
 	GLfloat x = args.GetFloat(0);
 	GLfloat y = args.GetFloat(1);
@@ -6508,7 +6508,7 @@ Gura_ImplementFunction(glVertex2f)
 }
 
 // opengl.glVertex2fv
-Gura_DeclareFunction(glVertex2fv)
+Gura_DeclareFunctionAlias(__glVertex2fv, "glVertex2fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -6517,7 +6517,7 @@ Gura_DeclareFunction(glVertex2fv)
 		"");
 }
 
-Gura_ImplementFunction(glVertex2fv)
+Gura_ImplementFunction(__glVertex2fv)
 {
 	CArray<GLfloat> v = args.GetList(0);
 	if (v.GetSize() != 2) {
@@ -6529,7 +6529,7 @@ Gura_ImplementFunction(glVertex2fv)
 }
 
 // opengl.glVertex2i
-Gura_DeclareFunction(glVertex2i)
+Gura_DeclareFunctionAlias(__glVertex2i, "glVertex2i")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6539,7 +6539,7 @@ Gura_DeclareFunction(glVertex2i)
 		"");
 }
 
-Gura_ImplementFunction(glVertex2i)
+Gura_ImplementFunction(__glVertex2i)
 {
 	GLint x = args.GetInt(0);
 	GLint y = args.GetInt(1);
@@ -6548,7 +6548,7 @@ Gura_ImplementFunction(glVertex2i)
 }
 
 // opengl.glVertex2iv
-Gura_DeclareFunction(glVertex2iv)
+Gura_DeclareFunctionAlias(__glVertex2iv, "glVertex2iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -6557,7 +6557,7 @@ Gura_DeclareFunction(glVertex2iv)
 		"");
 }
 
-Gura_ImplementFunction(glVertex2iv)
+Gura_ImplementFunction(__glVertex2iv)
 {
 	CArray<GLint> v = args.GetList(0);
 	if (v.GetSize() != 2) {
@@ -6569,7 +6569,7 @@ Gura_ImplementFunction(glVertex2iv)
 }
 
 // opengl.glVertex2s
-Gura_DeclareFunction(glVertex2s)
+Gura_DeclareFunctionAlias(__glVertex2s, "glVertex2s")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6579,7 +6579,7 @@ Gura_DeclareFunction(glVertex2s)
 		"");
 }
 
-Gura_ImplementFunction(glVertex2s)
+Gura_ImplementFunction(__glVertex2s)
 {
 	GLshort x = args.GetShort(0);
 	GLshort y = args.GetShort(1);
@@ -6588,7 +6588,7 @@ Gura_ImplementFunction(glVertex2s)
 }
 
 // opengl.glVertex2sv
-Gura_DeclareFunction(glVertex2sv)
+Gura_DeclareFunctionAlias(__glVertex2sv, "glVertex2sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -6597,7 +6597,7 @@ Gura_DeclareFunction(glVertex2sv)
 		"");
 }
 
-Gura_ImplementFunction(glVertex2sv)
+Gura_ImplementFunction(__glVertex2sv)
 {
 	CArray<GLshort> v = args.GetList(0);
 	if (v.GetSize() != 2) {
@@ -6609,7 +6609,7 @@ Gura_ImplementFunction(glVertex2sv)
 }
 
 // opengl.glVertex3d
-Gura_DeclareFunction(glVertex3d)
+Gura_DeclareFunctionAlias(__glVertex3d, "glVertex3d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6620,7 +6620,7 @@ Gura_DeclareFunction(glVertex3d)
 		"");
 }
 
-Gura_ImplementFunction(glVertex3d)
+Gura_ImplementFunction(__glVertex3d)
 {
 	GLdouble x = args.GetDouble(0);
 	GLdouble y = args.GetDouble(1);
@@ -6630,7 +6630,7 @@ Gura_ImplementFunction(glVertex3d)
 }
 
 // opengl.glVertex3dv
-Gura_DeclareFunction(glVertex3dv)
+Gura_DeclareFunctionAlias(__glVertex3dv, "glVertex3dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -6639,7 +6639,7 @@ Gura_DeclareFunction(glVertex3dv)
 		"");
 }
 
-Gura_ImplementFunction(glVertex3dv)
+Gura_ImplementFunction(__glVertex3dv)
 {
 	CArray<GLdouble> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -6651,7 +6651,7 @@ Gura_ImplementFunction(glVertex3dv)
 }
 
 // opengl.glVertex3f
-Gura_DeclareFunction(glVertex3f)
+Gura_DeclareFunctionAlias(__glVertex3f, "glVertex3f")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6662,7 +6662,7 @@ Gura_DeclareFunction(glVertex3f)
 		"");
 }
 
-Gura_ImplementFunction(glVertex3f)
+Gura_ImplementFunction(__glVertex3f)
 {
 	GLfloat x = args.GetFloat(0);
 	GLfloat y = args.GetFloat(1);
@@ -6672,7 +6672,7 @@ Gura_ImplementFunction(glVertex3f)
 }
 
 // opengl.glVertex3fv
-Gura_DeclareFunction(glVertex3fv)
+Gura_DeclareFunctionAlias(__glVertex3fv, "glVertex3fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -6681,7 +6681,7 @@ Gura_DeclareFunction(glVertex3fv)
 		"");
 }
 
-Gura_ImplementFunction(glVertex3fv)
+Gura_ImplementFunction(__glVertex3fv)
 {
 	CArray<GLfloat> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -6693,7 +6693,7 @@ Gura_ImplementFunction(glVertex3fv)
 }
 
 // opengl.glVertex3i
-Gura_DeclareFunction(glVertex3i)
+Gura_DeclareFunctionAlias(__glVertex3i, "glVertex3i")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6704,7 +6704,7 @@ Gura_DeclareFunction(glVertex3i)
 		"");
 }
 
-Gura_ImplementFunction(glVertex3i)
+Gura_ImplementFunction(__glVertex3i)
 {
 	GLint x = args.GetInt(0);
 	GLint y = args.GetInt(1);
@@ -6714,7 +6714,7 @@ Gura_ImplementFunction(glVertex3i)
 }
 
 // opengl.glVertex3iv
-Gura_DeclareFunction(glVertex3iv)
+Gura_DeclareFunctionAlias(__glVertex3iv, "glVertex3iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -6723,7 +6723,7 @@ Gura_DeclareFunction(glVertex3iv)
 		"");
 }
 
-Gura_ImplementFunction(glVertex3iv)
+Gura_ImplementFunction(__glVertex3iv)
 {
 	CArray<GLint> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -6735,7 +6735,7 @@ Gura_ImplementFunction(glVertex3iv)
 }
 
 // opengl.glVertex3s
-Gura_DeclareFunction(glVertex3s)
+Gura_DeclareFunctionAlias(__glVertex3s, "glVertex3s")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6746,7 +6746,7 @@ Gura_DeclareFunction(glVertex3s)
 		"");
 }
 
-Gura_ImplementFunction(glVertex3s)
+Gura_ImplementFunction(__glVertex3s)
 {
 	GLshort x = args.GetShort(0);
 	GLshort y = args.GetShort(1);
@@ -6756,7 +6756,7 @@ Gura_ImplementFunction(glVertex3s)
 }
 
 // opengl.glVertex3sv
-Gura_DeclareFunction(glVertex3sv)
+Gura_DeclareFunctionAlias(__glVertex3sv, "glVertex3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -6765,7 +6765,7 @@ Gura_DeclareFunction(glVertex3sv)
 		"");
 }
 
-Gura_ImplementFunction(glVertex3sv)
+Gura_ImplementFunction(__glVertex3sv)
 {
 	CArray<GLshort> v = args.GetList(0);
 	if (v.GetSize() != 3) {
@@ -6777,7 +6777,7 @@ Gura_ImplementFunction(glVertex3sv)
 }
 
 // opengl.glVertex4d
-Gura_DeclareFunction(glVertex4d)
+Gura_DeclareFunctionAlias(__glVertex4d, "glVertex4d")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6789,7 +6789,7 @@ Gura_DeclareFunction(glVertex4d)
 		"");
 }
 
-Gura_ImplementFunction(glVertex4d)
+Gura_ImplementFunction(__glVertex4d)
 {
 	GLdouble x = args.GetDouble(0);
 	GLdouble y = args.GetDouble(1);
@@ -6800,7 +6800,7 @@ Gura_ImplementFunction(glVertex4d)
 }
 
 // opengl.glVertex4dv
-Gura_DeclareFunction(glVertex4dv)
+Gura_DeclareFunctionAlias(__glVertex4dv, "glVertex4dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -6809,7 +6809,7 @@ Gura_DeclareFunction(glVertex4dv)
 		"");
 }
 
-Gura_ImplementFunction(glVertex4dv)
+Gura_ImplementFunction(__glVertex4dv)
 {
 	CArray<GLdouble> v = args.GetList(0);
 	if (v.GetSize() != 4) {
@@ -6821,7 +6821,7 @@ Gura_ImplementFunction(glVertex4dv)
 }
 
 // opengl.glVertex4f
-Gura_DeclareFunction(glVertex4f)
+Gura_DeclareFunctionAlias(__glVertex4f, "glVertex4f")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6833,7 +6833,7 @@ Gura_DeclareFunction(glVertex4f)
 		"");
 }
 
-Gura_ImplementFunction(glVertex4f)
+Gura_ImplementFunction(__glVertex4f)
 {
 	GLfloat x = args.GetFloat(0);
 	GLfloat y = args.GetFloat(1);
@@ -6844,7 +6844,7 @@ Gura_ImplementFunction(glVertex4f)
 }
 
 // opengl.glVertex4fv
-Gura_DeclareFunction(glVertex4fv)
+Gura_DeclareFunctionAlias(__glVertex4fv, "glVertex4fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -6853,7 +6853,7 @@ Gura_DeclareFunction(glVertex4fv)
 		"");
 }
 
-Gura_ImplementFunction(glVertex4fv)
+Gura_ImplementFunction(__glVertex4fv)
 {
 	CArray<GLfloat> v = args.GetList(0);
 	if (v.GetSize() != 4) {
@@ -6865,7 +6865,7 @@ Gura_ImplementFunction(glVertex4fv)
 }
 
 // opengl.glVertex4i
-Gura_DeclareFunction(glVertex4i)
+Gura_DeclareFunctionAlias(__glVertex4i, "glVertex4i")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6877,7 +6877,7 @@ Gura_DeclareFunction(glVertex4i)
 		"");
 }
 
-Gura_ImplementFunction(glVertex4i)
+Gura_ImplementFunction(__glVertex4i)
 {
 	GLint x = args.GetInt(0);
 	GLint y = args.GetInt(1);
@@ -6888,7 +6888,7 @@ Gura_ImplementFunction(glVertex4i)
 }
 
 // opengl.glVertex4iv
-Gura_DeclareFunction(glVertex4iv)
+Gura_DeclareFunctionAlias(__glVertex4iv, "glVertex4iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -6897,7 +6897,7 @@ Gura_DeclareFunction(glVertex4iv)
 		"");
 }
 
-Gura_ImplementFunction(glVertex4iv)
+Gura_ImplementFunction(__glVertex4iv)
 {
 	CArray<GLint> v = args.GetList(0);
 	if (v.GetSize() != 4) {
@@ -6909,7 +6909,7 @@ Gura_ImplementFunction(glVertex4iv)
 }
 
 // opengl.glVertex4s
-Gura_DeclareFunction(glVertex4s)
+Gura_DeclareFunctionAlias(__glVertex4s, "glVertex4s")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6921,7 +6921,7 @@ Gura_DeclareFunction(glVertex4s)
 		"");
 }
 
-Gura_ImplementFunction(glVertex4s)
+Gura_ImplementFunction(__glVertex4s)
 {
 	GLshort x = args.GetShort(0);
 	GLshort y = args.GetShort(1);
@@ -6932,7 +6932,7 @@ Gura_ImplementFunction(glVertex4s)
 }
 
 // opengl.glVertex4sv
-Gura_DeclareFunction(glVertex4sv)
+Gura_DeclareFunctionAlias(__glVertex4sv, "glVertex4sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -6941,7 +6941,7 @@ Gura_DeclareFunction(glVertex4sv)
 		"");
 }
 
-Gura_ImplementFunction(glVertex4sv)
+Gura_ImplementFunction(__glVertex4sv)
 {
 	CArray<GLshort> v = args.GetList(0);
 	if (v.GetSize() != 4) {
@@ -6953,7 +6953,7 @@ Gura_ImplementFunction(glVertex4sv)
 }
 
 // opengl.glViewport
-Gura_DeclareFunction(glViewport)
+Gura_DeclareFunctionAlias(__glViewport, "glViewport")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6965,7 +6965,7 @@ Gura_DeclareFunction(glViewport)
 		"");
 }
 
-Gura_ImplementFunction(glViewport)
+Gura_ImplementFunction(__glViewport)
 {
 	GLint x = args.GetInt(0);
 	GLint y = args.GetInt(1);
@@ -6976,7 +6976,7 @@ Gura_ImplementFunction(glViewport)
 }
 
 // opengl.glGetAttachedShaders
-Gura_DeclareFunction(glGetAttachedShaders)
+Gura_DeclareFunctionAlias(__glGetAttachedShaders, "glGetAttachedShaders")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6988,7 +6988,7 @@ Gura_DeclareFunction(glGetAttachedShaders)
 		"");
 }
 
-Gura_ImplementFunction(glGetAttachedShaders)
+Gura_ImplementFunction(__glGetAttachedShaders)
 {
 #if 0
 	GLuint program = args.GetUInt(0);
@@ -7003,7 +7003,7 @@ Gura_ImplementFunction(glGetAttachedShaders)
 }
 
 // opengl.glGetShaderInfoLog
-Gura_DeclareFunction(glGetShaderInfoLog)
+Gura_DeclareFunctionAlias(__glGetShaderInfoLog, "glGetShaderInfoLog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "shader", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -7015,7 +7015,7 @@ Gura_DeclareFunction(glGetShaderInfoLog)
 		"");
 }
 
-Gura_ImplementFunction(glGetShaderInfoLog)
+Gura_ImplementFunction(__glGetShaderInfoLog)
 {
 #if 0
 	GLuint shader = args.GetUInt(0);
@@ -7030,7 +7030,7 @@ Gura_ImplementFunction(glGetShaderInfoLog)
 }
 
 // opengl.glGetProgramInfoLog
-Gura_DeclareFunction(glGetProgramInfoLog)
+Gura_DeclareFunctionAlias(__glGetProgramInfoLog, "glGetProgramInfoLog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -7042,7 +7042,7 @@ Gura_DeclareFunction(glGetProgramInfoLog)
 		"");
 }
 
-Gura_ImplementFunction(glGetProgramInfoLog)
+Gura_ImplementFunction(__glGetProgramInfoLog)
 {
 #if 0
 	GLuint program = args.GetUInt(0);
@@ -7057,7 +7057,7 @@ Gura_ImplementFunction(glGetProgramInfoLog)
 }
 
 // opengl.glGetUniformLocation
-Gura_DeclareFunction(glGetUniformLocation)
+Gura_DeclareFunctionAlias(__glGetUniformLocation, "glGetUniformLocation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7068,7 +7068,7 @@ Gura_DeclareFunction(glGetUniformLocation)
 		"");
 }
 
-Gura_ImplementFunction(glGetUniformLocation)
+Gura_ImplementFunction(__glGetUniformLocation)
 {
 #if 0
 	GLuint program = args.GetUInt(0);
@@ -7081,7 +7081,7 @@ Gura_ImplementFunction(glGetUniformLocation)
 }
 
 // opengl.glGetActiveUniform
-Gura_DeclareFunction(glGetActiveUniform)
+Gura_DeclareFunctionAlias(__glGetActiveUniform, "glGetActiveUniform")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -7096,7 +7096,7 @@ Gura_DeclareFunction(glGetActiveUniform)
 		"");
 }
 
-Gura_ImplementFunction(glGetActiveUniform)
+Gura_ImplementFunction(__glGetActiveUniform)
 {
 #if 0
 	GLuint program = args.GetUInt(0);
@@ -7114,7 +7114,7 @@ Gura_ImplementFunction(glGetActiveUniform)
 }
 
 // opengl.glGetUniformfv
-Gura_DeclareFunction(glGetUniformfv)
+Gura_DeclareFunctionAlias(__glGetUniformfv, "glGetUniformfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -7125,7 +7125,7 @@ Gura_DeclareFunction(glGetUniformfv)
 		"");
 }
 
-Gura_ImplementFunction(glGetUniformfv)
+Gura_ImplementFunction(__glGetUniformfv)
 {
 #if 0
 	GLuint program = args.GetUInt(0);
@@ -7139,7 +7139,7 @@ Gura_ImplementFunction(glGetUniformfv)
 }
 
 // opengl.glGetUniformiv
-Gura_DeclareFunction(glGetUniformiv)
+Gura_DeclareFunctionAlias(__glGetUniformiv, "glGetUniformiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -7150,7 +7150,7 @@ Gura_DeclareFunction(glGetUniformiv)
 		"");
 }
 
-Gura_ImplementFunction(glGetUniformiv)
+Gura_ImplementFunction(__glGetUniformiv)
 {
 #if 0
 	GLuint program = args.GetUInt(0);
@@ -7164,7 +7164,7 @@ Gura_ImplementFunction(glGetUniformiv)
 }
 
 // opengl.glGetShaderSource
-Gura_DeclareFunction(glGetShaderSource)
+Gura_DeclareFunctionAlias(__glGetShaderSource, "glGetShaderSource")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "shader", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -7176,7 +7176,7 @@ Gura_DeclareFunction(glGetShaderSource)
 		"");
 }
 
-Gura_ImplementFunction(glGetShaderSource)
+Gura_ImplementFunction(__glGetShaderSource)
 {
 #if 0
 	GLuint shader = args.GetUInt(0);
@@ -7191,7 +7191,7 @@ Gura_ImplementFunction(glGetShaderSource)
 }
 
 // opengl.glBindAttribLocation
-Gura_DeclareFunction(glBindAttribLocation)
+Gura_DeclareFunctionAlias(__glBindAttribLocation, "glBindAttribLocation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -7202,7 +7202,7 @@ Gura_DeclareFunction(glBindAttribLocation)
 		"");
 }
 
-Gura_ImplementFunction(glBindAttribLocation)
+Gura_ImplementFunction(__glBindAttribLocation)
 {
 #if 0
 	GLuint program = args.GetUInt(0);
@@ -7216,7 +7216,7 @@ Gura_ImplementFunction(glBindAttribLocation)
 }
 
 // opengl.glGetActiveAttrib
-Gura_DeclareFunction(glGetActiveAttrib)
+Gura_DeclareFunctionAlias(__glGetActiveAttrib, "glGetActiveAttrib")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -7231,7 +7231,7 @@ Gura_DeclareFunction(glGetActiveAttrib)
 		"");
 }
 
-Gura_ImplementFunction(glGetActiveAttrib)
+Gura_ImplementFunction(__glGetActiveAttrib)
 {
 #if 0
 	GLuint program = args.GetUInt(0);
@@ -7249,7 +7249,7 @@ Gura_ImplementFunction(glGetActiveAttrib)
 }
 
 // opengl.glGetAttribLocation
-Gura_DeclareFunction(glGetAttribLocation)
+Gura_DeclareFunctionAlias(__glGetAttribLocation, "glGetAttribLocation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -7260,7 +7260,7 @@ Gura_DeclareFunction(glGetAttribLocation)
 		"");
 }
 
-Gura_ImplementFunction(glGetAttribLocation)
+Gura_ImplementFunction(__glGetAttribLocation)
 {
 #if 0
 	GLuint program = args.GetUInt(0);
@@ -7273,7 +7273,7 @@ Gura_ImplementFunction(glGetAttribLocation)
 }
 
 // opengl.glUniformMatrix2x3fv
-Gura_DeclareFunction(glUniformMatrix2x3fv)
+Gura_DeclareFunctionAlias(__glUniformMatrix2x3fv, "glUniformMatrix2x3fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -7285,7 +7285,7 @@ Gura_DeclareFunction(glUniformMatrix2x3fv)
 		"");
 }
 
-Gura_ImplementFunction(glUniformMatrix2x3fv)
+Gura_ImplementFunction(__glUniformMatrix2x3fv)
 {
 #if 0
 	GLint location = args.GetInt(0);
@@ -7300,7 +7300,7 @@ Gura_ImplementFunction(glUniformMatrix2x3fv)
 }
 
 // opengl.glUniformMatrix3x2fv
-Gura_DeclareFunction(glUniformMatrix3x2fv)
+Gura_DeclareFunctionAlias(__glUniformMatrix3x2fv, "glUniformMatrix3x2fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -7312,7 +7312,7 @@ Gura_DeclareFunction(glUniformMatrix3x2fv)
 		"");
 }
 
-Gura_ImplementFunction(glUniformMatrix3x2fv)
+Gura_ImplementFunction(__glUniformMatrix3x2fv)
 {
 #if 0
 	GLint location = args.GetInt(0);
@@ -7327,7 +7327,7 @@ Gura_ImplementFunction(glUniformMatrix3x2fv)
 }
 
 // opengl.glUniformMatrix2x4fv
-Gura_DeclareFunction(glUniformMatrix2x4fv)
+Gura_DeclareFunctionAlias(__glUniformMatrix2x4fv, "glUniformMatrix2x4fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -7339,7 +7339,7 @@ Gura_DeclareFunction(glUniformMatrix2x4fv)
 		"");
 }
 
-Gura_ImplementFunction(glUniformMatrix2x4fv)
+Gura_ImplementFunction(__glUniformMatrix2x4fv)
 {
 #if 0
 	GLint location = args.GetInt(0);
@@ -7354,7 +7354,7 @@ Gura_ImplementFunction(glUniformMatrix2x4fv)
 }
 
 // opengl.glUniformMatrix4x2fv
-Gura_DeclareFunction(glUniformMatrix4x2fv)
+Gura_DeclareFunctionAlias(__glUniformMatrix4x2fv, "glUniformMatrix4x2fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -7366,7 +7366,7 @@ Gura_DeclareFunction(glUniformMatrix4x2fv)
 		"");
 }
 
-Gura_ImplementFunction(glUniformMatrix4x2fv)
+Gura_ImplementFunction(__glUniformMatrix4x2fv)
 {
 #if 0
 	GLint location = args.GetInt(0);
@@ -7381,7 +7381,7 @@ Gura_ImplementFunction(glUniformMatrix4x2fv)
 }
 
 // opengl.glUniformMatrix3x4fv
-Gura_DeclareFunction(glUniformMatrix3x4fv)
+Gura_DeclareFunctionAlias(__glUniformMatrix3x4fv, "glUniformMatrix3x4fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -7393,7 +7393,7 @@ Gura_DeclareFunction(glUniformMatrix3x4fv)
 		"");
 }
 
-Gura_ImplementFunction(glUniformMatrix3x4fv)
+Gura_ImplementFunction(__glUniformMatrix3x4fv)
 {
 #if 0
 	GLint location = args.GetInt(0);
@@ -7408,7 +7408,7 @@ Gura_ImplementFunction(glUniformMatrix3x4fv)
 }
 
 // opengl.glUniformMatrix4x3fv
-Gura_DeclareFunction(glUniformMatrix4x3fv)
+Gura_DeclareFunctionAlias(__glUniformMatrix4x3fv, "glUniformMatrix4x3fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -7420,7 +7420,7 @@ Gura_DeclareFunction(glUniformMatrix4x3fv)
 		"");
 }
 
-Gura_ImplementFunction(glUniformMatrix4x3fv)
+Gura_ImplementFunction(__glUniformMatrix4x3fv)
 {
 #if 0
 	GLint location = args.GetInt(0);
@@ -7437,349 +7437,349 @@ Gura_ImplementFunction(glUniformMatrix4x3fv)
 
 void AssignFunctions(Environment &env)
 {
-	Gura_AssignFunction(glAccum);
-	Gura_AssignFunction(glAlphaFunc);
-	Gura_AssignFunction(glAreTexturesResident);
-	Gura_AssignFunction(glArrayElement);
-	Gura_AssignFunction(glBegin);
-	Gura_AssignFunction(glBindTexture);
-	Gura_AssignFunction(glBitmap);
-	Gura_AssignFunction(glBlendFunc);
-	Gura_AssignFunction(glCallList);
-	Gura_AssignFunction(glCallLists);
-	Gura_AssignFunction(glClear);
-	Gura_AssignFunction(glClearAccum);
-	Gura_AssignFunction(glClearColor);
-	Gura_AssignFunction(glClearDepth);
-	Gura_AssignFunction(glClearIndex);
-	Gura_AssignFunction(glClearStencil);
-	Gura_AssignFunction(glClipPlane);
-	Gura_AssignFunction(glColor3b);
-	Gura_AssignFunction(glColor3bv);
-	Gura_AssignFunction(glColor3d);
-	Gura_AssignFunction(glColor3dv);
-	Gura_AssignFunction(glColor3f);
-	Gura_AssignFunction(glColor3fv);
-	Gura_AssignFunction(glColor3i);
-	Gura_AssignFunction(glColor3iv);
-	Gura_AssignFunction(glColor3s);
-	Gura_AssignFunction(glColor3sv);
-	Gura_AssignFunction(glColor3ub);
-	Gura_AssignFunction(glColor3ubv);
-	Gura_AssignFunction(glColor3ui);
-	Gura_AssignFunction(glColor3uiv);
-	Gura_AssignFunction(glColor3us);
-	Gura_AssignFunction(glColor3usv);
-	Gura_AssignFunction(glColor4b);
-	Gura_AssignFunction(glColor4bv);
-	Gura_AssignFunction(glColor4d);
-	Gura_AssignFunction(glColor4dv);
-	Gura_AssignFunction(glColor4f);
-	Gura_AssignFunction(glColor4fv);
-	Gura_AssignFunction(glColor4i);
-	Gura_AssignFunction(glColor4iv);
-	Gura_AssignFunction(glColor4s);
-	Gura_AssignFunction(glColor4sv);
-	Gura_AssignFunction(glColor4ub);
-	Gura_AssignFunction(glColor4ubv);
-	Gura_AssignFunction(glColor4ui);
-	Gura_AssignFunction(glColor4uiv);
-	Gura_AssignFunction(glColor4us);
-	Gura_AssignFunction(glColor4usv);
-	Gura_AssignFunction(glColorMask);
-	Gura_AssignFunction(glColorMaterial);
-	Gura_AssignFunction(glCopyPixels);
-	Gura_AssignFunction(glCopyTexImage1D);
-	Gura_AssignFunction(glCopyTexImage2D);
-	Gura_AssignFunction(glCopyTexSubImage1D);
-	Gura_AssignFunction(glCopyTexSubImage2D);
-	Gura_AssignFunction(glCullFace);
-	Gura_AssignFunction(glDeleteLists);
-	Gura_AssignFunction(glDeleteTextures);
-	Gura_AssignFunction(glDepthFunc);
-	Gura_AssignFunction(glDepthMask);
-	Gura_AssignFunction(glDepthRange);
-	Gura_AssignFunction(glDisable);
-	Gura_AssignFunction(glDisableClientState);
-	Gura_AssignFunction(glDrawArrays);
-	Gura_AssignFunction(glDrawBuffer);
-	Gura_AssignFunction(glDrawPixels);
-	Gura_AssignFunction(glEdgeFlag);
-	Gura_AssignFunction(glEdgeFlagv);
-	Gura_AssignFunction(glEnable);
-	Gura_AssignFunction(glEnableClientState);
-	Gura_AssignFunction(glEnd);
-	Gura_AssignFunction(glEndList);
-	Gura_AssignFunction(glEvalCoord1d);
-	Gura_AssignFunction(glEvalCoord1dv);
-	Gura_AssignFunction(glEvalCoord1f);
-	Gura_AssignFunction(glEvalCoord1fv);
-	Gura_AssignFunction(glEvalCoord2d);
-	Gura_AssignFunction(glEvalCoord2dv);
-	Gura_AssignFunction(glEvalCoord2f);
-	Gura_AssignFunction(glEvalCoord2fv);
-	Gura_AssignFunction(glEvalMesh1);
-	Gura_AssignFunction(glEvalMesh2);
-	Gura_AssignFunction(glEvalPoint1);
-	Gura_AssignFunction(glEvalPoint2);
-	Gura_AssignFunction(glFeedbackBuffer);
-	Gura_AssignFunction(glFinish);
-	Gura_AssignFunction(glFlush);
-	Gura_AssignFunction(glFogf);
-	Gura_AssignFunction(glFogfv);
-	Gura_AssignFunction(glFogi);
-	Gura_AssignFunction(glFogiv);
-	Gura_AssignFunction(glFrontFace);
-	Gura_AssignFunction(glFrustum);
-	Gura_AssignFunction(glGenLists);
-	Gura_AssignFunction(glGenTextures);
-	Gura_AssignFunction(glGetBooleanv);
-	Gura_AssignFunction(glGetClipPlane);
-	Gura_AssignFunction(glGetDoublev);
-	Gura_AssignFunction(glGetError);
-	Gura_AssignFunction(glGetFloatv);
-	Gura_AssignFunction(glGetIntegerv);
-	Gura_AssignFunction(glGetLightfv);
-	Gura_AssignFunction(glGetLightiv);
-	Gura_AssignFunction(glGetMapdv);
-	Gura_AssignFunction(glGetMapfv);
-	Gura_AssignFunction(glGetMapiv);
-	Gura_AssignFunction(glGetMaterialfv);
-	Gura_AssignFunction(glGetMaterialiv);
-	Gura_AssignFunction(glGetPixelMapfv);
-	Gura_AssignFunction(glGetPixelMapuiv);
-	Gura_AssignFunction(glGetPixelMapusv);
-	Gura_AssignFunction(glGetPolygonStipple);
-	Gura_AssignFunction(glGetString);
-	Gura_AssignFunction(glGetTexEnvfv);
-	Gura_AssignFunction(glGetTexEnviv);
-	Gura_AssignFunction(glGetTexGendv);
-	Gura_AssignFunction(glGetTexGenfv);
-	Gura_AssignFunction(glGetTexGeniv);
-	Gura_AssignFunction(glGetTexLevelParameterfv);
-	Gura_AssignFunction(glGetTexLevelParameteriv);
-	Gura_AssignFunction(glGetTexParameterfv);
-	Gura_AssignFunction(glGetTexParameteriv);
-	Gura_AssignFunction(glHint);
-	Gura_AssignFunction(glIndexMask);
-	Gura_AssignFunction(glIndexd);
-	Gura_AssignFunction(glIndexdv);
-	Gura_AssignFunction(glIndexf);
-	Gura_AssignFunction(glIndexfv);
-	Gura_AssignFunction(glIndexi);
-	Gura_AssignFunction(glIndexiv);
-	Gura_AssignFunction(glIndexs);
-	Gura_AssignFunction(glIndexsv);
-	Gura_AssignFunction(glIndexub);
-	Gura_AssignFunction(glIndexubv);
-	Gura_AssignFunction(glInitNames);
-	Gura_AssignFunction(glIsEnabled);
-	Gura_AssignFunction(glIsList);
-	Gura_AssignFunction(glIsTexture);
-	Gura_AssignFunction(glLightModelf);
-	Gura_AssignFunction(glLightModelfv);
-	Gura_AssignFunction(glLightModeli);
-	Gura_AssignFunction(glLightModeliv);
-	Gura_AssignFunction(glLightf);
-	Gura_AssignFunction(glLightfv);
-	Gura_AssignFunction(glLighti);
-	Gura_AssignFunction(glLightiv);
-	Gura_AssignFunction(glLineStipple);
-	Gura_AssignFunction(glLineWidth);
-	Gura_AssignFunction(glListBase);
-	Gura_AssignFunction(glLoadIdentity);
-	Gura_AssignFunction(glLoadMatrixd);
-	Gura_AssignFunction(glLoadMatrixf);
-	Gura_AssignFunction(glLoadName);
-	Gura_AssignFunction(glLogicOp);
-	Gura_AssignFunction(glMap1d);
-	Gura_AssignFunction(glMap1f);
-	Gura_AssignFunction(glMap2d);
-	Gura_AssignFunction(glMap2f);
-	Gura_AssignFunction(glMapGrid1d);
-	Gura_AssignFunction(glMapGrid1f);
-	Gura_AssignFunction(glMapGrid2d);
-	Gura_AssignFunction(glMapGrid2f);
-	Gura_AssignFunction(glMaterialf);
-	Gura_AssignFunction(glMaterialfv);
-	Gura_AssignFunction(glMateriali);
-	Gura_AssignFunction(glMaterialiv);
-	Gura_AssignFunction(glMatrixMode);
-	Gura_AssignFunction(glMultMatrixd);
-	Gura_AssignFunction(glMultMatrixf);
-	Gura_AssignFunction(glNewList);
-	Gura_AssignFunction(glNormal3b);
-	Gura_AssignFunction(glNormal3bv);
-	Gura_AssignFunction(glNormal3d);
-	Gura_AssignFunction(glNormal3dv);
-	Gura_AssignFunction(glNormal3f);
-	Gura_AssignFunction(glNormal3fv);
-	Gura_AssignFunction(glNormal3i);
-	Gura_AssignFunction(glNormal3iv);
-	Gura_AssignFunction(glNormal3s);
-	Gura_AssignFunction(glNormal3sv);
-	Gura_AssignFunction(glOrtho);
-	Gura_AssignFunction(glPassThrough);
-	Gura_AssignFunction(glPixelMapfv);
-	Gura_AssignFunction(glPixelMapuiv);
-	Gura_AssignFunction(glPixelMapusv);
-	Gura_AssignFunction(glPixelStoref);
-	Gura_AssignFunction(glPixelStorei);
-	Gura_AssignFunction(glPixelTransferf);
-	Gura_AssignFunction(glPixelTransferi);
-	Gura_AssignFunction(glPixelZoom);
-	Gura_AssignFunction(glPointSize);
-	Gura_AssignFunction(glPolygonMode);
-	Gura_AssignFunction(glPolygonOffset);
-	Gura_AssignFunction(glPolygonStipple);
-	Gura_AssignFunction(glPopAttrib);
-	Gura_AssignFunction(glPopClientAttrib);
-	Gura_AssignFunction(glPopMatrix);
-	Gura_AssignFunction(glPopName);
-	Gura_AssignFunction(glPrioritizeTextures);
-	Gura_AssignFunction(glPushAttrib);
-	Gura_AssignFunction(glPushClientAttrib);
-	Gura_AssignFunction(glPushMatrix);
-	Gura_AssignFunction(glPushName);
-	Gura_AssignFunction(glRasterPos2d);
-	Gura_AssignFunction(glRasterPos2dv);
-	Gura_AssignFunction(glRasterPos2f);
-	Gura_AssignFunction(glRasterPos2fv);
-	Gura_AssignFunction(glRasterPos2i);
-	Gura_AssignFunction(glRasterPos2iv);
-	Gura_AssignFunction(glRasterPos2s);
-	Gura_AssignFunction(glRasterPos2sv);
-	Gura_AssignFunction(glRasterPos3d);
-	Gura_AssignFunction(glRasterPos3dv);
-	Gura_AssignFunction(glRasterPos3f);
-	Gura_AssignFunction(glRasterPos3fv);
-	Gura_AssignFunction(glRasterPos3i);
-	Gura_AssignFunction(glRasterPos3iv);
-	Gura_AssignFunction(glRasterPos3s);
-	Gura_AssignFunction(glRasterPos3sv);
-	Gura_AssignFunction(glRasterPos4d);
-	Gura_AssignFunction(glRasterPos4dv);
-	Gura_AssignFunction(glRasterPos4f);
-	Gura_AssignFunction(glRasterPos4fv);
-	Gura_AssignFunction(glRasterPos4i);
-	Gura_AssignFunction(glRasterPos4iv);
-	Gura_AssignFunction(glRasterPos4s);
-	Gura_AssignFunction(glRasterPos4sv);
-	Gura_AssignFunction(glReadBuffer);
-	Gura_AssignFunction(glReadPixels);
-	Gura_AssignFunction(glRectd);
-	Gura_AssignFunction(glRectdv);
-	Gura_AssignFunction(glRectf);
-	Gura_AssignFunction(glRectfv);
-	Gura_AssignFunction(glRecti);
-	Gura_AssignFunction(glRectiv);
-	Gura_AssignFunction(glRects);
-	Gura_AssignFunction(glRectsv);
-	Gura_AssignFunction(glRenderMode);
-	Gura_AssignFunction(glRotated);
-	Gura_AssignFunction(glRotatef);
-	Gura_AssignFunction(glScaled);
-	Gura_AssignFunction(glScalef);
-	Gura_AssignFunction(glScissor);
-	Gura_AssignFunction(glSelectBuffer);
-	Gura_AssignFunction(glShadeModel);
-	Gura_AssignFunction(glStencilFunc);
-	Gura_AssignFunction(glStencilMask);
-	Gura_AssignFunction(glStencilOp);
-	Gura_AssignFunction(glTexCoord1d);
-	Gura_AssignFunction(glTexCoord1dv);
-	Gura_AssignFunction(glTexCoord1f);
-	Gura_AssignFunction(glTexCoord1fv);
-	Gura_AssignFunction(glTexCoord1i);
-	Gura_AssignFunction(glTexCoord1iv);
-	Gura_AssignFunction(glTexCoord1s);
-	Gura_AssignFunction(glTexCoord1sv);
-	Gura_AssignFunction(glTexCoord2d);
-	Gura_AssignFunction(glTexCoord2dv);
-	Gura_AssignFunction(glTexCoord2f);
-	Gura_AssignFunction(glTexCoord2fv);
-	Gura_AssignFunction(glTexCoord2i);
-	Gura_AssignFunction(glTexCoord2iv);
-	Gura_AssignFunction(glTexCoord2s);
-	Gura_AssignFunction(glTexCoord2sv);
-	Gura_AssignFunction(glTexCoord3d);
-	Gura_AssignFunction(glTexCoord3dv);
-	Gura_AssignFunction(glTexCoord3f);
-	Gura_AssignFunction(glTexCoord3fv);
-	Gura_AssignFunction(glTexCoord3i);
-	Gura_AssignFunction(glTexCoord3iv);
-	Gura_AssignFunction(glTexCoord3s);
-	Gura_AssignFunction(glTexCoord3sv);
-	Gura_AssignFunction(glTexCoord4d);
-	Gura_AssignFunction(glTexCoord4dv);
-	Gura_AssignFunction(glTexCoord4f);
-	Gura_AssignFunction(glTexCoord4fv);
-	Gura_AssignFunction(glTexCoord4i);
-	Gura_AssignFunction(glTexCoord4iv);
-	Gura_AssignFunction(glTexCoord4s);
-	Gura_AssignFunction(glTexCoord4sv);
-	Gura_AssignFunction(glTexEnvf);
-	Gura_AssignFunction(glTexEnvfv);
-	Gura_AssignFunction(glTexEnvi);
-	Gura_AssignFunction(glTexEnviv);
-	Gura_AssignFunction(glTexGend);
-	Gura_AssignFunction(glTexGendv);
-	Gura_AssignFunction(glTexGenf);
-	Gura_AssignFunction(glTexGenfv);
-	Gura_AssignFunction(glTexGeni);
-	Gura_AssignFunction(glTexGeniv);
-	Gura_AssignFunction(glTexImage1D);
-	Gura_AssignFunction(glTexImage2D);
-	Gura_AssignFunction(glTexParameterf);
-	Gura_AssignFunction(glTexParameterfv);
-	Gura_AssignFunction(glTexParameteri);
-	Gura_AssignFunction(glTexParameteriv);
-	Gura_AssignFunction(glTexSubImage1D);
-	Gura_AssignFunction(glTexSubImage2D);
-	Gura_AssignFunction(glTranslated);
-	Gura_AssignFunction(glTranslatef);
-	Gura_AssignFunction(glVertex2d);
-	Gura_AssignFunction(glVertex2dv);
-	Gura_AssignFunction(glVertex2f);
-	Gura_AssignFunction(glVertex2fv);
-	Gura_AssignFunction(glVertex2i);
-	Gura_AssignFunction(glVertex2iv);
-	Gura_AssignFunction(glVertex2s);
-	Gura_AssignFunction(glVertex2sv);
-	Gura_AssignFunction(glVertex3d);
-	Gura_AssignFunction(glVertex3dv);
-	Gura_AssignFunction(glVertex3f);
-	Gura_AssignFunction(glVertex3fv);
-	Gura_AssignFunction(glVertex3i);
-	Gura_AssignFunction(glVertex3iv);
-	Gura_AssignFunction(glVertex3s);
-	Gura_AssignFunction(glVertex3sv);
-	Gura_AssignFunction(glVertex4d);
-	Gura_AssignFunction(glVertex4dv);
-	Gura_AssignFunction(glVertex4f);
-	Gura_AssignFunction(glVertex4fv);
-	Gura_AssignFunction(glVertex4i);
-	Gura_AssignFunction(glVertex4iv);
-	Gura_AssignFunction(glVertex4s);
-	Gura_AssignFunction(glVertex4sv);
-	Gura_AssignFunction(glViewport);
-	Gura_AssignFunction(glGetAttachedShaders);
-	Gura_AssignFunction(glGetShaderInfoLog);
-	Gura_AssignFunction(glGetProgramInfoLog);
-	Gura_AssignFunction(glGetUniformLocation);
-	Gura_AssignFunction(glGetActiveUniform);
-	Gura_AssignFunction(glGetUniformfv);
-	Gura_AssignFunction(glGetUniformiv);
-	Gura_AssignFunction(glGetShaderSource);
-	Gura_AssignFunction(glBindAttribLocation);
-	Gura_AssignFunction(glGetActiveAttrib);
-	Gura_AssignFunction(glGetAttribLocation);
-	Gura_AssignFunction(glUniformMatrix2x3fv);
-	Gura_AssignFunction(glUniformMatrix3x2fv);
-	Gura_AssignFunction(glUniformMatrix2x4fv);
-	Gura_AssignFunction(glUniformMatrix4x2fv);
-	Gura_AssignFunction(glUniformMatrix3x4fv);
-	Gura_AssignFunction(glUniformMatrix4x3fv);
+	Gura_AssignFunction(__glAccum);
+	Gura_AssignFunction(__glAlphaFunc);
+	Gura_AssignFunction(__glAreTexturesResident);
+	Gura_AssignFunction(__glArrayElement);
+	Gura_AssignFunction(__glBegin);
+	Gura_AssignFunction(__glBindTexture);
+	Gura_AssignFunction(__glBitmap);
+	Gura_AssignFunction(__glBlendFunc);
+	Gura_AssignFunction(__glCallList);
+	Gura_AssignFunction(__glCallLists);
+	Gura_AssignFunction(__glClear);
+	Gura_AssignFunction(__glClearAccum);
+	Gura_AssignFunction(__glClearColor);
+	Gura_AssignFunction(__glClearDepth);
+	Gura_AssignFunction(__glClearIndex);
+	Gura_AssignFunction(__glClearStencil);
+	Gura_AssignFunction(__glClipPlane);
+	Gura_AssignFunction(__glColor3b);
+	Gura_AssignFunction(__glColor3bv);
+	Gura_AssignFunction(__glColor3d);
+	Gura_AssignFunction(__glColor3dv);
+	Gura_AssignFunction(__glColor3f);
+	Gura_AssignFunction(__glColor3fv);
+	Gura_AssignFunction(__glColor3i);
+	Gura_AssignFunction(__glColor3iv);
+	Gura_AssignFunction(__glColor3s);
+	Gura_AssignFunction(__glColor3sv);
+	Gura_AssignFunction(__glColor3ub);
+	Gura_AssignFunction(__glColor3ubv);
+	Gura_AssignFunction(__glColor3ui);
+	Gura_AssignFunction(__glColor3uiv);
+	Gura_AssignFunction(__glColor3us);
+	Gura_AssignFunction(__glColor3usv);
+	Gura_AssignFunction(__glColor4b);
+	Gura_AssignFunction(__glColor4bv);
+	Gura_AssignFunction(__glColor4d);
+	Gura_AssignFunction(__glColor4dv);
+	Gura_AssignFunction(__glColor4f);
+	Gura_AssignFunction(__glColor4fv);
+	Gura_AssignFunction(__glColor4i);
+	Gura_AssignFunction(__glColor4iv);
+	Gura_AssignFunction(__glColor4s);
+	Gura_AssignFunction(__glColor4sv);
+	Gura_AssignFunction(__glColor4ub);
+	Gura_AssignFunction(__glColor4ubv);
+	Gura_AssignFunction(__glColor4ui);
+	Gura_AssignFunction(__glColor4uiv);
+	Gura_AssignFunction(__glColor4us);
+	Gura_AssignFunction(__glColor4usv);
+	Gura_AssignFunction(__glColorMask);
+	Gura_AssignFunction(__glColorMaterial);
+	Gura_AssignFunction(__glCopyPixels);
+	Gura_AssignFunction(__glCopyTexImage1D);
+	Gura_AssignFunction(__glCopyTexImage2D);
+	Gura_AssignFunction(__glCopyTexSubImage1D);
+	Gura_AssignFunction(__glCopyTexSubImage2D);
+	Gura_AssignFunction(__glCullFace);
+	Gura_AssignFunction(__glDeleteLists);
+	Gura_AssignFunction(__glDeleteTextures);
+	Gura_AssignFunction(__glDepthFunc);
+	Gura_AssignFunction(__glDepthMask);
+	Gura_AssignFunction(__glDepthRange);
+	Gura_AssignFunction(__glDisable);
+	Gura_AssignFunction(__glDisableClientState);
+	Gura_AssignFunction(__glDrawArrays);
+	Gura_AssignFunction(__glDrawBuffer);
+	Gura_AssignFunction(__glDrawPixels);
+	Gura_AssignFunction(__glEdgeFlag);
+	Gura_AssignFunction(__glEdgeFlagv);
+	Gura_AssignFunction(__glEnable);
+	Gura_AssignFunction(__glEnableClientState);
+	Gura_AssignFunction(__glEnd);
+	Gura_AssignFunction(__glEndList);
+	Gura_AssignFunction(__glEvalCoord1d);
+	Gura_AssignFunction(__glEvalCoord1dv);
+	Gura_AssignFunction(__glEvalCoord1f);
+	Gura_AssignFunction(__glEvalCoord1fv);
+	Gura_AssignFunction(__glEvalCoord2d);
+	Gura_AssignFunction(__glEvalCoord2dv);
+	Gura_AssignFunction(__glEvalCoord2f);
+	Gura_AssignFunction(__glEvalCoord2fv);
+	Gura_AssignFunction(__glEvalMesh1);
+	Gura_AssignFunction(__glEvalMesh2);
+	Gura_AssignFunction(__glEvalPoint1);
+	Gura_AssignFunction(__glEvalPoint2);
+	Gura_AssignFunction(__glFeedbackBuffer);
+	Gura_AssignFunction(__glFinish);
+	Gura_AssignFunction(__glFlush);
+	Gura_AssignFunction(__glFogf);
+	Gura_AssignFunction(__glFogfv);
+	Gura_AssignFunction(__glFogi);
+	Gura_AssignFunction(__glFogiv);
+	Gura_AssignFunction(__glFrontFace);
+	Gura_AssignFunction(__glFrustum);
+	Gura_AssignFunction(__glGenLists);
+	Gura_AssignFunction(__glGenTextures);
+	Gura_AssignFunction(__glGetBooleanv);
+	Gura_AssignFunction(__glGetClipPlane);
+	Gura_AssignFunction(__glGetDoublev);
+	Gura_AssignFunction(__glGetError);
+	Gura_AssignFunction(__glGetFloatv);
+	Gura_AssignFunction(__glGetIntegerv);
+	Gura_AssignFunction(__glGetLightfv);
+	Gura_AssignFunction(__glGetLightiv);
+	Gura_AssignFunction(__glGetMapdv);
+	Gura_AssignFunction(__glGetMapfv);
+	Gura_AssignFunction(__glGetMapiv);
+	Gura_AssignFunction(__glGetMaterialfv);
+	Gura_AssignFunction(__glGetMaterialiv);
+	Gura_AssignFunction(__glGetPixelMapfv);
+	Gura_AssignFunction(__glGetPixelMapuiv);
+	Gura_AssignFunction(__glGetPixelMapusv);
+	Gura_AssignFunction(__glGetPolygonStipple);
+	Gura_AssignFunction(__glGetString);
+	Gura_AssignFunction(__glGetTexEnvfv);
+	Gura_AssignFunction(__glGetTexEnviv);
+	Gura_AssignFunction(__glGetTexGendv);
+	Gura_AssignFunction(__glGetTexGenfv);
+	Gura_AssignFunction(__glGetTexGeniv);
+	Gura_AssignFunction(__glGetTexLevelParameterfv);
+	Gura_AssignFunction(__glGetTexLevelParameteriv);
+	Gura_AssignFunction(__glGetTexParameterfv);
+	Gura_AssignFunction(__glGetTexParameteriv);
+	Gura_AssignFunction(__glHint);
+	Gura_AssignFunction(__glIndexMask);
+	Gura_AssignFunction(__glIndexd);
+	Gura_AssignFunction(__glIndexdv);
+	Gura_AssignFunction(__glIndexf);
+	Gura_AssignFunction(__glIndexfv);
+	Gura_AssignFunction(__glIndexi);
+	Gura_AssignFunction(__glIndexiv);
+	Gura_AssignFunction(__glIndexs);
+	Gura_AssignFunction(__glIndexsv);
+	Gura_AssignFunction(__glIndexub);
+	Gura_AssignFunction(__glIndexubv);
+	Gura_AssignFunction(__glInitNames);
+	Gura_AssignFunction(__glIsEnabled);
+	Gura_AssignFunction(__glIsList);
+	Gura_AssignFunction(__glIsTexture);
+	Gura_AssignFunction(__glLightModelf);
+	Gura_AssignFunction(__glLightModelfv);
+	Gura_AssignFunction(__glLightModeli);
+	Gura_AssignFunction(__glLightModeliv);
+	Gura_AssignFunction(__glLightf);
+	Gura_AssignFunction(__glLightfv);
+	Gura_AssignFunction(__glLighti);
+	Gura_AssignFunction(__glLightiv);
+	Gura_AssignFunction(__glLineStipple);
+	Gura_AssignFunction(__glLineWidth);
+	Gura_AssignFunction(__glListBase);
+	Gura_AssignFunction(__glLoadIdentity);
+	Gura_AssignFunction(__glLoadMatrixd);
+	Gura_AssignFunction(__glLoadMatrixf);
+	Gura_AssignFunction(__glLoadName);
+	Gura_AssignFunction(__glLogicOp);
+	Gura_AssignFunction(__glMap1d);
+	Gura_AssignFunction(__glMap1f);
+	Gura_AssignFunction(__glMap2d);
+	Gura_AssignFunction(__glMap2f);
+	Gura_AssignFunction(__glMapGrid1d);
+	Gura_AssignFunction(__glMapGrid1f);
+	Gura_AssignFunction(__glMapGrid2d);
+	Gura_AssignFunction(__glMapGrid2f);
+	Gura_AssignFunction(__glMaterialf);
+	Gura_AssignFunction(__glMaterialfv);
+	Gura_AssignFunction(__glMateriali);
+	Gura_AssignFunction(__glMaterialiv);
+	Gura_AssignFunction(__glMatrixMode);
+	Gura_AssignFunction(__glMultMatrixd);
+	Gura_AssignFunction(__glMultMatrixf);
+	Gura_AssignFunction(__glNewList);
+	Gura_AssignFunction(__glNormal3b);
+	Gura_AssignFunction(__glNormal3bv);
+	Gura_AssignFunction(__glNormal3d);
+	Gura_AssignFunction(__glNormal3dv);
+	Gura_AssignFunction(__glNormal3f);
+	Gura_AssignFunction(__glNormal3fv);
+	Gura_AssignFunction(__glNormal3i);
+	Gura_AssignFunction(__glNormal3iv);
+	Gura_AssignFunction(__glNormal3s);
+	Gura_AssignFunction(__glNormal3sv);
+	Gura_AssignFunction(__glOrtho);
+	Gura_AssignFunction(__glPassThrough);
+	Gura_AssignFunction(__glPixelMapfv);
+	Gura_AssignFunction(__glPixelMapuiv);
+	Gura_AssignFunction(__glPixelMapusv);
+	Gura_AssignFunction(__glPixelStoref);
+	Gura_AssignFunction(__glPixelStorei);
+	Gura_AssignFunction(__glPixelTransferf);
+	Gura_AssignFunction(__glPixelTransferi);
+	Gura_AssignFunction(__glPixelZoom);
+	Gura_AssignFunction(__glPointSize);
+	Gura_AssignFunction(__glPolygonMode);
+	Gura_AssignFunction(__glPolygonOffset);
+	Gura_AssignFunction(__glPolygonStipple);
+	Gura_AssignFunction(__glPopAttrib);
+	Gura_AssignFunction(__glPopClientAttrib);
+	Gura_AssignFunction(__glPopMatrix);
+	Gura_AssignFunction(__glPopName);
+	Gura_AssignFunction(__glPrioritizeTextures);
+	Gura_AssignFunction(__glPushAttrib);
+	Gura_AssignFunction(__glPushClientAttrib);
+	Gura_AssignFunction(__glPushMatrix);
+	Gura_AssignFunction(__glPushName);
+	Gura_AssignFunction(__glRasterPos2d);
+	Gura_AssignFunction(__glRasterPos2dv);
+	Gura_AssignFunction(__glRasterPos2f);
+	Gura_AssignFunction(__glRasterPos2fv);
+	Gura_AssignFunction(__glRasterPos2i);
+	Gura_AssignFunction(__glRasterPos2iv);
+	Gura_AssignFunction(__glRasterPos2s);
+	Gura_AssignFunction(__glRasterPos2sv);
+	Gura_AssignFunction(__glRasterPos3d);
+	Gura_AssignFunction(__glRasterPos3dv);
+	Gura_AssignFunction(__glRasterPos3f);
+	Gura_AssignFunction(__glRasterPos3fv);
+	Gura_AssignFunction(__glRasterPos3i);
+	Gura_AssignFunction(__glRasterPos3iv);
+	Gura_AssignFunction(__glRasterPos3s);
+	Gura_AssignFunction(__glRasterPos3sv);
+	Gura_AssignFunction(__glRasterPos4d);
+	Gura_AssignFunction(__glRasterPos4dv);
+	Gura_AssignFunction(__glRasterPos4f);
+	Gura_AssignFunction(__glRasterPos4fv);
+	Gura_AssignFunction(__glRasterPos4i);
+	Gura_AssignFunction(__glRasterPos4iv);
+	Gura_AssignFunction(__glRasterPos4s);
+	Gura_AssignFunction(__glRasterPos4sv);
+	Gura_AssignFunction(__glReadBuffer);
+	Gura_AssignFunction(__glReadPixels);
+	Gura_AssignFunction(__glRectd);
+	Gura_AssignFunction(__glRectdv);
+	Gura_AssignFunction(__glRectf);
+	Gura_AssignFunction(__glRectfv);
+	Gura_AssignFunction(__glRecti);
+	Gura_AssignFunction(__glRectiv);
+	Gura_AssignFunction(__glRects);
+	Gura_AssignFunction(__glRectsv);
+	Gura_AssignFunction(__glRenderMode);
+	Gura_AssignFunction(__glRotated);
+	Gura_AssignFunction(__glRotatef);
+	Gura_AssignFunction(__glScaled);
+	Gura_AssignFunction(__glScalef);
+	Gura_AssignFunction(__glScissor);
+	Gura_AssignFunction(__glSelectBuffer);
+	Gura_AssignFunction(__glShadeModel);
+	Gura_AssignFunction(__glStencilFunc);
+	Gura_AssignFunction(__glStencilMask);
+	Gura_AssignFunction(__glStencilOp);
+	Gura_AssignFunction(__glTexCoord1d);
+	Gura_AssignFunction(__glTexCoord1dv);
+	Gura_AssignFunction(__glTexCoord1f);
+	Gura_AssignFunction(__glTexCoord1fv);
+	Gura_AssignFunction(__glTexCoord1i);
+	Gura_AssignFunction(__glTexCoord1iv);
+	Gura_AssignFunction(__glTexCoord1s);
+	Gura_AssignFunction(__glTexCoord1sv);
+	Gura_AssignFunction(__glTexCoord2d);
+	Gura_AssignFunction(__glTexCoord2dv);
+	Gura_AssignFunction(__glTexCoord2f);
+	Gura_AssignFunction(__glTexCoord2fv);
+	Gura_AssignFunction(__glTexCoord2i);
+	Gura_AssignFunction(__glTexCoord2iv);
+	Gura_AssignFunction(__glTexCoord2s);
+	Gura_AssignFunction(__glTexCoord2sv);
+	Gura_AssignFunction(__glTexCoord3d);
+	Gura_AssignFunction(__glTexCoord3dv);
+	Gura_AssignFunction(__glTexCoord3f);
+	Gura_AssignFunction(__glTexCoord3fv);
+	Gura_AssignFunction(__glTexCoord3i);
+	Gura_AssignFunction(__glTexCoord3iv);
+	Gura_AssignFunction(__glTexCoord3s);
+	Gura_AssignFunction(__glTexCoord3sv);
+	Gura_AssignFunction(__glTexCoord4d);
+	Gura_AssignFunction(__glTexCoord4dv);
+	Gura_AssignFunction(__glTexCoord4f);
+	Gura_AssignFunction(__glTexCoord4fv);
+	Gura_AssignFunction(__glTexCoord4i);
+	Gura_AssignFunction(__glTexCoord4iv);
+	Gura_AssignFunction(__glTexCoord4s);
+	Gura_AssignFunction(__glTexCoord4sv);
+	Gura_AssignFunction(__glTexEnvf);
+	Gura_AssignFunction(__glTexEnvfv);
+	Gura_AssignFunction(__glTexEnvi);
+	Gura_AssignFunction(__glTexEnviv);
+	Gura_AssignFunction(__glTexGend);
+	Gura_AssignFunction(__glTexGendv);
+	Gura_AssignFunction(__glTexGenf);
+	Gura_AssignFunction(__glTexGenfv);
+	Gura_AssignFunction(__glTexGeni);
+	Gura_AssignFunction(__glTexGeniv);
+	Gura_AssignFunction(__glTexImage1D);
+	Gura_AssignFunction(__glTexImage2D);
+	Gura_AssignFunction(__glTexParameterf);
+	Gura_AssignFunction(__glTexParameterfv);
+	Gura_AssignFunction(__glTexParameteri);
+	Gura_AssignFunction(__glTexParameteriv);
+	Gura_AssignFunction(__glTexSubImage1D);
+	Gura_AssignFunction(__glTexSubImage2D);
+	Gura_AssignFunction(__glTranslated);
+	Gura_AssignFunction(__glTranslatef);
+	Gura_AssignFunction(__glVertex2d);
+	Gura_AssignFunction(__glVertex2dv);
+	Gura_AssignFunction(__glVertex2f);
+	Gura_AssignFunction(__glVertex2fv);
+	Gura_AssignFunction(__glVertex2i);
+	Gura_AssignFunction(__glVertex2iv);
+	Gura_AssignFunction(__glVertex2s);
+	Gura_AssignFunction(__glVertex2sv);
+	Gura_AssignFunction(__glVertex3d);
+	Gura_AssignFunction(__glVertex3dv);
+	Gura_AssignFunction(__glVertex3f);
+	Gura_AssignFunction(__glVertex3fv);
+	Gura_AssignFunction(__glVertex3i);
+	Gura_AssignFunction(__glVertex3iv);
+	Gura_AssignFunction(__glVertex3s);
+	Gura_AssignFunction(__glVertex3sv);
+	Gura_AssignFunction(__glVertex4d);
+	Gura_AssignFunction(__glVertex4dv);
+	Gura_AssignFunction(__glVertex4f);
+	Gura_AssignFunction(__glVertex4fv);
+	Gura_AssignFunction(__glVertex4i);
+	Gura_AssignFunction(__glVertex4iv);
+	Gura_AssignFunction(__glVertex4s);
+	Gura_AssignFunction(__glVertex4sv);
+	Gura_AssignFunction(__glViewport);
+	Gura_AssignFunction(__glGetAttachedShaders);
+	Gura_AssignFunction(__glGetShaderInfoLog);
+	Gura_AssignFunction(__glGetProgramInfoLog);
+	Gura_AssignFunction(__glGetUniformLocation);
+	Gura_AssignFunction(__glGetActiveUniform);
+	Gura_AssignFunction(__glGetUniformfv);
+	Gura_AssignFunction(__glGetUniformiv);
+	Gura_AssignFunction(__glGetShaderSource);
+	Gura_AssignFunction(__glBindAttribLocation);
+	Gura_AssignFunction(__glGetActiveAttrib);
+	Gura_AssignFunction(__glGetAttribLocation);
+	Gura_AssignFunction(__glUniformMatrix2x3fv);
+	Gura_AssignFunction(__glUniformMatrix3x2fv);
+	Gura_AssignFunction(__glUniformMatrix2x4fv);
+	Gura_AssignFunction(__glUniformMatrix4x2fv);
+	Gura_AssignFunction(__glUniformMatrix3x4fv);
+	Gura_AssignFunction(__glUniformMatrix4x3fv);
 }
 
 Gura_EndModuleScope(opengl)
