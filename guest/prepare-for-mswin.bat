@@ -32,6 +32,7 @@ rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTURL%/expat-2.1.0.tar.gz
 %CURL% -O %GUESTURL%/expat-2.1.0-gurapatch.zip
 %CURL% -O %GUESTURL%/fontconfig-2.11.tar.bz2
+%CURL% -O %GUESTURL%/freeglut-2.8.1.tar.gz
 %CURL% -O %GUESTURL%/freetype-2.5.3.tar.bz2
 %CURL% -O %GUESTURL%/jpegsrc.v9a.tar.gz
 %CURL% -O %GUESTURL%/lpng1520.zip
@@ -131,6 +132,11 @@ pushd pixman-0.32.6\pixman
 if not exist release mkdir release
 %GNUMAKE% -f Makefile.win32 CFG=release
 popd
+rem ---------------------------------------------------------------------------
+%UNZIP% x -y freeglut-2.8.1.tar.gz
+%UNZIP% x -y freeglut-2.8.1.tar
+del freeglut-2.8.1.tar
+msbuild freeglut-2.8.1\VisualStudio\2010\freeglut.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release_Static /p:Platform=win32
 rem ---------------------------------------------------------------------------
 %UNZIP% x -y freetype-2.5.3.tar.bz2
 %UNZIP% x -y freetype-2.5.3.tar
