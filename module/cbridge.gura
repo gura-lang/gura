@@ -3,7 +3,7 @@ import(re)
 
 tmplImplementation = R'''
 // ${fi.moduleName}.${fi.funcNameGura}
-Gura_DeclareFunction(${fi.funcNameGura})
+Gura_DeclareFunctionAlias(__${fi.funcNameGura}, "${fi.funcNameGura}")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_${fi.resultMode}, ${('FLAG_' + fi.flags).join(' | ')});
 	${if (fi.blockDeclared)}
@@ -18,7 +18,7 @@ Gura_DeclareFunction(${fi.funcNameGura})
 	${end}
 }
 
-Gura_ImplementFunction(${fi.funcNameGura})
+Gura_ImplementFunction(__${fi.funcNameGura})
 {
 	${if (!fi.validFlag)}
 #if 0
@@ -36,7 +36,7 @@ ${fi.tmplBody.render()}
 '''.template()
 
 tmplAssignment = R'''
-Gura_AssignFunction(${fi.funcNameGura});
+Gura_AssignFunction(__${fi.funcNameGura});
 '''.template()
 
 ArgInfo = struct(name:string, valType:string:nil, occurPattern:string:nil,

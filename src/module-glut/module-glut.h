@@ -4,7 +4,11 @@
 #ifndef __GURA_MODULE_GLUT_H__
 #define __GURA_MODULE_GLUT_H__
 #include <gura.h>
+#if defined(GURA_ON_DARWIN)
 #include <glut/glut.h>
+#else
+#include <GL/glut.h>
+#endif
 
 Gura_BeginModuleHeader(glut)
 

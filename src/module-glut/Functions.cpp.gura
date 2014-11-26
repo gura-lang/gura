@@ -170,24 +170,24 @@ glutWarpPointer(x:int, y:int):void:map = `auto % {`en, 'markdown',
 	'''
 }
 
-glutSurfaceTexture(target:GLenum, internalformat:GLenum, surfacewin:int):void:map = `auto % {`en, 'markdown',
-	R'''
-	'''
-}
+//glutSurfaceTexture(target:GLenum, internalformat:GLenum, surfacewin:int):void:map = `auto % {`en, 'markdown',
+//	R'''
+//	'''
+//}
 
-glutWMCloseFunc(func:function):void = R'''
-	g_pContext->funcPackOnWMClose.SetFunc(env, sig, func->Reference());
-	glutWMCloseFunc(OnWMClose);
-	return Value::Null;
-''' % {`en, 'markdown',
-	R'''
-	'''
-}
+//glutWMCloseFunc(func:function):void = R'''
+//	g_pContext->funcPackOnWMClose.SetFunc(env, sig, func->Reference());
+//	glutWMCloseFunc(OnWMClose);
+//	return Value::Null;
+//''' % {`en, 'markdown',
+//	R'''
+//	'''
+//}
 
-glutCheckLoop():void = `auto % {`en, 'markdown',
-	R'''
-	'''
-}
+//glutCheckLoop():void = `auto % {`en, 'markdown',
+//	R'''
+//	'''
+//}
 
 glutEstablishOverlay():void = `auto % {`en, 'markdown',
 	R'''
