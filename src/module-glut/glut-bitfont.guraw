@@ -25,11 +25,10 @@ selectFont(newfont:number) = {
 }
 
 selectMessage(msg:number) = {
-	extern(message)
 	if (msg == 1) {
-		message = "abcdefghijklmnop";
+		message:extern = "abcdefghijklmnop";
 	} elsif (msg == 2) {
-		message = "ABCDEFGHIJKLMNOP";
+		message:extern = "ABCDEFGHIJKLMNOP";
 	}
 }
 
