@@ -64,4 +64,6 @@ Source URLs
 
 <tr><td>mpir-2.6.0.tar.bz2</td><td>http://www.mpir.org/</td></tr>
 
+<tr><td>freeglut-2.8.1.tar.gz</td><td>http://freeglut.sourceforge.net/</td></tr>
+
 </table>
