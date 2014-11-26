@@ -9,10 +9,11 @@ if (sys.platform == `mswin) {
 	builder.libDirs.append(path.join(baseDir, 'lib/x86'))
 	builder.libs.append('freeglut_static.lib')
 } elsif (sys.platform == `linux) {
-	//builder.debFiles = ['libgl1-mesa', 'libglu1-mesa']
-	//builder.rpmFiles = ['mesa-libGL', 'mesa-libGLU']
-	//builder.debFilesDevel = ['libgl1-mesa-dev', 'libglu1-mesa-dev']
-	//builder.rpmFilesDevel = ['mesa-libGL-devel', 'mesa-libGLU-devel']
+	builder.libs.append('glut')
+	builder.debFiles = ['libgl1-mesa', 'libglu1-mesa']
+	builder.rpmFiles = ['mesa-libGL', 'mesa-libGLU']
+	builder.debFilesDevel = ['libgl1-mesa-dev', 'libglu1-mesa-dev']
+	builder.rpmFilesDevel = ['mesa-libGL-devel', 'mesa-libGLU-devel']
 } elsif (sys.platform == `darwin) {
 	builder.cflags.append('-framework', 'GLUT')
 	builder.ldflags.append('-framework', 'GLUT')
