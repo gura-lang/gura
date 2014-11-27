@@ -208,7 +208,11 @@ FuncInfo = class {
 	}
 }
 
-AddTypeConv() {`block} = {
+AddTypeConv(typeName:string, typeConv:TypeConv) = {
+	typeConvDict.set(typeName, typeConv)
+}
+
+AddTypeConvs() {`block} = {
 	typeConvDict.store {|block|}
 }
 

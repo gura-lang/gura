@@ -59,7 +59,7 @@ struct Context {
 	inline Context() : idxMenu(0) {}
 };
 
-Context *g_pContext2 = NULL;
+Context *g_pContext = NULL;
 
 template<int idx> void OnMenuTmpl(int value)
 {

@@ -1,8 +1,8 @@
 #!/usr/bin/env gura
 import(cbridge)
 
-cbridge.AddTypeConv {
-	'unsigned_char@:const' => cbridge.TypeConv(
+cbridge.AddTypeConvs {
+	'unsigned_char@:const' => TypeConv(
 			'string', 'Once', [],
 			'const unsigned char *${arg.name} = reinterpret_cast<const unsigned char *>(args.GetString(${idx}));',
 			nil,
@@ -637,4 +637,5 @@ cbridge.AddTypeConv {
 
 Implement = cbridge.Implement
 AddTypeConv = cbridge.AddTypeConv
+AddTypeConvs = cbridge.AddTypeConvs
 Renderer = cbridge.Renderer

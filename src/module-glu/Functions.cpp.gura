@@ -461,7 +461,7 @@ gluUnProject4(winX:GLdouble, winY:GLdouble, winZ:GLdouble, clipW:GLdouble, model
 }
 
 // GLU-specific type converter
-cbridge_glcmn.AddTypeConv {
+cbridge_glcmn.AddTypeConvs {
 	'GLUnurbs@' => TypeConv(
 			'Nurbs', 'Once', [],
 			R'''
