@@ -2,7 +2,8 @@
 import(re)
 import(cbridge)
 
-decls = `{
+cbridge.Implement {
+
 //-----------------------------------------------------------------------------
 // Basics - Initialization and Shutdown
 
@@ -3470,17 +3471,17 @@ SDL_acos(x:double):double {block?} = `auto % {`en, 'markdown',
 }
 }
 
-TypeConv_Enum(typeName:string) = {
-	typeName => cbridge.TypeConv(
+AddTypeConv_Enum(typeName:string) = {
+	cbridge.AddTypeConv(typeName, cbridge.TypeConv(
 			'number', 'Once', [],
 			'%s ${arg.name} = static_cast<%s>(args.GetInt(${idx}));' % [typeName, typeName],
 			nil,
 			R'''
 			%s _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));''' % [typeName])
+			return ReturnValue(env, sig, args, Value(_rtn));''' % [typeName]))
 }
 
-TypeConv_Class(typeName:string) = {
+AddTypeConv_Class(typeName:string) = {
 	fields = typeName.split(':'):list
 	if (fields.len() > 1) {
 		[typeNameTmp, attr] = fields
@@ -3493,7 +3494,7 @@ TypeConv_Class(typeName:string) = {
 	typeNameTmp = typeNameTmp.replace('@', '')
 	typeNameBase = typeNameTmp.replace('SDL_', '')
 	if (pointerFlag) {
-		typeName => cbridge.TypeConv(
+		cbridge.AddTypeConv(typeName, cbridge.TypeConv(
 				typeNameBase, 'Once', [],
 				'%sSDL_%s *${arg.name} = Object_%s::GetObject(args, ${idx})->GetEntity();' % \
 								[cond(constFlag, 'const ', ''), typeNameBase, typeNameBase]
@@ -3508,9 +3509,9 @@ TypeConv_Class(typeName:string) = {
 					SetError_SDL(sig);
 					return Value::Null;
 				}
-				return ReturnValue(env, sig, args, _rtnVal);''' % [typeNameBase, typeNameBase])
+				return ReturnValue(env, sig, args, _rtnVal);''' % [typeNameBase, typeNameBase]))
 	} else {
-		typeName => cbridge.TypeConv(
+		cbridge.AddTypeConv(typeName, cbridge.TypeConv(
 				typeNameBase, 'Once', [],
 				'SDL_%s ${arg.name} = Object_%s::GetObject(args, ${idx})->GetEntity();' % \
 																[typeNameBase, typeNameBase]
@@ -3518,13 +3519,13 @@ TypeConv_Class(typeName:string) = {
 				R'''
 				SDL_%s _rtn = ${fi.MakeCaller()};
 				Value _rtnVal(new Object_%s(_rtn));
-				return ReturnValue(env, sig, args, _rtnVal);''' % [typeNameBase, typeNameBase])
+				return ReturnValue(env, sig, args, _rtnVal);''' % [typeNameBase, typeNameBase]))
 	}
 }
 
-typeConvDict = %{
+cbridge.AddTypeConvs {
 	// overwrite built-in converter
-	'char@' => cbridge.TypeConv(
+	'char@' => TypeConv(
 			'string', 'Once', [],
 			'char *${arg.name} = args.GetString(${idx});',
 			nil,
@@ -3540,7 +3541,7 @@ typeConvDict = %{
 			}
 			return ReturnValue(env, sig, args, _rtnVal);
 			''')
-	'char@:const' => cbridge.TypeConv(
+	'char@:const' => TypeConv(
 			'string', 'Once', [],
 			'const char *${arg.name} = args.GetString(${idx});',
 			nil,
@@ -3556,12 +3557,12 @@ typeConvDict = %{
 			return ReturnValue(env, sig, args, _rtnVal);
 			''')
 	// type converter specific to SDL library
-	'Uint16[]' => cbridge.TypeConv(
+	'Uint16[]' => TypeConv(
 			'number', 'Once', ['List'],
 			'CArray<Uint16> ${arg.name} = args.GetList(${idx});',
 			nil,
 			nil)
-	'Sint8' => cbridge.TypeConv(
+	'Sint8' => TypeConv(
 			'number', 'Once', [],
 			'Sint8 ${arg.name} = args.GetChar(${idx});',
 			nil,
@@ -3569,7 +3570,7 @@ typeConvDict = %{
 			Sint8 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));
 			''')
-	'Sint16' => cbridge.TypeConv(
+	'Sint16' => TypeConv(
 			'number', 'Once', [],
 			'Sint16 ${arg.name} = args.GetShort(${idx});',
 			nil,
@@ -3577,7 +3578,7 @@ typeConvDict = %{
 			Sint16 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));
 			''')
-	'Sint32' => cbridge.TypeConv(
+	'Sint32' => TypeConv(
 			'number', 'Once', [],
 			'Sint32 ${arg.name} = args.GetLong(${idx});',
 			nil,
@@ -3585,7 +3586,7 @@ typeConvDict = %{
 			Sint32 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));
 			''')
-	'Sint64' => cbridge.TypeConv(
+	'Sint64' => TypeConv(
 			'number', 'Once', [],
 			'Sint64 ${arg.name} = static_cast<Sint64>(args.GetDouble(${idx}));',
 			nil,
@@ -3593,7 +3594,7 @@ typeConvDict = %{
 			Sint64 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));
 			''')
-	'Uint8' => cbridge.TypeConv(
+	'Uint8' => TypeConv(
 			'number', 'Once', [],
 			'Uint8 ${arg.name} = args.GetUChar(${idx});',
 			nil,
@@ -3601,7 +3602,7 @@ typeConvDict = %{
 			Uint8 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));
 			''')
-	'Uint16' => cbridge.TypeConv(
+	'Uint16' => TypeConv(
 			'number', 'Once', [],
 			'Uint16 ${arg.name} = args.GetUShort(${idx});',
 			nil,
@@ -3609,7 +3610,7 @@ typeConvDict = %{
 			Uint16 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));
 			''')
-	'Uint32' => cbridge.TypeConv(
+	'Uint32' => TypeConv(
 			'number', 'Once', [],
 			'Uint32 ${arg.name} = args.GetULong(${idx});',
 			nil,
@@ -3617,7 +3618,7 @@ typeConvDict = %{
 			Uint32 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));
 			''')
-	'Uint64' => cbridge.TypeConv(
+	'Uint64' => TypeConv(
 			'number', 'Once', [],
 			'Uint64 ${arg.name} = static_cast<Uint64>(args.GetDouble(${idx}));',
 			nil,
@@ -3625,12 +3626,12 @@ typeConvDict = %{
 			Uint64 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));
 			''')
-	'Wav@' => cbridge.TypeConv(
+	'Wav@' => TypeConv(
 			'Wav', 'Once', [],
 			'Object_Wav *${arg.name} = Object_Wav::GetObject(args, ${idx});',
 			nil,
 			nil)
-	'SDL_bool' => cbridge.TypeConv(
+	'SDL_bool' => TypeConv(
 			'boolean', 'Once', [],
 			'SDL_bool ${arg.name} = (args.GetBoolean(${idx})? SDL_TRUE : SDL_FALSE);',
 			nil,
@@ -3638,31 +3639,31 @@ typeConvDict = %{
 			SDL_bool _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn != SDL_FALSE));
 			''')
-	'SDL_Color[]' => cbridge.TypeConv(
+	'SDL_Color[]' => TypeConv(
 			'Color', 'Once', ['List'],
 			'CArray<SDL_Color> ${arg.name} = ' \
 			'CreateCArray<SDL_Color, Object_Color>(args.GetList(${idx}));',
 			nil,
 			nil)
-	'SDL_Event[]' => cbridge.TypeConv(
+	'SDL_Event[]' => TypeConv(
 			'Event', 'Once', ['List'],
 			'CArray<SDL_Event> ${arg.name} = ' \
 					'CreateCArray<SDL_Event, Object_Event>(args.GetList(${idx}));',
 			nil,
 			nil)
-	'SDL_Point[]' => cbridge.TypeConv(
+	'SDL_Point[]' => TypeConv(
 			'Point', 'Once', ['List'],
 			'CArray<SDL_Point> ${arg.name} = ' \
 					'CreateCArray<SDL_Point, Object_Point>(args.GetList(${idx}));',
 			nil,
 			nil)
-	'SDL_Rect[]' => cbridge.TypeConv(
+	'SDL_Rect[]' => TypeConv(
 			'Rect', 'Once', ['List'],
 			'CArray<SDL_Rect> ${arg.name} = ' \
 					'CreateCArray<SDL_Rect, Object_Rect>(args.GetList(${idx}));',
 			nil,
 			nil)
-	'negerr' => cbridge.TypeConv(
+	'negerr' => TypeConv(
 			nil, nil, [],
 			nil,
 			nil,
@@ -3673,7 +3674,7 @@ typeConvDict = %{
 				return Value::Null;
 			}
 			return Value::Null;''', true)
-	'negerr_boolean' => cbridge.TypeConv(
+	'negerr_boolean' => TypeConv(
 			nil, nil, [],
 			nil,
 			nil,
@@ -3685,7 +3686,7 @@ typeConvDict = %{
 			}
 			return ReturnValue(env, sig, args, Value(_rtn != 0));
 			''')
-	'negerr_number' => cbridge.TypeConv(
+	'negerr_number' => TypeConv(
 			nil, nil, [],
 			nil,
 			nil,
@@ -3697,7 +3698,7 @@ typeConvDict = %{
 			}
 			return ReturnValue(env, sig, args, Value(_rtn));
 			''')
-	'Uint16_boolean' => cbridge.TypeConv(
+	'Uint16_boolean' => TypeConv(
 			nil, nil, [],
 			nil,
 			nil,
@@ -3705,25 +3706,7 @@ typeConvDict = %{
 			Uint16 _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn != 0));
 			''')
-	TypeConv_Enum('SDL_AudioFormat')
-	TypeConv_Enum('SDL_AudioDeviceID')
-	TypeConv_Enum('SDL_AudioStatus')
-	TypeConv_Enum('SDL_BlendMode')
-	TypeConv_Enum('SDL_GameControllerAxis')
-	TypeConv_Enum('SDL_GameControllerButton')
-	TypeConv_Enum('SDL_GestureID')
-	TypeConv_Enum('SDL_GLattr')
-	TypeConv_Enum('SDL_Keycode')
-	TypeConv_Enum('SDL_Keymod')
-	TypeConv_Enum('SDL_RendererFlip')
-	TypeConv_Enum('SDL_Scancode')
-	TypeConv_Enum('SDL_SystemCursor')
-	TypeConv_Enum('SDL_TimerID')
-	TypeConv_Enum('SDL_TouchID')
-	TypeConv_Class('SDL_AudioCVT@')
-	TypeConv_Class('SDL_AudioSpec@')
-	TypeConv_Class('SDL_AudioSpec@:const')
-	'SDL_Cursor@' => cbridge.TypeConv(
+	'SDL_Cursor@' => TypeConv(
 			'Cursor', 'Once', [],
 			'SDL_Cursor *${arg.name} = Object_Cursor::GetObject(args, ${idx})->GetEntity();',
 			nil,
@@ -3738,29 +3721,48 @@ typeConvDict = %{
 			}
 			return ReturnValue(env, sig, args, _rtnVal);
 			''')
-	TypeConv_Class('SDL_DisplayMode@')
-	TypeConv_Class('SDL_DisplayMode@:const')
-	TypeConv_Class('SDL_Event@')
-	TypeConv_Class('SDL_Event@:const')
-	TypeConv_Class('SDL_Finger@')
-	TypeConv_Class('SDL_GameController@')
-	TypeConv_Class('SDL_GameControllerButtonBind')
-	TypeConv_Class('SDL_GLContext')
-	TypeConv_Class('SDL_Haptic@')
-	TypeConv_Class('SDL_HapticEffect@')
-	TypeConv_Class('SDL_Joystick@')
-	TypeConv_Class('SDL_JoystickGUID')
-	TypeConv_Class('SDL_Palette@')
-	TypeConv_Class('SDL_PixelFormat@')
-	TypeConv_Class('SDL_PixelFormat@:const')
-	TypeConv_Class('SDL_Point@:const')
-	TypeConv_Class('SDL_Rect@')
-	TypeConv_Class('SDL_Rect@:const')
-	TypeConv_Class('SDL_Renderer@')
-	TypeConv_Class('SDL_Surface@')
-	TypeConv_Class('SDL_Texture@')
-	TypeConv_Class('SDL_Window@')
 }
+
+AddTypeConv_Enum('SDL_AudioFormat')
+AddTypeConv_Enum('SDL_AudioDeviceID')
+AddTypeConv_Enum('SDL_AudioStatus')
+AddTypeConv_Enum('SDL_BlendMode')
+AddTypeConv_Enum('SDL_GameControllerAxis')
+AddTypeConv_Enum('SDL_GameControllerButton')
+AddTypeConv_Enum('SDL_GestureID')
+AddTypeConv_Enum('SDL_GLattr')
+AddTypeConv_Enum('SDL_Keycode')
+AddTypeConv_Enum('SDL_Keymod')
+AddTypeConv_Enum('SDL_RendererFlip')
+AddTypeConv_Enum('SDL_Scancode')
+AddTypeConv_Enum('SDL_SystemCursor')
+AddTypeConv_Enum('SDL_TimerID')
+AddTypeConv_Enum('SDL_TouchID')
+AddTypeConv_Class('SDL_AudioCVT@')
+AddTypeConv_Class('SDL_AudioSpec@')
+AddTypeConv_Class('SDL_AudioSpec@:const')
+AddTypeConv_Class('SDL_DisplayMode@')
+AddTypeConv_Class('SDL_DisplayMode@:const')
+AddTypeConv_Class('SDL_Event@')
+AddTypeConv_Class('SDL_Event@:const')
+AddTypeConv_Class('SDL_Finger@')
+AddTypeConv_Class('SDL_GameController@')
+AddTypeConv_Class('SDL_GameControllerButtonBind')
+AddTypeConv_Class('SDL_GLContext')
+AddTypeConv_Class('SDL_Haptic@')
+AddTypeConv_Class('SDL_HapticEffect@')
+AddTypeConv_Class('SDL_Joystick@')
+AddTypeConv_Class('SDL_JoystickGUID')
+AddTypeConv_Class('SDL_Palette@')
+AddTypeConv_Class('SDL_PixelFormat@')
+AddTypeConv_Class('SDL_PixelFormat@:const')
+AddTypeConv_Class('SDL_Point@:const')
+AddTypeConv_Class('SDL_Rect@')
+AddTypeConv_Class('SDL_Rect@:const')
+AddTypeConv_Class('SDL_Renderer@')
+AddTypeConv_Class('SDL_Surface@')
+AddTypeConv_Class('SDL_Texture@')
+AddTypeConv_Class('SDL_Window@')
 
 tmplSource = R"""
 #include "stdafx.h"
@@ -3769,28 +3771,16 @@ tmplSource = R"""
 #undef CreateMutex
 #undef CreateSemaphore
 
-Gura_BeginModuleScope(sdl2)
+Gura_BeginModuleScope(${renderer.moduleName})
 
 ${renderer.RenderImplementation()}
-
-// sdl2.test()
-Gura_DeclareFunction(test)
-{
-}
-
-Gura_ImplementFunction(test)
-{
-	return Value::Null;
-}
 
 void AssignFunctions(Environment &env)
 {
 	${renderer.RenderAssignment()}
-	Gura_AssignFunction(test);
 }
 
-Gura_EndModuleScope(sdl2)
+Gura_EndModuleScope(${renderer.moduleName})
 """.template()
 
-cbridge.Renderer('sdl2', decls.children, typeConvDict,
-		 &{$funcNameC.sub('^SDL_', '')}).Render(tmplSource, 'Functions.cpp')
+cbridge.Renderer('sdl2', &{$funcNameC.sub('^SDL_', '')}).Render(tmplSource, 'Functions.cpp')

@@ -10827,16 +10827,6 @@ Gura_ImplementFunction(__acos)
 }
 
 
-// sdl2.test()
-Gura_DeclareFunction(test)
-{
-}
-
-Gura_ImplementFunction(test)
-{
-	return Value::Null;
-}
-
 void AssignFunctions(Environment &env)
 {
 	Gura_AssignFunction(__Init);
@@ -11349,7 +11339,6 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__AndroidGetInternalStoragePath);
 	Gura_AssignFunction(__AndroidGetJNIEnv);
 	Gura_AssignFunction(__acos);
-	Gura_AssignFunction(test);
 }
 
 Gura_EndModuleScope(sdl2)
