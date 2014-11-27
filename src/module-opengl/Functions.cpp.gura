@@ -1214,12 +1214,12 @@ glLoadIdentity():void = `auto % {`en, 'markdown',
 	'''
 }
 
-glLoadMatrixd(m:GLdouble@16:const):void:map = `auto % {`en, 'markdown',
+glLoadMatrixd(m:GLdouble@matrix:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glLoadMatrixf(m:GLfloat@16:const):void:map = `auto % {`en, 'markdown',
+glLoadMatrixf(m:GLfloat@matrix:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -1306,12 +1306,12 @@ glMinmax(target:GLenum, internalformat:GLenum, sink:GLboolean):void:map = `auto 
 }
 */
 
-glMultMatrixd(m:GLdouble@16:const):void:map = `auto % {`en, 'markdown',
+glMultMatrixd(m:GLdouble@matrix:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMultMatrixf(m:GLfloat@16:const):void:map = `auto % {`en, 'markdown',
+glMultMatrixf(m:GLfloat@matrix:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -2245,28 +2245,28 @@ glSampleCoverage(value:GLclampf, invert:GLboolean):void:map = `auto % {`en, 'mar
 */
 
 /*
-glLoadTransposeMatrixf(m:GLfloat@16:const):void:map = `auto % {`en, 'markdown',
+glLoadTransposeMatrixf(m:GLfloat@matrix:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 */
 
 /*
-glLoadTransposeMatrixd(m:GLdouble@16:const):void:map = `auto % {`en, 'markdown',
+glLoadTransposeMatrixd(m:GLdouble@matrix:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 */
 
 /*
-glMultTransposeMatrixf(m:GLfloat@16:const):void:map = `auto % {`en, 'markdown',
+glMultTransposeMatrixf(m:GLfloat@matrix:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
 */
 
 /*
-glMultTransposeMatrixd(m:GLdouble@16:const):void:map = `auto % {`en, 'markdown',
+glMultTransposeMatrixd(m:GLdouble@matrix:const):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }

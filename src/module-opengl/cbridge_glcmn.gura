@@ -526,7 +526,7 @@ cbridge.AddTypeConvs {
 			}''',
 			nil,
 			nil)
-	'GLfloat@16:const' => TypeConv(
+	'GLfloat@matrix:const' => TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
@@ -612,7 +612,7 @@ cbridge.AddTypeConvs {
 			}''',
 			nil,
 			nil)
-	'GLdouble@16:const' => TypeConv(
+	'GLdouble@matrix:const' => TypeConv(
 			'number', 'Once', ['List'],
 			R'''
 			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
