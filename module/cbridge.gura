@@ -65,7 +65,7 @@ FuncInfo = class {
 	public {
 		funcNameC, funcNameGura, args, tmplBody, resultMode, flags, helps
 	}
-	__init__(moduleName:string, decl:expr, typeConvDict:dict, funcNameTranslator:function:nil):map = {
+	__init__(moduleName:string, decl:expr, funcNameTranslator:function:nil):map = {
 		if (!decl.isassign()) {
 			this.PrintError(decl, 'must be an assignment expression')
 			sys.exit(1)
@@ -208,7 +208,11 @@ FuncInfo = class {
 	}
 }
 
-typeConvDict_BuiltIn = %{
+AddTypeConv() {`block} = {
+	typeConvDict.store {|block|}
+}
+
+typeConvDict = %{
 	'' => TypeConv(
 			nil, nil, [],
 			nil,
@@ -449,13 +453,14 @@ typeConvDict_BuiltIn = %{
 			nil)
 }
 
+decls = []
+
+Implement() {`block} = { decls:extern = block.children }
+
 Renderer = class {
-	__init__(moduleName:string, decls:iterator,
-			 typeConvDict:dict, funcNameTranslator:function:nil) = {
-		typeConvDictWork = %{}
-		typeConvDictWork.store(typeConvDict_BuiltIn)
-		typeConvDictWork.store(typeConvDict)
-		this.funcInfos = FuncInfo(moduleName, decls, typeConvDictWork, funcNameTranslator):list
+	__init__(moduleName:string, funcNameTranslator:function:nil) = {
+		this.moduleName:public = moduleName
+		this.funcInfos = FuncInfo(moduleName, decls, funcNameTranslator):list
 	}
 	Render(tmplSource:template, fileNameOut:string) = {
 		renderer = this
