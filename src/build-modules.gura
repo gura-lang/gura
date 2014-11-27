@@ -3,6 +3,8 @@ import(argopt)
 
 ModuleInfo = struct(moduleName:string, action:symbol, platforms[]:symbol)
 moduleInfos = @(ModuleInfo) {
+	// re module must be built at first as it's used in cbridge module.
+	['re',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['base64',			`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['bmp',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['bzip2',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
@@ -40,7 +42,6 @@ moduleInfos = @(ModuleInfo) {
 	['png',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['postgresql',		`skip,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]	// not completed
 	['ppm',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
-	['re',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['sdl',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['sdl2',			`build,	[`mswin,	`darwin,	`ubuntu										]]
 	['sqlite3',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]

@@ -1,5 +1,4 @@
 #!/usr/bin/env gura
-import(re)
 import(cbridge)
 
 cbridge.Implement {
