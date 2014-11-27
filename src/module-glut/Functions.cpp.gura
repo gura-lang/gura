@@ -228,6 +228,10 @@ glutHideOverlay():void = `auto % {`en, 'markdown',
 
 glutCreateMenu(func:function):int {block?} = R'''
 	int idxMenu = g_pContext->idxMenu++;
+	if (idxMenu >= ArraySizeOf(g_OnMenus)) {
+		sig.SetError(ERR_OutOfRangeError, "too many menus");
+		return Value::Null;
+	}
 	g_pContext->funcPackOnMenuTbl[idxMenu].SetFunc(env, sig, func->Reference());
 	int _rtn = glutCreateMenu(g_OnMenus[idxMenu]);
 	return ReturnValue(env, sig, args, Value(_rtn));
@@ -860,38 +864,6 @@ OnMenuType g_OnMenus[] = {
 	OnMenuTmpl<116>, OnMenuTmpl<117>, OnMenuTmpl<118>, OnMenuTmpl<119>,
 	OnMenuTmpl<120>, OnMenuTmpl<121>, OnMenuTmpl<122>, OnMenuTmpl<123>,
 	OnMenuTmpl<124>, OnMenuTmpl<125>, OnMenuTmpl<126>, OnMenuTmpl<127>,
-	OnMenuTmpl<128>, OnMenuTmpl<129>, OnMenuTmpl<130>, OnMenuTmpl<131>,
-	OnMenuTmpl<132>, OnMenuTmpl<133>, OnMenuTmpl<134>, OnMenuTmpl<135>,
-	OnMenuTmpl<136>, OnMenuTmpl<137>, OnMenuTmpl<138>, OnMenuTmpl<139>,
-	OnMenuTmpl<140>, OnMenuTmpl<141>, OnMenuTmpl<142>, OnMenuTmpl<143>,
-	OnMenuTmpl<144>, OnMenuTmpl<145>, OnMenuTmpl<146>, OnMenuTmpl<147>,
-	OnMenuTmpl<148>, OnMenuTmpl<149>, OnMenuTmpl<150>, OnMenuTmpl<151>,
-	OnMenuTmpl<152>, OnMenuTmpl<153>, OnMenuTmpl<154>, OnMenuTmpl<155>,
-	OnMenuTmpl<156>, OnMenuTmpl<157>, OnMenuTmpl<158>, OnMenuTmpl<159>,
-	OnMenuTmpl<160>, OnMenuTmpl<161>, OnMenuTmpl<162>, OnMenuTmpl<163>,
-	OnMenuTmpl<164>, OnMenuTmpl<165>, OnMenuTmpl<166>, OnMenuTmpl<167>,
-	OnMenuTmpl<168>, OnMenuTmpl<169>, OnMenuTmpl<170>, OnMenuTmpl<171>,
-	OnMenuTmpl<172>, OnMenuTmpl<173>, OnMenuTmpl<174>, OnMenuTmpl<175>,
-	OnMenuTmpl<176>, OnMenuTmpl<177>, OnMenuTmpl<178>, OnMenuTmpl<179>,
-	OnMenuTmpl<180>, OnMenuTmpl<181>, OnMenuTmpl<182>, OnMenuTmpl<183>,
-	OnMenuTmpl<184>, OnMenuTmpl<185>, OnMenuTmpl<186>, OnMenuTmpl<187>,
-	OnMenuTmpl<188>, OnMenuTmpl<189>, OnMenuTmpl<190>, OnMenuTmpl<191>,
-	OnMenuTmpl<192>, OnMenuTmpl<193>, OnMenuTmpl<194>, OnMenuTmpl<195>,
-	OnMenuTmpl<196>, OnMenuTmpl<197>, OnMenuTmpl<198>, OnMenuTmpl<199>,
-	OnMenuTmpl<200>, OnMenuTmpl<201>, OnMenuTmpl<202>, OnMenuTmpl<203>,
-	OnMenuTmpl<204>, OnMenuTmpl<205>, OnMenuTmpl<206>, OnMenuTmpl<207>,
-	OnMenuTmpl<208>, OnMenuTmpl<209>, OnMenuTmpl<210>, OnMenuTmpl<211>,
-	OnMenuTmpl<212>, OnMenuTmpl<213>, OnMenuTmpl<214>, OnMenuTmpl<215>,
-	OnMenuTmpl<216>, OnMenuTmpl<217>, OnMenuTmpl<218>, OnMenuTmpl<219>,
-	OnMenuTmpl<220>, OnMenuTmpl<221>, OnMenuTmpl<222>, OnMenuTmpl<223>,
-	OnMenuTmpl<224>, OnMenuTmpl<225>, OnMenuTmpl<226>, OnMenuTmpl<227>,
-	OnMenuTmpl<228>, OnMenuTmpl<229>, OnMenuTmpl<230>, OnMenuTmpl<231>,
-	OnMenuTmpl<232>, OnMenuTmpl<233>, OnMenuTmpl<234>, OnMenuTmpl<235>,
-	OnMenuTmpl<236>, OnMenuTmpl<237>, OnMenuTmpl<238>, OnMenuTmpl<239>,
-	OnMenuTmpl<240>, OnMenuTmpl<241>, OnMenuTmpl<242>, OnMenuTmpl<243>,
-	OnMenuTmpl<244>, OnMenuTmpl<245>, OnMenuTmpl<246>, OnMenuTmpl<247>,
-	OnMenuTmpl<248>, OnMenuTmpl<249>, OnMenuTmpl<250>, OnMenuTmpl<251>,
-	OnMenuTmpl<252>, OnMenuTmpl<253>, OnMenuTmpl<254>, OnMenuTmpl<255>,
 };
 
 void OnWMClose()
