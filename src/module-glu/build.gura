@@ -1,5 +1,9 @@
 #!/usr/bin/env gura
 import(modbuild)
+
+modbuild.update_needed('Functions.cpp.gura', 'Functions.cpp') && \
+	expr('Functions.cpp.gura').eval()
+
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
 	// nothing to do
