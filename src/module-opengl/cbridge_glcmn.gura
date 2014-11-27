@@ -527,13 +527,10 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLfloat@matrix:const' => TypeConv(
-			'number', 'Once', ['List'],
+			'any', 'Once', [],
 			R'''
-			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
-			if (${arg.name}.GetSize() != 16) {
-				sig.SetError(ERR_ValueError, "the list must have four elements");
-				return Value::Null;
-			}''',
+			CArray<GLfloat> ${arg.name} = MakeMatrix<GLfloat>(sig, args.GetValue(${idx}));
+			if (sig.IsSignalled()) return Value::Null;''',
 			nil,
 			nil)
 	'GLfloat@pname:const' => TypeConv(
@@ -613,13 +610,10 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLdouble@matrix:const' => TypeConv(
-			'number', 'Once', ['List'],
+			'any', 'Once', [],
 			R'''
-			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
-			if (${arg.name}.GetSize() != 16) {
-				sig.SetError(ERR_ValueError, "the list must have four elements");
-				return Value::Null;
-			}''',
+			CArray<GLdouble> ${arg.name} = MakeMatrix<GLdouble>(sig, args.GetValue(${idx}));
+			if (sig.IsSignalled()) return Value::Null;''',
 			nil,
 			nil)
 	'GLdouble@pname:const' => TypeConv(
