@@ -1,10 +1,11 @@
 #!/usr/bin/env gura
 import(modbuild)
 
-modbuild.update_needed('Functions.cpp.gura', 'Functions.cpp') && \
-	expr('Functions.cpp.gura').eval()
-
 builder = modbuild.Builder()
+builder.addRule('Functions.cpp', ['Functions.cpp.gura']) {
+	expr('Functions.cpp.gura').eval()
+	true
+}
 if (sys.platform == `mswin) {
 	baseDir = path.join(builder.guestDir, 'freeglut-2.8.1')
 	builder.cflags.append('-DFREEGLUT_STATIC')

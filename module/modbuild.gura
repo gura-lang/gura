@@ -2,6 +2,18 @@
 import(argopt)
 
 //-----------------------------------------------------------------------------
+// Rule
+//-----------------------------------------------------------------------------
+Rule = struct(target:string, sources[]:string, func:function) {
+	execute() = {
+		if (!path.exists(this.target) || \
+				(path.stat(this.target).mtime < path.stat(this.sources):*mtime).or()) {
+			this.func()
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------
 // BuilderBase
 //-----------------------------------------------------------------------------
 BuilderBase = class {
@@ -60,6 +72,7 @@ BuilderBase = class {
 				sys.exit(1)
 			}
 		}
+		this.rules = []
 		this.errorFlag = false
 		this.debFiles = nil
 		this.rpmFiles = nil
@@ -108,7 +121,11 @@ BuilderBase = class {
 		outDir = path.join(this.outDir, path.dirname(target))
 		!path.exists(outDir) && fs.mkdir(outDir):tree
 		(this.precompile && !this.doPrecompile()) && this.printHint() && return(this)
-		srcs.each() {|src, idx|
+		this.rules.each {|rule|
+			!rule.execute() && \
+				(this.skipErrorFlag || this.printHint() && return(this))
+		}
+		srcs.each {|src, idx|
 			!this.doCompile(src, idx, srcs.len()) && \
 				(this.skipErrorFlag || this.printHint() && return(this))
 		}
@@ -168,6 +185,9 @@ BuilderBase = class {
 		sys.stderr.println(' build-install-root build and install files to root directory')
 		sys.stderr.println('options:')
 		sys.stderr.println(' ', p.formatHelp())
+	}
+	addRule(target:string, sources[]:string) {block} = {
+		this.rules.add(Rule(target, sources, block))
 	}
 }
 
@@ -387,11 +407,14 @@ if (sys.build == `msc) {
 			} else {
 				fileNames = []
 			}
+			fileNames.append(this.rules:*target)
 			fileNames.append(path.dir('.', '*.gch', '*.pch'))
 			fileNames.isempty() && return
 			fileNames.each {|fileName|
-				fs.remove(fileName)
-				this.verboseFlag && println('-- deleted: ', fileName)
+				try {
+					fs.remove(fileName)
+					this.verboseFlag && println('-- deleted: ', fileName)
+				} catch {}
 			}
 			println('-- cleaned')
 		}
@@ -399,11 +422,4 @@ if (sys.build == `msc) {
 } else {
 	sys.stderr.println('unsupported build system')
 	sys.exit(1)
-}
-
-//-----------------------------------------------------------------------------
-// utilities
-//-----------------------------------------------------------------------------
-update_needed(src:string, dst:string):map = {
-	!path.exists(dst) || path.stat(dst).mtime < path.stat(src).mtime
 }
