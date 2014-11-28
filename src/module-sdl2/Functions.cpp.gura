@@ -1550,11 +1550,11 @@ SDL_CreateRGBSurface(flags:Uint32, width:int, height:int, depth:int, Rmask:Uint3
 }
 
 SDL_CreateRGBSurfaceFrom(pixels:binary, width:int, height:int, depth:int, pitch:int, Rmask:Uint32, Gmask:Uint32, Bmask:Uint32, Amask:Uint32) {block?} = R'''
-	if (pixels.size() < static_cast<size_t>(height * pitch)) {
+	if (pixels->size() < static_cast<size_t>(height * pitch)) {
 		sig.SetError(ERR_ValueError, "pixels doesn not contain enough data");
 		return Value::Null;
 	}
-	void *_pixels = const_cast<char *>(pixels.data());
+	void *_pixels = const_cast<char *>(pixels->data());
 	SDL_Surface *_rtn = SDL_CreateRGBSurfaceFrom(_pixels, width, height,
 								depth, pitch, Rmask, Gmask, Bmask, Amask);
 	if (_rtn == NULL) {
@@ -1663,7 +1663,7 @@ SDL_GetSurfaceColorMod(surface:SDL_Surface@) {block?} = R'''
 }
 
 SDL_LoadBMP(src:stream) {block?} = R'''
-	std::auto_ptr<SDL_RWops> _src(CreateRWopsStream(&src, &sig));
+	std::auto_ptr<SDL_RWops> _src(CreateRWopsStream(src, &sig));
 	SDL_Surface *_rtn = SDL_LoadBMP_RW(_src.get(), 0);
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
@@ -1701,7 +1701,7 @@ SDL_MUSTLOCK(surface:SDL_Surface@):bool {block?} = `auto % {`en, 'markdown',
 }
 
 SDL_SaveBMP(surface:SDL_Surface@, dst:stream) {block?} = R'''
-	std::auto_ptr<SDL_RWops> context(CreateRWopsStream(&dst, &sig));
+	std::auto_ptr<SDL_RWops> context(CreateRWopsStream(dst, &sig));
 	int _rtn = SDL_SaveBMP_RW(surface, context.get(), 0);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
@@ -1857,7 +1857,7 @@ SDL_HasEvents(minType:Uint32, maxType:Uint32):SDL_bool {block?} = `auto % {`en, 
 }
 
 SDL_LoadDollarTemplates(touchId:SDL_TouchID, src:stream) {block?} = R'''
-	std::auto_ptr<SDL_RWops> _src(CreateRWopsStream(&src, &sig));
+	std::auto_ptr<SDL_RWops> _src(CreateRWopsStream(src, &sig));
 	int _rtn = SDL_LoadDollarTemplates(touchId, _src.get());
 	if (_rtn < 0) {
 		SetError_SDL(sig);
@@ -1961,7 +1961,7 @@ SDL_RegisterEvents(numevents:int) {block?} = R'''
 }
 
 SDL_SaveAllDollarTemplates(dst:stream) {block?} = R'''
-	std::auto_ptr<SDL_RWops> _dst(CreateRWopsStream(&dst, &sig));
+	std::auto_ptr<SDL_RWops> _dst(CreateRWopsStream(dst, &sig));
 	int _rtn = SDL_SaveAllDollarTemplates(_dst.get());
 	if (_rtn < 0) {
 		SetError_SDL(sig);
@@ -1974,7 +1974,7 @@ SDL_SaveAllDollarTemplates(dst:stream) {block?} = R'''
 }
 
 SDL_SaveDollarTemplate(gestureId:SDL_GestureID, dst:stream):void = R'''
-	std::auto_ptr<SDL_RWops> _dst(CreateRWopsStream(&dst, &sig));
+	std::auto_ptr<SDL_RWops> _dst(CreateRWopsStream(dst, &sig));
 	int _rtn = SDL_SaveDollarTemplate(gestureId, _dst.get());
 	if (_rtn < 0) {
 		SetError_SDL(sig);
@@ -2151,16 +2151,16 @@ SDL_CreateColorCursor(surface:SDL_Surface@, hot_x:int, hot_y:int):SDL_Cursor@ {b
 
 SDL_CreateCursor(data:binary, mask:binary, w:int, h:int, hot_x:int, hot_y:int) {block?} = R'''
 	size_t bytesLeast = int((w + 7) / 8) * h;
-	if (data.size() < bytesLeast) {
+	if (data->size() < bytesLeast) {
 		sig.SetError(ERR_ValueError, "data has insufficient content");
 		return Value::Null;
 	}
-	if (mask.size() < bytesLeast) {
+	if (mask->size() < bytesLeast) {
 		sig.SetError(ERR_ValueError, "mask has insufficient content");
 		return Value::Null;
 	}
-	const Uint8 *_data = reinterpret_cast<const Uint8 *>(data.data());
-	const Uint8 *_mask = reinterpret_cast<const Uint8 *>(mask.data());
+	const Uint8 *_data = reinterpret_cast<const Uint8 *>(data->data());
+	const Uint8 *_mask = reinterpret_cast<const Uint8 *>(mask->data());
 	SDL_Cursor *_rtn = SDL_CreateCursor(_data, _mask, w, h, hot_x, hot_y);
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
@@ -2402,7 +2402,7 @@ SDL_GameControllerAddMapping(mappingString:char@:const):negerr_boolean {block?} 
 }
 
 SDL_GameControllerAddMappingsFromFile(file:stream) {block?} = R'''
-	std::auto_ptr<SDL_RWops> _file(CreateRWopsStream(&file, &sig));
+	std::auto_ptr<SDL_RWops> _file(CreateRWopsStream(file, &sig));
 	int _rtn = SDL_GameControllerAddMappingsFromRW(_file.get(), 0);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
@@ -2763,7 +2763,7 @@ SDL_GetQueuedAudioSize(dev:SDL_AudioDeviceID):Uint32 = `unsupport % {`en, 'markd
 }
 
 SDL_LoadWAV(file:stream) {block?} = R'''
-	std::auto_ptr<SDL_RWops> _file(CreateRWopsStream(&file, &sig));
+	std::auto_ptr<SDL_RWops> _file(CreateRWopsStream(file, &sig));
 	SDL_AudioSpec spec;
 	Uint8 *audio_buf = NULL;
 	Uint32 audio_len = 0;
