@@ -551,7 +551,15 @@ glDrawBuffer(mode:GLenum):void:map = `auto % {`en, 'markdown',
 
 //glDrawElements(mode:GLenum, count:GLsizei, type:GLenum, indices:GLvoid@:const):void:map = `unsupport
 
-glDrawPixels(image:image):void:map = R'''	
+glDrawPixels(width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:binary):void:map = R'''	
+	glDrawPixels(width, height, format, type, pixels->data());
+	return Value::Null;
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
+
+glDrawPixelsFromImage(image:image):void:map = R'''	
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLsizei height = static_cast<GLsizei>(image->GetHeight());
 	GLenum format = GetImageFormat(sig, image);
@@ -2020,7 +2028,17 @@ glTexGeniv(coord:GLenum, pname:GLenum, params:GLint@pname:const):void:map = `aut
 	'''
 }
 
-glTexImage1D(target:GLenum, level:GLint,
+glTexImage1D(target:GLenum, level:GLint, internalformat:GLint,
+			width:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:binary):void:map = R'''
+	// check pixels->size()
+	glTexImage1D(target, level, internalformat, width, border, format, type, pixels->data());
+	return Value::Null;
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
+
+glTexImage1DFromImage(target:GLenum, level:GLint,
 			 internalformat:GLint, border:GLint, image:image):void:map = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth()) + border * 2;
 	GLenum format = GetImageFormat(sig, image);
@@ -2034,7 +2052,17 @@ glTexImage1D(target:GLenum, level:GLint,
 	'''
 }
 
-glTexImage2D(target:GLenum, level:GLint,
+glTexImage2D(target:GLenum, level:GLint, internalformat:GLint,
+		width:GLsizei, height:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:binary):void:map = R'''
+	// check pixels->size()
+	glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels->data());
+	return Value::Null;
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
+	
+glTexImage2DFromImage(target:GLenum, level:GLint,
 			 internalformat:GLint, border:GLint, image:image):void:map = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth()) + border * 2;
 	GLsizei height = static_cast<GLsizei>(image->GetHeight()) + border * 2;
@@ -2071,7 +2099,17 @@ glTexParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void:map
 	'''
 }
 
-glTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint, image:image):void:map = R'''
+glTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint,
+			 width:GLsizei, format:GLenum, type:GLenum, pixels:binary):void:map = R'''
+	// check pixels->size()
+	glTexSubImage1D(target, level, xoffset, width, format, type, pixels->data());
+	return Value::Null;
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
+
+glTexSubImage1DFromImage(target:GLenum, level:GLint, xoffset:GLint, image:image):void:map = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLenum format = GetImageFormat(sig, image);
 	if (sig.IsSignalled()) return Value::Null;
@@ -2084,7 +2122,17 @@ glTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint, image:image):void:map
 	'''
 }
 
-glTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, image:image):void:map = R'''
+glTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint,
+		width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:binary):void:map = R'''
+	// check pixels->size()
+	glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels->data());
+	return Value::Null;
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
+
+glTexSubImage2DFromImage(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, image:image):void:map = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLsizei height = static_cast<GLsizei>(image->GetHeight());
 	GLenum format = GetImageFormat(sig, image);
