@@ -184,3 +184,12 @@ testcase('square root') {
 	}
 	gmp.mpf.set_default_prec(prec)
 }
+testcase('type cast') {
+	tester(`gmp.mpz(3))
+	tester(`gmp.mpz(3L))
+	tester(`gmp.mpz(3.L))
+	tester(`gmp.mpf(3))
+	tester(`gmp.mpf(3L))
+	tester(`gmp.mpf(3.L))
+	tester(`gmp.mpq(3))
+}

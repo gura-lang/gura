@@ -64,27 +64,33 @@ Gura_DeclareFunction(mpq)
 
 Gura_ImplementFunction(mpq)
 {
-	mpq_t num;
-	::mpq_init(num);
+	Value value;
 	if (args.IsInvalid(0)) {
 		// nothing to do
 	} else if (args.Is_number(0)) {
+		mpq_t num;
+		::mpq_init(num);
 		::mpz_set_si(mpq_numref(num), args.GetInt(0));
 		if (args.Is_number(1)) {
 			::mpz_set_si(mpq_denref(num), args.GetInt(1));
 		}
+		value = Value(new Object_mpq(num));
 	} else if (args.Is_string(0)) {
+		mpq_t num;
+		::mpq_init(num);
 		if (::mpq_set_str(num, args.GetString(0), 0) < 0) {
 			::mpq_clear(num);
 			sig.SetError(ERR_ValueError, "invalid string format for gmp.mpq");
 			return Value::Null;
 		}
+		value = Value(new Object_mpq(num));
+	} else if (args.IsType(0, VTYPE_mpq)) {
+		value = args.GetValue(0); // no change
 	} else {
-		::mpq_clear(num);
 		SetError_ArgumentTypeByIndex(sig, args, 0);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_mpq(num)));
+	return ReturnValue(env, sig, args, value);
 }
 
 //-----------------------------------------------------------------------------

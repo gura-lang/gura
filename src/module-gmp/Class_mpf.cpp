@@ -88,6 +88,8 @@ Gura_ImplementFunction(mpf)
 			return Value::Null;
 		}
 		value = Value(new Object_mpf(num));
+	} else if (args.IsType(0, VTYPE_mpf)) {
+		value = args.GetValue(0); // no change
 	} else if (args.IsType(0, VTYPE_mpz)) {
 		mpf_class num(Object_mpz::GetEntity(args, 0), prec);
 		value = Value(new Object_mpf(num));
