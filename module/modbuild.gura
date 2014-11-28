@@ -9,6 +9,8 @@ Rule = struct(target:string, sources[]:string, func:function) {
 		if (!path.exists(this.target) || \
 				(path.stat(this.target).mtime < path.stat(this.sources):*mtime).or()) {
 			this.func()
+		} else {
+			true
 		}
 	}
 }
