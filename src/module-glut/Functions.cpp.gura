@@ -2,6 +2,21 @@
 sys.path.add('../module-opengl')
 import(cbridge_glcmn)
 
+tmplCallbackHandler = R'''
+	if (func == NULL) {
+		g_pContext->funcPackOn${eventName}.ClearFunc();
+		glut${eventName}Func(NULL);
+	} else {
+		g_pContext->funcPackOn${eventName}.SetFunc(env, sig, func->Reference());
+		glut${eventName}Func(On${eventName});
+	}
+	return Value::Null;
+'''.template()
+
+RenderCallbackHandler(eventName:string) = {
+	tmplCallbackHandler.render()
+}
+
 cbridge_glcmn.Implement {
 
 glutInit(argv[]:string) {block?} = R'''
@@ -290,225 +305,143 @@ glutDetachMenu(button:int):void:map = `auto % {`en, 'markdown',
 	'''
 }
 
-glutDisplayFunc(func:function):void = R'''
-	g_pContext->funcPackOnDisplay.SetFunc(env, sig, func->Reference());
-	glutDisplayFunc(OnDisplay);
+glutDisplayFunc(func:function:nil):void = RenderCallbackHandler('Display') % {`en, 'markdown',
+	R'''
+	'''
+}
+
+glutReshapeFunc(func:function:nil):void = RenderCallbackHandler('Reshape') % {`en, 'markdown',
+	R'''
+	'''
+}
+
+glutKeyboardFunc(func:function:nil):void = RenderCallbackHandler('Keyboard') % {`en, 'markdown',
+	R'''
+	'''
+}
+
+glutMouseFunc(func:function:nil):void = RenderCallbackHandler('Mouse') % {`en, 'markdown',
+	R'''
+	'''
+}
+
+glutMotionFunc(func:function:nil):void = RenderCallbackHandler('Motion') % {`en, 'markdown',
+	R'''
+	'''
+}
+
+glutPassiveMotionFunc(func:function:nil):void = RenderCallbackHandler('PassiveMotion') % {`en, 'markdown',
+	R'''
+	'''
+}
+
+glutEntryFunc(func:function:nil):void = RenderCallbackHandler('Entry') % {`en, 'markdown',
+	R'''
+	'''
+}
+
+glutVisibilityFunc(func:function:nil):void = RenderCallbackHandler('Visibility') % {`en, 'markdown',
+	R'''
+	'''
+}
+
+glutIdleFunc(func:function:nil):void = RenderCallbackHandler('Idle') % {`en, 'markdown',
+	R'''
+	'''
+}
+
+glutTimerFunc(millis:unsigned_int, func:function:nil, value:int):void = R'''
+	if (func == NULL) {
+		g_pContext->funcPackOnTimer.ClearFunc();
+		glutTimerFunc(millis, NULL, value);
+	} else {
+		g_pContext->funcPackOnTimer.SetFunc(env, sig, func->Reference());
+		glutTimerFunc(millis, OnTimer, value);
+	}
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutReshapeFunc(func:function):void = R'''
-	g_pContext->funcPackOnReshape.SetFunc(env, sig, func->Reference());
-	glutReshapeFunc(OnReshape);
-	return Value::Null;
-''' % {`en, 'markdown',
+glutMenuStateFunc(func:function:nil):void = RenderCallbackHandler('MenuState') % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutKeyboardFunc(func:function):void = R'''
-	g_pContext->funcPackOnKeyboard.SetFunc(env, sig, func->Reference());
-	glutKeyboardFunc(OnKeyboard);
-	return Value::Null;
-''' % {`en, 'markdown',
+glutSpecialFunc(func:function:nil):void = RenderCallbackHandler('Special') % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutMouseFunc(func:function):void = R'''
-	g_pContext->funcPackOnMouse.SetFunc(env, sig, func->Reference());
-	glutMouseFunc(OnMouse);
-	return Value::Null;
-''' % {`en, 'markdown',
+glutSpaceballMotionFunc(func:function:nil):void = RenderCallbackHandler('SpaceballMotion') % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutMotionFunc(func:function):void = R'''
-	g_pContext->funcPackOnMotion.SetFunc(env, sig, func->Reference());
-	glutMotionFunc(OnMotion);
-	return Value::Null;
-''' % {`en, 'markdown',
+glutSpaceballRotateFunc(func:function:nil):void = RenderCallbackHandler('SpaceballRotate') % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutPassiveMotionFunc(func:function):void = R'''
-	g_pContext->funcPackOnPassiveMotion.SetFunc(env, sig, func->Reference());
-	glutPassiveMotionFunc(OnPassiveMotion);
-	return Value::Null;
-''' % {`en, 'markdown',
+glutSpaceballButtonFunc(func:function:nil):void = RenderCallbackHandler('SpaceballButton') % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutEntryFunc(func:function):void = R'''
-	g_pContext->funcPackOnEntry.SetFunc(env, sig, func->Reference());
-	glutEntryFunc(OnEntry);
-	return Value::Null;
-''' % {`en, 'markdown',
+glutButtonBoxFunc(func:function:nil):void = RenderCallbackHandler('ButtonBox') % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutVisibilityFunc(func:function):void = R'''
-	g_pContext->funcPackOnVisibility.SetFunc(env, sig, func->Reference());
-	glutVisibilityFunc(OnVisibility);
-	return Value::Null;
-''' % {`en, 'markdown',
+glutDialsFunc(func:function:nil):void = RenderCallbackHandler('Dials') % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutIdleFunc(func:function):void = R'''
-	g_pContext->funcPackOnIdle.SetFunc(env, sig, func->Reference());
-	glutIdleFunc(OnIdle);
-	return Value::Null;
-''' % {`en, 'markdown',
+glutTabletMotionFunc(func:function:nil):void = RenderCallbackHandler('TabletMotion') % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutTimerFunc(millis:unsigned_int, func:function, value:int):void = R'''
-	g_pContext->funcPackOnTimer.SetFunc(env, sig, func->Reference());
-	glutTimerFunc(millis, OnTimer, value);
-	return Value::Null;
-''' % {`en, 'markdown',
+glutTabletButtonFunc(func:function:nil):void = RenderCallbackHandler('TabletButton') % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutMenuStateFunc(func:function):void = R'''
-	g_pContext->funcPackOnMenuState.SetFunc(env, sig, func->Reference());
-	glutMenuStateFunc(OnMenuState);
-	return Value::Null;
-''' % {`en, 'markdown',
+glutMenuStatusFunc(func:function:nil):void = RenderCallbackHandler('MenuStatus') % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutSpecialFunc(func:function):void = R'''
-	g_pContext->funcPackOnSpecial.SetFunc(env, sig, func->Reference());
-	glutSpecialFunc(OnSpecial);
-	return Value::Null;
-''' % {`en, 'markdown',
+glutOverlayDisplayFunc(func:function:nil):void = RenderCallbackHandler('OverlayDisplay') % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutSpaceballMotionFunc(func:function):void = R'''
-	g_pContext->funcPackOnSpaceballMotion.SetFunc(env, sig, func->Reference());
-	glutSpaceballMotionFunc(OnSpaceballMotion);
-	return Value::Null;
-''' % {`en, 'markdown',
+glutWindowStatusFunc(func:function:nil):void = RenderCallbackHandler('WindowStatus') % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutSpaceballRotateFunc(func:function):void = R'''
-	g_pContext->funcPackOnSpaceballRotate.SetFunc(env, sig, func->Reference());
-	glutSpaceballRotateFunc(OnSpaceballRotate);
-	return Value::Null;
-''' % {`en, 'markdown',
+glutKeyboardUpFunc(func:function:nil):void = RenderCallbackHandler('KeyboardUp') % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutSpaceballButtonFunc(func:function):void = R'''
-	g_pContext->funcPackOnSpaceballButton.SetFunc(env, sig, func->Reference());
-	glutSpaceballButtonFunc(OnSpaceballButton);
-	return Value::Null;
-''' % {`en, 'markdown',
+glutSpecialUpFunc(func:function:nil):void = RenderCallbackHandler('SpecialUp') % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glutButtonBoxFunc(func:function):void = R'''
-	g_pContext->funcPackOnButtonBox.SetFunc(env, sig, func->Reference());
-	glutButtonBoxFunc(OnButtonBox);
-	return Value::Null;
-''' % {`en, 'markdown',
-	R'''
-	'''
-}
-
-glutDialsFunc(func:function):void = R'''
-	g_pContext->funcPackOnDials.SetFunc(env, sig, func->Reference());
-	glutDialsFunc(OnDials);
-	return Value::Null;
-''' % {`en, 'markdown',
-	R'''
-	'''
-}
-
-glutTabletMotionFunc(func:function):void = R'''
-	g_pContext->funcPackOnTabletMotion.SetFunc(env, sig, func->Reference());
-	glutTabletMotionFunc(OnTabletMotion);
-	return Value::Null;
-''' % {`en, 'markdown',
-	R'''
-	'''
-}
-
-glutTabletButtonFunc(func:function):void = R'''
-	g_pContext->funcPackOnTabletButton.SetFunc(env, sig, func->Reference());
-	glutTabletButtonFunc(OnTabletButton);
-	return Value::Null;
-''' % {`en, 'markdown',
-	R'''
-	'''
-}
-
-glutMenuStatusFunc(func:function):void = R'''
-	g_pContext->funcPackOnMenuStatus.SetFunc(env, sig, func->Reference());
-	glutMenuStatusFunc(OnMenuStatus);
-	return Value::Null;
-''' % {`en, 'markdown',
-	R'''
-	'''
-}
-
-glutOverlayDisplayFunc(func:function):void = R'''
-	g_pContext->funcPackOnOverlayDisplay.SetFunc(env, sig, func->Reference());
-	glutOverlayDisplayFunc(OnOverlayDisplay);
-	return Value::Null;
-''' % {`en, 'markdown',
-	R'''
-	'''
-}
-
-glutWindowStatusFunc(func:function):void = R'''
-	g_pContext->funcPackOnWindowStatus.SetFunc(env, sig, func->Reference());
-	glutWindowStatusFunc(OnWindowStatus);
-	return Value::Null;
-''' % {`en, 'markdown',
-	R'''
-	'''
-}
-
-glutKeyboardUpFunc(func:function):void = R'''
-	g_pContext->funcPackOnKeyboardUp.SetFunc(env, sig, func->Reference());
-	glutKeyboardUpFunc(OnKeyboardUp);
-	return Value::Null;
-''' % {`en, 'markdown',
-	R'''
-	'''
-}
-
-glutSpecialUpFunc(func:function):void = R'''
-	g_pContext->funcPackOnSpecialUp.SetFunc(env, sig, func->Reference());
-	glutSpecialUpFunc(OnSpecialUp);
-	return Value::Null;
-''' % {`en, 'markdown',
-	R'''
-	'''
-}
-
-glutJoystickFunc(func:function, pollInterval:int):void = R'''
-	g_pContext->funcPackOnJoystick.SetFunc(env, sig, func->Reference());
-	glutJoystickFunc(OnJoystick, pollInterval);
+glutJoystickFunc(func:function:nil, pollInterval:int):void = R'''
+	if (func == NULL) {
+		g_pContext->funcPackOnJoystick.ClearFunc();
+		glutJoystickFunc(NULL, pollInterval);
+	} else {
+		g_pContext->funcPackOnJoystick.SetFunc(env, sig, func->Reference());
+		glutJoystickFunc(OnJoystick, pollInterval);
+	}
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
@@ -775,6 +708,10 @@ public:
 		_pEnv.reset(new Environment(env));
 		_sig = sig;
 		_pFunc.reset(pFunc);
+	}
+	inline void ClearFunc() {
+		_pEnv.reset(NULL);
+		_pFunc.reset(NULL);
 	}
 	inline Value Eval(Args &args) {
 		if (_pFunc.IsNull()) return Value::Null;

@@ -19,6 +19,7 @@ if (sys.platform == `mswin) {
 	builder.debFilesDevel = ['libgl1-mesa-dev', 'libglu1-mesa-dev']
 	builder.rpmFilesDevel = ['mesa-libGL-devel', 'mesa-libGLU-devel']
 } elsif (sys.platform == `darwin) {
+	builder.cflags.append('-Wno-deprecated-declarations')
 	builder.cflags.append('-framework', 'GLUT')
 	builder.ldflags.append('-framework', 'GLUT')
 }

@@ -183,6 +183,18 @@ FuncInfo = class {
 		caller.attrs.find(`map) && this.flags.append('Map')
 		this.flags.isempty() && this.flags.append('None')
 		this.args = caller.cdr.each():list {|arg|
+			occurPattern = nil
+			optionalFlag = false
+			if (arg.isunaryop()) {
+				if (arg.operator.symbol == `?) {
+					occurPattern = 'ZeroOrOnce'
+					optionalFlag = true
+				} else {
+					this.PrintError(decl, 'invalid occurance specifier')
+					sys.exit(1)
+				}
+				arg = arg.child
+			}
 			if (arg.isindexer()) {
 				identifier = arg.car
 				argTypeRaw = identifier.attrfront.join('.') + '[]'
@@ -200,18 +212,18 @@ FuncInfo = class {
 			}
 			flags = []
 			flags.append(typeConv.flags)
-			tmplGetter = typeConv.tmplGetter
 			if (identifier.attrs.find(`nil)) {
 				flags.append('Nil')
-				tmplGetter = typeConv.tmplGetterOpt
+				optionalFlag = true
 			}
 			flags.isempty() && flags.append('None')
+			tmplGetter = cond(optionalFlag, typeConv.tmplGetterOpt, typeConv.tmplGetter)
 			if (!tmplGetter) {
 				this.PrintError(decl, 'failed to convert argument information %s', argTypeRaw)
 				sys.exit(1)
 			}
 			name = identifier.symbol
-			ArgInfo(name, typeConv.valType, typeConv.occurPattern,
+			ArgInfo(name, typeConv.valType, occurPattern || typeConv.occurPattern,
 					tmplGetter.template(), flags)
 		}
 	}
@@ -516,7 +528,7 @@ typeConvDict = %{
 	'function' => TypeConv(
 			'function', 'Once', [],
 			'const Function *${arg.name} = Object_function::GetObject(args, ${idx})->GetFunction();',
-			nil,
+			'const Function *${arg.name} = args.IsValid(${idx})? Object_function::GetObject(args, ${idx})->GetFunction() : NULL;',
 			nil)
 }
 
