@@ -1,0 +1,51 @@
+#!/usr/bin/env gura
+// Answer to the question: https://codeiq.jp/ace/egi/q1186
+
+loadTable = @{
+	{0, 1, 2},
+	{3, 0, 4},
+	{9, 7, 0},
+}
+
+loadTable = @{
+	{0,7,12,8,11,7}
+	{3,0,10,7,13,2}
+	{4,8,0,9,12,3}
+	{6,6,9,0,10,7}
+	{7,7,11,10,0,5}
+	{9,7,8,9,10,0}
+}
+
+LookupLoad(nodeStart:number, nodeGoal:number):map = loadTable[nodeStart][nodeGoal]
+
+getNodeName(node:number):map = format('%d', node + 1)
+
+Route = class {
+	__init__(nodes[]:number) = {
+		this.nodes:public = nodes
+		this.loads:public = LookupLoad(this.nodes, this.nodes.offset(1)):list
+		this.loadSum:public = this.loads.sum()
+		this.markFlag:public = false
+	}
+	ToString() = {
+		format('%s%s %6d%s',
+			   format('%s -[%2d]-> ', getNodeName(this.nodes), this.loads).join(),
+			   getNodeName(this.nodes.last()), this.loadSum, cond(this.markFlag, ' *', ''))
+	}
+}
+
+doSolve(nodes[]:number, nodeStart:number, nodeGoal:number) = {
+	nodesMid = nodes.filter(!(nodes in [nodeStart, nodeGoal])):list
+	routes = nodesMid.permutation():list {|nodesRoute|
+		nodesRoute.insert(0, nodeStart)
+		nodesRoute.append(nodeGoal)
+		Route(nodesRoute)
+	}
+	routes = routes.sort(`ascend, routes::loadSum):list
+	printf('%s -> %s\n', getNodeName(nodeStart), getNodeName(nodeGoal))
+	routes.get(routes:*loadSum.min():indices):*markFlag = true
+	println(routes:*ToString())
+}
+
+nodes = range(loadTable.len())
+doSolve(nodes, 0, 0)
