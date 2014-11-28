@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-// Answer for the question: https://codeiq.jp/ace/egi/q1186
+// Answer to the question: https://codeiq.jp/ace/egi/q1186
 
 fareTable = %{
 	'東京' => %{             '新宿' => 200, '渋谷' => 200, '三鷹' => 390, '錦糸町' => 160, '北千住' => 220}
