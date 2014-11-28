@@ -46,6 +46,212 @@ Gura_AssignFunction(__${fi.funcNameGura});
 '''.template()
 
 //------------------------------------------------------------------------------
+// ArgInfo
+//------------------------------------------------------------------------------
+ArgInfo = struct(name:string, valType:string:nil, occurPattern:string:nil,
+				 tmplGetter:template, flags[]:string)
+
+//------------------------------------------------------------------------------
+// TypeConv
+//------------------------------------------------------------------------------
+TypeConv = struct(
+		valType:string:nil, occurPattern:string:nil, flags[]:string,
+		tmplGetter:string:nil, tmplGetterOpt:string:nil,
+		tmplBody:string:nil, voidFlag?:boolean)
+
+//------------------------------------------------------------------------------
+// Help
+//------------------------------------------------------------------------------
+Help = struct(lang:symbol, format:string, help:string) {
+	ToString() = {
+		str = 'AddHelp(\n'
+		str += format('\tGura_Symbol(%s), Help::FMT_%s,\n', this.lang, this.format)
+		text = this.help.replace('"', '\\"')
+		if (text.isempty()) {
+			str += '\t""'
+		} else {
+			str += ('\t"' + text.eachline():chop + '\\n"').join('\n')
+		}
+		str += ');\n'
+	}
+}
+
+//------------------------------------------------------------------------------
+// FuncInfo
+//------------------------------------------------------------------------------
+FuncInfo = class {
+	public {
+		funcNameC, funcNameGura, args, tmplBody, resultMode, flags, helps
+	}
+	__init__(moduleName:string, decl:expr, funcNameTranslator:function:nil):map = {
+		if (!decl.isassign()) {
+			this.PrintError(decl, 'must be an assignment expression')
+			sys.exit(1)
+		}
+		if (!decl.left.iscaller()) {
+			this.PrintError(decl, "assinged target must be a caller")
+			sys.exit(1)
+		}
+		caller = decl.left
+		this.tmplBody = nil
+		this.validFlag = true
+		this.helps = []
+		exprAssigned = decl.right
+		while (exprAssigned.isbinaryop() && exprAssigned.operator.symbol == `% && \
+												exprAssigned.right.isblock()) {
+			args = exprAssigned.right.children::eval()
+			if (!(args.len() == 3 && args[0].istype(`symbol) && \
+						  args[1].istype(`string) && args[2].istype(`string))) {
+				this.PrintError(decl, 'invalid format for help')
+				sys.exit(1)
+			}
+			this.helps.add(Help(args*))
+			exprAssigned = exprAssigned.left
+		}
+		valueAssigned = exprAssigned.eval()
+		if (isstring(valueAssigned)) {
+			this.tmplBody = valueAssigned.template()
+		} elsif (valueAssigned == `auto) {
+			// nothing to do
+		} elsif (valueAssigned == `unsupport) {
+			this.validFlag = false
+		} else {
+			this.PrintError(decl, 'invalid value for assignment')
+			sys.exit(1)
+		}
+		this.blockDeclared = nil
+		if (caller.block) {
+			children = [caller.block.children]
+			if (children.len() != 1) {
+				this.PrintError(decl, 'block must contain a single expression')
+				sys.exit(1)
+			}
+			child = children[0]
+			if (child.isidentifier()) {
+				this.blockDeclared = 'Once'
+			} elsif (child.isunaryop()) {
+				if (child.operator.symbol == `?) {
+					this.blockDeclared = 'ZeroOrOnce'
+				} else {
+					this.PrintError(decl, 'suffixed operator must be ?')
+					sys.exit(1)
+				}
+			} else {
+				this.PrintError(decl, 'syntax error')
+				sys.exit(1)
+			}
+		}
+		this.moduleName = moduleName
+		this.funcNameC:string = caller.car.symbol
+		if (funcNameTranslator) {
+			this.funcNameGura = funcNameTranslator(this.funcNameC)
+		} else {
+			this.funcNameGura = this.funcNameC
+		}
+		rtnTypeRaw = caller.attrfront.join('.')
+		if (rtnTypeRaw == 'map') {
+			rtnTypeRaw = ''
+		}
+		if (rtnTypeRaw.isempty() && !this.validFlag) {
+			rtnTypeRaw = 'void'
+		}
+		if (caller.attrs.find(`const)) {
+			rtnTypeRaw += ':const'
+		}
+		typeConv = typeConvDict.get(rtnTypeRaw)
+		if (typeConv && typeConv.tmplBody) {
+			// nothing to do
+		} elsif (!this.validFlag) {
+			typeConv = typeConvDict.get('void')
+		} else {
+			this.PrintError(decl,
+							'failed to convert return information "%s"', rtnTypeRaw)
+			sys.exit(1)
+		}
+		if (!this.tmplBody) {
+			this.tmplBody = ('\t' + typeConv.tmplBody.eachline()).join().template()
+		}
+		this.resultMode = 'Normal'
+		this.flags = []
+		if (typeConv.voidFlag) {
+			this.resultMode = 'Void'
+		}
+		caller.attrs.find(`map) && this.flags.append('Map')
+		this.flags.isempty() && this.flags.append('None')
+		this.args = caller.cdr.each():list {|arg|
+			if (arg.isindexer()) {
+				identifier = arg.car
+				argTypeRaw = identifier.attrfront.join('.') + '[]'
+			} else {
+				identifier = arg
+				argTypeRaw = identifier.attrfront.join('.')
+			}
+			if (identifier.attrs.find(`const)) {
+				argTypeRaw += ':const'
+			}
+			typeConv = typeConvDict.get(argTypeRaw)
+			if (!typeConv) {
+				this.PrintError(decl, 'failed to convert argument information %s', argTypeRaw)
+				sys.exit(1)
+			}
+			flags = []
+			flags.append(typeConv.flags)
+			tmplGetter = typeConv.tmplGetter
+			if (identifier.attrs.find(`nil)) {
+				flags.append('Nil')
+				tmplGetter = typeConv.tmplGetterOpt
+			}
+			flags.isempty() && flags.append('None')
+			if (!tmplGetter) {
+				this.PrintError(decl, 'failed to convert argument information %s', argTypeRaw)
+				sys.exit(1)
+			}
+			name = identifier.symbol
+			ArgInfo(name, typeConv.valType, typeConv.occurPattern,
+					tmplGetter.template(), flags)
+		}
+	}
+	MakeCaller() = ('%s(%s)' % [this.funcNameC, this.args:*name.join(', ')])
+	PrintError(decl:expr, fmt:string, args*) = {
+		sys.stderr.printf('%s:%d: %s\n',
+				  path.filename(decl.source), decl.lineno, format(fmt, args*))
+	}
+	RenderImplementation() = {
+		fi = this
+		tmplImplementation.render()
+	}
+	RenderAssignment() = {
+		fi = this
+		tmplAssignment.render()
+	}
+}
+
+//------------------------------------------------------------------------------
+// Renderer
+//------------------------------------------------------------------------------
+Renderer = class {
+	__init__(moduleName:string, funcNameTranslator:function:nil) = {
+		this.moduleName:public = moduleName
+		this.funcInfos = FuncInfo(moduleName, decls, funcNameTranslator):list
+	}
+	Render(tmplSource:template, fileNameOut:string) = {
+		renderer = this
+		if (sys.argv.len() > 1 && sys.argv[1] == 'test') {
+			tmplSource.render(sys.stdout)
+		} else {
+			tmplSource.render(fileNameOut)
+			sys.stderr.println(fileNameOut, ' was created')
+		}
+	}
+	RenderImplementation() = {
+		this.funcInfos:*RenderImplementation() + '\n'
+	}
+	RenderAssignment() = {
+		this.funcInfos:*RenderAssignment()
+	}
+}
+
+//------------------------------------------------------------------------------
 // internal variables
 //------------------------------------------------------------------------------
 typeConvDict = %{
@@ -290,212 +496,6 @@ typeConvDict = %{
 }
 
 decls = []
-
-//------------------------------------------------------------------------------
-// ArgInfo
-//------------------------------------------------------------------------------
-ArgInfo = struct(name:string, valType:string:nil, occurPattern:string:nil,
-				 tmplGetter:template, flags[]:string)
-
-//------------------------------------------------------------------------------
-// TypeConv
-//------------------------------------------------------------------------------
-TypeConv = struct(
-		valType:string:nil, occurPattern:string:nil, flags[]:string,
-		tmplGetter:string:nil, tmplGetterOpt:string:nil,
-		tmplBody:string:nil, voidFlag?:boolean)
-
-//------------------------------------------------------------------------------
-// Help
-//------------------------------------------------------------------------------
-Help = struct(lang:symbol, format:string, help:string) {
-	ToString() = {
-		str = 'AddHelp(\n'
-		str += format('\tGura_Symbol(%s), Help::FMT_%s,\n', this.lang, this.format)
-		text = this.help.replace('"', '\\"')
-		if (text.isempty()) {
-			str += '\t""'
-		} else {
-			str += ('\t"' + text.eachline():chop + '\\n"').join('\n')
-		}
-		str += ');\n'
-	}
-}
-
-//------------------------------------------------------------------------------
-// FuncInfo
-//------------------------------------------------------------------------------
-FuncInfo = class {
-	public {
-		funcNameC, funcNameGura, args, tmplBody, resultMode, flags, helps
-	}
-	__init__(moduleName:string, decl:expr, funcNameTranslator:function:nil):map = {
-		if (!decl.isassign()) {
-			this.PrintError(decl, 'must be an assignment expression')
-			sys.exit(1)
-		}
-		if (!decl.left.iscaller()) {
-			this.PrintError(decl, "assinged target must be a caller")
-			sys.exit(1)
-		}
-		caller = decl.left
-		this.tmplBody = nil
-		this.validFlag = true
-		this.helps = []
-		exprAssigned = decl.right
-		while (exprAssigned.isbinaryop() && exprAssigned.operator.symbol == `% && \
-												exprAssigned.right.isblock()) {
-			args = exprAssigned.right.children::eval()
-			if (!(args.len() == 3 && args[0].istype(`symbol) && \
-						  args[1].istype(`string) && args[2].istype(`string))) {
-				this.PrintError(decl, 'invalid format for help')
-				sys.exit(1)
-			}
-			this.helps.add(Help(args*))
-			exprAssigned = exprAssigned.left
-		}
-		valueAssigned = exprAssigned.eval()
-		if (isstring(valueAssigned)) {
-			this.tmplBody = valueAssigned.template()
-		} elsif (valueAssigned == `auto) {
-			// nothing to do
-		} elsif (valueAssigned == `unsupport) {
-			this.validFlag = false
-		} else {
-			this.PrintError(decl, 'invalid value for assignment')
-			sys.exit(1)
-		}
-		this.blockDeclared = nil
-		if (caller.block) {
-			children = [caller.block.children]
-			if (children.len() != 1) {
-				this.PrintError(decl, 'block must contain a single expression')
-				sys.exit(1)
-			}
-			child = children[0]
-			if (child.isidentifier()) {
-				this.blockDeclared = 'Once'
-			} elsif (child.isunaryop()) {
-				if (child.operator.symbol == `?) {
-					this.blockDeclared = 'ZeroOrOnce'
-				} else {
-					this.PrintError(decl, 'suffixed operator must be ?')
-					sys.exit(1)
-				}
-			} else {
-				this.PrintError(decl, 'syntax error')
-				sys.exit(1)
-			}
-		}
-		this.moduleName = moduleName
-		this.funcNameC:string = caller.car.symbol
-		if (funcNameTranslator) {
-			this.funcNameGura = funcNameTranslator(this.funcNameC)
-		} else {
-			this.funcNameGura = this.funcNameC
-		}
-		rtnTypeRaw = caller.attrfront.join('.')
-		if (rtnTypeRaw == 'map') {
-			rtnTypeRaw = ''
-		}
-		if (rtnTypeRaw.isempty() && !this.validFlag) {
-			rtnTypeRaw = 'void'
-		}
-		if (caller.attrs.find(`const)) {
-			rtnTypeRaw += ':const'
-		}
-		typeConv = typeConvDict.get(rtnTypeRaw)
-		if (typeConv && typeConv.tmplBody) {
-			// nothing to do
-		} elsif (!this.validFlag) {
-			typeConv = typeConvDict.get('void')
-		} else {
-			this.PrintError(decl,
-							'failed to convert return information "%s"', rtnTypeRaw)
-			sys.exit(1)
-		}
-		if (!this.tmplBody) {
-			this.tmplBody = ('\t' + typeConv.tmplBody.eachline()).join().template()
-		}
-		this.resultMode = 'Normal'
-		this.flags = []
-		if (typeConv.voidFlag) {
-			this.resultMode = 'Void'
-		}
-		caller.attrs.find(`map) && this.flags.append('Map')
-		this.flags.isempty() && this.flags.append('None')
-		this.args = caller.cdr.each():list {|arg|
-			if (arg.isindexer()) {
-				identifier = arg.car
-				argTypeRaw = identifier.attrfront.join('.') + '[]'
-			} else {
-				identifier = arg
-				argTypeRaw = identifier.attrfront.join('.')
-			}
-			if (identifier.attrs.find(`const)) {
-				argTypeRaw += ':const'
-			}
-			typeConv = typeConvDict.get(argTypeRaw)
-			if (!typeConv) {
-				this.PrintError(decl, 'failed to convert argument information %s', argTypeRaw)
-				sys.exit(1)
-			}
-			flags = []
-			flags.append(typeConv.flags)
-			tmplGetter = typeConv.tmplGetter
-			if (identifier.attrs.find(`nil)) {
-				flags.append('Nil')
-				tmplGetter = typeConv.tmplGetterOpt
-			}
-			flags.isempty() && flags.append('None')
-			if (!tmplGetter) {
-				this.PrintError(decl, 'failed to convert argument information %s', argTypeRaw)
-				sys.exit(1)
-			}
-			name = identifier.symbol
-			ArgInfo(name, typeConv.valType, typeConv.occurPattern,
-					tmplGetter.template(), flags)
-		}
-	}
-	MakeCaller() = ('%s(%s)' % [this.funcNameC, this.args:*name.join(', ')])
-	PrintError(decl:expr, fmt:string, args*) = {
-		sys.stderr.printf('%s:%d: %s\n',
-				  path.filename(decl.source), decl.lineno, format(fmt, args*))
-	}
-	RenderImplementation() = {
-		fi = this
-		tmplImplementation.render()
-	}
-	RenderAssignment() = {
-		fi = this
-		tmplAssignment.render()
-	}
-}
-
-//------------------------------------------------------------------------------
-// Renderer
-//------------------------------------------------------------------------------
-Renderer = class {
-	__init__(moduleName:string, funcNameTranslator:function:nil) = {
-		this.moduleName:public = moduleName
-		this.funcInfos = FuncInfo(moduleName, decls, funcNameTranslator):list
-	}
-	Render(tmplSource:template, fileNameOut:string) = {
-		renderer = this
-		if (sys.argv.len() > 1 && sys.argv[1] == 'test') {
-			tmplSource.render(sys.stdout)
-		} else {
-			tmplSource.render(fileNameOut)
-			sys.stderr.println(fileNameOut, ' was created')
-		}
-	}
-	RenderImplementation() = {
-		this.funcInfos:*RenderImplementation() + '\n'
-	}
-	RenderAssignment() = {
-		this.funcInfos:*RenderAssignment()
-	}
-}
 
 //------------------------------------------------------------------------------
 // functions

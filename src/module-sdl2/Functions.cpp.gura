@@ -3782,4 +3782,4 @@ void AssignFunctions(Environment &env)
 Gura_EndModuleScope(${renderer.moduleName})
 """.template()
 
-cbridge.Renderer('sdl2', &{$funcNameC.sub('^SDL_', '')}).Render(tmplSource, 'Functions.cpp')
+cbridge.Renderer('sdl2', &{$funcNameC.replace('SDL_', '')}).Render(tmplSource, 'Functions.cpp')
