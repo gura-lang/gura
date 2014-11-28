@@ -1,12 +1,12 @@
 #!/usr/bin/env gura
-/* ypsitau ported fontdemo.c to a Gura script. */
+// This Gura program has been ported from the original C code below:
+// https://www.opengl.org/archives/resources/code/samples/glut_examples/examples/fontdemo.c
 
 /* Copyright (c) Mark J. Kilgard, 1994. */
 
 /* This program is freely distributable without licensing fees 
    and is provided without guarantee or warrantee expressed or 
    implied. This program is -not- in the public domain. */
-
 
 import(opengl) {*}
 import(glu) {*}
