@@ -80,7 +80,16 @@ gluBuild1DMipmapLevels(target:GLenum, internalFormat:GLint, level:GLint, base:GL
 }
 */
 
-gluBuild1DMipmaps(target:GLenum, internalFormat:GLint, image:image):GLint = R'''
+gluBuild1DMipmaps(target:GLenum, internalFormat:GLint, width:GLsizei, format:GLenum, type:GLenum, data:binary):GLint = R'''
+	GLint _rtn = gluBuild1DMipmaps(target,
+					internalFormat, width, format, type, data->data());
+	return Value(_rtn);
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluBuild1DMipmapsFromImage(target:GLenum, internalFormat:GLint, image:image):GLint = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLenum format = static_cast<GLsizei>(GetImageFormat(sig, image));
 	if (sig.IsSignalled()) return Value::Null;
@@ -111,7 +120,16 @@ gluBuild2DMipmapLevels(target:GLenum, internalFormat:GLint, level:GLint, base:GL
 }
 */
 
-gluBuild2DMipmaps(target:GLenum, internalFormat:GLint, image:image):GLint = R'''
+gluBuild2DMipmaps(target:GLenum, internalFormat:GLint, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, data:binary):GLint = R'''
+	GLint _rtn = gluBuild2DMipmaps(target,
+					internalFormat, width, height, format, type, data->data());
+	return Value(_rtn);
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
+
+gluBuild2DMipmapsFromImage(target:GLenum, internalFormat:GLint, image:image):GLint = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLsizei height = static_cast<GLsizei>(image->GetHeight());
 	GLenum format = static_cast<GLsizei>(GetImageFormat(sig, image));

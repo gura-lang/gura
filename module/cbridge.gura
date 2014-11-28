@@ -502,28 +502,58 @@ typeConvDict = %{
 			const char *_rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));
 			''')
+	'boolean' => TypeConv(
+			'boolean', 'Once', [],
+			'bool ${arg.name} = args.GetBoolean(${idx});',
+			'bool ${arg.name} = args.IsValid(${idx})? args.GetBoolean(${idx}) : false;',
+			nil)
+	'complex' => TypeConv(
+			'complex', 'Once', [],
+			'Complex ${arg.name} = args.GetComplex(${idx});',
+			'Complex ${arg.name} = args.IsValid(${idx})? args.GetComplex(${idx}) : Complex::Zero;',
+			nil)
+	'rational' => TypeConv(
+			'rational', 'Once', [],
+			'Rational ${arg.name} = args.GetRational(${idx});',
+			'Rational ${arg.name} = args.IsValid(${idx})? args.GetRational(${idx}) : Rational::Zero;',
+			nil)
+	'string' => TypeConv(
+			'string', 'Once', [],
+			'const char *${arg.name} = args.GetString(${idx});',
+			'const char *${arg.name} = args.IsValid(${idx})? args.GetString(${idx}) : NULL;',
+			nil)
 	'symbol' => TypeConv(
 			'symbol', 'Once', [],
 			'const Symbol *${arg.name} = args.GetSymbol(${idx});',
-			nil,
+			'const Symbol *${arg.name} = args.IsValid(${idx})? args.GetSymbol(${idx}) : NULL;',
 			R'''
 			const Symbol *_rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(_rtn));
 			''')
 	'binary' => TypeConv(
 			'binary', 'Once', [],
-			'const Binary &${arg.name} = Object_binary::GetObject(args, ${idx})->GetBinary();',
-			nil,
+			'const Binary *${arg.name} = &Object_binary::GetObject(args, ${idx})->GetBinary();',
+			'const Binary *${arg.name} = args.IsValid(${idx})? &Object_binary::GetObject(args, ${idx})->GetBinary() : NULL;',
+			nil)
+	'color' => TypeConv(
+			'color', 'Once', [],
+			'const Color *${arg.name} = &Object_color::GetObject(args, ${idx})->GetColor();',
+			'const Color *${arg.name} = args.IsValid(${idx})? &Object_color::GetObject(args, ${idx})->GetColor() : NULL;',
+			nil)
+	'datetime' => TypeConv(
+			'datetime', 'Once', [],
+			'const DateTime *${arg.name} = &Object_datetime::GetObject(args, ${idx})->GetDateTime();',
+			'const DateTime *${arg.name} = args.IsValid(${idx})? &Object_datetime::GetObject(args, ${idx})->GetDateTime() : NULL;',
 			nil)
 	'stream' => TypeConv(
 			'stream', 'Once', [],
-			'Stream &${arg.name} = Object_stream::GetObject(args, ${idx})->GetStream();',
-			nil,
+			'Stream *${arg.name} = &Object_stream::GetObject(args, ${idx})->GetStream();',
+			'Stream *${arg.name} = args.IsValid(${idx})? &Object_stream::GetObject(args, ${idx})->GetStream() : NULL;',
 			nil)
 	'image' => TypeConv(
 			'image', 'Once', [],
 			'Image *${arg.name} = Object_image::GetObject(args, ${idx})->GetImage();',
-			nil,
+			'Image *${arg.name} = args.IsValid(${idx})? Object_image::GetObject(args, ${idx})->GetImage() : NULL;',
 			nil)
 	'function' => TypeConv(
 			'function', 'Once', [],

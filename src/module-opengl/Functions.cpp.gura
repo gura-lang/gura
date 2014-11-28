@@ -61,12 +61,12 @@ glBindTexture(target:GLenum, texture:GLuint):void:map = `auto % {`en, 'markdown'
 
 glBitmap(width:GLsizei, height:GLsizei, xorig:GLfloat, yorig:GLfloat, xmove:GLfloat, ymove:GLfloat, bitmap:binary):void:map = R'''
 	size_t bytesReq = ((width + 7) / 8) * height;
-	if (bitmap.size() < bytesReq) {
+	if (bitmap->size() < bytesReq) {
 		sig.SetError(ERR_ValueError, "binary doesn\'t contain enough data");
 		return Value::Null;
 	}
 	glBitmap(width, height, xorig, yorig, xmove, ymove,
-			 reinterpret_cast<const GLubyte *>(bitmap.data()));
+			 reinterpret_cast<const GLubyte *>(bitmap->data()));
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
@@ -1449,11 +1449,11 @@ glPolygonOffset(factor:GLfloat, units:GLfloat):void:map = `auto % {`en, 'markdow
 }
 
 glPolygonStipple(mask:binary):void:map = R'''
-	if (mask.size() != 32 * 4) {
+	if (mask->size() != 32 * 4) {
 		sig.SetError(ERR_ValueError, "mask must be a binary containing 32 * 4 elements");
 		return Value::Null;
 	}
-	glPolygonStipple(reinterpret_cast<const GLubyte *>(mask.data()));
+	glPolygonStipple(reinterpret_cast<const GLubyte *>(mask->data()));
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
