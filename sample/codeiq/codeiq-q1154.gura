@@ -1,0 +1,14 @@
+#!/usr/bin/env gura
+// Answer to the question: https://codeiq.jp/ace/tomohiro_takahashi/q1154
+import(gmp)
+
+n = 99999999999999999999999999999999999999999999999999L
+repeat {
+	printf('%d\n', n)
+	(n == 1) && break
+	if ((n & 1) == 0) {
+		n = n >> 1
+	} else {
+		n = n * 3 + 1
+	}
+}
