@@ -199,12 +199,8 @@ void AssignValues(Environment &env)
 #if defined(GL_SRC_ALPHA_SATURATE)
 	Gura_AssignValue(GL_SRC_ALPHA_SATURATE, Value(GL_SRC_ALPHA_SATURATE));
 #endif
-#if defined(GL_TRUE)
-	Gura_AssignValue(GL_TRUE, Value(GL_TRUE));
-#endif
-#if defined(GL_FALSE)
-	Gura_AssignValue(GL_FALSE, Value(GL_FALSE));
-#endif
+	Gura_AssignValue(GL_TRUE, Value(true));
+	Gura_AssignValue(GL_FALSE, Value(false));
 #if defined(GL_CLIP_PLANE0)
 	Gura_AssignValue(GL_CLIP_PLANE0, Value(GL_CLIP_PLANE0));
 #endif
