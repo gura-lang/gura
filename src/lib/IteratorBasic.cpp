@@ -1146,7 +1146,7 @@ void Iterator_FilterWithIter::GatherFollower(Environment::Frame *pFrame, Environ
 //-----------------------------------------------------------------------------
 Iterator_WhileWithFunc::Iterator_WhileWithFunc(Environment *pEnv,
 							Iterator *pIterator, Object_function *pObjFunc) :
-			Iterator(pIterator->IsInfinite()), _pEnv(pEnv),
+			Iterator(false), _pEnv(pEnv),
 			_pIterator(pIterator), _pObjFunc(pObjFunc)
 {
 }
@@ -1251,7 +1251,7 @@ void Iterator_WhileWithIter::GatherFollower(Environment::Frame *pFrame, Environm
 //-----------------------------------------------------------------------------
 Iterator_UntilWithFunc::Iterator_UntilWithFunc(Environment *pEnv, Iterator *pIterator,
 								Object_function *pObjFunc, bool containLastFlag) :
-			Iterator(pIterator->IsInfinite()), _pEnv(pEnv),
+			Iterator(false), _pEnv(pEnv),
 			_pIterator(pIterator), _pObjFunc(pObjFunc), _containLastFlag(containLastFlag)
 {
 }

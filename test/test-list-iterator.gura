@@ -734,7 +734,6 @@ testcase('test of iterable#sum()') {
 	tester(`x.sum())
 	tester(`x.average())
 }
-
 testcase('test of iterable#flat()') {
 	x = [[1, 2, 3, [4, [5, 6], 7], 8], [9, 10, 11], 12].each()
 	println([x]):nomap
@@ -744,4 +743,11 @@ testcase('test of iterable#flat()') {
 	println(x):nomap
 	println(x.flat().join(', '))
 	println((x.flat():bfs).join(', '))
+}
+testcase('iterator#until() and iterator#while() always return finite iterators') {
+	x = 0..
+	tester(`x)
+	tester(`x.isinfinite())
+	tester(`x.until(x < 100).isinfinite())
+	tester(`x.while(x < 100).isinfinite())
 }

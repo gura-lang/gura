@@ -645,3 +645,10 @@ x.average() .. @@{{1.33333, 3, 0.333333}, {1.66667, 4.66667, 3}, {2.33333, 4.333
 [[1, 2, 3, [4, [5, 6], 7], 8], [9, 10, 11], 12]
 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
 12, 1, 2, 3, 8, 9, 10, 11, 4, 7, 5, 6
+
+======== #43 iterator#until() and iterator#while() always return finite iterators ========
+
+x .. <iterator:0..>
+x.isinfinite() .. true
+x.until(x < 100).isinfinite() .. false
+x.while(x < 100).isinfinite() .. false

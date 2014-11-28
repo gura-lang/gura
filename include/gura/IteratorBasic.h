@@ -546,8 +546,7 @@ private:
 	AutoPtr<Iterator> _pIteratorCriteria;
 public:
 	inline Iterator_WhileWithIter(Iterator *pIterator, Iterator *pIteratorCriteria) :
-			Iterator(pIterator->IsInfinite() && pIteratorCriteria->IsInfinite()),
-			_pIterator(pIterator), _pIteratorCriteria(pIteratorCriteria) {}
+			Iterator(false), _pIterator(pIterator), _pIteratorCriteria(pIteratorCriteria) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString() const;
@@ -583,8 +582,7 @@ private:
 public:
 	inline Iterator_UntilWithIter(Iterator *pIterator,
 								Iterator *pIteratorCriteria, bool containLastFlag) :
-			Iterator(pIterator->IsInfinite() && pIteratorCriteria->IsInfinite()),
-			_pIterator(pIterator), _pIteratorCriteria(pIteratorCriteria),
+			Iterator(false), _pIterator(pIterator), _pIteratorCriteria(pIteratorCriteria),
 			_containLastFlag(containLastFlag) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
