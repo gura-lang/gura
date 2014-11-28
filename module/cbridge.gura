@@ -20,7 +20,7 @@ Gura_DeclareFunctionAlias(__${fi.funcNameGura}, "${fi.funcNameGura}")
 							arg.occurPattern}, ${('FLAG_' + arg.flags).join(' | ')});
 	${end}
 	${fi.helps.each {|help|}}
-	${help.ToString()}
+	${help.Render()}
 	${end}
 }
 
@@ -63,7 +63,7 @@ TypeConv = struct(
 // Help
 //------------------------------------------------------------------------------
 Help = struct(lang:symbol, format:string, help:string) {
-	ToString() = {
+	Render() = {
 		str = 'AddHelp(\n'
 		str += format('\tGura_Symbol(%s), Help::FMT_%s,\n', this.lang, this.format)
 		text = this.help.replace('"', '\\"')
@@ -73,6 +73,10 @@ Help = struct(lang:symbol, format:string, help:string) {
 			str += ('\t"' + text.eachline():chop + '\\n"').join('\n')
 		}
 		str += ');\n'
+	} % {`en, 'markdown',
+		R'''
+		Render C code that adds help information.
+		'''
 	}
 }
 
@@ -219,10 +223,18 @@ FuncInfo = class {
 	RenderImplementation() = {
 		fi = this
 		tmplImplementation.render()
+	} % {`en, 'markdown',
+		R'''
+		Renders C code that implements a Gura function.
+		'''
 	}
 	RenderAssignment() = {
 		fi = this
 		tmplAssignment.render()
+	} % {`en, 'markdown',
+		R'''
+		Renders C code that assigns a Gura function.
+		'''
 	}
 }
 
@@ -242,12 +254,25 @@ Renderer = class {
 			tmplSource.render(fileNameOut)
 			sys.stderr.println(fileNameOut, ' was created')
 		}
+	} % {`en, 'markdown',
+		R'''
+		Renders C code using a template `tmplSource` and that output the result to
+		a file specified by `fileNameOut`.
+		'''
 	}
 	RenderImplementation() = {
 		this.funcInfos:*RenderImplementation() + '\n'
+	} % {`en, 'markdown',
+		R'''
+		Renders C code that implements Gura functions.
+		'''
 	}
 	RenderAssignment() = {
 		this.funcInfos:*RenderAssignment()
+	} % {`en, 'markdown',
+		R'''
+		Renders C code that assigns Gura functions.
+		'''
 	}
 }
 
@@ -500,12 +525,26 @@ decls = []
 //------------------------------------------------------------------------------
 // functions
 //------------------------------------------------------------------------------
-Implement() {`block} = { decls:extern = block.children }
+Implement() {`block} = {
+	decls:extern = block.children
+} % {`en, 'markdown',
+	R'''
+	Describes function implementations in the `block`.
+	'''
+}
 
 AddTypeConv(typeName:string, typeConv:TypeConv) = {
 	typeConvDict.set(typeName, typeConv)
+} % {`en, 'markdown',
+	R'''
+	Adds a type converter information.
+	'''
 }
 
 AddTypeConvs() {`block} = {
 	typeConvDict.store {|block|}
+} % {`en, 'markdown',
+	R'''
+	Adds multiple entries of type converter information by specifying them in `block`.
+	'''
 }
