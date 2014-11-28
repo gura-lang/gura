@@ -1,0 +1,17 @@
+#!/usr/bin/env gura
+// Answer to the question: https://codeiq.jp/ace/odanmitsu/q1180
+
+fib() = {
+	[n, m] = [1, 1]
+	iterator(n, m, repeat():iter {
+		[n, m] = [m, n + m]
+		m
+	})
+}
+str = ''
+fib().each {|n|
+	str += format('%d', n)
+	(str.len() >= 100) && break
+}
+println(str)
+println(str[99])

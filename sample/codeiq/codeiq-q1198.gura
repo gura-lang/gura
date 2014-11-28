@@ -1,0 +1,11 @@
+#!/usr/bin/env gura
+// Answer to the question: https://codeiq.jp/ace/joboffer_apli/q1198
+
+countBitOne(x:number):map = (format('%b', x).split() == '1').count()
+
+num = 0..99
+bcd = int(num / 10) * 16 + num % 10
+matched = (countBitOne(num) == countBitOne(bcd))
+printf('%2d %08b %08b %s\n', num, num, bcd, matched)
+println('---')
+printf('matched count = %d\n', matched.count())
