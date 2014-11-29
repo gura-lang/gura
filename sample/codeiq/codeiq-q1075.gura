@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-// Answer to the question: https://codeiq.jp/ace/egi/q1186
+// Answer to the question: https://codeiq.jp/ace/joboffer_apli/q1075
 
 //loadTable = @{
 //	{0, 1, 2},
@@ -16,9 +16,9 @@ loadTable = @{
 	{  9,  7,  8,  9, 10,  0}
 }
 
-LookupLoad(nodeStart:number, nodeGoal:number):map = loadTable[nodeStart][nodeGoal]
+LookupLoad(nodeStart:number, nodeEnd:number):map = loadTable[nodeStart][nodeEnd]
 
-getNodeName(node:number):map = format('%d', node + 1)
+GetNodeName(node:number):map = format('%d', node + 1)
 
 Route = class {
 	__init__(nodes[]:number) = {
@@ -29,23 +29,23 @@ Route = class {
 	}
 	ToString() = {
 		format('%s%s %6d%s',
-			   format('%s -[%2d]-> ', getNodeName(this.nodes), this.loads).join(),
-			   getNodeName(this.nodes.last()), this.loadSum, cond(this.markFlag, ' *', ''))
+			   format('%s -[%2d]-> ', GetNodeName(this.nodes), this.loads).join(),
+			   GetNodeName(this.nodes.last()), this.loadSum, cond(this.markFlag, ' *', ''))
 	}
 }
 
-doSolve(nodes[]:number, nodeStart:number, nodeGoal:number) = {
-	nodesMid = nodes.filter(!(nodes in [nodeStart, nodeGoal])):list
+DoSolve(nodes[]:number, nodeStart:number, nodeEnd:number) = {
+	nodesMid = nodes.filter(!(nodes in [nodeStart, nodeEnd])):list
 	routes = nodesMid.permutation():list {|nodesRoute|
 		nodesRoute.insert(0, nodeStart)
-		nodesRoute.append(nodeGoal)
+		nodesRoute.append(nodeEnd)
 		Route(nodesRoute)
 	}
 	routes = routes.sort(`ascend, routes::loadSum):list
-	printf('%s -> %s\n', getNodeName(nodeStart), getNodeName(nodeGoal))
+	printf('%s -> %s\n', GetNodeName(nodeStart), GetNodeName(nodeEnd))
 	routes.get(routes:*loadSum.min():indices):*markFlag = true
 	println(routes:*ToString())
 }
 
 nodes = range(loadTable.len())
-doSolve(nodes, 0, 0)
+DoSolve(nodes, 0, 0)
