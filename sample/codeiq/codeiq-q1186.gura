@@ -35,7 +35,7 @@ DoSolve(stations[]:string, stationStart:string, stationEnd:string) = {
 	}
 	routes = routes.sort(`ascend, routes::fareSum):list
 	printf('%s -> %s\n', stationStart, stationEnd)
-	routes[routes:*fareSum.min():indices]:*markFlag = true
+	routes.get(routes:*fareSum.min():indices):*markFlag = true
 	println(routes:*ToString())
 }
 
