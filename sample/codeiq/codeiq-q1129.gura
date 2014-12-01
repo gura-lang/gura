@@ -1,0 +1,19 @@
+#!/usr/bin/env gura
+// Answer to the question: https://codeiq.jp/ace/joboffer_apli/q1129
+
+fibClamped() = {
+	[n, m] = [0, 1]
+	iterator(n, m, repeat():iter {
+		[n, m] = [m, (n + m) % 1000]
+		m
+	})
+}
+fibs = fibClamped()
+//fileName = 'codeiq-q1129/testdata.in.txt'
+fileName = 'codeiq-q1129/sample.in.txt'
+lines = readlines(fileName)
+cnt = int(lines.next())
+int(lines).head(cnt).each {|idx|
+	[n] = fibs.offset(idx).head(1)
+	println(n)
+}
