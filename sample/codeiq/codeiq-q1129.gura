@@ -2,25 +2,38 @@
 // Answer to the question: https://codeiq.jp/ace/joboffer_apli/q1129
 
 fibTable = [0, 1]
-[n, m] = [0, 1]
-repeat {
-	nPrev = n
-	mPrev = m
-	n = mPrev
-	m = (nPrev + mPrev) % 1000
-	if ((idx = fibTable.find(n):index) && \
+idxHead = 0
+MakeFibTable() = {
+	extern(fibTable, idxHead)
+	[n, m] = [0, 1]
+	repeat {
+		nPrev = n
+		mPrev = m
+		n = mPrev
+		m = (nPrev + mPrev) % 1000
+		if ((idx = fibTable.find(n):index) && \
 					(idx + 1 < fibTable.len()) && fibTable[idx + 1] == m) {
-		fibTable.erase(fibTable.len() - 1)
-		break
+			fibTable.erase(fibTable.len() - 1)
+			idxHead = idx
+			break
+		}
+		fibTable.add(m)
 	}
-	fibTable.add(m)
 }
-doProcess(fileName:string) = {
+LookupFibTable(idx:number):map = {
+	if (idx < idxHead) {
+		fibTable[idx]
+	} else {
+		fibTable[(idx - idxHead) % (fibTable.len() - idxHead) + idxHead]
+	}
+}
+DoProcess(fileName:string) = {
 	lines = readlines(fileName)
 	cnt = int(lines.next())
-	int(lines).head(cnt).each {|idx|
-		printf('%d\n', fibTable[idx % fibTable.len()])
-	}
+	indices = int(lines).head(cnt)
+	printf('%d\n', LookupFibTable(indices))
 }
-//doProcess('codeiq-q1129/sample.in.txt')
-doProcess('codeiq-q1129/testdata.in.txt')
+
+MakeFibTable()
+//DoProcess('codeiq-q1129/sample.in.txt')
+DoProcess('codeiq-q1129/testdata.in.txt')
