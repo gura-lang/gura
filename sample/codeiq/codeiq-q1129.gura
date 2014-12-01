@@ -1,19 +1,26 @@
 #!/usr/bin/env gura
 // Answer to the question: https://codeiq.jp/ace/joboffer_apli/q1129
 
-fibClamped() = {
-	[n, m] = [0, 1]
-	iterator(n, m, repeat():iter {
-		[n, m] = [m, (n + m) % 1000]
-		m
-	})
+fibTable = [0, 1]
+[n, m] = [0, 1]
+repeat {
+	nPrev = n
+	mPrev = m
+	n = mPrev
+	m = (nPrev + mPrev) % 1000
+	if ((idx = fibTable.find(n):index) && \
+					(idx + 1 < fibTable.len()) && fibTable[idx + 1] == m) {
+		fibTable.erase(fibTable.len() - 1)
+		break
+	}
+	fibTable.add(m)
 }
-fibs = fibClamped()
-//fileName = 'codeiq-q1129/testdata.in.txt'
-fileName = 'codeiq-q1129/sample.in.txt'
-lines = readlines(fileName)
-cnt = int(lines.next())
-int(lines).head(cnt).each {|idx|
-	[n] = fibs.offset(idx).head(1)
-	println(n)
+doProcess(fileName:string) = {
+	lines = readlines(fileName)
+	cnt = int(lines.next())
+	int(lines).head(cnt).each {|idx|
+		printf('%d\n', fibTable[idx % fibTable.len()])
+	}
 }
+//doProcess('codeiq-q1129/sample.in.txt')
+doProcess('codeiq-q1129/testdata.in.txt')
