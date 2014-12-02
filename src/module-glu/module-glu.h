@@ -78,16 +78,17 @@ class Object_Quadric : public Object {
 public:
 	Gura_DeclareObjectAccessor(Quadric)
 private:
-	GLUquadric *_qobj;
-	AutoPtr<Function> _pFunc_CB_error;
+	GLUquadric *_quad;
+	static AutoPtr<Function> _pFunc_CB_error;
 public:
-	inline Object_Quadric(GLUquadric *qobj) :
-			Object(Gura_UserClass(Quadric)), _qobj(qobj) {}
+	inline Object_Quadric(GLUquadric *quad) :
+			Object(Gura_UserClass(Quadric)), _quad(quad) {}
 	virtual ~Object_Quadric();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	inline GLUquadric *GetQuadric() { return _qobj; }
-	inline void SetFunc_CB_error(Function *pFunc) { _pFunc_CB_error.reset(pFunc); }
+	static void SetCallback(Signal sig, GLUquadric *quad, GLenum which, const Function *func);
+	inline GLUquadric *GetQuadric() { return _quad; }
+	inline static void SetFunc_CB_error(Function *pFunc) { _pFunc_CB_error.reset(pFunc); }
 private:
 	inline Object_Quadric(const Object_Quadric &obj) : Object(obj) {}
 public:
@@ -105,6 +106,18 @@ public:
 private:
 	GLUtesselator *_tess;
 	std::auto_ptr<PolygonPack> _pPolygonPack;
+	static AutoPtr<Function> _pFunc_CB_begin;
+	static AutoPtr<Function> _pFunc_CB_edgeFlag;
+	static AutoPtr<Function> _pFunc_CB_vertex;
+	static AutoPtr<Function> _pFunc_CB_end;
+	static AutoPtr<Function> _pFunc_CB_error;
+	static AutoPtr<Function> _pFunc_CB_combine;
+	static AutoPtr<Function> _pFunc_CB_beginData;
+	static AutoPtr<Function> _pFunc_CB_edgeFlagData;
+	static AutoPtr<Function> _pFunc_CB_endData;
+	static AutoPtr<Function> _pFunc_CB_vertexData;
+	static AutoPtr<Function> _pFunc_CB_errorData;
+	static AutoPtr<Function> _pFunc_CB_combineData;
 public:
 	inline Object_Tesselator(GLUtesselator *tess) :
 			Object(Gura_UserClass(Tesselator)), _tess(tess) {}
@@ -145,14 +158,27 @@ class Object_Nurbs : public Object {
 public:
 	Gura_DeclareObjectAccessor(Nurbs)
 private:
-	GLUnurbs *_nobj;
+	GLUnurbs *_nurb;
+	static AutoPtr<Function> _pFunc_CB_begin;
+	static AutoPtr<Function> _pFunc_CB_vertex;
+	static AutoPtr<Function> _pFunc_CB_normal;
+	static AutoPtr<Function> _pFunc_CB_color;
+	static AutoPtr<Function> _pFunc_CB_texCoord;
+	static AutoPtr<Function> _pFunc_CB_end;
+	static AutoPtr<Function> _pFunc_CB_beginData;
+	static AutoPtr<Function> _pFunc_CB_vertexData;
+	static AutoPtr<Function> _pFunc_CB_normalData;
+	static AutoPtr<Function> _pFunc_CB_colorData;
+	static AutoPtr<Function> _pFunc_CB_texCoordData;
+	static AutoPtr<Function> _pFunc_CB_endData;
+	static AutoPtr<Function> _pFunc_CB_error;
 public:
-	inline Object_Nurbs(GLUnurbs *nobj) :
-				Object(Gura_UserClass(Nurbs)), _nobj(nobj) {}
+	inline Object_Nurbs(GLUnurbs *nurb) :
+				Object(Gura_UserClass(Nurbs)), _nurb(nurb) {}
 	virtual ~Object_Nurbs();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	inline GLUnurbs *GetNurbs() { return _nobj; }
+	inline GLUnurbs *GetNurbs() { return _nurb; }
 private:
 	inline Object_Nurbs(const Object_Nurbs &obj) : Object(obj) {}
 public:
