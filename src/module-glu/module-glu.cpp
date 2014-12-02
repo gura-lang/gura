@@ -4,6 +4,22 @@
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
+#define SetCallback_Tesselator(which, name) \
+case which: { \
+	int idx = _cnt_CB_##name++; \
+	if (idx >= ArraySizeOf(_tbl_CB_##name)) { \
+		sig.SetError(ERR_OutOfRangeError, "too many callbacks"); \
+		return; \
+	} \
+	if (func == NULL) { \
+		gluTessCallback(tess, which, NULL); \
+	} else { \
+		_pFuncs_CB_##name[idx] = func->Reference(); \
+		gluTessCallback(tess, which, reinterpret_cast<CallbackType>(_tbl_CB_##name[idx])); \
+	} \
+	break; \
+}
+
 Gura_BeginModuleBody(glu)
 
 Signal g_sig;
@@ -54,7 +70,7 @@ void VertexPackOwner::Clear()
 int Object_Quadric::_cnt_CB_error = 0;
 
 CallbackType Object_Quadric::_tbl_CB_error[] = {
-	reinterpret_cast<CallbackType>(CB_errorX<0>),
+	reinterpret_cast<CallbackType>(CB_error<0>),
 };
 
 Function *Object_Quadric::_pFuncs_CB_error[ArraySizeOf(_tbl_CB_error)] = { NULL };
@@ -106,18 +122,68 @@ Gura_ImplementUserClass(Quadric)
 //-----------------------------------------------------------------------------
 // Object_Tesselator
 //-----------------------------------------------------------------------------
-Function *Object_Tesselator::_pFunc_CB_begin = NULL;
-Function *Object_Tesselator::_pFunc_CB_edge_flag = NULL;
-Function *Object_Tesselator::_pFunc_CB_vertex = NULL;
-Function *Object_Tesselator::_pFunc_CB_end = NULL;
-Function *Object_Tesselator::_pFunc_CB_error = NULL;
-Function *Object_Tesselator::_pFunc_CB_combine = NULL;
-Function *Object_Tesselator::_pFunc_CB_begin_data = NULL;
-Function *Object_Tesselator::_pFunc_CB_edge_flag_data = NULL;
-Function *Object_Tesselator::_pFunc_CB_end_data = NULL;
-Function *Object_Tesselator::_pFunc_CB_vertex_data = NULL;
-Function *Object_Tesselator::_pFunc_CB_error_data = NULL;
-Function *Object_Tesselator::_pFunc_CB_combine_data = NULL;
+int Object_Tesselator::_cnt_CB_begin = 0;
+int Object_Tesselator::_cnt_CB_edge_flag = 0;
+int Object_Tesselator::_cnt_CB_vertex = 0;
+int Object_Tesselator::_cnt_CB_end = 0;
+int Object_Tesselator::_cnt_CB_error = 0;
+int Object_Tesselator::_cnt_CB_combine = 0;
+int Object_Tesselator::_cnt_CB_begin_data = 0;
+int Object_Tesselator::_cnt_CB_edge_flag_data = 0;
+int Object_Tesselator::_cnt_CB_end_data = 0;
+int Object_Tesselator::_cnt_CB_vertex_data = 0;
+int Object_Tesselator::_cnt_CB_error_data = 0;
+int Object_Tesselator::_cnt_CB_combine_data = 0;
+
+CallbackType Object_Tesselator::_tbl_CB_begin[] = {
+	reinterpret_cast<CallbackType>(CB_begin<0>),
+};
+CallbackType Object_Tesselator::_tbl_CB_edge_flag[] = {
+	reinterpret_cast<CallbackType>(CB_edge_flag<0>),
+};
+CallbackType Object_Tesselator::_tbl_CB_vertex[] = {
+	reinterpret_cast<CallbackType>(CB_vertex<0>),
+};
+CallbackType Object_Tesselator::_tbl_CB_end[] = {
+	reinterpret_cast<CallbackType>(CB_end<0>),
+};
+CallbackType Object_Tesselator::_tbl_CB_error[] = {
+	reinterpret_cast<CallbackType>(CB_error<0>),
+};
+CallbackType Object_Tesselator::_tbl_CB_combine[] = {
+	reinterpret_cast<CallbackType>(CB_combine<0>),
+};
+CallbackType Object_Tesselator::_tbl_CB_begin_data[] = {
+	reinterpret_cast<CallbackType>(CB_begin_data<0>),
+};
+CallbackType Object_Tesselator::_tbl_CB_edge_flag_data[] = {
+	reinterpret_cast<CallbackType>(CB_edge_flag_data<0>),
+};
+CallbackType Object_Tesselator::_tbl_CB_end_data[] = {
+	reinterpret_cast<CallbackType>(CB_end_data<0>),
+};
+CallbackType Object_Tesselator::_tbl_CB_vertex_data[] = {
+	reinterpret_cast<CallbackType>(CB_vertex_data<0>),
+};
+CallbackType Object_Tesselator::_tbl_CB_error_data[] = {
+	reinterpret_cast<CallbackType>(CB_error_data<0>),
+};
+CallbackType Object_Tesselator::_tbl_CB_combine_data[] = {
+	reinterpret_cast<CallbackType>(CB_combine_data<0>),
+};
+
+Function *Object_Tesselator::_pFuncs_CB_begin[ArraySizeOf(_tbl_CB_begin)] = { NULL };
+Function *Object_Tesselator::_pFuncs_CB_edge_flag[ArraySizeOf(_tbl_CB_edge_flag)] = { NULL };
+Function *Object_Tesselator::_pFuncs_CB_vertex[ArraySizeOf(_tbl_CB_vertex)] = { NULL };
+Function *Object_Tesselator::_pFuncs_CB_end[ArraySizeOf(_tbl_CB_end)] = { NULL };
+Function *Object_Tesselator::_pFuncs_CB_error[ArraySizeOf(_tbl_CB_error)] = { NULL };
+Function *Object_Tesselator::_pFuncs_CB_combine[ArraySizeOf(_tbl_CB_combine)] = { NULL };
+Function *Object_Tesselator::_pFuncs_CB_begin_data[ArraySizeOf(_tbl_CB_begin_data)] = { NULL };
+Function *Object_Tesselator::_pFuncs_CB_edge_flag_data[ArraySizeOf(_tbl_CB_edge_flag_data)] = { NULL };
+Function *Object_Tesselator::_pFuncs_CB_end_data[ArraySizeOf(_tbl_CB_end_data)] = { NULL };
+Function *Object_Tesselator::_pFuncs_CB_vertex_data[ArraySizeOf(_tbl_CB_vertex_data)] = { NULL };
+Function *Object_Tesselator::_pFuncs_CB_error_data[ArraySizeOf(_tbl_CB_error_data)] = { NULL };
+Function *Object_Tesselator::_pFuncs_CB_combine_data[ArraySizeOf(_tbl_CB_combine_data)] = { NULL };
 
 Object_Tesselator::~Object_Tesselator()
 {
@@ -137,114 +203,18 @@ String Object_Tesselator::ToString(bool exprFlag)
 void Object_Tesselator::SetCallback(Signal sig, GLUtesselator *tess, GLenum which, const Function *func)
 {
 	switch (which) {
-	case GLU_TESS_BEGIN:
-		if (func == NULL) {
-			gluTessCallback(tess, which, NULL);
-			_pFunc_CB_begin = NULL;
-		} else {
-			_pFunc_CB_begin = func->Reference();
-			gluTessCallback(tess, which, reinterpret_cast<CallbackType>(CB_begin));
-		}
-		break;
-	case GLU_TESS_VERTEX:
-		if (func == NULL) {
-			gluTessCallback(tess, which, NULL);
-			_pFunc_CB_vertex = NULL;
-		} else {
-			_pFunc_CB_vertex = func->Reference();
-			gluTessCallback(tess, which, reinterpret_cast<CallbackType>(CB_vertex));
-		}
-		break;
-	case GLU_TESS_END:
-		if (func == NULL) {
-			gluTessCallback(tess, which, NULL);
-			_pFunc_CB_end = NULL;
-		} else {
-			_pFunc_CB_end = func->Reference();
-			gluTessCallback(tess, which, reinterpret_cast<CallbackType>(CB_end));
-		}
-		break;
-	case GLU_TESS_ERROR:
-		if (func == NULL) {
-			gluTessCallback(tess, which, NULL);
-			_pFunc_CB_error = NULL;
-		} else {
-			_pFunc_CB_error = func->Reference();
-			gluTessCallback(tess, which, reinterpret_cast<CallbackType>(CB_error));
-		}
-		break;
-	case GLU_TESS_EDGE_FLAG:
-		if (func == NULL) {
-			gluTessCallback(tess, which, NULL);
-			_pFunc_CB_edge_flag = NULL;
-		} else {
-			_pFunc_CB_edge_flag = func->Reference();
-			gluTessCallback(tess, which, reinterpret_cast<CallbackType>(CB_edge_flag));
-		}
-		break;
-	case GLU_TESS_COMBINE:
-		if (func == NULL) {
-			gluTessCallback(tess, which, NULL);
-			_pFunc_CB_combine = NULL;
-		} else {
-			_pFunc_CB_combine = func->Reference();
-			gluTessCallback(tess, which, reinterpret_cast<CallbackType>(CB_combine));
-		}
-		break;
-	case GLU_TESS_BEGIN_DATA:
-		if (func == NULL) {
-			gluTessCallback(tess, which, NULL);
-			_pFunc_CB_begin_data = NULL;
-		} else {
-			_pFunc_CB_begin_data = func->Reference();
-			gluTessCallback(tess, which, reinterpret_cast<CallbackType>(CB_begin_data));
-		}
-		break;
-	case GLU_TESS_VERTEX_DATA:
-		if (func == NULL) {
-			gluTessCallback(tess, which, NULL);
-			_pFunc_CB_vertex_data = NULL;
-		} else {
-			_pFunc_CB_vertex_data = func->Reference();
-			gluTessCallback(tess, which, reinterpret_cast<CallbackType>(CB_vertex_data));
-		}
-		break;
-	case GLU_TESS_END_DATA:
-		if (func == NULL) {
-			gluTessCallback(tess, which, NULL);
-			_pFunc_CB_end_data = NULL;
-		} else {
-			_pFunc_CB_end_data = func->Reference();
-			gluTessCallback(tess, which, reinterpret_cast<CallbackType>(CB_end_data));
-		}
-		break;
-	case GLU_TESS_ERROR_DATA:
-		if (func == NULL) {
-			gluTessCallback(tess, which, NULL);
-			_pFunc_CB_error_data = NULL;
-		} else {
-			_pFunc_CB_error_data = func->Reference();
-			gluTessCallback(tess, which, reinterpret_cast<CallbackType>(CB_error_data));
-		}
-		break;
-	case GLU_TESS_EDGE_FLAG_DATA:
-		if (func == NULL) {
-			gluTessCallback(tess, which, NULL);
-			_pFunc_CB_edge_flag_data = NULL;
-		} else {
-			_pFunc_CB_edge_flag_data = func->Reference();
-			gluTessCallback(tess, which, reinterpret_cast<CallbackType>(CB_edge_flag_data));
-		}
-		break;
-	case GLU_TESS_COMBINE_DATA:
-		if (func == NULL) {
-			gluTessCallback(tess, which, NULL);
-			_pFunc_CB_combine_data = NULL;
-		} else {
-			_pFunc_CB_combine_data = func->Reference();
-			gluTessCallback(tess, which, reinterpret_cast<CallbackType>(CB_combine_data));
-		}
-		break;
+	SetCallback_Tesselator(GLU_TESS_BEGIN, begin)
+	SetCallback_Tesselator(GLU_TESS_VERTEX, vertex)
+	SetCallback_Tesselator(GLU_TESS_END, end)
+	SetCallback_Tesselator(GLU_TESS_ERROR, error)
+	SetCallback_Tesselator(GLU_TESS_EDGE_FLAG, edge_flag)
+	SetCallback_Tesselator(GLU_TESS_COMBINE, combine)
+	SetCallback_Tesselator(GLU_TESS_BEGIN_DATA, begin_data)
+	SetCallback_Tesselator(GLU_TESS_VERTEX_DATA, vertex_data)
+	SetCallback_Tesselator(GLU_TESS_END_DATA, end_data)
+	SetCallback_Tesselator(GLU_TESS_ERROR_DATA, error_data)
+	SetCallback_Tesselator(GLU_TESS_EDGE_FLAG_DATA, edge_flag_data)
+	SetCallback_Tesselator(GLU_TESS_COMBINE_DATA, combine_data)
 	default:
 		sig.SetError(ERR_ValueError, "invalid value for which");
 		break;
@@ -254,141 +224,6 @@ void Object_Tesselator::SetCallback(Signal sig, GLUtesselator *tess, GLenum whic
 // implementation of class Tesselator
 Gura_ImplementUserClass(Tesselator)
 {
-}
-
-void Object_Tesselator::CB_begin(GLenum type)
-{
-	const Function *pFunc = _pFunc_CB_begin;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Tesselator::CB_edge_flag(GLboolean flag)
-{
-	const Function *pFunc = _pFunc_CB_edge_flag;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Tesselator::CB_vertex(void *vertex_data)
-{
-	const Function *pFunc = _pFunc_CB_vertex;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Tesselator::CB_end(void)
-{
-	const Function *pFunc = _pFunc_CB_end;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Tesselator::CB_error(GLenum errno)
-{
-	const Function *pFunc = _pFunc_CB_error;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Tesselator::CB_combine(GLdouble coords[3], void *vertex_data[4],
-						   GLfloat weight[4], void **outData)
-{
-	const Function *pFunc = _pFunc_CB_combine;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Tesselator::CB_begin_data(GLenum type, void *polygon_data)
-{
-	const Function *pFunc = _pFunc_CB_begin_data;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Tesselator::CB_edge_flag_data(GLboolean flag, void *polygon_data)
-{
-	const Function *pFunc = _pFunc_CB_edge_flag_data;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Tesselator::CB_end_data(void *polygon_data)
-{
-	const Function *pFunc = _pFunc_CB_end_data;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Tesselator::CB_vertex_data(void *vertex_data, void *polygon_data)
-{
-	const Function *pFunc = _pFunc_CB_vertex_data;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Tesselator::CB_error_data(GLenum errno, void *polygon_data)
-{
-	const Function *pFunc = _pFunc_CB_error_data;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Tesselator::CB_combine_data(GLdouble coords[3], void *vertex_data[4],
-							   GLfloat weight[4], void **outDatab, void *polygon_data)
-{
-	const Function *pFunc = _pFunc_CB_combine_data;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-#if 0
-	AutoPtr<Args> pArgs;
-	do {
-		Value value;
-		ValueList &valList = value.InitAsList(env);
-		for (int i = 0; i < 3; i++) {
-			valList.push_back(Value(coords[i]));
-		}
-	} while (0);
-	for (int i = 0; i < 4; i++) {
-		reinterpret_cast<VertexPack *>(vertex_data[i])->GetVertexData();
-	}
-#endif
 }
 
 //-----------------------------------------------------------------------------

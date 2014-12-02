@@ -95,7 +95,7 @@ public:
 private:
 	inline Object_Quadric(const Object_Quadric &obj) : Object(obj) {}
 public:
-	template<int idx> static void CB_errorX(GLenum errno) {
+	template<int idx> static void CB_error(GLenum errno) {
 		const Function *pFunc = _pFuncs_CB_error[idx];
 		if (pFunc == NULL) return;
 		Environment &env = pFunc->GetEnvScope();
@@ -103,7 +103,6 @@ public:
 		pArgs->AddValue(Value(static_cast<int>(errno)));
 		pFunc->Eval(env, g_sig, *pArgs);
 	}
-	static void CB_error(GLenum errno);
 };
 
 //-----------------------------------------------------------------------------
@@ -117,7 +116,18 @@ public:
 private:
 	GLUtesselator *_tess;
 	std::auto_ptr<PolygonPack> _pPolygonPack;
-	/*
+	static int _cnt_CB_begin;
+	static int _cnt_CB_edge_flag;
+	static int _cnt_CB_vertex;
+	static int _cnt_CB_end;
+	static int _cnt_CB_error;
+	static int _cnt_CB_combine;
+	static int _cnt_CB_begin_data;
+	static int _cnt_CB_edge_flag_data;
+	static int _cnt_CB_end_data;
+	static int _cnt_CB_vertex_data;
+	static int _cnt_CB_error_data;
+	static int _cnt_CB_combine_data;
 	static CallbackType _tbl_CB_begin[];
 	static CallbackType _tbl_CB_edge_flag[];
 	static CallbackType _tbl_CB_vertex[];
@@ -130,19 +140,18 @@ private:
 	static CallbackType _tbl_CB_vertex_data[];
 	static CallbackType _tbl_CB_error_data[];
 	static CallbackType _tbl_CB_combine_data[];
-	*/
-	static Function *_pFunc_CB_begin;
-	static Function *_pFunc_CB_edge_flag;
-	static Function *_pFunc_CB_vertex;
-	static Function *_pFunc_CB_end;
-	static Function *_pFunc_CB_error;
-	static Function *_pFunc_CB_combine;
-	static Function *_pFunc_CB_begin_data;
-	static Function *_pFunc_CB_edge_flag_data;
-	static Function *_pFunc_CB_end_data;
-	static Function *_pFunc_CB_vertex_data;
-	static Function *_pFunc_CB_error_data;
-	static Function *_pFunc_CB_combine_data;
+	static Function *_pFuncs_CB_begin[];
+	static Function *_pFuncs_CB_edge_flag[];
+	static Function *_pFuncs_CB_vertex[];
+	static Function *_pFuncs_CB_end[];
+	static Function *_pFuncs_CB_error[];
+	static Function *_pFuncs_CB_combine[];
+	static Function *_pFuncs_CB_begin_data[];
+	static Function *_pFuncs_CB_edge_flag_data[];
+	static Function *_pFuncs_CB_end_data[];
+	static Function *_pFuncs_CB_vertex_data[];
+	static Function *_pFuncs_CB_error_data[];
+	static Function *_pFuncs_CB_combine_data[];
 public:
 	inline Object_Tesselator(GLUtesselator *tess) :
 			Object(Gura_UserClass(Tesselator)), _tess(tess) {}
@@ -159,20 +168,104 @@ public:
 private:
 	inline Object_Tesselator(const Object_Tesselator &obj) : Object(obj) {}
 public:
-	static void CB_begin(GLenum type);
-	static void CB_edge_flag(GLboolean flag);
-	static void CB_vertex(void *vertex_data);
-	static void CB_end(void);
-	static void CB_error(GLenum errno);
-	static void CB_combine(GLdouble coords[3], void *vertex_data[4],
-						   GLfloat weight[4], void **outData);
-	static void CB_begin_data(GLenum type, void *polygon_data);
-	static void CB_edge_flag_data(GLboolean flag, void *polygon_data);
-	static void CB_end_data(void *polygon_data);
-	static void CB_vertex_data(void *vertex_data, void *polygon_data);
-	static void CB_error_data(GLenum errno, void *polygon_data);
-	static void CB_combine_data(GLdouble coords[3], void *vertex_data[4],
-							   GLfloat weight[4], void **outDatab, void *polygon_data);
+	template<int idx> static void CB_begin(GLenum type) {
+		const Function *pFunc = _pFuncs_CB_begin[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+		pArgs->AddValue(Value(static_cast<int>(errno)));
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_edge_flag(GLboolean flag) {
+		const Function *pFunc = _pFuncs_CB_edge_flag[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_vertex(void *vertex_data) {
+		const Function *pFunc = _pFuncs_CB_vertex[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_end(void) {
+		const Function *pFunc = _pFuncs_CB_end[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_error(GLenum errno) {
+		const Function *pFunc = _pFuncs_CB_error[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_combine(GLdouble coords[3], void *vertex_data[4],
+										 GLfloat weight[4], void **outData) {
+		const Function *pFunc = _pFuncs_CB_combine[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_begin_data(GLenum type, void *polygon_data) {
+		const Function *pFunc = _pFuncs_CB_begin_data[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_edge_flag_data(GLboolean flag, void *polygon_data) {
+		const Function *pFunc = _pFuncs_CB_edge_flag_data[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_end_data(void *polygon_data) {
+		const Function *pFunc = _pFuncs_CB_end_data[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_vertex_data(void *vertex_data, void *polygon_data) {
+		const Function *pFunc = _pFuncs_CB_vertex_data[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_error_data(GLenum errno, void *polygon_data) {
+		const Function *pFunc = _pFuncs_CB_error_data[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_combine_data(GLdouble coords[3], void *vertex_data[4],
+								  GLfloat weight[4], void **outDatab, void *polygon_data) {
+		const Function *pFunc = _pFuncs_CB_combine_data[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
 };
 
 //-----------------------------------------------------------------------------
