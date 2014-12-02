@@ -51,8 +51,6 @@ void VertexPackOwner::Clear()
 //-----------------------------------------------------------------------------
 // Object_Quadric
 //-----------------------------------------------------------------------------
-AutoPtr<Function> Object_Quadric::_pFunc_QuadricErrorProc;
-
 Object_Quadric::~Object_Quadric()
 {
 	::gluDeleteQuadric(_qobj);
@@ -68,18 +66,15 @@ String Object_Quadric::ToString(bool exprFlag)
 	return String("<quadric>");
 }
 
-void Object_Quadric::SetQuadricErrorProc(Function *pFunc)
-{
-	_pFunc_QuadricErrorProc.reset(pFunc);
-}
-
 void Object_Quadric::CB_error(GLenum errno)
 {
-	if (_pFunc_QuadricErrorProc.IsNull()) return;
-	Environment &env = _pFunc_QuadricErrorProc->GetEnvScope();
+#if 0
+	if (_pFunc_CB_error.IsNull()) return;
+	Environment &env = _pFunc_CB_error->GetEnvScope();
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->AddValue(Value(static_cast<int>(errno)));
-	_pFunc_QuadricErrorProc->Eval(env, g_sig, *pArgs);
+	_pFunc_CB_error->Eval(env, g_sig, *pArgs);
+#endif
 }
 
 // implementation of class Quadric

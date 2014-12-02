@@ -79,7 +79,7 @@ public:
 	Gura_DeclareObjectAccessor(Quadric)
 private:
 	GLUquadric *_qobj;
-	static AutoPtr<Function> _pFunc_QuadricErrorProc;
+	AutoPtr<Function> _pFunc_CB_error;
 public:
 	inline Object_Quadric(GLUquadric *qobj) :
 			Object(Gura_UserClass(Quadric)), _qobj(qobj) {}
@@ -87,7 +87,7 @@ public:
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	inline GLUquadric *GetQuadric() { return _qobj; }
-	void SetQuadricErrorProc(Function *pFunc);
+	inline void SetFunc_CB_error(Function *pFunc) { _pFunc_CB_error.reset(pFunc); }
 private:
 	inline Object_Quadric(const Object_Quadric &obj) : Object(obj) {}
 public:
