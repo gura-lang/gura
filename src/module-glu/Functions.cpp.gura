@@ -261,7 +261,10 @@ gluNextContour(tess:GLUtesselator@, type:GLenum):void = `auto % {`en, 'markdown'
 	'''
 }
 
-gluNurbsCallback(nurbs:GLUnurbs@, which:GLenum, CallBackFunc:int) = `unsupport % {`en, 'markdown',
+gluNurbsCallback(nurbs:GLUnurbs@, which:GLenum, func:function) = R'''
+	Object_Nurbs::SetCallback(sig, nurbs, which, func);
+	return Value::Null;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -428,7 +431,10 @@ gluTessBeginPolygon(tess:GLUtesselator@, data:int):void {block?} = R'''
 	'''
 }
 
-gluTessCallback(tess:GLUtesselator@, which:GLenum, CallBackFunc:int) = `unsupport % {`en, 'markdown',
+gluTessCallback(tess:GLUtesselator@, which:GLenum, func:function) = R'''
+	Object_Tesselator::SetCallback(sig, tess, which, func);
+	return Value::Null;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
