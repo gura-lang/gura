@@ -282,39 +282,39 @@ private:
 	static int _cnt_CB_vertex;
 	static int _cnt_CB_normal;
 	static int _cnt_CB_color;
-	static int _cnt_CB_tex_coord;
+	static int _cnt_CB_texture_coord;
 	static int _cnt_CB_end;
 	static int _cnt_CB_begin_data;
 	static int _cnt_CB_vertex_data;
 	static int _cnt_CB_normal_data;
 	static int _cnt_CB_color_data;
-	static int _cnt_CB_tex_coord_data;
+	static int _cnt_CB_texture_coord_data;
 	static int _cnt_CB_end_data;
 	static int _cnt_CB_error;
 	static CallbackType _tbl_CB_begin[];
 	static CallbackType _tbl_CB_vertex[];
 	static CallbackType _tbl_CB_normal[];
 	static CallbackType _tbl_CB_color[];
-	static CallbackType _tbl_CB_tex_coord[];
+	static CallbackType _tbl_CB_texture_coord[];
 	static CallbackType _tbl_CB_end[];
 	static CallbackType _tbl_CB_begin_data[];
 	static CallbackType _tbl_CB_vertex_data[];
 	static CallbackType _tbl_CB_normal_data[];
 	static CallbackType _tbl_CB_color_data[];
-	static CallbackType _tbl_CB_tex_coord_data[];
+	static CallbackType _tbl_CB_texture_coord_data[];
 	static CallbackType _tbl_CB_end_data[];
 	static CallbackType _tbl_CB_error[];
 	static Function *_pFuncs_CB_begin[];
 	static Function *_pFuncs_CB_vertex[];
 	static Function *_pFuncs_CB_normal[];
 	static Function *_pFuncs_CB_color[];
-	static Function *_pFuncs_CB_tex_coord[];
+	static Function *_pFuncs_CB_texture_coord[];
 	static Function *_pFuncs_CB_end[];
 	static Function *_pFuncs_CB_begin_data[];
 	static Function *_pFuncs_CB_vertex_data[];
 	static Function *_pFuncs_CB_normal_data[];
 	static Function *_pFuncs_CB_color_data[];
-	static Function *_pFuncs_CB_tex_coord_data[];
+	static Function *_pFuncs_CB_texture_coord_data[];
 	static Function *_pFuncs_CB_end_data[];
 	static Function *_pFuncs_CB_error[];
 public:
@@ -360,8 +360,8 @@ public:
 
 		pFunc->Eval(env, g_sig, *pArgs);
 	}
-	template<int idx> static void CB_tex_coord(GLfloat *tex_coord) {
-		const Function *pFunc = _pFuncs_CB_tex_coord[idx];
+	template<int idx> static void CB_texture_coord(GLfloat *tex_coord) {
+		const Function *pFunc = _pFuncs_CB_texture_coord[idx];
 		if (pFunc == NULL) return;
 		Environment &env = pFunc->GetEnvScope();
 		AutoPtr<Args> pArgs(new Args());
@@ -408,8 +408,8 @@ public:
 
 		pFunc->Eval(env, g_sig, *pArgs);
 	}
-	template<int idx> static void CB_tex_coord_data(GLfloat *tex_coord, void *userData) {
-		const Function *pFunc = _pFuncs_CB_tex_coord_data[idx];
+	template<int idx> static void CB_texture_coord_data(GLfloat *tex_coord, void *userData) {
+		const Function *pFunc = _pFuncs_CB_texture_coord_data[idx];
 		if (pFunc == NULL) return;
 		Environment &env = pFunc->GetEnvScope();
 		AutoPtr<Args> pArgs(new Args());

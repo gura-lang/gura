@@ -20,6 +20,22 @@ case which: { \
 	break; \
 }
 
+#define SetCallback_Nurbs(which, name) \
+case which: { \
+	int idx = _cnt_CB_##name++; \
+	if (idx >= ArraySizeOf(_tbl_CB_##name)) { \
+		sig.SetError(ERR_OutOfRangeError, "too many callbacks"); \
+		return; \
+	} \
+	if (func == NULL) { \
+		gluNurbsCallback(nurb, which, NULL); \
+	} else { \
+		_pFuncs_CB_##name[idx] = func->Reference(); \
+		gluNurbsCallback(nurb, which, reinterpret_cast<CallbackType>(_tbl_CB_##name[idx])); \
+	} \
+	break; \
+}
+
 Gura_BeginModuleBody(glu)
 
 Signal g_sig;
@@ -233,13 +249,13 @@ int Object_Nurbs::_cnt_CB_begin = 0;
 int Object_Nurbs::_cnt_CB_vertex = 0;
 int Object_Nurbs::_cnt_CB_normal = 0;
 int Object_Nurbs::_cnt_CB_color = 0;
-int Object_Nurbs::_cnt_CB_tex_coord = 0;
+int Object_Nurbs::_cnt_CB_texture_coord = 0;
 int Object_Nurbs::_cnt_CB_end = 0;
 int Object_Nurbs::_cnt_CB_begin_data = 0;
 int Object_Nurbs::_cnt_CB_vertex_data = 0;
 int Object_Nurbs::_cnt_CB_normal_data = 0;
 int Object_Nurbs::_cnt_CB_color_data = 0;
-int Object_Nurbs::_cnt_CB_tex_coord_data = 0;
+int Object_Nurbs::_cnt_CB_texture_coord_data = 0;
 int Object_Nurbs::_cnt_CB_end_data = 0;
 int Object_Nurbs::_cnt_CB_error = 0;
 
@@ -255,8 +271,8 @@ CallbackType Object_Nurbs::_tbl_CB_normal[] = {
 CallbackType Object_Nurbs::_tbl_CB_color[] = {
 	reinterpret_cast<CallbackType>(CB_color<0>),
 };
-CallbackType Object_Nurbs::_tbl_CB_tex_coord[] = {
-	reinterpret_cast<CallbackType>(CB_tex_coord<0>),
+CallbackType Object_Nurbs::_tbl_CB_texture_coord[] = {
+	reinterpret_cast<CallbackType>(CB_texture_coord<0>),
 };
 CallbackType Object_Nurbs::_tbl_CB_end[] = {
 	reinterpret_cast<CallbackType>(CB_end<0>),
@@ -273,8 +289,8 @@ CallbackType Object_Nurbs::_tbl_CB_normal_data[] = {
 CallbackType Object_Nurbs::_tbl_CB_color_data[] = {
 	reinterpret_cast<CallbackType>(CB_color_data<0>),
 };
-CallbackType Object_Nurbs::_tbl_CB_tex_coord_data[] = {
-	reinterpret_cast<CallbackType>(CB_tex_coord_data<0>),
+CallbackType Object_Nurbs::_tbl_CB_texture_coord_data[] = {
+	reinterpret_cast<CallbackType>(CB_texture_coord_data<0>),
 };
 CallbackType Object_Nurbs::_tbl_CB_end_data[] = {
 	reinterpret_cast<CallbackType>(CB_end_data<0>),
@@ -287,13 +303,13 @@ Function *Object_Nurbs::_pFuncs_CB_begin[] = { NULL };
 Function *Object_Nurbs::_pFuncs_CB_vertex[] = { NULL };
 Function *Object_Nurbs::_pFuncs_CB_normal[] = { NULL };
 Function *Object_Nurbs::_pFuncs_CB_color[] = { NULL };
-Function *Object_Nurbs::_pFuncs_CB_tex_coord[] = { NULL };
+Function *Object_Nurbs::_pFuncs_CB_texture_coord[] = { NULL };
 Function *Object_Nurbs::_pFuncs_CB_end[] = { NULL };
 Function *Object_Nurbs::_pFuncs_CB_begin_data[] = { NULL };
 Function *Object_Nurbs::_pFuncs_CB_vertex_data[] = { NULL };
 Function *Object_Nurbs::_pFuncs_CB_normal_data[] = { NULL };
 Function *Object_Nurbs::_pFuncs_CB_color_data[] = { NULL };
-Function *Object_Nurbs::_pFuncs_CB_tex_coord_data[] = { NULL };
+Function *Object_Nurbs::_pFuncs_CB_texture_coord_data[] = { NULL };
 Function *Object_Nurbs::_pFuncs_CB_end_data[] = { NULL };
 Function *Object_Nurbs::_pFuncs_CB_error[] = { NULL };
 
@@ -315,17 +331,19 @@ String Object_Nurbs::ToString(bool exprFlag)
 void Object_Nurbs::SetCallback(Signal sig, GLUnurbs *nurb, GLenum which, const Function *func)
 {
 	switch (which) {
-/*
-	case GLU_ERROR:
-		if (func == NULL) {
-			gluQuadricCallback(qobj, which, NULL);
-			Object_Quadric::SetFunc_CB_error(NULL);
-		} else {
-			Object_Quadric::SetFunc_CB_error(func->Reference());
-			gluQuadricCallback(qobj, which, reinterpret_cast<CallbackType>(Object_Quadric::CB_error));
-		}
-		break;
-*/		
+	SetCallback_Nurbs(GLU_NURBS_ERROR, error)
+	SetCallback_Nurbs(GLU_NURBS_BEGIN, begin)
+	SetCallback_Nurbs(GLU_NURBS_VERTEX, vertex)
+	SetCallback_Nurbs(GLU_NURBS_NORMAL, normal)
+	SetCallback_Nurbs(GLU_NURBS_COLOR, color)
+	SetCallback_Nurbs(GLU_NURBS_TEXTURE_COORD, texture_coord)
+	SetCallback_Nurbs(GLU_NURBS_END, end)
+	SetCallback_Nurbs(GLU_NURBS_BEGIN_DATA, begin_data)
+	SetCallback_Nurbs(GLU_NURBS_VERTEX_DATA, vertex_data)
+	SetCallback_Nurbs(GLU_NURBS_NORMAL_DATA, normal_data)
+	SetCallback_Nurbs(GLU_NURBS_COLOR_DATA, color_data)
+	SetCallback_Nurbs(GLU_NURBS_TEXTURE_COORD_DATA, texture_coord_data)
+	SetCallback_Nurbs(GLU_NURBS_END_DATA, end_data)
 	default:
 		sig.SetError(ERR_ValueError, "invalid value for which");
 		break;
