@@ -229,19 +229,73 @@ Gura_ImplementUserClass(Tesselator)
 //-----------------------------------------------------------------------------
 // Object_Nurbs
 //-----------------------------------------------------------------------------
-Function *Object_Nurbs::_pFunc_CB_begin = NULL;
-Function *Object_Nurbs::_pFunc_CB_vertex = NULL;
-Function *Object_Nurbs::_pFunc_CB_normal = NULL;
-Function *Object_Nurbs::_pFunc_CB_color = NULL;
-Function *Object_Nurbs::_pFunc_CB_tex_coord = NULL;
-Function *Object_Nurbs::_pFunc_CB_end = NULL;
-Function *Object_Nurbs::_pFunc_CB_begin_data = NULL;
-Function *Object_Nurbs::_pFunc_CB_vertex_data = NULL;
-Function *Object_Nurbs::_pFunc_CB_normal_data = NULL;
-Function *Object_Nurbs::_pFunc_CB_color_data = NULL;
-Function *Object_Nurbs::_pFunc_CB_tex_coord_data = NULL;
-Function *Object_Nurbs::_pFunc_CB_end_data = NULL;
-Function *Object_Nurbs::_pFunc_CB_error = NULL;
+int Object_Nurbs::_cnt_CB_begin = 0;
+int Object_Nurbs::_cnt_CB_vertex = 0;
+int Object_Nurbs::_cnt_CB_normal = 0;
+int Object_Nurbs::_cnt_CB_color = 0;
+int Object_Nurbs::_cnt_CB_tex_coord = 0;
+int Object_Nurbs::_cnt_CB_end = 0;
+int Object_Nurbs::_cnt_CB_begin_data = 0;
+int Object_Nurbs::_cnt_CB_vertex_data = 0;
+int Object_Nurbs::_cnt_CB_normal_data = 0;
+int Object_Nurbs::_cnt_CB_color_data = 0;
+int Object_Nurbs::_cnt_CB_tex_coord_data = 0;
+int Object_Nurbs::_cnt_CB_end_data = 0;
+int Object_Nurbs::_cnt_CB_error = 0;
+
+CallbackType Object_Nurbs::_tbl_CB_begin[] = {
+	reinterpret_cast<CallbackType>(CB_begin<0>),
+};
+CallbackType Object_Nurbs::_tbl_CB_vertex[] = {
+	reinterpret_cast<CallbackType>(CB_vertex<0>),
+};
+CallbackType Object_Nurbs::_tbl_CB_normal[] = {
+	reinterpret_cast<CallbackType>(CB_normal<0>),
+};
+CallbackType Object_Nurbs::_tbl_CB_color[] = {
+	reinterpret_cast<CallbackType>(CB_color<0>),
+};
+CallbackType Object_Nurbs::_tbl_CB_tex_coord[] = {
+	reinterpret_cast<CallbackType>(CB_tex_coord<0>),
+};
+CallbackType Object_Nurbs::_tbl_CB_end[] = {
+	reinterpret_cast<CallbackType>(CB_end<0>),
+};
+CallbackType Object_Nurbs::_tbl_CB_begin_data[] = {
+	reinterpret_cast<CallbackType>(CB_begin_data<0>),
+};
+CallbackType Object_Nurbs::_tbl_CB_vertex_data[] = {
+	reinterpret_cast<CallbackType>(CB_vertex_data<0>),
+};
+CallbackType Object_Nurbs::_tbl_CB_normal_data[] = {
+	reinterpret_cast<CallbackType>(CB_normal_data<0>),
+};
+CallbackType Object_Nurbs::_tbl_CB_color_data[] = {
+	reinterpret_cast<CallbackType>(CB_color_data<0>),
+};
+CallbackType Object_Nurbs::_tbl_CB_tex_coord_data[] = {
+	reinterpret_cast<CallbackType>(CB_tex_coord_data<0>),
+};
+CallbackType Object_Nurbs::_tbl_CB_end_data[] = {
+	reinterpret_cast<CallbackType>(CB_end_data<0>),
+};
+CallbackType Object_Nurbs::_tbl_CB_error[] = {
+	reinterpret_cast<CallbackType>(CB_error<0>),
+};
+
+Function *Object_Nurbs::_pFuncs_CB_begin[] = { NULL };
+Function *Object_Nurbs::_pFuncs_CB_vertex[] = { NULL };
+Function *Object_Nurbs::_pFuncs_CB_normal[] = { NULL };
+Function *Object_Nurbs::_pFuncs_CB_color[] = { NULL };
+Function *Object_Nurbs::_pFuncs_CB_tex_coord[] = { NULL };
+Function *Object_Nurbs::_pFuncs_CB_end[] = { NULL };
+Function *Object_Nurbs::_pFuncs_CB_begin_data[] = { NULL };
+Function *Object_Nurbs::_pFuncs_CB_vertex_data[] = { NULL };
+Function *Object_Nurbs::_pFuncs_CB_normal_data[] = { NULL };
+Function *Object_Nurbs::_pFuncs_CB_color_data[] = { NULL };
+Function *Object_Nurbs::_pFuncs_CB_tex_coord_data[] = { NULL };
+Function *Object_Nurbs::_pFuncs_CB_end_data[] = { NULL };
+Function *Object_Nurbs::_pFuncs_CB_error[] = { NULL };
 
 Object_Nurbs::~Object_Nurbs()
 {
@@ -281,136 +335,6 @@ void Object_Nurbs::SetCallback(Signal sig, GLUnurbs *nurb, GLenum which, const F
 // implementation of class Nurbs
 Gura_ImplementUserClass(Nurbs)
 {
-}
-
-void Object_Nurbs::CB_begin(GLenum type)
-{
-	const Function *pFunc = _pFunc_CB_begin;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Nurbs::CB_vertex(GLfloat *vertex)
-{
-	const Function *pFunc = _pFunc_CB_vertex;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Nurbs::CB_normal(GLfloat *normal)
-{
-	const Function *pFunc = _pFunc_CB_normal;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Nurbs::CB_color(GLfloat *color)
-{
-	const Function *pFunc = _pFunc_CB_color;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Nurbs::CB_tex_coord(GLfloat *tex_coord)
-{
-	const Function *pFunc = _pFunc_CB_tex_coord;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Nurbs::CB_end(void)
-{
-	const Function *pFunc = _pFunc_CB_end;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Nurbs::CB_begin_data(GLenum type, void *userData)
-{
-	const Function *pFunc = _pFunc_CB_begin_data;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Nurbs::CB_vertex_data(GLfloat *vertex, void *userData)
-{
-	const Function *pFunc = _pFunc_CB_vertex_data;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Nurbs::CB_normal_data(GLfloat *normal, void *userData)
-{
-	const Function *pFunc = _pFunc_CB_normal_data;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Nurbs::CB_color_data(GLfloat *color, void *userData)
-{
-	const Function *pFunc = _pFunc_CB_color_data;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Nurbs::CB_tex_coord_data(GLfloat *tex_coord, void *userData)
-{
-	const Function *pFunc = _pFunc_CB_tex_coord_data;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Nurbs::CB_end_data(void *userData)
-{
-	const Function *pFunc = _pFunc_CB_end_data;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
-}
-
-void Object_Nurbs::CB_error(GLenum errno)
-{
-	const Function *pFunc = _pFunc_CB_error;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-
-	pFunc->Eval(env, g_sig, *pArgs);
 }
 
 //-----------------------------------------------------------------------------

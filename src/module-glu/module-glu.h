@@ -278,7 +278,19 @@ public:
 	Gura_DeclareObjectAccessor(Nurbs)
 private:
 	GLUnurbs *_nurb;
-	/*
+	static int _cnt_CB_begin;
+	static int _cnt_CB_vertex;
+	static int _cnt_CB_normal;
+	static int _cnt_CB_color;
+	static int _cnt_CB_tex_coord;
+	static int _cnt_CB_end;
+	static int _cnt_CB_begin_data;
+	static int _cnt_CB_vertex_data;
+	static int _cnt_CB_normal_data;
+	static int _cnt_CB_color_data;
+	static int _cnt_CB_tex_coord_data;
+	static int _cnt_CB_end_data;
+	static int _cnt_CB_error;
 	static CallbackType _tbl_CB_begin[];
 	static CallbackType _tbl_CB_vertex[];
 	static CallbackType _tbl_CB_normal[];
@@ -292,20 +304,19 @@ private:
 	static CallbackType _tbl_CB_tex_coord_data[];
 	static CallbackType _tbl_CB_end_data[];
 	static CallbackType _tbl_CB_error[];
-	*/
-	static Function *_pFunc_CB_begin;
-	static Function *_pFunc_CB_vertex;
-	static Function *_pFunc_CB_normal;
-	static Function *_pFunc_CB_color;
-	static Function *_pFunc_CB_tex_coord;
-	static Function *_pFunc_CB_end;
-	static Function *_pFunc_CB_begin_data;
-	static Function *_pFunc_CB_vertex_data;
-	static Function *_pFunc_CB_normal_data;
-	static Function *_pFunc_CB_color_data;
-	static Function *_pFunc_CB_tex_coord_data;
-	static Function *_pFunc_CB_end_data;
-	static Function *_pFunc_CB_error;
+	static Function *_pFuncs_CB_begin[];
+	static Function *_pFuncs_CB_vertex[];
+	static Function *_pFuncs_CB_normal[];
+	static Function *_pFuncs_CB_color[];
+	static Function *_pFuncs_CB_tex_coord[];
+	static Function *_pFuncs_CB_end[];
+	static Function *_pFuncs_CB_begin_data[];
+	static Function *_pFuncs_CB_vertex_data[];
+	static Function *_pFuncs_CB_normal_data[];
+	static Function *_pFuncs_CB_color_data[];
+	static Function *_pFuncs_CB_tex_coord_data[];
+	static Function *_pFuncs_CB_end_data[];
+	static Function *_pFuncs_CB_error[];
 public:
 	inline Object_Nurbs(GLUnurbs *nurb) :
 				Object(Gura_UserClass(Nurbs)), _nurb(nurb) {}
@@ -317,22 +328,110 @@ public:
 private:
 	inline Object_Nurbs(const Object_Nurbs &obj) : Object(obj) {}
 public:
-	
+	template<int idx> static void CB_begin(GLenum type) {
+		const Function *pFunc = _pFuncs_CB_begin[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
 
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_vertex(GLfloat *vertex) {
+		const Function *pFunc = _pFuncs_CB_vertex[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
 
-	static void CB_begin(GLenum type);
-	static void CB_vertex(GLfloat *vertex);
-	static void CB_normal(GLfloat *normal);
-	static void CB_color(GLfloat *color);
-	static void CB_tex_coord(GLfloat *tex_coord);
-	static void CB_end(void);
-	static void CB_begin_data(GLenum type, void *userData);
-	static void CB_vertex_data(GLfloat *vertex, void *userData);
-	static void CB_normal_data(GLfloat *normal, void *userData);
-	static void CB_color_data(GLfloat *color, void *userData);
-	static void CB_tex_coord_data(GLfloat *tex_coord, void *userData);
-	static void CB_end_data(void *userData);
-	static void CB_error(GLenum errno);
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_normal(GLfloat *normal) {
+		const Function *pFunc = _pFuncs_CB_normal[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_color(GLfloat *color) {
+		const Function *pFunc = _pFuncs_CB_color[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_tex_coord(GLfloat *tex_coord) {
+		const Function *pFunc = _pFuncs_CB_tex_coord[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_end(void) {
+		const Function *pFunc = _pFuncs_CB_end[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_begin_data(GLenum type, void *userData) {
+		const Function *pFunc = _pFuncs_CB_begin_data[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_vertex_data(GLfloat *vertex, void *userData) {
+		const Function *pFunc = _pFuncs_CB_vertex_data[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_normal_data(GLfloat *normal, void *userData) {
+		const Function *pFunc = _pFuncs_CB_normal_data[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_color_data(GLfloat *color, void *userData) {
+		const Function *pFunc = _pFuncs_CB_color_data[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_tex_coord_data(GLfloat *tex_coord, void *userData) {
+		const Function *pFunc = _pFuncs_CB_tex_coord_data[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_end_data(void *userData) {
+		const Function *pFunc = _pFuncs_CB_end_data[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
+	template<int idx> static void CB_error(GLenum errno) {
+		const Function *pFunc = _pFuncs_CB_error[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
 };
 
 Gura_EndModuleHeader(glu)
