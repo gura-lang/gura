@@ -340,10 +340,8 @@ gluPwlCurve(nurb:GLUnurbs@, data:GLfloat@, stride:GLint, type:GLenum):void = R''
 }
 
 gluQuadricCallback(quad:GLUquadric@, which:GLenum, CallbackFunc:function):void = R'''
-	typedef void (__stdcall *funcType)();
 	Object_Quadric::GetObject(args, 0)->SetQuadricErrorProc(CallbackFunc->Reference());
-	gluQuadricCallback(quad, which,
-		reinterpret_cast<funcType>(Object_Quadric::Callback_QuadricErrorProc));
+	gluQuadricCallback(quad, which, reinterpret_cast<CallbackType>(Object_Quadric::CB_error));
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''

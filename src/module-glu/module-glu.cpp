@@ -6,6 +6,8 @@
 
 Gura_BeginModuleBody(glu)
 
+Signal g_sig;
+
 void AssignValues(Environment &env);
 void AssignFunctions(Environment &env);
 
@@ -75,10 +77,9 @@ void Object_Quadric::CB_error(GLenum errno)
 {
 	if (_pFunc_QuadricErrorProc.IsNull()) return;
 	Environment &env = _pFunc_QuadricErrorProc->GetEnvScope();
-	Signal sig;
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->AddValue(Value(static_cast<int>(errno)));
-	_pFunc_QuadricErrorProc->Eval(env, sig, *pArgs);
+	_pFunc_QuadricErrorProc->Eval(env, g_sig, *pArgs);
 }
 
 // implementation of class Quadric
@@ -252,6 +253,7 @@ void Object_Nurbs::CB_error(GLenum errno)
 //-----------------------------------------------------------------------------
 Gura_ModuleEntry()
 {
+	g_sig = sig;
 	// class realization
 	Gura_RealizeUserClass(Quadric,		env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Tesselator,	env.LookupClass(VTYPE_object));
