@@ -18,11 +18,54 @@
 
 Gura_BeginModuleHeader(glu)
 
+class Object_Tesselator;
+
 //-----------------------------------------------------------------------------
 // helper
 //-----------------------------------------------------------------------------
 GLenum GetImageFormat(Signal sig, Image *pImage);
 void SetError_NotImpFunction(Signal &sig, const char *funcName);
+
+//-----------------------------------------------------------------------------
+// VertexPack
+//-----------------------------------------------------------------------------
+class VertexPack {
+private:
+	Object_Tesselator *_pObjTess;
+	Value _vertexData;
+public:
+	inline VertexPack(Object_Tesselator *pObjTess, const Value &vertexData) :
+							_pObjTess(pObjTess), _vertexData(vertexData) {}
+	inline Value GetVertexData() { return _vertexData; }
+};
+
+class VertexPackList : public std::vector<VertexPack *> {
+};
+
+class VertexPackOwner : public VertexPackList {
+public:
+	~VertexPackOwner();
+	void Clear();
+};
+
+//-----------------------------------------------------------------------------
+// PolygonPack
+//-----------------------------------------------------------------------------
+class PolygonPack {
+private:
+	Object_Tesselator *_pObjTess;
+	Value _polygonData;
+	VertexPackOwner _vertexPackOwner;
+public:
+	inline PolygonPack(Object_Tesselator *pObjTess, const Value &polygonData) :
+							_pObjTess(pObjTess), _polygonData(polygonData) {}
+	inline Value GetPolygonData() { return _polygonData; }
+	inline VertexPack *CreateVertexPack(const Value &vertexData) {
+		VertexPack *pVertexPack = new VertexPack(_pObjTess, vertexData);
+		_vertexPackOwner.push_back(pVertexPack);
+		return pVertexPack;
+	}
+};
 
 //-----------------------------------------------------------------------------
 // Object_Quadric
@@ -47,7 +90,8 @@ public:
 		return Value(new Object_Quadric(qobj));
 	}
 	void SetQuadricErrorProc(Function *pFunc);
-	static void Callback_QuadricErrorProc(GLenum err);
+public:
+	static void CB_error(GLenum errno);
 };
 
 //-----------------------------------------------------------------------------
@@ -60,6 +104,7 @@ public:
 	Gura_DeclareObjectAccessor(Tesselator)
 private:
 	GLUtesselator *_tess;
+	std::auto_ptr<PolygonPack> _pPolygonPack;
 public:
 	inline Object_Tesselator(GLUtesselator *tess) :
 			Object(Gura_UserClass(Tesselator)), _tess(tess) {}
@@ -71,6 +116,26 @@ public:
 	inline static Value CreateValue(GLUtesselator *tess) {
 		return Value(new Object_Tesselator(tess));
 	}
+	inline void CreatePolygonPack(const Value &polygonData) {
+		_pPolygonPack.reset(new PolygonPack(this, polygonData));
+	}
+	inline void DeletePolygonPack() { _pPolygonPack.reset(NULL); }
+	inline PolygonPack *GetPolygonPack() { return _pPolygonPack.get(); }
+public:
+	static void CB_begin(GLenum type);
+	static void CB_edgeFlag(GLboolean flag);
+	static void CB_vertex(void *vertex_data);
+	static void CB_end(void);
+	static void CB_error(GLenum errno);
+	static void CB_combine(GLdouble coords[3], void *vertex_data[4],
+						   GLfloat weight[4], void **outData);
+	static void CB_beginData(GLenum type, void *polygon_data);
+	static void CB_edgeFlagData(GLboolean flag, void *polygon_data);
+	static void CB_endData(void *polygon_data);
+	static void CB_vertexData(void *vertex_data, void *polygon_data);
+	static void CB_errorData(GLenum errno, void *polygon_data);
+	static void CB_combineData(GLdouble coords[3], void *vertex_data[4],
+							   GLfloat weight[4], void **outDatab, void *polygon_data);
 };
 
 //-----------------------------------------------------------------------------
@@ -94,6 +159,20 @@ public:
 	inline static Value CreateValue(GLUnurbs *nobj) {
 		return Value(new Object_Nurbs(nobj));
 	}
+public:
+	static void CB_begin(GLenum type);
+	static void CB_vertex(GLfloat *vertex);
+	static void CB_normal(GLfloat *normal);
+	static void CB_color(GLfloat *color);
+	static void CB_texCoord(GLfloat *tex_coord);
+	static void CB_end(void);
+	static void CB_beginData(GLenum type, void *userData);
+	static void CB_vertexData(GLfloat *vertex, void *userData);
+	static void CB_normalData(GLfloat *normal, void *userData);
+	static void CB_colorData(GLfloat *color, void *userData);
+	static void CB_texCoordData(GLfloat *tex_coord, void *userData);
+	static void CB_endData(void *userData);
+	static void CB_error(GLenum errno);
 };
 
 Gura_EndModuleHeader(glu)

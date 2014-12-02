@@ -31,6 +31,22 @@ void SetError_NotImpFunction(Signal &sig, const char *funcName)
 }
 
 //-----------------------------------------------------------------------------
+// VertexPackOwner
+//-----------------------------------------------------------------------------
+VertexPackOwner::~VertexPackOwner()
+{
+	Clear();
+}
+
+void VertexPackOwner::Clear()
+{
+	foreach (VertexPackOwner, ppVertexPack, *this) {
+		delete *ppVertexPack;
+	}
+	clear();
+}
+
+//-----------------------------------------------------------------------------
 // Object_Quadric
 //-----------------------------------------------------------------------------
 AutoPtr<Function> Object_Quadric::_pFunc_QuadricErrorProc;
@@ -55,13 +71,13 @@ void Object_Quadric::SetQuadricErrorProc(Function *pFunc)
 	_pFunc_QuadricErrorProc.reset(pFunc);
 }
 
-void Object_Quadric::Callback_QuadricErrorProc(GLenum err)
+void Object_Quadric::CB_error(GLenum errno)
 {
 	if (_pFunc_QuadricErrorProc.IsNull()) return;
 	Environment &env = _pFunc_QuadricErrorProc->GetEnvScope();
 	Signal sig;
 	AutoPtr<Args> pArgs(new Args());
-	pArgs->AddValue(Value(static_cast<int>(err)));
+	pArgs->AddValue(Value(static_cast<int>(errno)));
 	_pFunc_QuadricErrorProc->Eval(env, sig, *pArgs);
 }
 
@@ -93,6 +109,69 @@ Gura_ImplementUserClass(Tesselator)
 {
 }
 
+void Object_Tesselator::CB_begin(GLenum type)
+{
+}
+
+void Object_Tesselator::CB_edgeFlag(GLboolean flag)
+{
+}
+
+void Object_Tesselator::CB_vertex(void *vertex_data)
+{
+}
+
+void Object_Tesselator::CB_end(void)
+{
+}
+
+void Object_Tesselator::CB_error(GLenum errno)
+{
+}
+
+void Object_Tesselator::CB_combine(GLdouble coords[3], void *vertex_data[4],
+						   GLfloat weight[4], void **outData)
+{
+}
+
+void Object_Tesselator::CB_beginData(GLenum type, void *polygon_data)
+{
+}
+
+void Object_Tesselator::CB_edgeFlagData(GLboolean flag, void *polygon_data)
+{
+}
+
+void Object_Tesselator::CB_endData(void *polygon_data)
+{
+}
+
+void Object_Tesselator::CB_vertexData(void *vertex_data, void *polygon_data)
+{
+}
+
+void Object_Tesselator::CB_errorData(GLenum errno, void *polygon_data)
+{
+}
+
+void Object_Tesselator::CB_combineData(GLdouble coords[3], void *vertex_data[4],
+							   GLfloat weight[4], void **outDatab, void *polygon_data)
+{
+#if 0
+	AutoPtr<Args> pArgs;
+	do {
+		Value value;
+		ValueList &valList = value.InitAsList(env);
+		for (int i = 0; i < 3; i++) {
+			valList.push_back(Value(coords[i]));
+		}
+	} while (0);
+	for (int i = 0; i < 4; i++) {
+		reinterpret_cast<VertexPack *>(vertex_data[i])->GetVertexData();
+	}
+#endif
+}
+
 //-----------------------------------------------------------------------------
 // Object_Nurbs
 //-----------------------------------------------------------------------------
@@ -113,6 +192,58 @@ String Object_Nurbs::ToString(bool exprFlag)
 
 // implementation of class Nurbs
 Gura_ImplementUserClass(Nurbs)
+{
+}
+
+void Object_Nurbs::CB_begin(GLenum type)
+{
+}
+
+void Object_Nurbs::CB_vertex(GLfloat *vertex)
+{
+}
+
+void Object_Nurbs::CB_normal(GLfloat *normal)
+{
+}
+
+void Object_Nurbs::CB_color(GLfloat *color)
+{
+}
+
+void Object_Nurbs::CB_texCoord(GLfloat *tex_coord)
+{
+}
+
+void Object_Nurbs::CB_end(void)
+{
+}
+
+void Object_Nurbs::CB_beginData(GLenum type, void *userData)
+{
+}
+
+void Object_Nurbs::CB_vertexData(GLfloat *vertex, void *userData)
+{
+}
+
+void Object_Nurbs::CB_normalData(GLfloat *normal, void *userData)
+{
+}
+
+void Object_Nurbs::CB_colorData(GLfloat *color, void *userData)
+{
+}
+
+void Object_Nurbs::CB_texCoordData(GLfloat *tex_coord, void *userData)
+{
+}
+
+void Object_Nurbs::CB_endData(void *userData)
+{
+}
+
+void Object_Nurbs::CB_error(GLenum errno)
 {
 }
 
