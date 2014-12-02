@@ -1,4 +1,0 @@
-#!/usr/bin/env gura
-// Answer to the question: https://codeiq.jp/ace/tbpgr_colosseum_manager/q1069
-
-println(('>' + '+' * 'deathma colosseum'.each():utf8 + '.').join())
