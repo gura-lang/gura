@@ -18,6 +18,8 @@
 
 Gura_BeginModuleHeader(glu)
 
+extern Signal g_sig;
+
 typedef void (__stdcall *CallbackType)();
 
 class Object_Tesselator;
@@ -79,7 +81,9 @@ public:
 	Gura_DeclareObjectAccessor(Quadric)
 private:
 	GLUquadric *_quad;
-	static Function *_pFunc_CB_error;
+	static int _cnt_CB_error;
+	static CallbackType _tbl_CB_error[];
+	static Function *_pFuncs_CB_error[];
 public:
 	inline Object_Quadric(GLUquadric *quad) :
 			Object(Gura_UserClass(Quadric)), _quad(quad) {}
@@ -91,6 +95,14 @@ public:
 private:
 	inline Object_Quadric(const Object_Quadric &obj) : Object(obj) {}
 public:
+	template<int idx> static void CB_errorX(GLenum errno) {
+		const Function *pFunc = _pFuncs_CB_error[idx];
+		if (pFunc == NULL) return;
+		Environment &env = pFunc->GetEnvScope();
+		AutoPtr<Args> pArgs(new Args());
+		pArgs->AddValue(Value(static_cast<int>(errno)));
+		pFunc->Eval(env, g_sig, *pArgs);
+	}
 	static void CB_error(GLenum errno);
 };
 
@@ -105,6 +117,20 @@ public:
 private:
 	GLUtesselator *_tess;
 	std::auto_ptr<PolygonPack> _pPolygonPack;
+	/*
+	static CallbackType _tbl_CB_begin[];
+	static CallbackType _tbl_CB_edge_flag[];
+	static CallbackType _tbl_CB_vertex[];
+	static CallbackType _tbl_CB_end[];
+	static CallbackType _tbl_CB_error[];
+	static CallbackType _tbl_CB_combine[];
+	static CallbackType _tbl_CB_begin_data[];
+	static CallbackType _tbl_CB_edge_flag_data[];
+	static CallbackType _tbl_CB_end_data[];
+	static CallbackType _tbl_CB_vertex_data[];
+	static CallbackType _tbl_CB_error_data[];
+	static CallbackType _tbl_CB_combine_data[];
+	*/
 	static Function *_pFunc_CB_begin;
 	static Function *_pFunc_CB_edge_flag;
 	static Function *_pFunc_CB_vertex;
@@ -159,6 +185,21 @@ public:
 	Gura_DeclareObjectAccessor(Nurbs)
 private:
 	GLUnurbs *_nurb;
+	/*
+	static CallbackType _tbl_CB_begin[];
+	static CallbackType _tbl_CB_vertex[];
+	static CallbackType _tbl_CB_normal[];
+	static CallbackType _tbl_CB_color[];
+	static CallbackType _tbl_CB_tex_coord[];
+	static CallbackType _tbl_CB_end[];
+	static CallbackType _tbl_CB_begin_data[];
+	static CallbackType _tbl_CB_vertex_data[];
+	static CallbackType _tbl_CB_normal_data[];
+	static CallbackType _tbl_CB_color_data[];
+	static CallbackType _tbl_CB_tex_coord_data[];
+	static CallbackType _tbl_CB_end_data[];
+	static CallbackType _tbl_CB_error[];
+	*/
 	static Function *_pFunc_CB_begin;
 	static Function *_pFunc_CB_vertex;
 	static Function *_pFunc_CB_normal;
@@ -183,6 +224,9 @@ public:
 private:
 	inline Object_Nurbs(const Object_Nurbs &obj) : Object(obj) {}
 public:
+	
+
+
 	static void CB_begin(GLenum type);
 	static void CB_vertex(GLfloat *vertex);
 	static void CB_normal(GLfloat *normal);

@@ -51,7 +51,13 @@ void VertexPackOwner::Clear()
 //-----------------------------------------------------------------------------
 // Object_Quadric
 //-----------------------------------------------------------------------------
-Function *Object_Quadric::_pFunc_CB_error = NULL;
+int Object_Quadric::_cnt_CB_error = 0;
+
+CallbackType Object_Quadric::_tbl_CB_error[] = {
+	reinterpret_cast<CallbackType>(CB_errorX<0>),
+};
+
+Function *Object_Quadric::_pFuncs_CB_error[ArraySizeOf(_tbl_CB_error)] = { NULL };
 
 Object_Quadric::~Object_Quadric()
 {
@@ -71,29 +77,25 @@ String Object_Quadric::ToString(bool exprFlag)
 void Object_Quadric::SetCallback(Signal sig, GLUquadric *qobj, GLenum which, const Function *func)
 {
 	switch (which) {
-	case GLU_ERROR:
+	case GLU_ERROR: {
+		int idx = _cnt_CB_error++;
+		if (idx >= ArraySizeOf(_tbl_CB_error)) {
+			sig.SetError(ERR_OutOfRangeError, "too many callbacks");
+			return;
+		}
 		if (func == NULL) {
 			gluQuadricCallback(qobj, which, NULL);
-			_pFunc_CB_error = NULL;
+			//_pFuncs_CB_error[idx] = NULL;
 		} else {
-			_pFunc_CB_error = func->Reference();
-			gluQuadricCallback(qobj, which, reinterpret_cast<CallbackType>(CB_error));
+			_pFuncs_CB_error[idx] = func->Reference();
+			gluQuadricCallback(qobj, which, reinterpret_cast<CallbackType>(_tbl_CB_error[idx]));
 		}
 		break;
+	}
 	default:
 		sig.SetError(ERR_ValueError, "invalid value for which");
 		break;
 	}
-}
-
-void Object_Quadric::CB_error(GLenum errno)
-{
-	const Function *pFunc = _pFunc_CB_error;
-	if (pFunc == NULL) return;
-	Environment &env = pFunc->GetEnvScope();
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->AddValue(Value(static_cast<int>(errno)));
-	pFunc->Eval(env, g_sig, *pArgs);
 }
 
 // implementation of class Quadric
