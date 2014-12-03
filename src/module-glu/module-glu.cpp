@@ -4,7 +4,7 @@
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
-#define SetCallback_Tesselator(which, name) \
+#define DispatchCallback(funcToSetCallback, obj, which, name) \
 case which: { \
 	int idx = _cnt_CB_##name++; \
 	if (idx >= ArraySizeOf(_tbl_CB_##name)) { \
@@ -12,29 +12,24 @@ case which: { \
 		return; \
 	} \
 	if (func == NULL) { \
-		gluTessCallback(tess, which, NULL); \
+		funcToSetCallback(obj, which, NULL); \
 	} else { \
 		_pFuncs_CB_##name[idx] = func->Reference(); \
-		gluTessCallback(tess, which, reinterpret_cast<CallbackType>(_tbl_CB_##name[idx])); \
+		funcToSetCallback(obj, which, reinterpret_cast<CallbackType>(_tbl_CB_##name[idx])); \
 	} \
 	break; \
 }
 
-#define SetCallback_Nurbs(which, name) \
-case which: { \
-	int idx = _cnt_CB_##name++; \
-	if (idx >= ArraySizeOf(_tbl_CB_##name)) { \
-		sig.SetError(ERR_OutOfRangeError, "too many callbacks"); \
-		return; \
-	} \
-	if (func == NULL) { \
-		gluNurbsCallback(nurb, which, NULL); \
-	} else { \
-		_pFuncs_CB_##name[idx] = func->Reference(); \
-		gluNurbsCallback(nurb, which, reinterpret_cast<CallbackType>(_tbl_CB_##name[idx])); \
-	} \
-	break; \
-}
+#define RealizeCallbackFuncs(objClass, name)	\
+int Object_##objClass::_cnt_CB_##name = 0; \
+CallbackType Object_##objClass::_tbl_CB_##name[] = { \
+	reinterpret_cast<CallbackType>(CB_##name<0>), reinterpret_cast<CallbackType>(CB_##name<1>), \
+	reinterpret_cast<CallbackType>(CB_##name<2>), reinterpret_cast<CallbackType>(CB_##name<3>), \
+	reinterpret_cast<CallbackType>(CB_##name<4>), reinterpret_cast<CallbackType>(CB_##name<5>), \
+	reinterpret_cast<CallbackType>(CB_##name<6>), reinterpret_cast<CallbackType>(CB_##name<7>), \
+	reinterpret_cast<CallbackType>(CB_##name<8>), reinterpret_cast<CallbackType>(CB_##name<9>), \
+}; \
+Function *Object_##objClass::_pFuncs_CB_##name[ArraySizeOf(_tbl_CB_##name)] = {}
 
 Gura_BeginModuleBody(glu)
 
@@ -83,13 +78,7 @@ void VertexPackOwner::Clear()
 //-----------------------------------------------------------------------------
 // Object_Quadric
 //-----------------------------------------------------------------------------
-int Object_Quadric::_cnt_CB_error = 0;
-
-CallbackType Object_Quadric::_tbl_CB_error[] = {
-	reinterpret_cast<CallbackType>(CB_error<0>),
-};
-
-Function *Object_Quadric::_pFuncs_CB_error[ArraySizeOf(_tbl_CB_error)] = { NULL };
+RealizeCallbackFuncs(Quadric, error);
 
 Object_Quadric::~Object_Quadric()
 {
@@ -106,24 +95,10 @@ String Object_Quadric::ToString(bool exprFlag)
 	return String("<quadric>");
 }
 
-void Object_Quadric::SetCallback(Signal sig, GLUquadric *qobj, GLenum which, const Function *func)
+void Object_Quadric::SetCallback(Signal sig, GLUquadric *quad, GLenum which, const Function *func)
 {
 	switch (which) {
-	case GLU_ERROR: {
-		int idx = _cnt_CB_error++;
-		if (idx >= ArraySizeOf(_tbl_CB_error)) {
-			sig.SetError(ERR_OutOfRangeError, "too many callbacks");
-			return;
-		}
-		if (func == NULL) {
-			gluQuadricCallback(qobj, which, NULL);
-			//_pFuncs_CB_error[idx] = NULL;
-		} else {
-			_pFuncs_CB_error[idx] = func->Reference();
-			gluQuadricCallback(qobj, which, reinterpret_cast<CallbackType>(_tbl_CB_error[idx]));
-		}
-		break;
-	}
+	DispatchCallback(gluQuadricCallback, quad, GLU_ERROR, error)
 	default:
 		sig.SetError(ERR_ValueError, "invalid value for which");
 		break;
@@ -138,68 +113,18 @@ Gura_ImplementUserClass(Quadric)
 //-----------------------------------------------------------------------------
 // Object_Tesselator
 //-----------------------------------------------------------------------------
-int Object_Tesselator::_cnt_CB_begin = 0;
-int Object_Tesselator::_cnt_CB_edge_flag = 0;
-int Object_Tesselator::_cnt_CB_vertex = 0;
-int Object_Tesselator::_cnt_CB_end = 0;
-int Object_Tesselator::_cnt_CB_error = 0;
-int Object_Tesselator::_cnt_CB_combine = 0;
-int Object_Tesselator::_cnt_CB_begin_data = 0;
-int Object_Tesselator::_cnt_CB_edge_flag_data = 0;
-int Object_Tesselator::_cnt_CB_end_data = 0;
-int Object_Tesselator::_cnt_CB_vertex_data = 0;
-int Object_Tesselator::_cnt_CB_error_data = 0;
-int Object_Tesselator::_cnt_CB_combine_data = 0;
-
-CallbackType Object_Tesselator::_tbl_CB_begin[] = {
-	reinterpret_cast<CallbackType>(CB_begin<0>),
-};
-CallbackType Object_Tesselator::_tbl_CB_edge_flag[] = {
-	reinterpret_cast<CallbackType>(CB_edge_flag<0>),
-};
-CallbackType Object_Tesselator::_tbl_CB_vertex[] = {
-	reinterpret_cast<CallbackType>(CB_vertex<0>),
-};
-CallbackType Object_Tesselator::_tbl_CB_end[] = {
-	reinterpret_cast<CallbackType>(CB_end<0>),
-};
-CallbackType Object_Tesselator::_tbl_CB_error[] = {
-	reinterpret_cast<CallbackType>(CB_error<0>),
-};
-CallbackType Object_Tesselator::_tbl_CB_combine[] = {
-	reinterpret_cast<CallbackType>(CB_combine<0>),
-};
-CallbackType Object_Tesselator::_tbl_CB_begin_data[] = {
-	reinterpret_cast<CallbackType>(CB_begin_data<0>),
-};
-CallbackType Object_Tesselator::_tbl_CB_edge_flag_data[] = {
-	reinterpret_cast<CallbackType>(CB_edge_flag_data<0>),
-};
-CallbackType Object_Tesselator::_tbl_CB_end_data[] = {
-	reinterpret_cast<CallbackType>(CB_end_data<0>),
-};
-CallbackType Object_Tesselator::_tbl_CB_vertex_data[] = {
-	reinterpret_cast<CallbackType>(CB_vertex_data<0>),
-};
-CallbackType Object_Tesselator::_tbl_CB_error_data[] = {
-	reinterpret_cast<CallbackType>(CB_error_data<0>),
-};
-CallbackType Object_Tesselator::_tbl_CB_combine_data[] = {
-	reinterpret_cast<CallbackType>(CB_combine_data<0>),
-};
-
-Function *Object_Tesselator::_pFuncs_CB_begin[ArraySizeOf(_tbl_CB_begin)] = { NULL };
-Function *Object_Tesselator::_pFuncs_CB_edge_flag[ArraySizeOf(_tbl_CB_edge_flag)] = { NULL };
-Function *Object_Tesselator::_pFuncs_CB_vertex[ArraySizeOf(_tbl_CB_vertex)] = { NULL };
-Function *Object_Tesselator::_pFuncs_CB_end[ArraySizeOf(_tbl_CB_end)] = { NULL };
-Function *Object_Tesselator::_pFuncs_CB_error[ArraySizeOf(_tbl_CB_error)] = { NULL };
-Function *Object_Tesselator::_pFuncs_CB_combine[ArraySizeOf(_tbl_CB_combine)] = { NULL };
-Function *Object_Tesselator::_pFuncs_CB_begin_data[ArraySizeOf(_tbl_CB_begin_data)] = { NULL };
-Function *Object_Tesselator::_pFuncs_CB_edge_flag_data[ArraySizeOf(_tbl_CB_edge_flag_data)] = { NULL };
-Function *Object_Tesselator::_pFuncs_CB_end_data[ArraySizeOf(_tbl_CB_end_data)] = { NULL };
-Function *Object_Tesselator::_pFuncs_CB_vertex_data[ArraySizeOf(_tbl_CB_vertex_data)] = { NULL };
-Function *Object_Tesselator::_pFuncs_CB_error_data[ArraySizeOf(_tbl_CB_error_data)] = { NULL };
-Function *Object_Tesselator::_pFuncs_CB_combine_data[ArraySizeOf(_tbl_CB_combine_data)] = { NULL };
+RealizeCallbackFuncs(Tesselator, begin);
+RealizeCallbackFuncs(Tesselator, edge_flag);
+RealizeCallbackFuncs(Tesselator, vertex);
+RealizeCallbackFuncs(Tesselator, end);
+RealizeCallbackFuncs(Tesselator, error);
+RealizeCallbackFuncs(Tesselator, combine);
+RealizeCallbackFuncs(Tesselator, begin_data);
+RealizeCallbackFuncs(Tesselator, edge_flag_data);
+RealizeCallbackFuncs(Tesselator, end_data);
+RealizeCallbackFuncs(Tesselator, vertex_data);
+RealizeCallbackFuncs(Tesselator, error_data);
+RealizeCallbackFuncs(Tesselator, combine_data);
 
 Object_Tesselator::~Object_Tesselator()
 {
@@ -219,18 +144,18 @@ String Object_Tesselator::ToString(bool exprFlag)
 void Object_Tesselator::SetCallback(Signal sig, GLUtesselator *tess, GLenum which, const Function *func)
 {
 	switch (which) {
-	SetCallback_Tesselator(GLU_TESS_BEGIN, begin)
-	SetCallback_Tesselator(GLU_TESS_VERTEX, vertex)
-	SetCallback_Tesselator(GLU_TESS_END, end)
-	SetCallback_Tesselator(GLU_TESS_ERROR, error)
-	SetCallback_Tesselator(GLU_TESS_EDGE_FLAG, edge_flag)
-	SetCallback_Tesselator(GLU_TESS_COMBINE, combine)
-	SetCallback_Tesselator(GLU_TESS_BEGIN_DATA, begin_data)
-	SetCallback_Tesselator(GLU_TESS_VERTEX_DATA, vertex_data)
-	SetCallback_Tesselator(GLU_TESS_END_DATA, end_data)
-	SetCallback_Tesselator(GLU_TESS_ERROR_DATA, error_data)
-	SetCallback_Tesselator(GLU_TESS_EDGE_FLAG_DATA, edge_flag_data)
-	SetCallback_Tesselator(GLU_TESS_COMBINE_DATA, combine_data)
+	DispatchCallback(gluTessCallback, tess, GLU_TESS_BEGIN, begin)
+	DispatchCallback(gluTessCallback, tess, GLU_TESS_VERTEX, vertex)
+	DispatchCallback(gluTessCallback, tess, GLU_TESS_END, end)
+	DispatchCallback(gluTessCallback, tess, GLU_TESS_ERROR, error)
+	DispatchCallback(gluTessCallback, tess, GLU_TESS_EDGE_FLAG, edge_flag)
+	DispatchCallback(gluTessCallback, tess, GLU_TESS_COMBINE, combine)
+	DispatchCallback(gluTessCallback, tess, GLU_TESS_BEGIN_DATA, begin_data)
+	DispatchCallback(gluTessCallback, tess, GLU_TESS_VERTEX_DATA, vertex_data)
+	DispatchCallback(gluTessCallback, tess, GLU_TESS_END_DATA, end_data)
+	DispatchCallback(gluTessCallback, tess, GLU_TESS_ERROR_DATA, error_data)
+	DispatchCallback(gluTessCallback, tess, GLU_TESS_EDGE_FLAG_DATA, edge_flag_data)
+	DispatchCallback(gluTessCallback, tess, GLU_TESS_COMBINE_DATA, combine_data)
 	default:
 		sig.SetError(ERR_ValueError, "invalid value for which");
 		break;
@@ -245,73 +170,19 @@ Gura_ImplementUserClass(Tesselator)
 //-----------------------------------------------------------------------------
 // Object_Nurbs
 //-----------------------------------------------------------------------------
-int Object_Nurbs::_cnt_CB_begin = 0;
-int Object_Nurbs::_cnt_CB_vertex = 0;
-int Object_Nurbs::_cnt_CB_normal = 0;
-int Object_Nurbs::_cnt_CB_color = 0;
-int Object_Nurbs::_cnt_CB_texture_coord = 0;
-int Object_Nurbs::_cnt_CB_end = 0;
-int Object_Nurbs::_cnt_CB_begin_data = 0;
-int Object_Nurbs::_cnt_CB_vertex_data = 0;
-int Object_Nurbs::_cnt_CB_normal_data = 0;
-int Object_Nurbs::_cnt_CB_color_data = 0;
-int Object_Nurbs::_cnt_CB_texture_coord_data = 0;
-int Object_Nurbs::_cnt_CB_end_data = 0;
-int Object_Nurbs::_cnt_CB_error = 0;
-
-CallbackType Object_Nurbs::_tbl_CB_begin[] = {
-	reinterpret_cast<CallbackType>(CB_begin<0>),
-};
-CallbackType Object_Nurbs::_tbl_CB_vertex[] = {
-	reinterpret_cast<CallbackType>(CB_vertex<0>),
-};
-CallbackType Object_Nurbs::_tbl_CB_normal[] = {
-	reinterpret_cast<CallbackType>(CB_normal<0>),
-};
-CallbackType Object_Nurbs::_tbl_CB_color[] = {
-	reinterpret_cast<CallbackType>(CB_color<0>),
-};
-CallbackType Object_Nurbs::_tbl_CB_texture_coord[] = {
-	reinterpret_cast<CallbackType>(CB_texture_coord<0>),
-};
-CallbackType Object_Nurbs::_tbl_CB_end[] = {
-	reinterpret_cast<CallbackType>(CB_end<0>),
-};
-CallbackType Object_Nurbs::_tbl_CB_begin_data[] = {
-	reinterpret_cast<CallbackType>(CB_begin_data<0>),
-};
-CallbackType Object_Nurbs::_tbl_CB_vertex_data[] = {
-	reinterpret_cast<CallbackType>(CB_vertex_data<0>),
-};
-CallbackType Object_Nurbs::_tbl_CB_normal_data[] = {
-	reinterpret_cast<CallbackType>(CB_normal_data<0>),
-};
-CallbackType Object_Nurbs::_tbl_CB_color_data[] = {
-	reinterpret_cast<CallbackType>(CB_color_data<0>),
-};
-CallbackType Object_Nurbs::_tbl_CB_texture_coord_data[] = {
-	reinterpret_cast<CallbackType>(CB_texture_coord_data<0>),
-};
-CallbackType Object_Nurbs::_tbl_CB_end_data[] = {
-	reinterpret_cast<CallbackType>(CB_end_data<0>),
-};
-CallbackType Object_Nurbs::_tbl_CB_error[] = {
-	reinterpret_cast<CallbackType>(CB_error<0>),
-};
-
-Function *Object_Nurbs::_pFuncs_CB_begin[] = { NULL };
-Function *Object_Nurbs::_pFuncs_CB_vertex[] = { NULL };
-Function *Object_Nurbs::_pFuncs_CB_normal[] = { NULL };
-Function *Object_Nurbs::_pFuncs_CB_color[] = { NULL };
-Function *Object_Nurbs::_pFuncs_CB_texture_coord[] = { NULL };
-Function *Object_Nurbs::_pFuncs_CB_end[] = { NULL };
-Function *Object_Nurbs::_pFuncs_CB_begin_data[] = { NULL };
-Function *Object_Nurbs::_pFuncs_CB_vertex_data[] = { NULL };
-Function *Object_Nurbs::_pFuncs_CB_normal_data[] = { NULL };
-Function *Object_Nurbs::_pFuncs_CB_color_data[] = { NULL };
-Function *Object_Nurbs::_pFuncs_CB_texture_coord_data[] = { NULL };
-Function *Object_Nurbs::_pFuncs_CB_end_data[] = { NULL };
-Function *Object_Nurbs::_pFuncs_CB_error[] = { NULL };
+RealizeCallbackFuncs(Nurbs, begin);
+RealizeCallbackFuncs(Nurbs, vertex);
+RealizeCallbackFuncs(Nurbs, normal);
+RealizeCallbackFuncs(Nurbs, color);
+RealizeCallbackFuncs(Nurbs, texture_coord);
+RealizeCallbackFuncs(Nurbs, end);
+RealizeCallbackFuncs(Nurbs, begin_data);
+RealizeCallbackFuncs(Nurbs, vertex_data);
+RealizeCallbackFuncs(Nurbs, normal_data);
+RealizeCallbackFuncs(Nurbs, color_data);
+RealizeCallbackFuncs(Nurbs, texture_coord_data);
+RealizeCallbackFuncs(Nurbs, end_data);
+RealizeCallbackFuncs(Nurbs, error);
 
 Object_Nurbs::~Object_Nurbs()
 {
@@ -331,19 +202,19 @@ String Object_Nurbs::ToString(bool exprFlag)
 void Object_Nurbs::SetCallback(Signal sig, GLUnurbs *nurb, GLenum which, const Function *func)
 {
 	switch (which) {
-	SetCallback_Nurbs(GLU_NURBS_ERROR, error)
-	SetCallback_Nurbs(GLU_NURBS_BEGIN, begin)
-	SetCallback_Nurbs(GLU_NURBS_VERTEX, vertex)
-	SetCallback_Nurbs(GLU_NURBS_NORMAL, normal)
-	SetCallback_Nurbs(GLU_NURBS_COLOR, color)
-	SetCallback_Nurbs(GLU_NURBS_TEXTURE_COORD, texture_coord)
-	SetCallback_Nurbs(GLU_NURBS_END, end)
-	SetCallback_Nurbs(GLU_NURBS_BEGIN_DATA, begin_data)
-	SetCallback_Nurbs(GLU_NURBS_VERTEX_DATA, vertex_data)
-	SetCallback_Nurbs(GLU_NURBS_NORMAL_DATA, normal_data)
-	SetCallback_Nurbs(GLU_NURBS_COLOR_DATA, color_data)
-	SetCallback_Nurbs(GLU_NURBS_TEXTURE_COORD_DATA, texture_coord_data)
-	SetCallback_Nurbs(GLU_NURBS_END_DATA, end_data)
+	DispatchCallback(gluNurbsCallback, nurb, GLU_NURBS_BEGIN, begin)
+	DispatchCallback(gluNurbsCallback, nurb, GLU_NURBS_VERTEX, vertex)
+	DispatchCallback(gluNurbsCallback, nurb, GLU_NURBS_NORMAL, normal)
+	DispatchCallback(gluNurbsCallback, nurb, GLU_NURBS_COLOR, color)
+	DispatchCallback(gluNurbsCallback, nurb, GLU_NURBS_TEXTURE_COORD, texture_coord)
+	DispatchCallback(gluNurbsCallback, nurb, GLU_NURBS_END, end)
+	DispatchCallback(gluNurbsCallback, nurb, GLU_NURBS_BEGIN_DATA, begin_data)
+	DispatchCallback(gluNurbsCallback, nurb, GLU_NURBS_VERTEX_DATA, vertex_data)
+	DispatchCallback(gluNurbsCallback, nurb, GLU_NURBS_NORMAL_DATA, normal_data)
+	DispatchCallback(gluNurbsCallback, nurb, GLU_NURBS_COLOR_DATA, color_data)
+	DispatchCallback(gluNurbsCallback, nurb, GLU_NURBS_TEXTURE_COORD_DATA, texture_coord_data)
+	DispatchCallback(gluNurbsCallback, nurb, GLU_NURBS_END_DATA, end_data)
+	DispatchCallback(gluNurbsCallback, nurb, GLU_NURBS_ERROR, error)
 	default:
 		sig.SetError(ERR_ValueError, "invalid value for which");
 		break;
