@@ -4,33 +4,6 @@
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
-#define DispatchCallback(funcToSetCallback, obj, which, name) \
-case which: { \
-	int idx = _cnt_CB_##name++; \
-	if (idx >= ArraySizeOf(_tbl_CB_##name)) { \
-		sig.SetError(ERR_OutOfRangeError, "too many callbacks"); \
-		return; \
-	} \
-	if (func == NULL) { \
-		funcToSetCallback(obj, which, NULL); \
-	} else { \
-		_pFuncs_CB_##name[idx] = func->Reference(); \
-		funcToSetCallback(obj, which, reinterpret_cast<CallbackType>(_tbl_CB_##name[idx])); \
-	} \
-	break; \
-}
-
-#define RealizeCallbackFuncs(objClass, name)	\
-int Object_##objClass::_cnt_CB_##name = 0; \
-CallbackType Object_##objClass::_tbl_CB_##name[] = { \
-	reinterpret_cast<CallbackType>(CB_##name<0>), reinterpret_cast<CallbackType>(CB_##name<1>), \
-	reinterpret_cast<CallbackType>(CB_##name<2>), reinterpret_cast<CallbackType>(CB_##name<3>), \
-	reinterpret_cast<CallbackType>(CB_##name<4>), reinterpret_cast<CallbackType>(CB_##name<5>), \
-	reinterpret_cast<CallbackType>(CB_##name<6>), reinterpret_cast<CallbackType>(CB_##name<7>), \
-	reinterpret_cast<CallbackType>(CB_##name<8>), reinterpret_cast<CallbackType>(CB_##name<9>), \
-}; \
-Function *Object_##objClass::_pFuncs_CB_##name[ArraySizeOf(_tbl_CB_##name)] = {}
-
 Gura_BeginModuleBody(glu)
 
 Signal g_sig;
@@ -78,7 +51,7 @@ void VertexPackOwner::Clear()
 //-----------------------------------------------------------------------------
 // Object_Quadric
 //-----------------------------------------------------------------------------
-RealizeCallbackFuncs(Quadric, error);
+ImplementCallbackInfo(Quadric, error);
 
 Object_Quadric::~Object_Quadric()
 {
@@ -113,18 +86,18 @@ Gura_ImplementUserClass(Quadric)
 //-----------------------------------------------------------------------------
 // Object_Tesselator
 //-----------------------------------------------------------------------------
-RealizeCallbackFuncs(Tesselator, begin);
-RealizeCallbackFuncs(Tesselator, edge_flag);
-RealizeCallbackFuncs(Tesselator, vertex);
-RealizeCallbackFuncs(Tesselator, end);
-RealizeCallbackFuncs(Tesselator, error);
-RealizeCallbackFuncs(Tesselator, combine);
-RealizeCallbackFuncs(Tesselator, begin_data);
-RealizeCallbackFuncs(Tesselator, edge_flag_data);
-RealizeCallbackFuncs(Tesselator, end_data);
-RealizeCallbackFuncs(Tesselator, vertex_data);
-RealizeCallbackFuncs(Tesselator, error_data);
-RealizeCallbackFuncs(Tesselator, combine_data);
+ImplementCallbackInfo(Tesselator, begin);
+ImplementCallbackInfo(Tesselator, edge_flag);
+ImplementCallbackInfo(Tesselator, vertex);
+ImplementCallbackInfo(Tesselator, end);
+ImplementCallbackInfo(Tesselator, error);
+ImplementCallbackInfo(Tesselator, combine);
+ImplementCallbackInfo(Tesselator, begin_data);
+ImplementCallbackInfo(Tesselator, edge_flag_data);
+ImplementCallbackInfo(Tesselator, end_data);
+ImplementCallbackInfo(Tesselator, vertex_data);
+ImplementCallbackInfo(Tesselator, error_data);
+ImplementCallbackInfo(Tesselator, combine_data);
 
 Object_Tesselator::~Object_Tesselator()
 {
@@ -170,19 +143,19 @@ Gura_ImplementUserClass(Tesselator)
 //-----------------------------------------------------------------------------
 // Object_Nurbs
 //-----------------------------------------------------------------------------
-RealizeCallbackFuncs(Nurbs, begin);
-RealizeCallbackFuncs(Nurbs, vertex);
-RealizeCallbackFuncs(Nurbs, normal);
-RealizeCallbackFuncs(Nurbs, color);
-RealizeCallbackFuncs(Nurbs, texture_coord);
-RealizeCallbackFuncs(Nurbs, end);
-RealizeCallbackFuncs(Nurbs, begin_data);
-RealizeCallbackFuncs(Nurbs, vertex_data);
-RealizeCallbackFuncs(Nurbs, normal_data);
-RealizeCallbackFuncs(Nurbs, color_data);
-RealizeCallbackFuncs(Nurbs, texture_coord_data);
-RealizeCallbackFuncs(Nurbs, end_data);
-RealizeCallbackFuncs(Nurbs, error);
+ImplementCallbackInfo(Nurbs, begin);
+ImplementCallbackInfo(Nurbs, vertex);
+ImplementCallbackInfo(Nurbs, normal);
+ImplementCallbackInfo(Nurbs, color);
+ImplementCallbackInfo(Nurbs, texture_coord);
+ImplementCallbackInfo(Nurbs, end);
+ImplementCallbackInfo(Nurbs, begin_data);
+ImplementCallbackInfo(Nurbs, vertex_data);
+ImplementCallbackInfo(Nurbs, normal_data);
+ImplementCallbackInfo(Nurbs, color_data);
+ImplementCallbackInfo(Nurbs, texture_coord_data);
+ImplementCallbackInfo(Nurbs, end_data);
+ImplementCallbackInfo(Nurbs, error);
 
 Object_Nurbs::~Object_Nurbs()
 {

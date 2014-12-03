@@ -16,6 +16,43 @@
 #define __stdcall
 #endif
 
+#define DispatchCallback(funcToSetCallback, obj, which, name) \
+case which: { \
+	int idx = _cnt_CB_##name++; \
+	if (idx >= ArraySizeOf(_tbl_CB_##name)) { \
+		sig.SetError(ERR_OutOfRangeError, "too many callbacks"); \
+		return; \
+	} \
+	if (func == NULL) { \
+		funcToSetCallback(obj, which, NULL); \
+	} else { \
+		_pFuncs_CB_##name[idx] = func->Reference(); \
+		funcToSetCallback(obj, which, reinterpret_cast<CallbackType>(_tbl_CB_##name[idx])); \
+	} \
+	break; \
+}
+
+#define DeclareCallbackInfo(name) \
+static int _cnt_CB_##name; \
+static CallbackType _tbl_CB_##name[]; \
+static Function *_pFuncs_CB_##name[]
+
+#define ImplementCallbackInfo(objClass, name)	\
+int Object_##objClass::_cnt_CB_##name = 0; \
+CallbackType Object_##objClass::_tbl_CB_##name[] = { \
+	reinterpret_cast<CallbackType>(CB_##name<0>), reinterpret_cast<CallbackType>(CB_##name<1>), \
+	reinterpret_cast<CallbackType>(CB_##name<2>), reinterpret_cast<CallbackType>(CB_##name<3>), \
+	reinterpret_cast<CallbackType>(CB_##name<4>), reinterpret_cast<CallbackType>(CB_##name<5>), \
+	reinterpret_cast<CallbackType>(CB_##name<6>), reinterpret_cast<CallbackType>(CB_##name<7>), \
+	reinterpret_cast<CallbackType>(CB_##name<8>), reinterpret_cast<CallbackType>(CB_##name<9>), \
+	reinterpret_cast<CallbackType>(CB_##name<10>), reinterpret_cast<CallbackType>(CB_##name<11>), \
+	reinterpret_cast<CallbackType>(CB_##name<12>), reinterpret_cast<CallbackType>(CB_##name<13>), \
+	reinterpret_cast<CallbackType>(CB_##name<14>), reinterpret_cast<CallbackType>(CB_##name<15>), \
+	reinterpret_cast<CallbackType>(CB_##name<16>), reinterpret_cast<CallbackType>(CB_##name<17>), \
+	reinterpret_cast<CallbackType>(CB_##name<18>), reinterpret_cast<CallbackType>(CB_##name<19>), \
+}; \
+Function *Object_##objClass::_pFuncs_CB_##name[ArraySizeOf(_tbl_CB_##name)] = {}
+
 Gura_BeginModuleHeader(glu)
 
 extern Signal g_sig;
@@ -81,9 +118,7 @@ public:
 	Gura_DeclareObjectAccessor(Quadric)
 private:
 	GLUquadric *_quad;
-	static int _cnt_CB_error;
-	static CallbackType _tbl_CB_error[];
-	static Function *_pFuncs_CB_error[];
+	DeclareCallbackInfo(error);
 public:
 	inline Object_Quadric(GLUquadric *quad) :
 			Object(Gura_UserClass(Quadric)), _quad(quad) {}
@@ -116,42 +151,18 @@ public:
 private:
 	GLUtesselator *_tess;
 	std::auto_ptr<PolygonPack> _pPolygonPack;
-	static int _cnt_CB_begin;
-	static int _cnt_CB_edge_flag;
-	static int _cnt_CB_vertex;
-	static int _cnt_CB_end;
-	static int _cnt_CB_error;
-	static int _cnt_CB_combine;
-	static int _cnt_CB_begin_data;
-	static int _cnt_CB_edge_flag_data;
-	static int _cnt_CB_end_data;
-	static int _cnt_CB_vertex_data;
-	static int _cnt_CB_error_data;
-	static int _cnt_CB_combine_data;
-	static CallbackType _tbl_CB_begin[];
-	static CallbackType _tbl_CB_edge_flag[];
-	static CallbackType _tbl_CB_vertex[];
-	static CallbackType _tbl_CB_end[];
-	static CallbackType _tbl_CB_error[];
-	static CallbackType _tbl_CB_combine[];
-	static CallbackType _tbl_CB_begin_data[];
-	static CallbackType _tbl_CB_edge_flag_data[];
-	static CallbackType _tbl_CB_end_data[];
-	static CallbackType _tbl_CB_vertex_data[];
-	static CallbackType _tbl_CB_error_data[];
-	static CallbackType _tbl_CB_combine_data[];
-	static Function *_pFuncs_CB_begin[];
-	static Function *_pFuncs_CB_edge_flag[];
-	static Function *_pFuncs_CB_vertex[];
-	static Function *_pFuncs_CB_end[];
-	static Function *_pFuncs_CB_error[];
-	static Function *_pFuncs_CB_combine[];
-	static Function *_pFuncs_CB_begin_data[];
-	static Function *_pFuncs_CB_edge_flag_data[];
-	static Function *_pFuncs_CB_end_data[];
-	static Function *_pFuncs_CB_vertex_data[];
-	static Function *_pFuncs_CB_error_data[];
-	static Function *_pFuncs_CB_combine_data[];
+	DeclareCallbackInfo(begin);
+	DeclareCallbackInfo(edge_flag);
+	DeclareCallbackInfo(vertex);
+	DeclareCallbackInfo(end);
+	DeclareCallbackInfo(error);
+	DeclareCallbackInfo(combine);
+	DeclareCallbackInfo(begin_data);
+	DeclareCallbackInfo(edge_flag_data);
+	DeclareCallbackInfo(end_data);
+	DeclareCallbackInfo(vertex_data);
+	DeclareCallbackInfo(error_data);
+	DeclareCallbackInfo(combine_data);
 public:
 	inline Object_Tesselator(GLUtesselator *tess) :
 			Object(Gura_UserClass(Tesselator)), _tess(tess) {}
@@ -160,8 +171,10 @@ public:
 	virtual String ToString(bool exprFlag);
 	static void SetCallback(Signal sig, GLUtesselator *tess, GLenum which, const Function *func);
 	inline GLUtesselator *GetTesselator() { return _tess; }
-	inline void CreatePolygonPack(const Value &polygonData) {
-		_pPolygonPack.reset(new PolygonPack(this, polygonData));
+	inline PolygonPack *CreatePolygonPack(const Value &polygonData) {
+		PolygonPack *pPolygonPack = new PolygonPack(this, polygonData);
+		_pPolygonPack.reset(pPolygonPack);
+		return pPolygonPack;
 	}
 	inline void DeletePolygonPack() { _pPolygonPack.reset(NULL); }
 	inline PolygonPack *GetPolygonPack() { return _pPolygonPack.get(); }
@@ -213,8 +226,19 @@ public:
 		if (pFunc == NULL) return;
 		Environment &env = pFunc->GetEnvScope();
 		AutoPtr<Args> pArgs(new Args());
+		pArgs->AddValue(Value::CreateList(env, coords, 3));
+		do {
+			Value value;
+			ValueList &valList = value.InitAsList(env, 4);
+			for (int i = 0; i < 4; i++) {
+				valList.push_back(reinterpret_cast<VertexPack *>(vertex_data[i])->GetVertexData());
+			}
+			pArgs->AddValue(value);
+		} while (0);
+		pArgs->AddValue(Value::CreateList(env, weight, 4));
+		Value rtn = pFunc->Eval(env, g_sig, *pArgs);
 
-		pFunc->Eval(env, g_sig, *pArgs);
+		// outData
 	}
 	template<int idx> static void CB_begin_data(GLenum type, void *polygon_data) {
 		const Function *pFunc = _pFuncs_CB_begin_data[idx];
@@ -270,8 +294,20 @@ public:
 		if (pFunc == NULL) return;
 		Environment &env = pFunc->GetEnvScope();
 		AutoPtr<Args> pArgs(new Args());
+		pArgs->AddValue(Value::CreateList(env, coords, 3));
+		do {
+			Value value;
+			ValueList &valList = value.InitAsList(env, 4);
+			for (int i = 0; i < 4; i++) {
+				valList.push_back(reinterpret_cast<VertexPack *>(vertex_data[i])->GetVertexData());
+			}
+			pArgs->AddValue(value);
+		} while (0);
+		pArgs->AddValue(Value::CreateList(env, weight, 4));
+		pArgs->AddValue(reinterpret_cast<PolygonPack *>(polygon_data)->GetPolygonData());
+		Value rtn = pFunc->Eval(env, g_sig, *pArgs);
 
-		pFunc->Eval(env, g_sig, *pArgs);
+		// outDatab
 	}
 };
 
@@ -285,45 +321,19 @@ public:
 	Gura_DeclareObjectAccessor(Nurbs)
 private:
 	GLUnurbs *_nurb;
-	static int _cnt_CB_begin;
-	static int _cnt_CB_vertex;
-	static int _cnt_CB_normal;
-	static int _cnt_CB_color;
-	static int _cnt_CB_texture_coord;
-	static int _cnt_CB_end;
-	static int _cnt_CB_begin_data;
-	static int _cnt_CB_vertex_data;
-	static int _cnt_CB_normal_data;
-	static int _cnt_CB_color_data;
-	static int _cnt_CB_texture_coord_data;
-	static int _cnt_CB_end_data;
-	static int _cnt_CB_error;
-	static CallbackType _tbl_CB_begin[];
-	static CallbackType _tbl_CB_vertex[];
-	static CallbackType _tbl_CB_normal[];
-	static CallbackType _tbl_CB_color[];
-	static CallbackType _tbl_CB_texture_coord[];
-	static CallbackType _tbl_CB_end[];
-	static CallbackType _tbl_CB_begin_data[];
-	static CallbackType _tbl_CB_vertex_data[];
-	static CallbackType _tbl_CB_normal_data[];
-	static CallbackType _tbl_CB_color_data[];
-	static CallbackType _tbl_CB_texture_coord_data[];
-	static CallbackType _tbl_CB_end_data[];
-	static CallbackType _tbl_CB_error[];
-	static Function *_pFuncs_CB_begin[];
-	static Function *_pFuncs_CB_vertex[];
-	static Function *_pFuncs_CB_normal[];
-	static Function *_pFuncs_CB_color[];
-	static Function *_pFuncs_CB_texture_coord[];
-	static Function *_pFuncs_CB_end[];
-	static Function *_pFuncs_CB_begin_data[];
-	static Function *_pFuncs_CB_vertex_data[];
-	static Function *_pFuncs_CB_normal_data[];
-	static Function *_pFuncs_CB_color_data[];
-	static Function *_pFuncs_CB_texture_coord_data[];
-	static Function *_pFuncs_CB_end_data[];
-	static Function *_pFuncs_CB_error[];
+	DeclareCallbackInfo(begin);
+	DeclareCallbackInfo(vertex);
+	DeclareCallbackInfo(normal);
+	DeclareCallbackInfo(color);
+	DeclareCallbackInfo(texture_coord);
+	DeclareCallbackInfo(end);
+	DeclareCallbackInfo(begin_data);
+	DeclareCallbackInfo(vertex_data);
+	DeclareCallbackInfo(normal_data);
+	DeclareCallbackInfo(color_data);
+	DeclareCallbackInfo(texture_coord_data);
+	DeclareCallbackInfo(end_data);
+	DeclareCallbackInfo(error);
 public:
 	inline Object_Nurbs(GLUnurbs *nurb) :
 				Object(Gura_UserClass(Nurbs)), _nurb(nurb) {}

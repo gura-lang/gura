@@ -416,14 +416,15 @@ gluTessBeginContour(tess:GLUtesselator@):void {block?} = R'''
 	'''
 }
 
-gluTessBeginPolygon(tess:GLUtesselator@, data:int):void {block?} = R'''
-	gluTessBeginPolygon(tess, tess); // pass this object pointer to callback
+gluTessBeginPolygon(tess:Object_Tesselator@, polygon_data:any):void {block?} = R'''
+	PolygonPack *pPolygonPack = tess->CreatePolygonPack(polygon_data);
+	gluTessBeginPolygon(tess->GetTesselator(), pPolygonPack);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = NULL;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
-		gluTessEndPolygon(tess);
+		gluTessEndPolygon(tess->GetTesselator());
 	}
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -459,8 +460,14 @@ gluTessProperty(tess:GLUtesselator@, which:GLenum, data:GLdouble):void = `auto %
 	'''
 }
 
-gluTessVertex(tess:GLUtesselator@, location:GLdouble@):void = R'''
-	gluTessVertex(tess, location, tess); // pass this object pointer to callback
+gluTessVertex(tess:Object_Tesselator@, location:GLdouble@, vertex_data:any):void = R'''
+	PolygonPack *pPolygonPack = tess->GetPolygonPack();
+	if (pPolygonPack == NULL) {
+		sig.SetError(ERR_SyntaxError, "gluTessBeginPolygon has not been called");
+		return Value::Null;
+	}
+	VertexPack *pVertexPack = pPolygonPack->CreateVertexPack(vertex_data);
+	gluTessVertex(tess->GetTesselator(), location, pVertexPack);
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
@@ -483,6 +490,13 @@ gluUnProject4(winX:GLdouble, winY:GLdouble, winZ:GLdouble, clipW:GLdouble, model
 
 // GLU-specific type converter
 cbridge_glcmn.AddTypeConvs {
+	'any' => TypeConv(
+			'any', 'Once', [],
+			R'''
+			Value ${arg.name} = args.GetValue(${idx});
+			''',
+			nil,
+			nil)
 	'GLUnurbs@' => TypeConv(
 			'Nurbs', 'Once', [],
 			R'''
@@ -503,6 +517,13 @@ cbridge_glcmn.AddTypeConvs {
 			GLUtesselator *_rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(new Object_Tesselator(_rtn)));
 			''')
+	'Object_Tesselator@' => TypeConv(
+			'Tesselator', 'Once', [],
+			R'''
+			Object_Tesselator *${arg.name} = Object_Tesselator::GetObject(args, ${idx});
+			''',
+			nil,
+			nil)
 	'GLUquadric@' => TypeConv(
 			'Quadric', 'Once', [],
 			R'''
