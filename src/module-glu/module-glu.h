@@ -41,12 +41,10 @@ case which: { \
 
 #define DeclareCallbackInfo(name) \
 int _idx_CB_##name; \
-static int _cnt_CB_##name; \
 static CallbackType _tbl_CB_##name[]; \
 static Function *_pFuncs_CB_##name[]
 
 #define ImplementCallbackInfo(objClass, name)	\
-int Object_##objClass::_cnt_CB_##name = 0; \
 CallbackType Object_##objClass::_tbl_CB_##name[] = { \
 	reinterpret_cast<CallbackType>(CB_##name<0>), reinterpret_cast<CallbackType>(CB_##name<1>), \
 	reinterpret_cast<CallbackType>(CB_##name<2>), reinterpret_cast<CallbackType>(CB_##name<3>), \
