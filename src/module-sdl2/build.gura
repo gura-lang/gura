@@ -2,10 +2,10 @@
 import(modbuild)
 
 builder = modbuild.Builder()
-builder.addRule('Functions.cpp', ['Functions.cpp.gura']) {
-	expr('Functions.cpp.gura').eval()
-	true
-}
+//builder.addRule('Functions.cpp', ['Functions.cpp.gura']) {
+//	expr('Functions.cpp.gura').eval()
+//	true
+//}
 if (sys.platform == `mswin) {
 	dirBase = path.join(builder.guestDir, 'SDL2-2.0.3')
 	builder.incDirs.append(path.join(dirBase, 'include'))

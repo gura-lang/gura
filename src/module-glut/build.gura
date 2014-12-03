@@ -2,10 +2,10 @@
 import(modbuild)
 
 builder = modbuild.Builder()
-builder.addRule('Functions.cpp', ['Functions.cpp.gura']) {
-	expr('Functions.cpp.gura').eval()
-	true
-}
+//builder.addRule('Functions.cpp', ['Functions.cpp.gura']) {
+//	expr('Functions.cpp.gura').eval()
+//	true
+//}
 if (sys.platform == `mswin) {
 	baseDir = path.join(builder.guestDir, 'freeglut-2.8.1')
 	builder.cflags.append('-DFREEGLUT_STATIC')
