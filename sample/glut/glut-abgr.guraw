@@ -95,31 +95,31 @@ TexFunc() = {
 	if (isdefined(GL_EXT_abgr)) {
 		glTexImage2D(GL_TEXTURE_2D, 0, 3, 128, 128, 0, GL_ABGR_EXT,
 					 GL_UNSIGNED_BYTE, ubImage)
-		glBegin(GL_POLYGON);
-		glTexCoord2f(1.0, 1.0);
-		glVertex3f(-0.2, 0.8, -100.0);
-		glTexCoord2f(0.0, 1.0);
-		glVertex3f(-0.8, 0.8, -2.0);
-		glTexCoord2f(0.0, 0.0);
-		glVertex3f(-0.8, 0.2, -2.0);
-		glTexCoord2f(1.0, 0.0);
-		glVertex3f(-0.2, 0.2, -100.0);
-		glEnd();
+		glBegin(GL_POLYGON) {
+			glTexCoord2f(1.0, 1.0);
+			glVertex3f(-0.2, 0.8, -100.0);
+			glTexCoord2f(0.0, 1.0);
+			glVertex3f(-0.8, 0.8, -2.0);
+			glTexCoord2f(0.0, 0.0);
+			glVertex3f(-0.8, 0.2, -2.0);
+			glTexCoord2f(1.0, 0.0);
+			glVertex3f(-0.2, 0.2, -100.0);
+		}
 	}
 
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, 128, 128, 0, GL_RGBA,
 				 GL_UNSIGNED_BYTE, ubImage)
 
-	glBegin(GL_POLYGON);
-	glTexCoord2f(1.0, 1.0);
-	glVertex3f(0.8, 0.8, -2.0);
-	glTexCoord2f(0.0, 1.0);
-	glVertex3f(0.2, 0.8, -100.0);
-	glTexCoord2f(0.0, 0.0);
-	glVertex3f(0.2, 0.2, -100.0);
-	glTexCoord2f(1.0, 0.0);
-	glVertex3f(0.8, 0.2, -2.0);
-	glEnd();
+	glBegin(GL_POLYGON) {
+		glTexCoord2f(1.0, 1.0);
+		glVertex3f(0.8, 0.8, -2.0);
+		glTexCoord2f(0.0, 1.0);
+		glVertex3f(0.2, 0.8, -100.0);
+		glTexCoord2f(0.0, 0.0);
+		glVertex3f(0.2, 0.2, -100.0);
+		glTexCoord2f(1.0, 0.0);
+		glVertex3f(0.8, 0.2, -2.0);
+	}
 
 	glDisable(GL_TEXTURE_2D);
 }
