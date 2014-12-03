@@ -27,13 +27,13 @@ v = dim(8, 3);  /* Will be filled in with X,Y,Z vertexes. */
 
 drawBox() = {
 	repeat(6) {|i|
-		glBegin(GL_QUADS);
-	    glNormal3fv(n[i]);
-	    glVertex3fv(v[faces[i][0]]);
-	    glVertex3fv(v[faces[i][1]]);
-	    glVertex3fv(v[faces[i][2]]);
-		glVertex3fv(v[faces[i][3]]);
-		glEnd();
+		glBegin(GL_QUADS) {
+	    	glNormal3fv(n[i]);
+	    	glVertex3fv(v[faces[i][0]]);
+		    glVertex3fv(v[faces[i][1]]);
+		    glVertex3fv(v[faces[i][2]]);
+			glVertex3fv(v[faces[i][3]]);
+		}
 	}
 }
 
