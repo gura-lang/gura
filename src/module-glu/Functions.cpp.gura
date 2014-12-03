@@ -261,8 +261,8 @@ gluNextContour(tess:GLUtesselator@, type:GLenum):void = `auto % {`en, 'markdown'
 	'''
 }
 
-gluNurbsCallback(nurbs:GLUnurbs@, which:GLenum, func:function) = R'''
-	Object_Nurbs::SetCallback(sig, nurbs, which, func);
+gluNurbsCallback(nurbs:Object_Nurbs@, which:GLenum, func:function) = R'''
+	nurbs->SetCallback(sig, which, func);
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
@@ -342,8 +342,8 @@ gluPwlCurve(nurb:GLUnurbs@, data:GLfloat@, stride:GLint, type:GLenum):void = R''
 	'''
 }
 
-gluQuadricCallback(quad:GLUquadric@, which:GLenum, func:function:nil):void = R'''
-	Object_Quadric::SetCallback(sig, quad, which, func);
+gluQuadricCallback(quad:Object_Quadric@, which:GLenum, func:function:nil):void = R'''
+	quad->SetCallback(sig, which, func);
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
@@ -432,8 +432,8 @@ gluTessBeginPolygon(tess:Object_Tesselator@, polygon_data:any):void {block?} = R
 	'''
 }
 
-gluTessCallback(tess:GLUtesselator@, which:GLenum, func:function) = R'''
-	Object_Tesselator::SetCallback(sig, tess, which, func);
+gluTessCallback(tess:Object_Tesselator@, which:GLenum, func:function) = R'''
+	tess->SetCallback(sig, which, func);
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
@@ -517,13 +517,6 @@ cbridge_glcmn.AddTypeConvs {
 			GLUtesselator *_rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(new Object_Tesselator(_rtn)));
 			''')
-	'Object_Tesselator@' => TypeConv(
-			'Tesselator', 'Once', [],
-			R'''
-			Object_Tesselator *${arg.name} = Object_Tesselator::GetObject(args, ${idx});
-			''',
-			nil,
-			nil)
 	'GLUquadric@' => TypeConv(
 			'Quadric', 'Once', [],
 			R'''
@@ -534,6 +527,27 @@ cbridge_glcmn.AddTypeConvs {
 			GLUquadric *_rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, sig, args, Value(new Object_Quadric(_rtn)));
 			''')
+	'Object_Nurbs@' => TypeConv(
+			'Nurbs', 'Once', [],
+			R'''
+			Object_Nurbs *${arg.name} = Object_Nurbs::GetObject(args, ${idx});
+			''',
+			nil,
+			nil)
+	'Object_Tesselator@' => TypeConv(
+			'Tesselator', 'Once', [],
+			R'''
+			Object_Tesselator *${arg.name} = Object_Tesselator::GetObject(args, ${idx});
+			''',
+			nil,
+			nil)
+	'Object_Quadric@' => TypeConv(
+			'Quadric', 'Once', [],
+			R'''
+			Object_Quadric *${arg.name} = Object_Quadric::GetObject(args, ${idx});
+			''',
+			nil,
+			nil)
 }
 
 tmplSource = R"""

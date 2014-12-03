@@ -18,16 +18,23 @@
 
 #define DispatchCallback(funcToSetCallback, obj, which, name) \
 case which: { \
-	int idx = _cnt_CB_##name++; \
-	if (idx >= ArraySizeOf(_tbl_CB_##name)) { \
-		sig.SetError(ERR_OutOfRangeError, "too many callbacks"); \
-		return; \
-	} \
-	if (func == NULL) { \
-		funcToSetCallback(obj, which, NULL); \
-	} else { \
+	if (func != NULL) { \
+		int idx = 0; \
+		for ( ; idx < ArraySizeOf(_tbl_CB_##name); idx++) { \
+			if (_pFuncs_CB_##name[idx] == NULL) break; \
+		} \
+		if (idx >= ArraySizeOf(_tbl_CB_##name)) { \
+			sig.SetError(ERR_OutOfRangeError, "no room to register the callback"); \
+			return; \
+		} \
+		_idx_CB_##name = idx; \
 		_pFuncs_CB_##name[idx] = func->Reference(); \
 		funcToSetCallback(obj, which, reinterpret_cast<CallbackType>(_tbl_CB_##name[idx])); \
+	} else if (_idx_CB_##name >= 0) { \
+		int idx = _idx_CB_##name; \
+		Function::Delete(_pFuncs_CB_##name[idx]); \
+		_pFuncs_CB_##name[idx] = NULL;	\
+		funcToSetCallback(obj, which, NULL); \
 	} \
 	break; \
 }
@@ -135,7 +142,7 @@ public:
 	virtual ~Object_Quadric();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	static void SetCallback(Signal sig, GLUquadric *quad, GLenum which, const Function *func);
+	void SetCallback(Signal sig, GLenum which, const Function *func);
 	inline GLUquadric *GetQuadric() { return _quad; }
 private:
 	inline Object_Quadric(const Object_Quadric &obj) : Object(obj) {}
@@ -178,7 +185,7 @@ public:
 	virtual ~Object_Tesselator();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	static void SetCallback(Signal sig, GLUtesselator *tess, GLenum which, const Function *func);
+	void SetCallback(Signal sig, GLenum which, const Function *func);
 	inline GLUtesselator *GetTesselator() { return _tess; }
 	inline PolygonPack *CreatePolygonPack(const Value &polygonData) {
 		PolygonPack *pPolygonPack = new PolygonPack(this, polygonData);
@@ -348,7 +355,7 @@ public:
 	virtual ~Object_Nurbs();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	static void SetCallback(Signal sig, GLUnurbs *nurb, GLenum which, const Function *func);
+	void SetCallback(Signal sig, GLenum which, const Function *func);
 	inline GLUnurbs *GetNurbs() { return _nurb; }
 private:
 	inline Object_Nurbs(const Object_Nurbs &obj) : Object(obj) {}
