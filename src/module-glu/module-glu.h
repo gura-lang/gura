@@ -93,6 +93,7 @@ private:
 public:
 	inline VertexPack(Object_Tesselator *pObjTess, const Value &vertexData) :
 							_pObjTess(pObjTess), _vertexData(vertexData) {}
+	inline Object_Tesselator *GetObjTesselator() { return _pObjTess; }
 	inline Value GetVertexData() { return _vertexData; }
 };
 
@@ -116,6 +117,7 @@ private:
 public:
 	inline PolygonPack(Object_Tesselator *pObjTess, const Value &polygonData) :
 							_pObjTess(pObjTess), _polygonData(polygonData) {}
+	inline Object_Tesselator *GetObjTesselator() { return _pObjTess; }
 	inline Value GetPolygonData() { return _polygonData; }
 	inline VertexPack *CreateVertexPack(const Value &vertexData) {
 		VertexPack *pVertexPack = new VertexPack(_pObjTess, vertexData);
@@ -145,13 +147,7 @@ public:
 private:
 	inline Object_Quadric(const Object_Quadric &obj) : Object(obj) {}
 public:
-	static void _CB_error(GLenum err_no, const Function *pFunc) {
-		if (pFunc == NULL) return;
-		Environment &env = pFunc->GetEnvScope();
-		AutoPtr<Args> pArgs(new Args());
-		pArgs->SetValue(Value(static_cast<int>(err_no)));
-		pFunc->Eval(env, g_sig, *pArgs);
-	}
+	static void _CB_error(GLenum err_no, const Function *pFunc);
 	template<int idx> static void CB_error(GLenum err_no) {
 		_CB_error(err_no, _pFuncs_CB_error[idx]);
 	}

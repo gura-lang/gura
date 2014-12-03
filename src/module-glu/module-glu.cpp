@@ -84,6 +84,15 @@ void Object_Quadric::SetCallback(Signal sig, GLenum which, const Function *func)
 	}
 }
 
+void Object_Quadric::_CB_error(GLenum err_no, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValue(Value(static_cast<int>(err_no)));
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
 // implementation of class Quadric
 Gura_ImplementUserClass(Quadric)
 {
@@ -219,6 +228,8 @@ void Object_Tesselator::_CB_combine(GLdouble coords[3], void *vertex_data[4],
 						GLfloat weight[4], void **outData, const Function *pFunc)
 {
 	if (pFunc == NULL) return;
+	Object_Tesselator *pObjTess =
+			reinterpret_cast<VertexPack *>(vertex_data[0])->GetObjTesselator();
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->AddValue(Value::CreateList(env, coords, 3));
@@ -232,8 +243,7 @@ void Object_Tesselator::_CB_combine(GLdouble coords[3], void *vertex_data[4],
 	} while (0);
 	pArgs->AddValue(Value::CreateList(env, weight, 4));
 	Value rtn = pFunc->Eval(env, g_sig, *pArgs);
-
-	// outData
+	*outData = pObjTess->GetPolygonPack()->CreateVertexPack(rtn);
 }
 
 void Object_Tesselator::_CB_begin_data(GLenum type, void *polygon_data, const Function *pFunc)
@@ -293,6 +303,8 @@ void Object_Tesselator::_CB_combine_data(GLdouble coords[3], void *vertex_data[4
 				 GLfloat weight[4], void **outDatab, void *polygon_data, const Function *pFunc)
 {
 	if (pFunc == NULL) return;
+	Object_Tesselator *pObjTess =
+			reinterpret_cast<VertexPack *>(vertex_data[0])->GetObjTesselator();
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->AddValue(Value::CreateList(env, coords, 3));
@@ -307,8 +319,7 @@ void Object_Tesselator::_CB_combine_data(GLdouble coords[3], void *vertex_data[4
 	pArgs->AddValue(Value::CreateList(env, weight, 4));
 	pArgs->AddValue(reinterpret_cast<PolygonPack *>(polygon_data)->GetPolygonData());
 	Value rtn = pFunc->Eval(env, g_sig, *pArgs);
-
-	// outDatab
+	*outDatab = pObjTess->GetPolygonPack()->CreateVertexPack(rtn);
 }
 
 // implementation of class Tesselator
