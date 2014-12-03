@@ -269,12 +269,20 @@ gluNurbsCallback(nurbs:Object_Nurbs@, which:GLenum, func:function) = R'''
 	'''
 }
 
-gluNurbsCallbackData(nurb:GLUnurbs@, userData:int):void = `unsupport % {`en, 'markdown',
+gluNurbsCallbackData(nurb:Object_Nurbs@, userData:any):void = R'''
+	nurb->SetCallbackData(userData);
+	gluNurbsCallbackData(nurb->GetNurbs(), nurb);
+	return Value::Null;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-gluNurbsCallbackDataEXT(nurb:GLUnurbs@, userData:int):void = `unsupport % {`en, 'markdown',
+gluNurbsCallbackDataEXT(nurb:Object_Nurbs@, userData:any):void = R'''
+	nurb->SetCallbackDataEXT(userData);
+	gluNurbsCallbackData(nurb->GetNurbs(), nurb);
+	return Value::Null;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }

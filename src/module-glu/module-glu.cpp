@@ -170,6 +170,147 @@ void Object_Tesselator::SetCallback(Signal sig, GLenum which, const Function *fu
 	}
 }
 
+void Object_Tesselator::_CB_begin(GLenum type, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValue(Value(static_cast<int>(type)));
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
+
+void Object_Tesselator::_CB_edge_flag(GLboolean flag, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValue(Value(flag == GL_TRUE));
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
+void Object_Tesselator::_CB_vertex(void *vertex_data, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValue(reinterpret_cast<VertexPack *>(vertex_data)->GetVertexData());
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
+void Object_Tesselator::_CB_end(const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
+void Object_Tesselator::_CB_error(GLenum err_no, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValue(Value(err_no));
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
+void Object_Tesselator::_CB_combine(GLdouble coords[3], void *vertex_data[4],
+						GLfloat weight[4], void **outData, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->AddValue(Value::CreateList(env, coords, 3));
+	do {
+		Value value;
+		ValueList &valList = value.InitAsList(env, 4);
+		for (int i = 0; i < 4; i++) {
+			valList.push_back(reinterpret_cast<VertexPack *>(vertex_data[i])->GetVertexData());
+		}
+		pArgs->AddValue(value);
+	} while (0);
+	pArgs->AddValue(Value::CreateList(env, weight, 4));
+	Value rtn = pFunc->Eval(env, g_sig, *pArgs);
+
+	// outData
+}
+
+void Object_Tesselator::_CB_begin_data(GLenum type, void *polygon_data, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValues(
+		Value(type),
+		reinterpret_cast<PolygonPack *>(polygon_data)->GetPolygonData());
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
+void Object_Tesselator::_CB_edge_flag_data(GLboolean flag, void *polygon_data, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValues(
+		Value(flag == GL_TRUE),
+		reinterpret_cast<PolygonPack *>(polygon_data)->GetPolygonData());
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
+void Object_Tesselator::_CB_end_data(void *polygon_data, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValue(reinterpret_cast<PolygonPack *>(polygon_data)->GetPolygonData());
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
+void Object_Tesselator::_CB_vertex_data(void *vertex_data, void *polygon_data, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValues(
+		reinterpret_cast<VertexPack *>(vertex_data)->GetVertexData(),
+		reinterpret_cast<PolygonPack *>(polygon_data)->GetPolygonData());
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
+void Object_Tesselator::_CB_error_data(GLenum err_no, void *polygon_data, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValues(
+		Value(err_no),
+		reinterpret_cast<PolygonPack *>(polygon_data)->GetPolygonData());
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
+void Object_Tesselator::_CB_combine_data(GLdouble coords[3], void *vertex_data[4],
+				 GLfloat weight[4], void **outDatab, void *polygon_data, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->AddValue(Value::CreateList(env, coords, 3));
+	do {
+		Value value;
+		ValueList &valList = value.InitAsList(env, 4);
+		for (int i = 0; i < 4; i++) {
+			valList.push_back(reinterpret_cast<VertexPack *>(vertex_data[i])->GetVertexData());
+		}
+		pArgs->AddValue(value);
+	} while (0);
+	pArgs->AddValue(Value::CreateList(env, weight, 4));
+	pArgs->AddValue(reinterpret_cast<PolygonPack *>(polygon_data)->GetPolygonData());
+	Value rtn = pFunc->Eval(env, g_sig, *pArgs);
+
+	// outDatab
+}
+
 // implementation of class Tesselator
 Gura_ImplementUserClass(Tesselator)
 {
