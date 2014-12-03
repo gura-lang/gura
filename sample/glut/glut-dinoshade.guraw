@@ -197,11 +197,9 @@ findPlane(plane[]:number, v0[]:number, v1[]:number, v2[]:number) = {
 
 tobj = nil
 
-extrudeSolidFromPolygon(data[], dataSize:number,
-						thickness:number, side:number, edge:number, whole:number)
+extrudeSolidFromPolygon(data[], thickness:number, side:number, edge:number, whole:number)
 {
-	vertex = dim(3)
-	count = int(dataSize / (2 * 4))
+	count = data.len()
 
 	if (tobj == nil) {
 		tobj = gluNewTess();  /* create and initialize a GLU
@@ -214,10 +212,8 @@ extrudeSolidFromPolygon(data[], dataSize:number,
 	glShadeModel(GL_SMOOTH);  /* smooth minimizes seeing
                                tessellation */
 	gluBeginPolygon(tobj);
-	for (i = 0; i < count; i++) {
-		vertex[0] = data[i][0];
-		vertex[1] = data[i][1];
-		vertex[2] = 0;
+	repeat(count) {|i|
+		vertex = [data[i][0], data[i][1], 0];
 	    gluTessVertex(tobj, vertex, data[i]);
 	}
 	gluEndPolygon(tobj);
@@ -225,96 +221,84 @@ extrudeSolidFromPolygon(data[], dataSize:number,
 	glNewList(edge, GL_COMPILE);
 	glShadeModel(GL_FLAT);  /* flat shade keeps angular hands
                              from being "smoothed" */
-  glBegin(GL_QUAD_STRIP);
-  for (i = 0; i <= count; i++) {
-    /* mod function handles closing the edge */
-    glVertex3f(data[i % count][0], data[i % count][1], 0.0);
-    glVertex3f(data[i % count][0], data[i % count][1], thickness);
-    /* Calculate a unit normal by dividing by Euclidean
-       distance. We * could be lazy and use
-       glEnable(GL_NORMALIZE) so we could pass in * arbitrary
-       normals for a very slight performance hit. */
-    dx = data[(i + 1) % count][1] - data[i % count][1];
-    dy = data[i % count][0] - data[(i + 1) % count][0];
-    len = sqrt(dx * dx + dy * dy);
-    glNormal3f(dx / len, dy / len, 0.0);
-  }
-  glEnd();
-  glEndList();
-  glNewList(whole, GL_COMPILE);
-  glFrontFace(GL_CW);
-  glCallList(edge);
-  glNormal3f(0.0, 0.0, -1.0);  /* constant normal for side */
-  glCallList(side);
-  glPushMatrix();
-  glTranslatef(0.0, 0.0, thickness);
-  glFrontFace(GL_CCW);
-  glNormal3f(0.0, 0.0, 1.0);  /* opposite normal for other side */
-  glCallList(side);
-  glPopMatrix();
-  glEndList();
+	glBegin(GL_QUAD_STRIP);
+	repeat(count + 1) {|i|
+		/* mod function handles closing the edge */
+	    glVertex3f(data[i % count][0], data[i % count][1], 0.0);
+	    glVertex3f(data[i % count][0], data[i % count][1], thickness);
+		/* Calculate a unit normal by dividing by Euclidean
+		distance. We * could be lazy and use
+		glEnable(GL_NORMALIZE) so we could pass in * arbitrary
+		normals for a very slight performance hit. */
+		dx = data[(i + 1) % count][1] - data[i % count][1];
+		dy = data[i % count][0] - data[(i + 1) % count][0];
+		len = math.sqrt(dx * dx + dy * dy);
+		glNormal3f(dx / len, dy / len, 0.0);
+	}
+	glEnd();
+	glEndList();
+	glNewList(whole, GL_COMPILE);
+	glFrontFace(GL_CW);
+	glCallList(edge);
+	glNormal3f(0.0, 0.0, -1.0);  /* constant normal for side */
+	glCallList(side);
+	glPushMatrix();
+	glTranslatef(0.0, 0.0, thickness);
+	glFrontFace(GL_CCW);
+	glNormal3f(0.0, 0.0, 1.0);  /* opposite normal for other side */
+	glCallList(side);
+	glPopMatrix();
+	glEndList();
 }
 
 /* Enumerants for refering to display lists. */
-typedef enum {
+[
   RESERVED, BODY_SIDE, BODY_EDGE, BODY_WHOLE, ARM_SIDE, ARM_EDGE, ARM_WHOLE,
   LEG_SIDE, LEG_EDGE, LEG_WHOLE, EYE_SIDE, EYE_EDGE, EYE_WHOLE
-} displayLists;
+] = 0.. // displayLists;
 
-static void
-makeDinosaur(void)
-{
-  extrudeSolidFromPolygon(body, sizeof(body), bodyWidth,
-    BODY_SIDE, BODY_EDGE, BODY_WHOLE);
-  extrudeSolidFromPolygon(arm, sizeof(arm), bodyWidth / 4,
-    ARM_SIDE, ARM_EDGE, ARM_WHOLE);
-  extrudeSolidFromPolygon(leg, sizeof(leg), bodyWidth / 2,
-    LEG_SIDE, LEG_EDGE, LEG_WHOLE);
-  extrudeSolidFromPolygon(eye, sizeof(eye), bodyWidth + 0.2,
-    EYE_SIDE, EYE_EDGE, EYE_WHOLE);
+makeDinosaur() = {
+	extrudeSolidFromPolygon(body, bodyWidth, BODY_SIDE, BODY_EDGE, BODY_WHOLE);
+	extrudeSolidFromPolygon(arm, bodyWidth / 4, ARM_SIDE, ARM_EDGE, ARM_WHOLE);
+	extrudeSolidFromPolygon(leg, bodyWidth / 2, LEG_SIDE, LEG_EDGE, LEG_WHOLE);
+	extrudeSolidFromPolygon(eye, bodyWidth + 0.2, EYE_SIDE, EYE_EDGE, EYE_WHOLE);
 }
 
-static void
-drawDinosaur(void)
-
-{
-  glPushMatrix();
-  /* Translate the dinosaur to be at (0,8,0). */
-  glTranslatef(-8, 0, -bodyWidth / 2);
-  glTranslatef(0.0, jump, 0.0);
-  glMaterialfv(GL_FRONT, GL_DIFFUSE, skinColor);
-  glCallList(BODY_WHOLE);
-  glTranslatef(0.0, 0.0, bodyWidth);
-  glCallList(ARM_WHOLE);
-  glCallList(LEG_WHOLE);
-  glTranslatef(0.0, 0.0, -bodyWidth - bodyWidth / 4);
-  glCallList(ARM_WHOLE);
-  glTranslatef(0.0, 0.0, -bodyWidth / 4);
-  glCallList(LEG_WHOLE);
-  glTranslatef(0.0, 0.0, bodyWidth / 2 - 0.1);
-  glMaterialfv(GL_FRONT, GL_DIFFUSE, eyeColor);
-  glCallList(EYE_WHOLE);
-  glPopMatrix();
+drawDinosaur() = {
+	glPushMatrix();
+	/* Translate the dinosaur to be at (0,8,0). */
+	glTranslatef(-8, 0, -bodyWidth / 2);
+	glTranslatef(0.0, jump, 0.0);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, skinColor);
+	glCallList(BODY_WHOLE);
+	glTranslatef(0.0, 0.0, bodyWidth);
+	glCallList(ARM_WHOLE);
+	glCallList(LEG_WHOLE);
+	glTranslatef(0.0, 0.0, -bodyWidth - bodyWidth / 4);
+	glCallList(ARM_WHOLE);
+	glTranslatef(0.0, 0.0, -bodyWidth / 4);
+	glCallList(LEG_WHOLE);
+	glTranslatef(0.0, 0.0, bodyWidth / 2 - 0.1);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, eyeColor);
+	glCallList(EYE_WHOLE);
+	glPopMatrix();
 }
 
-static GLfloat floorVertices[4][3] = {
-  { -20.0, 0.0, 20.0 },
-  { 20.0, 0.0, 20.0 },
-  { 20.0, 0.0, -20.0 },
-  { -20.0, 0.0, -20.0 },
+floorVertices = @{
+	{ -20.0, 0.0, 20.0 },
+	{ 20.0, 0.0, 20.0 },
+	{ 20.0, 0.0, -20.0 },
+	{ -20.0, 0.0, -20.0 },
 };
 
 /* Draw a floor (possibly textured). */
-static void
-drawFloor(void)
-{
-  glDisable(GL_LIGHTING);
+drawFloor() = {
+	glDisable(GL_LIGHTING);
+	if (useTexture) {
+		glEnable(GL_TEXTURE_2D);
+	}
 
-  if (useTexture) {
-    glEnable(GL_TEXTURE_2D);
-  }
-
-  glBegin(GL_QUADS);
+	glBegin(GL_QUADS);
     glTexCoord2f(0.0, 0.0);
     glVertex3fv(floorVertices[0]);
     glTexCoord2f(0.0, 16.0);
@@ -323,48 +307,46 @@ drawFloor(void)
     glVertex3fv(floorVertices[2]);
     glTexCoord2f(16.0, 0.0);
     glVertex3fv(floorVertices[3]);
-  glEnd();
+	glEnd();
 
-  if (useTexture) {
-    glDisable(GL_TEXTURE_2D);
-  }
+	if (useTexture) {
+		glDisable(GL_TEXTURE_2D);
+	}
 
-  glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHTING);
 }
 
-static GLfloat floorPlane[4];
-static GLfloat floorShadow[4][4];
+floorPlane = dim(4);
+floorShadow = dim(4, 4);
 
-static void
-redraw(void)
-{
-  int start, end;
+redraw() = {
+	start = 0, end = 0;
 
-  if (reportSpeed) {
-    start = glutGet(GLUT_ELAPSED_TIME);
-  }
+	if (reportSpeed) {
+		start = glutGet(GLUT_ELAPSED_TIME);
+	}
 
-  /* Clear; default stencil clears to zero. */
-  if ((stencilReflection && renderReflection) || (stencilShadow && renderShadow)) {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-  } else {
-    /* Avoid clearing stencil when not using it. */
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  }
+	/* Clear; default stencil clears to zero. */
+	if ((stencilReflection && renderReflection) || (stencilShadow && renderShadow)) {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	} else {
+		/* Avoid clearing stencil when not using it. */
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
 
-  /* Reposition the light source. */
-  lightPosition[0] = 12*cos(lightAngle);
-  lightPosition[1] = lightHeight;
-  lightPosition[2] = 12*sin(lightAngle);
-  if (directionalLight) {
-    lightPosition[3] = 0.0;
-  } else {
-    lightPosition[3] = 1.0;
-  }
+	/* Reposition the light source. */
+	lightPosition[0] = 12 * math.cos(lightAngle);
+	lightPosition[1] = lightHeight;
+	lightPosition[2] = 12 * math.sin(lightAngle);
+	if (directionalLight) {
+		lightPosition[3] = 0.0;
+	} else {
+		lightPosition[3] = 1.0;
+	}
 
-  shadowMatrix(floorShadow, floorPlane, lightPosition);
+	shadowMatrix(floorShadow, floorPlane, lightPosition);
 
-  glPushMatrix();
+	glPushMatrix();
     /* Perform scene rotations based on user mouse input. */
     glRotatef(angle2, 1.0, 0.0, 0.0);
     glRotatef(angle, 0.0, 1.0, 0.0);
@@ -373,47 +355,47 @@ redraw(void)
     glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 
     if (renderReflection) {
-      if (stencilReflection) {
-        /* We can eliminate the visual "artifact" of seeing the "flipped"
-  	   dinosaur underneath the floor by using stencil.  The idea is
-	   draw the floor without color or depth update but so that 
-	   a stencil value of one is where the floor will be.  Later when
-	   rendering the dinosaur reflection, we will only update pixels
-	   with a stencil value of 1 to make sure the reflection only
-	   lives on the floor, not below the floor. */
+		if (stencilReflection) {
+			/* We can eliminate the visual "artifact" of seeing the "flipped"
+  			dinosaur underneath the floor by using stencil.  The idea is
+			draw the floor without color or depth update but so that 
+			a stencil value of one is where the floor will be.  Later when
+			rendering the dinosaur reflection, we will only update pixels
+			with a stencil value of 1 to make sure the reflection only
+			lives on the floor, not below the floor. */
 
-        /* Don't update color or depth. */
-        glDisable(GL_DEPTH_TEST);
-        glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+			/* Don't update color or depth. */
+			glDisable(GL_DEPTH_TEST);
+			glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 
-        /* Draw 1 into the stencil buffer. */
-        glEnable(GL_STENCIL_TEST);
-        glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
-        glStencilFunc(GL_ALWAYS, 1, 0xffffffff);
+			/* Draw 1 into the stencil buffer. */
+			glEnable(GL_STENCIL_TEST);
+			glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
+			glStencilFunc(GL_ALWAYS, 1, 0xffffffff);
 
-        /* Now render floor; floor pixels just get their stencil set to 1. */
-        drawFloor();
+			/* Now render floor; floor pixels just get their stencil set to 1. */
+			drawFloor();
 
-        /* Re-enable update of color and depth. */ 
-        glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-        glEnable(GL_DEPTH_TEST);
+			/* Re-enable update of color and depth. */ 
+			glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+			glEnable(GL_DEPTH_TEST);
 
-        /* Now, only render where stencil is set to 1. */
-        glStencilFunc(GL_EQUAL, 1, 0xffffffff);  /* draw if ==1 */
-        glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
-      }
+			/* Now, only render where stencil is set to 1. */
+			glStencilFunc(GL_EQUAL, 1, 0xffffffff);  /* draw if ==1 */
+			glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+		}
 
-      glPushMatrix();
-
+		glPushMatrix();
+		
         /* The critical reflection step: Reflect dinosaur through the floor
            (the Y=0 plane) to make a relection. */
         glScalef(1.0, -1.0, 1.0);
 
-	/* Reflect the light position. */
+		/* Reflect the light position. */
         glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 
         /* To avoid our normals getting reversed and hence botched lighting
-	   on the reflection, turn on normalize.  */
+		on the reflection, turn on normalize.  */
         glEnable(GL_NORMALIZE);
         glCullFace(GL_FRONT);
 
@@ -424,21 +406,21 @@ redraw(void)
         glDisable(GL_NORMALIZE);
         glCullFace(GL_BACK);
 
-      glPopMatrix();
+		glPopMatrix();
 
-      /* Switch back to the unreflected light position. */
-      glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+		/* Switch back to the unreflected light position. */
+		glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 
-      if (stencilReflection) {
-        glDisable(GL_STENCIL_TEST);
-      }
+		if (stencilReflection) {
+			glDisable(GL_STENCIL_TEST);
+		}
     }
 
     /* Back face culling will get used to only draw either the top or the
        bottom floor.  This let's us get a floor with two distinct
        appearances.  The top floor surface is reflective and kind of red.
        The bottom floor surface is not reflective and blue. */
-
+	
     /* Draw "bottom" of floor in blue. */
     glFrontFace(GL_CW);  /* Switch face orientation. */
     glColor4f(0.1, 0.1, 0.7, 1.0);
@@ -446,14 +428,14 @@ redraw(void)
     glFrontFace(GL_CCW);
 
     if (renderShadow) {
-      if (stencilShadow) {
-	/* Draw the floor with stencil value 3.  This helps us only 
-	   draw the shadow once per floor pixel (and only on the
-	   floor pixels). */
-        glEnable(GL_STENCIL_TEST);
-        glStencilFunc(GL_ALWAYS, 3, 0xffffffff);
-        glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-      }
+		if (stencilShadow) {
+			/* Draw the floor with stencil value 3.  This helps us only 
+			draw the shadow once per floor pixel (and only on the
+			floor pixels). */
+			glEnable(GL_STENCIL_TEST);
+			glStencilFunc(GL_ALWAYS, 3, 0xffffffff);
+			glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+		}
     }
 
     /* Draw "top" of floor.  Use blending to blend in reflection. */
@@ -465,196 +447,191 @@ redraw(void)
     glDisable(GL_BLEND);
 
     if (renderDinosaur) {
-      /* Draw "actual" dinosaur, not its reflection. */
-      drawDinosaur();
+		/* Draw "actual" dinosaur, not its reflection. */
+		drawDinosaur();
     }
 
     if (renderShadow) {
 
-      /* Render the projected shadow. */
+		/* Render the projected shadow. */
 
-      if (stencilShadow) {
+		if (stencilShadow) {
 
-        /* Now, only render where stencil is set above 2 (ie, 3 where
-	   the top floor is).  Update stencil with 2 where the shadow
-	   gets drawn so we don't redraw (and accidently reblend) the
-	   shadow). */
-        glStencilFunc(GL_LESS, 2, 0xffffffff);  /* draw if ==1 */
-        glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
-      }
+			/* Now, only render where stencil is set above 2 (ie, 3 where
+			the top floor is).  Update stencil with 2 where the shadow
+			gets drawn so we don't redraw (and accidently reblend) the
+			shadow). */
+			glStencilFunc(GL_LESS, 2, 0xffffffff);  /* draw if ==1 */
+			glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
+		}
 
-      /* To eliminate depth buffer artifacts, we use polygon offset
-	 to raise the depth of the projected shadow slightly so
-	 that it does not depth buffer alias with the floor. */
-      if (offsetShadow) {
-	switch (polygonOffsetVersion) {
-	case EXTENSION:
-#ifdef GL_EXT_polygon_offset
-	  glEnable(GL_POLYGON_OFFSET_EXT);
-	  break;
-#endif
-#ifdef GL_VERSION_1_1
-	case ONE_DOT_ONE:
-          glEnable(GL_POLYGON_OFFSET_FILL);
-	  break;
-#endif
-	case MISSING:
-	  /* Oh well. */
-	  break;
-	}
-      }
+		/* To eliminate depth buffer artifacts, we use polygon offset
+		to raise the depth of the projected shadow slightly so
+		that it does not depth buffer alias with the floor. */
+		if (offsetShadow) {
+			switch (polygonOffsetVersion) {
+				case EXTENSION:
+				#ifdef GL_EXT_polygon_offset
+				glEnable(GL_POLYGON_OFFSET_EXT);
+				break;
+				#endif
+				#ifdef GL_VERSION_1_1
+				case ONE_DOT_ONE:
+				glEnable(GL_POLYGON_OFFSET_FILL);
+				break;
+				#endif
+				case MISSING:
+				/* Oh well. */
+				break;
+			}
+		}
 
-      /* Render 50% black shadow color on top of whatever the
+		/* Render 50% black shadow color on top of whatever the
          floor appareance is. */
-      glEnable(GL_BLEND);
-      glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-      glDisable(GL_LIGHTING);  /* Force the 50% black. */
-      glColor4f(0.0, 0.0, 0.0, 0.5);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glDisable(GL_LIGHTING);  /* Force the 50% black. */
+		glColor4f(0.0, 0.0, 0.0, 0.5);
 
-      glPushMatrix();
-	/* Project the shadow. */
+		glPushMatrix();
+		/* Project the shadow. */
         glMultMatrixf((GLfloat *) floorShadow);
         drawDinosaur();
-      glPopMatrix();
+		glPopMatrix();
 
-      glDisable(GL_BLEND);
-      glEnable(GL_LIGHTING);
+		glDisable(GL_BLEND);
+		glEnable(GL_LIGHTING);
 
-      if (offsetShadow) {
-	switch (polygonOffsetVersion) {
-#ifdef GL_EXT_polygon_offset
-	case EXTENSION:
-	  glDisable(GL_POLYGON_OFFSET_EXT);
-	  break;
-#endif
-#ifdef GL_VERSION_1_1
-	case ONE_DOT_ONE:
-          glDisable(GL_POLYGON_OFFSET_FILL);
-	  break;
-#endif
-	case MISSING:
-	  /* Oh well. */
-	  break;
-	}
-      }
-      if (stencilShadow) {
-        glDisable(GL_STENCIL_TEST);
-      }
+		if (offsetShadow) {
+			switch (polygonOffsetVersion) {
+				#ifdef GL_EXT_polygon_offset
+				case EXTENSION:
+				glDisable(GL_POLYGON_OFFSET_EXT);
+				break;
+				#endif
+				#ifdef GL_VERSION_1_1
+				case ONE_DOT_ONE:
+				glDisable(GL_POLYGON_OFFSET_FILL);
+				break;
+				#endif
+				case MISSING:
+				/* Oh well. */
+				break;
+			}
+		}
+		if (stencilShadow) {
+			glDisable(GL_STENCIL_TEST);
+		}
     }
 
     glPushMatrix();
     glDisable(GL_LIGHTING);
     glColor3f(1.0, 1.0, 0.0);
     if (directionalLight) {
-      /* Draw an arrowhead. */
-      glDisable(GL_CULL_FACE);
-      glTranslatef(lightPosition[0], lightPosition[1], lightPosition[2]);
-      glRotatef(lightAngle * -180.0 / M_PI, 0, 1, 0);
-      glRotatef(atan(lightHeight/12) * 180.0 / M_PI, 0, 0, 1);
-      glBegin(GL_TRIANGLE_FAN);
-	glVertex3f(0, 0, 0);
-	glVertex3f(2, 1, 1);
-	glVertex3f(2, -1, 1);
-	glVertex3f(2, -1, -1);
-	glVertex3f(2, 1, -1);
-	glVertex3f(2, 1, 1);
-      glEnd();
-      /* Draw a white line from light direction. */
-      glColor3f(1.0, 1.0, 1.0);
-      glBegin(GL_LINES);
-	glVertex3f(0, 0, 0);
-	glVertex3f(5, 0, 0);
-      glEnd();
-      glEnable(GL_CULL_FACE);
+		/* Draw an arrowhead. */
+		glDisable(GL_CULL_FACE);
+		glTranslatef(lightPosition[0], lightPosition[1], lightPosition[2]);
+		glRotatef(lightAngle * -180.0 / M_PI, 0, 1, 0);
+		glRotatef(atan(lightHeight/12) * 180.0 / M_PI, 0, 0, 1);
+		glBegin(GL_TRIANGLE_FAN);
+		glVertex3f(0, 0, 0);
+		glVertex3f(2, 1, 1);
+		glVertex3f(2, -1, 1);
+		glVertex3f(2, -1, -1);
+		glVertex3f(2, 1, -1);
+		glVertex3f(2, 1, 1);
+		glEnd();
+		/* Draw a white line from light direction. */
+		glColor3f(1.0, 1.0, 1.0);
+		glBegin(GL_LINES);
+		glVertex3f(0, 0, 0);
+		glVertex3f(5, 0, 0);
+		glEnd();
+		glEnable(GL_CULL_FACE);
     } else {
-      /* Draw a yellow ball at the light source. */
-      glTranslatef(lightPosition[0], lightPosition[1], lightPosition[2]);
-      glutSolidSphere(1.0, 5, 5);
+		/* Draw a yellow ball at the light source. */
+		glTranslatef(lightPosition[0], lightPosition[1], lightPosition[2]);
+		glutSolidSphere(1.0, 5, 5);
     }
     glEnable(GL_LIGHTING);
     glPopMatrix();
 
-  glPopMatrix();
+	glPopMatrix();
 
-  if (reportSpeed) {
-    glFinish();
-    end = glutGet(GLUT_ELAPSED_TIME);
-    printf("Speed %.3g frames/sec (%d ms)\n", 1000.0/(end-start), end-start);
-  }
+	if (reportSpeed) {
+		glFinish();
+		end = glutGet(GLUT_ELAPSED_TIME);
+		printf("Speed %.3g frames/sec (%d ms)\n", 1000.0/(end-start), end-start);
+	}
 
-  glutSwapBuffers();
+	glutSwapBuffers();
 }
 
 /* ARGSUSED2 */
-static void
-mouse(int button, int state, int x, int y)
-{
-  if (button == GLUT_LEFT_BUTTON) {
-    if (state == GLUT_DOWN) {
-      moving = 1;
-      startx = x;
-      starty = y;
-    }
-    if (state == GLUT_UP) {
-      moving = 0;
-    }
-  }
-  if (button == GLUT_MIDDLE_BUTTON) {
-    if (state == GLUT_DOWN) {
-      lightMoving = 1;
-      lightStartX = x;
-      lightStartY = y;
-    }
-    if (state == GLUT_UP) {
-      lightMoving = 0;
-    }
-  }
+mouse(button:number, state:number, x:number, y:number) = {
+	extern(moving, startx, starty)
+	extern(lightMoving, lightStartX, lightStartY)
+	if (button == GLUT_LEFT_BUTTON) {
+		if (state == GLUT_DOWN) {
+			moving = true;
+			startx = x;
+			starty = y;
+		}
+		if (state == GLUT_UP) {
+			moving = false;
+		}
+	}
+	if (button == GLUT_MIDDLE_BUTTON) {
+		if (state == GLUT_DOWN) {
+			lightMoving = true;
+			lightStartX = x;
+			lightStartY = y;
+		}
+		if (state == GLUT_UP) {
+			lightMoving = false;
+		}
+	}
 }
 
 /* ARGSUSED1 */
-static void
-motion(int x, int y)
-{
-  if (moving) {
-    angle = angle + (x - startx);
-    angle2 = angle2 + (y - starty);
-    startx = x;
-    starty = y;
-    glutPostRedisplay();
-  }
-  if (lightMoving) {
-    lightAngle += (x - lightStartX)/40.0;
-    lightHeight += (lightStartY - y)/20.0;
-    lightStartX = x;
-    lightStartY = y;
-    glutPostRedisplay();
-  }
+motion(x:number, y:number) = {
+	extern(moving, startx, starty, angle, angle2)
+	extern(lightMoving, lightStartX, lightStartY, lightAngle, lightHeight)
+	if (moving) {
+		angle = angle + (x - startx);
+		angle2 = angle2 + (y - starty);
+		startx = x;
+		starty = y;
+		glutPostRedisplay();
+	}
+	if (lightMoving) {
+		lightAngle += (x - lightStartX) / 40.0;
+		lightHeight += (lightStartY - y) / 20.0;
+		lightStartX = x;
+		lightStartY = y;
+		glutPostRedisplay();
+	}
 }
 
 /* Advance time varying state when idle callback registered. */
-static void
-idle(void)
-{
-  static float time = 0.0;
+_time = 0.0
+idle() = {
+	_time = glutGet(GLUT_ELAPSED_TIME) / 500.0;
 
-  time = glutGet(GLUT_ELAPSED_TIME) / 500.0;
-
-  jump = 4.0 * fabs(sin(time)*0.5);
-  if (!lightMoving) {
-    lightAngle += 0.03;
-  }
-  glutPostRedisplay();
+	jump = 4.0 * fabs(math.sin(_time) * 0.5);
+	if (!lightMoving) {
+		lightAngle += 0.03;
+	}
+	glutPostRedisplay();
 }
 
-enum {
+[
   M_NONE, M_MOTION, M_LIGHT, M_TEXTURE, M_SHADOWS, M_REFLECTION, M_DINOSAUR,
   M_STENCIL_REFLECTION, M_STENCIL_SHADOW, M_OFFSET_SHADOW,
   M_POSITIONAL, M_DIRECTIONAL, M_PERFORMANCE
-};
+] = 0..
 
-static void
-controlLights(int value)
-{
+controlLights(value:number) = {
   switch (value) {
   case M_NONE:
     return;
