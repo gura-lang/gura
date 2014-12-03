@@ -53,8 +53,14 @@ void VertexPackOwner::Clear()
 //-----------------------------------------------------------------------------
 ImplementCallbackInfo(Quadric, error);
 
+Object_Quadric::Object_Quadric(GLUquadric *quad) : Object(Gura_UserClass(Quadric)), _quad(quad)
+{
+	InitializeCallbackInfo(error);
+}
+
 Object_Quadric::~Object_Quadric()
 {
+	DeinitializeCallbackInfo(error);
 	::gluDeleteQuadric(_quad);
 }
 
@@ -99,8 +105,37 @@ ImplementCallbackInfo(Tesselator, vertex_data);
 ImplementCallbackInfo(Tesselator, error_data);
 ImplementCallbackInfo(Tesselator, combine_data);
 
+Object_Tesselator::Object_Tesselator(GLUtesselator *tess) :
+						Object(Gura_UserClass(Tesselator)), _tess(tess)
+{
+	InitializeCallbackInfo(begin);
+	InitializeCallbackInfo(edge_flag);
+	InitializeCallbackInfo(vertex);
+	InitializeCallbackInfo(end);
+	InitializeCallbackInfo(error);
+	InitializeCallbackInfo(combine);
+	InitializeCallbackInfo(begin_data);
+	InitializeCallbackInfo(edge_flag_data);
+	InitializeCallbackInfo(end_data);
+	InitializeCallbackInfo(vertex_data);
+	InitializeCallbackInfo(error_data);
+	InitializeCallbackInfo(combine_data);
+}
+
 Object_Tesselator::~Object_Tesselator()
 {
+	DeinitializeCallbackInfo(begin);
+	DeinitializeCallbackInfo(edge_flag);
+	DeinitializeCallbackInfo(vertex);
+	DeinitializeCallbackInfo(end);
+	DeinitializeCallbackInfo(error);
+	DeinitializeCallbackInfo(combine);
+	DeinitializeCallbackInfo(begin_data);
+	DeinitializeCallbackInfo(edge_flag_data);
+	DeinitializeCallbackInfo(end_data);
+	DeinitializeCallbackInfo(vertex_data);
+	DeinitializeCallbackInfo(error_data);
+	DeinitializeCallbackInfo(combine_data);
 	::gluDeleteTess(_tess);
 }
 
@@ -157,8 +192,38 @@ ImplementCallbackInfo(Nurbs, texture_coord_data);
 ImplementCallbackInfo(Nurbs, end_data);
 ImplementCallbackInfo(Nurbs, error);
 
+Object_Nurbs::Object_Nurbs(GLUnurbs *nurb) : Object(Gura_UserClass(Nurbs)), _nurb(nurb)
+{
+	InitializeCallbackInfo(begin);
+	InitializeCallbackInfo(vertex);
+	InitializeCallbackInfo(normal);
+	InitializeCallbackInfo(color);
+	InitializeCallbackInfo(texture_coord);
+	InitializeCallbackInfo(end);
+	InitializeCallbackInfo(begin_data);
+	InitializeCallbackInfo(vertex_data);
+	InitializeCallbackInfo(normal_data);
+	InitializeCallbackInfo(color_data);
+	InitializeCallbackInfo(texture_coord_data);
+	InitializeCallbackInfo(end_data);
+	InitializeCallbackInfo(error);
+}
+
 Object_Nurbs::~Object_Nurbs()
 {
+	DeinitializeCallbackInfo(begin);
+	DeinitializeCallbackInfo(vertex);
+	DeinitializeCallbackInfo(normal);
+	DeinitializeCallbackInfo(color);
+	DeinitializeCallbackInfo(texture_coord);
+	DeinitializeCallbackInfo(end);
+	DeinitializeCallbackInfo(begin_data);
+	DeinitializeCallbackInfo(vertex_data);
+	DeinitializeCallbackInfo(normal_data);
+	DeinitializeCallbackInfo(color_data);
+	DeinitializeCallbackInfo(texture_coord_data);
+	DeinitializeCallbackInfo(end_data);
+	DeinitializeCallbackInfo(error);
 	::gluDeleteNurbsRenderer(_nurb);
 }
 

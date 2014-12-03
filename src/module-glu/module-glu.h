@@ -33,6 +33,7 @@ case which: { \
 }
 
 #define DeclareCallbackInfo(name) \
+int _idx_CB_##name; \
 static int _cnt_CB_##name; \
 static CallbackType _tbl_CB_##name[]; \
 static Function *_pFuncs_CB_##name[]
@@ -52,6 +53,16 @@ CallbackType Object_##objClass::_tbl_CB_##name[] = { \
 	reinterpret_cast<CallbackType>(CB_##name<18>), reinterpret_cast<CallbackType>(CB_##name<19>), \
 }; \
 Function *Object_##objClass::_pFuncs_CB_##name[ArraySizeOf(_tbl_CB_##name)] = {}
+
+#define InitializeCallbackInfo(name) \
+_idx_CB_##name = -1;
+
+#define DeinitializeCallbackInfo(name) \
+if (_idx_CB_##name >= 0) { \
+	int idx = _idx_CB_##name; \
+	Function::Delete(_pFuncs_CB_##name[idx]); \
+	_pFuncs_CB_##name[idx] = NULL; \
+}
 
 Gura_BeginModuleHeader(glu)
 
@@ -120,8 +131,7 @@ private:
 	GLUquadric *_quad;
 	DeclareCallbackInfo(error);
 public:
-	inline Object_Quadric(GLUquadric *quad) :
-			Object(Gura_UserClass(Quadric)), _quad(quad) {}
+	Object_Quadric(GLUquadric *quad);
 	virtual ~Object_Quadric();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
@@ -164,8 +174,7 @@ private:
 	DeclareCallbackInfo(error_data);
 	DeclareCallbackInfo(combine_data);
 public:
-	inline Object_Tesselator(GLUtesselator *tess) :
-			Object(Gura_UserClass(Tesselator)), _tess(tess) {}
+	Object_Tesselator(GLUtesselator *tess);
 	virtual ~Object_Tesselator();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
@@ -335,8 +344,7 @@ private:
 	DeclareCallbackInfo(end_data);
 	DeclareCallbackInfo(error);
 public:
-	inline Object_Nurbs(GLUnurbs *nurb) :
-				Object(Gura_UserClass(Nurbs)), _nurb(nurb) {}
+	Object_Nurbs(GLUnurbs *nurb);
 	virtual ~Object_Nurbs();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
