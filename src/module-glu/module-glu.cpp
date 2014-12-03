@@ -400,6 +400,138 @@ void Object_Nurbs::SetCallback(Signal sig, GLenum which, const Function *func)
 	}
 }
 
+void Object_Nurbs::_CB_begin(GLenum type, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValue(Value(type));
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
+void Object_Nurbs::_CB_vertex(GLfloat *vertex, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValue(Value::CreateList(env, vertex, 3));
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
+void Object_Nurbs::_CB_normal(GLfloat *normal, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValue(Value::CreateList(env, normal, 3));
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
+void Object_Nurbs::_CB_color(GLfloat *color, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValue(Value::CreateList(env, color, 4));
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
+void Object_Nurbs::_CB_texture_coord(GLfloat *tex_coord, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValue(Value::CreateList(env, tex_coord, 4)); // 1, 2, 3, 4
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
+void Object_Nurbs::_CB_end(const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
+void Object_Nurbs::_CB_begin_data(GLenum type, void *userData, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValues(
+		Value(type),
+		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData());
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
+void Object_Nurbs::_CB_vertex_data(GLfloat *vertex, void *userData, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValues(
+		Value::CreateList(env, vertex, 3),
+		(userData == NULL)? Value::Null :
+		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData());
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
+void Object_Nurbs::_CB_normal_data(GLfloat *normal, void *userData, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValues(
+		Value::CreateList(env, normal, 3),
+		(userData == NULL)? Value::Null :
+		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData());
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
+void Object_Nurbs::_CB_color_data(GLfloat *color, void *userData, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValues(
+		Value::CreateList(env, color, 4),
+		(userData == NULL)? Value::Null :
+		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData());
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
+void Object_Nurbs::_CB_texture_coord_data(GLfloat *tex_coord, void *userData, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValues(
+		Value::CreateList(env, tex_coord, 3),
+		(userData == NULL)? Value::Null :
+		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData());
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
+void Object_Nurbs::_CB_end_data(void *userData, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValue(
+		(userData == NULL)? Value::Null :
+		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData());
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
+void Object_Nurbs::_CB_error(GLenum err_no, const Function *pFunc)
+{
+	if (pFunc == NULL) return;
+	Environment &env = pFunc->GetEnvScope();
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValue(Value(err_no));
+	pFunc->Eval(env, g_sig, *pArgs);
+}
+
 // implementation of class Nurbs
 Gura_ImplementUserClass(Nurbs)
 {
