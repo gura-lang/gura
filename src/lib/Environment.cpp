@@ -98,9 +98,9 @@ Environment::Environment(const Environment &env) : _cntRef(1)
 Environment::Environment(const Environment *pEnvOuter, EnvType envType) : _cntRef(1)
 {
 	// _pFrameCache will be initialized when the program reads some variable at first
-	if (envType == ENVTYPE_block && pEnvOuter->GetFrameCache() != NULL) {
-		//_pFrameCache.reset(new FrameCache(*pEnvOuter->GetFrameCache()));
-	}
+	//if (envType == ENVTYPE_block && pEnvOuter->GetFrameCache() != NULL) {
+	//	_pFrameCache.reset(pEnvOuter->GetFrameCache()->Reference());
+	//}
 	_frameOwner.push_back(new Frame(envType, pEnvOuter->GetGlobal()));
 	foreach_const (FrameOwner, ppFrame, pEnvOuter->GetFrameOwner()) {
 		Frame *pFrame = *ppFrame;
