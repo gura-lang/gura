@@ -43,14 +43,14 @@ import(glu) {*}
 import(glut) {*}
 
 /* Variable controlling various rendering modes. */
-stencilReflection = 1, stencilShadow = 1, offsetShadow = 1;
-renderShadow = 1, renderDinosaur = 1, renderReflection = 1;
-linearFiltering = 0, useMipmaps = 0, useTexture = 1;
-reportSpeed = 0;
-animation = 1;
-lightSwitch = GL_TRUE;
-directionalLight = 1;
-forceExtension = 0;
+stencilReflection = true, stencilShadow = true, offsetShadow = true;
+renderShadow = true, renderDinosaur = true, renderReflection = true;
+linearFiltering = false, useMipmaps = false, useTexture = true;
+reportSpeed = false;
+animation = true;
+lightSwitch = true;
+directionalLight = true;
+forceExtension = false;
 
 /* Time varying or user-controled variables. */
 jump = 0.0;
@@ -59,7 +59,7 @@ angle = -150;   /* in degrees */
 angle2 = 30;   /* in degrees */
 
 moving = nil, startx = nil, starty = nil;
-lightMoving = 0, lightStartX = nil, lightStartY = nil;
+lightMoving = 0, lightStartX = 0, lightStartY = 0;
 
 [
   MISSING, EXTENSION, ONE_DOT_ONE
@@ -315,8 +315,8 @@ drawFloor() = {
 	glEnable(GL_LIGHTING);
 }
 
-floorPlane = dim(4);
-floorShadow = dim(4, 4);
+floorPlane = dim(4) { 0 };
+floorShadow = dim(4, 4) { 0 };
 
 redraw() = {
 	start = 0, end = 0;
@@ -470,7 +470,7 @@ redraw() = {
 		if (offsetShadow) {
 			if (polygonOffsetVersion == ONE_DOT_ONE) {
 				glEnable(GL_POLYGON_OFFSET_FILL);
-			} elsif (polygonOffsetVersion == MISSIN) {
+			} elsif (polygonOffsetVersion == MISSING) {
 				/* Oh well. */
 			}
 		}
@@ -484,7 +484,7 @@ redraw() = {
 
 		glPushMatrix();
 		/* Project the shadow. */
-        glMultMatrixf(floorShadow);
+        glMultMatrixf(floorShadow.flat());
         drawDinosaur();
 		glPopMatrix();
 
@@ -510,8 +510,8 @@ redraw() = {
 		/* Draw an arrowhead. */
 		glDisable(GL_CULL_FACE);
 		glTranslatef(lightPosition[0], lightPosition[1], lightPosition[2]);
-		glRotatef(lightAngle * -180.0 / M_PI, 0, 1, 0);
-		glRotatef(atan(lightHeight/12) * 180.0 / M_PI, 0, 0, 1);
+		glRotatef(lightAngle * (-180.0) / math.pi, 0, 1, 0);
+		glRotatef(math.atan(lightHeight / 12) * 180.0 / math.pi, 0, 0, 1);
 		glBegin(GL_TRIANGLE_FAN);
 		glVertex3f(0, 0, 0);
 		glVertex3f(2, 1, 1);
@@ -593,7 +593,7 @@ _time = 0.0
 idle() = {
 	_time:extern = glutGet(GLUT_ELAPSED_TIME) / 500.0;
 
-	jump:extern = 4.0 * fabs(math.sin(_time) * 0.5);
+	jump:extern = 4.0 * math.abs(math.sin(_time) * 0.5);
 	if (!lightMoving) {
 		lightAngle += 0.03;
 	}
@@ -610,11 +610,11 @@ controlLights(value:number) = {
 	if (value == M_NONE) {
 		return;
 	} elsif (value == M_MOTION) {
-		animation:extern = 1 - animation;
+		animation:extern = !animation;
 		if (animation) {
 			glutIdleFunc(idle);
 		} else {
-			glutIdleFunc(NULL);
+			glutIdleFunc(nil);
 		}
 	} elsif (value == M_LIGHT) {
 		lightSwitch:extern = !lightSwitch;
@@ -626,23 +626,23 @@ controlLights(value:number) = {
 	} elsif (value == M_TEXTURE) {
 		useTexture:extern = !useTexture;
 	} elsif (value == M_SHADOWS) {
-		renderShadow:extern = 1 - renderShadow;
+		renderShadow:extern = !renderShadow;
 	} elsif (value == M_REFLECTION) {
-		renderReflection:extern = 1 - renderReflection;
+		renderReflection:extern = !renderReflection;
 	} elsif (value == M_DINOSAUR) {
-		renderDinosaur:extern = 1 - renderDinosaur;
+		renderDinosaur:extern = !renderDinosaur;
 	} elsif (value == M_STENCIL_REFLECTION) {
-		stencilReflection:extern = 1 - stencilReflection;
+		stencilReflection:extern = !stencilReflection;
 	} elsif (value == M_STENCIL_SHADOW) {
-		stencilShadow:extern = 1 - stencilShadow;
+		stencilShadow:extern = !stencilShadow;
 	} elsif (value == M_OFFSET_SHADOW) {
-		offsetShadow:extern = 1 - offsetShadow;
+		offsetShadow:extern = !offsetShadow;
 	} elsif (value == M_POSITIONAL) {
-		directionalLight:extern = 0;
+		directionalLight:extern = false;
 	} elsif (value == M_DIRECTIONAL) {
-		directionalLight:extern = 1;
+		directionalLight:extern = true;
 	} elsif (value == M_PERFORMANCE) {
-		reportSpeed:extern = 1 - reportSpeed;
+		reportSpeed:extern = !reportSpeed;
 	}
 	glutPostRedisplay();
 }
@@ -655,7 +655,7 @@ visible(vis:number) = {
 		}
 	} else {
 		if (!animation) {
-			glutIdleFunc(NULL);
+			glutIdleFunc(nil);
 		}
 	}
 }
@@ -691,13 +691,13 @@ supportsOneDotOne() = {
 main() = {
 	argv = glutInit(sys.argv);
     if (argv.find("-linear")) {
-		linearFiltering:extern = 1;
+		linearFiltering:extern = true;
 	}
     if (argv.find("-mipmap")) {
-      useMipmaps:extern = 1;
+      useMipmaps:extern = true;
 	}
     if (argv.find("-ext")) {
-		forceExtension:extern = 1;
+		forceExtension:extern = true;
     }
 
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH | GLUT_STENCIL | GLUT_MULTISAMPLE);
