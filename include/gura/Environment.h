@@ -277,11 +277,21 @@ public:
 		~FrameOwner();
 		void Clear();
 	};
-	typedef std::map<const Symbol *, Frame *, Symbol::KeyCompare_UniqNumber> FrameCache;
+	class GURA_DLLDECLARE FrameCache :
+			public std::map<const Symbol *, Frame *, Symbol::KeyCompare_UniqNumber> {
+	protected:
+		int _cntRef;
+	public:
+		Gura_DeclareReferenceAccessor(FrameCache)
+	public:
+		FrameCache();
+	protected:
+		virtual ~FrameCache();
+	};
 protected:
 	int _cntRef;
 	FrameOwner _frameOwner;
-	std::auto_ptr<FrameCache> _pFrameCache;
+	AutoPtr<FrameCache> _pFrameCache;
 	static IntegratedModuleOwner *_pIntegratedModuleOwner;
 public:
 	Gura_DeclareReferenceAccessor(Environment)
@@ -295,7 +305,9 @@ public:
 	bool InitializeAsRoot(Signal sig, int &argc, const char *argv[],
 								const Option::Info *optInfoTbl, int cntOptInfo);
 	inline FrameOwner &GetFrameOwner()			{ return _frameOwner;						}
-	inline const FrameOwner &GetFrameOwner() const{ return _frameOwner;						}
+	inline const FrameOwner &GetFrameOwner() const { return _frameOwner;					}
+	inline FrameCache *GetFrameCache()			{ return _pFrameCache.get();				}
+	inline const FrameCache *GetFrameCache() const { return _pFrameCache.get();				}
 	inline Frame *GetTopFrame()					{ return _frameOwner.front();				}
 	inline const Frame *GetTopFrame() const		{ return _frameOwner.front();				}
 	inline Frame *GetBottomFrame()				{ return _frameOwner.back();				}
