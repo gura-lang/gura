@@ -270,18 +270,30 @@ gluNurbsCallback(nurbs:Object_Nurbs@, which:GLenum, func:function) = R'''
 }
 
 gluNurbsCallbackData(nurb:Object_Nurbs@, userData:any):void = R'''
+#if defined(GLU_VERSION_1_3)
 	nurb->SetCallbackData(userData);
 	gluNurbsCallbackData(nurb->GetNurbs(), nurb);
 	return Value::Null;
+#else
+	sig.SetError(ERR_NotImplementedError,
+				"this function is provided in GLU 1.3 or later");
+	return Value::Null;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 gluNurbsCallbackDataEXT(nurb:Object_Nurbs@, userData:any):void = R'''
+#if defined(GLU_VERSION_1_3)
 	nurb->SetCallbackDataEXT(userData);
 	gluNurbsCallbackData(nurb->GetNurbs(), nurb);
 	return Value::Null;
+#else
+	sig.SetError(ERR_NotImplementedError,
+				"this function is provided in GLU 1.3 or later");
+	return Value::Null;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''

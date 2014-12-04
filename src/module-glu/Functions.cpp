@@ -623,9 +623,15 @@ Gura_ImplementFunction(__gluNurbsCallbackData)
 {
 	Object_Nurbs *nurb = Object_Nurbs::GetObject(args, 0);
 	Value userData = args.GetValue(1);
+#if defined(GLU_VERSION_1_3)
 	nurb->SetCallbackData(userData);
 	gluNurbsCallbackData(nurb->GetNurbs(), nurb);
 	return Value::Null;
+#else
+	sig.SetError(ERR_NotImplementedError,
+				"this function is provided in GLU 1.3 or later");
+	return Value::Null;
+#endif
 }
 
 // glu.gluNurbsCallbackDataEXT
@@ -643,9 +649,15 @@ Gura_ImplementFunction(__gluNurbsCallbackDataEXT)
 {
 	Object_Nurbs *nurb = Object_Nurbs::GetObject(args, 0);
 	Value userData = args.GetValue(1);
+#if defined(GLU_VERSION_1_3)
 	nurb->SetCallbackDataEXT(userData);
 	gluNurbsCallbackData(nurb->GetNurbs(), nurb);
 	return Value::Null;
+#else
+	sig.SetError(ERR_NotImplementedError,
+				"this function is provided in GLU 1.3 or later");
+	return Value::Null;
+#endif
 }
 
 // glu.gluNurbsCurve

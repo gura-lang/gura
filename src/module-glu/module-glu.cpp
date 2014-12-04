@@ -392,6 +392,7 @@ String Object_Nurbs::ToString(bool exprFlag)
 void Object_Nurbs::SetCallback(Signal sig, GLenum which, const Function *func)
 {
 	switch (which) {
+#if defined(GLU_VERSION_1_3)
 	DispatchCallback(gluNurbsCallback, _nurb, GLU_NURBS_BEGIN, begin)
 	DispatchCallback(gluNurbsCallback, _nurb, GLU_NURBS_VERTEX, vertex)
 	DispatchCallback(gluNurbsCallback, _nurb, GLU_NURBS_NORMAL, normal)
@@ -404,7 +405,8 @@ void Object_Nurbs::SetCallback(Signal sig, GLenum which, const Function *func)
 	DispatchCallback(gluNurbsCallback, _nurb, GLU_NURBS_COLOR_DATA, color_data)
 	DispatchCallback(gluNurbsCallback, _nurb, GLU_NURBS_TEXTURE_COORD_DATA, texture_coord_data)
 	DispatchCallback(gluNurbsCallback, _nurb, GLU_NURBS_END_DATA, end_data)
-	DispatchCallback(gluNurbsCallback, _nurb, GLU_NURBS_ERROR, error)
+#endif
+	DispatchCallback(gluNurbsCallback, _nurb, GLU_ERROR, error)
 	default:
 		sig.SetError(ERR_ValueError, "invalid value for which");
 		break;
