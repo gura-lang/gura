@@ -57,7 +57,6 @@ RotatePoint(x:number, y:number, rotation:number) = {
 }
 
 MoveStars() = {
-	extern(stars)
     offset = speed * 60.0
 	for (star in stars) {
 		star.x[1] = star.x[0]
@@ -129,18 +128,16 @@ ShowStars() = {
 }
 
 Init() = {
-	extern(stars, sinTable)
-    stars = dim(MAXSTARS) { NewStar(100) }
+    stars:extern = dim(MAXSTARS) { NewStar(100) }
     angle = 0.0
-	sinTable = math.sin(interval(0, 2 * math.pi, MAXANGLES):open_r):list
+	sinTable:extern = math.sin(interval(0, 2 * math.pi, MAXANGLES):open_r):list
     glClearColor(0.0, 0.0, 0.0, 0.0)
     glDisable(GL_DITHER)
 }
 
 Reshape(width:number, height:number) = {
-	extern(windW, windH)
-    windW = width
-    windH = height
+    windW:extern = width
+    windH:extern = height
     glViewport(0, 0, windW, windH)
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
@@ -149,23 +146,22 @@ Reshape(width:number, height:number) = {
 }
 
 Draw() = {
-	extern(speed, nitro)
     MoveStars()
     ShowStars()
     if (nitro > 0) {
-		speed = (nitro / 10) + 1.0
+		speed:extern = (nitro / 10) + 1.0
 		if (speed > MAXWARP) {
 		    speed = MAXWARP
 		}
-		nitro += 1
+		nitro:extern += 1
 		if (nitro > MAXWARP * 10) {
-		    nitro = -nitro
+		    nitro:extern = -nitro
 		}
     } elsif (nitro < 0) {
-		nitro += 1
-		speed = (-nitro / 10) + 1.0
+		nitro:extern += 1
+		speed:extern = (-nitro / 10) + 1.0
 		if (speed > MAXWARP) {
-		    speed = MAXWARP
+		    speed:extern = MAXWARP
 		}
     }
 	glFlush()
@@ -187,12 +183,10 @@ scope {
 		}
 		OnKeyDown(event:sdl.Event) = {
 			if (event.scancode == sdl.SCANCODE_SPACE) {
-				extern(flag)
-				flag = if (flag == `NORMAL) {`WEIRD} else {`NORMAL}
+				flag:extern = if (flag == `NORMAL) {`WEIRD} else {`NORMAL}
 			}
 			if (event.scancode == sdl.SCANCODE_T) {
-				extern(nitro)
-				nitro = 1
+				nitro:extern = 1
 			}
 			Draw()
 			this.SwapWindow()

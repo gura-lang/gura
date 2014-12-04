@@ -592,20 +592,19 @@ exp_bits = @{
 }
 
 Init() = {
-    extern(exp_lists, abuse, useLists)
     glClearColor(0.0, 0.0, 0.0, 0.0)
     glClearIndex(0.0)
     glPixelStorei(GL_UNPACK_LSB_FIRST, GL_TRUE)
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
-	exp_lists = for (exp_bit in exp_bits):list {
+	exp_lists:extern = for (exp_bit in exp_bits):list {
 		id = glGenLists(1)
 		glNewList(id, GL_COMPILE) {
 			glBitmap(80, 80, 40.0, 40.0, 0.0, 0.0, exp_bit)
 		}
 		id
 	}
-    abuse = false
-    useLists = true
+    abuse:extern = false
+    useLists:extern = true
 }
 
 Reshape(width:number, height:number) = {
@@ -676,13 +675,11 @@ scope {
 		}
 		OnKeyDown(event:sdl.Event) = {
 			if (event.scancode == sdl.SCANCODE_1) {
-				extern(useLists)
-				useLists = !useLists
+				useLists:extern = !useLists
 				Draw()
 				this.SwapWindow()
 			} elsif (event.scancode == sdl.SCANCODE_2) {
-				extern(abuse)
-				abuse = !abuse
+				abuse:extern = !abuse
 				Draw()
 				this.SwapWindow()
 			}

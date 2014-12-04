@@ -148,8 +148,7 @@ scope {
 	[rotX, rotY] = [0, 0]
 	App = class(glapp.App) {
 		OnInit() = {
-			extern(teaList)
-			teaList = Init()
+			teaList:extern = Init()
 		}
 		OnResize(width:number, height:number) = {
 			Reshape(width, height)

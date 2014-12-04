@@ -215,8 +215,7 @@ scope {
 	theNurbs = nil
 	App = class(glapp.App) {		
 		OnInit() = {
-			extern(theNurbs)
-			theNurbs = Init()
+			theNurbs:extern = Init()
 		}
 		OnResize(width:number, height:number) = {
 			Reshape(width, height)
@@ -228,17 +227,13 @@ scope {
 		}
 		OnIdle() = {
 			if (this.CheckKeyboardState(sdl.SCANCODE_LEFT)) {
-				extern(rotX)
-				rotX -= 1
+				rotX:extern -= 1
 			} elsif (this.CheckKeyboardState(sdl.SCANCODE_RIGHT)) {
-				extern(rotX)
-				rotX += 1
+				rotX:extern += 1
 			} elsif (this.CheckKeyboardState(sdl.SCANCODE_UP)) {
-				extern(rotY)
-				rotY -= 1
+				rotY:extern -= 1
 			} elsif (this.CheckKeyboardState(sdl.SCANCODE_DOWN)) {
-				extern(rotY)
-				rotY += 1
+				rotY:extern += 1
 			}
 			Draw(theNurbs, rotX, rotY)
 			this.SwapWindow()

@@ -38,7 +38,7 @@
 
 /* Compile: cc -o dinoshade dinoshade.c -lglut -lGLU -lGL -lXmu -lXext -lX11 -lm */
 
-import(openg) {*}
+import(opengl) {*}
 import(glu) {*}
 import(glut) {*}
 
@@ -197,12 +197,11 @@ findPlane(plane[]:number, v0[]:number, v1[]:number, v2[]:number) = {
 
 tobj = nil
 
-extrudeSolidFromPolygon(data[], thickness:number, side:number, edge:number, whole:number)
-{
+extrudeSolidFromPolygon(data[], thickness:number, side:number, edge:number, whole:number) = {
 	count = data.len()
 
 	if (tobj == nil) {
-		tobj = gluNewTess();  /* create and initialize a GLU
+		tobj:extern = gluNewTess();  /* create and initialize a GLU
                              polygon tesselation object */
 		gluTessCallback(tobj, GLU_BEGIN, glBegin);
 		gluTessCallback(tobj, GLU_VERTEX, glVertex2fv);  /* semi-tricky */
@@ -469,20 +468,10 @@ redraw() = {
 		to raise the depth of the projected shadow slightly so
 		that it does not depth buffer alias with the floor. */
 		if (offsetShadow) {
-			switch (polygonOffsetVersion) {
-				case EXTENSION:
-				#ifdef GL_EXT_polygon_offset
-				glEnable(GL_POLYGON_OFFSET_EXT);
-				break;
-				#endif
-				#ifdef GL_VERSION_1_1
-				case ONE_DOT_ONE:
+			if (polygonOffsetVersion == ONE_DOT_ONE) {
 				glEnable(GL_POLYGON_OFFSET_FILL);
-				break;
-				#endif
-				case MISSING:
+			} elsif (polygonOffsetVersion == MISSIN) {
 				/* Oh well. */
-				break;
 			}
 		}
 
@@ -495,7 +484,7 @@ redraw() = {
 
 		glPushMatrix();
 		/* Project the shadow. */
-        glMultMatrixf((GLfloat *) floorShadow);
+        glMultMatrixf(floorShadow);
         drawDinosaur();
 		glPopMatrix();
 
@@ -503,20 +492,10 @@ redraw() = {
 		glEnable(GL_LIGHTING);
 
 		if (offsetShadow) {
-			switch (polygonOffsetVersion) {
-				#ifdef GL_EXT_polygon_offset
-				case EXTENSION:
-				glDisable(GL_POLYGON_OFFSET_EXT);
-				break;
-				#endif
-				#ifdef GL_VERSION_1_1
-				case ONE_DOT_ONE:
+			if (polygonOffsetVersion == ONE_DOT_ONE) {
 				glDisable(GL_POLYGON_OFFSET_FILL);
-				break;
-				#endif
-				case MISSING:
+			} elsif (polygonOffsetVersion == MISSING) {
 				/* Oh well. */
-				break;
 			}
 		}
 		if (stencilShadow) {
@@ -569,46 +548,42 @@ redraw() = {
 
 /* ARGSUSED2 */
 mouse(button:number, state:number, x:number, y:number) = {
-	extern(moving, startx, starty)
-	extern(lightMoving, lightStartX, lightStartY)
 	if (button == GLUT_LEFT_BUTTON) {
 		if (state == GLUT_DOWN) {
-			moving = true;
-			startx = x;
-			starty = y;
+			moving:extern = true;
+			startx:extern = x;
+			starty:extern = y;
 		}
 		if (state == GLUT_UP) {
-			moving = false;
+			moving:extern = false;
 		}
 	}
 	if (button == GLUT_MIDDLE_BUTTON) {
 		if (state == GLUT_DOWN) {
-			lightMoving = true;
-			lightStartX = x;
-			lightStartY = y;
+			lightMoving:extern = true;
+			lightStartX:extern = x;
+			lightStartY:extern = y;
 		}
 		if (state == GLUT_UP) {
-			lightMoving = false;
+			lightMoving:extern = false;
 		}
 	}
 }
 
 /* ARGSUSED1 */
 motion(x:number, y:number) = {
-	extern(moving, startx, starty, angle, angle2)
-	extern(lightMoving, lightStartX, lightStartY, lightAngle, lightHeight)
 	if (moving) {
-		angle = angle + (x - startx);
-		angle2 = angle2 + (y - starty);
-		startx = x;
-		starty = y;
+		angle:extern = angle + (x - startx);
+		angle2:extern = angle2 + (y - starty);
+		startx:extern = x;
+		starty:extern = y;
 		glutPostRedisplay();
 	}
 	if (lightMoving) {
-		lightAngle += (x - lightStartX) / 40.0;
-		lightHeight += (lightStartY - y) / 20.0;
-		lightStartX = x;
-		lightStartY = y;
+		lightAngle:extern += (x - lightStartX) / 40.0;
+		lightHeight:extern += (lightStartY - y) / 20.0;
+		lightStartX:extern = x;
+		lightStartY:extern = y;
 		glutPostRedisplay();
 	}
 }
@@ -616,9 +591,9 @@ motion(x:number, y:number) = {
 /* Advance time varying state when idle callback registered. */
 _time = 0.0
 idle() = {
-	_time = glutGet(GLUT_ELAPSED_TIME) / 500.0;
+	_time:extern = glutGet(GLUT_ELAPSED_TIME) / 500.0;
 
-	jump = 4.0 * fabs(math.sin(_time) * 0.5);
+	jump:extern = 4.0 * fabs(math.sin(_time) * 0.5);
 	if (!lightMoving) {
 		lightAngle += 0.03;
 	}
@@ -632,213 +607,177 @@ idle() = {
 ] = 0..
 
 controlLights(value:number) = {
-  switch (value) {
-  case M_NONE:
-    return;
-  case M_MOTION:
-    animation = 1 - animation;
-    if (animation) {
-      glutIdleFunc(idle);
-    } else {
-      glutIdleFunc(NULL);
-    }
-    break;
-  case M_LIGHT:
-    lightSwitch = !lightSwitch;
-    if (lightSwitch) {
-      glEnable(GL_LIGHT0);
-    } else {
-      glDisable(GL_LIGHT0);
-    }
-    break;
-  case M_TEXTURE:
-    useTexture = !useTexture;
-    break;
-  case M_SHADOWS:
-    renderShadow = 1 - renderShadow;
-    break;
-  case M_REFLECTION:
-    renderReflection = 1 - renderReflection;
-    break;
-  case M_DINOSAUR:
-    renderDinosaur = 1 - renderDinosaur;
-    break;
-  case M_STENCIL_REFLECTION:
-    stencilReflection = 1 - stencilReflection;
-    break;
-  case M_STENCIL_SHADOW:
-    stencilShadow = 1 - stencilShadow;
-    break;
-  case M_OFFSET_SHADOW:
-    offsetShadow = 1 - offsetShadow;
-    break;
-  case M_POSITIONAL:
-    directionalLight = 0;
-    break;
-  case M_DIRECTIONAL:
-    directionalLight = 1;
-    break;
-  case M_PERFORMANCE:
-    reportSpeed = 1 - reportSpeed;
-    break;
-  }
-  glutPostRedisplay();
+	if (value == M_NONE) {
+		return;
+	} elsif (value == M_MOTION) {
+		animation:extern = 1 - animation;
+		if (animation) {
+			glutIdleFunc(idle);
+		} else {
+			glutIdleFunc(NULL);
+		}
+	} elsif (value == M_LIGHT) {
+		lightSwitch:extern = !lightSwitch;
+		if (lightSwitch) {
+			glEnable(GL_LIGHT0);
+		} else {
+			glDisable(GL_LIGHT0);
+		}
+	} elsif (value == M_TEXTURE) {
+		useTexture:extern = !useTexture;
+	} elsif (value == M_SHADOWS) {
+		renderShadow:extern = 1 - renderShadow;
+	} elsif (value == M_REFLECTION) {
+		renderReflection:extern = 1 - renderReflection;
+	} elsif (value == M_DINOSAUR) {
+		renderDinosaur:extern = 1 - renderDinosaur;
+	} elsif (value == M_STENCIL_REFLECTION) {
+		stencilReflection:extern = 1 - stencilReflection;
+	} elsif (value == M_STENCIL_SHADOW) {
+		stencilShadow:extern = 1 - stencilShadow;
+	} elsif (value == M_OFFSET_SHADOW) {
+		offsetShadow:extern = 1 - offsetShadow;
+	} elsif (value == M_POSITIONAL) {
+		directionalLight:extern = 0;
+	} elsif (value == M_DIRECTIONAL) {
+		directionalLight:extern = 1;
+	} elsif (value == M_PERFORMANCE) {
+		reportSpeed:extern = 1 - reportSpeed;
+	}
+	glutPostRedisplay();
 }
 
 /* When not visible, stop animating.  Restart when visible again. */
-static void 
-visible(int vis)
-{
-  if (vis == GLUT_VISIBLE) {
-    if (animation)
-      glutIdleFunc(idle);
-  } else {
-    if (!animation)
-      glutIdleFunc(NULL);
-  }
+visible(vis:number) = {
+	if (vis == GLUT_VISIBLE) {
+		if (animation) {
+			glutIdleFunc(idle);
+		}
+	} else {
+		if (!animation) {
+			glutIdleFunc(NULL);
+		}
+	}
 }
 
 /* Press any key to redraw; good when motion stopped and
    performance reporting on. */
 /* ARGSUSED */
-static void
-key(unsigned char c, int x, int y)
-{
-  if (c == 27) {
-    exit(0);  /* IRIS GLism, Escape quits. */
-  }
-  glutPostRedisplay();
+key(c:number, x:number, y:number) = {
+	if (c == 27) {
+		sys.exit(0);  /* IRIS GLism, Escape quits. */
+	}
+	glutPostRedisplay();
 }
 
 /* Press any key to redraw; good when motion stopped and
    performance reporting on. */
 /* ARGSUSED */
-static void
-special(int k, int x, int y)
-{
-  glutPostRedisplay();
+special(k:number, x:number, y:number) = {
+	glutPostRedisplay();
 }
 
-static int
-supportsOneDotOne(void)
-{
-  const char *version;
-  int major, minor;
-
-  version = (char *) glGetString(GL_VERSION);
-  if (sscanf(version, "%d.%d", &major, &minor) == 2)
-    return major >= 1 && minor >= 1;
-  return 0;            /* OpenGL version string malformed! */
+supportsOneDotOne() = {
+	return(true)
+	/*
+	version = glGetString(GL_VERSION);
+	if (sscanf(version, "%d.%d", &major, &minor) == 2) {
+		return major >= 1 && minor >= 1;
+	}
+	return 0;            /* OpenGL version string malformed! */
+	*/
 }
 
-int
-main(int argc, char **argv)
-{
-  int i;
-
-  glutInit(&argc, argv);
-
-  for (i=1; i<argc; i++) {
-    if (!strcmp("-linear", argv[i])) {
-      linearFiltering = 1;
-    } else if (!strcmp("-mipmap", argv[i])) {
-      useMipmaps = 1;
-    } else if (!strcmp("-ext", argv[i])) {
-      forceExtension = 1;
+main() = {
+	argv = glutInit(sys.argv);
+    if (argv.find("-linear")) {
+		linearFiltering:extern = 1;
+	}
+    if (argv.find("-mipmap")) {
+      useMipmaps:extern = 1;
+	}
+    if (argv.find("-ext")) {
+		forceExtension:extern = 1;
     }
-  }
 
-  glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH | GLUT_STENCIL | GLUT_MULTISAMPLE);
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH | GLUT_STENCIL | GLUT_MULTISAMPLE);
 
-#if 1
-  /* In GLUT 4.0, you'll be able to do this an be sure to
+	/* In GLUT 4.0, you'll be able to do this an be sure to
      get 2 bits of stencil if the machine has it for you. */
-  glutInitDisplayString("samples stencil>=2 rgb double depth");
-#endif
+	glutInitDisplayString("samples stencil>=2 rgb double depth");
 
-  glutCreateWindow("Shadowy Leapin' Lizards");
+	glutCreateWindow("Shadowy Leapin' Lizards");
 
-  if (glutGet(GLUT_WINDOW_STENCIL_SIZE) <= 1) {
-    printf("dinoshade: Sorry, I need at least 2 bits of stencil.\n");
-    exit(1);
-  }
+	if (glutGet(GLUT_WINDOW_STENCIL_SIZE) <= 1) {
+		printf("dinoshade: Sorry, I need at least 2 bits of stencil.\n");
+		exit(1);
+	}
 
-  /* Register GLUT callbacks. */
-  glutDisplayFunc(redraw);
-  glutMouseFunc(mouse);
-  glutMotionFunc(motion);
-  glutVisibilityFunc(visible);
-  glutKeyboardFunc(key);
-  glutSpecialFunc(special);
+	/* Register GLUT callbacks. */
+	glutDisplayFunc(redraw);
+	glutMouseFunc(mouse);
+	glutMotionFunc(motion);
+	glutVisibilityFunc(visible);
+	glutKeyboardFunc(key);
+	glutSpecialFunc(special);
+	
+	glutCreateMenu(controlLights);
+	
+	glutAddMenuEntry("Toggle motion", M_MOTION);
+	glutAddMenuEntry("-----------------------", M_NONE);
+	glutAddMenuEntry("Toggle light", M_LIGHT);
+	glutAddMenuEntry("Toggle texture", M_TEXTURE);
+	glutAddMenuEntry("Toggle shadows", M_SHADOWS);
+	glutAddMenuEntry("Toggle reflection", M_REFLECTION);
+	glutAddMenuEntry("Toggle dinosaur", M_DINOSAUR);
+	glutAddMenuEntry("-----------------------", M_NONE);
+	glutAddMenuEntry("Toggle reflection stenciling", M_STENCIL_REFLECTION);
+	glutAddMenuEntry("Toggle shadow stenciling", M_STENCIL_SHADOW);
+	glutAddMenuEntry("Toggle shadow offset", M_OFFSET_SHADOW);
+	glutAddMenuEntry("----------------------", M_NONE);
+	glutAddMenuEntry("Positional light", M_POSITIONAL);
+	glutAddMenuEntry("Directional light", M_DIRECTIONAL);
+	glutAddMenuEntry("-----------------------", M_NONE);
+	glutAddMenuEntry("Toggle performance", M_PERFORMANCE);
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+	makeDinosaur();
 
-  glutCreateMenu(controlLights);
-
-  glutAddMenuEntry("Toggle motion", M_MOTION);
-  glutAddMenuEntry("-----------------------", M_NONE);
-  glutAddMenuEntry("Toggle light", M_LIGHT);
-  glutAddMenuEntry("Toggle texture", M_TEXTURE);
-  glutAddMenuEntry("Toggle shadows", M_SHADOWS);
-  glutAddMenuEntry("Toggle reflection", M_REFLECTION);
-  glutAddMenuEntry("Toggle dinosaur", M_DINOSAUR);
-  glutAddMenuEntry("-----------------------", M_NONE);
-  glutAddMenuEntry("Toggle reflection stenciling", M_STENCIL_REFLECTION);
-  glutAddMenuEntry("Toggle shadow stenciling", M_STENCIL_SHADOW);
-  glutAddMenuEntry("Toggle shadow offset", M_OFFSET_SHADOW);
-  glutAddMenuEntry("----------------------", M_NONE);
-  glutAddMenuEntry("Positional light", M_POSITIONAL);
-  glutAddMenuEntry("Directional light", M_DIRECTIONAL);
-  glutAddMenuEntry("-----------------------", M_NONE);
-  glutAddMenuEntry("Toggle performance", M_PERFORMANCE);
-  glutAttachMenu(GLUT_RIGHT_BUTTON);
-  makeDinosaur();
-
-#ifdef GL_VERSION_1_1
-  if (supportsOneDotOne() && !forceExtension) {
-    polygonOffsetVersion = ONE_DOT_ONE;
-    glPolygonOffset(-2.0, -1.0);
-  } else
-#endif
-  {
-#ifdef GL_EXT_polygon_offset
-  /* check for the polygon offset extension */
-  if (glutExtensionSupported("GL_EXT_polygon_offset")) {
-    polygonOffsetVersion = EXTENSION;
-    glPolygonOffsetEXT(-0.1, -0.002);
-  } else 
-#endif
-    {
-      polygonOffsetVersion = MISSING;
-      printf("\ndinoshine: Missing polygon offset.\n");
-      printf("           Expect shadow depth aliasing artifacts.\n\n");
+	if (supportsOneDotOne() && !forceExtension) {
+		polygonOffsetVersion = ONE_DOT_ONE;
+		glPolygonOffset(-2.0, -1.0);
+	} else {
+		polygonOffsetVersion = MISSING;
+		printf("\ndinoshine: Missing polygon offset.\n");
+		printf("           Expect shadow depth aliasing artifacts.\n\n");
     }
-  }
 
-  glEnable(GL_CULL_FACE);
-  glEnable(GL_DEPTH_TEST);
-  glEnable(GL_TEXTURE_2D);
-  glLineWidth(3.0);
+	glEnable(GL_CULL_FACE);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_TEXTURE_2D);
+	glLineWidth(3.0);
 
-  glMatrixMode(GL_PROJECTION);
-  gluPerspective( /* field of view in degree */ 40.0,
-  /* aspect ratio */ 1.0,
-    /* Z near */ 20.0, /* Z far */ 100.0);
-  glMatrixMode(GL_MODELVIEW);
-  gluLookAt(0.0, 8.0, 60.0,  /* eye is at (0,8,60) */
-    0.0, 8.0, 0.0,      /* center is at (0,8,0) */
-    0.0, 1.0, 0.);      /* up is in postivie Y direction */
+	glMatrixMode(GL_PROJECTION);
+	gluPerspective( /* field of view in degree */ 40.0,
+				   /* aspect ratio */ 1.0,
+				   /* Z near */ 20.0, /* Z far */ 100.0);
+	glMatrixMode(GL_MODELVIEW);
+	gluLookAt(0.0, 8.0, 60.0,  /* eye is at (0,8,60) */
+			  0.0, 8.0, 0.0,      /* center is at (0,8,0) */
+			  0.0, 1.0, 0.);      /* up is in postivie Y direction */
 
-  glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 1);
-  glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColor);
-  glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 0.1);
-  glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.05);
-  glEnable(GL_LIGHT0);
-  glEnable(GL_LIGHTING);
+	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 1);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColor);
+	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 0.1);
+	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.05);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHTING);
 
-  makeFloorTexture();
+	makeFloorTexture();
 
-  /* Setup floor plane for projected shadow calculations. */
-  findPlane(floorPlane, floorVertices[1], floorVertices[2], floorVertices[3]);
+	/* Setup floor plane for projected shadow calculations. */
+	findPlane(floorPlane, floorVertices[1], floorVertices[2], floorVertices[3]);
 
-  glutMainLoop();
-  return 0;             /* ANSI C requires main to return int. */
+	glutMainLoop();
 }
+
+main()

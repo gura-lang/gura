@@ -36,9 +36,8 @@ winNumber = 1
 
 MyApp = class(wx.App) {
 	OnInit() = {
-		extern(frame)
 		// Create the main frame window
-		frame = MyFrame(nil, wx.ID_ANY, 'Sash Demo', wx.Point(0, 0), wx.Size(500, 400),
+		frame:extern = MyFrame(nil, wx.ID_ANY, 'Sash Demo', wx.Point(0, 0), wx.Size(500, 400),
 						wx.DEFAULT_FRAME_STYLE | \
 						wx.NO_FULL_REPAINT_ON_RESIZE | \
 						wx.HSCROLL | wx.VSCROLL)
@@ -92,7 +91,6 @@ MyCanvas = class(wx.ScrolledWindow) {
 		dc.DrawPolygon(points)
 	}
 	OnEvent(event:wx.MouseEvent) = {
-		extern(xpos, ypos)
 		dc = wx.ClientDC(this)
 		this.PrepareDC(dc)
 		pt = event.GetLogicalPosition(dc)
@@ -100,8 +98,8 @@ MyCanvas = class(wx.ScrolledWindow) {
 			dc.SetPen(wx.BLACK_PEN)
 			dc.DrawLine(xpos, ypos, pt.x, pt.y)
 		}
-		xpos = pt.x
-		ypos = pt.y
+		xpos:extern = pt.x
+		ypos:extern = pt.y
 	}
 }
 
@@ -199,14 +197,13 @@ MyFrame = class(wx.MDIParentFrame) {
 		this.GetClientWindow().Refresh()
 	}
 	OnNewWindow(event:wx.CommandEvent) = {
-		extern(winNumber, frame)
 		// Make another frame, containing a canvas
 		subframe = MyChild(frame, 'Canvas Frame',
 									wx.Point(10, 10), wx.Size(300, 300),
 									wx.DEFAULT_FRAME_STYLE | \
 									wx.NO_FULL_REPAINT_ON_RESIZE)
 		subframe.SetTitle(format('Canvas Frame %d', winNumber))
-		winNumber += 1
+		winNumber:extern += 1
 		// Give it an icon (this is ignored in MDI mode: uses resources)
 		subframe.SetIcon(wx.IconFromXPMData(resource.sashtest_xpm))
 		// Give it a status line
@@ -245,7 +242,6 @@ MyChild = class(wx.MDIChildFrame) {
 	__init__(parent:wx.MDIParentFrame, title:string, pos:wx.Point, size:wx.Size, style:number) = \
 										{|parent, wx.ID_ANY, title, pos, size, style|
 		this.EventTable()
-		extern(my_children)
 		this.canvas = nil
 		my_children.append(this)
 	}

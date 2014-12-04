@@ -43,9 +43,8 @@ gs_nFrames = 0
 
 MyApp = class(wx.App) {
 	OnInit() = {
-		extern(frame)
 	    // Create the main frame window
-		frame = MyFrame(nil, wx.ID_ANY, 'MDI Demo',
+		frame:extern = MyFrame(nil, wx.ID_ANY, 'MDI Demo',
 							wx.DefaultPosition, wx.Size(500, 400),
 							wx.DEFAULT_FRAME_STYLE | wx.HSCROLL | wx.VSCROLL)
 		// Give it an icon
@@ -232,7 +231,6 @@ MyCanvas = class(wx.ScrolledWindow) {
 	}
 	IsDirty() = { this.m_dirty }
 	OnEvent(event:wx.MouseEvent) = {
-		extern(xpos, ypos)
 		dc = wx.ClientDC(this)
 		this.PrepareDC(dc)
 		pt = event.GetLogicalPosition(dc)
@@ -241,8 +239,8 @@ MyCanvas = class(wx.ScrolledWindow) {
 			dc.DrawLine(xpos, ypos, pt.x, pt.y)
 			this.m_dirty = true
 		}
-		xpos = pt.x
-		ypos = pt.y
+		xpos:extern = pt.x
+		ypos:extern = pt.y
 	}
 	SetText(text:string) = { this.m_text = text; this.Refresh() }
 }

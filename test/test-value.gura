@@ -40,8 +40,8 @@ testcase {
 	a = 11, b = 12, c = 13, d = 14, e = 15, f = 16
 	printf('%d, %d, %d, %d, %d, %d\n', a, b, c, d, e, f)
 	f() = {
-		extern(a, b, c, e)
-		a = 1, b = 2, c = 3, d = 4, e = 5, f:extern = 6
+		//extern(a, b, c, e)
+		a:extern = 1, b:extern = 2, c:extern = 3, d = 4, e:extern = 5, f:extern = 6
 	}
 	f()
 	printf('%d, %d, %d, %d, %d, %d\n', a, b, c, d, e, f)

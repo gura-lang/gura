@@ -21,9 +21,8 @@ Init() = {
 }
 
 Reshape(width:number, height:number) = {
-	extern(windW, windH)
-	windW = width
-	windH = height
+	windW:extern = width
+	windH:extern = height
 	glViewport(0, 0, windW, windH)
 	glMatrixMode(GL_PROJECTION)
 	glLoadIdentity()
@@ -59,9 +58,8 @@ scope {
 			this.SwapWindow()
 		}
 		OnMouseDown(event:sdl.Event) = {
-			extern(x, y)
-			x = event.x
-			y = event.y
+			x:extern = event.x
+			y:extern = event.y
 		}
 		OnIdle() = {
 			if (this.CheckKeyboardState(sdl.SCANCODE_UP)) {

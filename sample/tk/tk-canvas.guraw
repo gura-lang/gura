@@ -13,9 +13,8 @@ tk.mainwindow() {|mw|
 			addLine(x, y)
 		}
 		addLine(x:number, y:number) = {
-			extern(lastx, lasty)
 			c.Line(lastx, lasty, x, y, fill => color, width => 3)
-			[lastx, lasty] = [x, y]
+			[lastx:extern, lasty:extern] = [x, y]
 		}
 		setColor(colorNew:string) = {
 			color:extern = colorNew

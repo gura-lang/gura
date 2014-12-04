@@ -283,6 +283,19 @@ Gura_ImplementFunction(outers)
 	return ReturnValue(env, sig, args, Value(new Object_environment(*pEnvOuter)));
 }
 
+#if 0
+// Scope problem: when a block tries to assign a variable that has been declared by extern()
+// outside of it, it fails to do it.
+// 
+//     x = 0
+//     f() = {
+//         extern(x)
+//         if (true) {
+//             x = 3
+//         }
+//     }
+//     println(x)  // print 0, not 3
+
 // extern(`syms+)
 Gura_DeclareFunctionAlias(extern_, "extern")
 {
@@ -307,6 +320,7 @@ Gura_ImplementFunction(extern_)
 	}
 	return Value::Null;
 }
+#endif
 
 // local(`syms+)
 Gura_DeclareFunction(local)
@@ -1595,7 +1609,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(scope);
 	Gura_AssignFunction(locals);
 	Gura_AssignFunction(outers);
-	Gura_AssignFunction(extern_);
+	//Gura_AssignFunction(extern_);
 	Gura_AssignFunction(local);
 	Gura_AssignFunction(tostring);
 	Gura_AssignFunction(tonumber);

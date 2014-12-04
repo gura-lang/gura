@@ -88,17 +88,14 @@ scope {
 			this.SwapWindow()
 		}
 		OnMouseDown(event:sdl.Event) = {
-			extern(x, y)
-			x = event.x
-			y = event.y
+			x:extern = event.x
+			y:extern = event.y
 		}
 		OnKeyDown(event:sdl.Event) = {
 			if (event.sym == sdl.K_1) {
-				extern(antiAlias)
-				antiAlias = !antiAlias
+				antiAlias:extern = !antiAlias
 			} elsif (event.sym == sdl.K_2) {
-				extern(stipple)
-				stipple = !stipple
+				stipple:extern = !stipple
 			}
 			Draw()
 			this.SwapWindow()

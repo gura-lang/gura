@@ -50,8 +50,7 @@ scope {
 	thing1 = thing2 = nil
 	App = class(glapp.App) {
 		OnInit() = {
-			extern(thing1, thing2)
-			[thing1, thing2] = Init()
+			[thing1:extern, thing2:extern] = Init()
 		}
 		OnResize(width:number, height:number) = {
 			Reshape(width, height)

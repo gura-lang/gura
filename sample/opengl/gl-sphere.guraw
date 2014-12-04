@@ -671,9 +671,8 @@ Draw(cage:number, genericObject:number) = {
 }
 
 Reshape(width:number, height:number) = {
-	extern(W, H)
-	W = width
-	H = height
+	W:extern = width
+	H:extern = height
 	ReInit()
 }
 
@@ -683,13 +682,12 @@ scope {
 	import(glapp)
 	App = class(glapp.App) {
 		OnInit() = {
-			extern(cage, cube, cylinder, torus, genericObject)
 			Init()
-			cage = BuildCage()
-			cube = BuildCube()
-			cylinder = BuildCylinder(60)
-			torus = BuildTorus(0.65, 20, .85, 65)
-			genericObject = cube //cylinder //torus //cylinder
+			cage:extern = BuildCage()
+			cube:extern = BuildCube()
+			cylinder:extern = BuildCylinder(60)
+			torus:extern = BuildTorus(0.65, 20, .85, 65)
+			genericObject:extern = cube //cylinder //torus //cylinder
 		}
 		OnResize(width:number, height:number) = {
 			Reshape(width, height)
@@ -711,52 +709,40 @@ scope {
 						cube
 					}
 			} elsif (event.scancode == sdl.SCANCODE_D) {
-				extern(textureEnvironment)
-				textureEnvironment = [GL_DECAL]
+				textureEnvironment:extern = [GL_DECAL]
 				ReInit()
 			} elsif (event.scancode == sdl.SCANCODE_M) {
-				extern(textureEnvironment)
-				textureEnvironment = [GL_MODULATE]
+				textureEnvironment:extern = [GL_MODULATE]
 				ReInit()
 			} elsif (event.scancode == sdl.SCANCODE_L) {
-				extern(isLit)
-				isLit = !isLit
+				isLit:extern = !isLit
 				ReInit()
 			} elsif (event.scancode == sdl.SCANCODE_F) {
-				extern(isFogged)
-				isFogged = !isFogged
+				isFogged:extern = !isFogged
 				ReInit()
 			} elsif (event.scancode == sdl.SCANCODE_0) {
-				extern(magFilter)
-				magFilter = [GL_NEAREST]
+				magFilter:extern = [GL_NEAREST]
 				ReInit()
 			} elsif (event.scancode == sdl.SCANCODE_1) {
-				extern(magFilter)
-				magFilter = [GL_LINEAR]
+				magFilter:extern = [GL_LINEAR]
 				ReInit()
 			} elsif (event.scancode == sdl.SCANCODE_2) {
-				extern(minFilter)
-				minFilter = [GL_NEAREST]
+				minFilter:extern = [GL_NEAREST]
 				ReInit()
 			} elsif (event.scancode == sdl.SCANCODE_3) {
-				extern(minFilter)
-				minFilter = [GL_LINEAR]
+				minFilter:extern = [GL_LINEAR]
 				ReInit()
 			} elsif (event.scancode == sdl.SCANCODE_4) {
-				extern(minFilter)
-				minFilter = [GL_NEAREST_MIPMAP_NEAREST]
+				minFilter:extern = [GL_NEAREST_MIPMAP_NEAREST]
 				ReInit()
 			} elsif (event.scancode == sdl.SCANCODE_5) {
-				extern(minFilter)
-				minFilter = [GL_NEAREST_MIPMAP_LINEAR]
+				minFilter:extern = [GL_NEAREST_MIPMAP_LINEAR]
 				ReInit()
 			} elsif (event.scancode == sdl.SCANCODE_6) {
-				extern(minFilter)
-				minFilter = [GL_LINEAR_MIPMAP_NEAREST]
+				minFilter:extern = [GL_LINEAR_MIPMAP_NEAREST]
 				ReInit()
 			} elsif (event.scancode == sdl.SCANCODE_7) {
-				extern(minFilter)
-				minFilter = [GL_LINEAR_MIPMAP_LINEAR]
+				minFilter:extern = [GL_LINEAR_MIPMAP_LINEAR]
 				ReInit()
 			}
 			Draw(cage, genericObject)
@@ -764,27 +750,23 @@ scope {
 		}
 		OnIdle() = {
 			if (this.CheckKeyboardState(sdl.SCANCODE_LEFT)) {
-				extern(yRotation, autoRotate)
-				yRotation -= 0.5
-				autoRotate = false
+				yRotation:extern -= 0.5
+				autoRotate:extern = false
 				ReInit()
 			}
 			if (this.CheckKeyboardState(sdl.SCANCODE_RIGHT)) {
-				extern(yRotation, autoRotate)
-				yRotation += 0.5
-				autoRotate = false
+				yRotation:extern += 0.5
+				autoRotate:extern = false
 				ReInit()
 			}
 			if (this.CheckKeyboardState(sdl.SCANCODE_UP)) {
-				extern(xRotation, autoRotate)
-				xRotation -= 0.5
-				autoRotate = false
+				xRotation:extern -= 0.5
+				autoRotate:extern = false
 				ReInit()
 			}
 			if (this.CheckKeyboardState(sdl.SCANCODE_DOWN)) {
-				extern(xRotation, autoRotate)
-				xRotation += 0.5
-				autoRotate = false
+				xRotation:extern += 0.5
+				autoRotate:extern = false
 				ReInit()
 			}
 			Draw(cage, genericObject)

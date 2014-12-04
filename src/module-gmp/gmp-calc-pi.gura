@@ -23,14 +23,13 @@ computePQT(n1:number, n2:number) = {
 }
 
 main() = {
-	extern(A, B, C, C3over24)
 	digits = 1000;
 	prec = int(digits * math.log(10) / math.log(2))
 	n = int(digits / 14)
-	A = 13591409L
-	B = 545140134L
-	C = 640320L
-	C3over24 = C * C * C / 24;
+	A:extern = 13591409L
+	B:extern = 545140134L
+	C:extern = 640320L
+	C3over24:extern = C * C * C / 24;
 	PQT = computePQT(0, n);
 	pi = gmp.mpf(C, prec);
 	pi = gmp.sqrt(pi);

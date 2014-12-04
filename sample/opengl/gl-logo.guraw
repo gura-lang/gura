@@ -1238,8 +1238,7 @@ scope {
 	polyMode = GL_BACK
 	App = class(glapp.App) {
 		OnInit() = {
-			extern(logo)
-			logo = Init()
+			logo:extern = Init()
 		}
 		OnResize(width:number, height:number) = {
 			Reshape(width, height)
@@ -1345,12 +1344,10 @@ scope {
 		}
 		OnIdle() = {
 			if (this.CheckKeyboardState(sdl.SCANCODE_LEFT)) {
-				extern(yRotation)
-				yRotation += .5
+				yRotation:extern += .5
 			}
 			if (this.CheckKeyboardState(sdl.SCANCODE_RIGHT)) {
-				extern(yRotation)
-				yRotation -= .5
+				yRotation:extern -= .5
 			}
 			Draw(logo, yRotation, zTranslation)
 			this.SwapWindow()

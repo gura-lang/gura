@@ -97,10 +97,9 @@ display() = {
 }
 
 idle() = {
-	extern(angle1, angle2, s)
-	angle1 = (angle1 + 0.8) % 360.0;
-	angle2 = (angle2 + 1.1) % 360.0;
-	s += 0.05;
+	angle1:extern = (angle1 + 0.8) % 360.0;
+	angle2:extern = (angle2 + 1.1) % 360.0;
+	s:extern += 0.05;
 	glutPostRedisplay();
 }
 
