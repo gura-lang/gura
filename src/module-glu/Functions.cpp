@@ -45,14 +45,16 @@ Gura_DeclareFunctionAlias(__gluBeginPolygon, "gluBeginPolygon")
 
 Gura_ImplementFunction(__gluBeginPolygon)
 {
-	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
-	gluBeginPolygon(tess);
+	Object_Tesselator *tess = Object_Tesselator::GetObject(args, 0);
+	tess->CreatePolygonPack(Value::Null);
+	gluBeginPolygon(tess->GetTesselator());
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = NULL;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
-		gluEndPolygon(tess);
+		gluEndPolygon(tess->GetTesselator());
+		tess->DeletePolygonPack();
 	}
 	return Value::Null;
 }
@@ -352,9 +354,9 @@ Gura_DeclareFunctionAlias(__gluEndPolygon, "gluEndPolygon")
 
 Gura_ImplementFunction(__gluEndPolygon)
 {
-	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
-	gluEndPolygon(tess);
-	return Value::Null;
+	Object_Tesselator *tess = Object_Tesselator::GetObject(args, 0);
+	gluEndPolygon(tess->GetTesselator());
+	tess->DeletePolygonPack();
 }
 
 // glu.gluEndSurface
@@ -1110,6 +1112,7 @@ Gura_ImplementFunction(__gluTessBeginPolygon)
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		gluTessEndPolygon(tess->GetTesselator());
+		tess->DeletePolygonPack();
 	}
 	return Value::Null;
 }
@@ -1164,9 +1167,9 @@ Gura_DeclareFunctionAlias(__gluTessEndPolygon, "gluTessEndPolygon")
 
 Gura_ImplementFunction(__gluTessEndPolygon)
 {
-	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
-	gluTessEndPolygon(tess);
-	return Value::Null;
+	Object_Tesselator *tess = Object_Tesselator::GetObject(args, 0);
+	gluTessEndPolygon(tess->GetTesselator());
+	tess->DeletePolygonPack();
 }
 
 // glu.gluTessNormal

@@ -19,14 +19,16 @@ gluBeginCurve(nurb:GLUnurbs@):void {block?} = R'''
 	'''
 }
 
-gluBeginPolygon(tess:GLUtesselator@):void {block?} = R'''
-	gluBeginPolygon(tess);
+gluBeginPolygon(tess:Object_Tesselator@):void {block?} = R'''
+	tess->CreatePolygonPack(Value::Null);
+	gluBeginPolygon(tess->GetTesselator());
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = NULL;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
-		gluEndPolygon(tess);
+		gluEndPolygon(tess->GetTesselator());
+		tess->DeletePolygonPack();
 	}
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -196,7 +198,10 @@ gluEndCurve(nurb:GLUnurbs@):void = `auto % {`en, 'markdown',
 	'''
 }
 
-gluEndPolygon(tess:GLUtesselator@):void = `auto % {`en, 'markdown',
+gluEndPolygon(tess:Object_Tesselator@):void = R'''
+	gluEndPolygon(tess->GetTesselator());
+	tess->DeletePolygonPack();
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -445,6 +450,7 @@ gluTessBeginPolygon(tess:Object_Tesselator@, polygon_data:any):void {block?} = R
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		gluTessEndPolygon(tess->GetTesselator());
+		tess->DeletePolygonPack();
 	}
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -465,7 +471,10 @@ gluTessEndContour(tess:GLUtesselator@):void = `auto % {`en, 'markdown',
 	'''
 }
 
-gluTessEndPolygon(tess:GLUtesselator@):void = `auto % {`en, 'markdown',
+gluTessEndPolygon(tess:Object_Tesselator@):void = R'''
+	gluTessEndPolygon(tess->GetTesselator());
+	tess->DeletePolygonPack();
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
