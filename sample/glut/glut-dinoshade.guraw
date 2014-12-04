@@ -207,47 +207,47 @@ extrudeSolidFromPolygon(data[], thickness:number, side:number, edge:number, whol
 		gluTessCallback(tobj, GLU_VERTEX, glVertex2fv);  /* semi-tricky */
 		gluTessCallback(tobj, GLU_END, glEnd);
 	}
-	glNewList(side, GL_COMPILE);
-	glShadeModel(GL_SMOOTH);  /* smooth minimizes seeing
-                               tessellation */
-	gluBeginPolygon(tobj);
-	repeat(count) {|i|
-		vertex = [data[i][0], data[i][1], 0];
-	    gluTessVertex(tobj, vertex, data[i]);
+	glNewList(side, GL_COMPILE) {
+		glShadeModel(GL_SMOOTH);  /* smooth minimizes seeing
+	                               tessellation */
+		gluBeginPolygon(tobj) {
+			repeat(count) {|i|
+				vertex = [data[i][0], data[i][1], 0];
+			    gluTessVertex(tobj, vertex, data[i]);
+			}
+		}
 	}
-	gluEndPolygon(tobj);
-	glEndList();
-	glNewList(edge, GL_COMPILE);
-	glShadeModel(GL_FLAT);  /* flat shade keeps angular hands
+	glNewList(edge, GL_COMPILE) {
+		glShadeModel(GL_FLAT);  /* flat shade keeps angular hands
                              from being "smoothed" */
-	glBegin(GL_QUAD_STRIP);
-	repeat(count + 1) {|i|
-		/* mod function handles closing the edge */
-	    glVertex3f(data[i % count][0], data[i % count][1], 0.0);
-	    glVertex3f(data[i % count][0], data[i % count][1], thickness);
-		/* Calculate a unit normal by dividing by Euclidean
-		distance. We * could be lazy and use
-		glEnable(GL_NORMALIZE) so we could pass in * arbitrary
-		normals for a very slight performance hit. */
-		dx = data[(i + 1) % count][1] - data[i % count][1];
-		dy = data[i % count][0] - data[(i + 1) % count][0];
-		len = math.sqrt(dx * dx + dy * dy);
-		glNormal3f(dx / len, dy / len, 0.0);
+		glBegin(GL_QUAD_STRIP) {
+			repeat(count + 1) {|i|
+				/* mod function handles closing the edge */
+			    glVertex3f(data[i % count][0], data[i % count][1], 0.0);
+			    glVertex3f(data[i % count][0], data[i % count][1], thickness);
+				/* Calculate a unit normal by dividing by Euclidean
+				distance. We * could be lazy and use
+				glEnable(GL_NORMALIZE) so we could pass in * arbitrary
+				normals for a very slight performance hit. */
+				dx = data[(i + 1) % count][1] - data[i % count][1];
+				dy = data[i % count][0] - data[(i + 1) % count][0];
+				len = math.sqrt(dx * dx + dy * dy);
+				glNormal3f(dx / len, dy / len, 0.0);
+			}
+		}
 	}
-	glEnd();
-	glEndList();
-	glNewList(whole, GL_COMPILE);
-	glFrontFace(GL_CW);
-	glCallList(edge);
-	glNormal3f(0.0, 0.0, -1.0);  /* constant normal for side */
-	glCallList(side);
-	glPushMatrix();
-	glTranslatef(0.0, 0.0, thickness);
-	glFrontFace(GL_CCW);
-	glNormal3f(0.0, 0.0, 1.0);  /* opposite normal for other side */
-	glCallList(side);
-	glPopMatrix();
-	glEndList();
+	glNewList(whole, GL_COMPILE) {
+		glFrontFace(GL_CW);
+		glCallList(edge);
+		glNormal3f(0.0, 0.0, -1.0);  /* constant normal for side */
+		glCallList(side);
+		glPushMatrix {
+			glTranslatef(0.0, 0.0, thickness);
+			glFrontFace(GL_CCW);
+			glNormal3f(0.0, 0.0, 1.0);  /* opposite normal for other side */
+			glCallList(side);
+		}
+	}
 }
 
 /* Enumerants for refering to display lists. */
