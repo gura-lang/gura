@@ -77,38 +77,38 @@ extrudeSolidFromPolygon(data[], thickness:number, side:number, edge:number, whol
 			}
 		}
 	}
-	glNewList(edge, GL_COMPILE);
-	glShadeModel(GL_FLAT);  /* flat shade keeps angular hands
+	glNewList(edge, GL_COMPILE) {
+		glShadeModel(GL_FLAT);  /* flat shade keeps angular hands
                              from being * * "smoothed" */
-	glBegin(GL_QUAD_STRIP);
-	repeat(count + 1) {|i|
-		/* mod function handles closing the edge */
-	    glVertex3f(data[i % count][0], data[i % count][1], 0.0);
-	    glVertex3f(data[i % count][0], data[i % count][1], thickness);
-		/* Calculate a unit normal by dividing by Euclidean
-		distance. We * could be lazy and use
-		glEnable(GL_NORMALIZE) so we could pass in * arbitrary
-		normals for a very slight performance hit. */
-		dx = data[(i + 1) % count][1] - data[i % count][1];
-		dy = data[i % count][0] - data[(i + 1) % count][0];
-		len = math.sqrt(dx * dx + dy * dy);
-		glNormal3f(dx / len, dy / len, 0.0);
+		glBegin(GL_QUAD_STRIP) {
+			repeat(count + 1) {|i|
+				/* mod function handles closing the edge */
+		    glVertex3f(data[i % count][0], data[i % count][1], 0.0);
+		    glVertex3f(data[i % count][0], data[i % count][1], thickness);
+				/* Calculate a unit normal by dividing by Euclidean
+				distance. We * could be lazy and use
+				glEnable(GL_NORMALIZE) so we could pass in * arbitrary
+				normals for a very slight performance hit. */
+				dx = data[(i + 1) % count][1] - data[i % count][1];
+				dy = data[i % count][0] - data[(i + 1) % count][0];
+				len = math.sqrt(dx * dx + dy * dy);
+				glNormal3f(dx / len, dy / len, 0.0);
+			}
+		}
 	}
-	glEnd();
-	glEndList();
-	glNewList(whole, GL_COMPILE);
-	glFrontFace(GL_CW);
-	glCallList(edge);
-	glNormal3f(0.0, 0.0, -1.0);  /* constant normal for side */
-	glCallList(side);
-	glPushMatrix();
-	glTranslatef(0.0, 0.0, thickness);
-	glFrontFace(GL_CCW);
-	glNormal3f(0.0, 0.0, 1.0);  /* opposite normal for other side 
+	glNewList(whole, GL_COMPILE) {
+		glFrontFace(GL_CW);
+		glCallList(edge);
+		glNormal3f(0.0, 0.0, -1.0);  /* constant normal for side */
+		glCallList(side);
+		glPushMatrix {
+			glTranslatef(0.0, 0.0, thickness);
+			glFrontFace(GL_CCW);
+			glNormal3f(0.0, 0.0, 1.0);  /* opposite normal for other side 
                                */
-	glCallList(side);
-	glPopMatrix();
-	glEndList();
+			glCallList(side);
+		}
+	}
 }
 
 makeDinosaur() = {
@@ -116,22 +116,22 @@ makeDinosaur() = {
 	extrudeSolidFromPolygon(arm, bodyWidth / 4, ARM_SIDE, ARM_EDGE, ARM_WHOLE);
 	extrudeSolidFromPolygon(leg, bodyWidth / 2, LEG_SIDE, LEG_EDGE, LEG_WHOLE);
 	extrudeSolidFromPolygon(eye, bodyWidth + 0.2, EYE_SIDE, EYE_EDGE, EYE_WHOLE);
-	glNewList(DINOSAUR, GL_COMPILE);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, skinColor);
-	glCallList(BODY_WHOLE);
-	glPushMatrix();
-	glTranslatef(0.0, 0.0, bodyWidth);
-	glCallList(ARM_WHOLE);
-	glCallList(LEG_WHOLE);
-	glTranslatef(0.0, 0.0, -bodyWidth - bodyWidth / 4);
-	glCallList(ARM_WHOLE);
-	glTranslatef(0.0, 0.0, -bodyWidth / 4);
-	glCallList(LEG_WHOLE);
-	glTranslatef(0.0, 0.0, bodyWidth / 2 - 0.1);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, eyeColor);
-	glCallList(EYE_WHOLE);
-	glPopMatrix();
-	glEndList();
+	glNewList(DINOSAUR, GL_COMPILE) {
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, skinColor);
+		glCallList(BODY_WHOLE);
+		glPushMatrix {
+			glTranslatef(0.0, 0.0, bodyWidth);
+			glCallList(ARM_WHOLE);
+			glCallList(LEG_WHOLE);
+			glTranslatef(0.0, 0.0, -bodyWidth - bodyWidth / 4);
+			glCallList(ARM_WHOLE);
+			glTranslatef(0.0, 0.0, -bodyWidth / 4);
+			glCallList(LEG_WHOLE);
+			glTranslatef(0.0, 0.0, bodyWidth / 2 - 0.1);
+			glMaterialfv(GL_FRONT, GL_DIFFUSE, eyeColor);
+			glCallList(EYE_WHOLE);
+		}
+	}
 }
 
 recalcModelView() = {
@@ -152,13 +152,13 @@ recalcModelView() = {
 }
 
 showMessage(x:number, y:number, z:number, message:string) = {
-	glPushMatrix();
-	glDisable(GL_LIGHTING);
-	glTranslatef(x, y, z);
-	glScalef(.02, .02, .02);
-	glutStrokeCharacter(GLUT_STROKE_ROMAN, message.each():utf8);
-	glEnable(GL_LIGHTING);
-	glPopMatrix();
+	glPushMatrix {
+		glDisable(GL_LIGHTING);
+		glTranslatef(x, y, z);
+		glScalef(.02, .02, .02);
+		glutStrokeCharacter(GLUT_STROKE_ROMAN, message.each():utf8);
+		glEnable(GL_LIGHTING);
+	}
 }
 
 redraw() = {
