@@ -36,8 +36,6 @@
 
 /* This program is derived from glutdino.c */
 
-/* Compile: cc -o dinoshade dinoshade.c -lglut -lGLU -lGL -lXmu -lXext -lX11 -lm */
-
 import(opengl) {*}
 import(glu) {*}
 import(glut) {*}
