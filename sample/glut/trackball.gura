@@ -77,9 +77,7 @@ vset(v[]:number, x:number, y:number, z:number) = {
 }
 
 vsub(src1[]:number, src2[]:number, dst[]:number) = {
-    dst[0] = src1[0] - src2[0];
-    dst[1] = src1[1] - src2[1];
-    dst[2] = src1[2] - src2[2];
+    dst[0..2] = src1[0..2] - src2[0..2];
 }
 
 vcopy(v1[]:number, v2[]:number) = {
@@ -96,27 +94,23 @@ vcross(v1[]:number, v2[]:number, cross[]:number) = {
 }
 
 vlength(v[]:number) = {
-    math.sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+    math.sqrt((v[0..2] * v[0..2]).sum());
 }
 
 vscale(v[]:number, div:number) = {
-    v[0] *= div;
-    v[1] *= div;
-    v[2] *= div;
+	v[0..2] = v[0..2] * div;
 }
 
 vnormal(v[]:number) = {
-    vscale(v, 1.0 / vlength(v));
+	vscale(v, 1.0 / vlength(v));
 }
 
 vdot(v1[]:number, v2[]:number) = {
-    v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2];
+	(v1[0..2] * v2[0..2]).sum()
 }
 
 vadd(src1[]:number, src2[]:number, dst[]:number) = {
-    dst[0] = src1[0] + src2[0];
-    dst[1] = src1[1] + src2[1];
-    dst[2] = src1[2] + src2[2];
+	dst[0..2] = src1[0..2] + src2[0..2]
 }
 
 /*
@@ -225,10 +219,7 @@ add_quats(q1[]:number, q2[]:number, dest[]:number) = {
     vadd(t3, tf, tf);
     tf[3] = q1[3] * q2[3] - vdot(q1, q2);
 
-    dest[0] = tf[0];
-    dest[1] = tf[1];
-    dest[2] = tf[2];
-    dest[3] = tf[3];
+    dest[0..3] = tf[0..3];
 
 	_count:extern += 1
     if (_count > RENORMCOUNT) {
