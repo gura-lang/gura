@@ -1,0 +1,153 @@
+#!/usr/bin/env gura
+// This Gura program has been ported from the original C code below:
+// https://www.opengl.org/archives/resources/code/samples/glut_examples/examples/molehill.c
+
+import(opengl) {*}
+import(glu) {*}
+import(glut) {*}
+
+mat_red_diffuse = @{ 0.7, 0.0, 0.1, 1.0 };
+mat_green_diffuse = @{ 0.0, 0.7, 0.1, 1.0 };
+mat_blue_diffuse = @{ 0.0, 0.1, 0.7, 1.0 };
+mat_yellow_diffuse = @{ 0.7, 0.8, 0.1, 1.0 };
+mat_specular = @{ 1.0, 1.0, 1.0, 1.0 };
+mat_shininess = @{ 100.0 };
+knots = @{ 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0 };
+pts1 = dim(4, 4, 3) {0}, pts2 = dim(4, 4, 3) {0}
+pts3 = dim(4, 4, 3) {0}, pts4 = dim(4, 4, 3) {0}
+nurb = nil
+u = 0, v = 0
+
+display() = {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glCallList(1);
+	glFlush();
+}
+
+main() = {
+	glutInit(sys.argv);
+	glutCreateWindow("molehill");
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_AUTO_NORMAL);
+	glEnable(GL_NORMALIZE);
+	nurb:extern = gluNewNurbsRenderer();
+	gluNurbsProperty(nurb, GLU_SAMPLING_TOLERANCE, 25.0);
+	gluNurbsProperty(nurb, GLU_DISPLAY_MODE, GLU_FILL);
+
+	/* Build control points for NURBS mole hills. */
+	cross (u in 0..3, v in 0..3) {
+			/* Red. */
+			pts1[u][v][0] = 2.0 * u;
+			pts1[u][v][1] = 2.0 * v;
+			if((u==1 || u == 2) && (v == 1 || v == 2)) {
+				/* Stretch up middle. */
+				pts1[u][v][2] = 6.0;
+			} else {
+				pts1[u][v][2] = 0.0;
+			}
+
+			/* Green. */
+			pts2[u][v][0] = 2.0 * (u - 3.0);
+			pts2[u][v][1] = 2.0 * (v - 3.0);
+			if((u==1 || u == 2) && (v == 1 || v == 2)) {
+				if(u == 1 && v == 1) {
+					/* Pull hard on single middle square. */
+					pts2[u][v][2] = 15.0;
+				} else {
+					/* Push down on other middle squares. */
+					pts2[u][v][2] = -2.0;
+				}
+			} else {
+				pts2[u][v][2] = 0.0;
+			}
+
+			/* Blue. */
+			pts3[u][v][0] = 2.0 * (u - 3.0);
+			pts3[u][v][1] = 2.0 * v;
+			if((u==1 || u == 2) && (v == 1 || v == 2)) {
+				if(u == 1 && v == 2) {
+					/* Pull up on single middple square. */
+					pts3[u][v][2] = 11.0;
+				} else {
+					/* Pull up slightly on other middle squares. */
+					pts3[u][v][2] = 2.0;
+				}
+			} else {
+				pts3[u][v][2] = 0.0;
+			}
+
+			/* Yellow. */
+			pts4[u][v][0] = 2.0 * u;
+			pts4[u][v][1] = 2.0 * (v - 3.0);
+			if((u==1 || u == 2 || u == 3) && (v == 1 || v == 2)) {
+				if(v == 1) {
+					/* Push down front middle and right squares. */
+					pts4[u][v][2] = -2.0;
+				} else {
+					/* Pull up back middle and right squares. */
+					pts4[u][v][2] = 5.0;
+				}
+			} else {
+				pts4[u][v][2] = 0.0;
+			}
+	}
+	/* Stretch up red's far right corner. */
+	pts1[3][3][2] = 6;
+	/* Pull down green's near left corner a little. */
+	pts2[0][0][2] = -2;
+	/* Turn up meeting of four corners. */
+	pts1[0][0][2] = 1;
+	pts2[3][3][2] = 1;
+	pts3[3][0][2] = 1;
+	pts4[0][3][2] = 1;
+
+	glMatrixMode(GL_PROJECTION);
+
+	gluPerspective(55.0, 1.0, 2.0, 24.0);
+	glMatrixMode(GL_MODELVIEW);
+	glTranslatef(0.0, 0.0, -15.0);
+	glRotatef(330.0, 1.0, 0.0, 0.0);
+
+	glNewList(1, GL_COMPILE);
+    /* Render red hill. */
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_red_diffuse);
+    gluBeginSurface(nurb);
+    gluNurbsSurface(nurb, knots, knots,
+					4 * 3, 3, pts1.flat(),
+					4, 4, GL_MAP2_VERTEX_3);
+    gluEndSurface(nurb);
+
+    /* Render green hill. */
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_green_diffuse);
+    gluBeginSurface(nurb);
+    gluNurbsSurface(nurb, knots, knots,
+					4 * 3, 3, pts2.flat(),
+					4, 4, GL_MAP2_VERTEX_3);
+    gluEndSurface(nurb);
+
+    /* Render blue hill. */
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_blue_diffuse);
+    gluBeginSurface(nurb);
+    gluNurbsSurface(nurb, knots, knots,
+					4 * 3, 3, pts3.flat(),
+					4, 4, GL_MAP2_VERTEX_3);
+    gluEndSurface(nurb);
+
+    /* Render yellow hill. */
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_yellow_diffuse);
+    gluBeginSurface(nurb);
+    gluNurbsSurface(nurb, knots, knots,
+					4 * 3, 3, pts4.flat(),
+					4, 4, GL_MAP2_VERTEX_3);
+    gluEndSurface(nurb);
+	glEndList();
+
+	glutDisplayFunc(display);
+	glutMainLoop();
+}
+
+main()
