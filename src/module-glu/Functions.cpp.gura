@@ -201,6 +201,7 @@ gluEndCurve(nurb:GLUnurbs@):void = `auto % {`en, 'markdown',
 gluEndPolygon(tess:Object_Tesselator@):void = R'''
 	gluEndPolygon(tess->GetTesselator());
 	tess->DeletePolygonPack();
+	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -458,7 +459,7 @@ gluTessBeginPolygon(tess:Object_Tesselator@, polygon_data:any):void {block?} = R
 	'''
 }
 
-gluTessCallback(tess:Object_Tesselator@, which:GLenum, func:function) = R'''
+gluTessCallback(tess:Object_Tesselator@, which:GLenum, func:function):void = R'''
 	tess->SetCallback(sig, which, func);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -474,6 +475,7 @@ gluTessEndContour(tess:GLUtesselator@):void = `auto % {`en, 'markdown',
 gluTessEndPolygon(tess:Object_Tesselator@):void = R'''
 	gluTessEndPolygon(tess->GetTesselator());
 	tess->DeletePolygonPack();
+	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
 	'''

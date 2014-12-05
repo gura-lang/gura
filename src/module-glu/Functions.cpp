@@ -357,6 +357,7 @@ Gura_ImplementFunction(__gluEndPolygon)
 	Object_Tesselator *tess = Object_Tesselator::GetObject(args, 0);
 	gluEndPolygon(tess->GetTesselator());
 	tess->DeletePolygonPack();
+	return Value::Null;
 }
 
 // glu.gluEndSurface
@@ -1120,7 +1121,7 @@ Gura_ImplementFunction(__gluTessBeginPolygon)
 // glu.gluTessCallback
 Gura_DeclareFunctionAlias(__gluTessCallback, "gluTessCallback")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "which", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
@@ -1170,6 +1171,7 @@ Gura_ImplementFunction(__gluTessEndPolygon)
 	Object_Tesselator *tess = Object_Tesselator::GetObject(args, 0);
 	gluTessEndPolygon(tess->GetTesselator());
 	tess->DeletePolygonPack();
+	return Value::Null;
 }
 
 // glu.gluTessNormal
