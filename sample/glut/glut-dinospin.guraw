@@ -65,18 +65,18 @@ extrudeSolidFromPolygon(data[], thickness:number, side:number, edge:number, whol
 		gluTessCallback(tobj, GLU_VERTEX, glVertex2fv);  /* semi-tricky */
 		gluTessCallback(tobj, GLU_END, glEnd);
 	}
-	glNewList(side, GL_COMPILE);
-	glShadeModel(GL_SMOOTH);  /* smooth minimizes seeing
+	glNewList(side, GL_COMPILE) {
+		glShadeModel(GL_SMOOTH);  /* smooth minimizes seeing
                                tessellation */
-	gluBeginPolygon(tobj);
-	repeat(count) {|i|
-		vertex[0] = data[i][0];
-		vertex[1] = data[i][1];
-		vertex[2] = 0;
-	    gluTessVertex(tobj, vertex, data[i]);
+		gluBeginPolygon(tobj) {
+			repeat(count) {|i|
+				vertex[0] = data[i][0];
+				vertex[1] = data[i][1];
+				vertex[2] = 0;
+		    	gluTessVertex(tobj, vertex, data[i]);
+			}
+		}
 	}
-	gluEndPolygon(tobj);
-	glEndList();
 	glNewList(edge, GL_COMPILE);
 	glShadeModel(GL_FLAT);  /* flat shade keeps angular hands
                              from being * * "smoothed" */
