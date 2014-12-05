@@ -65,9 +65,7 @@ TRACKBALLSIZE  = 0.8
  */
 
 vzero(v[]:number) = {
-    v[0] = 0.0;
-    v[1] = 0.0;
-    v[2] = 0.0;
+    v[0..2] = 0.0;
 }
 
 vset(v[]:number, x:number, y:number, z:number) = {
@@ -85,12 +83,11 @@ vcopy(v1[]:number, v2[]:number) = {
 }
 
 vcross(v1[]:number, v2[]:number, cross[]:number) = {
-    temp = [
+	cross[0..2] = [
 		(v1[1] * v2[2]) - (v1[2] * v2[1]),
 		(v1[2] * v2[0]) - (v1[0] * v2[2]),
 		(v1[0] * v2[1]) - (v1[1] * v2[0])
 	]
-    vcopy(temp, cross);
 }
 
 vlength(v[]:number) = {
