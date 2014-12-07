@@ -172,52 +172,50 @@ Init() = {
 DrawPoints1() = {
 	glColor3f(0.0, 1.0, 0.0);
 	glPointSize(2);
-	glBegin(GL_POINTS);
-	repeat(VORDER) {|i|
-    	glVertex4dv(point1.offset(i * 4).head(4):list);
+	glBegin(GL_POINTS) {
+		repeat(VORDER) {|i|
+    		glVertex4dv(point1.offset(i * 4).head(4):list);
+		}
 	}
-	glEnd();
 }
 
 DrawPoints2() = {
 	glColor3f(1.0, 0.0, 1.0);
 	glPointSize(2);
-	glBegin(GL_POINTS);
-	repeat(VMAJOR_ORDER) {|i|
-		repeat(VMINOR_ORDER) {|j|
+	glBegin(GL_POINTS) {
+		cross(i in 0 .. VMAJOR_ORDER - 1, j in 0 .. VMINOR_ORDER - 1) {
       		glVertex4dv(point2.offset(i * 4 * VMINOR_ORDER + j * 4).head(4):list);
 		}
 	}
-	glEnd();
 }
 
 DrawMapEval1(du:number) = {
 	glColor3f(1.0, 0.0, 0.0);
-	glBegin(GL_LINE_STRIP);
-	u = 0.0
-	while (u < 1.0) {
-		glEvalCoord1d(u);
-		u += du
+	glBegin(GL_LINE_STRIP) {
+		u = 0.0
+		while (u < 1.0) {
+			glEvalCoord1d(u);
+			u += du
+		}
+		glEvalCoord1d(1.0);
 	}
-	glEvalCoord1d(1.0);
-	glEnd();
 }
 
 DrawMapEval2(du:number, dv:number) = {
 	glColor3f(1.0, 0.0, 0.0);
 	v = 0.0
 	while (v < 1.0) {
-		glBegin(GL_QUAD_STRIP);
-		u = 0.0
-		while (u <= 1.0) {
-			glEvalCoord2d(u, v);
-			tmp = min(v + dv, 1.0)
-			glEvalCoord2d(u, tmp);
-			u += du
+		glBegin(GL_QUAD_STRIP) {
+			u = 0.0
+			while (u <= 1.0) {
+				glEvalCoord2d(u, v);
+				tmp = min(v + dv, 1.0)
+				glEvalCoord2d(u, tmp);
+				u += du
+			}
+			glEvalCoord2d(1.0, v);
+			glEvalCoord2d(1.0, v + dv);
 		}
-		glEvalCoord2d(1.0, v);
-		glEvalCoord2d(1.0, v + dv);
-		glEnd();
 		v += dv
 	}
 }
@@ -357,46 +355,50 @@ Menu(value:number) = {
 
 /* ARGSUSED1 */
 SpecialKey(key:number, x:number, y:number) = {
+	rotUnit = 10
 	if (key == GLUT_KEY_LEFT) {
-		rotY -= 30;
+		rotY -= rotUnit;
 		glutPostRedisplay();
 	} elsif (key == GLUT_KEY_RIGHT) {
-		rotY += 30;
+		rotY += rotUnit;
 		glutPostRedisplay();
 	} elsif (key == GLUT_KEY_UP) {
-		rotX -= 30;
+		rotX -= rotUnit;
 		glutPostRedisplay();
 	} elsif (key == GLUT_KEY_DOWN) {
-		rotX += 30;
+		rotX += rotUnit;
 		glutPostRedisplay();
 	}
 }
 
 Draw() = {
 
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  glPushMatrix();
+	glPushMatrix {
 
-  glTranslatef(0.0, 0.0, translateZ);
-  glRotatef(rotX, 1, 0, 0);
-  glRotatef(rotY, 0, 1, 0);
-  RenderEval();
+		glTranslatef(0.0, 0.0, translateZ);
+		glRotatef(rotX, 1, 0, 0);
+		glRotatef(rotY, 0, 1, 0);
+		RenderEval();
+		
+	}
 
-  glPopMatrix();
-
-  if (doubleBuffer) {
-    glutSwapBuffers();
-  } else {
-    glFlush();
-  }
+	if (doubleBuffer) {
+		glutSwapBuffers();
+	} else {
+		glFlush();
+	}
 }
 
 Args(argv[]:string) = {
 	doubleBuffer:extern = GL_FALSE;
 
-	doubleBuffer:extern = !argv.find('--sb')
-	doublebufferr:exten = argv.find('db')
+	if (argv.find('-sb')) {
+		doubleBuffer:extern = GL_FALSE
+	} elsif (argv.find('-db')) {
+		doubleBuffer:extern = GL_TRUE
+	}
 }
 
 main() = {
