@@ -1,0 +1,435 @@
+#!/usr/bin/env gura
+// This Gura program has been ported from the original C code below:
+// https://www.opengl.org/archives/resources/code/samples/glut_examples/examples/evaltest.c
+
+/* Copyright (c) Mark J. Kilgard, 1996. */
+
+/* This program is freely distributable without licensing fees 
+   and is provided without guarantee or warrantee expressed or 
+   implied. This program is -not- in the public domain. */
+
+/* This program was originally written by someone else (Simon Hui?);
+   I just added a bit more GLUT stuff to it. */
+
+import(opengl) {*}
+import(glu) {*}
+import(glut) {*}
+
+VORDER = 10
+CORDER = 10
+TORDER = 3
+
+VMAJOR_ORDER = 2
+VMINOR_ORDER = 3
+
+CMAJOR_ORDER = 2
+CMINOR_ORDER = 2
+
+TMAJOR_ORDER = 2
+TMINOR_ORDER = 2
+
+VDIM = 4
+CDIM = 4
+TDIM = 2
+
+ONE_D = 1
+TWO_D = 2
+
+EVAL = 3
+MESH = 4
+
+doubleBuffer = 0;
+
+rotX = 0.0, rotY = 0.0, translateZ = -1.0;
+
+arrayType = ONE_D;
+colorType = GL_FALSE;
+textureType = GL_FALSE;
+polygonFilled = GL_FALSE;
+lighting = GL_FALSE;
+mapPoint = GL_FALSE;
+mapType = EVAL;
+
+point1 = @{
+  -0.5, 0.0, 0.0, 1.0,
+  -0.4, 0.5, 0.0, 1.0,
+  -0.3, -0.5, 0.0, 1.0,
+  -0.2, 0.5, 0.0, 1.0,
+  -0.1, -0.5, 0.0, 1.0,
+  0.0, 0.5, 0.0, 1.0,
+  0.1, -0.5, 0.0, 1.0,
+  0.2, 0.5, 0.0, 1.0,
+  0.3, -0.5, 0.0, 1.0,
+  0.4, 0.0, 0.0, 1.0,
+};
+cpoint1 = @{
+  0.0, 0.0, 1.0, 1.0,
+  0.3, 0.0, 0.7, 1.0,
+  0.6, 0.0, 0.3, 1.0,
+  1.0, 0.0, 0.0, 1.0,
+  1.0, 0.3, 0.0, 1.0,
+  1.0, 0.6, 0.0, 1.0,
+  1.0, 1.0, 0.0, 1.0,
+  1.0, 1.0, 0.5, 1.0,
+  1.0, 1.0, 1.0, 1.0,
+};
+tpoint1 = @{
+  0.0, 0.0, 0.0, 1.0,
+  0.0, 0.1, 0.0, 1.0,
+  0.0, 0.2, 0.0, 1.0,
+  0.0, 0.3, 0.0, 1.0,
+  0.0, 0.4, 0.0, 1.0,
+  0.0, 0.5, 0.0, 1.0,
+  0.0, 0.6, 0.0, 1.0,
+  0.0, 0.7, 0.0, 1.0,
+  0.0, 0.8, 0.0, 1.0,
+  0.0, 0.9, 0.0, 1.0,
+};
+point2 = @{
+  -0.5, -0.5, 0.5, 1.0,
+  0.0, 1.0, 0.5, 1.0,
+  0.5, -0.5, 0.5, 1.0,
+  -0.5, 0.5, -0.5, 1.0,
+  0.0, -1.0, -0.5, 1.0,
+  0.5, 0.5, -0.5, 1.0,
+};
+cpoint2 = @{
+  0.0, 0.0, 0.0, 1.0,
+  0.0, 0.0, 1.0, 1.0,
+  0.0, 1.0, 0.0, 1.0,
+  1.0, 1.0, 1.0, 1.0,
+};
+tpoint2 = @{
+  0.0, 0.0, 0.0, 1.0,
+  1.0, 0.0, 1.0, 1.0,
+};
+textureImage = @{
+  1.0, 1.0, 1.0, 1.0,
+  1.0, 0.0, 0.0, 1.0,
+  1.0, 0.0, 0.0, 1.0,
+  1.0, 1.0, 1.0, 1.0,
+  1.0, 1.0, 1.0, 1.0,
+  1.0, 0.0, 0.0, 1.0,
+  1.0, 0.0, 0.0, 1.0,
+  1.0, 1.0, 1.0, 1.0
+}
+
+Init() = {
+	ambient = \
+		@{0.1, 0.1, 0.1, 1.0};
+	diffuse = \
+		@{1.0, 1.0, 1.0, 1.0};
+	position = \
+		@{0.0, 0.0, -150.0, 0.0};
+	front_mat_diffuse = \
+		@{1.0, 0.2, 1.0, 1.0};
+	back_mat_diffuse = \
+		@{1.0, 1.0, 0.2, 1.0};
+	lmodel_ambient = \
+		@{1.0, 1.0, 1.0, 1.0};
+	lmodel_twoside = \
+		@{GL_TRUE};
+	decal = \
+		@{GL_DECAL};
+	_repeat = \
+		@{GL_REPEAT};
+	nr = \
+		@{GL_NEAREST};
+
+	glFrontFace(GL_CCW);
+
+	glEnable(GL_DEPTH_TEST);
+
+	glMap1d(GL_MAP1_VERTEX_4, 0.0, 1.0, VDIM, VORDER, point1);
+	glMap1d(GL_MAP1_COLOR_4, 0.0, 1.0, CDIM, CORDER, cpoint1);
+
+	glMap2d(GL_MAP2_VERTEX_4, 0.0, 1.0, VMINOR_ORDER * VDIM, VMAJOR_ORDER, 0.0,
+			1.0, VDIM, VMINOR_ORDER, point2);
+	glMap2d(GL_MAP2_COLOR_4, 0.0, 1.0, CMINOR_ORDER * CDIM, CMAJOR_ORDER, 0.0,
+			1.0, CDIM, CMINOR_ORDER, cpoint2);
+	glMap2d(GL_MAP2_TEXTURE_COORD_2, 0.0, 1.0, TMINOR_ORDER * TDIM,
+			TMAJOR_ORDER, 0.0, 1.0, TDIM, TMINOR_ORDER, tpoint2);
+
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
+	glLightfv(GL_LIGHT0, GL_POSITION, position);
+
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, front_mat_diffuse);
+	glMaterialfv(GL_BACK, GL_DIFFUSE, back_mat_diffuse);
+
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lmodel_ambient);
+	glLightModelfv(GL_LIGHT_MODEL_TWO_SIDE, lmodel_twoside);
+
+	glTexEnvfv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, decal);
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, _repeat);
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, _repeat);
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, nr);
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, nr);
+	glTexImage2D(GL_TEXTURE_2D, 0, 4, 2, 4, 0, GL_RGBA, GL_FLOAT,
+				 textureImage.pack('32f'));
+}
+
+DrawPoints1() = {
+	glColor3f(0.0, 1.0, 0.0);
+	glPointSize(2);
+	glBegin(GL_POINTS);
+	repeat(VORDER) {|i|
+    	glVertex4dv(point1.offset(i * 4).head(4):list);
+	}
+	glEnd();
+}
+
+DrawPoints2() = {
+	glColor3f(1.0, 0.0, 1.0);
+	glPointSize(2);
+	glBegin(GL_POINTS);
+	repeat(VMAJOR_ORDER) {|i|
+		repeat(VMINOR_ORDER) {|j|
+      		glVertex4dv(point2.offset(i * 4 * VMINOR_ORDER + j * 4).head(4):list);
+		}
+	}
+	glEnd();
+}
+
+DrawMapEval1(du:number) = {
+	glColor3f(1.0, 0.0, 0.0);
+	glBegin(GL_LINE_STRIP);
+	u = 0.0
+	while (u < 1.0) {
+		glEvalCoord1d(u);
+		u += du
+	}
+	glEvalCoord1d(1.0);
+	glEnd();
+}
+
+DrawMapEval2(du:number, dv:number) = {
+	glColor3f(1.0, 0.0, 0.0);
+	v = 0.0
+	while (v < 1.0) {
+		glBegin(GL_QUAD_STRIP);
+		u = 0.0
+		while (u <= 1.0) {
+			glEvalCoord2d(u, v);
+			tmp = min(v + dv, 1.0)
+			glEvalCoord2d(u, tmp);
+			u += du
+		}
+		glEvalCoord2d(1.0, v);
+		glEvalCoord2d(1.0, v + dv);
+		glEnd();
+		v += dv
+	}
+}
+
+RenderEval() = {
+	if (colorType) {
+		glEnable(GL_MAP1_COLOR_4);
+		glEnable(GL_MAP2_COLOR_4);
+	} else {
+		glDisable(GL_MAP1_COLOR_4);
+		glDisable(GL_MAP2_COLOR_4);
+	}
+
+	if (textureType) {
+		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_MAP2_TEXTURE_COORD_2);
+	} else {
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_MAP2_TEXTURE_COORD_2);
+	}
+
+	if (polygonFilled) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	} else {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+
+	glShadeModel(GL_SMOOTH);
+
+	if (mapType == EVAL) {
+		if (arrayType == ONE_D) {
+			glDisable(GL_MAP2_VERTEX_4);
+			glEnable(GL_MAP1_VERTEX_4);
+			DrawPoints1();
+			DrawMapEval1(0.1 / VORDER);
+		} elsif (arrayType == TWO_D) {
+			glDisable(GL_MAP1_VERTEX_4);
+			glEnable(GL_MAP2_VERTEX_4);
+			DrawPoints2();
+			DrawMapEval2(0.1 / VMAJOR_ORDER, 0.1 / VMINOR_ORDER);
+		}
+	} elsif (mapType == MESH) {
+		if (arrayType == ONE_D) {
+			DrawPoints1();
+			glDisable(GL_MAP2_VERTEX_4);
+			glEnable(GL_MAP1_VERTEX_4);
+			glColor3f(0.0, 0.0, 1.0);
+			glMapGrid1d(40, 0.0, 1.0);
+			if (mapPoint) {
+				glPointSize(2);
+				glEvalMesh1(GL_POINT, 0, 40);
+			} else {
+				glEvalMesh1(GL_LINE, 0, 40);
+			}
+		} elsif (arrayType == TWO_D) {
+			DrawPoints2();
+			glDisable(GL_MAP1_VERTEX_4);
+			glEnable(GL_MAP2_VERTEX_4);
+			glColor3f(0.0, 0.0, 1.0);
+			glMapGrid2d(20, 0.0, 1.0, 20, 0.0, 1.0);
+			if (mapPoint) {
+				glPointSize(2);
+				glEvalMesh2(GL_POINT, 0, 20, 0, 20);
+			} elsif (polygonFilled) {
+				glEvalMesh2(GL_FILL, 0, 20, 0, 20);
+			} else {
+				glEvalMesh2(GL_LINE, 0, 20, 0, 20);
+			}
+		}
+	}
+}
+
+Reshape(width:number, height:number) = {
+
+	glViewport(0, 0, width, height);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-1.0, 1.0, -1.0, 1.0, -0.5, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+}
+
+Key(key:number, x:number, ynumber) = {
+	key = chr(key)
+	if (key == '1') {
+		arrayType:extern = ONE_D;
+		glDisable(GL_AUTO_NORMAL);
+		glutPostRedisplay();
+	} elsif (key == '2') {
+		arrayType:extern = TWO_D;
+		glEnable(GL_AUTO_NORMAL);
+		glutPostRedisplay();
+	} elsif (key == '3') {
+		mapType:extern = EVAL;
+		glutPostRedisplay();
+	} elsif (key == '4') {
+		mapType:extern = MESH;
+		glutPostRedisplay();
+	} elsif (key == '5') {
+		polygonFilled:extern = !polygonFilled;
+		glutPostRedisplay();
+	} elsif (key == '6') {
+		mapPoint:extern = !mapPoint;
+		glutPostRedisplay();
+	} elsif (key == '7') {
+		colorType:extern = !colorType;
+		glutPostRedisplay();
+	} elsif (key == '8') {
+		textureType:extern = !textureType;
+		glutPostRedisplay();
+	} elsif (key == '9') {
+		lighting:extern = !lighting;
+		if (lighting) {
+			glEnable(GL_LIGHTING);
+			glEnable(GL_LIGHT0);
+			if (arrayType == TWO_D) {
+				glEnable(GL_AUTO_NORMAL);
+			} else {
+				glDisable(GL_AUTO_NORMAL);
+			}
+		} else {
+			glDisable(GL_LIGHTING);
+			glDisable(GL_LIGHT0);
+			glDisable(GL_AUTO_NORMAL);
+		}
+		glutPostRedisplay();
+	} elsif (key == '\x1b') {             /* Escape key. */
+		sys.exit(0);
+	}
+}
+
+Menu(value:number) = {
+	/* Menu items have key values assigned to them.  Just pass
+     this value to the key routine. */
+	Key(value, 0, 0);
+}
+
+/* ARGSUSED1 */
+SpecialKey(key:number, x:number, y:number) = {
+	if (key == GLUT_KEY_LEFT) {
+		rotY -= 30;
+		glutPostRedisplay();
+	} elsif (key == GLUT_KEY_RIGHT) {
+		rotY += 30;
+		glutPostRedisplay();
+	} elsif (key == GLUT_KEY_UP) {
+		rotX -= 30;
+		glutPostRedisplay();
+	} elsif (key == GLUT_KEY_DOWN) {
+		rotX += 30;
+		glutPostRedisplay();
+	}
+}
+
+Draw() = {
+
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  glPushMatrix();
+
+  glTranslatef(0.0, 0.0, translateZ);
+  glRotatef(rotX, 1, 0, 0);
+  glRotatef(rotY, 0, 1, 0);
+  RenderEval();
+
+  glPopMatrix();
+
+  if (doubleBuffer) {
+    glutSwapBuffers();
+  } else {
+    glFlush();
+  }
+}
+
+Args(argv[]:string) = {
+	doubleBuffer:extern = GL_FALSE;
+
+	doubleBuffer:extern = !argv.find('--sb')
+	doublebufferr:exten = argv.find('db')
+}
+
+main() = {
+	argv = glutInit(sys.argv);
+	Args(argv);
+
+	type = GLUT_RGB | GLUT_DEPTH;
+	type |= cond(doubleBuffer, GLUT_DOUBLE, GLUT_SINGLE);
+	glutInitDisplayMode(type);
+	glutInitWindowSize(300, 300);
+	glutCreateWindow("Evaluator Test");
+
+	glutCreateMenu(Menu);
+	glutAddMenuEntry("One dimensional", ord('1'));
+	glutAddMenuEntry("Two dimensional", ord('2'));
+	glutAddMenuEntry("Eval map type", ord('3'));
+	glutAddMenuEntry("Mesh map type", ord('4'));
+	glutAddMenuEntry("Toggle filled", ord('5'));
+	glutAddMenuEntry("Toggle map point", ord('6'));
+	glutAddMenuEntry("Toggle color", ord('7'));
+	glutAddMenuEntry("Toggle texture", ord('8'));
+	glutAddMenuEntry("Toggle lighting", ord('9'));
+	glutAddMenuEntry("Quit", 27);
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+	glutAttachMenu(GLUT_LEFT_BUTTON);
+
+	Init();
+
+	glutReshapeFunc(Reshape);
+	glutKeyboardFunc(Key);
+	glutSpecialFunc(SpecialKey);
+	glutDisplayFunc(Draw);
+	glutMainLoop();
+}
+
+main()
