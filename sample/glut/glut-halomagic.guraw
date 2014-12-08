@@ -358,13 +358,13 @@ drawBox(xsize:number, ysize:number, zsize:number) = {
 	v[1][2] = v[2][2] = v[5][2] = v[6][2] = zsize / 2;
 	
 	repeat(6) {|i|
-		glBegin(GL_QUADS);
-		glNormal3fv(n[i]);
-		glVertex3fv(v[faces[i][0]]);
-		glVertex3fv(v[faces[i][1]]);
-		glVertex3fv(v[faces[i][2]]);
-		glVertex3fv(v[faces[i][3]]);
-		glEnd();
+		glBegin(GL_QUADS) {
+			glNormal3fv(n[i]);
+			glVertex3fv(v[faces[i][0]]);
+			glVertex3fv(v[faces[i][1]]);
+			glVertex3fv(v[faces[i][2]]);
+			glVertex3fv(v[faces[i][3]]);
+		}
 	}
 }
 
@@ -394,16 +394,16 @@ drawFloor() = {
 		glEnable(GL_TEXTURE_2D);
 	}
 
-	glBegin(GL_QUADS);
-    glTexCoord2f(0.0, 0.0);
-    glVertex3fv(floorVertices[0]);
-    glTexCoord2f(0.0, 16.0);
-    glVertex3fv(floorVertices[1]);
-    glTexCoord2f(16.0, 16.0);
-    glVertex3fv(floorVertices[2]);
-    glTexCoord2f(16.0, 0.0);
-    glVertex3fv(floorVertices[3]);
-	glEnd();
+	glBegin(GL_QUADS) {
+		glTexCoord2f(0.0, 0.0);
+		glVertex3fv(floorVertices[0]);
+		glTexCoord2f(0.0, 16.0);
+		glVertex3fv(floorVertices[1]);
+		glTexCoord2f(16.0, 16.0);
+		glVertex3fv(floorVertices[2]);
+		glTexCoord2f(16.0, 0.0);
+		glVertex3fv(floorVertices[3]);
+	}
 
 	if (useTexture) {
 		glDisable(GL_TEXTURE_2D);
@@ -603,15 +603,15 @@ redraw() = {
 			glDisable(GL_LIGHTING);  /* Force the 50% black. */
 			glColor4f(0.0, 0.0, 0.0, 0.5);
 			
-			glPushMatrix();
-			/* Project the shadow. */
-			glMultMatrixf(floorShadow.flat());
-			glPushMatrix();
-			glTranslatef(0, 8.01, 0);
-			drawModel();
-			glPopMatrix();
-			drawPillar();
-			glPopMatrix();
+			glPushMatrix {
+				/* Project the shadow. */
+				glMultMatrixf(floorShadow.flat());
+				glPushMatrix {
+					glTranslatef(0, 8.01, 0);
+					drawModel();
+				}
+				drawPillar();
+			}
 			
 			glDisable(GL_BLEND);
 			glEnable(GL_LIGHTING);
@@ -629,37 +629,37 @@ redraw() = {
 		} /* End shadow render. */
 		
 		/* Begin light source location render. */
-		glPushMatrix();
-		glDisable(GL_LIGHTING);
-		glColor3f(1.0, 1.0, 0.0);
-		if (directionalLight) {
-			/* Draw an arrowhead. */
-			glDisable(GL_CULL_FACE);
-			glTranslatef(lightPosition[0], lightPosition[1], lightPosition[2]);
-			glRotatef(lightAngle * (-180.0) / M_PI, 0, 1, 0);
-			glRotatef(math.atan(lightHeight / 12) * 180.0 / M_PI, 0, 0, 1);
-			glBegin(GL_TRIANGLE_FAN);
-  			glVertex3f(0, 0, 0);
-			glVertex3f(2, 1, 1);
-			glVertex3f(2, -1, 1);
-			glVertex3f(2, -1, -1);
-			glVertex3f(2, 1, -1);
-			glVertex3f(2, 1, 1);
-			glEnd();
-			/* Draw a white line from light direction. */
-			glColor3f(1.0, 1.0, 1.0);
-			glBegin(GL_LINES);
-			glVertex3f(0.1, 0, 0);
-			glVertex3f(5, 0, 0);
-			glEnd();
-			glEnable(GL_CULL_FACE);
-		} else {
-			/* Draw a yellow ball at the light source. */
-			glTranslatef(lightPosition[0], lightPosition[1], lightPosition[2]);
-			glutSolidSphere(1.0, 5, 5);
+		glPushMatrix {
+			glDisable(GL_LIGHTING);
+			glColor3f(1.0, 1.0, 0.0);
+			if (directionalLight) {
+				/* Draw an arrowhead. */
+				glDisable(GL_CULL_FACE);
+				glTranslatef(lightPosition[0], lightPosition[1], lightPosition[2]);
+				glRotatef(lightAngle * (-180.0) / M_PI, 0, 1, 0);
+				glRotatef(math.atan(lightHeight / 12) * 180.0 / M_PI, 0, 0, 1);
+				glBegin(GL_TRIANGLE_FAN) {
+  					glVertex3f(0, 0, 0);
+					glVertex3f(2, 1, 1);
+					glVertex3f(2, -1, 1);
+					glVertex3f(2, -1, -1);
+					glVertex3f(2, 1, -1);
+					glVertex3f(2, 1, 1);
+				}
+				/* Draw a white line from light direction. */
+				glColor3f(1.0, 1.0, 1.0);
+				glBegin(GL_LINES) {
+					glVertex3f(0.1, 0, 0);
+					glVertex3f(5, 0, 0);
+				}
+				glEnable(GL_CULL_FACE);
+			} else {
+				/* Draw a yellow ball at the light source. */
+				glTranslatef(lightPosition[0], lightPosition[1], lightPosition[2]);
+				glutSolidSphere(1.0, 5, 5);
+			}
+			glEnable(GL_LIGHTING);
 		}
-		glEnable(GL_LIGHTING);
-		glPopMatrix()
 		/* End light source location render. */
 
 		/* Add a halo effect around the 3D model. */
@@ -688,11 +688,11 @@ redraw() = {
 				glStencilOp(GL_KEEP, GL_KEEP, GL_INVERT);
 			}
 			
-			glPushMatrix();
-			glTranslatef(0, 8.01, 0);
-			glScalef(haloScale, haloScale, haloScale);
-			drawModel();
-			glPopMatrix();
+			glPushMatrix {
+				glTranslatef(0, 8.01, 0);
+				glScalef(haloScale, haloScale, haloScale);
+				drawModel();
+			}
 			
 			if (blendedHalo) {
 				glDisable(GL_BLEND);
@@ -708,6 +708,7 @@ redraw() = {
 		glFinish();
 		end = glutGet(GLUT_ELAPSED_TIME);
 		printf("Speed %.3g frames/sec (%d ms)\n", 1000.0 / (end - start), end - start);
+		sys.stdout.flush()
 	}
 
 	glutSwapBuffers();
