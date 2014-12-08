@@ -254,12 +254,12 @@ extrudeSolidFromPolygon(data[]:list, thickness:number, side:number, edge:number,
 	glCallList(edge);
 	glNormal3f(0.0, 0.0, -1.0);  /* constant normal for side */
 	glCallList(side);
-	glPushMatrix();
-	glTranslatef(0.0, 0.0, thickness);
-	glFrontFace(GL_CCW);
-	glNormal3f(0.0, 0.0, 1.0);  /* opposite normal for other side */
-	glCallList(side);
-	glPopMatrix();
+	glPushMatrix {
+		glTranslatef(0.0, 0.0, thickness);
+		glFrontFace(GL_CCW);
+		glNormal3f(0.0, 0.0, 1.0);  /* opposite normal for other side */
+		glCallList(side);
+	}
 	glEndList();
 }
 
