@@ -91,13 +91,6 @@
 (defvar gura-continued-line-offset default-tab-width
   "Offset at top of line continued after backslash.")
 
-(defun gura-closing-bracket-appears-first-p (ch)
-  (save-excursion
-	(when (search-forward ch (line-end-position) t)
-	  (let ((pos-cur (point)) (line-cur (line-number-at-pos)))
-		(backward-sexp)
-		(when (< (line-number-at-pos) line-cur) pos-cur)))))
-
 (defun gura-calculate-indentation ()
   "Return the column to which the current line should be indented."
   (interactive)
@@ -135,12 +128,13 @@
 				(+ (current-column) 1))))))) ;; elements exist at the same line
 	 (save-excursion
 	   (beginning-of-line)
-	   (let ((pos (gura-closing-bracket-appears-first-p "}")))
-		 (when pos
-		   (goto-char pos)))
-	   (let ((pos (gura-closing-bracket-appears-first-p "]")))
-		 (when pos
-		   (goto-char pos)))
+	   (let ((pos-brace
+			  (save-excursion
+				(when (search-forward-regexp (rx (or "}" "]")) (line-end-position) t)
+				  (let ((pos-brace (point)) (line-cur (line-number-at-pos)))
+					(backward-sexp)
+					(when (< (line-number-at-pos) line-cur) pos-brace))))))
+		 (when pos-brace (goto-char pos-brace)))
 	   (let* ((line-cur (line-number-at-pos)) (pos-cur (point))
 			  (syntax (syntax-ppss)) (pos-block-start (nth 1 syntax)))
 		 (if pos-block-start
