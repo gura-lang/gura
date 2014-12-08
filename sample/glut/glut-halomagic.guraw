@@ -218,49 +218,49 @@ extrudeSolidFromPolygon(data[]:list, thickness:number, side:number, edge:number,
 		gluTessCallback(tobj, GLU_VERTEX, glVertex2fv);  /* semi-tricky */
 		gluTessCallback(tobj, GLU_END, glEnd);
 	}
-	glNewList(side, GL_COMPILE);
-	glShadeModel(GL_SMOOTH);  /* smooth minimizes seeing
+	glNewList(side, GL_COMPILE) {
+		glShadeModel(GL_SMOOTH);  /* smooth minimizes seeing
                                tessellation */
-	gluBeginPolygon(tobj);
-	repeat(count) {|i|
-		vertex[0] = data[i][0];
-		vertex[1] = data[i][1];
-		vertex[2] = 0;
-	    gluTessVertex(tobj, vertex, data[i]);
+		gluBeginPolygon(tobj) {
+			repeat(count) {|i|
+				vertex[0] = data[i][0];
+				vertex[1] = data[i][1];
+				vertex[2] = 0;
+				gluTessVertex(tobj, vertex, data[i]);
+			}
+		}
 	}
-	gluEndPolygon(tobj);
-	glEndList();
-	glNewList(edge, GL_COMPILE);
-	glShadeModel(GL_FLAT);  /* flat shade keeps angular hands
+	glNewList(edge, GL_COMPILE) {
+		glShadeModel(GL_FLAT);  /* flat shade keeps angular hands
                              from being "smoothed" */
-	glBegin(GL_QUAD_STRIP);
-	repeat(count + 1) {|i|
-		/* mod function handles closing the edge */
-		glVertex3f(data[i % count][0], data[i % count][1], 0.0);
-		glVertex3f(data[i % count][0], data[i % count][1], thickness);
-		/* Calculate a unit normal by dividing by Euclidean
-		distance. We * could be lazy and use
-		glEnable(GL_NORMALIZE) so we could pass in * arbitrary
-		normals for a very slight performance hit. */
-		dx = data[(i + 1) % count][1] - data[i % count][1];
-		dy = data[i % count][0] - data[(i + 1) % count][0];
-		len = math.sqrt(dx * dx + dy * dy);
-		glNormal3f(dx / len, dy / len, 0.0);
+		glBegin(GL_QUAD_STRIP) {
+			repeat(count + 1) {|i|
+				/* mod function handles closing the edge */
+				glVertex3f(data[i % count][0], data[i % count][1], 0.0);
+				glVertex3f(data[i % count][0], data[i % count][1], thickness);
+				/* Calculate a unit normal by dividing by Euclidean
+				distance. We * could be lazy and use
+				glEnable(GL_NORMALIZE) so we could pass in * arbitrary
+				normals for a very slight performance hit. */
+				dx = data[(i + 1) % count][1] - data[i % count][1];
+				dy = data[i % count][0] - data[(i + 1) % count][0];
+				len = math.sqrt(dx * dx + dy * dy);
+				glNormal3f(dx / len, dy / len, 0.0);
+			}
+		}
 	}
-	glEnd();
-	glEndList();
-	glNewList(whole, GL_COMPILE);
-	glFrontFace(GL_CW);
-	glCallList(edge);
-	glNormal3f(0.0, 0.0, -1.0);  /* constant normal for side */
-	glCallList(side);
-	glPushMatrix {
-		glTranslatef(0.0, 0.0, thickness);
-		glFrontFace(GL_CCW);
-		glNormal3f(0.0, 0.0, 1.0);  /* opposite normal for other side */
+	glNewList(whole, GL_COMPILE) {
+		glFrontFace(GL_CW);
+		glCallList(edge);
+		glNormal3f(0.0, 0.0, -1.0);  /* constant normal for side */
 		glCallList(side);
+		glPushMatrix {
+			glTranslatef(0.0, 0.0, thickness);
+			glFrontFace(GL_CCW);
+			glNormal3f(0.0, 0.0, 1.0);  /* opposite normal for other side */
+			glCallList(side);
+		}
 	}
-	glEndList();
 }
 
 /* Enumerants for refering to display lists. */
@@ -281,23 +281,23 @@ makeDinosaur() = {
 }
 
 drawDinosaur() = {
-	glPushMatrix();
-	/* Translate the dinosaur to be at (0,8,0). */
-	glTranslatef(-8, -8, -bodyWidth / 2);
-	glTranslatef(0.0, jump, 0.0);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, skinColor);
-	glCallList(BODY_WHOLE);
-	glTranslatef(0.0, 0.0, bodyWidth);
-	glCallList(ARM_WHOLE);
-	glCallList(LEG_WHOLE);
-	glTranslatef(0.0, 0.0, -bodyWidth - bodyWidth / 4);
-	glCallList(ARM_WHOLE);
-	glTranslatef(0.0, 0.0, -bodyWidth / 4);
-	glCallList(LEG_WHOLE);
-	glTranslatef(0.0, 0.0, bodyWidth / 2 - 0.1);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, eyeColor);
-	glCallList(EYE_WHOLE);
-	glPopMatrix();
+	glPushMatrix {
+		/* Translate the dinosaur to be at (0,8,0). */
+		glTranslatef(-8, -8, -bodyWidth / 2);
+		glTranslatef(0.0, jump, 0.0);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, skinColor);
+		glCallList(BODY_WHOLE);
+		glTranslatef(0.0, 0.0, bodyWidth);
+		glCallList(ARM_WHOLE);
+		glCallList(LEG_WHOLE);
+		glTranslatef(0.0, 0.0, -bodyWidth - bodyWidth / 4);
+		glCallList(ARM_WHOLE);
+		glTranslatef(0.0, 0.0, -bodyWidth / 4);
+		glCallList(LEG_WHOLE);
+		glTranslatef(0.0, 0.0, bodyWidth / 2 - 0.1);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, eyeColor);
+		glCallList(EYE_WHOLE);
+	}
 }
 
 [
@@ -322,12 +322,12 @@ drawModel() = {
 		glutSolidCube(6.0);
 	} elsif (currentModel == MOD_ICO) {
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, purpleMaterial);
-		glPushMatrix();
-		glEnable(GL_NORMALIZE);
-		glScalef(7.0, 7.0, 7.0);
-		glutSolidIcosahedron();
-		glDisable(GL_NORMALIZE);
-		glPopMatrix();
+		glPushMatrix {
+			glEnable(GL_NORMALIZE);
+			glScalef(7.0, 7.0, 7.0);
+			glutSolidIcosahedron();
+			glDisable(GL_NORMALIZE);
+		}
 	}
 }
 
@@ -371,11 +371,11 @@ drawBox(xsize:number, ysize:number, zsize:number) = {
 drawPillar() = {
 	glEnable(GL_NORMALIZE);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, greenMaterial);
-	glPushMatrix();
-    glTranslatef(8.0, 4.01, 8.0);
-    drawBox(2.0, 8.0, 2.0);
-    glutSolidCube(2.0);
-	glPopMatrix();
+	glPushMatrix {
+		glTranslatef(8.0, 4.01, 8.0);
+		drawBox(2.0, 8.0, 2.0);
+		glutSolidCube(2.0);
+	}
 	glDisable(GL_NORMALIZE);
 }
 
@@ -442,268 +442,267 @@ redraw() = {
 
 	shadowMatrix(floorShadow, floorPlane, lightPosition);
 
-	glPushMatrix();
-    /* Perform scene rotations based on user mouse input. */
-    glRotatef(angle2, 1.0, 0.0, 0.0);
-    glRotatef(angle, 0.0, 1.0, 0.0);
-     
-    /* Tell GL new light source position. */
-    glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
-
-    if (renderReflection) {
-		if (stencilReflection) {
-			/* We can eliminate the visual "artifact" of seeing the "flipped"
-  			model underneath the floor by using stencil.  The idea is
-			draw the floor without color or depth update but so that 
-			a stencil value of one is where the floor will be.  Later when
-			rendering the model reflection, we will only update pixels
-			with a stencil value of 1 to make sure the reflection only
-			lives on the floor, not below the floor. */
-
-			/* Don't update color or depth. */
-			glDisable(GL_DEPTH_TEST);
-			glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-
-			/* Draw 1 into the stencil buffer. */
-			glEnable(GL_STENCIL_TEST);
-			glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-			glStencilFunc(GL_ALWAYS, 1, 0x1);
-			glStencilMask(0x1);
-
-			/* Now render floor; floor pixels just get their stencil set to 1. */
-			drawFloor();
-
-			/* Re-enable update of color and depth. */ 
-			glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-			glEnable(GL_DEPTH_TEST);
-
-			/* Now, only render where stencil is set to 1. */
-			glStencilFunc(GL_EQUAL, 1, 0x1);  /* draw if ==1 */
-			glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
-		}
-
-		glPushMatrix();
-
-        /* The critical reflection step: Reflect 3D model through the floor
-           (the Y=0 plane) to make a relection. */
-        glScalef(1.0, -1.0, 1.0);
+	glPushMatrix {
+		/* Perform scene rotations based on user mouse input. */
+		glRotatef(angle2, 1.0, 0.0, 0.0);
+		glRotatef(angle, 0.0, 1.0, 0.0);
 		
-		/* Reflect the light position. */
-        glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
-
-        /* To avoid our normals getting reversed and hence botched lighting
-		on the reflection, turn on normalize.  */
-        glEnable(GL_NORMALIZE);
-        glCullFace(GL_FRONT);
-
-        /* Draw the reflected model. */
-		glPushMatrix();
-		glTranslatef(0, 8.01, 0);
-        drawModel();
-		glPopMatrix();
-		drawPillar();
-
-        /* Disable noramlize again and re-enable back face culling. */
-        glDisable(GL_NORMALIZE);
-        glCullFace(GL_BACK);
-		
-		glPopMatrix();
-
-		/* Switch back to the unreflected light position. */
+		/* Tell GL new light source position. */
 		glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
-
-		if (stencilReflection) {
-			glDisable(GL_STENCIL_TEST);
-		}
-    }
-
-    /* Back face culling will get used to only draw either the top or the
-       bottom floor.  This let's us get a floor with two distinct
-       appearances.  The top floor surface is reflective and kind of red.
-       The bottom floor surface is not reflective and blue. */
-
-    /* Draw "bottom" of floor in blue. */
-    glFrontFace(GL_CW);  /* Switch face orientation. */
-    glColor4f(0.1, 0.1, 0.7, 1.0);
-    drawFloor();
-    glFrontFace(GL_CCW);
-
-    if (renderShadow && stencilShadow) {
-		/* Draw the floor with stencil value 2.  This helps us only 
-		draw the shadow once per floor pixel (and only on the
-        floor pixels). */
-		glEnable(GL_STENCIL_TEST);
-		glStencilFunc(GL_ALWAYS, 0x2, 0x2);
-		glStencilMask(0x2);
-		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-    }
-
-    /* Draw "top" of floor.  Use blending to blend in reflection. */
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glColor4f(1.0, 1.0, 1.0, 0.3);
-    drawFloor();
-    glDisable(GL_BLEND);
-
-    if (renderShadow && stencilShadow) {
-		glDisable(GL_STENCIL_TEST);
-    }
-
-    if (renderDinosaur) {
-		drawPillar();
-
-		if (haloScale > 1.0) {
-			/* If halo effect is enabled, draw the model with its stencil set to 6
-			(arbitary value); later, we'll make sure not to update pixels tagged
-			as 6. */
-			glEnable(GL_STENCIL_TEST);
-			glStencilFunc(GL_ALWAYS, 0x0, 0x4);
-			glStencilMask(0x4);
-			glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+		
+		if (renderReflection) {
+			if (stencilReflection) {
+				/* We can eliminate the visual "artifact" of seeing the "flipped"
+  				model underneath the floor by using stencil.  The idea is
+				draw the floor without color or depth update but so that 
+				a stencil value of one is where the floor will be.  Later when
+				rendering the model reflection, we will only update pixels
+				with a stencil value of 1 to make sure the reflection only
+				lives on the floor, not below the floor. */
+				
+				/* Don't update color or depth. */
+				glDisable(GL_DEPTH_TEST);
+				glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+				
+				/* Draw 1 into the stencil buffer. */
+				glEnable(GL_STENCIL_TEST);
+				glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+				glStencilFunc(GL_ALWAYS, 1, 0x1);
+				glStencilMask(0x1);
+				
+				/* Now render floor; floor pixels just get their stencil set to 1. */
+				drawFloor();
+				
+				/* Re-enable update of color and depth. */ 
+				glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+				glEnable(GL_DEPTH_TEST);
+				
+				/* Now, only render where stencil is set to 1. */
+				glStencilFunc(GL_EQUAL, 1, 0x1);  /* draw if ==1 */
+				glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+			}
+			
+			glPushMatrix {
+				
+				/* The critical reflection step: Reflect 3D model through the floor
+				(the Y=0 plane) to make a relection. */
+				glScalef(1.0, -1.0, 1.0);
+				
+				/* Reflect the light position. */
+				glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+				
+				/* To avoid our normals getting reversed and hence botched lighting
+				on the reflection, turn on normalize.  */
+				glEnable(GL_NORMALIZE);
+				glCullFace(GL_FRONT);
+				
+				/* Draw the reflected model. */
+				glPushMatrix {
+					glTranslatef(0, 8.01, 0);
+					drawModel();
+				}
+				drawPillar();
+				
+				/* Disable noramlize again and re-enable back face culling. */
+				glDisable(GL_NORMALIZE);
+				glCullFace(GL_BACK);
+			}
+			
+			/* Switch back to the unreflected light position. */
+			glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+			
+			if (stencilReflection) {
+				glDisable(GL_STENCIL_TEST);
+			}
 		}
 		
-		/* Draw "actual" dinosaur (or other model), not its reflection. */
-		glPushMatrix();
-        glTranslatef(0, 8.01, 0);
-        drawModel();
-		glPopMatrix();
-	}
+		/* Back face culling will get used to only draw either the top or the
+		bottom floor.  This let's us get a floor with two distinct
+		appearances.  The top floor surface is reflective and kind of red.
+		The bottom floor surface is not reflective and blue. */
+		
+		/* Draw "bottom" of floor in blue. */
+		glFrontFace(GL_CW);  /* Switch face orientation. */
+		glColor4f(0.1, 0.1, 0.7, 1.0);
+		drawFloor();
+		glFrontFace(GL_CCW);
 
-    /* Begin shadow render. */
-    if (renderShadow) {
-
-		/* Render the projected shadow. */
-
-		if (stencilShadow) {
-
-			/* Now, only render where stencil is set above 5 (ie, 6 where
-			the top floor is).  Update stencil with 2 where the shadow
-			gets drawn so we don't redraw (and accidently reblend) the
-			shadow). */
+		if (renderShadow && stencilShadow) {
+			/* Draw the floor with stencil value 2.  This helps us only 
+			draw the shadow once per floor pixel (and only on the
+			floor pixels). */
 			glEnable(GL_STENCIL_TEST);
-			glStencilFunc(GL_NOTEQUAL, 0x0, 0x2);
+			glStencilFunc(GL_ALWAYS, 0x2, 0x2);
 			glStencilMask(0x2);
 			glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 		}
 		
-		/* To eliminate depth buffer artifacts, we use polygon offset
-		to raise the depth of the projected shadow slightly so
-		that it does not depth buffer alias with the floor. */
-		if (offsetShadow) {
-			if (polygonOffsetVersion == ONE_DOT_ONE) {
-				glEnable(GL_POLYGON_OFFSET_FILL);
-			} elsif (polygonOffsetVersion == MISSING) {
-				/* Oh well. */
-			}
-		}
-
-		/* Render 50% black shadow color on top of whatever the
-         floor appareance is. */
+		/* Draw "top" of floor.  Use blending to blend in reflection. */
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glDisable(GL_LIGHTING);  /* Force the 50% black. */
-		glColor4f(0.0, 0.0, 0.0, 0.5);
-
-		glPushMatrix();
-		/* Project the shadow. */
-        glMultMatrixf(floorShadow.flat());
-		glPushMatrix();
-        glTranslatef(0, 8.01, 0);
-        drawModel();
-		glPopMatrix();
-		drawPillar();
-		glPopMatrix();
-
+		glColor4f(1.0, 1.0, 1.0, 0.3);
+		drawFloor();
 		glDisable(GL_BLEND);
-		glEnable(GL_LIGHTING);
-
-		if (offsetShadow) {
-			if (polygonOffsetVersion == ONE_DOT_ONE) {
-				glDisable(GL_POLYGON_OFFSET_FILL);
-			} elsif (polygonOffsetVersion == MISSING) {
-				/* Oh well. */
-			}
-		}
-		if (stencilShadow) {
+		
+		if (renderShadow && stencilShadow) {
 			glDisable(GL_STENCIL_TEST);
 		}
-	} /* End shadow render. */
-
-    /* Begin light source location render. */
-    glPushMatrix();
-    glDisable(GL_LIGHTING);
-    glColor3f(1.0, 1.0, 0.0);
-    if (directionalLight) {
-        /* Draw an arrowhead. */
-        glDisable(GL_CULL_FACE);
-        glTranslatef(lightPosition[0], lightPosition[1], lightPosition[2]);
-        glRotatef(lightAngle * (-180.0) / M_PI, 0, 1, 0);
-        glRotatef(math.atan(lightHeight / 12) * 180.0 / M_PI, 0, 0, 1);
-        glBegin(GL_TRIANGLE_FAN);
-  		glVertex3f(0, 0, 0);
-		glVertex3f(2, 1, 1);
-		glVertex3f(2, -1, 1);
-		glVertex3f(2, -1, -1);
-		glVertex3f(2, 1, -1);
-		glVertex3f(2, 1, 1);
-        glEnd();
-        /* Draw a white line from light direction. */
-        glColor3f(1.0, 1.0, 1.0);
-        glBegin(GL_LINES);
-		glVertex3f(0.1, 0, 0);
-		glVertex3f(5, 0, 0);
-        glEnd();
-        glEnable(GL_CULL_FACE);
-    } else {
-        /* Draw a yellow ball at the light source. */
-        glTranslatef(lightPosition[0], lightPosition[1], lightPosition[2]);
-        glutSolidSphere(1.0, 5, 5);
-    }
-    glEnable(GL_LIGHTING);
-    glPopMatrix();
-    /* End light source location render. */
-
-    /* Add a halo effect around the 3D model. */
-    if (haloScale > 1.0) {
-
-		glDisable(GL_LIGHTING);
-
-		if (blendedHalo) {
-			/* If we are doing a nice blended halo, enable blending and
-			make sure we only blend a halo pixel once and that we do
-			not draw to pixels tagged as 6 (where the model is). */
+		
+		if (renderDinosaur) {
+			drawPillar();
+			
+			if (haloScale > 1.0) {
+				/* If halo effect is enabled, draw the model with its stencil set to 6
+				(arbitary value); later, we'll make sure not to update pixels tagged
+				as 6. */
+				glEnable(GL_STENCIL_TEST);
+				glStencilFunc(GL_ALWAYS, 0x0, 0x4);
+				glStencilMask(0x4);
+				glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+			}
+			
+			/* Draw "actual" dinosaur (or other model), not its reflection. */
+			glPushMatrix {
+				glTranslatef(0, 8.01, 0);
+				drawModel();
+			}
+		}
+		
+		/* Begin shadow render. */
+		if (renderShadow) {
+			
+			/* Render the projected shadow. */
+			
+			if (stencilShadow) {
+				
+				/* Now, only render where stencil is set above 5 (ie, 6 where
+				the top floor is).  Update stencil with 2 where the shadow
+				gets drawn so we don't redraw (and accidently reblend) the
+				shadow). */
+				glEnable(GL_STENCIL_TEST);
+				glStencilFunc(GL_NOTEQUAL, 0x0, 0x2);
+				glStencilMask(0x2);
+				glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+			}
+			
+			/* To eliminate depth buffer artifacts, we use polygon offset
+			to raise the depth of the projected shadow slightly so
+			that it does not depth buffer alias with the floor. */
+			if (offsetShadow) {
+				if (polygonOffsetVersion == ONE_DOT_ONE) {
+					glEnable(GL_POLYGON_OFFSET_FILL);
+				} elsif (polygonOffsetVersion == MISSING) {
+					/* Oh well. */
+				}
+			}
+			
+			/* Render 50% black shadow color on top of whatever the
+			floor appareance is. */
 			glEnable(GL_BLEND);
-			glEnable(GL_STENCIL_TEST);
-			glColor4f(0.8, 0.8, 0.0, 0.3);  /* 30% sorta yellow. */
-			glStencilFunc(GL_EQUAL, 0x4, 0x4);
-			glStencilMask(0x4);
-			glStencilOp(GL_KEEP, GL_KEEP, GL_INVERT);
-		} else {
-			/* Be cheap; no blending.  Just draw yellow halo but not updating
-			pixels where the model is.  We don't update stencil at all. */
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glDisable(GL_LIGHTING);  /* Force the 50% black. */
+			glColor4f(0.0, 0.0, 0.0, 0.5);
+			
+			glPushMatrix();
+			/* Project the shadow. */
+			glMultMatrixf(floorShadow.flat());
+			glPushMatrix();
+			glTranslatef(0, 8.01, 0);
+			drawModel();
+			glPopMatrix();
+			drawPillar();
+			glPopMatrix();
+			
 			glDisable(GL_BLEND);
-			glEnable(GL_STENCIL_TEST);
-			glColor3f(0.5, 0.5, 0.0);  /* Half yellow. */
-			glStencilFunc(GL_EQUAL, 0x4, 0x4);
-			glStencilMask(0x4);
-			glStencilOp(GL_KEEP, GL_KEEP, GL_INVERT);
-		}
-
+			glEnable(GL_LIGHTING);
+			
+			if (offsetShadow) {
+				if (polygonOffsetVersion == ONE_DOT_ONE) {
+					glDisable(GL_POLYGON_OFFSET_FILL);
+				} elsif (polygonOffsetVersion == MISSING) {
+					/* Oh well. */
+				}
+			}
+			if (stencilShadow) {
+				glDisable(GL_STENCIL_TEST);
+			}
+		} /* End shadow render. */
+		
+		/* Begin light source location render. */
 		glPushMatrix();
-        glTranslatef(0, 8.01, 0);
-        glScalef(haloScale, haloScale, haloScale);
-        drawModel();
-		glPopMatrix();
-
-		if (blendedHalo) {
-			glDisable(GL_BLEND);
+		glDisable(GL_LIGHTING);
+		glColor3f(1.0, 1.0, 0.0);
+		if (directionalLight) {
+			/* Draw an arrowhead. */
+			glDisable(GL_CULL_FACE);
+			glTranslatef(lightPosition[0], lightPosition[1], lightPosition[2]);
+			glRotatef(lightAngle * (-180.0) / M_PI, 0, 1, 0);
+			glRotatef(math.atan(lightHeight / 12) * 180.0 / M_PI, 0, 0, 1);
+			glBegin(GL_TRIANGLE_FAN);
+  			glVertex3f(0, 0, 0);
+			glVertex3f(2, 1, 1);
+			glVertex3f(2, -1, 1);
+			glVertex3f(2, -1, -1);
+			glVertex3f(2, 1, -1);
+			glVertex3f(2, 1, 1);
+			glEnd();
+			/* Draw a white line from light direction. */
+			glColor3f(1.0, 1.0, 1.0);
+			glBegin(GL_LINES);
+			glVertex3f(0.1, 0, 0);
+			glVertex3f(5, 0, 0);
+			glEnd();
+			glEnable(GL_CULL_FACE);
+		} else {
+			/* Draw a yellow ball at the light source. */
+			glTranslatef(lightPosition[0], lightPosition[1], lightPosition[2]);
+			glutSolidSphere(1.0, 5, 5);
 		}
-		glDisable(GL_STENCIL_TEST);
 		glEnable(GL_LIGHTING);
-    }
-    /* End halo effect render. */
-	
-	glPopMatrix();
+		glPopMatrix()
+		/* End light source location render. */
+
+		/* Add a halo effect around the 3D model. */
+		if (haloScale > 1.0) {
+			
+			glDisable(GL_LIGHTING);
+			
+			if (blendedHalo) {
+				/* If we are doing a nice blended halo, enable blending and
+				make sure we only blend a halo pixel once and that we do
+				not draw to pixels tagged as 6 (where the model is). */
+				glEnable(GL_BLEND);
+				glEnable(GL_STENCIL_TEST);
+				glColor4f(0.8, 0.8, 0.0, 0.3);  /* 30% sorta yellow. */
+				glStencilFunc(GL_EQUAL, 0x4, 0x4);
+				glStencilMask(0x4);
+				glStencilOp(GL_KEEP, GL_KEEP, GL_INVERT);
+			} else {
+				/* Be cheap; no blending.  Just draw yellow halo but not updating
+				pixels where the model is.  We don't update stencil at all. */
+				glDisable(GL_BLEND);
+				glEnable(GL_STENCIL_TEST);
+				glColor3f(0.5, 0.5, 0.0);  /* Half yellow. */
+				glStencilFunc(GL_EQUAL, 0x4, 0x4);
+				glStencilMask(0x4);
+				glStencilOp(GL_KEEP, GL_KEEP, GL_INVERT);
+			}
+			
+			glPushMatrix();
+			glTranslatef(0, 8.01, 0);
+			glScalef(haloScale, haloScale, haloScale);
+			drawModel();
+			glPopMatrix();
+			
+			if (blendedHalo) {
+				glDisable(GL_BLEND);
+			}
+			glDisable(GL_STENCIL_TEST);
+			glEnable(GL_LIGHTING);
+		}
+		/* End halo effect render. */
+	}
+
 
 	if (reportSpeed) {
 		glFinish();
