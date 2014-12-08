@@ -54,7 +54,7 @@
 	(,(rx "`" (1+ word))
 	 (0 font-lock-variable-name-face))
 	;; function name
-	(,(rx symbol-start (group (1+ word)) (0+ space) "(")
+	(,(rx symbol-start (group (1+ word)) (0+ space) (or "(" "{"))
 	 (1 font-lock-function-name-face))
 	;; module/class/instance name
 	(,(rx symbol-start (group (or alpha "_" "$" "@") (0+ word)) (0+ space) ".")
