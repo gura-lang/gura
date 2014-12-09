@@ -5265,7 +5265,7 @@ Gura_ImplementFunction(__glScissor)
 // opengl.glSelectBuffer
 Gura_DeclareFunctionAlias(__glSelectBuffer, "glSelectBuffer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
@@ -5276,9 +5276,9 @@ Gura_DeclareFunctionAlias(__glSelectBuffer, "glSelectBuffer")
 Gura_ImplementFunction(__glSelectBuffer)
 {
 	GLsizei size = args.GetInt(0);
-	CArray<GLuint> buffer(size);
-	glSelectBuffer(size, buffer);
-	return ReturnValue(env, sig, args, Value::CreateList(env, buffer, size));
+	//glSelectBuffer(size, reinterpret_cast<GLuint *>(buff.data()));
+	//return ReturnValue(env, sig, args, Value(env, pObjBinary.release()));
+	return Value::Null;
 }
 
 // opengl.glShadeModel

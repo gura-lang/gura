@@ -14,6 +14,32 @@ typedef std::map<GLenum, size_t> ParamInfoDict;
 static ParamInfoDict *_pParamInfoDict = NULL;
 
 //-----------------------------------------------------------------------------
+// Object_Buffer
+//-----------------------------------------------------------------------------
+Object_Buffer::Object_Buffer(Memory *pBuff) : Object(Gura_UserClass(Buffer)), _pBuff(pBuff)
+{
+}
+
+Object_Buffer::~Object_Buffer()
+{
+}
+
+Object *Object_Buffer::Clone() const
+{
+	return NULL;
+}
+
+String Object_Buffer::ToString(bool exprFlag)
+{
+	return String("<opengl.Buffer>");
+}
+
+// implementation of class Quadric
+Gura_ImplementUserClass(Buffer)
+{
+}
+
+//-----------------------------------------------------------------------------
 // helper
 //-----------------------------------------------------------------------------
 size_t GetParamCount(GLenum pname)
@@ -1427,6 +1453,7 @@ Gura_ImplementMethod(image, opengl)
 Gura_ModuleEntry()
 {
 	PrepareParamInfoDict();
+	Gura_RealizeUserClass(Buffer, env.LookupClass(VTYPE_object));
 	AssignValues(env);
 	AssignFunctions(env);
 	Gura_AssignMethodTo(VTYPE_image, image, opengl);

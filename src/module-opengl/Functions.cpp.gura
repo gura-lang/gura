@@ -1785,10 +1785,10 @@ glScissor(x:GLint, y:GLint, width:GLsizei, height:GLsizei):void:map = `auto % {`
 	'''
 }
 
-glSelectBuffer(size:GLsizei):map {block?} = R'''
-	CArray<GLuint> buffer(size);
-	glSelectBuffer(size, buffer);
-	return ReturnValue(env, sig, args, Value::CreateList(env, buffer, size));
+glSelectBuffer(size:GLsizei) {block?} = R'''
+	//glSelectBuffer(size, reinterpret_cast<GLuint *>(buff.data()));
+	//return ReturnValue(env, sig, args, Value(env, pObjBinary.release()));
+	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
 	'''
