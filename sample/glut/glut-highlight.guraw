@@ -60,7 +60,7 @@ TORUS		= 1
 TETRAHEDRON	= 2
 ICOSAHEDRON	= 3
 
-selectBuf = dim(BUFSIZE) {0}
+selectBuf = nil
 
 W = 500, H = 500;
 x = 0, y = 0;
@@ -101,7 +101,7 @@ myinit() = {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 
-	glSelectBuffer(selectBuf);
+	selectBuf:extern = glSelectBuffer(BUFSIZE);
 
 	glNewList(TORUS, GL_COMPILE);
 	glutSolidTorus(0.275, 0.85, 10, 15);
@@ -184,31 +184,29 @@ myortho() = {
 /*  processHits() prints out the contents of the 
  *  selection array.
  */
-processHits(hits:number, buffer[]:number) = {
-	depth = ~0;
-
-	ptr = buffer.each();
+processHits(hits:number, buffer:opengl.Buffer) = {
+	depth = ~0
+	iBuffer = 0
 	newObject = 0;
-	repeat(hits) {  /* for each hit  */
-		getThisName = false;
-		names = ptr.next(); /* skip # name */
-		val = ptr.next()	/* skip z1 */
-		if (val <= depth) {
-			depth = val;
-			getThisName = true;
+	repeat(hits) {			/* for each hit  */
+		getThisName = false
+		names = buffer[iBuffer]
+		iBuffer += 1		/* skip # name */
+		if (buffer[iBuffer] <= depth) {
+			depth = buffer[iBuffer];
+			getThisName = true
 		}
-		val = ptr.next();	/* skip z2 */
-		if (val <= depth) {
-			depth = val;
-			getThisName = true;
+		iBuffer += 1;		/* skip z1 */
+		if (buffer[iBuffer] <= depth) {
+			depth = buffer[iBuffer];
+			getThisName = true
 		}
-		val = ptr.next()
+		iBuffer += 1		/* skip z2 */
+
 		if (getThisName) {
-			newObject = *ptr;
+			newObject = buffer[iBuffer];
 		}
-		repeat(names - 1) {
-			ptr.next()		/* skip the names list */
-		}
+		iBuffer += names	/* skip the names list */
 	}
 	if (theObject != newObject) {
 		theObject = newObject;

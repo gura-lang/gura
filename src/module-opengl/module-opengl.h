@@ -26,11 +26,15 @@ public:
 private:
 	AutoPtr<Memory> _pBuff;
 public:
-	Object_Buffer(Memory *pBuff);
+	Object_Buffer(size_t n);
 	virtual ~Object_Buffer();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	inline Memory *GetBuffer() { return _pBuff.get(); }
+	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
+	inline GLuint *GetBuffer() {
+		return reinterpret_cast<GLuint *>(_pBuff->GetPointer());
+	}
+	inline size_t GetSize() const { return _pBuff->GetSize() / sizeof(GLuint); }
 private:
 	inline Object_Buffer(const Object_Buffer &obj) : Object(obj) {}
 };

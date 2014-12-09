@@ -5276,9 +5276,9 @@ Gura_DeclareFunctionAlias(__glSelectBuffer, "glSelectBuffer")
 Gura_ImplementFunction(__glSelectBuffer)
 {
 	GLsizei size = args.GetInt(0);
-	//glSelectBuffer(size, reinterpret_cast<GLuint *>(buff.data()));
-	//return ReturnValue(env, sig, args, Value(env, pObjBinary.release()));
-	return Value::Null;
+	AutoPtr<Object_Buffer> pObjBuff(new Object_Buffer(size));
+	glSelectBuffer(size, pObjBuff->GetBuffer());
+	return ReturnValue(env, sig, args, Value(pObjBuff.release()));
 }
 
 // opengl.glShadeModel

@@ -16,7 +16,8 @@ static ParamInfoDict *_pParamInfoDict = NULL;
 //-----------------------------------------------------------------------------
 // Object_Buffer
 //-----------------------------------------------------------------------------
-Object_Buffer::Object_Buffer(Memory *pBuff) : Object(Gura_UserClass(Buffer)), _pBuff(pBuff)
+Object_Buffer::Object_Buffer(size_t n) :
+	Object(Gura_UserClass(Buffer)), _pBuff(new MemoryHeap(n * sizeof(GLuint)))
 {
 }
 
@@ -32,6 +33,20 @@ Object *Object_Buffer::Clone() const
 String Object_Buffer::ToString(bool exprFlag)
 {
 	return String("<opengl.Buffer>");
+}
+
+Value Object_Buffer::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
+{
+	if (!valueIdx.Is_number()) {
+		sig.SetError(ERR_ValueError, "index must be a number");
+		return Value::Null;
+	}
+	size_t idx = valueIdx.GetSizeT();
+	if (idx >= GetSize()) {
+		sig.SetError(ERR_OutOfRangeError, "index is out of range");
+		return Value::Null;
+	}
+	return Value(GetBuffer()[idx]);
 }
 
 // implementation of class Quadric
