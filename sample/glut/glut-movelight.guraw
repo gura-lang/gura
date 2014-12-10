@@ -1,0 +1,249 @@
+#!/usr/bin/env gura
+// This Gura program has been ported from the original C code below:
+// https://www.opengl.org/archives/resources/code/samples/glut_examples/examples/movelight.c
+
+/* Copyright (c) Mark J. Kilgard, 1994. */
+
+/* This program is freely distributable without licensing fees 
+   and is provided without guarantee or warrantee expressed or 
+   implied. This program is -not- in the public domain. */
+
+/**
+ * (c) Copyright 1993, Silicon Graphics, Inc.
+ * ALL RIGHTS RESERVED 
+ * Permission to use, copy, modify, and distribute this software for 
+ * any purpose and without fee is hereby granted, provided that the above
+ * copyright notice appear in all copies and that both the copyright notice
+ * and this permission notice appear in supporting documentation, and that 
+ * the name of Silicon Graphics, Inc. not be used in advertising
+ * or publicity pertaining to distribution of the software without specific,
+ * written prior permission. 
+ *
+ * THE MATERIAL EMBODIED ON THIS SOFTWARE IS PROVIDED TO YOU "AS-IS"
+ * AND WITHOUT WARRANTY OF ANY KIND, EXPRESS, IMPLIED OR OTHERWISE,
+ * INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE.  IN NO EVENT SHALL SILICON
+ * GRAPHICS, INC.  BE LIABLE TO YOU OR ANYONE ELSE FOR ANY DIRECT,
+ * SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY
+ * KIND, OR ANY DAMAGES WHATSOEVER, INCLUDING WITHOUT LIMITATION,
+ * LOSS OF PROFIT, LOSS OF USE, SAVINGS OR REVENUE, OR THE CLAIMS OF
+ * THIRD PARTIES, WHETHER OR NOT SILICON GRAPHICS, INC.  HAS BEEN
+ * ADVISED OF THE POSSIBILITY OF SUCH LOSS, HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE
+ * POSSESSION, USE OR PERFORMANCE OF THIS SOFTWARE.
+ * 
+ * US Government Users Restricted Rights 
+ * Use, duplication, or disclosure by the Government is subject to
+ * restrictions set forth in FAR 52.227.19(c)(2) or subparagraph
+ * (c)(1)(ii) of the Rights in Technical Data and Computer Software
+ * clause at DFARS 252.227-7013 and/or in similar or successor
+ * clauses in the FAR or the DOD or NASA FAR Supplement.
+ * Unpublished-- rights reserved under the copyright laws of the
+ * United States.  Contractor/manufacturer is Silicon Graphics,
+ * Inc., 2011 N.  Shoreline Blvd., Mountain View, CA 94039-7311.
+ *
+ * OpenGL(TM) is a trademark of Silicon Graphics, Inc.
+ */
+/**
+ *  movelight.c
+ *  This program demonstrates when to issue lighting and 
+ *  transformation commands to render a model with a light 
+ *  which is moved by a modeling transformation (rotate or 
+ *  translate).  The light position is reset after the modeling 
+ *  transformation is called.  The eye position does not change.
+ *
+ *  A sphere is drawn using a grey material characteristic. 
+ *  A single light source illuminates the object.
+ *
+ *  Interaction:  pressing the left or middle mouse button
+ *  alters the modeling transformation (x rotation) by 30 degrees.  
+ *  The scene is then redrawn with the light in a new position.
+ */
+import(opengl) {*}
+import(glu) {*}
+import(glut) {*}
+
+TORUS = 0
+TEAPOT = 1
+DOD = 2
+TET = 3
+ISO = 4
+QUIT = 5
+
+spin = 0;
+obj = TORUS;
+begin = 0;
+
+output(x:number, y:number, fmt:string, args*) = {
+	buffer = format(fmt, args*)
+	glPushMatrix();
+	glTranslatef(x, y, 0);
+    glutStrokeCharacter(GLUT_STROKE_ROMAN, buffer.each():utf8);
+	glPopMatrix();
+}
+
+menu_select(item:number) = {
+	if (item == QUIT) {
+		sys.exit(0);
+	}
+	obj:extern = item;
+	glutPostRedisplay();
+}
+
+movelight(button:number, state:number, x:number, y:number) = {
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
+		begin:extern = x;
+	}
+}
+
+motion(x:number, y:number) = {
+	spin:extern = (spin + (x - begin)) % 360;
+	begin:extern = x;
+	glutPostRedisplay();
+}
+
+myinit() = {
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+
+	glDepthFunc(GL_LESS);
+	glEnable(GL_DEPTH_TEST);
+}
+
+/*  Here is where the light position is reset after the modeling
+ *  transformation (glRotated) is called.  This places the 
+ *  light at a new position in world coordinates.  The cube
+ *  represents the position of the light.
+ */
+display() = {
+	position = \
+		@{0.0, 0.0, 1.5, 1.0};
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glTranslatef(0.0, 0.0, -5.0);
+
+	glPushMatrix();
+	glRotated(spin, 0.0, 1.0, 0.0);
+	glRotated(0.0, 1.0, 0.0, 0.0);
+	glLightfv(GL_LIGHT0, GL_POSITION, position);
+
+	glTranslated(0.0, 0.0, 1.5);
+	glDisable(GL_LIGHTING);
+	glColor3f(0.0, 1.0, 1.0);
+	glutWireCube(0.1);
+	glEnable(GL_LIGHTING);
+	glPopMatrix();
+
+	if (obj == TORUS) {
+		glutSolidTorus(0.275, 0.85, 20, 20);
+	} elsif (obj == TEAPOT) {
+		glutSolidTeapot(1.0);
+	} elsif (obj == DOD) {
+		glPushMatrix();
+		glScalef(.5, .5, .5);
+		glutSolidDodecahedron();
+		glPopMatrix();
+	} elsif (obj == TET) {
+		glutSolidTetrahedron();
+	} elsif (obj == ISO) {
+		glutSolidIcosahedron();
+	}
+
+	glPopMatrix();
+	glPushAttrib(GL_ENABLE_BIT);
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_LIGHTING);
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, 3000, 0, 3000);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	output(80, 2800, "Welcome to movelight.");
+	output(80, 2650, "Right mouse button for menu.");
+	output(80, 400, "Hold down the left mouse button");
+	output(80, 250, "and move the mouse horizontally");
+	output(80, 100, "to change the light position.");
+	glPopMatrix();
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glPopAttrib();
+	glutSwapBuffers();
+}
+
+myReshape(w:number, h:number) = {
+	glViewport(0, 0, w, h);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(40.0, w / h, 1.0, 20.0);
+	glMatrixMode(GL_MODELVIEW);
+}
+
+tmotion(x:number, y:number) = {
+	printf("Tablet motion x = %d, y = %d\n", x, y);
+}
+
+tbutton(b:number, s:number, x:number, y:number) = {
+	printf("b = %d, s = %d, x = %d, y = %d\n", b, s, x, y);
+}
+
+smotion(x:number, y:number, z:number) = {
+	sys.stderr.printf("Spaceball motion %d %d %d\n", x, y, z);
+}
+
+rmotion(x:number, y:number, z:number) = {
+	sys.stderr.printf("Spaceball rotate %d %d %d\n", x, y, z);
+}
+
+sbutton(button:number, state:number) = {
+	sys.stderr.printf("Spaceball button %d is %s\n",
+					  button, cond(state == GLUT_UP, "up", "down"));
+}
+
+dials(dial:number, value:number) = {
+	sys.stderr.printf("Dial %d is %d\n", dial, value);
+	spin:extern = value % 360;
+	glutPostRedisplay();
+}
+
+buttons(button:number, state:number) = {
+	sys.stderr.printf("Button %d is %s\n", button,
+					  cond(state == GLUT_UP, "up", "down"));
+}
+
+/*  Main Loop
+ *  Open window with initial window size, title bar, 
+ *  RGBA display mode, and handle input events.
+ */
+main() = {
+	argv = glutInit(sys.argv);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+	glutInitWindowSize(500, 500);
+	glutCreateWindow(argv[0]);
+	myinit();
+	glutMouseFunc(movelight);
+	glutMotionFunc(motion);
+	glutReshapeFunc(myReshape);
+	glutDisplayFunc(display);
+	glutTabletMotionFunc(tmotion);
+	glutTabletButtonFunc(tbutton);
+	glutSpaceballMotionFunc(smotion);
+	glutSpaceballRotateFunc(rmotion);
+	glutSpaceballButtonFunc(sbutton);
+	glutDialsFunc(dials);
+	glutButtonBoxFunc(buttons);
+	glutCreateMenu(menu_select);
+	glutAddMenuEntry("Torus", TORUS);
+	glutAddMenuEntry("Teapot", TEAPOT);
+	glutAddMenuEntry("Dodecahedron", DOD);
+	glutAddMenuEntry("Tetrahedron", TET);
+	glutAddMenuEntry("Icosahedron", ISO);
+	glutAddMenuEntry("Quit", QUIT);
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+	glutMainLoop();
+}
+
+main()
