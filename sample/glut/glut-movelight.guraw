@@ -76,10 +76,10 @@ begin = 0;
 
 output(x:number, y:number, fmt:string, args*) = {
 	buffer = format(fmt, args*)
-	glPushMatrix();
-	glTranslatef(x, y, 0);
-    glutStrokeCharacter(GLUT_STROKE_ROMAN, buffer.each():utf8);
-	glPopMatrix();
+	glPushMatrix {
+		glTranslatef(x, y, 0);
+		glutStrokeCharacter(GLUT_STROKE_ROMAN, buffer.each():utf8);
+	}
 }
 
 menu_select(item:number) = {
@@ -121,56 +121,56 @@ display() = {
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glTranslatef(0.0, 0.0, -5.0);
+	glPushMatrix {
+		glTranslatef(0.0, 0.0, -5.0);
 
-	glPushMatrix();
-	glRotated(spin, 0.0, 1.0, 0.0);
-	glRotated(0.0, 1.0, 0.0, 0.0);
-	glLightfv(GL_LIGHT0, GL_POSITION, position);
+		glPushMatrix {
+			glRotated(spin, 0.0, 1.0, 0.0);
+			glRotated(0.0, 1.0, 0.0, 0.0);
+			glLightfv(GL_LIGHT0, GL_POSITION, position);
 
-	glTranslated(0.0, 0.0, 1.5);
-	glDisable(GL_LIGHTING);
-	glColor3f(0.0, 1.0, 1.0);
-	glutWireCube(0.1);
-	glEnable(GL_LIGHTING);
-	glPopMatrix();
+			glTranslated(0.0, 0.0, 1.5);
+			glDisable(GL_LIGHTING);
+			glColor3f(0.0, 1.0, 1.0);
+			glutWireCube(0.1);
+			glEnable(GL_LIGHTING);
+		}
 
-	if (obj == TORUS) {
-		glutSolidTorus(0.275, 0.85, 20, 20);
-	} elsif (obj == TEAPOT) {
-		glutSolidTeapot(1.0);
-	} elsif (obj == DOD) {
-		glPushMatrix();
-		glScalef(.5, .5, .5);
-		glutSolidDodecahedron();
-		glPopMatrix();
-	} elsif (obj == TET) {
-		glutSolidTetrahedron();
-	} elsif (obj == ISO) {
-		glutSolidIcosahedron();
+		if (obj == TORUS) {
+			glutSolidTorus(0.275, 0.85, 20, 20);
+		} elsif (obj == TEAPOT) {
+			glutSolidTeapot(1.0);
+		} elsif (obj == DOD) {
+			glPushMatrix {
+				glScalef(.5, .5, .5);
+				glutSolidDodecahedron();
+			}
+		} elsif (obj == TET) {
+			glutSolidTetrahedron();
+		} elsif (obj == ISO) {
+			glutSolidIcosahedron();
+		}
 	}
 
-	glPopMatrix();
-	glPushAttrib(GL_ENABLE_BIT);
-	glDisable(GL_DEPTH_TEST);
-	glDisable(GL_LIGHTING);
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	glLoadIdentity();
-	gluOrtho2D(0, 3000, 0, 3000);
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glLoadIdentity();
-	output(80, 2800, "Welcome to movelight.");
-	output(80, 2650, "Right mouse button for menu.");
-	output(80, 400, "Hold down the left mouse button");
-	output(80, 250, "and move the mouse horizontally");
-	output(80, 100, "to change the light position.");
-	glPopMatrix();
-	glMatrixMode(GL_PROJECTION);
-	glPopMatrix();
-	glPopAttrib();
+	glPushAttrib(GL_ENABLE_BIT) {
+		glDisable(GL_DEPTH_TEST);
+		glDisable(GL_LIGHTING);
+		glMatrixMode(GL_PROJECTION);
+		glPushMatrix {
+			glLoadIdentity();
+			gluOrtho2D(0, 3000, 0, 3000);
+			glMatrixMode(GL_MODELVIEW);
+			glPushMatrix {
+				glLoadIdentity();
+				output(80, 2800, "Welcome to movelight.");
+				output(80, 2650, "Right mouse button for menu.");
+				output(80, 400, "Hold down the left mouse button");
+				output(80, 250, "and move the mouse horizontally");
+				output(80, 100, "to change the light position.");
+			}
+			glMatrixMode(GL_PROJECTION);
+		}
+	}
 	glutSwapBuffers();
 }
 
