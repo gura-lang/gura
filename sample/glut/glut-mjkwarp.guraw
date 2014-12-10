@@ -1,0 +1,295 @@
+#!/usr/bin/env gura
+// This Gura program has been ported from the original C code below:
+// https://www.opengl.org/archives/resources/code/samples/glut_examples/examples/mjkwarp.c
+
+/* Copyright (c) Mark J. Kilgard, 1994.  */
+
+/* This program is freely distributable without licensing fees 
+   and is provided without guarantee or warrantee expressed or 
+   implied. This program is -not- in the public domain. */
+
+import(opengl) {*}
+import(glu) {*}
+import(glut) {*}
+import(mjkimage) {*}
+
+tick1 = 0;
+tick2 = 0;
+angle = 0;
+size = 0;
+set_timeout = false;
+visible = false;
+spinning = true;
+scaling = true;
+interval = 100;
+CUBE = 1
+SQUARES = 2
+DRUM = 3
+mode = SQUARES;
+
+animate(value:number) = {
+	if (visible) {
+		if (spinning || scaling) {
+			if (value != 0) {
+				if (spinning) {
+					tick1:extern += 4 * (interval / 100.0);
+					angle:extern = int(tick1) % 360;
+				}
+				if (scaling) {
+					tick2:extern += 2 * (interval / 100.0);
+					size:extern = .7 - .5 * math.sin(tick2 / 20.0);
+				}
+			}
+			glutPostRedisplay();
+			set_timeout:extern = true;
+		}
+	}
+}
+
+TIMEDELTA(dest, src1, src2) = {
+    if(((dest).tv_usec = (src1).tv_usec - (src2).tv_usec) < 0) {
+        (dest).tv_usec += 1000000;
+        (dest).tv_sec = (src1).tv_sec - (src2).tv_sec - 1;
+    } else  {
+		(dest).tv_sec = (src1).tv_sec - (src2).tv_sec;
+	}
+}
+
+redraw() = {
+	if (set_timeout) {
+		begin = glutGet(GLUT_ELAPSED_TIME);
+	}
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glPushMatrix();
+
+	if (mode != DRUM) {
+		glScalef(size, size, size);
+	}
+	if (mode == SQUARES) {
+
+		COLS = 6
+		TILE_TEX_W = (1.0/COLS)
+		ROWS = 6
+		TILE_TEX_H = (1.0/ROWS)
+
+		glTranslatef(-COLS / 2.0 + .5, -ROWS / 2.0 + .5, 0);
+		cross(i in 0..(COLS - 1), j in 0..(ROWS - 1)) {
+
+			glPushMatrix();
+			glTranslatef(i, j, 0);
+			glRotatef(angle, 0, 1, 1);
+			glBegin(GL_QUADS);
+			glTexCoord2f(i * TILE_TEX_W, j * TILE_TEX_H);
+			glVertex2f(-.5, -.5);
+			glTexCoord2f((i + 1) * TILE_TEX_W, j * TILE_TEX_H);
+			glVertex2f(.5, -.5);
+			glTexCoord2f((i + 1) * TILE_TEX_W, (j + 1) * TILE_TEX_H);
+			glVertex2f(.5, .5);
+			glTexCoord2f(i * TILE_TEX_W, (j + 1) * TILE_TEX_H);
+			glVertex2f(-.5, .5);
+			glEnd();
+			glPopMatrix();
+				
+		}
+	} elsif (mode == DRUM) {
+
+		COLS = 12
+		TILE_TEX_W = (1.0/COLS)
+		ROWS = 12
+		TILE_TEX_H = (1.0/ROWS)
+
+		glRotatef(angle, 0, 0, 1);
+		glTranslatef(-COLS / 2.0 + .5, -ROWS / 2.0 + .5, 0);
+		amplitude = 0.4 * math.sin(tick2 / 6.0);
+		Z(x,y) = (((COLS-(x))*(x) + (ROWS-(y))*(y)) * amplitude) - 28.0
+		cross (i in 0..(COLS - 1), j in 0..(ROWS - 1)) {
+
+			glPushMatrix();
+			glTranslatef(i, j, 0);
+			glBegin(GL_QUADS);
+			glTexCoord2f(i * TILE_TEX_W, j * TILE_TEX_H);
+			glVertex3f(-.5, -.5, Z(i, j));
+			glTexCoord2f((i + 1) * TILE_TEX_W, j * TILE_TEX_H);
+			glVertex3f(.5, -.5, Z(i + 1, j));
+			glTexCoord2f((i + 1) * TILE_TEX_W, (j + 1) * TILE_TEX_H);
+			glVertex3f(.5, .5, Z(i + 1, j + 1));
+			glTexCoord2f(i * TILE_TEX_W, (j + 1) * TILE_TEX_H);
+			glVertex3f(-.5, .5, Z(i, j + 1));
+			glEnd();
+			glPopMatrix();
+				
+		}
+	} elsif (mode == CUBE) { 
+		glRotatef(angle, 0, 1, 0);
+		glBegin(GL_QUADS);
+
+		/* front */
+		glTexCoord2f(0.0, 0.0);
+		glVertex3f(-1.0, -1.0, 1.0);
+		glTexCoord2f(1.0, 0.0);
+		glVertex3f(1.0, -1.0, 1.0);
+		glTexCoord2f(1.0, 1.0);
+		glVertex3f(1.0, 1.0, 1.0);
+		glTexCoord2f(0.0, 1.0);
+		glVertex3f(-1.0, 1.0, 1.0);
+
+		/* back */
+		glTexCoord2f(0.0, 1.0);
+		glVertex3f(-1.0, 1.0, -1.0);
+		glTexCoord2f(1.0, 1.0);
+		glVertex3f(1.0, 1.0, -1.0);
+		glTexCoord2f(1.0, 0.0);
+		glVertex3f(1.0, -1.0, -1.0);
+		glTexCoord2f(0.0, 0.0);
+		glVertex3f(-1.0, -1.0, -1.0);
+
+		/* left */
+		glTexCoord2f(0.0, 0.0);
+		glVertex3f(-1.0, -1.0, -1.0);
+		glTexCoord2f(1.0, 0.0);
+		glVertex3f(-1.0, -1.0, 1.0);
+		glTexCoord2f(1.0, 1.0);
+		glVertex3f(-1.0, 1.0, 1.0);
+		glTexCoord2f(0.0, 1.0);
+		glVertex3f(-1.0, 1.0, -1.0);
+
+		/* right */
+		glTexCoord2f(0.0, 1.0);
+		glVertex3f(1.0, 1.0, -1.0);
+		glTexCoord2f(1.0, 1.0);
+		glVertex3f(1.0, 1.0, 1.0);
+		glTexCoord2f(1.0, 0.0);
+		glVertex3f(1.0, -1.0, 1.0);
+		glTexCoord2f(0.0, 0.0);
+		glVertex3f(1.0, -1.0, -1.0);
+
+		glEnd();
+	}
+
+	glPopMatrix();
+	glutSwapBuffers();
+	if (set_timeout) {
+		set_timeout:extern = false;
+		end = glutGet(GLUT_ELAPSED_TIME);
+		elapsed = end - begin;
+		if (elapsed > interval) {
+			glutTimerFunc(0, animate, 1);
+		} else {
+			glutTimerFunc(interval - elapsed, animate, 1);
+		}
+	}
+}
+
+width = 0;
+height = 0;
+depth = 0;
+bits = b''
+
+visibility(state:number) = {
+	if (state == GLUT_VISIBLE) {
+		visible:extern = true;
+		animate(0);
+	} else {
+		visible:extern = 0;
+	}
+}
+
+minify_select(value:number) = {
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, value);
+	gluBuild2DMipmaps(GL_TEXTURE_2D, depth, width, height,
+					  GL_RGB, GL_UNSIGNED_BYTE, bits);
+	glutPostRedisplay();
+}
+
+rate_select(value:number) = {
+	interval:extern = value;
+}
+
+menu_select(value:number) = {
+	if (value == 1) {
+		spinning:extern = !spinning;
+		if (spinning) {
+			animate(0);
+		}
+	} elsif (value == 2) {
+		scaling:extern = !scaling;
+		if (scaling) {
+			animate(0);
+		}
+	} elsif (value == 3) {
+		mode:extern += 1;
+		if (mode > DRUM) {
+			mode = CUBE;
+		}
+		if (mode == CUBE) {
+			glEnable(GL_CULL_FACE);
+			glDisable(GL_DEPTH_TEST);
+		} elsif (mode == SQUARES) {
+			glDisable(GL_CULL_FACE);
+			glDisable(GL_DEPTH_TEST);
+		} elsif (mode == DRUM) {
+			glEnable(GL_DEPTH_TEST);
+			glDisable(GL_CULL_FACE);
+		}
+		glutPostRedisplay();
+	} elsif (value == 666) {
+		sys.exit(0);
+	}
+}
+
+main() = {
+	argv = glutInit(sys.argv);
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+	glutCreateWindow("mjkwarp");
+	glutDisplayFunc(redraw);
+	glMatrixMode(GL_PROJECTION);
+	gluPerspective( /* field of view in degree */ 40.0,
+				   /* aspect ratio */ 1.0,
+				   /* Z near */ 1.0, /* Z far */ 70.0);
+	glMatrixMode(GL_MODELVIEW);
+	gluLookAt(0.0, 0.0, 5.0,  /* eye is at (0,0,30) */
+			  0.0, 0.0, 0.0,      /* center is at (0,0,0) */
+			  0.0, 1.0, 0.);      /* up is in positive Y direction */
+	depth:extern = mjk_depth;
+	width:extern = mjk_width;
+	height:extern = mjk_height;
+	bits:extern = mjk_image;
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	gluBuild2DMipmaps(GL_TEXTURE_2D, depth, width, height,
+					  GL_RGB, GL_UNSIGNED_BYTE, bits);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glEnable(GL_TEXTURE_2D);
+	glutVisibilityFunc(visibility);
+	minify_menu = glutCreateMenu(minify_select);
+	glutAddMenuEntry("Nearest", GL_NEAREST);
+	glutAddMenuEntry("Linear", GL_LINEAR);
+	glutAddMenuEntry("Nearest mipmap nearest", GL_NEAREST_MIPMAP_NEAREST);
+	glutAddMenuEntry("Linear mipmap nearest", GL_LINEAR_MIPMAP_NEAREST);
+	glutAddMenuEntry("Nearest mipmap linear", GL_NEAREST_MIPMAP_LINEAR);
+	glutAddMenuEntry("Linear mipmap linear", GL_LINEAR_MIPMAP_LINEAR);
+	rate_menu = glutCreateMenu(rate_select);
+	glutAddMenuEntry(" 2/sec", 500);
+	glutAddMenuEntry(" 6/sec", 166);
+	glutAddMenuEntry("10/sec", 100);
+	glutAddMenuEntry("20/sec", 50);
+	glutAddMenuEntry("30/sec", 33);
+	glutAddMenuEntry("60/sec", 16);
+	glutCreateMenu(menu_select);
+	glutAddMenuEntry("Toggle spinning", 1);
+	glutAddMenuEntry("Toggle scaling", 2);
+	glutAddMenuEntry("Switch mode", 3);
+	glutAddSubMenu("Minimum frame rate", rate_menu);
+	glutAddSubMenu("Minify modes", minify_menu);
+	glutAddMenuEntry("Quit", 666);
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+	menu_select(3);
+	glutMainLoop();
+}
+
+main()
+
+
