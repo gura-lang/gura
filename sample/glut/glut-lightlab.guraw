@@ -52,56 +52,56 @@ ico_material = '', teapot_material = '', torus_material = '';
 
 output(x:number, y:number, fmt:string, args*) = {
 	buffer = format(fmt, args*)
-	glPushMatrix();
-	glTranslatef(x, y, 0);
-    glutStrokeCharacter(GLUT_STROKE_ROMAN, buffer.each():utf8);
-	glPopMatrix();
+	glPushMatrix {
+		glTranslatef(x, y, 0);
+		glutStrokeCharacter(GLUT_STROKE_ROMAN, buffer.each():utf8);
+	}
 }
 
 display() = {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glScalef(1.3, 1.3, 1.3);
-	glRotatef(20.0, 1.0, 0.0, 0.0);
-	glPushMatrix();
-	glTranslatef(-0.65, 0.7, 0.0);
-	glRotatef(90.0, 1.0, 0.0, 0.0);
-	glCallList(TORUS_MATERIAL);
-	glutSolidTorus(0.275, 0.85, 10, 15);
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(-0.75, -0.8, 0.0);
-	glCallList(TEAPOT_MATERIAL);
-	glutSolidTeapot(0.7);
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(1.0, 0.0, -1.0);
-	glCallList(ICO_MATERIAL);
-	glutSolidIcosahedron();
-	glPopMatrix();
-	glPopMatrix();
-	glPushAttrib(GL_ENABLE_BIT);
-	glDisable(GL_DEPTH_TEST);
-	glDisable(GL_LIGHTING);
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	glLoadIdentity();
-	gluOrtho2D(0, 3000, 0, 3000);
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glLoadIdentity();
-	output(80, 2800, "Torus: %s", torus_material);
-	output(80, 2650, "Icosahedron: %s", ico_material);
-	output(80, 2500, "Teapot: %s", teapot_material);
-	output(80, 250, "Left light: %s", left_light);
-	output(1700, 250, "Right light: %s", right_light);
-	output(850, 100, "Shade model: %s",
-		   cond(shade_model == GL_SMOOTH, "smooth", "flat"));
-	glPopMatrix();
-	glMatrixMode(GL_PROJECTION);
-	glPopMatrix();
-	glPopAttrib();
+	glPushMatrix {
+		glScalef(1.3, 1.3, 1.3);
+		glRotatef(20.0, 1.0, 0.0, 0.0);
+		glPushMatrix {
+			glTranslatef(-0.65, 0.7, 0.0);
+			glRotatef(90.0, 1.0, 0.0, 0.0);
+			glCallList(TORUS_MATERIAL);
+			glutSolidTorus(0.275, 0.85, 10, 15)
+		}
+		glPushMatrix {
+			glTranslatef(-0.75, -0.8, 0.0);
+			glCallList(TEAPOT_MATERIAL);
+			glutSolidTeapot(0.7);
+		}
+		glPushMatrix {
+			glTranslatef(1.0, 0.0, -1.0);
+			glCallList(ICO_MATERIAL);
+			glutSolidIcosahedron();
+		}
+	}
+	glPushAttrib(GL_ENABLE_BIT) {
+		glDisable(GL_DEPTH_TEST);
+		glDisable(GL_LIGHTING);
+		glMatrixMode(GL_PROJECTION);
+		glPushMatrix {
+			glLoadIdentity();
+			gluOrtho2D(0, 3000, 0, 3000);
+			glMatrixMode(GL_MODELVIEW);
+			glPushMatrix {
+				glLoadIdentity();
+				output(80, 2800, "Torus: %s", torus_material);
+				output(80, 2650, "Icosahedron: %s", ico_material);
+				output(80, 2500, "Teapot: %s", teapot_material);
+				output(80, 250, "Left light: %s", left_light);
+				output(1700, 250, "Right light: %s", right_light);
+				output(850, 100, "Shade model: %s",
+					   cond(shade_model == GL_SMOOTH, "smooth", "flat"));
+			}
+			glMatrixMode(GL_PROJECTION);
+		}
+	}
 	glutSwapBuffers();
 }
 
