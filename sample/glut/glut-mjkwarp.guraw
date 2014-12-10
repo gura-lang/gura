@@ -60,113 +60,110 @@ redraw() = {
 		begin = glutGet(GLUT_ELAPSED_TIME);
 	}
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glPushMatrix();
+	glPushMatrix {
 
-	if (mode != DRUM) {
-		glScalef(size, size, size);
-	}
-	if (mode == SQUARES) {
-
-		COLS = 6
-		TILE_TEX_W = (1.0/COLS)
-		ROWS = 6
-		TILE_TEX_H = (1.0/ROWS)
-
-		glTranslatef(-COLS / 2.0 + .5, -ROWS / 2.0 + .5, 0);
-		cross(i in 0..(COLS - 1), j in 0..(ROWS - 1)) {
-
-			glPushMatrix();
-			glTranslatef(i, j, 0);
-			glRotatef(angle, 0, 1, 1);
-			glBegin(GL_QUADS);
-			glTexCoord2f(i * TILE_TEX_W, j * TILE_TEX_H);
-			glVertex2f(-.5, -.5);
-			glTexCoord2f((i + 1) * TILE_TEX_W, j * TILE_TEX_H);
-			glVertex2f(.5, -.5);
-			glTexCoord2f((i + 1) * TILE_TEX_W, (j + 1) * TILE_TEX_H);
-			glVertex2f(.5, .5);
-			glTexCoord2f(i * TILE_TEX_W, (j + 1) * TILE_TEX_H);
-			glVertex2f(-.5, .5);
-			glEnd();
-			glPopMatrix();
-				
+		if (mode != DRUM) {
+			glScalef(size, size, size);
 		}
-	} elsif (mode == DRUM) {
-
-		COLS = 12
-		TILE_TEX_W = (1.0/COLS)
-		ROWS = 12
-		TILE_TEX_H = (1.0/ROWS)
-
-		glRotatef(angle, 0, 0, 1);
-		glTranslatef(-COLS / 2.0 + .5, -ROWS / 2.0 + .5, 0);
-		amplitude = 0.4 * math.sin(tick2 / 6.0);
-		Z(x,y) = (((COLS-(x))*(x) + (ROWS-(y))*(y)) * amplitude) - 28.0
-		cross (i in 0..(COLS - 1), j in 0..(ROWS - 1)) {
-
-			glPushMatrix();
-			glTranslatef(i, j, 0);
-			glBegin(GL_QUADS);
-			glTexCoord2f(i * TILE_TEX_W, j * TILE_TEX_H);
-			glVertex3f(-.5, -.5, Z(i, j));
-			glTexCoord2f((i + 1) * TILE_TEX_W, j * TILE_TEX_H);
-			glVertex3f(.5, -.5, Z(i + 1, j));
-			glTexCoord2f((i + 1) * TILE_TEX_W, (j + 1) * TILE_TEX_H);
-			glVertex3f(.5, .5, Z(i + 1, j + 1));
-			glTexCoord2f(i * TILE_TEX_W, (j + 1) * TILE_TEX_H);
-			glVertex3f(-.5, .5, Z(i, j + 1));
-			glEnd();
-			glPopMatrix();
+		if (mode == SQUARES) {
+			
+			COLS = 6
+			TILE_TEX_W = (1.0/COLS)
+			ROWS = 6
+			TILE_TEX_H = (1.0/ROWS)
+			
+			glTranslatef(-COLS / 2.0 + .5, -ROWS / 2.0 + .5, 0);
+			cross(i in 0..(COLS - 1), j in 0..(ROWS - 1)) {
+				glPushMatrix {
+					glTranslatef(i, j, 0);
+					glRotatef(angle, 0, 1, 1);
+					glBegin(GL_QUADS) {
+						glTexCoord2f(i * TILE_TEX_W, j * TILE_TEX_H);
+						glVertex2f(-.5, -.5);
+						glTexCoord2f((i + 1) * TILE_TEX_W, j * TILE_TEX_H);
+						glVertex2f(.5, -.5);
+						glTexCoord2f((i + 1) * TILE_TEX_W, (j + 1) * TILE_TEX_H);
+						glVertex2f(.5, .5);
+						glTexCoord2f(i * TILE_TEX_W, (j + 1) * TILE_TEX_H);
+						glVertex2f(-.5, .5);
+					}
+				}
+			}
+		} elsif (mode == DRUM) {
+			
+			COLS = 12
+			TILE_TEX_W = (1.0/COLS)
+			ROWS = 12
+			TILE_TEX_H = (1.0/ROWS)
+			
+			glRotatef(angle, 0, 0, 1);
+			glTranslatef(-COLS / 2.0 + .5, -ROWS / 2.0 + .5, 0);
+			amplitude = 0.4 * math.sin(tick2 / 6.0);
+			Z(x,y) = (((COLS-(x))*(x) + (ROWS-(y))*(y)) * amplitude) - 28.0
+			cross (i in 0..(COLS - 1), j in 0..(ROWS - 1)) {
 				
+				glPushMatrix {
+					glTranslatef(i, j, 0);
+					glBegin(GL_QUADS) {
+						glTexCoord2f(i * TILE_TEX_W, j * TILE_TEX_H);
+						glVertex3f(-.5, -.5, Z(i, j));
+						glTexCoord2f((i + 1) * TILE_TEX_W, j * TILE_TEX_H);
+						glVertex3f(.5, -.5, Z(i + 1, j));
+						glTexCoord2f((i + 1) * TILE_TEX_W, (j + 1) * TILE_TEX_H);
+						glVertex3f(.5, .5, Z(i + 1, j + 1));
+						glTexCoord2f(i * TILE_TEX_W, (j + 1) * TILE_TEX_H);
+						glVertex3f(-.5, .5, Z(i, j + 1));
+					}
+				}
+			}
+		} elsif (mode == CUBE) { 
+			glRotatef(angle, 0, 1, 0);
+			glBegin(GL_QUADS) {
+				
+				/* front */
+				glTexCoord2f(0.0, 0.0);
+				glVertex3f(-1.0, -1.0, 1.0);
+				glTexCoord2f(1.0, 0.0);
+				glVertex3f(1.0, -1.0, 1.0);
+				glTexCoord2f(1.0, 1.0);
+				glVertex3f(1.0, 1.0, 1.0);
+				glTexCoord2f(0.0, 1.0);
+				glVertex3f(-1.0, 1.0, 1.0);
+				
+				/* back */
+				glTexCoord2f(0.0, 1.0);
+				glVertex3f(-1.0, 1.0, -1.0);
+				glTexCoord2f(1.0, 1.0);
+				glVertex3f(1.0, 1.0, -1.0);
+				glTexCoord2f(1.0, 0.0);
+				glVertex3f(1.0, -1.0, -1.0);
+				glTexCoord2f(0.0, 0.0);
+				glVertex3f(-1.0, -1.0, -1.0);
+				
+				/* left */
+				glTexCoord2f(0.0, 0.0);
+				glVertex3f(-1.0, -1.0, -1.0);
+				glTexCoord2f(1.0, 0.0);
+				glVertex3f(-1.0, -1.0, 1.0);
+				glTexCoord2f(1.0, 1.0);
+				glVertex3f(-1.0, 1.0, 1.0);
+				glTexCoord2f(0.0, 1.0);
+				glVertex3f(-1.0, 1.0, -1.0);
+				
+				/* right */
+				glTexCoord2f(0.0, 1.0);
+				glVertex3f(1.0, 1.0, -1.0);
+				glTexCoord2f(1.0, 1.0);
+				glVertex3f(1.0, 1.0, 1.0);
+				glTexCoord2f(1.0, 0.0);
+				glVertex3f(1.0, -1.0, 1.0);
+				glTexCoord2f(0.0, 0.0);
+				glVertex3f(1.0, -1.0, -1.0);
+				
+			}
 		}
-	} elsif (mode == CUBE) { 
-		glRotatef(angle, 0, 1, 0);
-		glBegin(GL_QUADS);
 
-		/* front */
-		glTexCoord2f(0.0, 0.0);
-		glVertex3f(-1.0, -1.0, 1.0);
-		glTexCoord2f(1.0, 0.0);
-		glVertex3f(1.0, -1.0, 1.0);
-		glTexCoord2f(1.0, 1.0);
-		glVertex3f(1.0, 1.0, 1.0);
-		glTexCoord2f(0.0, 1.0);
-		glVertex3f(-1.0, 1.0, 1.0);
-
-		/* back */
-		glTexCoord2f(0.0, 1.0);
-		glVertex3f(-1.0, 1.0, -1.0);
-		glTexCoord2f(1.0, 1.0);
-		glVertex3f(1.0, 1.0, -1.0);
-		glTexCoord2f(1.0, 0.0);
-		glVertex3f(1.0, -1.0, -1.0);
-		glTexCoord2f(0.0, 0.0);
-		glVertex3f(-1.0, -1.0, -1.0);
-
-		/* left */
-		glTexCoord2f(0.0, 0.0);
-		glVertex3f(-1.0, -1.0, -1.0);
-		glTexCoord2f(1.0, 0.0);
-		glVertex3f(-1.0, -1.0, 1.0);
-		glTexCoord2f(1.0, 1.0);
-		glVertex3f(-1.0, 1.0, 1.0);
-		glTexCoord2f(0.0, 1.0);
-		glVertex3f(-1.0, 1.0, -1.0);
-
-		/* right */
-		glTexCoord2f(0.0, 1.0);
-		glVertex3f(1.0, 1.0, -1.0);
-		glTexCoord2f(1.0, 1.0);
-		glVertex3f(1.0, 1.0, 1.0);
-		glTexCoord2f(1.0, 0.0);
-		glVertex3f(1.0, -1.0, 1.0);
-		glTexCoord2f(0.0, 0.0);
-		glVertex3f(1.0, -1.0, -1.0);
-
-		glEnd();
 	}
-
-	glPopMatrix();
 	glutSwapBuffers();
 	if (set_timeout) {
 		set_timeout:extern = false;
@@ -219,7 +216,7 @@ menu_select(value:number) = {
 	} elsif (value == 3) {
 		mode:extern += 1;
 		if (mode > DRUM) {
-			mode = CUBE;
+			mode:extern = CUBE;
 		}
 		if (mode == CUBE) {
 			glEnable(GL_CULL_FACE);
