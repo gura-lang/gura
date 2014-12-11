@@ -461,8 +461,8 @@ Gura_ImplementFunction(__glClipPlane)
 		sig.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Null;
 	}
-	glGetClipPlane(plane, equation);
-	return Value::CreateList(env, equation, equation.GetSize());
+	glClipPlane(plane, equation);
+	return Value::Null;
 }
 
 // opengl.glColor3b

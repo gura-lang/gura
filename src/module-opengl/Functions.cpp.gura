@@ -205,9 +205,9 @@ glClearStencil(s:GLint):void:map = `auto % {`en, 'markdown',
 	'''
 }
 
-glClipPlane(plane:GLenum, equation:GLdouble@4):map {block?} = R'''
-	glGetClipPlane(plane, equation);
-	return Value::CreateList(env, equation, equation.GetSize());
+glClipPlane(plane:GLenum, equation:GLdouble@4):map:void {block?} = R'''
+	glClipPlane(plane, equation);
+	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
 	'''
