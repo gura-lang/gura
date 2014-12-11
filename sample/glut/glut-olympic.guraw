@@ -1,0 +1,353 @@
+#!/usr/bin/env gura
+// This Gura program has been ported from the original C code below:
+// https://www.opengl.org/archives/resources/code/samples/glut_examples/examples/olympic.c
+
+/* Copyright (c) Mark J. Kilgard, 1994. */
+
+/**
+ * (c) Copyright 1993, 1994, Silicon Graphics, Inc.
+ * ALL RIGHTS RESERVED 
+ * Permission to use, copy, modify, and distribute this software for 
+ * any purpose and without fee is hereby granted, provided that the above
+ * copyright notice appear in all copies and that both the copyright notice
+ * and this permission notice appear in supporting documentation, and that 
+ * the name of Silicon Graphics, Inc. not be used in advertising
+ * or publicity pertaining to distribution of the software without specific,
+ * written prior permission. 
+ *
+ * THE MATERIAL EMBODIED ON THIS SOFTWARE IS PROVIDED TO YOU "AS-IS"
+ * AND WITHOUT WARRANTY OF ANY KIND, EXPRESS, IMPLIED OR OTHERWISE,
+ * INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE.  IN NO EVENT SHALL SILICON
+ * GRAPHICS, INC.  BE LIABLE TO YOU OR ANYONE ELSE FOR ANY DIRECT,
+ * SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY
+ * KIND, OR ANY DAMAGES WHATSOEVER, INCLUDING WITHOUT LIMITATION,
+ * LOSS OF PROFIT, LOSS OF USE, SAVINGS OR REVENUE, OR THE CLAIMS OF
+ * THIRD PARTIES, WHETHER OR NOT SILICON GRAPHICS, INC.  HAS BEEN
+ * ADVISED OF THE POSSIBILITY OF SUCH LOSS, HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE
+ * POSSESSION, USE OR PERFORMANCE OF THIS SOFTWARE.
+ * 
+ * US Government Users Restricted Rights 
+ * Use, duplication, or disclosure by the Government is subject to
+ * restrictions set forth in FAR 52.227.19(c)(2) or subparagraph
+ * (c)(1)(ii) of the Rights in Technical Data and Computer Software
+ * clause at DFARS 252.227-7013 and/or in similar or successor
+ * clauses in the FAR or the DOD or NASA FAR Supplement.
+ * Unpublished-- rights reserved under the copyright laws of the
+ * United States.  Contractor/manufacturer is Silicon Graphics,
+ * Inc., 2011 N.  Shoreline Blvd., Mountain View, CA 94039-7311.
+ *
+ * OpenGL(TM) is a trademark of Silicon Graphics, Inc.
+ */
+
+import(opengl) {*}
+import(glu) {*}
+import(glut) {*}
+
+M_PI = 3.141592654
+
+drand48() = rand()
+srand48(x:number) = randseed(x)
+
+XSIZE = 100
+YSIZE = 75
+
+RINGS = 5
+BLUERING = 0
+BLACKRING = 1
+REDRING = 2
+YELLOWRING = 3
+GREENRING = 4
+
+BACKGROUND = 8
+
+[
+  BLACK,
+  RED,
+  GREEN,
+  YELLOW,
+  BLUE,
+  MAGENTA,
+  CYAN,
+  WHITE
+] = 0..
+
+rgb = false, doubleBuffer = false, directRender = false;
+
+rgb_colors = dim(RINGS, 3) {0};
+mapped_colors = dim(RINGS) {0};
+dests = dim(RINGS, 3) {0};
+offsets = dim(RINGS, 3) {0};
+angs = dim(RINGS) {0};
+rotAxis = dim(RINGS, 3) {0};
+iters = dim(RINGS) {0};
+theTorus = 0;
+
+FillTorus(rc:number, numc:number, rt:number, numt:number) = {
+	pi = M_PI;
+	twopi = 2 * pi;
+
+	repeat(numc) {|i|
+		glBegin(GL_QUAD_STRIP) {
+			cross (j in 0..(numt - 1), k in 1..0) {
+				s = (i + k) % numc + 0.5;
+				t = j % numt;
+				
+				x = math.cos(t * twopi / numt) * math.cos(s * twopi / numc);
+				y = math.sin(t * twopi / numt) * math.cos(s * twopi / numc);
+				z = math.sin(s * twopi / numc);
+				glNormal3f(x, y, z);
+				
+				x = (rt + rc * math.cos(s * twopi / numc)) * math.cos(t * twopi / numt);
+				y = (rt + rc * math.cos(s * twopi / numc)) * math.sin(t * twopi / numt);
+				z = rc * math.sin(s * twopi / numc);
+				glVertex3f(x, y, z);
+			}
+		}
+	}
+}
+
+Clamp(iters_left:number, t:number) = {
+	if (iters_left < 3) {
+		return(0.0)
+	}
+	(iters_left - 2) * t / iters_left;
+}
+
+Idle() = {
+	more = GL_FALSE;
+	repeat(RINGS) {|i|
+		if (iters[i] != 0) {
+			offsetOrg = offsets[i][0]
+			repeat(3) {|j|
+				offsets[i][j] = Clamp(iters[i], offsets[i][j]);
+			}
+			angs[i] = Clamp(iters[i], angs[i]);
+			iters[i] -= 1;
+			more = GL_TRUE;
+		}
+	}
+	if (more) {
+		glutPostRedisplay();
+	} else {
+		glutIdleFunc(nil);
+	}
+}
+
+DrawScene() = {
+	glPushMatrix {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		gluLookAt(0, 0, 10, 0, 0, 0, 0, 1, 0);
+		repeat(RINGS) {|i|
+			if (rgb) {
+				glColor3ubv(rgb_colors[i]);
+			} else {
+				glIndexi(mapped_colors[i]);
+			}
+			glPushMatrix {
+				glTranslatef(dests[i][0] + offsets[i][0], dests[i][1] + offsets[i][1],
+							 dests[i][2] + offsets[i][2]);
+				glRotatef(angs[i], rotAxis[i][0], rotAxis[i][1], rotAxis[i][2]);
+				glCallList(theTorus);
+			}
+		}
+	}
+	if (doubleBuffer) {
+		glutSwapBuffers();
+	} else {
+		glFlush();
+	}
+}
+
+MyRand() = {
+	10 * (drand48() - 0.5);
+}
+
+ReInit() = {
+	deviation = MyRand() / 2;
+	deviation = deviation * deviation;
+	repeat(RINGS) {|i|
+		offsets[i][0] = MyRand();
+		offsets[i][1] = MyRand();
+		offsets[i][2] = MyRand();
+		angs[i] = 260.0 * MyRand();
+		rotAxis[i][0] = MyRand();
+		rotAxis[i][1] = MyRand();
+		rotAxis[i][2] = MyRand();
+		iters[i] = (deviation * MyRand() + 60.0);
+	}
+}
+
+Init() = {
+	top_y = 1.0;
+	bottom_y = 0.0;
+	top_z = 0.15;
+	bottom_z = 0.69;
+	spacing = 2.5;
+	lmodel_ambient = \
+		@{0.0, 0.0, 0.0, 0.0};
+	lmodel_twoside = \
+		@{GL_FALSE};
+	lmodel_local = \
+		@{GL_FALSE};
+	light0_ambient = \
+		@{0.1, 0.1, 0.1, 1.0};
+	light0_diffuse = \
+		@{1.0, 1.0, 1.0, 0.0};
+	light0_position = \
+		@{0.8660254, 0.5, 1, 0};
+	light0_specular = \
+		@{1.0, 1.0, 1.0, 0.0};
+	bevel_mat_ambient = \
+		@{0.0, 0.0, 0.0, 1.0};
+	bevel_mat_shininess = \
+		@{40.0};
+	bevel_mat_specular = \
+		@{1.0, 1.0, 1.0, 0.0};
+	bevel_mat_diffuse = \
+		@{1.0, 0.0, 0.0, 0.0};
+
+	srand48(0x102342);
+	ReInit();
+	repeat(RINGS) {|i|
+		rgb_colors[i][0] = rgb_colors[i][1] = rgb_colors[i][2] = 0;
+	}
+	rgb_colors[BLUERING][2] = 255;
+	rgb_colors[REDRING][0] = 255;
+	rgb_colors[GREENRING][1] = 255;
+	rgb_colors[YELLOWRING][0] = 255;
+	rgb_colors[YELLOWRING][1] = 255;
+	mapped_colors[BLUERING] = BLUE;
+	mapped_colors[REDRING] = RED;
+	mapped_colors[GREENRING] = GREEN;
+	mapped_colors[YELLOWRING] = YELLOW;
+	mapped_colors[BLACKRING] = BLACK;
+
+	dests[BLUERING][0] = -spacing;
+	dests[BLUERING][1] = top_y;
+	dests[BLUERING][2] = top_z;
+	
+	dests[BLACKRING][0] = 0.0;
+	dests[BLACKRING][1] = top_y;
+	dests[BLACKRING][2] = top_z;
+
+	dests[REDRING][0] = spacing;
+	dests[REDRING][1] = top_y;
+	dests[REDRING][2] = top_z;
+	
+	dests[YELLOWRING][0] = -spacing / 2.0;
+	dests[YELLOWRING][1] = bottom_y;
+	dests[YELLOWRING][2] = bottom_z;
+	
+	dests[GREENRING][0] = spacing / 2.0;
+	dests[GREENRING][1] = bottom_y;
+	dests[GREENRING][2] = bottom_z;
+	
+	theTorus:extern = glGenLists(1);
+	glNewList(theTorus, GL_COMPILE);
+	FillTorus(0.1, 8, 1.0, 25);
+	glEndList();
+
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glEnable(GL_DEPTH_TEST);
+	glClearDepth(1.0);
+
+	if (rgb) {
+		glClearColor(0.5, 0.5, 0.5, 0.0);
+		glLightfv(GL_LIGHT0, GL_AMBIENT, light0_ambient);
+		glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse);
+		glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular);
+		glLightfv(GL_LIGHT0, GL_POSITION, light0_position);
+		glEnable(GL_LIGHT0);
+		
+		glLightModelfv(GL_LIGHT_MODEL_LOCAL_VIEWER, lmodel_local);
+		glLightModelfv(GL_LIGHT_MODEL_TWO_SIDE, lmodel_twoside);
+		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lmodel_ambient);
+		glEnable(GL_LIGHTING);
+		
+		glMaterialfv(GL_FRONT, GL_AMBIENT, bevel_mat_ambient);
+		glMaterialfv(GL_FRONT, GL_SHININESS, bevel_mat_shininess);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, bevel_mat_specular);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, bevel_mat_diffuse);
+		
+		glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
+		glEnable(GL_COLOR_MATERIAL);
+		glShadeModel(GL_SMOOTH);
+	} else {
+		glClearIndex(BACKGROUND);
+		glShadeModel(GL_FLAT);
+	}
+	
+	glMatrixMode(GL_PROJECTION);
+	gluPerspective(45, 1.33, 0.1, 100.0);
+	glMatrixMode(GL_MODELVIEW);
+}
+
+Reshape(width:number, height:number) = {
+	glViewport(0, 0, width, height);
+}
+
+Key(key:number, x:number, y:number) = {
+	if (key == 27) {
+		sys.exit(0)
+	} elsif (key == ord(' ')) {
+		ReInit();
+		glutIdleFunc(Idle);
+	}
+}
+
+Args(argv[]:string) = {
+	rgb:extern = GL_TRUE;
+	doubleBuffer:extern = GL_TRUE;
+
+	argv.offset(1) {|arg|
+		if (arg == "-ci") {
+			rgb:extern = GL_FALSE;
+		} elsif (arg == "-rgb") {
+			rgb:extern = GL_TRUE;
+		} elsif (arg == "-sb") {
+			doubleBuffer:extern = GL_FALSE;
+		} elsif (arg == "-db") {
+			doubleBuffer:extern = GL_TRUE;
+		} else { 
+			printf("%s (Bad option).\n", arg);
+			return(GL_FALSE)
+		}
+	}
+	GL_TRUE;
+}
+
+visible(vis:number) = {
+	if (vis == GLUT_VISIBLE) {
+		glutIdleFunc(Idle);
+	} else {
+		glutIdleFunc(nil);
+	}
+}
+
+main() ={
+	glutInitWindowSize(400, 300);
+	argv = glutInit(sys.argv);
+	if (!Args(argv)) {
+		sys.exit(1);
+	}
+	type = if (rgb) {GLUT_RGB} else {GLUT_INDEX}
+	type |= if (doubleBuffer) {GLUT_DOUBLE} else {GLUT_SINGLE}
+	glutInitDisplayMode(type);
+
+	glutCreateWindow("Olympic");
+
+	Init();
+
+	glutReshapeFunc(Reshape);
+	glutKeyboardFunc(Key);
+	glutDisplayFunc(DrawScene);
+
+	glutVisibilityFunc(visible);
+
+	glutMainLoop();
+}
+
+main()
