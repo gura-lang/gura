@@ -1,0 +1,216 @@
+#!/usr/bin/env gura
+// This Gura program has been ported from the original C code below:
+// https://www.opengl.org/archives/resources/code/samples/glut_examples/examples/olight.c
+
+/* Copyright (c) Mark J. Kilgard, 1994. */
+
+/**
+ * (c) Copyright 1993, 1994, Silicon Graphics, Inc.
+ * ALL RIGHTS RESERVED 
+ * Permission to use, copy, modify, and distribute this software for 
+ * any purpose and without fee is hereby granted, provided that the above
+ * copyright notice appear in all copies and that both the copyright notice
+ * and this permission notice appear in supporting documentation, and that 
+ * the name of Silicon Graphics, Inc. not be used in advertising
+ * or publicity pertaining to distribution of the software without specific,
+ * written prior permission. 
+ *
+ * THE MATERIAL EMBODIED ON THIS SOFTWARE IS PROVIDED TO YOU "AS-IS"
+ * AND WITHOUT WARRANTY OF ANY KIND, EXPRESS, IMPLIED OR OTHERWISE,
+ * INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE.  IN NO EVENT SHALL SILICON
+ * GRAPHICS, INC.  BE LIABLE TO YOU OR ANYONE ELSE FOR ANY DIRECT,
+ * SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY
+ * KIND, OR ANY DAMAGES WHATSOEVER, INCLUDING WITHOUT LIMITATION,
+ * LOSS OF PROFIT, LOSS OF USE, SAVINGS OR REVENUE, OR THE CLAIMS OF
+ * THIRD PARTIES, WHETHER OR NOT SILICON GRAPHICS, INC.  HAS BEEN
+ * ADVISED OF THE POSSIBILITY OF SUCH LOSS, HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE
+ * POSSESSION, USE OR PERFORMANCE OF THIS SOFTWARE.
+ * 
+ * US Government Users Restricted Rights 
+ * Use, duplication, or disclosure by the Government is subject to
+ * restrictions set forth in FAR 52.227.19(c)(2) or subparagraph
+ * (c)(1)(ii) of the Rights in Technical Data and Computer Software
+ * clause at DFARS 252.227-7013 and/or in similar or successor
+ * clauses in the FAR or the DOD or NASA FAR Supplement.
+ * Unpublished-- rights reserved under the copyright laws of the
+ * United States.  Contractor/manufacturer is Silicon Graphics,
+ * Inc., 2011 N.  Shoreline Blvd., Mountain View, CA 94039-7311.
+ *
+ * OpenGL(TM) is a trademark of Silicon Graphics, Inc.
+ */
+/*----------------------------------------------------------------------------
+ *
+ * olight.c : openGL (motif) example showing how to do hardware lighting
+ *            including two_sided lighting.
+ *
+ * Author : Yusuf Attarwala
+ *          SGI - Applications
+ * Date   : Mar 93
+ *
+ *    press  left   button for animation
+ *           middle button for two sided lighting (default)
+ *           right  button for single sided lighting
+ *
+ *
+ *---------------------------------------------------------------------------*/
+import(opengl) {*}
+import(glu) {*}
+import(glut) {*}
+
+/* global variables */
+
+ax = 0, ay = 0, az = 0;       /* angles for animation */
+quadObj = nil; /* used in drawscene */
+lmodel_twoside = \
+@{GL_TRUE};
+lmodel_oneside = \
+@{GL_FALSE};
+
+main() = {
+	argv = glutInit(sys.argv);
+
+	quadObj:extern = gluNewQuadric();  /* this will be used in drawScene 
+                               */
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+	glutCreateWindow("Two-sided lighting");
+
+	ax:extern = 10.0;
+	ay:extern = -10.0;
+	az:extern = 0.0;
+
+	initLightAndMaterial();
+
+	glutDisplayFunc(drawScene);
+	glutReshapeFunc(resize);
+	glutCreateMenu(menu);
+	glutAddMenuEntry("Motion", 3);
+	glutAddMenuEntry("Two-sided lighting", 1);
+	glutAddMenuEntry("One-sided lighting", 2);
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+	glutKeyboardFunc(keyboard);
+	glutMainLoop();
+}
+
+drawScene() = {
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glPushMatrix {
+		gluQuadricDrawStyle(quadObj, GLU_FILL);
+		glColor3f(1.0, 1.0, 0.0);
+		glRotatef(ax, 1.0, 0.0, 0.0);
+		glRotatef(-ay, 0.0, 1.0, 0.0);
+
+		gluCylinder(quadObj, 2.0, 5.0, 10.0, 20, 8);  /* draw a cone */
+
+	}
+
+	glutSwapBuffers();
+}
+
+setMatrix() = {
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-15.0, 15.0, -15.0, 15.0, -10.0, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+}
+
+count = 0;
+
+animation() = {
+	ax:extern += 5.0;
+	ay:extern -= 2.0;
+	az:extern += 5.0;
+	if (ax >= 360) {
+		ax:extern = 0.0;
+	}
+	if (ay <= -360) {
+		ay:extern = 0.0;
+	}
+	if (az >= 360) {
+		az:extern = 0.0;
+	}
+	drawScene();
+	count:extern += 1;
+	if (count >= 60) {
+		glutIdleFunc(nil);
+	}
+}
+
+keyboard(c:number, x:number, y:number) = {
+	if (c == 27) {
+		sys.exit(0);
+	}
+}
+
+menu(choice:number) = {
+	if (choice == 3) {
+		count:extern = 0;
+		glutIdleFunc(animation);
+	} elsif (choice == 2) {
+		glLightModelfv(GL_LIGHT_MODEL_TWO_SIDE, lmodel_oneside);
+		glutSetWindowTitle("One-sided lighting");
+		glutPostRedisplay();
+	} elsif (choice == 1) {
+		glLightModelfv(GL_LIGHT_MODEL_TWO_SIDE, lmodel_twoside);
+		glutSetWindowTitle("Two-sided lighting");
+		glutPostRedisplay();
+	}
+}
+
+resize(w:number, h:number) = {
+	glViewport(0, 0, w, h);
+	setMatrix();
+}
+
+initLightAndMaterial() = {
+	ambient = \
+		@{0.1, 0.1, 0.1, 1.0};
+	diffuse = \
+		@{0.5, 1.0, 1.0, 1.0};
+	position = \
+		@{90.0, 90.0, 150.0, 0.0};
+
+	front_mat_shininess = \
+		@{60.0};
+	front_mat_specular = \
+		@{0.2, 0.2, 0.2, 1.0};
+	front_mat_diffuse = \
+		@{0.5, 0.5, 0.28, 1.0};
+	back_mat_shininess = \
+		@{60.0};
+	back_mat_specular = \
+		@{0.5, 0.5, 0.2, 1.0};
+	back_mat_diffuse = \
+		@{1.0, 0.9, 0.2, 1.0};
+
+	lmodel_ambient = \
+		@{1.0, 1.0, 1.0, 1.0};
+
+	setMatrix();
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
+	glLightfv(GL_LIGHT0, GL_POSITION, position);
+
+	glMaterialfv(GL_FRONT, GL_SHININESS, front_mat_shininess);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, front_mat_specular);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, front_mat_diffuse);
+	glMaterialfv(GL_BACK, GL_SHININESS, back_mat_shininess);
+	glMaterialfv(GL_BACK, GL_SPECULAR, back_mat_specular);
+	glMaterialfv(GL_BACK, GL_DIFFUSE, back_mat_diffuse);
+
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lmodel_ambient);
+	glLightModelfv(GL_LIGHT_MODEL_TWO_SIDE, lmodel_twoside);
+
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glShadeModel(GL_SMOOTH);
+}
+
+main()
