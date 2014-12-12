@@ -146,9 +146,8 @@ DrawScene() = {
 				glIndexi(mapped_colors[i]);
 			}
 			glPushMatrix {
-				glTranslatef(dests[i][0] + offsets[i][0], dests[i][1] + offsets[i][1],
-							 dests[i][2] + offsets[i][2]);
-				glRotatef(angs[i], rotAxis[i][0], rotAxis[i][1], rotAxis[i][2]);
+				glTranslatef((dests[i] + offsets[i])*)
+				glRotatef(angs[i], rotAxis[i]*);
 				glCallList(theTorus);
 			}
 		}
@@ -211,7 +210,7 @@ Init() = {
 	srand48(0x102342);
 	ReInit();
 	repeat(RINGS) {|i|
-		rgb_colors[i][0] = rgb_colors[i][1] = rgb_colors[i][2] = 0;
+		rgb_colors[i][0..2] = 0;
 	}
 	rgb_colors[BLUERING][2] = 255;
 	rgb_colors[REDRING][0] = 255;
@@ -244,10 +243,10 @@ Init() = {
 	dests[GREENRING][1] = bottom_y;
 	dests[GREENRING][2] = bottom_z;
 	
-	theTorus:extern = glGenLists(1);
-	glNewList(theTorus, GL_COMPILE);
-	FillTorus(0.1, 8, 1.0, 25);
-	glEndList();
+	theTorus:extern = glGenLists(1)
+	glNewList(theTorus, GL_COMPILE) {
+		FillTorus(0.1, 8, 1.0, 25);
+	}
 
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
@@ -336,7 +335,7 @@ main() ={
 	type = if (rgb) {GLUT_RGB} else {GLUT_INDEX}
 	type |= if (doubleBuffer) {GLUT_DOUBLE} else {GLUT_SINGLE}
 	glutInitDisplayMode(type);
-
+	
 	glutCreateWindow("Olympic");
 
 	Init();
