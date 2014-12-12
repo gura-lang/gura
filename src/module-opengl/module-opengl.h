@@ -46,6 +46,18 @@ public:
 		}
 		return Value(GetBuffer()[idx]);
 	}
+	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value) {
+		if (!valueIdx.Is_number()) {
+			sig.SetError(ERR_ValueError, "index must be a number");
+			return;
+		}
+		size_t idx = valueIdx.GetSizeT();
+		if (idx >= GetSize()) {
+			sig.SetError(ERR_OutOfRangeError, "index is out of range");
+			return;
+		}
+		GetBuffer()[idx] = static_cast<T>(value.GetNumber());
+	}
 	inline T *GetBuffer() {
 		return reinterpret_cast<T *>(_pBuff->GetPointer());
 	}

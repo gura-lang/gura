@@ -5275,7 +5275,6 @@ Gura_DeclareFunctionAlias(__glSelectBuffer, "glSelectBuffer")
 Gura_ImplementFunction(__glSelectBuffer)
 {
 	GLsizei size = args.GetInt(0);
-	::printf("check\n");
 	AutoPtr<Object_Buffer<GLuint> > pObjBuff(new Object_Buffer<GLuint>(size));
 	glSelectBuffer(size, pObjBuff->GetBuffer());
 	return ReturnValue(env, sig, args, Value(pObjBuff.release()));
