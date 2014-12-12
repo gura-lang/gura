@@ -581,10 +581,10 @@ Init() = {
 	//SetDeepestColor()
 	if (numComponents == 4) {
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
-		gluBuild2DMipmaps(GL_TEXTURE_2D, numComponents, img)
+		gluBuild2DMipmapsFromImage(GL_TEXTURE_2D, numComponents, img)
 	} else {
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
-		gluBuild2DMipmaps(GL_TEXTURE_2D, numComponents, img)
+		gluBuild2DMipmapsFromImage(GL_TEXTURE_2D, numComponents, img)
 	}
 	glFogf(GL_FOG_DENSITY, 0.125)
 	glFogi(GL_FOG_MODE, GL_LINEAR)

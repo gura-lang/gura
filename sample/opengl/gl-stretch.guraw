@@ -23,10 +23,10 @@ img = nil
 
 DrawImage() = {
     glRasterPos2i(0, 0)
-    glDrawPixels(img)
+    glDrawPixelsFromImage(img)
 	glFlush()
     glRasterPos2i(0, 0)
-    glDrawPixels(img)
+    glDrawPixelsFromImage(img)
 }
 
 DrawPoint() = {
@@ -111,7 +111,7 @@ Init() = {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
 	println(img)
-    glTexImage2D(GL_TEXTURE_2D, 0, 3, 0, img)
+    glTexImage2DFromImage(GL_TEXTURE_2D, 0, 3, 0, img)
 }
 
 InitVList() = {

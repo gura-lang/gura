@@ -35,7 +35,7 @@ Draw() = {
 	glRasterPos3f(windW / 2 - img.width / 2, windH / 2 - img.height / 2, 0)
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
 	glPixelZoom(1.0, 1.0)
-	glDrawPixels(img)
+	glDrawPixelsFromImage(img)
 	glRasterPos3f(x, windH - y, 0)
 	glPixelZoom(zoom, zoom)
 	[x_new, y_new] = [(windW / 2) - (img.width / 2), (windH / 2) - (img.height / 2)]

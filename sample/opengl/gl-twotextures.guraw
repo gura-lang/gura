@@ -38,11 +38,11 @@ Init() = {
 	glClearColor(1.0, 0.0, 0.0, 0.0)
 	skyList:extern = glGenLists(1)
 	glNewList(skyList, GL_COMPILE) {
-		gluBuild2DMipmaps(GL_TEXTURE_2D, 3, skyImage)
+		gluBuild2DMipmapsFromImage(GL_TEXTURE_2D, 3, skyImage)
 	}
 	earthList:extern = glGenLists(1)
 	glNewList(earthList, GL_COMPILE) {
-		gluBuild2DMipmaps(GL_TEXTURE_2D, 3, earthImage)
+		gluBuild2DMipmapsFromImage(GL_TEXTURE_2D, 3, earthImage)
 	}
 }
 
