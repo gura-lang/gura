@@ -1914,7 +1914,6 @@ Gura_DeclareFunctionAlias(__glFeedbackBuffer, "glFeedbackBuffer")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1924,9 +1923,9 @@ Gura_ImplementFunction(__glFeedbackBuffer)
 {
 	GLsizei size = args.GetInt(0);
 	GLenum type = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLfloat> buffer = args.GetList(2);
-	glFeedbackBuffer(size, type, buffer);
-	return Value::Null;
+	AutoPtr<Object_Buffer<GLfloat> > pObjBuff(new Object_Buffer<GLfloat>(size));
+	glFeedbackBuffer(size, type, pObjBuff->GetBuffer());
+	return ReturnValue(env, sig, args, Value(pObjBuff.release()));
 }
 
 // opengl.glFinish
@@ -5276,7 +5275,8 @@ Gura_DeclareFunctionAlias(__glSelectBuffer, "glSelectBuffer")
 Gura_ImplementFunction(__glSelectBuffer)
 {
 	GLsizei size = args.GetInt(0);
-	AutoPtr<Object_Buffer> pObjBuff(new Object_Buffer(size));
+	::printf("check\n");
+	AutoPtr<Object_Buffer<GLuint> > pObjBuff(new Object_Buffer<GLuint>(size));
 	glSelectBuffer(size, pObjBuff->GetBuffer());
 	return ReturnValue(env, sig, args, Value(pObjBuff.release()));
 }

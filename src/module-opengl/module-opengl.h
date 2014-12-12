@@ -16,25 +16,40 @@ Gura_BeginModuleHeader(opengl)
 bool DoGLSection(Environment &env, Signal sig, Args &args, Image *pImage);
 
 //-----------------------------------------------------------------------------
-// Object_Buffer
+// Buffer class
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(Buffer);
 
+template<typename T>
 class Object_Buffer : public Object {
 public:
 	Gura_DeclareObjectAccessor(Buffer)
 private:
 	AutoPtr<Memory> _pBuff;
 public:
-	Object_Buffer(size_t n);
-	virtual ~Object_Buffer();
-	virtual Object *Clone() const;
-	virtual String ToString(bool exprFlag);
-	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
-	inline GLuint *GetBuffer() {
-		return reinterpret_cast<GLuint *>(_pBuff->GetPointer());
+	Object_Buffer(size_t n) : Object(Gura_UserClass(Buffer)),
+								_pBuff(new MemoryHeap(n * sizeof(T))) {}
+	virtual ~Object_Buffer() {}
+	virtual Object *Clone() const { return NULL; }
+	virtual String ToString(bool exprFlag) {
+		return String("<opengl.Buffer>");
 	}
-	inline size_t GetSize() const { return _pBuff->GetSize() / sizeof(GLuint); }
+	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx) {
+		if (!valueIdx.Is_number()) {
+			sig.SetError(ERR_ValueError, "index must be a number");
+			return Value::Null;
+		}
+		size_t idx = valueIdx.GetSizeT();
+		if (idx >= GetSize()) {
+			sig.SetError(ERR_OutOfRangeError, "index is out of range");
+			return Value::Null;
+		}
+		return Value(GetBuffer()[idx]);
+	}
+	inline T *GetBuffer() {
+		return reinterpret_cast<T *>(_pBuff->GetPointer());
+	}
+	inline size_t GetSize() const { return _pBuff->GetSize() / sizeof(T); }
 private:
 	inline Object_Buffer(const Object_Buffer &obj) : Object(obj) {}
 };

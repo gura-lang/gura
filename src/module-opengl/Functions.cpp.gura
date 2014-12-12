@@ -668,7 +668,11 @@ glEvalPoint2(i:GLint, j:GLint):void:map = `auto % {`en, 'markdown',
 	'''
 }
 
-glFeedbackBuffer(size:GLsizei, type:GLenum, buffer:GLfloat@):void:map = `auto % {`en, 'markdown',
+glFeedbackBuffer(size:GLsizei, type:GLenum):void:map = R'''
+	AutoPtr<Object_Buffer<GLfloat> > pObjBuff(new Object_Buffer<GLfloat>(size));
+	glFeedbackBuffer(size, type, pObjBuff->GetBuffer());
+	return ReturnValue(env, sig, args, Value(pObjBuff.release()));
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -1786,7 +1790,7 @@ glScissor(x:GLint, y:GLint, width:GLsizei, height:GLsizei):void:map = `auto % {`
 }
 
 glSelectBuffer(size:GLsizei) {block?} = R'''
-	AutoPtr<Object_Buffer> pObjBuff(new Object_Buffer(size));
+	AutoPtr<Object_Buffer<GLuint> > pObjBuff(new Object_Buffer<GLuint>(size));
 	glSelectBuffer(size, pObjBuff->GetBuffer());
 	return ReturnValue(env, sig, args, Value(pObjBuff.release()));
 ''' % {`en, 'markdown',
