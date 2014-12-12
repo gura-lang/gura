@@ -1,0 +1,346 @@
+#!/usr/bin/env gura
+// This Gura program has been ported from the original C code below:
+// https://www.opengl.org/archives/resources/code/samples/glut_examples/examples/triselect.c
+
+/* Copyright (c) Mark J. Kilgard, 1994. */
+
+/**
+ * (c) Copyright 1993, Silicon Graphics, Inc.
+ * ALL RIGHTS RESERVED 
+ * Permission to use, copy, modify, and distribute this software for 
+ * any purpose and without fee is hereby granted, provided that the above
+ * copyright notice appear in all copies and that both the copyright notice
+ * and this permission notice appear in supporting documentation, and that 
+ * the name of Silicon Graphics, Inc. not be used in advertising
+ * or publicity pertaining to distribution of the software without specific,
+ * written prior permission. 
+ *
+ * THE MATERIAL EMBODIED ON THIS SOFTWARE IS PROVIDED TO YOU "AS-IS"
+ * AND WITHOUT WARRANTY OF ANY KIND, EXPRESS, IMPLIED OR OTHERWISE,
+ * INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE.  IN NO EVENT SHALL SILICON
+ * GRAPHICS, INC.  BE LIABLE TO YOU OR ANYONE ELSE FOR ANY DIRECT,
+ * SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY
+ * KIND, OR ANY DAMAGES WHATSOEVER, INCLUDING WITHOUT LIMITATION,
+ * LOSS OF PROFIT, LOSS OF USE, SAVINGS OR REVENUE, OR THE CLAIMS OF
+ * THIRD PARTIES, WHETHER OR NOT SILICON GRAPHICS, INC.  HAS BEEN
+ * ADVISED OF THE POSSIBILITY OF SUCH LOSS, HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE
+ * POSSESSION, USE OR PERFORMANCE OF THIS SOFTWARE.
+ * 
+ * US Government Users Restricted Rights 
+ * Use, duplication, or disclosure by the Government is subject to
+ * restrictions set forth in FAR 52.227.19(c)(2) or subparagraph
+ * (c)(1)(ii) of the Rights in Technical Data and Computer Software
+ * clause at DFARS 252.227-7013 and/or in similar or successor
+ * clauses in the FAR or the DOD or NASA FAR Supplement.
+ * Unpublished-- rights reserved under the copyright laws of the
+ * United States.  Contractor/manufacturer is Silicon Graphics,
+ * Inc., 2011 N.  Shoreline Blvd., Mountain View, CA 94039-7311.
+ *
+ * OpenGL(TM) is a trademark of Silicon Graphics, Inc.
+ */
+
+import(opengl) {*}
+import(glu) {*}
+import(glut) {*}
+
+MAXOBJS = 10000
+MAXSELECT = 100
+MAXFEED = 300
+SOLID = 1
+LINE = 2
+POINT = 3
+
+windW = 300, windH = 300;
+
+selectBuf= nil //dim(MAXSELECT) {0}
+feedBuf = nil //dim(MAXFEED) {0}
+vp = dim(4) {0}
+zRotation = 90.0;
+zoom = 1.0;
+objectCount = 0;
+numObjects = 0;
+object = struct(v1[]:number, v2[]:number, v3[]:number, color[]:number)
+objects = dim(MAXOBJS) {object([0, 0], [0, 0], [0, 0], [0, 0, 0])}
+linePoly = GL_FALSE;
+
+InitObjects(num:number) = {
+	if (num > MAXOBJS) {
+		num = MAXOBJS;
+	}
+	if (num < 1) {
+		num = 1;
+	}
+	objectCount:extern = num;
+
+	randseed(os.clock())
+	repeat(num) {|i|
+		x = rand(300) - 150;
+		y = rand(300) - 150;
+
+		objects[i].v1[0] = x + rand(50) - 25;
+		objects[i].v2[0] = x + rand(50) - 25;
+		objects[i].v3[0] = x + rand(50) - 25;
+		objects[i].v1[1] = y + rand(50) - 25;
+		objects[i].v2[1] = y + rand(50) - 25;
+		objects[i].v3[1] = y + rand(50) - 25;
+		objects[i].color[0] = (rand(100) + 50) / 150.0;
+		objects[i].color[1] = (rand(100) + 50) / 150.0;
+		objects[i].color[2] = (rand(100) + 50) / 150.0;
+	}
+}
+
+Init() = {
+	numObjects:extern = 10;
+	InitObjects(numObjects);
+}
+
+Reshape(width:number, height:number) = {
+	windW:extern = width;
+	windH:extern = height;
+	glViewport(0, 0, windW, windH);
+	vp:extern = glGetIntegerv(GL_VIEWPORT);
+}
+
+Render(mode:number) = {
+	repeat(objectCount) {|i|
+		if (mode == GL_SELECT) {
+			glLoadName(i);
+		}
+		glColor3fv(objects[i].color);
+		glBegin(GL_POLYGON);
+		glVertex2fv(objects[i].v1);
+		glVertex2fv(objects[i].v2);
+		glVertex2fv(objects[i].v3);
+		glEnd();
+	}
+}
+
+DoSelect(x:number, y:number) = {
+	selectBuf:extern = glSelectBuffer(MAXSELECT);
+	glRenderMode(GL_SELECT);
+	glInitNames();
+	glPushName(~0);
+
+	glPushMatrix();
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPickMatrix(x, windH - y, 4, 4, vp);
+	gluOrtho2D(-175, 175, -175, 175);
+	glMatrixMode(GL_MODELVIEW);
+
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	glScalef(zoom, zoom, zoom);
+	glRotatef(zRotation, 0, 0, 1);
+
+	Render(GL_SELECT);
+
+	glPopMatrix();
+
+	hits = glRenderMode(GL_RENDER);
+	if (hits <= 0) {
+		return(-1);
+	}
+	selectBuf[(hits - 1) * 4 + 3];
+}
+
+RecolorTri(h:number) = {
+	objects[h].color[0] = (rand(100) + 50) / 150.0;
+	objects[h].color[1] = (rand(100) + 50) / 150.0;
+	objects[h].color[2] = (rand(100) + 50) / 150.0;
+}
+
+DeleteTri(h:number) = {
+	objects[h] = objects[objectCount - 1];
+	objectCount:extern -= 1;
+}
+
+GrowTri(h:number) = {
+	v = dim(2) {0}
+
+	v[0] = objects[h].v1[0] + objects[h].v2[0] + objects[h].v3[0];
+	v[1] = objects[h].v1[1] + objects[h].v2[1] + objects[h].v3[1];
+	v[0] /= 3;
+	v[1] /= 3;
+
+	repeat(3) {|i|
+		if (i == 0) {
+			oldV = objects[h].v1;
+		} elsif (i == 1) {
+			oldV = objects[h].v2;
+		} elsif (i == 2) {
+			oldV = objects[h].v3;
+		}
+		oldV[0] = 1.5 * (oldV[0] - v[0]) + v[0];
+		oldV[1] = 1.5 * (oldV[1] - v[1]) + v[1];
+	}
+}
+
+Mouse(button:number, state:number, mouseX:number, mouseY:number) = {
+	if (state == GLUT_DOWN) {
+		hit = DoSelect(mouseX, mouseY);
+		if (hit != -1) {
+			if (button == GLUT_LEFT_BUTTON) {
+				RecolorTri(hit);
+			} elsif (button == GLUT_MIDDLE_BUTTON) {
+				GrowTri(hit);
+			} elsif (button == GLUT_RIGHT_BUTTON) {
+				DeleteTri(hit);
+			}
+			glutPostRedisplay();
+		}
+	}
+}
+
+Draw() = {
+	glPushMatrix();
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(-175, 175, -175, 175);
+	glMatrixMode(GL_MODELVIEW);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glScalef(zoom, zoom, zoom);
+	glRotatef(zRotation, 0, 0, 1);
+	Render(GL_RENDER);
+	glPopMatrix();
+	glutSwapBuffers();
+}
+
+DumpFeedbackVert(i:number, n:number) = {
+	index = i;
+	if (index + 7 > n) {
+		printf("  ???\n");
+		return(n);
+	}
+	printf("  (%g %g %g), color = (%4.2f %4.2f %4.2f)\n",
+		   feedBuf[index],
+		   feedBuf[index + 1],
+		   feedBuf[index + 2],
+		   feedBuf[index + 3],
+		   feedBuf[index + 4],
+		   feedBuf[index + 5]);
+	index += 7;
+	index;
+}
+
+DrawFeedback(n:number) = {
+	printf("Feedback results (%d floats):\n", n);
+	i = 0
+	while (i < n) {
+		token = feedBuf[i]
+		if (token == GL_POLYGON_TOKEN) {
+			printf("Polygon");
+			i += 1;
+			if (i < n) {
+				verts = feedBuf[i];
+				i += 1;
+				printf(": %d vertices", verts);
+			} else {
+				verts = 0;
+			}
+			printf("\n");
+			while (verts != 0) {
+				i = DumpFeedbackVert(i, n);
+				verts -= 1;
+			}
+		} elsif (token == GL_LINE_TOKEN) {
+			printf("Line:\n");
+			i += 1;
+			i = DumpFeedbackVert(i, n);
+			i = DumpFeedbackVert(i, n);
+		} elsif (token == GL_LINE_RESET_TOKEN) {
+			printf("Line Reset:\n");
+			i += 1;
+			i = DumpFeedbackVert(i, n);
+			i = DumpFeedbackVert(i, n);
+		} else {
+			printf("%9.2f\n", feedBuf[i]);
+		}
+	}
+	if (i == MAXFEED) {
+		printf("...\n");
+	}
+	printf("\n");
+}
+
+DoFeedback() = {
+	feedBuf:extern = glFeedbackBuffer(MAXFEED, GL_3D_COLOR);
+	glRenderMode(GL_FEEDBACK);
+
+	glPushMatrix();
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(-175, 175, -175, 175);
+	glMatrixMode(GL_MODELVIEW);
+
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	glScalef(zoom, zoom, zoom);
+	glRotatef(zRotation, 0, 0, 1);
+
+	Render(GL_FEEDBACK);
+	
+	glPopMatrix();
+
+	x = glRenderMode(GL_RENDER);
+	if (x == -1) {
+		x = MAXFEED;
+	}
+	DrawFeedback(x);
+}
+
+Key(key:number, x:number, y:number) = {
+	key = chr(key)
+	if (key == 'z') {
+		zoom:extern /= 0.75;
+		glutPostRedisplay();
+	} elsif (key == 'Z') {
+		zoom:extern *= 0.75;
+		glutPostRedisplay();
+	} elsif (key == 'f') {
+		DoFeedback();
+		glutPostRedisplay();
+	} elsif (key == 'l') {
+		linePoly:extern = !linePoly;
+		if (linePoly) {
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		} else {
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
+		glutPostRedisplay();
+	} elsif (key == '\x1b') {
+		sys.exit(0);
+	}
+}
+
+SpecialKey(key:number, x:number, y:number) = {
+	if (key == GLUT_KEY_LEFT) {
+		zRotation:extern += 0.5;
+		glutPostRedisplay();
+	} elsif (key == GLUT_KEY_RIGHT) {
+		zRotation:extern -= 0.5;
+		glutPostRedisplay();
+	}
+}
+
+main() = {
+	glutInit(sys.argv);
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
+	glutCreateWindow("Select Test");
+	Init();
+	glutReshapeFunc(Reshape);
+	glutKeyboardFunc(Key);
+	glutSpecialFunc(SpecialKey);
+	glutMouseFunc(Mouse);
+	glutDisplayFunc(Draw);
+	glutMainLoop();
+}
+
+main()

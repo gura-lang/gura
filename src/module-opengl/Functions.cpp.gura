@@ -668,7 +668,7 @@ glEvalPoint2(i:GLint, j:GLint):void:map = `auto % {`en, 'markdown',
 	'''
 }
 
-glFeedbackBuffer(size:GLsizei, type:GLenum):void:map = R'''
+glFeedbackBuffer(size:GLsizei, type:GLenum) = R'''
 	AutoPtr<Object_Buffer<GLfloat> > pObjBuff(new Object_Buffer<GLfloat>(size));
 	glFeedbackBuffer(size, type, pObjBuff->GetBuffer());
 	return ReturnValue(env, sig, args, Value(pObjBuff.release()));

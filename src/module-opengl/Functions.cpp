@@ -1911,7 +1911,7 @@ Gura_ImplementFunction(__glEvalPoint2)
 // opengl.glFeedbackBuffer
 Gura_DeclareFunctionAlias(__glFeedbackBuffer, "glFeedbackBuffer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
