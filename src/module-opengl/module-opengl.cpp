@@ -1449,9 +1449,9 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-#if GURA_USE_MSWIN_DIB
 bool DoGLSection(Environment &env, Signal sig, Args &args, Image *pImage)
 {
+#if GURA_USE_MSWIN_DIB
 	PIXELFORMATDESCRIPTOR pfd = { 
 		sizeof(PIXELFORMATDESCRIPTOR), 1,
 		PFD_DRAW_TO_BITMAP | PFD_SUPPORT_OPENGL, PFD_TYPE_RGBA,
@@ -1475,10 +1475,54 @@ bool DoGLSection(Environment &env, Signal sig, Args &args, Image *pImage)
 	::SelectObject(hdc, hBmpOld);
 	::DeleteDC(hdc);
 	return true;
-}
+#elif defined(GURA_ON_DARWIN)
+	//*****************
+	// not working yet.
+	//*****************
+	GLsizei width = static_cast<GLsizei>(pImage->GetWidth());
+	GLsizei height = static_cast<GLsizei>(pImage->GetHeight());
+    CGLError errCode = kCGLNoError;
+	GLuint texOut = 0;
+	CGLContextObj ctx = NULL;
+	CGLContextObj ctxOrg = CGLGetCurrentContext();
+	CGLPixelFormatAttribute attributes[4] = {
+		kCGLPFAAccelerated,
+		kCGLPFAOpenGLProfile,
+		(CGLPixelFormatAttribute)kCGLOGLPVersion_3_2_Core,
+		(CGLPixelFormatAttribute)0
+	};
+	CGLPixelFormatObj pixelFormat = NULL;
+	GLint numPixelFormats = 0;
+	errCode = CGLChoosePixelFormat(attributes, &pixelFormat, &numPixelFormats);
+	errCode = CGLCreateContext(pixelFormat, NULL, &ctx);
+	errCode = CGLSetCurrentContext(ctx);
+	glGenTextures(1, &texOut);
+	glBindTexture(GL_TEXTURE_2D, texOut);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_FLOAT, NULL);
+	GLuint frameBuffer = 0;
+	glGenFramebuffers(1, &frameBuffer);
+	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texOut, 0);
+	GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+	if (status == GL_FRAMEBUFFER_COMPLETE) {
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (!sig.IsSignalled()) {
+			SeqPostHandler *pSeqPostHandler = NULL;
+			pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		}
+	}
+	do {
+		GLenum format = GetImageFormat(sig, pImage);
+		if (sig.IsSignalled()) return false;
+		glBindTexture(GL_TEXTURE_2D, texOut);
+		glGetTexImage(GL_TEXTURE_2D, 0, format, GL_UNSIGNED_BYTE, pImage->GetBuffer());
+	} while (0);
+	glDeleteTextures(1, &texOut);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	CGLSetCurrentContext(ctxOrg);
+	CGLDestroyContext(ctx);
+	return true;
 #else
-bool DoGLSection(Environment &env, Signal sig, Args &args, Image *pImage)
-{
 #if 0
 	int width = static_cast<int>(pImage->GetWidth());
 	int height = static_cast<int>(pImage->GetHeight());
@@ -1494,9 +1538,9 @@ bool DoGLSection(Environment &env, Signal sig, Args &args, Image *pImage)
 	::glReadPixels(0, 0, width, height, GL_BGRA_EXT,
 									GL_UNSIGNED_BYTE, pImage->GetBuffer());
 #endif
+#endif
 	return true;
 }
-#endif
 
 Gura_EndModuleBody(opengl, opengl)
 
