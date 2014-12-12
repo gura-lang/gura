@@ -1,0 +1,353 @@
+#!/usr/bin/env gura
+// This Gura program has been ported from the original C code below:
+// https://www.opengl.org/archives/resources/code/samples/glut_examples/examples/origami.c
+
+/* Copyright (c) Mark J. Kilgard, 1994. */
+
+/* This program is freely distributable without licensing fees 
+   and is provided without guarantee or warrantee expressed or 
+   implied. This program is -not- in the public domain. */
+
+import(opengl) {*}
+import(glu) {*}
+import(glut) {*}
+
+/* Uses EXT_polygon_offset extension if available to better
+   render the fold outlines. */
+
+[
+  FLAT,                 /* completely flat sheet of paper */
+  FLAP1,                /* left flap being folded in */
+  FLAP2,                /* right flap being folded int */
+  CENTER2,              /* right side folded up at center */
+  WING2,                /* right wing folded down */
+  CENTER1,              /* left side folded up at center */
+  WING1,                /* left wing folded down */
+  FOLDED                /* fully folded paper airplane */
+] = 0..
+
+motion = true;
+spinning = true;
+state = FLAT;
+click = 0;
+delay = 0;
+direction = 0;
+flap1_angle = 0;
+flap2_angle = 0;
+center1_angle = 0;
+center2_angle = 0;
+wing1_angle = 0;
+wing2_angle = 0;
+
+/**
+
+These correspond to the polygons for the paper sections:
+
+  +----------+----------+
+  |         /|\         |
+  |  2     / | \    3   |
+  |       /  |  \       |
+  +------/   |   \------+
+  |     /|   |   |\     |
+  | 1  / |   |   | \ 4  |
+  |   /  |   |   |  \   |
+  |  /   |   |   |   \  |
+  | /    | 5 | 6 |    \ |
+  |/     |   |   |     \|
+  +      |   |   |      +
+  |  7   |   |   |  8   |
+  |      |   |   |      |
+  |      |   |   |      |
+  |      |   |   |      |
+  |      |   |   |      |
+  |      |   |   |      |
+  |      |   |   |      |
+  +------+---+---+------+
+
+*/
+
+Point = class {
+	__init__(x:number, y:number) = {
+		this.data:public = [x, y]
+	}
+	__getitem__(idx:number) = {
+		this.data[idx]
+	}
+	__setitem__(idx:number, value) = {
+		this.data[idx] = value
+	}
+}
+
+poly1 = @(Point) \
+{
+  {-1, 0},
+  {-1 / 3.0, 2 / 3.0},
+  {-1, 2 / 3.0}
+};
+
+poly2 = @(Point) \
+{
+  {-1, 1},
+  {-1, 2 / 3.0},
+  {-1 / 3.0, 2 / 3.0},
+  {0, 1}
+};
+
+poly3 = @(Point) \
+{
+  {0, 1},
+  {1, 1},
+  {1, 2 / 3.0},
+  {1 / 3.0, 2 / 3.0}
+};
+
+poly4 = @(Point) \
+{
+  {1 / 3.0, 2 / 3.0},
+  {1, 2 / 3.0},
+  {1, 0}
+};
+
+poly5 = @(Point) \
+{
+  {-1 / 3.0, 2 / 3.0},
+  {0, 1},
+  {0, -1.5},
+  {-1 / 3.0, -1.5}
+};
+
+poly6 = @(Point) \
+{
+  {0, 1},
+  {1 / 3.0, 2 / 3.0},
+  {1 / 3.0, -1.5},
+  {0, -1.5}
+};
+
+poly7 = @(Point) \
+{
+  {-1, 0},
+  {-1 / 3.0, 2 / 3.0},
+  {-1 / 3.0, -1.5},
+  {-1, -1.5}
+};
+
+poly8 = @(Point) \
+{
+  {1, 0},
+  {1 / 3.0, 2 / 3.0},
+  {1 / 3.0, -1.5},
+  {1, -1.5}
+};
+
+polydlist(dlist:number, points[]:Point) = {
+	glNewList(dlist, GL_COMPILE) {
+		glBegin(GL_POLYGON) {
+			glVertex2fv(points:*data)
+		}
+	}
+}
+
+idle() = {
+	if (spinning) {
+		click:extern += 1;
+	}
+	if (state == FLAT) {
+		delay:extern += 1;
+		if (delay >= 80) {
+			delay:extern = 0;
+			state:extern = FLAP1;
+			glutSetWindowTitle("origami (folding)");
+			direction:extern = 1;
+		}
+	} elsif (state == FLAP1) {
+		flap1_angle:extern += 2 * direction;
+		if (flap1_angle >= 180) {
+			state:extern = FLAP2;
+		} elsif (flap1_angle <= 0) {
+			state:extern = FLAT;
+		}
+	} elsif (state == FLAP2) {
+		flap2_angle:extern += 2 * direction;
+		if (flap2_angle >= 180) {
+			state:extern = CENTER2;
+		} elsif (flap2_angle <= 0) {
+			state:extern = FLAP1;
+		}
+	} elsif (state == CENTER2) {
+		center2_angle:extern += 2 * direction;
+		if (center2_angle >= 84) {
+			state:extern = WING2;
+		} elsif (center2_angle <= 0) {
+			state:extern = FLAP2;
+		}
+	} elsif (state == WING2) {
+		wing2_angle:extern += 2 * direction;
+		if (wing2_angle >= 84) {
+			state:extern = CENTER1;
+		} elsif (wing2_angle <= 0) {
+			state:extern = CENTER2;
+		}
+	} elsif (state == CENTER1) {
+		center1_angle:extern += 2 * direction;
+		if (center1_angle >= 84) {
+			state:extern = WING1;
+		} elsif (center1_angle <= 0) {
+			state:extern = WING2;
+		}
+	} elsif (state == WING1) {
+		wing1_angle:extern += 2 * direction;
+		if (wing1_angle >= 84) {
+			state:extern = FOLDED;
+		} elsif (wing1_angle <= 0) {
+			state:extern = CENTER1;
+		}
+	} elsif (state == FOLDED) {
+		delay:extern += 1;
+		if (delay >= 80) {
+			delay:extern = 0;
+			glutSetWindowTitle("origami (unfolding)");
+			direction:extern = -1;
+			state:extern = WING1;
+		}
+	}
+	glutPostRedisplay();
+}
+
+draw_folded_plane() = {
+	glPushMatrix {
+		glRotatef(click, 0, 0, 1);
+		glRotatef(click / 5.0, 0, 1, 0);
+		glTranslatef(0, .25, 0);
+		glPushMatrix {
+			glRotatef(center1_angle, 0, 1, 0);
+			glPushMatrix {
+				glTranslatef(-.5, .5, 0);
+				glRotatef(flap1_angle, 1, 1, 0);
+				glTranslatef(.5, -.5, 0);
+				glCallList(2);
+			}
+			glCallList(5);
+
+			glPushMatrix {
+				glTranslatef(-1 / 3.0, 0, 0);
+				glRotatef(-wing1_angle, 0, 1, 0);
+				glTranslatef(1 / 3.0, 0, 0);
+
+				glCallList(7);
+				glPushMatrix {
+					glTranslatef(-.5, .5, 0);
+					glRotatef(flap1_angle, 1, 1, 0);
+					glTranslatef(.5, -.5, 0);
+					glCallList(1);
+				}
+			}
+		}
+
+		glPushMatrix {
+			glRotatef(-center2_angle, 0, 1, 0);
+			glPushMatrix {
+				glTranslatef(.5, .5, 0);
+				glRotatef(-flap2_angle, -1, 1, 0);
+				glTranslatef(-.5, -.5, 0);
+				glCallList(3);
+			}
+			glCallList(6);
+			
+			glPushMatrix {
+				glTranslatef(1 / 3.0, 0, 0);
+				glRotatef(wing2_angle, 0, 1, 0);
+				glTranslatef(-1 / 3.0, 0, 0);
+				
+				glCallList(8);
+				glPushMatrix {
+					glTranslatef(.5, .5, 0);
+					glRotatef(-flap2_angle, -1, 1, 0);
+					glTranslatef(-.5, -.5, 0);
+					glCallList(4);
+				}
+			}
+		}
+	}
+}
+
+display() = {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glColor3ub(67, 205, 128);
+	draw_folded_plane();
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glColor3ub(255, 255, 255);
+	glPushMatrix {
+		glTranslatef(0, 0, .05);
+		draw_folded_plane();
+	}
+	glutSwapBuffers();
+}
+
+visible(state:number) = {
+	if (state == GLUT_VISIBLE) {
+		if (motion) {
+			glutIdleFunc(idle);
+		}
+	} else {
+		glutIdleFunc(nil);
+	}
+}
+
+menu(value:number) = {
+	if (value == 1) {
+		direction:extern = -direction;
+		if (direction > 0) {
+			glutSetWindowTitle("origami (folding)");
+		} else {
+			glutSetWindowTitle("origami (unfolding)");
+		}
+	} elsif (value == 2) {
+		motion:extern = !motion;
+		if (motion) {
+			glutIdleFunc(idle);
+		} else {
+			glutIdleFunc(nil);
+		}
+	} elsif (value == 3) {
+		spinning:extern = !spinning;
+	} elsif (value == 666) {
+		sys.exit(0);
+	}
+}
+
+main() = {
+	glutInit(sys.argv);
+	glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
+	glutCreateWindow("origami");
+	glutDisplayFunc(display);
+	glutVisibilityFunc(visible);
+	glClearColor(.488, .617, .75, 1.0);
+	glMatrixMode(GL_PROJECTION);
+	gluPerspective(40.0, 1.0, 0.1, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+	gluLookAt(0, 0, 5.5,
+			  0, 0, 0,
+			  0, 1, 0);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+	glLineWidth(2.0);
+	polydlist(1, poly1);
+	polydlist(2, poly2);
+	polydlist(3, poly3);
+	polydlist(4, poly4);
+	polydlist(5, poly5);
+	polydlist(6, poly6);
+	polydlist(7, poly7);
+	polydlist(8, poly8);
+	glutCreateMenu(menu);
+	glutAddMenuEntry("Reverse direction", 1);
+	glutAddMenuEntry("Toggle motion", 2);
+	glutAddMenuEntry("Toggle spinning", 3);
+	glutAddMenuEntry("Quit", 666);
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+	glutMainLoop();
+}
+
+main()
