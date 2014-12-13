@@ -1923,8 +1923,9 @@ Gura_ImplementFunction(__glFeedbackBuffer)
 {
 	GLsizei size = args.GetInt(0);
 	GLenum type = static_cast<GLenum>(args.GetInt(1));
-	AutoPtr<Object_Buffer<GLfloat> > pObjBuff(new Object_Buffer<GLfloat>(size));
-	glFeedbackBuffer(size, type, pObjBuff->GetBuffer());
+	AutoPtr<Object_Buffer<GLfloat> > pObjBuff(new Object_Buffer<GLfloat>(
+												  Gura_UserClass(BufferGLfloat), size));
+	glFeedbackBuffer(size, type, pObjBuff->GetPointer(0));
 	return ReturnValue(env, sig, args, Value(pObjBuff.release()));
 }
 
@@ -5275,8 +5276,9 @@ Gura_DeclareFunctionAlias(__glSelectBuffer, "glSelectBuffer")
 Gura_ImplementFunction(__glSelectBuffer)
 {
 	GLsizei size = args.GetInt(0);
-	AutoPtr<Object_Buffer<GLuint> > pObjBuff(new Object_Buffer<GLuint>(size));
-	glSelectBuffer(size, pObjBuff->GetBuffer());
+	AutoPtr<Object_Buffer<GLuint> > pObjBuff(new Object_Buffer<GLuint>(
+												 Gura_UserClass(BufferGLuint), size));
+	glSelectBuffer(size, pObjBuff->GetPointer(0));
 	return ReturnValue(env, sig, args, Value(pObjBuff.release()));
 }
 

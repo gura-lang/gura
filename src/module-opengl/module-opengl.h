@@ -19,17 +19,20 @@ bool DoGLSection(Environment &env, Signal sig, Args &args, Image *pImage);
 //-----------------------------------------------------------------------------
 // Buffer class
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(Buffer);
+Gura_DeclareUserClass(BufferGLuint);
+Gura_DeclareUserClass(BufferGLfloat);
+Gura_DeclareUserClass(BufferGLdouble);
 
-template<typename T>
+template<typename T_Elem>
 class Object_Buffer : public Object {
 public:
 	Gura_DeclareObjectAccessor(Buffer)
 private:
-	AutoPtr<Memory> _pBuff;
+	AutoPtr<Memory> _pMemory;
+	size_t _offset;
 public:
-	Object_Buffer(size_t n) : Object(Gura_UserClass(Buffer)),
-								_pBuff(new MemoryHeap(n * sizeof(T))) {}
+	Object_Buffer(Class *pClass, size_t n) : Object(pClass),
+		_pMemory(new MemoryHeap(n * sizeof(T_Elem))), _offset(0) {}
 	virtual ~Object_Buffer() {}
 	virtual Object *Clone() const { return NULL; }
 	virtual String ToString(bool exprFlag) {
@@ -45,7 +48,7 @@ public:
 			sig.SetError(ERR_OutOfRangeError, "index is out of range");
 			return Value::Null;
 		}
-		return Value(GetBuffer()[idx]);
+		return Value(GetPointer(idx));
 	}
 	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value) {
 		if (!valueIdx.Is_number()) {
@@ -57,12 +60,25 @@ public:
 			sig.SetError(ERR_OutOfRangeError, "index is out of range");
 			return;
 		}
-		GetBuffer()[idx] = static_cast<T>(value.GetNumber());
+		*GetPointer(idx) = static_cast<T_Elem>(value.GetNumber());
 	}
-	inline T *GetBuffer() {
-		return reinterpret_cast<T *>(_pBuff->GetPointer());
+	static Object_Buffer *Create(Signal sig, Class *pClass, const ValueList &valList) {
+		AutoPtr<Object_Buffer> pObj(new Object_Buffer(pClass, valList.size()));
+		T_Elem *p = pObj->GetPointer(0);
+		foreach_const (ValueList, pValue, valList) {
+			if (!pValue->Is_number()) {
+				sig.SetError(ERR_ValueError, "element must be a number");
+				return NULL;
+			}
+			*p++ = static_cast<T_Elem>(pValue->GetNumber());
+		}
+		return pObj.release();
 	}
-	inline size_t GetSize() const { return _pBuff->GetSize() / sizeof(T); }
+	inline Memory *GetMemory() { return _pMemory.get(); }
+	inline T_Elem *GetPointer(size_t idx) {
+		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer()) + _offset + idx;
+	}
+	inline size_t GetSize() const { return _pMemory->GetSize() / sizeof(T_Elem) - _offset; }
 private:
 	inline Object_Buffer(const Object_Buffer &obj) : Object(obj) {}
 };
