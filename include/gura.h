@@ -27,6 +27,7 @@
 #include <algorithm>
 
 #include "gura/Algorithm.h"
+#include "gura/Array.h"
 #include "gura/Audio.h"
 #include "gura/Binary.h"
 #include "gura/Class.h"
@@ -66,6 +67,7 @@
 #include "gura/Uri.h"
 
 #include "gura/Class_args.h"
+#include "gura/Class_array.h"
 #include "gura/Class_audio.h"
 #include "gura/Class_binary.h"
 #include "gura/Class_codec.h"

@@ -16,14 +16,14 @@
 #define Gura_DeclareVTYPE(name) \
 ValueTypeInfo *_pValueTypeInfo_##name
 
-#define Gura_RealizeVTYPEEx(name, str) do { \
+#define Gura_RealizeVTYPEAlias(name, str) do { \
 	_pValueTypeInfo_##name = ValueTypePool::GetInstance()->Add(Symbol::Add(str)); \
 	env.AssignValueType(_pValueTypeInfo_##name); \
 	VTYPE_##name = _pValueTypeInfo_##name->GetValueType(); \
 } while (0)
 
 #define Gura_RealizeVTYPE(name) \
-Gura_RealizeVTYPEEx(name, #name)
+Gura_RealizeVTYPEAlias(name, #name)
 
 namespace Gura {
 
@@ -57,6 +57,14 @@ GURA_DLLDECLARE extern ValueType VTYPE_Sequence;
 GURA_DLLDECLARE extern ValueType VTYPE_object;
 GURA_DLLDECLARE extern ValueType VTYPE_Struct;
 GURA_DLLDECLARE extern ValueType VTYPE_args;
+GURA_DLLDECLARE extern ValueType VTYPE_array_char;
+GURA_DLLDECLARE extern ValueType VTYPE_array_uchar;
+GURA_DLLDECLARE extern ValueType VTYPE_array_short;
+GURA_DLLDECLARE extern ValueType VTYPE_array_ushort;
+GURA_DLLDECLARE extern ValueType VTYPE_array_long;
+GURA_DLLDECLARE extern ValueType VTYPE_array_ulong;
+GURA_DLLDECLARE extern ValueType VTYPE_array_float;
+GURA_DLLDECLARE extern ValueType VTYPE_array_double;
 GURA_DLLDECLARE extern ValueType VTYPE_audio;
 GURA_DLLDECLARE extern ValueType VTYPE_binary;
 GURA_DLLDECLARE extern ValueType VTYPE_codec;
@@ -150,6 +158,14 @@ public:
 	Gura_DeclareVTYPE(object);
 	Gura_DeclareVTYPE(Struct);
 	Gura_DeclareVTYPE(args);
+	Gura_DeclareVTYPE(array_char);
+	Gura_DeclareVTYPE(array_uchar);
+	Gura_DeclareVTYPE(array_short);
+	Gura_DeclareVTYPE(array_ushort);
+	Gura_DeclareVTYPE(array_long);
+	Gura_DeclareVTYPE(array_ulong);
+	Gura_DeclareVTYPE(array_float);
+	Gura_DeclareVTYPE(array_double);
 	Gura_DeclareVTYPE(audio);
 	Gura_DeclareVTYPE(binary);
 	Gura_DeclareVTYPE(codec);

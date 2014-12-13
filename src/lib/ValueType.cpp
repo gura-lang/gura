@@ -29,6 +29,14 @@ ValueType VTYPE_Sequence		= static_cast<ValueType>(0);
 // object types
 ValueType VTYPE_object			= static_cast<ValueType>(0);
 ValueType VTYPE_args			= static_cast<ValueType>(0);
+ValueType VTYPE_array_char		= static_cast<ValueType>(0);
+ValueType VTYPE_array_uchar		= static_cast<ValueType>(0);
+ValueType VTYPE_array_short		= static_cast<ValueType>(0);
+ValueType VTYPE_array_ushort	= static_cast<ValueType>(0);
+ValueType VTYPE_array_long		= static_cast<ValueType>(0);
+ValueType VTYPE_array_ulong		= static_cast<ValueType>(0);
+ValueType VTYPE_array_float		= static_cast<ValueType>(0);
+ValueType VTYPE_array_double	= static_cast<ValueType>(0);
 ValueType VTYPE_audio			= static_cast<ValueType>(0);
 ValueType VTYPE_binary			= static_cast<ValueType>(0);
 ValueType VTYPE_codec			= static_cast<ValueType>(0);
@@ -134,13 +142,21 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(quote);
 	Gura_RealizeVTYPE(any);
 	// container types
-	Gura_RealizeVTYPEEx(Module,		"module");
-	Gura_RealizeVTYPEEx(Class,		"class");
+	Gura_RealizeVTYPEAlias(Module,			"module");
+	Gura_RealizeVTYPEAlias(Class,			"class");
 	// sequence
 	Gura_RealizeVTYPE(Sequence);
 	// object types
 	Gura_RealizeVTYPE(object);
 	Gura_RealizeVTYPE(args);
+	Gura_RealizeVTYPEAlias(array_char,		"array@char");
+	Gura_RealizeVTYPEAlias(array_uchar,		"array@uchar");
+	Gura_RealizeVTYPEAlias(array_short,		"array@short");
+	Gura_RealizeVTYPEAlias(array_ushort,	"array@ushort");
+	Gura_RealizeVTYPEAlias(array_long,		"array@long");
+	Gura_RealizeVTYPEAlias(array_ulong,		"array@ulong");
+	Gura_RealizeVTYPEAlias(array_float,		"array@float");
+   	Gura_RealizeVTYPEAlias(array_double,	"array@double");
 	Gura_RealizeVTYPE(audio);
 	Gura_RealizeVTYPE(binary);
 	Gura_RealizeVTYPE(codec);
@@ -168,7 +184,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(template);
 	Gura_RealizeVTYPE(timedelta);
 	Gura_RealizeVTYPE(uri);
-	Gura_RealizeVTYPEEx(Struct,		"struct");
+	Gura_RealizeVTYPEAlias(Struct,			"struct");
 	Class *pClass = new Class(&env, VTYPE_object);
 	Gura_VTYPEInfo(object		)->SetClass(pClass);
 	// nil / undefined
@@ -191,6 +207,22 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(Sequence		)->SetClass(new Class_Sequence(pClass));
 	// other built-in object classes
 	Gura_VTYPEInfo(args			)->SetClass(new Class_args(pClass));
+	Gura_VTYPEInfo(array_char	)->SetClass(
+		new Class_array<char>(pClass, VTYPE_array_char, "array@char"));
+	Gura_VTYPEInfo(array_uchar	)->SetClass(
+		new Class_array<UChar>(pClass, VTYPE_array_uchar, "array@uchar"));
+	Gura_VTYPEInfo(array_short	)->SetClass(
+		new Class_array<short>(pClass, VTYPE_array_short, "array@short"));
+	Gura_VTYPEInfo(array_ushort	)->SetClass(
+		new Class_array<UShort>(pClass, VTYPE_array_ushort, "array@ushort"));
+	Gura_VTYPEInfo(array_long	)->SetClass(
+		new Class_array<long>(pClass, VTYPE_array_long, "array@long"));
+	Gura_VTYPEInfo(array_ulong	)->SetClass(
+		new Class_array<ULong>(pClass, VTYPE_array_ulong, "array@ulong"));
+	Gura_VTYPEInfo(array_float	)->SetClass(
+		new Class_array<float>(pClass, VTYPE_array_float, "array@float"));
+	Gura_VTYPEInfo(array_double	)->SetClass(
+		new Class_array<double>(pClass, VTYPE_array_double, "array@double"));
 	Gura_VTYPEInfo(audio		)->SetClass(new Class_audio(pClass));
 	Gura_VTYPEInfo(binary		)->SetClass(new Class_binary(pClass));
 	Gura_VTYPEInfo(codec		)->SetClass(new Class_codec(pClass));
@@ -239,6 +271,14 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_any			)->Prepare(env);
 	// object types
 	env.LookupClass(VTYPE_args			)->Prepare(env);
+	env.LookupClass(VTYPE_array_char	)->Prepare(env);
+	env.LookupClass(VTYPE_array_uchar	)->Prepare(env);
+	env.LookupClass(VTYPE_array_short	)->Prepare(env);
+	env.LookupClass(VTYPE_array_ushort	)->Prepare(env);
+	env.LookupClass(VTYPE_array_long	)->Prepare(env);
+	env.LookupClass(VTYPE_array_ulong	)->Prepare(env);
+	env.LookupClass(VTYPE_array_float	)->Prepare(env);
+	env.LookupClass(VTYPE_array_double	)->Prepare(env);
 	env.LookupClass(VTYPE_audio			)->Prepare(env);
 	env.LookupClass(VTYPE_binary		)->Prepare(env);
 	env.LookupClass(VTYPE_codec			)->Prepare(env);
