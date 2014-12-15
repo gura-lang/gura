@@ -40,6 +40,7 @@ rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTURL%/mpir-2.6.0.tar.bz2
 %CURL% -O %GUESTURL%/onig-5.9.5.tar.gz
 %CURL% -O %GUESTURL%/pixman-0.32.6.tar.gz
+%CURL% -O %GUESTURL%/pixman-0.32.6-gurapatch.zip
 %CURL% -O %GUESTURL%/SDL-1.2.15.zip
 %CURL% -O %GUESTURL%/SDL-1.2.15-gurapatch.zip
 %CURL% -O %GUESTURL%/SDL2-2.0.3.zip
