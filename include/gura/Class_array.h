@@ -44,7 +44,7 @@ public:
 			sig.SetError(ERR_OutOfRangeError, "index is out of range");
 			return Value::Null;
 		}
-		return Value(*_pArray->GetPointer(idx));
+		return Value(_pArray->GetPointer()[idx]);
 	}
 	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value) {
 		if (!valueIdx.Is_number()) {
@@ -56,7 +56,7 @@ public:
 			sig.SetError(ERR_OutOfRangeError, "index is out of range");
 			return;
 		}
-		*_pArray->GetPointer(idx) = static_cast<T_Elem>(value.GetNumber());
+		_pArray->GetPointer()[idx] = static_cast<T_Elem>(value.GetNumber());
 	}
 };
 
@@ -68,11 +68,15 @@ class GURA_DLLDECLARE Class_array : public Class {
 private:
 	const char *_funcName;
 public:
+	// array@char(arg), array@uchar(arg)
+	// array@short(arg), array@ushort(arg)
+	// array@long(arg), array@ulong(arg)
+	// array@float(arg), array@double(arg)
 	class Func_array : public Function {
 	private:
 		ValueType _valType;
 	public:
-		Func_array(Environment &env, const char *name, ValueType valType) :
+		Func_array(Environment &env, ValueType valType, const char *name) :
 				Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None),
 				_valType(valType) {
 			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_None);
@@ -87,7 +91,7 @@ public:
 			} else if (args.Is_list(0)) {
 				const ValueList &valList = args.GetList(0);
 				pArray.reset(new Array<T_Elem>(valList.size()));
-				T_Elem *p = pArray->GetPointer(0);
+				T_Elem *p = pArray->GetPointer();
 				foreach_const (ValueList, pValue, valList) {
 					if (!pValue->Is_number()) {
 						sig.SetError(ERR_ValueError, "element must be a number");
@@ -99,14 +103,51 @@ public:
 				Declaration::SetError_InvalidArgument(sig);
 				return Value::Null;
 			}
-			return new Object_array<T_Elem>(env, _valType, pArray.release());
+			Value value(new Object_array<T_Elem>(env, _valType, pArray.release()));
+			return ReturnValue(env, sig, args, value);
 		}
-	};																	\
+	};
+	class Func_offset : public Function {
+	private:
+		ValueType _valType;
+	public:
+			Func_offset(Environment &env, ValueType valType) :
+				Function(env, Symbol::Add("offset"), FUNCTYPE_Instance, FLAG_None),
+				_valType(valType) {
+			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_None);
+			DeclareArg(env, "offset", VTYPE_number, OCCUR_Once);
+			DeclareBlock(OCCUR_ZeroOrOnce);
+		}
+		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
+			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
+			size_t offset = args.GetSizeT(0);
+			if (offset >= pArray->GetSize()) {
+				sig.SetError(ERR_OutOfRangeError, "offset is out of range");
+				return Value::Null;
+			}
+			size_t cnt = pArray->GetSize() - offset;
+			size_t offsetBase = pArray->GetOffsetBase() + offset;
+			AutoPtr<Array<T_Elem> > pArrayRtn(
+				new Array<T_Elem>(pArray->GetMemory()->Reference(), cnt, offsetBase));
+			Value value(new Object_array<T_Elem>(env, _valType, pArrayRtn.release()));
+			return ReturnValue(env, sig, args, value);
+		}
+	};
 public:
 	Class_array(Environment *pEnvOuter, ValueType valType, const char *funcName) :
 						Class(pEnvOuter, valType), _funcName(funcName) {}
 	virtual void Prepare(Environment &env) {
-		env.AssignFunction(new Func_array(env, _funcName, GetValueType()));
+		env.AssignFunction(new Func_array(env, GetValueType(), _funcName));
+		AssignFunction(new Func_offset(*this, GetValueType()));
+	}
+	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl) {
+		if (value.Is_list()) {
+			AutoPtr<Array<T_Elem> > pArray(Array<T_Elem>::CreateFromList(sig, value.GetList()));
+			if (pArray.IsNull()) return false;
+			value = Value(new Object_array<T_Elem>(env, GetValueType(), pArray.release()));
+			return true;
+		}
+		return false;
 	}
 };
 

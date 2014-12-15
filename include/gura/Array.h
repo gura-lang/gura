@@ -17,26 +17,45 @@ class GURA_DLLDECLARE Array {
 private:
 	int _cntRef;
 	AutoPtr<Memory> _pMemory;
-	size_t _offset;
+	size_t _cnt;
+	size_t _offsetBase;
 public:
 	Gura_DeclareReferenceAccessor(Array);
 public:
-	Array(size_t cnt, size_t offset = 0) : _cntRef(1),
-		_pMemory(new MemoryHeap(sizeof(T_Elem) * cnt)), _offset(offset) {}
-	Array(Memory *pMemory, size_t offset = 0) : _cntRef(1), _pMemory(pMemory), _offset(offset) {}
-	Memory *GetMemory() { return _pMemory.get(); }
-	const Memory *GetMemory() const { return _pMemory.get(); }
-	T_Elem *GetPointer(size_t idx) {
-		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer()) + _offset + idx;
+	inline Array(size_t cnt, size_t offsetBase = 0) : _cntRef(1),
+		_pMemory(new MemoryHeap(sizeof(T_Elem) * cnt)), _cnt(cnt), _offsetBase(offsetBase) {}
+	inline Array(Memory *pMemory, size_t cnt, size_t offsetBase = 0) : _cntRef(1),
+		_pMemory(pMemory), _cnt(cnt), _offsetBase(offsetBase) {}
+	inline Memory *GetMemory() { return _pMemory.get(); }
+	inline const Memory *GetMemory() const { return _pMemory.get(); }
+	inline T_Elem *GetPointer() {
+		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer()) + _offsetBase;
 	}
-	const T_Elem *GetPointer(size_t idx) const {
-		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer()) + _offset + idx;
+	inline const T_Elem *GetPointer() const {
+		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer()) + _offsetBase;
 	}
-	size_t GetSize() const {
-		return _pMemory->GetSize() / sizeof(T_Elem) - _offset;
+	inline size_t GetSize() const { return _cnt; }
+	inline size_t GetOffsetBase() const { return _offsetBase; }
+	void AddToList(ValueList &valList) const {
+		const T_Elem *p = GetPointer();
+		for (size_t i = 0; i < _cnt; i++) {
+			valList.push_back(Value(*p));
+		}
+	}
+	static Array *CreateFromList(Signal sig, const ValueList &valList) {
+		AutoPtr<Array<T_Elem> > pArray(new Array<T_Elem>(valList.size(), valList.size()));
+		T_Elem *p = pArray->GetPointer();
+		foreach_const (ValueList, pValue, valList) {
+			if (!pValue->Is_number()) {
+				sig.SetError(ERR_ValueError, "element must be a number");
+				return NULL;
+			}
+			*p++ = static_cast<T_Elem>(pValue->GetNumber());
+		}
+		return pArray.release();
 	}
 private:
-	~Array() {}
+	inline ~Array() {}
 };
 
 }
