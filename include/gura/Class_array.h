@@ -89,15 +89,8 @@ public:
 				pArray.reset(new Array<T_Elem>(args.GetSizeT(0)));
 			} else if (args.Is_list(0)) {
 				const ValueList &valList = args.GetList(0);
-				pArray.reset(new Array<T_Elem>(valList.size()));
-				T_Elem *p = pArray->GetPointer();
-				foreach_const (ValueList, pValue, valList) {
-					if (!pValue->Is_number()) {
-						sig.SetError(ERR_ValueError, "element must be a number");
-						return Value::Null;
-					}
-					*p++ = static_cast<T_Elem>(pValue->GetNumber());
-				}
+				pArray.reset(Array<T_Elem>::CreateFromList(sig, valList));
+				if (pArray.IsNull()) return Value::Null;
 			} else {
 				Declaration::SetError_InvalidArgument(sig);
 				return Value::Null;
@@ -123,7 +116,7 @@ public:
 		}
 		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
 			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
-			AutoPtr<Iterator> pIterator(new typename Array<T_Elem>::Iterator(pArray->Reference()));
+			AutoPtr<Iterator> pIterator(pArray->CreateIterator());
 			return ReturnIterator(env, sig, args, pIterator.release());
 		}
 	};
@@ -223,6 +216,7 @@ public:
 	virtual void Prepare(Environment &env) {
 		const Symbol *pSymbol = ValueTypePool::GetInstance()->Lookup(GetValueType())->GetSymbol();
 		env.AssignFunction(new Func_array(env, pSymbol, GetValueType()));
+		AssignFunction(new Func_each(*this, GetValueType()));
 		AssignFunction(new Func_head(*this, GetValueType()));
 		AssignFunction(new Func_offset(*this, GetValueType()));
 		AssignFunction(new Func_tail(*this, GetValueType()));
@@ -232,6 +226,20 @@ public:
 			AutoPtr<Array<T_Elem> > pArray(Array<T_Elem>::CreateFromList(sig, value.GetList()));
 			if (pArray.IsNull()) return false;
 			value = Value(new Object_array<T_Elem>(env, GetValueType(), pArray.release()));
+			return true;
+		}
+		return false;
+	}
+	virtual bool CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl) {
+		if (decl.IsType(VTYPE_list)) {
+			AutoPtr<Iterator> pIterator(Object_array<T_Elem>::GetObject(value)->
+													GetArray()->CreateIterator());
+			value = pIterator->ToList(env, sig, true, false);
+			return !sig.IsSignalled();
+		} else if (decl.IsType(VTYPE_iterator)) {
+			AutoPtr<Iterator> pIterator(Object_array<T_Elem>::GetObject(value)->
+													GetArray()->CreateIterator());
+			value = Value(new Object_iterator(env, pIterator.release()));
 			return true;
 		}
 		return false;

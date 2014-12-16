@@ -67,7 +67,6 @@
 #include "gura/Uri.h"
 
 #include "gura/Class_args.h"
-#include "gura/Class_array.h"
 #include "gura/Class_audio.h"
 #include "gura/Class_binary.h"
 #include "gura/Class_codec.h"
@@ -95,5 +94,6 @@
 #include "gura/Class_template.h"
 #include "gura/Class_timedelta.h"
 #include "gura/Class_uri.h"
+#include "gura/Class_array.h"		// uses template
 
 #endif

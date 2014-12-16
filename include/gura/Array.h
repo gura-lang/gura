@@ -15,12 +15,12 @@ namespace Gura {
 template<typename T_Elem>
 class GURA_DLLDECLARE Array {
 public:
-	class GURA_DLLDECLARE Iterator {
+	class GURA_DLLDECLARE IteratorEach : public Iterator {
 	private:
 		AutoPtr<Array<T_Elem> > _pArray;
 		size_t _idx;
 	public:
-		inline Iterator(Array<T_Elem> *pArray) : Iterator(false), _pArray(pArray), _idx(0) {}
+		inline IteratorEach(Array<T_Elem> *pArray) : Iterator(false), _pArray(pArray), _idx(0) {}
 		virtual Iterator *GetSource() { return NULL; }
 		virtual bool DoNext(Environment &env, Signal sig, Value &value) {
 			if (_idx >= _pArray->GetSize()) return false;
@@ -32,6 +32,8 @@ public:
 			String rtn;
 			rtn = "array";
 			return rtn;
+		}
+		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet) {
 		}
 	};
 private:
@@ -64,8 +66,11 @@ public:
 			valList.push_back(Value(*p));
 		}
 	}
+	Iterator *CreateIterator() const {
+		return new typename Array<T_Elem>::IteratorEach(Reference());
+	}
 	static Array *CreateFromList(Signal sig, const ValueList &valList) {
-		AutoPtr<Array<T_Elem> > pArray(new Array<T_Elem>(valList.size(), valList.size()));
+		AutoPtr<Array<T_Elem> > pArray(new Array<T_Elem>(valList.size()));
 		T_Elem *p = pArray->GetPointer();
 		foreach_const (ValueList, pValue, valList) {
 			if (!pValue->Is_number()) {

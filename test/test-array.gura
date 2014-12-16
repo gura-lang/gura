@@ -3,16 +3,38 @@ import(helper.test) {*}
 
 testcase {
 	[
-		array@char(10)
-		array@uchar(10)
-		array@short(10)
-		array@ushort(10)
-		array@long(10)
-		array@ulong(10)
-		array@float(10)
-		array@double(10)
+		array@char([0..9])
+		array@uchar([0..9])
+		array@short([0..9])
+		array@ushort([0..9])
+		array@long([0..9])
+		array@ulong([0..9])
+		array@float([0..9])
+		array@double([0..9])
 	].each {|x|
 		println(x)
 		println(x[0..9].join(','))
+		println(x.each().join(','))
+		x.each {|n| printf('%2d', n)}, println()
+		xx:list = x
+		println(xx):nomap
 	}
+}
+testcase('cast') {
+	x:array@char = [0..9]
+	println(x)
+	x:array@uchar = [0..9]
+	println(x)
+	x:array@short = [0..9]
+	println(x)
+	x:array@ushort = [0..9]
+	println(x)
+	x:array@long = [0..9]
+	println(x)
+	x:array@ulong = [0..9]
+	println(x)
+	x:array@float = [0..9]
+	println(x)
+	x:array@double = [0..9]
+	println(x)
 }
