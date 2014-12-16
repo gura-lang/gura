@@ -14,6 +14,26 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
 class GURA_DLLDECLARE Array {
+public:
+	class GURA_DLLDECLARE Iterator {
+	private:
+		AutoPtr<Array<T_Elem> > _pArray;
+		size_t _idx;
+	public:
+		inline Iterator(Array<T_Elem> *pArray) : Iterator(false), _pArray(pArray), _idx(0) {}
+		virtual Iterator *GetSource() { return NULL; }
+		virtual bool DoNext(Environment &env, Signal sig, Value &value) {
+			if (_idx >= _pArray->GetSize()) return false;
+			value = Value(*(_pArray->GetPointer() + _idx));
+			_idx++;
+			return true;
+		}
+		virtual String ToString() const {
+			String rtn;
+			rtn = "array";
+			return rtn;
+		}
+	};
 private:
 	int _cntRef;
 	AutoPtr<Memory> _pMemory;
@@ -23,7 +43,9 @@ public:
 	Gura_DeclareReferenceAccessor(Array);
 public:
 	inline Array(size_t cnt, size_t offsetBase = 0) : _cntRef(1),
-		_pMemory(new MemoryHeap(sizeof(T_Elem) * cnt)), _cnt(cnt), _offsetBase(offsetBase) {}
+			_pMemory(new MemoryHeap(sizeof(T_Elem) * cnt)), _cnt(cnt), _offsetBase(offsetBase) {
+		::memset(_pMemory->GetPointer(), sizeof(T_Elem) * cnt, 0x00);
+	}
 	inline Array(Memory *pMemory, size_t cnt, size_t offsetBase = 0) : _cntRef(1),
 		_pMemory(pMemory), _cnt(cnt), _offsetBase(offsetBase) {}
 	inline Memory *GetMemory() { return _pMemory.get(); }

@@ -1,2 +1,18 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
+
+testcase {
+	[
+		array@char(10)
+		array@uchar(10)
+		array@short(10)
+		array@ushort(10)
+		array@long(10)
+		array@ulong(10)
+		array@float(10)
+		array@double(10)
+	].each {|x|
+		println(x)
+		println(x[0..9].join(','))
+	}
+}

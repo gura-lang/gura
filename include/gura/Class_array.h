@@ -106,6 +106,57 @@ public:
 			return ReturnValue(env, sig, args, value);
 		}
 	};
+	// array#each() {block?}
+	class Func_each : public Function {
+	private:
+		ValueType _valType;
+	public:
+		Func_each(Environment &env, ValueType valType) :
+				Function(env, Symbol::Add("each"), FUNCTYPE_Instance, FLAG_None),
+				_valType(valType) {
+			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_None);
+			DeclareBlock(OCCUR_ZeroOrOnce);
+			AddHelp(
+				Gura_Symbol(en), Help::FMT_markdown,
+				"Creates an iterator that iterates each element in the array.\n"
+			);
+		}
+		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
+			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
+			AutoPtr<Iterator> pIterator(new typename Array<T_Elem>::Iterator(pArray->Reference()));
+			return ReturnIterator(env, sig, args, pIterator.release());
+		}
+	};
+	// array#head(n:number):map {block?}
+	class Func_head : public Function {
+	private:
+		ValueType _valType;
+	public:
+		Func_head(Environment &env, ValueType valType) :
+				Function(env, Symbol::Add("head"), FUNCTYPE_Instance, FLAG_None),
+				_valType(valType) {
+			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+			DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
+			DeclareBlock(OCCUR_ZeroOrOnce);
+			AddHelp(
+				Gura_Symbol(en), Help::FMT_markdown,
+				"Creates an array that extracts specified number of elements at the beginning of the source.\n"
+			);
+		}
+		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
+			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
+			size_t n = args.GetSizeT(0);
+			if (n > pArray->GetSize()) {
+				sig.SetError(ERR_OutOfRangeError, "offset is out of range");
+				return Value::Null;
+			}
+			size_t offsetBase = pArray->GetOffsetBase();
+			AutoPtr<Array<T_Elem> > pArrayRtn(
+				new Array<T_Elem>(pArray->GetMemory()->Reference(), n, offsetBase));
+			Value value(new Object_array<T_Elem>(env, _valType, pArrayRtn.release()));
+			return ReturnValue(env, sig, args, value);
+		}
+	};
 	// array#offset(n:number):map {block?}
 	class Func_offset : public Function {
 	private:
@@ -117,6 +168,10 @@ public:
 			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
 			DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 			DeclareBlock(OCCUR_ZeroOrOnce);
+			AddHelp(
+				Gura_Symbol(en), Help::FMT_markdown,
+				"Creates an array that skips `n` elements of the source.\n"
+			);
 		}
 		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
 			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
@@ -133,32 +188,6 @@ public:
 			return ReturnValue(env, sig, args, value);
 		}
 	};
-	// array#head(n:number):map {block?}
-	class Func_head : public Function {
-	private:
-		ValueType _valType;
-	public:
-		Func_head(Environment &env, ValueType valType) :
-				Function(env, Symbol::Add("head"), FUNCTYPE_Instance, FLAG_None),
-				_valType(valType) {
-			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
-			DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
-			DeclareBlock(OCCUR_ZeroOrOnce);
-		}
-		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
-			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
-			size_t n = args.GetSizeT(0);
-			if (n > pArray->GetSize()) {
-				sig.SetError(ERR_OutOfRangeError, "offset is out of range");
-				return Value::Null;
-			}
-			size_t offsetBase = pArray->GetOffsetBase();
-			AutoPtr<Array<T_Elem> > pArrayRtn(
-				new Array<T_Elem>(pArray->GetMemory()->Reference(), n, offsetBase));
-			Value value(new Object_array<T_Elem>(env, _valType, pArrayRtn.release()));
-			return ReturnValue(env, sig, args, value);
-		}
-	};
 	// array#tail(n:number):map {block?}
 	class Func_tail : public Function {
 	private:
@@ -170,6 +199,10 @@ public:
 			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
 			DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 			DeclareBlock(OCCUR_ZeroOrOnce);
+			AddHelp(
+				Gura_Symbol(en), Help::FMT_markdown,
+				"Creates an array that extracts specified number of elements at the bottom of the source.\n"
+			);
 		}
 		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
 			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
@@ -190,8 +223,8 @@ public:
 	virtual void Prepare(Environment &env) {
 		const Symbol *pSymbol = ValueTypePool::GetInstance()->Lookup(GetValueType())->GetSymbol();
 		env.AssignFunction(new Func_array(env, pSymbol, GetValueType()));
-		AssignFunction(new Func_offset(*this, GetValueType()));
 		AssignFunction(new Func_head(*this, GetValueType()));
+		AssignFunction(new Func_offset(*this, GetValueType()));
 		AssignFunction(new Func_tail(*this, GetValueType()));
 	}
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl) {
