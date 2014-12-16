@@ -2,6 +2,7 @@
 cases=
 cases="$cases application"
 #cases="$cases audio"
+cases="$cases array"
 cases="$cases binary"
 cases="$cases block"
 cases="$cases bom"

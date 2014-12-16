@@ -3,6 +3,7 @@ set PROGRAM_GURA=..\bin-x86\gura.exe
 set cases=
 set cases=%cases% application
 rem set cases=%cases% audio
+set cases=%cases% array
 set cases=%cases% binary
 set cases=%cases% block
 set cases=%cases% bom
