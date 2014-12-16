@@ -120,6 +120,28 @@ public:
 			return ReturnIterator(env, sig, args, pIterator.release());
 		}
 	};
+	// array#fill(value:number):void
+	class Func_fill : public Function {
+	private:
+		ValueType _valType;
+	public:
+		Func_fill(Environment &env, ValueType valType) :
+				Function(env, Symbol::Add("fill"), FUNCTYPE_Instance, FLAG_None),
+				_valType(valType) {
+			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+			DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
+			DeclareBlock(OCCUR_ZeroOrOnce);
+			AddHelp(
+				Gura_Symbol(en), Help::FMT_markdown,
+				"Fills array with a specified value.\n"
+			);
+		}
+		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
+			Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
+			pArray->Fill(static_cast<T_Elem>(args.GetNumber(0)));
+			return Value::Null;
+		}
+	};
 	// array#head(n:number):map {block?}
 	class Func_head : public Function {
 	private:
@@ -155,7 +177,7 @@ public:
 	private:
 		ValueType _valType;
 	public:
-			Func_offset(Environment &env, ValueType valType) :
+		Func_offset(Environment &env, ValueType valType) :
 				Function(env, Symbol::Add("offset"), FUNCTYPE_Instance, FLAG_None),
 				_valType(valType) {
 			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
@@ -217,6 +239,7 @@ public:
 		const Symbol *pSymbol = ValueTypePool::GetInstance()->Lookup(GetValueType())->GetSymbol();
 		env.AssignFunction(new Func_array(env, pSymbol, GetValueType()));
 		AssignFunction(new Func_each(*this, GetValueType()));
+		AssignFunction(new Func_fill(*this, GetValueType()));
 		AssignFunction(new Func_head(*this, GetValueType()));
 		AssignFunction(new Func_offset(*this, GetValueType()));
 		AssignFunction(new Func_tail(*this, GetValueType()));
@@ -232,10 +255,12 @@ public:
 	}
 	virtual bool CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl) {
 		if (decl.IsType(VTYPE_list)) {
-			AutoPtr<Iterator> pIterator(Object_array<T_Elem>::GetObject(value)->
-													GetArray()->CreateIterator());
-			value = pIterator->ToList(env, sig, true, false);
-			return !sig.IsSignalled();
+			AutoPtr<Array<T_Elem> > pArray(
+				Object_array<T_Elem>::GetObject(value)->GetArray()->Reference());
+			ValueList &valList = value.InitAsList(env);
+			valList.reserve(pArray->GetSize());
+			pArray->AddToList(valList);
+			return true;
 		} else if (decl.IsType(VTYPE_iterator)) {
 			AutoPtr<Iterator> pIterator(Object_array<T_Elem>::GetObject(value)->
 													GetArray()->CreateIterator());

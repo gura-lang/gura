@@ -62,12 +62,18 @@ public:
 	inline size_t GetOffsetBase() const { return _offsetBase; }
 	void AddToList(ValueList &valList) const {
 		const T_Elem *p = GetPointer();
-		for (size_t i = 0; i < _cnt; i++) {
+		for (size_t i = 0; i < _cnt; i++, p++) {
 			valList.push_back(Value(*p));
 		}
 	}
 	Iterator *CreateIterator() const {
 		return new typename Array<T_Elem>::IteratorEach(Reference());
+	}
+	void Fill(T_Elem value) {
+		T_Elem *p = GetPointer();
+		for (size_t i = 0; i < _cnt; i++, p++) {
+			*p = value;
+		}
 	}
 	static Array *CreateFromList(Signal sig, const ValueList &valList) {
 		AutoPtr<Array<T_Elem> > pArray(new Array<T_Elem>(valList.size()));
