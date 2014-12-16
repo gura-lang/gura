@@ -1,0 +1,2 @@
+#!/usr/bin/env gura
+import(helper.test) {*}
