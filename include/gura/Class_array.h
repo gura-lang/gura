@@ -80,6 +80,7 @@ public:
 				Function(env, pSymbol, FUNCTYPE_Function, FLAG_None), _valType(valType) {
 			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_None);
 			DeclareArg(env, "arg", VTYPE_any, OCCUR_Once);
+			DeclareArg(env, "init", VTYPE_number, OCCUR_ZeroOrOnce);
 			SetClassToConstruct(env.LookupClass(valType));
 			DeclareBlock(OCCUR_ZeroOrOnce);
 		}
@@ -87,6 +88,11 @@ public:
 			AutoPtr<Array<T_Elem> > pArray;
 			if (args.Is_number(0)) {
 				pArray.reset(new Array<T_Elem>(args.GetSizeT(0)));
+				if (args.Is_number(1)) {
+					pArray->Fill(static_cast<T_Elem>(args.GetNumber(1)));
+				} else {
+					pArray->FillZero();
+				}
 			} else if (args.Is_list(0)) {
 				const ValueList &valList = args.GetList(0);
 				pArray.reset(Array<T_Elem>::CreateFromList(sig, valList));
@@ -107,7 +113,7 @@ public:
 		Func_each(Environment &env, ValueType valType) :
 				Function(env, Symbol::Add("each"), FUNCTYPE_Instance, FLAG_None),
 				_valType(valType) {
-			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_None);
+			SetFuncAttr(VTYPE_iterator, RSLTMODE_Normal, FLAG_None);
 			DeclareBlock(OCCUR_ZeroOrOnce);
 			AddHelp(
 				Gura_Symbol(en), Help::FMT_markdown,
@@ -128,9 +134,8 @@ public:
 		Func_fill(Environment &env, ValueType valType) :
 				Function(env, Symbol::Add("fill"), FUNCTYPE_Instance, FLAG_None),
 				_valType(valType) {
-			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+			SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 			DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
-			DeclareBlock(OCCUR_ZeroOrOnce);
 			AddHelp(
 				Gura_Symbol(en), Help::FMT_markdown,
 				"Fills array with a specified value.\n"
@@ -203,6 +208,30 @@ public:
 			return ReturnValue(env, sig, args, value);
 		}
 	};
+	// array#paste(offset:number, src:array):map:void
+	class Func_paste : public Function {
+	private:
+		ValueType _valType;
+	public:
+		Func_paste(Environment &env, ValueType valType) :
+				Function(env, Symbol::Add("paste"), FUNCTYPE_Instance, FLAG_None),
+				_valType(valType) {
+			SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+			DeclareArg(env, "offset", VTYPE_number, OCCUR_Once);
+			DeclareArg(env, "src", valType, OCCUR_Once);
+			AddHelp(
+				Gura_Symbol(en), Help::FMT_markdown,
+				"Pastes values in another source array.\n"
+			);
+		}
+		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
+			Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
+			size_t offset = args.GetSizeT(0);
+			const Array<T_Elem> *pArraySrc = Object_array<T_Elem>::GetObject(args, 1)->GetArray();
+			pArray->Paste(sig, offset, pArraySrc);
+			return Value::Null;
+		}
+	};
 	// array#tail(n:number):map {block?}
 	class Func_tail : public Function {
 	private:
@@ -242,6 +271,7 @@ public:
 		AssignFunction(new Func_fill(*this, GetValueType()));
 		AssignFunction(new Func_head(*this, GetValueType()));
 		AssignFunction(new Func_offset(*this, GetValueType()));
+		AssignFunction(new Func_paste(*this, GetValueType()));
 		AssignFunction(new Func_tail(*this, GetValueType()));
 	}
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl) {

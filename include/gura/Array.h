@@ -45,9 +45,7 @@ public:
 	Gura_DeclareReferenceAccessor(Array);
 public:
 	inline Array(size_t cnt, size_t offsetBase = 0) : _cntRef(1),
-			_pMemory(new MemoryHeap(sizeof(T_Elem) * cnt)), _cnt(cnt), _offsetBase(offsetBase) {
-		::memset(_pMemory->GetPointer(), sizeof(T_Elem) * cnt, 0x00);
-	}
+		_pMemory(new MemoryHeap(sizeof(T_Elem) * cnt)), _cnt(cnt), _offsetBase(offsetBase) {}
 	inline Array(Memory *pMemory, size_t cnt, size_t offsetBase = 0) : _cntRef(1),
 		_pMemory(pMemory), _cnt(cnt), _offsetBase(offsetBase) {}
 	inline Memory *GetMemory() { return _pMemory.get(); }
@@ -74,6 +72,18 @@ public:
 		for (size_t i = 0; i < _cnt; i++, p++) {
 			*p = value;
 		}
+	}
+	void FillZero() {
+		::memcpy(GetPointer(), 0x00, sizeof(T_Elem) * GetSize());
+	}
+	bool Paste(Signal sig, size_t offset, const Array<T_Elem> *pArraySrc) {
+		if (GetSize() < offset + pArraySrc->GetSize()) {
+			sig.SetError(ERR_OutOfRangeError, "out of range");
+			return false;
+		}
+		::memcpy(GetPointer() + offset, pArraySrc->GetPointer(),
+				 sizeof(T_Elem) * pArraySrc->GetSize());
+		return true;
 	}
 	static Array *CreateFromList(Signal sig, const ValueList &valList) {
 		AutoPtr<Array<T_Elem> > pArray(new Array<T_Elem>(valList.size()));
