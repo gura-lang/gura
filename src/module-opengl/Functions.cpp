@@ -1911,9 +1911,9 @@ Gura_ImplementFunction(__glEvalPoint2)
 // opengl.glFeedbackBuffer
 Gura_DeclareFunctionAlias(__glFeedbackBuffer, "glFeedbackBuffer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "buffer", VTYPE_array_float, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1921,12 +1921,10 @@ Gura_DeclareFunctionAlias(__glFeedbackBuffer, "glFeedbackBuffer")
 
 Gura_ImplementFunction(__glFeedbackBuffer)
 {
-	GLsizei size = args.GetInt(0);
-	GLenum type = static_cast<GLenum>(args.GetInt(1));
-	AutoPtr<Object_Buffer<GLfloat> > pObjBuff(new Object_Buffer<GLfloat>(
-												  Gura_UserClass(BufferGLfloat), size));
-	glFeedbackBuffer(size, type, pObjBuff->GetPointer(0));
-	return ReturnValue(env, sig, args, Value(pObjBuff.release()));
+	GLenum type = static_cast<GLenum>(args.GetInt(0));
+	Array<float> &buffer = *Object_array<float>::GetObject(args, 1)->GetArray();
+	glFeedbackBuffer(buffer.GetSize(), type, buffer);
+	return Value::Null;
 }
 
 // opengl.glFinish
@@ -3324,7 +3322,7 @@ Gura_DeclareFunctionAlias(__glMap1d, "glMap1d")
 	DeclareArg(env, "u2", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "stride", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "order", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "points", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "points", VTYPE_array_double, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3337,7 +3335,7 @@ Gura_ImplementFunction(__glMap1d)
 	GLdouble u2 = args.GetDouble(2);
 	GLint stride = args.GetInt(3);
 	GLint order = args.GetInt(4);
-	CArray<GLdouble> points = args.GetList(5);
+	Array<double> &points = *Object_array<double>::GetObject(args, 5)->GetArray();
 	glMap1d(target, u1, u2, stride, order, points);
 	return Value::Null;
 }
@@ -3351,7 +3349,7 @@ Gura_DeclareFunctionAlias(__glMap1f, "glMap1f")
 	DeclareArg(env, "u2", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "stride", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "order", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "points", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "points", VTYPE_array_float, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3364,7 +3362,7 @@ Gura_ImplementFunction(__glMap1f)
 	GLfloat u2 = args.GetFloat(2);
 	GLint stride = args.GetInt(3);
 	GLint order = args.GetInt(4);
-	CArray<GLfloat> points = args.GetList(5);
+	Array<float> &points = *Object_array<float>::GetObject(args, 5)->GetArray();
 	glMap1f(target, u1, u2, stride, order, points);
 	return Value::Null;
 }
@@ -3382,7 +3380,7 @@ Gura_DeclareFunctionAlias(__glMap2d, "glMap2d")
 	DeclareArg(env, "v2", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "vstride", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "vorder", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "points", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "points", VTYPE_array_double, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3399,7 +3397,7 @@ Gura_ImplementFunction(__glMap2d)
 	GLdouble v2 = args.GetDouble(6);
 	GLint vstride = args.GetInt(7);
 	GLint vorder = args.GetInt(8);
-	CArray<GLdouble> points = args.GetList(9);
+	Array<double> &points = *Object_array<double>::GetObject(args, 9)->GetArray();
 	glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
 	return Value::Null;
 }
@@ -3417,7 +3415,7 @@ Gura_DeclareFunctionAlias(__glMap2f, "glMap2f")
 	DeclareArg(env, "v2", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "vstride", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "vorder", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "points", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "points", VTYPE_array_float, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3434,7 +3432,7 @@ Gura_ImplementFunction(__glMap2f)
 	GLfloat v2 = args.GetFloat(6);
 	GLint vstride = args.GetInt(7);
 	GLint vorder = args.GetInt(8);
-	CArray<GLfloat> points = args.GetList(9);
+	Array<float> &points = *Object_array<float>::GetObject(args, 9)->GetArray();
 	glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
 	return Value::Null;
 }
@@ -5265,9 +5263,8 @@ Gura_ImplementFunction(__glScissor)
 // opengl.glSelectBuffer
 Gura_DeclareFunctionAlias(__glSelectBuffer, "glSelectBuffer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "buffer", VTYPE_array_uint, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5275,11 +5272,9 @@ Gura_DeclareFunctionAlias(__glSelectBuffer, "glSelectBuffer")
 
 Gura_ImplementFunction(__glSelectBuffer)
 {
-	GLsizei size = args.GetInt(0);
-	AutoPtr<Object_Buffer<GLuint> > pObjBuff(new Object_Buffer<GLuint>(
-												 Gura_UserClass(BufferGLuint), size));
-	glSelectBuffer(size, pObjBuff->GetPointer(0));
-	return ReturnValue(env, sig, args, Value(pObjBuff.release()));
+	Array<UInt> &buffer = *Object_array<UInt>::GetObject(args, 0)->GetArray();
+	glSelectBuffer(buffer.GetSize(), buffer);
+	return Value::Null;
 }
 
 // opengl.glShadeModel

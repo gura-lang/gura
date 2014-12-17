@@ -35,6 +35,8 @@ ValueType VTYPE_array_short		= static_cast<ValueType>(0);
 ValueType VTYPE_array_ushort	= static_cast<ValueType>(0);
 ValueType VTYPE_array_long		= static_cast<ValueType>(0);
 ValueType VTYPE_array_ulong		= static_cast<ValueType>(0);
+ValueType VTYPE_array_int		= static_cast<ValueType>(0);
+ValueType VTYPE_array_uint		= static_cast<ValueType>(0);
 ValueType VTYPE_array_float		= static_cast<ValueType>(0);
 ValueType VTYPE_array_double	= static_cast<ValueType>(0);
 ValueType VTYPE_audio			= static_cast<ValueType>(0);
@@ -155,6 +157,8 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPEAlias(array_ushort,	"array@ushort");
 	Gura_RealizeVTYPEAlias(array_long,		"array@long");
 	Gura_RealizeVTYPEAlias(array_ulong,		"array@ulong");
+	Gura_RealizeVTYPEAlias(array_int,		"array@int");
+	Gura_RealizeVTYPEAlias(array_uint,		"array@uint");
 	Gura_RealizeVTYPEAlias(array_float,		"array@float");
    	Gura_RealizeVTYPEAlias(array_double,	"array@double");
 	Gura_RealizeVTYPE(audio);
@@ -219,6 +223,10 @@ void ValueTypePool::_Initialize(Environment &env)
 		new Class_array<long>(pClass, VTYPE_array_long));
 	Gura_VTYPEInfo(array_ulong	)->SetClass(
 		new Class_array<ULong>(pClass, VTYPE_array_ulong));
+	Gura_VTYPEInfo(array_int	)->SetClass(
+		new Class_array<int>(pClass, VTYPE_array_int));
+	Gura_VTYPEInfo(array_uint	)->SetClass(
+		new Class_array<UInt>(pClass, VTYPE_array_uint));
 	Gura_VTYPEInfo(array_float	)->SetClass(
 		new Class_array<float>(pClass, VTYPE_array_float));
 	Gura_VTYPEInfo(array_double	)->SetClass(
@@ -277,6 +285,8 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_array_ushort	)->Prepare(env);
 	env.LookupClass(VTYPE_array_long	)->Prepare(env);
 	env.LookupClass(VTYPE_array_ulong	)->Prepare(env);
+	env.LookupClass(VTYPE_array_int		)->Prepare(env);
+	env.LookupClass(VTYPE_array_uint	)->Prepare(env);
 	env.LookupClass(VTYPE_array_float	)->Prepare(env);
 	env.LookupClass(VTYPE_array_double	)->Prepare(env);
 	env.LookupClass(VTYPE_audio			)->Prepare(env);

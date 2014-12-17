@@ -44,6 +44,8 @@ private:
 public:
 	Gura_DeclareReferenceAccessor(Array);
 public:
+	inline Array(const Array &src) : _cntRef(1),
+		_pMemory(src._pMemory->Reference()), _cnt(src._cnt), _offsetBase(src._offsetBase) {}
 	inline Array(size_t cnt, size_t offsetBase = 0) : _cntRef(1),
 		_pMemory(new MemoryHeap(sizeof(T_Elem) * cnt)), _cnt(cnt), _offsetBase(offsetBase) {}
 	inline Array(Memory *pMemory, size_t cnt, size_t offsetBase = 0) : _cntRef(1),
@@ -58,6 +60,8 @@ public:
 	}
 	inline size_t GetSize() const { return _cnt; }
 	inline size_t GetOffsetBase() const { return _offsetBase; }
+	inline operator T_Elem *() { return GetPointer(); }
+	inline operator const T_Elem *() const { return GetPointer(); }
 	void AddToList(ValueList &valList) const {
 		const T_Elem *p = GetPointer();
 		for (size_t i = 0; i < _cnt; i++, p++) {
@@ -67,7 +71,7 @@ public:
 	Iterator *CreateIterator() const {
 		return new typename Array<T_Elem>::IteratorEach(Reference());
 	}
-	void Fill(T_Elem value) {
+	void Fill(const T_Elem &value) {
 		T_Elem *p = GetPointer();
 		for (size_t i = 0; i < _cnt; i++, p++) {
 			*p = value;

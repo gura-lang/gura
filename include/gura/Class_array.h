@@ -68,10 +68,7 @@ public:
 template<typename T_Elem>
 class GURA_DLLDECLARE Class_array : public Class {
 public:
-	// array@char(arg), array@uchar(arg)
-	// array@short(arg), array@ushort(arg)
-	// array@long(arg), array@ulong(arg)
-	// array@float(arg), array@double(arg)
+	// array@T(arg)
 	class Func_array : public Function {
 	private:
 		ValueType _valType;

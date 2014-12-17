@@ -63,6 +63,8 @@ GURA_DLLDECLARE extern ValueType VTYPE_array_short;
 GURA_DLLDECLARE extern ValueType VTYPE_array_ushort;
 GURA_DLLDECLARE extern ValueType VTYPE_array_long;
 GURA_DLLDECLARE extern ValueType VTYPE_array_ulong;
+GURA_DLLDECLARE extern ValueType VTYPE_array_int;
+GURA_DLLDECLARE extern ValueType VTYPE_array_uint;
 GURA_DLLDECLARE extern ValueType VTYPE_array_float;
 GURA_DLLDECLARE extern ValueType VTYPE_array_double;
 GURA_DLLDECLARE extern ValueType VTYPE_audio;
@@ -164,6 +166,8 @@ public:
 	Gura_DeclareVTYPE(array_ushort);
 	Gura_DeclareVTYPE(array_long);
 	Gura_DeclareVTYPE(array_ulong);
+	Gura_DeclareVTYPE(array_int);
+	Gura_DeclareVTYPE(array_uint);
 	Gura_DeclareVTYPE(array_float);
 	Gura_DeclareVTYPE(array_double);
 	Gura_DeclareVTYPE(audio);
