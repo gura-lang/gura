@@ -54,8 +54,8 @@ POINT = 3
 
 windW = 300, windH = 300;
 
-selectBuf= nil //dim(MAXSELECT) {0}
-feedBuf = nil //dim(MAXFEED) {0}
+selectBuf = array@uint(MAXSELECT)
+feedBuf = array@float(MAXFEED)
 vp = dim(4) {0}
 zRotation = 90.0;
 zoom = 1.0;
@@ -118,7 +118,7 @@ Render(mode:number) = {
 }
 
 DoSelect(x:number, y:number) = {
-	selectBuf:extern = glSelectBuffer(MAXSELECT);
+	glSelectBuffer(selectBuf);
 	glRenderMode(GL_SELECT);
 	glInitNames();
 	glPushName(~0);
@@ -269,7 +269,7 @@ DrawFeedback(n:number) = {
 }
 
 DoFeedback() = {
-	feedBuf:extern = glFeedbackBuffer(MAXFEED, GL_3D_COLOR);
+	glFeedbackBuffer(GL_3D_COLOR, feedBuf);
 	glRenderMode(GL_FEEDBACK);
 
 	glPushMatrix();

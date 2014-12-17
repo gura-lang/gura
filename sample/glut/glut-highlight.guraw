@@ -60,7 +60,7 @@ TORUS		= 1
 TETRAHEDRON	= 2
 ICOSAHEDRON	= 3
 
-selectBuf = nil
+selectBuf = array@uint(BUFSIZE)
 
 W = 500, H = 500;
 x = 0, y = 0;
@@ -101,7 +101,7 @@ myinit() = {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 
-	selectBuf:extern = glSelectBuffer(BUFSIZE);
+	glSelectBuffer(selectBuf);
 
 	glNewList(TORUS, GL_COMPILE);
 	glutSolidTorus(0.275, 0.85, 10, 15);
