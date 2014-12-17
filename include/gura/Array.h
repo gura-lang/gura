@@ -74,7 +74,7 @@ public:
 		}
 	}
 	void FillZero() {
-		::memcpy(GetPointer(), 0x00, sizeof(T_Elem) * GetSize());
+		::memset(GetPointer(), 0x00, sizeof(T_Elem) * GetSize());
 	}
 	bool Paste(Signal sig, size_t offset, const Array<T_Elem> *pArraySrc) {
 		if (GetSize() < offset + pArraySrc->GetSize()) {

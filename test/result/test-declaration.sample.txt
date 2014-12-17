@@ -5,6 +5,14 @@
 @@() {block}
 @rem:nil = nil
 __name__:string = __main__
+array@char(arg, init?:number) {block?}
+array@double(arg, init?:number) {block?}
+array@float(arg, init?:number) {block?}
+array@long(arg, init?:number) {block?}
+array@short(arg, init?:number) {block?}
+array@uchar(arg, init?:number) {block?}
+array@ulong(arg, init?:number) {block?}
+array@ushort(arg, init?:number) {block?}
 audio(args+):map {block?}
 base64:module = <module:base64:<integrated>>
   __name__:string = base64
@@ -65,7 +73,6 @@ elsif (`cond):leader:trailer {block}
 end(dummy*):symbol_func:trailer:end_marker:void
 error:class = <class:error>
 expr(src:stream:r):map {block?}
-extern(`syms+)
 false:boolean = false
 finally():trailer:finalizer {block}
 for (`expr+) {block}
@@ -255,6 +262,62 @@ args
   finalize_trailer():void
   isset(symbol:symbol)
   quit_trailer():void
+array@char
+  each() {block?}
+  fill(value:number):map:void
+  head(n:number):map {block?}
+  offset(n:number):map {block?}
+  paste(offset:number, src:array@char):map
+  tail(n:number):map {block?}
+array@double
+  each() {block?}
+  fill(value:number):map:void
+  head(n:number):map {block?}
+  offset(n:number):map {block?}
+  paste(offset:number, src:array@double):map
+  tail(n:number):map {block?}
+array@float
+  each() {block?}
+  fill(value:number):map:void
+  head(n:number):map {block?}
+  offset(n:number):map {block?}
+  paste(offset:number, src:array@float):map
+  tail(n:number):map {block?}
+array@long
+  each() {block?}
+  fill(value:number):map:void
+  head(n:number):map {block?}
+  offset(n:number):map {block?}
+  paste(offset:number, src:array@long):map
+  tail(n:number):map {block?}
+array@short
+  each() {block?}
+  fill(value:number):map:void
+  head(n:number):map {block?}
+  offset(n:number):map {block?}
+  paste(offset:number, src:array@short):map
+  tail(n:number):map {block?}
+array@uchar
+  each() {block?}
+  fill(value:number):map:void
+  head(n:number):map {block?}
+  offset(n:number):map {block?}
+  paste(offset:number, src:array@uchar):map
+  tail(n:number):map {block?}
+array@ulong
+  each() {block?}
+  fill(value:number):map:void
+  head(n:number):map {block?}
+  offset(n:number):map {block?}
+  paste(offset:number, src:array@ulong):map
+  tail(n:number):map {block?}
+array@ushort
+  each() {block?}
+  fill(value:number):map:void
+  head(n:number):map {block?}
+  offset(n:number):map {block?}
+  paste(offset:number, src:array@ushort):map
+  tail(n:number):map {block?}
 audio
   each(channel:number, offset?:number):map {block?}
   get(channel:number, offset:number):map

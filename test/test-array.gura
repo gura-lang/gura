@@ -1,40 +1,110 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
 
-testcase {
-	[
-		array@char([0..9])
-		array@uchar([0..9])
-		array@short([0..9])
-		array@ushort([0..9])
-		array@long([0..9])
-		array@ulong([0..9])
-		array@float([0..9])
-		array@double([0..9])
-	].each {|x|
-		println(x)
-		println(x[0..9].join(','))
-		println(x.each().join(','))
-		x.each {|n| printf('%2d', n)}, println()
-		xx:list = x
-		println(xx):nomap
+funcs = [
+	array@char
+	array@uchar
+	array@short
+	array@ushort
+	array@long
+	array@ulong
+	array@float
+	array@double
+]
+
+PrintArray(fmt:string, array) = println(format(fmt, array.each()).join(' '))
+
+testcase('construct') {
+	funcs.each {|func|
+		println(func)
+		x = func(30)
+		println(x[0..29].join(' '))
+		x = func(30, 12)
+		println(x[0..29].join(' '))
+		x = func([0..29])
+		println(x[0..29].join(' '))
+		println(x.each().join(' '))
+		x.each {|n| printf('%d ', n)}, println()
 	}
 }
-testcase('cast') {
-	x:array@char = [0..9]
-	println(x)
-	x:array@uchar = [0..9]
-	println(x)
-	x:array@short = [0..9]
-	println(x)
-	x:array@ushort = [0..9]
-	println(x)
-	x:array@long = [0..9]
-	println(x)
-	x:array@ulong = [0..9]
-	println(x)
-	x:array@float = [0..9]
-	println(x)
-	x:array@double = [0..9]
-	println(x)
+testcase('cast to list') {
+	funcs.each {|func|
+		println(func)
+		x:list = func([0..29])
+		println(x.join(' '))
+	}
+}
+testcase('cast from list') {
+	x:array@char = [0..29]
+	PrintArray('%2d', x)
+	x:array@uchar = [0..29]
+	PrintArray('%2d', x)
+	x:array@short = [0..29]
+	PrintArray('%2d', x)
+	x:array@ushort = [0..29]
+	PrintArray('%2d', x)
+	x:array@long = [0..29]
+	PrintArray('%2d', x)
+	x:array@ulong = [0..29]
+	PrintArray('%2d', x)
+	x:array@float = [0..29]
+	PrintArray('%2d', x)
+	x:array@double = [0..29]
+	PrintArray('%2d', x)
+}
+testcase('head/tail') {
+	funcs.each {|func|
+		println(func)
+		x = func([0..29])
+		PrintArray('%2d', x)
+		PrintArray('%2d', x.head(12))
+		PrintArray('%2d', x.tail(12))
+		PrintArray('%2d', x.head(30))
+		PrintArray('%2d', x.tail(30))
+		try {
+			PrintArray('%2d', x.head(31))
+		} catch {|e|
+			println('expected error occurs: ', e.text)
+		}
+		try {
+			PrintArray('%2d', x.tail(31))
+		} catch {|e|
+			println('expected error occurs: ', e.text)
+		}
+	}
+}
+testcase('offset') {
+	funcs.each {|func|
+		println(func)
+		x = func([0..29])
+		PrintArray('%2d', x)
+		PrintArray('%2d', x.offset(3))
+		PrintArray('%2d', x.offset(27))
+		PrintArray('%2d', x.offset(29))
+		PrintArray('%2d', x.offset(30))
+		try {
+			PrintArray('%2d', x.offset(31))
+		} catch {|e|
+			println('expected error occurs: ', e.text)
+		}
+	}
+}
+testcase('paste') {
+	funcs.each {|func|
+		println(func)
+		x = func([0..29])
+		y = func([90..99])
+		PrintArray('%2d', x)
+		x.paste(0, y)
+		PrintArray('%2d', x)
+		x.paste(20, y)
+		PrintArray('%2d', x)
+		try {
+			x.paste(21, y)
+		} catch {|e|
+			println('expected error occurs: ', e.text)
+		}
+		x.paste(12, y.offset(3))
+		PrintArray('%2d', x)
+	}	
 }
