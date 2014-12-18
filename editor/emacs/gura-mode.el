@@ -156,7 +156,7 @@
 				  (+ (current-indentation) indent-offset))
 				(progn
 				  (goto-char pos-block-start)
-				  ;;(when (not (eq (current-column) 0))
+				  ;;(when (> (current-column) (current-indentation))
 				  ;;	(backward-sexp)
 				  ;;	(when (eq (char-after) ?=)
 				  ;;	  (backward-sexp)))
