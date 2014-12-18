@@ -129,28 +129,41 @@ cbridge.AddTypeConvs {
 			''')
 	'GLenum@' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLenum> ${arg.name} = args.GetList(${idx});',
+			R'''
+			AutoPtr<Array<GLenum> > _${arg.name}(CreateArrayFromList<GLenum>(args.GetList(${idx})));
+			Array<GLenum> &${arg.name} = *_${arg.name};
+			''',
 			nil,
 			nil)
 	'GLenum@:const' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLenum> ${arg.name} = args.GetList(${idx});',
+			R'''
+			AutoPtr<Array<GLenum> > _${arg.name}(CreateArrayFromList<GLenum>(args.GetList(${idx})));
+			Array<GLenum> &${arg.name} = *_${arg.name};
+			''',
 			nil,
 			nil)
 	'GLboolean@' => TypeConv(
 			'boolean', 'Once', ['List'],
-			'CArray<GLboolean> ${arg.name} = args.GetList(${idx});',
+			R'''
+			AutoPtr<Array<GLboolean> > _${arg.name}(CreateArrayFromList<GLboolean>(args.GetList(${idx})));
+			Array<GLboolean> &${arg.name} = *_${arg.name};
+			''',
 			nil,
 			nil)
 	'GLboolean@:const' => TypeConv(
 			'boolean', 'Once', ['List'],
-			'CArray<GLboolean> ${arg.name} = args.GetList(${idx});',
+			R'''
+			AutoPtr<Array<GLboolean> > _${arg.name}(CreateArrayFromList<GLboolean>(args.GetList(${idx})));
+			Array<GLboolean> &${arg.name} = *_${arg.name};
+			''',
 			nil,
 			nil)
 	'GLboolean@1:const' => TypeConv(
 			'number', 'Once', ['List'],
 			R'''
-			CArray<GLboolean> ${arg.name} = args.GetList(${idx});
+			AutoPtr<Array<GLboolean> > _${arg.name}(CreateArrayFromList<GLboolean>(args.GetList(${idx})));
+			Array<GLboolean> &${arg.name} = *_${arg.name};
 			if (${arg.name}.GetSize() != 1) {
 				sig.SetError(ERR_ValueError, "the list must have one element");
 				return Value::Null;
@@ -160,7 +173,8 @@ cbridge.AddTypeConvs {
 	'GLboolean@2:const' => TypeConv(
 			'number', 'Once', ['List'],
 			R'''
-			CArray<GLboolean> ${arg.name} = args.GetList(${idx});
+			AutoPtr<Array<GLboolean> > _${arg.name}(CreateArrayFromList<GLboolean>(args.GetList(${idx})));
+			Array<GLboolean> &${arg.name} = *_${arg.name};
 			if (${arg.name}.GetSize() != 2) {
 				sig.SetError(ERR_ValueError, "the list must have two elements");
 				return Value::Null;
@@ -170,7 +184,8 @@ cbridge.AddTypeConvs {
 	'GLboolean@3:const' => TypeConv(
 			'number', 'Once', ['List'],
 			R'''
-			CArray<GLboolean> ${arg.name} = args.GetList(${idx});
+			AutoPtr<Array<GLboolean> > _${arg.name}(CreateArrayFromList<GLboolean>(args.GetList(${idx})));
+			Array<GLboolean> &${arg.name} = *_${arg.name};
 			if (${arg.name}.GetSize() != 3) {
 				sig.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Null;
@@ -179,7 +194,9 @@ cbridge.AddTypeConvs {
 			nil)
 	'GLbyte@:const' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLbyte> ${arg.name} = args.GetList(${idx});',
+			R'''
+			CArray<GLbyte> ${arg.name} = args.GetList(${idx});
+			''',
 			nil,
 			nil)
 	'GLbyte@3:const' => TypeConv(
@@ -215,17 +232,23 @@ cbridge.AddTypeConvs {
 			nil)
 	'GLchar@' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLchar> ${arg.name} = args.GetList(${idx});',
+			R'''
+			CArray<GLchar> ${arg.name} = args.GetList(${idx});
+			''',
 			nil,
 			nil)
 	'GLchar@:const' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLchar> ${arg.name} = args.GetList(${idx});',
+			R'''
+			CArray<GLchar> ${arg.name} = args.GetList(${idx});
+			''',
 			nil,
 			nil)
 	'GLubyte@:const' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLubyte> ${arg.name} = args.GetList(${idx});',
+			'''
+			CArray<GLubyte> ${arg.name} = args.GetList(${idx});
+			''',
 			nil,
 			R'''
 			const GLubyte *_rtn = ${fi.MakeCaller()};
@@ -233,7 +256,9 @@ cbridge.AddTypeConvs {
 			''')
 	'GLubyte@' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLubyte> ${arg.name} = args.GetList(${idx});',
+			R'''
+			CArray<GLubyte> ${arg.name} = args.GetList(${idx});
+			''',
 			nil,
 			nil)
 	'GLubyte@3:const' => TypeConv(
@@ -269,7 +294,9 @@ cbridge.AddTypeConvs {
 			nil)
 	'GLshort@:const' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLshort> ${arg.name} = args.GetList(${idx});',
+			R'''
+			CArray<GLshort> ${arg.name} = args.GetList(${idx});
+			''',
 			nil,
 			nil)
 	'GLshort@1:const' => TypeConv(
@@ -325,12 +352,16 @@ cbridge.AddTypeConvs {
 			nil)
 	'GLushort@' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLushort> ${arg.name} = args.GetList(${idx});',
+			R'''
+			CArray<GLushort> ${arg.name} = args.GetList(${idx});
+			''',
 			nil,
 			nil)
 	'GLushort@:const' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLushort> ${arg.name} = args.GetList(${idx});',
+			R'''
+			CArray<GLushort> ${arg.name} = args.GetList(${idx});
+			''',
 			nil,
 			nil)
 	'GLushort@3:const' => TypeConv(
@@ -366,12 +397,16 @@ cbridge.AddTypeConvs {
 			nil)
 	'GLint@' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLint> ${arg.name} = args.GetList(${idx});',
+			R'''
+			CArray<GLint> ${arg.name} = args.GetList(${idx});
+			''',
 			nil,
 			nil)
 	'GLint@:const' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLint> ${arg.name} = args.GetList(${idx});',
+			R'''
+			CArray<GLint> ${arg.name} = args.GetList(${idx});
+			''',
 			nil,
 			nil)
 	'GLint@1:const' => TypeConv(
@@ -427,22 +462,30 @@ cbridge.AddTypeConvs {
 			nil)
 	'GLsizei@' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLsizei> ${arg.name} = args.GetList(${idx});',
+			R'''
+			CArray<GLsizei> ${arg.name} = args.GetList(${idx});
+			''',
 			nil,
 			nil)
 	'GLsizei@:const' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLsizei> ${arg.name} = args.GetList(${idx});',
+			R'''
+			CArray<GLsizei> ${arg.name} = args.GetList(${idx});
+			''',
 			nil,
 			nil)
 	'GLuint@' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLuint> ${arg.name} = args.GetList(${idx});',
+			R'''
+			CArray<GLuint> ${arg.name} = args.GetList(${idx});
+			''',
 			nil,
 			nil)
 	'GLuint@:const' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLuint> ${arg.name} = args.GetList(${idx});',
+			R'''
+			CArray<GLuint> ${arg.name} = args.GetList(${idx});
+			''',
 			nil,
 			nil)
 	'GLuint@3:const' => TypeConv(
@@ -478,12 +521,16 @@ cbridge.AddTypeConvs {
 			nil)
 	'GLfloat@' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLfloat> ${arg.name} = args.GetList(${idx});',
+			R'''
+			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
+			''',
 			nil,
 			nil)
 	'GLfloat@:const' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLfloat> ${arg.name} = args.GetList(${idx});',
+			R'''
+			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
+			''',
 			nil,
 			nil)
 	'GLfloat@1:const' => TypeConv(
@@ -546,17 +593,23 @@ cbridge.AddTypeConvs {
 			nil)
 	'GLclampf@:const' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLclampf> ${arg.name} = args.GetList(${idx});',
+			R'''
+			CArray<GLclampf> ${arg.name} = args.GetList(${idx});
+			''',
 			nil,
 			nil)
 	'GLdouble@' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLdouble> ${arg.name} = args.GetList(${idx});',
+			R'''
+			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
+			''',
 			nil,
 			nil)
 	'GLdouble@:const' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<GLdouble> ${arg.name} = args.GetList(${idx});',
+			R'''
+			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
+			''',
 			nil,
 			nil)
 	'GLdouble@1:const' => TypeConv(

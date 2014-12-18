@@ -1597,7 +1597,8 @@ Gura_DeclareFunctionAlias(__glEdgeFlagv, "glEdgeFlagv")
 
 Gura_ImplementFunction(__glEdgeFlagv)
 {
-	CArray<GLboolean> flag = args.GetList(0);
+	AutoPtr<Array<GLboolean> > _flag(CreateArrayFromList<GLboolean>(args.GetList(0)));
+	Array<GLboolean> &flag = *_flag;
 	if (flag.GetSize() != 1) {
 		sig.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Null;
@@ -2925,7 +2926,8 @@ Gura_DeclareFunctionAlias(__glIndexubv, "glIndexubv")
 
 Gura_ImplementFunction(__glIndexubv)
 {
-	CArray<GLubyte> c = args.GetList(0);
+	
+				CArray<GLubyte> c = args.GetList(0);
 	glIndexubv(c);
 	return Value::Null;
 }
@@ -7294,7 +7296,8 @@ Gura_ImplementFunction(__glGetActiveUniform)
 	GLsizei bufSize = args.GetInt(2);
 	CArray<GLsizei> length = args.GetList(3);
 	CArray<GLint> size = args.GetList(4);
-	CArray<GLenum> type = args.GetList(5);
+	AutoPtr<Array<GLenum> > _type(CreateArrayFromList<GLenum>(args.GetList(5)));
+	Array<GLenum> &type = *_type;
 	CArray<GLchar> name = args.GetList(6);
 	glGetActiveUniform(program, index, bufSize, length, size, type, name);
 	return Value::Null;
@@ -7429,7 +7432,8 @@ Gura_ImplementFunction(__glGetActiveAttrib)
 	GLsizei bufSize = args.GetInt(2);
 	CArray<GLsizei> length = args.GetList(3);
 	CArray<GLint> size = args.GetList(4);
-	CArray<GLenum> type = args.GetList(5);
+	AutoPtr<Array<GLenum> > _type(CreateArrayFromList<GLenum>(args.GetList(5)));
+	Array<GLenum> &type = *_type;
 	CArray<GLchar> name = args.GetList(6);
 	glGetActiveAttrib(program, index, bufSize, length, size, type, name);
 	return Value::Null;
