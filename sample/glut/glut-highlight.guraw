@@ -184,7 +184,7 @@ myortho() = {
 /*  processHits() prints out the contents of the 
  *  selection array.
  */
-processHits(hits:number, buffer:opengl.Buffer) = {
+processHits(hits:number, buffer:array@uint) = {
 	depth = ~0
 	iBuffer = 0
 	newObject = 0;
