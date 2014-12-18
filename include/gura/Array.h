@@ -101,6 +101,17 @@ void CopyArrayToList(const Array<T_Elem> *pArray, ValueList &valList)
 }
 
 template<typename T_Elem>
+Array<T_Elem> *CreateArrayFromList(const ValueList &valList)
+{
+	AutoPtr<Array<T_Elem> > pArray(new Array<T_Elem>(valList.size()));
+	T_Elem *p = pArray->GetPointer();
+	foreach_const (ValueList, pValue, valList) {
+		*p++ = static_cast<T_Elem>(pValue->GetNumber());
+	}
+	return pArray.release();
+}
+
+template<typename T_Elem>
 Array<T_Elem> *CreateArrayFromList(Signal sig, const ValueList &valList)
 {
 	AutoPtr<Array<T_Elem> > pArray(new Array<T_Elem>(valList.size()));

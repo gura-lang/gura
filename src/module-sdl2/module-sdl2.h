@@ -139,14 +139,14 @@ Gura_DeclareUserSymbol(y);
 Gura_DeclareUserSymbol(yrel);
 
 template<typename T_SDL, typename T_GURA>
-CArray<T_SDL> CreateCArray(const ValueList &valList)
+Array<T_SDL> *CreateArray(const ValueList &valList)
 {
-	CArray<T_SDL> rtn(valList.size());
-	T_SDL *p = rtn;
+	AutoPtr<Array<T_SDL> > rtn(new Array<T_SDL>(valList.size()));
+	T_SDL *p = rtn->GetPointer();
 	foreach_const (ValueList, pValue, valList) {
 		*p++ = *T_GURA::GetObject(*pValue)->GetEntity();
 	}
-	return rtn;
+	return rtn.release();
 }
 
 void SetError_SDL(Signal &sig);

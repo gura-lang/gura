@@ -1883,7 +1883,8 @@ SDL_AddEvents(events[]:SDL_Event) {block?} = R'''
 }
 
 SDL_PeekEvents(numevents:int, minType:Uint32, maxType:Uint32) {block?} = R'''
-	CArray<SDL_Event> events(numevents);
+	AutoPtr<Array<SDL_Event> > _events(new Array<SDL_Event>(numevents));
+	Array<SDL_Event> &events = *_events;
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_PEEKEVENT, minType, maxType);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
@@ -1901,7 +1902,8 @@ SDL_PeekEvents(numevents:int, minType:Uint32, maxType:Uint32) {block?} = R'''
 }
 
 SDL_GetEvents(numevents:int, minType:Uint32, maxType:Uint32) {block?} = R'''
-	CArray<SDL_Event> events(numevents);
+	AutoPtr<Array<SDL_Event> > _events(new Array<SDL_Event>(numevents));
+	Array<SDL_Event> &events = *_events;
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_GETEVENT, minType, maxType);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
@@ -3558,7 +3560,10 @@ cbridge.AddTypeConvs {
 	// type converter specific to SDL library
 	'Uint16[]' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<Uint16> ${arg.name} = args.GetList(${idx});',
+			R'''
+			AutoPtr<Array<Uint16> > _${arg.name}(CreateArrayFromList<Uint16>(args.GetList(${idx})));
+			Array<Uint16> &${arg.name} = *_${arg.name};
+			'''
 			nil,
 			nil)
 	'Sint8' => TypeConv(
@@ -3640,26 +3645,34 @@ cbridge.AddTypeConvs {
 			''')
 	'SDL_Color[]' => TypeConv(
 			'Color', 'Once', ['List'],
-			'CArray<SDL_Color> ${arg.name} = ' \
-			'CreateCArray<SDL_Color, Object_Color>(args.GetList(${idx}));',
+			R'''
+			AutoPtr<Array<SDL_Color> > _${arg.name}(CreateArray<SDL_Color, Object_Color>(args.GetList(${idx})));
+			Array<SDL_Color> &${arg.name} = *_${arg.name};
+			'''
 			nil,
 			nil)
 	'SDL_Event[]' => TypeConv(
 			'Event', 'Once', ['List'],
-			'CArray<SDL_Event> ${arg.name} = ' \
-					'CreateCArray<SDL_Event, Object_Event>(args.GetList(${idx}));',
+			R'''
+			AutoPtr<Array<SDL_Event> > _${arg.name}(CreateArray<SDL_Event, Object_Event>(args.GetList(${idx})));
+			Array<SDL_Event> &${arg.name} = *_${arg.name};
+			''',
 			nil,
 			nil)
 	'SDL_Point[]' => TypeConv(
 			'Point', 'Once', ['List'],
-			'CArray<SDL_Point> ${arg.name} = ' \
-					'CreateCArray<SDL_Point, Object_Point>(args.GetList(${idx}));',
+			R'''
+			AutoPtr<Array<SDL_Point> > _${arg.name}(CreateArray<SDL_Point, Object_Point>(args.GetList(${idx})));
+			Array<SDL_Point> &${arg.name} = *_${arg.name};
+			''',
 			nil,
 			nil)
 	'SDL_Rect[]' => TypeConv(
 			'Rect', 'Once', ['List'],
-			'CArray<SDL_Rect> ${arg.name} = ' \
-					'CreateCArray<SDL_Rect, Object_Rect>(args.GetList(${idx}));',
+			R'''
+			AutoPtr<Array<SDL_Rect> > _${arg.name}(CreateArray<SDL_Rect, Object_Rect>(args.GetList(${idx})));
+			Array<SDL_Rect> &${arg.name} = *_${arg.name};
+			''',
 			nil,
 			nil)
 	'negerr' => TypeConv(
