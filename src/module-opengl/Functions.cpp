@@ -1913,7 +1913,7 @@ Gura_DeclareFunctionAlias(__glFeedbackBuffer, "glFeedbackBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "buffer", VTYPE_array_float, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "buffer", VTYPE_array_float, OCCUR_Once, FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1922,8 +1922,12 @@ Gura_DeclareFunctionAlias(__glFeedbackBuffer, "glFeedbackBuffer")
 Gura_ImplementFunction(__glFeedbackBuffer)
 {
 	GLenum type = static_cast<GLenum>(args.GetInt(0));
-	Array<float> &buffer = *Object_array<float>::GetObject(args, 1)->GetArray();
-	glFeedbackBuffer(buffer.GetSize(), type, buffer);
+	Array<float> *buffer = args.IsValid(1)? Object_array<float>::GetObject(args, 1)->GetArray() : NULL;
+	if (buffer == NULL) {
+		glFeedbackBuffer(0, type, NULL);
+	} else {
+		glFeedbackBuffer(buffer->GetSize(), type, buffer->GetPointer());
+	}
 	return Value::Null;
 }
 
@@ -3335,8 +3339,8 @@ Gura_ImplementFunction(__glMap1d)
 	GLdouble u2 = args.GetDouble(2);
 	GLint stride = args.GetInt(3);
 	GLint order = args.GetInt(4);
-	Array<double> &points = *Object_array<double>::GetObject(args, 5)->GetArray();
-	glMap1d(target, u1, u2, stride, order, points);
+	Array<double> *points = Object_array<double>::GetObject(args, 5)->GetArray();
+	glMap1d(target, u1, u2, stride, order, points->GetPointer());
 	return Value::Null;
 }
 
@@ -3362,8 +3366,8 @@ Gura_ImplementFunction(__glMap1f)
 	GLfloat u2 = args.GetFloat(2);
 	GLint stride = args.GetInt(3);
 	GLint order = args.GetInt(4);
-	Array<float> &points = *Object_array<float>::GetObject(args, 5)->GetArray();
-	glMap1f(target, u1, u2, stride, order, points);
+	Array<float> *points = Object_array<float>::GetObject(args, 5)->GetArray();
+	glMap1f(target, u1, u2, stride, order, points->GetPointer());
 	return Value::Null;
 }
 
@@ -3397,8 +3401,8 @@ Gura_ImplementFunction(__glMap2d)
 	GLdouble v2 = args.GetDouble(6);
 	GLint vstride = args.GetInt(7);
 	GLint vorder = args.GetInt(8);
-	Array<double> &points = *Object_array<double>::GetObject(args, 9)->GetArray();
-	glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
+	Array<double> *points = Object_array<double>::GetObject(args, 9)->GetArray();
+	glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points->GetPointer());
 	return Value::Null;
 }
 
@@ -3432,8 +3436,8 @@ Gura_ImplementFunction(__glMap2f)
 	GLfloat v2 = args.GetFloat(6);
 	GLint vstride = args.GetInt(7);
 	GLint vorder = args.GetInt(8);
-	Array<float> &points = *Object_array<float>::GetObject(args, 9)->GetArray();
-	glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
+	Array<float> *points = Object_array<float>::GetObject(args, 9)->GetArray();
+	glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points->GetPointer());
 	return Value::Null;
 }
 
@@ -5264,7 +5268,7 @@ Gura_ImplementFunction(__glScissor)
 Gura_DeclareFunctionAlias(__glSelectBuffer, "glSelectBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "buffer", VTYPE_array_uint, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "buffer", VTYPE_array_uint, OCCUR_Once, FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5272,8 +5276,12 @@ Gura_DeclareFunctionAlias(__glSelectBuffer, "glSelectBuffer")
 
 Gura_ImplementFunction(__glSelectBuffer)
 {
-	Array<UInt> &buffer = *Object_array<UInt>::GetObject(args, 0)->GetArray();
-	glSelectBuffer(buffer.GetSize(), buffer);
+	Array<UInt> *buffer = args.IsValid(0)? Object_array<UInt>::GetObject(args, 0)->GetArray() : NULL;
+	if (buffer == NULL) {
+		glSelectBuffer(0, NULL);
+	} else {
+		glSelectBuffer(buffer->GetSize(), buffer->GetPointer());
+	}
 	return Value::Null;
 }
 

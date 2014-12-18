@@ -14,65 +14,6 @@ typedef std::map<GLenum, size_t> ParamInfoDict;
 static ParamInfoDict *_pParamInfoDict = NULL;
 
 //-----------------------------------------------------------------------------
-// Buffer class
-//-----------------------------------------------------------------------------
-// implementation of Buffer class
-Gura_ImplementUserClassWithCast(BufferGLuint)
-{
-}
-
-Gura_ImplementCastFrom(BufferGLuint)
-{
-	if (value.Is_list()) {
-		AutoPtr<Object_Buffer<GLuint> > pObj(
-			Object_Buffer<GLuint>::Create(sig, this, value.GetList()));
-		if (pObj.IsNull()) return false;
-		value = Value(pObj.release());
-		return true;
-	}
-	return false;
-}
-
-Gura_ImplementCastTo(BufferGLuint)
-{
-	return false;
-}
-
-Gura_ImplementUserClassWithCast(BufferGLfloat)
-{
-}
-
-Gura_ImplementCastFrom(BufferGLfloat)
-{
-	if (value.Is_list()) {
-		
-	}
-	return false;
-}
-
-Gura_ImplementCastTo(BufferGLfloat)
-{
-	return false;
-}
-
-Gura_ImplementUserClassWithCast(BufferGLdouble)
-{
-}
-
-Gura_ImplementCastFrom(BufferGLdouble)
-{
-	if (value.Is_list()) {
-		
-	}
-	return false;
-}
-
-Gura_ImplementCastTo(BufferGLdouble)
-{
-	return false;
-}
-
-//-----------------------------------------------------------------------------
 // helper
 //-----------------------------------------------------------------------------
 size_t GetParamCount(GLenum pname)
@@ -1486,9 +1427,6 @@ Gura_ImplementMethod(image, opengl)
 Gura_ModuleEntry()
 {
 	PrepareParamInfoDict();
-	Gura_RealizeUserClass(BufferGLuint, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(BufferGLfloat, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(BufferGLdouble, env.LookupClass(VTYPE_object));
 	AssignValues(env);
 	AssignFunctions(env);
 	Gura_AssignMethodTo(VTYPE_image, image, opengl);

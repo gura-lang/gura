@@ -668,8 +668,12 @@ glEvalPoint2(i:GLint, j:GLint):void:map = `auto % {`en, 'markdown',
 	'''
 }
 
-glFeedbackBuffer(type:GLenum, buffer:GLfloat@array):void = R'''
-	glFeedbackBuffer(buffer.GetSize(), type, buffer);
+glFeedbackBuffer(type:GLenum, buffer:array@float:nil):void = R'''
+	if (buffer == NULL) {
+		glFeedbackBuffer(0, type, NULL);
+	} else {
+		glFeedbackBuffer(buffer->GetSize(), type, buffer->GetPointer());
+	}
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
@@ -1245,22 +1249,34 @@ glLogicOp(opcode:GLenum):void:map = `auto % {`en, 'markdown',
 	'''
 }
 
-glMap1d(target:GLenum, u1:GLdouble, u2:GLdouble, stride:GLint, order:GLint, points:GLdouble@array):void:map = `auto % {`en, 'markdown',
+glMap1d(target:GLenum, u1:GLdouble, u2:GLdouble, stride:GLint, order:GLint, points:array@double):void:map = R'''
+	glMap1d(target, u1, u2, stride, order, points->GetPointer());
+	return Value::Null;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMap1f(target:GLenum, u1:GLfloat, u2:GLfloat, stride:GLint, order:GLint, points:GLfloat@array):void:map = `auto % {`en, 'markdown',
+glMap1f(target:GLenum, u1:GLfloat, u2:GLfloat, stride:GLint, order:GLint, points:array@float):void:map = R'''
+	glMap1f(target, u1, u2, stride, order, points->GetPointer());
+	return Value::Null;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMap2d(target:GLenum, u1:GLdouble, u2:GLdouble, ustride:GLint, uorder:GLint, v1:GLdouble, v2:GLdouble, vstride:GLint, vorder:GLint, points:GLdouble@array):void:map = `auto % {`en, 'markdown',
+glMap2d(target:GLenum, u1:GLdouble, u2:GLdouble, ustride:GLint, uorder:GLint, v1:GLdouble, v2:GLdouble, vstride:GLint, vorder:GLint, points:array@double):void:map = R'''
+	glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points->GetPointer());
+	return Value::Null;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glMap2f(target:GLenum, u1:GLfloat, u2:GLfloat, ustride:GLint, uorder:GLint, v1:GLfloat, v2:GLfloat, vstride:GLint, vorder:GLint, points:GLfloat@array):void:map = `auto % {`en, 'markdown',
+glMap2f(target:GLenum, u1:GLfloat, u2:GLfloat, ustride:GLint, uorder:GLint, v1:GLfloat, v2:GLfloat, vstride:GLint, vorder:GLint, points:array@float):void:map = R'''
+	glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points->GetPointer());
+	return Value::Null;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -1788,8 +1804,12 @@ glScissor(x:GLint, y:GLint, width:GLsizei, height:GLsizei):void:map = `auto % {`
 	'''
 }
 
-glSelectBuffer(buffer:GLuint@array):void = R'''
-	glSelectBuffer(buffer.GetSize(), buffer);
+glSelectBuffer(buffer:array@uint:nil):void = R'''
+	if (buffer == NULL) {
+		glSelectBuffer(0, NULL);
+	} else {
+		glSelectBuffer(buffer->GetSize(), buffer->GetPointer());
+	}
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''

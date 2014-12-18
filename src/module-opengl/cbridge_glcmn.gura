@@ -627,21 +627,6 @@ cbridge.AddTypeConvs {
 			}''',
 			nil,
 			nil)
-	'GLuint@array' => TypeConv(
-			'array_uint', 'Once', [],
-			'Array<UInt> &${arg.name} = *Object_array<UInt>::GetObject(args, ${idx})->GetArray();',
-			nil,
-			nil)
-	'GLfloat@array' => TypeConv(
-			'array_float', 'Once', [],
-			'Array<float> &${arg.name} = *Object_array<float>::GetObject(args, ${idx})->GetArray();',
-			nil,
-			nil)
-	'GLdouble@array' => TypeConv(
-			'array_double', 'Once', [],
-			'Array<double> &${arg.name} = *Object_array<double>::GetObject(args, ${idx})->GetArray();',
-			nil,
-			nil)
 }
 
 Implement = cbridge.Implement
