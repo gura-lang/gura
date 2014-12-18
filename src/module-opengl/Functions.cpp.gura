@@ -16,7 +16,7 @@ glAlphaFunc(func:GLenum, ref:GLclampf):void:map = `auto % {`en, 'markdown',
 }
 
 glAreTexturesResident(textures:GLuint@:const):GLboolean:map {block?} = R'''
-	GLsizei n = textures.GetSize();
+	GLsizei n = _textures->GetSize();
 	CArray<GLboolean> residences(n);
 	GLboolean _rtn = glAreTexturesResident(n, textures, residences);
 	if (_rtn == 0) return Value::Null;
@@ -506,7 +506,7 @@ glDeleteLists(list:GLuint, range:GLsizei):void:map = `auto % {`en, 'markdown',
 }
 
 glDeleteTextures(textures:GLuint@:const):void:map = R'''
-	GLsizei n = textures.GetSize();
+	GLsizei n = _textures->GetSize();
 	glDeleteTextures(n, textures);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -1508,8 +1508,8 @@ glPopName():void = `auto % {`en, 'markdown',
 }
 
 glPrioritizeTextures(textures:GLuint@:const, priorities:GLclampf@:const):void:map = R'''
-	GLsizei n = textures.GetSize();
-	if (n != priorities.GetSize()) {
+	GLsizei n = _textures->GetSize();
+	if (n != _priorities->GetSize()) {
 		sig.SetError(ERR_ValueError, "textures and priorities must have the same number of elements");
 		return Value::Null;
 	}

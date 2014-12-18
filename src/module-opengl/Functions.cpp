@@ -92,7 +92,7 @@ Gura_DeclareFunctionAlias(__glAreTexturesResident, "glAreTexturesResident")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareArg(env, "textures", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "textures", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"determine if textures are loaded in texture memory\n");
@@ -100,8 +100,9 @@ Gura_DeclareFunctionAlias(__glAreTexturesResident, "glAreTexturesResident")
 
 Gura_ImplementFunction(__glAreTexturesResident)
 {
-	CArray<GLuint> textures = args.GetList(0);
-	GLsizei n = textures.GetSize();
+	Array<UInt> *_textures = Object_array<UInt>::GetObject(args, 0)->GetArray();
+	GLuint *textures = reinterpret_cast<GLuint *>(_textures->GetPointer());
+	GLsizei n = _textures->GetSize();
 	CArray<GLboolean> residences(n);
 	GLboolean _rtn = glAreTexturesResident(n, textures, residences);
 	if (_rtn == 0) return Value::Null;
@@ -447,7 +448,7 @@ Gura_DeclareFunctionAlias(__glClipPlane, "glClipPlane")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "plane", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "equation", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "equation", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -456,8 +457,9 @@ Gura_DeclareFunctionAlias(__glClipPlane, "glClipPlane")
 Gura_ImplementFunction(__glClipPlane)
 {
 	GLenum plane = static_cast<GLenum>(args.GetInt(0));
-	CArray<GLdouble> equation = args.GetList(1);
-	if (equation.GetSize() != 4) {
+	Array<double> *_equation = Object_array<double>::GetObject(args, 1)->GetArray();
+	GLdouble *equation = reinterpret_cast<GLdouble *>(_equation->GetPointer());
+	if (_equation->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Null;
 	}
@@ -533,7 +535,7 @@ Gura_ImplementFunction(__glColor3d)
 Gura_DeclareFunctionAlias(__glColor3dv, "glColor3dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -541,8 +543,9 @@ Gura_DeclareFunctionAlias(__glColor3dv, "glColor3dv")
 
 Gura_ImplementFunction(__glColor3dv)
 {
-	CArray<GLdouble> v = args.GetList(0);
-	if (v.GetSize() != 3) {
+	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Null;
 	}
@@ -575,7 +578,7 @@ Gura_ImplementFunction(__glColor3f)
 Gura_DeclareFunctionAlias(__glColor3fv, "glColor3fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -583,8 +586,9 @@ Gura_DeclareFunctionAlias(__glColor3fv, "glColor3fv")
 
 Gura_ImplementFunction(__glColor3fv)
 {
-	CArray<GLfloat> v = args.GetList(0);
-	if (v.GetSize() != 3) {
+	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Null;
 	}
@@ -746,7 +750,7 @@ Gura_ImplementFunction(__glColor3ui)
 Gura_DeclareFunctionAlias(__glColor3uiv, "glColor3uiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -754,8 +758,9 @@ Gura_DeclareFunctionAlias(__glColor3uiv, "glColor3uiv")
 
 Gura_ImplementFunction(__glColor3uiv)
 {
-	CArray<GLuint> v = args.GetList(0);
-	if (v.GetSize() != 3) {
+	Array<UInt> *_v = Object_array<UInt>::GetObject(args, 0)->GetArray();
+	GLuint *v = reinterpret_cast<GLuint *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Null;
 	}
@@ -878,7 +883,7 @@ Gura_ImplementFunction(__glColor4d)
 Gura_DeclareFunctionAlias(__glColor4dv, "glColor4dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -886,8 +891,9 @@ Gura_DeclareFunctionAlias(__glColor4dv, "glColor4dv")
 
 Gura_ImplementFunction(__glColor4dv)
 {
-	CArray<GLdouble> v = args.GetList(0);
-	if (v.GetSize() != 4) {
+	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Null;
 	}
@@ -922,7 +928,7 @@ Gura_ImplementFunction(__glColor4f)
 Gura_DeclareFunctionAlias(__glColor4fv, "glColor4fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -930,8 +936,9 @@ Gura_DeclareFunctionAlias(__glColor4fv, "glColor4fv")
 
 Gura_ImplementFunction(__glColor4fv)
 {
-	CArray<GLfloat> v = args.GetList(0);
-	if (v.GetSize() != 4) {
+	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Null;
 	}
@@ -1101,7 +1108,7 @@ Gura_ImplementFunction(__glColor4ui)
 Gura_DeclareFunctionAlias(__glColor4uiv, "glColor4uiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1109,8 +1116,9 @@ Gura_DeclareFunctionAlias(__glColor4uiv, "glColor4uiv")
 
 Gura_ImplementFunction(__glColor4uiv)
 {
-	CArray<GLuint> v = args.GetList(0);
-	if (v.GetSize() != 4) {
+	Array<UInt> *_v = Object_array<UInt>::GetObject(args, 0)->GetArray();
+	GLuint *v = reinterpret_cast<GLuint *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Null;
 	}
@@ -1388,7 +1396,7 @@ Gura_ImplementFunction(__glDeleteLists)
 Gura_DeclareFunctionAlias(__glDeleteTextures, "glDeleteTextures")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "textures", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "textures", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1396,8 +1404,9 @@ Gura_DeclareFunctionAlias(__glDeleteTextures, "glDeleteTextures")
 
 Gura_ImplementFunction(__glDeleteTextures)
 {
-	CArray<GLuint> textures = args.GetList(0);
-	GLsizei n = textures.GetSize();
+	Array<UInt> *_textures = Object_array<UInt>::GetObject(args, 0)->GetArray();
+	GLuint *textures = reinterpret_cast<GLuint *>(_textures->GetPointer());
+	GLsizei n = _textures->GetSize();
 	glDeleteTextures(n, textures);
 	return Value::Null;
 }
@@ -1702,7 +1711,7 @@ Gura_ImplementFunction(__glEvalCoord1d)
 Gura_DeclareFunctionAlias(__glEvalCoord1dv, "glEvalCoord1dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "u", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "u", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1710,8 +1719,9 @@ Gura_DeclareFunctionAlias(__glEvalCoord1dv, "glEvalCoord1dv")
 
 Gura_ImplementFunction(__glEvalCoord1dv)
 {
-	CArray<GLdouble> u = args.GetList(0);
-	if (u.GetSize() != 1) {
+	Array<double> *_u = Object_array<double>::GetObject(args, 0)->GetArray();
+	GLdouble *u = reinterpret_cast<GLdouble *>(_u->GetPointer());
+	if (_u->GetSize() != 1) {
 		sig.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Null;
 	}
@@ -1740,7 +1750,7 @@ Gura_ImplementFunction(__glEvalCoord1f)
 Gura_DeclareFunctionAlias(__glEvalCoord1fv, "glEvalCoord1fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "u", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "u", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1748,8 +1758,9 @@ Gura_DeclareFunctionAlias(__glEvalCoord1fv, "glEvalCoord1fv")
 
 Gura_ImplementFunction(__glEvalCoord1fv)
 {
-	CArray<GLfloat> u = args.GetList(0);
-	if (u.GetSize() != 1) {
+	Array<float> *_u = Object_array<float>::GetObject(args, 0)->GetArray();
+	GLfloat *u = reinterpret_cast<GLfloat *>(_u->GetPointer());
+	if (_u->GetSize() != 1) {
 		sig.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Null;
 	}
@@ -1780,7 +1791,7 @@ Gura_ImplementFunction(__glEvalCoord2d)
 Gura_DeclareFunctionAlias(__glEvalCoord2dv, "glEvalCoord2dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "u", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "u", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1788,8 +1799,9 @@ Gura_DeclareFunctionAlias(__glEvalCoord2dv, "glEvalCoord2dv")
 
 Gura_ImplementFunction(__glEvalCoord2dv)
 {
-	CArray<GLdouble> u = args.GetList(0);
-	if (u.GetSize() != 2) {
+	Array<double> *_u = Object_array<double>::GetObject(args, 0)->GetArray();
+	GLdouble *u = reinterpret_cast<GLdouble *>(_u->GetPointer());
+	if (_u->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Null;
 	}
@@ -1820,7 +1832,7 @@ Gura_ImplementFunction(__glEvalCoord2f)
 Gura_DeclareFunctionAlias(__glEvalCoord2fv, "glEvalCoord2fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "u", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "u", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1828,8 +1840,9 @@ Gura_DeclareFunctionAlias(__glEvalCoord2fv, "glEvalCoord2fv")
 
 Gura_ImplementFunction(__glEvalCoord2fv)
 {
-	CArray<GLfloat> u = args.GetList(0);
-	if (u.GetSize() != 2) {
+	Array<float> *_u = Object_array<float>::GetObject(args, 0)->GetArray();
+	GLfloat *u = reinterpret_cast<GLfloat *>(_u->GetPointer());
+	if (_u->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Null;
 	}
@@ -1996,7 +2009,7 @@ Gura_DeclareFunctionAlias(__glFogfv, "glFogfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "params", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -2005,8 +2018,9 @@ Gura_DeclareFunctionAlias(__glFogfv, "glFogfv")
 Gura_ImplementFunction(__glFogfv)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
-	CArray<GLfloat> params = args.GetList(1);
-	if (!CheckParamCount(pname, params.GetSize())) {
+	Array<float> *_params = Object_array<float>::GetObject(args, 1)->GetArray();
+	GLfloat *params = reinterpret_cast<GLfloat *>(_params->GetPointer());
+	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -2309,7 +2323,7 @@ Gura_DeclareFunctionAlias(__glGetMapdv, "glGetMapdv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "query", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -2320,7 +2334,8 @@ Gura_ImplementFunction(__glGetMapdv)
 #if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum query = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLdouble> v = args.GetList(2);
+	Array<double> *_v = Object_array<double>::GetObject(args, 2)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	glGetMapdv(target, query, v);
 	return Value::Null;
 #endif
@@ -2334,7 +2349,7 @@ Gura_DeclareFunctionAlias(__glGetMapfv, "glGetMapfv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "query", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -2345,7 +2360,8 @@ Gura_ImplementFunction(__glGetMapfv)
 #if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum query = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLfloat> v = args.GetList(2);
+	Array<float> *_v = Object_array<float>::GetObject(args, 2)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	glGetMapfv(target, query, v);
 	return Value::Null;
 #endif
@@ -2428,7 +2444,7 @@ Gura_DeclareFunctionAlias(__glGetPixelMapfv, "glGetPixelMapfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "map", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "values", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "values", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -2438,7 +2454,8 @@ Gura_ImplementFunction(__glGetPixelMapfv)
 {
 #if 0
 	GLenum map = static_cast<GLenum>(args.GetInt(0));
-	CArray<GLfloat> values = args.GetList(1);
+	Array<float> *_values = Object_array<float>::GetObject(args, 1)->GetArray();
+	GLfloat *values = reinterpret_cast<GLfloat *>(_values->GetPointer());
 	glGetPixelMapfv(map, values);
 	return Value::Null;
 #endif
@@ -2451,7 +2468,7 @@ Gura_DeclareFunctionAlias(__glGetPixelMapuiv, "glGetPixelMapuiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "map", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "values", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "values", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -2461,7 +2478,8 @@ Gura_ImplementFunction(__glGetPixelMapuiv)
 {
 #if 0
 	GLenum map = static_cast<GLenum>(args.GetInt(0));
-	CArray<GLuint> values = args.GetList(1);
+	Array<UInt> *_values = Object_array<UInt>::GetObject(args, 1)->GetArray();
+	GLuint *values = reinterpret_cast<GLuint *>(_values->GetPointer());
 	glGetPixelMapuiv(map, values);
 	return Value::Null;
 #endif
@@ -2796,7 +2814,7 @@ Gura_ImplementFunction(__glIndexd)
 Gura_DeclareFunctionAlias(__glIndexdv, "glIndexdv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "c", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "c", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -2804,7 +2822,8 @@ Gura_DeclareFunctionAlias(__glIndexdv, "glIndexdv")
 
 Gura_ImplementFunction(__glIndexdv)
 {
-	CArray<GLdouble> c = args.GetList(0);
+	Array<double> *_c = Object_array<double>::GetObject(args, 0)->GetArray();
+	GLdouble *c = reinterpret_cast<GLdouble *>(_c->GetPointer());
 	glIndexdv(c);
 	return Value::Null;
 }
@@ -2830,7 +2849,7 @@ Gura_ImplementFunction(__glIndexf)
 Gura_DeclareFunctionAlias(__glIndexfv, "glIndexfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "c", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "c", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -2838,7 +2857,8 @@ Gura_DeclareFunctionAlias(__glIndexfv, "glIndexfv")
 
 Gura_ImplementFunction(__glIndexfv)
 {
-	CArray<GLfloat> c = args.GetList(0);
+	Array<float> *_c = Object_array<float>::GetObject(args, 0)->GetArray();
+	GLfloat *c = reinterpret_cast<GLfloat *>(_c->GetPointer());
 	glIndexfv(c);
 	return Value::Null;
 }
@@ -3041,7 +3061,7 @@ Gura_DeclareFunctionAlias(__glLightModelfv, "glLightModelfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "params", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3050,8 +3070,9 @@ Gura_DeclareFunctionAlias(__glLightModelfv, "glLightModelfv")
 Gura_ImplementFunction(__glLightModelfv)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
-	CArray<GLfloat> params = args.GetList(1);
-	if (!CheckParamCount(pname, params.GetSize())) {
+	Array<float> *_params = Object_array<float>::GetObject(args, 1)->GetArray();
+	GLfloat *params = reinterpret_cast<GLfloat *>(_params->GetPointer());
+	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -3131,7 +3152,7 @@ Gura_DeclareFunctionAlias(__glLightfv, "glLightfv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "light", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "params", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3141,8 +3162,9 @@ Gura_ImplementFunction(__glLightfv)
 {
 	GLenum light = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLfloat> params = args.GetList(2);
-	if (!CheckParamCount(pname, params.GetSize())) {
+	Array<float> *_params = Object_array<float>::GetObject(args, 2)->GetArray();
+	GLfloat *params = reinterpret_cast<GLfloat *>(_params->GetPointer());
+	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -3584,7 +3606,7 @@ Gura_DeclareFunctionAlias(__glMaterialfv, "glMaterialfv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "face", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "params", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3594,8 +3616,9 @@ Gura_ImplementFunction(__glMaterialfv)
 {
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLfloat> params = args.GetList(2);
-	if (!CheckParamCount(pname, params.GetSize())) {
+	Array<float> *_params = Object_array<float>::GetObject(args, 2)->GetArray();
+	GLfloat *params = reinterpret_cast<GLfloat *>(_params->GetPointer());
+	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -3800,7 +3823,7 @@ Gura_ImplementFunction(__glNormal3d)
 Gura_DeclareFunctionAlias(__glNormal3dv, "glNormal3dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3808,8 +3831,9 @@ Gura_DeclareFunctionAlias(__glNormal3dv, "glNormal3dv")
 
 Gura_ImplementFunction(__glNormal3dv)
 {
-	CArray<GLdouble> v = args.GetList(0);
-	if (v.GetSize() != 3) {
+	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Null;
 	}
@@ -3842,7 +3866,7 @@ Gura_ImplementFunction(__glNormal3f)
 Gura_DeclareFunctionAlias(__glNormal3fv, "glNormal3fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3850,8 +3874,9 @@ Gura_DeclareFunctionAlias(__glNormal3fv, "glNormal3fv")
 
 Gura_ImplementFunction(__glNormal3fv)
 {
-	CArray<GLfloat> v = args.GetList(0);
-	if (v.GetSize() != 3) {
+	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Null;
 	}
@@ -3995,7 +4020,7 @@ Gura_DeclareFunctionAlias(__glPixelMapfv, "glPixelMapfv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "map", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "mapsize", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "values", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "values", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4005,7 +4030,8 @@ Gura_ImplementFunction(__glPixelMapfv)
 {
 	GLenum map = static_cast<GLenum>(args.GetInt(0));
 	GLint mapsize = args.GetInt(1);
-	CArray<GLfloat> values = args.GetList(2);
+	Array<float> *_values = Object_array<float>::GetObject(args, 2)->GetArray();
+	GLfloat *values = reinterpret_cast<GLfloat *>(_values->GetPointer());
 	glPixelMapfv(map, mapsize, values);
 	return Value::Null;
 }
@@ -4016,7 +4042,7 @@ Gura_DeclareFunctionAlias(__glPixelMapuiv, "glPixelMapuiv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "map", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "mapsize", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "values", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "values", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4026,7 +4052,8 @@ Gura_ImplementFunction(__glPixelMapuiv)
 {
 	GLenum map = static_cast<GLenum>(args.GetInt(0));
 	GLint mapsize = args.GetInt(1);
-	CArray<GLuint> values = args.GetList(2);
+	Array<UInt> *_values = Object_array<UInt>::GetObject(args, 2)->GetArray();
+	GLuint *values = reinterpret_cast<GLuint *>(_values->GetPointer());
 	glPixelMapuiv(map, mapsize, values);
 	return Value::Null;
 }
@@ -4288,8 +4315,8 @@ Gura_ImplementFunction(__glPopName)
 Gura_DeclareFunctionAlias(__glPrioritizeTextures, "glPrioritizeTextures")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "textures", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "priorities", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "textures", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "priorities", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4297,10 +4324,12 @@ Gura_DeclareFunctionAlias(__glPrioritizeTextures, "glPrioritizeTextures")
 
 Gura_ImplementFunction(__glPrioritizeTextures)
 {
-	CArray<GLuint> textures = args.GetList(0);
-	CArray<GLclampf> priorities = args.GetList(1);
-	GLsizei n = textures.GetSize();
-	if (n != priorities.GetSize()) {
+	Array<UInt> *_textures = Object_array<UInt>::GetObject(args, 0)->GetArray();
+	GLuint *textures = reinterpret_cast<GLuint *>(_textures->GetPointer());
+	Array<float> *_priorities = Object_array<float>::GetObject(args, 1)->GetArray();
+	GLclampf *priorities = reinterpret_cast<GLclampf *>(_priorities->GetPointer());
+	GLsizei n = _textures->GetSize();
+	if (n != _priorities->GetSize()) {
 		sig.SetError(ERR_ValueError, "textures and priorities must have the same number of elements");
 		return Value::Null;
 	}
@@ -4429,7 +4458,7 @@ Gura_ImplementFunction(__glRasterPos2d)
 Gura_DeclareFunctionAlias(__glRasterPos2dv, "glRasterPos2dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4437,8 +4466,9 @@ Gura_DeclareFunctionAlias(__glRasterPos2dv, "glRasterPos2dv")
 
 Gura_ImplementFunction(__glRasterPos2dv)
 {
-	CArray<GLdouble> v = args.GetList(0);
-	if (v.GetSize() != 2) {
+	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Null;
 	}
@@ -4469,7 +4499,7 @@ Gura_ImplementFunction(__glRasterPos2f)
 Gura_DeclareFunctionAlias(__glRasterPos2fv, "glRasterPos2fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4477,8 +4507,9 @@ Gura_DeclareFunctionAlias(__glRasterPos2fv, "glRasterPos2fv")
 
 Gura_ImplementFunction(__glRasterPos2fv)
 {
-	CArray<GLfloat> v = args.GetList(0);
-	if (v.GetSize() != 2) {
+	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Null;
 	}
@@ -4593,7 +4624,7 @@ Gura_ImplementFunction(__glRasterPos3d)
 Gura_DeclareFunctionAlias(__glRasterPos3dv, "glRasterPos3dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4601,8 +4632,9 @@ Gura_DeclareFunctionAlias(__glRasterPos3dv, "glRasterPos3dv")
 
 Gura_ImplementFunction(__glRasterPos3dv)
 {
-	CArray<GLdouble> v = args.GetList(0);
-	if (v.GetSize() != 3) {
+	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Null;
 	}
@@ -4635,7 +4667,7 @@ Gura_ImplementFunction(__glRasterPos3f)
 Gura_DeclareFunctionAlias(__glRasterPos3fv, "glRasterPos3fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4643,8 +4675,9 @@ Gura_DeclareFunctionAlias(__glRasterPos3fv, "glRasterPos3fv")
 
 Gura_ImplementFunction(__glRasterPos3fv)
 {
-	CArray<GLfloat> v = args.GetList(0);
-	if (v.GetSize() != 3) {
+	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Null;
 	}
@@ -4765,7 +4798,7 @@ Gura_ImplementFunction(__glRasterPos4d)
 Gura_DeclareFunctionAlias(__glRasterPos4dv, "glRasterPos4dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4773,8 +4806,9 @@ Gura_DeclareFunctionAlias(__glRasterPos4dv, "glRasterPos4dv")
 
 Gura_ImplementFunction(__glRasterPos4dv)
 {
-	CArray<GLdouble> v = args.GetList(0);
-	if (v.GetSize() != 4) {
+	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Null;
 	}
@@ -4809,7 +4843,7 @@ Gura_ImplementFunction(__glRasterPos4f)
 Gura_DeclareFunctionAlias(__glRasterPos4fv, "glRasterPos4fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4817,8 +4851,9 @@ Gura_DeclareFunctionAlias(__glRasterPos4fv, "glRasterPos4fv")
 
 Gura_ImplementFunction(__glRasterPos4fv)
 {
-	CArray<GLfloat> v = args.GetList(0);
-	if (v.GetSize() != 4) {
+	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Null;
 	}
@@ -4993,8 +5028,8 @@ Gura_ImplementFunction(__glRectd)
 Gura_DeclareFunctionAlias(__glRectdv, "glRectdv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v1", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "v2", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v1", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v2", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5002,13 +5037,15 @@ Gura_DeclareFunctionAlias(__glRectdv, "glRectdv")
 
 Gura_ImplementFunction(__glRectdv)
 {
-	CArray<GLdouble> v1 = args.GetList(0);
-	if (v1.GetSize() != 2) {
+	Array<double> *_v1 = Object_array<double>::GetObject(args, 0)->GetArray();
+	GLdouble *v1 = reinterpret_cast<GLdouble *>(_v1->GetPointer());
+	if (_v1->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Null;
 	}
-	CArray<GLdouble> v2 = args.GetList(1);
-	if (v2.GetSize() != 2) {
+	Array<double> *_v2 = Object_array<double>::GetObject(args, 1)->GetArray();
+	GLdouble *v2 = reinterpret_cast<GLdouble *>(_v2->GetPointer());
+	if (_v2->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Null;
 	}
@@ -5043,8 +5080,8 @@ Gura_ImplementFunction(__glRectf)
 Gura_DeclareFunctionAlias(__glRectfv, "glRectfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v1", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "v2", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v1", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v2", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5052,13 +5089,15 @@ Gura_DeclareFunctionAlias(__glRectfv, "glRectfv")
 
 Gura_ImplementFunction(__glRectfv)
 {
-	CArray<GLfloat> v1 = args.GetList(0);
-	if (v1.GetSize() != 2) {
+	Array<float> *_v1 = Object_array<float>::GetObject(args, 0)->GetArray();
+	GLfloat *v1 = reinterpret_cast<GLfloat *>(_v1->GetPointer());
+	if (_v1->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Null;
 	}
-	CArray<GLfloat> v2 = args.GetList(1);
-	if (v2.GetSize() != 2) {
+	Array<float> *_v2 = Object_array<float>::GetObject(args, 1)->GetArray();
+	GLfloat *v2 = reinterpret_cast<GLfloat *>(_v2->GetPointer());
+	if (_v2->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Null;
 	}
@@ -5417,7 +5456,7 @@ Gura_ImplementFunction(__glTexCoord1d)
 Gura_DeclareFunctionAlias(__glTexCoord1dv, "glTexCoord1dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5425,8 +5464,9 @@ Gura_DeclareFunctionAlias(__glTexCoord1dv, "glTexCoord1dv")
 
 Gura_ImplementFunction(__glTexCoord1dv)
 {
-	CArray<GLdouble> v = args.GetList(0);
-	if (v.GetSize() != 1) {
+	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 1) {
 		sig.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Null;
 	}
@@ -5455,7 +5495,7 @@ Gura_ImplementFunction(__glTexCoord1f)
 Gura_DeclareFunctionAlias(__glTexCoord1fv, "glTexCoord1fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5463,8 +5503,9 @@ Gura_DeclareFunctionAlias(__glTexCoord1fv, "glTexCoord1fv")
 
 Gura_ImplementFunction(__glTexCoord1fv)
 {
-	CArray<GLfloat> v = args.GetList(0);
-	if (v.GetSize() != 1) {
+	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 1) {
 		sig.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Null;
 	}
@@ -5573,7 +5614,7 @@ Gura_ImplementFunction(__glTexCoord2d)
 Gura_DeclareFunctionAlias(__glTexCoord2dv, "glTexCoord2dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5581,8 +5622,9 @@ Gura_DeclareFunctionAlias(__glTexCoord2dv, "glTexCoord2dv")
 
 Gura_ImplementFunction(__glTexCoord2dv)
 {
-	CArray<GLdouble> v = args.GetList(0);
-	if (v.GetSize() != 2) {
+	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Null;
 	}
@@ -5613,7 +5655,7 @@ Gura_ImplementFunction(__glTexCoord2f)
 Gura_DeclareFunctionAlias(__glTexCoord2fv, "glTexCoord2fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5621,8 +5663,9 @@ Gura_DeclareFunctionAlias(__glTexCoord2fv, "glTexCoord2fv")
 
 Gura_ImplementFunction(__glTexCoord2fv)
 {
-	CArray<GLfloat> v = args.GetList(0);
-	if (v.GetSize() != 2) {
+	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Null;
 	}
@@ -5737,7 +5780,7 @@ Gura_ImplementFunction(__glTexCoord3d)
 Gura_DeclareFunctionAlias(__glTexCoord3dv, "glTexCoord3dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5745,8 +5788,9 @@ Gura_DeclareFunctionAlias(__glTexCoord3dv, "glTexCoord3dv")
 
 Gura_ImplementFunction(__glTexCoord3dv)
 {
-	CArray<GLdouble> v = args.GetList(0);
-	if (v.GetSize() != 3) {
+	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Null;
 	}
@@ -5779,7 +5823,7 @@ Gura_ImplementFunction(__glTexCoord3f)
 Gura_DeclareFunctionAlias(__glTexCoord3fv, "glTexCoord3fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5787,8 +5831,9 @@ Gura_DeclareFunctionAlias(__glTexCoord3fv, "glTexCoord3fv")
 
 Gura_ImplementFunction(__glTexCoord3fv)
 {
-	CArray<GLfloat> v = args.GetList(0);
-	if (v.GetSize() != 3) {
+	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Null;
 	}
@@ -5909,7 +5954,7 @@ Gura_ImplementFunction(__glTexCoord4d)
 Gura_DeclareFunctionAlias(__glTexCoord4dv, "glTexCoord4dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5917,8 +5962,9 @@ Gura_DeclareFunctionAlias(__glTexCoord4dv, "glTexCoord4dv")
 
 Gura_ImplementFunction(__glTexCoord4dv)
 {
-	CArray<GLdouble> v = args.GetList(0);
-	if (v.GetSize() != 4) {
+	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Null;
 	}
@@ -5953,7 +5999,7 @@ Gura_ImplementFunction(__glTexCoord4f)
 Gura_DeclareFunctionAlias(__glTexCoord4fv, "glTexCoord4fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5961,8 +6007,9 @@ Gura_DeclareFunctionAlias(__glTexCoord4fv, "glTexCoord4fv")
 
 Gura_ImplementFunction(__glTexCoord4fv)
 {
-	CArray<GLfloat> v = args.GetList(0);
-	if (v.GetSize() != 4) {
+	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Null;
 	}
@@ -6087,7 +6134,7 @@ Gura_DeclareFunctionAlias(__glTexEnvfv, "glTexEnvfv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "params", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6097,8 +6144,9 @@ Gura_ImplementFunction(__glTexEnvfv)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLfloat> params = args.GetList(2);
-	if (!CheckParamCount(pname, params.GetSize())) {
+	Array<float> *_params = Object_array<float>::GetObject(args, 2)->GetArray();
+	GLfloat *params = reinterpret_cast<GLfloat *>(_params->GetPointer());
+	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -6182,7 +6230,7 @@ Gura_DeclareFunctionAlias(__glTexGendv, "glTexGendv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "coord", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "params", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6192,8 +6240,9 @@ Gura_ImplementFunction(__glTexGendv)
 {
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLdouble> params = args.GetList(2);
-	if (!CheckParamCount(pname, params.GetSize())) {
+	Array<double> *_params = Object_array<double>::GetObject(args, 2)->GetArray();
+	GLdouble *params = reinterpret_cast<GLdouble *>(_params->GetPointer());
+	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -6229,7 +6278,7 @@ Gura_DeclareFunctionAlias(__glTexGenfv, "glTexGenfv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "coord", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "params", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6239,8 +6288,9 @@ Gura_ImplementFunction(__glTexGenfv)
 {
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLfloat> params = args.GetList(2);
-	if (!CheckParamCount(pname, params.GetSize())) {
+	Array<float> *_params = Object_array<float>::GetObject(args, 2)->GetArray();
+	GLfloat *params = reinterpret_cast<GLfloat *>(_params->GetPointer());
+	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -6451,7 +6501,7 @@ Gura_DeclareFunctionAlias(__glTexParameterfv, "glTexParameterfv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "params", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6461,8 +6511,9 @@ Gura_ImplementFunction(__glTexParameterfv)
 {
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLfloat> params = args.GetList(2);
-	if (!CheckParamCount(pname, params.GetSize())) {
+	Array<float> *_params = Object_array<float>::GetObject(args, 2)->GetArray();
+	GLfloat *params = reinterpret_cast<GLfloat *>(_params->GetPointer());
+	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Null;
@@ -6707,7 +6758,7 @@ Gura_ImplementFunction(__glVertex2d)
 Gura_DeclareFunctionAlias(__glVertex2dv, "glVertex2dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6715,8 +6766,9 @@ Gura_DeclareFunctionAlias(__glVertex2dv, "glVertex2dv")
 
 Gura_ImplementFunction(__glVertex2dv)
 {
-	CArray<GLdouble> v = args.GetList(0);
-	if (v.GetSize() != 2) {
+	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Null;
 	}
@@ -6747,7 +6799,7 @@ Gura_ImplementFunction(__glVertex2f)
 Gura_DeclareFunctionAlias(__glVertex2fv, "glVertex2fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6755,8 +6807,9 @@ Gura_DeclareFunctionAlias(__glVertex2fv, "glVertex2fv")
 
 Gura_ImplementFunction(__glVertex2fv)
 {
-	CArray<GLfloat> v = args.GetList(0);
-	if (v.GetSize() != 2) {
+	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Null;
 	}
@@ -6871,7 +6924,7 @@ Gura_ImplementFunction(__glVertex3d)
 Gura_DeclareFunctionAlias(__glVertex3dv, "glVertex3dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6879,8 +6932,9 @@ Gura_DeclareFunctionAlias(__glVertex3dv, "glVertex3dv")
 
 Gura_ImplementFunction(__glVertex3dv)
 {
-	CArray<GLdouble> v = args.GetList(0);
-	if (v.GetSize() != 3) {
+	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Null;
 	}
@@ -6913,7 +6967,7 @@ Gura_ImplementFunction(__glVertex3f)
 Gura_DeclareFunctionAlias(__glVertex3fv, "glVertex3fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6921,8 +6975,9 @@ Gura_DeclareFunctionAlias(__glVertex3fv, "glVertex3fv")
 
 Gura_ImplementFunction(__glVertex3fv)
 {
-	CArray<GLfloat> v = args.GetList(0);
-	if (v.GetSize() != 3) {
+	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Null;
 	}
@@ -7043,7 +7098,7 @@ Gura_ImplementFunction(__glVertex4d)
 Gura_DeclareFunctionAlias(__glVertex4dv, "glVertex4dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7051,8 +7106,9 @@ Gura_DeclareFunctionAlias(__glVertex4dv, "glVertex4dv")
 
 Gura_ImplementFunction(__glVertex4dv)
 {
-	CArray<GLdouble> v = args.GetList(0);
-	if (v.GetSize() != 4) {
+	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Null;
 	}
@@ -7087,7 +7143,7 @@ Gura_ImplementFunction(__glVertex4f)
 Gura_DeclareFunctionAlias(__glVertex4fv, "glVertex4fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7095,8 +7151,9 @@ Gura_DeclareFunctionAlias(__glVertex4fv, "glVertex4fv")
 
 Gura_ImplementFunction(__glVertex4fv)
 {
-	CArray<GLfloat> v = args.GetList(0);
-	if (v.GetSize() != 4) {
+	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Null;
 	}
@@ -7224,7 +7281,7 @@ Gura_DeclareFunctionAlias(__glGetAttachedShaders, "glGetAttachedShaders")
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "maxCount", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "shaders", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "shaders", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7237,7 +7294,8 @@ Gura_ImplementFunction(__glGetAttachedShaders)
 	GLsizei maxCount = args.GetInt(1);
 	AutoPtr<Array<GLsizei> > _count(CreateArrayFromList<GLsizei>(args.GetList(2)));
 	GLsizei *count = _count->GetPointer();
-	CArray<GLuint> shaders = args.GetList(3);
+	Array<UInt> *_shaders = Object_array<UInt>::GetObject(args, 3)->GetArray();
+	GLuint *shaders = reinterpret_cast<GLuint *>(_shaders->GetPointer());
 	glGetAttachedShaders(program, maxCount, count, shaders);
 	return Value::Null;
 #endif
@@ -7371,7 +7429,7 @@ Gura_DeclareFunctionAlias(__glGetUniformfv, "glGetUniformfv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "params", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7382,7 +7440,8 @@ Gura_ImplementFunction(__glGetUniformfv)
 #if 0
 	GLuint program = args.GetUInt(0);
 	GLint location = args.GetInt(1);
-	CArray<GLfloat> params = args.GetList(2);
+	Array<float> *_params = Object_array<float>::GetObject(args, 2)->GetArray();
+	GLfloat *params = reinterpret_cast<GLfloat *>(_params->GetPointer());
 	glGetUniformfv(program, location, params);
 	return Value::Null;
 #endif
@@ -7540,7 +7599,7 @@ Gura_DeclareFunctionAlias(__glUniformMatrix2x3fv, "glUniformMatrix2x3fv")
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "transpose", VTYPE_boolean, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7552,7 +7611,8 @@ Gura_ImplementFunction(__glUniformMatrix2x3fv)
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
 	GLboolean transpose = (args.GetBoolean(2)? GL_TRUE : GL_FALSE);
-	CArray<GLfloat> value = args.GetList(3);
+	Array<float> *_value = Object_array<float>::GetObject(args, 3)->GetArray();
+	GLfloat *value = reinterpret_cast<GLfloat *>(_value->GetPointer());
 	glUniformMatrix2x3fv(location, count, transpose, value);
 	return Value::Null;
 #endif
@@ -7567,7 +7627,7 @@ Gura_DeclareFunctionAlias(__glUniformMatrix3x2fv, "glUniformMatrix3x2fv")
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "transpose", VTYPE_boolean, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7579,7 +7639,8 @@ Gura_ImplementFunction(__glUniformMatrix3x2fv)
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
 	GLboolean transpose = (args.GetBoolean(2)? GL_TRUE : GL_FALSE);
-	CArray<GLfloat> value = args.GetList(3);
+	Array<float> *_value = Object_array<float>::GetObject(args, 3)->GetArray();
+	GLfloat *value = reinterpret_cast<GLfloat *>(_value->GetPointer());
 	glUniformMatrix3x2fv(location, count, transpose, value);
 	return Value::Null;
 #endif
@@ -7594,7 +7655,7 @@ Gura_DeclareFunctionAlias(__glUniformMatrix2x4fv, "glUniformMatrix2x4fv")
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "transpose", VTYPE_boolean, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7606,7 +7667,8 @@ Gura_ImplementFunction(__glUniformMatrix2x4fv)
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
 	GLboolean transpose = (args.GetBoolean(2)? GL_TRUE : GL_FALSE);
-	CArray<GLfloat> value = args.GetList(3);
+	Array<float> *_value = Object_array<float>::GetObject(args, 3)->GetArray();
+	GLfloat *value = reinterpret_cast<GLfloat *>(_value->GetPointer());
 	glUniformMatrix2x4fv(location, count, transpose, value);
 	return Value::Null;
 #endif
@@ -7621,7 +7683,7 @@ Gura_DeclareFunctionAlias(__glUniformMatrix4x2fv, "glUniformMatrix4x2fv")
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "transpose", VTYPE_boolean, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7633,7 +7695,8 @@ Gura_ImplementFunction(__glUniformMatrix4x2fv)
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
 	GLboolean transpose = (args.GetBoolean(2)? GL_TRUE : GL_FALSE);
-	CArray<GLfloat> value = args.GetList(3);
+	Array<float> *_value = Object_array<float>::GetObject(args, 3)->GetArray();
+	GLfloat *value = reinterpret_cast<GLfloat *>(_value->GetPointer());
 	glUniformMatrix4x2fv(location, count, transpose, value);
 	return Value::Null;
 #endif
@@ -7648,7 +7711,7 @@ Gura_DeclareFunctionAlias(__glUniformMatrix3x4fv, "glUniformMatrix3x4fv")
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "transpose", VTYPE_boolean, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7660,7 +7723,8 @@ Gura_ImplementFunction(__glUniformMatrix3x4fv)
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
 	GLboolean transpose = (args.GetBoolean(2)? GL_TRUE : GL_FALSE);
-	CArray<GLfloat> value = args.GetList(3);
+	Array<float> *_value = Object_array<float>::GetObject(args, 3)->GetArray();
+	GLfloat *value = reinterpret_cast<GLfloat *>(_value->GetPointer());
 	glUniformMatrix3x4fv(location, count, transpose, value);
 	return Value::Null;
 #endif
@@ -7675,7 +7739,7 @@ Gura_DeclareFunctionAlias(__glUniformMatrix4x3fv, "glUniformMatrix4x3fv")
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "transpose", VTYPE_boolean, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7687,7 +7751,8 @@ Gura_ImplementFunction(__glUniformMatrix4x3fv)
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
 	GLboolean transpose = (args.GetBoolean(2)? GL_TRUE : GL_FALSE);
-	CArray<GLfloat> value = args.GetList(3);
+	Array<float> *_value = Object_array<float>::GetObject(args, 3)->GetArray();
+	GLfloat *value = reinterpret_cast<GLfloat *>(_value->GetPointer());
 	glUniformMatrix4x3fv(location, count, transpose, value);
 	return Value::Null;
 #endif

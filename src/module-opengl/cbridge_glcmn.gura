@@ -500,49 +500,55 @@ cbridge.AddTypeConvs {
 	'GLsizei@:const' => TypeConv(
 			'number', 'Once', ['List'],
 			R'''
-			CArray<GLsizei> ${arg.name} = args.GetList(${idx});
+			AutoPtr<Array<GLsizei> > _${arg.name}(CreateArrayFromList<GLsizei>(args.GetList(${idx})));
+			GLsizei *${arg.name} = _${arg.name}->GetPointer();
 			''',
 			nil,
 			nil)
 	'GLuint@' => TypeConv(
-			'number', 'Once', ['List'],
+			'array_uint', 'Once', ['NoMap'],
 			R'''
-			CArray<GLuint> ${arg.name} = args.GetList(${idx});
+			Array<UInt> *_${arg.name} = Object_array<UInt>::GetObject(args, ${idx})->GetArray();
+			GLuint *${arg.name} = reinterpret_cast<GLuint *>(_${arg.name}->GetPointer());
 			''',
 			nil,
 			nil)
 	'GLuint@:const' => TypeConv(
-			'number', 'Once', ['List'],
+			'array_uint', 'Once', ['NoMap'],
 			R'''
-			CArray<GLuint> ${arg.name} = args.GetList(${idx});
+			Array<UInt> *_${arg.name} = Object_array<UInt>::GetObject(args, ${idx})->GetArray();
+			GLuint *${arg.name} = reinterpret_cast<GLuint *>(_${arg.name}->GetPointer());
 			''',
 			nil,
 			nil)
 	'GLuint@3:const' => TypeConv(
-			'number', 'Once', ['List'],
+			'array_uint', 'Once', ['NoMap'],
 			R'''
-			CArray<GLuint> ${arg.name} = args.GetList(${idx});
-			if (${arg.name}.GetSize() != 3) {
+			Array<UInt> *_${arg.name} = Object_array<UInt>::GetObject(args, ${idx})->GetArray();
+			GLuint *${arg.name} = reinterpret_cast<GLuint *>(_${arg.name}->GetPointer());
+			if (_${arg.name}->GetSize() != 3) {
 				sig.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Null;
 			}''',
 			nil,
 			nil)
 	'GLuint@4:const' => TypeConv(
-			'number', 'Once', ['List'],
+			'array_uint', 'Once', ['NoMap'],
 			R'''
-			CArray<GLuint> ${arg.name} = args.GetList(${idx});
-			if (${arg.name}.GetSize() != 4) {
+			Array<UInt> *_${arg.name} = Object_array<UInt>::GetObject(args, ${idx})->GetArray();
+			GLuint *${arg.name} = reinterpret_cast<GLuint *>(_${arg.name}->GetPointer());
+			if (_${arg.name}->GetSize() != 4) {
 				sig.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Null;
 			}''',
 			nil,
 			nil)
 	'GLuint@pname:const' => TypeConv(
-			'number', 'Once', ['List'],
+			'array_uint', 'Once', ['NoMap'],
 			R'''
-			CArray<GLuint> ${arg.name} = args.GetList(${idx});
-			if (!CheckParamCount(pname, ${arg.name}.GetSize())) {
+			Array<UInt> *_${arg.name} = Object_array<UInt>::GetObject(args, ${idx})->GetArray();
+			GLuint *${arg.name} = reinterpret_cast<GLuint *>(_${arg.name}->GetPointer());
+			if (!CheckParamCount(pname, _${arg.name}->GetSize())) {
 				sig.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;
@@ -550,54 +556,60 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLfloat@' => TypeConv(
-			'number', 'Once', ['List'],
+			'array_float', 'Once', ['NoMap'],
 			R'''
-			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
+			Array<float> *_${arg.name} = Object_array<float>::GetObject(args, ${idx})->GetArray();
+			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
 			''',
 			nil,
 			nil)
 	'GLfloat@:const' => TypeConv(
-			'number', 'Once', ['List'],
+			'array_float', 'Once', ['NoMap'],
 			R'''
-			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
+			Array<float> *_${arg.name} = Object_array<float>::GetObject(args, ${idx})->GetArray();
+			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
 			''',
 			nil,
 			nil)
 	'GLfloat@1:const' => TypeConv(
-			'number', 'Once', ['List'],
+			'array_float', 'Once', ['NoMap'],
 			R'''
-			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
-			if (${arg.name}.GetSize() != 1) {
+			Array<float> *_${arg.name} = Object_array<float>::GetObject(args, ${idx})->GetArray();
+			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
+			if (_${arg.name}->GetSize() != 1) {
 				sig.SetError(ERR_ValueError, "the list must have one element");
 				return Value::Null;
 			}''',
 			nil,
 			nil)
 	'GLfloat@2:const' => TypeConv(
-			'number', 'Once', ['List'],
+			'array_float', 'Once', ['NoMap'],
 			R'''
-			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
-			if (${arg.name}.GetSize() != 2) {
+			Array<float> *_${arg.name} = Object_array<float>::GetObject(args, ${idx})->GetArray();
+			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
+			if (_${arg.name}->GetSize() != 2) {
 				sig.SetError(ERR_ValueError, "the list must have two elements");
 				return Value::Null;
 			}''',
 			nil,
 			nil)
 	'GLfloat@3:const' => TypeConv(
-			'number', 'Once', ['List'],
+			'array_float', 'Once', ['NoMap'],
 			R'''
-			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
-			if (${arg.name}.GetSize() != 3) {
+			Array<float> *_${arg.name} = Object_array<float>::GetObject(args, ${idx})->GetArray();
+			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
+			if (_${arg.name}->GetSize() != 3) {
 				sig.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Null;
 			}''',
 			nil,
 			nil)
 	'GLfloat@4:const' => TypeConv(
-			'number', 'Once', ['List'],
+			'array_float', 'Once', ['NoMap'],
 			R'''
-			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
-			if (${arg.name}.GetSize() != 4) {
+			Array<float> *_${arg.name} = Object_array<float>::GetObject(args, ${idx})->GetArray();
+			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
+			if (_${arg.name}->GetSize() != 4) {
 				sig.SetError(ERR_ValueError, "the list must have four elements");
 				return Value::Null;
 			}''',
@@ -611,10 +623,11 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLfloat@pname:const' => TypeConv(
-			'number', 'Once', ['List'],
+			'array_float', 'Once', ['NoMap'],
 			R'''
-			CArray<GLfloat> ${arg.name} = args.GetList(${idx});
-			if (!CheckParamCount(pname, ${arg.name}.GetSize())) {
+			Array<float> *_${arg.name} = Object_array<float>::GetObject(args, ${idx})->GetArray();
+			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
+			if (!CheckParamCount(pname, _${arg.name}->GetSize())) {
 				sig.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;
@@ -622,71 +635,79 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLclampf@:const' => TypeConv(
-			'number', 'Once', ['List'],
+			'array_float', 'Once', ['NoMap'],
 			R'''
-			CArray<GLclampf> ${arg.name} = args.GetList(${idx});
+			Array<float> *_${arg.name} = Object_array<float>::GetObject(args, ${idx})->GetArray();
+			GLclampf *${arg.name} = reinterpret_cast<GLclampf *>(_${arg.name}->GetPointer());
 			''',
 			nil,
 			nil)
 	'GLdouble@' => TypeConv(
-			'number', 'Once', ['List'],
+			'array_double', 'Once', ['NoMap'],
 			R'''
-			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
+			Array<double> *_${arg.name} = Object_array<double>::GetObject(args, ${idx})->GetArray();
+			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
 			''',
 			nil,
 			nil)
 	'GLdouble@:const' => TypeConv(
-			'number', 'Once', ['List'],
+			'array_double', 'Once', ['NoMap'],
 			R'''
-			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
+			Array<double> *_${arg.name} = Object_array<double>::GetObject(args, ${idx})->GetArray();
+			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
 			''',
 			nil,
 			nil)
 	'GLdouble@1:const' => TypeConv(
-			'number', 'Once', ['List'],
+			'array_double', 'Once', ['NoMap'],
 			R'''
-			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
-			if (${arg.name}.GetSize() != 1) {
+			Array<double> *_${arg.name} = Object_array<double>::GetObject(args, ${idx})->GetArray();
+			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
+			if (_${arg.name}->GetSize() != 1) {
 				sig.SetError(ERR_ValueError, "the list must have one element");
 				return Value::Null;
 			}''',
 			nil,
 			nil)
 	'GLdouble@2:const' => TypeConv(
-			'number', 'Once', ['List'],
+			'array_double', 'Once', ['NoMap'],
 			R'''
-			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
-			if (${arg.name}.GetSize() != 2) {
+			Array<double> *_${arg.name} = Object_array<double>::GetObject(args, ${idx})->GetArray();
+			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
+			if (_${arg.name}->GetSize() != 2) {
 				sig.SetError(ERR_ValueError, "the list must have two elements");
 				return Value::Null;
 			}''',
 			nil,
 			nil)
 	'GLdouble@3:const' => TypeConv(
-			'number', 'Once', ['List'],
+			'array_double', 'Once', ['NoMap'],
 			R'''
-			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
-			if (${arg.name}.GetSize() != 3) {
+			Array<double> *_${arg.name} = Object_array<double>::GetObject(args, ${idx})->GetArray();
+			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
+			if (_${arg.name}->GetSize() != 3) {
 				sig.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Null;
 			}''',
 			nil,
 			nil)
 	'GLdouble@4:const' => TypeConv(
-			'number', 'Once', ['List'],
+			'array_double', 'Once', ['NoMap'],
 			R'''
-			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
-			if (${arg.name}.GetSize() != 4) {
+			Array<double> *_${arg.name} = Object_array<double>::GetObject(args, ${idx})->GetArray();
+			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
+			if (_${arg.name}->GetSize() != 4) {
 				sig.SetError(ERR_ValueError, "the list must have four elements");
 				return Value::Null;
 			}''',
 			nil,
 			nil)
 	'GLdouble@4' => TypeConv(
-			'number', 'Once', ['List'],
+			'array_double', 'Once', ['NoMap'],
 			R'''
-			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
-			if (${arg.name}.GetSize() != 4) {
+			Array<double> *_${arg.name} = Object_array<double>::GetObject(args, ${idx})->GetArray();
+			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
+			if (_${arg.name}->GetSize() != 4) {
 				sig.SetError(ERR_ValueError, "the list must have four elements");
 				return Value::Null;
 			}''',
@@ -700,10 +721,11 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLdouble@pname:const' => TypeConv(
-			'number', 'Once', ['List'],
+			'array_double', 'Once', ['NoMap'],
 			R'''
-			CArray<GLdouble> ${arg.name} = args.GetList(${idx});
-			if (!CheckParamCount(pname, ${arg.name}.GetSize())) {
+			Array<double> *_${arg.name} = Object_array<double>::GetObject(args, ${idx})->GetArray();
+			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
+			if (!CheckParamCount(pname, _${arg.name}->GetSize())) {
 				sig.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Null;
