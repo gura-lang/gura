@@ -186,7 +186,7 @@ Gura_DeclareFunctionAlias(__glBitmap, "glBitmap")
 	DeclareArg(env, "yorig", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "xmove", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "ymove", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "bitmap", VTYPE_binary, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "bitmap", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -200,14 +200,14 @@ Gura_ImplementFunction(__glBitmap)
 	GLfloat yorig = args.GetFloat(3);
 	GLfloat xmove = args.GetFloat(4);
 	GLfloat ymove = args.GetFloat(5);
-	const Binary *bitmap = &Object_binary::GetObject(args, 6)->GetBinary();
+	Array<UChar> *_bitmap = Object_array<UChar>::GetObject(args, 6)->GetArray();
+	GLubyte *bitmap = reinterpret_cast<GLubyte *>(_bitmap->GetPointer());
 	size_t bytesReq = ((width + 7) / 8) * height;
-	if (bitmap->size() < bytesReq) {
-		sig.SetError(ERR_ValueError, "binary doesn\'t contain enough data");
+	if (_bitmap->GetSize() < bytesReq) {
+		sig.SetError(ERR_ValueError, "array doesn\'t contain enough data");
 		return Value::Null;
 	}
-	glBitmap(width, height, xorig, yorig, xmove, ymove,
-			 reinterpret_cast<const GLubyte *>(bitmap->data()));
+	glBitmap(width, height, xorig, yorig, xmove, ymove, bitmap);
 	return Value::Null;
 }
 
@@ -1545,7 +1545,7 @@ Gura_DeclareFunctionAlias(__glDrawPixels, "glDrawPixels")
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "pixels", VTYPE_binary, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pixels", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1557,9 +1557,10 @@ Gura_ImplementFunction(__glDrawPixels)
 	GLsizei height = args.GetInt(1);
 	GLenum format = static_cast<GLenum>(args.GetInt(2));
 	GLenum type = static_cast<GLenum>(args.GetInt(3));
-	const Binary *pixels = &Object_binary::GetObject(args, 4)->GetBinary();
+	Array<UChar> *_pixels = Object_array<UChar>::GetObject(args, 4)->GetArray();
+	GLubyte *pixels = reinterpret_cast<GLubyte *>(_pixels->GetPointer());
 	
-	glDrawPixels(width, height, format, type, pixels->data());
+	glDrawPixels(width, height, format, type, pixels);
 	return Value::Null;
 }
 
@@ -1938,7 +1939,7 @@ Gura_DeclareFunctionAlias(__glFeedbackBuffer, "glFeedbackBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "buffer", VTYPE_array_float, OCCUR_Once, FLAG_Nil);
+	DeclareArg(env, "buffer", VTYPE_array_float, OCCUR_Once, FLAG_NoMap | FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3389,7 +3390,7 @@ Gura_DeclareFunctionAlias(__glMap1d, "glMap1d")
 	DeclareArg(env, "u2", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "stride", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "order", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "points", VTYPE_array_double, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "points", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3416,7 +3417,7 @@ Gura_DeclareFunctionAlias(__glMap1f, "glMap1f")
 	DeclareArg(env, "u2", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "stride", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "order", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "points", VTYPE_array_float, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "points", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3447,7 +3448,7 @@ Gura_DeclareFunctionAlias(__glMap2d, "glMap2d")
 	DeclareArg(env, "v2", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "vstride", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "vorder", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "points", VTYPE_array_double, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "points", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3482,7 +3483,7 @@ Gura_DeclareFunctionAlias(__glMap2f, "glMap2f")
 	DeclareArg(env, "v2", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "vstride", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "vorder", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "points", VTYPE_array_float, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "points", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4257,7 +4258,7 @@ Gura_ImplementFunction(__glPolygonOffset)
 Gura_DeclareFunctionAlias(__glPolygonStipple, "glPolygonStipple")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "mask", VTYPE_binary, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "mask", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4265,12 +4266,13 @@ Gura_DeclareFunctionAlias(__glPolygonStipple, "glPolygonStipple")
 
 Gura_ImplementFunction(__glPolygonStipple)
 {
-	const Binary *mask = &Object_binary::GetObject(args, 0)->GetBinary();
-	if (mask->size() != 32 * 4) {
-		sig.SetError(ERR_ValueError, "mask must be a binary containing 32 * 4 elements");
+	Array<UChar> *_mask = Object_array<UChar>::GetObject(args, 0)->GetArray();
+	GLubyte *mask = reinterpret_cast<GLubyte *>(_mask->GetPointer());
+	if (_mask->GetSize() != 32 * 4) {
+		sig.SetError(ERR_ValueError, "mask must contain 32 * 4 elements");
 		return Value::Null;
 	}
-	glPolygonStipple(reinterpret_cast<const GLubyte *>(mask->data()));
+	glPolygonStipple(mask);
 	return Value::Null;
 }
 
@@ -5365,7 +5367,7 @@ Gura_ImplementFunction(__glScissor)
 Gura_DeclareFunctionAlias(__glSelectBuffer, "glSelectBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "buffer", VTYPE_array_uint, OCCUR_Once, FLAG_Nil);
+	DeclareArg(env, "buffer", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap | FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6381,7 +6383,7 @@ Gura_DeclareFunctionAlias(__glTexImage1D, "glTexImage1D")
 	DeclareArg(env, "border", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "pixels", VTYPE_binary, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pixels", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6396,9 +6398,10 @@ Gura_ImplementFunction(__glTexImage1D)
 	GLint border = args.GetInt(4);
 	GLenum format = static_cast<GLenum>(args.GetInt(5));
 	GLenum type = static_cast<GLenum>(args.GetInt(6));
-	const Binary *pixels = &Object_binary::GetObject(args, 7)->GetBinary();
+	Array<UChar> *_pixels = Object_array<UChar>::GetObject(args, 7)->GetArray();
+	GLubyte *pixels = reinterpret_cast<GLubyte *>(_pixels->GetPointer());
 	// check pixels->size()
-	glTexImage1D(target, level, internalformat, width, border, format, type, pixels->data());
+	glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
 	return Value::Null;
 }
 
@@ -6444,7 +6447,7 @@ Gura_DeclareFunctionAlias(__glTexImage2D, "glTexImage2D")
 	DeclareArg(env, "border", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "pixels", VTYPE_binary, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pixels", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6460,9 +6463,10 @@ Gura_ImplementFunction(__glTexImage2D)
 	GLint border = args.GetInt(5);
 	GLenum format = static_cast<GLenum>(args.GetInt(6));
 	GLenum type = static_cast<GLenum>(args.GetInt(7));
-	const Binary *pixels = &Object_binary::GetObject(args, 8)->GetBinary();
+	Array<UChar> *_pixels = Object_array<UChar>::GetObject(args, 8)->GetArray();
+	GLubyte *pixels = reinterpret_cast<GLubyte *>(_pixels->GetPointer());
 	// check pixels->size()
-	glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels->data());
+	glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
 	return Value::Null;
 }
 
@@ -6603,7 +6607,7 @@ Gura_DeclareFunctionAlias(__glTexSubImage1D, "glTexSubImage1D")
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "pixels", VTYPE_binary, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pixels", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6617,9 +6621,10 @@ Gura_ImplementFunction(__glTexSubImage1D)
 	GLsizei width = args.GetInt(3);
 	GLenum format = static_cast<GLenum>(args.GetInt(4));
 	GLenum type = static_cast<GLenum>(args.GetInt(5));
-	const Binary *pixels = &Object_binary::GetObject(args, 6)->GetBinary();
+	Array<UChar> *_pixels = Object_array<UChar>::GetObject(args, 6)->GetArray();
+	GLubyte *pixels = reinterpret_cast<GLubyte *>(_pixels->GetPointer());
 	// check pixels->size()
-	glTexSubImage1D(target, level, xoffset, width, format, type, pixels->data());
+	glTexSubImage1D(target, level, xoffset, width, format, type, pixels);
 	return Value::Null;
 }
 
@@ -6663,7 +6668,7 @@ Gura_DeclareFunctionAlias(__glTexSubImage2D, "glTexSubImage2D")
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "pixels", VTYPE_binary, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pixels", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6679,9 +6684,10 @@ Gura_ImplementFunction(__glTexSubImage2D)
 	GLsizei height = args.GetInt(5);
 	GLenum format = static_cast<GLenum>(args.GetInt(6));
 	GLenum type = static_cast<GLenum>(args.GetInt(7));
-	const Binary *pixels = &Object_binary::GetObject(args, 8)->GetBinary();
+	Array<UChar> *_pixels = Object_array<UChar>::GetObject(args, 8)->GetArray();
+	GLubyte *pixels = reinterpret_cast<GLubyte *>(_pixels->GetPointer());
 	// check pixels->size()
-	glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels->data());
+	glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
 	return Value::Null;
 }
 

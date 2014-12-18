@@ -31,12 +31,12 @@ display(degree:number) = {
 	glMaterialfv(GL_FRONT_AND_BACK,
 			GL_AMBIENT_AND_DIFFUSE, [0.8, 0.2, 0.2, 1])
 	glBegin(GL_QUADS) {
-		glNormal3dv([ 0,  0, -1]), glVertex3dv(vertex[0, 1, 2, 3])
-		glNormal3dv([ 1,  0,  0]), glVertex3dv(vertex[1, 5, 6, 2])
-		glNormal3dv([ 0,  0,  1]), glVertex3dv(vertex[5, 4, 7, 6])
-		glNormal3dv([-1,  0,  0]), glVertex3dv(vertex[4, 0, 3, 7])
-		glNormal3dv([ 0, -1,  0]), glVertex3dv(vertex[4, 5, 1, 0])
-		glNormal3dv([ 0,  1,  0]), glVertex3dv(vertex[3, 2, 6, 7])
+		glNormal3dv([ 0,  0, -1]), vertex[0, 1, 2, 3].each {|v| glVertex3dv(v)}
+		glNormal3dv([ 1,  0,  0]), vertex[1, 5, 6, 2].each {|v| glVertex3dv(v)}
+		glNormal3dv([ 0,  0,  1]), vertex[5, 4, 7, 6].each {|v| glVertex3dv(v)}
+		glNormal3dv([-1,  0,  0]), vertex[4, 0, 3, 7].each {|v| glVertex3dv(v)}
+		glNormal3dv([ 0, -1,  0]), vertex[4, 5, 1, 0].each {|v| glVertex3dv(v)}
+		glNormal3dv([ 0,  1,  0]), vertex[3, 2, 6, 7].each {|v| glVertex3dv(v)}
 	}
 }
 

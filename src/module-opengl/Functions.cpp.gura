@@ -60,14 +60,13 @@ glBindTexture(target:GLenum, texture:GLuint):void:map = `auto % {`en, 'markdown'
 	'''
 }
 
-glBitmap(width:GLsizei, height:GLsizei, xorig:GLfloat, yorig:GLfloat, xmove:GLfloat, ymove:GLfloat, bitmap:binary):void:map = R'''
+glBitmap(width:GLsizei, height:GLsizei, xorig:GLfloat, yorig:GLfloat, xmove:GLfloat, ymove:GLfloat, bitmap:GLubyte@:const):void:map = R'''
 	size_t bytesReq = ((width + 7) / 8) * height;
-	if (bitmap->size() < bytesReq) {
-		sig.SetError(ERR_ValueError, "binary doesn\'t contain enough data");
+	if (_bitmap->GetSize() < bytesReq) {
+		sig.SetError(ERR_ValueError, "array doesn\'t contain enough data");
 		return Value::Null;
 	}
-	glBitmap(width, height, xorig, yorig, xmove, ymove,
-			 reinterpret_cast<const GLubyte *>(bitmap->data()));
+	glBitmap(width, height, xorig, yorig, xmove, ymove, bitmap);
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
@@ -552,8 +551,8 @@ glDrawBuffer(mode:GLenum):void:map = `auto % {`en, 'markdown',
 
 //glDrawElements(mode:GLenum, count:GLsizei, type:GLenum, indices:GLvoid@:const):void:map = `unsupport
 
-glDrawPixels(width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:binary):void:map = R'''	
-	glDrawPixels(width, height, format, type, pixels->data());
+glDrawPixels(width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:GLubyte@:const):void:map = R'''	
+	glDrawPixels(width, height, format, type, pixels);
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
@@ -1502,12 +1501,12 @@ glPolygonOffset(factor:GLfloat, units:GLfloat):void:map = `auto % {`en, 'markdow
 	'''
 }
 
-glPolygonStipple(mask:binary):void:map = R'''
-	if (mask->size() != 32 * 4) {
-		sig.SetError(ERR_ValueError, "mask must be a binary containing 32 * 4 elements");
+glPolygonStipple(mask:GLubyte@:const):void:map = R'''
+	if (_mask->GetSize() != 32 * 4) {
+		sig.SetError(ERR_ValueError, "mask must contain 32 * 4 elements");
 		return Value::Null;
 	}
-	glPolygonStipple(reinterpret_cast<const GLubyte *>(mask->data()));
+	glPolygonStipple(mask);
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
@@ -2078,9 +2077,9 @@ glTexGeniv(coord:GLenum, pname:GLenum, params:GLint@pname:const):void:map = `aut
 }
 
 glTexImage1D(target:GLenum, level:GLint, internalformat:GLint,
-			width:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:binary):void:map = R'''
+			width:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:GLubyte@:const):void:map = R'''
 	// check pixels->size()
-	glTexImage1D(target, level, internalformat, width, border, format, type, pixels->data());
+	glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
@@ -2102,9 +2101,9 @@ glTexImage1DFromImage(target:GLenum, level:GLint,
 }
 
 glTexImage2D(target:GLenum, level:GLint, internalformat:GLint,
-		width:GLsizei, height:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:binary):void:map = R'''
+		width:GLsizei, height:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:GLubyte@:const):void:map = R'''
 	// check pixels->size()
-	glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels->data());
+	glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
@@ -2149,9 +2148,9 @@ glTexParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void:map
 }
 
 glTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint,
-			 width:GLsizei, format:GLenum, type:GLenum, pixels:binary):void:map = R'''
+			 width:GLsizei, format:GLenum, type:GLenum, pixels:GLubyte@:const):void:map = R'''
 	// check pixels->size()
-	glTexSubImage1D(target, level, xoffset, width, format, type, pixels->data());
+	glTexSubImage1D(target, level, xoffset, width, format, type, pixels);
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
@@ -2172,9 +2171,9 @@ glTexSubImage1DFromImage(target:GLenum, level:GLint, xoffset:GLint, image:image)
 }
 
 glTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint,
-		width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:binary):void:map = R'''
+		width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:GLubyte@:const):void:map = R'''
 	// check pixels->size()
-	glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels->data());
+	glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
