@@ -598,37 +598,6 @@ public:
 
 inline const char *GetNumberFormat() { return "%g"; }
 
-//-----------------------------------------------------------------------------
-// CArray
-//-----------------------------------------------------------------------------
-template<typename T>
-class CArray {
-private:
-	AutoPtr<Memory> _pMemory;
-public:
-	CArray(size_t n) {
-		_pMemory.reset(new MemoryHeap(sizeof(T) * n));
-	}
-	CArray(const ValueList &valList) {
-		size_t n = valList.size();
-		_pMemory.reset(new MemoryHeap(sizeof(T) * n));
-		T *p = reinterpret_cast<T *>(_pMemory->GetPointer());
-		foreach_const (ValueList, pValue, valList) {
-			*p++ = static_cast<T>(pValue->GetNumber());
-		}
-	}
-	CArray(const CArray &src) {
-		_pMemory.reset(src._pMemory->Reference());
-	}
-	inline size_t GetSize() const { return _pMemory->GetSize() / sizeof(T); }
-	inline operator T *() {
-		return reinterpret_cast<T *>(_pMemory->GetPointer());
-	}
-	inline operator const T *() const {
-		return reinterpret_cast<T *>(_pMemory->GetPointer());
-	}
-};
-
 }
 
 #endif

@@ -92,7 +92,7 @@ public:
 				}
 			} else if (args.Is_list(0)) {
 				const ValueList &valList = args.GetList(0);
-				pArray.reset(Array<T_Elem>::CreateFromList(sig, valList));
+				pArray.reset(CreateArrayFromList<T_Elem>(sig, valList));
 				if (pArray.IsNull()) return Value::Null;
 			} else {
 				Declaration::SetError_InvalidArgument(sig);
@@ -119,7 +119,7 @@ public:
 		}
 		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
 			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
-			AutoPtr<Iterator> pIterator(pArray->CreateIterator());
+			AutoPtr<Iterator> pIterator(new Iterator_Array<T_Elem>(pArray->Reference()));
 			return ReturnIterator(env, sig, args, pIterator.release());
 		}
 	};
@@ -273,7 +273,7 @@ public:
 	}
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl) {
 		if (value.Is_list()) {
-			AutoPtr<Array<T_Elem> > pArray(Array<T_Elem>::CreateFromList(sig, value.GetList()));
+			AutoPtr<Array<T_Elem> > pArray(CreateArrayFromList<T_Elem>(sig, value.GetList()));
 			if (pArray.IsNull()) return false;
 			value = Value(new Object_array<T_Elem>(env, GetValueType(), pArray.release()));
 			return true;
@@ -286,11 +286,11 @@ public:
 				Object_array<T_Elem>::GetObject(value)->GetArray()->Reference());
 			ValueList &valList = value.InitAsList(env);
 			valList.reserve(pArray->GetSize());
-			pArray->AddToList(valList);
+			CopyArrayToList(pArray.get(), valList);
 			return true;
 		} else if (decl.IsType(VTYPE_iterator)) {
-			AutoPtr<Iterator> pIterator(Object_array<T_Elem>::GetObject(value)->
-													GetArray()->CreateIterator());
+			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetObject(value)->GetArray();
+			AutoPtr<Iterator> pIterator(new Iterator_Array<T_Elem>(pArray->Reference()));
 			value = Value(new Object_iterator(env, pIterator.release()));
 			return true;
 		}

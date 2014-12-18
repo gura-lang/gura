@@ -8,9 +8,11 @@ __name__:string = __main__
 array@char(arg, init?:number) {block?}
 array@double(arg, init?:number) {block?}
 array@float(arg, init?:number) {block?}
+array@int(arg, init?:number) {block?}
 array@long(arg, init?:number) {block?}
 array@short(arg, init?:number) {block?}
 array@uchar(arg, init?:number) {block?}
+array@uint(arg, init?:number) {block?}
 array@ulong(arg, init?:number) {block?}
 array@ushort(arg, init?:number) {block?}
 audio(args+):map {block?}
@@ -283,6 +285,13 @@ array@float
   offset(n:number):map {block?}
   paste(offset:number, src:array@float):map
   tail(n:number):map {block?}
+array@int
+  each() {block?}
+  fill(value:number):map:void
+  head(n:number):map {block?}
+  offset(n:number):map {block?}
+  paste(offset:number, src:array@int):map
+  tail(n:number):map {block?}
 array@long
   each() {block?}
   fill(value:number):map:void
@@ -303,6 +312,13 @@ array@uchar
   head(n:number):map {block?}
   offset(n:number):map {block?}
   paste(offset:number, src:array@uchar):map
+  tail(n:number):map {block?}
+array@uint
+  each() {block?}
+  fill(value:number):map:void
+  head(n:number):map {block?}
+  offset(n:number):map {block?}
+  paste(offset:number, src:array@uint):map
   tail(n:number):map {block?}
 array@ulong
   each() {block?}
