@@ -618,8 +618,10 @@ cbridge.AddTypeConvs {
 	'GLfloat@matrix:const' => TypeConv(
 			'any', 'Once', [],
 			R'''
-			CArray<GLfloat> ${arg.name} = MakeMatrix<GLfloat>(sig, args.GetValue(${idx}));
-			if (sig.IsSignalled()) return Value::Null;''',
+			AutoPtr<Array<GLfloat> > _${arg.name}(MakeMatrix<GLfloat>(sig, args.GetValue(${idx})));
+			if (sig.IsSignalled()) return Value::Null;
+			GLfloat *${arg.name} = _${arg.name}->GetPointer();
+			''',
 			nil,
 			nil)
 	'GLfloat@pname:const' => TypeConv(
@@ -716,8 +718,10 @@ cbridge.AddTypeConvs {
 	'GLdouble@matrix:const' => TypeConv(
 			'any', 'Once', [],
 			R'''
-			CArray<GLdouble> ${arg.name} = MakeMatrix<GLdouble>(sig, args.GetValue(${idx}));
-			if (sig.IsSignalled()) return Value::Null;''',
+			AutoPtr<Array<GLdouble> > _${arg.name}(MakeMatrix<GLdouble>(sig, args.GetValue(${idx})));
+			if (sig.IsSignalled()) return Value::Null;
+			GLdouble *${arg.name} = _${arg.name}->GetPointer();
+			''',
 			nil,
 			nil)
 	'GLdouble@pname:const' => TypeConv(

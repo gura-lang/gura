@@ -7,23 +7,23 @@ typedef char GLchar;
 
 Gura_BeginModuleScope(opengl)
 
-template<typename T>
-CArray<T> MakeMatrix(Signal sig, const Value &value)
+template<typename T_Elem>
+Array<T_Elem> *MakeMatrix(Signal sig, const Value &value)
 {
-	CArray<T> rtn(16);
+	AutoPtr<Array<T_Elem> > rtn(new Array<T_Elem>(16));
 	if (value.Is_list()) {
 		const ValueList &valList = value.GetList();
 		if (valList.size() != 16) {
 			sig.SetError(ERR_ValueError, "list must contain 16 elements");
 			goto done;
 		}
-		T *p = rtn;
+		T_Elem *p = rtn->GetPointer();
 		foreach_const (ValueList, pValue, valList) {
 			if (!pValue->Is_number()) {
 				sig.SetError(ERR_ValueError, "element must be a number");
 				goto done;
 			}
-			*p++ = static_cast<T>(pValue->GetDouble());
+			*p++ = static_cast<T_Elem>(pValue->GetDouble());
 		}
 	} else if (value.Is_matrix()) {
 		const Matrix *pMat = Object_matrix::GetObject(value)->GetMatrix();
@@ -31,7 +31,7 @@ CArray<T> MakeMatrix(Signal sig, const Value &value)
 			sig.SetError(ERR_ValueError, "matrix must contain 4x4 elements");
 			goto done;
 		}
-		T *p = rtn;
+		T_Elem *p = rtn->GetPointer();
 		for (size_t iRow = 0; iRow < 4; iRow++) {
 			for (size_t iCol = 0; iCol < 4; iCol++) {
 				const Value &value = pMat->GetElement(iRow, iCol);
@@ -39,14 +39,14 @@ CArray<T> MakeMatrix(Signal sig, const Value &value)
 					sig.SetError(ERR_ValueError, "element must be a number");
 					goto done;
 				}
-				*p++ = static_cast<T>(value.GetDouble());
+				*p++ = static_cast<T_Elem>(value.GetDouble());
 			}
 		}
 	} else {
 		sig.SetError(ERR_ValueError, "list or matrix must be specified");
 	}
 done:
-	return rtn;
+	return rtn.release();
 }
 
 // opengl.glAccum
@@ -3301,8 +3301,9 @@ Gura_DeclareFunctionAlias(__glLoadMatrixd, "glLoadMatrixd")
 
 Gura_ImplementFunction(__glLoadMatrixd)
 {
-	CArray<GLdouble> m = MakeMatrix<GLdouble>(sig, args.GetValue(0));
+	AutoPtr<Array<GLdouble> > _m(MakeMatrix<GLdouble>(sig, args.GetValue(0)));
 	if (sig.IsSignalled()) return Value::Null;
+	GLdouble *m = _m->GetPointer();
 	glLoadMatrixd(m);
 	return Value::Null;
 }
@@ -3319,8 +3320,9 @@ Gura_DeclareFunctionAlias(__glLoadMatrixf, "glLoadMatrixf")
 
 Gura_ImplementFunction(__glLoadMatrixf)
 {
-	CArray<GLfloat> m = MakeMatrix<GLfloat>(sig, args.GetValue(0));
+	AutoPtr<Array<GLfloat> > _m(MakeMatrix<GLfloat>(sig, args.GetValue(0)));
 	if (sig.IsSignalled()) return Value::Null;
+	GLfloat *m = _m->GetPointer();
 	glLoadMatrixf(m);
 	return Value::Null;
 }
@@ -3704,8 +3706,9 @@ Gura_DeclareFunctionAlias(__glMultMatrixd, "glMultMatrixd")
 
 Gura_ImplementFunction(__glMultMatrixd)
 {
-	CArray<GLdouble> m = MakeMatrix<GLdouble>(sig, args.GetValue(0));
+	AutoPtr<Array<GLdouble> > _m(MakeMatrix<GLdouble>(sig, args.GetValue(0)));
 	if (sig.IsSignalled()) return Value::Null;
+	GLdouble *m = _m->GetPointer();
 	glMultMatrixd(m);
 	return Value::Null;
 }
@@ -3722,8 +3725,9 @@ Gura_DeclareFunctionAlias(__glMultMatrixf, "glMultMatrixf")
 
 Gura_ImplementFunction(__glMultMatrixf)
 {
-	CArray<GLfloat> m = MakeMatrix<GLfloat>(sig, args.GetValue(0));
+	AutoPtr<Array<GLfloat> > _m(MakeMatrix<GLfloat>(sig, args.GetValue(0)));
 	if (sig.IsSignalled()) return Value::Null;
+	GLfloat *m = _m->GetPointer();
 	glMultMatrixf(m);
 	return Value::Null;
 }
