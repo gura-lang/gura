@@ -103,7 +103,8 @@ Gura_ImplementFunction(__glAreTexturesResident)
 	Array<UInt> *_textures = Object_array<UInt>::GetObject(args, 0)->GetArray();
 	GLuint *textures = reinterpret_cast<GLuint *>(_textures->GetPointer());
 	GLsizei n = _textures->GetSize();
-	CArray<GLboolean> residences(n);
+	AutoPtr<Array<GLboolean> > _residences(new Array<GLboolean>(n));
+	GLboolean *residences = _residences->GetPointer();
 	GLboolean _rtn = glAreTexturesResident(n, textures, residences);
 	if (_rtn == 0) return Value::Null;
 	Value _rtnVal;
@@ -2149,7 +2150,8 @@ Gura_DeclareFunctionAlias(__glGenTextures, "glGenTextures")
 Gura_ImplementFunction(__glGenTextures)
 {
 	GLsizei n = args.GetInt(0);
-	CArray<GLuint> textures(n);
+	AutoPtr<Array<GLuint> > _textures(new Array<GLuint>(n));
+	GLuint *textures = _textures->GetPointer();
 	glGenTextures(n, textures);
 	return Value::CreateList(env, textures, n);
 }
@@ -2169,7 +2171,8 @@ Gura_ImplementFunction(__glGetBooleanv)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	size_t n = GetParamCount(pname);
-	CArray<GLboolean> params(n);
+	AutoPtr<Array<GLboolean> > _params(new Array<GLboolean>(n));
+	GLboolean *params = _params->GetPointer();
 	glGetBooleanv(pname, params);
 	Value _rtnVal;
 	ValueList &valList = _rtnVal.InitAsList(env, n);
@@ -2212,7 +2215,8 @@ Gura_ImplementFunction(__glGetDoublev)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	size_t n = GetParamCount(pname);
-	CArray<GLdouble> params(n);
+	AutoPtr<Array<GLdouble> > _params(new Array<GLdouble>(n));
+	GLdouble *params = _params->GetPointer();
 	glGetDoublev(pname, params);
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
@@ -2248,7 +2252,8 @@ Gura_ImplementFunction(__glGetFloatv)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	size_t n = GetParamCount(pname);
-	CArray<GLfloat> params(n);
+	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
+	GLfloat *params = _params->GetPointer();
 	glGetFloatv(pname, params);
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
@@ -2268,7 +2273,8 @@ Gura_ImplementFunction(__glGetIntegerv)
 {
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	size_t n = GetParamCount(pname);
-	CArray<GLint> params(n);
+	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
+	GLint *params = _params->GetPointer();
 	glGetIntegerv(pname, params);
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
@@ -2290,7 +2296,8 @@ Gura_ImplementFunction(__glGetLightfv)
 	GLenum light = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	size_t n = GetParamCount(pname);
-	CArray<GLfloat> params(n);
+	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
+	GLfloat *params = _params->GetPointer();
 	glGetLightfv(light, pname, params);
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
@@ -2312,7 +2319,8 @@ Gura_ImplementFunction(__glGetLightiv)
 	GLenum light = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	size_t n = GetParamCount(pname);
-	CArray<GLint> params(n);
+	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
+	GLint *params = _params->GetPointer();
 	glGetLightiv(light, pname, params);
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
@@ -2412,7 +2420,8 @@ Gura_ImplementFunction(__glGetMaterialfv)
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	size_t n = GetParamCount(pname);
-	CArray<GLfloat> params(n);
+	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
+	GLfloat *params = _params->GetPointer();
 	glGetMaterialfv(face, pname, params);
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
@@ -2434,7 +2443,8 @@ Gura_ImplementFunction(__glGetMaterialiv)
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	size_t n = GetParamCount(pname);
-	CArray<GLint> params(n);
+	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
+	GLint *params = _params->GetPointer();
 	glGetMaterialiv(face, pname, params);
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
@@ -2572,7 +2582,8 @@ Gura_ImplementFunction(__glGetTexEnvfv)
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	size_t n = GetParamCount(pname);
-	CArray<GLfloat> params(n);
+	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
+	GLfloat *params = _params->GetPointer();
 	glGetTexEnvfv(target, pname, params);
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
@@ -2594,7 +2605,8 @@ Gura_ImplementFunction(__glGetTexEnviv)
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	size_t n = GetParamCount(pname);
-	CArray<GLint> params(n);
+	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
+	GLint *params = _params->GetPointer();
 	glGetTexEnviv(target, pname, params);
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
@@ -2616,7 +2628,8 @@ Gura_ImplementFunction(__glGetTexGendv)
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	size_t n = GetParamCount(pname);
-	CArray<GLdouble> params(n);
+	AutoPtr<Array<GLdouble> > _params(new Array<GLdouble>(n));
+	GLdouble *params = _params->GetPointer();
 	glGetTexGendv(coord, pname, params);
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
@@ -2638,7 +2651,8 @@ Gura_ImplementFunction(__glGetTexGenfv)
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	size_t n = GetParamCount(pname);
-	CArray<GLfloat> params(n);
+	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
+	GLfloat *params = _params->GetPointer();
 	glGetTexGenfv(coord, pname, params);
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
@@ -2660,7 +2674,8 @@ Gura_ImplementFunction(__glGetTexGeniv)
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	size_t n = GetParamCount(pname);
-	CArray<GLint> params(n);
+	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
+	GLint *params = _params->GetPointer();
 	glGetTexGeniv(coord, pname, params);
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
@@ -2684,7 +2699,8 @@ Gura_ImplementFunction(__glGetTexLevelParameterfv)
 	GLint level = args.GetInt(1);
 	GLenum pname = static_cast<GLenum>(args.GetInt(2));
 	size_t n = GetParamCount(pname);
-	CArray<GLfloat> params(n);
+	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
+	GLfloat *params = _params->GetPointer();
 	glGetTexLevelParameterfv(target, level, pname, params);
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
@@ -2708,7 +2724,8 @@ Gura_ImplementFunction(__glGetTexLevelParameteriv)
 	GLint level = args.GetInt(1);
 	GLenum pname = static_cast<GLenum>(args.GetInt(2));
 	size_t n = GetParamCount(pname);
-	CArray<GLint> params(n);
+	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
+	GLint *params = _params->GetPointer();
 	glGetTexLevelParameteriv(target, level, pname, params);
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
@@ -2730,7 +2747,8 @@ Gura_ImplementFunction(__glGetTexParameterfv)
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	size_t n = GetParamCount(pname);
-	CArray<GLfloat> params(n);
+	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
+	GLfloat *params = _params->GetPointer();
 	glGetTexParameterfv(target, pname, params);
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }
@@ -2752,7 +2770,8 @@ Gura_ImplementFunction(__glGetTexParameteriv)
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	size_t n = GetParamCount(pname);
-	CArray<GLint> params(n);
+	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
+	GLint *params = _params->GetPointer();
 	glGetTexParameteriv(target, pname, params);
 	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
 }

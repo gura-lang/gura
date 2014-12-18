@@ -307,7 +307,7 @@ gluNurbsCallbackDataEXT(nurb:Object_Nurbs@, userData:any):void = R'''
 
 gluNurbsCurve(nurb:GLUnurbs@, knots:GLfloat@, stride:GLint,
 			  control:GLfloat@, order:GLint, type:GLenum):void = R'''
-	GLint knotCount = static_cast<GLint>(knots.GetSize());
+	GLint knotCount = static_cast<GLint>(_knots->GetSize());
 	gluNurbsCurve(nurb, knotCount, knots, stride, control, order, type);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -322,8 +322,8 @@ gluNurbsProperty(nurb:GLUnurbs@, property:GLenum, value:GLfloat):void = `auto % 
 
 gluNurbsSurface(nurb:GLUnurbs@, sKnots:GLfloat@, tKnots:GLfloat@, sStride:GLint, tStride:GLint,
 				control:GLfloat@, sOrder:GLint, tOrder:GLint, type:GLenum):void = R'''
-	GLint sKnotCount = static_cast<GLint>(sKnots.GetSize());
-	GLint tKnotCount = static_cast<GLint>(tKnots.GetSize());
+	GLint sKnotCount = static_cast<GLint>(_sKnots->GetSize());
+	GLint tKnotCount = static_cast<GLint>(_tKnots->GetSize());
 	gluNurbsSurface(nurb, sKnotCount, sKnots, tKnotCount, tKnots, sStride, tStride,
 					control, sOrder, tOrder, type);
 	return Value::Null;
@@ -360,7 +360,7 @@ gluProject(objX:GLdouble, objY:GLdouble, objZ:GLdouble,
 }
 
 gluPwlCurve(nurb:GLUnurbs@, data:GLfloat@, stride:GLint, type:GLenum):void = R'''
-	GLint count = static_cast<GLint>(data.GetSize());
+	GLint count = static_cast<GLint>(_data->GetSize());
 	gluPwlCurve(nurb, count, data, stride, type);
 	return Value::Null;
 ''' % {`en, 'markdown',

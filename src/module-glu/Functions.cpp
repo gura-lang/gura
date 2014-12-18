@@ -417,7 +417,7 @@ Gura_DeclareFunctionAlias(__gluGetNurbsProperty, "gluGetNurbsProperty")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "property", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "data", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "data", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -427,7 +427,8 @@ Gura_ImplementFunction(__gluGetNurbsProperty)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	GLenum property = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLfloat> data = args.GetList(2);
+	Array<float> *_data = Object_array<float>::GetObject(args, 2)->GetArray();
+	GLfloat *data = reinterpret_cast<GLfloat *>(_data->GetPointer());
 	gluGetNurbsProperty(nurb, property, data);
 	return Value::Null;
 }
@@ -455,7 +456,7 @@ Gura_DeclareFunctionAlias(__gluGetTessProperty, "gluGetTessProperty")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "which", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "data", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "data", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -465,7 +466,8 @@ Gura_ImplementFunction(__gluGetTessProperty)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	GLenum which = static_cast<GLenum>(args.GetInt(1));
-	CArray<GLdouble> data = args.GetList(2);
+	Array<double> *_data = Object_array<double>::GetObject(args, 2)->GetArray();
+	GLdouble *data = reinterpret_cast<GLdouble *>(_data->GetPointer());
 	gluGetTessProperty(tess, which, data);
 	return Value::Null;
 }
@@ -475,9 +477,9 @@ Gura_DeclareFunctionAlias(__gluLoadSamplingMatrices, "gluLoadSamplingMatrices")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "model", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "perspective", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "view", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "model", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "perspective", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "view", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -486,9 +488,12 @@ Gura_DeclareFunctionAlias(__gluLoadSamplingMatrices, "gluLoadSamplingMatrices")
 Gura_ImplementFunction(__gluLoadSamplingMatrices)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
-	CArray<GLfloat> model = args.GetList(1);
-	CArray<GLfloat> perspective = args.GetList(2);
-	CArray<GLint> view = args.GetList(3);
+	Array<float> *_model = Object_array<float>::GetObject(args, 1)->GetArray();
+	GLfloat *model = reinterpret_cast<GLfloat *>(_model->GetPointer());
+	Array<float> *_perspective = Object_array<float>::GetObject(args, 2)->GetArray();
+	GLfloat *perspective = reinterpret_cast<GLfloat *>(_perspective->GetPointer());
+	Array<int> *_view = Object_array<int>::GetObject(args, 3)->GetArray();
+	GLint *view = reinterpret_cast<GLint *>(_view->GetPointer());
 	gluLoadSamplingMatrices(nurb, model, perspective, view);
 	return Value::Null;
 }
@@ -668,9 +673,9 @@ Gura_DeclareFunctionAlias(__gluNurbsCurve, "gluNurbsCurve")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "knots", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "knots", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "stride", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "control", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "control", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "order", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
@@ -681,12 +686,14 @@ Gura_DeclareFunctionAlias(__gluNurbsCurve, "gluNurbsCurve")
 Gura_ImplementFunction(__gluNurbsCurve)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
-	CArray<GLfloat> knots = args.GetList(1);
+	Array<float> *_knots = Object_array<float>::GetObject(args, 1)->GetArray();
+	GLfloat *knots = reinterpret_cast<GLfloat *>(_knots->GetPointer());
 	GLint stride = args.GetInt(2);
-	CArray<GLfloat> control = args.GetList(3);
+	Array<float> *_control = Object_array<float>::GetObject(args, 3)->GetArray();
+	GLfloat *control = reinterpret_cast<GLfloat *>(_control->GetPointer());
 	GLint order = args.GetInt(4);
 	GLenum type = static_cast<GLenum>(args.GetInt(5));
-	GLint knotCount = static_cast<GLint>(knots.GetSize());
+	GLint knotCount = static_cast<GLint>(_knots->GetSize());
 	gluNurbsCurve(nurb, knotCount, knots, stride, control, order, type);
 	return Value::Null;
 }
@@ -717,11 +724,11 @@ Gura_DeclareFunctionAlias(__gluNurbsSurface, "gluNurbsSurface")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "sKnots", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "tKnots", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "sKnots", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "tKnots", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "sStride", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "tStride", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "control", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "control", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "sOrder", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "tOrder", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -733,16 +740,19 @@ Gura_DeclareFunctionAlias(__gluNurbsSurface, "gluNurbsSurface")
 Gura_ImplementFunction(__gluNurbsSurface)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
-	CArray<GLfloat> sKnots = args.GetList(1);
-	CArray<GLfloat> tKnots = args.GetList(2);
+	Array<float> *_sKnots = Object_array<float>::GetObject(args, 1)->GetArray();
+	GLfloat *sKnots = reinterpret_cast<GLfloat *>(_sKnots->GetPointer());
+	Array<float> *_tKnots = Object_array<float>::GetObject(args, 2)->GetArray();
+	GLfloat *tKnots = reinterpret_cast<GLfloat *>(_tKnots->GetPointer());
 	GLint sStride = args.GetInt(3);
 	GLint tStride = args.GetInt(4);
-	CArray<GLfloat> control = args.GetList(5);
+	Array<float> *_control = Object_array<float>::GetObject(args, 5)->GetArray();
+	GLfloat *control = reinterpret_cast<GLfloat *>(_control->GetPointer());
 	GLint sOrder = args.GetInt(6);
 	GLint tOrder = args.GetInt(7);
 	GLenum type = static_cast<GLenum>(args.GetInt(8));
-	GLint sKnotCount = static_cast<GLint>(sKnots.GetSize());
-	GLint tKnotCount = static_cast<GLint>(tKnots.GetSize());
+	GLint sKnotCount = static_cast<GLint>(_sKnots->GetSize());
+	GLint tKnotCount = static_cast<GLint>(_tKnots->GetSize());
 	gluNurbsSurface(nurb, sKnotCount, sKnots, tKnotCount, tKnots, sStride, tStride,
 	control, sOrder, tOrder, type);
 	return Value::Null;
@@ -831,7 +841,7 @@ Gura_DeclareFunctionAlias(__gluPickMatrix, "gluPickMatrix")
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "delX", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "delY", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "viewport", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "viewport", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -843,7 +853,8 @@ Gura_ImplementFunction(__gluPickMatrix)
 	GLdouble y = args.GetDouble(1);
 	GLdouble delX = args.GetDouble(2);
 	GLdouble delY = args.GetDouble(3);
-	CArray<GLint> viewport = args.GetList(4);
+	Array<int> *_viewport = Object_array<int>::GetObject(args, 4)->GetArray();
+	GLint *viewport = reinterpret_cast<GLint *>(_viewport->GetPointer());
 	gluPickMatrix(x, y, delX, delY, viewport);
 	return Value::Null;
 }
@@ -855,12 +866,12 @@ Gura_DeclareFunctionAlias(__gluProject, "gluProject")
 	DeclareArg(env, "objX", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "objY", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "objZ", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "model", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "proj", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "view", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "winX", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "winY", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "winZ", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "model", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "proj", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "view", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "winX", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "winY", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "winZ", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -871,12 +882,18 @@ Gura_ImplementFunction(__gluProject)
 	GLdouble objX = args.GetDouble(0);
 	GLdouble objY = args.GetDouble(1);
 	GLdouble objZ = args.GetDouble(2);
-	CArray<GLdouble> model = args.GetList(3);
-	CArray<GLdouble> proj = args.GetList(4);
-	CArray<GLint> view = args.GetList(5);
-	CArray<GLdouble> winX = args.GetList(6);
-	CArray<GLdouble> winY = args.GetList(7);
-	CArray<GLdouble> winZ = args.GetList(8);
+	Array<double> *_model = Object_array<double>::GetObject(args, 3)->GetArray();
+	GLdouble *model = reinterpret_cast<GLdouble *>(_model->GetPointer());
+	Array<double> *_proj = Object_array<double>::GetObject(args, 4)->GetArray();
+	GLdouble *proj = reinterpret_cast<GLdouble *>(_proj->GetPointer());
+	Array<int> *_view = Object_array<int>::GetObject(args, 5)->GetArray();
+	GLint *view = reinterpret_cast<GLint *>(_view->GetPointer());
+	Array<double> *_winX = Object_array<double>::GetObject(args, 6)->GetArray();
+	GLdouble *winX = reinterpret_cast<GLdouble *>(_winX->GetPointer());
+	Array<double> *_winY = Object_array<double>::GetObject(args, 7)->GetArray();
+	GLdouble *winY = reinterpret_cast<GLdouble *>(_winY->GetPointer());
+	Array<double> *_winZ = Object_array<double>::GetObject(args, 8)->GetArray();
+	GLdouble *winZ = reinterpret_cast<GLdouble *>(_winZ->GetPointer());
 	GLint _rtn = gluProject(objX, objY, objZ, model, proj, view, winX, winY, winZ);
 	return ReturnValue(env, sig, args, Value(_rtn));
 }
@@ -886,7 +903,7 @@ Gura_DeclareFunctionAlias(__gluPwlCurve, "gluPwlCurve")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "data", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "data", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "stride", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
@@ -897,10 +914,11 @@ Gura_DeclareFunctionAlias(__gluPwlCurve, "gluPwlCurve")
 Gura_ImplementFunction(__gluPwlCurve)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
-	CArray<GLfloat> data = args.GetList(1);
+	Array<float> *_data = Object_array<float>::GetObject(args, 1)->GetArray();
+	GLfloat *data = reinterpret_cast<GLfloat *>(_data->GetPointer());
 	GLint stride = args.GetInt(2);
 	GLenum type = static_cast<GLenum>(args.GetInt(3));
-	GLint count = static_cast<GLint>(data.GetSize());
+	GLint count = static_cast<GLint>(_data->GetSize());
 	gluPwlCurve(nurb, count, data, stride, type);
 	return Value::Null;
 }
@@ -1223,7 +1241,7 @@ Gura_DeclareFunctionAlias(__gluTessVertex, "gluTessVertex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "location", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "vertex_data", VTYPE_any, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -1233,7 +1251,8 @@ Gura_DeclareFunctionAlias(__gluTessVertex, "gluTessVertex")
 Gura_ImplementFunction(__gluTessVertex)
 {
 	Object_Tesselator *tess = Object_Tesselator::GetObject(args, 0);
-	CArray<GLdouble> location = args.GetList(1);
+	Array<double> *_location = Object_array<double>::GetObject(args, 1)->GetArray();
+	GLdouble *location = reinterpret_cast<GLdouble *>(_location->GetPointer());
 	Value vertex_data = args.GetValue(2);
 	PolygonPack *pPolygonPack = tess->GetPolygonPack();
 	if (pPolygonPack == NULL) {
@@ -1252,12 +1271,12 @@ Gura_DeclareFunctionAlias(__gluUnProject, "gluUnProject")
 	DeclareArg(env, "winX", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "winY", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "winZ", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "model", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "proj", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "view", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "objX", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "objY", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "objZ", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "model", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "proj", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "view", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "objX", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "objY", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "objZ", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1268,12 +1287,18 @@ Gura_ImplementFunction(__gluUnProject)
 	GLdouble winX = args.GetDouble(0);
 	GLdouble winY = args.GetDouble(1);
 	GLdouble winZ = args.GetDouble(2);
-	CArray<GLdouble> model = args.GetList(3);
-	CArray<GLdouble> proj = args.GetList(4);
-	CArray<GLint> view = args.GetList(5);
-	CArray<GLdouble> objX = args.GetList(6);
-	CArray<GLdouble> objY = args.GetList(7);
-	CArray<GLdouble> objZ = args.GetList(8);
+	Array<double> *_model = Object_array<double>::GetObject(args, 3)->GetArray();
+	GLdouble *model = reinterpret_cast<GLdouble *>(_model->GetPointer());
+	Array<double> *_proj = Object_array<double>::GetObject(args, 4)->GetArray();
+	GLdouble *proj = reinterpret_cast<GLdouble *>(_proj->GetPointer());
+	Array<int> *_view = Object_array<int>::GetObject(args, 5)->GetArray();
+	GLint *view = reinterpret_cast<GLint *>(_view->GetPointer());
+	Array<double> *_objX = Object_array<double>::GetObject(args, 6)->GetArray();
+	GLdouble *objX = reinterpret_cast<GLdouble *>(_objX->GetPointer());
+	Array<double> *_objY = Object_array<double>::GetObject(args, 7)->GetArray();
+	GLdouble *objY = reinterpret_cast<GLdouble *>(_objY->GetPointer());
+	Array<double> *_objZ = Object_array<double>::GetObject(args, 8)->GetArray();
+	GLdouble *objZ = reinterpret_cast<GLdouble *>(_objZ->GetPointer());
 	GLint _rtn = gluUnProject(winX, winY, winZ, model, proj, view, objX, objY, objZ);
 	return ReturnValue(env, sig, args, Value(_rtn));
 }
