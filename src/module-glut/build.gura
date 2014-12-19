@@ -14,10 +14,10 @@ if (sys.platform == `mswin) {
 	builder.libs.append('freeglut_static.lib')
 } elsif (sys.platform == `linux) {
 	builder.libs.append('glut')
-	builder.debFiles = ['libgl1-mesa', 'libglu1-mesa']
-	builder.rpmFiles = ['mesa-libGL', 'mesa-libGLU']
-	builder.debFilesDevel = ['libgl1-mesa-dev', 'libglu1-mesa-dev']
-	builder.rpmFilesDevel = ['mesa-libGL-devel', 'mesa-libGLU-devel']
+	builder.debFiles = ['freeglut3']
+	builder.rpmFiles = ['freeglut3']			// not tested
+	builder.debFilesDevel = ['freeglut3-dev']
+	builder.rpmFilesDevel = ['freeglut3-devel']	// not tested yet
 } elsif (sys.platform == `darwin) {
 	builder.cflags.append('-Wno-deprecated-declarations')
 	builder.cflags.append('-framework', 'GLUT')
