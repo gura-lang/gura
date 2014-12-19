@@ -156,10 +156,14 @@
 				  (+ (current-indentation) indent-offset))
 				(progn
 				  (goto-char pos-block-start)
-				  ;;(when (> (current-column) (current-indentation))
-				  ;;	(backward-sexp)
-				  ;;	(when (eq (char-after) ?=)
-				  ;;	  (backward-sexp)))
+				  ;; some_function(arg1, arg2,
+				  ;;               arg3, arg4) = {
+				  ;;     some jobs
+				  ;; }
+				  (when (> (current-column) (current-indentation))
+				  	(backward-sexp)
+				  	(when (eq (char-after) ?=)
+				  	  (backward-sexp)))
 				  (+ (current-indentation) default-tab-width indent-offset))))
 		   indent-offset))))))
 
