@@ -8,9 +8,9 @@ if (sys.platform == `mswin) {
 	builder.libs.append('libtiff.lib')
 } elsif (sys.platform == `linux) {
 	builder.libs.append('tiff')
-	builder.debFiles = ['libtiff4']
+	builder.debFiles = ['libtiff']
 	builder.rpmFiles = ['libtiff']
-	builder.debFilesDevel = ['libtiff4-dev']
+	builder.debFilesDevel = ['libtiff-dev']
 	builder.rpmFilesDevel = ['libtiff-devel']
 } elsif (sys.platform == `darwin) {
 	builder.incDirs.append('guest/include/tiff')
