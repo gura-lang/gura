@@ -68,7 +68,7 @@ public:
 template<typename T_Elem>
 class GURA_DLLDECLARE Class_array : public Class {
 public:
-	// array@T(arg)
+	// array@T(arg) {block?}
 	class Func_array : public Function {
 	private:
 		ValueType _valType;
@@ -100,6 +100,38 @@ public:
 			}
 			Value value(new Object_array<T_Elem>(env, _valType, pArray.release()));
 			return ReturnValue(env, sig, args, value);
+		}
+	};
+	// @T() {block}
+	class Func_ArrayInit : public Function {
+	private:
+		ValueType _valType;
+	public:
+		Func_ArrayInit(Environment &env, const Symbol *pSymbol, ValueType valType) :
+				Function(env, pSymbol, FUNCTYPE_Function, FLAG_None), _valType(valType) {
+			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_None);
+			DeclareBlock(OCCUR_Once);
+		}
+		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
+			SeqPostHandler *pSeqPostHandler = NULL;
+			const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+			const ExprOwner &exprOwner = pExprBlock->GetExprOwner();
+			AutoPtr<Array<T_Elem> > pArray(new Array<T_Elem>(exprOwner.size()));
+			T_Elem *p = pArray->GetPointer();
+			foreach_const (ExprOwner, ppExpr, exprOwner) {
+				const Expr *pExpr = *ppExpr;
+				if (pExpr->IsBlock()) {
+					sig.SetError(ERR_ValueError, "invalid element for array initialization");
+					return Value::Null;
+				}
+				Value value = pExpr->Exec2(env, sig, pSeqPostHandler);
+				if (!value.Is_number() && !value.Is_boolean()) {
+					sig.SetError(ERR_ValueError, "invalid element for array initialization");
+					return Value::Null;
+				}
+				*p++ = static_cast<T_Elem>(value.GetNumber());
+			}
+			return Value(new Object_array<T_Elem>(env, _valType, pArray.release()));
 		}
 	};
 	// array#each() {block?}
@@ -259,11 +291,24 @@ public:
 			return ReturnValue(env, sig, args, value);
 		}
 	};
+private:
+	String _elemName;
 public:
-	Class_array(Environment *pEnvOuter, ValueType valType) : Class(pEnvOuter, valType) {}
+	Class_array(Environment *pEnvOuter, ValueType valType, const String &elemName) :
+							Class(pEnvOuter, valType), _elemName(elemName) {}
 	virtual void Prepare(Environment &env) {
-		const Symbol *pSymbol = ValueTypePool::GetInstance()->Lookup(GetValueType())->GetSymbol();
-		env.AssignFunction(new Func_array(env, pSymbol, GetValueType()));
+		do {
+			const Symbol *pSymbol = ValueTypePool::GetInstance()->
+									Lookup(GetValueType())->GetSymbol();
+			env.AssignFunction(new Func_array(env, pSymbol, GetValueType()));
+		} while (0);
+		do {
+			String funcName;
+			funcName += "@";
+			funcName += _elemName;
+			const Symbol *pSymbol = Symbol::Add(funcName.c_str());
+			env.AssignFunction(new Func_ArrayInit(env, pSymbol, GetValueType()));
+		} while (0);
 		AssignFunction(new Func_each(*this, GetValueType()));
 		AssignFunction(new Func_fill(*this, GetValueType()));
 		AssignFunction(new Func_head(*this, GetValueType()));

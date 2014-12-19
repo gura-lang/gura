@@ -212,25 +212,25 @@ void ValueTypePool::_Initialize(Environment &env)
 	// other built-in object classes
 	Gura_VTYPEInfo(args			)->SetClass(new Class_args(pClass));
 	Gura_VTYPEInfo(array_char	)->SetClass(
-		new Class_array<char>(pClass, VTYPE_array_char));
+		new Class_array<char>(pClass, VTYPE_array_char, "char"));
 	Gura_VTYPEInfo(array_uchar	)->SetClass(
-		new Class_array<UChar>(pClass, VTYPE_array_uchar));
+		new Class_array<UChar>(pClass, VTYPE_array_uchar, "uchar"));
 	Gura_VTYPEInfo(array_short	)->SetClass(
-		new Class_array<short>(pClass, VTYPE_array_short));
+		new Class_array<short>(pClass, VTYPE_array_short, "short"));
 	Gura_VTYPEInfo(array_ushort	)->SetClass(
-		new Class_array<UShort>(pClass, VTYPE_array_ushort));
+		new Class_array<UShort>(pClass, VTYPE_array_ushort, "ushort"));
 	Gura_VTYPEInfo(array_long	)->SetClass(
-		new Class_array<long>(pClass, VTYPE_array_long));
+		new Class_array<long>(pClass, VTYPE_array_long, "long"));
 	Gura_VTYPEInfo(array_ulong	)->SetClass(
-		new Class_array<ULong>(pClass, VTYPE_array_ulong));
+		new Class_array<ULong>(pClass, VTYPE_array_ulong, "ulong"));
 	Gura_VTYPEInfo(array_int	)->SetClass(
-		new Class_array<int>(pClass, VTYPE_array_int));
+		new Class_array<int>(pClass, VTYPE_array_int, "int"));
 	Gura_VTYPEInfo(array_uint	)->SetClass(
-		new Class_array<UInt>(pClass, VTYPE_array_uint));
+		new Class_array<UInt>(pClass, VTYPE_array_uint, "uint"));
 	Gura_VTYPEInfo(array_float	)->SetClass(
-		new Class_array<float>(pClass, VTYPE_array_float));
+		new Class_array<float>(pClass, VTYPE_array_float, "float"));
 	Gura_VTYPEInfo(array_double	)->SetClass(
-		new Class_array<double>(pClass, VTYPE_array_double));
+		new Class_array<double>(pClass, VTYPE_array_double, "double"));
 	Gura_VTYPEInfo(audio		)->SetClass(new Class_audio(pClass));
 	Gura_VTYPEInfo(binary		)->SetClass(new Class_binary(pClass));
 	Gura_VTYPEInfo(codec		)->SetClass(new Class_codec(pClass));

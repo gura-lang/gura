@@ -3,7 +3,17 @@
 -:nil = nil
 @(func?:function) {block?}
 @@() {block}
+@char() {block}
+@double() {block}
+@float() {block}
+@int() {block}
+@long() {block}
 @rem:nil = nil
+@short() {block}
+@uchar() {block}
+@uint() {block}
+@ulong() {block}
+@ushort() {block}
 __name__:string = __main__
 array@char(arg, init?:number) {block?}
 array@double(arg, init?:number) {block?}
