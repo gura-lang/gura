@@ -551,8 +551,10 @@ glDrawBuffer(mode:GLenum):void:map = `auto % {`en, 'markdown',
 
 //glDrawElements(mode:GLenum, count:GLsizei, type:GLenum, indices:GLvoid@:const):void:map = `unsupport
 
-glDrawPixels(width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:GLubyte@:const):void:map = R'''	
-	glDrawPixels(width, height, format, type, pixels);
+glDrawPixels(width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:any):void:map = R'''	
+	const void *p = GetArrayPointer(sig, type, pixels);
+	if (p == NULL) return Value::Null;
+	glDrawPixels(width, height, format, type, p);
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
@@ -2077,9 +2079,11 @@ glTexGeniv(coord:GLenum, pname:GLenum, params:GLint@pname:const):void:map = `aut
 }
 
 glTexImage1D(target:GLenum, level:GLint, internalformat:GLint,
-			width:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:GLubyte@:const):void:map = R'''
+			width:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:any):void:map = R'''
 	// check pixels->size()
-	glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
+	const void *p = GetArrayPointer(sig, type, pixels);
+	if (p == NULL) return Value::Null;
+	glTexImage1D(target, level, internalformat, width, border, format, type, p);
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
@@ -2101,9 +2105,11 @@ glTexImage1DFromImage(target:GLenum, level:GLint,
 }
 
 glTexImage2D(target:GLenum, level:GLint, internalformat:GLint,
-		width:GLsizei, height:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:GLubyte@:const):void:map = R'''
+		width:GLsizei, height:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:any):void:map = R'''
 	// check pixels->size()
-	glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
+	const void *p = GetArrayPointer(sig, type, pixels);
+	if (p == NULL) return Value::Null;
+	glTexImage2D(target, level, internalformat, width, height, border, format, type, p);
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
@@ -2148,9 +2154,11 @@ glTexParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void:map
 }
 
 glTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint,
-			 width:GLsizei, format:GLenum, type:GLenum, pixels:GLubyte@:const):void:map = R'''
+			 width:GLsizei, format:GLenum, type:GLenum, pixels:any):void:map = R'''
 	// check pixels->size()
-	glTexSubImage1D(target, level, xoffset, width, format, type, pixels);
+	const void *p = GetArrayPointer(sig, type, pixels);
+	if (p == NULL) return Value::Null;
+	glTexSubImage1D(target, level, xoffset, width, format, type, p);
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
@@ -2171,9 +2179,11 @@ glTexSubImage1DFromImage(target:GLenum, level:GLint, xoffset:GLint, image:image)
 }
 
 glTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint,
-		width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:GLubyte@:const):void:map = R'''
+		width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:any):void:map = R'''
 	// check pixels->size()
-	glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
+	const void *p = GetArrayPointer(sig, type, pixels);
+	if (p == NULL) return Value::Null;
+	glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, p);
 	return Value::Null;
 ''' % {`en, 'markdown',
 	R'''
@@ -3590,6 +3600,69 @@ Array<T_Elem> *MakeMatrix(Signal sig, const Value &value)
 	}
 done:
 	return rtn.release();
+}
+
+const void *GetArrayPointer(Signal sig, GLenum type, const Value &value)
+{
+	const void *p = NULL;
+	if (value.IsType(VTYPE_array_char)) {
+		if (type != GL_BYTE) {
+			sig.SetError(ERR_TypeError, "invalid argument type");
+			return NULL;			
+		}
+		p = Object_array<char>::GetObject(value)->GetArray()->GetPointer();
+	} else if (value.IsType(VTYPE_array_uchar)) {
+		if (type != GL_BITMAP &&
+			type != GL_UNSIGNED_BYTE &&
+			type != GL_UNSIGNED_BYTE_3_3_2 && 
+			type != GL_UNSIGNED_BYTE_2_3_3_REV) {
+		}
+		p = Object_array<UChar>::GetObject(value)->GetArray()->GetPointer();
+	} else if (value.IsType(VTYPE_array_short)) {
+		if (type != GL_SHORT) {
+			sig.SetError(ERR_TypeError, "invalid argument type");
+			return NULL;			
+		}
+		p = Object_array<short>::GetObject(value)->GetArray()->GetPointer();
+	} else if (value.IsType(VTYPE_array_ushort)) {
+		if (type != GL_UNSIGNED_SHORT &&
+			type != GL_UNSIGNED_SHORT_5_6_5 &&
+			type != GL_UNSIGNED_SHORT_5_6_5_REV &&
+			type != GL_UNSIGNED_SHORT_4_4_4_4 &&
+			type != GL_UNSIGNED_SHORT_4_4_4_4_REV &&
+			type != GL_UNSIGNED_SHORT_5_5_5_1 &&
+			type != GL_UNSIGNED_SHORT_1_5_5_5_REV) {
+			sig.SetError(ERR_TypeError, "invalid argument type");
+			return NULL;			
+		}
+		p = Object_array<ushort>::GetObject(value)->GetArray()->GetPointer();
+	} else if (value.IsType(VTYPE_array_long)) {
+		if (type != GL_INT) {
+			sig.SetError(ERR_TypeError, "invalid argument type");
+			return NULL;			
+		}
+		p = Object_array<long>::GetObject(value)->GetArray()->GetPointer();
+	} else if (value.IsType(VTYPE_array_ulong)) {
+		if (type != GL_UNSIGNED_INT &&
+			type != GL_UNSIGNED_INT_8_8_8_8 &&
+			type != GL_UNSIGNED_INT_8_8_8_8_REV &&
+			type != GL_UNSIGNED_INT_10_10_10_2 &&
+			type != GL_UNSIGNED_INT_2_10_10_10_REV) {
+			sig.SetError(ERR_TypeError, "invalid argument type");
+			return NULL;			
+		}
+		p = Object_array<ULong>::GetObject(value)->GetArray()->GetPointer();
+	} else if (value.IsType(VTYPE_array_float)) {
+		if (type != GL_FLOAT) {
+			sig.SetError(ERR_TypeError, "invalid argument type");
+			return NULL;			
+		}
+		p = Object_array<float>::GetObject(value)->GetArray()->GetPointer();
+	} else {
+		sig.SetError(ERR_TypeError, "invalid argument type");
+		return NULL;
+	}
+	return p;
 }
 
 ${renderer.RenderImplementation()}

@@ -525,13 +525,6 @@ gluUnProject4(winX:GLdouble, winY:GLdouble, winZ:GLdouble, clipW:GLdouble, model
 
 // GLU-specific type converter
 cbridge_glcmn.AddTypeConvs {
-	'any' => TypeConv(
-			'any', 'Once', [],
-			R'''
-			Value ${arg.name} = args.GetValue(${idx});
-			''',
-			nil,
-			nil)
 	'GLUnurbs@' => TypeConv(
 			'Nurbs', 'Once', [],
 			R'''

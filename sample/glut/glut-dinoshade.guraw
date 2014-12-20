@@ -693,7 +693,7 @@ main() = {
 		linearFiltering:extern = true;
 	}
     if (argv.find("-mipmap")) {
-      useMipmaps:extern = true;
+		useMipmaps:extern = true;
 	}
     if (argv.find("-ext")) {
 		forceExtension:extern = true;

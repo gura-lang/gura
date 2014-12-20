@@ -49,6 +49,69 @@ done:
 	return rtn.release();
 }
 
+const void *GetArrayPointer(Signal sig, GLenum type, const Value &value)
+{
+	const void *p = NULL;
+	if (value.IsType(VTYPE_array_char)) {
+		if (type != GL_BYTE) {
+			sig.SetError(ERR_TypeError, "invalid argument type");
+			return NULL;			
+		}
+		p = Object_array<char>::GetObject(value)->GetArray()->GetPointer();
+	} else if (value.IsType(VTYPE_array_uchar)) {
+		if (type != GL_BITMAP &&
+			type != GL_UNSIGNED_BYTE &&
+			type != GL_UNSIGNED_BYTE_3_3_2 && 
+			type != GL_UNSIGNED_BYTE_2_3_3_REV) {
+		}
+		p = Object_array<UChar>::GetObject(value)->GetArray()->GetPointer();
+	} else if (value.IsType(VTYPE_array_short)) {
+		if (type != GL_SHORT) {
+			sig.SetError(ERR_TypeError, "invalid argument type");
+			return NULL;			
+		}
+		p = Object_array<short>::GetObject(value)->GetArray()->GetPointer();
+	} else if (value.IsType(VTYPE_array_ushort)) {
+		if (type != GL_UNSIGNED_SHORT &&
+			type != GL_UNSIGNED_SHORT_5_6_5 &&
+			type != GL_UNSIGNED_SHORT_5_6_5_REV &&
+			type != GL_UNSIGNED_SHORT_4_4_4_4 &&
+			type != GL_UNSIGNED_SHORT_4_4_4_4_REV &&
+			type != GL_UNSIGNED_SHORT_5_5_5_1 &&
+			type != GL_UNSIGNED_SHORT_1_5_5_5_REV) {
+			sig.SetError(ERR_TypeError, "invalid argument type");
+			return NULL;			
+		}
+		p = Object_array<ushort>::GetObject(value)->GetArray()->GetPointer();
+	} else if (value.IsType(VTYPE_array_long)) {
+		if (type != GL_INT) {
+			sig.SetError(ERR_TypeError, "invalid argument type");
+			return NULL;			
+		}
+		p = Object_array<long>::GetObject(value)->GetArray()->GetPointer();
+	} else if (value.IsType(VTYPE_array_ulong)) {
+		if (type != GL_UNSIGNED_INT &&
+			type != GL_UNSIGNED_INT_8_8_8_8 &&
+			type != GL_UNSIGNED_INT_8_8_8_8_REV &&
+			type != GL_UNSIGNED_INT_10_10_10_2 &&
+			type != GL_UNSIGNED_INT_2_10_10_10_REV) {
+			sig.SetError(ERR_TypeError, "invalid argument type");
+			return NULL;			
+		}
+		p = Object_array<ULong>::GetObject(value)->GetArray()->GetPointer();
+	} else if (value.IsType(VTYPE_array_float)) {
+		if (type != GL_FLOAT) {
+			sig.SetError(ERR_TypeError, "invalid argument type");
+			return NULL;			
+		}
+		p = Object_array<float>::GetObject(value)->GetArray()->GetPointer();
+	} else {
+		sig.SetError(ERR_TypeError, "invalid argument type");
+		return NULL;
+	}
+	return p;
+}
+
 // opengl.glAccum
 Gura_DeclareFunctionAlias(__glAccum, "glAccum")
 {
@@ -1545,7 +1608,7 @@ Gura_DeclareFunctionAlias(__glDrawPixels, "glDrawPixels")
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "pixels", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "pixels", VTYPE_any, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1557,10 +1620,11 @@ Gura_ImplementFunction(__glDrawPixels)
 	GLsizei height = args.GetInt(1);
 	GLenum format = static_cast<GLenum>(args.GetInt(2));
 	GLenum type = static_cast<GLenum>(args.GetInt(3));
-	Array<UChar> *_pixels = Object_array<UChar>::GetObject(args, 4)->GetArray();
-	GLubyte *pixels = reinterpret_cast<GLubyte *>(_pixels->GetPointer());
+	Value pixels = args.GetValue(4);
 	
-	glDrawPixels(width, height, format, type, pixels);
+	const void *p = GetArrayPointer(sig, type, pixels);
+	if (p == NULL) return Value::Null;
+	glDrawPixels(width, height, format, type, p);
 	return Value::Null;
 }
 
@@ -6383,7 +6447,7 @@ Gura_DeclareFunctionAlias(__glTexImage1D, "glTexImage1D")
 	DeclareArg(env, "border", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "pixels", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "pixels", VTYPE_any, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6398,10 +6462,11 @@ Gura_ImplementFunction(__glTexImage1D)
 	GLint border = args.GetInt(4);
 	GLenum format = static_cast<GLenum>(args.GetInt(5));
 	GLenum type = static_cast<GLenum>(args.GetInt(6));
-	Array<UChar> *_pixels = Object_array<UChar>::GetObject(args, 7)->GetArray();
-	GLubyte *pixels = reinterpret_cast<GLubyte *>(_pixels->GetPointer());
+	Value pixels = args.GetValue(7);
 	// check pixels->size()
-	glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
+	const void *p = GetArrayPointer(sig, type, pixels);
+	if (p == NULL) return Value::Null;
+	glTexImage1D(target, level, internalformat, width, border, format, type, p);
 	return Value::Null;
 }
 
@@ -6447,7 +6512,7 @@ Gura_DeclareFunctionAlias(__glTexImage2D, "glTexImage2D")
 	DeclareArg(env, "border", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "pixels", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "pixels", VTYPE_any, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6463,10 +6528,11 @@ Gura_ImplementFunction(__glTexImage2D)
 	GLint border = args.GetInt(5);
 	GLenum format = static_cast<GLenum>(args.GetInt(6));
 	GLenum type = static_cast<GLenum>(args.GetInt(7));
-	Array<UChar> *_pixels = Object_array<UChar>::GetObject(args, 8)->GetArray();
-	GLubyte *pixels = reinterpret_cast<GLubyte *>(_pixels->GetPointer());
+	Value pixels = args.GetValue(8);
 	// check pixels->size()
-	glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
+	const void *p = GetArrayPointer(sig, type, pixels);
+	if (p == NULL) return Value::Null;
+	glTexImage2D(target, level, internalformat, width, height, border, format, type, p);
 	return Value::Null;
 }
 
@@ -6607,7 +6673,7 @@ Gura_DeclareFunctionAlias(__glTexSubImage1D, "glTexSubImage1D")
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "pixels", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "pixels", VTYPE_any, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6621,10 +6687,11 @@ Gura_ImplementFunction(__glTexSubImage1D)
 	GLsizei width = args.GetInt(3);
 	GLenum format = static_cast<GLenum>(args.GetInt(4));
 	GLenum type = static_cast<GLenum>(args.GetInt(5));
-	Array<UChar> *_pixels = Object_array<UChar>::GetObject(args, 6)->GetArray();
-	GLubyte *pixels = reinterpret_cast<GLubyte *>(_pixels->GetPointer());
+	Value pixels = args.GetValue(6);
 	// check pixels->size()
-	glTexSubImage1D(target, level, xoffset, width, format, type, pixels);
+	const void *p = GetArrayPointer(sig, type, pixels);
+	if (p == NULL) return Value::Null;
+	glTexSubImage1D(target, level, xoffset, width, format, type, p);
 	return Value::Null;
 }
 
@@ -6668,7 +6735,7 @@ Gura_DeclareFunctionAlias(__glTexSubImage2D, "glTexSubImage2D")
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "pixels", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "pixels", VTYPE_any, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6684,10 +6751,11 @@ Gura_ImplementFunction(__glTexSubImage2D)
 	GLsizei height = args.GetInt(5);
 	GLenum format = static_cast<GLenum>(args.GetInt(6));
 	GLenum type = static_cast<GLenum>(args.GetInt(7));
-	Array<UChar> *_pixels = Object_array<UChar>::GetObject(args, 8)->GetArray();
-	GLubyte *pixels = reinterpret_cast<GLubyte *>(_pixels->GetPointer());
+	Value pixels = args.GetValue(8);
 	// check pixels->size()
-	glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
+	const void *p = GetArrayPointer(sig, type, pixels);
+	if (p == NULL) return Value::Null;
+	glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, p);
 	return Value::Null;
 }
 
