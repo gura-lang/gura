@@ -7,6 +7,69 @@ typedef char GLchar;
 
 Gura_BeginModuleScope(glu)
 
+const void *GetArrayPointer(Signal sig, GLenum type, const Value &value)
+{
+	const void *p = NULL;
+	if (value.IsType(VTYPE_array_char)) {
+		if (type != GL_BYTE) {
+			sig.SetError(ERR_TypeError, "invalid argument type");
+			return NULL;			
+		}
+		p = Object_array<char>::GetObject(value)->GetArray()->GetPointer();
+	} else if (value.IsType(VTYPE_array_uchar)) {
+		if (type != GL_BITMAP &&
+			type != GL_UNSIGNED_BYTE &&
+			type != GL_UNSIGNED_BYTE_3_3_2 && 
+			type != GL_UNSIGNED_BYTE_2_3_3_REV) {
+		}
+		p = Object_array<UChar>::GetObject(value)->GetArray()->GetPointer();
+	} else if (value.IsType(VTYPE_array_short)) {
+		if (type != GL_SHORT) {
+			sig.SetError(ERR_TypeError, "invalid argument type");
+			return NULL;			
+		}
+		p = Object_array<short>::GetObject(value)->GetArray()->GetPointer();
+	} else if (value.IsType(VTYPE_array_ushort)) {
+		if (type != GL_UNSIGNED_SHORT &&
+			type != GL_UNSIGNED_SHORT_5_6_5 &&
+			type != GL_UNSIGNED_SHORT_5_6_5_REV &&
+			type != GL_UNSIGNED_SHORT_4_4_4_4 &&
+			type != GL_UNSIGNED_SHORT_4_4_4_4_REV &&
+			type != GL_UNSIGNED_SHORT_5_5_5_1 &&
+			type != GL_UNSIGNED_SHORT_1_5_5_5_REV) {
+			sig.SetError(ERR_TypeError, "invalid argument type");
+			return NULL;			
+		}
+		p = Object_array<ushort>::GetObject(value)->GetArray()->GetPointer();
+	} else if (value.IsType(VTYPE_array_long)) {
+		if (type != GL_INT) {
+			sig.SetError(ERR_TypeError, "invalid argument type");
+			return NULL;			
+		}
+		p = Object_array<long>::GetObject(value)->GetArray()->GetPointer();
+	} else if (value.IsType(VTYPE_array_ulong)) {
+		if (type != GL_UNSIGNED_INT &&
+			type != GL_UNSIGNED_INT_8_8_8_8 &&
+			type != GL_UNSIGNED_INT_8_8_8_8_REV &&
+			type != GL_UNSIGNED_INT_10_10_10_2 &&
+			type != GL_UNSIGNED_INT_2_10_10_10_REV) {
+			sig.SetError(ERR_TypeError, "invalid argument type");
+			return NULL;			
+		}
+		p = Object_array<ULong>::GetObject(value)->GetArray()->GetPointer();
+	} else if (value.IsType(VTYPE_array_float)) {
+		if (type != GL_FLOAT) {
+			sig.SetError(ERR_TypeError, "invalid argument type");
+			return NULL;			
+		}
+		p = Object_array<float>::GetObject(value)->GetArray()->GetPointer();
+	} else {
+		sig.SetError(ERR_TypeError, "invalid argument type");
+		return NULL;
+	}
+	return p;
+}
+
 // glu.gluBeginCurve
 Gura_DeclareFunctionAlias(__gluBeginCurve, "gluBeginCurve")
 {
@@ -118,7 +181,7 @@ Gura_DeclareFunctionAlias(__gluBuild1DMipmaps, "gluBuild1DMipmaps")
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "data", VTYPE_binary, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "data", VTYPE_any, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -131,9 +194,11 @@ Gura_ImplementFunction(__gluBuild1DMipmaps)
 	GLsizei width = args.GetInt(2);
 	GLenum format = static_cast<GLenum>(args.GetInt(3));
 	GLenum type = static_cast<GLenum>(args.GetInt(4));
-	const Binary *data = &Object_binary::GetObject(args, 5)->GetBinary();
+	Value data = args.GetValue(5);
+	const void *p = GetArrayPointer(sig, type, data);
+	if (p == NULL) return Value::Null;
 	GLint _rtn = gluBuild1DMipmaps(target,
-					internalFormat, width, format, type, data->data());
+					internalFormat, width, format, type, p);
 	return Value(_rtn);
 }
 
@@ -174,7 +239,7 @@ Gura_DeclareFunctionAlias(__gluBuild2DMipmaps, "gluBuild2DMipmaps")
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "data", VTYPE_binary, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "data", VTYPE_any, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -188,9 +253,11 @@ Gura_ImplementFunction(__gluBuild2DMipmaps)
 	GLsizei height = args.GetInt(3);
 	GLenum format = static_cast<GLenum>(args.GetInt(4));
 	GLenum type = static_cast<GLenum>(args.GetInt(5));
-	const Binary *data = &Object_binary::GetObject(args, 6)->GetBinary();
+	Value data = args.GetValue(6);
+	const void *p = GetArrayPointer(sig, type, data);
+	if (p == NULL) return Value::Null;
 	GLint _rtn = gluBuild2DMipmaps(target,
-					internalFormat, width, height, format, type, data->data());
+					internalFormat, width, height, format, type, p);
 	return Value(_rtn);
 }
 

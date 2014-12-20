@@ -166,7 +166,7 @@ Init() = {
 	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, nr);
 	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, nr);
 	glTexImage2D(GL_TEXTURE_2D, 0, 4, 2, 4, 0, GL_RGBA, GL_FLOAT,
-				 textureImage.pack('32f'));
+				 textureImage);
 }
 
 DrawPoints1() = {

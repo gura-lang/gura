@@ -112,19 +112,20 @@ circles = @{
 };
 
 makeFloorTexture() = {
-	floorTexture= binary.alloc(16 * 16 * 3)
+	floorTexture= array@uchar(16 * 16 * 3)
 
   /* Setup RGB image for the texture. */
-	loc = floorTexture.pointer()
+	i = 0
 	repeat(16) {|t|
 		repeat(16) {|s|
 			if (circles[t][s] == 'x') {
 				/* Nice blue. */
-				loc.pack('BBB', 0x1f, 0x1f, 0x8f)
+				floorTexture[i, i + 1, i + 2] = [0x1f, 0x1f, 0x8f]
 			} else {
 				/* Light gray. */
-				loc.pack('BBB', 0xca, 0xca, 0xca)
+				floorTexture[i, i + 1, i + 2] = [0xca, 0xca, 0xca]
 			}
+			i += 3
 		}
 	}
 
