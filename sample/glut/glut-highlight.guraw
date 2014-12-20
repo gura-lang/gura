@@ -83,13 +83,13 @@ output(x:number, y:number, fmt:string, args*) = {
 /* Initialize material property and light source. */
 myinit() = {
 	light_ambient = \
-		@{0.2, 0.2, 0.2, 1.0};
+		@float {0.2, 0.2, 0.2, 1.0};
 	light_diffuse = \
-		@{1.0, 1.0, 1.0, 1.0};
+		@float {1.0, 1.0, 1.0, 1.0};
 	light_specular = \
-		@{1.0, 1.0, 1.0, 1.0};
+		@float {1.0, 1.0, 1.0, 1.0};
 	light_position = \
-		@{1.0, 1.0, 1.0, 0.0};
+		@float {1.0, 1.0, 1.0, 0.0};
 
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
