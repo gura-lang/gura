@@ -103,17 +103,18 @@ circles = @{
 };
 
 makeFloorTexture() = {
-	floorTexture = binary.alloc(16 * 16 * 3);
+	floorTexture = array@uchar(16 * 16 * 3);
 
 	/* Setup RGB image for the texture. */
-	loc = floorTexture.pointer();
+	i = 0
 	circles.each {|line|
 		line.each {|ch|
 			if (ch == 'x') {
-				loc.pack('BBB', 0x1f, 0x8f, 0x1f)
+				floorTexture[i, i + 1, i + 2] = [0x1f, 0x8f, 0x1f]
 			} else {
-				loc.pack('BBB', 0xaa, 0xaa, 0xaa)
+				floorTexture[i, i + 1, i + 2] = [0xaa, 0xaa, 0xaa]
 			}
+			i += 3
 		}
 	}
 	
