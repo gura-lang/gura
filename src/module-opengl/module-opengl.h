@@ -11,6 +11,7 @@
 #else
 #include <GL/gl.h>
 #endif
+#include "Utils.h"
 
 Gura_BeginModuleHeader(opengl)
 
