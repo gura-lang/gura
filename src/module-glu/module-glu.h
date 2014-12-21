@@ -10,6 +10,7 @@
 #else
 #include <GL/glu.h>
 #endif
+#include "../module-opengl/Utils.h"
 
 #if defined(GURA_ON_MSWIN)
 #else
