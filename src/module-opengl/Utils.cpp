@@ -16,6 +16,8 @@ const void *GetArrayPointer(Signal sig, GLenum type, const Value &value)
 			type != GL_UNSIGNED_BYTE &&
 			type != GL_UNSIGNED_BYTE_3_3_2 && 
 			type != GL_UNSIGNED_BYTE_2_3_3_REV) {
+			sig.SetError(ERR_TypeError, "invalid argument type");
+			return NULL;			
 		}
 		p = Object_array<UChar>::GetObject(value)->GetArray()->GetPointer();
 	} else if (value.IsType(VTYPE_array_short)) {
