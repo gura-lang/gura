@@ -75,49 +75,49 @@ extrudeSolidFromPolygon(data, thickness:number, side:number, edge:number, whole:
 		gluTessCallback(tobj, GLU_VERTEX, glVertex2fv);  /* semi-tricky */
 		gluTessCallback(tobj, GLU_END, glEnd);
 	}
-	glNewList(side, GL_COMPILE);
-	glShadeModel(GL_SMOOTH);  /* smooth minimizes seeing
+	glNewList(side, GL_COMPILE) {
+		glShadeModel(GL_SMOOTH);  /* smooth minimizes seeing
                                tessellation */
-	gluBeginPolygon(tobj);
-	repeat(count) {|i|
-		vertex[0] = data[i][0];
-		vertex[1] = data[i][1];
-		vertex[2] = 0;
-		gluTessVertex(tobj, vertex, data[i]);
+		gluBeginPolygon(tobj) {
+			repeat(count) {|i|
+				vertex[0] = data[i][0];
+				vertex[1] = data[i][1];
+				vertex[2] = 0;
+				gluTessVertex(tobj, vertex, data[i]);
+			}
+		}
 	}
-	gluEndPolygon(tobj);
-	glEndList();
-	glNewList(edge, GL_COMPILE);
-	glShadeModel(GL_FLAT);  /* flat shade keeps angular hands
+	glNewList(edge, GL_COMPILE) {
+		glShadeModel(GL_FLAT);  /* flat shade keeps angular hands
                              from being "smoothed" */
-	glBegin(GL_QUAD_STRIP);
-	repeat(count + 1) {|i|
-		/* mod function handles closing the edge */
-		glVertex3f(data[i % count][0], data[i % count][1], 0.0);
-		glVertex3f(data[i % count][0], data[i % count][1], thickness);
-		/* Calculate a unit normal by dividing by Euclidean
-		distance. We * could be lazy and use
-		glEnable(GL_NORMALIZE) so we could pass in * arbitrary
-		normals for a very slight performance hit. */
-		dx = data[(i + 1) % count][1] - data[i % count][1];
-		dy = data[i % count][0] - data[(i + 1) % count][0];
-		len = math.sqrt(dx * dx + dy * dy);
-		glNormal3f(dx / len, dy / len, 0.0);
+		glBegin(GL_QUAD_STRIP) {
+			repeat(count + 1) {|i|
+				/* mod function handles closing the edge */
+				glVertex3f(data[i % count][0], data[i % count][1], 0.0);
+				glVertex3f(data[i % count][0], data[i % count][1], thickness);
+				/* Calculate a unit normal by dividing by Euclidean
+				distance. We * could be lazy and use
+				glEnable(GL_NORMALIZE) so we could pass in * arbitrary
+				normals for a very slight performance hit. */
+				dx = data[(i + 1) % count][1] - data[i % count][1];
+				dy = data[i % count][0] - data[(i + 1) % count][0];
+				len = math.sqrt(dx * dx + dy * dy);
+				glNormal3f(dx / len, dy / len, 0.0);
+			}
+		}
 	}
-	glEnd();
-	glEndList();
-	glNewList(whole, GL_COMPILE);
-	glFrontFace(GL_CW);
-	glCallList(edge);
-	glNormal3f(0.0, 0.0, -1.0);  /* constant normal for side */
-	glCallList(side);
-	glPushMatrix();
-	glTranslatef(0.0, 0.0, thickness);
-	glFrontFace(GL_CCW);
-	glNormal3f(0.0, 0.0, 1.0);  /* opposite normal for other side */
-	glCallList(side);
-	glPopMatrix();
-	glEndList();
+	glNewList(whole, GL_COMPILE) {
+		glFrontFace(GL_CW);
+		glCallList(edge);
+		glNormal3f(0.0, 0.0, -1.0);  /* constant normal for side */
+		glCallList(side);
+		glPushMatrix {
+			glTranslatef(0.0, 0.0, thickness);
+			glFrontFace(GL_CCW);
+			glNormal3f(0.0, 0.0, 1.0);  /* opposite normal for other side */
+			glCallList(side);
+		}
+	}
 }
 
 makeDinosaur() = {
@@ -132,33 +132,33 @@ makeDinosaur() = {
 }
 
 drawDinosaur() = {
-	glPushMatrix();
-	glTranslatef(0.0, jump, 0.0);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, skinColor);
-	glCallList(BODY_WHOLE);
-	glPushMatrix();
-	glTranslatef(0.0, 0.0, bodyWidth);
-	glCallList(ARM_WHOLE);
-	glCallList(LEG_WHOLE);
-	glTranslatef(0.0, 0.0, -bodyWidth - bodyWidth / 4);
-	glCallList(ARM_WHOLE);
-	glTranslatef(0.0, 0.0, -bodyWidth / 4);
-	glCallList(LEG_WHOLE);
-	glTranslatef(0.0, 0.0, bodyWidth / 2 - 0.1);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, eyeColor);
-	glCallList(EYE_WHOLE);
-	glPopMatrix();
-	glPopMatrix();
+	glPushMatrix {
+		glTranslatef(0.0, jump, 0.0);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, skinColor);
+		glCallList(BODY_WHOLE);
+		glPushMatrix {
+			glTranslatef(0.0, 0.0, bodyWidth);
+			glCallList(ARM_WHOLE);
+			glCallList(LEG_WHOLE);
+			glTranslatef(0.0, 0.0, -bodyWidth - bodyWidth / 4);
+			glCallList(ARM_WHOLE);
+			glTranslatef(0.0, 0.0, -bodyWidth / 4);
+			glCallList(LEG_WHOLE);
+			glTranslatef(0.0, 0.0, bodyWidth / 2 - 0.1);
+			glMaterialfv(GL_FRONT, GL_DIFFUSE, eyeColor);
+			glCallList(EYE_WHOLE);
+		}
+	}
 }
 
 drawFloor() = {
 	glDisable(GL_LIGHTING);
-	glBegin(GL_QUADS);
-    glVertex3f(-18.0, 0.0, 27.0);
-    glVertex3f(27.0, 0.0, 27.0);
-    glVertex3f(27.0, 0.0, -18.0);
-    glVertex3f(-18.0, 0.0, -18.0);
-	glEnd();
+	glBegin(GL_QUADS) {
+		glVertex3f(-18.0, 0.0, 27.0);
+		glVertex3f(27.0, 0.0, 27.0);
+		glVertex3f(27.0, 0.0, -18.0);
+		glVertex3f(-18.0, 0.0, -18.0);
+	}
 	glEnable(GL_LIGHTING);
 }
 
@@ -171,109 +171,108 @@ redraw() = {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	glPushMatrix();
-    /* Perform scene rotations based on user mouse input. */
-    glRotatef(angle2, 1.0, 0.0, 0.0);
-    glRotatef(angle, 0.0, 1.0, 0.0);
+	glPushMatrix {
+		/* Perform scene rotations based on user mouse input. */
+		glRotatef(angle2, 1.0, 0.0, 0.0);
+		glRotatef(angle, 0.0, 1.0, 0.0);
 
-    /* Translate the dinosaur to be at (0,0,0). */
-    glTranslatef(-8, -8, -bodyWidth / 2);
+		/* Translate the dinosaur to be at (0,0,0). */
+		glTranslatef(-8, -8, -bodyWidth / 2);
 
-    glLightfv(GL_LIGHT0, GL_POSITION, lightZeroPosition);
-    glLightfv(GL_LIGHT1, GL_POSITION, lightOnePosition);
+		glLightfv(GL_LIGHT0, GL_POSITION, lightZeroPosition);
+		glLightfv(GL_LIGHT1, GL_POSITION, lightOnePosition);
 
-    if (useStencil) {
+		if (useStencil) {
      
-		/* We can eliminate the visual "artifact" of seeing the "flipped"
-		dinosaur underneath the floor by using stencil.  The idea is
-		draw the floor without color or depth update but so that 
-		a stencil value of one is where the floor will be.  Later when
-		rendering the dinosaur reflection, we will only update pixels
-		with a stencil value of 1 to make sure the reflection only
-		lives on the floor, not below the floor. */
+			/* We can eliminate the visual "artifact" of seeing the "flipped"
+			dinosaur underneath the floor by using stencil.  The idea is
+			draw the floor without color or depth update but so that 
+			a stencil value of one is where the floor will be.  Later when
+			rendering the dinosaur reflection, we will only update pixels
+			with a stencil value of 1 to make sure the reflection only
+			lives on the floor, not below the floor. */
 
-		/* Don't update color or depth. */
-		glDisable(GL_DEPTH_TEST);
-		glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+			/* Don't update color or depth. */
+			glDisable(GL_DEPTH_TEST);
+			glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+			
+			/* Draw 1 into the stencil buffer. */
+			glEnable(GL_STENCIL_TEST);
+			glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
+			glStencilFunc(GL_ALWAYS, 1, 0xffffffff);
 
-		/* Draw 1 into the stencil buffer. */
-		glEnable(GL_STENCIL_TEST);
-		glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
-		glStencilFunc(GL_ALWAYS, 1, 0xffffffff);
+			/* Now render floor; floor pixels just get their stencil set to 1. */
+			drawFloor();
 
-		/* Now render floor; floor pixels just get their stencil set to 1. */
-		drawFloor();
+			/* Re-enable update of color and depth. */ 
+			glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+			glEnable(GL_DEPTH_TEST);
 
-		/* Re-enable update of color and depth. */ 
-		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-		glEnable(GL_DEPTH_TEST);
+			/* Now, only render where stencil is set to 1. */
+			glStencilFunc(GL_EQUAL, 1, 0xffffffff);  /* draw if ==1 */
+			glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+		}
 
-		/* Now, only render where stencil is set to 1. */
-		glStencilFunc(GL_EQUAL, 1, 0xffffffff);  /* draw if ==1 */
-		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
-	}
+		glPushMatrix {
 
-    glPushMatrix();
+			/* The critical reflection step: Reflect dinosaur through the floor
+			(the Y=0 plane) to make a relection. */
+			glScalef(1.0, -1.0, 1.0);
 
-    /* The critical reflection step: Reflect dinosaur through the floor
-         (the Y=0 plane) to make a relection. */
-    glScalef(1.0, -1.0, 1.0);
+			/* Position lights now in reflected space. */
+			glLightfv(GL_LIGHT0, GL_POSITION, lightZeroPosition);
+			glLightfv(GL_LIGHT1, GL_POSITION, lightOnePosition);
 
-    /* Position lights now in reflected space. */
-    glLightfv(GL_LIGHT0, GL_POSITION, lightZeroPosition);
-    glLightfv(GL_LIGHT1, GL_POSITION, lightOnePosition);
+			/* XXX Ugh, unfortunately the back face culling reverses when we reflect
+			the dinosaur.  Easy solution is just disable back face culling for
+			rendering the reflection.  Also, the normals for lighting get screwed
+			up by the scale; enabled normalize to ensure normals are still
+			properly normalized despite the scaling.  We could have fixed the
+			dinosaur rendering code, but this is more expedient. */
+			glEnable(GL_NORMALIZE);
+			glCullFace(GL_FRONT);
 
-    /* XXX Ugh, unfortunately the back face culling reverses when we reflect
-	 the dinosaur.  Easy solution is just disable back face culling for
-	 rendering the reflection.  Also, the normals for lighting get screwed
-	 up by the scale; enabled normalize to ensure normals are still
-	 properly normalized despite the scaling.  We could have fixed the
-	 dinosaur rendering code, but this is more expedient. */
-    glEnable(GL_NORMALIZE);
-    glCullFace(GL_FRONT);
+			/* Draw the reflected dinosaur. */
+			drawDinosaur();
 
-    /* Draw the reflected dinosaur. */
-    drawDinosaur();
-
-    /* Disable noramlize again and re-enable back face culling. */
-    glDisable(GL_NORMALIZE);
-    glCullFace(GL_BACK);
+			/* Disable noramlize again and re-enable back face culling. */
+			glDisable(GL_NORMALIZE);
+			glCullFace(GL_BACK);
+		}
 	
-    glPopMatrix();
-
-    /* Restore light positions on returned from reflected space. */
-    glLightfv(GL_LIGHT0, GL_POSITION, lightZeroPosition);
-    glLightfv(GL_LIGHT1, GL_POSITION, lightOnePosition);
+		/* Restore light positions on returned from reflected space. */
+		glLightfv(GL_LIGHT0, GL_POSITION, lightZeroPosition);
+		glLightfv(GL_LIGHT1, GL_POSITION, lightOnePosition);
 
 
-    if (useStencil) {
-		/* Don't want to be using stenciling for drawing the actual dinosaur
-		(not its reflection) and the floor. */
-		glDisable(GL_STENCIL_TEST);
-    }
+		if (useStencil) {
+			/* Don't want to be using stenciling for drawing the actual dinosaur
+			(not its reflection) and the floor. */
+			glDisable(GL_STENCIL_TEST);
+		}
 
-    /* Back face culling will get used to only draw either the top or the
-       bottom floor.  This let's us get a floor with two distinct
-       appearances.  The top floor surface is reflective and kind of red.
-       The bottom floor surface is not reflective and blue. */
+		/* Back face culling will get used to only draw either the top or the
+		bottom floor.  This let's us get a floor with two distinct
+		appearances.  The top floor surface is reflective and kind of red.
+		The bottom floor surface is not reflective and blue. */
 
-    /* Draw "top" of floor.  Use blending to blend in reflection. */
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glColor4f(0.7, 0.0, 0.0, 0.3);
-    drawFloor();
-    glDisable(GL_BLEND);
+		/* Draw "top" of floor.  Use blending to blend in reflection. */
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glColor4f(0.7, 0.0, 0.0, 0.3);
+		drawFloor();
+		glDisable(GL_BLEND);
 
-    /* Draw "bottom" of floor in blue. */
-    glFrontFace(GL_CW);  /* Switch face orientation. */
-    glColor4f(0.1, 0.1, 0.7, 1.0);
-    drawFloor();
-    glFrontFace(GL_CCW);
+		/* Draw "bottom" of floor in blue. */
+		glFrontFace(GL_CW);  /* Switch face orientation. */
+		glColor4f(0.1, 0.1, 0.7, 1.0);
+		drawFloor();
+		glFrontFace(GL_CCW);
 
-    /* Draw "actual" dinosaur, not its reflection. */
-    drawDinosaur();
+		/* Draw "actual" dinosaur, not its reflection. */
+		drawDinosaur();
 
-	glPopMatrix();
+	}
 
 	glutSwapBuffers();
 }

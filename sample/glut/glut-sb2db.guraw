@@ -90,32 +90,32 @@ display() = {
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glPushMatrix();
-	glRotatef(angle, 1.0, 0.0, 0.0);
-	glScalef(1.3, 1.3, 1.3);
-	glRotatef(20.0, 1.0, 0.0, 0.0);
+	glPushMatrix {
+		glRotatef(angle, 1.0, 0.0, 0.0);
+		glScalef(1.3, 1.3, 1.3);
+		glRotatef(20.0, 1.0, 0.0, 0.0);
 
-	glPushMatrix();
-	glTranslatef(-0.75, 0.5, 0.0);
-	glRotatef(90.0, 1.0, 0.0, 0.0);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, red);
-	glutSolidTorus(0.275, 0.85, 10, 15);
-	glPopMatrix();
+		glPushMatrix {
+			glTranslatef(-0.75, 0.5, 0.0);
+			glRotatef(90.0, 1.0, 0.0, 0.0);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, red);
+			glutSolidTorus(0.275, 0.85, 10, 15);
+		}
 
-	glPushMatrix();
-	glTranslatef(-0.75, -0.5, 0.0);
-	glRotatef(270.0, 1.0, 0.0, 0.0);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, yellow);
-	glutSolidCone(1.0, 1.0, 40, 40);
-	glPopMatrix();
+		glPushMatrix {
+			glTranslatef(-0.75, -0.5, 0.0);
+			glRotatef(270.0, 1.0, 0.0, 0.0);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, yellow);
+			glutSolidCone(1.0, 1.0, 40, 40);
+		}
 
-	glPushMatrix();
-	glTranslatef(0.75, 0.0, -1.0);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, green);
-	glutSolidIcosahedron();
-	glPopMatrix();
+		glPushMatrix {
+			glTranslatef(0.75, 0.0, -1.0);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, green);
+			glutSolidIcosahedron();
+		}
 
-	glPopMatrix();
+	}
 
 	if (glutGetWindow() == sbwin) {
 		glFlush();
