@@ -1,0 +1,654 @@
+#!/usr/bin/env gura
+// This Gura program has been ported from the original C code below:
+// https://www.opengl.org/archives/resources/code/samples/glut_examples/examples/scube.c
+
+/* Copyright (c) Mark J. Kilgard, 1994. */
+
+/**
+ * (c) Copyright 1993, 1994, Silicon Graphics, Inc.
+ * ALL RIGHTS RESERVED 
+ * Permission to use, copy, modify, and distribute this software for 
+ * any purpose and without fee is hereby granted, provided that the above
+ * copyright notice appear in all copies and that both the copyright notice
+ * and this permission notice appear in supporting documentation, and that 
+ * the name of Silicon Graphics, Inc. not be used in advertising
+ * or publicity pertaining to distribution of the software without specific,
+ * written prior permission. 
+ *
+ * THE MATERIAL EMBODIED ON THIS SOFTWARE IS PROVIDED TO YOU "AS-IS"
+ * AND WITHOUT WARRANTY OF ANY KIND, EXPRESS, IMPLIED OR OTHERWISE,
+ * INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE.  IN NO EVENT SHALL SILICON
+ * GRAPHICS, INC.  BE LIABLE TO YOU OR ANYONE ELSE FOR ANY DIRECT,
+ * SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY
+ * KIND, OR ANY DAMAGES WHATSOEVER, INCLUDING WITHOUT LIMITATION,
+ * LOSS OF PROFIT, LOSS OF USE, SAVINGS OR REVENUE, OR THE CLAIMS OF
+ * THIRD PARTIES, WHETHER OR NOT SILICON GRAPHICS, INC.  HAS BEEN
+ * ADVISED OF THE POSSIBILITY OF SUCH LOSS, HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE
+ * POSSESSION, USE OR PERFORMANCE OF THIS SOFTWARE.
+ * 
+ * US Government Users Restricted Rights 
+ * Use, duplication, or disclosure by the Government is subject to
+ * restrictions set forth in FAR 52.227.19(c)(2) or subparagraph
+ * (c)(1)(ii) of the Rights in Technical Data and Computer Software
+ * clause at DFARS 252.227-7013 and/or in similar or successor
+ * clauses in the FAR or the DOD or NASA FAR Supplement.
+ * Unpublished-- rights reserved under the copyright laws of the
+ * United States.  Contractor/manufacturer is Silicon Graphics,
+ * Inc., 2011 N.  Shoreline Blvd., Mountain View, CA 94039-7311.
+ *
+ * OpenGL(TM) is a trademark of Silicon Graphics, Inc.
+ */
+
+/*
+ * 1992 David G Yu -- Silicon Graphics Computer Systems
+ */
+
+import(opengl) {*}
+import(glu) {*}
+import(glut) {*}
+
+useRGB = true;
+useLighting = true;
+useFog = false;
+useDB = true;
+useLogo = false;
+useQuads = true;
+
+tick = -1;
+moving = true;
+
+GREY	= 0
+RED		= 1
+GREEN	= 2
+BLUE	= 3
+CYAN	= 4
+MAGENTA	= 5
+YELLOW	= 6
+BLACK	= 7
+
+materialColor = \
+@{
+  {0.8, 0.8, 0.8, 1.0},
+  {0.8, 0.0, 0.0, 1.0},
+  {0.0, 0.8, 0.0, 1.0},
+  {0.0, 0.0, 0.8, 1.0},
+  {0.0, 0.8, 0.8, 1.0},
+  {0.8, 0.0, 0.8, 1.0},
+  {0.8, 0.8, 0.0, 1.0},
+  {0.0, 0.0, 0.0, 0.6},
+};
+
+lightPos = \
+@{2.0, 4.0, 2.0, 1.0};
+/*
+lightDir = \
+@{-2.0, -4.0, -2.0, 1.0};
+*/
+lightAmb = \
+@{0.2, 0.2, 0.2, 1.0};
+lightDiff = \
+@{0.8, 0.8, 0.8, 1.0};
+lightSpec = \
+@{0.4, 0.4, 0.4, 1.0};
+
+groundPlane = \
+@{0.0, 1.0, 0.0, 1.499};
+backPlane = \
+@{0.0, 0.0, 1.0, 0.899};
+
+fogColor = \
+@{0.0, 0.0, 0.0, 0.0};
+fogIndex = \
+@{0.0};
+
+shadowPattern = \
+@uchar {
+  0xaa, 0xaa, 0xaa, 0xaa, 0x55, 0x55, 0x55, 0x55,  /* 50% Grey */
+  0xaa, 0xaa, 0xaa, 0xaa, 0x55, 0x55, 0x55, 0x55,
+  0xaa, 0xaa, 0xaa, 0xaa, 0x55, 0x55, 0x55, 0x55,
+  0xaa, 0xaa, 0xaa, 0xaa, 0x55, 0x55, 0x55, 0x55,
+  0xaa, 0xaa, 0xaa, 0xaa, 0x55, 0x55, 0x55, 0x55,
+  0xaa, 0xaa, 0xaa, 0xaa, 0x55, 0x55, 0x55, 0x55,
+  0xaa, 0xaa, 0xaa, 0xaa, 0x55, 0x55, 0x55, 0x55,
+  0xaa, 0xaa, 0xaa, 0xaa, 0x55, 0x55, 0x55, 0x55,
+  0xaa, 0xaa, 0xaa, 0xaa, 0x55, 0x55, 0x55, 0x55,
+  0xaa, 0xaa, 0xaa, 0xaa, 0x55, 0x55, 0x55, 0x55,
+  0xaa, 0xaa, 0xaa, 0xaa, 0x55, 0x55, 0x55, 0x55,
+  0xaa, 0xaa, 0xaa, 0xaa, 0x55, 0x55, 0x55, 0x55,
+  0xaa, 0xaa, 0xaa, 0xaa, 0x55, 0x55, 0x55, 0x55,
+  0xaa, 0xaa, 0xaa, 0xaa, 0x55, 0x55, 0x55, 0x55,
+  0xaa, 0xaa, 0xaa, 0xaa, 0x55, 0x55, 0x55, 0x55,
+  0xaa, 0xaa, 0xaa, 0xaa, 0x55, 0x55, 0x55, 0x55
+};
+
+sgiPattern = \
+@uchar {
+  0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,  /* SGI Logo */
+  0xff, 0xbd, 0xff, 0x83, 0xff, 0x5a, 0xff, 0xef,
+  0xfe, 0xdb, 0x7f, 0xef, 0xfd, 0xdb, 0xbf, 0xef,
+  0xfb, 0xdb, 0xdf, 0xef, 0xf7, 0xdb, 0xef, 0xef,
+  0xfb, 0xdb, 0xdf, 0xef, 0xfd, 0xdb, 0xbf, 0x83,
+  0xce, 0xdb, 0x73, 0xff, 0xb7, 0x5a, 0xed, 0xff,
+  0xbb, 0xdb, 0xdd, 0xc7, 0xbd, 0xdb, 0xbd, 0xbb,
+  0xbe, 0xbd, 0x7d, 0xbb, 0xbf, 0x7e, 0xfd, 0xb3,
+  0xbe, 0xe7, 0x7d, 0xbf, 0xbd, 0xdb, 0xbd, 0xbf,
+  0xbb, 0xbd, 0xdd, 0xbb, 0xb7, 0x7e, 0xed, 0xc7,
+  0xce, 0xdb, 0x73, 0xff, 0xfd, 0xdb, 0xbf, 0xff,
+  0xfb, 0xdb, 0xdf, 0x87, 0xf7, 0xdb, 0xef, 0xfb,
+  0xf7, 0xdb, 0xef, 0xfb, 0xfb, 0xdb, 0xdf, 0xfb,
+  0xfd, 0xdb, 0xbf, 0xc7, 0xfe, 0xdb, 0x7f, 0xbf,
+  0xff, 0x5a, 0xff, 0xbf, 0xff, 0xbd, 0xff, 0xc3,
+  0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
+};
+
+cube_vertexes = \
+@{
+  {
+    {-1.0, -1.0, -1.0, 1.0},
+    {-1.0, -1.0, 1.0, 1.0},
+    {-1.0, 1.0, 1.0, 1.0},
+    {-1.0, 1.0, -1.0, 1.0}},
+
+  {
+    {1.0, 1.0, 1.0, 1.0},
+    {1.0, -1.0, 1.0, 1.0},
+    {1.0, -1.0, -1.0, 1.0},
+    {1.0, 1.0, -1.0, 1.0}},
+
+  {
+    {-1.0, -1.0, -1.0, 1.0},
+    {1.0, -1.0, -1.0, 1.0},
+    {1.0, -1.0, 1.0, 1.0},
+    {-1.0, -1.0, 1.0, 1.0}},
+
+  {
+    {1.0, 1.0, 1.0, 1.0},
+    {1.0, 1.0, -1.0, 1.0},
+    {-1.0, 1.0, -1.0, 1.0},
+    {-1.0, 1.0, 1.0, 1.0}},
+
+  {
+    {-1.0, -1.0, -1.0, 1.0},
+    {-1.0, 1.0, -1.0, 1.0},
+    {1.0, 1.0, -1.0, 1.0},
+    {1.0, -1.0, -1.0, 1.0}},
+
+  {
+    {1.0, 1.0, 1.0, 1.0},
+    {-1.0, 1.0, 1.0, 1.0},
+    {-1.0, -1.0, 1.0, 1.0},
+    {1.0, -1.0, 1.0, 1.0}}
+};
+
+cube_normals = \
+@{
+  {-1.0, 0.0, 0.0},
+  {1.0, 0.0, 0.0},
+  {0.0, -1.0, 0.0},
+  {0.0, 1.0, 0.0},
+  {0.0, 0.0, -1.0},
+  {0.0, 0.0, 1.0}
+};
+
+usage() = {
+	printf("\n");
+	printf("usage: scube [options]\n");
+	printf("\n");
+	printf("    display a spinning cube and its shadow\n");
+	printf("\n");
+	printf("  Options:\n");
+	printf("    -geometry  window size and location\n");
+	printf("    -c         toggle color index mode\n");
+	printf("    -l         toggle lighting\n");
+	printf("    -f         toggle fog\n");
+	printf("    -db        toggle double buffering\n");
+	printf("    -logo      toggle sgi logo for the shadow pattern\n");
+	printf("    -quads     toggle use of GL_QUADS to draw the checkerboard\n");
+	printf("\n");
+	sys.exit(EXIT_FAILURE);
+}
+
+buildColormap() = {
+	if (useRGB) {
+		return;
+	} else {
+		mapSize = 1 << glutGet(GLUT_WINDOW_BUFFER_SIZE);
+		rampSize = mapSize / 8;
+
+		repeat(mapSize) {|entry|
+			hue = entry / rampSize;
+			val = (entry % rampSize) * (1.0 / (rampSize - 1));
+
+			red = if (hue == 0 || hue == 1 || hue == 5 || hue == 6) {val} else {0}
+			green = if (hue == 0 || hue == 2 || hue == 4 || hue == 6) {val} else {0}
+			blue = if (hue == 0 || hue == 3 || hue == 4 || hue == 5) {val} else {0}
+
+			glutSetColor(entry, red, green, blue);
+		}
+
+		repeat(8) {|i|
+			materialColor[i][0] = i * rampSize + 0.2 * (rampSize - 1);
+			materialColor[i][1] = i * rampSize + 0.8 * (rampSize - 1);
+			materialColor[i][2] = i * rampSize + 1.0 * (rampSize - 1);
+			materialColor[i][3] = 0.0;
+		}
+
+		fogIndex[0] = -0.2 * (rampSize - 1);
+	}
+}
+
+setColor(c:number) = {
+	if (useLighting) {
+		if (useRGB) {
+			glMaterialfv(GL_FRONT_AND_BACK,
+						 GL_AMBIENT_AND_DIFFUSE, materialColor[c]);
+		} else {
+			glMaterialfv(GL_FRONT_AND_BACK,
+						 GL_COLOR_INDEXES, materialColor[c]);
+		}
+	} else {
+		if (useRGB) {
+			glColor4fv(materialColor[c]);
+		} else {
+			glIndexf(materialColor[c][1]);
+		}
+	}
+}
+
+drawCube(color:number) = {
+	setColor(color);
+
+	repeat(6) {|i|
+		glNormal3fv(cube_normals[i]);
+		glBegin(GL_POLYGON) {
+			glVertex4fv(cube_vertexes[i][0]);
+			glVertex4fv(cube_vertexes[i][1]);
+			glVertex4fv(cube_vertexes[i][2]);
+			glVertex4fv(cube_vertexes[i][3]);
+		}
+	}
+}
+
+initialized = false;
+usedLighting = false;
+checklist = 0;
+square = dim(4, 4) {0}
+drawCheck(w:number, h:number, evenColor:number, oddColor:number) = {
+
+	if (!initialized || (usedLighting != useLighting)) {
+		square_normal = \
+			@{0.0, 0.0, 1.0};
+
+		if (checklist == 0) {
+			checklist:extern = glGenLists(1);
+		}
+		glNewList(checklist, GL_COMPILE_AND_EXECUTE) {
+		
+			if (useQuads) {
+				glNormal3fv(square_normal);
+				glBegin(GL_QUADS);
+			}
+			repeat(h) {|j|
+				repeat(w) {|i|
+					square[0][0] = -1.0 + 2.0 / w * i;
+					square[0][1] = -1.0 + 2.0 / h * (j + 1);
+					square[0][2] = 0.0;
+					square[0][3] = 1.0;
+					
+					square[1][0] = -1.0 + 2.0 / w * i;
+					square[1][1] = -1.0 + 2.0 / h * j;
+					square[1][2] = 0.0;
+					square[1][3] = 1.0;
+					
+					square[2][0] = -1.0 + 2.0 / w * (i + 1);
+					square[2][1] = -1.0 + 2.0 / h * j;
+					square[2][2] = 0.0;
+					square[2][3] = 1.0;
+					
+					square[3][0] = -1.0 + 2.0 / w * (i + 1);
+					square[3][1] = -1.0 + 2.0 / h * (j + 1);
+					square[3][2] = 0.0;
+					square[3][3] = 1.0;
+					
+					if ((i & 1 ^ j & 1) != 0) {
+						setColor(oddColor);
+					} else {
+						setColor(evenColor);
+					}
+					
+					if (!useQuads) {
+						glBegin(GL_POLYGON);
+					}
+					glVertex4fv(square[0]);
+					glVertex4fv(square[1]);
+					glVertex4fv(square[2]);
+					glVertex4fv(square[3]);
+					if (!useQuads) {
+						glEnd();
+					}
+				}
+			}
+			
+			if (useQuads) {
+				glEnd();
+			}
+		}
+
+		initialized:extern = 1;
+		usedLighting:extern = useLighting;
+	} else {
+		glCallList(checklist);
+	}
+}
+
+myShadowMatrix(ground[]:number, light[]:number) = {
+	shadowMat = dim(4, 4) {0}
+
+	dot = ground[0] * light[0] + \
+		ground[1] * light[1] + \
+		ground[2] * light[2] + \
+		ground[3] * light[3];
+
+	shadowMat[0][0] = dot - light[0] * ground[0];
+	shadowMat[1][0] = 0.0 - light[0] * ground[1];
+	shadowMat[2][0] = 0.0 - light[0] * ground[2];
+	shadowMat[3][0] = 0.0 - light[0] * ground[3];
+
+	shadowMat[0][1] = 0.0 - light[1] * ground[0];
+	shadowMat[1][1] = dot - light[1] * ground[1];
+	shadowMat[2][1] = 0.0 - light[1] * ground[2];
+	shadowMat[3][1] = 0.0 - light[1] * ground[3];
+
+	shadowMat[0][2] = 0.0 - light[2] * ground[0];
+	shadowMat[1][2] = 0.0 - light[2] * ground[1];
+	shadowMat[2][2] = dot - light[2] * ground[2];
+	shadowMat[3][2] = 0.0 - light[2] * ground[3];
+	
+	shadowMat[0][3] = 0.0 - light[3] * ground[0];
+	shadowMat[1][3] = 0.0 - light[3] * ground[1];
+	shadowMat[2][3] = 0.0 - light[3] * ground[2];
+	shadowMat[3][3] = dot - light[3] * ground[3];
+
+	glMultMatrixf(shadowMat.flat():list);
+}
+
+
+
+//*********************
+
+
+windowNameRGBDB = "shadow cube (OpenGL RGB DB)";
+windowNameRGB = "shadow cube (OpenGL RGB)";
+windowNameIndexDB = "shadow cube (OpenGL Index DB)";
+windowNameIndex = "shadow cube (OpenGL Index)";
+
+idle() = {
+	tick:extern += 1;
+	if (tick >= 120) {
+		tick:extern = 0;
+	}
+	glutPostRedisplay();
+}
+
+keyboard(ch:number, x:number, y:number) = {
+	if (ch == 27) {             /* escape */
+		sys.exit(0);
+	} elsif (ch == ord('L') || ch == ord('l')) {
+		useLighting:extern = !useLighting;
+		if (useLighting) {glEnable(GL_LIGHTING)} else {glDisable(GL_LIGHTING)}
+		glutPostRedisplay();
+	} elsif (ch == ord('F') || ch == ord('f')) {
+		useFog:extern = !useFog;
+		if (useFog) {glEnable(GL_FOG)} else {glDisable(GL_FOG)}
+		glutPostRedisplay();
+	} elsif (ch == ord('1')) {
+		glFogf(GL_FOG_MODE, GL_LINEAR);
+		glutPostRedisplay();
+	} elsif (ch == ord('2')) {
+		glFogf(GL_FOG_MODE, GL_EXP);
+		glutPostRedisplay();
+	} elsif (ch == ord('3')) {
+		glFogf(GL_FOG_MODE, GL_EXP2);
+		glutPostRedisplay();
+	} elsif (ch == ord(' ')) {
+		if (!moving) {
+			idle();
+			glutPostRedisplay();
+		}
+	}
+}
+
+display() = {
+	cubeXform = dim(4, 4) {0}
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glPushMatrix {
+		glTranslatef(0.0, -1.5, 0.0);
+		glRotatef(-90.0, 1, 0, 0);
+		glScalef(2.0, 2.0, 2.0);
+
+		drawCheck(6, 6, BLUE, YELLOW);  /* draw ground */
+	}
+
+	glPushMatrix {
+		glTranslatef(0.0, 0.0, -0.9);
+		glScalef(2.0, 2.0, 2.0);
+
+		drawCheck(6, 6, BLUE, YELLOW);  /* draw back */
+	}
+
+	glPushMatrix {
+		glTranslatef(0.0, 0.2, 0.0);
+		glScalef(0.3, 0.3, 0.3);
+		glRotatef((360.0 / (30 * 1)) * tick, 1, 0, 0);
+		glRotatef((360.0 / (30 * 2)) * tick, 0, 1, 0);
+		glRotatef((360.0 / (30 * 4)) * tick, 0, 0, 1);
+		glScalef(1.0, 2.0, 1.0);
+		cubeXform = glGetFloatv(GL_MODELVIEW_MATRIX).fold(4);
+
+		drawCube(RED);        /* draw cube */
+	}
+
+	glDepthMask(GL_FALSE);
+	if (useRGB) {
+		glEnable(GL_BLEND);
+	} else {
+		glEnable(GL_POLYGON_STIPPLE);
+	}
+	if (useFog) {
+		glDisable(GL_FOG);
+	}
+	glPushMatrix {
+		myShadowMatrix(groundPlane, lightPos);
+		glTranslatef(0.0, 0.0, 2.0);
+		glMultMatrixf(cubeXform.flat():list);
+
+		drawCube(BLACK);      /* draw ground shadow */
+	}
+
+	glPushMatrix {
+		myShadowMatrix(backPlane, lightPos);
+		glTranslatef(0.0, 0.0, 2.0);
+		glMultMatrixf(cubeXform.flat():list);
+	
+		drawCube(BLACK);      /* draw back shadow */
+	}
+
+	glDepthMask(GL_TRUE);
+	if (useRGB) {
+		glDisable(GL_BLEND);
+	} else {
+		glDisable(GL_POLYGON_STIPPLE);
+	}
+	if (useFog) {
+		glEnable(GL_FOG);
+	}
+	if (useDB) {
+		glutSwapBuffers();
+	} else {
+		glFlush();
+	}
+}
+
+fog_select(fog:number) = {
+	glFogf(GL_FOG_MODE, fog);
+	glutPostRedisplay();
+}
+
+menu_select(mode:number) = {
+	if (mode == 1) {
+		moving:extern = true;
+		glutIdleFunc(idle);
+	} elsif (mode == 2) {
+		moving:extern = false;
+		glutIdleFunc(nil);
+	} elsif (mode == 3) {
+		useFog:extern = !useFog;
+		if (useFog) {glEnable(GL_FOG)} else {glDisable(GL_FOG)}
+		glutPostRedisplay();
+	} elsif (mode == 4) {
+		useLighting:extern = !useLighting;
+		if (useLighting) {glEnable(GL_LIGHTING)} else {glDisable(GL_LIGHTING)}
+		glutPostRedisplay();
+	} elsif (mode == 5) {
+		sys.exit(0);
+	}
+}
+
+visible(state:number) = {
+	if (state == GLUT_VISIBLE) {
+		if (moving) {
+			glutIdleFunc(idle);
+		}
+	} else {
+		if (moving) {
+			glutIdleFunc(nil);
+		}
+	}
+}
+
+main() = {
+	width = 350, height = 350;
+
+	glutInitWindowSize(width, height);
+	argv = glutInit(sys.argv);
+	/* process commmand line args */
+	argv.offset(1) {|arg|
+		if (arg == "-c") {
+			useRGB:extern = !useRGB;
+		} elsif (arg == "-l") {
+			useLighting:extern = !useLighting;
+		} elsif (arg == "-f") {
+			useFog:extern = !useFog;
+		} elsif (arg == "-db") {
+			useDB:extern = !useDB;
+		} elsif (arg == "-logo") {
+			useLogo:extern = !useLogo;
+		} elsif (arg == "-quads") {
+			useQuads:extern = !useQuads;
+		} else {
+			usage();
+		}
+	}
+
+	/* choose visual */
+	if (useRGB) {
+		if (useDB) {
+			glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+			name = windowNameRGBDB;
+		} else {
+			glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
+			name = windowNameRGB;
+		}
+	} else {
+		if (useDB) {
+			glutInitDisplayMode(GLUT_DOUBLE | GLUT_INDEX | GLUT_DEPTH);
+			name = windowNameIndexDB;
+		} else {
+			glutInitDisplayMode(GLUT_SINGLE | GLUT_INDEX | GLUT_DEPTH);
+			name = windowNameIndex;
+		}
+	}
+
+	glutCreateWindow(name);
+
+	buildColormap();
+
+	glutKeyboardFunc(keyboard);
+	glutDisplayFunc(display);
+	glutVisibilityFunc(visible);
+
+	fog_menu = glutCreateMenu(fog_select);
+	glutAddMenuEntry("Linear fog", GL_LINEAR);
+	glutAddMenuEntry("Exp fog", GL_EXP);
+	glutAddMenuEntry("Exp^2 fog", GL_EXP2);
+
+	glutCreateMenu(menu_select);
+	glutAddMenuEntry("Start motion", 1);
+	glutAddMenuEntry("Stop motion", 2);
+	glutAddMenuEntry("Toggle fog", 3);
+	glutAddMenuEntry("Toggle lighting", 4);
+	glutAddSubMenu("Fog type", fog_menu);
+	glutAddMenuEntry("Quit", 5);
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+
+	/* setup context */
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glFrustum(-1.0, 1.0, -1.0, 1.0, 1.0, 3.0);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glTranslatef(0.0, 0.0, -2.0);
+
+	glEnable(GL_DEPTH_TEST);
+
+	if (useLighting) {
+		glEnable(GL_LIGHTING);
+	}
+	glEnable(GL_LIGHT0);
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, lightAmb);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightDiff);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, lightSpec);
+	/*
+	glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, lightDir);
+	glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, 80);
+	glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 25);
+	*/
+
+	glEnable(GL_NORMALIZE);
+
+	if (useFog) {
+		glEnable(GL_FOG);
+	}
+	glFogfv(GL_FOG_COLOR, fogColor);
+	glFogfv(GL_FOG_INDEX, fogIndex);
+	glFogf(GL_FOG_MODE, GL_EXP);
+	glFogf(GL_FOG_DENSITY, 0.5);
+	glFogf(GL_FOG_START, 1.0);
+	glFogf(GL_FOG_END, 3.0);
+
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+
+	glShadeModel(GL_SMOOTH);
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	if (useLogo) {
+		glPolygonStipple(sgiPattern);
+	} else {
+		glPolygonStipple(shadowPattern);
+	}
+
+	glClearColor(0.0, 0.0, 0.0, 1);
+	glClearIndex(0);
+	glClearDepth(1);
+
+	glutMainLoop();
+}
+
+main()
