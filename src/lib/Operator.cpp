@@ -2284,6 +2284,8 @@ void Operator::AssignOperators(Environment &env)
 	Gura_AssignBinaryOperator(Add, pointer, number);
 	Gura_AssignBinaryOperator(Add, string, any);
 	Gura_AssignBinaryOperator(Add, any, string);
+	Gura_AssignBinaryOperator(Add, array_char, array_char);
+	Gura_AssignBinaryOperator(Add, array_uchar, array_uchar);
 	Gura_AssignBinaryOperator(Sub, number, number);
 	Gura_AssignBinaryOperator(Sub, number, complex);
 	Gura_AssignBinaryOperator(Sub, number, rational);
