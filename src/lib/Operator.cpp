@@ -1432,6 +1432,34 @@ Gura_ImplementBinaryOperator(Add, any, string)
 	return Value(str);
 }
 
+
+template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
+Value AddArray(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	Array<T_ElemLeft> *pArrayLeft = Object_array<T_ElemLeft>::GetObject(valueLeft)->GetArray();
+	Array<T_ElemRight> *pArrayRight = Object_array<T_ElemRight>::GetObject(valueRight)->GetArray();
+	size_t cnt = ChooseMin(pArrayLeft->GetSize(), pArrayRight->GetSize());
+	AutoPtr<Array<T_ElemResult> > pArrayResult(new Array<T_ElemResult>(cnt));
+	T_ElemLeft *pLeft = pArrayLeft->GetPointer();
+	T_ElemRight *pRight = pArrayRight->GetPointer();
+	T_ElemResult *pResult = pArrayResult->GetPointer();
+	for (size_t i = 0; i < cnt; i++, pLeft++, pRight++, pResult++) {
+		*pResult = *pLeft + *pRight;
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+Gura_ImplementBinaryOperator(Add, array_char, array_char)
+{
+	return AddArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
+}
+
+Gura_ImplementBinaryOperator(Add, array_uchar, array_uchar)
+{
+	return AddArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
+}
+
 //-----------------------------------------------------------------------------
 // BinaryOperator(Sub, *, *)
 //-----------------------------------------------------------------------------

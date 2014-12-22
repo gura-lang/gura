@@ -11,9 +11,6 @@ class OperatorEntry_##op##_##type : public OperatorEntry { \
 public: \
 	inline OperatorEntry_##op##_##type() : \
 					OperatorEntry(OPTYPE_##op, VTYPE_##type, VTYPE_undefined) {} \
-	inline static OperatorEntry_##op##_##type *Create() { \
-		return new OperatorEntry_##op##_##type(); \
-	} \
 	virtual Value DoEval(Environment &env, Signal sig, const Value &value) const; \
 }; \
 Value OperatorEntry_##op##_##type::DoEval(Environment &env, Signal sig, const Value &value) const
@@ -23,9 +20,6 @@ class OperatorEntry_##op##_##type##_suffix : public OperatorEntry { \
 public: \
 	inline OperatorEntry_##op##_##type##_suffix() : \
 					OperatorEntry(OPTYPE_##op, VTYPE_undefined, VTYPE_##type) {} \
-	inline static OperatorEntry_##op##_##type##_suffix *Create() { \
-		return new OperatorEntry_##op##_##type##_suffix(); \
-	} \
 	virtual Value DoEval(Environment &env, Signal sig, const Value &value) const; \
 }; \
 Value OperatorEntry_##op##_##type##_suffix::DoEval(Environment &env, Signal sig, const Value &value) const
@@ -35,9 +29,6 @@ class OperatorEntry_##op##_##typeL##_##typeR : public OperatorEntry { \
 public: \
 	inline OperatorEntry_##op##_##typeL##_##typeR() : \
 					OperatorEntry(OPTYPE_##op, VTYPE_##typeL, VTYPE_##typeR) {} \
-	inline static OperatorEntry_##op##_##typeL##_##typeR *Create() { \
-		return new OperatorEntry_##op##_##typeL##_##typeR(); \
-	} \
 	virtual Value DoEval(Environment &env, Signal sig, \
 				const Value &valueLeft, const Value &valueRight) const; \
 }; \
