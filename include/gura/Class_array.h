@@ -12,7 +12,7 @@ namespace Gura {
 // Object_array
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-class GURA_DLLDECLARE Object_array : public Object {
+class Object_array : public Object {
 public:
 	Gura_DeclareObjectAccessor(array)
 private:
@@ -66,7 +66,7 @@ public:
 // Class_array
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-class GURA_DLLDECLARE Class_array : public Class {
+class Class_array : public Class {
 public:
 	// array@T(arg) {block?}
 	class Func_array : public Function {

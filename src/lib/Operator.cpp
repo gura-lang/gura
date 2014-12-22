@@ -2,6 +2,7 @@
 // Operator
 //=============================================================================
 #include "stdafx.h"
+#include <math.h>
 
 namespace Gura {
 
@@ -2107,7 +2108,7 @@ Value ModArrayArray(Environment &env, Signal sig,
 			Operator::SetError_DivideByZero(sig);
 			return Value::Null;
 		}
-		*pResult = ::fmod(*pLeft, *pRight);
+		*pResult = static_cast<T_ElemResult>(::fmod(static_cast<double>(*pLeft), static_cast<double>(*pRight)));
 	}
 	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
@@ -2197,7 +2198,7 @@ Value PowArrayArray(Environment &env, Signal sig,
 	T_ElemRight *pRight = pArrayRight->GetPointer();
 	T_ElemResult *pResult = pArrayResult->GetPointer();
 	for (size_t i = 0; i < cnt; i++, pLeft++, pRight++, pResult++) {
-		*pResult = ::pow(*pLeft, *pRight);
+		*pResult = static_cast<T_ElemResult>(std::pow(static_cast<double>(*pLeft), static_cast<double>(*pRight)));
 	}
 	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }

@@ -13,7 +13,7 @@ namespace Gura {
 // Array
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-class GURA_DLLDECLARE Array {
+class Array {
 private:
 	int _cntRef;
 	AutoPtr<Memory> _pMemory;
@@ -66,7 +66,7 @@ private:
 // Iterator_Array
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-class GURA_DLLDECLARE Iterator_Array : public Iterator {
+class Iterator_Array : public Iterator {
 private:
 	AutoPtr<Array<T_Elem> > _pArray;
 	size_t _idx;
