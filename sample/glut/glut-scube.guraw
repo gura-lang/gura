@@ -193,21 +193,23 @@ cube_normals = \
 };
 
 usage() = {
-	printf("\n");
-	printf("usage: scube [options]\n");
-	printf("\n");
-	printf("    display a spinning cube and its shadow\n");
-	printf("\n");
-	printf("  Options:\n");
-	printf("    -geometry  window size and location\n");
-	printf("    -c         toggle color index mode\n");
-	printf("    -l         toggle lighting\n");
-	printf("    -f         toggle fog\n");
-	printf("    -db        toggle double buffering\n");
-	printf("    -logo      toggle sgi logo for the shadow pattern\n");
-	printf("    -quads     toggle use of GL_QUADS to draw the checkerboard\n");
-	printf("\n");
-	sys.exit(EXIT_FAILURE);
+	print(R'''
+	
+	usage: scube [options]
+	
+	    display a spinning cube and its shadow
+	
+	  Options:
+	    -geometry  window size and location
+	    -c         toggle color index mode
+	    -l         toggle lighting
+	    -f         toggle fog
+	    -db        toggle double buffering
+	    -logo      toggle sgi logo for the shadow pattern
+	    -quads     toggle use of GL_QUADS to draw the checkerboard
+
+	''')
+	sys.exit(1);
 }
 
 buildColormap() = {
@@ -290,44 +292,42 @@ drawCheck(w:number, h:number, evenColor:number, oddColor:number) = {
 				glNormal3fv(square_normal);
 				glBegin(GL_QUADS);
 			}
-			repeat(h) {|j|
-				repeat(w) {|i|
-					square[0][0] = -1.0 + 2.0 / w * i;
-					square[0][1] = -1.0 + 2.0 / h * (j + 1);
-					square[0][2] = 0.0;
-					square[0][3] = 1.0;
-					
-					square[1][0] = -1.0 + 2.0 / w * i;
-					square[1][1] = -1.0 + 2.0 / h * j;
-					square[1][2] = 0.0;
-					square[1][3] = 1.0;
-					
-					square[2][0] = -1.0 + 2.0 / w * (i + 1);
-					square[2][1] = -1.0 + 2.0 / h * j;
-					square[2][2] = 0.0;
-					square[2][3] = 1.0;
-					
-					square[3][0] = -1.0 + 2.0 / w * (i + 1);
-					square[3][1] = -1.0 + 2.0 / h * (j + 1);
-					square[3][2] = 0.0;
-					square[3][3] = 1.0;
-					
-					if ((i & 1 ^ j & 1) != 0) {
-						setColor(oddColor);
-					} else {
-						setColor(evenColor);
-					}
-					
-					if (!useQuads) {
-						glBegin(GL_POLYGON);
-					}
-					glVertex4fv(square[0]);
-					glVertex4fv(square[1]);
-					glVertex4fv(square[2]);
-					glVertex4fv(square[3]);
-					if (!useQuads) {
-						glEnd();
-					}
+			cross (j in range(h), i in range(w)) {
+				square[0][0] = -1.0 + 2.0 / w * i;
+				square[0][1] = -1.0 + 2.0 / h * (j + 1);
+				square[0][2] = 0.0;
+				square[0][3] = 1.0;
+				
+				square[1][0] = -1.0 + 2.0 / w * i;
+				square[1][1] = -1.0 + 2.0 / h * j;
+				square[1][2] = 0.0;
+				square[1][3] = 1.0;
+				
+				square[2][0] = -1.0 + 2.0 / w * (i + 1);
+				square[2][1] = -1.0 + 2.0 / h * j;
+				square[2][2] = 0.0;
+				square[2][3] = 1.0;
+				
+				square[3][0] = -1.0 + 2.0 / w * (i + 1);
+				square[3][1] = -1.0 + 2.0 / h * (j + 1);
+				square[3][2] = 0.0;
+				square[3][3] = 1.0;
+				
+				if ((i & 1 ^ j & 1) != 0) {
+					setColor(oddColor);
+				} else {
+					setColor(evenColor);
+				}
+				
+				if (!useQuads) {
+					glBegin(GL_POLYGON);
+				}
+				glVertex4fv(square[0]);
+				glVertex4fv(square[1]);
+				glVertex4fv(square[2]);
+				glVertex4fv(square[3]);
+				if (!useQuads) {
+					glEnd();
 				}
 			}
 			
