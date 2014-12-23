@@ -1,0 +1,320 @@
+#!/usr/bin/env gura
+// This Gura program has been ported from the original C code below:
+// https://www.opengl.org/archives/resources/code/samples/glut_examples/examples/stars.c
+
+/* Copyright (c) Mark J. Kilgard, 1994. */
+
+/**
+ * (c) Copyright 1993, Silicon Graphics, Inc.
+ * ALL RIGHTS RESERVED 
+ * Permission to use, copy, modify, and distribute this software for 
+ * any purpose and without fee is hereby granted, provided that the above
+ * copyright notice appear in all copies and that both the copyright notice
+ * and this permission notice appear in supporting documentation, and that 
+ * the name of Silicon Graphics, Inc. not be used in advertising
+ * or publicity pertaining to distribution of the software without specific,
+ * written prior permission. 
+ *
+ * THE MATERIAL EMBODIED ON THIS SOFTWARE IS PROVIDED TO YOU "AS-IS"
+ * AND WITHOUT WARRANTY OF ANY KIND, EXPRESS, IMPLIED OR OTHERWISE,
+ * INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE.  IN NO EVENT SHALL SILICON
+ * GRAPHICS, INC.  BE LIABLE TO YOU OR ANYONE ELSE FOR ANY DIRECT,
+ * SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY
+ * KIND, OR ANY DAMAGES WHATSOEVER, INCLUDING WITHOUT LIMITATION,
+ * LOSS OF PROFIT, LOSS OF USE, SAVINGS OR REVENUE, OR THE CLAIMS OF
+ * THIRD PARTIES, WHETHER OR NOT SILICON GRAPHICS, INC.  HAS BEEN
+ * ADVISED OF THE POSSIBILITY OF SUCH LOSS, HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE
+ * POSSESSION, USE OR PERFORMANCE OF THIS SOFTWARE.
+ * 
+ * US Government Users Restricted Rights 
+ * Use, duplication, or disclosure by the Government is subject to
+ * restrictions set forth in FAR 52.227.19(c)(2) or subparagraph
+ * (c)(1)(ii) of the Rights in Technical Data and Computer Software
+ * clause at DFARS 252.227-7013 and/or in similar or successor
+ * clauses in the FAR or the DOD or NASA FAR Supplement.
+ * Unpublished-- rights reserved under the copyright laws of the
+ * United States.  Contractor/manufacturer is Silicon Graphics,
+ * Inc., 2011 N.  Shoreline Blvd., Mountain View, CA 94039-7311.
+ *
+ * OpenGL(TM) is a trademark of Silicon Graphics, Inc.
+ */
+
+import(opengl) {*}
+import(glu) {*}
+import(glut) {*}
+
+PI = 3.141592657
+
+NORMAL = 0,
+WEIRD = 1
+
+STREAK = 0,
+CIRCLE = 1
+
+MAXSTARS = 400
+MAXPOS = 10000
+MAXWARP = 10
+MAXANGLES = 6000
+
+starRec = struct(type:number,
+				 x[]:number, y[]:number, z[]:number,
+				 offsetX:number, offsetY:number, offsetR:number, rotation:number)
+
+doubleBuffer = 0;
+windW = 300, windH = 300;
+
+flag = NORMAL;
+starCount = MAXSTARS / 2;
+speed = 1.0;
+nitro = 0;
+stars = dim(MAXSTARS) {
+	starRec(0, [0, 0], [0, 0], [0, 0], 0, 0, 0, 0)
+}
+sinTable = dim(MAXANGLES + 1) {0}
+
+Sin(angle:number) = {
+	sinTable[int(angle)]
+}
+
+Cos(angle:number) = {
+	sinTable[(int(angle) + (MAXANGLES / 4)) % MAXANGLES];
+}
+
+NewStar(n:number, d:number) = {
+	if (rand(4) == 0) {
+		stars[n].type = CIRCLE;
+	} else {
+		stars[n].type = STREAK;
+	}
+	stars[n].x[0] = rand(MAXPOS) - MAXPOS / 2;
+	stars[n].y[0] = rand(MAXPOS) - MAXPOS / 2;
+	stars[n].z[0] = rand(MAXPOS) + d;
+	stars[n].x[1] = stars[n].x[0];
+	stars[n].y[1] = stars[n].y[0];
+	stars[n].z[1] = stars[n].z[0];
+	if (rand(4) == 0 && flag == WEIRD) {
+		stars[n].offsetX = rand(100) - 100 / 2;
+		stars[n].offsetY = rand(100) - 100 / 2;
+		stars[n].offsetR = rand(25) - 25 / 2;
+	} else {
+		stars[n].offsetX = 0.0;
+		stars[n].offsetY = 0.0;
+		stars[n].offsetR = 0.0;
+	}
+}
+
+RotatePoint(x:number, y:number, rotation:number) = {
+	tmpX = x * Cos(rotation) - y * Sin(rotation);
+	tmpY = y * Cos(rotation) + x * Sin(rotation);
+	[tmpX, tmpY]
+}
+
+MoveStars() = {
+	offset = speed * 60.0;
+
+	repeat(starCount) {|n|
+		stars[n].x[1] = stars[n].x[0];
+		stars[n].y[1] = stars[n].y[0];
+		stars[n].z[1] = stars[n].z[0];
+		stars[n].x[0] += stars[n].offsetX;
+		stars[n].y[0] += stars[n].offsetY;
+		stars[n].z[0] -= offset;
+		stars[n].rotation += stars[n].offsetR;
+		if (stars[n].rotation > MAXANGLES) {
+			stars[n].rotation = 0.0;
+		}
+	}
+}
+
+StarPoint(n:number) = {
+	x0 = stars[n].x[0] * windW / stars[n].z[0];
+	y0 = stars[n].y[0] * windH / stars[n].z[0];
+	[x0, y0] = RotatePoint(x0, y0, stars[n].rotation);
+	x0 += windW / 2.0;
+	y0 += windH / 2.0;
+
+	if (x0 >= 0.0 && x0 < windW && y0 >= 0.0 && y0 < windH) {
+		return(GL_TRUE)
+	} else {
+		return(GL_FALSE)
+	}
+}
+
+ShowStar(n:number) = {
+	x0 = stars[n].x[0] * windW / stars[n].z[0];
+	y0 = stars[n].y[0] * windH / stars[n].z[0];
+	[x0, y0] = RotatePoint(x0, y0, stars[n].rotation);
+	x0 += windW / 2.0;
+	y0 += windH / 2.0;
+
+	if (x0 >= 0.0 && x0 < windW && y0 >= 0.0 && y0 < windH) {
+		if (stars[n].type == STREAK) {
+			x1 = stars[n].x[1] * windW / stars[n].z[1];
+			y1 = stars[n].y[1] * windH / stars[n].z[1];
+			[x1, y1] = RotatePoint(x1, y1, stars[n].rotation);
+			x1 += windW / 2.0;
+			y1 += windH / 2.0;
+
+			glLineWidth(MAXPOS / 100.0 / stars[n].z[0] + 1.0);
+			glColor3f(1.0, (MAXWARP - speed) / MAXWARP, (MAXWARP - speed) / MAXWARP);
+			if (math.abs(x0 - x1) < 1.0 && math.abs(y0 - y1) < 1.0) {
+				glBegin(GL_POINTS);
+				glVertex2f(x0, y0);
+				glEnd();
+			} else {
+				glBegin(GL_LINES);
+				glVertex2f(x0, y0);
+				glVertex2f(x1, y1);
+				glEnd();
+			}
+		} else {
+			width = MAXPOS / 10.0 / stars[n].z[0] + 1.0;
+			glColor3f(1.0, 0.0, 0.0);
+			glBegin(GL_POLYGON);
+			repeat(8) {|i|
+				x = x0 + width * Cos(i * MAXANGLES / 8.0);
+				y = y0 + width * Sin(i * MAXANGLES / 8.0);
+				glVertex2f(x, y);
+			};
+			glEnd();
+		}
+	}
+}
+
+UpdateStars() = {
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	repeat(starCount) {|n|
+		if (stars[n].z[0] > speed || (stars[n].z[0] > 0.0 && speed < MAXWARP)) {
+			if (StarPoint(n) == GL_FALSE) {
+				NewStar(n, MAXPOS);
+			}
+		} else {
+			NewStar(n, MAXPOS);
+		}
+	}
+}
+
+ShowStars() = {
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	repeat(starCount) {|n|
+		if (stars[n].z[0] > speed || (stars[n].z[0] > 0.0 && speed < MAXWARP)) {
+			ShowStar(n);
+		}
+	}
+}
+
+Init() = {
+	randseed(os.clock())
+
+	repeat(MAXSTARS) {|n|
+		NewStar(n, 100);
+	}
+
+	angle = 0.0;
+	repeat(MAXANGLES + 1) {|n|
+		sinTable[n] = math.sin(angle);
+		angle += PI / (MAXANGLES / 2.0);
+	}
+
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+
+	glDisable(GL_DITHER);
+}
+
+Reshape(width:number, height:number) = {
+	windW:extern = width;
+	windH:extern = height;
+
+	glViewport(0, 0, windW, windH);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(-0.5, windW + 0.5, -0.5, windH + 0.5);
+	glMatrixMode(GL_MODELVIEW);
+}
+
+Key(key:number, x:number, y:number) = {
+	if (key == ord(' ')) {
+		flag:extern = cond(flag == NORMAL, WEIRD, NORMAL);
+	} elsif (key == ord('t')) {
+		nitro:extern = 1;
+	} elsif (key == 27) {
+		sys.exit(0);
+	}
+}
+
+Idle() = {
+	MoveStars();
+	UpdateStars();
+	if (nitro > 0) {
+		speed:extern = (nitro / 10) + 1.0;
+		if (speed > MAXWARP) {
+			speed:extern = MAXWARP;
+		}
+		nitro:extern += 1
+		if (nitro > MAXWARP * 10) {
+			nitro:extern = -nitro;
+		}
+	} elsif (nitro < 0) {
+		nitro:extern += 1;
+		speed:extern = (-nitro / 10) + 1.0;
+		if (speed > MAXWARP) {
+			speed:extern = MAXWARP;
+		}
+	}
+	glutPostRedisplay();
+}
+
+Display() = {
+	ShowStars();
+	if (doubleBuffer) {
+		glutSwapBuffers();
+	} else {
+		glFlush();
+	}
+}
+
+Visible(state:number) = {
+	if (state == GLUT_VISIBLE) {
+		glutIdleFunc(Idle);
+	} else {
+		glutIdleFunc(nil);
+	}
+}
+
+Args(argv[]:string) = {
+	doubleBuffer:extern = GL_TRUE;
+
+	argv.offset(1) {|arg|
+		if (arg == "-sb") {
+			doubleBuffer:extern = GL_FALSE;
+		} elsif (arg == "-db") {
+			doubleBuffer:extern = GL_TRUE;
+		}
+	}
+}
+
+main() = {
+	glutInitWindowSize(windW, windH);
+	argv = glutInit(sys.argv);
+	Args(argv);
+
+	type = GLUT_RGB;
+	type |= cond(doubleBuffer, GLUT_DOUBLE, GLUT_SINGLE)
+	glutInitDisplayMode(type);
+	glutCreateWindow("Stars");
+
+	Init();
+
+	glutReshapeFunc(Reshape);
+	glutKeyboardFunc(Key);
+	glutVisibilityFunc(Visible);
+	glutDisplayFunc(Display);
+	glutMainLoop();
+}
+
+main()
