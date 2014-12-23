@@ -1,0 +1,85 @@
+#!/usr/bin/env gura
+// This Gura program has been ported from the original C code below:
+// https://www.opengl.org/archives/resources/code/samples/glut_examples/examples/stroke.c
+
+/* Copyright (c) Mark J. Kilgard, 1994. */
+
+/* This program is freely distributable without licensing fees 
+   and is provided without guarantee or warrantee expressed or 
+   implied. This program is -not- in the public domain. */
+
+import(opengl) {*}
+import(glu) {*}
+import(glut) {*}
+
+font = GLUT_STROKE_ROMAN;
+fonts = \
+	@{GLUT_STROKE_ROMAN, GLUT_STROKE_MONO_ROMAN};
+defaultMessage = "GLUT means OpenGL.";
+message = defaultMessage;
+
+angle = 0;
+
+selectFont(newfont:number) = {
+	font:extern = fonts[newfont];
+	glutPostRedisplay();
+}
+
+selectMessage(msg:number) = {
+	if (msg == 1) {
+		message:extern = "abcdefghijklmnop";
+	} elsif (msg == 2) {
+		message:extern = "ABCDEFGHIJKLMNOP";
+	}
+}
+
+tick() = {
+	angle:extern -= 2;
+	glutPostRedisplay();
+}
+
+display() = {
+	glClear(GL_COLOR_BUFFER_BIT);
+	glPushMatrix();
+	glRotatef(angle, 0.0, 0.0, 1.0);
+	glTranslatef(-750, 0, 0);
+	glutStrokeCharacter(font, message.each():utf8);
+	glPopMatrix();
+	glutSwapBuffers();
+}
+
+main() = {
+	argv = glutInit(sys.argv);
+	argv.offset(1) {|arg|
+		if (arg == "-mono") {
+			font:extern = GLUT_STROKE_MONO_ROMAN;
+		}
+	}
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+	glutInitWindowSize(600, 600);
+	glutCreateWindow("anti-aliased stroke font");
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(0, 2000, 0, 2000);
+	glMatrixMode(GL_MODELVIEW);
+	glEnable(GL_LINE_SMOOTH);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glLineWidth(3.0);
+	glTranslatef(1000, 1000, 0);
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+	glColor3f(1.0, 1.0, 1.0);
+	glutDisplayFunc(display);
+	glutIdleFunc(tick);
+	submenu = glutCreateMenu(selectMessage);
+	glutAddMenuEntry("abc", 1);
+	glutAddMenuEntry("ABC", 2);
+	glutCreateMenu(selectFont);
+	glutAddMenuEntry("Roman", 0);
+	glutAddMenuEntry("Mono Roman", 1);
+	glutAddSubMenu("Messages", submenu);
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+	glutMainLoop();
+}
+
+main()
