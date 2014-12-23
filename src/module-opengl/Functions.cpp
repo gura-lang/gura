@@ -144,7 +144,7 @@ Gura_DeclareFunctionAlias(__glBitmap, "glBitmap")
 	DeclareArg(env, "yorig", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "xmove", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "ymove", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "bitmap", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "bitmap", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap | FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -158,12 +158,14 @@ Gura_ImplementFunction(__glBitmap)
 	GLfloat yorig = args.GetFloat(3);
 	GLfloat xmove = args.GetFloat(4);
 	GLfloat ymove = args.GetFloat(5);
-	Array<UChar> *_bitmap = Object_array<UChar>::GetObject(args, 6)->GetArray();
-	GLubyte *bitmap = reinterpret_cast<GLubyte *>(_bitmap->GetPointer());
-	size_t bytesReq = ((width + 7) / 8) * height;
-	if (_bitmap->GetSize() < bytesReq) {
-		sig.SetError(ERR_ValueError, "array doesn\'t contain enough data");
-		return Value::Null;
+	Array<UChar> *_bitmap = args.IsValid(6)? Object_array<UChar>::GetObject(args, 6)->GetArray() : NULL;
+	GLubyte *bitmap = (_bitmap == NULL)? NULL : reinterpret_cast<GLubyte *>(_bitmap->GetPointer());
+	if (_bitmap != NULL) {
+		size_t bytesReq = ((width + 7) / 8) * height;
+		if (_bitmap->GetSize() < bytesReq) {
+			sig.SetError(ERR_ValueError, "array doesn\'t contain enough data");
+			return Value::Null;
+		}
 	}
 	glBitmap(width, height, xorig, yorig, xmove, ymove, bitmap);
 	return Value::Null;

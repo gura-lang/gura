@@ -60,11 +60,13 @@ glBindTexture(target:GLenum, texture:GLuint):void:map = `auto % {`en, 'markdown'
 	'''
 }
 
-glBitmap(width:GLsizei, height:GLsizei, xorig:GLfloat, yorig:GLfloat, xmove:GLfloat, ymove:GLfloat, bitmap:GLubyte@:const):void:map = R'''
-	size_t bytesReq = ((width + 7) / 8) * height;
-	if (_bitmap->GetSize() < bytesReq) {
-		sig.SetError(ERR_ValueError, "array doesn\'t contain enough data");
-		return Value::Null;
+glBitmap(width:GLsizei, height:GLsizei, xorig:GLfloat, yorig:GLfloat, xmove:GLfloat, ymove:GLfloat, bitmap:GLubyte@:const:nil):void:map = R'''
+	if (_bitmap != NULL) {
+		size_t bytesReq = ((width + 7) / 8) * height;
+		if (_bitmap->GetSize() < bytesReq) {
+			sig.SetError(ERR_ValueError, "array doesn\'t contain enough data");
+			return Value::Null;
+		}
 	}
 	glBitmap(width, height, xorig, yorig, xmove, ymove, bitmap);
 	return Value::Null;
