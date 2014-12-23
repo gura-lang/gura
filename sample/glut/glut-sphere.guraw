@@ -44,11 +44,11 @@ display_win1() = {
 }
 
 idle() = {
-	light_position[] = \
+	light_position = \
 		@{1.0, 1.0, 1.0, 0.0};
 
 	glutSetWindow(win1);
-	thetime += 0.05;
+	thetime:extern += 0.05;
 	light_position[1] = 1 + math.sin(thetime);
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	display_win1();
@@ -194,7 +194,7 @@ main() = {
 	qobj:extern = gluNewQuadric();
 	argv = glutInit(sys.argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-	win1 = glutCreateWindow("sphere");
+	win1:extern = glutCreateWindow("sphere");
 	glutEntryFunc(enter_leave);
 	init();
 	glutDisplayFunc(display_win1);
@@ -208,7 +208,7 @@ main() = {
 	glutAddMenuEntry("yes", 1);
 	glutAddMenuEntry("no", 2);
 	glutAttachMenu(GLUT_RIGHT_BUTTON);
-	win2 = glutCreateWindow("second window");
+	win2:extern = glutCreateWindow("second window");
 	glutEntryFunc(enter_leave);
 	glutKeyboardFunc(keyboard);
 	glutSpecialFunc(special);
@@ -222,10 +222,10 @@ main() = {
 	light_diffuse[2] = 1;
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
 	glutDisplayFunc(display);
-	submenu1 = glutCreateMenu(it);
+	submenu1:extern = glutCreateMenu(it);
 	glutAddMenuEntry("submenu a", 666);
 	glutAddMenuEntry("submenu b", 777);
-	submenu2 = glutCreateMenu(it);
+	submenu2:extern = glutCreateMenu(it);
 	glutAddMenuEntry("submenu 1", 25);
 	glutAddMenuEntry("submenu 2", 26);
 	glutAddSubMenu("submenuXXX", submenu1);
