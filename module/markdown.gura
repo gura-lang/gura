@@ -2,7 +2,7 @@
 import(conio)
 import(markdown):binary:mixin_type {*}
 
-Renderer_html = class {
+Renderer@html = class {
 	__init__(out:stream:w) = {
 		this.out = out
 	}
@@ -126,7 +126,7 @@ Renderer_html = class {
 	}
 }
 
-Renderer_rtf = class {
+Renderer@rtf = class {
 	__init__(out:stream:w) = {
 		this.out = out
 		this.quoteLevel = 0
@@ -257,7 +257,7 @@ Renderer_rtf = class {
 	}
 }
 
-Renderer_console = class {
+Renderer@console = class {
 	__init__() = {
 	}
 	Render(doc:document):void = {
@@ -366,33 +366,33 @@ operator(`<<).assign(`document, `function) {|doc, func|
 	doc << func.gethelp().text
 }
 
-classref(`document).render_html(out?:stream:w) = {
+classref(`document).render@html(out?:stream:w) = {
 	if (out) {
-		Renderer_html(out).Render(this)
+		Renderer@html(out).Render(this)
 	} else {
 		buff = binary()
-		Renderer_html(buff).Render(this)
+		Renderer@html(buff).Render(this)
 		buff.decode('utf-8')
 	}
 }
 
-classref(`document).render_rtf(out?:stream:w) = {
+classref(`document).render@rtf(out?:stream:w) = {
 	if (out) {
-		Renderer_rtf(out).Render(this)
+		Renderer@rtf(out).Render(this)
 	} else {
 		buff = binary()
-		Renderer_rtf(buff).Render(this)
+		Renderer@rtf(buff).Render(this)
 		buff.decode('utf-8')
 	}
 }
 
-classref(`document).render_console() = {
-	Renderer_console().Render(this)
+classref(`document).render@console() = {
+	Renderer@console().Render(this)
 }
 
 setpresenter {|title:string:nil, doc:document:nil|
 	title && conio.setcolor(`green) {
 		println(title)
 	}
-	doc && Renderer_console().Render(doc)
+	doc && Renderer@console().Render(doc)
 }
