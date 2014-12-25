@@ -26,11 +26,12 @@ Gura_DeclareFunctionAlias(class_, "class")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "superclass", VTYPE_function, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Returns a function object that constructs an instance with methods and\n"
-	"properties specified in the block. If superclass, which is supposed to\n"
-	"be a constructor function, is specified, the new class shall inherits\n"
-	"methods and properties of the class associated with it.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a function object that constructs an instance with methods and\n"
+		"properties specified in the block. If superclass, which is supposed to\n"
+		"be a constructor function, is specified, the new class shall inherits\n"
+		"methods and properties of the class associated with it.");
 }
 
 Gura_ImplementFunction(class_)
@@ -63,12 +64,13 @@ Gura_DeclareFunctionAlias(struct_, "struct")
 	DeclareArg(env, "args", VTYPE_quote, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(loose));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Returns a function object that constructs a structure instance that\n"
-	"contains properties specified by args. It can optionally take block\n"
-	"which declares some additional methods for constructed instances.\n"
-	"If :loose attribute is speicied, the generated constructor function\n"
-	"makes an existence check of arguments in a loose way.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a function object that constructs a structure instance that\n"
+		"contains properties specified by args. It can optionally take block\n"
+		"which declares some additional methods for constructed instances.\n"
+		"If `:loose` attribute is speicied, the generated constructor function\n"
+		"makes an existence check of arguments in a loose way.");
 }
 
 Gura_ImplementFunction(struct_)
@@ -122,9 +124,10 @@ Gura_DeclareFunction(module)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Creates a module that contains functions and variables defined in the block\n"
-	"and returns it as a module object. This can be used to realize a namespace.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a module that contains functions and variables defined in the block\n"
+		"and returns it as a module object. This can be used to realize a namespace.");
 }
 
 Gura_ImplementFunction(module)
@@ -147,24 +150,25 @@ Gura_DeclareFunctionAlias(import_, "import")
 	DeclareAttr(Gura_Symbol(overwrite));
 	DeclareAttr(Gura_Symbol(binary));
 	DeclareAttr(Gura_Symbol(mixin_type));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Imports a module stored in directories specified by a variable sys.path.\n"
-	"There are three ways of calling this function like follow:\n"
-	"\n"
-	"1. `import(foo)`\n"
-	"2. `import(foo, bar)`\n"
-	"3. `import(foo) {symbol1, symbol2, symbol3}`\n"
-	"\n"
-	"In the first format, it creates a module object named foo.\n"
-	"In the second, it names the module object as bar instead of foo.\n"
-	"In the third, it doesn't register the module name into the environment,\n"
-	"but it looks up symbols specified in the block and registers them.\n"
-	"In thie case, if specified symbols conflict with the existing one,\n"
-	"it will cause an error. Attribute `:overwrite` will disable such an error\n"
-	"detection and allow overwriting of symbols. You can specify an asterisk\n"
-	"character to include all the registered symbols like follows.\n"
-	"\n"
-	"    import(foo) {*}");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Imports a module stored in directories specified by a variable sys.path.\n"
+		"There are three ways of calling this function like follow:\n"
+		"\n"
+		"1. `import(foo)`\n"
+		"2. `import(foo, bar)`\n"
+		"3. `import(foo) {symbol1, symbol2, symbol3}`\n"
+		"\n"
+		"In the first format, it creates a module object named foo.\n"
+		"In the second, it names the module object as bar instead of foo.\n"
+		"In the third, it doesn't register the module name into the environment,\n"
+		"but it looks up symbols specified in the block and registers them.\n"
+		"In thie case, if specified symbols conflict with the existing one,\n"
+		"it will cause an error. Attribute `:overwrite` will disable such an error\n"
+		"detection and allow overwriting of symbols. You can specify an asterisk\n"
+		"character to include all the registered symbols like follows.\n"
+		"\n"
+		"    import(foo) {*}");
 }
 
 Gura_ImplementFunction(import_)
@@ -211,8 +215,9 @@ Gura_DeclareFunction(scope)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "target", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Evaluates block with a local scope.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Evaluates block with a local scope.");
 }
 
 Gura_ImplementFunction(scope)
@@ -251,9 +256,10 @@ Gura_DeclareFunction(locals)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "module", VTYPE_Module, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Returns an environment object that belongs to a specified module.\n"
-	"If module is omitted, it returns an environment object of the current scope.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns an environment object that belongs to a specified module.\n"
+		"If module is omitted, it returns an environment object of the current scope.");
 }
 
 Gura_ImplementFunction(locals)
@@ -272,8 +278,9 @@ Gura_DeclareFunction(outers)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Returns an environment object that accesses to an outer scope.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns an environment object that accesses to an outer scope.");
 }
 
 Gura_ImplementFunction(outers)
@@ -301,8 +308,9 @@ Gura_DeclareFunctionAlias(extern_, "extern")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "syms", VTYPE_quote, OCCUR_OnceOrMore);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Declares symbols that is supposed to access variables in outer scopes.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Declares symbols that is supposed to access variables in outer scopes.");
 }
 
 Gura_ImplementFunction(extern_)
@@ -327,8 +335,9 @@ Gura_DeclareFunction(local)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "syms", VTYPE_quote, OCCUR_OnceOrMore);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Declares symbols that is supposed to access variables in a local scope.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Declares symbols that is supposed to access variables in a local scope.");
 }
 
 Gura_ImplementFunction(local)
@@ -387,10 +396,11 @@ Gura_DeclareFunctionAlias(try_, "try")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Specify a try block of a statement of try-catch-else.\n"
-	"It catches signals that occur in the block and executes a corresponding\n"
-	"catch() or else() function that follow after it.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Specify a try block of a statement of try-catch-else.\n"
+		"It catches signals that occur in the block and executes a corresponding\n"
+		"`catch()` or `else()` function that follow after it.");
 }
 
 Gura_ImplementFunction(try_)
@@ -414,13 +424,14 @@ Gura_DeclareFunctionTrailerAlias(catch_, "catch")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
 	DeclareArg(env, "errors", VTYPE_error, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Specify an catch block of a statement of try-catch-else.\n"
-	"It can take multiple numbers of arguments of error objects to handle.\n"
-	"If there's no error objects specified, it handles all the errors that are\n"
-	"not handled in the preceding catch() function calls.\n"
-	"Block parameter format: |error:error|\n"
-	"error is an error object that contains information of the handled error.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Specify an catch block of a statement of try-catch-else.\n"
+		"It can take multiple numbers of arguments of error objects to handle.\n"
+		"If there's no error objects specified, it handles all the errors that are\n"
+		"not handled in the preceding `catch()` function calls.\n"
+		"Block parameter format: `|error:error|`\n"
+		"`error` is an error object that contains information of the handled error.");
 }
 
 Gura_ImplementFunction(catch_)
@@ -473,10 +484,11 @@ Gura_DeclareFunctionAlias(if_, "if")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader);
 	DeclareArg(env, "cond", VTYPE_quote);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Specify an if block of a statement of if-elsif-else.\n"
-	"After evaluating an expr object cond, the block shall be executed\n"
-	"if it has a value of true.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Specify an if block of a statement of if-elsif-else.\n"
+		"After evaluating an expr object cond, the block shall be executed\n"
+		"if it has a value of true.");
 }
 
 Gura_ImplementFunction(if_)
@@ -500,10 +512,11 @@ Gura_DeclareFunctionTrailerAlias(elsif_, "elsif")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
 	DeclareArg(env, "cond", VTYPE_quote);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Specify an elsif block of a statement of if-elsif-else.\n"
-	"After evaluating an expr object cond, the block shall be executed\n"
-	"if it has a value of true.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Specify an elsif block of a statement of if-elsif-else.\n"
+		"After evaluating an expr object cond, the block shall be executed\n"
+		"if it has a value of true.");
 }
 
 Gura_ImplementFunction(elsif_)
@@ -526,8 +539,9 @@ Gura_DeclareFunctionTrailerAlias(else_, "else")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Trailer);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Specify an else block of a statement of if-elsif-else or try-catch-else.\n");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Specify an else block of a statement of if-elsif-else or try-catch-else.\n");
 }
 
 Gura_ImplementFunction(else_)
@@ -546,8 +560,9 @@ Gura_DeclareFunction(end)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_SymbolFunc | FLAG_Trailer | FLAG_EndMarker);
 	DeclareArg(env, "dummy", VTYPE_any, OCCUR_ZeroOrMore);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Specify an end of a sequence. It just works as a marker.\n");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Specify an end of a sequence. It just works as a marker.\n");
 }
 
 Gura_ImplementFunction(end)
@@ -559,10 +574,11 @@ Gura_ImplementFunction(end)
 Gura_DeclareFunctionAlias(switch_, "switch")
 {
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Form a switch block that contains case() and default() function calls.\n"
-	"It calls these functions sequentially and exits the execution\n"
-	"when one of the conditions is evaluated as true.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Form a switch block that contains `case()` and `default()` function calls.\n"
+		"It calls these functions sequentially and exits the execution\n"
+		"when one of the conditions is evaluated as true.");
 }
 
 Gura_ImplementFunction(switch_)
@@ -586,10 +602,11 @@ Gura_DeclareFunctionAlias(case_, "case")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "cond", VTYPE_quote);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Specify an case block within a switch block.\n"
-	"After evaluating an expr object cond, the block shall be executed\n"
-	"if it has a value of true.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Specify an case block within a switch block.\n"
+		"After evaluating an expr object cond, the block shall be executed\n"
+		"if it has a value of true.");
 }
 
 Gura_ImplementFunction(case_)
@@ -614,10 +631,11 @@ Gura_DeclareFunctionAlias(default_, "default")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Specify a default block within a switch block.\n"
-	"If all the preceding condition of case block are not evaluated as true,\n"
-	"this block shall be executed.\n");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Specify a default block within a switch block.\n"
+		"If all the preceding condition of case block are not evaluated as true,\n"
+		"this block shall be executed.\n");
 }
 
 Gura_ImplementFunction(default_)
@@ -638,13 +656,14 @@ Gura_DeclareFunction(repeat)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Executes the block for n times. If n is omitted, it repeats the block\n"
-	"execution forever.\n"
-	"\n"
-	REPEATER_HELP
-	"\n"
-	"Block parameter format: |idx:number|");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Executes the block for `n` times. If `n` is omitted, it repeats the block\n"
+		"execution forever.\n"
+		"\n"
+		REPEATER_HELP
+		"\n"
+		"Block parameter format: `|idx:number|`");
 }
 
 Gura_ImplementFunction(repeat)
@@ -666,12 +685,13 @@ Gura_DeclareFunctionAlias(while_, "while")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "cond", VTYPE_quote);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Executes the block while the evaluation result of cond is true.\n"
-	"\n"
-	REPEATER_HELP
-	"\n"
-	"Block parameter format: |idx:number|");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Executes the block while the evaluation result of `cond` is true.\n"
+		"\n"
+		REPEATER_HELP
+		"\n"
+		"Block parameter format: `|idx:number|`");
 }
 
 Gura_ImplementFunction(while_)
@@ -692,15 +712,16 @@ Gura_DeclareFunctionAlias(for_, "for")
 {
 	DeclareArg(env, "expr", VTYPE_quote, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Executes the block until any of the exprs of \"var in iteratable\" reach at\n"
-	"their ends. You can specify one or more such exprs as arguments.\n"
-	"Iterators and lists are the most popular iteratables, but even any objects that\n"
-	"are cable of generating iterators can be specified as such.\n"
-	"\n"
-	REPEATER_HELP
-	"\n"
-	"Block parameter format: |idx:number|");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Executes the block until any of the exprs of \"var in iteratable\" reach at\n"
+		"their ends. You can specify one or more such exprs as arguments.\n"
+		"Iterators and lists are the most popular iteratables, but even any objects that\n"
+		"are cable of generating iterators can be specified as such.\n"
+		"\n"
+		REPEATER_HELP
+		"\n"
+		"Block parameter format: `|idx:number|`");
 }
 
 Gura_ImplementFunction(for_)
@@ -722,16 +743,17 @@ Gura_DeclareFunction(cross)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "expr", VTYPE_quote, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Executes the block until it evaluates all the combinations of results from exprs\n"
-	"\"var in iteratable.\" You can specify one or more such exprs as arguments and\n"
-	"they are counted up from the one on the right side.\n"
-	"Iterators and lists are the most popular iteratables, but even any objects that\n"
-	"are cable of generating iterators can be specified as such.\n"
-	"\n"
-	REPEATER_HELP
-	"\n"
-	"Block parameter format: |idx:number, i0:number, i1:number, ..|");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Executes the block until it evaluates all the combinations of results from exprs\n"
+		"\"var in iteratable.\" You can specify one or more such exprs as arguments and\n"
+		"they are counted up from the one on the right side.\n"
+		"Iterators and lists are the most popular iteratables, but even any objects that\n"
+		"are cable of generating iterators can be specified as such.\n"
+		"\n"
+		REPEATER_HELP
+		"\n"
+		"Block parameter format: `|idx:number, i0:number, i1:number, ..|`");
 }
 
 Gura_ImplementFunction(cross)
@@ -752,12 +774,13 @@ Gura_DeclareFunctionAlias(break_, "break")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_SymbolFunc);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Exits from an inside of a loop that is formed with functions repeat(), while()\n"
-	"for() and cross(). If it takes an argument, that value is treated as a result of\n"
-	"the loop function. Otherwise, the result is nil and an argument list\n"
-	"can be omitted. If the loop function is specified with one of :list, :xlist, :set,\n"
-	":xset, :iter and :xiter, break()'s value is NOT included in the result.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Exits from an inside of a loop that is formed with functions `repeat()`, `while()`\n"
+		"`for()` and `cross()`. If it takes an argument, that value is treated as a result of\n"
+		"the loop function. Otherwise, the result is nil and an argument list\n"
+		"can be omitted. If the loop function is specified with one of `:list`, `:xlist`, `:set`,\n"
+		"`:xset`, `:iter` and `:xiter`, `break()`'s value is NOT included in the result.");
 }
 
 Gura_ImplementFunction(break_)
@@ -771,13 +794,14 @@ Gura_DeclareFunctionAlias(continue_, "continue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_SymbolFunc);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"In a loop that is formed with functions repeat(), while(), for() and cross(),\n"
-	"skips the following part of it and gets to the top of its process.\n"
-	"If it takes an argument, that value is treated as a result of the loop function.\n"
-	"Otherwise, the result is nil and an argument list can be omitted.\n"
-	"If the loop function is specified with one of :list, :xlist, :set,\n"
-	":xset, :iter and :xiter, continue()'s value is included in the result.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"In a loop that is formed with functions `repeat()`, `while()`, `for()` and `cross()`,\n"
+		"skips the following part of it and gets to the top of its process.\n"
+		"If it takes an argument, that value is treated as a result of the loop function.\n"
+		"Otherwise, the result is nil and an argument list can be omitted.\n"
+		"If the loop function is specified with one of `:list`, `:xlist`, `:set`,\n"
+		"`:xset`, `:iter` and `:xiter`, `continue()`'s value is included in the result.");
 }
 
 Gura_ImplementFunction(continue_)
@@ -791,10 +815,11 @@ Gura_DeclareFunctionAlias(return_, "return")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_SymbolFunc);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Exits from a function skipping the following part of it.\n"
-	"If it takes an argument, that value is treated as a result of the function.\n"
-	"Otherwise, the result is nil and an argument list can be omitted.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Exits from a function skipping the following part of it.\n"
+		"If it takes an argument, that value is treated as a result of the function.\n"
+		"Otherwise, the result is nil and an argument list can be omitted.");
 }
 
 Gura_ImplementFunction(return_)
@@ -810,9 +835,10 @@ Gura_DeclareFunction(raise)
 	DeclareArg(env, "error", VTYPE_error);
 	DeclareArg(env, "msg", VTYPE_string, OCCUR_Once, FLAG_None, new Expr_Value(Value("error")));
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Raises an error signal with a specified error object, a message string and\n"
-	"an additional value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Raises an error signal with a specified error object, a message string and\n"
+		"an additional value.");
 }
 
 Gura_ImplementFunction(raise)
@@ -828,10 +854,11 @@ Gura_DeclareFunction(dim)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Creates and returns a multi-dementional list that contains nested lists as\n"
-	"specified by the arguments.\n"
-	"Block parameter format: |i0:number, i1:number, ..|");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates and returns a multi-dementional list that contains nested lists as\n"
+		"specified by the arguments.\n"
+		"Block parameter format: `|i0:number, i1:number, ..|`");
 }
 
 bool Func_dim_Sub(Environment &env, Signal sig, const Function *pFuncBlock, ValueList &valListParent,
@@ -896,8 +923,9 @@ Gura_DeclareFunction(min)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Returns the minimum value among the given arguments.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns the minimum value among the given arguments.");
 }
 
 Gura_ImplementFunction(min)
@@ -918,8 +946,9 @@ Gura_DeclareFunction(max)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Returns the maximum value among the given arguments.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns the maximum value among the given arguments.");
 }
 
 Gura_ImplementFunction(max)
@@ -1039,8 +1068,9 @@ Gura_DeclareFunctionAlias(int_, "int")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_any);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Converts any value into an integer number.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Converts any value into an integer number.");
 }
 
 Gura_ImplementFunction(int_)
@@ -1144,8 +1174,9 @@ Gura_DeclareFunction(print)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Converts `values` into string and outputs the results to standard output."
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Converts `values` into string and outputs the results to standard output."
 	);
 }
 
@@ -1165,8 +1196,9 @@ Gura_DeclareFunction(println)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Converts `values` into string and outputs the results to standard output before a carriage return."
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Converts `values` into string and outputs the results to standard output before a carriage return."
 	);
 }
 
@@ -1188,35 +1220,36 @@ Gura_DeclareFunction(printf)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Converts `values` into string depending on formatter specification in `format` and outputs the result to standard output.\n"
-	"The format specifier comes like `%[flags][width][.precision]specifier`.\n"
-	"\n"
-	"`specifier` is one of the following.\n"
-	"\n"
-	"- `d`, `i` .. decimal integer number with a sign mark\n"
-	"- `u` .. decimal integer number wihout a sign mark\n"
-	"- `b` .. binary integer number without a sign mark\n"
-	"- `o` .. octal integer number without a sign mark\n"
-	"- `x` .. hexadecimal integer number in lower character without a sign mark\n"
-	"- `X` .. hexadecimal integer number in upper character without a sign mark\n"
-	"- `e` .. floating number in exponential form\n"
-	"- `E` .. floating number in exponential form (in upper character)\n"
-	"- `f` .. floating number in decimal form\n"
-	"- `F` .. floating number in decimal form (in upper character)\n"
-	"- `g` .. better form between `e` and `f`\n"
-	"- `G` .. better form between `E` and `F`\n"
-	"- `s` .. string\n"
-	"- `c` .. character\n"
-	"\n"
-	"`flags` is one of the following.\n"
-	"\n"
-	"- `+` .. `+` precedes for positive numbers\n"
-	"- `-` .. adjust a string to left\n"
-	"- `[SPC]` .. space character precedes for positive numbers\n"
-	"- `#` .. converted results of binary, octdecimal and hexadecimal are preceded by `'0b'`, `'0'` and `'0x'` respectively\n"
-	"- `0` .. fill lacking columns with `'0'`\n"
-	);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Converts `values` into string depending on formatter specification in `format` and outputs the result to standard output.\n"
+		"The format specifier comes like `%[flags][width][.precision]specifier`.\n"
+		"\n"
+		"`specifier` is one of the following.\n"
+		"\n"
+		"- `d`, `i` .. decimal integer number with a sign mark\n"
+		"- `u` .. decimal integer number wihout a sign mark\n"
+		"- `b` .. binary integer number without a sign mark\n"
+		"- `o` .. octal integer number without a sign mark\n"
+		"- `x` .. hexadecimal integer number in lower character without a sign mark\n"
+		"- `X` .. hexadecimal integer number in upper character without a sign mark\n"
+		"- `e` .. floating number in exponential form\n"
+		"- `E` .. floating number in exponential form (in upper character)\n"
+		"- `f` .. floating number in decimal form\n"
+		"- `F` .. floating number in decimal form (in upper character)\n"
+		"- `g` .. better form between `e` and `f`\n"
+		"- `G` .. better form between `E` and `F`\n"
+		"- `s` .. string\n"
+		"- `c` .. character\n"
+		"\n"
+		"`flags` is one of the following.\n"
+		"\n"
+		"- `+` .. `+` precedes for positive numbers\n"
+		"- `-` .. adjust a string to left\n"
+		"- `[SPC]` .. space character precedes for positive numbers\n"
+		"- `#` .. converted results of binary, octdecimal and hexadecimal are preceded by `'0b'`, `'0'` and `'0x'` respectively\n"
+		"- `0` .. fill lacking columns with `'0'`\n"
+		);
 }
 
 Gura_ImplementFunction(printf)
@@ -1377,7 +1410,9 @@ Gura_Function(istype_)::Gura_Function(istype_)(
 	char buff[1024];
 	::sprintf(buff, "Check if the type of the specified value is %s.",
 		ValueTypePool::GetInstance()->Lookup(_valType)->MakeFullName().c_str());
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, buff);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		buff);
 }
 
 Gura_ImplementFunction(istype_)
