@@ -4,6 +4,34 @@
 #include "stdafx.h"
 #include <math.h>
 
+#define LoopOn_ArrayAndArray() \
+Array<T_ElemLeft> *pArrayLeft = Object_array<T_ElemLeft>::GetObject(valueLeft)->GetArray(); \
+Array<T_ElemRight> *pArrayRight = Object_array<T_ElemRight>::GetObject(valueRight)->GetArray(); \
+size_t cnt = ChooseMin(pArrayLeft->GetSize(), pArrayRight->GetSize()); \
+AutoPtr<Array<T_ElemResult> > pArrayResult(new Array<T_ElemResult>(cnt)); \
+T_ElemLeft *pLeft = pArrayLeft->GetPointer(); \
+T_ElemRight *pRight = pArrayRight->GetPointer(); \
+T_ElemResult *pResult = pArrayResult->GetPointer();	\
+for (size_t i = 0; i < cnt; i++, pLeft++, pRight++, pResult++)
+
+#define LoopOn_ArrayAndNumber() \
+Array<T_ElemLeft> *pArrayLeft = Object_array<T_ElemLeft>::GetObject(valueLeft)->GetArray(); \
+Number numRight = valueRight.GetNumber(); \
+size_t cnt = pArrayLeft->GetSize(); \
+AutoPtr<Array<T_ElemResult> > pArrayResult(new Array<T_ElemResult>(cnt)); \
+T_ElemLeft *pLeft = pArrayLeft->GetPointer(); \
+T_ElemResult *pResult = pArrayResult->GetPointer();	\
+for (size_t i = 0; i < cnt; i++, pLeft++, pResult++)
+
+#define LoopOn_NumberAndArray() \
+Number numLeft = valueLeft.GetNumber(); \
+Array<T_ElemRight> *pArrayRight = Object_array<T_ElemRight>::GetObject(valueRight)->GetArray(); \
+size_t cnt = pArrayRight->GetSize(); \
+AutoPtr<Array<T_ElemResult> > pArrayResult(new Array<T_ElemResult>(cnt)); \
+T_ElemRight *pRight = pArrayRight->GetPointer(); \
+T_ElemResult *pResult = pArrayResult->GetPointer();	\
+for (size_t i = 0; i < cnt; i++, pRight++, pResult++)
+
 namespace Gura {
 
 //-----------------------------------------------------------------------------
@@ -1434,70 +1462,83 @@ Gura_ImplementBinaryOperator(Add, any, string)
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
-Value AddArrayArray(Environment &env, Signal sig,
+Value Add_ArrayAndArray(Environment &env, Signal sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
-	Array<T_ElemLeft> *pArrayLeft = Object_array<T_ElemLeft>::GetObject(valueLeft)->GetArray();
-	Array<T_ElemRight> *pArrayRight = Object_array<T_ElemRight>::GetObject(valueRight)->GetArray();
-	size_t cnt = ChooseMin(pArrayLeft->GetSize(), pArrayRight->GetSize());
-	AutoPtr<Array<T_ElemResult> > pArrayResult(new Array<T_ElemResult>(cnt));
-	T_ElemLeft *pLeft = pArrayLeft->GetPointer();
-	T_ElemRight *pRight = pArrayRight->GetPointer();
-	T_ElemResult *pResult = pArrayResult->GetPointer();
-	for (size_t i = 0; i < cnt; i++, pLeft++, pRight++, pResult++) {
+	LoopOn_ArrayAndArray() {
 		*pResult = *pLeft + *pRight;
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemLeft, typename T_ElemResult>
+Value Add_ArrayAndNumber(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	LoopOn_ArrayAndNumber() {
+		*pResult = *pLeft + static_cast<T_ElemLeft>(numRight);
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemRight, typename T_ElemResult>
+Value Add_NumberAndArray(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	LoopOn_NumberAndArray() {
+		*pResult = static_cast<T_ElemRight>(numLeft) + *pRight;
 	}
 	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
 
 Gura_ImplementBinaryOperator(Add, array_char, array_char)
 {
-	return AddArrayArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
+	return Add_ArrayAndArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
 }
 
 Gura_ImplementBinaryOperator(Add, array_uchar, array_uchar)
 {
-	return AddArrayArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
+	return Add_ArrayAndArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
 }
 
 Gura_ImplementBinaryOperator(Add, array_short, array_short)
 {
-	return AddArrayArray<short, short, short>(env, sig, valueLeft, valueRight, VTYPE_array_short);
+	return Add_ArrayAndArray<short, short, short>(env, sig, valueLeft, valueRight, VTYPE_array_short);
 }
 
 Gura_ImplementBinaryOperator(Add, array_ushort, array_ushort)
 {
-	return AddArrayArray<UShort, UShort, UShort>(env, sig, valueLeft, valueRight, VTYPE_array_ushort);
+	return Add_ArrayAndArray<UShort, UShort, UShort>(env, sig, valueLeft, valueRight, VTYPE_array_ushort);
 }
 
 Gura_ImplementBinaryOperator(Add, array_long, array_long)
 {
-	return AddArrayArray<long, long, long>(env, sig, valueLeft, valueRight, VTYPE_array_long);
+	return Add_ArrayAndArray<long, long, long>(env, sig, valueLeft, valueRight, VTYPE_array_long);
 }
 
 Gura_ImplementBinaryOperator(Add, array_ulong, array_ulong)
 {
-	return AddArrayArray<ULong, ULong, ULong>(env, sig, valueLeft, valueRight, VTYPE_array_ulong);
+	return Add_ArrayAndArray<ULong, ULong, ULong>(env, sig, valueLeft, valueRight, VTYPE_array_ulong);
 }
 
 Gura_ImplementBinaryOperator(Add, array_int, array_int)
 {
-	return AddArrayArray<int, int, int>(env, sig, valueLeft, valueRight, VTYPE_array_int);
+	return Add_ArrayAndArray<int, int, int>(env, sig, valueLeft, valueRight, VTYPE_array_int);
 }
 
 Gura_ImplementBinaryOperator(Add, array_uint, array_uint)
 {
-	return AddArrayArray<UInt, UInt, UInt>(env, sig, valueLeft, valueRight, VTYPE_array_uint);
+	return Add_ArrayAndArray<UInt, UInt, UInt>(env, sig, valueLeft, valueRight, VTYPE_array_uint);
 }
 
 Gura_ImplementBinaryOperator(Add, array_float, array_float)
 {
-	return AddArrayArray<float, float, float>(env, sig, valueLeft, valueRight, VTYPE_array_float);
+	return Add_ArrayAndArray<float, float, float>(env, sig, valueLeft, valueRight, VTYPE_array_float);
 }
 
 Gura_ImplementBinaryOperator(Add, array_double, array_double)
 {
-	return AddArrayArray<double, double, double>(env, sig, valueLeft, valueRight, VTYPE_array_double);
+	return Add_ArrayAndArray<double, double, double>(env, sig, valueLeft, valueRight, VTYPE_array_double);
 }
 
 //-----------------------------------------------------------------------------
@@ -1629,70 +1670,83 @@ Gura_ImplementBinaryOperator(Sub, pointer, pointer)
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
-Value SubArrayArray(Environment &env, Signal sig,
+Value Sub_ArrayAndArray(Environment &env, Signal sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
-	Array<T_ElemLeft> *pArrayLeft = Object_array<T_ElemLeft>::GetObject(valueLeft)->GetArray();
-	Array<T_ElemRight> *pArrayRight = Object_array<T_ElemRight>::GetObject(valueRight)->GetArray();
-	size_t cnt = ChooseMin(pArrayLeft->GetSize(), pArrayRight->GetSize());
-	AutoPtr<Array<T_ElemResult> > pArrayResult(new Array<T_ElemResult>(cnt));
-	T_ElemLeft *pLeft = pArrayLeft->GetPointer();
-	T_ElemRight *pRight = pArrayRight->GetPointer();
-	T_ElemResult *pResult = pArrayResult->GetPointer();
-	for (size_t i = 0; i < cnt; i++, pLeft++, pRight++, pResult++) {
+	LoopOn_ArrayAndArray() {
 		*pResult = *pLeft - *pRight;
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemLeft, typename T_ElemResult>
+Value Sub_ArrayAndNumber(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	LoopOn_ArrayAndNumber() {
+		*pResult = *pLeft - static_cast<T_ElemLeft>(numRight);
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemRight, typename T_ElemResult>
+Value Sub_NumberAndArray(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	LoopOn_NumberAndArray() {
+		*pResult = static_cast<T_ElemRight>(numLeft) - *pRight;
 	}
 	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
 
 Gura_ImplementBinaryOperator(Sub, array_char, array_char)
 {
-	return SubArrayArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
+	return Sub_ArrayAndArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
 }
 
 Gura_ImplementBinaryOperator(Sub, array_uchar, array_uchar)
 {
-	return SubArrayArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
+	return Sub_ArrayAndArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
 }
 
 Gura_ImplementBinaryOperator(Sub, array_short, array_short)
 {
-	return SubArrayArray<short, short, short>(env, sig, valueLeft, valueRight, VTYPE_array_short);
+	return Sub_ArrayAndArray<short, short, short>(env, sig, valueLeft, valueRight, VTYPE_array_short);
 }
 
 Gura_ImplementBinaryOperator(Sub, array_ushort, array_ushort)
 {
-	return SubArrayArray<UShort, UShort, UShort>(env, sig, valueLeft, valueRight, VTYPE_array_ushort);
+	return Sub_ArrayAndArray<UShort, UShort, UShort>(env, sig, valueLeft, valueRight, VTYPE_array_ushort);
 }
 
 Gura_ImplementBinaryOperator(Sub, array_long, array_long)
 {
-	return SubArrayArray<long, long, long>(env, sig, valueLeft, valueRight, VTYPE_array_long);
+	return Sub_ArrayAndArray<long, long, long>(env, sig, valueLeft, valueRight, VTYPE_array_long);
 }
 
 Gura_ImplementBinaryOperator(Sub, array_ulong, array_ulong)
 {
-	return SubArrayArray<ULong, ULong, ULong>(env, sig, valueLeft, valueRight, VTYPE_array_ulong);
+	return Sub_ArrayAndArray<ULong, ULong, ULong>(env, sig, valueLeft, valueRight, VTYPE_array_ulong);
 }
 
 Gura_ImplementBinaryOperator(Sub, array_int, array_int)
 {
-	return SubArrayArray<int, int, int>(env, sig, valueLeft, valueRight, VTYPE_array_int);
+	return Sub_ArrayAndArray<int, int, int>(env, sig, valueLeft, valueRight, VTYPE_array_int);
 }
 
 Gura_ImplementBinaryOperator(Sub, array_uint, array_uint)
 {
-	return SubArrayArray<UInt, UInt, UInt>(env, sig, valueLeft, valueRight, VTYPE_array_uint);
+	return Sub_ArrayAndArray<UInt, UInt, UInt>(env, sig, valueLeft, valueRight, VTYPE_array_uint);
 }
 
 Gura_ImplementBinaryOperator(Sub, array_float, array_float)
 {
-	return SubArrayArray<float, float, float>(env, sig, valueLeft, valueRight, VTYPE_array_float);
+	return Sub_ArrayAndArray<float, float, float>(env, sig, valueLeft, valueRight, VTYPE_array_float);
 }
 
 Gura_ImplementBinaryOperator(Sub, array_double, array_double)
 {
-	return SubArrayArray<double, double, double>(env, sig, valueLeft, valueRight, VTYPE_array_double);
+	return Sub_ArrayAndArray<double, double, double>(env, sig, valueLeft, valueRight, VTYPE_array_double);
 }
 
 //-----------------------------------------------------------------------------
@@ -1854,70 +1908,83 @@ Gura_ImplementBinaryOperator(Mul, number, binary)
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
-Value MulArrayArray(Environment &env, Signal sig,
+Value Mul_ArrayAndArray(Environment &env, Signal sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
-	Array<T_ElemLeft> *pArrayLeft = Object_array<T_ElemLeft>::GetObject(valueLeft)->GetArray();
-	Array<T_ElemRight> *pArrayRight = Object_array<T_ElemRight>::GetObject(valueRight)->GetArray();
-	size_t cnt = ChooseMin(pArrayLeft->GetSize(), pArrayRight->GetSize());
-	AutoPtr<Array<T_ElemResult> > pArrayResult(new Array<T_ElemResult>(cnt));
-	T_ElemLeft *pLeft = pArrayLeft->GetPointer();
-	T_ElemRight *pRight = pArrayRight->GetPointer();
-	T_ElemResult *pResult = pArrayResult->GetPointer();
-	for (size_t i = 0; i < cnt; i++, pLeft++, pRight++, pResult++) {
+	LoopOn_ArrayAndArray() {
 		*pResult = *pLeft * *pRight;
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemLeft, typename T_ElemResult>
+Value Mul_ArrayAndNumber(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	LoopOn_ArrayAndNumber() {
+		*pResult = *pLeft * static_cast<T_ElemLeft>(numRight);
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemRight, typename T_ElemResult>
+Value Mul_NumberAndArray(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	LoopOn_NumberAndArray() {
+		*pResult = static_cast<T_ElemRight>(numLeft) * *pRight;
 	}
 	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
 
 Gura_ImplementBinaryOperator(Mul, array_char, array_char)
 {
-	return MulArrayArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
+	return Mul_ArrayAndArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
 }
 
 Gura_ImplementBinaryOperator(Mul, array_uchar, array_uchar)
 {
-	return MulArrayArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
+	return Mul_ArrayAndArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
 }
 
 Gura_ImplementBinaryOperator(Mul, array_short, array_short)
 {
-	return MulArrayArray<short, short, short>(env, sig, valueLeft, valueRight, VTYPE_array_short);
+	return Mul_ArrayAndArray<short, short, short>(env, sig, valueLeft, valueRight, VTYPE_array_short);
 }
 
 Gura_ImplementBinaryOperator(Mul, array_ushort, array_ushort)
 {
-	return MulArrayArray<UShort, UShort, UShort>(env, sig, valueLeft, valueRight, VTYPE_array_ushort);
+	return Mul_ArrayAndArray<UShort, UShort, UShort>(env, sig, valueLeft, valueRight, VTYPE_array_ushort);
 }
 
 Gura_ImplementBinaryOperator(Mul, array_long, array_long)
 {
-	return MulArrayArray<long, long, long>(env, sig, valueLeft, valueRight, VTYPE_array_long);
+	return Mul_ArrayAndArray<long, long, long>(env, sig, valueLeft, valueRight, VTYPE_array_long);
 }
 
 Gura_ImplementBinaryOperator(Mul, array_ulong, array_ulong)
 {
-	return MulArrayArray<ULong, ULong, ULong>(env, sig, valueLeft, valueRight, VTYPE_array_ulong);
+	return Mul_ArrayAndArray<ULong, ULong, ULong>(env, sig, valueLeft, valueRight, VTYPE_array_ulong);
 }
 
 Gura_ImplementBinaryOperator(Mul, array_int, array_int)
 {
-	return MulArrayArray<int, int, int>(env, sig, valueLeft, valueRight, VTYPE_array_int);
+	return Mul_ArrayAndArray<int, int, int>(env, sig, valueLeft, valueRight, VTYPE_array_int);
 }
 
 Gura_ImplementBinaryOperator(Mul, array_uint, array_uint)
 {
-	return MulArrayArray<UInt, UInt, UInt>(env, sig, valueLeft, valueRight, VTYPE_array_uint);
+	return Mul_ArrayAndArray<UInt, UInt, UInt>(env, sig, valueLeft, valueRight, VTYPE_array_uint);
 }
 
 Gura_ImplementBinaryOperator(Mul, array_float, array_float)
 {
-	return MulArrayArray<float, float, float>(env, sig, valueLeft, valueRight, VTYPE_array_float);
+	return Mul_ArrayAndArray<float, float, float>(env, sig, valueLeft, valueRight, VTYPE_array_float);
 }
 
 Gura_ImplementBinaryOperator(Mul, array_double, array_double)
 {
-	return MulArrayArray<double, double, double>(env, sig, valueLeft, valueRight, VTYPE_array_double);
+	return Mul_ArrayAndArray<double, double, double>(env, sig, valueLeft, valueRight, VTYPE_array_double);
 }
 
 //-----------------------------------------------------------------------------
@@ -2009,17 +2076,10 @@ Gura_ImplementBinaryOperator(Div, matrix, any)
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
-Value DivArrayArray(Environment &env, Signal sig,
+Value Div_ArrayAndArray(Environment &env, Signal sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
-	Array<T_ElemLeft> *pArrayLeft = Object_array<T_ElemLeft>::GetObject(valueLeft)->GetArray();
-	Array<T_ElemRight> *pArrayRight = Object_array<T_ElemRight>::GetObject(valueRight)->GetArray();
-	size_t cnt = ChooseMin(pArrayLeft->GetSize(), pArrayRight->GetSize());
-	AutoPtr<Array<T_ElemResult> > pArrayResult(new Array<T_ElemResult>(cnt));
-	T_ElemLeft *pLeft = pArrayLeft->GetPointer();
-	T_ElemRight *pRight = pArrayRight->GetPointer();
-	T_ElemResult *pResult = pArrayResult->GetPointer();
-	for (size_t i = 0; i < cnt; i++, pLeft++, pRight++, pResult++) {
+	LoopOn_ArrayAndArray() {
 		if (*pRight == 0) {
 			Operator::SetError_DivideByZero(sig);
 			return Value::Null;
@@ -2029,54 +2089,88 @@ Value DivArrayArray(Environment &env, Signal sig,
 	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
 
+template<typename T_ElemLeft, typename T_ElemResult>
+Value Div_ArrayAndNumber(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	Array<T_ElemLeft> *pArrayLeft = Object_array<T_ElemLeft>::GetObject(valueLeft)->GetArray();
+	Number numRight = valueRight.GetNumber();
+	if (numRight == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return Value::Null;
+	}
+	size_t cnt = pArrayLeft->GetSize();
+	AutoPtr<Array<T_ElemResult> > pArrayResult(new Array<T_ElemResult>(cnt));
+	T_ElemLeft *pLeft = pArrayLeft->GetPointer();
+	T_ElemResult *pResult = pArrayResult->GetPointer();
+	for (size_t i = 0; i < cnt; i++, pLeft++, pResult++) {
+		*pResult = *pLeft / static_cast<T_ElemLeft>(numRight);
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemRight, typename T_ElemResult>
+Value Div_NumberAndArray(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	LoopOn_NumberAndArray() {
+		if (*pRight == 0) {
+			Operator::SetError_DivideByZero(sig);
+			return Value::Null;
+		}
+		*pResult = static_cast<T_ElemRight>(numLeft) / *pRight;
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
 Gura_ImplementBinaryOperator(Div, array_char, array_char)
 {
-	return DivArrayArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
+	return Div_ArrayAndArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
 }
 
 Gura_ImplementBinaryOperator(Div, array_uchar, array_uchar)
 {
-	return DivArrayArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
+	return Div_ArrayAndArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
 }
 
 Gura_ImplementBinaryOperator(Div, array_short, array_short)
 {
-	return DivArrayArray<short, short, short>(env, sig, valueLeft, valueRight, VTYPE_array_short);
+	return Div_ArrayAndArray<short, short, short>(env, sig, valueLeft, valueRight, VTYPE_array_short);
 }
 
 Gura_ImplementBinaryOperator(Div, array_ushort, array_ushort)
 {
-	return DivArrayArray<UShort, UShort, UShort>(env, sig, valueLeft, valueRight, VTYPE_array_ushort);
+	return Div_ArrayAndArray<UShort, UShort, UShort>(env, sig, valueLeft, valueRight, VTYPE_array_ushort);
 }
 
 Gura_ImplementBinaryOperator(Div, array_long, array_long)
 {
-	return DivArrayArray<long, long, long>(env, sig, valueLeft, valueRight, VTYPE_array_long);
+	return Div_ArrayAndArray<long, long, long>(env, sig, valueLeft, valueRight, VTYPE_array_long);
 }
 
 Gura_ImplementBinaryOperator(Div, array_ulong, array_ulong)
 {
-	return DivArrayArray<ULong, ULong, ULong>(env, sig, valueLeft, valueRight, VTYPE_array_ulong);
+	return Div_ArrayAndArray<ULong, ULong, ULong>(env, sig, valueLeft, valueRight, VTYPE_array_ulong);
 }
 
 Gura_ImplementBinaryOperator(Div, array_int, array_int)
 {
-	return DivArrayArray<int, int, int>(env, sig, valueLeft, valueRight, VTYPE_array_int);
+	return Div_ArrayAndArray<int, int, int>(env, sig, valueLeft, valueRight, VTYPE_array_int);
 }
 
 Gura_ImplementBinaryOperator(Div, array_uint, array_uint)
 {
-	return DivArrayArray<UInt, UInt, UInt>(env, sig, valueLeft, valueRight, VTYPE_array_uint);
+	return Div_ArrayAndArray<UInt, UInt, UInt>(env, sig, valueLeft, valueRight, VTYPE_array_uint);
 }
 
 Gura_ImplementBinaryOperator(Div, array_float, array_float)
 {
-	return DivArrayArray<float, float, float>(env, sig, valueLeft, valueRight, VTYPE_array_float);
+	return Div_ArrayAndArray<float, float, float>(env, sig, valueLeft, valueRight, VTYPE_array_float);
 }
 
 Gura_ImplementBinaryOperator(Div, array_double, array_double)
 {
-	return DivArrayArray<double, double, double>(env, sig, valueLeft, valueRight, VTYPE_array_double);
+	return Div_ArrayAndArray<double, double, double>(env, sig, valueLeft, valueRight, VTYPE_array_double);
 }
 
 //-----------------------------------------------------------------------------
@@ -2093,17 +2187,10 @@ Gura_ImplementBinaryOperator(Mod, number, number)
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
-Value ModArrayArray(Environment &env, Signal sig,
+Value Mod_ArrayAndArray(Environment &env, Signal sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
-	Array<T_ElemLeft> *pArrayLeft = Object_array<T_ElemLeft>::GetObject(valueLeft)->GetArray();
-	Array<T_ElemRight> *pArrayRight = Object_array<T_ElemRight>::GetObject(valueRight)->GetArray();
-	size_t cnt = ChooseMin(pArrayLeft->GetSize(), pArrayRight->GetSize());
-	AutoPtr<Array<T_ElemResult> > pArrayResult(new Array<T_ElemResult>(cnt));
-	T_ElemLeft *pLeft = pArrayLeft->GetPointer();
-	T_ElemRight *pRight = pArrayRight->GetPointer();
-	T_ElemResult *pResult = pArrayResult->GetPointer();
-	for (size_t i = 0; i < cnt; i++, pLeft++, pRight++, pResult++) {
+	LoopOn_ArrayAndArray() {
 		if (*pRight == 0) {
 			Operator::SetError_DivideByZero(sig);
 			return Value::Null;
@@ -2113,54 +2200,88 @@ Value ModArrayArray(Environment &env, Signal sig,
 	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
 
+template<typename T_ElemLeft, typename T_ElemResult>
+Value Mod_ArrayAndNumber(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	Array<T_ElemLeft> *pArrayLeft = Object_array<T_ElemLeft>::GetObject(valueLeft)->GetArray();
+	Number numRight = valueRight.GetNumber();
+	if (numRight == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return Value::Null;
+	}
+	size_t cnt = pArrayLeft->GetSize();
+	AutoPtr<Array<T_ElemResult> > pArrayResult(new Array<T_ElemResult>(cnt));
+	T_ElemLeft *pLeft = pArrayLeft->GetPointer();
+	T_ElemResult *pResult = pArrayResult->GetPointer();
+	for (size_t i = 0; i < cnt; i++, pLeft++, pResult++) {
+		*pResult = static_cast<T_ElemResult>(::fmod(*pLeft, static_cast<T_ElemLeft>(numRight)));
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemRight, typename T_ElemResult>
+Value Mod_NumberAndArray(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	LoopOn_NumberAndArray() {
+		if (*pRight == 0) {
+			Operator::SetError_DivideByZero(sig);
+			return Value::Null;
+		}
+		*pResult = static_cast<T_ElemResult>(::fmod(static_cast<T_ElemRight>(numLeft), *pRight));
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
 Gura_ImplementBinaryOperator(Mod, array_char, array_char)
 {
-	return ModArrayArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
+	return Mod_ArrayAndArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
 }
 
 Gura_ImplementBinaryOperator(Mod, array_uchar, array_uchar)
 {
-	return ModArrayArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
+	return Mod_ArrayAndArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
 }
 
 Gura_ImplementBinaryOperator(Mod, array_short, array_short)
 {
-	return ModArrayArray<short, short, short>(env, sig, valueLeft, valueRight, VTYPE_array_short);
+	return Mod_ArrayAndArray<short, short, short>(env, sig, valueLeft, valueRight, VTYPE_array_short);
 }
 
 Gura_ImplementBinaryOperator(Mod, array_ushort, array_ushort)
 {
-	return ModArrayArray<UShort, UShort, UShort>(env, sig, valueLeft, valueRight, VTYPE_array_ushort);
+	return Mod_ArrayAndArray<UShort, UShort, UShort>(env, sig, valueLeft, valueRight, VTYPE_array_ushort);
 }
 
 Gura_ImplementBinaryOperator(Mod, array_long, array_long)
 {
-	return ModArrayArray<long, long, long>(env, sig, valueLeft, valueRight, VTYPE_array_long);
+	return Mod_ArrayAndArray<long, long, long>(env, sig, valueLeft, valueRight, VTYPE_array_long);
 }
 
 Gura_ImplementBinaryOperator(Mod, array_ulong, array_ulong)
 {
-	return ModArrayArray<ULong, ULong, ULong>(env, sig, valueLeft, valueRight, VTYPE_array_ulong);
+	return Mod_ArrayAndArray<ULong, ULong, ULong>(env, sig, valueLeft, valueRight, VTYPE_array_ulong);
 }
 
 Gura_ImplementBinaryOperator(Mod, array_int, array_int)
 {
-	return ModArrayArray<int, int, int>(env, sig, valueLeft, valueRight, VTYPE_array_int);
+	return Mod_ArrayAndArray<int, int, int>(env, sig, valueLeft, valueRight, VTYPE_array_int);
 }
 
 Gura_ImplementBinaryOperator(Mod, array_uint, array_uint)
 {
-	return ModArrayArray<UInt, UInt, UInt>(env, sig, valueLeft, valueRight, VTYPE_array_uint);
+	return Mod_ArrayAndArray<UInt, UInt, UInt>(env, sig, valueLeft, valueRight, VTYPE_array_uint);
 }
 
 Gura_ImplementBinaryOperator(Mod, array_float, array_float)
 {
-	return ModArrayArray<float, float, float>(env, sig, valueLeft, valueRight, VTYPE_array_float);
+	return Mod_ArrayAndArray<float, float, float>(env, sig, valueLeft, valueRight, VTYPE_array_float);
 }
 
 Gura_ImplementBinaryOperator(Mod, array_double, array_double)
 {
-	return ModArrayArray<double, double, double>(env, sig, valueLeft, valueRight, VTYPE_array_double);
+	return Mod_ArrayAndArray<double, double, double>(env, sig, valueLeft, valueRight, VTYPE_array_double);
 }
 
 //-----------------------------------------------------------------------------
@@ -2187,70 +2308,83 @@ Gura_ImplementBinaryOperator(Pow, complex, number)
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
-Value PowArrayArray(Environment &env, Signal sig,
+Value Pow_ArrayAndArray(Environment &env, Signal sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
-	Array<T_ElemLeft> *pArrayLeft = Object_array<T_ElemLeft>::GetObject(valueLeft)->GetArray();
-	Array<T_ElemRight> *pArrayRight = Object_array<T_ElemRight>::GetObject(valueRight)->GetArray();
-	size_t cnt = ChooseMin(pArrayLeft->GetSize(), pArrayRight->GetSize());
-	AutoPtr<Array<T_ElemResult> > pArrayResult(new Array<T_ElemResult>(cnt));
-	T_ElemLeft *pLeft = pArrayLeft->GetPointer();
-	T_ElemRight *pRight = pArrayRight->GetPointer();
-	T_ElemResult *pResult = pArrayResult->GetPointer();
-	for (size_t i = 0; i < cnt; i++, pLeft++, pRight++, pResult++) {
+	LoopOn_ArrayAndArray() {
 		*pResult = static_cast<T_ElemResult>(std::pow(static_cast<double>(*pLeft), static_cast<double>(*pRight)));
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemLeft, typename T_ElemResult>
+Value Pow_ArrayAndNumber(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	LoopOn_ArrayAndNumber() {
+		*pResult = static_cast<T_ElemResult>(std::pow(*pLeft, static_cast<T_ElemLeft>(numRight)));
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemRight, typename T_ElemResult>
+Value Pow_NumberAndArray(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	LoopOn_NumberAndArray() {
+		*pResult = static_cast<T_ElemResult>(std::pow(static_cast<T_ElemRight>(numLeft), *pRight));
 	}
 	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
 
 Gura_ImplementBinaryOperator(Pow, array_char, array_char)
 {
-	return PowArrayArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
+	return Pow_ArrayAndArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
 }
 
 Gura_ImplementBinaryOperator(Pow, array_uchar, array_uchar)
 {
-	return PowArrayArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
+	return Pow_ArrayAndArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
 }
 
 Gura_ImplementBinaryOperator(Pow, array_short, array_short)
 {
-	return PowArrayArray<short, short, short>(env, sig, valueLeft, valueRight, VTYPE_array_short);
+	return Pow_ArrayAndArray<short, short, short>(env, sig, valueLeft, valueRight, VTYPE_array_short);
 }
 
 Gura_ImplementBinaryOperator(Pow, array_ushort, array_ushort)
 {
-	return PowArrayArray<UShort, UShort, UShort>(env, sig, valueLeft, valueRight, VTYPE_array_ushort);
+	return Pow_ArrayAndArray<UShort, UShort, UShort>(env, sig, valueLeft, valueRight, VTYPE_array_ushort);
 }
 
 Gura_ImplementBinaryOperator(Pow, array_long, array_long)
 {
-	return PowArrayArray<long, long, long>(env, sig, valueLeft, valueRight, VTYPE_array_long);
+	return Pow_ArrayAndArray<long, long, long>(env, sig, valueLeft, valueRight, VTYPE_array_long);
 }
 
 Gura_ImplementBinaryOperator(Pow, array_ulong, array_ulong)
 {
-	return PowArrayArray<ULong, ULong, ULong>(env, sig, valueLeft, valueRight, VTYPE_array_ulong);
+	return Pow_ArrayAndArray<ULong, ULong, ULong>(env, sig, valueLeft, valueRight, VTYPE_array_ulong);
 }
 
 Gura_ImplementBinaryOperator(Pow, array_int, array_int)
 {
-	return PowArrayArray<int, int, int>(env, sig, valueLeft, valueRight, VTYPE_array_int);
+	return Pow_ArrayAndArray<int, int, int>(env, sig, valueLeft, valueRight, VTYPE_array_int);
 }
 
 Gura_ImplementBinaryOperator(Pow, array_uint, array_uint)
 {
-	return PowArrayArray<UInt, UInt, UInt>(env, sig, valueLeft, valueRight, VTYPE_array_uint);
+	return Pow_ArrayAndArray<UInt, UInt, UInt>(env, sig, valueLeft, valueRight, VTYPE_array_uint);
 }
 
 Gura_ImplementBinaryOperator(Pow, array_float, array_float)
 {
-	return PowArrayArray<float, float, float>(env, sig, valueLeft, valueRight, VTYPE_array_float);
+	return Pow_ArrayAndArray<float, float, float>(env, sig, valueLeft, valueRight, VTYPE_array_float);
 }
 
 Gura_ImplementBinaryOperator(Pow, array_double, array_double)
 {
-	return PowArrayArray<double, double, double>(env, sig, valueLeft, valueRight, VTYPE_array_double);
+	return Pow_ArrayAndArray<double, double, double>(env, sig, valueLeft, valueRight, VTYPE_array_double);
 }
 
 //-----------------------------------------------------------------------------
@@ -2472,60 +2606,73 @@ Gura_ImplementBinaryOperator(And, any, nil)
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
-Value AndArrayArray(Environment &env, Signal sig,
+Value And_ArrayAndArray(Environment &env, Signal sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
-	Array<T_ElemLeft> *pArrayLeft = Object_array<T_ElemLeft>::GetObject(valueLeft)->GetArray();
-	Array<T_ElemRight> *pArrayRight = Object_array<T_ElemRight>::GetObject(valueRight)->GetArray();
-	size_t cnt = ChooseMin(pArrayLeft->GetSize(), pArrayRight->GetSize());
-	AutoPtr<Array<T_ElemResult> > pArrayResult(new Array<T_ElemResult>(cnt));
-	T_ElemLeft *pLeft = pArrayLeft->GetPointer();
-	T_ElemRight *pRight = pArrayRight->GetPointer();
-	T_ElemResult *pResult = pArrayResult->GetPointer();
-	for (size_t i = 0; i < cnt; i++, pLeft++, pRight++, pResult++) {
+	LoopOn_ArrayAndArray() {
 		*pResult = *pLeft & *pRight;
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemLeft, typename T_ElemResult>
+Value And_ArrayAndNumber(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	LoopOn_ArrayAndNumber() {
+		*pResult = *pLeft & static_cast<T_ElemLeft>(numRight);
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemRight, typename T_ElemResult>
+Value And_NumberAndArray(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	LoopOn_NumberAndArray() {
+		*pResult = static_cast<T_ElemRight>(numLeft) & *pRight;
 	}
 	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
 
 Gura_ImplementBinaryOperator(And, array_char, array_char)
 {
-	return AndArrayArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
+	return And_ArrayAndArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
 }
 
 Gura_ImplementBinaryOperator(And, array_uchar, array_uchar)
 {
-	return AndArrayArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
+	return And_ArrayAndArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
 }
 
 Gura_ImplementBinaryOperator(And, array_short, array_short)
 {
-	return AndArrayArray<short, short, short>(env, sig, valueLeft, valueRight, VTYPE_array_short);
+	return And_ArrayAndArray<short, short, short>(env, sig, valueLeft, valueRight, VTYPE_array_short);
 }
 
 Gura_ImplementBinaryOperator(And, array_ushort, array_ushort)
 {
-	return AndArrayArray<UShort, UShort, UShort>(env, sig, valueLeft, valueRight, VTYPE_array_ushort);
+	return And_ArrayAndArray<UShort, UShort, UShort>(env, sig, valueLeft, valueRight, VTYPE_array_ushort);
 }
 
 Gura_ImplementBinaryOperator(And, array_long, array_long)
 {
-	return AndArrayArray<long, long, long>(env, sig, valueLeft, valueRight, VTYPE_array_long);
+	return And_ArrayAndArray<long, long, long>(env, sig, valueLeft, valueRight, VTYPE_array_long);
 }
 
 Gura_ImplementBinaryOperator(And, array_ulong, array_ulong)
 {
-	return AndArrayArray<ULong, ULong, ULong>(env, sig, valueLeft, valueRight, VTYPE_array_ulong);
+	return And_ArrayAndArray<ULong, ULong, ULong>(env, sig, valueLeft, valueRight, VTYPE_array_ulong);
 }
 
 Gura_ImplementBinaryOperator(And, array_int, array_int)
 {
-	return AndArrayArray<int, int, int>(env, sig, valueLeft, valueRight, VTYPE_array_int);
+	return And_ArrayAndArray<int, int, int>(env, sig, valueLeft, valueRight, VTYPE_array_int);
 }
 
 Gura_ImplementBinaryOperator(And, array_uint, array_uint)
 {
-	return AndArrayArray<UInt, UInt, UInt>(env, sig, valueLeft, valueRight, VTYPE_array_uint);
+	return And_ArrayAndArray<UInt, UInt, UInt>(env, sig, valueLeft, valueRight, VTYPE_array_uint);
 }
 
 //-----------------------------------------------------------------------------
@@ -2552,60 +2699,73 @@ Gura_ImplementBinaryOperator(Or, any, nil)
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
-Value OrArrayArray(Environment &env, Signal sig,
+Value Or_ArrayAndArray(Environment &env, Signal sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
-	Array<T_ElemLeft> *pArrayLeft = Object_array<T_ElemLeft>::GetObject(valueLeft)->GetArray();
-	Array<T_ElemRight> *pArrayRight = Object_array<T_ElemRight>::GetObject(valueRight)->GetArray();
-	size_t cnt = ChooseMin(pArrayLeft->GetSize(), pArrayRight->GetSize());
-	AutoPtr<Array<T_ElemResult> > pArrayResult(new Array<T_ElemResult>(cnt));
-	T_ElemLeft *pLeft = pArrayLeft->GetPointer();
-	T_ElemRight *pRight = pArrayRight->GetPointer();
-	T_ElemResult *pResult = pArrayResult->GetPointer();
-	for (size_t i = 0; i < cnt; i++, pLeft++, pRight++, pResult++) {
+	LoopOn_ArrayAndArray() {
 		*pResult = *pLeft | *pRight;
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemLeft, typename T_ElemResult>
+Value Or_ArrayAndNumber(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	LoopOn_ArrayAndNumber() {
+		*pResult = *pLeft | static_cast<T_ElemLeft>(numRight);
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemRight, typename T_ElemResult>
+Value Or_NumberAndArray(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	LoopOn_NumberAndArray() {
+		*pResult = static_cast<T_ElemRight>(numLeft) | *pRight;
 	}
 	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
 
 Gura_ImplementBinaryOperator(Or, array_char, array_char)
 {
-	return OrArrayArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
+	return Or_ArrayAndArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
 }
 
 Gura_ImplementBinaryOperator(Or, array_uchar, array_uchar)
 {
-	return OrArrayArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
+	return Or_ArrayAndArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
 }
 
 Gura_ImplementBinaryOperator(Or, array_short, array_short)
 {
-	return OrArrayArray<short, short, short>(env, sig, valueLeft, valueRight, VTYPE_array_short);
+	return Or_ArrayAndArray<short, short, short>(env, sig, valueLeft, valueRight, VTYPE_array_short);
 }
 
 Gura_ImplementBinaryOperator(Or, array_ushort, array_ushort)
 {
-	return OrArrayArray<UShort, UShort, UShort>(env, sig, valueLeft, valueRight, VTYPE_array_ushort);
+	return Or_ArrayAndArray<UShort, UShort, UShort>(env, sig, valueLeft, valueRight, VTYPE_array_ushort);
 }
 
 Gura_ImplementBinaryOperator(Or, array_long, array_long)
 {
-	return OrArrayArray<long, long, long>(env, sig, valueLeft, valueRight, VTYPE_array_long);
+	return Or_ArrayAndArray<long, long, long>(env, sig, valueLeft, valueRight, VTYPE_array_long);
 }
 
 Gura_ImplementBinaryOperator(Or, array_ulong, array_ulong)
 {
-	return OrArrayArray<ULong, ULong, ULong>(env, sig, valueLeft, valueRight, VTYPE_array_ulong);
+	return Or_ArrayAndArray<ULong, ULong, ULong>(env, sig, valueLeft, valueRight, VTYPE_array_ulong);
 }
 
 Gura_ImplementBinaryOperator(Or, array_int, array_int)
 {
-	return OrArrayArray<int, int, int>(env, sig, valueLeft, valueRight, VTYPE_array_int);
+	return Or_ArrayAndArray<int, int, int>(env, sig, valueLeft, valueRight, VTYPE_array_int);
 }
 
 Gura_ImplementBinaryOperator(Or, array_uint, array_uint)
 {
-	return OrArrayArray<UInt, UInt, UInt>(env, sig, valueLeft, valueRight, VTYPE_array_uint);
+	return Or_ArrayAndArray<UInt, UInt, UInt>(env, sig, valueLeft, valueRight, VTYPE_array_uint);
 }
 
 //-----------------------------------------------------------------------------
@@ -2625,60 +2785,73 @@ Gura_ImplementBinaryOperator(Xor, boolean, boolean)
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
-Value XorArrayArray(Environment &env, Signal sig,
+Value Xor_ArrayAndArray(Environment &env, Signal sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
-	Array<T_ElemLeft> *pArrayLeft = Object_array<T_ElemLeft>::GetObject(valueLeft)->GetArray();
-	Array<T_ElemRight> *pArrayRight = Object_array<T_ElemRight>::GetObject(valueRight)->GetArray();
-	size_t cnt = ChooseMin(pArrayLeft->GetSize(), pArrayRight->GetSize());
-	AutoPtr<Array<T_ElemResult> > pArrayResult(new Array<T_ElemResult>(cnt));
-	T_ElemLeft *pLeft = pArrayLeft->GetPointer();
-	T_ElemRight *pRight = pArrayRight->GetPointer();
-	T_ElemResult *pResult = pArrayResult->GetPointer();
-	for (size_t i = 0; i < cnt; i++, pLeft++, pRight++, pResult++) {
+	LoopOn_ArrayAndArray() {
 		*pResult = *pLeft ^ *pRight;
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemLeft, typename T_ElemResult>
+Value Xor_ArrayAndNumber(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	LoopOn_ArrayAndNumber() {
+		*pResult = *pLeft ^ static_cast<T_ElemLeft>(numRight);
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemRight, typename T_ElemResult>
+Value Xor_NumberAndArray(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	LoopOn_NumberAndArray() {
+		*pResult = static_cast<T_ElemRight>(numLeft) ^ *pRight;
 	}
 	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
 
 Gura_ImplementBinaryOperator(Xor, array_char, array_char)
 {
-	return XorArrayArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
+	return Xor_ArrayAndArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
 }
 
 Gura_ImplementBinaryOperator(Xor, array_uchar, array_uchar)
 {
-	return XorArrayArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
+	return Xor_ArrayAndArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
 }
 
 Gura_ImplementBinaryOperator(Xor, array_short, array_short)
 {
-	return XorArrayArray<short, short, short>(env, sig, valueLeft, valueRight, VTYPE_array_short);
+	return Xor_ArrayAndArray<short, short, short>(env, sig, valueLeft, valueRight, VTYPE_array_short);
 }
 
 Gura_ImplementBinaryOperator(Xor, array_ushort, array_ushort)
 {
-	return XorArrayArray<UShort, UShort, UShort>(env, sig, valueLeft, valueRight, VTYPE_array_ushort);
+	return Xor_ArrayAndArray<UShort, UShort, UShort>(env, sig, valueLeft, valueRight, VTYPE_array_ushort);
 }
 
 Gura_ImplementBinaryOperator(Xor, array_long, array_long)
 {
-	return XorArrayArray<long, long, long>(env, sig, valueLeft, valueRight, VTYPE_array_long);
+	return Xor_ArrayAndArray<long, long, long>(env, sig, valueLeft, valueRight, VTYPE_array_long);
 }
 
 Gura_ImplementBinaryOperator(Xor, array_ulong, array_ulong)
 {
-	return XorArrayArray<ULong, ULong, ULong>(env, sig, valueLeft, valueRight, VTYPE_array_ulong);
+	return Xor_ArrayAndArray<ULong, ULong, ULong>(env, sig, valueLeft, valueRight, VTYPE_array_ulong);
 }
 
 Gura_ImplementBinaryOperator(Xor, array_int, array_int)
 {
-	return XorArrayArray<int, int, int>(env, sig, valueLeft, valueRight, VTYPE_array_int);
+	return Xor_ArrayAndArray<int, int, int>(env, sig, valueLeft, valueRight, VTYPE_array_int);
 }
 
 Gura_ImplementBinaryOperator(Xor, array_uint, array_uint)
 {
-	return XorArrayArray<UInt, UInt, UInt>(env, sig, valueLeft, valueRight, VTYPE_array_uint);
+	return Xor_ArrayAndArray<UInt, UInt, UInt>(env, sig, valueLeft, valueRight, VTYPE_array_uint);
 }
 
 //-----------------------------------------------------------------------------
@@ -2691,60 +2864,73 @@ Gura_ImplementBinaryOperator(Shl, number, number)
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
-Value ShlArrayArray(Environment &env, Signal sig,
+Value Shl_ArrayAndArray(Environment &env, Signal sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
-	Array<T_ElemLeft> *pArrayLeft = Object_array<T_ElemLeft>::GetObject(valueLeft)->GetArray();
-	Array<T_ElemRight> *pArrayRight = Object_array<T_ElemRight>::GetObject(valueRight)->GetArray();
-	size_t cnt = ChooseMin(pArrayLeft->GetSize(), pArrayRight->GetSize());
-	AutoPtr<Array<T_ElemResult> > pArrayResult(new Array<T_ElemResult>(cnt));
-	T_ElemLeft *pLeft = pArrayLeft->GetPointer();
-	T_ElemRight *pRight = pArrayRight->GetPointer();
-	T_ElemResult *pResult = pArrayResult->GetPointer();
-	for (size_t i = 0; i < cnt; i++, pLeft++, pRight++, pResult++) {
+	LoopOn_ArrayAndArray() {
 		*pResult = *pLeft << *pRight;
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemLeft, typename T_ElemResult>
+Value Shl_ArrayAndNumber(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	LoopOn_ArrayAndNumber() {
+		*pResult = *pLeft << static_cast<T_ElemLeft>(numRight);
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemRight, typename T_ElemResult>
+Value Shl_NumberAndArray(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	LoopOn_NumberAndArray() {
+		*pResult = static_cast<T_ElemRight>(numLeft) << *pRight;
 	}
 	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
 
 Gura_ImplementBinaryOperator(Shl, array_char, array_char)
 {
-	return ShlArrayArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
+	return Shl_ArrayAndArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
 }
 
 Gura_ImplementBinaryOperator(Shl, array_uchar, array_uchar)
 {
-	return ShlArrayArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
+	return Shl_ArrayAndArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
 }
 
 Gura_ImplementBinaryOperator(Shl, array_short, array_short)
 {
-	return ShlArrayArray<short, short, short>(env, sig, valueLeft, valueRight, VTYPE_array_short);
+	return Shl_ArrayAndArray<short, short, short>(env, sig, valueLeft, valueRight, VTYPE_array_short);
 }
 
 Gura_ImplementBinaryOperator(Shl, array_ushort, array_ushort)
 {
-	return ShlArrayArray<UShort, UShort, UShort>(env, sig, valueLeft, valueRight, VTYPE_array_ushort);
+	return Shl_ArrayAndArray<UShort, UShort, UShort>(env, sig, valueLeft, valueRight, VTYPE_array_ushort);
 }
 
 Gura_ImplementBinaryOperator(Shl, array_long, array_long)
 {
-	return ShlArrayArray<long, long, long>(env, sig, valueLeft, valueRight, VTYPE_array_long);
+	return Shl_ArrayAndArray<long, long, long>(env, sig, valueLeft, valueRight, VTYPE_array_long);
 }
 
 Gura_ImplementBinaryOperator(Shl, array_ulong, array_ulong)
 {
-	return ShlArrayArray<ULong, ULong, ULong>(env, sig, valueLeft, valueRight, VTYPE_array_ulong);
+	return Shl_ArrayAndArray<ULong, ULong, ULong>(env, sig, valueLeft, valueRight, VTYPE_array_ulong);
 }
 
 Gura_ImplementBinaryOperator(Shl, array_int, array_int)
 {
-	return ShlArrayArray<int, int, int>(env, sig, valueLeft, valueRight, VTYPE_array_int);
+	return Shl_ArrayAndArray<int, int, int>(env, sig, valueLeft, valueRight, VTYPE_array_int);
 }
 
 Gura_ImplementBinaryOperator(Shl, array_uint, array_uint)
 {
-	return ShlArrayArray<UInt, UInt, UInt>(env, sig, valueLeft, valueRight, VTYPE_array_uint);
+	return Shl_ArrayAndArray<UInt, UInt, UInt>(env, sig, valueLeft, valueRight, VTYPE_array_uint);
 }
 
 //-----------------------------------------------------------------------------
@@ -2757,60 +2943,73 @@ Gura_ImplementBinaryOperator(Shr, number, number)
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
-Value ShrArrayArray(Environment &env, Signal sig,
+Value Shr_ArrayAndArray(Environment &env, Signal sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
-	Array<T_ElemLeft> *pArrayLeft = Object_array<T_ElemLeft>::GetObject(valueLeft)->GetArray();
-	Array<T_ElemRight> *pArrayRight = Object_array<T_ElemRight>::GetObject(valueRight)->GetArray();
-	size_t cnt = ChooseMin(pArrayLeft->GetSize(), pArrayRight->GetSize());
-	AutoPtr<Array<T_ElemResult> > pArrayResult(new Array<T_ElemResult>(cnt));
-	T_ElemLeft *pLeft = pArrayLeft->GetPointer();
-	T_ElemRight *pRight = pArrayRight->GetPointer();
-	T_ElemResult *pResult = pArrayResult->GetPointer();
-	for (size_t i = 0; i < cnt; i++, pLeft++, pRight++, pResult++) {
+	LoopOn_ArrayAndArray() {
 		*pResult = *pLeft >> *pRight;
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemLeft, typename T_ElemResult>
+Value Shr_ArrayAndNumber(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	LoopOn_ArrayAndNumber() {
+		*pResult = *pLeft >> static_cast<T_ElemLeft>(numRight);
+	}
+	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemRight, typename T_ElemResult>
+Value Shr_NumberAndArray(Environment &env, Signal sig,
+			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	LoopOn_NumberAndArray() {
+		*pResult = static_cast<T_ElemRight>(numLeft) >> *pRight;
 	}
 	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
 
 Gura_ImplementBinaryOperator(Shr, array_char, array_char)
 {
-	return ShrArrayArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
+	return Shr_ArrayAndArray<char, char, char>(env, sig, valueLeft, valueRight, VTYPE_array_char);
 }
 
 Gura_ImplementBinaryOperator(Shr, array_uchar, array_uchar)
 {
-	return ShrArrayArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
+	return Shr_ArrayAndArray<UChar, UChar, UChar>(env, sig, valueLeft, valueRight, VTYPE_array_uchar);
 }
 
 Gura_ImplementBinaryOperator(Shr, array_short, array_short)
 {
-	return ShrArrayArray<short, short, short>(env, sig, valueLeft, valueRight, VTYPE_array_short);
+	return Shr_ArrayAndArray<short, short, short>(env, sig, valueLeft, valueRight, VTYPE_array_short);
 }
 
 Gura_ImplementBinaryOperator(Shr, array_ushort, array_ushort)
 {
-	return ShrArrayArray<UShort, UShort, UShort>(env, sig, valueLeft, valueRight, VTYPE_array_ushort);
+	return Shr_ArrayAndArray<UShort, UShort, UShort>(env, sig, valueLeft, valueRight, VTYPE_array_ushort);
 }
 
 Gura_ImplementBinaryOperator(Shr, array_long, array_long)
 {
-	return ShrArrayArray<long, long, long>(env, sig, valueLeft, valueRight, VTYPE_array_long);
+	return Shr_ArrayAndArray<long, long, long>(env, sig, valueLeft, valueRight, VTYPE_array_long);
 }
 
 Gura_ImplementBinaryOperator(Shr, array_ulong, array_ulong)
 {
-	return ShrArrayArray<ULong, ULong, ULong>(env, sig, valueLeft, valueRight, VTYPE_array_ulong);
+	return Shr_ArrayAndArray<ULong, ULong, ULong>(env, sig, valueLeft, valueRight, VTYPE_array_ulong);
 }
 
 Gura_ImplementBinaryOperator(Shr, array_int, array_int)
 {
-	return ShrArrayArray<int, int, int>(env, sig, valueLeft, valueRight, VTYPE_array_int);
+	return Shr_ArrayAndArray<int, int, int>(env, sig, valueLeft, valueRight, VTYPE_array_int);
 }
 
 Gura_ImplementBinaryOperator(Shr, array_uint, array_uint)
 {
-	return ShrArrayArray<UInt, UInt, UInt>(env, sig, valueLeft, valueRight, VTYPE_array_uint);
+	return Shr_ArrayAndArray<UInt, UInt, UInt>(env, sig, valueLeft, valueRight, VTYPE_array_uint);
 }
 
 //-----------------------------------------------------------------------------
