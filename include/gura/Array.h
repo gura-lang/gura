@@ -65,16 +65,16 @@ private:
 	inline ~Array() {}
 };
 
-template<> void Array<char>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
-template<> void Array<UChar>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
-template<> void Array<short>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
-template<> void Array<UShort>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
-template<> void Array<long>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
-template<> void Array<ULong>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
-template<> void Array<int>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
-template<> void Array<UInt>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
-template<> void Array<float>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
-template<> void Array<double>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<char>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<UChar>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<short>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<UShort>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<long>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<ULong>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<int>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<UInt>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<float>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<double>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
 
 //-----------------------------------------------------------------------------
 // Iterator_Array
