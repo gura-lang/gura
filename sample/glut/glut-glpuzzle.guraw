@@ -19,11 +19,14 @@ Config = class {
 		this.tbl = tbl
 	}
 	__getitem__(idx:number) = this.tbl[idx]
+	copy(config:Config) = {
+		this.tbl = dim(HEIGHT, WIDTH) {|i, j| config.tbl[i][j]}
+	}
 }
 
 puzzle = class {
-	__init__(backptr:puzzle, solnptr:puzle, pieces:Config,
-							next:puzzle, hashvalue:number) = {
+	__init__(backptr:puzzle:nil => nil, solnptr:puzle:nil => nil, pieces:Config:nil => nil,
+							next:puzzle:nil = nil, hashvalue:number => 0) = {
 		this.backptr:public = backptr
 		this.solnptr:public = solnptr
 		this.pieces:public = pieces
@@ -35,7 +38,7 @@ puzzle = class {
 HASHSIZE = 10691
 
 puzzlelist = class {
-	__init__(puzzle:puzzle, next:puzzlelist) = {
+	__init__(puzzle:puzzle:nil => nil, next:puzzlelist:nil => nil) = {
 		this.puzzle:public = puzzle
 		this.next:public = next
 	}	
@@ -447,7 +450,7 @@ solidifyChain(puzzle:puzzle) = {
 	glutSetWindowTitle(buf);
 }
 
-addConfig(config:Config, back:puzzle) = {
+addConfig(config:Config, back:puzzle:nil) = {
   unsigned hashvalue;
   struct puzzle *newpiece;
   struct puzzlelist *newlistentry;
@@ -469,151 +472,136 @@ addConfig(config:Config, back:puzzle) = {
 		newpiece = newpiece.next;
 	}
 
-  newpiece = (struct puzzle *) malloc(sizeof(struct puzzle));
-  newpiece->next = hashtable[hashvalue % HASHSIZE];
-  newpiece->hashvalue = hashvalue;
-  memcpy(newpiece->pieces, config, HEIGHT * WIDTH);
-  newpiece->backptr = back;
-  newpiece->solnptr = NULL;
-  hashtable[hashvalue % HASHSIZE] = newpiece;
+	newpiece = puzzle()
+	newpiece.next = hashtable[hashvalue % HASHSIZE];
+	newpiece.hashvalue = hashvalue;
+	newpiece.pieces.copy(config);
+	newpiece.backptr = back;
+	newpiece.solnptr = nil;
+	hashtable[hashvalue % HASHSIZE] = newpiece;
 
-  newlistentry = (struct puzzlelist *) malloc(sizeof(struct puzzlelist));
-  newlistentry->puzzle = newpiece;
-  newlistentry->next = NULL;
+	newlistentry = puzzlelist()
+	newlistentry.puzzle = newpiece;
+	newlistentry.next = nil;
 
-  if (lastentry) {
-    lastentry->next = newlistentry;
-  } else {
-    puzzles = newlistentry;
-  }
-  lastentry = newlistentry;
+	if (lastentry) {
+		lastentry.next = newlistentry;
+	} else {
+		puzzles:extern = newlistentry;
+	}
+	lastentry:extern = newlistentry;
 
-  if (back == NULL) {
-    startPuzzle = newpiece;
-  }
-  if (solution(config)) {
-    solidifyChain(newpiece);
-    return 1;
-  }
-  return 0;
+	if (back == nil) {
+		startPuzzle:extern = newpiece;
+	}
+	if (solution(config)) {
+		solidifyChain(newpiece);
+		return(1);
+	}
+	0
 }
 
 /* Checks if a space can move */
-int
-canmove0(Config pieces, int x, int y, int dir, Config newpieces)
-{
-  char piece;
-  int xadd, yadd;
-  int l, m;
+canmove0(pieces:Config, x:number, y:number, dir:number, newpieces:Config) = {
+	int l, m;
 
-  xadd = xadds[dir];
-  yadd = yadds[dir];
+	xadd = xadds[dir];
+	yadd = yadds[dir];
 
-  if (x + xadd < 0 || x + xadd >= WIDTH ||
-    y + yadd < 0 || y + yadd >= HEIGHT)
-    return 0;
-  piece = pieces[y + yadd][x + xadd];
-  if (piece == 0)
-    return 0;
-  memcpy(newpieces, pieces, HEIGHT * WIDTH);
-  for (l = 0; l < WIDTH; l++) {
-    for (m = 0; m < HEIGHT; m++) {
-      if (newpieces[m][l] == piece)
-        newpieces[m][l] = 0;
-    }
-  }
-  xadd = -xadd;
-  yadd = -yadd;
-  for (l = 0; l < WIDTH; l++) {
-    for (m = 0; m < HEIGHT; m++) {
-      if (pieces[m][l] == piece) {
-        int newx, newy;
-
-        newx = l + xadd;
-        newy = m + yadd;
-        if (newx < 0 || newx >= WIDTH ||
-          newy < 0 || newy >= HEIGHT)
-          return 0;
-        if (newpieces[newy][newx] != 0)
-          return 0;
-        newpieces[newy][newx] = piece;
-      }
-    }
-  }
-  return 1;
+	if (x + xadd < 0 || x + xadd >= WIDTH ||
+		y + yadd < 0 || y + yadd >= HEIGHT) {
+		return(false);
+	}
+	piece = pieces[y + yadd][x + xadd];
+	if (piece == 0) {
+		return(false);
+	}
+	newpieces.copy(pieces)
+	repeat(WIDTH) {|l|
+		repeat(HEIGHT) {|m|
+			if (newpieces[m][l] == piece) {
+				newpieces[m][l] = 0;
+			}
+		}
+	}
+	xadd = -xadd;
+	yadd = -yadd;
+	repeat(WIDTH) {|l|
+		repeat(HEIGHT) {|m|
+			if (pieces[m][l] == piece) {
+				newx = l + xadd;
+				newy = m + yadd;
+				if (newx < 0 || newx >= WIDTH ||
+					newy < 0 || newy >= HEIGHT) {
+					return(false);
+				}
+				if (newpieces[newy][newx] != 0) {
+					return(false);
+				}
+				newpieces[newy][newx] = piece;
+			}
+		}
+	}
+	true
 }
 
 /* Checks if a piece can move */
-int
-canmove(Config pieces, int x, int y, int dir, Config newpieces)
-{
-  int xadd, yadd;
+canmove(pieces:Config, x:number, y:number, dir:number, newpieces:Config) = {
+	xadd = xadds[dir];
+	yadd = yadds[dir];
 
-  xadd = xadds[dir];
-  yadd = yadds[dir];
-
-  if (x + xadd < 0 || x + xadd >= WIDTH ||
-    y + yadd < 0 || y + yadd >= HEIGHT)
-    return 0;
-  if (pieces[y + yadd][x + xadd] == pieces[y][x]) {
-    return canmove(pieces, x + xadd, y + yadd, dir, newpieces);
-  }
-  if (pieces[y + yadd][x + xadd] != 0)
-    return 0;
-  return canmove0(pieces, x + xadd, y + yadd, (dir + 2) % 4, newpieces);
+	if (x + xadd < 0 || x + xadd >= WIDTH ||
+		y + yadd < 0 || y + yadd >= HEIGHT) {
+		return(false);
+	}
+	if (pieces[y + yadd][x + xadd] == pieces[y][x]) {
+		return(canmove(pieces, x + xadd, y + yadd, dir, newpieces));
+	}
+	if (pieces[y + yadd][x + xadd] != 0) {
+		return(false);
+	}
+	return(canmove0(pieces, x + xadd, y + yadd, (dir + 2) % 4, newpieces));
 }
 
-int
-generateNewConfigs(struct puzzle *puzzle)
-{
-  int i, j, k;
-  Config pieces;
-  Config newpieces;
-
-  memcpy(pieces, puzzle->pieces, HEIGHT * WIDTH);
-  for (i = 0; i < WIDTH; i++) {
-    for (j = 0; j < HEIGHT; j++) {
-      if (pieces[j][i] == 0) {
-        for (k = 0; k < 4; k++) {
-          if (canmove0(pieces, i, j, k, newpieces)) {
-            if (addConfig(newpieces, puzzle))
-              return 1;
-          }
-        }
-      }
-    }
-  }
-  return 0;
+generateNewConfigs(puzzle:puzzle) = {
+	pieces = Config();
+	newpieces = Config();
+	
+	pieces.copy(puzzle->pieces)
+	repeat(WIDTH) {|i|
+		repeat(HEIGHT) {|j|
+			if (pieces[j][i] == 0) {
+				for (k = 0; k < 4; k++) {
+					if (canmove0(pieces, i, j, k, newpieces)) {
+						if (addConfig(newpieces, puzzle)) {
+							return(true);
+						}
+					}
+				}
+			}
+		}
+	}
+	false
 }
 
-void
-freeSolutions(void)
-{
-  struct puzzlelist *nextpuz;
-  struct puzzle *puzzle, *next;
-  int i;
-
-  while (puzzles) {
-    nextpuz = puzzles->next;
-    free((char *) puzzles);
-    puzzles = nextpuz;
-  }
-  lastentry = NULL;
-  for (i = 0; i < HASHSIZE; i++) {
-    puzzle = hashtable[i];
-    hashtable[i] = NULL;
-    while (puzzle) {
-      next = puzzle->next;
-      free((char *) puzzle);
-      puzzle = next;
-    }
-  }
-  startPuzzle = NULL;
+freeSolutions() = {
+	while (puzzles) {
+		nextpuz = puzzles->next;
+		puzzles:extern = nextpuz;
+	}
+	lastentry:extern = nil;
+	repeat(HASHSIZE) {|i|
+		puzzle = hashtable[i];
+		hashtable[i] = nil;
+		while (puzzle) {
+			next = puzzle.next;
+			puzzle = next;
+		}
+	}
+	startPuzzle:extern = nil;
 }
 
-int
-continueSolving(void)
-{
+continueSolving() = {
   struct puzzle *nextpuz;
   int i, j;
   int movedPiece;
@@ -621,105 +609,98 @@ continueSolving(void)
   int fromx, fromy;
   int tox, toy;
 
-  if (startPuzzle == NULL)
-    return 0;
-  if (startPuzzle->solnptr == NULL) {
-    freeSolutions();
-    return 0;
-  }
-  nextpuz = startPuzzle->solnptr;
-  movedPiece = 0;
-  movedir = 0;
-  for (i = 0; i < HEIGHT; i++) {
-    for (j = 0; j < WIDTH; j++) {
-      if (startPuzzle->pieces[i][j] != nextpuz->pieces[i][j]) {
-        if (startPuzzle->pieces[i][j]) {
-          movedPiece = startPuzzle->pieces[i][j];
-          fromx = j;
-          fromy = i;
-          if (i < HEIGHT - 1 && nextpuz->pieces[i + 1][j] == movedPiece) {
-            movedir = 3;
-          } else {
-            movedir = 2;
-          }
-          goto found_piece;
-        } else {
-          movedPiece = nextpuz->pieces[i][j];
-          if (i < HEIGHT - 1 &&
-            startPuzzle->pieces[i + 1][j] == movedPiece) {
-            fromx = j;
-            fromy = i + 1;
-            movedir = 1;
-          } else {
-            fromx = j + 1;
-            fromy = i;
-            movedir = 0;
-          }
-          goto found_piece;
-        }
-      }
-    }
-  }
-  glutSetWindowTitle("What!  No change?");
-  freeSolutions();
-  return 0;
+	if (startPuzzle == nil) {
+		return(false);
+	}
+	if (startPuzzle.solnptr == nil) {
+		freeSolutions();
+		return(false);
+	}
+	nextpuz = startPuzzle.solnptr;
+	movedPiece = 0;
+	movedir = 0;
+	found_piece = false
+	cross(i in range(HEIGHT), j in range(WIDTH)) {
+		if (startPuzzle.pieces[i][j] != nextpuz.pieces[i][j]) {
+			if (startPuzzle.pieces[i][j]) {
+				movedPiece = startPuzzle.pieces[i][j];
+				fromx = j;
+				fromy = i;
+				if (i < HEIGHT - 1 && nextpuz.pieces[i + 1][j] == movedPiece) {
+					movedir = 3;
+				} else {
+					movedir = 2;
+				}
+				found_piece = true
+				break
+			} else {
+				movedPiece = nextpuz.pieces[i][j];
+				if (i < HEIGHT - 1 &&
+					startPuzzle.pieces[i + 1][j] == movedPiece) {
+					fromx = j;
+					fromy = i + 1;
+					movedir = 1;
+				} else {
+					fromx = j + 1;
+					fromy = i;
+					movedir = 0;
+				}
+				found_piece = true
+				break
+			}
+		}
+	}
+	if (!found_piece) {
+		glutSetWindowTitle("What!  No change?");
+		freeSolutions();
+		return(false);
+	}
+	if (movingPiece == 0) {
+		movingPiece:extern = movedPiece;
+		move_x:extern = fromx;
+		move_y:extern = fromy;
+	}
+	move_x:extern += xadds[movedir] * MOVE_SPEED;
+	move_y:extern += yadds[movedir] * MOVE_SPEED;
 
-found_piece:
-  if (!movingPiece) {
-    movingPiece = movedPiece;
-    move_x = fromx;
-    move_y = fromy;
-  }
-  move_x += xadds[movedir] * MOVE_SPEED;
-  move_y += yadds[movedir] * MOVE_SPEED;
+	tox = fromx + xadds[movedir];
+	toy = fromy + yadds[movedir];
 
-  tox = fromx + xadds[movedir];
-  toy = fromy + yadds[movedir];
-
-  if (move_x > tox - MOVE_SPEED / 2 && move_x < tox + MOVE_SPEED / 2 &&
-    move_y > toy - MOVE_SPEED / 2 && move_y < toy + MOVE_SPEED / 2) {
-    startPuzzle = nextpuz;
-    movingPiece = 0;
-  }
-  memcpy(thePuzzle, startPuzzle->pieces, HEIGHT * WIDTH);
-  changeState();
-  return 1;
+	if (move_x > tox - MOVE_SPEED / 2 && move_x < tox + MOVE_SPEED / 2 &&
+		move_y > toy - MOVE_SPEED / 2 && move_y < toy + MOVE_SPEED / 2) {
+		startPuzzle:extern = nextpuz;
+		movingPiece:extern = 0;
+	}
+	thePuzzle.copy(startPuzzle.pieces)
+	changeState();
+	true
 }
 
-int
-solvePuzzle(void)
-{
-  struct puzzlelist *nextpuz;
-  char buf[256];
-  int i;
-
-  if (solution(thePuzzle)) {
-    glutSetWindowTitle("Puzzle already solved!");
-    return 0;
-  }
-  addConfig(thePuzzle, NULL);
-  i = 0;
-
-  while (puzzles) {
-    i++;
-    if (generateNewConfigs(puzzles->puzzle))
-      break;
-    nextpuz = puzzles->next;
-    free((char *) puzzles);
-    puzzles = nextpuz;
-  }
-  if (puzzles == NULL) {
-    freeSolutions();
-    sprintf(buf, "I can't solve it! (%d positions examined)", i);
-    glutSetWindowTitle(buf);
-    return 1;
-  }
-  return 1;
+solvePuzzle() = {
+	if (solution(thePuzzle)) {
+		glutSetWindowTitle("Puzzle already solved!");
+		return(false);
+	}
+	addConfig(thePuzzle, nil);
+	i = 0;
+	while (puzzles) {
+		i += 1;
+		if (generateNewConfigs(puzzles.puzzle)) {
+			break;
+		}
+		nextpuz = puzzles.next;
+		puzzles = nextpuz;
+	}
+	if (puzzles == nil) {
+		freeSolutions();
+		buf = format("I can't solve it! (%d positions examined)", i);
+		glutSetWindowTitle(buf);
+		return(true);
+	}
+	true
 }
 
-int
-selectPiece(int mousex, int mousey)
-{
+selectPiece(mousex:number, mousey:number) = {
   long hits;
   GLuint selectBuf[1024];
   GLuint closest;
