@@ -182,9 +182,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Algorithm.cpp" />
+    <ClCompile Include="Array.cpp" />
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Binary.cpp" />
     <ClCompile Include="Class.cpp" />
+    <ClCompile Include="Class_array.cpp" />
     <ClCompile Include="Class_audio.cpp" />
     <ClCompile Include="Class_binary.cpp" />
     <ClCompile Include="Class_pointer.cpp" />

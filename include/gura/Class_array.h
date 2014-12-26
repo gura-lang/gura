@@ -155,6 +155,31 @@ public:
 			return ReturnIterator(env, sig, args, pIterator.release());
 		}
 	};
+	// array#dump():void
+	class Func_dump : public Function {
+	private:
+		ValueType _valType;
+	public:
+		Func_dump(Environment &env, ValueType valType) :
+				Function(env, Symbol::Add("dump"), FUNCTYPE_Instance, FLAG_None),
+				_valType(valType) {
+			SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+			DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce);
+			DeclareAttr(Gura_Symbol(upper));
+			AddHelp(
+				Gura_Symbol(en), Help::FMT_markdown,
+				"Prints out a binary dump of the array's content.\n"
+			);
+		}
+		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
+			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
+			bool upperFlag = args.IsSet(Gura_Symbol(upper));
+			Stream *pStream = args.IsValid(0)?
+				&Object_stream::GetObject(args, 0)->GetStream() : env.GetConsole();
+			pArray->Dump(sig, *pStream, upperFlag);
+			return Value::Null;
+		}
+	};
 	// array#fill(value:number):void
 	class Func_fill : public Function {
 	private:
@@ -309,6 +334,7 @@ public:
 			const Symbol *pSymbol = Symbol::Add(funcName.c_str());
 			env.AssignFunction(new Func_ArrayInit(env, pSymbol, GetValueType()));
 		} while (0);
+		AssignFunction(new Func_dump(*this, GetValueType()));
 		AssignFunction(new Func_each(*this, GetValueType()));
 		AssignFunction(new Func_fill(*this, GetValueType()));
 		AssignFunction(new Func_head(*this, GetValueType()));

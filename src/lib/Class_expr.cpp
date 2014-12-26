@@ -14,7 +14,7 @@ Gura_ImplementMethod(expr, is##symbol) { \
 	return Value(Object_expr::GetThisObj(args)->GetExpr()->func()); \
 }
 
-Gura_BeginNameSpace()
+namespace Gura {
 
 //-----------------------------------------------------------------------------
 // Object_expr
@@ -561,4 +561,4 @@ Object *Class_expr::CreateDescendant(Environment &env, Signal sig, Class *pClass
 	return NULL;
 }
 
-Gura_EndNameSpace()
+}
