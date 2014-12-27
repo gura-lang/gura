@@ -133,6 +133,8 @@ testcase('operator') {
 		println(func)
 		a = func([2..11])
 		b = func([1..10])
+		print('+a = '), PrintArray('%2d', +a)
+		print('-a = '), PrintArray('%2d', -a)
 		print('a + b = '), PrintArray('%2d', a + b)
 		print('a - b = '), PrintArray('%2d', a - b)
 		print('a * b = '), PrintArray('%2d', a * b)
