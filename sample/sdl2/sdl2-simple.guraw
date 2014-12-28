@@ -2,8 +2,9 @@
 import(sdl2, sdl)
 
 sdl.Init(sdl.INIT_VIDEO)
-window = sdl.CreateWindow(path.filename(sys.argv[0]),
-	sdl.WINDOWPOS_CENTERED, sdl.WINDOWPOS_CENTERED, 640, 480, 0)
+window = sdl.CreateWindow(
+		path.filename(sys.argv[0]),
+		sdl.WINDOWPOS_CENTERED, sdl.WINDOWPOS_CENTERED, 640, 480, 0)
 renderer = sdl.CreateRenderer(window, -1, 0)
 sdl.SetRenderDrawColor(renderer, 0, 0, 0, 255)
 sdl.RenderClear(renderer)
@@ -12,6 +13,9 @@ sdl.RenderDrawLine(renderer, 10, 10, 630, 470)
 sdl.RenderPresent(renderer)
 repeat {
 	event = sdl.WaitEvent()
-	(event.type == sdl.QUIT) && break
-	(event.type == sdl.KEYDOWN && event.sym == sdl.K_ESCAPE) && break
+	if (event.type == sdl.QUIT) {
+		break
+	} elsif (event.type == sdl.KEYDOWN) {
+		(event.sym == sdl.K_ESCAPE) && break
+	}
 }
