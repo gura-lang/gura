@@ -1,0 +1,44 @@
+#!/usr/bin/env gura
+// This Gura program has been ported from the original C++ code below:
+// https://github.com/crust/sdl2-examples/blob/master/windowtitle.cpp
+
+// setting a window title
+import(sdl2, sdl)
+
+main() = {
+
+	sdl.Init(sdl.INIT_VIDEO); // Init SDL2
+  
+	// Create a window. 
+	window = sdl.CreateWindow(
+			"This will surely be overwritten",
+			sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED, 320, 240, sdl.WINDOW_RESIZABLE
+			);
+  
+	titles = @{ // just for fun, let's make it animate like a marquee and annoy our users
+		"t", "thi", "this w", "this win", "this windo", "this window's", "this window's ti", "this window's title",
+		"chis window's title is", "chih window's title is ", "chih wandnw's title is ", "c  h wandnw'g title is ",
+		"c  h  a  nw'g titln is ", "c  h  a  n  g  i  n ig ", "c  h  a  n  g  i  n  g!", "", 
+		"c  h  a  n  g  i  n  g!", "", "c  h  a  n  g  i  n  g!", "c  h  a  n  g  i  n  g!"
+	};
+  
+    i = 0, t = 0;
+	// Enter the main loop. Press any key or hit the x to exit.
+	while (!(e = sdl.PollEvent()) || (e.type != sdl.QUIT && e.type != sdl.KEYDOWN)) {
+    
+		t += 1
+		if(t % 9 == 0) { // every 9th frame...
+			sdl.SetWindowTitle(window, titles[i]);  // loop through the 
+			i += 1
+			if (i >= titles.len()) { i = 0 } // array of titles
+		}
+    
+		sdl.Delay(10);
+    
+	}
+  
+	sdl.DestroyWindow(window);
+	sdl.Quit();
+}
+
+main()

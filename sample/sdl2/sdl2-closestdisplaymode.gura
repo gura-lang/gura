@@ -1,6 +1,7 @@
 #!/usr/bin/env gura
-
+// This Gura program has been ported from the original C++ code below:
 // https://github.com/crust/sdl2-examples/blob/master/closestdisplaymode.cpp
+
 // Using SDL2's SDL_GetClosestDisplayMode()
 import(sdl2, sdl)
 
@@ -35,12 +36,7 @@ main() = {
 		// ... handle error, clean up and exit
 	}
 	// Wait for a keypress, then exit the program
-	repeat {
-		e = sdl.WaitEvent()
-		if (e && e.type == sdl.KEYDOWN) {
-			break
-		}
-	}
+	while (!(e = sdl.WaitEvent()) || e.type != sdl.KEYDOWN) {}
 	sdl.DestroyWindow(window);
 	sdl.Quit();
 }

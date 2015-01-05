@@ -4550,7 +4550,7 @@ Gura_DeclareFunctionAlias(__CreateRGBSurfaceFrom, "CreateRGBSurfaceFrom")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareArg(env, "pixels", VTYPE_binary, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pixels", VTYPE_any, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "depth", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4566,7 +4566,7 @@ Gura_DeclareFunctionAlias(__CreateRGBSurfaceFrom, "CreateRGBSurfaceFrom")
 
 Gura_ImplementFunction(__CreateRGBSurfaceFrom)
 {
-	const Binary *pixels = &Object_binary::GetObject(args, 0)->GetBinary();
+	Value pixels = args.GetValue(0);
 	int width = args.GetInt(1);
 	int height = args.GetInt(2);
 	int depth = args.GetInt(3);
@@ -4575,11 +4575,17 @@ Gura_ImplementFunction(__CreateRGBSurfaceFrom)
 	Uint32 Gmask = args.GetULong(6);
 	Uint32 Bmask = args.GetULong(7);
 	Uint32 Amask = args.GetULong(8);
-	if (pixels->size() < static_cast<size_t>(height * pitch)) {
-		sig.SetError(ERR_ValueError, "pixels doesn not contain enough data");
+	void *_pixels = NULL;
+	if (pixels.IsType(VTYPE_array_uchar)) {
+		_pixels = Object_array<UChar>::GetObject(pixels)->GetArray()->GetPointer();
+	} else if (pixels.IsType(VTYPE_array_ushort)) {
+		_pixels = Object_array<UShort>::GetObject(pixels)->GetArray()->GetPointer();
+	} else if (pixels.IsType(VTYPE_array_ulong)) {
+		_pixels = Object_array<ULong>::GetObject(pixels)->GetArray()->GetPointer();
+	} else {
+		Declaration::SetError_InvalidArgument(sig);
 		return Value::Null;
 	}
-	void *_pixels = const_cast<char *>(pixels->data());
 	SDL_Surface *_rtn = SDL_CreateRGBSurfaceFrom(_pixels, width, height,
 								depth, pitch, Rmask, Gmask, Bmask, Amask);
 	if (_rtn == NULL) {
@@ -6189,8 +6195,8 @@ Gura_DeclareFunctionAlias(__CreateCursor, "CreateCursor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareArg(env, "data", VTYPE_binary, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "mask", VTYPE_binary, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "data", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "mask", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "w", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "h", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "hot_x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6202,23 +6208,23 @@ Gura_DeclareFunctionAlias(__CreateCursor, "CreateCursor")
 
 Gura_ImplementFunction(__CreateCursor)
 {
-	const Binary *data = &Object_binary::GetObject(args, 0)->GetBinary();
-	const Binary *mask = &Object_binary::GetObject(args, 1)->GetBinary();
+	Array<UChar> *data = Object_array<UChar>::GetObject(args, 0)->GetArray();
+	Array<UChar> *mask = Object_array<UChar>::GetObject(args, 1)->GetArray();
 	int w = args.GetInt(2);
 	int h = args.GetInt(3);
 	int hot_x = args.GetInt(4);
 	int hot_y = args.GetInt(5);
 	size_t bytesLeast = int((w + 7) / 8) * h;
-	if (data->size() < bytesLeast) {
+	if (data->GetSize() < bytesLeast) {
 		sig.SetError(ERR_ValueError, "data has insufficient content");
 		return Value::Null;
 	}
-	if (mask->size() < bytesLeast) {
+	if (mask->GetSize() < bytesLeast) {
 		sig.SetError(ERR_ValueError, "mask has insufficient content");
 		return Value::Null;
 	}
-	const Uint8 *_data = reinterpret_cast<const Uint8 *>(data->data());
-	const Uint8 *_mask = reinterpret_cast<const Uint8 *>(mask->data());
+	const Uint8 *_data = reinterpret_cast<const Uint8 *>(data->GetPointer());
+	const Uint8 *_mask = reinterpret_cast<const Uint8 *>(mask->GetPointer());
 	SDL_Cursor *_rtn = SDL_CreateCursor(_data, _mask, w, h, hot_x, hot_y);
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
