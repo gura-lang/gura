@@ -32,8 +32,8 @@ func(a, b, c, d, e%, f*) = {}
 
 ======== #2 ========
 
-+ [`complex, `number, `rational, `matrix, `timedelta]
-- [`complex, `number, `rational, `matrix, `timedelta]
++ [`complex, `number, `rational, `array@char, `array@uchar, `array@short, `array@ushort, `array@long, `array@ulong, `array@int, `array@uint, `array@float, `array@double, `matrix, `timedelta]
+- [`complex, `number, `rational, `array@char, `array@uchar, `array@short, `array@ushort, `array@long, `array@ulong, `array@int, `array@uint, `array@float, `array@double, `matrix, `timedelta]
 ~ [`number]
 ! [`any]
 .. [`number]

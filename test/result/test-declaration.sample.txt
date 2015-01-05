@@ -275,6 +275,7 @@ args
   isset(symbol:symbol)
   quit_trailer():void
 array@char
+  dump(stream?:stream):void:[upper]
   each() {block?}
   fill(value:number):map:void
   head(n:number):map {block?}
@@ -282,6 +283,7 @@ array@char
   paste(offset:number, src:array@char):map
   tail(n:number):map {block?}
 array@double
+  dump(stream?:stream):void:[upper]
   each() {block?}
   fill(value:number):map:void
   head(n:number):map {block?}
@@ -289,6 +291,7 @@ array@double
   paste(offset:number, src:array@double):map
   tail(n:number):map {block?}
 array@float
+  dump(stream?:stream):void:[upper]
   each() {block?}
   fill(value:number):map:void
   head(n:number):map {block?}
@@ -296,6 +299,7 @@ array@float
   paste(offset:number, src:array@float):map
   tail(n:number):map {block?}
 array@int
+  dump(stream?:stream):void:[upper]
   each() {block?}
   fill(value:number):map:void
   head(n:number):map {block?}
@@ -303,6 +307,7 @@ array@int
   paste(offset:number, src:array@int):map
   tail(n:number):map {block?}
 array@long
+  dump(stream?:stream):void:[upper]
   each() {block?}
   fill(value:number):map:void
   head(n:number):map {block?}
@@ -310,6 +315,7 @@ array@long
   paste(offset:number, src:array@long):map
   tail(n:number):map {block?}
 array@short
+  dump(stream?:stream):void:[upper]
   each() {block?}
   fill(value:number):map:void
   head(n:number):map {block?}
@@ -317,6 +323,7 @@ array@short
   paste(offset:number, src:array@short):map
   tail(n:number):map {block?}
 array@uchar
+  dump(stream?:stream):void:[upper]
   each() {block?}
   fill(value:number):map:void
   head(n:number):map {block?}
@@ -324,6 +331,7 @@ array@uchar
   paste(offset:number, src:array@uchar):map
   tail(n:number):map {block?}
 array@uint
+  dump(stream?:stream):void:[upper]
   each() {block?}
   fill(value:number):map:void
   head(n:number):map {block?}
@@ -331,6 +339,7 @@ array@uint
   paste(offset:number, src:array@uint):map
   tail(n:number):map {block?}
 array@ulong
+  dump(stream?:stream):void:[upper]
   each() {block?}
   fill(value:number):map:void
   head(n:number):map {block?}
@@ -338,6 +347,7 @@ array@ulong
   paste(offset:number, src:array@ulong):map
   tail(n:number):map {block?}
 array@ushort
+  dump(stream?:stream):void:[upper]
   each() {block?}
   fill(value:number):map:void
   head(n:number):map {block?}
