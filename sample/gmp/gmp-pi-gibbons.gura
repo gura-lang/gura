@@ -21,4 +21,4 @@ blockRows = 20
 digits = 1000000
 println('3')
 print(format('%d', generate_pi().offset(1).head(digits)).\
-	fold(10):*join().fold(blockCols):*join(' ').fold(blockRows):*join('\n'), '\n\n')
+	  fold(10):*join().fold(blockCols):*join(' ').fold(blockRows):*join('\n'), '\n\n')
