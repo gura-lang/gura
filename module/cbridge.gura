@@ -297,6 +297,13 @@ typeConvDict = %{
 			nil,
 			nil,
 			'')
+	'any' => TypeConv(
+			'any', 'Once', [],
+			R'''
+			Value ${arg.name} = args.GetValue(${idx});
+			''',
+			nil,
+			nil)
 	'void' => TypeConv(
 			nil, nil, [],
 			nil,

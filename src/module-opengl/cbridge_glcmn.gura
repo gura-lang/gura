@@ -2,13 +2,6 @@
 import(cbridge)
 
 cbridge.AddTypeConvs {
-	'any' => TypeConv(
-			'any', 'Once', [],
-			R'''
-			Value ${arg.name} = args.GetValue(${idx});
-			''',
-			nil,
-			nil)
 	'unsigned_char@:const' => TypeConv(
 			'string', 'Once', [],
 			'const unsigned char *${arg.name} = reinterpret_cast<const unsigned char *>(args.GetString(${idx}));',

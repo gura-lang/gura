@@ -1,0 +1,40 @@
+#!/usr/bin/env gura
+// This Gura program has been ported from the original C++ code below:
+// https://github.com/crust/sdl2-examples/blob/master/createwindow.cpp
+
+// Using SDL2 to create an application window
+import(sdl2, sdl)
+
+main() = {
+
+	sdl.Init(sdl.INIT_VIDEO);   // Initialize SDL2
+  
+	// Create an application window with the following settings:
+	window = sdl.CreateWindow(
+			"An SDL2 window",         //    const char* title
+			sdl.WINDOWPOS_UNDEFINED,  //    int x: initial x position
+			sdl.WINDOWPOS_UNDEFINED,  //    int y: initial y position
+			640,                      //    int w: width, in pixels
+			480,                      //    int h: height, in pixels
+			sdl.WINDOW_SHOWN          //    Uint32 flags: window options, see docs
+			);
+  
+	// Check that the window was successfully made
+	if (window == nil){   
+		// In the event that the window could not be made...
+		print("Could not create window: ", sdl.GetError(), '\n')
+		sdl.Quit(); 
+		sys.exit(1)
+	} 
+    
+	// The window is open: enter program loop (see SDL_PollEvent)
+	sdl.Delay(3000);  // Wait for 3000 milliseconds, for example
+  
+	// Close and destroy the window
+	sdl.DestroyWindow(window); 
+  
+	// Clean up SDL2 and exit the program
+	sdl.Quit(); 
+}
+
+main()

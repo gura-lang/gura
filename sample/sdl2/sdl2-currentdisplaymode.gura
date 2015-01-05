@@ -1,0 +1,33 @@
+#!/usr/bin/env gura
+// This Gura program has been ported from the original C++ code below:
+// https://github.com/crust/sdl2-examples/blob/master/currentdisplaymode.cpp
+
+// Using SDL_GetCurrentDisplayMode()
+import(sdl2, sdl)
+
+main() = {
+
+	sdl.Init(sdl.INIT_VIDEO); 
+  
+	// Get current display mode of all displays.
+	repeat(sdl.GetNumVideoDisplays()) {|i|
+  
+		current = sdl.GetCurrentDisplayMode(i)
+    
+		if (!current) {
+			// In case of error...
+			print("Could not get display mode for video display #", i, ": ", sdl.GetError());
+		} else {
+			// On success, print the current display mode.
+			print("Display #", i,
+				  ": current display mode is ", current.w, 'x', current.h,
+				  "px @ ", current.refresh_rate, "hz. \n")
+			
+		}
+	}
+ 
+	// Clean up and exit the program.
+	sdl.Quit();     
+}
+
+main()
