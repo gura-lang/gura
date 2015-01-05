@@ -69,9 +69,26 @@ Value Object_AudioSpec::DoSetProp(Environment &env, Signal sig,
 //-----------------------------------------------------------------------------
 // Gura interfaces for AudioSpec
 //-----------------------------------------------------------------------------
+// sdl2.AudioSpec()
+Gura_DeclareFunction(AudioSpec)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(AudioSpec)
+{
+	SDL_AudioSpec spec;
+	::memset(&spec, 0x00, sizeof(spec));
+	return Value(new Object_AudioSpec(spec));
+}
+
 // implementation of class AudioSpec
 Gura_ImplementUserClass(AudioSpec)
 {
+	Gura_AssignFunction(AudioSpec);
 }
 
 Gura_EndModuleScope(sdl2)

@@ -78,14 +78,14 @@ Value Object_Rect::DoSetProp(Environment &env, Signal sig,
 //-----------------------------------------------------------------------------
 // Functions
 //-----------------------------------------------------------------------------
-// sdl2.Rect(x:number, y:number, w:number, h:number)
+// sdl2.Rect(x?:number, y?:number, w?:number, h?:number)
 Gura_DeclareFunction(Rect)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "w", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "h", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_None);
+	DeclareArg(env, "w", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_None);
+	DeclareArg(env, "h", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -93,10 +93,10 @@ Gura_DeclareFunction(Rect)
 Gura_ImplementFunction(Rect)
 {
 	SDL_Rect rect;
-	rect.x = args.GetInt(0);
-	rect.y = args.GetInt(1);
-	rect.w = args.GetInt(2);
-	rect.h = args.GetInt(3);
+	rect.x = args.IsValid(0)? args.GetInt(0) : 0;
+	rect.y = args.IsValid(1)? args.GetInt(1) : 0;
+	rect.w = args.IsValid(2)? args.GetInt(2) : 0;
+	rect.h = args.IsValid(3)? args.GetInt(3) : 0;
 	return Value(new Object_Rect(rect));
 }
 

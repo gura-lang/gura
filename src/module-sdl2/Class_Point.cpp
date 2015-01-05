@@ -63,12 +63,12 @@ Value Object_Point::DoSetProp(Environment &env, Signal sig,
 //-----------------------------------------------------------------------------
 // Functions
 //-----------------------------------------------------------------------------
-// sdl2.Point(x:number, y:number)
+// sdl2.Point(x?:number, y?:number)
 Gura_DeclareFunction(Point)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -76,8 +76,8 @@ Gura_DeclareFunction(Point)
 Gura_ImplementFunction(Point)
 {
 	SDL_Point point;
-	point.x = args.GetInt(0);
-	point.y = args.GetInt(1);
+	point.x = args.IsValid(0)? args.GetInt(0) : 0;
+	point.y = args.IsValid(1)? args.GetInt(1) : 0;
 	return Value(new Object_Point(point));
 }
 

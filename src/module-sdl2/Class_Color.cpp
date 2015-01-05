@@ -70,9 +70,31 @@ Value Object_Color::DoSetProp(Environment &env, Signal sig,
 //-----------------------------------------------------------------------------
 // Gura interfaces for Color
 //-----------------------------------------------------------------------------
+// sdl2.Color(r?:number, g?:number, b?:number)
+Gura_DeclareFunction(Color)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "r", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_None);
+	DeclareArg(env, "g", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_None);
+	DeclareArg(env, "b", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(Color)
+{
+	SDL_Color color;
+	color.r = args.IsValid(0)? args.GetInt(0) : 0;
+	color.g = args.IsValid(1)? args.GetInt(1) : 0;
+	color.b = args.IsValid(2)? args.GetInt(2) : 0;
+	return Value(new Object_Color(color));
+}
+
 // implementation of class Color
 Gura_ImplementUserClass(Color)
 {
+	Gura_AssignFunction(Color);
 }
 
 Gura_EndModuleScope(sdl2)

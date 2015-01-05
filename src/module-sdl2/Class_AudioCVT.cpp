@@ -72,9 +72,24 @@ Value Object_AudioCVT::DoSetProp(Environment &env, Signal sig,
 //-----------------------------------------------------------------------------
 // Gura interfaces for AudioCVT
 //-----------------------------------------------------------------------------
+// sdl2.AudioCVT()
+Gura_DeclareFunction(AudioCVT)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(AudioCVT)
+{
+	return Value(new Object_AudioCVT());
+}
+
 // implementation of class AudioCVT
 Gura_ImplementUserClass(AudioCVT)
 {
+	Gura_AssignFunction(AudioCVT);
 }
 
 Gura_EndModuleScope(sdl2)

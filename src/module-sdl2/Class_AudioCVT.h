@@ -14,7 +14,9 @@ private:
 public:
 	Gura_DeclareObjectAccessor(AudioCVT)
 public:
-	inline Object_AudioCVT() : Object(Gura_UserClass(AudioCVT)) {}
+	inline Object_AudioCVT() : Object(Gura_UserClass(AudioCVT)) {
+		::memset(&_cvt, 0x00, sizeof(_cvt));
+	}
 	virtual ~Object_AudioCVT();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
