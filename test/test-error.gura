@@ -1,8 +1,8 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
 
-sys.echo(false)
 println('======== error test ========')
+
 stderrOrg = sys.stderr
 sys.stderr = sys.stdout
 testcase {
@@ -196,6 +196,26 @@ testcase {
 		}
 	]
 	test_errmsg(tests)
+}
+testcase('version check') {
+	[major:number, minor:number, patch:number] = sys.version.split('.')
+	sys.required_version(major, minor, patch)
+	try {
+		sys.required_version(major + 1, minor, patch)
+	} catch {
+		println('expected error occurs')
+	}
+	try {
+		sys.required_version(major, minor + 1, patch)
+	} catch {
+		println('expected error occurs')
+	}
+	try {
+		sys.required_version(major, minor, patch + 1)
+	} catch {
+		println('expected error occurs')
+	}
+		
 }
 try {
 	raise(error.ValueError, 'unhandled error')

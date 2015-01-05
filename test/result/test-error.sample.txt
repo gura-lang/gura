@@ -80,4 +80,10 @@ ValueError: invalid value type
 TypeError: not enough arguments
   [1] block(1, 2, 3)
   [2] f {|a, b, c, d| println('hello') }
+
+======== #9 version check ========
+
+expected error occurs
+expected error occurs
+expected error occurs
 ValueError detected: ValueError: unhandled error
