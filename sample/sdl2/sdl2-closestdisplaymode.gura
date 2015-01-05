@@ -1,0 +1,48 @@
+#!/usr/bin/env gura
+
+// https://github.com/crust/sdl2-examples/blob/master/closestdisplaymode.cpp
+// Using SDL2's SDL_GetClosestDisplayMode()
+import(sdl2, sdl)
+
+main() = {
+	sdl.Init(sdl.INIT_VIDEO);
+	// Declare structures to be filled in.
+	target = sdl.DisplayMode()
+	// Set the target properties.
+	target.w = 600; // weird request, but ok
+	target.h = 500;
+	target.format = 0; // don't care
+	target.refresh_rate = 0; // don't care
+	printf("Requesting: \t%dx%dpx @ %dhz \n", target.w, target.h, target.refresh_rate);
+	// Pass the display mode structures by reference to SDL_GetClosestDisplay
+	// and check that the result is not a null pointer.
+	if (!(closest = sdl.GetClosestDisplayMode(0, target))) {
+		// If the returned pointer is null ...
+		printf("\nNo match was found!\n\n");
+		sdl.Quit();
+		sys.exit(1)
+	}
+	// Otherwise, a display mode close to the target is available.
+	// Access the SDL_DisplayMode structure to see what was received.
+	printf(" Received: \t%dx%dpx @ %dhz \n", closest.w, closest.h, closest.refresh_rate);
+	// Now you can set up your SDL_Window* with SDL_CreateWindow()
+	// and change the display mode with SDL_SetWindowDisplayMode().
+	window = sdl.CreateWindow("SDL2 Window",
+							  sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED,
+							  closest.w, closest.h,
+							  sdl.WINDOW_FULLSCREEN | sdl.WINDOW_OPENGL);
+	if (sdl.SetWindowDisplayMode(window, closest)) {
+		// ... handle error, clean up and exit
+	}
+	// Wait for a keypress, then exit the program
+	repeat {
+		e = sdl.WaitEvent()
+		if (e && e.type == sdl.KEYDOWN) {
+			break
+		}
+	}
+	sdl.DestroyWindow(window);
+	sdl.Quit();
+}
+
+main()
