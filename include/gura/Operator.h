@@ -165,7 +165,8 @@ public:
 	static void SetError_DivideByZero(Signal &sig);
 	static void SetError_MathDiffError(Signal &sig);
 	static void SetError_MathOptimizeError(Signal &sig);
-	static void AssignOperators(Environment &env);
+	static void Initialize(Environment &env);
+	static void AssignBasicOperators(Environment &env);
 };
 
 //-----------------------------------------------------------------------------

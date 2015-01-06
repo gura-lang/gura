@@ -61,6 +61,7 @@ Memory.cpp
 Module.cpp
 OAL.cpp
 Operator.cpp
+OperatorBasic.cpp
 Option.cpp
 Palette.cpp
 Parser.cpp

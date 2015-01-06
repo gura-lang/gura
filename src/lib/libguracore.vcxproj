@@ -242,6 +242,7 @@
     <ClCompile Include="Module.cpp" />
     <ClCompile Include="OAL.cpp" />
     <ClCompile Include="Operator.cpp" />
+    <ClCompile Include="OperatorBasic.cpp" />
     <ClCompile Include="Option.cpp" />
     <ClCompile Include="Palette.cpp" />
     <ClCompile Include="Parser.cpp" />
