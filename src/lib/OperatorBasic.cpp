@@ -1262,7 +1262,7 @@ Value Mod_ArrayAndNumber(Environment &env, Signal sig,
 	T_ElemLeft *pLeft = pArrayLeft->GetPointer();
 	T_ElemResult *pResult = pArrayResult->GetPointer();
 	for (size_t i = 0; i < cnt; i++, pLeft++, pResult++) {
-		*pResult = static_cast<T_ElemResult>(::fmod(*pLeft, static_cast<T_ElemLeft>(numRight)));
+		*pResult = static_cast<T_ElemResult>(::fmod(static_cast<double>(*pLeft), static_cast<double>(numRight)));
 	}
 	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
@@ -1276,7 +1276,7 @@ Value Mod_NumberAndArray(Environment &env, Signal sig,
 			Operator::SetError_DivideByZero(sig);
 			return Value::Null;
 		}
-		*pResult = static_cast<T_ElemResult>(::fmod(static_cast<T_ElemRight>(numLeft), *pRight));
+		*pResult = static_cast<T_ElemResult>(::fmod(static_cast<double>(numLeft), static_cast<double>(*pRight)));
 	}
 	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
@@ -1321,7 +1321,7 @@ Value Pow_ArrayAndNumber(Environment &env, Signal sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayAndNumber() {
-		*pResult = static_cast<T_ElemResult>(std::pow(*pLeft, static_cast<T_ElemLeft>(numRight)));
+		*pResult = static_cast<T_ElemResult>(std::pow(static_cast<double>(*pLeft), static_cast<double>(numRight)));
 	}
 	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
@@ -1331,7 +1331,7 @@ Value Pow_NumberAndArray(Environment &env, Signal sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_NumberAndArray() {
-		*pResult = static_cast<T_ElemResult>(std::pow(static_cast<T_ElemRight>(numLeft), *pRight));
+		*pResult = static_cast<T_ElemResult>(std::pow(static_cast<double>(numLeft), static_cast<double>(*pRight)));
 	}
 	return Value(new Object_array<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
