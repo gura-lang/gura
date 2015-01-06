@@ -1,0 +1,16 @@
+#!/usr/bin/env gura
+import(markdown)
+import(conio)
+
+doc = markdown.document()
+
+doc << [
+	conio.clear
+	conio.getwinsize
+	conio.setcolor
+	conio.moveto
+	conio.waitkey
+]
+
+//doc.render@html(sys.stdout)
+doc.render@console()

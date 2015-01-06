@@ -62,18 +62,18 @@ Gura_DeclareFunction(clear)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "region", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Clears screen."
-	);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Clears the screen.");
 }
 
 // conio.getwinsize()
 Gura_DeclareFunction(getwinsize)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Returns window size as a list [width, height]."
-	);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns the screen size as a list `[width, height]`.");
 }
 
 // conio.setcolor(fg:symbol:nil, bg?:symbol):map:void {block?}
@@ -83,36 +83,37 @@ Gura_DeclareFunction(setcolor)
 	DeclareArg(env, "fg", VTYPE_symbol, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "bg", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Set foreground and background color of text by specifying color symbols.\n"
-	"Available color symbols are as following.\n"
-	"\n"
-	"- `black`\n"
-	"- `blue`\n"
-	"- `green`\n"
-	"- `aqua`\n"
-	"- `cyan`\n"
-	"- `red`\n"
-	"- `purple`\n"
-	"- `magenta`\n"
-	"- `yellow`\n"
-	"- `white`\n"
-	"- `gray`\n"
-	"- `bright_blue`\n"
-	"- `bright_green`\n"
-	"- `bright_aqua`\n"
-	"- `bright_cyan`\n"
-	"- `bright_red`\n"
-	"- `bright_purple`\n"
-	"- `bright_magenta`\n"
-	"- `bright_yellow`\n"
-	"- `bright_white`\n"
-	"\n"
-	"If `fg` is set to nil, foreground color remains unchanged.\n"
-	"If `bg` is omitted or set to nil, background color remains unchanged.\n"
-	"\n"
-	"If block is specified, the color setting only takes effect inside the block.\n"
-	);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Sets foreground and background color of text by specifying a color symbol.\n"
+		"Available color symbols are listed below:\n"
+		"\n"
+		"- `black`\n"
+		"- `blue`\n"
+		"- `green`\n"
+		"- `aqua`\n"
+		"- `cyan`\n"
+		"- `red`\n"
+		"- `purple`\n"
+		"- `magenta`\n"
+		"- `yellow`\n"
+		"- `white`\n"
+		"- `gray`\n"
+		"- `bright_blue`\n"
+		"- `bright_green`\n"
+		"- `bright_aqua`\n"
+		"- `bright_cyan`\n"
+		"- `bright_red`\n"
+		"- `bright_purple`\n"
+		"- `bright_magenta`\n"
+		"- `bright_yellow`\n"
+		"- `bright_white`\n"
+		"\n"
+		"If `fg` is set to nil, the foreground color remains unchanged.\n"
+		"If `bg` is omitted or set to nil, the background color remains unchanged.\n"
+		"\n"
+		"If `block` is specified, the color is changed before evaluating the block,\n"
+		"and then gets back to what has been set when done.\n");
 }
 
 // conio.moveto(x:number, y:number):map:void {block?}
@@ -122,9 +123,13 @@ Gura_DeclareFunction(moveto)
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Moves cursor to specified position."
-	);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Moves cursor to the specified position.\n"
+		"The most top-left position on the screen is represented as `0, 0`.\n"
+		"\n"
+		"If `block` is specified, the cursor is moved before evaluating the block,\n"
+		"and then gets back to where it has been when done.\n");
 }
 
 // conio.waitkey():[raise]
@@ -132,29 +137,30 @@ Gura_DeclareFunction(waitkey)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(raise));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Waits for a keyboard input and returns a character code number associated with the key.\n"
-	"\n"
-	"If `:raise` attribute is specified, Ctrl-C causes a terminate signal.\n"
-	"\n"
-	"Code numbers of some of the special keys are defined as following.\n"
-	"\n"
-	"- `conio.K_BACKSPACE`\n"
-	"- `conio.K_TAB`\n"
-	"- `conio.K_RETURN`\n"
-	"- `conio.K_ESCAPE`\n"
-	"- `conio.K_SPACE`\n"
-	"- `conio.K_UP`\n"
-	"- `conio.K_DOWN`\n"
-	"- `conio.K_RIGHT`\n"
-	"- `conio.K_LEFT`\n"
-	"- `conio.K_INSERT`\n"
-	"- `conio.K_HOME`\n"
-	"- `conio.K_END`\n"
-	"- `conio.K_PAGEUP`\n"
-	"- `conio.K_PAGEDOWN`\n"
-	"- `conio.K_DELETE`\n"
-	);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Waits for a keyboard input and returns a character code number associated with the key.\n"
+		"\n"
+		"If `:raise` attribute is specified, hitting `Ctrl-C` issues a terminating signal\n"
+		"that causes the program done.\n"
+		"\n"
+		"Character code numbers of some of the special keys are defined as below:\n"
+		"\n"
+		"- `conio.K_BACKSPACE`\n"
+		"- `conio.K_TAB`\n"
+		"- `conio.K_RETURN`\n"
+		"- `conio.K_ESCAPE`\n"
+		"- `conio.K_SPACE`\n"
+		"- `conio.K_UP`\n"
+		"- `conio.K_DOWN`\n"
+		"- `conio.K_RIGHT`\n"
+		"- `conio.K_LEFT`\n"
+		"- `conio.K_INSERT`\n"
+		"- `conio.K_HOME`\n"
+		"- `conio.K_END`\n"
+		"- `conio.K_PAGEUP`\n"
+		"- `conio.K_PAGEDOWN`\n"
+		"- `conio.K_DELETE`\n");
 }
 
 #if defined(GURA_ON_MSWIN)
