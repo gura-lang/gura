@@ -352,5 +352,5 @@ doc << r'### cairo\_matrix\_t - Generic matrix operations'
 doc << [
 ]
 
-doc.output_html(fileName)
+doc.render@html(fileName)
 println(fileName, ' was created.')
