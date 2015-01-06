@@ -141,6 +141,18 @@ testcase('operator') {
 		print('a / b = '), PrintArray('%2d', a / b)
 		print('a % b = '), PrintArray('%2d', a % b)
 		print('a ** b = '), PrintArray('%2d', a ** b)
+		print('a + 3 = '), PrintArray('%2d', a + 3)
+		print('a - 3 = '), PrintArray('%2d', a - 3)
+		print('a * 3 = '), PrintArray('%2d', a * 3)
+		print('a / 3 = '), PrintArray('%2d', a / 3)
+		print('a % 3 = '), PrintArray('%2d', a % 3)
+		print('a ** 3 = '), PrintArray('%2d', a ** 3)
+		print('3 + b = '), PrintArray('%2d', 3 + b)
+		print('3 - b = '), PrintArray('%2d', 3 - b)
+		print('3 * b = '), PrintArray('%2d', 3 * b)
+		print('3 / b = '), PrintArray('%2d', 3 / b)
+		print('3 / b = '), PrintArray('%2d', 3 % b)
+		print('3 ** b = '), PrintArray('%2d', 3 ** b)
 		print('a & b = ')
 		try {
 			PrintArray('%2d', a & b)
@@ -156,6 +168,42 @@ testcase('operator') {
 		print('a ^ b = ')
 		try {
 			PrintArray('%2d', a ^ b)
+		} catch {
+			println('error')
+		}
+		print('a & 3 = ')
+		try {
+			PrintArray('%2d', a & 3)
+		} catch {
+			println('error')
+		}
+		print('a | 3 = ')
+		try {
+			PrintArray('%2d', a | 3)
+		} catch {
+			println('error')
+		}
+		print('a ^ 3 = ')
+		try {
+			PrintArray('%2d', a ^ 3)
+		} catch {
+			println('error')
+		}
+		print('3 & b = ')
+		try {
+			PrintArray('%2d', 3 & b)
+		} catch {
+			println('error')
+		}
+		print('3 | b = ')
+		try {
+			PrintArray('%2d', 3 | b)
+		} catch {
+			println('error')
+		}
+		print('3 ^ b = ')
+		try {
+			PrintArray('%2d', 3 ^ b)
 		} catch {
 			println('error')
 		}
