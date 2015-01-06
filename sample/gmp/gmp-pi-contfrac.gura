@@ -2,8 +2,7 @@
 // pi calculation by a continued-fraction
 import(gmp)
 
-generate_pi() = {
-	n0 = 10000
+generate_pi(cntFrac:number) = {
 	//              4
 	// pi = -----------------
 	//               1^2
@@ -13,12 +12,14 @@ generate_pi() = {
 	//                   3^2
 	//              5 + -----
 	//                   ...
-	4L / (n0..1).reduce(2 * n0 + 1) {|n:gmp.mpq, accum:gmp.mpq| (2 * n - 1) + n * n / accum}
+	4L / (cntFrac..1).reduce(2 * cntFrac + 1) {|n:gmp.mpq, accum:gmp.mpq|
+		(2 * n - 1) + n * n / accum
+	}
 }
 
 blockCols = 5
 blockRows = 20
-gmp.mpf.set_default_prec(10000)
-pi = generate_pi()
+gmp.mpf.set_default_prec(100000)
+pi = generate_pi(15000)
 print(format('%.f', pi.numer / pi.denom).split().offset(2).\
 	  fold(10):*join().fold(blockCols):*join(' ').fold(blockRows):*join('\n'), '\n\n')
