@@ -2,6 +2,7 @@
 // OperatorBasic
 //=============================================================================
 #include "stdafx.h"
+#include <math.h>
 
 #define LoopOn_Array() \
 Array<T_Elem> *pArray = Object_array<T_Elem>::GetObject(value)->GetArray(); \
