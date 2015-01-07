@@ -9,11 +9,11 @@
 
 #define GURA_VERSION_MAJOR	0
 #define GURA_VERSION_MINOR	6
-#define GURA_VERSION_PATCH	1
+#define GURA_VERSION_PATCH	2
 
-#define GURA_VERSION	"0.6.1"
+#define GURA_VERSION	"0.6.2"
 
-#define GURA_COPYRIGHT	"Copyright (C) 2011-2014 ypsitau"
+#define GURA_COPYRIGHT	"Copyright (C) 2011-2015 ypsitau"
 
 namespace Gura {
 
