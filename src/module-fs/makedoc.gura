@@ -1,19 +1,23 @@
 #!/usr/bin/env gura
 import(markdown)
-import(conio)
 
-doc = markdown.document()
+makedoc(doc:markdown.document) = {
+	doc << [
+		fs.chdir
+		fs.chmod
+		fs.copy
+		fs.cpdir
+		fs.getcwd
+		fs.mkdir
+		fs.remove
+		fs.rename
+		fs.rmdir
+	]
+}
 
-doc << [
-	fs.chdir
-	fs.chmod
-	fs.copy
-	fs.cpdir
-	fs.getcwd
-	fs.mkdir
-	fs.remove
-	fs.rename
-	fs.rmdir
-]
-
-doc.render@html(sys.stdout)
+if (__name__ == '__main__') {
+	markdown.document {|doc|
+		makedoc(doc)
+		doc.render@html(sys.stdout)
+	}
+}
