@@ -714,27 +714,40 @@ Gura_DeclareFunction(chmod)
 		"There are two formats to specify the mode: one is by a number, and another in a string.\n"
 		"\n"
 		"When specified in a number, following bits are associated with access permissions:\n"
+		"\n"
 		"- `b8 b7 b6` .. Read, write and executable permissions for owners\n"
 		"- `b5 b4 b3` .. Read, write and executable permissions for groups\n"
 		"- `b2 b1 b0` .. Read, write and executable permissions for others\n"
+		"\n"
 		"When set to one, each permission is validated.\n"
 		"\n"
 		"When specified in a string, it accepts a permission directive\n"
 		"in a format of following regular expression\n"
 		"    [ugoa]+([-+=][rwx]+)+\n"
-		"It starts with characters that represent target which permissions are modified as described below:"
+		"It starts with characters that represent target which permissions are modified as described below:\n"
+		"\n"
 		"- `u` .. owners\n"
 		"- `g` .. groups\n"
 		"- `o` .. others\n"
 		"- `a` .. all users\n"
+		"\n"
 		"Then, follows an operation:\n"
 		"- `-` .. remove\n"
 		"- `+` .. append\n"
 		"- `=` .. set\n"
+		"\n"
 		"At last, permission attributes are specified as below:\n"
+		"\n"
 		"- `r` .. read permission\n"
 		"- `w` .. write permission\n"
-		"- `x` .. executable permission\n");
+		"- `x` .. executable permission\n"
+		"\n"
+		"If the modification target is a link file, each platform would have different result:\n"
+		"\n"
+		"- Linux .. Modifies permissions of the link file itself.\n"
+		"           Specifying `:follow_link` attribute would modify permsisions of the target file\n instead.\n"
+		"- MacOS .. Modifies permissions of the target file. Attribute `:follow_link` has no effect.\n"
+		"- Windows .. Modifies permissions of the link file. Attribute `:follow_link` has no effect.\n");
 }
 
 Gura_ImplementFunction(chmod)
@@ -795,7 +808,10 @@ Gura_DeclareFunction(cpdir)
 	DeclareAttr(Gura_UserSymbol(tree));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Copies a directory.");
+		"Copies a directory.\n"
+		"Arguments `src` and `dst` specify source directory and destination directory respectively.\n"
+		"In default, sub directories are not copied.`\n"
+		"Specifying `:tree` attribute would copy all the sub directories in the source.\n");
 }
 
 Gura_ImplementFunction(cpdir)
@@ -835,7 +851,9 @@ Gura_DeclareFunction(mkdir)
 	DeclareAttr(Gura_UserSymbol(tree));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates a directory.");
+		"Creates a directory.\n"
+		"If `pathname` consists of multiple sub directories and some of them still doesn't exist,\n"
+		"an error occurs. Specifying `:tree` attribute would create such directories.\n");
 }
 
 Gura_ImplementFunction(mkdir)
@@ -895,7 +913,8 @@ Gura_DeclareFunction(rmdir)
 	DeclareAttr(Gura_UserSymbol(tree));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Removes a directory.");
+		"Removes a directory. If the directory contains sub directories, an error occurs.\n"
+		"Specifying `:tree` attribute would delete such a directory.\n");
 }
 
 Gura_ImplementFunction(rmdir)
