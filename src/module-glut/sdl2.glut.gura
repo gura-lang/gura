@@ -1,4 +1,5 @@
 #!/usr/bin/env gura
+import(sdl2, sdl)
 
 glutInit(argv[]:string) {block?} = {
 }
