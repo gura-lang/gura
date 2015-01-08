@@ -6,14 +6,6 @@ fileName = 'gura-cairo-e.html'
 
 doc = markdown.document()
 
-operator(`<<).assign(`markdown.document, `function) {|doc, func|
-	doc << '#### cairo.' + func.fullname.replace('_', '\\_')
-	doc << '\n'
-	doc << '`cairo.' +  func.format + '`'
-	doc << '\n'
-	if (help = func.gethelp()) { doc << help.text }
-}
-
 doc << R'''
 # About This Document
 
