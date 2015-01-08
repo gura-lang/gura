@@ -673,7 +673,9 @@ Gura_DeclareFunction(chdir)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "pathname", VTYPE_string);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Changes the current working directory.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Changes the current working directory.");
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -705,7 +707,34 @@ Gura_DeclareFunction(chmod)
 	DeclareArg(env, "mode", VTYPE_any);
 	DeclareArg(env, "pathname", VTYPE_string);
 	DeclareAttr(Gura_UserSymbol(follow_link));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Changes the access mode of a file.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Changes the access mode of a file specified by `pathname`.\n"
+		"\n"
+		"There are two formats to specify the mode: one is by a number, and another in a string.\n"
+		"\n"
+		"When specified in a number, following bits are associated with access permissions:\n"
+		"- `b8 b7 b6` .. Read, write and executable permissions for owners\n"
+		"- `b5 b4 b3` .. Read, write and executable permissions for groups\n"
+		"- `b2 b1 b0` .. Read, write and executable permissions for others\n"
+		"When set to one, each permission is validated.\n"
+		"\n"
+		"When specified in a string, it accepts a permission directive\n"
+		"in a format of following regular expression\n"
+		"    [ugoa]+([-+=][rwx]+)+\n"
+		"It starts with characters that represent target which permissions are modified as described below:"
+		"- `u` .. owners\n"
+		"- `g` .. groups\n"
+		"- `o` .. others\n"
+		"- `a` .. all users\n"
+		"Then, follows an operation:\n"
+		"- `-` .. remove\n"
+		"- `+` .. append\n"
+		"- `=` .. set\n"
+		"At last, permission attributes are specified as below:\n"
+		"- `r` .. read permission\n"
+		"- `w` .. write permission\n"
+		"- `x` .. executable permission\n");
 }
 
 Gura_ImplementFunction(chmod)
@@ -734,7 +763,17 @@ Gura_DeclareFunction(copy)
 	DeclareArg(env, "dst", VTYPE_string);
 	DeclareAttr(Gura_Symbol(overwrite));
 	//DeclareAttr(Gura_Symbol(follow_link));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Copies a file.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Copies a file.\n"
+		"\n"
+		"An argument `src` needs to specify a path name of a file that is to be copied\n"
+		"while `dst` can specify a path name of either a file or a directory.\n"
+		"If `dst` is a directory, the file would be copied into that.\n"
+		"Otherwise, it would create a copy of `src` that has a name specified by `dst`.\n"
+		"\n"
+		"If a destination file already exists, an error occurs.\n"
+		"Specifying an attribute `:overwrite` would overwrite an existing one.\n");
 }
 
 Gura_ImplementFunction(copy)
@@ -754,7 +793,9 @@ Gura_DeclareFunction(cpdir)
 	DeclareArg(env, "src", VTYPE_string);
 	DeclareArg(env, "dst", VTYPE_string);
 	DeclareAttr(Gura_UserSymbol(tree));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Copies a directory.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Copies a directory.");
 }
 
 Gura_ImplementFunction(cpdir)
@@ -775,7 +816,9 @@ Gura_ImplementFunction(cpdir)
 Gura_DeclareFunction(getcwd)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the current working directory.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns the current working directory.");
 }
 
 Gura_ImplementFunction(getcwd)
@@ -790,7 +833,9 @@ Gura_DeclareFunction(mkdir)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	DeclareAttr(Gura_UserSymbol(tree));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Creates a directory.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a directory.");
 }
 
 Gura_ImplementFunction(mkdir)
@@ -810,7 +855,9 @@ Gura_DeclareFunction(remove)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Removes a file from the file system.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Removes a file from the file system.");
 }
 
 Gura_ImplementFunction(remove)
@@ -827,7 +874,9 @@ Gura_DeclareFunction(rename)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "src", VTYPE_string);
 	DeclareArg(env, "dst", VTYPE_string);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Renames a file or directory.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Renames a file or directory.");
 }
 
 Gura_ImplementFunction(rename)
@@ -844,7 +893,9 @@ Gura_DeclareFunction(rmdir)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	DeclareAttr(Gura_UserSymbol(tree));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Removes a directory.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Removes a directory.");
 }
 
 Gura_ImplementFunction(rmdir)
@@ -858,7 +909,6 @@ Gura_ImplementFunction(rmdir)
 	}
 	return Value::Null;
 }
-
 
 // Module entry
 Gura_ModuleEntry()
