@@ -1001,4 +1001,22 @@ void AssignFunctions(Environment &env)
 Gura_EndModuleScope(${renderer.moduleName})
 """.template()
 
-cbridge_glcmn.Renderer('glut', nil).Render(tmplSource, 'Functions.cpp')
+tmplMakeDoc = R"""
+#!/usr/bin/env gura
+import(markdown)
+import(glut) {*}
+
+doc = markdown.document()
+
+doc << [
+	${renderer.funcInfos:*funcNameGura + '\n'}
+]
+
+doc.render@html(sys.stdout)
+""".template()
+
+cbridge_glcmn.Renderer('glut', nil) {|renderer|
+	renderer.Render(tmplSource, 'Functions.cpp')
+	//renderer.Render(tmplMakeDoc, 'makedoc.gura')
+	//fs.chmod('a+x', 'makedoc.gura')
+}

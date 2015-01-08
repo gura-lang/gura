@@ -85,7 +85,7 @@ Help = struct(lang:symbol, format:string, help:string) {
 //------------------------------------------------------------------------------
 FuncInfo = class {
 	public {
-		funcNameC, funcNameGura, args, tmplBody, resultMode, flags, helps
+		moduleName, funcNameC, funcNameGura, args, tmplBody, resultMode, flags, helps
 	}
 	__init__(moduleName:string, decl:expr, funcNameTranslator:function:nil):map = {
 		if (!decl.isassign()) {
@@ -228,6 +228,7 @@ FuncInfo = class {
 		}
 	}
 	MakeCaller() = ('%s(%s)' % [this.funcNameC, this.args:*name.join(', ')])
+	GetFullFuncNameGura() = this.moduleName + '.' + this.funcNameGura
 	PrintError(decl:expr, fmt:string, args*) = {
 		sys.stderr.printf('%s:%d: %s\n',
 				  path.filename(decl.source), decl.lineno, format(fmt, args*))
@@ -256,7 +257,7 @@ FuncInfo = class {
 Renderer = class {
 	__init__(moduleName:string, funcNameTranslator:function:nil) = {
 		this.moduleName:public = moduleName
-		this.funcInfos = FuncInfo(moduleName, decls, funcNameTranslator):list
+		this.funcInfos:public = FuncInfo(moduleName, decls, funcNameTranslator):list
 	}
 	Render(tmplSource:template, fileNameOut:string) = {
 		renderer = this
