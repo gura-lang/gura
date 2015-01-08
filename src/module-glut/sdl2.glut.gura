@@ -1,0 +1,347 @@
+#!/usr/bin/env gura
+
+glutInit(argv[]:string) {block?} = {
+}
+
+glutInitDisplayMode(mode:number):map:void = {
+}
+
+glutInitDisplayString(string:string):map:void = {
+}
+
+glutInitWindowPosition(x:number, y:number):map:void = {
+}
+
+glutInitWindowSize(width:number, height:number):map:void = {
+}
+
+glutMainLoop():void = {
+}
+
+glutCreateWindow(title:string):map {block?} = {
+}
+
+glutCreateSubWindow(win:number, x:number, y:number, width:number, height:number):map {block?} = {
+}
+
+glutDestroyWindow(win:number):map:void = {
+}
+
+glutPostRedisplay():void = {
+}
+
+glutPostWindowRedisplay(win:number):map:void = {
+}
+
+glutSwapBuffers():void = {
+}
+
+glutGetWindow() {block?} = {
+}
+
+glutSetWindow(win:number):map:void = {
+}
+
+glutSetWindowTitle(title:string):map:void = {
+}
+
+glutSetIconTitle(title:string):map:void = {
+}
+
+glutPositionWindow(x:number, y:number):map:void = {
+}
+
+glutReshapeWindow(width:number, height:number):map:void = {
+}
+
+glutPopWindow():void = {
+}
+
+glutPushWindow():void = {
+}
+
+glutIconifyWindow():void = {
+}
+
+glutShowWindow():void = {
+}
+
+glutHideWindow():void = {
+}
+
+glutFullScreen():void = {
+}
+
+glutSetCursor(cursor:number):map:void = {
+}
+
+glutWarpPointer(x:number, y:number):map:void = {
+}
+
+glutEstablishOverlay():void = {
+}
+
+glutRemoveOverlay():void = {
+}
+
+glutUseLayer(layer:number):map:void = {
+}
+
+glutPostOverlayRedisplay():void = {
+}
+
+glutPostWindowOverlayRedisplay(win:number):map:void = {
+}
+
+glutShowOverlay():void = {
+}
+
+glutHideOverlay():void = {
+}
+
+glutCreateMenu(func:function) {block?} = {
+}
+
+glutDestroyMenu(menu:number):map:void = {
+}
+
+glutGetMenu() {block?} = {
+}
+
+glutSetMenu(menu:number):map:void = {
+}
+
+glutAddMenuEntry(label:string, value:number):map:void = {
+}
+
+glutAddSubMenu(label:string, submenu:number):map:void = {
+}
+
+glutChangeToMenuEntry(item:number, label:string, value:number):map:void = {
+}
+
+glutChangeToSubMenu(item:number, label:string, submenu:number):map:void = {
+}
+
+glutRemoveMenuItem(item:number):map:void = {
+}
+
+glutAttachMenu(button:number):map:void = {
+}
+
+glutDetachMenu(button:number):map:void = {
+}
+
+glutDisplayFunc(func:function:nil):void = {
+}
+
+glutReshapeFunc(func:function:nil):void = {
+}
+
+glutKeyboardFunc(func:function:nil):void = {
+}
+
+glutMouseFunc(func:function:nil):void = {
+}
+
+glutMotionFunc(func:function:nil):void = {
+}
+
+glutPassiveMotionFunc(func:function:nil):void = {
+}
+
+glutEntryFunc(func:function:nil):void = {
+}
+
+glutVisibilityFunc(func:function:nil):void = {
+}
+
+glutIdleFunc(func:function:nil):void = {
+}
+
+glutTimerFunc(millis:number, func:function:nil, value:number):void = {
+}
+
+glutMenuStateFunc(func:function:nil):void = {
+}
+
+glutSpecialFunc(func:function:nil):void = {
+}
+
+glutSpaceballMotionFunc(func:function:nil):void = {
+}
+
+glutSpaceballRotateFunc(func:function:nil):void = {
+}
+
+glutSpaceballButtonFunc(func:function:nil):void = {
+}
+
+glutButtonBoxFunc(func:function:nil):void = {
+}
+
+glutDialsFunc(func:function:nil):void = {
+}
+
+glutTabletMotionFunc(func:function:nil):void = {
+}
+
+glutTabletButtonFunc(func:function:nil):void = {
+}
+
+glutMenuStatusFunc(func:function:nil):void = {
+}
+
+glutOverlayDisplayFunc(func:function:nil):void = {
+}
+
+glutWindowStatusFunc(func:function:nil):void = {
+}
+
+glutKeyboardUpFunc(func:function:nil):void = {
+}
+
+glutSpecialUpFunc(func:function:nil):void = {
+}
+
+glutJoystickFunc(func:function:nil, pollInterval:number):void = {
+}
+
+glutSetColor(ndx:number, red:number, green:number, blue:number):void = {
+}
+
+glutGetColor(ndx:number, component:number):map {block?} = {
+}
+
+glutCopyColormap(win:number):map:void = {
+}
+
+glutGet(type:number):map {block?} = {
+}
+
+glutDeviceGet(type:number):map {block?} = {
+}
+
+glutExtensionSupported(name:string):map {block?} = {
+}
+
+glutGetModifiers() {block?} = {
+}
+
+glutLayerGet(type:number):map {block?} = {
+}
+
+glutGetProcAddress(procName:string):map:void {block?} = {
+}
+
+glutBitmapCharacter(font:glut.Font, character:number):map:void = {
+}
+
+glutBitmapWidth(font:glut.Font, character:number):map {block?} = {
+}
+
+glutStrokeCharacter(font:glut.Font, character:number):map:void = {
+}
+
+glutStrokeWidth(font:glut.Font, character:number):map {block?} = {
+}
+
+glutBitmapLength(font:glut.Font, string:string):map {block?} = {
+}
+
+glutStrokeLength(font:glut.Font, string:string):map {block?} = {
+}
+
+glutWireSphere(radius:number, slices:number, stacks:number):map:void = {
+}
+
+glutSolidSphere(radius:number, slices:number, stacks:number):map:void = {
+}
+
+glutWireCone(base:number, height:number, slices:number, stacks:number):map:void = {
+}
+
+glutSolidCone(base:number, height:number, slices:number, stacks:number):map:void = {
+}
+
+glutWireCube(size:number):map:void = {
+}
+
+glutSolidCube(size:number):map:void = {
+}
+
+glutWireTorus(innerRadius:number, outerRadius:number, sides:number, rings:number):map:void = {
+}
+
+glutSolidTorus(innerRadius:number, outerRadius:number, sides:number, rings:number):map:void = {
+}
+
+glutWireDodecahedron():void = {
+}
+
+glutSolidDodecahedron():void = {
+}
+
+glutWireTeapot(size:number):map:void = {
+}
+
+glutSolidTeapot(size:number):map:void = {
+}
+
+glutWireOctahedron():void = {
+}
+
+glutSolidOctahedron():void = {
+}
+
+glutWireTetrahedron():void = {
+}
+
+glutSolidTetrahedron():void = {
+}
+
+glutWireIcosahedron():void = {
+}
+
+glutSolidIcosahedron():void = {
+}
+
+glutVideoResizeGet(param:number):map {block?} = {
+}
+
+glutSetupVideoResizing():void = {
+}
+
+glutStopVideoResizing():void = {
+}
+
+glutVideoResize(x:number, y:number, width:number, height:number):map:void = {
+}
+
+glutVideoPan(x:number, y:number, width:number, height:number):map:void = {
+}
+
+glutReportErrors():void = {
+}
+
+glutIgnoreKeyRepeat(ignore:number):map:void = {
+}
+
+glutSetKeyRepeat(repeatMode:number):map:void = {
+}
+
+glutForceJoystickFunc():void = {
+}
+
+glutGameModeString(string:string):map:void = {
+}
+
+glutEnterGameMode() {block?} = {
+}
+
+glutLeaveGameMode():void = {
+}
+
+glutGameModeGet(mode:number):map {block?} = {
+}
+
