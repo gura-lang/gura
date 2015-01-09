@@ -2117,9 +2117,9 @@ Gura_DeclareMethod(document, parse)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "str", VTYPE_string);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	""
-	);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(document, parse)
@@ -2134,9 +2134,9 @@ Gura_DeclareMethod(document, read)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	""
-	);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(document, read)
@@ -2225,19 +2225,21 @@ String Object_item::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for markdown.item
 //-----------------------------------------------------------------------------
-// markdown.item#print():void
+// markdown.item#print(indent?:number):void
 Gura_DeclareMethod(item, print)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	""
-	);
+	DeclareArg(env, "indent", VTYPE_number, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(item, print)
 {
 	Item *pItem = Object_item::GetThisObj(args)->GetItem();
-	pItem->Print(sig, *env.GetConsole(), 0);
+	int indentLevel = args.Is_number(0)? args.GetInt(0) : 0;
+	pItem->Print(sig, *env.GetConsole(), indentLevel);
 	return Value::Null;
 }
 

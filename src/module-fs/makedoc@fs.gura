@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(markdown)
 
-render(doc:markdown.document):void = {
+write(doc:markdown.document):void = {
 	doc << [
 		fs.chdir
 		fs.chmod
@@ -17,7 +17,7 @@ render(doc:markdown.document):void = {
 
 if (__name__ == '__main__') {
 	markdown.document {|doc|
-		render(doc)
+		write(doc)
 		doc.render@html(sys.stdout)
 	}
 }
