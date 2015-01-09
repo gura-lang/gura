@@ -2119,7 +2119,7 @@ Gura_DeclareMethod(document, parse)
 	DeclareArg(env, "str", VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Parses a Markdown text in a string.");
 }
 
 Gura_ImplementMethod(document, parse)
@@ -2136,7 +2136,7 @@ Gura_DeclareMethod(document, read)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Parses a Markdown text from a stream.");
 }
 
 Gura_ImplementMethod(document, read)
@@ -2232,7 +2232,8 @@ Gura_DeclareMethod(item, print)
 	DeclareArg(env, "indent", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Prints structured content of item.\n"
+		"Argument `indent` specifies an indentation level and is set to zero when omitted.\n");
 }
 
 Gura_ImplementMethod(item, print)
@@ -2261,9 +2262,11 @@ Gura_DeclareFunction(document)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	SetClassToConstruct(Gura_UserClass(document));
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Returns a markdown.document instance.\n"
-	"If `stream` is specified, the content of the instance shall be initialized with the result of parsing the stream.\n"
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a markdown.document instance.\n"
+		"If `stream` is specified, the content of the instance shall be initialized\n"
+		"with the result of parsing the stream.\n"
 	);
 }
 
@@ -2282,9 +2285,11 @@ Gura_DeclareFunction(setpresenter)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Sets a presentation function that shows helps written in Markdown format.\n"
-	"The function is specified as a block that takes block parameters `|title:string, doc:markdown.document|`.\n"
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Sets a presentation function that shows helps written in Markdown format.\n"
+		"The function is specified as a block that takes block parameters\n"
+		"`|title:string, doc:markdown.document|`.\n"
 	);
 }
 
