@@ -1,0 +1,21 @@
+#!/usr/bin/env gura
+import(markdown)
+
+write(doc:markdown.document) = {
+	doc << [
+		markdown.document.parse
+		markdown.document.read
+	]
+	doc << [
+		markdown.item.print
+	]
+	doc << [
+		//markdown.document
+		markdown.setpresenter
+	]
+	doc
+}
+
+if (__name__ == '__main__') {
+	write(markdown.document()).render@html(sys.stdout)
+}

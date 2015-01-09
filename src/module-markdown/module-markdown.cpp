@@ -2232,7 +2232,7 @@ Gura_DeclareMethod(item, print)
 	DeclareArg(env, "indent", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Prints structured content of item.\n"
+		"Prints structured content of the item.\n"
 		"Argument `indent` specifies an indentation level and is set to zero when omitted.\n");
 }
 
@@ -2264,7 +2264,7 @@ Gura_DeclareFunction(document)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a markdown.document instance.\n"
+		"Returns an instance of `markdown.document`.\n"
 		"If `stream` is specified, the content of the instance shall be initialized\n"
 		"with the result of parsing the stream.\n"
 	);
@@ -2287,8 +2287,8 @@ Gura_DeclareFunction(setpresenter)
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Sets a presentation function that shows helps written in Markdown format.\n"
-		"The function is specified as a block that takes block parameters\n"
+		"Sets a presentation procedure that shows helps written in Markdown format.\n"
+		"The procedure is specified by a block that takes block parameters:\n"
 		"`|title:string, doc:markdown.document|`.\n"
 	);
 }
@@ -2397,6 +2397,8 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClassWithoutPrepare(item, env.LookupClass(VTYPE_object));
 	Gura_UserClass(document)->Prepare(env);
 	Gura_UserClass(item)->Prepare(env);
+	// class reference assignment
+	Gura_AssignValue(item, Value(Gura_UserClass(item)->Reference()));
 	// function assignment
 	Gura_AssignFunction(document);
 	Gura_AssignFunction(setpresenter);
