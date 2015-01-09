@@ -1357,7 +1357,7 @@ Gura_DeclareFunction(help)
 	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Print a help message for the specified function object.");
+		"Prints a help message for the specified function object.");
 }
 
 Gura_ImplementFunction(help)
@@ -1374,6 +1374,9 @@ Gura_DeclareFunction(isdefined)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "identifier", VTYPE_quote);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(isdefined)
@@ -1408,7 +1411,7 @@ Gura_Function(istype_)::Gura_Function(istype_)(
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
 	char buff[1024];
-	::sprintf(buff, "Check if the type of the specified value is %s.",
+	::sprintf(buff, "Returns `true` if the type of the specified `value` is %s, and `false` otherwise.",
 		ValueTypePool::GetInstance()->Lookup(_valType)->MakeFullName().c_str());
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -1451,6 +1454,9 @@ Gura_DeclareFunction(isinstance)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_any);
 	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(isinstance)
@@ -1466,6 +1472,9 @@ Gura_DeclareFunction(classref)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(classref)
@@ -1485,6 +1494,9 @@ Gura_DeclareFunctionAlias(typename_, "typename")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_quote);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(typename_)
@@ -1516,6 +1528,9 @@ Gura_DeclareFunctionAlias(undef_, "undef")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "identifier", VTYPE_quote, OCCUR_OnceOrMore);
 	DeclareAttr(Gura_Symbol(raise));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(undef_)
@@ -1569,6 +1584,9 @@ Gura_DeclareFunction(randseed)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "seed", VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(randseed)
@@ -1583,6 +1601,9 @@ Gura_DeclareFunction(rand)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "range", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(rand)
