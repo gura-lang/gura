@@ -1,0 +1,92 @@
+#!/usr/bin/env gura
+import(markdown)
+import(conio)
+
+write(doc:markdown.document) = {
+	doc << [
+ 		class
+		struct
+		super
+		module
+		public
+		try
+		catch
+		finally
+		if
+		elsif
+		else
+		end
+		switch
+		case
+		default
+		repeat
+		while
+		for
+		cross
+		//break
+		//continue
+		//return
+		raise
+		dim
+		min
+		max
+		choose
+		cond
+		conds
+		import
+		scope
+		locals
+		outers
+		//extern
+		local
+		tostring
+		tonumber
+		tosymbol
+		int
+		ord
+		chr
+		hex
+		print
+		println
+		printf
+		format
+		dir
+		dirtype
+		help
+		isdefined
+		typename
+		undef
+		isnil
+		issymbol
+		isboolean
+		isnumber
+		iscomplex
+		isrational
+		isfunction
+		isstring
+		isbinary
+		islist
+		ismatrix
+		isdict
+		isdatetime
+		istimedelta
+		isiterator
+		isexpr
+		isenvironment
+		iserror
+		isuri
+		issemaphore
+		ismodule
+		isclass
+		istype
+		isinstance
+		classref
+		randseed
+		rand
+	]
+	doc
+}
+
+if (__name__ == '__main__') {
+	write(markdown.document()).render@html(sys.stdout)
+}

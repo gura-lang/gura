@@ -2,15 +2,17 @@
 import(markdown)
 import(conio)
 
-doc = markdown.document()
+write(doc:markdown.document) = {
+	doc << [
+		conio.clear
+		conio.getwinsize
+		conio.setcolor
+		conio.moveto
+		conio.waitkey
+	]
+	doc
+}
 
-doc << [
-	conio.clear
-	conio.getwinsize
-	conio.setcolor
-	conio.moveto
-	conio.waitkey
-]
-
-//doc.render@html(sys.stdout)
-doc.render@console()
+if (__name__ == '__main__') {
+	write(markdown.document()).render@html(sys.stdout)
+}
