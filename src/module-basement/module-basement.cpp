@@ -1477,7 +1477,7 @@ Gura_DeclareFunction(classref)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Looks up a class by a expression of a type name.");
+		"Looks up a class by an expression of a type name.");
 }
 
 Gura_ImplementFunction(classref)
