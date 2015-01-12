@@ -1434,6 +1434,9 @@ Gura_DeclareFunction(istype)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_any);
 	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns `true` if `value` is of the type of `type`, and `false` otherwise.\n");
 }
 
 Gura_ImplementFunction(istype)
@@ -1456,7 +1459,7 @@ Gura_DeclareFunction(isinstance)
 	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns `true` if `value` is an instance of `type` or its descendant, and `false` otherwise.\n");
 }
 
 Gura_ImplementFunction(isinstance)
@@ -1474,7 +1477,7 @@ Gura_DeclareFunction(classref)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Looks up a class by a expression of a type name.");
 }
 
 Gura_ImplementFunction(classref)
