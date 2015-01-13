@@ -45,7 +45,7 @@ Function::Function(Environment &envScope, const Symbol *pSymbol,
 								FunctionType funcType, ULong flags) :
 	_cntRef(1),
 	_pSymbol(pSymbol), _pClassToConstruct(NULL),
-	_pEnvScope(new Environment(envScope)), _pDeclOwner(new DeclarationOwner()),
+	_pEnvScope(Environment::Reference(&envScope)), _pDeclOwner(new DeclarationOwner()),
 	_funcType(funcType), _resultMode(RSLTMODE_Normal), _flags(flags)
 {
 	_blockInfo.occurPattern = OCCUR_Zero;
@@ -426,7 +426,22 @@ void Function::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet
 
 String Function::ToString() const
 {
-	String str(GetName());
+	String str;
+	if (_pEnvScope->IsModule()) {
+		const Module *pModule = dynamic_cast<const Module *>(_pEnvScope.get());
+		str += pModule->GetName();
+		str += ".";
+	} else if (_pEnvScope->IsClass()) {
+		const Class *pClass = dynamic_cast<const Class *>(_pEnvScope.get());
+		str += pClass->MakeValueTypeName();
+		str += (GetType() == FUNCTYPE_Instance)? "#" : ".";
+	} else if (_pEnvScope->IsObject()) {
+		const Object *pObject = dynamic_cast<const Object *>(_pEnvScope.get());
+		const Class *pClass = pObject->GetClass();
+		str += pClass->MakeValueTypeName();
+		str += "#";
+	}
+	str += GetName();
 	if (GetSymbol()->IsFlowControlSymbol()) {
 		str += " ";
 	}

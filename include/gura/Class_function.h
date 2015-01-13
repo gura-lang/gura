@@ -59,7 +59,7 @@ public:
 	virtual Value DoCall(Environment &env, Signal sig, Args &args);
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	Value Eval(Environment &env, Signal sig, ValueList &valListArg) const;
-	String MakePrefix(Signal sig) const;
+	//String MakePrefix(Signal sig) const;
 };
 
 }

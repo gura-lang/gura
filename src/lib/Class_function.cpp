@@ -41,10 +41,11 @@ Value Object_function::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 						dynamic_cast<const FunctionCustom *>(GetFunction());
 		return Value(new Object_expr(env, Expr::Reference(pFuncCustom->GetExprBody())));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(format))) {
-		String str = MakePrefix(sig);
-		if (sig.IsSignalled()) return Value::Null;
-		str += _pFunc->ToString();
-		return Value(str);
+		//String str = MakePrefix(sig);
+		//if (sig.IsSignalled()) return Value::Null;
+		//str += _pFunc->ToString();
+		//return Value(str);
+		return Value(_pFunc->ToString());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(fullname))) {
 		String fullName = GetFullName(sig);
 		if (sig.IsSignalled()) return Value::Null;
@@ -140,19 +141,21 @@ Object *Object_function::Clone() const
 
 String Object_function::GetFullName(Signal sig)
 {
-	String str = MakePrefix(sig);
-	if (sig.IsSignalled()) return String("");
-	str += _pFunc->GetName();
-	return str;
+	//String str = MakePrefix(sig);
+	//if (sig.IsSignalled()) return String("");
+	//str += _pFunc->GetName();
+	//return str;
+	return _pFunc->ToString();
 }
 
 String Object_function::ToString(bool exprFlag)
 {
-	Signal sig;
-	String str = MakePrefix(sig);
-	if (sig.IsSignalled()) return String("");
-	str += _pFunc->ToString();
-	return str;
+	//Signal sig;
+	//String str = MakePrefix(sig);
+	//if (sig.IsSignalled()) return String("");
+	//str += _pFunc->ToString();
+	//return str;
+	return _pFunc->ToString();
 }
 
 void Object_function::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -162,6 +165,7 @@ void Object_function::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 	}
 }
 
+#if 0
 String Object_function::MakePrefix(Signal sig) const
 {
 	String str;
@@ -193,6 +197,7 @@ String Object_function::MakePrefix(Signal sig) const
 	}
 	return str;
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Implementation of functions
