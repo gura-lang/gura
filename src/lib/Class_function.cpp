@@ -47,9 +47,10 @@ Value Object_function::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 		//return Value(str);
 		return Value(_pFunc->ToString());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(fullname))) {
-		String fullName = GetFullName(sig);
-		if (sig.IsSignalled()) return Value::Null;
-		return Value(fullName);
+		//String fullName = GetFullName(sig);
+		//if (sig.IsSignalled()) return Value::Null;
+		//return Value(fullName);
+		return Value(_pFunc->MakeFullName());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(name))) {
 		return Value(GetName());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(symbol))) {
@@ -139,6 +140,7 @@ Object *Object_function::Clone() const
 	return new Object_function(*this);
 }
 
+#if 0
 String Object_function::GetFullName(Signal sig)
 {
 	//String str = MakePrefix(sig);
@@ -147,6 +149,7 @@ String Object_function::GetFullName(Signal sig)
 	//return str;
 	return _pFunc->ToString();
 }
+#endif
 
 String Object_function::ToString(bool exprFlag)
 {

@@ -44,7 +44,7 @@ public:
 	inline void SetThis(const Value &valueThis) { _valueThis = valueThis; }
 	inline Value GetThis() const { return _valueThis; }
 	inline String GetName() const { return _pFunc->GetName(); }
-	virtual String GetFullName(Signal sig);
+	//virtual String GetFullName(Signal sig);
 	virtual String ToString(bool exprFlag);
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,

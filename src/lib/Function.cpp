@@ -424,7 +424,7 @@ void Function::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet
 	}
 }
 
-String Function::ToString() const
+String Function::MakeFullName() const
 {
 	String str;
 	if (_pEnvScope->IsModule()) {
@@ -442,6 +442,12 @@ String Function::ToString() const
 		str += "#";
 	}
 	str += GetName();
+	return str;
+}
+
+String Function::ToString() const
+{
+	String str(MakeFullName());
 	if (GetSymbol()->IsFlowControlSymbol()) {
 		str += " ";
 	}
