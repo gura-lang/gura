@@ -205,6 +205,74 @@ Gura_ImplementClassMethod(function, addhelp)
 	return Value::Null;
 }
 
+// function.getdecls(func:function):map
+Gura_DeclareClassMethod(function, getdecls)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "func", VTYPE_function);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementClassMethod(function, getdecls)
+{
+	const Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
+	Iterator *pIterator = new Iterator_declaration(pFunc->GetDeclOwner().Reference());
+	return Value(new Object_iterator(env, pIterator));
+}
+
+// function.getexpr(func:function):map
+Gura_DeclareClassMethod(function, getexpr)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "func", VTYPE_function);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementClassMethod(function, getexpr)
+{
+	const Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
+	if (!pFunc->IsCustom()) return Value::Null;
+	const FunctionCustom *pFuncCustom =
+					dynamic_cast<const FunctionCustom *>(pFunc);
+	return Value(new Object_expr(env, Expr::Reference(pFuncCustom->GetExprBody())));
+}
+
+// function.getformat(func:function):map
+Gura_DeclareClassMethod(function, getformat)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "func", VTYPE_function);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementClassMethod(function, getformat)
+{
+	const Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
+	return Value(pFunc->ToString());
+}
+
+// function.getfullname(func:function):map
+Gura_DeclareClassMethod(function, getfullname)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "func", VTYPE_function);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementClassMethod(function, getfullname)
+{
+	const Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
+	return Value(pFunc->MakeFullName());
+}
+
 // function.gethelp(func:function, lang?:symbol):map
 Gura_DeclareClassMethod(function, gethelp)
 {
@@ -225,6 +293,38 @@ Gura_ImplementClassMethod(function, gethelp)
 	const Help *pHelp = pFunc->GetHelp(pSymbol, true);
 	if (pHelp == NULL) return Value::Null;
 	return Value(new Object_help(env, pHelp->Reference()));
+}
+
+// function.getname(func:function):map
+Gura_DeclareClassMethod(function, getname)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "func", VTYPE_function);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementClassMethod(function, getname)
+{
+	const Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
+	return Value(pFunc->GetName());
+}
+
+// function.getsymbol(func:function):map
+Gura_DeclareClassMethod(function, getsymbol)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "func", VTYPE_function);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementClassMethod(function, getsymbol)
+{
+	const Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
+	return Value(pFunc->GetSymbol());
 }
 
 // function#mathdiff(var?:symbol)
@@ -269,7 +369,13 @@ void Class_function::Prepare(Environment &env)
 	Gura_AssignFunction(function);
 	Gura_AssignFunctionEx(function, "&");
 	Gura_AssignMethod(function, addhelp);
+	Gura_AssignMethod(function, getdecls);
+	Gura_AssignMethod(function, getexpr);
+	Gura_AssignMethod(function, getformat);
+	Gura_AssignMethod(function, getfullname);
 	Gura_AssignMethod(function, gethelp);
+	Gura_AssignMethod(function, getname);
+	Gura_AssignMethod(function, getsymbol);
 	Gura_AssignMethod(function, mathdiff);
 }
 

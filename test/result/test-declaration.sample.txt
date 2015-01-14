@@ -482,8 +482,14 @@ formatter
   formatter#issharp()
   formatter#isuppercase()
 function
-  function#addhelp(lang:symbol, format:string, help:string):map:void
-  function#gethelp(lang?:symbol):map
+  function.addhelp(func:function, lang:symbol, format:string, help:string):static:map:void
+  function.getdecls(func:function):static:map
+  function.getexpr(func:function):static:map
+  function.getformat(func:function):static:map
+  function.getfullname(func:function):static:map
+  function.gethelp(func:function, lang?:symbol):static:map
+  function.getname(func:function):static:map
+  function.getsymbol(func:function):static:map
   function#mathdiff(var?:symbol):reduce
 help
 image
