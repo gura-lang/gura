@@ -30,10 +30,10 @@ base64:module = <module:base64:<integrated>>
   __name__:string = base64
   __source__:string = <integrated>
   __symbol__:symbol = base64
-  decode(stream:stream:r)
-  encode(stream:stream:r, linelen:number:nil => 76)
-  reader(stream:stream:r)
-  writer(stream:stream:w, linelen:number:nil => 76)
+  base64.decode(stream:stream:r)
+  base64.encode(stream:stream:r, linelen:number:nil => 76)
+  base64.reader(stream:stream:r)
+  base64.writer(stream:stream:w, linelen:number:nil => 76)
 binary(buff*) {block?}
 case(`cond) {block}
 catch(errors*:error):leader:trailer {block}
@@ -54,7 +54,7 @@ codecs:module = <module:codecs:<integrated>>
     __name__:string = chinese
     __source__:string = <integrated>
     __symbol__:symbol = chinese
-  dir()
+  codecs.dir()
   iso8859:module = <module:iso8859:<integrated>>
     __name__:string = iso8859
     __source__:string = <integrated>
@@ -93,15 +93,15 @@ fs:module = <module:fs:<integrated>>
   __name__:string = fs
   __source__:string = <integrated>
   __symbol__:symbol = fs
-  chdir(pathname:string) {block?}
-  chmod(mode, pathname:string):map:void:[follow_link]
-  copy(src:string, dst:string):map:void:[overwrite]
-  cpdir(src:string, dst:string):map:void:[tree]
-  getcwd()
-  mkdir(pathname:string):map:void:[tree]
-  remove(pathname:string):map:void
-  rename(src:string, dst:string):map:void
-  rmdir(pathname:string):map:void:[tree]
+  fs.chdir(pathname:string) {block?}
+  fs.chmod(mode, pathname:string):map:void:[follow_link]
+  fs.copy(src:string, dst:string):map:void:[overwrite]
+  fs.cpdir(src:string, dst:string):map:void:[tree]
+  fs.getcwd()
+  fs.mkdir(pathname:string):map:void:[tree]
+  fs.remove(pathname:string):map:void
+  fs.rename(src:string, dst:string):map:void
+  fs.rmdir(pathname:string):map:void:[tree]
 function(`args*) {block}
 help(func:function, lang?:symbol):map:void
 hex(num:number, digits?:number):map:[upper]
@@ -143,42 +143,42 @@ math:module = <module:math:<integrated>>
   __name__:string = math
   __source__:string = <integrated>
   __symbol__:symbol = math
-  abs(num):map
-  acos(num):map:[deg]
-  arg(num):map:[deg]
-  asin(num):map:[deg]
-  atan(num):map:[deg]
-  atan2(num1, num2):map:[deg]
-  bezier(nums[]+:number)
-  ceil(num):map
-  conj(num):map
-  cos(num):map:[deg]
-  cosh(num):map
-  covariance(a:iterator, b:iterator)
-  cross_product(a[], b[])
-  diff(expr:expr, var:symbol):map {block?}
-  dot_product(a[], b[])
+  math.abs(num):map
+  math.acos(num):map:[deg]
+  math.arg(num):map:[deg]
+  math.asin(num):map:[deg]
+  math.atan(num):map:[deg]
+  math.atan2(num1, num2):map:[deg]
+  math.bezier(nums[]+:number)
+  math.ceil(num):map
+  math.conj(num):map
+  math.cos(num):map:[deg]
+  math.cosh(num):map
+  math.covariance(a:iterator, b:iterator)
+  math.cross_product(a[], b[])
+  math.diff(expr:expr, var:symbol):map {block?}
+  math.dot_product(a[], b[])
   e:number = 2.71828
-  exp(num):map
-  fft(seq[])
-  floor(num):map
-  gcd(a:number, b+:number):map
-  hypot(x, y):map
-  imag(num):map
-  integral()
-  lcm(a:number, b+:number):map
-  least_square(x:iterator, y:iterator, dim:number => 1, var:symbol => `x)
-  log(num):map
-  log10(num):map
-  norm(num):map
-  optimize(expr:expr):map {block?}
+  math.exp(num):map
+  math.fft(seq[])
+  math.floor(num):map
+  math.gcd(a:number, b+:number):map
+  math.hypot(x, y):map
+  math.imag(num):map
+  math.integral()
+  math.lcm(a:number, b+:number):map
+  math.least_square(x:iterator, y:iterator, dim:number => 1, var:symbol => `x)
+  math.log(num):map
+  math.log10(num):map
+  math.norm(num):map
+  math.optimize(expr:expr):map {block?}
   pi:number = 3.14159
-  real(num):map
-  sin(num):map:[deg]
-  sinh(num):map
-  sqrt(num):map
-  tan(num):map:[deg]
-  tanh(num):map
+  math.real(num):map
+  math.sin(num):map:[deg]
+  math.sinh(num):map
+  math.sqrt(num):map
+  math.tan(num):map:[deg]
+  math.tanh(num):map
 matrix(nrows:number, ncols:number, value?) {block?}
 max(values+):map
 min(values+):map
@@ -192,39 +192,39 @@ os:module = <module:os:<integrated>>
   __name__:string = os
   __source__:string = <integrated>
   __symbol__:symbol = os
-  clock()
-  exec(pathname:string, args*:string):map:[fork]
-  fromnative(buff:binary):map
-  getenv(name:string, default?:string):map
-  putenv(name:string, value:string):void
-  redirect(stdin:stream:nil:r, stdout:stream:nil:w, stderr?:stream:w) {block?}
-  sleep(secs:number)
-  symlink(src:string, tgt:string):map:void
-  tonative(str:string):map
-  unsetenv(name:string):void
+  os.clock()
+  os.exec(pathname:string, args*:string):map:[fork]
+  os.fromnative(buff:binary):map
+  os.getenv(name:string, default?:string):map
+  os.putenv(name:string, value:string):void
+  os.redirect(stdin:stream:nil:r, stdout:stream:nil:w, stderr?:stream:w) {block?}
+  os.sleep(secs:number)
+  os.symlink(src:string, tgt:string):map:void
+  os.tonative(str:string):map
+  os.unsetenv(name:string):void
 outers() {block?}
 palette(type) {block?}
 path:module = <module:path:<integrated>>
   __name__:string = path
   __source__:string = <integrated>
   __symbol__:symbol = path
-  absname(name:string):map:[uri]
-  basename(pathname:string):map
-  bottom(pathname:string):map
-  cutbottom(pathname:string):map
-  dir(directory?:directory, pattern*:string):map:flat:[dir,file,stat] {block?}
-  dirname(pathname:string):map
-  exists(pathname:string):map
-  extname(pathname:string):map
-  filename(pathname:string):map
-  glob(pattern:string):map:flat:[dir,file,stat] {block?}
-  join(paths+:string):map:[uri]
-  match(pattern:string, name:string):map
-  regulate(name:string):map:[uri]
-  split(pathname:string):map:[bottom]
-  splitext(pathname:string):map
-  stat(directory:directory):map
-  walk(directory?:directory, maxdepth?:number, pattern*:string):map:flat:[dir,file,stat] {block?}
+  path.absname(name:string):map:[uri]
+  path.basename(pathname:string):map
+  path.bottom(pathname:string):map
+  path.cutbottom(pathname:string):map
+  path.dir(directory?:directory, pattern*:string):map:flat:[dir,file,stat] {block?}
+  path.dirname(pathname:string):map
+  path.exists(pathname:string):map
+  path.extname(pathname:string):map
+  path.filename(pathname:string):map
+  path.glob(pattern:string):map:flat:[dir,file,stat] {block?}
+  path.join(paths+:string):map:[uri]
+  path.match(pattern:string, name:string):map
+  path.regulate(name:string):map:[uri]
+  path.split(pathname:string):map:[bottom]
+  path.splitext(pathname:string):map
+  path.stat(directory:directory):map
+  path.walk(directory?:directory, maxdepth?:number, pattern*:string):map:flat:[dir,file,stat] {block?}
 print(values*):map:void
 printf(format:string, values*):map:void
 println(values*):map:void
@@ -251,11 +251,11 @@ sys:module = <module:sys:<integrated>>
   __name__:string = sys
   __source__:string = <integrated>
   __symbol__:symbol = sys
-  echo(flag:boolean)
-  exit(status?:number)
+  sys.echo(flag:boolean)
+  sys.exit(status?:number)
   ps1:string = >>> 
   ps2:string = ... 
-  required_version(major:number, minor:number, patch:number)
+  sys.required_version(major:number, minor:number, patch:number)
 template(src?:stream:r):map:[lasteol,noindent] {block?}
 timedelta(days:number => 0, secs:number => 0, usecs:number => 0):map {block?}
 tonumber(value):map:[nil,raise,strict,zero]
@@ -271,131 +271,131 @@ xlist(value+)
 xset(iter+:iterator):[and,or,xor]
 any
 args
-  finalize_trailer():void
-  isset(symbol:symbol)
-  quit_trailer():void
+  args#finalize_trailer():void
+  args#isset(symbol:symbol)
+  args#quit_trailer():void
 array@char
-  dump(stream?:stream):void:[upper]
-  each() {block?}
-  fill(value:number):map:void
-  head(n:number):map {block?}
-  offset(n:number):map {block?}
-  paste(offset:number, src:array@char):map
-  tail(n:number):map {block?}
+  array@char#dump(stream?:stream):void:[upper]
+  array@char#each() {block?}
+  array@char#fill(value:number):map:void
+  array@char#head(n:number):map {block?}
+  array@char#offset(n:number):map {block?}
+  array@char#paste(offset:number, src:array@char):map
+  array@char#tail(n:number):map {block?}
 array@double
-  dump(stream?:stream):void:[upper]
-  each() {block?}
-  fill(value:number):map:void
-  head(n:number):map {block?}
-  offset(n:number):map {block?}
-  paste(offset:number, src:array@double):map
-  tail(n:number):map {block?}
+  array@double#dump(stream?:stream):void:[upper]
+  array@double#each() {block?}
+  array@double#fill(value:number):map:void
+  array@double#head(n:number):map {block?}
+  array@double#offset(n:number):map {block?}
+  array@double#paste(offset:number, src:array@double):map
+  array@double#tail(n:number):map {block?}
 array@float
-  dump(stream?:stream):void:[upper]
-  each() {block?}
-  fill(value:number):map:void
-  head(n:number):map {block?}
-  offset(n:number):map {block?}
-  paste(offset:number, src:array@float):map
-  tail(n:number):map {block?}
+  array@float#dump(stream?:stream):void:[upper]
+  array@float#each() {block?}
+  array@float#fill(value:number):map:void
+  array@float#head(n:number):map {block?}
+  array@float#offset(n:number):map {block?}
+  array@float#paste(offset:number, src:array@float):map
+  array@float#tail(n:number):map {block?}
 array@int
-  dump(stream?:stream):void:[upper]
-  each() {block?}
-  fill(value:number):map:void
-  head(n:number):map {block?}
-  offset(n:number):map {block?}
-  paste(offset:number, src:array@int):map
-  tail(n:number):map {block?}
+  array@int#dump(stream?:stream):void:[upper]
+  array@int#each() {block?}
+  array@int#fill(value:number):map:void
+  array@int#head(n:number):map {block?}
+  array@int#offset(n:number):map {block?}
+  array@int#paste(offset:number, src:array@int):map
+  array@int#tail(n:number):map {block?}
 array@long
-  dump(stream?:stream):void:[upper]
-  each() {block?}
-  fill(value:number):map:void
-  head(n:number):map {block?}
-  offset(n:number):map {block?}
-  paste(offset:number, src:array@long):map
-  tail(n:number):map {block?}
+  array@long#dump(stream?:stream):void:[upper]
+  array@long#each() {block?}
+  array@long#fill(value:number):map:void
+  array@long#head(n:number):map {block?}
+  array@long#offset(n:number):map {block?}
+  array@long#paste(offset:number, src:array@long):map
+  array@long#tail(n:number):map {block?}
 array@short
-  dump(stream?:stream):void:[upper]
-  each() {block?}
-  fill(value:number):map:void
-  head(n:number):map {block?}
-  offset(n:number):map {block?}
-  paste(offset:number, src:array@short):map
-  tail(n:number):map {block?}
+  array@short#dump(stream?:stream):void:[upper]
+  array@short#each() {block?}
+  array@short#fill(value:number):map:void
+  array@short#head(n:number):map {block?}
+  array@short#offset(n:number):map {block?}
+  array@short#paste(offset:number, src:array@short):map
+  array@short#tail(n:number):map {block?}
 array@uchar
-  dump(stream?:stream):void:[upper]
-  each() {block?}
-  fill(value:number):map:void
-  head(n:number):map {block?}
-  offset(n:number):map {block?}
-  paste(offset:number, src:array@uchar):map
-  tail(n:number):map {block?}
+  array@uchar#dump(stream?:stream):void:[upper]
+  array@uchar#each() {block?}
+  array@uchar#fill(value:number):map:void
+  array@uchar#head(n:number):map {block?}
+  array@uchar#offset(n:number):map {block?}
+  array@uchar#paste(offset:number, src:array@uchar):map
+  array@uchar#tail(n:number):map {block?}
 array@uint
-  dump(stream?:stream):void:[upper]
-  each() {block?}
-  fill(value:number):map:void
-  head(n:number):map {block?}
-  offset(n:number):map {block?}
-  paste(offset:number, src:array@uint):map
-  tail(n:number):map {block?}
+  array@uint#dump(stream?:stream):void:[upper]
+  array@uint#each() {block?}
+  array@uint#fill(value:number):map:void
+  array@uint#head(n:number):map {block?}
+  array@uint#offset(n:number):map {block?}
+  array@uint#paste(offset:number, src:array@uint):map
+  array@uint#tail(n:number):map {block?}
 array@ulong
-  dump(stream?:stream):void:[upper]
-  each() {block?}
-  fill(value:number):map:void
-  head(n:number):map {block?}
-  offset(n:number):map {block?}
-  paste(offset:number, src:array@ulong):map
-  tail(n:number):map {block?}
+  array@ulong#dump(stream?:stream):void:[upper]
+  array@ulong#each() {block?}
+  array@ulong#fill(value:number):map:void
+  array@ulong#head(n:number):map {block?}
+  array@ulong#offset(n:number):map {block?}
+  array@ulong#paste(offset:number, src:array@ulong):map
+  array@ulong#tail(n:number):map {block?}
 array@ushort
-  dump(stream?:stream):void:[upper]
-  each() {block?}
-  fill(value:number):map:void
-  head(n:number):map {block?}
-  offset(n:number):map {block?}
-  paste(offset:number, src:array@ushort):map
-  tail(n:number):map {block?}
+  array@ushort#dump(stream?:stream):void:[upper]
+  array@ushort#each() {block?}
+  array@ushort#fill(value:number):map:void
+  array@ushort#head(n:number):map {block?}
+  array@ushort#offset(n:number):map {block?}
+  array@ushort#paste(offset:number, src:array@ushort):map
+  array@ushort#tail(n:number):map {block?}
 audio
-  each(channel:number, offset?:number):map {block?}
-  get(channel:number, offset:number):map
-  put(channel:number, offset:number, data:number):map:reduce
-  sinewave(channel:number, freq:number, len:number, amplitude?:number):map:reduce
-  store(channel:number, offset:number, data:iterator):reduce
+  audio#each(channel:number, offset?:number):map {block?}
+  audio#get(channel:number, offset:number):map
+  audio#put(channel:number, offset:number, data:number):map:reduce
+  audio#sinewave(channel:number, freq:number, len:number, amplitude?:number):map:reduce
+  audio#store(channel:number, offset:number, data:iterator):reduce
 binary
-  add(buff+:binary):map:reduce
-  alloc(bytes:number, data?:number):static:map {block?}
-  decode(codec:codec)
-  dump(stream?:stream:w):void:[upper]
-  each() {block?}
-  encodeuri()
-  hex():[carray,cstr,upper]
-  len()
-  pack(format:string, value*):static:map {block?}
-  pointer(offset:number => 0) {block?}
-  reader() {block?}
-  store(offset:number, buff+:binary):map:reduce
-  unpack(format:string, values*:number):[nil]
-  unpacks(format:string, values*:number) {block?}
-  writer() {block?}
+  binary#add(buff+:binary):map:reduce
+  binary.alloc(bytes:number, data?:number):static:map {block?}
+  binary.decode(codec:codec)
+  binary#dump(stream?:stream:w):void:[upper]
+  binary#each() {block?}
+  binary#encodeuri()
+  binary#hex():[carray,cstr,upper]
+  binary#len()
+  binary.pack(format:string, value*):static:map {block?}
+  binary#pointer(offset:number => 0) {block?}
+  binary#reader() {block?}
+  binary#store(offset:number, buff+:binary):map:reduce
+  binary#unpack(format:string, values*:number):[nil]
+  binary#unpacks(format:string, values*:number) {block?}
+  binary#writer() {block?}
 boolean
 codec
-  addcr(flag?:boolean):reduce
+  codec#addcr(flag?:boolean):reduce
   bom_utf16be:binary = <binary:R:2byte:'\xfe\xff'>
   bom_utf16le:binary = <binary:R:2byte:'\xff\xfe'>
   bom_utf32be:binary = <binary:R:4byte:'\x00\x00\xfe\xff'>
   bom_utf32le:binary = <binary:R:4byte:'\xff\xfe\x00\x00'>
   bom_utf8:binary = <binary:R:3byte:'\xef\xbb\xbf'>
-  decode(buff:binary):map
-  delcr(flag?:boolean):reduce
-  encode(string:string):map
+  codec#decode(buff:binary):map
+  codec#delcr(flag?:boolean):reduce
+  codec#encode(string:string):map
 color
   aqua:color = <color:#00ffff,a:ff>
   black:color = <color:#000000,a:ff>
   blue:color = <color:#0000ff,a:ff>
   fuchsia:color = <color:#ff00ff,a:ff>
-  getgray()
+  color#getgray()
   gray:color = <color:#808080,a:ff>
   green:color = <color:#008000,a:ff>
-  html()
+  color#html()
   lime:color = <color:#00ff00,a:ff>
   maroon:color = <color:#800000,a:ff>
   names = [black,maroon,green,olive,navy,purple,teal,gray,silver,red,lime,yellow,blue,fuchsia,aqua,white,snow,ghost white,GhostWhite,white smoke,WhiteSmoke,gainsboro,floral white,FloralWhite,old lace,OldLace,linen,antique white,AntiqueWhite,papaya whip,PapayaWhip,blanched almond,BlanchedAlmond,bisque,peach puff,PeachPuff,navajo white,NavajoWhite,moccasin,cornsilk,ivory,lemon chiffon,LemonChiffon,seashell,honeydew,mint cream,MintCream,azure,alice blue,AliceBlue,lavender,lavender blush,LavenderBlush,misty rose,MistyRose,dark slate gray,DarkSlateGray,dark slate grey,DarkSlateGrey,dim gray,DimGray,dim grey,DimGrey,slate gray,SlateGray,slate grey,SlateGrey,light slate gray,LightSlateGray,light slate grey,LightSlateGrey,grayX,grey,light grey,LightGrey,light gray,LightGray,midnight blue,MidnightBlue,navy blue,NavyBlue,cornflower blue,CornflowerBlue,dark slate blue,DarkSlateBlue,slate blue,SlateBlue,medium slate blue,MediumSlateBlue,light slate blue,LightSlateBlue,medium blue,MediumBlue,royal blue,RoyalBlue,dodger blue,DodgerBlue,deep sky blue,DeepSkyBlue,sky blue,SkyBlue,light sky blue,LightSkyBlue,steel blue,SteelBlue,light steel blue,LightSteelBlue,light blue,LightBlue,powder blue,PowderBlue,pale turquoise,PaleTurquoise,dark turquoise,DarkTurquoise,medium turquoise,MediumTurquoise,turquoise,cyan,light cyan,LightCyan,cadet blue,CadetBlue,medium aquamarine,MediumAquamarine,aquamarine,dark green,DarkGreen,dark olive green,DarkOliveGreen,dark sea green,DarkSeaGreen,sea green,SeaGreen,medium sea green,MediumSeaGreen,light sea green,LightSeaGreen,pale green,PaleGreen,spring green,SpringGreen,lawn green,LawnGreen,greenX,chartreuse,medium spring green,MediumSpringGreen,green yellow,GreenYellow,lime green,LimeGreen,yellow green,YellowGreen,forest green,ForestGreen,olive drab,OliveDrab,dark khaki,DarkKhaki,khaki,pale goldenrod,PaleGoldenrod,light goldenrod yellow,LightGoldenrodYellow,light yellow,LightYellow,gold,light goldenrod,LightGoldenrod,goldenrod,dark goldenrod,DarkGoldenrod,rosy brown,RosyBrown,indian red,IndianRed,saddle brown,SaddleBrown,sienna,peru,burlywood,beige,wheat,sandy brown,SandyBrown,tan,chocolate,firebrick,brown,dark salmon,DarkSalmon,salmon,light salmon,LightSalmon,orange,dark orange,DarkOrange,coral,light coral,LightCoral,tomato,orange red,OrangeRed,hot pink,HotPink,deep pink,DeepPink,pink,light pink,LightPink,pale violet red,PaleVioletRed,maroonX,medium violet red,MediumVioletRed,violet red,VioletRed,magenta,violet,plum,orchid,medium orchid,MediumOrchid,dark orchid,DarkOrchid,dark violet,DarkViolet,blue violet,BlueViolet,purpleX,medium purple,MediumPurple,thistle,snow1,snow2,snow3,snow4,seashell1,seashell2,seashell3,seashell4,AntiqueWhite1,AntiqueWhite2,AntiqueWhite3,AntiqueWhite4,bisque1,bisque2,bisque3,bisque4,PeachPuff1,PeachPuff2,PeachPuff3,PeachPuff4,NavajoWhite1,NavajoWhite2,NavajoWhite3,NavajoWhite4,LemonChiffon1,LemonChiffon2,LemonChiffon3,LemonChiffon4,cornsilk1,cornsilk2,cornsilk3,cornsilk4,ivory1,ivory2,ivory3,ivory4,honeydew1,honeydew2,honeydew3,honeydew4,LavenderBlush1,LavenderBlush2,LavenderBlush3,LavenderBlush4,MistyRose1,MistyRose2,MistyRose3,MistyRose4,azure1,azure2,azure3,azure4,SlateBlue1,SlateBlue2,SlateBlue3,SlateBlue4,RoyalBlue1,RoyalBlue2,RoyalBlue3,RoyalBlue4,blue1,blue2,blue3,blue4,DodgerBlue1,DodgerBlue2,DodgerBlue3,DodgerBlue4,SteelBlue1,SteelBlue2,SteelBlue3,SteelBlue4,DeepSkyBlue1,DeepSkyBlue2,DeepSkyBlue3,DeepSkyBlue4,SkyBlue1,SkyBlue2,SkyBlue3,SkyBlue4,LightSkyBlue1,LightSkyBlue2,LightSkyBlue3,LightSkyBlue4,SlateGray1,SlateGray2,SlateGray3,SlateGray4,LightSteelBlue1,LightSteelBlue2,LightSteelBlue3,LightSteelBlue4,LightBlue1,LightBlue2,LightBlue3,LightBlue4,LightCyan1,LightCyan2,LightCyan3,LightCyan4,PaleTurquoise1,PaleTurquoise2,PaleTurquoise3,PaleTurquoise4,CadetBlue1,CadetBlue2,CadetBlue3,CadetBlue4,turquoise1,turquoise2,turquoise3,turquoise4,cyan1,cyan2,cyan3,cyan4,DarkSlateGray1,DarkSlateGray2,DarkSlateGray3,DarkSlateGray4,aquamarine1,aquamarine2,aquamarine3,aquamarine4,DarkSeaGreen1,DarkSeaGreen2,DarkSeaGreen3,DarkSeaGreen4,SeaGreen1,SeaGreen2,SeaGreen3,SeaGreen4,PaleGreen1,PaleGreen2,PaleGreen3,PaleGreen4,SpringGreen1,SpringGreen2,SpringGreen3,SpringGreen4,green1,green2,green3,green4,chartreuse1,chartreuse2,chartreuse3,chartreuse4,OliveDrab1,OliveDrab2,OliveDrab3,OliveDrab4,DarkOliveGreen1,DarkOliveGreen2,DarkOliveGreen3,DarkOliveGreen4,khaki1,khaki2,khaki3,khaki4,LightGoldenrod1,LightGoldenrod2,LightGoldenrod3,LightGoldenrod4,LightYellow1,LightYellow2,LightYellow3,LightYellow4,yellow1,yellow2,yellow3,yellow4,gold1,gold2,gold3,gold4,goldenrod1,goldenrod2,goldenrod3,goldenrod4,DarkGoldenrod1,DarkGoldenrod2,DarkGoldenrod3,DarkGoldenrod4,RosyBrown1,RosyBrown2,RosyBrown3,RosyBrown4,IndianRed1,IndianRed2,IndianRed3,IndianRed4,sienna1,sienna2,sienna3,sienna4,burlywood1,burlywood2,burlywood3,burlywood4,wheat1,wheat2,wheat3,wheat4,tan1,tan2,tan3,tan4,chocolate1,chocolate2,chocolate3,chocolate4,firebrick1,firebrick2,firebrick3,firebrick4,brown1,brown2,brown3,brown4,salmon1,salmon2,salmon3,salmon4,LightSalmon1,LightSalmon2,LightSalmon3,LightSalmon4,orange1,orange2,orange3,orange4,DarkOrange1,DarkOrange2,DarkOrange3,DarkOrange4,coral1,coral2,coral3,coral4,tomato1,tomato2,tomato3,tomato4,OrangeRed1,OrangeRed2,OrangeRed3,OrangeRed4,red1,red2,red3,red4,DeepPink1,DeepPink2,DeepPink3,DeepPink4,HotPink1,HotPink2,HotPink3,HotPink4,pink1,pink2,pink3,pink4,LightPink1,LightPink2,LightPink3,LightPink4,PaleVioletRed1,PaleVioletRed2,PaleVioletRed3,PaleVioletRed4,maroon1,maroon2,maroon3,maroon4,VioletRed1,VioletRed2,VioletRed3,VioletRed4,magenta1,magenta2,magenta3,magenta4,orchid1,orchid2,orchid3,orchid4,plum1,plum2,plum3,plum4,MediumOrchid1,MediumOrchid2,MediumOrchid3,MediumOrchid4,DarkOrchid1,DarkOrchid2,DarkOrchid3,DarkOrchid4,purple1,purple2,purple3,purple4,MediumPurple1,MediumPurple2,MediumPurple3,MediumPurple4,thistle1,thistle2,thistle3,thistle4,gray0,grey0,gray1,grey1,gray2,grey2,gray3,grey3,gray4,grey4,gray5,grey5,gray6,grey6,gray7,grey7,gray8,grey8,gray9,grey9,gray10,grey10,gray11,grey11,gray12,grey12,gray13,grey13,gray14,grey14,gray15,grey15,gray16,grey16,gray17,grey17,gray18,grey18,gray19,grey19,gray20,grey20,gray21,grey21,gray22,grey22,gray23,grey23,gray24,grey24,gray25,grey25,gray26,grey26,gray27,grey27,gray28,grey28,gray29,grey29,gray30,grey30,gray31,grey31,gray32,grey32,gray33,grey33,gray34,grey34,gray35,grey35,gray36,grey36,gray37,grey37,gray38,grey38,gray39,grey39,gray40,grey40,gray41,grey41,gray42,grey42,gray43,grey43,gray44,grey44,gray45,grey45,gray46,grey46,gray47,grey47,gray48,grey48,gray49,grey49,gray50,grey50,gray51,grey51,gray52,grey52,gray53,grey53,gray54,grey54,gray55,grey55,gray56,grey56,gray57,grey57,gray58,grey58,gray59,grey59,gray60,grey60,gray61,grey61,gray62,grey62,gray63,grey63,gray64,grey64,gray65,grey65,gray66,grey66,gray67,grey67,gray68,grey68,gray69,grey69,gray70,grey70,gray71,grey71,gray72,grey72,gray73,grey73,gray74,grey74,gray75,grey75,gray76,grey76,gray77,grey77,gray78,grey78,gray79,grey79,gray80,grey80,gray81,grey81,gray82,grey82,gray83,grey83,gray84,grey84,gray85,grey85,gray86,grey86,gray87,grey87,gray88,grey88,gray89,grey89,gray90,grey90,gray91,grey91,gray92,grey92,gray93,grey93,gray94,grey94,gray95,grey95,gray96,grey96,gray97,grey97,gray98,grey98,gray99,grey99,gray100,grey100,dark grey,DarkGrey,dark gray,DarkGray,dark blue,DarkBlue,dark cyan,DarkCyan,dark magenta,DarkMagenta,dark red,DarkRed,light green,LightGreen]
@@ -405,13 +405,13 @@ color
   red:color = <color:#ff0000,a:ff>
   silver:color = <color:#c0c0c0,a:ff>
   teal:color = <color:#008080,a:ff>
-  tolist():[alpha]
+  color#tolist():[alpha]
   white:color = <color:#ffffff,a:ff>
   yellow:color = <color:#ffff00,a:ff>
   zero:color = <color:#000000,a:00>
 complex
-  polar(abs:number, arg:number):static:map:[deg] {block?}
-  roundoff(threshold:number => 1e-10)
+  complex.polar(abs:number, arg:number):static:map:[deg] {block?}
+  complex.roundoff(threshold:number => 1e-10)
 datetime
   Friday:number = 5
   Monday:number = 1
@@ -420,354 +420,354 @@ datetime
   Thursday:number = 4
   Tuesday:number = 2
   Wednesday:number = 3
-  clrtzoff():reduce
-  format(format => `w3c)
-  isleap(year:number):static:map
-  monthdays(year:number, month:number):static:map {block?}
-  now():static:[utc] {block?}
-  parse(str:string):static:map {block?}
-  settzoff(mins:number):reduce
-  time(hour:number => 0, minute:number => 0, sec:number => 0, usec:number => 0):static:map {block?}
-  today():static:[utc] {block?}
-  utc()
-  weekday(year:number, month:number, day:number):static:map
+  datetime#clrtzoff():reduce
+  datetime#format(format => `w3c)
+  datetime.isleap(year:number):static:map
+  datetime.monthdays(year:number, month:number):static:map {block?}
+  datetime.now():static:[utc] {block?}
+  datetime.parse(str:string):static:map {block?}
+  datetime#settzoff(mins:number):reduce
+  datetime.time(hour:number => 0, minute:number => 0, sec:number => 0, usec:number => 0):static:map {block?}
+  datetime.today():static:[utc] {block?}
+  datetime#utc()
+  datetime.weekday(year:number, month:number, day:number):static:map
 declaration
-  istype(type+:expr):map
+  declaration#istype(type+:expr):map
 dict
-  clear()
-  erase(key):map
-  get(key, default?:nomap):map:[raise]
-  gets(key, default?):map:[raise]
-  haskey(key):map
-  items() {block?}
-  keys() {block?}
-  len()
-  set(key, value:nomap):map:reduce
-  setdefault(key, value:nomap):map:reduce
-  sets(key, value):map:void
-  store(elems?):reduce:[default] {block?}
-  values() {block?}
+  dict#clear()
+  dict#erase(key):map
+  dict#get(key, default?:nomap):map:[raise]
+  dict#gets(key, default?):map:[raise]
+  dict#haskey(key):map
+  dict#items() {block?}
+  dict#keys() {block?}
+  dict#len()
+  dict#set(key, value:nomap):map:reduce
+  dict#setdefault(key, value:nomap):map:reduce
+  dict#sets(key, value):map:void
+  dict#store(elems?):reduce:[default] {block?}
+  dict#values() {block?}
 directory
 expr
-  eval(env?:environment)
-  isassign()
-  isbinary()
-  isbinaryop()
-  isblock()
-  iscaller()
-  iscollector()
-  iscompound()
-  isidentifier()
-  isindexer()
-  isiterer()
-  islister()
-  ismember()
-  isquote()
-  isroot()
-  issuffixed()
-  isunary()
-  isunaryop()
-  isvalue()
-  parse(script:string):static:map {block?}
-  textize(style?:symbol, indent?:string)
-  tofunction(`args*)
-  unquote()
-  write(dst:stream:w, style?:symbol, indent?:string)
+  expr#eval(env?:environment)
+  expr#isassign()
+  expr#isbinary()
+  expr#isbinaryop()
+  expr#isblock()
+  expr#iscaller()
+  expr#iscollector()
+  expr#iscompound()
+  expr#isidentifier()
+  expr#isindexer()
+  expr#isiterer()
+  expr#islister()
+  expr#ismember()
+  expr#isquote()
+  expr#isroot()
+  expr#issuffixed()
+  expr#isunary()
+  expr#isunaryop()
+  expr#isvalue()
+  expr.parse(script:string):static:map {block?}
+  expr#textize(style?:symbol, indent?:string)
+  expr#tofunction(`args*)
+  expr#unquote()
+  expr#write(dst:stream:w, style?:symbol, indent?:string)
 formatter
-  getfieldminwidth()
-  getpadding()
-  getplusmode()
-  getprecision()
-  isleftalign()
-  issharp()
-  isuppercase()
+  formatter#getfieldminwidth()
+  formatter#getpadding()
+  formatter#getplusmode()
+  formatter#getprecision()
+  formatter#isleftalign()
+  formatter#issharp()
+  formatter#isuppercase()
 function
-  addhelp(lang:symbol, format:string, help:string):map:void
-  gethelp(lang?:symbol):map
-  help(lang?:symbol):map:void
-  mathdiff(var?:symbol):reduce
+  function#addhelp(lang:symbol, format:string, help:string):map:void
+  function#gethelp(lang?:symbol):map
+  function#help(lang?:symbol):map:void
+  function#mathdiff(var?:symbol):reduce
 help
 image
-  allocbuff(width:number, height:number, color?:color):reduce
-  blur(radius:number, sigma?:number) {block?}
-  clear():reduce
-  crop(x:number, y:number, width?:number, height?:number):map {block?}
-  delpalette():reduce
-  extract(x:number, y:number, width:number, height:number, element:symbol, dst):reduce
-  fill(color:color):reduce
-  fillrect(x:number, y:number, width:number, height:number, color:color):map:reduce
-  flip(orient:symbol):map {block?}
-  getpixel(x:number, y:number):map {block?}
-  grayscale() {block?}
-  mapcolorlevel(map_r[]:number, map_g[]?:number, map_b[]?:number) {block?}
-  paste(x:number, y:number, src:image, width?:number, height?:number, xoffset:number => 0, yoffset:number => 0, a:number => 255):map:reduce
-  putpixel(x:number, y:number, color:color):map:reduce
-  read(stream:stream:r, imagetype?:string):map:reduce
-  reducecolor(palette?:palette) {block?}
-  replacecolor(colorOrg:color, color:color, tolerance?:number):reduce
-  resize(width?:number, height?:number):map:[box,ratio] {block?}
-  rotate(rotate:number, background?:color):map {block?}
-  scan(x?:number, y?:number, width?:number, height?:number, scandir?:symbol) {block?}
-  setalpha(a:number, color?:color, tolerance?:number):reduce
-  size()
-  store(x:number, y:number, width:number, height:number, element:symbol, src):reduce
-  thumbnail(width?:number, height?:number):map:[box] {block?}
-  write(stream:stream:w, imagetype?:string):map:reduce
+  image#allocbuff(width:number, height:number, color?:color):reduce
+  image#blur(radius:number, sigma?:number) {block?}
+  image#clear():reduce
+  image#crop(x:number, y:number, width?:number, height?:number):map {block?}
+  image#delpalette():reduce
+  image#extract(x:number, y:number, width:number, height:number, element:symbol, dst):reduce
+  image#fill(color:color):reduce
+  image#fillrect(x:number, y:number, width:number, height:number, color:color):map:reduce
+  image#flip(orient:symbol):map {block?}
+  image#getpixel(x:number, y:number):map {block?}
+  image#grayscale() {block?}
+  image#mapcolorlevel(map_r[]:number, map_g[]?:number, map_b[]?:number) {block?}
+  image#paste(x:number, y:number, src:image, width?:number, height?:number, xoffset:number => 0, yoffset:number => 0, a:number => 255):map:reduce
+  image#putpixel(x:number, y:number, color:color):map:reduce
+  image#read(stream:stream:r, imagetype?:string):map:reduce
+  image#reducecolor(palette?:palette) {block?}
+  image#replacecolor(colorOrg:color, color:color, tolerance?:number):reduce
+  image#resize(width?:number, height?:number):map:[box,ratio] {block?}
+  image#rotate(rotate:number, background?:color):map {block?}
+  image#scan(x?:number, y?:number, width?:number, height?:number, scandir?:symbol) {block?}
+  image#setalpha(a:number, color?:color, tolerance?:number):reduce
+  image#size()
+  image#store(x:number, y:number, width:number, height:number, element:symbol, src):reduce
+  image#thumbnail(width?:number, height?:number):map:[box] {block?}
+  image#write(stream:stream:w, imagetype?:string):map:reduce
 iterator
-  after(criteria) {block?}
-  align(n:number, value?) {block?}
-  and()
-  average()
-  before(criteria) {block?}
-  contains(value)
-  count(criteria?)
-  cycle(n?:number) {block?}
-  delay(delay:number) {block?}
-  each() {block?}
-  filter(criteria?) {block?}
-  find(criteria?):[index]
-  flat():[bfs,dfs] {block?}
-  fold(n:number):[iteritem] {block?}
-  format(format:string) {block?}
-  head(n:number):map {block?}
-  isinfinite()
-  join(sep?:string)
-  joinb()
-  len()
-  map(func:function) {block?}
-  max():[index,indices,last_index]
-  min():[index,indices,last_index]
-  next()
-  nilto(replace) {block?}
-  offset(n:number) {block?}
-  or()
-  pack(format:string) {block?}
-  pingpong(n?:number):[sticky,sticky_l,sticky_r] {block?}
-  print(stream?:stream:w)
-  printf(format:string, stream?:stream:w)
-  println(stream?:stream:w)
-  rank(directive?) {block?}
-  reduce(accum) {block}
-  repeater()
-  replace(value, replace) {block?}
-  reverse() {block?}
-  roundoff(threshold:number => 1e-10) {block?}
-  runlength() {block?}
-  since(criteria) {block?}
-  skip(n:number) {block?}
-  skipnil() {block?}
-  sort(directive?, keys[]?):[stable] {block?}
-  stddev()
-  sum()
-  tail(n:number) {block?}
-  until(criteria) {block?}
-  variance()
-  walk():[bfs,dfs] {block?}
-  while (criteria) {block?}
+  iterator#after(criteria) {block?}
+  iterator#align(n:number, value?) {block?}
+  iterator#and()
+  iterator#average()
+  iterator#before(criteria) {block?}
+  iterator#contains(value)
+  iterator#count(criteria?)
+  iterator#cycle(n?:number) {block?}
+  iterator#delay(delay:number) {block?}
+  iterator#each() {block?}
+  iterator#filter(criteria?) {block?}
+  iterator#find(criteria?):[index]
+  iterator#flat():[bfs,dfs] {block?}
+  iterator#fold(n:number):[iteritem] {block?}
+  iterator#format(format:string) {block?}
+  iterator#head(n:number):map {block?}
+  iterator#isinfinite()
+  iterator#join(sep?:string)
+  iterator#joinb()
+  iterator#len()
+  iterator#map(func:function) {block?}
+  iterator#max():[index,indices,last_index]
+  iterator#min():[index,indices,last_index]
+  iterator#next()
+  iterator#nilto(replace) {block?}
+  iterator#offset(n:number) {block?}
+  iterator#or()
+  iterator#pack(format:string) {block?}
+  iterator#pingpong(n?:number):[sticky,sticky_l,sticky_r] {block?}
+  iterator#print(stream?:stream:w)
+  iterator#printf(format:string, stream?:stream:w)
+  iterator#println(stream?:stream:w)
+  iterator#rank(directive?) {block?}
+  iterator#reduce(accum) {block}
+  iterator#repeater()
+  iterator#replace(value, replace) {block?}
+  iterator#reverse() {block?}
+  iterator#roundoff(threshold:number => 1e-10) {block?}
+  iterator#runlength() {block?}
+  iterator#since(criteria) {block?}
+  iterator#skip(n:number) {block?}
+  iterator#skipnil() {block?}
+  iterator#sort(directive?, keys[]?):[stable] {block?}
+  iterator#stddev()
+  iterator#sum()
+  iterator#tail(n:number) {block?}
+  iterator#until(criteria) {block?}
+  iterator#variance()
+  iterator#walk():[bfs,dfs] {block?}
+  iterator#while (criteria) {block?}
 list
-  add(elem+):reduce
-  after(criteria) {block?}
-  align(n:number, value?):map {block?}
-  and()
-  append(elem+):reduce
-  average()
-  before(criteria) {block?}
-  clear():reduce
-  combination(n:number) {block?}
-  contains(value)
-  count(criteria?)
-  cycle(n?:number) {block?}
-  each() {block?}
-  erase(idx*:number):reduce
-  filter(criteria?) {block?}
-  find(criteria?):[index]
-  first()
-  flat():[bfs,dfs]
-  fold(n:number, nstep?:number):[iteritem] {block?}
-  format(format:string):map
-  get(index:number):map:flat
-  head(n:number):map {block?}
-  insert(idx:number, elem+):reduce
-  isempty()
-  join(sep:string => '')
-  last()
-  len()
-  map(func:function) {block?}
-  max():[index,indices,last_index]
-  min():[index,indices,last_index]
-  nilto(replace) {block?}
-  offset(n:number):map {block?}
-  or()
-  pack(format:string)
-  permutation(n?:number) {block?}
-  pingpong(n?:number):[sticky,sticky_l,sticky_r] {block?}
-  printf(format:string, stream?:stream:w):void
-  put(index:number, value:nomap):map:reduce
-  rank(directive?):[stable] {block?}
-  reduce(accum) {block}
-  replace(value, replace) {block?}
-  reverse() {block?}
-  roundoff(threshold:number => 1e-10) {block?}
-  runlength() {block?}
-  shift():[raise]
-  shuffle():reduce
-  since(criteria) {block?}
-  skip(n:number):map {block?}
-  skipnil() {block?}
-  sort(directive?, keys[]?):[stable] {block?}
-  stddev()
-  sum()
-  tail(n:number):map {block?}
-  until(criteria) {block?}
-  variance()
-  walk():[bfs,dfs] {block?}
-  while (criteria) {block?}
-  zip(values+):static {block?}
+  list#add(elem+):reduce
+  list#after(criteria) {block?}
+  list#align(n:number, value?):map {block?}
+  list#and()
+  list#append(elem+):reduce
+  list#average()
+  list#before(criteria) {block?}
+  list#clear():reduce
+  list#combination(n:number) {block?}
+  list#contains(value)
+  list#count(criteria?)
+  list#cycle(n?:number) {block?}
+  list#each() {block?}
+  list#erase(idx*:number):reduce
+  list#filter(criteria?) {block?}
+  list#find(criteria?):[index]
+  list#first()
+  list#flat():[bfs,dfs]
+  list#fold(n:number, nstep?:number):[iteritem] {block?}
+  list#format(format:string):map
+  list#get(index:number):map:flat
+  list#head(n:number):map {block?}
+  list#insert(idx:number, elem+):reduce
+  list#isempty()
+  list#join(sep:string => '')
+  list#last()
+  list#len()
+  list#map(func:function) {block?}
+  list#max():[index,indices,last_index]
+  list#min():[index,indices,last_index]
+  list#nilto(replace) {block?}
+  list#offset(n:number):map {block?}
+  list#or()
+  list#pack(format:string)
+  list#permutation(n?:number) {block?}
+  list#pingpong(n?:number):[sticky,sticky_l,sticky_r] {block?}
+  list#printf(format:string, stream?:stream:w):void
+  list#put(index:number, value:nomap):map:reduce
+  list#rank(directive?):[stable] {block?}
+  list#reduce(accum) {block}
+  list#replace(value, replace) {block?}
+  list#reverse() {block?}
+  list#roundoff(threshold:number => 1e-10) {block?}
+  list#runlength() {block?}
+  list#shift():[raise]
+  list#shuffle():reduce
+  list#since(criteria) {block?}
+  list#skip(n:number):map {block?}
+  list#skipnil() {block?}
+  list#sort(directive?, keys[]?):[stable] {block?}
+  list#stddev()
+  list#sum()
+  list#tail(n:number):map {block?}
+  list#until(criteria) {block?}
+  list#variance()
+  list#walk():[bfs,dfs] {block?}
+  list#while (criteria) {block?}
+  list.zip(values+):static {block?}
 matrix
-  col(col:number):map
-  colsize()
-  each():[transpose]
-  eachcol()
-  eachrow()
-  identity(n:number):static:map {block?}
-  invert()
-  issquare()
-  rotation(angle:number, tx?:number, ty?:number):static:map:[deg] {block?}
-  rotation_x(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
-  rotation_y(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
-  rotation_z(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
-  roundoff(threshold:number => 1e-10)
-  row(row:number):map
-  rowsize()
-  set(value)
-  setcol(col:number, value)
-  setrow(row:number, value)
-  submat(row:number, col:number, nrows:number, ncols:number):map
-  tolist():[flat,transpose]
-  transpose()
+  matrix#col(col:number):map
+  matrix#colsize()
+  matrix#each():[transpose]
+  matrix#eachcol()
+  matrix#eachrow()
+  matrix.identity(n:number):static:map {block?}
+  matrix#invert()
+  matrix#issquare()
+  matrix.rotation(angle:number, tx?:number, ty?:number):static:map:[deg] {block?}
+  matrix.rotation_x(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
+  matrix.rotation_y(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
+  matrix.rotation_z(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
+  matrix#roundoff(threshold:number => 1e-10)
+  matrix#row(row:number):map
+  matrix#rowsize()
+  matrix#set(value)
+  matrix#setcol(col:number, value)
+  matrix#setrow(row:number, value)
+  matrix#submat(row:number, col:number, nrows:number, ncols:number):map
+  matrix#tolist():[flat,transpose]
+  matrix#transpose()
 nil
 number
-  roundoff(threshold:number => 1e-10)
+  number.roundoff(threshold:number => 1e-10)
 object
-  __call__(symbol:symbol, args?, dict%):static:map {block?}
-  __iter__()
-  clone()
-  getprop!(symbol:symbol, default?:nomap):static:map
-  is(obj):map
-  isinstance(type+:expr):map
-  isnil():map
-  istype(type+:expr):map
-  nomap() {block?}
-  setprop!(symbol:symbol, value):static:map
-  tonumber():[nil,raise,strict,zero]
-  tostring()
+  object.__call__(symbol:symbol, args?, dict%):static:map {block?}
+  object#__iter__()
+  object#clone()
+  object.getprop!(symbol:symbol, default?:nomap):static:map
+  object.is(obj):map
+  object.isinstance(type+:expr):map
+  object.isnil():map
+  object.istype(type+:expr):map
+  object.nomap() {block?}
+  object.setprop!(symbol:symbol, value):static:map
+  object.tonumber():[nil,raise,strict,zero]
+  object.tostring()
 operator
-  assign(type_l:expr, type_r?:expr):map:void {block}
-  entries(type?:symbol)
+  operator#assign(type_l:expr, type_r?:expr):map:void {block}
+  operator#entries(type?:symbol)
 palette
-  each() {block?}
-  nearest(color:color):map:[index]
-  shrink():reduce:[align]
-  updateby(image_or_palette):reduce:[align,shrink]
+  palette#each() {block?}
+  palette#nearest(color:color):map:[index]
+  palette#shrink():reduce:[align]
+  palette#updateby(image_or_palette):reduce:[align,shrink]
 pointer
-  forward(distance:number):reduce
-  pack(format:string, value+):reduce:[stay]
-  reset()
-  unpack(format:string, values*:number):[nil,stay]
-  unpacks(format:string, values*:number)
+  pointer#forward(distance:number):reduce
+  pointer#pack(format:string, value+):reduce:[stay]
+  pointer#reset()
+  pointer#unpack(format:string, values*:number):[nil,stay]
+  pointer#unpacks(format:string, values*:number)
 quote
 rational
-  reduce()
+  rational.reduce()
 semaphore
-  release()
-  session() {block}
-  wait()
+  semaphore#release()
+  semaphore#session() {block}
+  semaphore#wait()
 stream
-  addcr(flag?:boolean):reduce
-  base64reader()
-  base64writer(linelen:number:nil => 76)
-  close():void
-  compare(stream:stream:r):map
-  copy(src:stream:r, dst:stream:w, bytesunit:number => 65536):static:map:void:[finalize] {block?}
-  copyfrom(stream:stream:r, bytesunit:number => 65536):map:reduce:[finalize] {block?}
-  copyto(stream:stream:w, bytesunit:number => 65536):map:reduce:[finalize] {block?}
-  delcr(flag?:boolean):reduce
-  deserialize()
-  flush():void
-  peek(len?:number)
-  print(values*):map:void
-  printf(format:string, values*):map:void
-  println(values*):map:void
-  read(len?:number)
-  readchar()
-  readline():[chop]
-  readlines(nlines?:number):[chop] {block?}
-  readtext()
-  seek(offset:number, origin?:symbol):reduce
-  serialize(value):void
-  setcodec(codec:codec:nil):reduce
-  tell()
-  write(buff:binary, len?:number):reduce
+  stream#addcr(flag?:boolean):reduce
+  stream#base64reader()
+  stream#base64writer(linelen:number:nil => 76)
+  stream#close():void
+  stream#compare(stream:stream:r):map
+  stream.copy(src:stream:r, dst:stream:w, bytesunit:number => 65536):static:map:void:[finalize] {block?}
+  stream#copyfrom(stream:stream:r, bytesunit:number => 65536):map:reduce:[finalize] {block?}
+  stream#copyto(stream:stream:w, bytesunit:number => 65536):map:reduce:[finalize] {block?}
+  stream#delcr(flag?:boolean):reduce
+  stream#deserialize()
+  stream#flush():void
+  stream#peek(len?:number)
+  stream#print(values*):map:void
+  stream#printf(format:string, values*):map:void
+  stream#println(values*):map:void
+  stream#read(len?:number)
+  stream#readchar()
+  stream#readline():[chop]
+  stream#readlines(nlines?:number):[chop] {block?}
+  stream#readtext()
+  stream#seek(offset:number, origin?:symbol):reduce
+  stream#serialize(value):void
+  stream#setcodec(codec:codec:nil):reduce
+  stream#tell()
+  stream#write(buff:binary, len?:number):reduce
 string
-  align(len:number, padding:string => ' '):map:[center,left,right]
-  binary()
-  capitalize()
-  chop(suffix*:string):[eol,icase]
-  decodeuri()
-  each():map:[utf32,utf8] {block?}
-  eachline(nlines?:number):[chop] {block?}
-  encode(codec:codec)
-  encodeuri()
-  endswith(suffix:string, endpos?:number):map:[icase,rest]
-  escapehtml():[quote]
-  find(sub:string, pos:number => 0):map:[icase,rev]
-  fold(len:number, step?:number):[neat] {block?}
-  format(values*):map
-  isempty()
-  left(len?:number):map
-  len()
-  lower()
-  mid(pos:number => 0, len?:number):map
-  print(stream?:stream:w):void
-  println(stream?:stream:w):void
-  reader() {block?}
-  replace(sub:string, replace:string, count?:number):map:[icase] {block?}
-  right(len?:number):map
-  split(sep?:string, count?:number):[icase] {block?}
-  startswith(prefix:string, pos:number => 0):map:[icase,rest]
-  strip():[both,left,right]
-  template():[lasteol,noindent] {block?}
-  tosymbol()
-  translator():static:void {block}
-  unescapehtml()
-  upper()
-  zentohan()
+  string#align(len:number, padding:string => ' '):map:[center,left,right]
+  string.binary()
+  string#capitalize()
+  string#chop(suffix*:string):[eol,icase]
+  string#decodeuri()
+  string#each():map:[utf32,utf8] {block?}
+  string#eachline(nlines?:number):[chop] {block?}
+  string.encode(codec:codec)
+  string#encodeuri()
+  string#endswith(suffix:string, endpos?:number):map:[icase,rest]
+  string#escapehtml():[quote]
+  string#find(sub:string, pos:number => 0):map:[icase,rev]
+  string#fold(len:number, step?:number):[neat] {block?}
+  string#format(values*):map
+  string#isempty()
+  string#left(len?:number):map
+  string#len()
+  string#lower()
+  string#mid(pos:number => 0, len?:number):map
+  string.print(stream?:stream:w):void
+  string.println(stream?:stream:w):void
+  string#reader() {block?}
+  string#replace(sub:string, replace:string, count?:number):map:[icase] {block?}
+  string#right(len?:number):map
+  string#split(sep?:string, count?:number):[icase] {block?}
+  string#startswith(prefix:string, pos:number => 0):map:[icase,rest]
+  string#strip():[both,left,right]
+  string#template():[lasteol,noindent] {block?}
+  string#tosymbol()
+  string.translator():static:void {block}
+  string#unescapehtml()
+  string#upper()
+  string#zentohan()
 struct
-  tolist()
+  struct#tolist()
 suffixmgr
-  assign(suffix:symbol):void:[overwrite] {block}
+  suffixmgr#assign(suffix:symbol):void:[overwrite] {block}
 symbol
-  eval(env?:environment)
+  symbol#eval(env?:environment)
 template
-  _R_block(symbol:symbol):void
-  _R_call(symbol:symbol, args*):void
-  _R_def(symbol:symbol, `args*):void
-  _R_embed(template:template):void
-  _R_extends(super):void:[lasteol,noindent]
-  _R_super(symbol:symbol):void
-  block(symbol:symbol):void {block}
-  call(symbol:symbol, args*):void
-  def(symbol:symbol, `args*):void {block}
-  embed(template):void
-  extends(super:template):void
-  parse(str:string):void:[lasteol,noindent]
-  read(src:stream:r):void:[lasteol,noindent]
-  render(dst?:stream:w)
-  super(super):void
+  template#_R_block(symbol:symbol):void
+  template#_R_call(symbol:symbol, args*):void
+  template#_R_def(symbol:symbol, `args*):void
+  template#_R_embed(template:template):void
+  template#_R_extends(super):void:[lasteol,noindent]
+  template#_R_super(symbol:symbol):void
+  template#block(symbol:symbol):void {block}
+  template#call(symbol:symbol, args*):void
+  template#def(symbol:symbol, `args*):void {block}
+  template#embed(template):void
+  template#extends(super:template):void
+  template#parse(str:string):void:[lasteol,noindent]
+  template#read(src:stream:r):void:[lasteol,noindent]
+  template#render(dst?:stream:w)
+  template#super(super):void
 timedelta
 undefined
 uri
-  getfragment()
-  getpath()
-  getquery()
-  parsequery(query:string):static:map
+  uri#getfragment()
+  uri#getpath()
+  uri#getquery()
+  uri.parsequery(query:string):static:map
