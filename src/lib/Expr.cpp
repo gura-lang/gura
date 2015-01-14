@@ -2770,21 +2770,19 @@ Value Expr_Member::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPost
 			pObjFunc->SetThis(valueThis);
 			result = Value(pObjFunc);
 		}
+	} else if (valueThis.Is_list() && valueThis.GetList().empty()) {
+		result = valueThis;
 	} else {
-		if (valueThis.Is_list() && valueThis.GetList().empty()) {
-			result = valueThis;
-		} else {
-			Iterator *pIterator = pFund->CreateIterator(sig);
-			if (sig.IsSignalled()) return Value::Null;
-			if (pIterator != NULL) {
-				AutoPtr<Iterator> pIteratorMap(new Iterator_MemberMap(
-							new Environment(env), sig, pIterator, Expr::Reference(GetRight())));
-				if (mode == MODE_MapToIter) {
-					result = Value(new Object_iterator(env, pIteratorMap.release()));
-				} else {
-					result = pIteratorMap->ToList(env, sig, false, false);
-					if (sig.IsSignalled()) return Value::Null;
-				}
+		Iterator *pIterator = pFund->CreateIterator(sig);
+		if (sig.IsSignalled()) return Value::Null;
+		if (pIterator != NULL) {
+			AutoPtr<Iterator> pIteratorMap(new Iterator_MemberMap(
+					   new Environment(env), sig, pIterator, Expr::Reference(GetRight())));
+			if (mode == MODE_MapToIter) {
+				result = Value(new Object_iterator(env, pIteratorMap.release()));
+			} else {
+				result = pIteratorMap->ToList(env, sig, false, false);
+				if (sig.IsSignalled()) return Value::Null;
 			}
 		}
 	}
