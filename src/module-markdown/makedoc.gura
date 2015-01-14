@@ -10,7 +10,7 @@ write(doc:markdown.document) = {
 		markdown.item.print
 	]
 	doc << [
-		//markdown.document
+		markdown.document
 		markdown.setpresenter
 	]
 	doc

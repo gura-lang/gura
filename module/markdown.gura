@@ -364,11 +364,11 @@ Renderer@console = class {
 funcDocCaption:public = '#### '
 
 operator(`<<).assign(`document, `function) {|doc, func|
-	doc << funcDocCaption + func.fullname.replace('_', '\\_')
+	doc << funcDocCaption + function.getfullname(func).replace('_', '\\_')
 	doc << '\n'
-	doc << '`' + func.format + '`'
+	doc << '`' + function.getformat(func) + '`'
 	doc << '\n'
-	if (help = func.gethelp()) { doc << help.text }
+	if (help = function.gethelp(func)) { doc << help.text }
 }
 
 classref(`document).render@html(out?:stream:w) = {
