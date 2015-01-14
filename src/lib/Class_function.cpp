@@ -225,26 +225,6 @@ Gura_ImplementMethod(function, gethelp)
 	return Value(new Object_help(env, pHelp->Reference()));
 }
 
-// function#help(lang?:symbol):map:void
-Gura_DeclareMethod(function, help)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Print a help message for the specified function object.\n"
-		"`lang` is a symbol that indicates a language in which the help is written.\n"
-		"If help message doesn't exist, it only prints the function's format.\n");
-}
-
-Gura_ImplementMethod(function, help)
-{
-	const Function *pFunc = Object_function::GetThisObj(args)->GetFunction();
-	const Symbol *pSymbol = args.Is_symbol(0)? args.GetSymbol(0) : env.GetLangCode();
-	HelpPresenter::Present(env, sig, pFunc->ToString().c_str(), pFunc->GetHelp(pSymbol, true));
-	return Value::Null;
-}
-
 // function#mathdiff(var?:symbol)
 Gura_DeclareMethod(function, mathdiff)
 {
@@ -288,7 +268,6 @@ void Class_function::Prepare(Environment &env)
 	Gura_AssignFunctionEx(function, "&");
 	Gura_AssignMethod(function, addhelp);
 	Gura_AssignMethod(function, gethelp);
-	Gura_AssignMethod(function, help);
 	Gura_AssignMethod(function, mathdiff);
 }
 

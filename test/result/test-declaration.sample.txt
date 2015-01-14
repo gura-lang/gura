@@ -484,7 +484,6 @@ formatter
 function
   function#addhelp(lang:symbol, format:string, help:string):map:void
   function#gethelp(lang?:symbol):map
-  function#help(lang?:symbol):map:void
   function#mathdiff(var?:symbol):reduce
 help
 image
