@@ -427,6 +427,6 @@ testcase('attribute after membered type') {
 }
 testcase('help') {
 	f() = {} % {`en, 'markdown', 'foo'} % {`ja, 'markdown', 'hoge'}
-	println('`en ..', f.gethelp(`en).text)
-	println('`ja ..', f.gethelp(`ja).text)
+	println('`en ..', function.gethelp(f, `en).text)
+	println('`ja ..', function.gethelp(f, `ja).text)
 }

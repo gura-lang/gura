@@ -188,26 +188,28 @@ Gura_ImplementFunction(function)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// function#addhelp(lang:symbol, format:string, help:string):map
-Gura_DeclareMethod(function, addhelp)
+// function.addhelp(func:function, lang:symbol, format:string, help:string):map
+Gura_DeclareClassMethod(function, addhelp)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "func", VTYPE_function);
 	DeclareArg(env, "lang", VTYPE_symbol);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "help", VTYPE_string);
 }
 
-Gura_ImplementMethod(function, addhelp)
+Gura_ImplementClassMethod(function, addhelp)
 {
-	Function *pFunc = Object_function::GetThisObj(args)->GetFunction();
-	pFunc->AddHelp(args.GetSymbol(0), args.GetString(1), args.GetString(2));
+	Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
+	pFunc->AddHelp(args.GetSymbol(1), args.GetString(2), args.GetString(3));
 	return Value::Null;
 }
 
-// function#gethelp(lang?:symbol):map
-Gura_DeclareMethod(function, gethelp)
+// function.gethelp(func:function, lang?:symbol):map
+Gura_DeclareClassMethod(function, gethelp)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "func", VTYPE_function);
 	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -216,10 +218,10 @@ Gura_DeclareMethod(function, gethelp)
 		"If help doesn't exist, it returns nil.\n");
 }
 
-Gura_ImplementMethod(function, gethelp)
+Gura_ImplementClassMethod(function, gethelp)
 {
-	const Function *pFunc = Object_function::GetThisObj(args)->GetFunction();
-	const Symbol *pSymbol = args.Is_symbol(0)? args.GetSymbol(0) : env.GetLangCode();
+	const Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
+	const Symbol *pSymbol = args.Is_symbol(1)? args.GetSymbol(1) : env.GetLangCode();
 	const Help *pHelp = pFunc->GetHelp(pSymbol, true);
 	if (pHelp == NULL) return Value::Null;
 	return Value(new Object_help(env, pHelp->Reference()));
