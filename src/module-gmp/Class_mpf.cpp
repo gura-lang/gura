@@ -70,6 +70,9 @@ Gura_DeclareFunction(mpf)
 	DeclareArg(env, "prec", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_mpf));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(mpf)
@@ -107,6 +110,9 @@ Gura_ImplementFunction(mpf)
 Gura_DeclareClassMethod(mpf, get_default_prec)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementClassMethod(mpf, get_default_prec)
@@ -120,6 +126,9 @@ Gura_DeclareClassMethod(mpf, set_default_prec)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "prec", VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementClassMethod(mpf, set_default_prec)
@@ -137,6 +146,9 @@ Gura_DeclareMethod(string, mpf)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "base", VTYPE_number, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(string, mpf)

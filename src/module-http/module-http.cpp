@@ -1412,6 +1412,9 @@ Gura_DeclareMethod(stat, field)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareAttr(Gura_Symbol(raise));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(stat, field)
@@ -1667,6 +1670,9 @@ Gura_DeclareMethod(request, field)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareAttr(Gura_Symbol(raise));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(request, field)
@@ -1688,6 +1694,9 @@ Gura_DeclareMethod(request, response)
 	DeclareArg(env, "version", VTYPE_string,
 				OCCUR_Once, FLAG_None, new Expr_Value(Value(HTTP_VERSION)));
 	DeclareDictArg("header");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(request, response)
@@ -1713,6 +1722,9 @@ Gura_DeclareMethod(request, respchunk)
 				OCCUR_Once, FLAG_None, new Expr_Value(Value(HTTP_VERSION)));
 	DeclareDictArg("header");
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(request, respchunk)
@@ -1730,6 +1742,9 @@ Gura_DeclareMethod(request, ismethod)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "method", VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(request, ismethod)
@@ -1825,6 +1840,9 @@ Gura_DeclareMethod(response, field)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareAttr(Gura_Symbol(raise));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(response, field)
@@ -2038,6 +2056,9 @@ Gura_DeclareMethod(server, wait)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(server, wait)
@@ -2255,6 +2276,9 @@ Gura_DeclareMethod(client, request)
 					OCCUR_Once, FLAG_None, new Expr_Value(Value(HTTP_VERSION)));
 	DeclareDictArg("header");
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(client, request)
@@ -2279,6 +2303,9 @@ Gura_DeclareMethod(client, _request)
 					OCCUR_Once, FLAG_None, new Expr_Value(Value(HTTP_VERSION)));
 	DeclareDictArg("header");
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(client, _request)
@@ -2296,6 +2323,9 @@ Gura_ImplementMethod(client, _request)
 Gura_DeclareMethod(client, cleanup)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(client, cleanup)
@@ -2374,6 +2404,9 @@ Gura_DeclareFunction(addproxy)
 	DeclareArg(env, "userid", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "password", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce, Symbol::Add("criteria"));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(addproxy)
@@ -2405,6 +2438,9 @@ Gura_DeclareFunction(server)
 						OCCUR_Once, FLAG_None, new Expr_Value(80));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(server));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(server)
@@ -2432,6 +2468,9 @@ Gura_DeclareFunction(client)
 	DeclareArg(env, "passwordProxy", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(client));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(client)

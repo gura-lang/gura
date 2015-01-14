@@ -13,7 +13,9 @@ Gura_DeclareFunction(real)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a real part of a complex number.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a real part of a complex number.");
 }
 
 Gura_ImplementFunction(real)
@@ -35,7 +37,9 @@ Gura_DeclareFunction(imag)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an imaginary part of a complex number.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns an imaginary part of a complex number.");
 }
 
 Gura_ImplementFunction(imag)
@@ -58,7 +62,9 @@ Gura_DeclareFunction(arg)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
 	DeclareAttr(Gura_Symbol(deg));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an argument value of a complex number in radian.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns an argument value of a complex number in radian.");
 }
 
 Gura_ImplementFunction(arg)
@@ -82,7 +88,9 @@ Gura_DeclareFunction(norm)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a norm value of a complex number.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a norm value of a complex number.");
 }
 
 Gura_ImplementFunction(norm)
@@ -104,7 +112,9 @@ Gura_DeclareFunction(conj)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a conjugate of a complex number.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a conjugate of a complex number.");
 }
 
 Gura_ImplementFunction(conj)
@@ -127,7 +137,9 @@ Gura_DeclareFunctionWithMathDiff(acos)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
 	DeclareAttr(Gura_Symbol(deg));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an inverse cosine value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns an inverse cosine value.");
 }
 
 Gura_ImplementFunction(acos)
@@ -167,7 +179,9 @@ Gura_DeclareFunctionWithMathDiff(asin)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
 	DeclareAttr(Gura_Symbol(deg));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an inverse sine value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns an inverse sine value.");
 }
 
 Gura_ImplementFunction(asin)
@@ -207,7 +221,9 @@ Gura_DeclareFunctionWithMathDiff(atan)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
 	DeclareAttr(Gura_Symbol(deg));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an inverse tangent value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns an inverse tangent value.");
 }
 
 Gura_ImplementFunction(atan)
@@ -246,7 +262,9 @@ Gura_DeclareFunction(atan2)
 	DeclareArg(env, "num1", VTYPE_any);
 	DeclareArg(env, "num2", VTYPE_any);
 	DeclareAttr(Gura_Symbol(deg));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an inverse tangent value of a fraction of num1 and num2.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns an inverse tangent value of a fraction of num1 and num2.");
 }
 
 Gura_ImplementFunction(atan2)
@@ -269,8 +287,9 @@ Gura_DeclareFunction(ceil)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a nearest integer number above or equal to the specified value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a nearest integer number above or equal to the specified value.");
 }
 
 Gura_ImplementFunction(ceil)
@@ -291,7 +310,9 @@ Gura_DeclareFunctionWithMathDiff(cos)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
 	DeclareAttr(Gura_Symbol(deg));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a cosine value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a cosine value.");
 }
 
 Gura_ImplementFunction(cos)
@@ -326,7 +347,9 @@ Gura_DeclareFunction(cosh)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a hyperbolic cosine value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a hyperbolic cosine value.");
 }
 
 Gura_ImplementFunction(cosh)
@@ -348,7 +371,9 @@ Gura_DeclareFunctionWithMathDiff(exp)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an exponential value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns an exponential value.");
 }
 
 Gura_ImplementFunction(exp)
@@ -378,7 +403,9 @@ Gura_DeclareFunction(abs)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an absolute value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns an absolute value.");
 }
 
 Gura_ImplementFunction(abs)
@@ -400,8 +427,9 @@ Gura_DeclareFunction(floor)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a nearest integer number below or equal to the specified value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a nearest integer number below or equal to the specified value.");
 }
 
 Gura_ImplementFunction(floor)
@@ -421,7 +449,9 @@ Gura_DeclareFunctionWithMathDiff(log)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a natural logarithm value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a natural logarithm value.");
 }
 
 Gura_ImplementFunction(log)
@@ -456,7 +486,9 @@ Gura_DeclareFunctionWithMathDiff(log10)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a decadic logarithm value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a decadic logarithm value.");
 }
 
 Gura_ImplementFunction(log10)
@@ -496,7 +528,9 @@ Gura_DeclareFunctionWithMathDiff(sin)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
 	DeclareAttr(Gura_Symbol(deg));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a sine value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a sine value.");
 }
 
 Gura_ImplementFunction(sin)
@@ -528,7 +562,9 @@ Gura_DeclareFunction(sinh)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a hyperbolic sine value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a hyperbolic sine value.");
 }
 
 Gura_ImplementFunction(sinh)
@@ -550,7 +586,9 @@ Gura_DeclareFunctionWithMathDiff(sqrt)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a square root value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a square root value.");
 }
 
 Gura_ImplementFunction(sqrt)
@@ -591,7 +629,9 @@ Gura_DeclareFunctionWithMathDiff(tan)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
 	DeclareAttr(Gura_Symbol(deg));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a tangent value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a tangent value.");
 }
 
 Gura_ImplementFunction(tan)
@@ -629,7 +669,9 @@ Gura_DeclareFunction(tanh)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a hyperbolic tangent value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a hyperbolic tangent value.");
 }
 
 Gura_ImplementFunction(tanh)
@@ -652,7 +694,9 @@ Gura_DeclareFunction(hypot)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_any);
 	DeclareArg(env, "y", VTYPE_any);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a hyperbolic tangent value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a hyperbolic tangent value.");
 }
 
 Gura_ImplementFunction(hypot)
@@ -676,11 +720,12 @@ Gura_DeclareFunction(least_square)
 	DeclareArg(env, "y", VTYPE_iterator);
 	DeclareArg(env, "dim", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(1));
 	DeclareArg(env, "var", VTYPE_symbol, OCCUR_Once, FLAG_None, new Expr_Value(Gura_Symbol(x)));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Calculates a least square method using a sequence of pairs of x and y,\n"
-	"and returns an expression of the fitted curve. You can specify the dimension\n"
-	"by an argument n. In default, a symbol of the expression's variable is `x\n"
-	"and it can be changed by specifying an argument var.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Calculates a least square method using a sequence of pairs of `x` and `y`,\n"
+		"and returns an expression of the fitted curve. You can specify the dimension\n"
+		"by an argument `dim`. In default, a symbol of the expression's variable is `x\n"
+		"and it can be changed by specifying an argument `var`.");
 }
 
 Gura_ImplementFunction(least_square)
@@ -869,11 +914,12 @@ Gura_DeclareFunction(bezier)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "nums", VTYPE_number, OCCUR_OnceOrMore, FLAG_List);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a list that consists of functions that generate coordinates of bezier\n"
-	"curves with specified control points. One or more lists of control points can\n"
-	"be specified. This means that if you give it two lists of numbers as arguments,\n"
-	"it returns two functions of bezier curve.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a list that consists of functions that generate coordinates of bezier\n"
+		"curves with specified control points. One or more lists of control points can\n"
+		"be specified. This means that if you give it two lists of numbers as arguments,\n"
+		"it returns two functions of bezier curve.");
 }
 
 Gura_ImplementFunction(bezier)
@@ -896,11 +942,12 @@ Gura_DeclareFunction(diff)
 	DeclareArg(env, "expr", VTYPE_expr);
 	DeclareArg(env, "var", VTYPE_symbol);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a mathematical differential expression of the given expr\n"
-	"by a variable var.\n"
-	"Example:\n"
-	"math.diff(`(math.sin(x ** 2)), `x)");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a mathematical differential expression of the given `expr`\n"
+		"by a variable `var`.\n"
+		"\n"
+		"Example: `math.diff(`(math.sin(x ** 2)), `x)`\n");
 }
 
 Gura_ImplementFunction(diff)
@@ -916,6 +963,9 @@ Gura_DeclareFunction(optimize)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "expr", VTYPE_expr);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(optimize)
@@ -930,6 +980,9 @@ Gura_DeclareFunction(fft)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "seq", VTYPE_any, OCCUR_Once, FLAG_List);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(fft)
@@ -942,6 +995,9 @@ Gura_ImplementFunction(fft)
 Gura_DeclareFunction(integral)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(integral)
@@ -955,6 +1011,9 @@ Gura_DeclareFunction(dot_product)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "a", VTYPE_any, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "b", VTYPE_any, OCCUR_Once, FLAG_List);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(dot_product)
@@ -991,6 +1050,9 @@ Gura_DeclareFunction(cross_product)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "a", VTYPE_any, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "b", VTYPE_any, OCCUR_Once, FLAG_List);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(cross_product)
@@ -1056,7 +1118,9 @@ Gura_DeclareFunction(covariance)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "a", VTYPE_iterator);
 	DeclareArg(env, "b", VTYPE_iterator);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a covariance between the sequences of values.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a covariance between the sequences of values.");
 }
 
 Gura_ImplementFunction(covariance)
@@ -1095,7 +1159,9 @@ Gura_DeclareFunction(gcd)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "a", VTYPE_number);
 	DeclareArg(env, "b", VTYPE_number, OCCUR_OnceOrMore);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a greatest common divisor among two or more numbers.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a greatest common divisor among two or more numbers.");
 }
 
 Gura_ImplementFunction(gcd)
@@ -1116,7 +1182,9 @@ Gura_DeclareFunction(lcm)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "a", VTYPE_number);
 	DeclareArg(env, "b", VTYPE_number, OCCUR_OnceOrMore);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a least common multiple among two or more numbers.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a least common multiple among two or more numbers.");
 }
 
 Gura_ImplementFunction(lcm)

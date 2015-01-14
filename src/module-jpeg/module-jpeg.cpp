@@ -188,7 +188,9 @@ Gura_DeclareMethod(image, jpegread)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Reads a JPEG image from a stream.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Reads a JPEG image from a stream.");
 }
 
 Gura_ImplementMethod(image, jpegread)
@@ -207,7 +209,9 @@ Gura_DeclareMethod(image, jpegwrite)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "quality", VTYPE_number, OCCUR_Once,
 										FLAG_None, new Expr_Value(75));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Writes a JPEG image to a stream.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Writes a JPEG image to a stream.");
 }
 
 Gura_ImplementMethod(image, jpegwrite)
@@ -228,6 +232,9 @@ Gura_DeclareFunction(exif)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(raise));
 	SetClassToConstruct(Gura_UserClass(exif));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(exif)
@@ -253,6 +260,9 @@ Gura_ImplementFunction(exif)
 Gura_DeclareFunction(test)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(test)
