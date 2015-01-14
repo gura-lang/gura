@@ -854,6 +854,9 @@ Gura_DeclareMethod(parser, parse)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(parser, parse)
@@ -1008,6 +1011,9 @@ Gura_DeclareMethod(element, addchild)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(element, addchild)
@@ -1021,6 +1027,9 @@ Gura_ImplementMethod(element, addchild)
 Gura_DeclareMethod(element, gettext)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(element, gettext)
@@ -1038,6 +1047,9 @@ Gura_DeclareMethod(element, textize)
 	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "indentLevel", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "tabs", VTYPE_number, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(element, textize)
@@ -1061,6 +1073,9 @@ Gura_DeclareMethod(element, write)
 	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "indentLevel", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "tabs", VTYPE_number, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(element, write)
@@ -1158,6 +1173,9 @@ Gura_DeclareMethod(document, parse)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "str", VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(document, parse)
@@ -1173,6 +1191,9 @@ Gura_DeclareMethod(document, read)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(document, read)
@@ -1188,6 +1209,9 @@ Gura_DeclareMethod(document, textize)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "tabs", VTYPE_number, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(document, textize)
@@ -1209,6 +1233,9 @@ Gura_DeclareMethod(document, write)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "tabs", VTYPE_number, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(document, write)
@@ -1309,6 +1336,9 @@ Gura_DeclareFunction(parser)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(parser));
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(parser)
@@ -1328,6 +1358,9 @@ Gura_DeclareFunction(element)
 	DeclareArg(env, "_tagname_", VTYPE_string);
 	DeclareDictArg("attrs");
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(element)
@@ -1369,6 +1402,9 @@ Gura_DeclareFunction(comment)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "comment", VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(comment)
@@ -1384,6 +1420,9 @@ Gura_DeclareFunction(document)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(document)

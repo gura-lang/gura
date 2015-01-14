@@ -35,6 +35,9 @@ Gura_DeclareMethod(regkey, createkey)
 	DeclareArg(env, "option", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "samDesired", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(regkey, createkey)
@@ -64,6 +67,9 @@ Gura_DeclareMethod(regkey, openkey)
 	DeclareArg(env, "subkey", VTYPE_string);
 	DeclareArg(env, "samDesired", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(regkey, openkey)
@@ -89,6 +95,9 @@ Gura_DeclareMethod(regkey, deletekey)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "subkey", VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(regkey, deletekey)
@@ -111,6 +120,9 @@ Gura_DeclareMethod(regkey, enumkey)
 	DeclareArg(env, "samDesired", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_UserSymbol(openkey));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(regkey, enumkey)
@@ -133,6 +145,9 @@ Gura_DeclareMethod(regkey, setvalue)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "valueName", VTYPE_string);
 	DeclareArg(env, "data", VTYPE_any, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(regkey, setvalue)
@@ -161,6 +176,9 @@ Gura_DeclareMethod(regkey, deletevalue)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "valueName", VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(regkey, deletevalue)
@@ -181,6 +199,9 @@ Gura_DeclareMethod(regkey, queryvalue)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "valueName", VTYPE_string, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(regkey, queryvalue)
@@ -216,6 +237,9 @@ Gura_DeclareMethod(regkey, enumvalue)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(regkey, enumvalue)
@@ -972,6 +996,9 @@ Gura_DeclareFunction(ole)
 	DeclareAttr(Gura_UserSymbol(connect));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(ole));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(ole)
@@ -992,6 +1019,9 @@ Gura_ImplementFunction(ole)
 Gura_DeclareFunction(GetACP)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(GetACP)

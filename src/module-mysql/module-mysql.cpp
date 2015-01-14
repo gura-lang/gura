@@ -100,7 +100,9 @@ String Object_mysql::IteratorQuery::ToString() const
 Gura_DeclareMethod(mysql, close)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Shuts down the connection with an MySQL server.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Shuts down the connection with an MySQL server.");
 }
 
 Gura_ImplementMethod(mysql, close)
@@ -115,6 +117,9 @@ Gura_DeclareMethod(mysql, query)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stmt", VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(mysql, query)
@@ -144,6 +149,9 @@ Gura_DeclareFunction(connect)
 	DeclareArg(env, "passwd", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "db", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(connect)
@@ -177,6 +185,9 @@ Gura_ImplementFunction(connect)
 Gura_DeclareFunction(test)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(test)

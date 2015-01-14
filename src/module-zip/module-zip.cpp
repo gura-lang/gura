@@ -102,6 +102,9 @@ Gura_DeclareMethod(reader, entry)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(reader, entry)
@@ -137,6 +140,9 @@ Gura_DeclareMethod(reader, entries)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(reader, entries)
@@ -372,6 +378,9 @@ Gura_DeclareMethod(writer, add)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "compression", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(writer, add)
@@ -404,6 +413,9 @@ Gura_ImplementMethod(writer, add)
 Gura_DeclareMethod(writer, close)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(writer, close)
@@ -475,6 +487,9 @@ Gura_DeclareFunction(reader)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(reader));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(reader)
@@ -494,6 +509,9 @@ Gura_DeclareFunction(writer)
 	DeclareArg(env, "compression", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(writer));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(writer)
@@ -515,6 +533,9 @@ Gura_DeclareFunction(test)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(test)

@@ -224,8 +224,9 @@ Gura_DeclareMethod(pattern, match)
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Applies a pattern matching to a string and returns a match object.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Applies a pattern matching to a string and returns a match object.");
 }
 
 Gura_ImplementMethod(pattern, match)
@@ -245,6 +246,9 @@ Gura_DeclareMethod(pattern, sub)
 	DeclareArg(env, "str", VTYPE_string);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(pattern, sub)
@@ -278,6 +282,9 @@ Gura_DeclareMethod(pattern, split)
 	DeclareArg(env, "str", VTYPE_string);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(pattern, split)
@@ -298,6 +305,9 @@ Gura_DeclareMethod(pattern, scan)
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(pattern, scan)
@@ -456,6 +466,9 @@ Gura_DeclareMethod(match, group)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(match, group)
@@ -468,6 +481,9 @@ Gura_ImplementMethod(match, group)
 Gura_DeclareMethod(match, groups)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(match, groups)
@@ -489,6 +505,9 @@ Gura_DeclareMethod(match, start)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(match, start)
@@ -504,6 +523,9 @@ Gura_DeclareMethod(match, end)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(match, end)
@@ -536,6 +558,9 @@ Gura_DeclareMethod(string, match)
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(string, match)
@@ -556,6 +581,9 @@ Gura_DeclareMethod(string, sub)
 	DeclareArg(env, "replace", VTYPE_any);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(string, sub)
@@ -590,6 +618,9 @@ Gura_DeclareMethod(string, splitreg)
 	DeclareArg(env, "pattern", VTYPE_pattern);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(string, splitreg)
@@ -610,6 +641,9 @@ Gura_DeclareMethod(string, scan)
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(string, scan)
@@ -631,6 +665,9 @@ Gura_DeclareMethod(list, grep)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pattern", VTYPE_pattern);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(list, grep)
@@ -650,6 +687,9 @@ Gura_DeclareMethod(iterator, grep)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pattern", VTYPE_pattern);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(iterator, grep)
@@ -675,6 +715,9 @@ Gura_DeclareFunction(pattern)
 	DeclareAttr(Gura_UserSymbol(multiline));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(pattern));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(pattern)
@@ -697,6 +740,9 @@ Gura_DeclareFunction(match)
 	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(match));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(match)
@@ -717,6 +763,9 @@ Gura_DeclareFunction(sub)
 	DeclareArg(env, "str", VTYPE_string);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(sub)
@@ -751,6 +800,9 @@ Gura_DeclareFunction(split)
 	DeclareArg(env, "str", VTYPE_string);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(split)
@@ -772,6 +824,9 @@ Gura_DeclareFunction(scan)
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(scan)

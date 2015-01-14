@@ -16,7 +16,9 @@ Gura_DeclareMethod(image, ppmread)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Reads a PPM/PGM image from a stream.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Reads a PPM/PGM image from a stream.");
 }
 
 Gura_ImplementMethod(image, ppmread)
@@ -31,8 +33,10 @@ Gura_DeclareMethod(image, ppmwrite)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Writes a PPM/PGM image to a stream.");
 	DeclareAttr(Gura_Symbol(gray));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Writes a PPM/PGM image to a stream.");
 }
 
 Gura_ImplementMethod(image, ppmwrite)

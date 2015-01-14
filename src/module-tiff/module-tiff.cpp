@@ -66,7 +66,9 @@ Gura_DeclareMethod(image, tiffread)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Reads a TIFF image from a stream.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Reads a TIFF image from a stream.");
 }
 
 Gura_ImplementMethod(image, tiffread)
@@ -86,6 +88,9 @@ Gura_DeclareFunction(test)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"");
 }
 
 Gura_ImplementFunction(test)

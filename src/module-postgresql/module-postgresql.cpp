@@ -103,7 +103,9 @@ String Object_postgresql::IteratorTuple::ToString() const
 Gura_DeclareMethod(postgresql, close)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Shuts down the connection with an PostgreSQL server.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Shuts down the connection with an PostgreSQL server.");
 }
 
 Gura_ImplementMethod(postgresql, close)
@@ -118,6 +120,9 @@ Gura_DeclareMethod(postgresql, query)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stmt", VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(postgresql, query)
@@ -147,6 +152,9 @@ Gura_DeclareFunction(connect)
 	DeclareArg(env, "passwd", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "db", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(connect)
@@ -180,6 +188,9 @@ Gura_ImplementFunction(connect)
 Gura_DeclareFunction(test)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(test)

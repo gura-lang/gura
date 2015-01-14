@@ -12,10 +12,11 @@ Gura_BeginModuleBody(uuid)
 Gura_DeclareFunction(generate)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Generates a Universal Unique Identifier (UUID). In default, results are output in\n"
-	"lower-case characters. Specifying :upper would generates it in upper-case characters.");
 	DeclareAttr(Gura_Symbol(upper));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Generates a Universal Unique Identifier (UUID). In default, results are output in\n"
+		"lower-case characters. Specifying :upper would generates it in upper-case characters.");
 }
 
 Gura_ImplementFunction(generate)
