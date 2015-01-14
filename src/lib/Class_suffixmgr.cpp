@@ -59,8 +59,9 @@ Gura_DeclareFunction(suffixmgr)
 	DeclareArg(env, "target", VTYPE_symbol);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_suffixmgr));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(suffixmgr)
@@ -90,6 +91,9 @@ Gura_DeclareMethod(suffixmgr, assign)
 	DeclareArg(env, "suffix", VTYPE_symbol);
 	DeclareAttr(Gura_Symbol(overwrite));
 	DeclareBlock(OCCUR_Once);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(suffixmgr, assign)

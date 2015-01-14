@@ -40,6 +40,9 @@ Gura_DeclareFunction(directory)
 	DeclareArg(env, "pathname", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_directory));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(directory)

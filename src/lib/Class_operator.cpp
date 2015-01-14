@@ -97,8 +97,9 @@ Gura_DeclareFunctionAlias(operator_, "operator")
 	DeclareArg(env, "op", VTYPE_symbol);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_operator));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns an operator object");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns an operator object");
 }
 
 Gura_ImplementFunction(operator_)
@@ -125,6 +126,9 @@ Gura_DeclareMethod(operator_, assign)
 	DeclareArg(env, "type_l", VTYPE_expr);
 	DeclareArg(env, "type_r", VTYPE_expr, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_Once);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(operator_, assign)
@@ -171,6 +175,9 @@ Gura_DeclareMethod(operator_, entries)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "type", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(operator_, entries)

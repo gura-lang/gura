@@ -43,6 +43,9 @@ Gura_DeclareFunction(codec)
 	DeclareArg(env, "encoding", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_codec));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(codec)
@@ -60,6 +63,9 @@ Gura_DeclareMethod(codec, addcr)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(codec, addcr)
@@ -75,7 +81,9 @@ Gura_DeclareMethod(codec, decode)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "buff", VTYPE_binary);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(codec, decode)
@@ -93,6 +101,9 @@ Gura_DeclareMethod(codec, delcr)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(codec, delcr)
@@ -108,7 +119,9 @@ Gura_DeclareMethod(codec, encode)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "string", VTYPE_string);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(codec, encode)

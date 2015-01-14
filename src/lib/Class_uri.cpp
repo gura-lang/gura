@@ -104,6 +104,9 @@ Gura_DeclareFunction(uri)
 	DeclareArg(env, "str", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_uri));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(uri)
@@ -122,6 +125,9 @@ Gura_ImplementFunction(uri)
 Gura_DeclareMethod(uri, getfragment)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(uri, getfragment)
@@ -134,6 +140,9 @@ Gura_ImplementMethod(uri, getfragment)
 Gura_DeclareMethod(uri, getpath)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(uri, getpath)
@@ -146,6 +155,9 @@ Gura_ImplementMethod(uri, getpath)
 Gura_DeclareMethod(uri, getquery)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(uri, getquery)
@@ -162,6 +174,9 @@ Gura_DeclareClassMethod(uri, parsequery)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "query", VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementClassMethod(uri, parsequery)

@@ -97,9 +97,10 @@ Gura_DeclareFunction(color)
 	DeclareArg(env, "args", VTYPE_any, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_color));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Gets either of a color symbol or a list of elements of r, g, b and a,\n"
-	"and returns an color object.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Gets either of a color symbol or a list of elements of r, g, b and a,\n"
+		"and returns an color object.");
 }
 
 Gura_ImplementFunction(color)
@@ -138,6 +139,9 @@ Gura_ImplementFunction(color)
 Gura_DeclareMethod(color, getgray)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(color, getgray)
@@ -150,6 +154,9 @@ Gura_ImplementMethod(color, getgray)
 Gura_DeclareMethod(color, html)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(color, html)
@@ -163,6 +170,9 @@ Gura_DeclareMethod(color, tolist)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(alpha));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(color, tolist)

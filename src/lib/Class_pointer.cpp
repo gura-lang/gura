@@ -58,6 +58,9 @@ Gura_DeclareMethod(pointer, forward)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "distance", VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(pointer, forward)
@@ -75,6 +78,9 @@ Gura_DeclareMethod(pointer, pack)
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_OnceOrMore);
 	DeclareAttr(Gura_Symbol(stay));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(pointer, pack)
@@ -93,6 +99,9 @@ Gura_ImplementMethod(pointer, pack)
 Gura_DeclareMethod(pointer, reset)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(pointer, reset)
@@ -110,6 +119,9 @@ Gura_DeclareMethod(pointer, unpack)
 	DeclareArg(env, "values", VTYPE_number, OCCUR_ZeroOrMore);
 	DeclareAttr(Gura_Symbol(nil));
 	DeclareAttr(Gura_Symbol(stay));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(pointer, unpack)
@@ -127,6 +139,9 @@ Gura_DeclareMethod(pointer, unpacks)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "values", VTYPE_number, OCCUR_ZeroOrMore);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(pointer, unpacks)

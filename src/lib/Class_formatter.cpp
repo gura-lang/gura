@@ -54,6 +54,9 @@ String Object_formatter::ToString(bool exprFlag)
 Gura_DeclareMethod(formatter, getfieldminwidth)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(formatter, getfieldminwidth)
@@ -66,6 +69,9 @@ Gura_ImplementMethod(formatter, getfieldminwidth)
 Gura_DeclareMethod(formatter, getpadding)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(formatter, getpadding)
@@ -79,6 +85,9 @@ Gura_ImplementMethod(formatter, getpadding)
 Gura_DeclareMethod(formatter, getplusmode)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(formatter, getplusmode)
@@ -91,6 +100,9 @@ Gura_ImplementMethod(formatter, getplusmode)
 Gura_DeclareMethod(formatter, getprecision)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(formatter, getprecision)
@@ -103,6 +115,9 @@ Gura_ImplementMethod(formatter, getprecision)
 Gura_DeclareMethod(formatter, isleftalign)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(formatter, isleftalign)
@@ -115,6 +130,9 @@ Gura_ImplementMethod(formatter, isleftalign)
 Gura_DeclareMethod(formatter, issharp)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(formatter, issharp)
@@ -127,6 +145,9 @@ Gura_ImplementMethod(formatter, issharp)
 Gura_DeclareMethod(formatter, isuppercase)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(formatter, isuppercase)

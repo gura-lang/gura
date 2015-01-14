@@ -173,6 +173,9 @@ Gura_DeclareFunction(datetime)
 	DeclareArg(env, "minsoff", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_datetime));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(datetime)
@@ -200,6 +203,9 @@ Gura_ImplementFunction(datetime)
 Gura_DeclareMethod(datetime, clrtzoff)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(datetime, clrtzoff)
@@ -215,20 +221,23 @@ Gura_DeclareMethod(datetime, format)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_any, OCCUR_Once,
 								FLAG_None, new Expr_Value(Gura_Symbol(w3c)));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string after converting datetime properties with the specified format.\n"
-	"The format can either be a string to specify a user-specific format or a symbol of\n"
-	"custom-defined one. A user-specific format contains following specifiers.\n"
-	"  %d  day of month\n"
-	"  %H  hour in 24-hour format\n"
-	"  %I  hour in 12-hour format\n"
-	"  %m  month\n"
-	"  %M  minute\n"
-	"  %S  second\n"
-	"  %w  day of week\n"
-	"  %y  lower two digits of year\n"
-	"  %Y  year\n"
-	"A custom-defined format is one of the symbols: `w3c, `http and `asctime.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a string after converting datetime properties with the specified format.\n"
+		"The format can either be a string to specify a user-specific format or a symbol of\n"
+		"custom-defined one. A user-specific format contains following specifiers.\n"
+		"\n"
+		"- `%d` .. day of month\n"
+		"- `%H` .. hour in 24-hour format\n"
+		"- `%I` .. hour in 12-hour format\n"
+		"- `%m` .. month\n"
+		"- `%M` .. minute\n"
+		"- `%S` .. second\n"
+		"- `%w` .. day of week\n"
+		"- `%y` .. lower two digits of year\n"
+		"- `%Y` .. year\n"
+		"\n"
+		"A custom-defined format is one of the symbols: `w3c, `http and `asctime.");
 }
 
 Gura_ImplementMethod(datetime, format)
@@ -288,6 +297,9 @@ Gura_DeclareClassMethod(datetime, isleap)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "year", VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementClassMethod(datetime, isleap)
@@ -300,6 +312,9 @@ Gura_ImplementClassMethod(datetime, isleap)
 Gura_DeclareMethod(datetime, isleap)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(datetime, isleap)
@@ -316,6 +331,9 @@ Gura_DeclareClassMethod(datetime, monthdays)
 	DeclareArg(env, "year", VTYPE_number);
 	DeclareArg(env, "month", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementClassMethod(datetime, monthdays)
@@ -332,6 +350,9 @@ Gura_DeclareClassMethod(datetime, now)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(utc));
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementClassMethod(datetime, now)
@@ -346,6 +367,9 @@ Gura_DeclareClassMethod(datetime, parse)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementClassMethod(datetime, parse)
@@ -363,6 +387,9 @@ Gura_DeclareMethod(datetime, settzoff)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "mins", VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(datetime, settzoff)
@@ -381,6 +408,9 @@ Gura_DeclareClassMethod(datetime, time)
 	DeclareArg(env, "sec", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareArg(env, "usec", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementClassMethod(datetime, time)
@@ -402,6 +432,9 @@ Gura_DeclareClassMethod(datetime, today)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(utc));
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementClassMethod(datetime, today)
@@ -415,6 +448,9 @@ Gura_ImplementClassMethod(datetime, today)
 Gura_DeclareMethod(datetime, utc)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(datetime, utc)
@@ -434,6 +470,9 @@ Gura_DeclareClassMethod(datetime, weekday)
 	DeclareArg(env, "year", VTYPE_number);
 	DeclareArg(env, "month", VTYPE_number);
 	DeclareArg(env, "day", VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementClassMethod(datetime, weekday)

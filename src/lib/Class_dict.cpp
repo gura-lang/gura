@@ -224,6 +224,9 @@ Gura_DeclareFunction(dict)
 	DeclareAttr(Gura_Symbol(icase));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_dict));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(dict)
@@ -261,6 +264,9 @@ Gura_ImplementFunction(dict)
 Gura_DeclareMethod(dict, clear)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(dict, clear)
@@ -275,6 +281,9 @@ Gura_DeclareMethod(dict, erase)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(dict, erase)
@@ -291,6 +300,9 @@ Gura_DeclareMethod(dict, get)
 	DeclareArg(env, "key", VTYPE_any);
 	DeclareArg(env, "default", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_NoMap);
 	DeclareAttr(Gura_Symbol(raise));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(dict, get)
@@ -317,6 +329,9 @@ Gura_DeclareMethod(dict, gets)
 	DeclareArg(env, "key", VTYPE_any);
 	DeclareArg(env, "default", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(raise));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(dict, gets)
@@ -341,6 +356,9 @@ Gura_DeclareMethod(dict, haskey)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(dict, haskey)
@@ -356,6 +374,9 @@ Gura_DeclareMethod(dict, items)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(dict, items)
@@ -371,6 +392,9 @@ Gura_DeclareMethod(dict, keys)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(dict, keys)
@@ -385,6 +409,9 @@ Gura_ImplementMethod(dict, keys)
 Gura_DeclareMethod(dict, len)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(dict, len)
@@ -399,6 +426,9 @@ Gura_DeclareMethod(dict, set)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_any);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(dict, set)
@@ -415,6 +445,9 @@ Gura_DeclareMethod(dict, setdefault)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_any);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(dict, setdefault)
@@ -435,6 +468,9 @@ Gura_DeclareMethod(dict, sets)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_any);
 	DeclareArg(env, "value", VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(dict, sets)
@@ -452,6 +488,9 @@ Gura_DeclareMethod(dict, store)
 	DeclareArg(env, "elems", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(default_));
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(dict, store)
@@ -496,6 +535,9 @@ Gura_DeclareMethod(dict, values)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(dict, values)

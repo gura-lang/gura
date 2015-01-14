@@ -97,6 +97,9 @@ Gura_DeclareFunction(audio)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "args", VTYPE_any, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(audio)
@@ -157,6 +160,9 @@ Gura_DeclareMethod(audio, each)
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "offset", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(audio, each)
@@ -179,6 +185,9 @@ Gura_DeclareMethod(audio, get)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "offset", VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(audio, get)
@@ -205,6 +214,9 @@ Gura_DeclareMethod(audio, put)
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "offset", VTYPE_number);
 	DeclareArg(env, "data", VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(audio, put)
@@ -232,6 +244,9 @@ Gura_DeclareMethod(audio, sinewave)
 	DeclareArg(env, "freq", VTYPE_number);
 	DeclareArg(env, "len", VTYPE_number);
 	DeclareArg(env, "amplitude", VTYPE_number, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(audio, sinewave)
@@ -258,6 +273,9 @@ Gura_DeclareMethod(audio, store)
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "offset", VTYPE_number);
 	DeclareArg(env, "data", VTYPE_iterator);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(audio, store)

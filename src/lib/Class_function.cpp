@@ -154,6 +154,9 @@ Gura_DeclareFunction(function)
 	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrMore);
 	SetClassToConstruct(env.LookupClass(VTYPE_function));
 	DeclareBlock(OCCUR_Once);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(function)
@@ -196,6 +199,9 @@ Gura_DeclareClassMethod(function, addhelp)
 	DeclareArg(env, "lang", VTYPE_symbol);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "help", VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementClassMethod(function, addhelp)
@@ -332,6 +338,9 @@ Gura_DeclareMethod(function, mathdiff)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "var", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(function, mathdiff)

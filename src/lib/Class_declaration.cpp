@@ -56,6 +56,9 @@ Gura_DeclareMethod(declaration, istype)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(declaration, istype)
