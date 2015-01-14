@@ -43,8 +43,6 @@ public:
 	inline const Function *GetFunction() const { return _pFunc.get(); }
 	inline void SetThis(const Value &valueThis) { _valueThis = valueThis; }
 	inline Value GetThis() const { return _valueThis; }
-	inline String GetName() const { return _pFunc->GetName(); }
-	//virtual String GetFullName(Signal sig);
 	virtual String ToString(bool exprFlag);
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
@@ -59,7 +57,6 @@ public:
 	virtual Value DoCall(Environment &env, Signal sig, Args &args);
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	Value Eval(Environment &env, Signal sig, ValueList &valListArg) const;
-	//String MakePrefix(Signal sig) const;
 };
 
 }

@@ -41,18 +41,11 @@ Value Object_function::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 						dynamic_cast<const FunctionCustom *>(GetFunction());
 		return Value(new Object_expr(env, Expr::Reference(pFuncCustom->GetExprBody())));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(format))) {
-		//String str = MakePrefix(sig);
-		//if (sig.IsSignalled()) return Value::Null;
-		//str += _pFunc->ToString();
-		//return Value(str);
-		return Value(_pFunc->ToString());
+		return Value(GetFunction()->ToString());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(fullname))) {
-		//String fullName = GetFullName(sig);
-		//if (sig.IsSignalled()) return Value::Null;
-		//return Value(fullName);
-		return Value(_pFunc->MakeFullName());
+		return Value(GetFunction()->MakeFullName());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(name))) {
-		return Value(GetName());
+		return Value(GetFunction()->GetName());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(symbol))) {
 		return Value(GetFunction()->GetSymbol());
 	}
@@ -93,27 +86,27 @@ Value Object_function::DoSetProp(Environment &env, Signal sig, const Symbol *pSy
 
 bool Object_function::IsLeader() const
 {
-	return _pFunc->GetLeaderFlag();
+	return GetFunction()->GetLeaderFlag();
 }
 
 bool Object_function::IsTrailer() const
 {
-	return _pFunc->GetTrailerFlag();
+	return GetFunction()->GetTrailerFlag();
 }
 
 bool Object_function::IsFinalizer() const
 {
-	return _pFunc->GetFinalizerFlag();
+	return GetFunction()->GetFinalizerFlag();
 }
 
 bool Object_function::IsEndMarker() const
 {
-	return _pFunc->GetEndMarkerFlag();
+	return GetFunction()->GetEndMarkerFlag();
 }
 
 OccurPattern Object_function::GetBlockOccurPattern() const
 {
-	return _pFunc->GetBlockOccurPattern();
+	return GetFunction()->GetBlockOccurPattern();
 }
 
 Value Object_function::DoCall(Environment &env, Signal sig, Args &args)
@@ -122,17 +115,17 @@ Value Object_function::DoCall(Environment &env, Signal sig, Args &args)
 					(args.GetThis().IsModule() && _valueThis.IsValid())) {
 		args.SetThis(_valueThis);
 	}
-	return _pFunc->Call(env, sig, args);
+	return GetFunction()->Call(env, sig, args);
 }
 
 Value Object_function::Eval(Environment &env, Signal sig, ValueList &valListArg) const
 {
-	_pFunc->GetDeclOwner().Compensate(env, sig, valListArg);
+	GetFunction()->GetDeclOwner().Compensate(env, sig, valListArg);
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(_valueThis);
 	pArgs->SetValueListArg(valListArg);
-	return _pFunc->Eval(env, sig, *pArgs);
+	return GetFunction()->Eval(env, sig, *pArgs);
 }
 
 Object *Object_function::Clone() const
@@ -140,67 +133,17 @@ Object *Object_function::Clone() const
 	return new Object_function(*this);
 }
 
-#if 0
-String Object_function::GetFullName(Signal sig)
-{
-	//String str = MakePrefix(sig);
-	//if (sig.IsSignalled()) return String("");
-	//str += _pFunc->GetName();
-	//return str;
-	return _pFunc->ToString();
-}
-#endif
-
 String Object_function::ToString(bool exprFlag)
 {
-	//Signal sig;
-	//String str = MakePrefix(sig);
-	//if (sig.IsSignalled()) return String("");
-	//str += _pFunc->ToString();
-	//return str;
-	return _pFunc->ToString();
+	return GetFunction()->ToString();
 }
 
 void Object_function::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		_pFunc->GatherFollower(pFrame, envSet);
+		GetFunction()->GatherFollower(pFrame, envSet);
 	}
 }
-
-#if 0
-String Object_function::MakePrefix(Signal sig) const
-{
-	String str;
-	if (_valueThis.IsInvalid()) return str;
-	if (_valueThis.IsPrimitive()) {
-		const Environment &env = *this;
-		const Class *pClass = env.LookupClass(_valueThis.GetValueType());
-		if (pClass != NULL) {
-			str += pClass->GetName();
-			str += "#";
-			return str;
-		}
-	}
-	const Fundamental *pFund = _valueThis.ExtractFundamental(sig);
-	if (sig.IsSignalled()) return str;
-	if (pFund->IsModule()) {
-		const Module *pModule = dynamic_cast<const Module *>(pFund);
-		str += pModule->GetName();
-		str += ".";
-	} else if (pFund->IsClass()) {
-		const Class *pClass = dynamic_cast<const Class *>(pFund);
-		str += pClass->MakeValueTypeName();
-		str += (_pFunc->GetType() == FUNCTYPE_Instance)? "#" : ".";
-	} else if (pFund->IsObject()) {
-		const Object *pObject = dynamic_cast<const Object *>(pFund);
-		const Class *pClass = pObject->GetClass();
-		str += pClass->MakeValueTypeName();
-		str += "#";
-	}
-	return str;
-}
-#endif
 
 //-----------------------------------------------------------------------------
 // Implementation of functions
@@ -256,8 +199,8 @@ Gura_DeclareMethod(function, addhelp)
 
 Gura_ImplementMethod(function, addhelp)
 {
-	Object_function *pThis = Object_function::GetThisObj(args);
-	pThis->GetFunction()->AddHelp(args.GetSymbol(0), args.GetString(1), args.GetString(2));
+	Function *pFunc = Object_function::GetThisObj(args)->GetFunction();
+	pFunc->AddHelp(args.GetSymbol(0), args.GetString(1), args.GetString(2));
 	return Value::Null;
 }
 
@@ -266,18 +209,18 @@ Gura_DeclareMethod(function, gethelp)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Gets a help object of the specified function object.\n"
-	"`lang` is a symbol that indicates a language in which the help is written.\n"
-	"If help doesn't exist, it returns nil.\n"
-	);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Gets a help object of the specified function object.\n"
+		"`lang` is a symbol that indicates a language in which the help is written.\n"
+		"If help doesn't exist, it returns nil.\n");
 }
 
 Gura_ImplementMethod(function, gethelp)
 {
-	Object_function *pThis = Object_function::GetThisObj(args);
+	const Function *pFunc = Object_function::GetThisObj(args)->GetFunction();
 	const Symbol *pSymbol = args.Is_symbol(0)? args.GetSymbol(0) : env.GetLangCode();
-	const Help *pHelp = pThis->GetFunction()->GetHelp(pSymbol, true);
+	const Help *pHelp = pFunc->GetHelp(pSymbol, true);
 	if (pHelp == NULL) return Value::Null;
 	return Value(new Object_help(env, pHelp->Reference()));
 }
@@ -287,19 +230,18 @@ Gura_DeclareMethod(function, help)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Print a help message for the specified function object.\n"
-	"`lang` is a symbol that indicates a language in which the help is written.\n"
-	"If help message doesn't exist, it only prints the function's format.\n"
-	);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Print a help message for the specified function object.\n"
+		"`lang` is a symbol that indicates a language in which the help is written.\n"
+		"If help message doesn't exist, it only prints the function's format.\n");
 }
 
 Gura_ImplementMethod(function, help)
 {
-	Object_function *pThis = Object_function::GetThisObj(args);
+	const Function *pFunc = Object_function::GetThisObj(args)->GetFunction();
 	const Symbol *pSymbol = args.Is_symbol(0)? args.GetSymbol(0) : env.GetLangCode();
-	HelpPresenter::Present(env, sig, pThis->ToString(true).c_str(),
-						   pThis->GetFunction()->GetHelp(pSymbol, true));
+	HelpPresenter::Present(env, sig, pFunc->ToString().c_str(), pFunc->GetHelp(pSymbol, true));
 	return Value::Null;
 }
 
@@ -328,7 +270,7 @@ Gura_ImplementMethod(function, mathdiff)
 	AutoPtr<Expr> pExprDiff(pFunc->MathDiff(env, sig, pExprArg.get(), pSymbol));
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<FunctionCustom> pFuncDiff(new FunctionCustom(env,
-			Gura_Symbol(_anonymous_), pExprDiff.release(), FUNCTYPE_Function));
+				Gura_Symbol(_anonymous_), pExprDiff.release(), FUNCTYPE_Function));
 	pFuncDiff->CopyDeclare(*pFunc);
 	return Value(new Object_function(env, pFuncDiff.release()));
 }
