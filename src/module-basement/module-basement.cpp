@@ -1362,10 +1362,10 @@ Gura_DeclareFunction(help)
 
 Gura_ImplementFunction(help)
 {
-	Object_function *pFuncObj = Object_function::GetObject(args, 0);
+	const Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
 	const Symbol *pSymbol = args.Is_symbol(1)? args.GetSymbol(1) : env.GetLangCode();
-	HelpPresenter::Present(env, sig, pFuncObj->ToString(true).c_str(),
-						   pFuncObj->GetFunction()->GetHelp(pSymbol, true));
+	HelpPresenter::Present(env, sig, pFunc->ToString().c_str(),
+						   pFunc->GetHelp(pSymbol, true));
 	return Value::Null;
 }
 
