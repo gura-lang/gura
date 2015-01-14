@@ -8,42 +8,14 @@ Gura_BeginModuleBody(base64)
 //-----------------------------------------------------------------------------
 // Gura module functions: base64
 //-----------------------------------------------------------------------------
-// base64.reader(stream:stream:r)
-Gura_DeclareFunction(reader)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
-}
-
-Gura_ImplementFunction(reader)
-{
-	Stream &stream = args.GetStream(0);
-	AutoPtr<Stream> pStream(new Stream_Base64Reader(env, sig, stream.Reference()));
-	return Value(new Object_stream(env, pStream.release()));
-}
-
-// base64.writer(stream:stream:w, linelen:number => 76)
-Gura_DeclareFunction(writer)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
-	DeclareArg(env, "linelen", VTYPE_number, OCCUR_Once, FLAG_Nil, new Expr_Value(76));
-}
-
-Gura_ImplementFunction(writer)
-{
-	Stream &stream = args.GetStream(0);
-	int nCharsPerLine = args.Is_number(1)? args.GetInt(1) : -1;
-	AutoPtr<Stream> pStream(new Stream_Base64Writer(env, sig,
-								stream.Reference(), nCharsPerLine));
-	return Value(new Object_stream(env, pStream.release()));
-}
-
 // base64.decode(stream:stream:r)
 Gura_DeclareFunction(decode)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(decode)
@@ -63,6 +35,9 @@ Gura_DeclareFunction(encode)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareArg(env, "linelen", VTYPE_number, OCCUR_Once, FLAG_Nil, new Expr_Value(76));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(encode)
@@ -76,6 +51,46 @@ Gura_ImplementFunction(encode)
 	return Value(pObjBinary.release());
 }
 
+// base64.reader(stream:stream:r)
+Gura_DeclareFunction(reader)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a stream instance that reads data formatted in base64 from `stream`.\n");
+}
+
+Gura_ImplementFunction(reader)
+{
+	Stream &stream = args.GetStream(0);
+	AutoPtr<Stream> pStream(new Stream_Base64Reader(env, sig, stream.Reference()));
+	return Value(new Object_stream(env, pStream.release()));
+}
+
+// base64.writer(stream:stream:w, linelen:number => 76)
+Gura_DeclareFunction(writer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
+	DeclareArg(env, "linelen", VTYPE_number, OCCUR_Once, FLAG_Nil, new Expr_Value(76));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a stream instance that encodes data to base64 format and writes it to the `stream`.\n"
+		"\n"
+		"The number of characters per line is specified by an argument `linelen`.\n"
+		"If omitted, that is 76.\n");
+}
+
+Gura_ImplementFunction(writer)
+{
+	Stream &stream = args.GetStream(0);
+	int nCharsPerLine = args.Is_number(1)? args.GetInt(1) : -1;
+	AutoPtr<Stream> pStream(new Stream_Base64Writer(env, sig,
+								stream.Reference(), nCharsPerLine));
+	return Value(new Object_stream(env, pStream.release()));
+}
+
 //-----------------------------------------------------------------------------
 // Gura interfaces for stream class
 //-----------------------------------------------------------------------------
@@ -83,6 +98,9 @@ Gura_ImplementFunction(encode)
 Gura_DeclareMethod(stream, base64reader)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a stream instance that reads data formatted in base64 from the target stream instance.\n");
 }
 
 Gura_ImplementMethod(stream, base64reader)
@@ -97,6 +115,12 @@ Gura_DeclareMethod(stream, base64writer)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "linelen", VTYPE_number, OCCUR_Once, FLAG_Nil, new Expr_Value(76));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a stream instance that encodes data to base64 format and writes it to the target stream instance.\n"
+		"\n"
+		"The number of characters per line is specified by an argument `linelen`.\n"
+		"If omitted, that is 76.\n");
 }
 
 Gura_ImplementMethod(stream, base64writer)
@@ -112,10 +136,10 @@ Gura_ImplementMethod(stream, base64writer)
 Gura_ModuleEntry()
 {
 	// function assignment
-	Gura_AssignFunction(reader);
-	Gura_AssignFunction(writer);
 	Gura_AssignFunction(decode);
 	Gura_AssignFunction(encode);
+	Gura_AssignFunction(reader);
+	Gura_AssignFunction(writer);
 	// method assignment to stream type
 	Gura_AssignMethodTo(VTYPE_stream, stream, base64reader);
 	Gura_AssignMethodTo(VTYPE_stream, stream, base64writer);

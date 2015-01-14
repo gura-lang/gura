@@ -1,0 +1,20 @@
+#!/usr/bin/env gura
+import(markdown)
+
+write(doc:markdown.document) = {
+	doc << [
+		base64.decode
+		base64.encode
+		base64.reader
+		base64.writer
+	]
+	doc << [
+		stream.base64reader
+		stream.base64writer
+	]
+	doc
+}
+
+if (__name__ == '__main__') {
+	write(markdown.document()).render@html(sys.stdout)
+}
