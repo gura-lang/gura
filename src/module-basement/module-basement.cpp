@@ -18,466 +18,299 @@ Gura_BeginModuleBody(basement)
 "- `:xiter` - returns an iterator that executes the block, skipping `nil`\n"
 
 //-----------------------------------------------------------------------------
-// Gura module functions: basement
+// formatting and printing of text
 //-----------------------------------------------------------------------------
-// class(superclass?) {block?}
-Gura_DeclareFunctionAlias(class_, "class")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "superclass", VTYPE_function, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a function object that constructs an instance with methods and\n"
-		"properties specified in the block. If superclass, which is supposed to\n"
-		"be a constructor function, is specified, the new class shall inherits\n"
-		"methods and properties of the class associated with it.");
-}
-
-Gura_ImplementFunction(class_)
-{
-	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-	if (sig.IsSignalled()) return Value::Null;
-	Class *pClassSuper = env.LookupClass(VTYPE_object);
-	const Value &valueSuper = args.GetValue(0);
-	if (valueSuper.Is_function()) {
-		pClassSuper = valueSuper.GetFunction()->GetClassToConstruct();
-		if (pClassSuper == NULL) {
-			valueSuper.GetFunction()->SetError_NotConstructor(sig);
-			return Value::Null;
-		}
-	}
-	ClassCustom *pClassCustom = new ClassCustom(&env, pClassSuper,
-			pClassSuper->GetValueType(),
-			dynamic_cast<Expr_Block *>(Expr::Reference(pExprBlock)), sig);
-	return Value(pClassCustom);
-}
-
-// struct(`args*) {block?}
-// if :loose attribute is specified, arguments in the generated function
-// will get the following modification.
-// - Once attribute will be modified to ZeroOrOnce.
-// - OnceOrMore attribute will be modified to ZeroOrMore
-Gura_DeclareFunctionAlias(struct_, "struct")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "args", VTYPE_quote, OCCUR_OnceOrMore);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareAttr(Gura_Symbol(loose));
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a function object that constructs a structure instance that\n"
-		"contains properties specified by args. It can optionally take block\n"
-		"which declares some additional methods for constructed instances.\n"
-		"If `:loose` attribute is speicied, the generated constructor function\n"
-		"makes an existence check of arguments in a loose way.");
-}
-
-Gura_ImplementFunction(struct_)
-{
-	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-	if (sig.IsSignalled()) return Value::Null;
-	Class *pClassSuper = env.LookupClass(VTYPE_Struct);
-	ClassCustom *pClassCustom = new ClassCustom(&env, pClassSuper,
-			pClassSuper->GetValueType(),
-			dynamic_cast<Expr_Block *>(Expr::Reference(pExprBlock)), sig);
-	AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
-	foreach_const (ValueList, pValue, args.GetList(0)) {
-		pExprOwnerArg->push_back(pValue->GetExpr()->Reference());
-	}
-	AutoPtr<ClassOfStruct::Constructor> pFunc(new ClassOfStruct::Constructor(env));
-	pFunc->SetClassToConstruct(pClassCustom); // constructor is registered in this class
-	pFunc->DeclareBlock(OCCUR_ZeroOrOnce);
-	AutoPtr<Args> pArgsSub(new Args());
-	pArgsSub->SetExprOwnerArg(pExprOwnerArg.release());
-	pArgsSub->SetAttrs(args.GetAttrs());
-	if (!pFunc->CustomDeclare(env, sig, _attrsOpt, *pArgsSub)) return false;
-	if (args.IsSet(Gura_Symbol(loose))) {
-		pFunc->GetDeclOwner().SetAsLoose();
-	}
-	return Value(pClassCustom);
-}
-
-// super(obj) {block?}
-Gura_DeclareFunction(super)
+// format(format, value*):map
+Gura_DeclareFunction(format)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "obj", VTYPE_any, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "format", VTYPE_string);
+	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 }
 
-Gura_ImplementFunction(super)
+Gura_ImplementFunction(format)
 {
-	Value rtn(args.GetValue(0));
-	int cntSuperSkip = rtn.GetSuperSkipCount() + 1;
-	if (cntSuperSkip > Value::MaxSuperSkipCount) {
-		sig.SetError(ERR_SystemError,
-			"number of super reference is limited under %d", Value::MaxSuperSkipCount);
-		return Value::Null;
-	}
-	rtn.SetSuperSkipCount(cntSuperSkip);
-	return ReturnValue(env, sig, args, rtn);
+	return Value(Formatter::Format(sig, args.GetString(0), args.GetList(1)));
 }
 
-// module {block}
-Gura_DeclareFunction(module)
+// print(value*):map:void
+Gura_DeclareFunction(print)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareBlock(OCCUR_Once);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates a module that contains functions and variables defined in the block\n"
-		"and returns it as a module object. This can be used to realize a namespace.");
+		"Converts `values` into string and outputs the results to standard output."
+	);
 }
 
-Gura_ImplementFunction(module)
+Gura_ImplementFunction(print)
 {
-	SeqPostHandler *pSeqPostHandler = NULL;
-	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-	if (sig.IsSignalled()) return Value::Null;
-	Module *pModule = new Module(&env, Gura_Symbol(_anonymous_), "", NULL, NULL);
-	pExprBlock->Exec2(*pModule, sig, pSeqPostHandler);
-	return Value(pModule);
-}
-
-// import(`module, `alias?):void:[binary,overwrite,mixin_type] {block?}
-Gura_DeclareFunctionAlias(import_, "import")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "module", VTYPE_quote);
-	DeclareArg(env, "alias", VTYPE_quote, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareAttr(Gura_Symbol(overwrite));
-	DeclareAttr(Gura_Symbol(binary));
-	DeclareAttr(Gura_Symbol(mixin_type));
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Imports a module stored in directories specified by a variable sys.path.\n"
-		"There are three ways of calling this function like follow:\n"
-		"\n"
-		"1. `import(foo)`\n"
-		"2. `import(foo, bar)`\n"
-		"3. `import(foo) {symbol1, symbol2, symbol3}`\n"
-		"\n"
-		"In the first format, it creates a module object named foo.\n"
-		"In the second, it names the module object as bar instead of foo.\n"
-		"In the third, it doesn't register the module name into the environment,\n"
-		"but it looks up symbols specified in the block and registers them.\n"
-		"In thie case, if specified symbols conflict with the existing one,\n"
-		"it will cause an error. Attribute `:overwrite` will disable such an error\n"
-		"detection and allow overwriting of symbols. You can specify an asterisk\n"
-		"character to include all the registered symbols like follows.\n"
-		"\n"
-		"    import(foo) {*}");
-}
-
-Gura_ImplementFunction(import_)
-{
-	SymbolSet symbolsToMixIn;
-	SymbolSet *pSymbolsToMixIn = NULL;
-	if (args.IsBlockSpecified()) {
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-		if (sig.IsSignalled()) return Value::Null;
-		foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
-			if (!(*ppExpr)->IsIdentifier()) {
-				sig.SetError(ERR_SyntaxError,
-					"wrong format for an element in import list");
-				return Value::Null;
-			}
-			const Expr_Identifier *pExprIdentifier =
-							dynamic_cast<const Expr_Identifier *>(*ppExpr);
-			symbolsToMixIn.insert(pExprIdentifier->GetSymbol());
-		}
-		pSymbolsToMixIn = &symbolsToMixIn;
-	}
-	const Symbol *pSymbolAlias = NULL;
-	if (!args.Is_expr(1)) {
-		// nothing to do
-	} else if (!args.GetExpr(1)->IsIdentifier()) {
-		sig.SetError(ERR_ValueError, "identifier is expected as a module name");
-		return Value::Null;
-	} else {
-		pSymbolAlias = dynamic_cast<const Expr_Identifier *>(args.GetExpr(1))->GetSymbol();
-	}
-	bool overwriteFlag = args.IsSet(Gura_Symbol(overwrite));
-	bool binaryOnlyFlag = args.IsSet(Gura_Symbol(binary));
-	bool mixinTypeFlag = args.IsSet(Gura_Symbol(mixin_type));
-	if (env.ImportModule(sig, args.GetExpr(0), pSymbolAlias, pSymbolsToMixIn,
-						overwriteFlag, binaryOnlyFlag, mixinTypeFlag) == NULL) {
-		return Value::Null;
-	}
-	return Value::Null;
-}
-
-// scope(target?) {block}
-Gura_DeclareFunction(scope)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "target", VTYPE_any, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_Once);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Evaluates block with a local scope.");
-}
-
-Gura_ImplementFunction(scope)
-{
-	if (args.IsInvalid(0)) {
-		SeqPostHandler *pSeqPostHandler = NULL;
-		AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
-		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
-		if (sig.IsSignalled()) return Value::Null;
-		return pExprBlock->Exec2(*pEnvBlock, sig, pSeqPostHandler);
-	} else {
-		SeqPostHandler *pSeqPostHandler = NULL;
-		Environment *pEnv = NULL;
-		if (args.IsModule(0)) {
-			pEnv = args.GetModule(0);
-		} else if (args.IsClass(0)) {
-			pEnv = args.GetValue(0).GetClassItself();
-		} else if (args.Is_function(0)) {
-			pEnv = args.GetFunction(0)->GetClassToConstruct();
-		} else if (args.IsType(0, VTYPE_environment)) {
-			pEnv = &Object_environment::GetObject(args, 0)->GetEnv();
-		}
-		if (pEnv != NULL) {
-			const Expr_Block *pExprBlock = args.GetBlock(*pEnv, sig);
-			if (sig.IsSignalled()) return Value::Null;
-			return pExprBlock->Exec2(*pEnv, sig, pSeqPostHandler);
-		}
-	}
-	sig.SetError(ERR_ValueError, "module or environment must be specified");
-	return Value::Null;
-}
-
-// locals(module?:module) {block?}
-Gura_DeclareFunction(locals)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "module", VTYPE_Module, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an environment object that belongs to a specified module.\n"
-		"If module is omitted, it returns an environment object of the current scope.");
-}
-
-Gura_ImplementFunction(locals)
-{
-	Value value;
-	if (args.IsModule(0)) {
-		value = Value(new Object_environment(*args.GetModule(0)));
-	} else {
-		value = Value(new Object_environment(env));
-	}
-	return ReturnValue(env, sig, args, value);
-}
-
-// outers() {block?}
-Gura_DeclareFunction(outers)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an environment object that accesses to an outer scope.");
-}
-
-Gura_ImplementFunction(outers)
-{
-	AutoPtr<Environment> pEnvOuter(new Environment());
-	pEnvOuter->AddOuterFrame(env.GetFrameOwner());
-	return ReturnValue(env, sig, args, Value(new Object_environment(*pEnvOuter)));
-}
-
-#if 0
-// Scope problem: when a block tries to assign a variable that has been declared by extern()
-// outside of it, it fails to do it.
-// 
-//     x = 0
-//     f() = {
-//         extern(x)
-//         if (true) {
-//             x = 3
-//         }
-//     }
-//     println(x)  // print 0, not 3
-
-// extern(`syms+)
-Gura_DeclareFunctionAlias(extern_, "extern")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "syms", VTYPE_quote, OCCUR_OnceOrMore);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Declares symbols that is supposed to access variables in outer scopes.");
-}
-
-Gura_ImplementFunction(extern_)
-{
+	Stream *pConsole = env.GetConsole();
+	if (pConsole == NULL) return Value::Null;
 	foreach_const (ValueList, pValue, args.GetList(0)) {
-		const Expr *pExpr = pValue->GetExpr();
-		if (!pExpr->IsIdentifier()) {
-			sig.SetError(ERR_ValueError, "identifier must be specified");
-			return Value::Null;
-		}
-		const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol();
-		if (env.LookupValue(pSymbol, ENVREF_Escalate) == NULL) {
-			sig.SetError(ERR_ValueError, "undefined symbol '%s'", pSymbol->GetName());
-		}
+		pConsole->Print(sig, pValue->ToString(false).c_str());
+		if (sig.IsSignalled()) break;
 	}
 	return Value::Null;
 }
-#endif
 
-// local(`syms+)
-Gura_DeclareFunction(local)
+// printf(format, values*):map:void
+Gura_DeclareFunction(printf)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "format", VTYPE_string);
+	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Converts `values` into string depending on formatter specification in `format` and outputs the result to standard output.\n"
+		"The format specifier comes like `%[flags][width][.precision]specifier`.\n"
+		"\n"
+		"`specifier` is one of the following.\n"
+		"\n"
+		"- `d`, `i` .. decimal integer number with a sign mark\n"
+		"- `u` .. decimal integer number wihout a sign mark\n"
+		"- `b` .. binary integer number without a sign mark\n"
+		"- `o` .. octal integer number without a sign mark\n"
+		"- `x` .. hexadecimal integer number in lower character without a sign mark\n"
+		"- `X` .. hexadecimal integer number in upper character without a sign mark\n"
+		"- `e` .. floating number in exponential form\n"
+		"- `E` .. floating number in exponential form (in upper character)\n"
+		"- `f` .. floating number in decimal form\n"
+		"- `F` .. floating number in decimal form (in upper character)\n"
+		"- `g` .. better form between `e` and `f`\n"
+		"- `G` .. better form between `E` and `F`\n"
+		"- `s` .. string\n"
+		"- `c` .. character\n"
+		"\n"
+		"`flags` is one of the following.\n"
+		"\n"
+		"- `+` .. `+` precedes for positive numbers\n"
+		"- `-` .. adjust a string to left\n"
+		"- `[SPC]` .. space character precedes for positive numbers\n"
+		"- `#` .. converted results of binary, octdecimal and hexadecimal are preceded by `'0b'`, `'0'` and `'0x'` respectively\n"
+		"- `0` .. fill lacking columns with `'0'`\n"
+		);
+}
+
+Gura_ImplementFunction(printf)
+{
+	Stream *pConsole = env.GetConsole();
+	if (pConsole == NULL) return Value::Null;
+	pConsole->PrintFmt(sig, args.GetString(0), args.GetList(1));
+	return Value::Null;
+}
+
+// println(value*):map:void
+Gura_DeclareFunction(println)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Converts `values` into string and outputs the results to standard output before a carriage return."
+	);
+}
+
+Gura_ImplementFunction(println)
+{
+	Stream *pConsole = env.GetConsole();
+	if (pConsole == NULL) return Value::Null;
+	foreach_const (ValueList, pValue, args.GetList(0)) {
+		pConsole->Print(sig, pValue->ToString(false).c_str());
+		if (sig.IsSignalled()) break;
+	}
+	pConsole->Print(sig, "\n");
+	return Value::Null;
+}
+
+//-----------------------------------------------------------------------------
+// repetition
+//-----------------------------------------------------------------------------
+// cross (`expr+) {block}
+Gura_DeclareFunction(cross)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "syms", VTYPE_quote, OCCUR_OnceOrMore);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Declares symbols that is supposed to access variables in a local scope.");
-}
-
-Gura_ImplementFunction(local)
-{
-	foreach_const (ValueList, pValue, args.GetList(0)) {
-		const Expr *pExpr = pValue->GetExpr();
-		if (!pExpr->IsIdentifier()) {
-			sig.SetError(ERR_ValueError, "identifier must be specified");
-			return Value::Null;
-		}
-		const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol();
-		if (env.LookupValue(pSymbol, ENVREF_NoEscalate) == NULL) {
-			env.AssignValue(pSymbol, Value::Null, EXTRA_Public);
-		}
-	}
-	return Value::Null;
-}
-
-// public():void {block}
-Gura_DeclareFunctionAlias(public_, "public")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareBlock(OCCUR_Once);
-}
-
-Gura_ImplementFunction(public_)
-{
-	SeqPostHandler *pSeqPostHandler = NULL;
-	SymbolSet &symbolsPublic = env.PrepareSymbolsPublic();
-	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-	foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
-		const Expr *pExpr = *ppExpr;
-		if (pExpr->IsIdentifier()) {
-			const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExpr);
-			symbolsPublic.Insert(pExprIdentifier->GetSymbol());
-		} else if (pExpr->IsAssign()) {
-			const Expr_Assign *pExprAssign = dynamic_cast<const Expr_Assign *>(pExpr);
-			if (!pExprAssign->GetLeft()->IsIdentifier()) {
-				sig.SetError(ERR_ValueError, "invalid element for public");
-				return Value::Null;
-			}
-			const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExprAssign->GetLeft());
-			symbolsPublic.Insert(pExprIdentifier->GetSymbol());
-			pExpr->Exec2(env, sig, pSeqPostHandler);
-			if (sig.IsSignalled()) return Value::Null;
-		} else {
-			sig.SetError(ERR_ValueError, "invalid element for public");
-			return Value::Null;
-		}
-	}
-	return Value::Null;
-}
-
-// try ():leader {block}
-Gura_DeclareFunctionAlias(try_, "try")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader);
+	DeclareArg(env, "expr", VTYPE_quote, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Specify a try block of a statement of try-catch-else.\n"
-		"It catches signals that occur in the block and executes a corresponding\n"
-		"`catch()` or `else()` function that follow after it.");
+		"Executes the block until it evaluates all the combinations of results from exprs\n"
+		"\"var in iteratable.\" You can specify one or more such exprs as arguments and\n"
+		"they are counted up from the one on the right side.\n"
+		"Iterators and lists are the most popular iteratables, but even any objects that\n"
+		"are cable of generating iterators can be specified as such.\n"
+		"\n"
+		REPEATER_HELP
+		"\n"
+		"Block parameter format: `|idx:number, i0:number, i1:number, ..|`");
 }
 
-Gura_ImplementFunction(try_)
+Gura_ImplementFunction(cross)
 {
-	SeqPostHandler *pSeqPostHandler = NULL;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
-	if (sig.IsSignalled()) return Value::Null;
-	Value result = pExprBlock->Exec2(*pEnvBlock, sig, pSeqPostHandler);
-	if (sig.IsError()) {
-		sig.SuspendError();
-	} else {
-		//args.FinalizeTrailer();
-	}
-	return result;
-}
-
-// catch (errors*:error):leader:trailer {block}
-Gura_DeclareFunctionTrailerAlias(catch_, "catch")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
-	DeclareArg(env, "errors", VTYPE_error, OCCUR_ZeroOrMore);
-	DeclareBlock(OCCUR_Once);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Specify an catch block of a statement of try-catch-else.\n"
-		"It can take multiple numbers of arguments of error objects to handle.\n"
-		"If there's no error objects specified, it handles all the errors that are\n"
-		"not handled in the preceding `catch()` function calls.\n"
-		"Block parameter format: `|error:error|`\n"
-		"`error` is an error object that contains information of the handled error.");
-}
-
-Gura_ImplementFunction(catch_)
-{
-	if (!sig.IsErrorSuspended()) return Value::Null;
-	bool handleFlag = false;
-	if (args.GetList(0).empty()) {
-		handleFlag = true;
-	} else {
-		foreach_const (ValueList, pValue, args.GetList(0)) {
-			if (pValue->GetErrorType() == sig.GetError().GetType()) {
-				handleFlag = true;
-				break;
-			}
-		}
-	}
-	if (!handleFlag) return Value::Null;
-	//args.FinalizeTrailer();
-	args.QuitTrailer();
-	Object_error *pObj = new Object_error(env, sig.GetError());
-	sig.ClearSignal(); // clear even the suspended state
 	const Function *pFuncBlock =
-						args.GetBlockFunc(env, sig, GetSymbolForBlock());
-	if (sig.IsSignalled()) return Value::Null;
-	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	AutoPtr<Args> pArgsSub(new Args());
-	pArgsSub->SetValue(Value(pObj));
-	return pFuncBlock->Eval(*pEnvBlock, sig, *pArgsSub);
+						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
+	if (pFuncBlock == NULL) return Value::Null;
+	bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
+	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
+	Iterator *pIterator = new Iterator_cross(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
+				skipInvalidFlag, genIterFlag, args.GetList(0));
+	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// finally ():trailer:finalizer {block}
-Gura_DeclareFunctionTrailerAlias(finally_, "finally")
+// for (`expr+) {block}
+Gura_DeclareFunctionAlias(for_, "for")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Trailer | FLAG_Finalizer);
+	DeclareArg(env, "expr", VTYPE_quote, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_Once);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Executes the block until any of the exprs of \"var in iteratable\" reach at\n"
+		"their ends. You can specify one or more such exprs as arguments.\n"
+		"Iterators and lists are the most popular iteratables, but even any objects that\n"
+		"are cable of generating iterators can be specified as such.\n"
+		"\n"
+		REPEATER_HELP
+		"\n"
+		"Block parameter format: `|idx:number|`");
 }
 
-Gura_ImplementFunction(finally_)
+Gura_ImplementFunction(for_)
 {
-	SeqPostHandler *pSeqPostHandler = NULL;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
-	if (sig.IsSignalled()) return Value::Null;
-	return pExprBlock->Exec2(*pEnvBlock, sig, pSeqPostHandler);
+	const Function *pFuncBlock =
+						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
+	if (pFuncBlock == NULL) return Value::Null;
+	bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
+	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
+	Iterator *pIterator = new Iterator_for(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
+				skipInvalidFlag, genIterFlag, args.GetList(0));
+	return ReturnIterator(env, sig, args, pIterator);
 }
 
+// repeat (n?:number) {block}
+Gura_DeclareFunction(repeat)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_Once);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Executes the block for `n` times. If `n` is omitted, it repeats the block\n"
+		"execution forever.\n"
+		"\n"
+		REPEATER_HELP
+		"\n"
+		"Block parameter format: `|idx:number|`");
+}
+
+Gura_ImplementFunction(repeat)
+{
+	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
+	const Function *pFuncBlock =
+						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
+	if (pFuncBlock == NULL) return Value::Null;
+	bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
+	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
+	Iterator *pIterator = new Iterator_repeat(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
+			skipInvalidFlag, genIterFlag, args.Is_number(0)? args.GetInt(0) : -1);
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
+// while (`cond) {block}
+Gura_DeclareFunctionAlias(while_, "while")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "cond", VTYPE_quote);
+	DeclareBlock(OCCUR_Once);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Executes the block while the evaluation result of `cond` is true.\n"
+		"\n"
+		REPEATER_HELP
+		"\n"
+		"Block parameter format: `|idx:number|`");
+}
+
+Gura_ImplementFunction(while_)
+{
+	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
+	const Function *pFuncBlock =
+						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
+	if (pFuncBlock == NULL) return Value::Null;
+	bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
+	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
+	Iterator *pIterator = new Iterator_while(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
+			skipInvalidFlag, genIterFlag, Expr::Reference(args.GetExpr(0)));
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
+//-----------------------------------------------------------------------------
+// flow control
+//-----------------------------------------------------------------------------
+// break(value?):void:symbol_func
+Gura_DeclareFunctionAlias(break_, "break")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_SymbolFunc);
+	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Exits from an inside of a loop that is formed with functions `repeat()`, `while()`\n"
+		"`for()` and `cross()`. If it takes an argument, that value is treated as a result of\n"
+		"the loop function. Otherwise, the result is nil and an argument list\n"
+		"can be omitted. If the loop function is specified with one of `:list`, `:xlist`, `:set`,\n"
+		"`:xset`, `:iter` and `:xiter`, `break()`'s value is NOT included in the result.");
+}
+
+Gura_ImplementFunction(break_)
+{
+	sig.SetSignal(SIGTYPE_Break, args.GetValue(0));
+	return Value::Null;
+}
+
+// continue(value?):void:symbol_func
+Gura_DeclareFunctionAlias(continue_, "continue")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_SymbolFunc);
+	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"In a loop that is formed with functions `repeat()`, `while()`, `for()` and `cross()`,\n"
+		"skips the following part of it and gets to the top of its process.\n"
+		"If it takes an argument, that value is treated as a result of the loop function.\n"
+		"Otherwise, the result is nil and an argument list can be omitted.\n"
+		"If the loop function is specified with one of `:list`, `:xlist`, `:set`,\n"
+		"`:xset`, `:iter` and `:xiter`, `continue()`'s value is included in the result.");
+}
+
+Gura_ImplementFunction(continue_)
+{
+	sig.SetSignal(SIGTYPE_Continue, args.GetValue(0));
+	return Value::Null;
+}
+
+// return(value?):void:symbol_func
+Gura_DeclareFunctionAlias(return_, "return")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_SymbolFunc);
+	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Exits from a function skipping the following part of it.\n"
+		"If it takes an argument, that value is treated as a result of the function.\n"
+		"Otherwise, the result is nil and an argument list can be omitted.");
+}
+
+Gura_ImplementFunction(return_)
+{
+	sig.SetSignal(SIGTYPE_Return, args.GetValue(0));
+	return Value::Null;
+}
+
+//-----------------------------------------------------------------------------
+// branch control
+//-----------------------------------------------------------------------------
 // if (`cond):leader {block}
 Gura_DeclareFunctionAlias(if_, "if")
 {
@@ -650,182 +483,94 @@ Gura_ImplementFunction(default_)
 	return result;
 }
 
-// repeat (n?:number) {block}
-Gura_DeclareFunction(repeat)
+//-----------------------------------------------------------------------------
+// handling exception
+//-----------------------------------------------------------------------------
+// try ():leader {block}
+Gura_DeclareFunctionAlias(try_, "try")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Executes the block for `n` times. If `n` is omitted, it repeats the block\n"
-		"execution forever.\n"
-		"\n"
-		REPEATER_HELP
-		"\n"
-		"Block parameter format: `|idx:number|`");
+		"Specify a try block of a statement of try-catch-else.\n"
+		"It catches signals that occur in the block and executes a corresponding\n"
+		"`catch()` or `else()` function that follow after it.");
 }
 
-Gura_ImplementFunction(repeat)
+Gura_ImplementFunction(try_)
 {
+	SeqPostHandler *pSeqPostHandler = NULL;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	const Function *pFuncBlock =
-						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
-	if (pFuncBlock == NULL) return Value::Null;
-	bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
-	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
-	Iterator *pIterator = new Iterator_repeat(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
-			skipInvalidFlag, genIterFlag, args.Is_number(0)? args.GetInt(0) : -1);
-	return ReturnIterator(env, sig, args, pIterator);
+	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
+	if (sig.IsSignalled()) return Value::Null;
+	Value result = pExprBlock->Exec2(*pEnvBlock, sig, pSeqPostHandler);
+	if (sig.IsError()) {
+		sig.SuspendError();
+	} else {
+		//args.FinalizeTrailer();
+	}
+	return result;
 }
 
-// while (`cond) {block}
-Gura_DeclareFunctionAlias(while_, "while")
+// catch (errors*:error):leader:trailer {block}
+Gura_DeclareFunctionTrailerAlias(catch_, "catch")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "cond", VTYPE_quote);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
+	DeclareArg(env, "errors", VTYPE_error, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Executes the block while the evaluation result of `cond` is true.\n"
-		"\n"
-		REPEATER_HELP
-		"\n"
-		"Block parameter format: `|idx:number|`");
+		"Specify an catch block of a statement of try-catch-else.\n"
+		"It can take multiple numbers of arguments of error objects to handle.\n"
+		"If there's no error objects specified, it handles all the errors that are\n"
+		"not handled in the preceding `catch()` function calls.\n"
+		"Block parameter format: `|error:error|`\n"
+		"`error` is an error object that contains information of the handled error.");
 }
 
-Gura_ImplementFunction(while_)
+Gura_ImplementFunction(catch_)
 {
-	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
+	if (!sig.IsErrorSuspended()) return Value::Null;
+	bool handleFlag = false;
+	if (args.GetList(0).empty()) {
+		handleFlag = true;
+	} else {
+		foreach_const (ValueList, pValue, args.GetList(0)) {
+			if (pValue->GetErrorType() == sig.GetError().GetType()) {
+				handleFlag = true;
+				break;
+			}
+		}
+	}
+	if (!handleFlag) return Value::Null;
+	//args.FinalizeTrailer();
+	args.QuitTrailer();
+	Object_error *pObj = new Object_error(env, sig.GetError());
+	sig.ClearSignal(); // clear even the suspended state
 	const Function *pFuncBlock =
-						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
-	if (pFuncBlock == NULL) return Value::Null;
-	bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
-	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
-	Iterator *pIterator = new Iterator_while(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
-			skipInvalidFlag, genIterFlag, Expr::Reference(args.GetExpr(0)));
-	return ReturnIterator(env, sig, args, pIterator);
+						args.GetBlockFunc(env, sig, GetSymbolForBlock());
+	if (sig.IsSignalled()) return Value::Null;
+	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
+	AutoPtr<Args> pArgsSub(new Args());
+	pArgsSub->SetValue(Value(pObj));
+	return pFuncBlock->Eval(*pEnvBlock, sig, *pArgsSub);
 }
 
-// for (`expr+) {block}
-Gura_DeclareFunctionAlias(for_, "for")
+// finally ():trailer:finalizer {block}
+Gura_DeclareFunctionTrailerAlias(finally_, "finally")
 {
-	DeclareArg(env, "expr", VTYPE_quote, OCCUR_OnceOrMore);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Trailer | FLAG_Finalizer);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Executes the block until any of the exprs of \"var in iteratable\" reach at\n"
-		"their ends. You can specify one or more such exprs as arguments.\n"
-		"Iterators and lists are the most popular iteratables, but even any objects that\n"
-		"are cable of generating iterators can be specified as such.\n"
-		"\n"
-		REPEATER_HELP
-		"\n"
-		"Block parameter format: `|idx:number|`");
 }
 
-Gura_ImplementFunction(for_)
+Gura_ImplementFunction(finally_)
 {
+	SeqPostHandler *pSeqPostHandler = NULL;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	const Function *pFuncBlock =
-						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
-	if (pFuncBlock == NULL) return Value::Null;
-	bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
-	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
-	Iterator *pIterator = new Iterator_for(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
-				skipInvalidFlag, genIterFlag, args.GetList(0));
-	return ReturnIterator(env, sig, args, pIterator);
-}
-
-// cross (`expr+) {block}
-Gura_DeclareFunction(cross)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "expr", VTYPE_quote, OCCUR_OnceOrMore);
-	DeclareBlock(OCCUR_Once);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Executes the block until it evaluates all the combinations of results from exprs\n"
-		"\"var in iteratable.\" You can specify one or more such exprs as arguments and\n"
-		"they are counted up from the one on the right side.\n"
-		"Iterators and lists are the most popular iteratables, but even any objects that\n"
-		"are cable of generating iterators can be specified as such.\n"
-		"\n"
-		REPEATER_HELP
-		"\n"
-		"Block parameter format: `|idx:number, i0:number, i1:number, ..|`");
-}
-
-Gura_ImplementFunction(cross)
-{
-	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	const Function *pFuncBlock =
-						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
-	if (pFuncBlock == NULL) return Value::Null;
-	bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
-	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
-	Iterator *pIterator = new Iterator_cross(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
-				skipInvalidFlag, genIterFlag, args.GetList(0));
-	return ReturnIterator(env, sig, args, pIterator);
-}
-
-// break(value?):void:symbol_func
-Gura_DeclareFunctionAlias(break_, "break")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_SymbolFunc);
-	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Exits from an inside of a loop that is formed with functions `repeat()`, `while()`\n"
-		"`for()` and `cross()`. If it takes an argument, that value is treated as a result of\n"
-		"the loop function. Otherwise, the result is nil and an argument list\n"
-		"can be omitted. If the loop function is specified with one of `:list`, `:xlist`, `:set`,\n"
-		"`:xset`, `:iter` and `:xiter`, `break()`'s value is NOT included in the result.");
-}
-
-Gura_ImplementFunction(break_)
-{
-	sig.SetSignal(SIGTYPE_Break, args.GetValue(0));
-	return Value::Null;
-}
-
-// continue(value?):void:symbol_func
-Gura_DeclareFunctionAlias(continue_, "continue")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_SymbolFunc);
-	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"In a loop that is formed with functions `repeat()`, `while()`, `for()` and `cross()`,\n"
-		"skips the following part of it and gets to the top of its process.\n"
-		"If it takes an argument, that value is treated as a result of the loop function.\n"
-		"Otherwise, the result is nil and an argument list can be omitted.\n"
-		"If the loop function is specified with one of `:list`, `:xlist`, `:set`,\n"
-		"`:xset`, `:iter` and `:xiter`, `continue()`'s value is included in the result.");
-}
-
-Gura_ImplementFunction(continue_)
-{
-	sig.SetSignal(SIGTYPE_Continue, args.GetValue(0));
-	return Value::Null;
-}
-
-// return(value?):void:symbol_func
-Gura_DeclareFunctionAlias(return_, "return")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_SymbolFunc);
-	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Exits from a function skipping the following part of it.\n"
-		"If it takes an argument, that value is treated as a result of the function.\n"
-		"Otherwise, the result is nil and an argument list can be omitted.");
-}
-
-Gura_ImplementFunction(return_)
-{
-	sig.SetSignal(SIGTYPE_Return, args.GetValue(0));
-	return Value::Null;
+	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
+	if (sig.IsSignalled()) return Value::Null;
+	return pExprBlock->Exec2(*pEnvBlock, sig, pSeqPostHandler);
 }
 
 // raise(error:error, msg:string => "error", value?)
@@ -848,273 +593,9 @@ Gura_ImplementFunction(raise)
 	return Value::Null;
 }
 
-// dim(n+:number) {block}
-Gura_DeclareFunction(dim)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "n", VTYPE_number, OCCUR_OnceOrMore);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates and returns a multi-dementional list that contains nested lists as\n"
-		"specified by the arguments.\n"
-		"Block parameter format: `|i0:number, i1:number, ..|`");
-}
-
-bool Func_dim_Sub(Environment &env, Signal sig, const Function *pFuncBlock, ValueList &valListParent,
-	IntList &cntList, IntList::iterator pCnt, IntList &idxList, IntList::iterator pIdx)
-{
-	if (pCnt + 1 == cntList.end()) {
-		if (pFuncBlock == NULL) {
-			for (*pIdx = 0; *pIdx < *pCnt; (*pIdx)++) {
-				valListParent.push_back(Value::Null);
-			}
-		} else {
-			for (*pIdx = 0; *pIdx < *pCnt; (*pIdx)++) {
-				AutoPtr<Args> pArgs(new Args());
-				pArgs->ReserveValueListArg(idxList.size());
-				foreach (IntList, pIdxWk, idxList) {
-					pArgs->AddValue(Value(*pIdxWk));
-				}
-				Value result = pFuncBlock->Eval(env, sig, *pArgs);
-				if (sig.IsSignalled()) return false;
-				valListParent.push_back(result);
-			}
-		}
-	} else {
-		for (*pIdx = 0; *pIdx < *pCnt; (*pIdx)++) {
-			Value result;
-			ValueList &valList = result.InitAsList(env);
-			valListParent.push_back(result);
-			if (!Func_dim_Sub(env, sig, pFuncBlock, valList,
-									cntList, pCnt + 1, idxList, pIdx + 1)) {
-				return false;
-			}
-		}
-	}
-	return true;
-}
-
-Gura_ImplementFunction(dim)
-{
-	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	const Function *pFuncBlock =
-						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
-	const ValueList &valListArg = args.GetList(0);
-	size_t nArgs = valListArg.size();
-	IntList cntList, idxList;
-	cntList.reserve(nArgs);
-	idxList.reserve(nArgs);
-	foreach_const (ValueList, pValArg, valListArg) {
-		cntList.push_back(pValArg->GetInt());
-		idxList.push_back(0);
-	}
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	if (!Func_dim_Sub(*pEnvBlock, sig, pFuncBlock, valList,
-						cntList, cntList.begin(), idxList, idxList.begin())) {
-		return Value::Null;
-	}
-	return result;
-}
-
-// min(values+):map
-Gura_DeclareFunction(min)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns the minimum value among the given arguments.");
-}
-
-Gura_ImplementFunction(min)
-{
-	const ValueList &valList = args.GetList(0);
-	ValueList::const_iterator pValue = valList.begin();
-	Value result = *pValue++;
-	for ( ; pValue != valList.end(); pValue++) {
-		int cmp = Value::Compare(env, sig, result, *pValue);
-		if (sig.IsSignalled()) return Value::Null;
-		if (cmp > 0) result = *pValue;
-	}
-	return result;
-}
-
-// max(values+):map
-Gura_DeclareFunction(max)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns the maximum value among the given arguments.");
-}
-
-Gura_ImplementFunction(max)
-{
-	const ValueList &valList = args.GetList(0);
-	ValueList::const_iterator pValue = valList.begin();
-	Value result = *pValue++;
-	for ( ; pValue != valList.end(); pValue++) {
-		int cmp = Value::Compare(env, sig, result, *pValue);
-		if (sig.IsSignalled()) return Value::Null;
-		if (cmp < 0) result = *pValue;
-	}
-	return result;
-}
-
-// choose(index:number, values+):map
-Gura_DeclareFunction(choose)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "index", VTYPE_number);
-	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
-}
-
-Gura_ImplementFunction(choose)
-{
-	size_t index = args.GetSizeT(0);
-	const ValueList &valList = args.GetList(1);
-	if (index >= valList.size()) {
-		sig.SetError(ERR_IndexError, "index is out of range");
-		return Value::Null;
-	}
-	return valList[index];
-}
-
-// cond(flag:boolean, value1:nomap, value2:nomap?):map
-Gura_DeclareFunction(cond)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "flag", VTYPE_boolean);
-	DeclareArg(env, "value1", VTYPE_any, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "value2", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_NoMap);
-}
-
-Gura_ImplementFunction(cond)
-{
-	return args.GetBoolean(0)? args.GetValue(1) : args.GetValue(2);
-}
-
-// conds(flag:boolean, value1, value2?):map
-Gura_DeclareFunction(conds)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "flag", VTYPE_boolean);
-	DeclareArg(env, "value1", VTYPE_any, OCCUR_Once);
-	DeclareArg(env, "value2", VTYPE_any, OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(conds)
-{
-	return args.GetBoolean(0)? args.GetValue(1) : args.GetValue(2);
-}
-
-// tostring(value):map
-Gura_DeclareFunction(tostring)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "value", VTYPE_any);
-}
-
-Gura_ImplementFunction(tostring)
-{
-	return Value(args.GetValue(0).ToString(false));
-}
-
-// tonumber(value):map:[strict,raise,zero,nil]
-Gura_DeclareFunction(tonumber)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "value", VTYPE_any);
-	DeclareAttr(Gura_Symbol(strict));
-	DeclareAttr(Gura_Symbol(raise));
-	DeclareAttr(Gura_Symbol(zero));
-	DeclareAttr(Gura_Symbol(nil));
-}
-
-Gura_ImplementFunction(tonumber)
-{
-	bool allowPartFlag = !args.IsSet(Gura_Symbol(strict));
-	bool successFlag;
-	Number num = args.GetValue(0).ToNumber(allowPartFlag, successFlag);
-	if (successFlag) {
-		return Value(num);
-	} else if (args.IsSet(Gura_Symbol(raise))) {
-		sig.SetError(ERR_ValueError, "failed to convert to a number");
-		return Value::Null;
-	} else if (args.IsSet(Gura_Symbol(zero))) {
-		return Value(0.);
-	} else { // args.IsSet(Gura_UserSymbol(nil)
-		return Value::Null;
-	}
-}
-
-// tosymbol(str:string):map
-Gura_DeclareFunction(tosymbol)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "str", VTYPE_string);
-}
-
-Gura_ImplementFunction(tosymbol)
-{
-	return Value(Symbol::Add(args.GetString(0)));
-}
-
-// int(value):map
-Gura_DeclareFunctionAlias(int_, "int")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "value", VTYPE_any);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Converts any value into an integer number.");
-}
-
-Gura_ImplementFunction(int_)
-{
-	const Value &value = args.GetValue(0);
-	Value result;
-	if (value.Is_number()) {
-		result.SetNumber(value.GetLong());
-	} else if (value.Is_complex()) {
-		result.SetNumber(static_cast<long>(std::abs(value.GetComplex())));
-	} else if (value.Is_string()) {
-		bool successFlag;
-		Number num = value.ToNumber(true, successFlag);
-		if (!successFlag) {
-			sig.SetError(ERR_ValueError, "failed to convert to a number");
-			return Value::Null;
-		}
-		result.SetNumber(static_cast<long>(num));
-	} else if (value.IsValid()) {
-		SetError_InvalidValType(sig, value);
-	}
-	return result;
-}
-
-// ord(str:string):map
-Gura_DeclareFunction(ord)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "str", VTYPE_string);
-}
-
-Gura_ImplementFunction(ord)
-{
-	const char *str = args.GetString(0);
-	ULong num = static_cast<UChar>(*str);
-	if (IsUTF8First(*str)) {
-		str++;
-		for ( ; IsUTF8Follower(*str); str++) {
-			num = (num << 8) | static_cast<UChar>(*str);
-		}
-	}
-	return Value(num);
-}
-
+//-----------------------------------------------------------------------------
+// data transformation
+//-----------------------------------------------------------------------------
 // chr(num:number):map:[nil]
 Gura_DeclareFunction(chr)
 {
@@ -1169,206 +650,516 @@ Gura_ImplementFunction(hex)
 	return Value(str);
 }
 
-// print(value*):map:void
-Gura_DeclareFunction(print)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Converts `values` into string and outputs the results to standard output."
-	);
-}
-
-Gura_ImplementFunction(print)
-{
-	Stream *pConsole = env.GetConsole();
-	if (pConsole == NULL) return Value::Null;
-	foreach_const (ValueList, pValue, args.GetList(0)) {
-		pConsole->Print(sig, pValue->ToString(false).c_str());
-		if (sig.IsSignalled()) break;
-	}
-	return Value::Null;
-}
-
-// println(value*):map:void
-Gura_DeclareFunction(println)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Converts `values` into string and outputs the results to standard output before a carriage return."
-	);
-}
-
-Gura_ImplementFunction(println)
-{
-	Stream *pConsole = env.GetConsole();
-	if (pConsole == NULL) return Value::Null;
-	foreach_const (ValueList, pValue, args.GetList(0)) {
-		pConsole->Print(sig, pValue->ToString(false).c_str());
-		if (sig.IsSignalled()) break;
-	}
-	pConsole->Print(sig, "\n");
-	return Value::Null;
-}
-
-// printf(format, values*):map:void
-Gura_DeclareFunction(printf)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "format", VTYPE_string);
-	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Converts `values` into string depending on formatter specification in `format` and outputs the result to standard output.\n"
-		"The format specifier comes like `%[flags][width][.precision]specifier`.\n"
-		"\n"
-		"`specifier` is one of the following.\n"
-		"\n"
-		"- `d`, `i` .. decimal integer number with a sign mark\n"
-		"- `u` .. decimal integer number wihout a sign mark\n"
-		"- `b` .. binary integer number without a sign mark\n"
-		"- `o` .. octal integer number without a sign mark\n"
-		"- `x` .. hexadecimal integer number in lower character without a sign mark\n"
-		"- `X` .. hexadecimal integer number in upper character without a sign mark\n"
-		"- `e` .. floating number in exponential form\n"
-		"- `E` .. floating number in exponential form (in upper character)\n"
-		"- `f` .. floating number in decimal form\n"
-		"- `F` .. floating number in decimal form (in upper character)\n"
-		"- `g` .. better form between `e` and `f`\n"
-		"- `G` .. better form between `E` and `F`\n"
-		"- `s` .. string\n"
-		"- `c` .. character\n"
-		"\n"
-		"`flags` is one of the following.\n"
-		"\n"
-		"- `+` .. `+` precedes for positive numbers\n"
-		"- `-` .. adjust a string to left\n"
-		"- `[SPC]` .. space character precedes for positive numbers\n"
-		"- `#` .. converted results of binary, octdecimal and hexadecimal are preceded by `'0b'`, `'0'` and `'0x'` respectively\n"
-		"- `0` .. fill lacking columns with `'0'`\n"
-		);
-}
-
-Gura_ImplementFunction(printf)
-{
-	Stream *pConsole = env.GetConsole();
-	if (pConsole == NULL) return Value::Null;
-	pConsole->PrintFmt(sig, args.GetString(0), args.GetList(1));
-	return Value::Null;
-}
-
-// format(format, value*):map
-Gura_DeclareFunction(format)
+// int(value):map
+Gura_DeclareFunctionAlias(int_, "int")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "format", VTYPE_string);
-	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
-}
-
-Gura_ImplementFunction(format)
-{
-	return Value(Formatter::Format(sig, args.GetString(0), args.GetList(1)));
-}
-
-// dir(obj?):[noesc]
-Gura_DeclareFunction(dir)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "obj", VTYPE_any, OCCUR_ZeroOrOnce);
-	DeclareAttr(Gura_Symbol(noesc));
-	//DeclareAttr(Gura_Symbol(nosort));
-}
-
-Gura_ImplementFunction(dir)
-{
-	bool escalateFlag = !args.IsSet(Gura_Symbol(noesc));
-	bool sortFlag = !args.IsSet(Gura_Symbol(nosort));
-	SymbolList symbolList;
-	if (args.IsValid(0)) {
-		SymbolSet symbols;
-		if (!args.GetValue(0).DirProp(env, sig, symbols, escalateFlag)) return Value::Null;
-		foreach_const (SymbolSet, ppSymbol, symbols) {
-			const Symbol *pSymbol = *ppSymbol;
-			symbolList.push_back(pSymbol);
-		}
-	} else {
-		foreach_const (ValueMap, iter, env.GetBottomFrame()->GetValueMap()) {
-			const Symbol *pSymbol = iter->first;
-			symbolList.push_back(pSymbol);
-		}
-	}
-	if (sortFlag) symbolList.SortByName();
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	valList.reserve(symbolList.size());
-	foreach_const (SymbolList, ppSymbol, symbolList) {
-		const Symbol *pSymbol = *ppSymbol;
-		valList.push_back(Value(pSymbol));
-	}
-	return result;
-}
-
-// dirtype(obj?):[noesc]
-Gura_DeclareFunction(dirtype)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "obj", VTYPE_any, OCCUR_ZeroOrOnce);
-	DeclareAttr(Gura_Symbol(noesc));
-	//DeclareAttr(Gura_Symbol(nosort));
-}
-
-Gura_ImplementFunction(dirtype)
-{
-	bool escalateFlag = !args.IsSet(Gura_Symbol(noesc));
-	bool sortFlag = !args.IsSet(Gura_Symbol(nosort));
-	SymbolList symbolList;
-	if (args.IsValid(0)) {
-		SymbolSet symbols;
-		args.GetValue(0).DirValueType(symbols, escalateFlag);
-		foreach_const (SymbolSet, ppSymbol, symbols) {
-			const Symbol *pSymbol = *ppSymbol;
-			symbolList.push_back(pSymbol);
-		}
-	} else {
-		foreach_const (ValueTypeMap, iter, env.GetBottomFrame()->GetValueTypeMap()) {
-			const Symbol *pSymbol = iter->first;
-			symbolList.push_back(pSymbol);
-		}
-	}
-	if (sortFlag) symbolList.SortByName();
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	valList.reserve(symbolList.size());
-	foreach_const (SymbolList, ppSymbol, symbolList) {
-		const Symbol *pSymbol = *ppSymbol;
-		valList.push_back(Value(pSymbol));
-	}
-	return result;
-}
-
-// help(func:function, lang?:symbol):map:void
-Gura_DeclareFunction(help)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "func", VTYPE_function);
-	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "value", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Prints a help message for the specified function object.");
+		"Converts any value into an integer number.");
 }
 
-Gura_ImplementFunction(help)
+Gura_ImplementFunction(int_)
 {
-	const Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
-	const Symbol *pSymbol = args.Is_symbol(1)? args.GetSymbol(1) : env.GetLangCode();
-	HelpPresenter::Present(env, sig, pFunc->ToString().c_str(),
-						   pFunc->GetHelp(pSymbol, true));
+	const Value &value = args.GetValue(0);
+	Value result;
+	if (value.Is_number()) {
+		result.SetNumber(value.GetLong());
+	} else if (value.Is_complex()) {
+		result.SetNumber(static_cast<long>(std::abs(value.GetComplex())));
+	} else if (value.Is_string()) {
+		bool successFlag;
+		Number num = value.ToNumber(true, successFlag);
+		if (!successFlag) {
+			sig.SetError(ERR_ValueError, "failed to convert to a number");
+			return Value::Null;
+		}
+		result.SetNumber(static_cast<long>(num));
+	} else if (value.IsValid()) {
+		SetError_InvalidValType(sig, value);
+	}
+	return result;
+}
+
+// ord(str:string):map
+Gura_DeclareFunction(ord)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "str", VTYPE_string);
+}
+
+Gura_ImplementFunction(ord)
+{
+	const char *str = args.GetString(0);
+	ULong num = static_cast<UChar>(*str);
+	if (IsUTF8First(*str)) {
+		str++;
+		for ( ; IsUTF8Follower(*str); str++) {
+			num = (num << 8) | static_cast<UChar>(*str);
+		}
+	}
+	return Value(num);
+}
+
+// tonumber(value):map:[strict,raise,zero,nil]
+Gura_DeclareFunction(tonumber)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "value", VTYPE_any);
+	DeclareAttr(Gura_Symbol(strict));
+	DeclareAttr(Gura_Symbol(raise));
+	DeclareAttr(Gura_Symbol(zero));
+	DeclareAttr(Gura_Symbol(nil));
+}
+
+Gura_ImplementFunction(tonumber)
+{
+	bool allowPartFlag = !args.IsSet(Gura_Symbol(strict));
+	bool successFlag;
+	Number num = args.GetValue(0).ToNumber(allowPartFlag, successFlag);
+	if (successFlag) {
+		return Value(num);
+	} else if (args.IsSet(Gura_Symbol(raise))) {
+		sig.SetError(ERR_ValueError, "failed to convert to a number");
+		return Value::Null;
+	} else if (args.IsSet(Gura_Symbol(zero))) {
+		return Value(0.);
+	} else { // args.IsSet(Gura_UserSymbol(nil)
+		return Value::Null;
+	}
+}
+
+// tostring(value):map
+Gura_DeclareFunction(tostring)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "value", VTYPE_any);
+}
+
+Gura_ImplementFunction(tostring)
+{
+	return Value(args.GetValue(0).ToString(false));
+}
+
+// tosymbol(str:string):map
+Gura_DeclareFunction(tosymbol)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "str", VTYPE_string);
+}
+
+Gura_ImplementFunction(tosymbol)
+{
+	return Value(Symbol::Add(args.GetString(0)));
+}
+
+//-----------------------------------------------------------------------------
+// class operations
+//-----------------------------------------------------------------------------
+// class(superclass?) {block?}
+Gura_DeclareFunctionAlias(class_, "class")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "superclass", VTYPE_function, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a function object that constructs an instance with methods and\n"
+		"properties specified in the block. If superclass, which is supposed to\n"
+		"be a constructor function, is specified, the new class shall inherits\n"
+		"methods and properties of the class associated with it.");
+}
+
+Gura_ImplementFunction(class_)
+{
+	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	if (sig.IsSignalled()) return Value::Null;
+	Class *pClassSuper = env.LookupClass(VTYPE_object);
+	const Value &valueSuper = args.GetValue(0);
+	if (valueSuper.Is_function()) {
+		pClassSuper = valueSuper.GetFunction()->GetClassToConstruct();
+		if (pClassSuper == NULL) {
+			valueSuper.GetFunction()->SetError_NotConstructor(sig);
+			return Value::Null;
+		}
+	}
+	ClassCustom *pClassCustom = new ClassCustom(&env, pClassSuper,
+			pClassSuper->GetValueType(),
+			dynamic_cast<Expr_Block *>(Expr::Reference(pExprBlock)), sig);
+	return Value(pClassCustom);
+}
+
+// classref(type+:expr):map {block?}
+Gura_DeclareFunction(classref)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Looks up a class by an expression of a type name.");
+}
+
+Gura_ImplementFunction(classref)
+{
+	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetList(0));
+	if (pValueTypeInfo == NULL) return Value::Null;
+	//if (pValueTypeInfo->GetClass() == NULL) {
+	//	sig.SetError(ERR_ValueError, "not a class type");
+	//	return Value::Null;
+	//}
+	Value result(Class::Reference(pValueTypeInfo->GetClass()));
+	return ReturnValue(env, sig, args, result);
+}
+
+// struct(`args*) {block?}
+// if :loose attribute is specified, arguments in the generated function
+// will get the following modification.
+// - Once attribute will be modified to ZeroOrOnce.
+// - OnceOrMore attribute will be modified to ZeroOrMore
+Gura_DeclareFunctionAlias(struct_, "struct")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "args", VTYPE_quote, OCCUR_OnceOrMore);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(loose));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a function object that constructs a structure instance that\n"
+		"contains properties specified by args. It can optionally take block\n"
+		"which declares some additional methods for constructed instances.\n"
+		"If `:loose` attribute is speicied, the generated constructor function\n"
+		"makes an existence check of arguments in a loose way.");
+}
+
+Gura_ImplementFunction(struct_)
+{
+	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	if (sig.IsSignalled()) return Value::Null;
+	Class *pClassSuper = env.LookupClass(VTYPE_Struct);
+	ClassCustom *pClassCustom = new ClassCustom(&env, pClassSuper,
+			pClassSuper->GetValueType(),
+			dynamic_cast<Expr_Block *>(Expr::Reference(pExprBlock)), sig);
+	AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
+	foreach_const (ValueList, pValue, args.GetList(0)) {
+		pExprOwnerArg->push_back(pValue->GetExpr()->Reference());
+	}
+	AutoPtr<ClassOfStruct::Constructor> pFunc(new ClassOfStruct::Constructor(env));
+	pFunc->SetClassToConstruct(pClassCustom); // constructor is registered in this class
+	pFunc->DeclareBlock(OCCUR_ZeroOrOnce);
+	AutoPtr<Args> pArgsSub(new Args());
+	pArgsSub->SetExprOwnerArg(pExprOwnerArg.release());
+	pArgsSub->SetAttrs(args.GetAttrs());
+	if (!pFunc->CustomDeclare(env, sig, _attrsOpt, *pArgsSub)) return false;
+	if (args.IsSet(Gura_Symbol(loose))) {
+		pFunc->GetDeclOwner().SetAsLoose();
+	}
+	return Value(pClassCustom);
+}
+
+// super(obj) {block?}
+Gura_DeclareFunction(super)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "obj", VTYPE_any, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(super)
+{
+	Value rtn(args.GetValue(0));
+	int cntSuperSkip = rtn.GetSuperSkipCount() + 1;
+	if (cntSuperSkip > Value::MaxSuperSkipCount) {
+		sig.SetError(ERR_SystemError,
+			"number of super reference is limited under %d", Value::MaxSuperSkipCount);
+		return Value::Null;
+	}
+	rtn.SetSuperSkipCount(cntSuperSkip);
+	return ReturnValue(env, sig, args, rtn);
+}
+
+//-----------------------------------------------------------------------------
+// scope operations
+//-----------------------------------------------------------------------------
+#if 0
+// Scope problem: when a block tries to assign a variable that has been declared by extern()
+// outside of it, it fails to do it.
+// 
+//     x = 0
+//     f() = {
+//         extern(x)
+//         if (true) {
+//             x = 3
+//         }
+//     }
+//     println(x)  // print 0, not 3
+
+// extern(`syms+)
+Gura_DeclareFunctionAlias(extern_, "extern")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "syms", VTYPE_quote, OCCUR_OnceOrMore);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Declares symbols that is supposed to access variables in outer scopes.");
+}
+
+Gura_ImplementFunction(extern_)
+{
+	foreach_const (ValueList, pValue, args.GetList(0)) {
+		const Expr *pExpr = pValue->GetExpr();
+		if (!pExpr->IsIdentifier()) {
+			sig.SetError(ERR_ValueError, "identifier must be specified");
+			return Value::Null;
+		}
+		const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol();
+		if (env.LookupValue(pSymbol, ENVREF_Escalate) == NULL) {
+			sig.SetError(ERR_ValueError, "undefined symbol '%s'", pSymbol->GetName());
+		}
+	}
+	return Value::Null;
+}
+#endif
+
+// local(`syms+)
+Gura_DeclareFunction(local)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "syms", VTYPE_quote, OCCUR_OnceOrMore);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Declares symbols that is supposed to access variables in a local scope.");
+}
+
+Gura_ImplementFunction(local)
+{
+	foreach_const (ValueList, pValue, args.GetList(0)) {
+		const Expr *pExpr = pValue->GetExpr();
+		if (!pExpr->IsIdentifier()) {
+			sig.SetError(ERR_ValueError, "identifier must be specified");
+			return Value::Null;
+		}
+		const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol();
+		if (env.LookupValue(pSymbol, ENVREF_NoEscalate) == NULL) {
+			env.AssignValue(pSymbol, Value::Null, EXTRA_Public);
+		}
+	}
 	return Value::Null;
 }
 
+// locals(module?:module) {block?}
+Gura_DeclareFunction(locals)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "module", VTYPE_Module, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns an environment object that belongs to a specified module.\n"
+		"If module is omitted, it returns an environment object of the current scope.");
+}
+
+Gura_ImplementFunction(locals)
+{
+	Value value;
+	if (args.IsModule(0)) {
+		value = Value(new Object_environment(*args.GetModule(0)));
+	} else {
+		value = Value(new Object_environment(env));
+	}
+	return ReturnValue(env, sig, args, value);
+}
+
+// outers() {block?}
+Gura_DeclareFunction(outers)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns an environment object that accesses to an outer scope.");
+}
+
+Gura_ImplementFunction(outers)
+{
+	AutoPtr<Environment> pEnvOuter(new Environment());
+	pEnvOuter->AddOuterFrame(env.GetFrameOwner());
+	return ReturnValue(env, sig, args, Value(new Object_environment(*pEnvOuter)));
+}
+
+// public():void {block}
+Gura_DeclareFunctionAlias(public_, "public")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareBlock(OCCUR_Once);
+}
+
+Gura_ImplementFunction(public_)
+{
+	SeqPostHandler *pSeqPostHandler = NULL;
+	SymbolSet &symbolsPublic = env.PrepareSymbolsPublic();
+	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
+		const Expr *pExpr = *ppExpr;
+		if (pExpr->IsIdentifier()) {
+			const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExpr);
+			symbolsPublic.Insert(pExprIdentifier->GetSymbol());
+		} else if (pExpr->IsAssign()) {
+			const Expr_Assign *pExprAssign = dynamic_cast<const Expr_Assign *>(pExpr);
+			if (!pExprAssign->GetLeft()->IsIdentifier()) {
+				sig.SetError(ERR_ValueError, "invalid element for public");
+				return Value::Null;
+			}
+			const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExprAssign->GetLeft());
+			symbolsPublic.Insert(pExprIdentifier->GetSymbol());
+			pExpr->Exec2(env, sig, pSeqPostHandler);
+			if (sig.IsSignalled()) return Value::Null;
+		} else {
+			sig.SetError(ERR_ValueError, "invalid element for public");
+			return Value::Null;
+		}
+	}
+	return Value::Null;
+}
+
+// scope(target?) {block}
+Gura_DeclareFunction(scope)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "target", VTYPE_any, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_Once);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Evaluates block with a local scope.");
+}
+
+Gura_ImplementFunction(scope)
+{
+	if (args.IsInvalid(0)) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
+		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		return pExprBlock->Exec2(*pEnvBlock, sig, pSeqPostHandler);
+	} else {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		Environment *pEnv = NULL;
+		if (args.IsModule(0)) {
+			pEnv = args.GetModule(0);
+		} else if (args.IsClass(0)) {
+			pEnv = args.GetValue(0).GetClassItself();
+		} else if (args.Is_function(0)) {
+			pEnv = args.GetFunction(0)->GetClassToConstruct();
+		} else if (args.IsType(0, VTYPE_environment)) {
+			pEnv = &Object_environment::GetObject(args, 0)->GetEnv();
+		}
+		if (pEnv != NULL) {
+			const Expr_Block *pExprBlock = args.GetBlock(*pEnv, sig);
+			if (sig.IsSignalled()) return Value::Null;
+			return pExprBlock->Exec2(*pEnv, sig, pSeqPostHandler);
+		}
+	}
+	sig.SetError(ERR_ValueError, "module or environment must be specified");
+	return Value::Null;
+}
+
+//-----------------------------------------------------------------------------
+// module operations
+//-----------------------------------------------------------------------------
+// module {block}
+Gura_DeclareFunction(module)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_Once);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a module that contains functions and variables defined in the block\n"
+		"and returns it as a module object. This can be used to realize a namespace.");
+}
+
+Gura_ImplementFunction(module)
+{
+	SeqPostHandler *pSeqPostHandler = NULL;
+	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	if (sig.IsSignalled()) return Value::Null;
+	Module *pModule = new Module(&env, Gura_Symbol(_anonymous_), "", NULL, NULL);
+	pExprBlock->Exec2(*pModule, sig, pSeqPostHandler);
+	return Value(pModule);
+}
+
+// import(`module, `alias?):void:[binary,overwrite,mixin_type] {block?}
+Gura_DeclareFunctionAlias(import_, "import")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "module", VTYPE_quote);
+	DeclareArg(env, "alias", VTYPE_quote, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(overwrite));
+	DeclareAttr(Gura_Symbol(binary));
+	DeclareAttr(Gura_Symbol(mixin_type));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Imports a module stored in directories specified by a variable sys.path.\n"
+		"There are three ways of calling this function like follow:\n"
+		"\n"
+		"1. `import(foo)`\n"
+		"2. `import(foo, bar)`\n"
+		"3. `import(foo) {symbol1, symbol2, symbol3}`\n"
+		"\n"
+		"In the first format, it creates a module object named foo.\n"
+		"In the second, it names the module object as bar instead of foo.\n"
+		"In the third, it doesn't register the module name into the environment,\n"
+		"but it looks up symbols specified in the block and registers them.\n"
+		"In thie case, if specified symbols conflict with the existing one,\n"
+		"it will cause an error. Attribute `:overwrite` will disable such an error\n"
+		"detection and allow overwriting of symbols. You can specify an asterisk\n"
+		"character to include all the registered symbols like follows.\n"
+		"\n"
+		"    import(foo) {*}");
+}
+
+Gura_ImplementFunction(import_)
+{
+	SymbolSet symbolsToMixIn;
+	SymbolSet *pSymbolsToMixIn = NULL;
+	if (args.IsBlockSpecified()) {
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
+			if (!(*ppExpr)->IsIdentifier()) {
+				sig.SetError(ERR_SyntaxError,
+					"wrong format for an element in import list");
+				return Value::Null;
+			}
+			const Expr_Identifier *pExprIdentifier =
+							dynamic_cast<const Expr_Identifier *>(*ppExpr);
+			symbolsToMixIn.insert(pExprIdentifier->GetSymbol());
+		}
+		pSymbolsToMixIn = &symbolsToMixIn;
+	}
+	const Symbol *pSymbolAlias = NULL;
+	if (!args.Is_expr(1)) {
+		// nothing to do
+	} else if (!args.GetExpr(1)->IsIdentifier()) {
+		sig.SetError(ERR_ValueError, "identifier is expected as a module name");
+		return Value::Null;
+	} else {
+		pSymbolAlias = dynamic_cast<const Expr_Identifier *>(args.GetExpr(1))->GetSymbol();
+	}
+	bool overwriteFlag = args.IsSet(Gura_Symbol(overwrite));
+	bool binaryOnlyFlag = args.IsSet(Gura_Symbol(binary));
+	bool mixinTypeFlag = args.IsSet(Gura_Symbol(mixin_type));
+	if (env.ImportModule(sig, args.GetExpr(0), pSymbolAlias, pSymbolsToMixIn,
+						overwriteFlag, binaryOnlyFlag, mixinTypeFlag) == NULL) {
+		return Value::Null;
+	}
+	return Value::Null;
+}
+
+//-----------------------------------------------------------------------------
+// value type information
+//-----------------------------------------------------------------------------
 // isdefined(`identifier)
 Gura_DeclareFunction(isdefined)
 {
@@ -1469,29 +1260,6 @@ Gura_ImplementFunction(isinstance)
 	return args.GetValue(0).IsInstanceOf(pValueTypeInfo->GetValueType());
 }
 
-// classref(type+:expr):map {block?}
-Gura_DeclareFunction(classref)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Looks up a class by an expression of a type name.");
-}
-
-Gura_ImplementFunction(classref)
-{
-	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetList(0));
-	if (pValueTypeInfo == NULL) return Value::Null;
-	//if (pValueTypeInfo->GetClass() == NULL) {
-	//	sig.SetError(ERR_ValueError, "not a class type");
-	//	return Value::Null;
-	//}
-	Value result(Class::Reference(pValueTypeInfo->GetClass()));
-	return ReturnValue(env, sig, args, result);
-}
-
 // typename(`value)
 Gura_DeclareFunctionAlias(typename_, "typename")
 {
@@ -1582,22 +1350,175 @@ Gura_ImplementFunction(undef_)
 	return Value::Null;
 }
 
-// randseed(seed:number):void
-Gura_DeclareFunction(randseed)
+//-----------------------------------------------------------------------------
+// data processing
+//-----------------------------------------------------------------------------
+// choose(index:number, values+):map
+Gura_DeclareFunction(choose)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number);
+	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
+}
+
+Gura_ImplementFunction(choose)
+{
+	size_t index = args.GetSizeT(0);
+	const ValueList &valList = args.GetList(1);
+	if (index >= valList.size()) {
+		sig.SetError(ERR_IndexError, "index is out of range");
+		return Value::Null;
+	}
+	return valList[index];
+}
+
+// cond(flag:boolean, value1:nomap, value2:nomap?):map
+Gura_DeclareFunction(cond)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "flag", VTYPE_boolean);
+	DeclareArg(env, "value1", VTYPE_any, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "value2", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_NoMap);
+}
+
+Gura_ImplementFunction(cond)
+{
+	return args.GetBoolean(0)? args.GetValue(1) : args.GetValue(2);
+}
+
+// conds(flag:boolean, value1, value2?):map
+Gura_DeclareFunction(conds)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "flag", VTYPE_boolean);
+	DeclareArg(env, "value1", VTYPE_any, OCCUR_Once);
+	DeclareArg(env, "value2", VTYPE_any, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(conds)
+{
+	return args.GetBoolean(0)? args.GetValue(1) : args.GetValue(2);
+}
+
+// dim(n+:number) {block}
+Gura_DeclareFunction(dim)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "seed", VTYPE_number);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_OnceOrMore);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates and returns a multi-dementional list that contains nested lists as\n"
+		"specified by the arguments.\n"
+		"Block parameter format: `|i0:number, i1:number, ..|`");
 }
 
-Gura_ImplementFunction(randseed)
+bool Func_dim_Sub(Environment &env, Signal sig, const Function *pFuncBlock, ValueList &valListParent,
+	IntList &cntList, IntList::iterator pCnt, IntList &idxList, IntList::iterator pIdx)
 {
-	Random::Initialize(args.GetULong(0));
-	return Value::Null;
+	if (pCnt + 1 == cntList.end()) {
+		if (pFuncBlock == NULL) {
+			for (*pIdx = 0; *pIdx < *pCnt; (*pIdx)++) {
+				valListParent.push_back(Value::Null);
+			}
+		} else {
+			for (*pIdx = 0; *pIdx < *pCnt; (*pIdx)++) {
+				AutoPtr<Args> pArgs(new Args());
+				pArgs->ReserveValueListArg(idxList.size());
+				foreach (IntList, pIdxWk, idxList) {
+					pArgs->AddValue(Value(*pIdxWk));
+				}
+				Value result = pFuncBlock->Eval(env, sig, *pArgs);
+				if (sig.IsSignalled()) return false;
+				valListParent.push_back(result);
+			}
+		}
+	} else {
+		for (*pIdx = 0; *pIdx < *pCnt; (*pIdx)++) {
+			Value result;
+			ValueList &valList = result.InitAsList(env);
+			valListParent.push_back(result);
+			if (!Func_dim_Sub(env, sig, pFuncBlock, valList,
+									cntList, pCnt + 1, idxList, pIdx + 1)) {
+				return false;
+			}
+		}
+	}
+	return true;
 }
 
+Gura_ImplementFunction(dim)
+{
+	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
+	const Function *pFuncBlock =
+						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
+	const ValueList &valListArg = args.GetList(0);
+	size_t nArgs = valListArg.size();
+	IntList cntList, idxList;
+	cntList.reserve(nArgs);
+	idxList.reserve(nArgs);
+	foreach_const (ValueList, pValArg, valListArg) {
+		cntList.push_back(pValArg->GetInt());
+		idxList.push_back(0);
+	}
+	Value result;
+	ValueList &valList = result.InitAsList(env);
+	if (!Func_dim_Sub(*pEnvBlock, sig, pFuncBlock, valList,
+						cntList, cntList.begin(), idxList, idxList.begin())) {
+		return Value::Null;
+	}
+	return result;
+}
+
+// max(values+):map
+Gura_DeclareFunction(max)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns the maximum value among the given arguments.");
+}
+
+Gura_ImplementFunction(max)
+{
+	const ValueList &valList = args.GetList(0);
+	ValueList::const_iterator pValue = valList.begin();
+	Value result = *pValue++;
+	for ( ; pValue != valList.end(); pValue++) {
+		int cmp = Value::Compare(env, sig, result, *pValue);
+		if (sig.IsSignalled()) return Value::Null;
+		if (cmp < 0) result = *pValue;
+	}
+	return result;
+}
+
+// min(values+):map
+Gura_DeclareFunction(min)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns the minimum value among the given arguments.");
+}
+
+Gura_ImplementFunction(min)
+{
+	const ValueList &valList = args.GetList(0);
+	ValueList::const_iterator pValue = valList.begin();
+	Value result = *pValue++;
+	for ( ; pValue != valList.end(); pValue++) {
+		int cmp = Value::Compare(env, sig, result, *pValue);
+		if (sig.IsSignalled()) return Value::Null;
+		if (cmp > 0) result = *pValue;
+	}
+	return result;
+}
+
+//-----------------------------------------------------------------------------
+// random
+//-----------------------------------------------------------------------------
 // rand(range?:number) {block?}
 Gura_DeclareFunction(rand)
 {
@@ -1619,6 +1540,121 @@ Gura_ImplementFunction(rand)
 	return ReturnValue(env, sig, args, Value(Random::Real2()));
 }
 
+// randseed(seed:number):void
+Gura_DeclareFunction(randseed)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "seed", VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(randseed)
+{
+	Random::Initialize(args.GetULong(0));
+	return Value::Null;
+}
+
+//-----------------------------------------------------------------------------
+// help information
+//-----------------------------------------------------------------------------
+// dir(obj?):[noesc]
+Gura_DeclareFunction(dir)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "obj", VTYPE_any, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(noesc));
+	//DeclareAttr(Gura_Symbol(nosort));
+}
+
+Gura_ImplementFunction(dir)
+{
+	bool escalateFlag = !args.IsSet(Gura_Symbol(noesc));
+	bool sortFlag = !args.IsSet(Gura_Symbol(nosort));
+	SymbolList symbolList;
+	if (args.IsValid(0)) {
+		SymbolSet symbols;
+		if (!args.GetValue(0).DirProp(env, sig, symbols, escalateFlag)) return Value::Null;
+		foreach_const (SymbolSet, ppSymbol, symbols) {
+			const Symbol *pSymbol = *ppSymbol;
+			symbolList.push_back(pSymbol);
+		}
+	} else {
+		foreach_const (ValueMap, iter, env.GetBottomFrame()->GetValueMap()) {
+			const Symbol *pSymbol = iter->first;
+			symbolList.push_back(pSymbol);
+		}
+	}
+	if (sortFlag) symbolList.SortByName();
+	Value result;
+	ValueList &valList = result.InitAsList(env);
+	valList.reserve(symbolList.size());
+	foreach_const (SymbolList, ppSymbol, symbolList) {
+		const Symbol *pSymbol = *ppSymbol;
+		valList.push_back(Value(pSymbol));
+	}
+	return result;
+}
+
+// dirtype(obj?):[noesc]
+Gura_DeclareFunction(dirtype)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "obj", VTYPE_any, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(noesc));
+	//DeclareAttr(Gura_Symbol(nosort));
+}
+
+Gura_ImplementFunction(dirtype)
+{
+	bool escalateFlag = !args.IsSet(Gura_Symbol(noesc));
+	bool sortFlag = !args.IsSet(Gura_Symbol(nosort));
+	SymbolList symbolList;
+	if (args.IsValid(0)) {
+		SymbolSet symbols;
+		args.GetValue(0).DirValueType(symbols, escalateFlag);
+		foreach_const (SymbolSet, ppSymbol, symbols) {
+			const Symbol *pSymbol = *ppSymbol;
+			symbolList.push_back(pSymbol);
+		}
+	} else {
+		foreach_const (ValueTypeMap, iter, env.GetBottomFrame()->GetValueTypeMap()) {
+			const Symbol *pSymbol = iter->first;
+			symbolList.push_back(pSymbol);
+		}
+	}
+	if (sortFlag) symbolList.SortByName();
+	Value result;
+	ValueList &valList = result.InitAsList(env);
+	valList.reserve(symbolList.size());
+	foreach_const (SymbolList, ppSymbol, symbolList) {
+		const Symbol *pSymbol = *ppSymbol;
+		valList.push_back(Value(pSymbol));
+	}
+	return result;
+}
+
+// help(func:function, lang?:symbol):map:void
+Gura_DeclareFunction(help)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "func", VTYPE_function);
+	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Prints a help message for the specified function object.");
+}
+
+Gura_ImplementFunction(help)
+{
+	const Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
+	const Symbol *pSymbol = args.Is_symbol(1)? args.GetSymbol(1) : env.GetLangCode();
+	HelpPresenter::Present(env, sig, pFunc->ToString().c_str(),
+						   pFunc->GetHelp(pSymbol, true));
+	return Value::Null;
+}
+
 // Module entry
 Gura_ModuleEntry()
 {
@@ -1634,15 +1670,21 @@ Gura_ModuleEntry()
 		Object_environment *pObj = new Object_environment(env);
 		Gura_AssignValue(root, Value(pObj));
 	} while (0);
-	// function assignment
-	Gura_AssignFunction(class_);
-	Gura_AssignFunction(struct_);
-	Gura_AssignFunction(super);
-	Gura_AssignFunction(module);
-	Gura_AssignFunction(public_);
-	Gura_AssignFunction(try_);
-	Gura_AssignFunction(catch_);
-	Gura_AssignFunction(finally_);
+	// formatting and printing of text
+	Gura_AssignFunction(format);
+	Gura_AssignFunction(print);
+	Gura_AssignFunction(printf);
+	Gura_AssignFunction(println);
+	// repetition
+	Gura_AssignFunction(cross);
+	Gura_AssignFunction(for_);
+	Gura_AssignFunction(repeat);
+	Gura_AssignFunction(while_);
+	// flow control
+	Gura_AssignFunction(break_);
+	Gura_AssignFunction(continue_);
+	Gura_AssignFunction(return_);
+	// branch control
 	Gura_AssignFunction(if_);
 	Gura_AssignFunction(elsif_);
 	Gura_AssignFunction(else_);
@@ -1650,43 +1692,36 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(switch_);
 	Gura_AssignFunction(case_);
 	Gura_AssignFunction(default_);
-	Gura_AssignFunction(repeat);
-	Gura_AssignFunction(while_);
-	Gura_AssignFunction(for_);
-	Gura_AssignFunction(cross);
-	Gura_AssignFunction(break_);
-	Gura_AssignFunction(continue_);
-	Gura_AssignFunction(return_);
+	// handling exception
+	Gura_AssignFunction(try_);
+	Gura_AssignFunction(catch_);
+	Gura_AssignFunction(finally_);
 	Gura_AssignFunction(raise);
-	Gura_AssignFunction(dim);
-	Gura_AssignFunction(min);
-	Gura_AssignFunction(max);
-	Gura_AssignFunction(choose);
-	Gura_AssignFunction(cond);
-	Gura_AssignFunction(conds);
-	Gura_AssignFunction(import_);
-	Gura_AssignFunction(scope);
-	Gura_AssignFunction(locals);
-	Gura_AssignFunction(outers);
-	//Gura_AssignFunction(extern_);
-	Gura_AssignFunction(local);
-	Gura_AssignFunction(tostring);
-	Gura_AssignFunction(tonumber);
-	Gura_AssignFunction(tosymbol);
-	Gura_AssignFunction(int_);
-	Gura_AssignFunction(ord);
+	// data transformation
 	Gura_AssignFunction(chr);
 	Gura_AssignFunction(hex);
-	Gura_AssignFunction(print);
-	Gura_AssignFunction(println);
-	Gura_AssignFunction(printf);
-	Gura_AssignFunction(format);
-	Gura_AssignFunction(dir);
-	Gura_AssignFunction(dirtype);
-	Gura_AssignFunction(help);
+	Gura_AssignFunction(int_);
+	Gura_AssignFunction(ord);
+	Gura_AssignFunction(tonumber);
+	Gura_AssignFunction(tostring);
+	Gura_AssignFunction(tosymbol);
+	// class operations
+	Gura_AssignFunction(class_);
+	Gura_AssignFunction(classref);
+	Gura_AssignFunction(struct_);
+	Gura_AssignFunction(super);
+	// scope operations
+	//Gura_AssignFunction(extern_);
+	Gura_AssignFunction(local);
+	Gura_AssignFunction(locals);
+	Gura_AssignFunction(outers);
+	Gura_AssignFunction(public_);
+	Gura_AssignFunction(scope);
+	// module operations
+	Gura_AssignFunction(import_);
+	Gura_AssignFunction(module);
+	// value type information
 	Gura_AssignFunction(isdefined);
-	Gura_AssignFunction(typename_);
-	Gura_AssignFunction(undef_);
 	Gura_AssignFunctionExx(istype_, "isnil",		VTYPE_nil);
 	Gura_AssignFunctionExx(istype_, "issymbol",		VTYPE_symbol);
 	Gura_AssignFunctionExx(istype_, "isboolean",	VTYPE_boolean);
@@ -1711,9 +1746,22 @@ Gura_ModuleEntry()
 	Gura_AssignFunctionExx(istype_, "isclass",		VTYPE_Class);
 	Gura_AssignFunction(istype);
 	Gura_AssignFunction(isinstance);
-	Gura_AssignFunction(classref);
-	Gura_AssignFunction(randseed);
+	Gura_AssignFunction(typename_);
+	Gura_AssignFunction(undef_);
+	// data processing
+	Gura_AssignFunction(choose);
+	Gura_AssignFunction(cond);
+	Gura_AssignFunction(conds);
+	Gura_AssignFunction(dim);
+	Gura_AssignFunction(max);
+	Gura_AssignFunction(min);
+	// random
 	Gura_AssignFunction(rand);
+	Gura_AssignFunction(randseed);
+	// help information
+	Gura_AssignFunction(dir);
+	Gura_AssignFunction(dirtype);
+	Gura_AssignFunction(help);
 	return true;
 }
 
