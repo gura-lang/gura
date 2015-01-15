@@ -3,6 +3,22 @@ import(markdown)
 import(conio)
 
 write(doc:markdown.document) = {
+	doc << R'''
+	## conio Module
+	### Sample
+	    conio.clear()
+	    [w, h] = conio.getwinsize() conio.moveto(0, 0) {
+	        print('*' * w)
+	    }
+	    conio.moveto(0, 1 .. (h - 2)) {
+		    print('*', ' ' * (w - 2), '*')
+	    }
+	    conio.moveto(0, h - 1) {
+	        print('*' * w)
+	    }
+	    conio.waitkey():raise	
+	'''
+	doc << '### Module Functions'
 	doc << [
 		conio.clear
 		conio.getwinsize

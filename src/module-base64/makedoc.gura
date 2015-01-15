@@ -2,12 +2,14 @@
 import(markdown)
 
 write(doc:markdown.document) = {
+	doc << '### Module Functions'
 	doc << [
 		base64.decode
 		base64.encode
 		base64.reader
 		base64.writer
 	]
+	doc << '### Extension of stream Class'
 	doc << [
 		stream.base64reader
 		stream.base64writer

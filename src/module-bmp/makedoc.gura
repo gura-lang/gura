@@ -1,0 +1,23 @@
+#!/usr/bin/env gura
+import(markdown)
+import(bmp)
+
+write(doc:markdown.document) = {
+	doc << R'''
+	## bmp Module
+	### Abstract
+	### Sample
+	    import(bmp)
+		img = image('hoge.bmp')
+	'''
+	doc << '### Extension of image Class'
+	doc << [
+		image.bmpread
+		image.bmpwrite
+	]
+	doc
+}
+
+if (__name__ == '__main__') {
+	write(markdown.document()).render@html(sys.stdout)
+}
