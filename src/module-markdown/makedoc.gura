@@ -2,16 +2,22 @@
 import(markdown)
 
 write(doc:markdown.document) = {
+	doc << R'''
+	## markdown Module
+	'''
+	doc << '### Module Functions'
+	doc << [
+		markdown.document
+		markdown.setpresenter
+	]
+	doc << '### markdown.document Class'
 	doc << [
 		markdown.document.parse
 		markdown.document.read
 	]
+	doc << '### markdown.item Class'
 	doc << [
 		markdown.item.print
-	]
-	doc << [
-		markdown.document
-		markdown.setpresenter
 	]
 	doc
 }
