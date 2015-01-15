@@ -1,17 +1,29 @@
 #!/usr/bin/env gura
 import(markdown)
-import(conio)
 
 write(doc:markdown.document) = {
+	doc << '### Formatting and Printing of Text'
 	doc << [
- 		class
-		struct
-		super
-		module
-		public
-		try
-		catch
-		finally
+		format
+		print
+		printf
+		println
+	]
+	doc << '### Repetition'
+	doc << [
+		cross
+		for
+		repeat
+		while
+	]
+	doc << '### Flow Control'
+	doc << [
+		break
+		continue
+		return
+	]
+	doc << '### Branch Control'
+	doc << [
 		if
 		elsif
 		else
@@ -19,70 +31,94 @@ write(doc:markdown.document) = {
 		switch
 		case
 		default
-		repeat
-		while
-		for
-		cross
-		//break
-		//continue
-		//return
+	]
+	doc << '### Handling Exception'
+	doc << [
+		try
+		catch
+		finally
 		raise
-		dim
-		min
-		max
+	]
+	doc << '### Data Transformation'
+	doc << [
+		chr
+		hex
+		int
+		ord
+		tonumber
+		tostring
+		tosymbol
+	]
+	doc << '### Class Operations'
+	doc << [
+		class
+		classref
+		struct
+		super
+	]
+	doc << '### Scope Operations'
+	doc << [
+		//extern
+		local
+		locals
+		outers
+		public
+		scope
+	]
+	doc << '### Module Operations'
+	doc << [
+		import
+		module
+	]
+	doc << '### Value Type Information'
+	doc << [
+		isbinary
+		isboolean
+		isclass
+		iscomplex
+		isdatetime
+		isdict
+		isenvironment
+		iserror
+		isexpr
+		isfunction
+		isiterator
+		islist
+		ismatrix
+		ismodule
+		isnil
+		isnumber
+		isrational
+		issemaphore
+		isstring
+		issymbol
+		istimedelta
+		isuri
+		isdefined
+		isinstance
+		istype
+		typename
+		undef
+	]
+	doc << '### Data Processing'
+	doc << [
 		choose
 		cond
 		conds
-		import
-		scope
-		locals
-		outers
-		//extern
-		local
-		tostring
-		tonumber
-		tosymbol
-		int
-		ord
-		chr
-		hex
-		print
-		println
-		printf
-		format
+		dim
+		max
+		min
+	]
+	doc << '### Random'
+	doc << [
+		rand
+		randseed
+	]
+	doc << '### Help Information'
+	doc << [
 		dir
 		dirtype
 		help
-		isdefined
-		typename
-		undef
-		isnil
-		issymbol
-		isboolean
-		isnumber
-		iscomplex
-		isrational
-		isfunction
-		isstring
-		isbinary
-		islist
-		ismatrix
-		isdict
-		isdatetime
-		istimedelta
-		isiterator
-		isexpr
-		isenvironment
-		iserror
-		isuri
-		issemaphore
-		ismodule
-		isclass
-		istype
-		isinstance
-		classref
-		randseed
-		rand
 	]
 	doc
 }
