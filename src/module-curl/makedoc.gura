@@ -1,0 +1,31 @@
+#!/usr/bin/env gura
+import(markdown)
+import(curl)
+
+write(doc:markdown.document) = {
+	doc << R'''
+	## curl Module
+	### Sample
+	'''
+	doc << '### Module Functions'
+	doc << [
+		curl.version
+		curl.easy_init
+	]
+	doc << '### curl.easy\\_handle Class'
+	doc << [
+		curl.easy_handle.escape
+		curl.easy_handle.getinfo
+		curl.easy_handle.perform
+		curl.easy_handle.recv
+		curl.easy_handle.reset
+		curl.easy_handle.send
+		curl.easy_handle.setopt
+		curl.easy_handle.unescape
+	]
+	doc
+}
+
+if (__name__ == '__main__') {
+	write(markdown.document()).render@html(sys.stdout)
+}

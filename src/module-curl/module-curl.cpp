@@ -230,6 +230,8 @@ Gura_ModuleEntry()
 {
 	// class realization
 	Gura_RealizeUserClass(easy_handle, env.LookupClass(VTYPE_object));
+	// class reference assignment
+	Gura_AssignValue(easy_handle, Value(Gura_UserClass(easy_handle)->Reference()));
 	// value assignment
 	// CURLINFO
 	Gura_AssignValueCURLINFO(TEXT);
