@@ -26,6 +26,9 @@ Gura_DeclareFunction(format)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(format)
@@ -562,6 +565,9 @@ Gura_DeclareFunctionTrailerAlias(finally_, "finally")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Trailer | FLAG_Finalizer);
 	DeclareBlock(OCCUR_Once);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(finally_)
@@ -602,6 +608,9 @@ Gura_DeclareFunction(chr)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_number);
 	DeclareAttr(Gura_Symbol(nil));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(chr)
@@ -632,6 +641,9 @@ Gura_DeclareFunction(hex)
 	DeclareArg(env, "num", VTYPE_number);
 	DeclareArg(env, "digits", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(upper));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(hex)
@@ -687,6 +699,9 @@ Gura_DeclareFunction(ord)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(ord)
@@ -711,6 +726,9 @@ Gura_DeclareFunction(tonumber)
 	DeclareAttr(Gura_Symbol(raise));
 	DeclareAttr(Gura_Symbol(zero));
 	DeclareAttr(Gura_Symbol(nil));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(tonumber)
@@ -735,6 +753,9 @@ Gura_DeclareFunction(tostring)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(tostring)
@@ -747,6 +768,9 @@ Gura_DeclareFunction(tosymbol)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(tosymbol)
@@ -864,6 +888,9 @@ Gura_DeclareFunction(super)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "obj", VTYPE_any, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(super)
@@ -993,6 +1020,9 @@ Gura_DeclareFunctionAlias(public_, "public")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareBlock(OCCUR_Once);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(public_)
@@ -1359,6 +1389,9 @@ Gura_DeclareFunction(choose)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(choose)
@@ -1379,6 +1412,9 @@ Gura_DeclareFunction(cond)
 	DeclareArg(env, "flag", VTYPE_boolean);
 	DeclareArg(env, "value1", VTYPE_any, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "value2", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(cond)
@@ -1393,6 +1429,9 @@ Gura_DeclareFunction(conds)
 	DeclareArg(env, "flag", VTYPE_boolean);
 	DeclareArg(env, "value1", VTYPE_any, OCCUR_Once);
 	DeclareArg(env, "value2", VTYPE_any, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(conds)
@@ -1566,6 +1605,9 @@ Gura_DeclareFunction(dir)
 	DeclareArg(env, "obj", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(noesc));
 	//DeclareAttr(Gura_Symbol(nosort));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(dir)
@@ -1604,6 +1646,9 @@ Gura_DeclareFunction(dirtype)
 	DeclareArg(env, "obj", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(noesc));
 	//DeclareAttr(Gura_Symbol(nosort));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementFunction(dirtype)
