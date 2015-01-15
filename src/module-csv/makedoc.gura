@@ -1,0 +1,35 @@
+#!/usr/bin/env gura
+import(markdown)
+import(csv)
+
+write(doc:markdown.document) = {
+	doc << R'''
+	## csv Module
+	### Sample
+	    import(csv)
+	    Record = struct(name:string, age:number, email:string)
+	    records = Record * csv.read('records.csv')
+	    printf('name:%s, age:%d, email:%s¥n',
+	    records:*name, records:*age, records:*email)
+	'''
+	doc << '### Module Functions'
+	doc << [
+		csv.parse
+		csv.read
+		csv.writer
+	]
+	doc << '### csv.writer Class'
+	doc << [
+		csv.writer.write
+	]
+	doc << '### Extension of stream Class'
+	doc << [
+		stream.csvread
+		stream.csvwriter
+	]
+	doc
+}
+
+if (__name__ == '__main__') {
+	write(markdown.document()).render@html(sys.stdout)
+}
