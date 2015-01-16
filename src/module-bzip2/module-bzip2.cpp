@@ -55,8 +55,8 @@ Gura_ImplementFunction(writer)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_stream
 //-----------------------------------------------------------------------------
-// stream#bzip2reader() {block?}
-Gura_DeclareMethod(stream, bzip2reader)
+// stream#reader@bzip2() {block?}
+Gura_DeclareMethodAlias(stream, reader_bzip2, "reader@bzip2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -65,7 +65,7 @@ Gura_DeclareMethod(stream, bzip2reader)
 		"");
 }
 
-Gura_ImplementMethod(stream, bzip2reader)
+Gura_ImplementMethod(stream, reader_bzip2)
 {
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	Object_stream *pObjStream = GenerateDecompressor(env, sig, stream);
@@ -73,8 +73,8 @@ Gura_ImplementMethod(stream, bzip2reader)
 	return ReturnValue(env, sig, args, Value(pObjStream));
 }
 
-// stream#bzip2writer(blockSize100k?:number) {block?}
-Gura_DeclareMethod(stream, bzip2writer)
+// stream#writer_bzip2(blockSize100k?:number) {block?}
+Gura_DeclareMethodAlias(stream, writer_bzip2, "writer@bzip2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "blockSize100k", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -84,7 +84,7 @@ Gura_DeclareMethod(stream, bzip2writer)
 		"");
 }
 
-Gura_ImplementMethod(stream, bzip2writer)
+Gura_ImplementMethod(stream, writer_bzip2)
 {
 	int blockSize100k = args.Is_number(0)? args.GetInt(0) : 9;
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
@@ -104,8 +104,8 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(reader);
 	Gura_AssignFunction(writer);
 	// method assignment to stream type
-	Gura_AssignMethodTo(VTYPE_stream, stream, bzip2reader);
-	Gura_AssignMethodTo(VTYPE_stream, stream, bzip2writer);
+	Gura_AssignMethodTo(VTYPE_stream, stream, reader_bzip2);
+	Gura_AssignMethodTo(VTYPE_stream, stream, writer_bzip2);
 	return true;
 }
 
