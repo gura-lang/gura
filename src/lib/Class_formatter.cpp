@@ -165,6 +165,7 @@ Class_formatter::Class_formatter(Environment *pEnvOuter) : Class(pEnvOuter, VTYP
 
 void Class_formatter::Prepare(Environment &env)
 {
+	Gura_AssignValue(formatter, Value(Reference()));
 	Gura_AssignMethod(formatter, getfieldminwidth);
 	Gura_AssignMethod(formatter, getpadding);
 	Gura_AssignMethod(formatter, getplusmode);

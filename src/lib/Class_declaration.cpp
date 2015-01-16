@@ -80,6 +80,7 @@ Class_declaration::Class_declaration(Environment *pEnvOuter) : Class(pEnvOuter, 
 
 void Class_declaration::Prepare(Environment &env)
 {
+	Gura_AssignValue(declaration, Value(Reference()));
 	Gura_AssignMethod(declaration, istype);
 }
 

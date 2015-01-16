@@ -102,6 +102,7 @@ Class_args::Class_args(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_args)
 
 void Class_args::Prepare(Environment &env)
 {
+	Gura_AssignValue(args, Value(Reference()));
 	Gura_AssignMethod(args, finalize_trailer);
 	Gura_AssignMethod(args, isset);
 	Gura_AssignMethod(args, quit_trailer);

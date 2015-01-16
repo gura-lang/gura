@@ -1,0 +1,447 @@
+#!/usr/bin/env gura
+import(markdown)
+
+write(doc:markdown.document) = {
+	doc << R'''
+	## Built-in Class
+	'''
+	doc << '### `args` Class'
+	doc << [
+		args.finalize_trailer
+		args.isset
+		args.quit_trailer
+	]
+	doc << '### `array` Class'
+	doc << [
+	]
+	doc << '### `audio` Class'
+	doc << [
+		audio.each
+		audio.get
+		audio.put
+		audio.sinewave
+		audio.store
+	]
+	doc << '### `binary` Class'
+	doc << [
+		binary.add
+		binary.alloc
+		binary.decode
+		binary.dump
+		binary.each
+		binary.encodeuri
+		binary.hex
+		binary.len
+		binary.pack
+		binary.pointer
+		binary.reader
+		binary.store
+		binary.unpack
+		binary.unpacks
+		binary.writer
+	]
+	doc << '### `codec` Class'
+	doc << [
+		codec.addcr
+		codec.decode
+		codec.delcr
+		codec.encode
+	]
+	doc << '### `color` Class'
+	doc << [
+		color
+		color.getgray
+		color.html
+		color.tolist
+	]
+	doc << '### `datetime` Class'
+	doc << [
+		datetime,
+		datetime.clrtzoff
+		datetime.format
+		datetime.isleap
+		datetime.monthdays
+		datetime.now
+		datetime.parse
+		datetime.settzoff
+		datetime.time
+		datetime.today
+		datetime.utc
+		datetime.weekday
+	]
+	doc << '### `declaration` Class'
+	doc << [
+		declaration.istype
+	]
+	doc << '### `dict` Class'
+	doc << [
+		dict,
+		dict.clear
+		dict.erase
+		dict.get
+		dict.gets
+		dict.haskey
+		dict.items
+		dict.keys
+		dict.len
+		dict.set
+		dict.setdefault
+		dict.sets
+		dict.store
+		dict.values
+	]
+	doc << '### `directory` Class'
+	doc << [
+		directory
+	]
+	doc << '### `environment` Class'
+	doc << [
+		environment.getprop!
+		environment.lookup
+		environment.setprop!
+	]
+	doc << '### `error` Class'
+	doc << [
+	]
+	doc << '### `expr` Class'
+	doc << [
+		expr
+		expr.eval
+		expr.parse
+		expr.textize
+		expr.tofunction
+		expr.unquote
+		expr.write
+		// type chekers - Unary and descendants
+		expr.isunary
+		expr.isunaryop
+		expr.isquote
+		// type chekers - Binary and descendants
+		expr.isbinary
+		expr.isbinaryop
+		expr.isassign
+		expr.ismember
+		// type chekers - Collector and descendants
+		expr.iscollector
+		expr.isroot
+		expr.isblock
+		expr.islister
+		expr.isiterer
+		// type chekers - Compound and descendants
+		expr.iscompound
+		expr.isindexer
+		expr.iscaller
+		// type chekers - others
+		expr.isvalue
+		expr.isidentifier
+		expr.issuffixed
+	]
+	doc << '### `formatter` Class'
+	doc << [
+		formatter.getfieldminwidth
+		formatter.getpadding
+		formatter.getplusmode
+		formatter.getprecision
+		formatter.isleftalign
+		formatter.issharp
+		formatter.isuppercase
+	]
+	doc << '### `function` Class'
+	doc << [
+		function
+		function.addhelp
+		function.getdecls
+		function.getexpr
+		function.getformat
+		function.getfullname
+		function.gethelp
+		function.getname
+		function.getsymbol
+		function.mathdiff
+	]
+	doc << '### `help` Class'
+	doc << [
+	]
+	doc << '### `image` Class'
+	doc << [
+		image
+		image.allocbuff
+		image.blur
+		image.clear
+		image.crop
+		image.delpalette
+		image.extract
+		image.fill
+		image.fillrect
+		image.flip
+		image.getpixel
+		image.grayscale
+		image.mapcolorlevel
+		image.paste
+		image.putpixel
+		image.size
+		image.store
+		image.read
+		image.reducecolor
+		image.replacecolor
+		image.resize
+		image.rotate
+		image.scan
+		image.setalpha
+		image.thumbnail
+		image.write
+	]
+	doc << '### `iterator` Class'
+	doc << [
+		iterator
+		range
+		interval
+		consts
+		rands
+		// assignment of methods
+		iterator.delay
+		iterator.isinfinite
+		iterator.next
+		iterator.print
+		iterator.println
+		iterator.printf
+		iterator.repeater
+		// assignment of common methods with list
+		iterator.after
+		iterator.align
+		iterator.and
+		iterator.average
+		iterator.before
+		iterator.contains
+		iterator.count
+		iterator.cycle
+		iterator.each
+		iterator.filter
+		iterator.find
+		iterator.flat
+		iterator.fold
+		iterator.format
+		iterator.head
+		iterator.join
+		iterator.joinb
+		iterator.len
+		iterator.map
+		iterator.max
+		iterator.min
+		iterator.nilto
+		iterator.offset
+		iterator.or
+		iterator.pack
+		iterator.pingpong
+		iterator.rank
+		iterator.reduce
+		iterator.replace
+		iterator.reverse
+		iterator.roundoff
+		iterator.runlength
+		iterator.since
+		iterator.skip
+		iterator.skipnil
+		iterator.sort
+		iterator.stddev
+		iterator.sum
+		iterator.tail
+		iterator.until
+		iterator.variance
+		iterator.walk
+		iterator.while
+	]
+	doc << '### `list` Class'
+	doc << [
+		list
+		xlist
+		set
+		xset
+		// assignment of class methods
+		list.zip
+		// assignment of instance methods
+		list.add
+		list.append
+		list.clear
+		list.combination
+		list.erase
+		list.first
+		list.flat
+		list.get
+		list.insert
+		list.isempty
+		list.last
+		list.permutation
+		list.printf
+		list.put
+		list.shift
+		list.shuffle
+		// assignment of common methods with iterator
+		list.after
+		list.align
+		list.and
+		list.average
+		list.before
+		list.contains
+		list.count
+		list.cycle
+		list.each
+		list.filter
+		list.find
+		list.fold
+		list.format
+		list.head
+		list.join
+		list.len
+		list.map
+		list.max
+		list.min
+		list.nilto
+		list.offset
+		list.or
+		list.pack
+		list.pingpong
+		list.rank
+		list.reduce
+		list.replace
+		list.reverse
+		list.roundoff
+		list.runlength
+		list.since
+		list.skip
+		list.skipnil
+		list.sort
+		list.stddev
+		list.sum
+		list.tail
+		list.until
+		list.variance
+		list.walk
+		list.while
+	]
+	doc << '### `matrix` Class'
+	doc << [
+		matrix
+		matrix.col
+		matrix.colsize
+		matrix.each
+		matrix.eachcol
+		matrix.eachrow
+		matrix.identity
+		matrix.invert
+		matrix.issquare
+		matrix.rotation
+		matrix.rotation_x
+		matrix.rotation_y
+		matrix.rotation_z
+		matrix.roundoff
+		matrix.row
+		matrix.rowsize
+		matrix.set
+		matrix.setcol
+		matrix.setrow
+		matrix.submat
+		matrix.tolist
+		matrix.transpose
+	]
+	doc << '### `operator` Class'
+	doc << [
+		operator
+		operator.assign
+		operator.entries
+	]
+	doc << '### `palette` Class'
+	doc << [
+		palette
+		palette.each
+		palette.nearest
+		palette.shrink
+		palette.updateby
+	]
+	doc << '### `pointer` Class'
+	doc << [
+		pointer.forward
+		pointer.pack
+		pointer.reset
+		pointer.unpack
+		pointer.unpacks
+	]
+	doc << '### `semaphore` Class'
+	doc << [
+		semaphore
+		semaphore.release
+		semaphore.session
+		semaphore.wait
+	]
+	doc << '### `stream` Class'
+	doc << [
+		open
+		stream
+		readlines
+		stream.addcr
+		stream.close
+		stream.compare
+		stream.copy
+		stream.copyfrom
+		stream.copyto
+		stream.delcr
+		stream.deserialize
+		stream.flush
+		stream.peek
+		//stream.prefetch
+		stream.print
+		stream.printf
+		stream.println
+		stream.read
+		stream.readchar
+		stream.readline
+		stream.readlines
+		stream.readtext
+		stream.seek
+		stream.serialize
+		stream.setcodec
+		stream.tell
+		stream.write
+	]
+	doc << '### `suffixmgr` Class'
+	doc << [
+		suffixmgr
+		suffixmgr.assign
+	]
+	doc << '### `template` Class'
+	doc << [
+		template
+		template.block
+		template.call
+		template.def
+		template.embed
+		template.extends
+		template.parse
+		template.read
+		template.render
+		template.super
+		template._R_block
+		template._R_call
+		template._R_def
+		template._R_embed
+		template._R_extends
+		template._R_super
+	]
+	doc << '### `timedelta` Class'
+	doc << [
+		timedelta
+	]
+	doc << '### `uri` Class'
+	doc << [
+		uri
+		uri.getfragment
+		uri.getpath
+		uri.getquery
+		uri.parsequery
+	]
+	doc
+}
+
+if (__name__ == '__main__') {
+	write(markdown.document()).render@html(sys.stdout)
+}

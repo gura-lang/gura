@@ -97,6 +97,7 @@ Gura_DeclareFunction(audio)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "args", VTYPE_any, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(env.LookupClass(VTYPE_audio));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");

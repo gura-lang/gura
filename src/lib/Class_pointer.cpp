@@ -162,6 +162,7 @@ Class_pointer::Class_pointer(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_po
 
 void Class_pointer::Prepare(Environment &env)
 {
+	Gura_AssignValue(pointer, Value(Reference()));
 	Gura_AssignMethod(pointer, forward);
 	Gura_AssignMethod(pointer, pack);
 	Gura_AssignMethod(pointer, reset);
