@@ -10,7 +10,7 @@ import(helper.test) {*}
 
 tester_image(image:image, comment:string, hexdigestExpect:string):map:void = {
 	md5 = hash.md5()
-	image.bmpwrite(md5)
+	image.write@bmp(md5)
 	printf('%-20s %3dx%3d %s\n', comment, image.width, image.height,
 		   md5.hexdigest in hexdigestExpect.split(';') || md5.hexdigest)
 }
@@ -118,21 +118,21 @@ testcase {
 		b'\x00\x00\x00\x00\x49\x45\x4e\x44\xae\x42\x60\x82' \
 	)
 	md5 = hash.md5()
-	img.bmpwrite(md5.init())
+	img.write@bmp(md5.init())
 	println('image written in script binary: ', md5.hexdigest == 'd8e123ea43ac83a77e489f9da0256951' || md5.hexdigest)
 }
 testcase {
 	md5 = hash.md5()
-	image(I('chicken256.bmp'), `rgb).delpalette().bmpwrite(md5.init())
+	image(I('chicken256.bmp'), `rgb).delpalette().write@bmp(md5.init())
 	println('chicken256.bmp to BMP: ', md5.hexdigest == '3224bf2c42fdb023ff99e30ba5b08544' || md5.hexdigest)
-	image(I('chicken16.bmp'), `rgb).delpalette().bmpwrite(md5.init())
+	image(I('chicken16.bmp'), `rgb).delpalette().write@bmp(md5.init())
 	println('chicken16.bmp to BMP: ', md5.hexdigest == '8712312fbe16655082a66fced12c525a' || md5.hexdigest)
-	image(I('seashore.jpg'), `rgb).bmpwrite(md5.init())
+	image(I('seashore.jpg'), `rgb).write@bmp(md5.init())
 	println('seashore.jpg to BMP: ',
 			md5.hexdigest in ['acc0d75162f7df885b55142c45443af5', '0dfd13b6089ba7de71190ffba78c23e4'] || md5.hexdigest)
-	image(I('kangaroo.png'), `rgb).bmpwrite(md5.init())
+	image(I('kangaroo.png'), `rgb).write@bmp(md5.init())
 	println('kangaroo.png to BMP: ', md5.hexdigest == '2ec680a08f0303d449d0888158aeb529' || md5.hexdigest)
-	image(I('kangaroo.gif'), `rgb).delpalette().bmpwrite(md5.init())
+	image(I('kangaroo.gif'), `rgb).delpalette().write@bmp(md5.init())
 	println('kangaroo.gif to BMP: ', md5.hexdigest == 'bf9664470d42a077fdca8afce5394f76' || md5.hexdigest)
 	image(I('kangaroo.png'), `rgb).gifwrite(md5.init())
 	println('kangaroo.png to GIF: ', md5.hexdigest == '9a78d811875c996748f1b317c2bf8e97' || md5.hexdigest)

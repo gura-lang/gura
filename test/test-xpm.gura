@@ -415,6 +415,6 @@ zebra_xpm = @{
 };
 	md5 = hash.md5()
 	img = image(`rgba).xpmdata(zebra_xpm)
-	img.bmpwrite(md5.init())
+	img.write@bmp(md5.init())
 	println('zebra_xpm to BMP: ', md5.hexdigest == 'fe037ea0192322824afae5c22b6cdb81' || md5.hexdigest)
 }

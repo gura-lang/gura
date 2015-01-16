@@ -19,7 +19,7 @@ tester_image(image:image, comment:string, hexdigestExpect:string):map:void = {
 }
 tester_image(image:image, comment:string, hexdigestExpect:string):map:void = {
 	md5 = hash.md5()
-	image.bmpwrite(md5)
+	image.write@bmp(md5)
 	printf('%-20s %3dx%3d %s\n', comment, image.width, image.height,
 		   md5.hexdigest in hexdigestExpect.split(';') || md5.hexdigest)
 }

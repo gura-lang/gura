@@ -9,8 +9,8 @@ Gura_BeginModuleBody(bmp)
 // Gura interfaces for Object_image
 // These methods are available after importing bmp module.
 //-----------------------------------------------------------------------------
-// image#bmpread(stream:stream:r):reduce
-Gura_DeclareMethod(image, bmpread)
+// image#read@bmp(stream:stream:r):reduce
+Gura_DeclareMethodAlias(image, read_bmp, "read@bmp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
@@ -19,15 +19,15 @@ Gura_DeclareMethod(image, bmpread)
 		"Reads an BMP image from a stream.");
 }
 
-Gura_ImplementMethod(image, bmpread)
+Gura_ImplementMethod(image, read_bmp)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_BMP::ReadStream(env, sig, pThis->GetImage(), args.GetStream(0))) return Value::Null;
 	return args.GetThis();
 }
 
-// image#bmpwrite(stream:stream:w):reduce
-Gura_DeclareMethod(image, bmpwrite)
+// image#write_bmp(stream:stream:w):reduce
+Gura_DeclareMethodAlias(image, write_bmp, "write@bmp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
@@ -36,7 +36,7 @@ Gura_DeclareMethod(image, bmpwrite)
 		"Writes a BMP image to a stream.");
 }
 
-Gura_ImplementMethod(image, bmpwrite)
+Gura_ImplementMethod(image, write_bmp)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_BMP::WriteStream(env, sig, pThis->GetImage(), args.GetStream(0))) return Value::Null;
@@ -49,8 +49,8 @@ Gura_ImplementMethod(image, bmpwrite)
 // Module entry
 Gura_ModuleEntry()
 {
-	Gura_AssignMethodTo(VTYPE_image, image, bmpread);
-	Gura_AssignMethodTo(VTYPE_image, image, bmpwrite);
+	Gura_AssignMethodTo(VTYPE_image, image, read_bmp);
+	Gura_AssignMethodTo(VTYPE_image, image, write_bmp);
 	ImageStreamer::Register(new ImageStreamer_BMP());
 	return true;
 }
