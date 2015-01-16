@@ -61,8 +61,8 @@ toff_t Handler::TiffSize(thandle_t fd)
 // Gura interfaces for Object_image
 // These methods are available after importing tiff module.
 //-----------------------------------------------------------------------------
-// image#tiffread(stream:stream:r):reduce
-Gura_DeclareMethod(image, tiffread)
+// image#read@tiff(stream:stream:r):reduce
+Gura_DeclareMethodAlias(image, read_tiff, "read@tiff")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
@@ -71,7 +71,7 @@ Gura_DeclareMethod(image, tiffread)
 		"Reads a TIFF image from a stream.");
 }
 
-Gura_ImplementMethod(image, tiffread)
+Gura_ImplementMethod(image, read_tiff)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_TIFF::ReadStream(env, sig, pThis->GetImage(), args.GetStream(0))) {
@@ -104,7 +104,7 @@ Gura_ModuleEntry()
 	// function assignment
 	Gura_AssignFunction(test);
 	// method assignment to image
-	Gura_AssignMethodTo(VTYPE_image, image, tiffread);
+	Gura_AssignMethodTo(VTYPE_image, image, read_tiff);
 	//Gura_AssignMethodTo(VTYPE_image, image, tiffwrite);
 	// image streamer registration
 	ImageStreamer::Register(new ImageStreamer_TIFF());
