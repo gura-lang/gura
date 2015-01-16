@@ -738,7 +738,7 @@ Photo(opts%) = Image('photo', opts%)
 classref(`root.image) {|ref|
 	ref.to_tk() = {
 		imgTk = tk.Photo()
-		this.writetcl(_interp, imgTk._imagename)
+		this.write@tcl(_interp, imgTk._imagename)
 		imgTk
 	}
 }
