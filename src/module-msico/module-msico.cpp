@@ -224,8 +224,8 @@ Gura_ImplementUserClass(content)
 // Gura interfaces for Object_image
 // These methods are available after importing msico module.
 //-----------------------------------------------------------------------------
-// image#msicoread(stream:stream:r, idx:number => 0):reduce
-Gura_DeclareMethod(image, msicoread)
+// image#read@msico(stream:stream:r, idx:number => 0):reduce
+Gura_DeclareMethodAlias(image, read_msico, "read@msico")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
@@ -236,7 +236,7 @@ Gura_DeclareMethod(image, msicoread)
 		"Reads an ICO image from a stream.");
 }
 
-Gura_ImplementMethod(image, msicoread)
+Gura_ImplementMethod(image, read_msico)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_ICO::ReadStream(env, sig, pThis->GetImage(),
@@ -281,7 +281,7 @@ Gura_ModuleEntry()
 	// class realization
 	Gura_RealizeUserClass(content, env.LookupClass(VTYPE_object));
 	// method assignment to image class
-	Gura_AssignMethodTo(VTYPE_image, image, msicoread);
+	Gura_AssignMethodTo(VTYPE_image, image, read_msico);
 	// function assignment
 	Gura_AssignFunction(content);
 	// image streamer registration
