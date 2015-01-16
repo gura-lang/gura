@@ -1358,8 +1358,8 @@ Gura_ImplementUserClass(imgprop)
 // Gura interfaces for Object_image
 // These methods are available after importing gif module.
 //-----------------------------------------------------------------------------
-// image#gifread(stream:stream:r):reduce
-Gura_DeclareMethod(image, gifread)
+// image#read@gif(stream:stream:r):reduce
+Gura_DeclareMethodAlias(image, read_gif, "read@gif")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
@@ -1368,7 +1368,7 @@ Gura_DeclareMethod(image, gifread)
 		"Reads a GIF image from a stream.");
 }
 
-Gura_ImplementMethod(image, gifread)
+Gura_ImplementMethod(image, read_gif)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	Image *pImage = pThis->GetImage();
@@ -1380,8 +1380,8 @@ Gura_ImplementMethod(image, gifread)
 	return args.GetThis();
 }
 
-// image#gifwrite(stream:stream:w):reduce
-Gura_DeclareMethod(image, gifwrite)
+// image#write@gif(stream:stream:w):reduce
+Gura_DeclareMethodAlias(image, write_gif, "write@gif")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
@@ -1390,7 +1390,7 @@ Gura_DeclareMethod(image, gifwrite)
 		"Writes a GIF image to a stream.");
 }
 
-Gura_ImplementMethod(image, gifwrite)
+Gura_ImplementMethod(image, write_gif)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	Image *pImage = pThis->GetImage();
@@ -1508,8 +1508,8 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(ImageDescriptor, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(imgprop, env.LookupClass(VTYPE_object));
 	// method assignment to image class
-	Gura_AssignMethodTo(VTYPE_image, image, gifread);
-	Gura_AssignMethodTo(VTYPE_image, image, gifwrite);
+	Gura_AssignMethodTo(VTYPE_image, image, read_gif);
+	Gura_AssignMethodTo(VTYPE_image, image, write_gif);
 	// function assignment
 	Gura_AssignFunction(content);
 	// image streamer registration
