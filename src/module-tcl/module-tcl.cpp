@@ -701,8 +701,8 @@ Gura_ImplementUserClass(timer)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_image
 //-----------------------------------------------------------------------------
-// image#readtcl(interp:tcl.interp, imageName:string):reduce
-Gura_DeclareMethod(image, readtcl)
+// image#read@tcl(interp:tcl.interp, imageName:string):reduce
+Gura_DeclareMethodAlias(image, read_tcl, "read@tcl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "interp", VTYPE_interp);
@@ -712,7 +712,7 @@ Gura_DeclareMethod(image, readtcl)
 		"Reads an image data from TCL image object.");
 }
 
-Gura_ImplementMethod(image, readtcl)
+Gura_ImplementMethod(image, read_tcl)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	Image *pImage = pThis->GetImage();
@@ -742,8 +742,8 @@ Gura_ImplementMethod(image, readtcl)
 	return args.GetThis();
 }
 
-// image#writetcl(interp:tcl.interp, imageName:string):reduce
-Gura_DeclareMethod(image, writetcl)
+// image#write@tcl(interp:tcl.interp, imageName:string):reduce
+Gura_DeclareMethodAlias(image, write_tcl, "write@tcl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "interp", VTYPE_interp);
@@ -753,7 +753,7 @@ Gura_DeclareMethod(image, writetcl)
 		"Writes an image data to TCL image object.");
 }
 
-Gura_ImplementMethod(image, writetcl)
+Gura_ImplementMethod(image, write_tcl)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	Image *pImage = pThis->GetImage();
@@ -840,8 +840,8 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(interp);
 	Gura_AssignFunction(Tk_MainLoop);
 	// method assignment to image class
-	Gura_AssignMethodTo(VTYPE_image, image, readtcl);
-	Gura_AssignMethodTo(VTYPE_image, image, writetcl);
+	Gura_AssignMethodTo(VTYPE_image, image, read_tcl);
+	Gura_AssignMethodTo(VTYPE_image, image, write_tcl);
 	return true;
 }
 
