@@ -140,7 +140,7 @@ testcase {
 	println('kangaroo.png to GIF (alpha): ', md5.hexdigest == '66d0bf310167e78ba4162ba64c8166ec' || md5.hexdigest)
 	img:image = I('kangaroo.png'), img.write@gif(md5.init())
 	println('kangaroo.png to GIF (cast): ', md5.hexdigest == '66d0bf310167e78ba4162ba64c8166ec' || md5.hexdigest)
-	image(I('seashore.jpg'), `rgb).jpegwrite(md5.init())
+	image(I('seashore.jpg'), `rgb).write@jpeg(md5.init())
 	println('seashore.jpg to JPEG: ',
 			md5.hexdigest in ['9111b04ed5fc4dc03ff6c98e99fdda9c', 'c31c720589e8dd6daf05378da8de186e'] || md5.hexdigest)
 	image(I('seashore.jpg'), `rgb).pngwrite(md5.init())
