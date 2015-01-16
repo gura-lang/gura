@@ -11,8 +11,8 @@ write(doc:markdown.document) = {
 	]
 	doc << '### Extension of stream Class'
 	doc << [
-		stream.base64reader
-		stream.base64writer
+		stream.reader@base64
+		stream.writer@base64
 	]
 	doc
 }

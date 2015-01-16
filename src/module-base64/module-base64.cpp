@@ -94,8 +94,8 @@ Gura_ImplementFunction(writer)
 //-----------------------------------------------------------------------------
 // Gura interfaces for stream class
 //-----------------------------------------------------------------------------
-// stream#base64reader()
-Gura_DeclareMethod(stream, base64reader)
+// stream#reader@base64()
+Gura_DeclareMethodAlias(stream, reader_base64, "reader@base64")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
@@ -103,15 +103,15 @@ Gura_DeclareMethod(stream, base64reader)
 		"Creates a stream instance that reads data formatted in base64 from the target stream instance.\n");
 }
 
-Gura_ImplementMethod(stream, base64reader)
+Gura_ImplementMethod(stream, reader_base64)
 {
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	AutoPtr<Stream> pStream(new Stream_Base64Reader(env, sig, stream.Reference()));
 	return Value(new Object_stream(env, pStream.release()));
 }
 
-// stream#base64writer(linelen:number => 76)
-Gura_DeclareMethod(stream, base64writer)
+// stream#writer_base64(linelen:number => 76)
+Gura_DeclareMethodAlias(stream, writer_base64, "writer@base64")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "linelen", VTYPE_number, OCCUR_Once, FLAG_Nil, new Expr_Value(76));
@@ -123,7 +123,7 @@ Gura_DeclareMethod(stream, base64writer)
 		"If omitted, that is 76.\n");
 }
 
-Gura_ImplementMethod(stream, base64writer)
+Gura_ImplementMethod(stream, writer_base64)
 {
 	int nCharsPerLine = args.Is_number(0)? args.GetInt(0) : -1;
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
@@ -141,8 +141,8 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(reader);
 	Gura_AssignFunction(writer);
 	// method assignment to stream type
-	Gura_AssignMethodTo(VTYPE_stream, stream, base64reader);
-	Gura_AssignMethodTo(VTYPE_stream, stream, base64writer);
+	Gura_AssignMethodTo(VTYPE_stream, stream, reader_base64);
+	Gura_AssignMethodTo(VTYPE_stream, stream, writer_base64);
 	return true;
 }
 

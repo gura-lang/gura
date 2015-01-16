@@ -689,8 +689,6 @@ semaphore
   semaphore#wait()
 stream
   stream#addcr(flag?:boolean):reduce
-  stream#base64reader()
-  stream#base64writer(linelen:number:nil => 76)
   stream#close():void
   stream#compare(stream:stream:r):map
   stream.copy(src:stream:r, dst:stream:w, bytesunit:number => 65536):static:map:void:[finalize] {block?}
@@ -705,6 +703,7 @@ stream
   stream#println(values*):map:void
   stream#read(len?:number)
   stream#readchar()
+  stream#reader@base64()
   stream#readline():[chop]
   stream#readlines(nlines?:number):[chop] {block?}
   stream#readtext()
@@ -713,6 +712,7 @@ stream
   stream#setcodec(codec:codec:nil):reduce
   stream#tell()
   stream#write(buff:binary, len?:number):reduce
+  stream#writer@base64(linelen:number:nil => 76)
 string
   string#align(len:number, padding:string => ' '):map:[center,left,right]
   string.binary()
