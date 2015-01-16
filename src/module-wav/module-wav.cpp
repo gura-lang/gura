@@ -9,8 +9,8 @@ Gura_BeginModuleBody(wav)
 // Gura interfaces for Object_audio
 // These methods are available after importing wav module.
 //-----------------------------------------------------------------------------
-// audio#wavread(stream:stream:r):reduce
-Gura_DeclareMethod(audio, wavread)
+// audio#read@wav(stream:stream:r):reduce
+Gura_DeclareMethodAlias(audio, read_wav, "read@wav")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
@@ -19,15 +19,15 @@ Gura_DeclareMethod(audio, wavread)
 		"Reads WAV audio from a stream.");
 }
 
-Gura_ImplementMethod(audio, wavread)
+Gura_ImplementMethod(audio, read_wav)
 {
 	Object_audio *pThis = Object_audio::GetThisObj(args);
 	if (!AudioStreamer_WAV::ReadStream(sig, pThis->GetAudio(), args.GetStream(0))) return Value::Null;
 	return args.GetThis();
 }
 
-// audio#wavwrite(stream:stream:w):reduce
-Gura_DeclareMethod(audio, wavwrite)
+// audio#write@wav(stream:stream:w):reduce
+Gura_DeclareMethodAlias(audio, write_wav, "write@wav")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
@@ -36,7 +36,7 @@ Gura_DeclareMethod(audio, wavwrite)
 		"Writes WAV audio to a stream.");
 }
 
-Gura_ImplementMethod(audio, wavwrite)
+Gura_ImplementMethod(audio, write_wav)
 {
 	Object_audio *pThis = Object_audio::GetThisObj(args);
 	if (!AudioStreamer_WAV::WriteStream(sig, pThis->GetAudio(), args.GetStream(0))) return Value::Null;
@@ -71,8 +71,8 @@ Gura_ImplementFunction(test)
 //-----------------------------------------------------------------------------
 Gura_ModuleEntry()
 {
-	Gura_AssignMethodTo(VTYPE_audio, audio, wavread);
-	Gura_AssignMethodTo(VTYPE_audio, audio, wavwrite);
+	Gura_AssignMethodTo(VTYPE_audio, audio, read_wav);
+	Gura_AssignMethodTo(VTYPE_audio, audio, write_wav);
 	AudioStreamer::Register(new AudioStreamer_WAV());
 	// function assignment
 	Gura_AssignFunction(test);
