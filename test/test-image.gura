@@ -143,7 +143,7 @@ testcase {
 	image(I('seashore.jpg'), `rgb).write@jpeg(md5.init())
 	println('seashore.jpg to JPEG: ',
 			md5.hexdigest in ['9111b04ed5fc4dc03ff6c98e99fdda9c', 'c31c720589e8dd6daf05378da8de186e'] || md5.hexdigest)
-	image(I('seashore.jpg'), `rgb).pngwrite(md5.init())
+	image(I('seashore.jpg'), `rgb).write@png(md5.init())
 	println('seashore.jpg to PNG: ',
 			md5.hexdigest in ['a87795bc780d23e88053f065d51fc684', '4c18a8fa71b3a0bf2e00aa85410b1cd2'] || md5.hexdigest)
 	try {

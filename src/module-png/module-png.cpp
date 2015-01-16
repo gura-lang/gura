@@ -11,8 +11,8 @@ Gura_BeginModuleBody(png)
 // Gura interfaces for image
 // These methods are available after importing png module.
 //-----------------------------------------------------------------------------
-// image#pngread(stream:stream:r):reduce
-Gura_DeclareMethod(image, pngread)
+// image#read@png(stream:stream:r):reduce
+Gura_DeclareMethodAlias(image, read_png, "read@png")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
@@ -21,15 +21,15 @@ Gura_DeclareMethod(image, pngread)
 		"Reads a PNG image from a stream.");
 }
 
-Gura_ImplementMethod(image, pngread)
+Gura_ImplementMethod(image, read_png)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_PNG::ReadStream(env, sig, pThis->GetImage(), args.GetStream(0))) return Value::Null;
 	return args.GetThis();
 }
 
-// image#pngwrite(stream:stream:w):reduce
-Gura_DeclareMethod(image, pngwrite)
+// image#write@png(stream:stream:w):reduce
+Gura_DeclareMethodAlias(image, write_png, "write@png")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
@@ -38,7 +38,7 @@ Gura_DeclareMethod(image, pngwrite)
 		"Writes a PNG image to a stream.");
 }
 
-Gura_ImplementMethod(image, pngwrite)
+Gura_ImplementMethod(image, write_png)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_PNG::WriteStream(env, sig, pThis->GetImage(), args.GetStream(0))) return Value::Null;
@@ -51,8 +51,8 @@ Gura_ImplementMethod(image, pngwrite)
 // Module entry
 Gura_ModuleEntry()
 {
-	Gura_AssignMethodTo(VTYPE_image, image, pngread);
-	Gura_AssignMethodTo(VTYPE_image, image, pngwrite);
+	Gura_AssignMethodTo(VTYPE_image, image, read_png);
+	Gura_AssignMethodTo(VTYPE_image, image, write_png);
 	ImageStreamer::Register(new ImageStreamer_PNG());
 	return true;
 }

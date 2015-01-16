@@ -11,8 +11,8 @@ Gura_BeginModuleBody(ppm)
 // Gura interfaces for Object_image
 // These methods are available after importing ppm module.
 //-----------------------------------------------------------------------------
-// image#ppmread(stream:stream:r):reduce
-Gura_DeclareMethod(image, ppmread)
+// image#read@ppm(stream:stream:r):reduce
+Gura_DeclareMethodAlias(image, read_ppm, "read@ppm")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
@@ -21,15 +21,15 @@ Gura_DeclareMethod(image, ppmread)
 		"Reads a PPM/PGM image from a stream.");
 }
 
-Gura_ImplementMethod(image, ppmread)
+Gura_ImplementMethod(image, read_ppm)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_PPM::ReadStream(env, sig, pThis->GetImage(), args.GetStream(0))) return Value::Null;
 	return args.GetThis();
 }
 
-// image#ppmwrite(stream:stream:w):reduce:[gray]
-Gura_DeclareMethod(image, ppmwrite)
+// image#write@ppm(stream:stream:w):reduce:[gray]
+Gura_DeclareMethod(image, write_ppm, "write@ppm")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
