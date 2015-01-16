@@ -7,7 +7,7 @@ import(png)
 
 imgfile(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
 
-img_kangaroo = image(`rgba).pngread(imgfile('kangaroo.png'))
+img_kangaroo = image(`rgba).read@png(imgfile('kangaroo.png'))
 //imgs_chicken = gif.read(imgfile('chicken-anim.gif'), `rgba).images
 images = %{
 	`kangarooL => img_kangaroo.to_tk()
