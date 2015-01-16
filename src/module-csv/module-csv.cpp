@@ -197,8 +197,8 @@ Gura_ImplementFunction(writer)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_stream
 //-----------------------------------------------------------------------------
-// stream#csvread() {block?}
-Gura_DeclareMethod(stream, csvread)
+// stream#read@csv() {block?}
+Gura_DeclareMethodAlias(stream, read_csv, "read@csv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -207,7 +207,7 @@ Gura_DeclareMethod(stream, csvread)
 		"");
 }
 
-Gura_ImplementMethod(stream, csvread)
+Gura_ImplementMethod(stream, read_csv)
 {
 	Object_stream *pThis = Object_stream::GetThisObj(args);
 	Iterator *pIterator = new Iterator_reader(new ReaderStream(
@@ -215,8 +215,8 @@ Gura_ImplementMethod(stream, csvread)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// stream#csvwriter(format?:string) {block?}
-Gura_DeclareMethod(stream, csvwriter)
+// stream#writer@csv(format?:string) {block?}
+Gura_DeclareMethodAlias(stream, writer_csv, "writer@csv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -226,7 +226,7 @@ Gura_DeclareMethod(stream, csvwriter)
 		"");
 }
 
-Gura_ImplementMethod(stream, csvwriter)
+Gura_ImplementMethod(stream, writer_csv)
 {
 	Object_stream *pThis = Object_stream::GetThisObj(args);
 	const char *format = args.Is_string(1)? args.GetString(1) : DEFAULT_FORMAT;
@@ -246,8 +246,8 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(read);
 	Gura_AssignFunction(writer);
 	// method assignment to stream type
-	Gura_AssignMethodTo(VTYPE_stream, stream, csvread);
-	Gura_AssignMethodTo(VTYPE_stream, stream, csvwriter);
+	Gura_AssignMethodTo(VTYPE_stream, stream, read_csv);
+	Gura_AssignMethodTo(VTYPE_stream, stream, writer_csv);
 	// value assignment
 	Gura_AssignValue(format, Value(DEFAULT_FORMAT));
 	return true;
