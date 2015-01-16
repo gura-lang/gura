@@ -576,23 +576,23 @@
         <text>'strong again'
   <h1>
     <code>'code'
-    <text>'in header'
+    <text>' in header'
   <h1>
     <em>
       <text>'emphasis'
-    <text>'in header'
+    <text>' in header'
   <h1>
     <em>
       <text>'emphasis'
-    <text>'in header'
+    <text>' in header'
   <h1>
     <strong>
       <text>'strong'
-    <text>'in header'
+    <text>' in header'
   <h1>
     <strong>
       <text>'strong'
-    <text>'in header'
+    <text>' in header'
   <h1>
     <code>'code'
     <text>' '

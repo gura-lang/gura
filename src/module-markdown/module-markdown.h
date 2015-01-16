@@ -299,8 +299,8 @@ private:
 	bool ParseChar(Signal sig, char ch);
 	bool CheckSpecialChar(char ch);
 	bool AdjustBlockQuote();
-	void FlushText(Item::Type type, bool stripFlag);
-	void FlushItem(Item::Type type, bool stripFlag);
+	void FlushText(Item::Type type, bool stripLeftFlag, bool stripRightFlag);
+	void FlushItem(Item::Type type, bool stripLeftFlag, bool stripRightFlag);
 	void FlushElement();
 	void BeginCodeBlock(const char *textInit);
 	void EndCodeBlock();

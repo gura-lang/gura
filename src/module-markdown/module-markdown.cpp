@@ -276,7 +276,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAhead += ch;
 			_stat = STAT_Equal;
 		} else if (ch == '#' && _indentLevel <= 0) {
-			FlushItem(Item::TYPE_Paragraph, false);
+			FlushItem(Item::TYPE_Paragraph, false, false);
 			_indentLevel = 1;
 			_stat = STAT_SetextHeaderHead;
 		} else if (ch == '*') {
@@ -296,7 +296,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAhead += ch;
 			_stat = STAT_Digit;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			FlushItem(Item::TYPE_Paragraph, false);
+			FlushItem(Item::TYPE_Paragraph, false, false);
 			_indentLevel = 0;
 			_stat = STAT_LineHeadNL;
 		} else if (_indentLevel >= INDENT_CodeBlock) {
@@ -372,13 +372,13 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_Asterisk: {
 		if (ch == ' ' || ch == '\t') {
-			FlushItem(Item::TYPE_Paragraph, false);
+			FlushItem(Item::TYPE_Paragraph, false, false);
 			BeginListItem(Item::TYPE_UList);
 		} else if (_indentLevel >= INDENT_CodeBlock) {
 			continueFlag = true;
 			BeginCodeBlock(_textAhead.c_str());
 		} else {
-			FlushText(Item::TYPE_Text, false);
+			FlushText(Item::TYPE_Text, false, false);
 			_statStack.Push(STAT_Text);
 			continueFlag = true;
 			_stat = STAT_AsteriskEmphasisPre;
@@ -387,7 +387,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_Plus: {
 		if (ch == ' ' || ch == '\t') {
-			FlushItem(Item::TYPE_Paragraph, false);
+			FlushItem(Item::TYPE_Paragraph, false, false);
 			BeginListItem(Item::TYPE_UList);
 		} else if (_indentLevel >= INDENT_CodeBlock) {
 			continueFlag = true;
@@ -408,7 +408,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			_stat = STAT_AtxHeader2;
 		} else if (ch == ' ' || ch == '\t') {
-			FlushItem(Item::TYPE_Paragraph, false);
+			FlushItem(Item::TYPE_Paragraph, false, false);
 			BeginListItem(Item::TYPE_UList);
 		} else if (_indentLevel >= INDENT_CodeBlock) {
 			continueFlag = true;
@@ -490,7 +490,7 @@ bool Document::ParseChar(Signal sig, char ch)
 				(_indentLevel == 5)? Item::TYPE_Header5 :
 				(_indentLevel == 6)? Item::TYPE_Header6 :
 				Item::TYPE_Header6;
-			FlushItem(type, true);
+			FlushItem(type, false, true);
 			continueFlag = IsEOF(ch);
 			_stat = STAT_LineTop;
 		} else {
@@ -515,7 +515,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == '=') {
 			_textAhead += ch;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			FlushItem(Item::TYPE_Header1, false);
+			FlushItem(Item::TYPE_Header1, false, false);
 			continueFlag = IsEOF(ch);
 			_stat = STAT_LineTop;
 		} else {
@@ -531,7 +531,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAhead += ch;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			Item *pItemParent = _itemStack.back();
-			FlushText(Item::TYPE_Text, false);
+			FlushText(Item::TYPE_Text, false, false);
 			if (!_pItemOwner->empty()) {
 				Item *pItem = new Item(Item::TYPE_Header2, _pItemOwner.release());
 				pItemParent->GetItemOwner()->push_back(pItem);
@@ -636,7 +636,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			BeginListItem(Item::TYPE_UList);
 		} else {
 			_text += ' ';
-			FlushText(Item::TYPE_Text, false);
+			FlushText(Item::TYPE_Text, false, false);
 			_statStack.Push(STAT_ListItem);
 			continueFlag = true;
 			_stat = STAT_AsteriskEmphasisPre;
@@ -726,7 +726,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			BeginCodeBlockInList(NULL);
 		} else {
- 			FlushItem(Item::TYPE_Paragraph, false);
+ 			FlushItem(Item::TYPE_Paragraph, false, false);
 			continueFlag = true;
 			_stat = STAT_ListItem;
 		}
@@ -745,7 +745,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			BeginCodeBlockInList(_textAhead.c_str());
 		} else {
-			FlushItem(Item::TYPE_Paragraph, false);
+			FlushItem(Item::TYPE_Paragraph, false, false);
 			continueFlag = true;
 			_statStack.Push(STAT_ListItem);
 			_stat = STAT_AsteriskEmphasisPre;
@@ -765,7 +765,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			BeginCodeBlockInList(_textAhead.c_str());
 		} else {
- 			FlushItem(Item::TYPE_Paragraph, false);
+ 			FlushItem(Item::TYPE_Paragraph, false, false);
 			_text += _textAhead;
 			continueFlag = true;
 			_stat = STAT_ListItem;
@@ -785,7 +785,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			BeginCodeBlockInList(_textAhead.c_str());
 		} else {
- 			FlushItem(Item::TYPE_Paragraph, false);
+ 			FlushItem(Item::TYPE_Paragraph, false, false);
 			_text += _textAhead;
 			continueFlag = true;
 			_stat = STAT_ListItem;
@@ -828,7 +828,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			BeginCodeBlockInList(_textAhead.c_str());
 		} else {
- 			FlushItem(Item::TYPE_Paragraph, false);
+ 			FlushItem(Item::TYPE_Paragraph, false, false);
 			_text += _textAhead;
 			continueFlag = true;
 			_stat = STAT_ListItem;
@@ -965,10 +965,10 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_Code: {
 		if (ch == '`') {
-			FlushText(Item::TYPE_Code, true);
+			FlushText(Item::TYPE_Code, true, true);
 			_stat = _statStack.Pop();
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			FlushText(Item::TYPE_Code, true);
+			FlushText(Item::TYPE_Code, true, true);
 			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
@@ -980,7 +980,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == '`') {
 			_stat = STAT_CodeEsc_Backquote;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			FlushText(Item::TYPE_Code, true);
+			FlushText(Item::TYPE_Code, true, true);
 			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
@@ -990,7 +990,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_CodeEsc_Backquote: {
 		if (ch == '`') {
-			FlushText(Item::TYPE_Code, true);
+			FlushText(Item::TYPE_Code, true, true);
 			_stat = _statStack.Pop();
 		} else {
 			_text += '`';
@@ -1029,7 +1029,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_statStack.Push(_stat);
 			_stat = STAT_Escape;
 		} else if (ch == '`') {
-			FlushText(Item::TYPE_Text, false);
+			FlushText(Item::TYPE_Text, false, false);
 			_statStack.Push(_stat);
 			_stat = STAT_Backquote;
 		} else if (ch == '*') {
@@ -1049,7 +1049,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_statStack.Push(_stat);
 			_stat = STAT_Escape;
 		} else if (ch == '`') {
-			FlushText(Item::TYPE_Text, false);
+			FlushText(Item::TYPE_Text, false, false);
 			_statStack.Push(_stat);
 			_stat = STAT_Backquote;
 		} else if (ch == '*') {
@@ -1072,7 +1072,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
-			FlushText(Item::TYPE_Text, true);
+			FlushText(Item::TYPE_Text, true, true);
 			BeginDecoration(Item::TYPE_Emphasis);
 			_statStack.Push(STAT_AsteriskStrong);
 			continueFlag = true;
@@ -1099,7 +1099,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_statStack.Push(_stat);
 			_stat = STAT_Escape;
 		} else if (ch == '`') {
-			FlushText(Item::TYPE_Text, false);
+			FlushText(Item::TYPE_Text, false, false);
 			_statStack.Push(_stat);
 			_stat = STAT_Backquote;
 		} else if (ch == '_') {
@@ -1119,7 +1119,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_statStack.Push(_stat);
 			_stat = STAT_Escape;
 		} else if (ch == '`') {
-			FlushText(Item::TYPE_Text, false);
+			FlushText(Item::TYPE_Text, false, false);
 			_statStack.Push(_stat);
 			_stat = STAT_Backquote;
 		} else if (ch == '_') {
@@ -1142,7 +1142,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
-			FlushText(Item::TYPE_Text, true);
+			FlushText(Item::TYPE_Text, true, true);
 			BeginDecoration(Item::TYPE_Emphasis);
 			_statStack.Push(STAT_UnderscoreStrong);
 			continueFlag = true;
@@ -1152,7 +1152,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_Ampersand: {
 		if (ch == ';') {
-			FlushText(Item::TYPE_Text, false);
+			FlushText(Item::TYPE_Text, false, false);
 			Item *pItem = new Item(Item::TYPE_Entity, _field);
 			_pItemOwner->push_back(pItem);
 			_stat = _statStack.Pop();
@@ -1171,7 +1171,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			String tagName, attrs;
 			bool endFlag = false;
 			if (IsLink(_field.c_str())) {
-				FlushText(Item::TYPE_Text, false);
+				FlushText(Item::TYPE_Text, false, false);
 				Item *pItemLink = new Item(Item::TYPE_Link, new ItemOwner());
 				pItemLink->SetURL(_field);
 				_pItemOwner->push_back(pItemLink);
@@ -1180,7 +1180,7 @@ bool Document::ParseChar(Signal sig, char ch)
 					pItemLink->GetItemOwner()->push_back(pItem);
 				} while (0);
 			} else if (IsBeginTag(_field.c_str(), tagName, attrs, endFlag)) {
-				FlushText(Item::TYPE_Text, false);
+				FlushText(Item::TYPE_Text, false, false);
 				BeginTag(tagName.c_str(), attrs.c_str(), endFlag);
 			} else if (IsEndTag(_field.c_str(), tagName)) {
 				EndTag(tagName.c_str());
@@ -1260,7 +1260,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_LinkRefId: {
 		if (ch == ']') {
-			FlushText(Item::TYPE_Text, false);
+			FlushText(Item::TYPE_Text, false, false);
 			_pItemLink->SetRefId(_field);
 			_itemsLinkReferrer.push_back(_pItemLink.get());
 			_pItemOwner->push_back(_pItemLink.release());
@@ -1301,7 +1301,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_field.clear();
 			_stat = STAT_LinkTitleSingleQuote;
 		} else if (ch == ')') {
-			FlushText(Item::TYPE_Text, false);
+			FlushText(Item::TYPE_Text, false, false);
 			_pItemLink->SetURL(Strip(_field.c_str()));
 			_pItemOwner->push_back(_pItemLink.release());
 			_stat = _statStack.Pop();
@@ -1340,7 +1340,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_field.clear();
 			_stat = STAT_LinkTitleSingleQuote;
 		} else if (ch == ')') {
-			FlushText(Item::TYPE_Text, false);
+			FlushText(Item::TYPE_Text, false, false);
 			_pItemOwner->push_back(_pItemLink.release());
 			_stat = _statStack.Pop();
 		} else if (IsEOL(ch) || IsEOF(ch)) {
@@ -1392,7 +1392,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == ' ' || ch == '\t') {
 			_textAhead += ch;
 		} else if (ch == ')') {
-			FlushText(Item::TYPE_Text, false);
+			FlushText(Item::TYPE_Text, false, false);
 			_pItemOwner->push_back(_pItemLink.release());
 			_stat = _statStack.Pop();
 		} else {
@@ -1470,7 +1470,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_field.clear();
 			_stat = STAT_RefereeTitleParenthesis;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			FlushText(Item::TYPE_Text, false);
+			FlushText(Item::TYPE_Text, false, false);
 			_pItemLink->SetURL(Strip(_field.c_str()));
 			AddItemReferee(_pItemLink.release());
 			continueFlag = true;
@@ -1506,7 +1506,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_field.clear();
 			_stat = STAT_RefereeTitleSingleQuote;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			FlushText(Item::TYPE_Text, false);
+			FlushText(Item::TYPE_Text, false, false);
 			AddItemReferee(_pItemLink.release());
 			continueFlag = true;
 			_stat = STAT_LineTop;
@@ -1573,7 +1573,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == ' ' || ch == '\t') {
 			_textAhead += ch;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			FlushText(Item::TYPE_Text, false);
+			FlushText(Item::TYPE_Text, false, false);
 			AddItemReferee(_pItemLink.release());
 			continueFlag = true;
 			_stat = STAT_LineTop;
@@ -1607,17 +1607,17 @@ bool Document::CheckSpecialChar(char ch)
 		_stat = STAT_Escape;
 		return true;
 	} else if (ch == '`') {
-		FlushText(Item::TYPE_Text, false);
+		FlushText(Item::TYPE_Text, false, false);
 		_statStack.Push(_stat);
 		_stat = STAT_Backquote;
 		return true;
 	} else if (ch == '*') {
-		FlushText(Item::TYPE_Text, false);
+		FlushText(Item::TYPE_Text, false, false);
 		_statStack.Push(_stat);
 		_stat = STAT_AsteriskEmphasisPre;
 		return true;
 	} else if (ch == '_') {
-		FlushText(Item::TYPE_Text, false);
+		FlushText(Item::TYPE_Text, false, false);
 		_statStack.Push(_stat);
 		_stat = STAT_UnderscoreEmphasisPre;
 		return true;
@@ -1660,7 +1660,7 @@ bool Document::AdjustBlockQuote()
 	bool adjustFlag = false;
 	int quoteLevel = _itemStack.CountQuoteLevel();
 	if (quoteLevel < _quoteLevel) {
- 			FlushItem(Item::TYPE_Paragraph, false);
+		FlushItem(Item::TYPE_Paragraph, false, false);
 		for ( ; quoteLevel < _quoteLevel; quoteLevel++) {
 			Item *pItemParent = _itemStack.back();
 			Item *pItem = new Item(Item::TYPE_BlockQuote, new ItemOwner());
@@ -1669,7 +1669,7 @@ bool Document::AdjustBlockQuote()
 		}
 		adjustFlag = true;
 	} else if (quoteLevel > _quoteLevel) {
- 			FlushItem(Item::TYPE_Paragraph, false);
+		FlushItem(Item::TYPE_Paragraph, false, false);
 		while (quoteLevel > _quoteLevel) {
 			Item *pItem = _itemStack.back();
 			if (pItem->IsBlockQuote()) quoteLevel--;
@@ -1680,19 +1680,19 @@ bool Document::AdjustBlockQuote()
 	return adjustFlag;
 }
 
-void Document::FlushText(Item::Type type, bool stripFlag)
+void Document::FlushText(Item::Type type, bool stripLeftFlag, bool stripRightFlag)
 {
 	if (!_text.empty()) {
-		Item *pItem = new Item(type, Strip(_text.c_str(), stripFlag, stripFlag));
+		Item *pItem = new Item(type, Strip(_text.c_str(), stripLeftFlag, stripRightFlag));
 		_pItemOwner->push_back(pItem);
 		_text.clear();
 	}
 }
 
-void Document::FlushItem(Item::Type type, bool stripFlag)
+void Document::FlushItem(Item::Type type, bool stripLeftFlag, bool stripRightFlag)
 {
 	Item *pItemParent = _itemStack.back();
-	FlushText(Item::TYPE_Text, stripFlag);
+	FlushText(Item::TYPE_Text, stripLeftFlag, stripRightFlag);
 	if (!_pItemOwner->empty()) {
 		Item *pItem = new Item(type, _pItemOwner.release());
 		pItemParent->GetItemOwner()->push_back(pItem);
@@ -1703,7 +1703,7 @@ void Document::FlushItem(Item::Type type, bool stripFlag)
 void Document::FlushElement()
 {
 	Item *pItemParent = _itemStack.back();
-	FlushText(Item::TYPE_Text, false);
+	FlushText(Item::TYPE_Text, false, false);
 	if (pItemParent->GetItemOwner()->empty()) {
 		pItemParent->GetItemOwner()->Store(*_pItemOwner);
 		_pItemOwner.reset(new ItemOwner());
@@ -1716,7 +1716,7 @@ void Document::FlushElement()
 
 void Document::BeginCodeBlock(const char *textInit)
 {
-	FlushItem(Item::TYPE_Paragraph, false);
+	FlushItem(Item::TYPE_Paragraph, false, false);
 	for (int i = 0; i < _indentLevel - INDENT_CodeBlock; i++) _text += ' ';
 	if (textInit != NULL) _text += textInit;
 	do {
@@ -1736,7 +1736,7 @@ void Document::EndCodeBlock()
 
 void Document::BeginCodeBlockInList(const char *textInit)
 {
-	FlushItem(Item::TYPE_Paragraph, false);
+	FlushItem(Item::TYPE_Paragraph, false, false);
 	for (int i = 0; i < _indentLevel - INDENT_CodeBlockInList; i++) _text += ' ';
 	if (textInit != NULL) _text += textInit;
 	do {
@@ -1813,13 +1813,13 @@ void Document::BeginDecoration(Item::Type type)
 
 void Document::EndDecoration()
 {
-	FlushText(Item::TYPE_Text, false);
+	FlushText(Item::TYPE_Text, false, false);
 	_pItemOwner.reset(_itemOwnerStack.Pop());
 }
 
 void Document::BeginTag(const char *tagName, const char *attrs, bool endFlag)
 {
-	FlushItem(Item::TYPE_Paragraph, false);
+	FlushItem(Item::TYPE_Paragraph, false, false);
 	do {
 		Item *pItemParent = _itemStack.back();
 		Item *pItem = new Item(Item::TYPE_Tag);
