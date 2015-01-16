@@ -2,219 +2,211 @@
 import(markdown)
 import(sdl)
 
-fileName = 'gura-sdl-e.html'
+write(doc:markdown.document) = {
+	doc << R'''
+	# About This Document
+	
+	This reference explains about specification of functions and classes defined in **Gura**'s `sdl` module.
+	Official site of SDL is <http://www.libsdl.org/>.
 
-doc = markdown.document()
+	# Explanatory Note
 
-operator(`<<).assign(`markdown.document, `function) {|doc, func|
-	doc << '### ' + func.fullname
-	doc << '\n'
-	doc << '`' +  func.format + '`'
-	doc << '\n'
-	doc << func.gethelp().text
+	Functions in reference are described in a generic expression.
+	For example, if there is a reference `func(num:number)`,
+	it means that `func` function takes one argument named `num` with value type of `number`.
+	You can call it like `func(3)`.
+	
+	If an argument is optional, the argument name is followed by a symbol `?`.
+	For example: `func(num?:number)`.
+	You can call it as `func(2)` or can omit the arugument like `func()`.
+	
+	If the the arument name has `*` symbol followed, the arument takes zero or more values.
+	For a function that has a generic expression `func(args*:number)`,
+	it can be called like `func()`, `func(3)`, `func(3, 4)`, `func(3, 4, 2)`, and so on.
+	
+	If the the arument name has `+` symbol followed, the arument takes one or more values.
+	For a function that has a generic expression `func(args+:number)`,
+	it can be called like `func(3)`, `func(3, 4)`, `func(3, 4, 2)`, and so on.
+	In difference with `*`, it must take at least one value.
+	
+	An argument may have a default value.
+	The default value is described with `=>` operator like `func(num:number => 4)`.
+	In such a case, if `num` is omitted, the default value `4` shall be used.
+	'''
+	
+	doc << R'''
+	# Reference
+	'''
+
+	// 5. General
+	doc << '## General'
+	doc << [
+		sdl.Init
+		sdl.InitSubSystem
+		sdl.QuitSubSystem
+		sdl.Quit
+		sdl.WasInit
+		sdl.GetError
+	]
+	// 6. Video
+	doc << '## Video'
+	doc << [
+		sdl.GetVideoSurface
+		sdl.GetVideoInfo
+		sdl.VideoDriverName
+		sdl.ListModes
+		sdl.VideoModeOK
+		sdl.SetVideoMode
+		sdl.Surface.UpdateRect
+		sdl.Surface.UpdateRects
+		sdl.Surface.Flip
+		sdl.Surface.SetColors
+		sdl.Surface.SetPalette
+		sdl.SetGamma
+		sdl.GetGammaRamp
+		sdl.SetGammaRamp
+		sdl.PixelFormat.MapRGB
+		sdl.PixelFormat.MapRGBA
+		sdl.PixelFormat.GetRGB
+		sdl.PixelFormat.GetRGBA
+		sdl.CreateRGBSurface
+		sdl.CreateRGBSurfaceFrom
+		//sdl.Surface.FreeSurface
+		sdl.Surface.LockSurface
+		sdl.Surface.UnlockSurface
+		sdl.LoadBMP
+		sdl.Surface.SaveBMP
+		sdl.Surface.SetColorKey
+		sdl.Surface.SetAlpha
+		sdl.Surface.SetClipRect
+		sdl.Surface.GetClipRect
+		sdl.Surface.ConvertSurface
+		sdl.BlitSurface
+		sdl.Surface.FillRect
+		sdl.Surface.DisplayFormat
+		sdl.Surface.DisplayFormatAlpha
+		sdl.WarpMouse
+		sdl.CreateCursor
+		//sdl.Cursor.FreeCursor
+		sdl.SetCursor
+		sdl.GetCursor
+		sdl.ShowCursor
+		//sdl.GL_LoadLibrary
+		//sdl.GL_GetProcAddress
+		sdl.GL_GetAttribute
+		sdl.GL_SetAttribute
+		sdl.GL_SwapBuffers
+		sdl.CreateYUVOverlay
+		sdl.Overlay.LockYUVOverlay
+		sdl.Overlay.UnlockYUVOverlay
+		sdl.Overlay.DisplayYUVOverlay
+		//sdl.Overlay.FreeYUVOverlay
+		//sdl.Rect
+		//sdl.Color
+		//sdl.Palette
+		//sdl.PixelFormat
+		//sdl.Surface
+		//sdl.VideoInfo
+		//sdl.Overlay
+	]
+	// 7. Window Management
+	doc << '## Window Management'
+	doc << [
+		sdl.WM_SetCaption
+		sdl.WM_GetCaption
+		sdl.WM_SetIcon
+		sdl.WM_IconifyWindow
+		sdl.WM_ToggleFullScreen
+		sdl.WM_GrabInput
+	]
+	// 8. Events
+	doc << '## Events'
+	doc << [
+		sdl.PumpEvents
+		sdl.AddEvents
+		sdl.PeekEvents
+		sdl.GetEvents
+		sdl.PollEvent
+		sdl.WaitEvent
+		sdl.PushEvent
+		sdl.SetEventFilter
+		sdl.GetEventFilter
+		sdl.EventState
+		sdl.CheckKeyState
+		sdl.GetModState
+		sdl.SetModState
+		sdl.GetKeyName
+		sdl.EnableUNICODE
+		sdl.EnableKeyRepeat
+		sdl.GetMouseState
+		sdl.GetRelativeMouseState
+		sdl.GetAppState
+		sdl.JoystickEventState
+	]
+	// 9. Joystick
+	doc << '## Joystick'
+	doc << [
+		sdl.NumJoysticks
+		sdl.JoystickName
+		sdl.JoystickOpen
+		sdl.JoystickOpened
+		sdl.Joystick.JoystickIndex
+		sdl.Joystick.JoystickNumAxes
+		sdl.Joystick.JoystickNumBalls
+		sdl.Joystick.JoystickNumHats
+		sdl.Joystick.JoystickNumButtons
+		sdl.JoystickUpdate
+		sdl.Joystick.JoystickGetAxis
+		sdl.Joystick.JoystickGetHat
+		sdl.Joystick.JoystickGetButton
+		sdl.Joystick.JoystickGetBall
+		sdl.Joystick.JoystickClose
+	]
+	// 10. Audio
+	doc << '## Audio'
+	doc << [
+		//sdl.AudioSpec
+		sdl.OpenAudio
+		sdl.PauseAudio
+		sdl.GetAudioStatus
+		sdl.LoadWAV
+		//sdl.Audio.FreeWAV
+		sdl.AudioCVT
+		sdl.BuildAudioCVT
+		//sdl.AudioCVT.ConvertAudio
+		//sdl.MixAudio
+		sdl.LockAudio
+		sdl.UnlockAudio
+		sdl.CloseAudio
+	]
+	// 11. CD-ROM
+	doc << '## CD-ROM'
+	doc << [
+		sdl.CDNumDrives
+		sdl.CDName
+		sdl.CDOpen
+		sdl.CD.CDStatus
+		sdl.CD.CDPlay
+		sdl.CD.CDPlayTracks
+		sdl.CD.CDPause
+		sdl.CD.CDResume
+		sdl.CD.CDStop
+		sdl.CD.CDEject
+		sdl.CD.CDClose
+		//sdl.CDTrack
+	]
+	// 13. Time
+	doc << '## Time'
+	doc << [
+		sdl.GetTicks
+		sdl.Delay
+		sdl.AddTimer
+		sdl.Timer.RemoveTimer
+		//sdl.Timer.SetTimer
+	]
+	doc
 }
 
-doc << R'''
-# About This Document
-
-This reference explains about specification of functions and classes defined in **Gura**'s `sdl` module.
-Official site of SDL is <http://www.libsdl.org/>.
-
-# Explanatory Note
-
-Functions in reference are described in a generic expression.
-For example, if there is a reference `func(num:number)`,
-it means that `func` function takes one argument named `num` with value type of `number`.
-You can call it like `func(3)`.
-
-If an argument is optional, the argument name is followed by a symbol `?`.
-For example: `func(num?:number)`.
-You can call it as `func(2)` or can omit the arugument like `func()`.
-
-If the the arument name has `*` symbol followed, the arument takes zero or more values.
-For a function that has a generic expression `func(args*:number)`,
-it can be called like `func()`, `func(3)`, `func(3, 4)`, `func(3, 4, 2)`, and so on.
-
-If the the arument name has `+` symbol followed, the arument takes one or more values.
-For a function that has a generic expression `func(args+:number)`,
-it can be called like `func(3)`, `func(3, 4)`, `func(3, 4, 2)`, and so on.
-In difference with `*`, it must take at least one value.
-
-An argument may have a default value.
-The default value is described with `=>` operator like `func(num:number => 4)`.
-In such a case, if `num` is omitted, the default value `4` shall be used.
-'''
-
-doc << R'''
-# Reference
-'''
-
-// 5. General
-doc << '## General'
-doc << [
-	sdl.Init
-	sdl.InitSubSystem
-	sdl.QuitSubSystem
-	sdl.Quit
-	sdl.WasInit
-	sdl.GetError
-]
-// 6. Video
-doc << '## Video'
-doc << [
-	sdl.GetVideoSurface
-	sdl.GetVideoInfo
-	sdl.VideoDriverName
-	sdl.ListModes
-	sdl.VideoModeOK
-	sdl.SetVideoMode
-	sdl.Surface.UpdateRect
-	sdl.Surface.UpdateRects
-	sdl.Surface.Flip
-	sdl.Surface.SetColors
-	sdl.Surface.SetPalette
-	sdl.SetGamma
-	sdl.GetGammaRamp
-	sdl.SetGammaRamp
-	sdl.PixelFormat.MapRGB
-	sdl.PixelFormat.MapRGBA
-	sdl.PixelFormat.GetRGB
-	sdl.PixelFormat.GetRGBA
-	sdl.CreateRGBSurface
-	sdl.CreateRGBSurfaceFrom
-	//sdl.Surface.FreeSurface
-	sdl.Surface.LockSurface
-	sdl.Surface.UnlockSurface
-	sdl.LoadBMP
-	sdl.Surface.SaveBMP
-	sdl.Surface.SetColorKey
-	sdl.Surface.SetAlpha
-	sdl.Surface.SetClipRect
-	sdl.Surface.GetClipRect
-	sdl.Surface.ConvertSurface
-	sdl.BlitSurface
-	sdl.Surface.FillRect
-	sdl.Surface.DisplayFormat
-	sdl.Surface.DisplayFormatAlpha
-	sdl.WarpMouse
-	sdl.CreateCursor
-	//sdl.Cursor.FreeCursor
-	sdl.SetCursor
-	sdl.GetCursor
-	sdl.ShowCursor
-	//sdl.GL_LoadLibrary
-	//sdl.GL_GetProcAddress
-	sdl.GL_GetAttribute
-	sdl.GL_SetAttribute
-	sdl.GL_SwapBuffers
-	sdl.CreateYUVOverlay
-	sdl.Overlay.LockYUVOverlay
-	sdl.Overlay.UnlockYUVOverlay
-	sdl.Overlay.DisplayYUVOverlay
-	//sdl.Overlay.FreeYUVOverlay
-	//sdl.Rect
-	//sdl.Color
-	//sdl.Palette
-	//sdl.PixelFormat
-	//sdl.Surface
-	//sdl.VideoInfo
-	//sdl.Overlay
-]
-// 7. Window Management
-doc << '## Window Management'
-doc << [
-	sdl.WM_SetCaption
-	sdl.WM_GetCaption
-	sdl.WM_SetIcon
-	sdl.WM_IconifyWindow
-	sdl.WM_ToggleFullScreen
-	sdl.WM_GrabInput
-]
-// 8. Events
-doc << '## Events'
-doc << [
-	sdl.PumpEvents
-	sdl.AddEvents
-	sdl.PeekEvents
-	sdl.GetEvents
-	sdl.PollEvent
-	sdl.WaitEvent
-	sdl.PushEvent
-	sdl.SetEventFilter
-	sdl.GetEventFilter
-	sdl.EventState
-	sdl.CheckKeyState
-	sdl.GetModState
-	sdl.SetModState
-	sdl.GetKeyName
-	sdl.EnableUNICODE
-	sdl.EnableKeyRepeat
-	sdl.GetMouseState
-	sdl.GetRelativeMouseState
-	sdl.GetAppState
-	sdl.JoystickEventState
-]
-// 9. Joystick
-doc << '## Joystick'
-doc << [
-	sdl.NumJoysticks
-	sdl.JoystickName
-	sdl.JoystickOpen
-	sdl.JoystickOpened
-	sdl.Joystick.JoystickIndex
-	sdl.Joystick.JoystickNumAxes
-	sdl.Joystick.JoystickNumBalls
-	sdl.Joystick.JoystickNumHats
-	sdl.Joystick.JoystickNumButtons
-	sdl.JoystickUpdate
-	sdl.Joystick.JoystickGetAxis
-	sdl.Joystick.JoystickGetHat
-	sdl.Joystick.JoystickGetButton
-	sdl.Joystick.JoystickGetBall
-	sdl.Joystick.JoystickClose
-]
-// 10. Audio
-doc << '## Audio'
-doc << [
-	//sdl.AudioSpec
-	sdl.OpenAudio
-	sdl.PauseAudio
-	sdl.GetAudioStatus
-	sdl.LoadWAV
-	//sdl.Audio.FreeWAV
-	sdl.AudioCVT
-	sdl.BuildAudioCVT
-	//sdl.AudioCVT.ConvertAudio
-	//sdl.MixAudio
-	sdl.LockAudio
-	sdl.UnlockAudio
-	sdl.CloseAudio
-]
-// 11. CD-ROM
-doc << '## CD-ROM'
-doc << [
-	sdl.CDNumDrives
-	sdl.CDName
-	sdl.CDOpen
-	sdl.CD.CDStatus
-	sdl.CD.CDPlay
-	sdl.CD.CDPlayTracks
-	sdl.CD.CDPause
-	sdl.CD.CDResume
-	sdl.CD.CDStop
-	sdl.CD.CDEject
-	sdl.CD.CDClose
-	//sdl.CDTrack
-]
-// 13. Time
-doc << '## Time'
-doc << [
-	sdl.GetTicks
-	sdl.Delay
-	sdl.AddTimer
-	sdl.Timer.RemoveTimer
-	//sdl.Timer.SetTimer
-]
-
-doc.output_html(fileName)
-println(fileName, ' was created.')
+if (__name__ == '__main__') {
+	write(markdown.document()).render@html(sys.stdout)
+}
