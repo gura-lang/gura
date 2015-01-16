@@ -11,8 +11,8 @@ Gura_BeginModuleBody(xpm)
 // These methods are available after importing xpm module.
 //-----------------------------------------------------------------------------
 #if 0
-// image#xpmread(stream:stream:r):reduce
-Gura_DeclareMethod(image, xpmread)
+// image#read@xpm(stream:stream:r):reduce
+Gura_DeclareMethodAlias(image, read_xpm, "read@xpm")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
@@ -21,7 +21,7 @@ Gura_DeclareMethod(image, xpmread)
 		"Reads an xpm image from a stream.");
 }
 
-Gura_ImplementMethod(image, xpmread)
+Gura_ImplementMethod(image, read_xpm)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_xpm::ReadStream(env, sig, pThis, args.GetStream(0))) return Value::Null;
@@ -29,8 +29,8 @@ Gura_ImplementMethod(image, xpmread)
 }
 #endif
 
-// image#xpmwrite(stream:stream:w):reduce
-Gura_DeclareMethod(image, xpmwrite)
+// image#write@xpm(stream:stream:w):reduce
+Gura_DeclareMethodAlias(image, write_xpm, "write@xpm")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
@@ -39,7 +39,7 @@ Gura_DeclareMethod(image, xpmwrite)
 		"Writes a xpm image to a stream.");
 }
 
-Gura_ImplementMethod(image, xpmwrite)
+Gura_ImplementMethod(image, write_xpm)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_xpm::WriteStream(env, sig, pThis->GetImage(), args.GetStream(0))) return Value::Null;
@@ -267,8 +267,8 @@ Gura_ImplementMethod(image, xpmdata)
 // Module entry
 Gura_ModuleEntry()
 {
-	//Gura_AssignMethodTo(VTYPE_image, image, xpmread);
-	Gura_AssignMethodTo(VTYPE_image, image, xpmwrite);
+	//Gura_AssignMethodTo(VTYPE_image, image, read_xpm);
+	Gura_AssignMethodTo(VTYPE_image, image, write_xpm);
 	Gura_AssignMethodTo(VTYPE_image, image, xpmdata);
 	ImageStreamer::Register(new ImageStreamer_xpm());
 	return true;
