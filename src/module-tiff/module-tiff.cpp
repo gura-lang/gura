@@ -105,7 +105,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(test);
 	// method assignment to image
 	Gura_AssignMethodTo(VTYPE_image, image, read_tiff);
-	//Gura_AssignMethodTo(VTYPE_image, image, tiffwrite);
+	//Gura_AssignMethodTo(VTYPE_image, image, write_tiff);
 	// image streamer registration
 	ImageStreamer::Register(new ImageStreamer_TIFF());
 	return true;
