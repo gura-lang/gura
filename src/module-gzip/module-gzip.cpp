@@ -55,8 +55,8 @@ Gura_ImplementFunction(writer)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_stream
 //-----------------------------------------------------------------------------
-// stream#gzipreader() {block?}
-Gura_DeclareMethod(stream, gzipreader)
+// stream#reader@gzip() {block?}
+Gura_DeclareMethodAlias(stream, reader_gzip, "reader@gzip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -65,7 +65,7 @@ Gura_DeclareMethod(stream, gzipreader)
 		"");
 }
 
-Gura_ImplementMethod(stream, gzipreader)
+Gura_ImplementMethod(stream, reader_gzip)
 {
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	int windowBits = 31;
@@ -75,8 +75,8 @@ Gura_ImplementMethod(stream, gzipreader)
 	return ReturnValue(env, sig, args, Value(pObjStream));
 }
 
-// stream#gzipwriter(level?:number) {block?}
-Gura_DeclareMethod(stream, gzipwriter)
+// stream#writer@gzip(level?:number) {block?}
+Gura_DeclareMethodAlias(stream, writer_gzip, "writer@gzip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "level", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -86,7 +86,7 @@ Gura_DeclareMethod(stream, gzipwriter)
 		"");
 }
 
-Gura_ImplementMethod(stream, gzipwriter)
+Gura_ImplementMethod(stream, writer_gzip)
 {
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	int level = args.Is_number(0)? args.GetInt(0) : Z_DEFAULT_COMPRESSION;
@@ -109,8 +109,8 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(reader);
 	Gura_AssignFunction(writer);
 	// method assignment to stream type
-	Gura_AssignMethodTo(VTYPE_stream, stream, gzipreader);
-	Gura_AssignMethodTo(VTYPE_stream, stream, gzipwriter);
+	Gura_AssignMethodTo(VTYPE_stream, stream, reader_gzip);
+	Gura_AssignMethodTo(VTYPE_stream, stream, writer_gzip);
 	return true;
 }
 
