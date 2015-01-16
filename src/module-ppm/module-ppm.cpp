@@ -29,7 +29,7 @@ Gura_ImplementMethod(image, read_ppm)
 }
 
 // image#write@ppm(stream:stream:w):reduce:[gray]
-Gura_DeclareMethod(image, write_ppm, "write@ppm")
+Gura_DeclareMethodAlias(image, write_ppm, "write@ppm")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
@@ -39,7 +39,7 @@ Gura_DeclareMethod(image, write_ppm, "write@ppm")
 		"Writes a PPM/PGM image to a stream.");
 }
 
-Gura_ImplementMethod(image, ppmwrite)
+Gura_ImplementMethod(image, write_ppm)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_PPM::WriteStream(env, sig, pThis->GetImage(), args.GetStream(0), args.IsSet(Gura_Symbol(gray)))) {
@@ -54,8 +54,8 @@ Gura_ImplementMethod(image, ppmwrite)
 // Module entry
 Gura_ModuleEntry()
 {
-	Gura_AssignMethodTo(VTYPE_image, image, ppmread);
-	Gura_AssignMethodTo(VTYPE_image, image, ppmwrite);
+	Gura_AssignMethodTo(VTYPE_image, image, read_ppm);
+	Gura_AssignMethodTo(VTYPE_image, image, write_ppm);
 	ImageStreamer::Register(new ImageStreamer_PPM());
 	return true;
 }
