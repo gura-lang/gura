@@ -3,7 +3,7 @@ import(markdown)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## @@@@ Module
+	## guri Module
 	### Abstract
 	### Sample
 	'''

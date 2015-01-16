@@ -3,12 +3,17 @@ import(markdown)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## @@@@ Module
+	## jpeg Module
 	### Abstract
 	### Sample
 	'''
 	doc << '### Module Functions'
 	doc << [
+	]
+	doc << '### Extension of image Class'
+	doc << [
+		image.jpegread
+		image.jpegwrite
 	]
 	doc
 }

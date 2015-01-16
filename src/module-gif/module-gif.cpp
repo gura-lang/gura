@@ -1185,8 +1185,8 @@ Gura_ImplementMethod(content, addimage)
 // implementation of class GIF
 Gura_ImplementUserClass(content)
 {
-	Gura_AssignMethod(content, write);
 	Gura_AssignMethod(content, addimage);
+	Gura_AssignMethod(content, write);
 }
 
 //-----------------------------------------------------------------------------
@@ -1415,6 +1415,7 @@ Gura_DeclareFunction(content)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareArg(env, "format", VTYPE_symbol, OCCUR_Once,
 						FLAG_None, new Expr_Value(Gura_Symbol(rgba)));
+	SetClassToConstruct(Gura_UserClass(content));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 

@@ -1,14 +1,23 @@
 #!/usr/bin/env gura
 import(markdown)
+import(gif)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## @@@@ Module
+	## gif Module
 	### Abstract
 	### Sample
 	'''
-	doc << '### Module Functions'
+	doc << '### gif.content Class'
 	doc << [
+		gif.content
+		gif.content.addimage
+		gif.content.write
+	]
+	doc << '### Extension of image Class'
+	doc << [
+		image.gifread
+		image.gifwrite
 	]
 	doc
 }

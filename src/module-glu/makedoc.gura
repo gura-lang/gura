@@ -1,14 +1,70 @@
 #!/usr/bin/env gura
 import(markdown)
+import(glu)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## @@@@ Module
+	## glu Module
 	### Abstract
 	### Sample
 	'''
 	doc << '### Module Functions'
 	doc << [
+		glu.gluBeginCurve
+		glu.gluBeginPolygon
+		glu.gluBeginSurface
+		glu.gluBeginTrim
+		glu.gluBuild1DMipmaps
+		glu.gluBuild1DMipmapsFromImage
+		glu.gluBuild2DMipmaps
+		glu.gluBuild2DMipmapsFromImage
+		glu.gluCylinder
+		glu.gluDeleteNurbsRenderer
+		glu.gluDeleteQuadric
+		glu.gluDeleteTess
+		glu.gluDisk
+		glu.gluEndCurve
+		glu.gluEndPolygon
+		glu.gluEndSurface
+		glu.gluEndTrim
+		glu.gluErrorString
+		glu.gluGetNurbsProperty
+		glu.gluGetString
+		glu.gluGetTessProperty
+		glu.gluLoadSamplingMatrices
+		glu.gluLookAt
+		glu.gluNewNurbsRenderer
+		glu.gluNewQuadric
+		glu.gluNewTess
+		glu.gluNextContour
+		glu.gluNurbsCallback
+		glu.gluNurbsCallbackData
+		glu.gluNurbsCallbackDataEXT
+		glu.gluNurbsCurve
+		glu.gluNurbsProperty
+		glu.gluNurbsSurface
+		glu.gluOrtho2D
+		glu.gluPartialDisk
+		glu.gluPerspective
+		glu.gluPickMatrix
+		glu.gluProject
+		glu.gluPwlCurve
+		glu.gluQuadricCallback
+		glu.gluQuadricDrawStyle
+		glu.gluQuadricNormals
+		glu.gluQuadricOrientation
+		glu.gluQuadricTexture
+		glu.gluScaleImage
+		glu.gluSphere
+		glu.gluTessBeginContour
+		glu.gluTessBeginPolygon
+		glu.gluTessCallback
+		glu.gluTessEndContour
+		glu.gluTessEndPolygon
+		glu.gluTessNormal
+		glu.gluTessProperty
+		glu.gluTessVertex
+		glu.gluUnProject
 	]
 	doc
 }
