@@ -28,7 +28,8 @@ Gura_DeclareFunction(format)
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Converts `values` into string depending on formatter specification\n"
+		"in `format` and returns the result in string.");
 }
 
 Gura_ImplementFunction(format)

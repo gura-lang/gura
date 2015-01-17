@@ -15,7 +15,7 @@ Gura_DeclareFunction(decode)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Reads text stream that is formatted in base64 and returns the decoded result in binary.");
 }
 
 Gura_ImplementFunction(decode)
@@ -37,7 +37,7 @@ Gura_DeclareFunction(encode)
 	DeclareArg(env, "linelen", VTYPE_number, OCCUR_Once, FLAG_Nil, new Expr_Value(76));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Encodes content of the stream into base64 format and returns the result in binary.");
 }
 
 Gura_ImplementFunction(encode)
