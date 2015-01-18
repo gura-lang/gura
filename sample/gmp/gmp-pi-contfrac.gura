@@ -21,5 +21,6 @@ blockCols = 5
 blockRows = 20
 gmp.mpf.set_default_prec(100000)
 pi = generate_pi(15000)
+println('3')
 print(format('%.f', pi.numer / pi.denom).split().offset(2).\
 	  fold(10):*join().fold(blockCols):*join(' ').fold(blockRows):*join('\n'), '\n\n')
