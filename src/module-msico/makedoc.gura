@@ -1,5 +1,6 @@
 #!/usr/bin/env gura
 import(markdown)
+import(msico)
 
 write(doc:markdown.document) = {
 	doc << R'''
@@ -9,6 +10,16 @@ write(doc:markdown.document) = {
 	'''
 	doc << '### Module Functions'
 	doc << [
+	]
+	doc << '### msico.content Class'
+	doc << [
+		msico.content
+		msico.content.write
+		msico.content.addimage
+	]
+	doc << '### Extension of image Class'
+	doc << [
+		image.read@msico
 	]
 	doc
 }

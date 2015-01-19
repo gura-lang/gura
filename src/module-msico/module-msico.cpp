@@ -255,6 +255,7 @@ Gura_DeclareFunction(content)
 	DeclareArg(env, "format", VTYPE_symbol, OCCUR_Once,
 							FLAG_None, new Expr_Value(Gura_Symbol(rgba)));
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(Gura_UserClass(content));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
