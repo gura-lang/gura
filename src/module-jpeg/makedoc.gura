@@ -1,5 +1,6 @@
 #!/usr/bin/env gura
 import(markdown)
+import(jpeg)
 
 write(doc:markdown.document) = {
 	doc << R'''
@@ -12,8 +13,8 @@ write(doc:markdown.document) = {
 	]
 	doc << '### Extension of image Class'
 	doc << [
-		image.jpegread
-		image.jpegwrite
+		image.read@jpeg
+		image.write@jpeg
 	]
 	doc
 }

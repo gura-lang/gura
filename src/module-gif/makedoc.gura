@@ -16,8 +16,8 @@ write(doc:markdown.document) = {
 	]
 	doc << '### Extension of image Class'
 	doc << [
-		image.gifread
-		image.gifwrite
+		image.read@gif
+		image.write@gif
 	]
 	doc
 }

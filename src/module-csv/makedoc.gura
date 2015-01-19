@@ -24,8 +24,8 @@ write(doc:markdown.document) = {
 	]
 	doc << '### Extension of stream Class'
 	doc << [
-		stream.csvread
-		stream.csvwriter
+		stream.read@csv
+		stream.writer@csv
 	]
 	doc
 }

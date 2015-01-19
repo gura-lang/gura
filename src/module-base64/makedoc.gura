@@ -2,6 +2,7 @@
 import(markdown)
 
 write(doc:markdown.document) = {
+	doc << '## base64 Module'
 	doc << '### Module Functions'
 	doc << [
 		base64.decode
