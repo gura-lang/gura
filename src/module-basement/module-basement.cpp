@@ -1131,7 +1131,8 @@ Gura_DeclareFunctionAlias(import_, "import")
 	DeclareAttr(Gura_Symbol(mixin_type));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Imports a module stored in directories specified by a variable sys.path.\n"
+		"Imports a module stored in directories specified by a variable sys.path\n"
+		"and creates a variable that represents the imported module.\n"
 		"There are three ways of calling this function like follow:\n"
 		"\n"
 		"1. `import(foo)`\n"
@@ -1151,7 +1152,12 @@ Gura_DeclareFunctionAlias(import_, "import")
 		"\n"
 		"    import(foo) {*}\n"
 		"\n"
-		"");
+		"If the argument `module` is prefixed by a minus operator like `-foo`,\n"
+		"a variable that represents the imported module will not be created.\n"
+		"\n"
+		"If the argument `module` is prefixed by an and operator like `&foo`,\n"
+		"the trailing part will be evaluated and its result, which must be a string,\n"
+		"is treated as a module name to be imported.");
 }
 
 Gura_ImplementFunction(import_)

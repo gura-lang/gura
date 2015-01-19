@@ -577,21 +577,39 @@ Module *Environment::ImportModule(Signal sig, const Expr *pExpr,
 			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
 			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag)
 {
+	bool successFlag = false;
 	bool assignModuleNameFlag = true;
 	SymbolList symbolList;
 	if (pExpr->IsUnaryOp()) {
 		const Expr_UnaryOp *pExprEx = dynamic_cast<const Expr_UnaryOp *>(pExpr);
 		const Symbol *pSymbol = pExprEx->GetOperator()->GetSymbol();
-		pExpr = pExprEx->GetChild();
 		if (pSymbol->IsIdentical(Gura_Symbol(Char_Sub))) {
-			// import(-hoge)
+			// import(-foo)
+			successFlag = Parser::ParseDottedIdentifier(pExprEx->GetChild(), symbolList);
 			assignModuleNameFlag = false;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(Char_And))) {
+			// import(&foo)
+			SeqPostHandler *pSeqPostHandler = NULL;
+			Value rtn = pExprEx->GetChild()->Exec2(*this, sig, pSeqPostHandler);
+			if (sig.IsSignalled()) return NULL;
+			if (rtn.Is_string()) {
+				const char *p = rtn.GetString();
+				if (*p == '-') {
+					assignModuleNameFlag = false;
+					p++;
+				}
+				successFlag = Parser::ParseDottedIdentifier(p, symbolList);
+			} else {
+				sig.SetError(ERR_ImportError, "module name must be a string");
+				return NULL;
+			}
 		} else {
-			sig.SetError(ERR_ImportError, "wrong format of module name");
-			return NULL;
+			// nothing to do
 		}
+	} else {
+		successFlag = Parser::ParseDottedIdentifier(pExpr, symbolList);
 	}
-	if (!Parser::ParseDottedIdentifier(pExpr, symbolList)) {
+	if (!successFlag) {
 		sig.SetError(ERR_ImportError, "wrong format of module name");
 		return NULL;
 	}
