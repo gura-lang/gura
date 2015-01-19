@@ -1,5 +1,6 @@
 #!/usr/bin/env gura
 import(markdown)
+import(midi)
 
 write(doc:markdown.document) = {
 	doc << R'''
@@ -8,6 +9,83 @@ write(doc:markdown.document) = {
 	### Sample
 	'''
 	doc << '### Module Functions'
+	doc << [
+	]
+	doc << '### midi.event Class'
+	doc << [
+	]
+	doc << '### midi.track Class'
+	doc << [
+		midi.track.seek
+		midi.track.tell
+		midi.track.erase
+		midi.track.mml
+		midi.track.note_off
+		midi.track.note_on
+		midi.track.poly_pressure
+		midi.track.control_change
+		midi.track.program_change
+		midi.track.channel_pressure
+		midi.track.pitch_bend
+		midi.track.sequence_number
+		midi.track.text_event
+		midi.track.copyright_notice
+		midi.track.sequence_or_track_name
+		midi.track.instrument_name
+		midi.track.lyric_text
+		midi.track.marker_text
+		midi.track.cue_point
+		midi.track.midi_channel_prefix_assignment
+		midi.track.end_of_track
+		midi.track.tempo_setting
+		midi.track.smpte_offset
+		midi.track.time_signature
+		midi.track.key_signature
+		midi.track.sequencer_specific_event
+	]
+	doc << '### midi.sequence Class'
+	doc << [
+		midi.sequence
+		midi.sequence.read
+		midi.sequence.write
+		midi.sequence.play
+		midi.sequence.track
+		midi.sequence.mml
+		midi.sequence.readmml
+	]
+	doc << '### midi.portinfo Class'
+	doc << [
+	]
+	doc << '### midi.port Class'
+	doc << [
+		midi.port.send
+		midi.port.play
+		midi.port.mml
+		midi.port.readmml
+		midi.port.note_off
+		midi.port.note_on
+		midi.port.poly_pressure
+		midi.port.control_change
+		midi.port.program_change
+		midi.port.channel_pressure
+		midi.port.pitch_bend
+	]
+	doc << '### midi.player Class'
+	doc << [
+	]
+	doc << '### midi.controller Class'
+	doc << [
+	]
+	doc << '### midi.program Class'
+	doc << [
+	]
+	doc << '### midi.soundfont Class'
+	doc << [
+		midi.soundfont
+		midi.soundfont.synthesizer,
+		midi.soundfont.print
+	]
+	doc << '### midi.synthesizer Class'
 	doc << [
 	]
 	doc

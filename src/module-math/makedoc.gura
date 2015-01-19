@@ -9,6 +9,40 @@ write(doc:markdown.document) = {
 	'''
 	doc << '### Module Functions'
 	doc << [
+		math.real
+		math.imag
+		math.arg
+		math.norm
+		math.conj
+		math.acos
+		math.asin
+		math.atan
+		math.atan2
+		math.ceil
+		math.cos
+		math.cosh
+		math.exp
+		math.abs
+		math.floor
+		math.log
+		math.log10
+		math.sin
+		math.sinh
+		math.sqrt
+		math.tan
+		math.tanh
+		math.hypot
+		math.least_square
+		math.bezier
+		math.diff
+		math.optimize
+		math.fft
+		math.dot_product
+		math.cross_product
+		math.covariance
+		math.integral
+		math.gcd
+		math.lcm
 	]
 	doc
 }

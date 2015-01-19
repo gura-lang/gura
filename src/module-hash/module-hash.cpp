@@ -105,6 +105,7 @@ Gura_ImplementMethod(accumulator, update)
 // implementation of class Accumulator
 Gura_ImplementUserClass(accumulator)
 {
+	Gura_AssignValue(accumulator, Value(Reference()));
 	Gura_AssignMethod(accumulator, init);
 	Gura_AssignMethod(accumulator, update);
 }

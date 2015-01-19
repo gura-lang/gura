@@ -1,5 +1,6 @@
 #!/usr/bin/env gura
 import(markdown)
+import(hash)
 
 write(doc:markdown.document) = {
 	doc << R'''
@@ -9,6 +10,14 @@ write(doc:markdown.document) = {
 	'''
 	doc << '### Module Functions'
 	doc << [
+		hash.md5
+		hash.sha1
+		hash.crc32
+	]
+	doc << '### hash.accumulator Class'
+	doc << [
+		hash.accumulator.init
+		hash.accumulator.update
 	]
 	doc
 }
