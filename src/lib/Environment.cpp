@@ -425,7 +425,7 @@ const ValueTypeInfo *Environment::LookupValueType(Signal sig, const ValueList &v
 			sig.SetError(ERR_TypeError, "expr must be specified");
 			return NULL;
 		}
-		if (!pValue->GetExpr()->GetChainedSymbolList(symbolList)) {
+		if (!Parser::ParseDottedIdentifier(pValue->GetExpr(), symbolList)) {
 			sig.SetError(ERR_TypeError, "invalid element for type name: '%s'",
 					pValue->GetExpr()->ToString(Expr::SCRSTYLE_OneLine).c_str());
 			return NULL;
@@ -443,7 +443,7 @@ const ValueTypeInfo *Environment::LookupValueType(Signal sig, const ValueList &v
 const ValueTypeInfo *Environment::LookupValueType(Signal sig, const Expr *pExpr)
 {
 	SymbolList symbolList;
-	if (!pExpr->GetChainedSymbolList(symbolList)) {
+	if (!Parser::ParseDottedIdentifier(pExpr, symbolList)) {
 		sig.SetError(ERR_TypeError, "invalid element for type name: '%s'",
 						pExpr->ToString(Expr::SCRSTYLE_OneLine).c_str());
 		return NULL;
@@ -560,20 +560,9 @@ bool Environment::ImportModules(Signal sig, const char *moduleNames,
 		}
 		moduleName = Strip(moduleName.c_str());
 		SymbolList symbolList;
-		String field;
-		foreach (String, p, moduleName) {
-			char ch = *p;
-			if (ch == '.') {
-				symbolList.push_back(Symbol::Add(field.c_str()));
-				field.clear();
-			} else if (ch == '\0') {
-				// nothing to do
-			} else {
-				field += ch;
-			}
-		}
-		if (!field.empty()) {
-			symbolList.push_back(Symbol::Add(field.c_str()));
+		if (!Parser::ParseDottedIdentifier(moduleName.c_str(), symbolList)) {
+			sig.SetError(ERR_ImportError, "wrong format of module name");
+			return false;
 		}
 		if (ImportModule(sig, symbolList.begin(), symbolList.end(), assignModuleNameFlag,
 					pSymbolAlias, pSymbolsToMixIn,
@@ -591,18 +580,19 @@ Module *Environment::ImportModule(Signal sig, const Expr *pExpr,
 	bool assignModuleNameFlag = true;
 	SymbolList symbolList;
 	if (pExpr->IsUnaryOp()) {
-		// import(*hoge)
 		const Expr_UnaryOp *pExprEx = dynamic_cast<const Expr_UnaryOp *>(pExpr);
 		const Symbol *pSymbol = pExprEx->GetOperator()->GetSymbol();
-		if (pSymbol->IsIdentical(Gura_Symbol(Char_Mul))) {
-			sig.SetError(ERR_ImportError, "wrong format for module name");
+		pExpr = pExprEx->GetChild();
+		if (pSymbol->IsIdentical(Gura_Symbol(Char_Sub))) {
+			// import(-hoge)
+			assignModuleNameFlag = false;
+		} else {
+			sig.SetError(ERR_ImportError, "wrong format of module name");
 			return NULL;
 		}
-		assignModuleNameFlag = false;
-		pExpr = pExprEx->GetChild();
 	}
-	if (!pExpr->GetChainedSymbolList(symbolList)) {
-		sig.SetError(ERR_ImportError, "wrong format for module name");
+	if (!Parser::ParseDottedIdentifier(pExpr, symbolList)) {
+		sig.SetError(ERR_ImportError, "wrong format of module name");
 		return NULL;
 	}
 	return ImportModule(sig, symbolList.begin(), symbolList.end(), assignModuleNameFlag,

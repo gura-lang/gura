@@ -1,1 +1,5 @@
 #!/usr/bin/env gura
+
+moduleNames = ['base64']
+fs.copy('../src/module-' + moduleNames + '/makedoc.gura', 'makedoc_' + moduleNames + '.gura'):overwrite
+import(makedoc_base64)

@@ -1139,15 +1139,19 @@ Gura_DeclareFunctionAlias(import_, "import")
 		"3. `import(foo) {symbol1, symbol2, symbol3}`\n"
 		"\n"
 		"In the first format, it creates a module object named foo.\n"
+		"\n"
 		"In the second, it names the module object as bar instead of foo.\n"
+		"\n"
 		"In the third, it doesn't register the module name into the environment,\n"
 		"but it looks up symbols specified in the block and registers them.\n"
-		"In thie case, if specified symbols conflict with the existing one,\n"
-		"it will cause an error. Attribute `:overwrite` will disable such an error\n"
-		"detection and allow overwriting of symbols. You can specify an asterisk\n"
-		"character to include all the registered symbols like follows.\n"
+		"In this case, if specified symbols conflict with the existing one,\n"
+		"it will cause an error while attribute `:overwrite` will disable such an error\n"
+		"detection and allow overwriting of symbols.\n"
+		"You can specify an asterisk character to include all the registered symbols like below.\n"
 		"\n"
-		"    import(foo) {*}");
+		"    import(foo) {*}\n"
+		"\n"
+		"");
 }
 
 Gura_ImplementFunction(import_)
@@ -1346,7 +1350,7 @@ Gura_ImplementFunction(undef_)
 			pSymbol = dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol();
 		} else {
 			SymbolList symbolList;
-			if (!pExpr->GetChainedSymbolList(symbolList)) {
+			if (!Parser::ParseDottedIdentifier(pExpr, symbolList)) {
 				sig.SetError(ERR_ValueError, "invalid identifier name");
 				return Value::Null;
 			}

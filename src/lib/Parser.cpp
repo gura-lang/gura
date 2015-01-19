@@ -1855,7 +1855,7 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 					pAttrs->Insert(pExprIdentifier->GetAttrs());
 					pAttrsOpt->Insert(pExprIdentifier->GetAttrsOpt());
 				}
-				if (!pExprRight->GetChainedSymbolList(*pAttrFront)) {
+				if (!ParseDottedIdentifier(pExprRight, *pAttrFront)) {
 					sig.SetError(ERR_SyntaxError, "invalid declaration of value type");
 					return false;
 				}
@@ -2207,6 +2207,51 @@ bool Parser::ReduceFiveElems(Environment &env, Signal sig)
 	_elemStack.pop_back();
 	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, GetLineNo());
 	_elemStack.push_back(Element(ETYPE_Expr, pExpr));
+	return true;
+}
+
+bool Parser::ParseDottedIdentifier(const char *moduleName, SymbolList &symbolList)
+{
+	String field;
+	for (const char *p = moduleName; *p != '\0'; p++) {
+		char ch = *p;
+		if (ch == '.') {
+			symbolList.push_back(Symbol::Add(field.c_str()));
+			field.clear();
+		} else if (ch == '\0') {
+			// nothing to do
+		} else {
+			field += ch;
+		}
+	}
+	if (!field.empty()) {
+		symbolList.push_back(Symbol::Add(field.c_str()));
+	}
+	return true;
+}
+
+// this function makes a list of symbols chained by member operator "."
+bool Parser::ParseDottedIdentifier(const Expr *pExpr, SymbolList &symbolList)
+{
+	for (;;) {
+		if (pExpr->IsMember()) {
+			const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(pExpr);
+			if (pExprMember->GetRight()->IsIdentifier()) {
+				const Expr_Identifier *pExprIdentifier =
+						dynamic_cast<const Expr_Identifier *>(pExprMember->GetRight());
+				symbolList.insert(symbolList.begin(), pExprIdentifier->GetSymbol());
+				pExpr = pExprMember->GetLeft();
+			} else {
+				return false;
+			}
+		} else if (pExpr->IsIdentifier()) {
+			const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExpr);
+			symbolList.insert(symbolList.begin(), pExprIdentifier->GetSymbol());
+			break;
+		} else {
+			return false;
+		}
+	}
 	return true;
 }
 

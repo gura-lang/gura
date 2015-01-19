@@ -260,6 +260,8 @@ public:
 	static const ElemTypeInfo *LookupElemTypeInfoByOpType(OpType opType);
 	static Precedence LookupPrec(ElemType elemTypeLeft, ElemType elemTypeRight);
 	static int CompareOpTypePrec(OpType opType1, OpType opType2);
+	static bool ParseDottedIdentifier(const char *moduleName, SymbolList &symbolList);
+	static bool ParseDottedIdentifier(const Expr *pExpr, SymbolList &symbolList);
 private:
 	bool CheckBlockParamEnd() const;
 	static ElemType ElemTypeForString(const StringInfo &stringInfo);

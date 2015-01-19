@@ -165,6 +165,7 @@ void Expr::GatherSimpleLambdaArgs(ExprOwner &exprOwnerArg) const
 	const_cast<Expr *>(this)->Accept(visitor);
 }
 
+#if 0
 // this function makes a list of symbols chained by member operator "."
 bool Expr::GetChainedSymbolList(SymbolList &symbolList) const
 {
@@ -189,6 +190,7 @@ bool Expr::GetChainedSymbolList(SymbolList &symbolList) const
 	}
 	return true;
 }
+#endif
 
 const Expr *Expr::Unquote() const
 {
