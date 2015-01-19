@@ -1,22 +1,22 @@
 #!/usr/bin/env gura
 import(markdown)
-import(gzip)
+import(bzip2)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## gzip Module
+	## bzip2 Module
 	### Abstract
 	### Sample
 	'''
 	doc << '### Module Functions'
 	doc << [
-		gzip.reader
-		gzip.writer
+		bzip2.reader
+		bzip2.writer
 	]
 	doc << '### Extension of image Class'
 	doc << [
-		stream.reader@gzip
-		stream.writer@gzip
+		stream.reader@bzip2
+		stream.writer@bzip2
 	]
 	doc
 }

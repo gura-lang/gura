@@ -794,7 +794,7 @@ Gura_ImplementFunction(copy)
 	bool failIfExistsFlag = !args.IsSet(Gura_Symbol(overwrite));
 	bool followLinkFlag = args.IsSet(Gura_UserSymbol(follow_link));
 	if (!OAL::Copy(args.GetString(0), args.GetString(1), failIfExistsFlag, followLinkFlag)) {
-		sig.SetError(ERR_IOError, "failed to copy a file");
+		sig.SetError(ERR_IOError, "failed to copy a file %s", args.GetString(0));
 	}
 	return Value::Null;
 }

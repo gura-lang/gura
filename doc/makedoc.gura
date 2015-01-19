@@ -1,5 +1,64 @@
 #!/usr/bin/env gura
+import(markdown)
 
-moduleNames = ['base64']
-fs.copy('../src/module-' + moduleNames + '/makedoc.gura', 'makedoc_' + moduleNames + '.gura'):overwrite
-import(makedoc_base64)
+baseNames = [
+	'base64'
+	'bmp'
+	'bzip2'
+	'cairo'
+	'canvas'
+	'conio'
+	'csv'
+	'curl'
+	'emf'
+	'example'
+	'freetype'
+	'fs'
+	'gif'
+	'glu'
+	'glut'
+	'gmp'
+	'guri'
+	'gzip'
+	'hash'
+	'http'
+	'jpeg'
+	'llvm'
+	'markdown'
+	'math'
+	'midi'
+	'msico'
+	'mswin'
+	'mysql'
+	'opengl'
+	'os'
+	'path'
+	'png'
+	'postgresql'
+	'ppm'
+	're'
+	'sdl'
+	'sdl2'
+	'sqlite3'
+	'sys'
+	'tar'
+	'tcl'
+	'tester'
+	'tiff'
+	'uuid'
+	'wav'
+	'wx'
+	'xml'
+	'xpm'
+	'yaml'
+	'zip'
+]
+moduleNames = 'makedoc_' + baseNames
+fs.copy('../src/module-' + baseNames + '/makedoc.gura', moduleNames + '.gura'):overwrite
+
+doc = markdown.document()
+moduleNames.each {|moduleName|
+	import(&moduleName)
+	root.getprop!(moduleName).write(doc)
+}
+doc.render@html(sys.stdout)
