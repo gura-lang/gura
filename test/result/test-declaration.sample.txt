@@ -15,6 +15,7 @@
 @ulong() {block}
 @ushort() {block}
 __name__:string = __main__
+args:class = <class:args>
 array@char(arg, init?:number) {block?}
 array@double(arg, init?:number) {block?}
 array@float(arg, init?:number) {block?}
@@ -74,6 +75,7 @@ conds(flag:boolean, value1, value2?):map
 consts(value, num?:number) {block?}
 cross (`expr+) {block}
 datetime(year:number, month:number, day:number, hour:number => 0, min:number => 0, sec:number => 0, usec:number => 0, minsoff?:number):map {block?}
+declaration:class = <class:declaration>
 default() {block}
 dict(elem[]?):[icase] {block?}
 dim(n+:number) {block?}
@@ -83,12 +85,14 @@ dirtype(obj?):[noesc]
 else():trailer {block}
 elsif (`cond):leader:trailer {block}
 end(dummy*):symbol_func:trailer:end_marker:void
+environment:class = <class:environment>
 error:class = <class:error>
 expr(src:stream:r):map {block?}
 false:boolean = false
 finally():trailer:finalizer {block}
 for (`expr+) {block}
 format(format:string, values*):map
+formatter:class = <class:formatter>
 fs:module = <module:fs:<integrated>>
   __name__:string = fs
   __source__:string = <integrated>
@@ -225,6 +229,7 @@ path:module = <module:path:<integrated>>
   path.splitext(pathname:string):map
   path.stat(directory:directory):map
   path.walk(directory?:directory, maxdepth?:number, pattern*:string):map:flat:[dir,file,stat] {block?}
+pointer:class = <class:pointer>
 print(values*):map:void
 printf(format:string, values*):map:void
 println(values*):map:void
