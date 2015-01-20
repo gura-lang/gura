@@ -69,6 +69,7 @@ Gura_DeclareFunction(Point)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_None);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(Point));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");

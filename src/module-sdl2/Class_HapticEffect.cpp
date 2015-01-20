@@ -89,6 +89,7 @@ Value Object_HapticEffect::DoSetProp(Environment &env, Signal sig,
 // implementation of class HapticEffect
 Gura_ImplementUserClass(HapticEffect)
 {
+	Gura_AssignValue(HapticEffect, Value(Reference()));
 }
 
 Gura_EndModuleScope(sdl2)

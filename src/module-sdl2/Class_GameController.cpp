@@ -46,6 +46,7 @@ Value Object_GameController::DoSetProp(Environment &env, Signal sig,
 // implementation of class GameController
 Gura_ImplementUserClass(GameController)
 {
+	Gura_AssignValue(GameController, Value(Reference()));
 }
 
 Gura_EndModuleScope(sdl2)

@@ -75,6 +75,7 @@ Value Object_DisplayMode::DoSetProp(Environment &env, Signal sig,
 Gura_DeclareFunction(DisplayMode)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(DisplayMode));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");

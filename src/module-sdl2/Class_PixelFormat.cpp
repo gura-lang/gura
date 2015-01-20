@@ -63,6 +63,7 @@ Value Object_PixelFormat::DoGetProp(Environment &env, Signal sig, const Symbol *
 // implementation of class PixelFormat
 Gura_ImplementUserClass(PixelFormat)
 {
+	Gura_AssignValue(PixelFormat, Value(Reference()));
 }
 
 Gura_EndModuleScope(sdl2)

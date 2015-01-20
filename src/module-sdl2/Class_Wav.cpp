@@ -45,6 +45,7 @@ Value Object_Wav::DoSetProp(Environment &env, Signal sig,
 // implementation of class Wav
 Gura_ImplementUserClass(Wav)
 {
+	Gura_AssignValue(Wav, Value(Reference()));
 }
 
 Gura_EndModuleScope(sdl2)

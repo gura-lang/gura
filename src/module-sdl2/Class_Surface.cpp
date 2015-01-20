@@ -98,6 +98,7 @@ Object_Surface *Object_Surface::CreateSurfaceFromImage(Signal sig, Image *pImage
 // implementation of class Surface
 Gura_ImplementUserClassWithCast(Surface)
 {
+	Gura_AssignValue(Surface, Value(Reference()));
 }
 
 Gura_ImplementCastFrom(Surface)

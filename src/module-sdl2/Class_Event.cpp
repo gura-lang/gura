@@ -748,6 +748,7 @@ const char *GetWindowEventName(Uint8 event)
 // implementation of class Event
 Gura_ImplementUserClass(Event)
 {
+	Gura_AssignValue(Event, Value(Reference()));
 }
 
 Gura_EndModuleScope(sdl2)

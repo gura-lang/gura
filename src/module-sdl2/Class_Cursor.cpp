@@ -46,6 +46,7 @@ Value Object_Cursor::DoSetProp(Environment &env, Signal sig,
 // implementation of class Cursor
 Gura_ImplementUserClass(Cursor)
 {
+	Gura_AssignValue(Cursor, Value(Reference()));
 }
 
 Gura_EndModuleScope(sdl2)

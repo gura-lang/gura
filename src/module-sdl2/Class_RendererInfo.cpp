@@ -45,6 +45,7 @@ Value Object_RendererInfo::DoSetProp(Environment &env, Signal sig,
 // implementation of class RendererInfo
 Gura_ImplementUserClass(RendererInfo)
 {
+	Gura_AssignValue(RendererInfo, Value(Reference()));
 }
 
 Gura_EndModuleScope(sdl2)

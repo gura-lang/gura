@@ -45,6 +45,7 @@ Value Object_GameControllerButtonBind::DoSetProp(Environment &env, Signal sig,
 // implementation of class GameControllerButtonBind
 Gura_ImplementUserClass(GameControllerButtonBind)
 {
+	Gura_AssignValue(GameControllerButtonBind, Value(Reference()));
 }
 
 Gura_EndModuleScope(sdl2)

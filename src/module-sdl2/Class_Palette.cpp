@@ -46,6 +46,7 @@ Value Object_Palette::DoSetProp(Environment &env, Signal sig,
 // implementation of class Palette
 Gura_ImplementUserClass(Palette)
 {
+	Gura_AssignValue(Palette, Value(Reference()));
 }
 
 Gura_EndModuleScope(sdl2)

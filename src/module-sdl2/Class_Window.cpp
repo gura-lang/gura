@@ -63,6 +63,7 @@ Value Object_Window::DoSetProp(Environment &env, Signal sig,
 // implementation of class Window
 Gura_ImplementUserClass(Window)
 {
+	Gura_AssignValue(Window, Value(Reference()));
 	Gura_AssignMethod(Window, CreateRenderer);
 }
 

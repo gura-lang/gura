@@ -46,6 +46,7 @@ Value Object_Joystick::DoSetProp(Environment &env, Signal sig,
 // implementation of class Joystick
 Gura_ImplementUserClass(Joystick)
 {
+	Gura_AssignValue(Joystick, Value(Reference()));
 }
 
 Gura_EndModuleScope(sdl2)

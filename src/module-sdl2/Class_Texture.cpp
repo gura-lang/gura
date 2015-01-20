@@ -46,6 +46,7 @@ Value Object_Texture::DoSetProp(Environment &env, Signal sig,
 // implementation of class Texture
 Gura_ImplementUserClass(Texture)
 {
+	Gura_AssignValue(Texture, Value(Reference()));
 }
 
 Gura_EndModuleScope(sdl2)

@@ -46,6 +46,7 @@ Value Object_GLContext::DoSetProp(Environment &env, Signal sig,
 // implementation of class GLContext
 Gura_ImplementUserClass(GLContext)
 {
+	Gura_AssignValue(GLContext, Value(Reference()));
 }
 
 Gura_EndModuleScope(sdl2)

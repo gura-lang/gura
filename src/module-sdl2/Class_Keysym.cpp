@@ -57,6 +57,7 @@ Value Object_Keysym::DoSetProp(Environment &env, Signal sig,
 // implementation of class Keysym
 Gura_ImplementUserClass(Keysym)
 {
+	Gura_AssignValue(Keysym, Value(Reference()));
 }
 
 Gura_EndModuleScope(sdl2)

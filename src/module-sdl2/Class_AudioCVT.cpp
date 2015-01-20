@@ -76,6 +76,7 @@ Value Object_AudioCVT::DoSetProp(Environment &env, Signal sig,
 Gura_DeclareFunction(AudioCVT)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(AudioCVT));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");

@@ -77,6 +77,7 @@ Gura_DeclareFunction(Color)
 	DeclareArg(env, "r", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_None);
 	DeclareArg(env, "g", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_None);
 	DeclareArg(env, "b", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(Color));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");

@@ -61,6 +61,7 @@ Value Object_Finger::DoSetProp(Environment &env, Signal sig,
 // implementation of class Finger
 Gura_ImplementUserClass(Finger)
 {
+	Gura_AssignValue(Finger, Value(Reference()));
 }
 
 Gura_EndModuleScope(sdl2)
