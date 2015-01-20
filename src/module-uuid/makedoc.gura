@@ -9,6 +9,7 @@ write(doc:markdown.document) = {
 	'''
 	doc << '### Module Functions'
 	doc << [
+		uuid.generate
 	]
 	doc
 }

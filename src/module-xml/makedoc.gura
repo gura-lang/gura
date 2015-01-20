@@ -1,5 +1,6 @@
 #!/usr/bin/env gura
 import(markdown)
+import(xml)
 
 write(doc:markdown.document) = {
 	doc << R'''
@@ -9,6 +10,31 @@ write(doc:markdown.document) = {
 	'''
 	doc << '### Module Functions'
 	doc << [
+		xml.comment
+	]
+	doc << '### xml.attribute Class'
+	doc << [
+	]
+	doc << '### xml.document Class'
+	doc << [
+		xml.document
+		xml.document.parse
+		xml.document.read
+		xml.document.textize
+		xml.document.write
+	]
+	doc << '### xml.element Class'
+	doc << [
+		xml.element
+		xml.element.addchild
+		xml.element.gettext
+		xml.element.textize
+		xml.element.write
+	]
+	doc << '### xml.parser Class'
+	doc << [
+		xml.parser
+		xml.parser.parse
 	]
 	doc
 }

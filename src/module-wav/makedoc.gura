@@ -10,6 +10,11 @@ write(doc:markdown.document) = {
 	doc << '### Module Functions'
 	doc << [
 	]
+	doc << '### Extension of audio Class'
+	doc << [
+		audio.read@wav
+		audio.write@wav
+	]
 	doc
 }
 

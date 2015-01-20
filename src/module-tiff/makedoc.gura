@@ -10,6 +10,10 @@ write(doc:markdown.document) = {
 	doc << '### Module Functions'
 	doc << [
 	]
+	doc << '### Extension of image Class'
+	doc << [
+		image.read@tiff
+	]
 	doc
 }
 

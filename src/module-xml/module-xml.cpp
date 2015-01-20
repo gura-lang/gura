@@ -923,6 +923,7 @@ String Object_attribute::ToString(bool exprFlag)
 // implementation of class attribute
 Gura_ImplementUserClass(attribute)
 {
+	Gura_AssignValue(attribute, Value(Reference()));
 }
 
 //-----------------------------------------------------------------------------
@@ -1358,6 +1359,7 @@ Gura_DeclareFunction(element)
 	DeclareArg(env, "_tagname_", VTYPE_string);
 	DeclareDictArg("attrs");
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(Gura_UserClass(element));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1420,6 +1422,7 @@ Gura_DeclareFunction(document)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(Gura_UserClass(document));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
