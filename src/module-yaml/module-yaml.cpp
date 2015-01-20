@@ -8,6 +8,45 @@ Gura_BeginModuleBody(yaml)
 //-----------------------------------------------------------------------------
 // Gura module functions: yaml
 //-----------------------------------------------------------------------------
+// yaml.compose(obj)
+Gura_DeclareFunction(compose)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "obj", VTYPE_any);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(compose)
+{
+	String str;
+	WriterToString::Write(env, sig, str, args.GetValue(0));
+	return Value(str);
+}
+
+// yaml.parse(str:string)
+Gura_DeclareFunction(parse)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "str", VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(parse)
+{
+	Iterator_FromString *pIterator = new Iterator_FromString(args.GetString(0));
+	if (args.IsRsltMulti()) {
+		return ReturnIterator(env, sig, args, pIterator);
+	}
+	Value value;
+	pIterator->Next(env, sig, value);
+	Iterator::Delete(pIterator);
+	return value;
+}
+
 // yaml.read(stream:stream:r)
 Gura_DeclareFunction(read)
 {
@@ -50,53 +89,14 @@ Gura_ImplementFunction(write)
 	return args.GetThis();
 }
 
-// yaml.parse(str:string)
-Gura_DeclareFunction(parse)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "str", VTYPE_string);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementFunction(parse)
-{
-	Iterator_FromString *pIterator = new Iterator_FromString(args.GetString(0));
-	if (args.IsRsltMulti()) {
-		return ReturnIterator(env, sig, args, pIterator);
-	}
-	Value value;
-	pIterator->Next(env, sig, value);
-	Iterator::Delete(pIterator);
-	return value;
-}
-
-// yaml.compose(obj)
-Gura_DeclareFunction(compose)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "obj", VTYPE_any);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementFunction(compose)
-{
-	String str;
-	WriterToString::Write(env, sig, str, args.GetValue(0));
-	return Value(str);
-}
-
 // Module entry
 Gura_ModuleEntry()
 {
 	// function assignment
+	Gura_AssignFunction(compose);
+	Gura_AssignFunction(parse);
 	Gura_AssignFunction(read);
 	Gura_AssignFunction(write);
-	Gura_AssignFunction(parse);
-	Gura_AssignFunction(compose);
 	return true;
 }
 
