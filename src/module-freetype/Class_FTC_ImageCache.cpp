@@ -66,6 +66,7 @@ Value Object_FTC_ImageCache::DoSetProp(Environment &env, Signal sig, const Symbo
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(FTC_ImageCache)
 {
+	Gura_AssignValue(FTC_ImageCache, Value(Reference()));
 }
 
 Gura_EndModuleScope(freetype)

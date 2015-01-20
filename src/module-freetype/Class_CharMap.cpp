@@ -82,6 +82,7 @@ Gura_ImplementMethod(CharMap, Get_Index)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(CharMap)
 {
+	Gura_AssignValue(CharMap, Value(Reference()));
 	Gura_AssignMethod(CharMap, Get_Index);
 }
 

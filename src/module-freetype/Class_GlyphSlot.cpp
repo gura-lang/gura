@@ -120,6 +120,7 @@ Gura_ImplementMethod(GlyphSlot, Render)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(GlyphSlot)
 {
+	Gura_AssignValue(GlyphSlot, Value(Reference()));
 	Gura_AssignMethod(GlyphSlot, Get_Glyph);
 	Gura_AssignMethod(GlyphSlot, Render);
 }

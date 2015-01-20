@@ -110,6 +110,7 @@ Gura_ImplementMethod(Bitmap, Embolden)
 
 Gura_ImplementUserClass(Bitmap)
 {
+	Gura_AssignValue(Bitmap, Value(Reference()));
 	Gura_AssignMethod(Bitmap, Embolden);
 }
 

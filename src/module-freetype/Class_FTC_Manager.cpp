@@ -66,6 +66,7 @@ Value Object_FTC_Manager::DoSetProp(Environment &env, Signal sig, const Symbol *
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(FTC_Manager)
 {
+	Gura_AssignValue(FTC_Manager, Value(Reference()));
 }
 
 Gura_EndModuleScope(freetype)

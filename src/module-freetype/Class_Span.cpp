@@ -66,6 +66,7 @@ Value Object_Span::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(Span)
 {
+	Gura_AssignValue(Span, Value(Reference()));
 }
 
 Gura_EndModuleScope(freetype)

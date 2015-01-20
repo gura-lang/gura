@@ -66,6 +66,7 @@ Value Object_FTC_CMapCache::DoSetProp(Environment &env, Signal sig, const Symbol
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(FTC_CMapCache)
 {
+	Gura_AssignValue(FTC_CMapCache, Value(Reference()));
 }
 
 Gura_EndModuleScope(freetype)

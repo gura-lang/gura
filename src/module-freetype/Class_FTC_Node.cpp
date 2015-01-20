@@ -66,6 +66,7 @@ Value Object_FTC_Node::DoSetProp(Environment &env, Signal sig, const Symbol *pSy
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(FTC_Node)
 {
+	Gura_AssignValue(FTC_Node, Value(Reference()));
 }
 
 Gura_EndModuleScope(freetype)

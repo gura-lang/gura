@@ -66,6 +66,7 @@ Value Object_FTC_SBit::DoSetProp(Environment &env, Signal sig, const Symbol *pSy
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(FTC_SBit)
 {
+	Gura_AssignValue(FTC_SBit, Value(Reference()));
 }
 
 Gura_EndModuleScope(freetype)

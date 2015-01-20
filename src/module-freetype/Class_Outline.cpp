@@ -153,6 +153,7 @@ Gura_ImplementMethod(Outline, Reverse)
 
 Gura_ImplementUserClass(Outline)
 {
+	Gura_AssignValue(Outline, Value(Reference()));
 	Gura_AssignMethod(Outline, Translate);
 	Gura_AssignMethod(Outline, Transform);
 	Gura_AssignMethod(Outline, Embolden);

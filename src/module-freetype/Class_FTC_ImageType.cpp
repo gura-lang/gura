@@ -66,6 +66,7 @@ Value Object_FTC_ImageType::DoSetProp(Environment &env, Signal sig, const Symbol
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(FTC_ImageType)
 {
+	Gura_AssignValue(FTC_ImageType, Value(Reference()));
 }
 
 Gura_EndModuleScope(freetype)

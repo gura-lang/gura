@@ -66,6 +66,7 @@ Value Object_FTC_Scaler::DoSetProp(Environment &env, Signal sig, const Symbol *p
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(FTC_Scaler)
 {
+	Gura_AssignValue(FTC_Saler, Value(Reference()));
 }
 
 Gura_EndModuleScope(freetype)

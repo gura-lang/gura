@@ -1,5 +1,6 @@
 #!/usr/bin/env gura
 import(markdown)
+import(freetype)
 
 write(doc:markdown.document) = {
 	doc << R'''
@@ -9,6 +10,114 @@ write(doc:markdown.document) = {
 	'''
 	doc << '### Module Functions'
 	doc << [
+		freetype.sysfontpath
+	]
+	doc << '### freetype.BBox Class'
+	doc << [
+	]
+	doc << '### freetype.BDF_Property Class'
+	doc << [
+	]
+	doc << '### freetype.Bitmap Class'
+	doc << [
+		freetype.Bitmap.Embolden
+	]
+	doc << '### freetype.CharMap Class'
+	doc << [
+		freetype.CharMap.Get_Index
+	]
+	doc << '### freetype.FTC_CMapCache Class'
+	doc << [
+	]
+	doc << '### freetype.FTC_ImageCache Class'
+	doc << [
+	]
+	doc << '### freetype.FTC_ImageType Class'
+	doc << [
+	]
+	doc << '### freetype.FTC_Manager Class'
+	doc << [
+	]
+	doc << '### freetype.FTC_Node Class'
+	doc << [
+	]
+	doc << '### freetype.FTC_SBit Class'
+	doc << [
+	]
+	doc << '### freetype.FTC_SBitCache Class'
+	doc << [
+	]
+	doc << '### freetype.FTC_Scaler Class'
+	doc << [
+	]
+	doc << '### freetype.Face Class'
+	doc << [
+		freetype.Face
+		freetype.Face.CheckTrueTypePatents
+		freetype.Face.Get_Advance
+		freetype.Face.Get_Advances
+		freetype.Face.Get_Glyph_Name
+		freetype.Face.Get_Postscript_Name
+		freetype.Face.Get_Kerning
+		freetype.Face.Load_Char
+		freetype.Face.Load_Glyph
+		//freetype.Face.Select_Charmap
+		freetype.Face.Set_Charmap
+		freetype.Face.Set_Pixel_Sizes
+	]
+	doc << '### freetype.Glyph Class'
+	doc << [
+		freetype.Glyph.Copy
+		freetype.Glyph.Stroke
+		freetype.Glyph.StrokeBorder
+	]
+	doc << '### freetype.GlyphSlot Class'
+	doc << [
+		freetype.GlyphSlot.Get_Glyph
+		freetype.GlyphSlot.Render
+	]
+	doc << '### freetype.Matrix Class'
+	doc << [
+		freetype.Matrix
+		freetype.Matrix.Multiply
+		freetype.Matrix.Invert
+	]
+	doc << '### freetype.Outline Class'
+	doc << [
+		freetype.Outline.Translate
+		freetype.Outline.Transform
+		freetype.Outline.Embolden
+		//freetype.Outline.EmboldenXY
+		freetype.Outline.Reverse
+	]
+	doc << '### freetype.Raster Class'
+	doc << [
+	]
+	doc << '### freetype.Span Class'
+	doc << [
+	]
+	doc << '### freetype.Stroker Class'
+	doc << [
+		freetype.Stroker
+		freetype.Stroker.BeginSubPath
+	]
+	doc << '### freetype.Vector Class'
+	doc << [
+		freetype.Vector
+		freetype.Vector.Length
+		freetype.Vector.Transform
+	]
+	doc << '### freetype.font Class'
+	doc << [
+		freetype.font
+		freetype.font.cleardeco
+		freetype.font.drawtext
+		freetype.font.calcsize
+		freetype.font.calcbbox
+	]
+	doc << '### Extension of image Class'
+	doc << [
+		image.drawtext
 	]
 	doc
 }

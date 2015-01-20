@@ -75,6 +75,7 @@ Value Object_BBox::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(BBox)
 {
+	Gura_AssignValue(BBox, Value(Reference()));
 }
 
 Gura_EndModuleScope(freetype)

@@ -66,6 +66,7 @@ Value Object_FTC_SBitCache::DoSetProp(Environment &env, Signal sig, const Symbol
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(FTC_SBitCache)
 {
+	Gura_AssignValue(FTC_SBitCache, Value(Reference()));
 }
 
 Gura_EndModuleScope(freetype)

@@ -132,6 +132,7 @@ Gura_ImplementMethod(Glyph, StrokeBorder)
 
 Gura_ImplementUserClass(Glyph)
 {
+	Gura_AssignValue(Glyph, Value(Reference()));
 	Gura_AssignMethod(Glyph, Copy);
 	Gura_AssignMethod(Glyph, Stroke);
 	Gura_AssignMethod(Glyph, StrokeBorder);

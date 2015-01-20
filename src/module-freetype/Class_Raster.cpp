@@ -66,6 +66,7 @@ Value Object_Raster::DoSetProp(Environment &env, Signal sig, const Symbol *pSymb
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(Raster)
 {
+	Gura_AssignValue(Raster, Value(Reference()));
 }
 
 Gura_EndModuleScope(freetype)

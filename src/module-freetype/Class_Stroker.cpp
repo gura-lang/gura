@@ -73,7 +73,7 @@ Value Object_Stroker::DoSetProp(Environment &env, Signal sig, const Symbol *pSym
 Gura_DeclareFunction(Stroker)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	//SetClassToConstruct(Gura_UserClass(Face));
+	SetClassToConstruct(Gura_UserClass(Stroker));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

@@ -66,6 +66,7 @@ Value Object_BDF_Property::DoSetProp(Environment &env, Signal sig, const Symbol 
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(BDF_Property)
 {
+	Gura_AssignValue(BDF_Property, Value(Reference()));
 }
 
 Gura_EndModuleScope(freetype)
