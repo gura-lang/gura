@@ -1,5 +1,6 @@
 #!/usr/bin/env gura
 import(markdown)
+import(wav)
 
 write(doc:markdown.document) = {
 	doc << R'''
