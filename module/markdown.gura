@@ -368,7 +368,7 @@ operator(`<<).assign(`document, `function) {|doc, func|
 	doc << '\n'
 	doc << '`' + function.getformat(func) + '`'
 	doc << '\n'
-	if (help = function.gethelp(func)) { doc << help.text }
+	if (help = function.gethelp(func, `en)) { doc << help.text }
 }
 
 classref(`document).render@html(out?:stream:w) = {

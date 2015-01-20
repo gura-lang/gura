@@ -1,5 +1,6 @@
 #!/usr/bin/env gura
 import(markdown)
+import(sdl2)
 
 write(doc:markdown.document) = {
 	doc << R'''
@@ -8,6 +9,588 @@ write(doc:markdown.document) = {
 	### Sample
 	'''
 	doc << '### Module Functions'
+	doc << [
+		sdl2.Init
+		sdl2.InitSubSystem
+		sdl2.Quit
+		sdl2.QuitSubSystem
+		sdl2.SetMainReady
+		sdl2.WasInit
+		sdl2.AddHintCallback
+		sdl2.ClearHints
+		sdl2.DelhintCallback
+		sdl2.GetHint
+		sdl2.SetHint
+		sdl2.SetHintWithPriority
+		sdl2.ClearError
+		sdl2.GetError
+		sdl2.SetError
+		sdl2.Log
+		sdl2.LogCritical
+		sdl2.LogDebug
+		sdl2.LogError
+		sdl2.LogGetOutputFunction
+		sdl2.LogGetPriority
+		sdl2.LogInfo
+		sdl2.LogMessage
+		sdl2.LogMessageV
+		sdl2.LogResetPriorities
+		sdl2.LogSetAllPriority
+		sdl2.LogSetOutputFunction
+		sdl2.LogSetPriority
+		sdl2.LogVerbose
+		sdl2.LogWarn
+		sdl2.GetAssertionHandler
+		sdl2.GetAssertionReport
+		sdl2.GetDefaultAssertionHandler
+		sdl2.ResetAssertionReport
+		sdl2.SetAssertionHandler
+		sdl2.TriggerBreakpoint
+		sdl2.assert
+		sdl2.assert_paranoid
+		sdl2.assert_release
+		sdl2.GetRevision
+		sdl2.GetRevisionNumber
+		sdl2.GetVersion
+		sdl2.VERSION
+		sdl2.VERSION_ATLEAST
+		sdl2.CreateWindow
+		sdl2.CreateWindowAndRenderer
+		sdl2.CreateWindowFrom
+		sdl2.DestroyWindow
+		sdl2.DisableScreenSaver
+		sdl2.EnableScreenSaver
+		sdl2.GL_CreateContext
+		sdl2.GL_DeleteContext
+		sdl2.GL_ExtensionSupported
+		sdl2.GL_GetAttribute
+		sdl2.GL_GetCurrentContext
+		sdl2.GL_GetCurrentWindow
+		sdl2.GL_GetDrawableSize
+		sdl2.GL_GetProcAddress
+		sdl2.GL_GetSwapInterval
+		sdl2.GL_LoadLibrary
+		sdl2.GL_MakeCurrent
+		sdl2.GL_ResetAttributes
+		sdl2.GL_SetAttribute
+		sdl2.GL_SetSwapInterval
+		sdl2.GL_SwapWindow
+		sdl2.GL_UnloadLibrary
+		sdl2.GetClosestDisplayMode
+		sdl2.GetCurrentDisplayMode
+		sdl2.GetCurrentVideoDriver
+		sdl2.GetDesktopDisplayMode
+		sdl2.GetDisplayBounds
+		sdl2.GetDisplayMode
+		sdl2.GetDisplayName
+		sdl2.GetNumDisplayModes
+		sdl2.GetNumVideoDisplays
+		sdl2.GetNumVideoDrivers
+		sdl2.GetVideoDriver
+		sdl2.GetWindowBrightness
+		sdl2.GetWindowData
+		sdl2.GetWindowDisplayIndex
+		sdl2.GetWindowDisplayMode
+		sdl2.GetWindowFlags
+		sdl2.GetWindowFromID
+		sdl2.GetWindowGammaRamp
+		sdl2.GetWindowGrab
+		sdl2.GetWindowID
+		sdl2.GetWindowMaximumSize
+		sdl2.GetWindowMinimumSize
+		sdl2.GetWindowPixelFormat
+		sdl2.GetWindowPosition
+		sdl2.GetWindowSize
+		sdl2.GetWindowSurface
+		sdl2.GetWindowTitle
+		sdl2.GetWindowWMInfo
+		sdl2.HideWindow
+		sdl2.IsScreenSaverEnabled
+		sdl2.MaximizeWindow
+		sdl2.MinimizeWindow
+		sdl2.RaiseWindow
+		sdl2.RestoreWindow
+		sdl2.SetWindowBordered
+		sdl2.SetWindowBrightness
+		sdl2.SetWindowData
+		sdl2.SetWindowDisplayMode
+		sdl2.SetWindowFullscreen
+		sdl2.SetWindowGammaRamp
+		sdl2.SetWindowGrab
+		sdl2.SetWindowHitTest
+		sdl2.SetWindowIcon
+		sdl2.SetWindowMaximumSize
+		sdl2.SetWindowMinimumSize
+		sdl2.SetWindowPosition
+		sdl2.SetWindowSize
+		sdl2.SetWindowTitle
+		sdl2.ShowMessageBox
+		sdl2.ShowSimpleMessageBox
+		sdl2.ShowWindow
+		sdl2.UpdateWindowSurface
+		sdl2.UpdateWindowSurfaceRects
+		sdl2.VideoInit
+		sdl2.VideoQuit
+		sdl2.CreateRenderer
+		sdl2.CreateSoftwareRenderer
+		sdl2.CreateTexture
+		sdl2.CreateTextureFromSurface
+		sdl2.DestroyRenderer
+		sdl2.DestroyTexture
+		sdl2.GL_BindTexture
+		sdl2.GL_UnbindTexture
+		sdl2.GetNumRenderDrivers
+		sdl2.GetRenderDrawBlendMode
+		sdl2.GetRenderDrawColor
+		sdl2.GetRenderDriverInfo
+		sdl2.GetRenderTarget
+		sdl2.GetRenderer
+		sdl2.GetRendererInfo
+		sdl2.GetRenderOutputSize
+		sdl2.GetTextureAlphaMod
+		sdl2.GetTextureBlendMode
+		sdl2.GetTextureColorMod
+		sdl2.LockTexture
+		sdl2.QueryTexture
+		sdl2.RenderClear
+		sdl2.RenderCopy
+		sdl2.RenderCopyEx
+		sdl2.RenderDrawLine
+		sdl2.RenderDrawLines
+		sdl2.RenderDrawPoint
+		sdl2.RenderDrawPoints
+		sdl2.RenderDrawRect
+		sdl2.RenderDrawRects
+		sdl2.RenderFillRect
+		sdl2.RenderFillRects
+		sdl2.RenderGetClipRect
+		sdl2.RenderGetLogicalSize
+		sdl2.RenderGetScale
+		sdl2.RenderGetViewport
+		sdl2.RenderIsClipEnabled
+		sdl2.RenderPresent
+		sdl2.RenderReadPixels
+		sdl2.RenderSetClipRect
+		sdl2.RenderSetLogicalSize
+		sdl2.RenderSetScale
+		sdl2.RenderSetViewport
+		sdl2.RenderTargetSupported
+		sdl2.SetRenderDrawBlendMode
+		sdl2.SetRenderDrawColor
+		sdl2.SetRenderTarget
+		sdl2.SetTextureAlphaMod
+		sdl2.SetTextureBlendMode
+		sdl2.SetTextureColorMod
+		sdl2.UnlockTexture
+		sdl2.UpdateTexture
+		sdl2.UpdateYUVTexture
+		sdl2.AllocFormat
+		sdl2.AllocPalette
+		sdl2.CalculateGammaRamp
+		sdl2.FreeFormat
+		sdl2.FreePalette
+		sdl2.GetPixelFormatName
+		sdl2.GetRGB
+		sdl2.GetRGBA
+		sdl2.MapRGB
+		sdl2.MapRGBA
+		sdl2.MasksToPixelFormatEnum
+		sdl2.PixelFormatEnumToMasks
+		sdl2.SetPaletteColors
+		sdl2.SetPixelFormatPalette
+		sdl2.EnclosePoints
+		sdl2.HasIntersection
+		sdl2.IntersectRect
+		sdl2.IntersectRectAndLine
+		sdl2.PointInRect
+		sdl2.RectEmpty
+		sdl2.RectEquals
+		sdl2.UnionRect
+		sdl2.BlitScaled
+		sdl2.BlitSurface
+		sdl2.ConvertPixels
+		sdl2.ConvertSurface
+		sdl2.ConvertSurfaceFormat
+		sdl2.CreateRGBSurface
+		sdl2.CreateRGBSurfaceFrom
+		sdl2.CreateRGBSurfaceFromImage
+		sdl2.FillRect
+		sdl2.FillRects
+		sdl2.FreeSurface
+		sdl2.GetClipRect
+		sdl2.GetColorKey
+		sdl2.GetSurfaceAlphaMod
+		sdl2.GetSurfaceBlendMode
+		sdl2.GetSurfaceColorMod
+		sdl2.LoadBMP
+		sdl2.LoadBMP_RW
+		sdl2.LockSurface
+		sdl2.LowerBlit
+		sdl2.LowerBlitScaled
+		sdl2.MUSTLOCK
+		sdl2.SaveBMP
+		sdl2.SaveBMP_RW
+		sdl2.SetClipRect
+		sdl2.SetColorKey
+		sdl2.SetSurfaceAlphaMod
+		sdl2.SetSurfaceBlendMode
+		sdl2.SetSurfaceColorMod
+		sdl2.SetSurfacePalette
+		sdl2.SetSurfaceRLE
+		sdl2.UnlockSurface
+		sdl2.GetClipboardText
+		sdl2.HasClipboardText
+		sdl2.SetClipboardText
+		sdl2.AddEventWatch
+		sdl2.DelEventWatch
+		sdl2.EventState
+		sdl2.FilterEvents
+		sdl2.FlushEvent
+		sdl2.FlushEvents
+		sdl2.GetEventFilter
+		sdl2.GetNumTouchDevices
+		sdl2.GetNumTouchFingers
+		sdl2.GetTouchDevice
+		sdl2.GetTouchFinger
+		sdl2.HasEvent
+		sdl2.HasEvents
+		sdl2.LoadDollarTemplates
+		sdl2.AddEvents
+		sdl2.PeekEvents
+		sdl2.GetEvents
+		sdl2.PollEvent
+		sdl2.PumpEvents
+		sdl2.PushEvent
+		sdl2.QuitRequested
+		sdl2.RecordGesture
+		sdl2.RegisterEvents
+		sdl2.SaveAllDollarTemplates
+		sdl2.SaveDollarTemplate
+		sdl2.SetEventFilter
+		sdl2.WaitEvent
+		sdl2.WaitEventTimeout
+		sdl2.CheckKeyboardState
+		sdl2.GetKeyFromName
+		sdl2.GetKeyFromScancode
+		sdl2.GetKeyName
+		sdl2.GetKeyboardFocus
+		sdl2.GetKeyboardState
+		sdl2.GetModState
+		sdl2.GetScancodeFromKey
+		sdl2.GetScancodeFromName
+		sdl2.GetScancodeName
+		sdl2.HasScreenKeyboardSupport
+		sdl2.IsScreenKeyboardShown
+		sdl2.IsTextInputActive
+		sdl2.SetModState
+		sdl2.SetTextInputRect
+		sdl2.StartTextInput
+		sdl2.StopTextInput
+		sdl2.CaptureMouse
+		sdl2.CreateColorCursor
+		sdl2.CreateCursor
+		sdl2.CreateSystemCursor
+		sdl2.FreeCursor
+		sdl2.GetCursor
+		sdl2.GetDefaultCursor
+		sdl2.GetGlobalMouseState
+		sdl2.GetMouseFocus
+		sdl2.GetMouseState
+		sdl2.GetRelativeMouseMode
+		sdl2.GetRelativeMouseState
+		sdl2.SetCursor
+		sdl2.SetRelativeMouseMode
+		sdl2.ShowCursor
+		sdl2.WarpMouseGlobal
+		sdl2.WarpMouseInWindow
+		sdl2.JoystickClose
+		sdl2.JoystickEventState
+		sdl2.JoystickGetAttached
+		sdl2.JoystickGetAxis
+		sdl2.JoystickGetBall
+		sdl2.JoystickGetButton
+		sdl2.JoystickGetDeviceGUID
+		sdl2.JoystickGetGUID
+		sdl2.JoystickGetGUIDFromString
+		sdl2.JoystickGetGUIDString
+		sdl2.JoystickGetHat
+		sdl2.JoystickInstanceID
+		sdl2.JoystickName
+		sdl2.JoystickNameForIndex
+		sdl2.JoystickNumAxes
+		sdl2.JoystickNumBalls
+		sdl2.JoystickNumButtons
+		sdl2.JoystickNumHats
+		sdl2.JoystickOpen
+		sdl2.JoystickUpdate
+		sdl2.NumJoysticks
+		sdl2.GameControllerAddMapping
+		sdl2.GameControllerAddMappingsFromFile
+		sdl2.GameControllerAddMappingsFromRW
+		sdl2.GameControllerClose
+		sdl2.GameControllerEventState
+		sdl2.GameControllerGetAttached
+		sdl2.GameControllerGetAxis
+		sdl2.GameControllerGetAxisFromString
+		sdl2.GameControllerGetBindForAxis
+		sdl2.GameControllerGetBindForButton
+		sdl2.GameControllerGetButton
+		sdl2.GameControllerGetButtonFromString
+		sdl2.GameControllerGetJoystick
+		sdl2.GameControllerGetStringForAxis
+		sdl2.GameControllerGetStringForButton
+		sdl2.GameControllerMapping
+		sdl2.GameControllerMappingForGUID
+		sdl2.GameControllerName
+		sdl2.GameControllerNameForIndex
+		sdl2.GameControllerOpen
+		sdl2.GameControllerUpdate
+		sdl2.IsGameController
+		sdl2.HapticClose
+		sdl2.HapticDestroyEffect
+		sdl2.HapticEffectSupported
+		sdl2.HapticGetEffectStatus
+		sdl2.HapticIndex
+		sdl2.HapticName
+		sdl2.HapticNewEffect
+		sdl2.HapticNumAxes
+		sdl2.HapticNumEffects
+		sdl2.HapticNumEffectsPlaying
+		sdl2.HapticOpen
+		sdl2.HapticOpenFromJoystick
+		sdl2.HapticOpenFromMouse
+		sdl2.HapticOpened
+		sdl2.HapticPause
+		sdl2.HapticQuery
+		sdl2.HapticRumbleInit
+		sdl2.HapticRumblePlay
+		sdl2.HapticRumbleStop
+		sdl2.HapticRumbleSupported
+		sdl2.HapticRunEffect
+		sdl2.HapticSetAutocenter
+		sdl2.HapticSetGain
+		sdl2.HapticStopAll
+		sdl2.HapticStopEffect
+		sdl2.HapticUnpause
+		sdl2.HapticUpdateEffect
+		sdl2.JoystickIsHaptic
+		sdl2.MouseIsHaptic
+		sdl2.NumHaptics
+		sdl2.AudioInit
+		sdl2.AudioQuit
+		sdl2.BuildAudioCVT
+		sdl2.ClearQueuedAudio
+		sdl2.CloseAudio
+		sdl2.CloseAudioDevice
+		sdl2.ConvertAudio
+		sdl2.FreeWAV
+		sdl2.GetAudioDeviceName
+		sdl2.GetAudioDeviceStatus
+		sdl2.GetAudioDriver
+		sdl2.GetAudioStatus
+		sdl2.GetCurrentAudioDriver
+		sdl2.GetNumAudioDevices
+		sdl2.GetNumAudioDrivers
+		sdl2.GetQueuedAudioSize
+		sdl2.LoadWAV
+		sdl2.LoadWAV_RW
+		sdl2.LockAudio
+		sdl2.LockAudioDevice
+		sdl2.MixAudio
+		sdl2.MixAudioFormat
+		sdl2.OpenAudio
+		sdl2.OpenAudioDevice
+		sdl2.PauseAudio
+		sdl2.PauseAudioDevice
+		sdl2.QueueAudio
+		sdl2.UnlockAudio
+		sdl2.UnlockAudioDevice
+		sdl2.AUDIO_BITSIZE
+		sdl2.AUDIO_ISFLOAT
+		sdl2.AUDIO_ISBIGENDIAN
+		sdl2.AUDIO_ISSIGNED
+		sdl2.AUDIO_ISINT
+		sdl2.AUDIO_ISLITTLEENDIAN
+		sdl2.AUDIO_ISUNSIGNED
+		sdl2.CreateThread
+		sdl2.DetachThread
+		sdl2.GetThreadID
+		sdl2.GetThreadName
+		sdl2.GetThreadPriority
+		sdl2.TLSCreate
+		sdl2.TLSGet
+		sdl2.TLSSet
+		sdl2.ThreadID
+		sdl2.WaitThread
+		sdl2.CondBroadcast
+		sdl2.CondSignal
+		sdl2.CondWait
+		sdl2.CondWaitTimeout
+		sdl2.CreateCond
+		sdl2.CreateMutex
+		sdl2.CreateSemaphore
+		sdl2.DestroyCond
+		sdl2.DestroyMutex
+		sdl2.DestroySemaphore
+		sdl2.LockMutex
+		sdl2.SemPost
+		sdl2.SemTryWait
+		sdl2.SemValue
+		sdl2.SemWait
+		sdl2.SemWaitTimeout
+		sdl2.TryLockMutex
+		sdl2.UnlockMutex
+		sdl2.AtomicAdd
+		sdl2.AtomicCAS
+		sdl2.AtomicCASPtr
+		sdl2.AtomicDecRef
+		sdl2.AtomicGet
+		sdl2.AtomicGetPtr
+		sdl2.AtomicIncRef
+		sdl2.AtomicLock
+		sdl2.AtomicSet
+		sdl2.AtomicSetPtr
+		sdl2.AtomicTryLock
+		sdl2.AtomicUnlock
+		sdl2.CompilerBarrier
+		sdl2.AddTimer
+		sdl2.Delay
+		sdl2.GetPerformanceCounter
+		sdl2.GetPerformanceFrequency
+		sdl2.GetTicks
+		sdl2.RemoveTimer
+		sdl2.TICKS_PASSED
+		sdl2.GetBasePath
+		sdl2.GetPrefPath
+		sdl2.AllocRW
+		sdl2.FreeRW
+		sdl2.RWFromConstMem
+		sdl2.RWFromFP
+		sdl2.RWFromFile
+		sdl2.RWFromMem
+		sdl2.RWclose
+		sdl2.RWread
+		sdl2.RWseek
+		sdl2.RWtell
+		sdl2.RWwrite
+		sdl2.ReadBE16
+		sdl2.ReadBE32
+		sdl2.ReadBE64
+		sdl2.ReadLE16
+		sdl2.ReadLE32
+		sdl2.ReadLE64
+		sdl2.WriteBE16
+		sdl2.WriteBE32
+		sdl2.WriteBE64
+		sdl2.WriteLE16
+		sdl2.WriteLE32
+		sdl2.WriteLE64
+		sdl2.GetPlatform
+		sdl2.GetCPUCacheLineSize
+		sdl2.GetCPUCount
+		sdl2.GetSystemRAM
+		sdl2.Has3DNow
+		sdl2.HasAVX
+		sdl2.HasAVX2
+		sdl2.HasAltiVec
+		sdl2.HasMMX
+		sdl2.HasRDTSC
+		sdl2.HasSSE
+		sdl2.HasSSE2
+		sdl2.HasSSE3
+		sdl2.HasSSE41
+		sdl2.HasSSE42
+		sdl2.Swap16
+		sdl2.Swap32
+		sdl2.Swap64
+		sdl2.SwapBE16
+		sdl2.SwapBE32
+		sdl2.SwapBE64
+		sdl2.SwapFloat
+		sdl2.SwapFloatBE
+		sdl2.SwapFloatLE
+		sdl2.SwapLE16
+		sdl2.SwapLE32
+		sdl2.SwapLE64
+		sdl2.MostSignificantBitIndex32
+		sdl2.GetPowerInfo
+		sdl2.AndroidGetActivity
+		sdl2.AndroidGetExternalStoragePath
+		sdl2.AndroidGetExternalStorageState
+		sdl2.AndroidGetInternalStoragePath
+		sdl2.AndroidGetJNIEnv
+		sdl2.acos
+	]
+	doc << '### sdl2.Window Class'
+	doc << [
+	]
+	doc << '### sdl2.Renderer Class'
+	doc << [
+	]
+	doc << '### sdl2.Texture Class'
+	doc << [
+	]
+	doc << '### sdl2.Event Class'
+	doc << [
+	]
+	doc << '### sdl2.Point Class'
+	doc << [
+	]
+	doc << '### sdl2.Rect Class'
+	doc << [
+	]
+	doc << '### sdl2.Color Class'
+	doc << [
+	]
+	doc << '### sdl2.Palette Class'
+	doc << [
+	]
+	doc << '### sdl2.PixelFormat Class'
+	doc << [
+	]
+	doc << '### sdl2.Keysym Class'
+	doc << [
+	]
+	doc << '### sdl2.Cursor Class'
+	doc << [
+	]
+	doc << '### sdl2.Joystick Class'
+	doc << [
+	]
+	doc << '### sdl2.JoystickGUID Class'
+	doc << [
+	]
+	doc << '### sdl2.GameController Class'
+	doc << [
+	]
+	doc << '### sdl2.GameControllerButtonBind Class'
+	doc << [
+	]
+	doc << '### sdl2.AudioCVT Class'
+	doc << [
+	]
+	doc << '### sdl2.AudioSpec Class'
+	doc << [
+	]
+	doc << '### sdl2.Wav Class'
+	doc << [
+	]
+	doc << '### sdl2.RendererInfo Class'
+	doc << [
+	]
+	doc << '### sdl2.DisplayMode Class'
+	doc << [
+	]
+	doc << '### sdl2.GLContext Class'
+	doc << [
+	]
+	doc << '### sdl2.HapticEffect Class'
+	doc << [
+	]
+	doc << '### sdl2.Surface Class'
+	doc << [
+	]
+	doc << '### sdl2.Finger Class'
 	doc << [
 	]
 	doc

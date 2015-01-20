@@ -1,5 +1,6 @@
 #!/usr/bin/env gura
 import(markdown)
+import(sqlite3)
 
 write(doc:markdown.document) = {
 	doc << R'''
@@ -9,6 +10,15 @@ write(doc:markdown.document) = {
 	'''
 	doc << '### Module Functions'
 	doc << [
+	]
+	doc << '### sqlite3.db Class'
+	doc << [
+		sqlite3.db
+		sqlite3.db.close
+		sqlite3.db.exec
+		sqlite3.db.getcolnames
+		sqlite3.db.query
+		sqlite3.db.transaction
 	]
 	doc
 }

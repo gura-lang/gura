@@ -190,6 +190,22 @@ void Object_db::IteratorQuery::GatherFollower(Environment::Frame *pFrame, Enviro
 //-----------------------------------------------------------------------------
 // Gura interfaces for sqlite3.db
 //-----------------------------------------------------------------------------
+// sqlite3.db#close()
+Gura_DeclareMethod(db, close)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Shuts down the connection with an sqlite3 server.");
+}
+
+Gura_ImplementMethod(db, close)
+{
+	Object_db *pObj = Object_db::GetThisObj(args);
+	pObj->Close();
+	return Value::Null;
+}
+
 // sqlite3.db#exec(sql:string):map
 Gura_DeclareMethod(db, exec)
 {
@@ -204,27 +220,6 @@ Gura_ImplementMethod(db, exec)
 {
 	Object_db *pObj = Object_db::GetThisObj(args);
 	return pObj->Exec(sig, args.GetString(0), args);
-}
-
-// sqlite3.db#query(sql:string):map {block?}
-Gura_DeclareMethod(db, query)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "sql", VTYPE_string);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Executes an SQL statement and returns the result as an iterator.\n"
-		"You should use query() instead of exec() when it's likely that you get a large\n"
-		"size of data as the result\n");
-}
-
-Gura_ImplementMethod(db, query)
-{
-	Object_db *pObj = Object_db::GetThisObj(args);
-	Iterator *pIterator = pObj->Query(sig, args.GetString(0));
-	if (sig.IsSignalled()) return Value::Null;
-	return ReturnIterator(env, sig, args, pIterator);
 }
 
 // sqlite3.db#getcolnames(sql:string):map
@@ -244,6 +239,27 @@ Gura_ImplementMethod(db, getcolnames)
 	return pObj->GetColumnNames(sig, args.GetString(0));
 }
 
+// sqlite3.db#query(sql:string):map {block?}
+Gura_DeclareMethod(db, query)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "sql", VTYPE_string);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Executes an SQL statement and returns the result as an iterator.\n"
+		"You should use `sqlite3.db#query()` instead of `sqlite3.db#exec()`\n"
+		"when it's likely that you get a large size of data as the result.\n");
+}
+
+Gura_ImplementMethod(db, query)
+{
+	Object_db *pObj = Object_db::GetThisObj(args);
+	Iterator *pIterator = pObj->Query(sig, args.GetString(0));
+	if (sig.IsSignalled()) return Value::Null;
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
 // sqlite3.db#transaction() {block}
 Gura_DeclareMethod(db, transaction)
 {
@@ -251,10 +267,11 @@ Gura_DeclareMethod(db, transaction)
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Executes the block within a transaction. The process is like follows:\n"
-		"1.Executes a sqlit3 command 'BEGIN TRANSACTION'\n"
-		"2.Executes code in the block\n"
-		"3.Executes a sqlite3 command 'END TRANSACTION'");
+		"Executes the block within a transaction. The process is like following:\n"
+		"\n"
+		"1. Executes a sqlit3 command 'BEGIN TRANSACTION'\n"
+		"2. Executes code in the block\n"
+		"3. Executes a sqlite3 command 'END TRANSACTION'");
 }
 
 Gura_ImplementMethod(db, transaction)
@@ -272,30 +289,14 @@ Gura_ImplementMethod(db, transaction)
 	return result;
 }
 
-// sqlite3.db#close()
-Gura_DeclareMethod(db, close)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Shuts down the connection with an sqlite3 server.");
-}
-
-Gura_ImplementMethod(db, close)
-{
-	Object_db *pObj = Object_db::GetThisObj(args);
-	pObj->Close();
-	return Value::Null;
-}
-
 // assignment
 Gura_ImplementUserClass(db)
 {
-	Gura_AssignMethod(db, exec);
-	Gura_AssignMethod(db, query);
-	Gura_AssignMethod(db, getcolnames);
-	Gura_AssignMethod(db, transaction);
 	Gura_AssignMethod(db, close);
+	Gura_AssignMethod(db, exec);
+	Gura_AssignMethod(db, getcolnames);
+	Gura_AssignMethod(db, query);
+	Gura_AssignMethod(db, transaction);
 }
 
 //-----------------------------------------------------------------------------
@@ -314,8 +315,9 @@ Gura_DeclareFunction(db)
 		"If block is not specified, it returns a connection handle with an sqlite3 server.\n"
 		"If block is specified, it executes the program in the block with a connection\n"
 		"handle as a block parameter, and returns the result afterwards. The connection\n"
-		"handle will automatically closed when the block finishes\n"
-		"Block parameter format: |sql:sqlite3|");
+		"handle will automatically closed when the block finishes.\n"
+		"\n"
+		"Block parameter format: `|db:sqlite3|`");
 }
 
 Gura_ImplementFunction(db)
