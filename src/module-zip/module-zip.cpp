@@ -104,7 +104,8 @@ Gura_DeclareMethod(reader, entry)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Seeks entry in the zip file that matches the specified name\n"
+		"and returns the stream instance.");
 }
 
 Gura_ImplementMethod(reader, entry)
@@ -142,7 +143,7 @@ Gura_DeclareMethod(reader, entries)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that returns stream instances for each entry in the zip file.");
 }
 
 Gura_ImplementMethod(reader, entries)
@@ -380,7 +381,15 @@ Gura_DeclareMethod(writer, add)
 	DeclareArg(env, "compression", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Reads data from `stream` and adds it to the zip file.\n"
+		"Entry name is decided by the file name associated with the stream\n"
+		"unless it's specified by argument `filename`.\n"
+		"\n"
+		"Argument `compression` specifies the compression method and takes one of the following symbol.\n"
+		"\n"
+		"- `store`\n"
+		"- `deflate`\n"
+		"- `bzip2`\n");
 }
 
 Gura_ImplementMethod(writer, add)
@@ -415,7 +424,7 @@ Gura_DeclareMethod(writer, close)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Closes the zip file after flushing cached data.");
 }
 
 Gura_ImplementMethod(writer, close)
@@ -489,7 +498,7 @@ Gura_DeclareFunction(reader)
 	SetClassToConstruct(Gura_UserClass(reader));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates `zip.reader` instance from the stream.");
 }
 
 Gura_ImplementFunction(reader)
@@ -511,7 +520,13 @@ Gura_DeclareFunction(writer)
 	SetClassToConstruct(Gura_UserClass(writer));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates `zip.writer` instance from the stream.\n"
+		"\n"
+		"Argument `compression` specifies the compression method and takes one of the following symbol.\n"
+		"\n"
+		"- `store`\n"
+		"- `deflate`\n"
+		"- `bzip2`\n");
 }
 
 Gura_ImplementFunction(writer)

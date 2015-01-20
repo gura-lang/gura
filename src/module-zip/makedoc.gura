@@ -6,7 +6,26 @@ write(doc:markdown.document) = {
 	doc << R'''
 	## zip Module
 	### Abstract
+
+	
+
 	### Sample
+	#### Creates Archive File
+
+	    import(zip)
+	    zip.writer('hoge.zip') {|w|
+	        w.add('file1.txt')
+	        w.add('file2.txt')
+	        w.add('file3.txt')
+	        w.close()
+	    }		
+		
+	#### Reads Entries from Archive File
+
+	    import(zip)
+	    zip.reader('hoge.zip') {|r|
+	        println(r.entries():*stat:*filename)
+	    }
 	'''
 	doc << '### Module Functions'
 	doc << [
