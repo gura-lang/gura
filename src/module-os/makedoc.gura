@@ -9,6 +9,16 @@ write(doc:markdown.document) = {
 	'''
 	doc << '### Module Functions'
 	doc << [
+		os.clock
+		os.exec
+		os.fromnative
+		os.getenv
+		os.putenv
+		os.redirect
+		os.sleep
+		os.symlink
+		os.tonative
+		os.unsetenv
 	]
 	doc
 }

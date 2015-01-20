@@ -1,5 +1,6 @@
 #!/usr/bin/env gura
 import(markdown)
+import(png)
 
 write(doc:markdown.document) = {
 	doc << R'''
@@ -9,6 +10,11 @@ write(doc:markdown.document) = {
 	'''
 	doc << '### Module Functions'
 	doc << [
+	]
+	doc << '### Extension of image Class'
+	doc << [
+		image.read@png
+		image.write@png
 	]
 	doc
 }
