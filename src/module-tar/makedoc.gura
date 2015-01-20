@@ -1,5 +1,6 @@
 #!/usr/bin/env gura
 import(markdown)
+import(tar)
 
 write(doc:markdown.document) = {
 	doc << R'''
@@ -7,8 +8,16 @@ write(doc:markdown.document) = {
 	### Abstract
 	### Sample
 	'''
-	doc << '### Module Functions'
+	doc << '### tar.reader Class'
 	doc << [
+		tar.reader
+		tar.reader.entries
+	]
+	doc << '### tar.writer Class'
+	doc << [
+		tar.writer
+		tar.writer.add
+		tar.writer.close
 	]
 	doc
 }

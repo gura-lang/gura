@@ -7,8 +7,33 @@ write(doc:markdown.document) = {
 	### Abstract
 	### Sample
 	'''
+	doc << '### Module Variables'
+	doc << R'''
+	- `sys.argv`
+	- `sys.path`
+	- `sys.maindir`
+	- `sys.version`
+	- `sys.banner`
+	- `sys.build`
+	- `sys.platform`
+	- `sys.ps1`
+	- `sys.ps2`
+	- `sys.langcode`
+	- `sys.executable`
+	- `sys.incdir`
+	- `sys.libdir`
+	- `sys.datadir`
+	- `sys.moddir`
+	- `sys.localdir`
+	- `sys.appdir`
+	- `sys.cfgdir`
+	- `sys.workdir`
+	'''
 	doc << '### Module Functions'
 	doc << [
+		sys.echo
+		sys.exit
+		sys.required_version
 	]
 	doc
 }
