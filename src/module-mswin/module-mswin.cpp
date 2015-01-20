@@ -254,6 +254,7 @@ Gura_ImplementMethod(regkey, enumvalue)
 // implementation of class RegKey
 Gura_ImplementUserClass(regkey)
 {
+	Gura_AssignValue(regkey, Value(Reference()));
 	Gura_AssignMethod(regkey, createkey);
 	Gura_AssignMethod(regkey, openkey);
 	Gura_AssignMethod(regkey, deletekey);

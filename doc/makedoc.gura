@@ -28,7 +28,7 @@ baseNames = [
 	'math'
 	'midi'
 	'msico'
-	'mswin'
+	//'mswin'
 	'mysql'
 	'opengl'
 	'os'

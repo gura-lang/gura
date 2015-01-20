@@ -1,5 +1,6 @@
 #!/usr/bin/env gura
 import(markdown)
+import(mswin)
 
 write(doc:markdown.document) = {
 	doc << R'''
@@ -9,6 +10,23 @@ write(doc:markdown.document) = {
 	'''
 	doc << '### Module Functions'
 	doc << [
+		GetACP
+	]
+	doc << '### mswin.ole Class'
+	doc << [
+		mswin.ole
+	]
+	doc << '### mswin.regkey Class'
+	doc << [
+		mswin.regkey
+		mswin.regkey.createkey
+		mswin.regkey.openkey
+		mswin.regkey.deletekey
+		mswin.regkey.enumkey
+		mswin.regkey.setvalue
+		mswin.regkey.deletevalue
+		mswin.regkey.queryvalue
+		mswin.regkey.enumvalue
 	]
 	doc
 }
