@@ -288,6 +288,28 @@ Value Object_interp::InvokeTclThread(Environment &env, Signal sig,
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_interp
 //-----------------------------------------------------------------------------
+// tcl.interp#command(func:function)
+Gura_DeclareMethod(interp, command)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "func", VTYPE_function);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"");
+}
+
+Gura_ImplementMethod(interp, command)
+{
+	Object_interp *pThis = Object_interp::GetThisObj(args);
+	Tcl_Interp *interp = pThis->GetInterp();
+	Handler *pHandler = new Handler(Object_interp::Reference(pThis),
+			Object_function::Reference(Object_function::GetObject(args, 0)), sig);
+	String cmdName = pThis->NewCommandName();
+	::Tcl_CreateCommand(interp, cmdName.c_str(), Object_interp::CommandProc,
+									pHandler, Object_interp::CommandDeleteProc);
+	return Value(cmdName);
+}
+
 // tcl.interp#eval(objs+)
 Gura_DeclareMethod(interp, eval)
 {
@@ -334,6 +356,23 @@ Gura_ImplementMethod(interp, evalscript)
 	return pThis->ConvFromTclObj(env, sig, ::Tcl_GetObjResult(interp));
 }
 
+// tcl.interp#timer()
+Gura_DeclareMethod(interp, timer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"");
+}
+
+Gura_ImplementMethod(interp, timer)
+{
+	Object_interp *pThis = Object_interp::GetThisObj(args);
+	Object_interp *pObjInterp = Object_interp::Reference(pThis);
+	Object_timer *pObjTimer = new Object_timer(pObjInterp);
+	return Value(pObjTimer);
+}
+
 // tcl.interp#variable(value?, varName?:string)
 Gura_DeclareMethod(interp, variable)
 {
@@ -362,54 +401,14 @@ Gura_ImplementMethod(interp, variable)
 	return Value(pObjVariable);
 }
 
-// tcl.interp#command(func:function)
-Gura_DeclareMethod(interp, command)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "func", VTYPE_function);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"");
-}
-
-Gura_ImplementMethod(interp, command)
-{
-	Object_interp *pThis = Object_interp::GetThisObj(args);
-	Tcl_Interp *interp = pThis->GetInterp();
-	Handler *pHandler = new Handler(Object_interp::Reference(pThis),
-			Object_function::Reference(Object_function::GetObject(args, 0)), sig);
-	String cmdName = pThis->NewCommandName();
-	::Tcl_CreateCommand(interp, cmdName.c_str(), Object_interp::CommandProc,
-									pHandler, Object_interp::CommandDeleteProc);
-	return Value(cmdName);
-}
-
-// tcl.interp#timer()
-Gura_DeclareMethod(interp, timer)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"");
-}
-
-Gura_ImplementMethod(interp, timer)
-{
-	Object_interp *pThis = Object_interp::GetThisObj(args);
-	Object_interp *pObjInterp = Object_interp::Reference(pThis);
-	Object_timer *pObjTimer = new Object_timer(pObjInterp);
-	return Value(pObjTimer);
-}
-
-
 // implementation of class Interp
 Gura_ImplementUserClass(interp)
 {
+	Gura_AssignMethod(interp, command);
 	Gura_AssignMethod(interp, eval);
 	Gura_AssignMethod(interp, evalscript);
-	Gura_AssignMethod(interp, variable);
-	Gura_AssignMethod(interp, command);
 	Gura_AssignMethod(interp, timer);
+	Gura_AssignMethod(interp, variable);
 }
 
 //-----------------------------------------------------------------------------
@@ -573,6 +572,7 @@ Value Object_variable::Get(Environment &env, Signal sig)
 // implementation of class Variable
 Gura_ImplementUserClass(variable)
 {
+	Gura_AssignValue(variable, Value(Reference()));
 }
 
 //-----------------------------------------------------------------------------
@@ -649,6 +649,23 @@ void Object_timer::TimerProcStub(ClientData clientData)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_timer
 //-----------------------------------------------------------------------------
+// tcl.timer#cancel()
+Gura_DeclareMethod(timer, cancel)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"");
+}
+
+Gura_ImplementMethod(timer, cancel)
+{
+	Object_timer *pThis = Object_timer::GetThisObj(args);
+	pThis->Cancel();
+	Object::Delete(pThis);
+	return Value::Null;
+}
+
 // tcl.timer#start(msec:number, msecCont?:number, count?:number):reduce {block}
 Gura_DeclareMethod(timer, start)
 {
@@ -674,28 +691,12 @@ Gura_ImplementMethod(timer, start)
 	return args.GetThis();
 }
 
-// tcl.timer#cancel()
-Gura_DeclareMethod(timer, cancel)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"");
-}
-
-Gura_ImplementMethod(timer, cancel)
-{
-	Object_timer *pThis = Object_timer::GetThisObj(args);
-	pThis->Cancel();
-	Object::Delete(pThis);
-	return Value::Null;
-}
-
 // implementation of class timer
 Gura_ImplementUserClass(timer)
 {
-	Gura_AssignMethod(timer, start);
+	Gura_AssignValue(variable, Value(Reference()));
 	Gura_AssignMethod(timer, cancel);
+	Gura_AssignMethod(timer, start);
 }
 
 //-----------------------------------------------------------------------------
@@ -790,6 +791,7 @@ Gura_ImplementMethod(image, write_tcl)
 Gura_DeclareFunction(interp)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(interp));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"");
