@@ -212,7 +212,11 @@ Gura_DeclareFunction(rands)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that returns random numbers between `0` and `range - 1`.\n"
+		"If argument `range` is not specified, it generates random numbers in a range of [0, 1).\n"
+		"\n"
+		"In default, the created iterator infinitely generates random numbers.\n"
+		"The argument `num` specifies how many numbers should be generated.\n");
 }
 
 Gura_ImplementFunction(rands)

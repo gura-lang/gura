@@ -2,6 +2,7 @@
 import(markdown)
 
 write(doc:markdown.document) = {
+	doc << '## Built-in Functions'
 	doc << '### Formatting and Printing of Text'
 	doc << [
 		format

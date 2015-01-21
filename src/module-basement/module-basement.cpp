@@ -1577,7 +1577,8 @@ Gura_DeclareFunction(rand)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a random number between `0` and `range - 1`.\n"
+		"If argument `range` is not specified, it generates random numbers in a range of [0, 1).");
 }
 
 Gura_ImplementFunction(rand)
@@ -1593,11 +1594,11 @@ Gura_ImplementFunction(rand)
 // randseed(seed:number):void
 Gura_DeclareFunction(randseed)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "seed", VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Initializes random seed with a specified number.");
 }
 
 Gura_ImplementFunction(randseed)
@@ -1618,7 +1619,12 @@ Gura_DeclareFunction(dir)
 	//DeclareAttr(Gura_Symbol(nosort));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a symbol list of variables and functions\n"
+		"that are assigned in the environment of `obj`.\n"
+		"\n"
+		"In default, when the `obj` is an instance of a class,\n"
+		"it also searches symbols assigned in the class that it belongs to and its parent classes.\n"
+		"Specifying attribute `:noesc` avoids that behavior.\n");
 }
 
 Gura_ImplementFunction(dir)
@@ -1659,7 +1665,12 @@ Gura_DeclareFunction(dirtype)
 	//DeclareAttr(Gura_Symbol(nosort));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a symbol list of value types\n"
+		"that are assigned in the environment of `obj`.\n"
+		"\n"
+		"In default, when the `obj` is an instance of a class,\n"
+		"it also searches symbols assigned in the class that it belongs to and its parent classes.\n"
+		"Specifying attribute `:noesc` inhibits avoids behavior.\n");
 }
 
 Gura_ImplementFunction(dirtype)
