@@ -110,7 +110,7 @@ Gura_ImplementMethod(stream, reader_base64)
 	return Value(new Object_stream(env, pStream.release()));
 }
 
-// stream#writer_base64(linelen:number => 76)
+// stream#writer@base64(linelen:number => 76)
 Gura_DeclareMethodAlias(stream, writer_base64, "writer@base64")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
