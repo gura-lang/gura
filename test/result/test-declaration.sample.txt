@@ -537,7 +537,7 @@ iterator
   iterator#filter(criteria?) {block?}
   iterator#find(criteria?):[index]
   iterator#flat():[bfs,dfs] {block?}
-  iterator#fold(n:number):[iteritem] {block?}
+  iterator#fold(n:number, nstep?:number):[iteritem,neat] {block?}
   iterator#format(format:string) {block?}
   iterator#head(n:number):map {block?}
   iterator#isinfinite()
@@ -593,7 +593,7 @@ list
   list#find(criteria?):[index]
   list#first()
   list#flat():[bfs,dfs]
-  list#fold(n:number, nstep?:number):[iteritem] {block?}
+  list#fold(n:number, nstep?:number):[iteritem,neat] {block?}
   list#format(format:string):map
   list#get(index:number):map:flat
   list#head(n:number):map {block?}

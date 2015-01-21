@@ -344,7 +344,8 @@ void Object_list::IteratorPingpong::GatherFollower(Environment::Frame *pFrame, E
 Object_list::IteratorFold::IteratorFold(Object_list *pObj, size_t cntPerFold,
 										size_t cntStep, bool listItemFlag, bool neatFlag) :
 		Iterator(false), _pObj(pObj), _offset(0),
-		_cntPerFold(cntPerFold), _cntStep(cntStep), _listItemFlag(listItemFlag), _neatFlag(neatFlag)
+		_cntPerFold(cntPerFold), _cntStep(cntStep),
+		_listItemFlag(listItemFlag), _neatFlag(neatFlag), _doneFlag(false)
 {
 }
 
@@ -359,9 +360,10 @@ Iterator *Object_list::IteratorFold::GetSource()
 
 bool Object_list::IteratorFold::DoNext(Environment &env, Signal sig, Value &value)
 {
+	if (_doneFlag) return false;
 	ValueList &valList = _pObj->GetList();
 	if (_offset >= valList.size()) return false;
-	if (_neatFlag && (valList.size() - _offset < _cntPerFold)) return false;
+	if (_neatFlag && (_offset + _cntPerFold) > valList.size()) return false;
 	AutoPtr<Iterator> pIterator(new IteratorEach(
 					Object_list::Reference(_pObj.get()), _offset, _cntPerFold));
 	if (_listItemFlag) {
@@ -370,6 +372,7 @@ bool Object_list::IteratorFold::DoNext(Environment &env, Signal sig, Value &valu
 	} else {
 		value = Value(new Object_iterator(env, pIterator.release()));
 	}
+	if (_offset + _cntPerFold >= valList.size()) _doneFlag = true;
 	_offset += _cntStep;
 	return true;
 }

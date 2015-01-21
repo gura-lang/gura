@@ -751,3 +751,27 @@ testcase('iterator#until() and iterator#while() always return finite iterators')
 	tester(`x.until(x < 100).isinfinite())
 	tester(`x.while(x < 100).isinfinite())
 }
+test_fold(x) = {
+	tester(`x.fold(1).join(', '))
+	tester(`x.fold(5).join(', '))
+	tester(`x.fold(8).join(', '))
+	tester(`(x.fold(1):neat).join(', '))
+	tester(`(x.fold(5):neat).join(', '))
+	tester(`(x.fold(8):neat).join(', '))
+	tester(`x.fold(5, 1).join(', '))
+	tester(`x.fold(5, 2).join(', '))
+	tester(`x.fold(5, 3).join(', '))
+	tester(`x.fold(5, 4).join(', '))
+	tester(`x.fold(5, 5).join(', '))
+	tester(`(x.fold(5, 1):neat).join(', '))
+	tester(`(x.fold(5, 2):neat).join(', '))
+	tester(`(x.fold(5, 3):neat).join(', '))
+	tester(`(x.fold(5, 4):neat).join(', '))
+	tester(`(x.fold(5, 5):neat).join(', '))
+}
+testcase('list#fold') {
+	test_fold([0..19])
+}
+testcase('iterator#fold') {
+	test_fold([0..19].each())
+}

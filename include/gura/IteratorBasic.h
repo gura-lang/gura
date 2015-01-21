@@ -776,12 +776,13 @@ private:
 	bool _listItemFlag;
 	bool _neatFlag;
 	ValueList _valListRemain;
+	bool _doneFlag;
 public:
 	inline Iterator_Fold(Iterator *pIterator, size_t cnt,
 						 size_t cntStep, bool listItemFlag, bool neatFlag) :
 			Iterator(pIterator->IsInfinite()),
 			_pIterator(pIterator), _cnt(cnt), _cntStep(cntStep),
-			_listItemFlag(listItemFlag), _neatFlag(neatFlag) {}
+			_listItemFlag(listItemFlag), _neatFlag(neatFlag), _doneFlag(false) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString() const;

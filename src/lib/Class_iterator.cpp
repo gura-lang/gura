@@ -642,9 +642,9 @@ Gura_DeclareMethod(iterator, fold)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareArg(env, "nstep", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(iteritem));
 	DeclareAttr(Gura_Symbol(neat));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");

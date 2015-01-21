@@ -1743,31 +1743,46 @@ Iterator *Iterator_Fold::GetSource()
 
 bool Iterator_Fold::DoNext(Environment &env, Signal sig, Value &value)
 {
+	if (_doneFlag) return false;
 	Value valueElem;
 	Value valueNext;
 	ValueList &valList = valueNext.InitAsList(env);
+	valList.reserve(_cnt);
 	if (_cntStep < _cnt) {
 		foreach (ValueList, pValue, _valListRemain) {
 			valList.push_back(*pValue);
 		}
 		_valListRemain.clear();
+		bool newElemFlag = false;
 		while (valList.size() < _cnt) {
-			if (!_pIterator->Next(env, sig, valueElem)) break;
+			if (!_pIterator->Next(env, sig, valueElem)) {
+				_doneFlag = true;
+				break;
+			}
+			newElemFlag = true;
 			valList.push_back(valueElem);
 		}
-		if (sig.IsSignalled()) return false;
-		for (ValueList::iterator pValue = valList.begin() + _cntStep;
+		if (!newElemFlag || sig.IsSignalled()) return false;
+		if (valList.size() > _cntStep) {
+			for (ValueList::iterator pValue = valList.begin() + _cntStep;
 			 						pValue != valList.end(); pValue++) {
-			_valListRemain.push_back(*pValue);
+				_valListRemain.push_back(*pValue);
+			}
 		}
 	} else {
 		while (valList.size() < _cnt) {
-			if (!_pIterator->Next(env, sig, valueElem)) break;
+			if (!_pIterator->Next(env, sig, valueElem)) {
+				_doneFlag = true;
+				break;
+			}
 			valList.push_back(valueElem);
 		}
 		if (sig.IsSignalled()) return false;
 		for (size_t n = _cntStep - _cnt; n > 0; n--) {
-			if (!_pIterator->Next(env, sig, valueElem)) break;
+			if (!_pIterator->Next(env, sig, valueElem)) {
+				_doneFlag = true;
+				break;
+			}
 		}
 		if (sig.IsSignalled()) return false;
 	}
