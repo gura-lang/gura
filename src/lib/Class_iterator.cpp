@@ -636,13 +636,15 @@ Gura_ImplementMethod(iterator, flat)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// iterator#fold(n:number):[iteritem] {block?}
+// iterator#fold(n:number, nstep?:number):[iteritem,neat] {block?}
 Gura_DeclareMethod(iterator, fold)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number);
+	DeclareArg(env, "nstep", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(iteritem));
+	DeclareAttr(Gura_Symbol(neat));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -651,9 +653,12 @@ Gura_DeclareMethod(iterator, fold)
 Gura_ImplementMethod(iterator, fold)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
-	int cnt = static_cast<int>(args.GetNumber(0));
+	size_t cnt = args.GetSizeT(0);
+	size_t cntStep = args.Is_number(1)? args.GetSizeT(1) : cnt;
 	bool listItemFlag = !args.IsSet(Gura_Symbol(iteritem));
-	Iterator *pIterator = new Iterator_Fold(pThis->GetIterator()->Clone(), cnt, listItemFlag);
+	bool neatFlag = args.IsSet(Gura_Symbol(neat));
+	Iterator *pIterator = new Iterator_Fold(pThis->GetIterator()->Clone(),
+											cnt, cntStep, listItemFlag, neatFlag);
 	return ReturnIterator(env, sig, args, pIterator);
 }
 

@@ -1743,15 +1743,42 @@ Iterator *Iterator_Fold::GetSource()
 
 bool Iterator_Fold::DoNext(Environment &env, Signal sig, Value &value)
 {
+	Value valueElem;
 	Value valueNext;
-	if (!_pIterator->Next(env, sig, valueNext)) return false;
-	AutoPtr<Iterator> pIterator(new Iterator_FoldSeg(
-							Reference(_pIterator.get()), _cnt, valueNext));
-	if (_listItemFlag) {
-		bool excludeNilFlag = false;
-		value = pIterator->ToList(env, sig, false, excludeNilFlag);
+	ValueList &valList = valueNext.InitAsList(env);
+	if (_cntStep < _cnt) {
+		foreach (ValueList, pValue, _valListRemain) {
+			valList.push_back(*pValue);
+		}
+		_valListRemain.clear();
+		while (valList.size() < _cnt) {
+			if (!_pIterator->Next(env, sig, valueElem)) break;
+			valList.push_back(valueElem);
+		}
+		if (sig.IsSignalled()) return false;
+		for (ValueList::iterator pValue = valList.begin() + _cntStep;
+			 						pValue != valList.end(); pValue++) {
+			_valListRemain.push_back(*pValue);
+		}
 	} else {
-		value = Value(new Object_iterator(env, pIterator.release()));
+		while (valList.size() < _cnt) {
+			if (!_pIterator->Next(env, sig, valueElem)) break;
+			valList.push_back(valueElem);
+		}
+		if (sig.IsSignalled()) return false;
+		for (size_t n = _cntStep - _cnt; n > 0; n--) {
+			if (!_pIterator->Next(env, sig, valueElem)) break;
+		}
+		if (sig.IsSignalled()) return false;
+	}
+	if (valList.empty() || (_neatFlag && valList.size() < _cnt)) {
+		return false;
+	} else if (_listItemFlag) {
+		value = valueNext;
+	} else {
+		Iterator *pIterator = new Object_list::IteratorEach(
+							Object_list::GetObject(valueNext)->Reference());
+		value = Value(new Object_iterator(env, pIterator));
 	}
 	return true;
 }
@@ -1766,39 +1793,6 @@ String Iterator_Fold::ToString() const
 }
 
 void Iterator_Fold::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
-{
-	if (_cntRef == 1) {
-		_pIterator->GatherFollower(pFrame, envSet);
-	}
-}
-
-//-----------------------------------------------------------------------------
-// Iterator_FoldSeg
-//-----------------------------------------------------------------------------
-Iterator *Iterator_FoldSeg::GetSource()
-{
-	return _pIterator.get();
-}
-
-bool Iterator_FoldSeg::DoNext(Environment &env, Signal sig, Value &value)
-{
-	if (_cnt == 0) return false;
-	value = _valueNext;
-	_cnt--;
-	if (_cnt > 0 && !_pIterator->Next(env, sig, _valueNext)) _cnt = 0;
-	return true;
-}
-
-String Iterator_FoldSeg::ToString() const
-{
-	String rtn;
-	rtn += "fold_seg(";
-	rtn += _pIterator->ToString();
-	rtn += ")";
-	return rtn;
-}
-
-void Iterator_FoldSeg::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
 		_pIterator->GatherFollower(pFrame, envSet);

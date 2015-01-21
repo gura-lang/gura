@@ -105,8 +105,10 @@ public:
 		size_t _cntPerFold;
 		size_t _cntStep;
 		bool _listItemFlag;
+		bool _neatFlag;
 	public:
-		IteratorFold(Object_list *pObj, size_t cntPerFold, size_t cntStep, bool listItemFlag);
+		IteratorFold(Object_list *pObj, size_t cntPerFold,
+					 size_t cntStep, bool listItemFlag, bool neatFlag);
 		virtual ~IteratorFold();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);

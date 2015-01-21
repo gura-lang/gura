@@ -771,30 +771,17 @@ public:
 class GURA_DLLDECLARE Iterator_Fold : public Iterator {
 private:
 	AutoPtr<Iterator> _pIterator;
-	int _cnt;
+	size_t _cnt;
+	size_t _cntStep;
 	bool _listItemFlag;
+	bool _neatFlag;
+	ValueList _valListRemain;
 public:
-	inline Iterator_Fold(Iterator *pIterator, int cnt, bool listItemFlag) :
+	inline Iterator_Fold(Iterator *pIterator, size_t cnt,
+						 size_t cntStep, bool listItemFlag, bool neatFlag) :
 			Iterator(pIterator->IsInfinite()),
-			_pIterator(pIterator), _cnt(cnt), _listItemFlag(listItemFlag) {}
-	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal sig, Value &value);
-	virtual String ToString() const;
-	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-};
-
-//-----------------------------------------------------------------------------
-// Iterator_FoldSeg
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Iterator_FoldSeg : public Iterator {
-private:
-	AutoPtr<Iterator> _pIterator;
-	int _cnt;
-	Value _valueNext;
-public:
-	inline Iterator_FoldSeg(Iterator *pIterator, int cnt, const Value &valueNext) :
-			Iterator(false), _pIterator(pIterator),
-			_cnt(cnt), _valueNext(valueNext) {}
+			_pIterator(pIterator), _cnt(cnt), _cntStep(cntStep),
+			_listItemFlag(listItemFlag), _neatFlag(neatFlag) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString() const;

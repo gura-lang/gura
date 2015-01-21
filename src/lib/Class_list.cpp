@@ -341,9 +341,10 @@ void Object_list::IteratorPingpong::GatherFollower(Environment::Frame *pFrame, E
 //-----------------------------------------------------------------------------
 // Object_list::IteratorFold
 //-----------------------------------------------------------------------------
-Object_list::IteratorFold::IteratorFold(Object_list *pObj, size_t cntPerFold, size_t cntStep, bool listItemFlag) :
+Object_list::IteratorFold::IteratorFold(Object_list *pObj, size_t cntPerFold,
+										size_t cntStep, bool listItemFlag, bool neatFlag) :
 		Iterator(false), _pObj(pObj), _offset(0),
-		_cntPerFold(cntPerFold), _cntStep(cntStep), _listItemFlag(listItemFlag)
+		_cntPerFold(cntPerFold), _cntStep(cntStep), _listItemFlag(listItemFlag), _neatFlag(neatFlag)
 {
 }
 
@@ -360,6 +361,7 @@ bool Object_list::IteratorFold::DoNext(Environment &env, Signal sig, Value &valu
 {
 	ValueList &valList = _pObj->GetList();
 	if (_offset >= valList.size()) return false;
+	if (_neatFlag && (valList.size() - _offset < _cntPerFold)) return false;
 	AutoPtr<Iterator> pIterator(new IteratorEach(
 					Object_list::Reference(_pObj.get()), _offset, _cntPerFold));
 	if (_listItemFlag) {
@@ -1410,7 +1412,7 @@ Gura_ImplementMethod(list, find)
 	return value;
 }
 
-// list#fold(n:number, nstep?:number):[iteritem] {block?}
+// list#fold(n:number, nstep?:number):[iteritem,neat] {block?}
 Gura_DeclareMethod(list, fold)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
@@ -1418,6 +1420,7 @@ Gura_DeclareMethod(list, fold)
 	DeclareArg(env, "nstep", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(iteritem));
+	DeclareAttr(Gura_Symbol(neat));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1429,8 +1432,10 @@ Gura_ImplementMethod(list, fold)
 	size_t cnt = args.GetSizeT(0);
 	size_t cntStep = args.Is_number(1)? args.GetSizeT(1) : cnt;
 	bool listItemFlag = !args.IsSet(Gura_Symbol(iteritem));
+	bool neatFlag = args.IsSet(Gura_Symbol(neat));
 	Object_list *pObj = Object_list::Reference(pThis);
-	Iterator *pIterator = new Object_list::IteratorFold(pObj, cnt, cntStep, listItemFlag);
+	Iterator *pIterator = new Object_list::IteratorFold(pObj,
+									cnt, cntStep, listItemFlag, neatFlag);
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
