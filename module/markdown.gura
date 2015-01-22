@@ -361,10 +361,8 @@ Renderer@console = class {
 	}
 }
 
-funcDocCaption:public = '#### '
-
 operator(`<<).assign(`document, `function) {|doc, func|
-	doc << funcDocCaption + function.getfullname(func).replace('_', '\\_')
+	doc << '**' + function.getfullname(func).replace('_', '\\_') + '**'
 	doc << '\n'
 	doc << '`' + function.getformat(func) + '`'
 	doc << '\n'
