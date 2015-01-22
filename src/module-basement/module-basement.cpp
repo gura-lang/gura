@@ -1157,7 +1157,11 @@ Gura_DeclareFunctionAlias(import_, "import")
 		"\n"
 		"If the argument `module` is prefixed by an and operator like `&foo`,\n"
 		"the trailing part will be evaluated and its result, which must be a string,\n"
-		"is treated as a module name to be imported.");
+		"is treated as a module name to be imported. Below is a sample to import `foo` module\n"
+		"through a variable that contains that name.\n"
+		"\n"
+		"    var = 'foo'\n"
+		"    import(&var)\n");
 }
 
 Gura_ImplementFunction(import_)
