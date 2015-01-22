@@ -219,6 +219,7 @@ private:
 		STAT_UnderscoreEmphasis,
 		STAT_UnderscoreStrong,
 		STAT_UnderscoreStrongEnd,
+		STAT_DecorationPost,
 		STAT_Ampersand,
 		STAT_AngleBracket,
 		STAT_LinkAltTextPre,

@@ -252,6 +252,7 @@ void Document::ResolveReference()
 
 bool Document::ParseChar(Signal sig, char ch)
 {
+	//::printf("%d %c\n", _stat, ch);
 	bool continueFlag = true;
 	do {
 	continueFlag = false;
@@ -310,7 +311,7 @@ bool Document::ParseChar(Signal sig, char ch)
 				_field.clear();
 				_stat = STAT_RefereeRefId;
 			} else {
-				if (!_text.empty()) _text += ' ';
+				if (!_text.empty() && !IsWhite(_text[_text.size() - 1])) _text += ' ';
 				continueFlag = true;
 				_stat = STAT_Text;
 			}
@@ -966,7 +967,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_Code: {
 		if (ch == '`') {
 			FlushText(Item::TYPE_Code, true, true);
-			_stat = _statStack.Pop();
+			_stat = STAT_DecorationPost;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			FlushText(Item::TYPE_Code, true, true);
 			continueFlag = true;
@@ -1034,7 +1035,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_Backquote;
 		} else if (ch == '*') {
 			EndDecoration();
-			_stat = _statStack.Pop();
+			_stat = STAT_DecorationPost;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndDecoration();
 			continueFlag = true;
@@ -1066,7 +1067,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_AsteriskStrongEnd: {
 		if (ch == '*') {
 			EndDecoration();
-			_stat = _statStack.Pop();
+			_stat = STAT_DecorationPost;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndDecoration();
 			continueFlag = true;
@@ -1104,7 +1105,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_Backquote;
 		} else if (ch == '_') {
 			EndDecoration();
-			_stat = _statStack.Pop();
+			_stat = STAT_DecorationPost;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndDecoration();
 			continueFlag = true;
@@ -1136,7 +1137,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_UnderscoreStrongEnd: {
 		if (ch == '_') {
 			EndDecoration();
-			_stat = _statStack.Pop();
+			_stat = STAT_DecorationPost;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndDecoration();
 			continueFlag = true;
@@ -1148,6 +1149,11 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			_stat = STAT_UnderscoreEmphasis;
 		}
+		break;
+	}
+	case STAT_DecorationPost: {
+		continueFlag = true;
+		_stat = _statStack.Pop();
 		break;
 	}
 	case STAT_Ampersand: {
