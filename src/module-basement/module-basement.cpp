@@ -260,11 +260,13 @@ Gura_DeclareFunctionAlias(break_, "break")
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Exits from an inside of a loop that is formed with functions `repeat()`, `while()`\n"
+		"Exits from an inside of a loop that is formed with functions `repeat()`, `while()`,\n"
 		"`for()` and `cross()`. If it takes an argument, that value is treated as a result of\n"
-		"the loop function. Otherwise, the result is nil and an argument list\n"
-		"can be omitted. If the loop function is specified with one of `:list`, `:xlist`, `:set`,\n"
-		"`:xset`, `:iter` and `:xiter`, `break()`'s value is NOT included in the result.");
+		"the loop function. Otherwise, the result is nil and an argument list can be omitted.\n"
+		"\n"
+		"If the loop function is called with one of attributes, `:list`, `:xlist`, `:set`,\n"
+		"`:xset`, `:iter` and `:xiter`,\n"
+		"the argument value of `break()` is NOT included as an element in the list or iterator.");
 }
 
 Gura_ImplementFunction(break_)
@@ -284,8 +286,10 @@ Gura_DeclareFunctionAlias(continue_, "continue")
 		"skips the following part of it and gets to the top of its process.\n"
 		"If it takes an argument, that value is treated as a result of the loop function.\n"
 		"Otherwise, the result is nil and an argument list can be omitted.\n"
+		"\n"
 		"If the loop function is specified with one of `:list`, `:xlist`, `:set`,\n"
-		"`:xset`, `:iter` and `:xiter`, `continue()`'s value is included in the result.");
+		"`:xset`, `:iter` and `:xiter`,\n"
+		"the argument value of `continue()` is included as an element in the list or iterator.");
 }
 
 Gura_ImplementFunction(continue_)
@@ -301,9 +305,9 @@ Gura_DeclareFunctionAlias(return_, "return")
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Exits from a function skipping the following part of it.\n"
-		"If it takes an argument, that value is treated as a result of the function.\n"
-		"Otherwise, the result is nil and an argument list can be omitted.");
+		"Skips the remaining procedure of the current function and returns to context that calls it.\n"
+		"If it takes an argument, the value is treated as a result of the function.\n"
+		"Otherwise, the returned value would be `nil`.");
 }
 
 Gura_ImplementFunction(return_)
@@ -323,9 +327,13 @@ Gura_DeclareFunctionAlias(if_, "if")
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Specify an if block of a statement of if-elsif-else.\n"
-		"After evaluating an expr object cond, the block shall be executed\n"
-		"if it has a value of true.");
+		"Specify an \"if\" block within a statement of `if-elsif-else`.\n"
+		"\n"
+		"If the evaluation result of `cond` is determined as true, the block would be executed,\n"
+		"and its evaluation result would become the returned value of the function.\n"
+		"\n"
+		"Otherwise, if the function is followed by a trailer `elsif` or `else`, that would be evaluated.\n"
+		"If no trailer exists, the function returns `nil` value.\n");
 }
 
 Gura_ImplementFunction(if_)
@@ -351,9 +359,13 @@ Gura_DeclareFunctionTrailerAlias(elsif_, "elsif")
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Specify an elsif block of a statement of if-elsif-else.\n"
-		"After evaluating an expr object cond, the block shall be executed\n"
-		"if it has a value of true.");
+		"Specify an \"elsif\" block within a statement of `if-elsif-else`.\n"
+		"\n"
+		"If the evaluation result of `cond` is determined as true, the block would be executed,\n"
+		"and its evaluation result would become the returned value of the function.\n"
+		"\n"
+		"Otherwise, if the function is followed by a trailer `elsif` or `else`, that would be evaluated.\n"
+		"If no trailer exists, the function returns `nil` value.\n");
 }
 
 Gura_ImplementFunction(elsif_)
@@ -378,7 +390,7 @@ Gura_DeclareFunctionTrailerAlias(else_, "else")
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Specify an else block of a statement of if-elsif-else or try-catch-else.\n");
+		"Specify an \"else\" block within a statement of `if-elsif-else` or `try-catch-else`.\n");
 }
 
 Gura_ImplementFunction(else_)
@@ -399,7 +411,7 @@ Gura_DeclareFunction(end)
 	DeclareArg(env, "dummy", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Specify an end of a sequence. It just works as a marker.\n");
+		"Specify an end of a sequence. This is supposed to appear in a template script.\n");
 }
 
 Gura_ImplementFunction(end)

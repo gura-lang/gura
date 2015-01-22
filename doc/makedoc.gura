@@ -2,6 +2,7 @@
 import(markdown)
 
 baseNames = [
+	'basement'
 	'base64'
 	'bmp'
 	'bzip2'
@@ -53,10 +54,11 @@ baseNames = [
 	'yaml'
 	'zip'
 ]
-baseNames = ['bmp']
+//baseNames = ['bmp']
 moduleNames = 'makedoc_' + baseNames
-fs.copy('../src/module-' + baseNames + '/makedoc.gura', moduleNames + '.gura'):overwrite
-
+!path.exists('tmp') && fs.mkdir('tmp')
+fs.copy('../src/module-' + baseNames + '/makedoc.gura', 'tmp/' + moduleNames + '.gura'):overwrite
+sys.path.insert(0, 'tmp')
 doc = markdown.document()
 moduleNames.each {|moduleName|
 	import(&moduleName)
