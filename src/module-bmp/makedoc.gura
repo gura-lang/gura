@@ -4,19 +4,19 @@ import(bmp)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## bmp Module
+	# bmp Module
 
-	### Abstract
+	## Abstract
 
 	This module provides measures to read/write image data in Microsoft BMP format.
 	To utilize it, import `bmp` module with `import` function.
 	
-	### Sample
+	## Sample
 	    import(bmp)
 		img = image('hoge.bmp')
 	'''
 	doc << R'''
-	### Exntension of Function's Capability
+	## Exntension of Function's Capability
 
 	This module extends the capability of function `image()` and instance method `image#write()`
 	so that they can read/write BMP files.
@@ -32,7 +32,7 @@ write(doc:markdown.document) = {
 
 	- The identifier of the stream ends with a suffix `.bmp`.
 
-	### Exntension Instance Methods in image Class
+	## Exntension Instance Methods in image Class
 	'''
 	doc << [
 		image.read@bmp

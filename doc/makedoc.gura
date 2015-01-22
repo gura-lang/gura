@@ -54,7 +54,7 @@ baseNames = [
 	'yaml'
 	'zip'
 ]
-//baseNames = ['bmp']
+//baseNames = ['basement']
 moduleNames = 'makedoc_' + baseNames
 !path.exists('tmp') && fs.mkdir('tmp')
 fs.copy('../src/module-' + baseNames + '/makedoc.gura', 'tmp/' + moduleNames + '.gura'):overwrite

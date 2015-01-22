@@ -4,17 +4,23 @@ import(midi)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## midi Module
-	### Abstract
-	### Sample
+	# midi Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 	]
-	doc << '### midi.event Class'
+	doc << R'''
+	## midi.event Class
+	'''
 	doc << [
 	]
-	doc << '### midi.track Class'
+	doc << R'''
+	## midi.track Class
+	'''
 	doc << [
 		midi.track.seek
 		midi.track.tell
@@ -43,7 +49,9 @@ write(doc:markdown.document) = {
 		midi.track.key_signature
 		midi.track.sequencer_specific_event
 	]
-	doc << '### midi.sequence Class'
+	doc << R'''
+	## midi.sequence Class
+	'''
 	doc << [
 		midi.sequence
 		midi.sequence.read
@@ -53,10 +61,14 @@ write(doc:markdown.document) = {
 		midi.sequence.mml
 		midi.sequence.readmml
 	]
-	doc << '### midi.portinfo Class'
+	doc << R'''
+	## midi.portinfo Class
+	'''
 	doc << [
 	]
-	doc << '### midi.port Class'
+	doc << R'''
+	## midi.port Class
+	'''
 	doc << [
 		midi.port.send
 		midi.port.play
@@ -70,22 +82,32 @@ write(doc:markdown.document) = {
 		midi.port.channel_pressure
 		midi.port.pitch_bend
 	]
-	doc << '### midi.player Class'
+	doc << R'''
+	## midi.player Class
+	'''
 	doc << [
 	]
-	doc << '### midi.controller Class'
+	doc << R'''
+	## midi.controller Class
+	'''
 	doc << [
 	]
-	doc << '### midi.program Class'
+	doc << R'''
+	## midi.program Class
+	'''
 	doc << [
 	]
-	doc << '### midi.soundfont Class'
+	doc << R'''
+	## midi.soundfont Class
+	'''
 	doc << [
 		midi.soundfont
 		midi.soundfont.synthesizer,
 		midi.soundfont.print
 	]
-	doc << '### midi.synthesizer Class'
+	doc << R'''
+	## midi.synthesizer Class
+	'''
 	doc << [
 	]
 	doc

@@ -4,11 +4,13 @@ import(sdl2)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## sdl2 Module
-	### Abstract
-	### Sample
+	# sdl2 Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 		sdl2.Init
 		sdl2.InitSubSystem
@@ -521,76 +523,124 @@ write(doc:markdown.document) = {
 		sdl2.AndroidGetJNIEnv
 		sdl2.acos
 	]
-	doc << '### sdl2.Window Class'
+	doc << R'''
+	## sdl2.Window Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.Renderer Class'
+	doc << R'''
+	## sdl2.Renderer Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.Texture Class'
+	doc << R'''
+	## sdl2.Texture Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.Event Class'
+	doc << R'''
+	## sdl2.Event Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.Point Class'
+	doc << R'''
+	## sdl2.Point Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.Rect Class'
+	doc << R'''
+	## sdl2.Rect Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.Color Class'
+	doc << R'''
+	## sdl2.Color Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.Palette Class'
+	doc << R'''
+	## sdl2.Palette Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.PixelFormat Class'
+	doc << R'''
+	## sdl2.PixelFormat Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.Keysym Class'
+	doc << R'''
+	## sdl2.Keysym Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.Cursor Class'
+	doc << R'''
+	## sdl2.Cursor Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.Joystick Class'
+	doc << R'''
+	## sdl2.Joystick Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.JoystickGUID Class'
+	doc << R'''
+	## sdl2.JoystickGUID Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.GameController Class'
+	doc << R'''
+	## sdl2.GameController Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.GameControllerButtonBind Class'
+	doc << R'''
+	## sdl2.GameControllerButtonBind Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.AudioCVT Class'
+	doc << R'''
+	## sdl2.AudioCVT Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.AudioSpec Class'
+	doc << R'''
+	## sdl2.AudioSpec Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.Wav Class'
+	doc << R'''
+	## sdl2.Wav Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.RendererInfo Class'
+	doc << R'''
+	## sdl2.RendererInfo Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.DisplayMode Class'
+	doc << R'''
+	## sdl2.DisplayMode Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.GLContext Class'
+	doc << R'''
+	## sdl2.GLContext Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.HapticEffect Class'
+	doc << R'''
+	## sdl2.HapticEffect Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.Surface Class'
+	doc << R'''
+	## sdl2.Surface Class
+	'''
 	doc << [
 	]
-	doc << '### sdl2.Finger Class'
+	doc << R'''
+	## sdl2.Finger Class
+	'''
 	doc << [
 	]
 	doc

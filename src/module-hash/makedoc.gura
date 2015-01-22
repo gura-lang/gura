@@ -4,17 +4,21 @@ import(hash)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## hash Module
-	### Abstract
-	### Sample
+	# hash Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 		hash.md5
 		hash.sha1
 		hash.crc32
 	]
-	doc << '### hash.accumulator Class'
+	doc << R'''
+	## hash.accumulator Class
+	'''
 	doc << [
 		hash.accumulator.init
 		hash.accumulator.update

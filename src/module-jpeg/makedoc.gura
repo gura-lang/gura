@@ -4,14 +4,18 @@ import(jpeg)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## jpeg Module
-	### Abstract
-	### Sample
+	# jpeg Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 	]
-	doc << '### Extension of image Class'
+	doc << R'''
+	## Extension of image Class
+	'''
 	doc << [
 		image.read@jpeg
 		image.write@jpeg

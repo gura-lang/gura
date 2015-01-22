@@ -4,19 +4,25 @@ import(mswin)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## mswin Module
-	### Abstract
-	### Sample
+	# mswin Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 		GetACP
 	]
-	doc << '### mswin.ole Class'
+	doc << R'''
+	## mswin.ole Class
+	'''
 	doc << [
 		mswin.ole
 	]
-	doc << '### mswin.regkey Class'
+	doc << R'''
+	## mswin.regkey Class
+	'''
 	doc << [
 		mswin.regkey
 		mswin.regkey.createkey

@@ -4,14 +4,14 @@ import(wav)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## wav Module
-	### Abstract
-	### Sample
+	# wav Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << '## Module Functions'
 	doc << [
 	]
-	doc << '### Extension of audio Class'
+	doc << '## Extension of audio Class'
 	doc << [
 		audio.read@wav
 		audio.write@wav

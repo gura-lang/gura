@@ -4,18 +4,24 @@ import(xml)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## xml Module
-	### Abstract
-	### Sample
+	# xml Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 		xml.comment
 	]
-	doc << '### xml.attribute Class'
+	doc << R'''
+	## xml.attribute Class
+	'''
 	doc << [
 	]
-	doc << '### xml.document Class'
+	doc << R'''
+	## xml.document Class
+	'''
 	doc << [
 		xml.document
 		xml.document.parse
@@ -23,7 +29,9 @@ write(doc:markdown.document) = {
 		xml.document.textize
 		xml.document.write
 	]
-	doc << '### xml.element Class'
+	doc << R'''
+	## xml.element Class
+	'''
 	doc << [
 		xml.element
 		xml.element.addchild
@@ -31,7 +39,9 @@ write(doc:markdown.document) = {
 		xml.element.textize
 		xml.element.write
 	]
-	doc << '### xml.parser Class'
+	doc << R'''
+	## xml.parser Class
+	'''
 	doc << [
 		xml.parser
 		xml.parser.parse

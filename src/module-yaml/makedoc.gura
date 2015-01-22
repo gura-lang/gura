@@ -4,11 +4,13 @@ import(yaml)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## yaml Module
-	### Abstract
-	### Sample
+	# yaml Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 		yaml.compose
 		yaml.parse

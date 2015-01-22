@@ -3,11 +3,13 @@ import(markdown)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## tester Module
-	### Abstract
-	### Sample
+	# tester Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 	]
 	doc

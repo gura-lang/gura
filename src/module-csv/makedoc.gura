@@ -4,25 +4,31 @@ import(csv)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## csv Module
-	### Sample
+	# csv Module
+	## Sample
 	    import(csv)
 	    Record = struct(name:string, age:number, email:string)
 	    records = Record * csv.read('records.csv')
 	    printf('name:%s, age:%d, email:%s¥n',
 	    records:*name, records:*age, records:*email)
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 		csv.parse
 		csv.read
 		csv.writer
 	]
-	doc << '### csv.writer Class'
+	doc << R'''
+	## csv.writer Class
+	'''
 	doc << [
 		csv.writer.write
 	]
-	doc << '### Extension of stream Class'
+	doc << R'''
+	## Extension of stream Class
+	'''
 	doc << [
 		stream.read@csv
 		stream.writer@csv

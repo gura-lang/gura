@@ -4,16 +4,20 @@ import(tar)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## tar Module
-	### Abstract
-	### Sample
+	# tar Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### tar.reader Class'
+	doc << R'''
+	## tar.reader Class
+	'''
 	doc << [
 		tar.reader
 		tar.reader.entries
 	]
-	doc << '### tar.writer Class'
+	doc << R'''
+	## tar.writer Class
+	'''
 	doc << [
 		tar.writer
 		tar.writer.add

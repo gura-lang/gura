@@ -3,9 +3,11 @@ import(markdown)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## fs Module
+	# fs Module
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 		fs.chdir
 		fs.chmod

@@ -4,13 +4,13 @@ import(zip)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## zip Module
-	### Abstract
+	# zip Module
+	## Abstract
 
 	
 
-	### Sample
-	#### Creates Archive File
+	## Sample
+	### Creates Archive File
 
 	    import(zip)
 	    zip.writer('hoge.zip') {|w|
@@ -20,23 +20,29 @@ write(doc:markdown.document) = {
 	        w.close()
 	    }		
 		
-	#### Reads Entries from Archive File
+	### Reads Entries from Archive File
 
 	    import(zip)
 	    zip.reader('hoge.zip') {|r|
 	        println(r.entries():*stat:*filename)
 	    }
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 	]
-	doc << '### zip.reader Class'
+	doc << R'''
+	## zip.reader Class
+	'''
 	doc << [
 		zip.reader
 		zip.reader.entry
 		zip.reader.entries
 	]
-	doc << '### zip.writer Class'
+	doc << R'''
+	## zip.writer Class
+	'''
 	doc << [
 		zip.writer
 		zip.writer.add

@@ -4,11 +4,13 @@ import(opengl)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## opengl Module
-	### Abstract
-	### Sample
+	# opengl Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 		opengl.glAccum
 		opengl.glAlphaFunc

@@ -4,15 +4,19 @@ import(tcl)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## tcl Module
-	### Abstract
-	### Sample
+	# tcl Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 		tcl.TK_MainLoop
 	]
-	doc << '### tcl.interp Class'
+	doc << R'''
+	## tcl.interp Class
+	'''
 	doc << [
 		tcl.interp
 		tcl.interp.command
@@ -21,15 +25,21 @@ write(doc:markdown.document) = {
 		tcl.interp.timer
 		tcl.interp.variable
 	]
-	doc << '### tcl.timer Class'
+	doc << R'''
+	## tcl.timer Class
+	'''
 	doc << [
 		timer.cancel
 		timer.start
 	]
-	doc << '### tcl.variable Class'
+	doc << R'''
+	## tcl.variable Class
+	'''
 	doc << [
 	]
-	doc << '### Extension of image Class'
+	doc << R'''
+	## Extension of image Class
+	'''
 	doc << [
 		image.read@tcl
 		image.write@tcl

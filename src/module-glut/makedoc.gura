@@ -4,11 +4,13 @@ import(glut)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## glut Module
-	### Abstract
-	### Sample
+	# glut Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 		glut.glutInit
 		glut.glutInitDisplayMode

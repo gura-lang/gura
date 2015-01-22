@@ -4,14 +4,18 @@ import(png)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## png Module
-	### Abstract
-	### Sample
+	# png Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 	]
-	doc << '### Extension of image Class'
+	doc << R'''
+	## Extension of image Class
+	'''
 	doc << [
 		image.read@png
 		image.write@png

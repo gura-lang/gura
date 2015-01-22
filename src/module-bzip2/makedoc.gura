@@ -4,16 +4,20 @@ import(bzip2)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## bzip2 Module
-	### Abstract
-	### Sample
+	# bzip2 Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 		bzip2.reader
 		bzip2.writer
 	]
-	doc << '### Extension of image Class'
+	doc << R'''
+	## Extension of image Class
+	'''
 	doc << [
 		stream.reader@bzip2
 		stream.writer@bzip2

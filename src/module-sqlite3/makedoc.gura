@@ -4,14 +4,18 @@ import(sqlite3)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## sqlite3 Module
-	### Abstract
-	### Sample
+	# sqlite3 Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 	]
-	doc << '### sqlite3.db Class'
+	doc << R'''
+	## sqlite3.db Class
+	'''
 	doc << [
 		sqlite3.db
 		sqlite3.db.close

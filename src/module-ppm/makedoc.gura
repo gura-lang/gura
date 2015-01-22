@@ -4,14 +4,18 @@ import(ppm)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## ppm Module
-	### Abstract
-	### Sample
+	# ppm Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 	]
-	doc << '### Extension of image Class'
+	doc << R'''
+	## Extension of image Class
+	'''
 	doc << [
 		image.read@ppm
 		image.write@ppm

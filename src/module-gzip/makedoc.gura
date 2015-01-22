@@ -4,16 +4,20 @@ import(gzip)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## gzip Module
-	### Abstract
-	### Sample
+	# gzip Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 		gzip.reader
 		gzip.writer
 	]
-	doc << '### Extension of image Class'
+	doc << R'''
+	## Extension of image Class
+	'''
 	doc << [
 		stream.reader@gzip
 		stream.writer@gzip

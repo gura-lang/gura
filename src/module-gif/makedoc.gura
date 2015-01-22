@@ -4,17 +4,21 @@ import(gif)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## gif Module
-	### Abstract
-	### Sample
+	# gif Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### gif.content Class'
+	doc << R'''
+	## gif.content Class
+	'''
 	doc << [
 		gif.content
 		gif.content.addimage
 		gif.content.write
 	]
-	doc << '### Extension of image Class'
+	doc << R'''
+	## Extension of image Class
+	'''
 	doc << [
 		image.read@gif
 		image.write@gif

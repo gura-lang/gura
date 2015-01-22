@@ -2,19 +2,19 @@
 import(markdown)
 
 write(doc:markdown.document) = {
-	doc << '## base64 Module'
-	doc << '### Abstract'
+	doc << '# base64 Module'
+	doc << '## Abstract'
 	doc << R'''
 	This module provides measures to read/write text stream that is formatted in base64 format.
 	'''
-	doc << '### Module Functions'
+	doc << '## Module Functions'
 	doc << [
 		base64.decode
 		base64.encode
 		base64.reader
 		base64.writer
 	]
-	doc << '### Extension of stream Class'
+	doc << '## Extension of stream Class'
 	doc << R'''
 	After importing `base64` module, `stream` class is extended with methods that are described here.
 	'''

@@ -4,11 +4,13 @@ import(glu)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## glu Module
-	### Abstract
-	### Sample
+	# glu Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 		glu.gluBeginCurve
 		glu.gluBeginPolygon

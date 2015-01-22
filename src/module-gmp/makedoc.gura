@@ -4,31 +4,41 @@ import(gmp)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## gmp Module
-	### Abstract
-	### Sample
+	# gmp Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 		gmp.gcd
 		gmp.lcm
 		gmp.sqrt
 	]
-	doc << '### gmp.mpf Class'
+	doc << R'''
+	## gmp.mpf Class
+	'''
 	doc << [
 		gmp.mpf
 		gmp.mpf.get_default_prec
 		gmp.mpf.set_default_prec
 	]
-	doc << '### gmp.mpq Class'
+	doc << R'''
+	## gmp.mpq Class
+	'''
 	doc << [
 		gmp.mpq
 	]
-	doc << '### gmp.mpz Class'
+	doc << R'''
+	## gmp.mpz Class
+	'''
 	doc << [
 		gmp.mpz
 	]
-	doc << '### Extention of string Class'
+	doc << R'''
+	## Extention of string Class
+	'''
 	doc << [
 		string.mpf
 		string.mpq

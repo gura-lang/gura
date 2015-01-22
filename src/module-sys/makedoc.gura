@@ -3,11 +3,13 @@ import(markdown)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## sys Module
-	### Abstract
-	### Sample
+	# sys Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Variables'
+	doc << R'''
+	## Module Variables
+	'''
 	doc << R'''
 	- `sys.argv`
 	- `sys.path`
@@ -29,7 +31,9 @@ write(doc:markdown.document) = {
 	- `sys.cfgdir`
 	- `sys.workdir`
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 		sys.echo
 		sys.exit

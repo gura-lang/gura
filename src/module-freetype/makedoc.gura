@@ -4,53 +4,81 @@ import(freetype)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## freetype Module
-	### Abstract
-	### Sample
+	# freetype Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 		freetype.sysfontpath
 	]
-	doc << '### freetype.BBox Class'
+	doc << R'''
+	## freetype.BBox Class
+	'''
 	doc << [
 	]
-	doc << '### freetype.BDF_Property Class'
+	doc << R'''
+	## freetype.BDF_Property Class
+	'''
 	doc << [
 	]
-	doc << '### freetype.Bitmap Class'
+	doc << R'''
+	## freetype.Bitmap Class
+	'''
 	doc << [
 		freetype.Bitmap.Embolden
 	]
-	doc << '### freetype.CharMap Class'
+	doc << R'''
+	## freetype.CharMap Class
+	'''
 	doc << [
 		freetype.CharMap.Get_Index
 	]
-	doc << '### freetype.FTC_CMapCache Class'
+	doc << R'''
+	## freetype.FTC_CMapCache Class
+	'''
 	doc << [
 	]
-	doc << '### freetype.FTC_ImageCache Class'
+	doc << R'''
+	## freetype.FTC_ImageCache Class
+	'''
 	doc << [
 	]
-	doc << '### freetype.FTC_ImageType Class'
+	doc << R'''
+	## freetype.FTC_ImageType Class
+	'''
 	doc << [
 	]
-	doc << '### freetype.FTC_Manager Class'
+	doc << R'''
+	## freetype.FTC_Manager Class
+	'''
 	doc << [
 	]
-	doc << '### freetype.FTC_Node Class'
+	doc << R'''
+	## freetype.FTC_Node Class
+	'''
 	doc << [
 	]
-	doc << '### freetype.FTC_SBit Class'
+	doc << R'''
+	## freetype.FTC_SBit Class
+	'''
 	doc << [
 	]
-	doc << '### freetype.FTC_SBitCache Class'
+	doc << R'''
+	## freetype.FTC_SBitCache Class
+	'''
 	doc << [
 	]
-	doc << '### freetype.FTC_Scaler Class'
+	doc << R'''
+	## freetype.FTC_Scaler Class
+	'''
 	doc << [
 	]
-	doc << '### freetype.Face Class'
+	doc << R'''
+	## freetype.Face Class
+	'''
 	doc << [
 		freetype.Face
 		freetype.Face.CheckTrueTypePatents
@@ -65,24 +93,32 @@ write(doc:markdown.document) = {
 		freetype.Face.Set_Charmap
 		freetype.Face.Set_Pixel_Sizes
 	]
-	doc << '### freetype.Glyph Class'
+	doc << R'''
+	## freetype.Glyph Class
+	'''
 	doc << [
 		freetype.Glyph.Copy
 		freetype.Glyph.Stroke
 		freetype.Glyph.StrokeBorder
 	]
-	doc << '### freetype.GlyphSlot Class'
+	doc << R'''
+	## freetype.GlyphSlot Class
+	'''
 	doc << [
 		freetype.GlyphSlot.Get_Glyph
 		freetype.GlyphSlot.Render
 	]
-	doc << '### freetype.Matrix Class'
+	doc << R'''
+	## freetype.Matrix Class
+	'''
 	doc << [
 		freetype.Matrix
 		freetype.Matrix.Multiply
 		freetype.Matrix.Invert
 	]
-	doc << '### freetype.Outline Class'
+	doc << R'''
+	## freetype.Outline Class
+	'''
 	doc << [
 		freetype.Outline.Translate
 		freetype.Outline.Transform
@@ -90,24 +126,34 @@ write(doc:markdown.document) = {
 		//freetype.Outline.EmboldenXY
 		freetype.Outline.Reverse
 	]
-	doc << '### freetype.Raster Class'
+	doc << R'''
+	## freetype.Raster Class
+	'''
 	doc << [
 	]
-	doc << '### freetype.Span Class'
+	doc << R'''
+	## freetype.Span Class
+	'''
 	doc << [
 	]
-	doc << '### freetype.Stroker Class'
+	doc << R'''
+	## freetype.Stroker Class
+	'''
 	doc << [
 		freetype.Stroker
 		freetype.Stroker.BeginSubPath
 	]
-	doc << '### freetype.Vector Class'
+	doc << R'''
+	## freetype.Vector Class
+	'''
 	doc << [
 		freetype.Vector
 		freetype.Vector.Length
 		freetype.Vector.Transform
 	]
-	doc << '### freetype.font Class'
+	doc << R'''
+	## freetype.font Class
+	'''
 	doc << [
 		freetype.font
 		freetype.font.cleardeco
@@ -115,7 +161,9 @@ write(doc:markdown.document) = {
 		freetype.font.calcsize
 		freetype.font.calcbbox
 	]
-	doc << '### Extension of image Class'
+	doc << R'''
+	## Extension of image Class
+	'''
 	doc << [
 		image.drawtext
 	]

@@ -4,18 +4,22 @@ import(re)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## re Module
-	### Abstract
-	### Sample
+	# re Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 		re.match
 		re.sub
 		re.split
 		re.scan
 	]
-	doc << '### re.pattern Class'
+	doc << R'''
+	## re.pattern Class
+	'''
 	doc << [
 		re.pattern
 		re.pattern.match
@@ -23,18 +27,24 @@ write(doc:markdown.document) = {
 		re.pattern.split
 		re.pattern.scan
 	]
-	doc << '### Extension of string Class'
+	doc << R'''
+	## Extension of string Class
+	'''
 	doc << [
 		string.match
 		string.sub
 		string.splitreg
 		string.scan
 	]
-	doc << '### Extension of list Class'
+	doc << R'''
+	## Extension of list Class
+	'''
 	doc << [
 		list.grep
 	]
-	doc << '### Extension of iterator Class'
+	doc << R'''
+	## Extension of iterator Class
+	'''
 	doc << [
 		iterator.grep
 	]

@@ -3,11 +3,13 @@ import(markdown)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## path Module
-	### Abstract
-	### Sample
+	# path Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 		path.absname
 		path.basename

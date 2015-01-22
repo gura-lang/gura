@@ -3,11 +3,13 @@ import(markdown)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## os Module
-	### Abstract
-	### Sample
+	# os Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 		os.clock
 		os.exec

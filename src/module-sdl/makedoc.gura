@@ -39,7 +39,9 @@ write(doc:markdown.document) = {
 	'''
 
 	// 5. General
-	doc << '## General'
+	doc << R'''
+	## General
+	'''
 	doc << [
 		sdl.Init
 		sdl.InitSubSystem
@@ -49,7 +51,9 @@ write(doc:markdown.document) = {
 		sdl.GetError
 	]
 	// 6. Video
-	doc << '## Video'
+	doc << R'''
+	## Video
+	'''
 	doc << [
 		sdl.GetVideoSurface
 		sdl.GetVideoInfo
@@ -110,7 +114,9 @@ write(doc:markdown.document) = {
 		//sdl.Overlay
 	]
 	// 7. Window Management
-	doc << '## Window Management'
+	doc << R'''
+	## Window Management
+	'''
 	doc << [
 		sdl.WM_SetCaption
 		sdl.WM_GetCaption
@@ -120,7 +126,9 @@ write(doc:markdown.document) = {
 		sdl.WM_GrabInput
 	]
 	// 8. Events
-	doc << '## Events'
+	doc << R'''
+	## Events
+	'''
 	doc << [
 		sdl.PumpEvents
 		sdl.AddEvents
@@ -144,7 +152,9 @@ write(doc:markdown.document) = {
 		sdl.JoystickEventState
 	]
 	// 9. Joystick
-	doc << '## Joystick'
+	doc << R'''
+	## Joystick
+	'''
 	doc << [
 		sdl.NumJoysticks
 		sdl.JoystickName
@@ -163,7 +173,9 @@ write(doc:markdown.document) = {
 		sdl.Joystick.JoystickClose
 	]
 	// 10. Audio
-	doc << '## Audio'
+	doc << R'''
+	## Audio
+	'''
 	doc << [
 		//sdl.AudioSpec
 		sdl.OpenAudio
@@ -180,7 +192,9 @@ write(doc:markdown.document) = {
 		sdl.CloseAudio
 	]
 	// 11. CD-ROM
-	doc << '## CD-ROM'
+	doc << R'''
+	## CD-ROM
+	'''
 	doc << [
 		sdl.CDNumDrives
 		sdl.CDName
@@ -196,7 +210,9 @@ write(doc:markdown.document) = {
 		//sdl.CDTrack
 	]
 	// 13. Time
-	doc << '## Time'
+	doc << R'''
+	## Time
+	'''
 	doc << [
 		sdl.GetTicks
 		sdl.Delay

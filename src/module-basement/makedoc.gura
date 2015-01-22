@@ -2,28 +2,28 @@
 import(markdown)
 
 write(doc:markdown.document) = {
-	doc << '## Built-in Functions'
-	doc << '### Formatting and Printing of Text'
+	doc << '# Built-in Functions'
+	doc << '## Formatting and Printing of Text'
 	doc << [
 		format
 		print
 		printf
 		println
 	]
-	doc << '### Repetition'
+	doc << '## Repetition'
 	doc << [
 		cross
 		for
 		repeat
 		while
 	]
-	doc << '### Flow Control'
+	doc << '## Flow Control'
 	doc << [
 		break
 		continue
 		return
 	]
-	doc << '### Branch Control'
+	doc << '## Branch Control'
 	doc << [
 		if
 		elsif
@@ -33,14 +33,14 @@ write(doc:markdown.document) = {
 		case
 		default
 	]
-	doc << '### Handling Exception'
+	doc << '## Handling Exception'
 	doc << [
 		try
 		catch
 		finally
 		raise
 	]
-	doc << '### Data Transformation'
+	doc << '## Data Transformation'
 	doc << [
 		chr
 		hex
@@ -50,14 +50,14 @@ write(doc:markdown.document) = {
 		tostring
 		tosymbol
 	]
-	doc << '### Class Operations'
+	doc << '## Class Operations'
 	doc << [
 		class
 		classref
 		struct
 		super
 	]
-	doc << '### Scope Operations'
+	doc << '## Scope Operations'
 	doc << [
 		//extern
 		local
@@ -66,12 +66,12 @@ write(doc:markdown.document) = {
 		public
 		scope
 	]
-	doc << '### Module Operations'
+	doc << '## Module Operations'
 	doc << [
 		import
 		module
 	]
-	doc << '### Value Type Information'
+	doc << '## Value Type Information'
 	doc << [
 		isbinary
 		isboolean
@@ -101,7 +101,7 @@ write(doc:markdown.document) = {
 		typename
 		undef
 	]
-	doc << '### Data Processing'
+	doc << '## Data Processing'
 	doc << [
 		choose
 		cond
@@ -110,12 +110,12 @@ write(doc:markdown.document) = {
 		max
 		min
 	]
-	doc << '### Random'
+	doc << '## Random'
 	doc << [
 		rand
 		randseed
 	]
-	doc << '### Help Information'
+	doc << '## Help Information'
 	doc << [
 		dir
 		dirtype

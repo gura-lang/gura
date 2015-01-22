@@ -4,20 +4,26 @@ import(msico)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## msico Module
-	### Abstract
-	### Sample
+	# msico Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 	]
-	doc << '### msico.content Class'
+	doc << R'''
+	## msico.content Class
+	'''
 	doc << [
 		msico.content
 		msico.content.write
 		msico.content.addimage
 	]
-	doc << '### Extension of image Class'
+	doc << R'''
+	## Extension of image Class
+	'''
 	doc << [
 		image.read@msico
 	]

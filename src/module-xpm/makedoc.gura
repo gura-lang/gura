@@ -4,14 +4,18 @@ import(xpm)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## xpm Module
-	### Abstract
-	### Sample
+	# xpm Module
+	## Abstract
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 	]
-	doc << '### Extension of image Class'
+	doc << R'''
+	## Extension of image Class
+	'''
 	doc << [
 		image.write@xpm
 		image.xpmdata

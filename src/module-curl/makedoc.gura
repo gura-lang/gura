@@ -4,15 +4,19 @@ import(curl)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## curl Module
-	### Sample
+	# curl Module
+	## Sample
 	'''
-	doc << '### Module Functions'
+	doc << R'''
+	## Module Functions
+	'''
 	doc << [
 		curl.version
 		curl.easy_init
 	]
-	doc << '### curl.easy\\_handle Class'
+	doc << R'''
+	## curl.easy\\_handle Class
+	'''
 	doc << [
 		curl.easy_handle.escape
 		curl.easy_handle.getinfo
