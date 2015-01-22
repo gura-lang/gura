@@ -193,7 +193,8 @@ int ItemStack::CountQuoteLevel() const
 //-----------------------------------------------------------------------------
 // Document
 //-----------------------------------------------------------------------------
-Document::Document() : _cntRef(1), _resolvedFlag(false), _stat(STAT_LineTop),
+Document::Document() : _cntRef(1), _resolvedFlag(false), _decoPrecedingFlag(false),
+		_stat(STAT_LineTop),
 		_indentLevel(0), _quoteLevel(0), _cntEmptyLine(0),
 		_pItemOwner(new ItemOwner()), _pItemRefereeOwner(new ItemOwner())
 {
@@ -252,7 +253,6 @@ void Document::ResolveReference()
 
 bool Document::ParseChar(Signal sig, char ch)
 {
-	//::printf("%d %c\n", _stat, ch);
 	bool continueFlag = true;
 	do {
 	continueFlag = false;
@@ -303,19 +303,19 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (_indentLevel >= INDENT_CodeBlock) {
 			continueFlag = true;
 			BeginCodeBlock(NULL);
+		} else if (ch == '[') {
+			_pItemLink.reset(new Item(Item::TYPE_Referee));
+			_textAhead.clear();
+			_textAhead += ch;
+			_field.clear();
+			_stat = STAT_RefereeRefId;
 		} else {
-			if (ch == '[') {
-				_pItemLink.reset(new Item(Item::TYPE_Referee));
-				_textAhead.clear();
-				_textAhead += ch;
-				_field.clear();
-				_stat = STAT_RefereeRefId;
-			} else {
-				if (!_text.empty() && !IsWhite(_text[_text.size() - 1])) _text += ' ';
-				continueFlag = true;
-				_stat = STAT_Text;
-			}
+			if (_decoPrecedingFlag) _text += ' ';
+			AppendJointSpace();
+			continueFlag = true;
+			_stat = STAT_Text;
 		}
+		_decoPrecedingFlag = false;
 		break;
 	}
 	case STAT_LineHeadNL: {
@@ -364,7 +364,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			BeginCodeBlock(_textAhead.c_str());
 		} else {
-			if (!_text.empty()) _text += ' ';
+			AppendJointSpace();
 			_text += _textAhead;
 			continueFlag = true;
 			_stat = STAT_Text;
@@ -394,7 +394,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			BeginCodeBlock(_textAhead.c_str());
 		} else {
-			if (!_text.empty()) _text += ' ';
+			AppendJointSpace();
 			_text += _textAhead;
 			continueFlag = true;
 			_stat = STAT_Text;
@@ -415,7 +415,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			BeginCodeBlock(_textAhead.c_str());
 		} else {
-			if (!_text.empty()) _text += ' ';
+			AppendJointSpace();
 			_text += _textAhead;
 			continueFlag = true;
 			_stat = STAT_Text;
@@ -432,7 +432,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			BeginCodeBlock(_textAhead.c_str());
 		} else {
-			if (!_text.empty()) _text += ' ';
+			AppendJointSpace();
 			_text += _textAhead;
 			continueFlag = true;
 			_stat = STAT_Text;
@@ -446,7 +446,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			BeginCodeBlock(_textAhead.c_str());
 		} else {
-			if (!_text.empty()) _text += ' ';
+			AppendJointSpace();
 			_text += _textAhead;
 			continueFlag = true;
 			_stat = STAT_Text;
@@ -520,7 +520,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = IsEOF(ch);
 			_stat = STAT_LineTop;
 		} else {
-			if (!_text.empty()) _text += ' ';
+			AppendJointSpace();
 			_text += _textAhead;
 			continueFlag = true;
 			_stat = STAT_Text;
@@ -546,7 +546,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = IsEOF(ch);
 			_stat = STAT_LineTop;
 		} else {
-			if (!_text.empty()) _text += ' ';
+			AppendJointSpace();
 			_text += _textAhead;
 			continueFlag = true;
 			_stat = STAT_Text;
@@ -1152,8 +1152,13 @@ bool Document::ParseChar(Signal sig, char ch)
 		break;
 	}
 	case STAT_DecorationPost: {
-		continueFlag = true;
 		_stat = _statStack.Pop();
+		if (_stat == STAT_Text && IsEOL(ch)) {
+			_decoPrecedingFlag = true;
+			_stat = STAT_LineTop;
+		} else {
+			continueFlag = true;
+		}
 		break;
 	}
 	case STAT_Ampersand: {
@@ -1257,7 +1262,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAhead += ch;
 			_stat = STAT_LinkURLPre;
 		} else {
-			if (!_text.empty()) _text += ' ';
+			AppendJointSpace();
 			_text += _textAhead;
 			continueFlag = true;
 			_stat = _statStack.Pop();
@@ -1439,7 +1444,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAhead += ch;
 			_stat = STAT_RefereeURLPre;
 		} else {
-			if (!_text.empty()) _text += ' ';
+			AppendJointSpace();
 			_text += _textAhead;
 			continueFlag = true;
 			_stat = STAT_Text;
@@ -1684,6 +1689,11 @@ bool Document::AdjustBlockQuote()
 		adjustFlag = true;
 	}
 	return adjustFlag;
+}
+
+void Document::AppendJointSpace()
+{
+	if (!_text.empty() && !IsWhite(_text[_text.size() - 1])) _text += ' ';
 }
 
 void Document::FlushText(Item::Type type, bool stripLeftFlag, bool stripRightFlag)

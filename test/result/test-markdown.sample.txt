@@ -38,7 +38,7 @@
       <text>'emphasis'
     <strong>
       <text>'strong'
-    <text>'text '
+    <text>' text '
     <code>'not terminated code'
     <text>'text'
     <em>
@@ -644,12 +644,16 @@
       <text>'A*star'
     <strong>
       <text>'A*star'
+    <text>' '
     <em>
       <text>'_ubar'
+    <text>' '
     <strong>
       <text>'_ubar'
+    <text>' '
     <em>
       <text>'A_ubar'
+    <text>' '
     <strong>
       <text>'A_ubar'
   <p>

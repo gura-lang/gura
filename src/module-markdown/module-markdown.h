@@ -211,6 +211,7 @@ private:
 		STAT_CodeEsc,
 		STAT_CodeEsc_Backquote,
 		STAT_Text,
+		STAT_TextAfterDecoration,
 		STAT_AsteriskEmphasisPre,
 		STAT_AsteriskEmphasis,
 		STAT_AsteriskStrong,
@@ -265,6 +266,7 @@ private:
 private:
 	int _cntRef;
 	bool _resolvedFlag;
+	bool _decoPrecedingFlag;
 	Stat _stat;
 	StatStack _statStack;
 	int _indentLevel;
@@ -300,6 +302,7 @@ private:
 	bool ParseChar(Signal sig, char ch);
 	bool CheckSpecialChar(char ch);
 	bool AdjustBlockQuote();
+	void AppendJointSpace();
 	void FlushText(Item::Type type, bool stripLeftFlag, bool stripRightFlag);
 	void FlushItem(Item::Type type, bool stripLeftFlag, bool stripRightFlag);
 	void FlushElement();
