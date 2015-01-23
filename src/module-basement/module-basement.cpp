@@ -623,7 +623,10 @@ Gura_DeclareFunction(chr)
 	DeclareAttr(Gura_Symbol(nil));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Converts a UTF-8 code into a string.\n"
+		"\n"
+		"A number between 128 and 255 is an invalid number and is converted to a null string.\n"
+		"If attribute `:nil` is specified, it returns `nil` for that case.\n");
 }
 
 Gura_ImplementFunction(chr)
@@ -656,7 +659,12 @@ Gura_DeclareFunction(hex)
 	DeclareAttr(Gura_Symbol(upper));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Converts a number into a hexadecimal string.\n"
+		"Argument `digits` specifies a minimum columns of the converted result\n"
+		"and fills `0` in the lacking space.\n"
+		"\n"
+		"In default, it uses lower-case characters in its conversion,\n"
+		"while it uses upper-case ones when `:upper` attribute is specified.\n");
 }
 
 Gura_ImplementFunction(hex)
@@ -682,7 +690,13 @@ Gura_DeclareFunctionAlias(int_, "int")
 	DeclareArg(env, "value", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Converts any value into an integer number.");
+		"Converts a value into an integer number like below:\n"
+		"\n"
+		"- For a number value, it would be converted into an integer number.\n"
+		"- For a compex value, its absolute number would be converted into an integer number.\n"
+		"- For a string value, it would be parsed as an integer number.\n"
+		"  An error occurs if it has an invalid format.\n"
+		"- For other values, an error occurs.\n");
 }
 
 Gura_ImplementFunction(int_)
@@ -714,7 +728,8 @@ Gura_DeclareFunction(ord)
 	DeclareArg(env, "str", VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Converts the first character of a string into a number of UTF-8 code.\n"
+		"If the string contains more than one characters, it simply neglects trailing ones.\n");
 }
 
 Gura_ImplementFunction(ord)
@@ -741,7 +756,19 @@ Gura_DeclareFunction(tonumber)
 	DeclareAttr(Gura_Symbol(nil));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Converts a string value into a number by a lexical parsing.\n"
+		"If the value is not a string, it first tries to convert the value into a string.\n"
+		"\n"
+		"If the string starts with a sequence of characters that can be parsed as a number literal,\n"
+		"it's not a failure even when it contains other characters following them.\n"
+		"Specifying an attribute `:strict` doesn't allow such a case and fails the process.\n"
+		"\n"
+		"If it fails the conversion, it would return `nil` value.\n"
+		"Attributes described below are prepared to customize the behaviour in the case of a failure.\n"
+		"\n"
+		"- `:raise` .. raises an error\n"
+		"- `:zero` .. returns zero value\n"
+		"- `:nil` .. returns `nil` value (default)\n");
 }
 
 Gura_ImplementFunction(tonumber)
@@ -768,7 +795,7 @@ Gura_DeclareFunction(tostring)
 	DeclareArg(env, "value", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Converts a value into a string.");
 }
 
 Gura_ImplementFunction(tostring)
@@ -783,7 +810,7 @@ Gura_DeclareFunction(tosymbol)
 	DeclareArg(env, "str", VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Converts a string into a symbol.");
 }
 
 Gura_ImplementFunction(tosymbol)
@@ -1035,7 +1062,11 @@ Gura_DeclareFunctionAlias(public_, "public")
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Declares symbols as public ones that are accessible from outer scopes.\n"
+		"\n"
+		"If you want to make `foo` and `bar` accessible, call this function like below:\n"
+		"\n"
+		"    public { foo, bar }\n");
 }
 
 Gura_ImplementFunction(public_)
@@ -1224,7 +1255,7 @@ Gura_DeclareFunction(isdefined)
 	DeclareArg(env, "identifier", VTYPE_quote);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns `true` if `identifier` is defined, and `false` otherwise.");
 }
 
 Gura_ImplementFunction(isdefined)
@@ -1324,7 +1355,7 @@ Gura_DeclareFunctionAlias(typename_, "typename")
 	DeclareArg(env, "value", VTYPE_quote);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a type name of the value.");
 }
 
 Gura_ImplementFunction(typename_)
@@ -1358,7 +1389,7 @@ Gura_DeclareFunctionAlias(undef_, "undef")
 	DeclareAttr(Gura_Symbol(raise));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Undefines `identifier` in the current scope.");
 }
 
 Gura_ImplementFunction(undef_)

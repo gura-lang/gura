@@ -15,7 +15,7 @@ write(doc:markdown.document) = {
 		curl.easy_init
 	]
 	doc << R'''
-	## curl.easy\\_handle Class
+	## curl.easy\_handle Class
 	'''
 	doc << [
 		curl.easy_handle.escape

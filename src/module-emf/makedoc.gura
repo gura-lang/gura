@@ -3,12 +3,12 @@ import(markdown)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## emf Module
-	### Abstract
-	### Sample
+	# emf Module
+	## Abstract
+	## Sample
 	'''
 	doc << R'''
-	### Module Functions
+	## Module Functions
 	'''
 	doc << [
 	]

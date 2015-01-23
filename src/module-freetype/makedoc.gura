@@ -20,7 +20,7 @@ write(doc:markdown.document) = {
 	doc << [
 	]
 	doc << R'''
-	## freetype.BDF_Property Class
+	## freetype.BDF\_Property Class
 	'''
 	doc << [
 	]
@@ -37,42 +37,42 @@ write(doc:markdown.document) = {
 		freetype.CharMap.Get_Index
 	]
 	doc << R'''
-	## freetype.FTC_CMapCache Class
+	## freetype.FTC\_CMapCache Class
 	'''
 	doc << [
 	]
 	doc << R'''
-	## freetype.FTC_ImageCache Class
+	## freetype.FTC\_ImageCache Class
 	'''
 	doc << [
 	]
 	doc << R'''
-	## freetype.FTC_ImageType Class
+	## freetype.FTC\_ImageType Class
 	'''
 	doc << [
 	]
 	doc << R'''
-	## freetype.FTC_Manager Class
+	## freetype.FTC\_Manager Class
 	'''
 	doc << [
 	]
 	doc << R'''
-	## freetype.FTC_Node Class
+	## freetype.FTC\_Node Class
 	'''
 	doc << [
 	]
 	doc << R'''
-	## freetype.FTC_SBit Class
+	## freetype.FTC\_SBit Class
 	'''
 	doc << [
 	]
 	doc << R'''
-	## freetype.FTC_SBitCache Class
+	## freetype.FTC\_SBitCache Class
 	'''
 	doc << [
 	]
 	doc << R'''
-	## freetype.FTC_Scaler Class
+	## freetype.FTC\_Scaler Class
 	'''
 	doc << [
 	]

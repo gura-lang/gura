@@ -341,10 +341,22 @@ Raises an error signal with a specified error object, a message string and an ad
 <code>chr(num:number):map:[nil]</code>
 </p>
 <p>
+Converts a UTF-8 code into a string.
+</p>
+<p>
+A number between 128 and 255 is an invalid number and is converted to a null string. If attribute <code>:nil</code> is specified, it returns <code>nil</code> for that case.
+</p>
+<p>
 <strong>hex</strong>
 </p>
 <p>
 <code>hex(num:number, digits?:number):map:[upper]</code>
+</p>
+<p>
+Converts a number into a hexadecimal string. Argument <code>digits</code> specifies a minimum columns of the converted result and fills <code>0</code> in the lacking space.
+</p>
+<p>
+In default, it uses lower-case characters in its conversion, while it uses upper-case ones when <code>:upper</code> attribute is specified.
 </p>
 <p>
 <strong>int</strong>
@@ -353,13 +365,22 @@ Raises an error signal with a specified error object, a message string and an ad
 <code>int(value):map</code>
 </p>
 <p>
-Converts any value into an integer number.
+Converts a value into an integer number like below:
 </p>
+<ul>
+<li>For a number value, it would be converted into an integer number.</li>
+<li>For a compex value, its absolute number would be converted into an integer number.</li>
+<li>For a string value, it would be parsed as an integer number. An error occurs if it has an invalid format.</li>
+<li>For other values, an error occurs.</li>
+</ul>
 <p>
 <strong>ord</strong>
 </p>
 <p>
 <code>ord(str:string):map</code>
+</p>
+<p>
+Converts the first character of a string into a number of UTF-8 code. If the string contains more than one characters, it simply neglects trailing ones.
 </p>
 <p>
 <strong>tonumber</strong>
@@ -368,16 +389,36 @@ Converts any value into an integer number.
 <code>tonumber(value):map:[nil,raise,strict,zero]</code>
 </p>
 <p>
+Converts a string value into a number by a lexical parsing. If the value is not a string, it first tries to convert the value into a string.
+</p>
+<p>
+If the string starts with a sequence of characters that can be parsed as a number literal, it's not a failure even when it contains other characters following them. Specifying an attribute <code>:strict</code> doesn't allow such a case and fails the process.
+</p>
+<p>
+If it fails the conversion, it would return <code>nil</code> value. Attributes described below are prepared to customize the behaviour in the case of a failure.
+</p>
+<ul>
+<li><code>:raise</code> .. raises an error</li>
+<li><code>:zero</code> .. returns zero value</li>
+<li><code>:nil</code> .. returns <code>nil</code> value (default)</li>
+</ul>
+<p>
 <strong>tostring</strong>
 </p>
 <p>
 <code>tostring(value):map</code>
 </p>
 <p>
+Converts a value into a string.
+</p>
+<p>
 <strong>tosymbol</strong>
 </p>
 <p>
 <code>tosymbol(str:string):map</code>
+</p>
+<p>
+Converts a string into a symbol.
 </p>
 <h2><span class="caption-index-2">3.7</span>Class Operations</h2>
 <p>
@@ -447,6 +488,14 @@ Returns an environment object that accesses to an outer scope.
 <p>
 <code>public():void {block}</code>
 </p>
+<p>
+Declares symbols as public ones that are accessible from outer scopes.
+</p>
+<p>
+If you want to make <code>foo</code> and <code>bar</code> accessible, call this function like below:
+</p>
+<pre><code>public { foo, bar }
+</code></pre>
 <p>
 <strong>scope</strong>
 </p>
@@ -706,6 +755,9 @@ Returns <code>true</code> if the type of the specified <code>value</code> is uri
 <code>isdefined(</code>identifier)
 </p>
 <p>
+Returns <code>true</code> if <code>identifier</code> is defined, and <code>false</code> otherwise.
+</p>
+<p>
 <strong>isinstance</strong>
 </p>
 <p>
@@ -730,10 +782,16 @@ Returns <code>true</code> if <code>value</code> is of the type of <code>type</co
 <code>typename(</code>value)
 </p>
 <p>
+Returns a type name of the value.
+</p>
+<p>
 <strong>undef</strong>
 </p>
 <p>
 <code>undef(</code>identifier+): [raise]
+</p>
+<p>
+Undefines <code>identifier</code> in the current scope.
 </p>
 <h2><span class="caption-index-2">3.11</span>Data Processing</h2>
 <p>
@@ -2722,6 +2780,16 @@ conio.waitkey():raise
 Clears the screen.
 </p>
 <p>
+In default, it clears whole the screen. Argument <code>region</code> that takes one of the symbols below would specify the region to be cleared.
+</p>
+<ul>
+<li><code>`line</code> .. clears characters in the line where the cursor exists.</li>
+<li><code>`left</code> .. clears characters on the left side of the cursor.</li>
+<li><code>`right</code> .. clears characters on the right side of the cursor.</li>
+<li><code>`top</code> .. clears characters on the above side of the cursor.</li>
+<li><code>`bottom</code> .. clears characters on the below side of the cursor.</li>
+</ul>
+<p>
 <strong>conio.getwinsize</strong>
 </p>
 <p>
@@ -2740,26 +2808,26 @@ Returns the screen size as a list <code>[width, height]</code>.
 Sets foreground and background color of text by specifying a color symbol. Available color symbols are listed below:
 </p>
 <ul>
-<li><code>black</code></li>
-<li><code>blue</code></li>
-<li><code>green</code></li>
-<li><code>aqua</code></li>
-<li><code>cyan</code></li>
-<li><code>red</code></li>
-<li><code>purple</code></li>
-<li><code>magenta</code></li>
-<li><code>yellow</code></li>
-<li><code>white</code></li>
-<li><code>gray</code></li>
-<li><code>bright_blue</code></li>
-<li><code>bright_green</code></li>
-<li><code>bright_aqua</code></li>
-<li><code>bright_cyan</code></li>
-<li><code>bright_red</code></li>
-<li><code>bright_purple</code></li>
-<li><code>bright_magenta</code></li>
-<li><code>bright_yellow</code></li>
-<li><code>bright_white</code></li>
+<li><code>`black</code></li>
+<li><code>`blue</code></li>
+<li><code>`green</code></li>
+<li><code>`aqua</code></li>
+<li><code>`cyan</code></li>
+<li><code>`red</code></li>
+<li><code>`purple</code></li>
+<li><code>`magenta</code></li>
+<li><code>`yellow</code></li>
+<li><code>`white</code></li>
+<li><code>`gray</code></li>
+<li><code>`bright_blue</code></li>
+<li><code>`bright_green</code></li>
+<li><code>`bright_aqua</code></li>
+<li><code>`bright_cyan</code></li>
+<li><code>`bright_red</code></li>
+<li><code>`bright_purple</code></li>
+<li><code>`bright_magenta</code></li>
+<li><code>`bright_yellow</code></li>
+<li><code>`bright_white</code></li>
 </ul>
 <p>
 If <code>fg</code> is set to nil, the foreground color remains unchanged. If <code>bg</code> is omitted or set to nil, the background color remains unchanged.
@@ -2879,7 +2947,7 @@ Returns a string of the libcurl version.
 <p>
 Initializes cURL and returns a easy<em>handle object.</em>
 </p>
-<h2><span class="caption-index-2">10.3</span>curl.easy\<em>handle Class</em></h2>
+<h2><span class="caption-index-2">10.3</span>curl.easy_handle Class</h2>
 <p>
 <strong>curl.easy_handle#escape</strong>
 </p>
@@ -2928,49 +2996,49 @@ Initializes cURL and returns a easy<em>handle object.</em>
 <p>
 <code>curl.easy_handle#unescape(string:string):void</code>
 </p>
-<h2><span class="caption-index-2">10.4</span>emf Module</h2>
-<h3><span class="caption-index-3">10.4.1</span>Abstract</h3>
-<h3><span class="caption-index-3">10.4.2</span>Sample</h3>
-<h3><span class="caption-index-3">10.4.3</span>Module Functions</h3>
-<h2><span class="caption-index-2">10.5</span>example Module</h2>
-<h3><span class="caption-index-3">10.5.1</span>Abstract</h3>
-<h3><span class="caption-index-3">10.5.2</span>Sample</h3>
-<h3><span class="caption-index-3">10.5.3</span>Module Functions</h3>
-<h1><span class="caption-index-1">11</span>freetype Module</h1>
+<h1><span class="caption-index-1">11</span>emf Module</h1>
 <h2><span class="caption-index-2">11.1</span>Abstract</h2>
 <h2><span class="caption-index-2">11.2</span>Sample</h2>
 <h2><span class="caption-index-2">11.3</span>Module Functions</h2>
+<h2><span class="caption-index-2">11.4</span>example Module</h2>
+<h3><span class="caption-index-3">11.4.1</span>Abstract</h3>
+<h3><span class="caption-index-3">11.4.2</span>Sample</h3>
+<h3><span class="caption-index-3">11.4.3</span>Module Functions</h3>
+<h1><span class="caption-index-1">12</span>freetype Module</h1>
+<h2><span class="caption-index-2">12.1</span>Abstract</h2>
+<h2><span class="caption-index-2">12.2</span>Sample</h2>
+<h2><span class="caption-index-2">12.3</span>Module Functions</h2>
 <p>
 <strong>freetype.sysfontpath</strong>
 </p>
 <p>
 <code>freetype.sysfontpath(name?:string):map</code>
 </p>
-<h2><span class="caption-index-2">11.4</span>freetype.BBox Class</h2>
-<h2><span class="caption-index-2">11.5</span>freetype.BDF<em>Property Class</em></h2>
-<h2><span class="caption-index-2">11.6</span>freetype.Bitmap Class</h2>
+<h2><span class="caption-index-2">12.4</span>freetype.BBox Class</h2>
+<h2><span class="caption-index-2">12.5</span>freetype.BDF_Property Class</h2>
+<h2><span class="caption-index-2">12.6</span>freetype.Bitmap Class</h2>
 <p>
 <strong>freetype.Bitmap#Embolden</strong>
 </p>
 <p>
 <code>freetype.Bitmap#Embolden(strength:number):reduce</code>
 </p>
-<h2><span class="caption-index-2">11.7</span>freetype.CharMap Class</h2>
+<h2><span class="caption-index-2">12.7</span>freetype.CharMap Class</h2>
 <p>
 <strong>freetype.CharMap#Get_Index</strong>
 </p>
 <p>
 <code>freetype.CharMap#Get_Index()</code>
 </p>
-<h2><span class="caption-index-2">11.8</span>freetype.FTC<em>CMapCache Class</em></h2>
-<h2><span class="caption-index-2">11.9</span>freetype.FTC<em>ImageCache Class</em></h2>
-<h2><span class="caption-index-2">11.10</span>freetype.FTC<em>ImageType Class</em></h2>
-<h2><span class="caption-index-2">11.11</span>freetype.FTC<em>Manager Class</em></h2>
-<h2><span class="caption-index-2">11.12</span>freetype.FTC<em>Node Class</em></h2>
-<h2><span class="caption-index-2">11.13</span>freetype.FTC<em>SBit Class</em></h2>
-<h2><span class="caption-index-2">11.14</span>freetype.FTC<em>SBitCache Class</em></h2>
-<h2><span class="caption-index-2">11.15</span>freetype.FTC<em>Scaler Class</em></h2>
-<h2><span class="caption-index-2">11.16</span>freetype.Face Class</h2>
+<h2><span class="caption-index-2">12.8</span>freetype.FTC_CMapCache Class</h2>
+<h2><span class="caption-index-2">12.9</span>freetype.FTC_ImageCache Class</h2>
+<h2><span class="caption-index-2">12.10</span>freetype.FTC_ImageType Class</h2>
+<h2><span class="caption-index-2">12.11</span>freetype.FTC_Manager Class</h2>
+<h2><span class="caption-index-2">12.12</span>freetype.FTC_Node Class</h2>
+<h2><span class="caption-index-2">12.13</span>freetype.FTC_SBit Class</h2>
+<h2><span class="caption-index-2">12.14</span>freetype.FTC_SBitCache Class</h2>
+<h2><span class="caption-index-2">12.15</span>freetype.FTC_Scaler Class</h2>
+<h2><span class="caption-index-2">12.16</span>freetype.Face Class</h2>
 <p>
 <strong>freetype.Face</strong>
 </p>
@@ -3037,7 +3105,7 @@ Initializes cURL and returns a easy<em>handle object.</em>
 <p>
 <code>freetype.Face#Set_Pixel_Sizes(pixel_width:number, pixel_height:number):reduce</code>
 </p>
-<h2><span class="caption-index-2">11.17</span>freetype.Glyph Class</h2>
+<h2><span class="caption-index-2">12.17</span>freetype.Glyph Class</h2>
 <p>
 <strong>freetype.Glyph#Copy</strong>
 </p>
@@ -3056,7 +3124,7 @@ Initializes cURL and returns a easy<em>handle object.</em>
 <p>
 <code>freetype.Glyph#StrokeBorder(stroker:freetype.Stroker, inside:boolean):reduce</code>
 </p>
-<h2><span class="caption-index-2">11.18</span>freetype.GlyphSlot Class</h2>
+<h2><span class="caption-index-2">12.18</span>freetype.GlyphSlot Class</h2>
 <p>
 <strong>freetype.GlyphSlot#Get_Glyph</strong>
 </p>
@@ -3069,7 +3137,7 @@ Initializes cURL and returns a easy<em>handle object.</em>
 <p>
 <code>freetype.GlyphSlot#Render(render_mode:number):reduce</code>
 </p>
-<h2><span class="caption-index-2">11.19</span>freetype.Matrix Class</h2>
+<h2><span class="caption-index-2">12.19</span>freetype.Matrix Class</h2>
 <p>
 <strong>freetype.Matrix</strong>
 </p>
@@ -3088,7 +3156,7 @@ Initializes cURL and returns a easy<em>handle object.</em>
 <p>
 <code>freetype.Matrix#Invert():reduce</code>
 </p>
-<h2><span class="caption-index-2">11.20</span>freetype.Outline Class</h2>
+<h2><span class="caption-index-2">12.20</span>freetype.Outline Class</h2>
 <p>
 <strong>freetype.Outline#Translate</strong>
 </p>
@@ -3113,9 +3181,9 @@ Initializes cURL and returns a easy<em>handle object.</em>
 <p>
 <code>freetype.Outline#Reverse():reduce</code>
 </p>
-<h2><span class="caption-index-2">11.21</span>freetype.Raster Class</h2>
-<h2><span class="caption-index-2">11.22</span>freetype.Span Class</h2>
-<h2><span class="caption-index-2">11.23</span>freetype.Stroker Class</h2>
+<h2><span class="caption-index-2">12.21</span>freetype.Raster Class</h2>
+<h2><span class="caption-index-2">12.22</span>freetype.Span Class</h2>
+<h2><span class="caption-index-2">12.23</span>freetype.Stroker Class</h2>
 <p>
 <strong>freetype.Stroker</strong>
 </p>
@@ -3128,7 +3196,7 @@ Initializes cURL and returns a easy<em>handle object.</em>
 <p>
 <code>freetype.Stroker#BeginSubPath(to:freetype.Vector, open:boolean):reduce</code>
 </p>
-<h2><span class="caption-index-2">11.24</span>freetype.Vector Class</h2>
+<h2><span class="caption-index-2">12.24</span>freetype.Vector Class</h2>
 <p>
 <strong>freetype.Vector</strong>
 </p>
@@ -3147,7 +3215,7 @@ Initializes cURL and returns a easy<em>handle object.</em>
 <p>
 <code>freetype.Vector#Transform(matrix:freetype.Matrix):reduce</code>
 </p>
-<h2><span class="caption-index-2">11.25</span>freetype.font Class</h2>
+<h2><span class="caption-index-2">12.25</span>freetype.font Class</h2>
 <p>
 <strong>freetype.font</strong>
 </p>
@@ -3181,7 +3249,7 @@ Draws a text on the image.
 <p>
 <code>freetype.font#calcbbox(x:number, y:number, str:string):map</code>
 </p>
-<h2><span class="caption-index-2">11.26</span>Extension of image Class</h2>
+<h2><span class="caption-index-2">12.26</span>Extension of image Class</h2>
 <p>
 <strong>image#drawtext</strong>
 </p>
@@ -3191,8 +3259,8 @@ Draws a text on the image.
 <p>
 Draws a text on the image.
 </p>
-<h1><span class="caption-index-1">12</span>fs Module</h1>
-<h2><span class="caption-index-2">12.1</span>Module Functions</h2>
+<h1><span class="caption-index-1">13</span>fs Module</h1>
+<h2><span class="caption-index-2">13.1</span>Module Functions</h2>
 <p>
 <strong>fs.chdir</strong>
 </p>
@@ -3332,10 +3400,10 @@ Renames a file or directory.
 <p>
 Removes a directory. If the directory contains sub directories, an error occurs. Specifying <code>:tree</code> attribute would delete such a directory.
 </p>
-<h1><span class="caption-index-1">13</span>gif Module</h1>
-<h2><span class="caption-index-2">13.1</span>Abstract</h2>
-<h2><span class="caption-index-2">13.2</span>Sample</h2>
-<h2><span class="caption-index-2">13.3</span>gif.content Class</h2>
+<h1><span class="caption-index-1">14</span>gif Module</h1>
+<h2><span class="caption-index-2">14.1</span>Abstract</h2>
+<h2><span class="caption-index-2">14.2</span>Sample</h2>
+<h2><span class="caption-index-2">14.3</span>gif.content Class</h2>
 <p>
 <strong>gif.content</strong>
 </p>
@@ -3363,7 +3431,7 @@ Adds an image to GIF information. If you add multiple images, they are to be ren
 <p>
 Writes a GIF image to a stream.
 </p>
-<h2><span class="caption-index-2">13.4</span>Extension of image Class</h2>
+<h2><span class="caption-index-2">14.4</span>Extension of image Class</h2>
 <p>
 <strong>image#read@gif</strong>
 </p>
@@ -3382,10 +3450,10 @@ Reads a GIF image from a stream.
 <p>
 Writes a GIF image to a stream.
 </p>
-<h1><span class="caption-index-1">14</span>glu Module</h1>
-<h2><span class="caption-index-2">14.1</span>Abstract</h2>
-<h2><span class="caption-index-2">14.2</span>Sample</h2>
-<h2><span class="caption-index-2">14.3</span>Module Functions</h2>
+<h1><span class="caption-index-1">15</span>glu Module</h1>
+<h2><span class="caption-index-2">15.1</span>Abstract</h2>
+<h2><span class="caption-index-2">15.2</span>Sample</h2>
+<h2><span class="caption-index-2">15.3</span>Module Functions</h2>
 <p>
 <strong>glu.gluBeginCurve</strong>
 </p>
@@ -3716,10 +3784,10 @@ Writes a GIF image to a stream.
 <p>
 <code>glu.gluUnProject(winX:number, winY:number, winZ:number, model:array@double:nomap, proj:array@double:nomap, view:array@int:nomap, objX:array@double:nomap, objY:array@double:nomap, objZ:array@double:nomap)</code>
 </p>
-<h1><span class="caption-index-1">15</span>glut Module</h1>
-<h2><span class="caption-index-2">15.1</span>Abstract</h2>
-<h2><span class="caption-index-2">15.2</span>Sample</h2>
-<h2><span class="caption-index-2">15.3</span>Module Functions</h2>
+<h1><span class="caption-index-1">16</span>glut Module</h1>
+<h2><span class="caption-index-2">16.1</span>Abstract</h2>
+<h2><span class="caption-index-2">16.2</span>Sample</h2>
+<h2><span class="caption-index-2">16.3</span>Module Functions</h2>
 <p>
 <strong>glut.glutInit</strong>
 </p>
@@ -4458,10 +4526,10 @@ Writes a GIF image to a stream.
 <p>
 <code>glut.glutGameModeGet(mode:number):map {block?}</code>
 </p>
-<h1><span class="caption-index-1">16</span>gmp Module</h1>
-<h2><span class="caption-index-2">16.1</span>Abstract</h2>
-<h2><span class="caption-index-2">16.2</span>Sample</h2>
-<h2><span class="caption-index-2">16.3</span>Module Functions</h2>
+<h1><span class="caption-index-1">17</span>gmp Module</h1>
+<h2><span class="caption-index-2">17.1</span>Abstract</h2>
+<h2><span class="caption-index-2">17.2</span>Sample</h2>
+<h2><span class="caption-index-2">17.3</span>Module Functions</h2>
 <p>
 <strong>gmp.gcd</strong>
 </p>
@@ -4480,7 +4548,7 @@ Writes a GIF image to a stream.
 <p>
 <code>gmp.sqrt(num):map</code>
 </p>
-<h2><span class="caption-index-2">16.4</span>gmp.mpf Class</h2>
+<h2><span class="caption-index-2">17.4</span>gmp.mpf Class</h2>
 <p>
 <strong>gmp.mpf</strong>
 </p>
@@ -4499,21 +4567,21 @@ Writes a GIF image to a stream.
 <p>
 <code>gmp.mpf.set_default_prec(prec:number):static:void</code>
 </p>
-<h2><span class="caption-index-2">16.5</span>gmp.mpq Class</h2>
+<h2><span class="caption-index-2">17.5</span>gmp.mpq Class</h2>
 <p>
 <strong>gmp.mpq</strong>
 </p>
 <p>
 <code>gmp.mpq(numer?, denom?:number):map {block?}</code>
 </p>
-<h2><span class="caption-index-2">16.6</span>gmp.mpz Class</h2>
+<h2><span class="caption-index-2">17.6</span>gmp.mpz Class</h2>
 <p>
 <strong>gmp.mpz</strong>
 </p>
 <p>
 <code>gmp.mpz(value?):map {block?}</code>
 </p>
-<h2><span class="caption-index-2">16.7</span>Extention of string Class</h2>
+<h2><span class="caption-index-2">17.7</span>Extention of string Class</h2>
 <p>
 <strong>string#mpf</strong>
 </p>
@@ -4532,14 +4600,14 @@ Writes a GIF image to a stream.
 <p>
 <code>string#mpz(base?:number):map</code>
 </p>
-<h1><span class="caption-index-1">17</span>guri Module</h1>
-<h2><span class="caption-index-2">17.1</span>Abstract</h2>
-<h2><span class="caption-index-2">17.2</span>Sample</h2>
-<h2><span class="caption-index-2">17.3</span>Module Functions</h2>
-<h1><span class="caption-index-1">18</span>gzip Module</h1>
+<h1><span class="caption-index-1">18</span>guri Module</h1>
 <h2><span class="caption-index-2">18.1</span>Abstract</h2>
 <h2><span class="caption-index-2">18.2</span>Sample</h2>
 <h2><span class="caption-index-2">18.3</span>Module Functions</h2>
+<h1><span class="caption-index-1">19</span>gzip Module</h1>
+<h2><span class="caption-index-2">19.1</span>Abstract</h2>
+<h2><span class="caption-index-2">19.2</span>Sample</h2>
+<h2><span class="caption-index-2">19.3</span>Module Functions</h2>
 <p>
 <strong>gzip.reader</strong>
 </p>
@@ -4552,7 +4620,7 @@ Writes a GIF image to a stream.
 <p>
 <code>gzip.writer(stream:stream:w, level?:number) {block?}</code>
 </p>
-<h2><span class="caption-index-2">18.4</span>Extension of image Class</h2>
+<h2><span class="caption-index-2">19.4</span>Extension of image Class</h2>
 <p>
 <strong>stream#reader@gzip</strong>
 </p>
@@ -4565,10 +4633,10 @@ Writes a GIF image to a stream.
 <p>
 <code>stream#writer@gzip(level?:number) {block?}</code>
 </p>
-<h1><span class="caption-index-1">19</span>hash Module</h1>
-<h2><span class="caption-index-2">19.1</span>Abstract</h2>
-<h2><span class="caption-index-2">19.2</span>Sample</h2>
-<h2><span class="caption-index-2">19.3</span>Module Functions</h2>
+<h1><span class="caption-index-1">20</span>hash Module</h1>
+<h2><span class="caption-index-2">20.1</span>Abstract</h2>
+<h2><span class="caption-index-2">20.2</span>Sample</h2>
+<h2><span class="caption-index-2">20.3</span>Module Functions</h2>
 <p>
 <strong>hash.md5</strong>
 </p>
@@ -4587,7 +4655,7 @@ Writes a GIF image to a stream.
 <p>
 <code>hash.crc32(stream?:stream:r) {block?}</code>
 </p>
-<h2><span class="caption-index-2">19.4</span>hash.accumulator Class</h2>
+<h2><span class="caption-index-2">20.4</span>hash.accumulator Class</h2>
 <p>
 <strong>hash.accumulator#init</strong>
 </p>
@@ -4600,15 +4668,15 @@ Writes a GIF image to a stream.
 <p>
 <code>hash.accumulator#update(stream:stream:r):reduce</code>
 </p>
-<h1><span class="caption-index-1">20</span>http Module</h1>
-<h2><span class="caption-index-2">20.1</span>Abstract</h2>
-<h2><span class="caption-index-2">20.2</span>Sample</h2>
-<h2><span class="caption-index-2">20.3</span>Module Functions</h2>
-<h1><span class="caption-index-1">21</span>jpeg Module</h1>
+<h1><span class="caption-index-1">21</span>http Module</h1>
 <h2><span class="caption-index-2">21.1</span>Abstract</h2>
 <h2><span class="caption-index-2">21.2</span>Sample</h2>
 <h2><span class="caption-index-2">21.3</span>Module Functions</h2>
-<h2><span class="caption-index-2">21.4</span>Extension of image Class</h2>
+<h1><span class="caption-index-1">22</span>jpeg Module</h1>
+<h2><span class="caption-index-2">22.1</span>Abstract</h2>
+<h2><span class="caption-index-2">22.2</span>Sample</h2>
+<h2><span class="caption-index-2">22.3</span>Module Functions</h2>
+<h2><span class="caption-index-2">22.4</span>Extension of image Class</h2>
 <p>
 <strong>image#read@jpeg</strong>
 </p>
@@ -4627,12 +4695,12 @@ Reads a JPEG image from a stream.
 <p>
 Writes a JPEG image to a stream.
 </p>
-<h1><span class="caption-index-1">22</span>llvm Module</h1>
-<h2><span class="caption-index-2">22.1</span>Abstract</h2>
-<h2><span class="caption-index-2">22.2</span>Sample</h2>
-<h2><span class="caption-index-2">22.3</span>Module Functions</h2>
-<h1><span class="caption-index-1">23</span>markdown Module</h1>
-<h2><span class="caption-index-2">23.1</span>Module Functions</h2>
+<h1><span class="caption-index-1">23</span>llvm Module</h1>
+<h2><span class="caption-index-2">23.1</span>Abstract</h2>
+<h2><span class="caption-index-2">23.2</span>Sample</h2>
+<h2><span class="caption-index-2">23.3</span>Module Functions</h2>
+<h1><span class="caption-index-1">24</span>markdown Module</h1>
+<h2><span class="caption-index-2">24.1</span>Module Functions</h2>
 <p>
 <strong>markdown.document</strong>
 </p>
@@ -4651,7 +4719,7 @@ Returns an instance of <code>markdown.document</code>. If <code>stream</code> is
 <p>
 Sets a presentation procedure that shows helps written in Markdown format. The procedure is specified by a block that takes block parameters: <code>|title:string, doc:markdown.document|</code>.
 </p>
-<h2><span class="caption-index-2">23.2</span>markdown.document Class</h2>
+<h2><span class="caption-index-2">24.2</span>markdown.document Class</h2>
 <p>
 <strong>markdown.document#parse</strong>
 </p>
@@ -4670,7 +4738,7 @@ Parses a Markdown text in a string.
 <p>
 Parses a Markdown text from a stream.
 </p>
-<h2><span class="caption-index-2">23.3</span>markdown.item Class</h2>
+<h2><span class="caption-index-2">24.3</span>markdown.item Class</h2>
 <p>
 <strong>markdown.item#print</strong>
 </p>
@@ -4680,10 +4748,10 @@ Parses a Markdown text from a stream.
 <p>
 Prints structured content of the item. Argument <code>indent</code> specifies an indentation level and is set to zero when omitted.
 </p>
-<h1><span class="caption-index-1">24</span>math Module</h1>
-<h2><span class="caption-index-2">24.1</span>Abstract</h2>
-<h2><span class="caption-index-2">24.2</span>Sample</h2>
-<h2><span class="caption-index-2">24.3</span>Module Functions</h2>
+<h1><span class="caption-index-1">25</span>math Module</h1>
+<h2><span class="caption-index-2">25.1</span>Abstract</h2>
+<h2><span class="caption-index-2">25.2</span>Sample</h2>
+<h2><span class="caption-index-2">25.3</span>Module Functions</h2>
 <p>
 <strong>math.real</strong>
 </p>
@@ -4978,12 +5046,12 @@ Returns a greatest common divisor among two or more numbers.
 <p>
 Returns a least common multiple among two or more numbers.
 </p>
-<h1><span class="caption-index-1">25</span>midi Module</h1>
-<h2><span class="caption-index-2">25.1</span>Abstract</h2>
-<h2><span class="caption-index-2">25.2</span>Sample</h2>
-<h2><span class="caption-index-2">25.3</span>Module Functions</h2>
-<h2><span class="caption-index-2">25.4</span>midi.event Class</h2>
-<h2><span class="caption-index-2">25.5</span>midi.track Class</h2>
+<h1><span class="caption-index-1">26</span>midi Module</h1>
+<h2><span class="caption-index-2">26.1</span>Abstract</h2>
+<h2><span class="caption-index-2">26.2</span>Sample</h2>
+<h2><span class="caption-index-2">26.3</span>Module Functions</h2>
+<h2><span class="caption-index-2">26.4</span>midi.event Class</h2>
+<h2><span class="caption-index-2">26.5</span>midi.track Class</h2>
 <p>
 <strong>midi.track#seek</strong>
 </p>
@@ -5155,7 +5223,7 @@ The argument <code>max_velocity</code> specifies the maximum number of velocity 
 <p>
 <code>midi.track#sequencer_specific_event(binary:binary, deltaTime?:number):map:reduce</code>
 </p>
-<h2><span class="caption-index-2">25.6</span>midi.sequence Class</h2>
+<h2><span class="caption-index-2">26.6</span>midi.sequence Class</h2>
 <p>
 <strong>midi.sequence</strong>
 </p>
@@ -5201,8 +5269,8 @@ It creates an instance that contains SMF information.
 <p>
 <code>midi.sequence#readmml(stream:stream, max_velocity?:number):reduce</code>
 </p>
-<h2><span class="caption-index-2">25.7</span>midi.portinfo Class</h2>
-<h2><span class="caption-index-2">25.8</span>midi.port Class</h2>
+<h2><span class="caption-index-2">26.7</span>midi.portinfo Class</h2>
+<h2><span class="caption-index-2">26.8</span>midi.port Class</h2>
 <p>
 <strong>midi.port#send</strong>
 </p>
@@ -5269,10 +5337,10 @@ It creates an instance that contains SMF information.
 <p>
 <code>midi.port#pitch_bend(channel:number, value:number):map:reduce</code>
 </p>
-<h2><span class="caption-index-2">25.9</span>midi.player Class</h2>
-<h2><span class="caption-index-2">25.10</span>midi.controller Class</h2>
-<h2><span class="caption-index-2">25.11</span>midi.program Class</h2>
-<h2><span class="caption-index-2">25.12</span>midi.soundfont Class</h2>
+<h2><span class="caption-index-2">26.9</span>midi.player Class</h2>
+<h2><span class="caption-index-2">26.10</span>midi.controller Class</h2>
+<h2><span class="caption-index-2">26.11</span>midi.program Class</h2>
+<h2><span class="caption-index-2">26.12</span>midi.soundfont Class</h2>
 <p>
 <strong>midi.soundfont</strong>
 </p>
@@ -5294,12 +5362,12 @@ It creates an instance to access data in SoundFont file.
 <p>
 <code>midi.soundfont#print():void</code>
 </p>
-<h2><span class="caption-index-2">25.13</span>midi.synthesizer Class</h2>
-<h1><span class="caption-index-1">26</span>msico Module</h1>
-<h2><span class="caption-index-2">26.1</span>Abstract</h2>
-<h2><span class="caption-index-2">26.2</span>Sample</h2>
-<h2><span class="caption-index-2">26.3</span>Module Functions</h2>
-<h2><span class="caption-index-2">26.4</span>msico.content Class</h2>
+<h2><span class="caption-index-2">26.13</span>midi.synthesizer Class</h2>
+<h1><span class="caption-index-1">27</span>msico Module</h1>
+<h2><span class="caption-index-2">27.1</span>Abstract</h2>
+<h2><span class="caption-index-2">27.2</span>Sample</h2>
+<h2><span class="caption-index-2">27.3</span>Module Functions</h2>
+<h2><span class="caption-index-2">27.4</span>msico.content Class</h2>
 <p>
 <strong>msico.content</strong>
 </p>
@@ -5321,7 +5389,7 @@ Writes an ICO image to a stream.
 <p>
 <code>msico.content#addimage(image:image):map:reduce</code>
 </p>
-<h2><span class="caption-index-2">26.5</span>Extension of image Class</h2>
+<h2><span class="caption-index-2">27.5</span>Extension of image Class</h2>
 <p>
 <strong>image#read@msico</strong>
 </p>
@@ -5331,14 +5399,14 @@ Writes an ICO image to a stream.
 <p>
 Reads an ICO image from a stream.
 </p>
-<h1><span class="caption-index-1">27</span>mysql Module</h1>
-<h2><span class="caption-index-2">27.1</span>Abstract</h2>
-<h2><span class="caption-index-2">27.2</span>Sample</h2>
-<h2><span class="caption-index-2">27.3</span>Module Functions</h2>
-<h1><span class="caption-index-1">28</span>opengl Module</h1>
+<h1><span class="caption-index-1">28</span>mysql Module</h1>
 <h2><span class="caption-index-2">28.1</span>Abstract</h2>
 <h2><span class="caption-index-2">28.2</span>Sample</h2>
 <h2><span class="caption-index-2">28.3</span>Module Functions</h2>
+<h1><span class="caption-index-1">29</span>opengl Module</h1>
+<h2><span class="caption-index-2">29.1</span>Abstract</h2>
+<h2><span class="caption-index-2">29.2</span>Sample</h2>
+<h2><span class="caption-index-2">29.3</span>Module Functions</h2>
 <p>
 <strong>opengl.glAccum</strong>
 </p>
@@ -7442,10 +7510,10 @@ delimit the vertices of a primitive or a group of like primitives
 <p>
 <code>opengl.glUniformMatrix4x3fv(location:number, count:number, transpose:boolean, value:array@float:nomap):map:void</code>
 </p>
-<h1><span class="caption-index-1">29</span>os Module</h1>
-<h2><span class="caption-index-2">29.1</span>Abstract</h2>
-<h2><span class="caption-index-2">29.2</span>Sample</h2>
-<h2><span class="caption-index-2">29.3</span>Module Functions</h2>
+<h1><span class="caption-index-1">30</span>os Module</h1>
+<h2><span class="caption-index-2">30.1</span>Abstract</h2>
+<h2><span class="caption-index-2">30.2</span>Sample</h2>
+<h2><span class="caption-index-2">30.3</span>Module Functions</h2>
 <p>
 <strong>os.clock</strong>
 </p>
@@ -7533,10 +7601,10 @@ Converts Gura's regulated string into binary data that includes OS's native stri
 <p>
 Unset an environment variable.
 </p>
-<h1><span class="caption-index-1">30</span>path Module</h1>
-<h2><span class="caption-index-2">30.1</span>Abstract</h2>
-<h2><span class="caption-index-2">30.2</span>Sample</h2>
-<h2><span class="caption-index-2">30.3</span>Module Functions</h2>
+<h1><span class="caption-index-1">31</span>path Module</h1>
+<h2><span class="caption-index-2">31.1</span>Abstract</h2>
+<h2><span class="caption-index-2">31.2</span>Sample</h2>
+<h2><span class="caption-index-2">31.3</span>Module Functions</h2>
 <p>
 <strong>path.absname</strong>
 </p>
@@ -7690,11 +7758,11 @@ Returns a stat object associated with the specified item.
 <p>
 Creates an iterator that recursively lists item names under the specified directory. If pathname is omitted, search starts at the current directory If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute In default, it returns an iterator. If attribute :xiter is specified, it returns an iterator that eliminates nil value from the iterated result. If one of attributes :list, :xlist, :set and :xset is specified, it gathers results and returns a list of them. The rule is as follows :list  a list of result values :xlist a list of result values eliminating nil :set   a list of unique values of results :xset  a list of unique values of results eliminating nil
 </p>
-<h1><span class="caption-index-1">31</span>png Module</h1>
-<h2><span class="caption-index-2">31.1</span>Abstract</h2>
-<h2><span class="caption-index-2">31.2</span>Sample</h2>
-<h2><span class="caption-index-2">31.3</span>Module Functions</h2>
-<h2><span class="caption-index-2">31.4</span>Extension of image Class</h2>
+<h1><span class="caption-index-1">32</span>png Module</h1>
+<h2><span class="caption-index-2">32.1</span>Abstract</h2>
+<h2><span class="caption-index-2">32.2</span>Sample</h2>
+<h2><span class="caption-index-2">32.3</span>Module Functions</h2>
+<h2><span class="caption-index-2">32.4</span>Extension of image Class</h2>
 <p>
 <strong>image#read@png</strong>
 </p>
@@ -7713,15 +7781,15 @@ Reads a PNG image from a stream.
 <p>
 Writes a PNG image to a stream.
 </p>
-<h1><span class="caption-index-1">32</span>postgresql Module</h1>
-<h2><span class="caption-index-2">32.1</span>Abstract</h2>
-<h2><span class="caption-index-2">32.2</span>Sample</h2>
-<h2><span class="caption-index-2">32.3</span>Module Functions</h2>
-<h1><span class="caption-index-1">33</span>ppm Module</h1>
+<h1><span class="caption-index-1">33</span>postgresql Module</h1>
 <h2><span class="caption-index-2">33.1</span>Abstract</h2>
 <h2><span class="caption-index-2">33.2</span>Sample</h2>
 <h2><span class="caption-index-2">33.3</span>Module Functions</h2>
-<h2><span class="caption-index-2">33.4</span>Extension of image Class</h2>
+<h1><span class="caption-index-1">34</span>ppm Module</h1>
+<h2><span class="caption-index-2">34.1</span>Abstract</h2>
+<h2><span class="caption-index-2">34.2</span>Sample</h2>
+<h2><span class="caption-index-2">34.3</span>Module Functions</h2>
+<h2><span class="caption-index-2">34.4</span>Extension of image Class</h2>
 <p>
 <strong>image#read@ppm</strong>
 </p>
@@ -7740,10 +7808,10 @@ Reads a PPM/PGM image from a stream.
 <p>
 Writes a PPM/PGM image to a stream.
 </p>
-<h1><span class="caption-index-1">34</span>re Module</h1>
-<h2><span class="caption-index-2">34.1</span>Abstract</h2>
-<h2><span class="caption-index-2">34.2</span>Sample</h2>
-<h2><span class="caption-index-2">34.3</span>Module Functions</h2>
+<h1><span class="caption-index-1">35</span>re Module</h1>
+<h2><span class="caption-index-2">35.1</span>Abstract</h2>
+<h2><span class="caption-index-2">35.2</span>Sample</h2>
+<h2><span class="caption-index-2">35.3</span>Module Functions</h2>
 <p>
 <strong>re.match</strong>
 </p>
@@ -7768,7 +7836,7 @@ Writes a PPM/PGM image to a stream.
 <p>
 <code>re.scan(pattern:re.pattern, str:string, pos:number =&gt; 0, endpos?:number):map {block?}</code>
 </p>
-<h2><span class="caption-index-2">34.4</span>re.pattern Class</h2>
+<h2><span class="caption-index-2">35.4</span>re.pattern Class</h2>
 <p>
 <strong>re.pattern</strong>
 </p>
@@ -7802,7 +7870,7 @@ Applies a pattern matching to a string and returns a match object.
 <p>
 <code>re.pattern#scan(str:string, pos:number =&gt; 0, endpos?:number):map {block?}</code>
 </p>
-<h2><span class="caption-index-2">34.5</span>Extension of string Class</h2>
+<h2><span class="caption-index-2">35.5</span>Extension of string Class</h2>
 <p>
 <strong>string#match</strong>
 </p>
@@ -7827,24 +7895,24 @@ Applies a pattern matching to a string and returns a match object.
 <p>
 <code>string#scan(pattern:re.pattern, pos:number =&gt; 0, endpos?:number):map {block?}</code>
 </p>
-<h2><span class="caption-index-2">34.6</span>Extension of list Class</h2>
+<h2><span class="caption-index-2">35.6</span>Extension of list Class</h2>
 <p>
 <strong>list#grep</strong>
 </p>
 <p>
 <code>list#grep(pattern:re.pattern):map {block?}</code>
 </p>
-<h2><span class="caption-index-2">34.7</span>Extension of iterator Class</h2>
+<h2><span class="caption-index-2">35.7</span>Extension of iterator Class</h2>
 <p>
 <strong>iterator#grep</strong>
 </p>
 <p>
 <code>iterator#grep(pattern:re.pattern):map {block?}</code>
 </p>
-<h1><span class="caption-index-1">35</span>sdl2 Module</h1>
-<h2><span class="caption-index-2">35.1</span>Abstract</h2>
-<h2><span class="caption-index-2">35.2</span>Sample</h2>
-<h2><span class="caption-index-2">35.3</span>Module Functions</h2>
+<h1><span class="caption-index-1">36</span>sdl2 Module</h1>
+<h2><span class="caption-index-2">36.1</span>Abstract</h2>
+<h2><span class="caption-index-2">36.2</span>Sample</h2>
+<h2><span class="caption-index-2">36.3</span>Module Functions</h2>
 <p>
 <strong>sdl2.Init</strong>
 </p>
@@ -11024,35 +11092,35 @@ It is possible for multiple errors to occur before calling <code>SDL_GetError()<
 <p>
 <code>sdl2.acos(x:number) {block?}</code>
 </p>
-<h2><span class="caption-index-2">35.4</span>sdl2.Window Class</h2>
-<h2><span class="caption-index-2">35.5</span>sdl2.Renderer Class</h2>
-<h2><span class="caption-index-2">35.6</span>sdl2.Texture Class</h2>
-<h2><span class="caption-index-2">35.7</span>sdl2.Event Class</h2>
-<h2><span class="caption-index-2">35.8</span>sdl2.Point Class</h2>
-<h2><span class="caption-index-2">35.9</span>sdl2.Rect Class</h2>
-<h2><span class="caption-index-2">35.10</span>sdl2.Color Class</h2>
-<h2><span class="caption-index-2">35.11</span>sdl2.Palette Class</h2>
-<h2><span class="caption-index-2">35.12</span>sdl2.PixelFormat Class</h2>
-<h2><span class="caption-index-2">35.13</span>sdl2.Keysym Class</h2>
-<h2><span class="caption-index-2">35.14</span>sdl2.Cursor Class</h2>
-<h2><span class="caption-index-2">35.15</span>sdl2.Joystick Class</h2>
-<h2><span class="caption-index-2">35.16</span>sdl2.JoystickGUID Class</h2>
-<h2><span class="caption-index-2">35.17</span>sdl2.GameController Class</h2>
-<h2><span class="caption-index-2">35.18</span>sdl2.GameControllerButtonBind Class</h2>
-<h2><span class="caption-index-2">35.19</span>sdl2.AudioCVT Class</h2>
-<h2><span class="caption-index-2">35.20</span>sdl2.AudioSpec Class</h2>
-<h2><span class="caption-index-2">35.21</span>sdl2.Wav Class</h2>
-<h2><span class="caption-index-2">35.22</span>sdl2.RendererInfo Class</h2>
-<h2><span class="caption-index-2">35.23</span>sdl2.DisplayMode Class</h2>
-<h2><span class="caption-index-2">35.24</span>sdl2.GLContext Class</h2>
-<h2><span class="caption-index-2">35.25</span>sdl2.HapticEffect Class</h2>
-<h2><span class="caption-index-2">35.26</span>sdl2.Surface Class</h2>
-<h2><span class="caption-index-2">35.27</span>sdl2.Finger Class</h2>
-<h1><span class="caption-index-1">36</span>sqlite3 Module</h1>
-<h2><span class="caption-index-2">36.1</span>Abstract</h2>
-<h2><span class="caption-index-2">36.2</span>Sample</h2>
-<h2><span class="caption-index-2">36.3</span>Module Functions</h2>
-<h2><span class="caption-index-2">36.4</span>sqlite3.db Class</h2>
+<h2><span class="caption-index-2">36.4</span>sdl2.Window Class</h2>
+<h2><span class="caption-index-2">36.5</span>sdl2.Renderer Class</h2>
+<h2><span class="caption-index-2">36.6</span>sdl2.Texture Class</h2>
+<h2><span class="caption-index-2">36.7</span>sdl2.Event Class</h2>
+<h2><span class="caption-index-2">36.8</span>sdl2.Point Class</h2>
+<h2><span class="caption-index-2">36.9</span>sdl2.Rect Class</h2>
+<h2><span class="caption-index-2">36.10</span>sdl2.Color Class</h2>
+<h2><span class="caption-index-2">36.11</span>sdl2.Palette Class</h2>
+<h2><span class="caption-index-2">36.12</span>sdl2.PixelFormat Class</h2>
+<h2><span class="caption-index-2">36.13</span>sdl2.Keysym Class</h2>
+<h2><span class="caption-index-2">36.14</span>sdl2.Cursor Class</h2>
+<h2><span class="caption-index-2">36.15</span>sdl2.Joystick Class</h2>
+<h2><span class="caption-index-2">36.16</span>sdl2.JoystickGUID Class</h2>
+<h2><span class="caption-index-2">36.17</span>sdl2.GameController Class</h2>
+<h2><span class="caption-index-2">36.18</span>sdl2.GameControllerButtonBind Class</h2>
+<h2><span class="caption-index-2">36.19</span>sdl2.AudioCVT Class</h2>
+<h2><span class="caption-index-2">36.20</span>sdl2.AudioSpec Class</h2>
+<h2><span class="caption-index-2">36.21</span>sdl2.Wav Class</h2>
+<h2><span class="caption-index-2">36.22</span>sdl2.RendererInfo Class</h2>
+<h2><span class="caption-index-2">36.23</span>sdl2.DisplayMode Class</h2>
+<h2><span class="caption-index-2">36.24</span>sdl2.GLContext Class</h2>
+<h2><span class="caption-index-2">36.25</span>sdl2.HapticEffect Class</h2>
+<h2><span class="caption-index-2">36.26</span>sdl2.Surface Class</h2>
+<h2><span class="caption-index-2">36.27</span>sdl2.Finger Class</h2>
+<h1><span class="caption-index-1">37</span>sqlite3 Module</h1>
+<h2><span class="caption-index-2">37.1</span>Abstract</h2>
+<h2><span class="caption-index-2">37.2</span>Sample</h2>
+<h2><span class="caption-index-2">37.3</span>Module Functions</h2>
+<h2><span class="caption-index-2">37.4</span>sqlite3.db Class</h2>
 <p>
 <strong>sqlite3.db</strong>
 </p>
@@ -11112,10 +11180,10 @@ Executes the block within a transaction. The process is like following:
 <li>Executes code in the block</li>
 <li>Executes a sqlite3 command 'END TRANSACTION'</li>
 </ol>
-<h1><span class="caption-index-1">37</span>sys Module</h1>
-<h2><span class="caption-index-2">37.1</span>Abstract</h2>
-<h2><span class="caption-index-2">37.2</span>Sample</h2>
-<h2><span class="caption-index-2">37.3</span>Module Variables</h2>
+<h1><span class="caption-index-1">38</span>sys Module</h1>
+<h2><span class="caption-index-2">38.1</span>Abstract</h2>
+<h2><span class="caption-index-2">38.2</span>Sample</h2>
+<h2><span class="caption-index-2">38.3</span>Module Variables</h2>
 <ul>
 <li><code>sys.argv</code></li>
 <li><code>sys.path</code></li>
@@ -11137,7 +11205,7 @@ Executes the block within a transaction. The process is like following:
 <li><code>sys.cfgdir</code></li>
 <li><code>sys.workdir</code></li>
 </ul>
-<h2><span class="caption-index-2">37.4</span>Module Functions</h2>
+<h2><span class="caption-index-2">38.4</span>Module Functions</h2>
 <p>
 <strong>sys.echo</strong>
 </p>
@@ -11165,10 +11233,10 @@ Terminates the program with a specified status number.
 <p>
 Raises an error if the running interpreter doesn't satisfy the required version.
 </p>
-<h1><span class="caption-index-1">38</span>tar Module</h1>
-<h2><span class="caption-index-2">38.1</span>Abstract</h2>
-<h2><span class="caption-index-2">38.2</span>Sample</h2>
-<h2><span class="caption-index-2">38.3</span>tar.reader Class</h2>
+<h1><span class="caption-index-1">39</span>tar Module</h1>
+<h2><span class="caption-index-2">39.1</span>Abstract</h2>
+<h2><span class="caption-index-2">39.2</span>Sample</h2>
+<h2><span class="caption-index-2">39.3</span>tar.reader Class</h2>
 <p>
 <strong>tar.reader</strong>
 </p>
@@ -11181,7 +11249,7 @@ Raises an error if the running interpreter doesn't satisfy the required version.
 <p>
 <code>tar.reader#entries() {block?}</code>
 </p>
-<h2><span class="caption-index-2">38.4</span>tar.writer Class</h2>
+<h2><span class="caption-index-2">39.4</span>tar.writer Class</h2>
 <p>
 <strong>tar.writer</strong>
 </p>
@@ -11200,15 +11268,15 @@ Raises an error if the running interpreter doesn't satisfy the required version.
 <p>
 <code>tar.writer#close():reduce</code>
 </p>
-<h1><span class="caption-index-1">39</span>tester Module</h1>
-<h2><span class="caption-index-2">39.1</span>Abstract</h2>
-<h2><span class="caption-index-2">39.2</span>Sample</h2>
-<h2><span class="caption-index-2">39.3</span>Module Functions</h2>
-<h1><span class="caption-index-1">40</span>tiff Module</h1>
+<h1><span class="caption-index-1">40</span>tester Module</h1>
 <h2><span class="caption-index-2">40.1</span>Abstract</h2>
 <h2><span class="caption-index-2">40.2</span>Sample</h2>
 <h2><span class="caption-index-2">40.3</span>Module Functions</h2>
-<h2><span class="caption-index-2">40.4</span>Extension of image Class</h2>
+<h1><span class="caption-index-1">41</span>tiff Module</h1>
+<h2><span class="caption-index-2">41.1</span>Abstract</h2>
+<h2><span class="caption-index-2">41.2</span>Sample</h2>
+<h2><span class="caption-index-2">41.3</span>Module Functions</h2>
+<h2><span class="caption-index-2">41.4</span>Extension of image Class</h2>
 <p>
 <strong>image#read@tiff</strong>
 </p>
@@ -11218,10 +11286,10 @@ Raises an error if the running interpreter doesn't satisfy the required version.
 <p>
 Reads a TIFF image from a stream.
 </p>
-<h1><span class="caption-index-1">41</span>uuid Module</h1>
-<h2><span class="caption-index-2">41.1</span>Abstract</h2>
-<h2><span class="caption-index-2">41.2</span>Sample</h2>
-<h2><span class="caption-index-2">41.3</span>Module Functions</h2>
+<h1><span class="caption-index-1">42</span>uuid Module</h1>
+<h2><span class="caption-index-2">42.1</span>Abstract</h2>
+<h2><span class="caption-index-2">42.2</span>Sample</h2>
+<h2><span class="caption-index-2">42.3</span>Module Functions</h2>
 <p>
 <strong>uuid.generate</strong>
 </p>
@@ -11231,11 +11299,11 @@ Reads a TIFF image from a stream.
 <p>
 Generates a Universal Unique Identifier (UUID). In default, results are output in lower-case characters. Specifying :upper would generates it in upper-case characters.
 </p>
-<h1><span class="caption-index-1">42</span>wav Module</h1>
-<h2><span class="caption-index-2">42.1</span>Abstract</h2>
-<h2><span class="caption-index-2">42.2</span>Sample</h2>
-<h2><span class="caption-index-2">42.3</span>Module Functions</h2>
-<h2><span class="caption-index-2">42.4</span>Extension of audio Class</h2>
+<h1><span class="caption-index-1">43</span>wav Module</h1>
+<h2><span class="caption-index-2">43.1</span>Abstract</h2>
+<h2><span class="caption-index-2">43.2</span>Sample</h2>
+<h2><span class="caption-index-2">43.3</span>Module Functions</h2>
+<h2><span class="caption-index-2">43.4</span>Extension of audio Class</h2>
 <p>
 <strong>audio#read@wav</strong>
 </p>
@@ -11254,22 +11322,22 @@ Reads WAV audio from a stream.
 <p>
 Writes WAV audio to a stream.
 </p>
-<h2><span class="caption-index-2">42.5</span>wx Module</h2>
-<h3><span class="caption-index-3">42.5.1</span>Abstract</h3>
-<h3><span class="caption-index-3">42.5.2</span>Sample</h3>
-<h3><span class="caption-index-3">42.5.3</span>Module Functions</h3>
-<h1><span class="caption-index-1">43</span>xml Module</h1>
-<h2><span class="caption-index-2">43.1</span>Abstract</h2>
-<h2><span class="caption-index-2">43.2</span>Sample</h2>
-<h2><span class="caption-index-2">43.3</span>Module Functions</h2>
+<h2><span class="caption-index-2">43.5</span>wx Module</h2>
+<h3><span class="caption-index-3">43.5.1</span>Abstract</h3>
+<h3><span class="caption-index-3">43.5.2</span>Sample</h3>
+<h3><span class="caption-index-3">43.5.3</span>Module Functions</h3>
+<h1><span class="caption-index-1">44</span>xml Module</h1>
+<h2><span class="caption-index-2">44.1</span>Abstract</h2>
+<h2><span class="caption-index-2">44.2</span>Sample</h2>
+<h2><span class="caption-index-2">44.3</span>Module Functions</h2>
 <p>
 <strong>xml.comment</strong>
 </p>
 <p>
 <code>xml.comment(comment:string)</code>
 </p>
-<h2><span class="caption-index-2">43.4</span>xml.attribute Class</h2>
-<h2><span class="caption-index-2">43.5</span>xml.document Class</h2>
+<h2><span class="caption-index-2">44.4</span>xml.attribute Class</h2>
+<h2><span class="caption-index-2">44.5</span>xml.document Class</h2>
 <p>
 <strong>xml.document</strong>
 </p>
@@ -11300,7 +11368,7 @@ Writes WAV audio to a stream.
 <p>
 <code>xml.document#write(stream:stream:w, fancy?:boolean, tabs?:number):void</code>
 </p>
-<h2><span class="caption-index-2">43.6</span>xml.element Class</h2>
+<h2><span class="caption-index-2">44.6</span>xml.element Class</h2>
 <p>
 <strong>xml.element</strong>
 </p>
@@ -11331,7 +11399,7 @@ Writes WAV audio to a stream.
 <p>
 <code>xml.element#write(stream:stream:w, fancy?:boolean, indentLevel?:number, tabs?:number):void</code>
 </p>
-<h2><span class="caption-index-2">43.7</span>xml.parser Class</h2>
+<h2><span class="caption-index-2">44.7</span>xml.parser Class</h2>
 <p>
 <strong>xml.parser</strong>
 </p>
@@ -11344,11 +11412,11 @@ Writes WAV audio to a stream.
 <p>
 <code>xml.parser#parse(stream:stream:r):void</code>
 </p>
-<h1><span class="caption-index-1">44</span>xpm Module</h1>
-<h2><span class="caption-index-2">44.1</span>Abstract</h2>
-<h2><span class="caption-index-2">44.2</span>Sample</h2>
-<h2><span class="caption-index-2">44.3</span>Module Functions</h2>
-<h2><span class="caption-index-2">44.4</span>Extension of image Class</h2>
+<h1><span class="caption-index-1">45</span>xpm Module</h1>
+<h2><span class="caption-index-2">45.1</span>Abstract</h2>
+<h2><span class="caption-index-2">45.2</span>Sample</h2>
+<h2><span class="caption-index-2">45.3</span>Module Functions</h2>
+<h2><span class="caption-index-2">45.4</span>Extension of image Class</h2>
 <p>
 <strong>image#write@xpm</strong>
 </p>
@@ -11367,10 +11435,10 @@ Writes a xpm image to a stream.
 <p>
 Read xpm data from a string list.
 </p>
-<h1><span class="caption-index-1">45</span>yaml Module</h1>
-<h2><span class="caption-index-2">45.1</span>Abstract</h2>
-<h2><span class="caption-index-2">45.2</span>Sample</h2>
-<h2><span class="caption-index-2">45.3</span>Module Functions</h2>
+<h1><span class="caption-index-1">46</span>yaml Module</h1>
+<h2><span class="caption-index-2">46.1</span>Abstract</h2>
+<h2><span class="caption-index-2">46.2</span>Sample</h2>
+<h2><span class="caption-index-2">46.3</span>Module Functions</h2>
 <p>
 <strong>yaml.compose</strong>
 </p>
@@ -11395,10 +11463,10 @@ Read xpm data from a string list.
 <p>
 <code>yaml.write(stream:stream:w, obj):reduce</code>
 </p>
-<h1><span class="caption-index-1">46</span>zip Module</h1>
-<h2><span class="caption-index-2">46.1</span>Abstract</h2>
-<h2><span class="caption-index-2">46.2</span>Sample</h2>
-<h3><span class="caption-index-3">46.2.1</span>Creates Archive File</h3>
+<h1><span class="caption-index-1">47</span>zip Module</h1>
+<h2><span class="caption-index-2">47.1</span>Abstract</h2>
+<h2><span class="caption-index-2">47.2</span>Sample</h2>
+<h3><span class="caption-index-3">47.2.1</span>Creates Archive File</h3>
 <pre><code>import(zip)
 zip.writer('hoge.zip') {|w|
     w.add('file1.txt')
@@ -11408,14 +11476,14 @@ zip.writer('hoge.zip') {|w|
 }		
 
 </code></pre>
-<h3><span class="caption-index-3">46.2.2</span>Reads Entries from Archive File</h3>
+<h3><span class="caption-index-3">47.2.2</span>Reads Entries from Archive File</h3>
 <pre><code>import(zip)
 zip.reader('hoge.zip') {|r|
     println(r.entries():*stat:*filename)
 }
 </code></pre>
-<h2><span class="caption-index-2">46.3</span>Module Functions</h2>
-<h2><span class="caption-index-2">46.4</span>zip.reader Class</h2>
+<h2><span class="caption-index-2">47.3</span>Module Functions</h2>
+<h2><span class="caption-index-2">47.4</span>zip.reader Class</h2>
 <p>
 <strong>zip.reader</strong>
 </p>
@@ -11443,7 +11511,7 @@ Seeks entry in the zip file that matches the specified name and returns the stre
 <p>
 Creates an iterator that returns stream instances for each entry in the zip file.
 </p>
-<h2><span class="caption-index-2">46.5</span>zip.writer Class</h2>
+<h2><span class="caption-index-2">47.5</span>zip.writer Class</h2>
 <p>
 <strong>zip.writer</strong>
 </p>
