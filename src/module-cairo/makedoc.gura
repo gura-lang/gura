@@ -4,12 +4,13 @@ import(cairo)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	# About This Document
+	# cairo Module
+	## About This Document
 	
 	This reference explains about specification of functions and classes defined in **Gura**'s `cairo` module.
 	Official site of SDL is <http://cairographics.org/>.
 
-	# Explanatory Note
+	## Explanatory Note
 
 	Functions in reference are described in a generic expression.
 	For example, if there is a reference `func(num:number)`,
@@ -35,10 +36,8 @@ write(doc:markdown.document) = {
 	'''
 	
 	doc << R'''
-	# Reference
+	## Drawing
 	'''
-	
-	doc << r'## Drawing'
 	doc << r'### cairo\_t - The cairo drawing context'
 	doc << [
 		cairo.context.status

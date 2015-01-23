@@ -22,6 +22,7 @@ h1, h2, h3 {
 
 h1 {
   font-size:28px;
+  margin-top:3em;
 }
 
 h2 {
@@ -71,6 +72,10 @@ a.radio-off {
 .copyright {
   margin:12px 0 32px 0;
   font-size:16px;
+}
+
+.caption-index-1, .caption-index-2, .caption-index-3, .caption-index-4, .caption-index-5, .caption-index-6 {
+  margin:0 1em 0 0;
 }
 
 blockquote {
