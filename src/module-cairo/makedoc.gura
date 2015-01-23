@@ -9,30 +9,6 @@ write(doc:markdown.document) = {
 	
 	This reference explains about specification of functions and classes defined in **Gura**'s `cairo` module.
 	Official site of SDL is <http://cairographics.org/>.
-
-	## Explanatory Note
-
-	Functions in reference are described in a generic expression.
-	For example, if there is a reference `func(num:number)`,
-	it means that `func` function takes one argument named `num` with value type of `number`.
-	You can call it like `func(3)`.
-	
-	If an argument is optional, the argument name is followed by a symbol `?`.
-	For example: `func(num?:number)`.
-	You can call it as `func(2)` or can omit the arugument like `func()`.
-	
-	If the the arument name has `*` symbol followed, the arument takes zero or more values.
-	For a function that has a generic expression `func(args*:number)`,
-	it can be called like `func()`, `func(3)`, `func(3, 4)`, `func(3, 4, 2)`, and so on.
-	
-	If the the arument name has `+` symbol followed, the arument takes one or more values.
-	For a function that has a generic expression `func(args+:number)`,
-	it can be called like `func(3)`, `func(3, 4)`, `func(3, 4, 2)`, and so on.
-	In difference with `*`, it must take at least one value.
-	
-	An argument may have a default value.
-	The default value is described with `=>` operator like `func(num:number => 4)`.
-	In such a case, if `num` is omitted, the default value `4` shall be used.
 	'''
 	
 	doc << R'''

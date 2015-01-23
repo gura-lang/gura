@@ -62,6 +62,7 @@ sys.path.insert(0, 'tmp')
 doc = markdown.document()
 doc << R'''
 # About This Reference
+
 This reference explains about functions and classes that are shipped with Gura interpreter.
 Refer to Gura Language Manual if you want information
 about syntax and specifications of Gura language itself.
@@ -104,6 +105,7 @@ header = R'''
 <body class="wrapper">
 <div class="title">Gura Library Reference</div>
 <div class="copyright">Copyright &copy; 2011-2015 ypsitau (<a href="ypsitau@nifty.com">ypsitau@nifty.com</a>)</div>
+<div class="official-site">Official Site: <a href="http://www.gura-lang.org/">http://www.gura-lang.org/</a></div>
 <hr />
 '''
 footer = R'''

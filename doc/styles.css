@@ -65,12 +65,17 @@ a.radio-off {
 }
 
 .title {
-  margin:12px 0 32px 0;
+  margin:12px 0 0 0;
   font-size:48px;
 }
 
 .copyright {
-  margin:12px 0 32px 0;
+  margin:32px 0 0 0;
+  font-size:16px;
+}
+
+.official-site {
+  margin:12px 0 48px 0;
   font-size:16px;
 }
 

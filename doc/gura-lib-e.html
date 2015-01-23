@@ -7,6 +7,7 @@
 <body class="wrapper">
 <div class="title">Gura Library Reference</div>
 <div class="copyright">Copyright &copy; 2011-2015 ypsitau (<a href="ypsitau@nifty.com">ypsitau@nifty.com</a>)</div>
+<div class="official-site">Official Site: <a href="http://www.gura-lang.org/">http://www.gura-lang.org/</a></div>
 <hr />
 <h1><span class="caption-index-1">1</span>About This Reference</h1>
 <p>
@@ -1000,24 +1001,8 @@ Writes a BMP image to a stream.
 <p>
 This reference explains about specification of functions and classes defined in <strong>Gura</strong>'s <code>cairo</code> module. Official site of SDL is <a href="http://cairographics.org/">http://cairographics.org/</a>.
 </p>
-<h2><span class="caption-index-2">7.2</span>Explanatory Note</h2>
-<p>
-Functions in reference are described in a generic expression. For example, if there is a reference <code>func(num:number)</code>, it means that <code>func</code> function takes one argument named <code>num</code> with value type of <code>number</code>. You can call it like <code>func(3)</code>.
-</p>
-<p>
-If an argument is optional, the argument name is followed by a symbol <code>?</code>. For example: <code>func(num?:number)</code>. You can call it as <code>func(2)</code> or can omit the arugument like <code>func()</code>.
-</p>
-<p>
-If the the arument name has <code>*</code> symbol followed, the arument takes zero or more values. For a function that has a generic expression <code>func(args*:number)</code>, it can be called like <code>func()</code>, <code>func(3)</code>, <code>func(3, 4)</code>, <code>func(3, 4, 2)</code>, and so on.
-</p>
-<p>
-If the the arument name has <code>+</code> symbol followed, the arument takes one or more values. For a function that has a generic expression <code>func(args+:number)</code>, it can be called like <code>func(3)</code>, <code>func(3, 4)</code>, <code>func(3, 4, 2)</code>, and so on. In difference with <code>*</code>, it must take at least one value.
-</p>
-<p>
-An argument may have a default value. The default value is described with <code>=&gt;</code> operator like <code>func(num:number =&gt; 4)</code>. In such a case, if <code>num</code> is omitted, the default value <code>4</code> shall be used.
-</p>
-<h2><span class="caption-index-2">7.3</span>Drawing</h2>
-<h3><span class="caption-index-3">7.3.1</span>cairo_t - The cairo drawing context</h3>
+<h2><span class="caption-index-2">7.2</span>Drawing</h2>
+<h3><span class="caption-index-3">7.2.1</span>cairo_t - The cairo drawing context</h3>
 <p>
 <strong>cairo.context#status</strong>
 </p>
@@ -1661,7 +1646,7 @@ Emits and clears the current page for backends that support multiple pages. Use 
 <p>
 This is a convenience function that simply calls cairo.context#surface<em>show</em>page() on cr's target.
 </p>
-<h3><span class="caption-index-3">7.3.2</span>Paths - Creating paths and manipulating path data</h3>
+<h3><span class="caption-index-3">7.2.2</span>Paths - Creating paths and manipulating path data</h3>
 <p>
 <strong>cairo.context#copy_path</strong>
 </p>
@@ -1952,7 +1937,7 @@ The result of cairo.context#path<em>extents() is defined as equivalent to the li
 <p>
 Specifically, this means that zero-area sub-paths such as cairo.context#move<em>to();cairo.context#line</em>to() segments, (even degenerate cases where the coordinates to both calls are identical), will be considered as contributing to the extents. However, a lone cairo.context#move<em>to() will not contribute to the results of cairo.context#path</em>extents().
 </p>
-<h3><span class="caption-index-3">7.3.3</span>cairo_pattern_t - Sources for drawing</h3>
+<h3><span class="caption-index-3">7.2.3</span>cairo_pattern_t - Sources for drawing</h3>
 <p>
 <strong>cairo.pattern#add_color_stop_rgb</strong>
 </p>
@@ -2250,7 +2235,7 @@ Stores the pattern's transformation matrix into matrix.
 <p>
 This function returns the type a pattern. See cairo<em>pattern</em>type<em>t for available types.</em>
 </p>
-<h3><span class="caption-index-3">7.3.4</span>Regions - Representing a pixel-aligned area</h3>
+<h3><span class="caption-index-3">7.2.4</span>Regions - Representing a pixel-aligned area</h3>
 <p>
 <strong>cairo.region.create</strong>
 </p>
@@ -2359,7 +2344,7 @@ This function returns the type a pattern. See cairo<em>pattern</em>type<em>t for
 <p>
 <code>cairo.region#xor_rectangle(rectangle:cairo.rectangle_int)</code>
 </p>
-<h3><span class="caption-index-3">7.3.5</span>Transformations - Manipulating the current transformation matrix</h3>
+<h3><span class="caption-index-3">7.2.5</span>Transformations - Manipulating the current transformation matrix</h3>
 <p>
 <strong>cairo.context#translate</strong>
 </p>
@@ -2462,7 +2447,7 @@ Transform a coordinate from device space to user space by multiplying the given 
 <p>
 Transform a distance vector from device space to user space. This function is similar to cairo.context#device<em>to</em>user() except that the translation components of the inverse CTM will be ignored when transforming (dx,dy).
 </p>
-<h3><span class="caption-index-3">7.3.6</span>text - Rendering text and glyphs</h3>
+<h3><span class="caption-index-3">7.2.6</span>text - Rendering text and glyphs</h3>
 <p>
 <strong>cairo.context#select_font_face</strong>
 </p>
@@ -2679,38 +2664,38 @@ Gets the slant a toy font.
 <p>
 Gets the weight a toy font.
 </p>
-<h3><span class="caption-index-3">7.3.7</span>Raster Sources - Supplying arbitary image data</h3>
-<h2><span class="caption-index-2">7.4</span>Fonts</h2>
-<h3><span class="caption-index-3">7.4.1</span>cairo_font_face_t - Base class for font faces</h3>
-<h3><span class="caption-index-3">7.4.2</span>cairo_scaled_font_t - Font face at particular size and options</h3>
+<h3><span class="caption-index-3">7.2.7</span>Raster Sources - Supplying arbitary image data</h3>
+<h2><span class="caption-index-2">7.3</span>Fonts</h2>
+<h3><span class="caption-index-3">7.3.1</span>cairo_font_face_t - Base class for font faces</h3>
+<h3><span class="caption-index-3">7.3.2</span>cairo_scaled_font_t - Font face at particular size and options</h3>
 <p>
 <strong>cairo.scaled_font.create</strong>
 </p>
 <p>
 <code>cairo.scaled_font.create(font_face:cairo.font_face, font_matrix:matrix, ctm:matrix, options):static {block?}</code>
 </p>
-<h3><span class="caption-index-3">7.4.3</span>cairo_font_options_t - How a font should be rendered</h3>
-<h3><span class="caption-index-3">7.4.4</span>FreeType  Fonts - Font support for FreeType</h3>
-<h3><span class="caption-index-3">7.4.5</span>Win32 Fonts - Font support for Microsoft Windows</h3>
-<h3><span class="caption-index-3">7.4.6</span>Quartz (CGFont) Fonts - Font support via CGFont on OS X</h3>
-<h3><span class="caption-index-3">7.4.7</span>User Fonts - Font support with font data provided by the user</h3>
-<h2><span class="caption-index-2">7.5</span>Surfaces</h2>
-<h3><span class="caption-index-3">7.5.1</span>cairo_device_t - interface to underlying rendering system</h3>
-<h3><span class="caption-index-3">7.5.2</span>cairo_surface_t - Base class for surfaces</h3>
-<h3><span class="caption-index-3">7.5.3</span>Image Surfaces - Rendering to memory buffers</h3>
-<h3><span class="caption-index-3">7.5.4</span>PDF Surfaces - Rendering PDF documents</h3>
-<h3><span class="caption-index-3">7.5.5</span>PNG Support - Reading and writing PNG images</h3>
-<h3><span class="caption-index-3">7.5.6</span>PostScript Surfaces - Rendering PostScript documents</h3>
-<h3><span class="caption-index-3">7.5.7</span>Recording Surfaces - Records all drawing operations</h3>
-<h3><span class="caption-index-3">7.5.8</span>Win32 Surfaces - Microsoft Windows surface support</h3>
-<h3><span class="caption-index-3">7.5.9</span>SVG Surfaces - Rendering SVG documents</h3>
-<h3><span class="caption-index-3">7.5.10</span>Quartz Surfaces - Rendering to Quartz surfaces</h3>
-<h3><span class="caption-index-3">7.5.11</span>XCB Surfaces - X Window System rendering using the XCB library</h3>
-<h3><span class="caption-index-3">7.5.12</span>XLib Surfaces - X Window System rendering using XLib</h3>
-<h3><span class="caption-index-3">7.5.13</span>XLib-XRender Backend - X Window System rendering using XLib and the X Render extension</h3>
-<h3><span class="caption-index-3">7.5.14</span>Script Surfaces - Rendering to replayable scripts</h3>
-<h2><span class="caption-index-2">7.6</span>Utilities</h2>
-<h3><span class="caption-index-3">7.6.1</span>cairo_matrix_t - Generic matrix operations</h3>
+<h3><span class="caption-index-3">7.3.3</span>cairo_font_options_t - How a font should be rendered</h3>
+<h3><span class="caption-index-3">7.3.4</span>FreeType  Fonts - Font support for FreeType</h3>
+<h3><span class="caption-index-3">7.3.5</span>Win32 Fonts - Font support for Microsoft Windows</h3>
+<h3><span class="caption-index-3">7.3.6</span>Quartz (CGFont) Fonts - Font support via CGFont on OS X</h3>
+<h3><span class="caption-index-3">7.3.7</span>User Fonts - Font support with font data provided by the user</h3>
+<h2><span class="caption-index-2">7.4</span>Surfaces</h2>
+<h3><span class="caption-index-3">7.4.1</span>cairo_device_t - interface to underlying rendering system</h3>
+<h3><span class="caption-index-3">7.4.2</span>cairo_surface_t - Base class for surfaces</h3>
+<h3><span class="caption-index-3">7.4.3</span>Image Surfaces - Rendering to memory buffers</h3>
+<h3><span class="caption-index-3">7.4.4</span>PDF Surfaces - Rendering PDF documents</h3>
+<h3><span class="caption-index-3">7.4.5</span>PNG Support - Reading and writing PNG images</h3>
+<h3><span class="caption-index-3">7.4.6</span>PostScript Surfaces - Rendering PostScript documents</h3>
+<h3><span class="caption-index-3">7.4.7</span>Recording Surfaces - Records all drawing operations</h3>
+<h3><span class="caption-index-3">7.4.8</span>Win32 Surfaces - Microsoft Windows surface support</h3>
+<h3><span class="caption-index-3">7.4.9</span>SVG Surfaces - Rendering SVG documents</h3>
+<h3><span class="caption-index-3">7.4.10</span>Quartz Surfaces - Rendering to Quartz surfaces</h3>
+<h3><span class="caption-index-3">7.4.11</span>XCB Surfaces - X Window System rendering using the XCB library</h3>
+<h3><span class="caption-index-3">7.4.12</span>XLib Surfaces - X Window System rendering using XLib</h3>
+<h3><span class="caption-index-3">7.4.13</span>XLib-XRender Backend - X Window System rendering using XLib and the X Render extension</h3>
+<h3><span class="caption-index-3">7.4.14</span>Script Surfaces - Rendering to replayable scripts</h3>
+<h2><span class="caption-index-2">7.5</span>Utilities</h2>
+<h3><span class="caption-index-3">7.5.1</span>cairo_matrix_t - Generic matrix operations</h3>
 <h1><span class="caption-index-1">8</span>conio Module</h1>
 <h2><span class="caption-index-2">8.1</span>Abstract</h2>
 <h2><span class="caption-index-2">8.2</span>Sample</h2>
