@@ -3,10 +3,12 @@ import(conio)
 import(markdown):binary:mixin_type {*}
 
 Renderer@html = class {
-	__init__(out:stream:w, header:string, footer:string) = {
+	__init__(out:stream:w, header:string, footer:string, captionIndex:boolean) = {
 		this.out = out
 		this.header = header
 		this.footer = footer
+		this.cntCaptions = dim(6) {0}
+		this.captionIndex = captionIndex
 	}
 	Render(doc:document):void = {
 		this.RenderItem(doc.root)
@@ -18,26 +20,61 @@ Renderer@html = class {
 			this.out.print(this.footer)
 		} elsif (item.type == `h1) {
 			this.out.print('<h1>')
+			if (this.captionIndex) {
+				this.cntCaptions[0] += 1
+				this.cntCaptions[1..5] = 0
+				this.out.printf('<span class="caption-index-1">%d</span>',
+								this.cntCaptions[0])
+			}
 			this.RenderItem(item.children)
 			this.out.print('</h1>\n')
 		} elsif (item.type == `h2) {
 			this.out.print('<h2>')
+			if (this.captionIndex) {
+				this.cntCaptions[1] += 1
+				this.cntCaptions[2..5] = 0
+				this.out.printf('<span class="caption-index-2">%d.%d</span>',
+								this.cntCaptions[0..1]*)
+			}
 			this.RenderItem(item.children)
 			this.out.print('</h2>\n')
 		} elsif (item.type == `h3) {
 			this.out.print('<h3>')
+			if (this.captionIndex) {
+				this.cntCaptions[2] += 1
+				this.cntCaptions[3..5] = 0
+				this.out.printf('<span class="caption-index-3">%d.%d.%d</span>',
+								this.cntCaptions[0..2]*)
+			}
 			this.RenderItem(item.children)
 			this.out.print('</h3>\n')
 		} elsif (item.type == `h4) {
 			this.out.print('<h4>')
+			if (this.captionIndex) {
+				this.cntCaptions[3] += 1
+				this.cntCaptions[4..5] = 0
+				this.out.printf('<span class="caption-index-4">%d.%d.%d.%d</span>',
+								this.cntCaptions[0..3]*)
+			}
 			this.RenderItem(item.children)
 			this.out.print('</h4>\n')
 		} elsif (item.type == `h5) {
 			this.out.print('<h5>')
+			if (this.captionIndex) {
+				this.cntCaptions[4] += 1
+				this.cntCaptions[5] = 0
+				this.out.printf('<span class="caption-index-5">%d.%d.%d.%d.%d</span>',
+								this.cntCaptions[0..4]*)
+			}
 			this.RenderItem(item.children)
 			this.out.print('</h5>\n')
 		} elsif (item.type == `h6) {
 			this.out.print('<h6>')
+			if (this.captionIndex) {
+				this.cntCaptions[5] += 1
+				this.out.printf('<span class="caption-index-6">%d.%d.%d.%d.%d.%d</span>',
+								this.cntCaptions[0..5]*)
+			}
 			this.RenderItem(item.children)
 			this.out.print('</h6>\n')
 		} elsif (item.type == `p) {
@@ -362,7 +399,8 @@ operator(`<<).assign(`document, `function) {|doc, func|
 	if (help = function.gethelp(func, `en)) { doc << help.text }
 }
 
-classref(`document).render@html(out?:stream:w, header?:string, footer?:string) = {
+classref(`document).render@html(
+		out?:stream:w, header?:string, footer?:string, captionIndex?:boolean) = {
 	header = header || R'''
 	<html>
 	<head>
@@ -374,10 +412,10 @@ classref(`document).render@html(out?:stream:w, header?:string, footer?:string) =
 	</html>
 	'''
 	if (out) {
-		Renderer@html(out, header, footer).Render(this)
+		Renderer@html(out, header, footer, captionIndex).Render(this)
 	} else {
 		buff = binary()
-		Renderer@html(buff, header, footer).Render(this)
+		Renderer@html(buff, header, footer, captionIndex).Render(this)
 		buff.decode('utf-8')
 	}
 }
