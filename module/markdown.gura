@@ -3,26 +3,19 @@ import(conio)
 import(markdown):binary:mixin_type {*}
 
 Renderer@html = class {
-	__init__(out:stream:w) = {
+	__init__(out:stream:w, header:string, footer:string) = {
 		this.out = out
+		this.header = header
+		this.footer = footer
 	}
 	Render(doc:document):void = {
 		this.RenderItem(doc.root)
 	}
-	RenderHead():void = {
-		R'''
-		<head>
-		</head>
-		'''.template().render(this.out)
-	}
 	RenderItem(item:item):map:void = {
 		if (item.type == `root) {
-			this.out.print('<html>\n')
-			this.RenderHead()
-			this.out.print('<body>\n')
+			this.out.print(this.header)
 			this.RenderItem(item.children)
-			this.out.print('</body>\n')
-			this.out.print('</html>\n')
+			this.out.print(this.footer)
 		} elsif (item.type == `h1) {
 			this.out.print('<h1>')
 			this.RenderItem(item.children)
@@ -369,12 +362,22 @@ operator(`<<).assign(`document, `function) {|doc, func|
 	if (help = function.gethelp(func, `en)) { doc << help.text }
 }
 
-classref(`document).render@html(out?:stream:w) = {
+classref(`document).render@html(out?:stream:w, header?:string, footer?:string) = {
+	header = header || R'''
+	<html>
+	<head>
+	</head>
+	<body>
+	'''
+	footer = footer || R'''
+	</body>
+	</html>
+	'''
 	if (out) {
-		Renderer@html(out).Render(this)
+		Renderer@html(out, header, footer).Render(this)
 	} else {
 		buff = binary()
-		Renderer@html(buff).Render(this)
+		Renderer@html(buff, header, footer).Render(this)
 		buff.decode('utf-8')
 	}
 }

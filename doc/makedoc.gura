@@ -64,4 +64,20 @@ moduleNames.each {|moduleName|
 	import(&moduleName)
 	root.getprop!(moduleName).write(doc)
 }
-doc.render@html(sys.stdout)
+header = R'''
+<html>
+<head>
+<meta charset="utf-8">
+<title>Gura Library Reference</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="wrapper">
+<div class="title">Gura Library Reference</div>
+<div class="copyright">Copyright &copy; 2011-2015 ypsitau (<a href="ypsitau@nifty.com">ypsitau@nifty.com</a>)</div>
+<hr />
+'''
+footer = R'''
+</body>
+</html>
+'''
+doc.render@html(sys.stdout, header, footer)
