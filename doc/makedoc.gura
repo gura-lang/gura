@@ -60,6 +60,12 @@ moduleNames = 'makedoc_' + baseNames
 fs.copy('../src/module-' + baseNames + '/makedoc.gura', 'tmp/' + moduleNames + '.gura'):overwrite
 sys.path.insert(0, 'tmp')
 doc = markdown.document()
+doc << R'''
+# About This Reference
+This reference explains about functions and classes that are shipped with Gura interpreter.
+Refer to Gura Language Manual if you want information
+about syntax and specifications of Gura language itself.
+'''
 moduleNames.each {|moduleName|
 	import(&moduleName)
 	root.getprop!(moduleName).write(doc)
@@ -80,4 +86,6 @@ footer = R'''
 </body>
 </html>
 '''
-doc.render@html(sys.stdout, header, footer)
+fileName = 'gura-lib-e.html'
+doc.render@html(fileName, header, footer, true)
+println(fileName, ' was created.')
