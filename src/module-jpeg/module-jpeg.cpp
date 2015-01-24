@@ -190,7 +190,7 @@ Gura_DeclareMethodAlias(image, read_jpeg, "read@jpeg")
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Reads a JPEG image from a stream.");
+		"Reads a JPEG image data from a stream.");
 }
 
 Gura_ImplementMethod(image, read_jpeg)
@@ -211,7 +211,7 @@ Gura_DeclareMethodAlias(image, write_jpeg, "write@jpeg")
 										FLAG_None, new Expr_Value(75));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Writes a JPEG image to a stream.");
+		"Writes a JPEG image data to a stream.");
 }
 
 Gura_ImplementMethod(image, write_jpeg)

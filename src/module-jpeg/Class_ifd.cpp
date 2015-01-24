@@ -429,6 +429,7 @@ Gura_ImplementMethod(ifd, each)
 // implementation of class ifd
 Gura_ImplementUserClass(ifd)
 {
+	Gura_AssignValue(ifd, Value(Reference()));
 	Gura_AssignMethod(ifd, each);
 }
 

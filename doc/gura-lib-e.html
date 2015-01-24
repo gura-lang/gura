@@ -15,7 +15,7 @@ This reference explains about functions and classes that are shipped with Gura i
 </p>
 <h1><span class="caption-index-1">2</span>Explanatory Note</h1>
 <p>
-Functions in this reference are described in a generic expression. For example, if there is a reference <code>func(num:number)</code>, it means that <code>func</code> function takes one argument named <code>num</code> with value type of <code>number</code>. You can call it like <code>func(3)</code>.
+Functions in this reference are described in a generic expression. For example, if there is a reference described like <code>func(num:number)</code>, it means that <code>func</code> function takes one argument named <code>num</code> with value type of <code>number</code>. You can call it like <code>func(3)</code>.
 </p>
 <p>
 If an argument is optional, the argument name is followed by a symbol <code>?</code>. For example: <code>func(num?:number)</code>. You can call it as <code>func(2)</code> or can omit the arugument like <code>func()</code>.
@@ -104,7 +104,7 @@ Converts <code>values</code> into string and outputs the results to standard out
 <code>cross (</code>expr+) {block}
 </p>
 <p>
-Executes the block until it evaluates all the combinations of results from exprs "var in iteratable." You can specify one or more such exprs as arguments and they are counted up from the one on the right side. Iterators and lists are the most popular iteratables, but even any objects that are cable of generating iterators can be specified as such.
+Executes the block until it evaluates all the combinations of results from exprs "<code>var in iteratable</code>." You can specify one or more such exprs as arguments and they are counted up from the one on the right side. Iterators and lists are the most popular iteratables, but even any objects that are cable of generating iterators can be specified as such.
 </p>
 <p>
 It returns the last evaluated value in the block as its own result, but, if one of <code>:list</code>, <code>:xlist</code>, <code>:set</code>, <code>:xset</code> or <code>:iter</code> is specified, it returns a list or evaluated value or an iterator. The rule is as follows.
@@ -118,7 +118,7 @@ It returns the last evaluated value in the block as its own result, but, if one 
 <li><code>:xiter</code> - returns an iterator that executes the block, skipping <code>nil</code></li>
 </ul>
 <p>
-Block parameter format: <code>|idx:number, i0:number, i1:number, ..|</code>
+Block parameter format is <code>|idx:number, i0:number, i1:number, ..|</code> where <code>idx</code> indicates an index of the whole loop and each of <code>i0</code>, <code>i1</code> .. indicates an index of each corresponding iterable.
 </p>
 <p>
 <strong>for</strong>
@@ -127,7 +127,7 @@ Block parameter format: <code>|idx:number, i0:number, i1:number, ..|</code>
 <code>for (</code>expr+) {block}
 </p>
 <p>
-Executes the block until any of the exprs of "var in iteratable" reach at their ends. You can specify one or more such exprs as arguments. Iterators and lists are the most popular iteratables, but even any objects that are cable of generating iterators can be specified as such.
+Executes the block until any of the exprs of "<code>var in iteratable</code>" reach at their ends. You can specify one or more such exprs as arguments. Iterators and lists are the most popular iteratables, but even any objects that are cable of generating iterators can be specified as such.
 </p>
 <p>
 It returns the last evaluated value in the block as its own result, but, if one of <code>:list</code>, <code>:xlist</code>, <code>:set</code>, <code>:xset</code> or <code>:iter</code> is specified, it returns a list or evaluated value or an iterator. The rule is as follows.
@@ -141,7 +141,7 @@ It returns the last evaluated value in the block as its own result, but, if one 
 <li><code>:xiter</code> - returns an iterator that executes the block, skipping <code>nil</code></li>
 </ul>
 <p>
-Block parameter format: <code>|idx:number|</code>
+Block parameter format is <code>|idx:number|</code> where <code>idx</code> indicates an index of the loop.
 </p>
 <p>
 <strong>repeat</strong>
@@ -164,7 +164,7 @@ It returns the last evaluated value in the block as its own result, but, if one 
 <li><code>:xiter</code> - returns an iterator that executes the block, skipping <code>nil</code></li>
 </ul>
 <p>
-Block parameter format: <code>|idx:number|</code>
+Block parameter format is <code>|idx:number|</code> where <code>idx</code> indicates an index of the loop.
 </p>
 <p>
 <strong>while</strong>
@@ -187,7 +187,7 @@ It returns the last evaluated value in the block as its own result, but, if one 
 <li><code>:xiter</code> - returns an iterator that executes the block, skipping <code>nil</code></li>
 </ul>
 <p>
-Block parameter format: <code>|idx:number|</code>
+Block parameter format is <code>|idx:number|</code> where <code>idx</code> indicates an index of the loop.
 </p>
 <h2><span class="caption-index-2">3.3</span>Flow Control</h2>
 <p>
@@ -983,11 +983,11 @@ If <code>block</code> is specified, it would be evaluated with block parameter <
 <h1><span class="caption-index-1">5</span>bmp Module</h1>
 <h2><span class="caption-index-2">5.1</span>Abstract</h2>
 <p>
-This module provides measures to read/write image data in Microsoft BMP format. To utilize it, import <code>bmp</code> module with <code>import</code> function.
+This module provides measures to read/write image data in Microsoft BMP format. To utilize it, import <code>bmp</code> module using <code>import</code> function.
 </p>
 <h2><span class="caption-index-2">5.2</span>Sample</h2>
 <pre><code>import(bmp)
-img = image('hoge.bmp')
+img = image('foo.bmp')
 </code></pre>
 <h2><span class="caption-index-2">5.3</span>Exntension of Function's Capability</h2>
 <p>
@@ -1006,7 +1006,7 @@ When instance method <code>image#write()</code> is provided with a stream that s
 <ul>
 <li>The identifier of the stream ends with a suffix <code>.bmp</code>.</li>
 </ul>
-<h2><span class="caption-index-2">5.4</span>Exntension Instance Methods in image Class</h2>
+<h2><span class="caption-index-2">5.4</span>Instance Methods Added to image Class</h2>
 <p>
 <strong>image#read@bmp</strong>
 </p>
@@ -4674,9 +4674,52 @@ Writes a GIF image to a stream.
 <h2><span class="caption-index-2">21.3</span>Module Functions</h2>
 <h1><span class="caption-index-1">22</span>jpeg Module</h1>
 <h2><span class="caption-index-2">22.1</span>Abstract</h2>
+<p>
+This module provides measures to read/write image data in JPEG format. To utilize it, import <code>jpeg</code> module using <code>import</code> function.
+</p>
 <h2><span class="caption-index-2">22.2</span>Sample</h2>
-<h2><span class="caption-index-2">22.3</span>Module Functions</h2>
-<h2><span class="caption-index-2">22.4</span>Extension of image Class</h2>
+<pre><code>import(jpeg)
+img = image('foo.jpeg')
+</code></pre>
+<h2><span class="caption-index-2">22.3</span>Exntension of Function's Capability</h2>
+<p>
+This module extends the capability of function <code>image()</code> and instance method <code>image#write()</code> so that they can read/write JPEG files.
+</p>
+<p>
+When function <code>image()</code> is provided with a stream that satisfies the following conditions, it would recognize the stream as a JPEG file.
+</p>
+<ul>
+<li>The identifier of the stream ends with a suffix <code>.jpeg</code>, <code>.jpg</code> or <code>.jpe</code>.</li>
+<li>The stream data begins with a byte sequence "<code>\xff\xd8</code>" that means SOI (start of Image) marker in JPEG specification.</li>
+</ul>
+<p>
+When instance method <code>image#write()</code> is provided with a stream that satisfies the following condition, it would write image data in JPEG format.
+</p>
+<ul>
+<li>The identifier of the stream ends with a suffix <code>.jpeg</code>, <code>.jpg</code> or <code>.jpe</code>.</li>
+</ul>
+<h2><span class="caption-index-2">22.4</span>jpeg.exif Class</h2>
+<p>
+<strong>jpeg.exif</strong>
+</p>
+<p>
+<code>jpeg.exif(stream?:stream:r):map:[raise] {block?}</code>
+</p>
+<p>
+<strong>jpeg.exif#each</strong>
+</p>
+<p>
+<code>jpeg.exif#each() {block?}</code>
+</p>
+<h2><span class="caption-index-2">22.5</span>jpeg.ifd Class</h2>
+<p>
+<strong>jpeg.ifd#each</strong>
+</p>
+<p>
+<code>jpeg.ifd#each() {block?}</code>
+</p>
+<h2><span class="caption-index-2">22.6</span>jpeg.tag Class</h2>
+<h2><span class="caption-index-2">22.7</span>Instance Methods Added to image Class</h2>
 <p>
 <strong>image#read@jpeg</strong>
 </p>
@@ -4684,7 +4727,7 @@ Writes a GIF image to a stream.
 <code>image#read@jpeg(stream:stream:r):reduce</code>
 </p>
 <p>
-Reads a JPEG image from a stream.
+Reads a JPEG image data from a stream.
 </p>
 <p>
 <strong>image#write@jpeg</strong>
@@ -4693,7 +4736,7 @@ Reads a JPEG image from a stream.
 <code>image#write@jpeg(stream:stream:w, quality:number =&gt; 75):reduce</code>
 </p>
 <p>
-Writes a JPEG image to a stream.
+Writes a JPEG image data to a stream.
 </p>
 <h1><span class="caption-index-1">23</span>llvm Module</h1>
 <h2><span class="caption-index-2">23.1</span>Abstract</h2>
@@ -4717,7 +4760,7 @@ Returns an instance of <code>markdown.document</code>. If <code>stream</code> is
 <code>markdown.setpresenter():void {block}</code>
 </p>
 <p>
-Sets a presentation procedure that shows helps written in Markdown format. The procedure is specified by a block that takes block parameters: <code>|title:string, doc:markdown.document|</code>.
+Sets a presentation procedure that shows helps written in Markdown format. The procedure is written in the function's block that takes block parameters: <code>|title:string, doc:markdown.document|</code>.
 </p>
 <h2><span class="caption-index-2">24.2</span>markdown.document Class</h2>
 <p>

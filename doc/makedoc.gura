@@ -70,7 +70,7 @@ about syntax and specifications of Gura language itself.
 # Explanatory Note
 
 Functions in this reference are described in a generic expression.
-For example, if there is a reference `func(num:number)`,
+For example, if there is a reference described like `func(num:number)`,
 it means that `func` function takes one argument named `num` with value type of `number`.
 You can call it like `func(3)`.
 	

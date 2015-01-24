@@ -84,6 +84,7 @@ String Object_tag::ToString(bool exprFlag)
 // implementation of class tag
 Gura_ImplementUserClass(tag)
 {
+	Gura_AssignValue(tag, Value(Reference()));
 }
 
 //-----------------------------------------------------------------------------

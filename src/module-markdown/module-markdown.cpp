@@ -2304,7 +2304,7 @@ Gura_DeclareFunction(setpresenter)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Sets a presentation procedure that shows helps written in Markdown format.\n"
-		"The procedure is specified by a block that takes block parameters:\n"
+		"The procedure is written in the function's block that takes block parameters:\n"
 		"`|title:string, doc:markdown.document|`.\n"
 	);
 }

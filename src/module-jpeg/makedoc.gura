@@ -5,16 +5,55 @@ import(jpeg)
 write(doc:markdown.document) = {
 	doc << R'''
 	# jpeg Module
+
 	## Abstract
+
+	This module provides measures to read/write image data in JPEG format.
+	To utilize it, import `jpeg` module using `import` function.
+	
 	## Sample
+	    import(jpeg)
+		img = image('foo.jpeg')
 	'''
 	doc << R'''
-	## Module Functions
+	## Exntension of Function's Capability
+
+	This module extends the capability of function `image()` and instance method `image#write()`
+	so that they can read/write JPEG files.
+
+	When function `image()` is provided with a stream that satisfies the following conditions,
+	it would recognize the stream as a JPEG file.
+
+	- The identifier of the stream ends with a suffix `.jpeg`, `.jpg` or `.jpe`.
+	- The stream data begins with a byte sequence "`\xff\xd8`"
+	  that means SOI (start of Image) marker in JPEG specification.
+
+	When instance method `image#write()` is provided with a stream that satisfies the following condition,
+	it would write image data in JPEG format.
+
+	- The identifier of the stream ends with a suffix `.jpeg`, `.jpg` or `.jpe`.
+	'''
+	doc << R'''
+	## jpeg.exif Class
 	'''
 	doc << [
+		jpeg.exif
+		jpeg.exif.each
 	]
+
 	doc << R'''
-	## Extension of image Class
+	## jpeg.ifd Class
+	'''
+	doc << [
+		jpeg.ifd.each
+	]
+
+	doc << R'''
+	## jpeg.tag Class
+	'''
+
+	doc << R'''
+	## Instance Methods Added to image Class
 	'''
 	doc << [
 		image.read@jpeg

@@ -140,14 +140,16 @@ Gura_DeclareFunction(cross)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Executes the block until it evaluates all the combinations of results from exprs\n"
-		"\"var in iteratable.\" You can specify one or more such exprs as arguments and\n"
+		"\"`var in iteratable`.\" You can specify one or more such exprs as arguments and\n"
 		"they are counted up from the one on the right side.\n"
 		"Iterators and lists are the most popular iteratables, but even any objects that\n"
 		"are cable of generating iterators can be specified as such.\n"
 		"\n"
 		REPEATER_HELP
 		"\n"
-		"Block parameter format: `|idx:number, i0:number, i1:number, ..|`");
+		"Block parameter format is `|idx:number, i0:number, i1:number, ..|`\n"
+		"where `idx` indicates an index of the whole loop\n"
+		"and each of `i0`, `i1` .. indicates an index of each corresponding iterable.\n");
 }
 
 Gura_ImplementFunction(cross)
@@ -170,14 +172,14 @@ Gura_DeclareFunctionAlias(for_, "for")
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Executes the block until any of the exprs of \"var in iteratable\" reach at\n"
+		"Executes the block until any of the exprs of \"`var in iteratable`\" reach at\n"
 		"their ends. You can specify one or more such exprs as arguments.\n"
 		"Iterators and lists are the most popular iteratables, but even any objects that\n"
 		"are cable of generating iterators can be specified as such.\n"
 		"\n"
 		REPEATER_HELP
 		"\n"
-		"Block parameter format: `|idx:number|`");
+		"Block parameter format is `|idx:number|` where `idx` indicates an index of the loop.\n");
 }
 
 Gura_ImplementFunction(for_)
@@ -206,7 +208,7 @@ Gura_DeclareFunction(repeat)
 		"\n"
 		REPEATER_HELP
 		"\n"
-		"Block parameter format: `|idx:number|`");
+		"Block parameter format is `|idx:number|` where `idx` indicates an index of the loop.\n");
 }
 
 Gura_ImplementFunction(repeat)
@@ -234,7 +236,7 @@ Gura_DeclareFunctionAlias(while_, "while")
 		"\n"
 		REPEATER_HELP
 		"\n"
-		"Block parameter format: `|idx:number|`");
+		"Block parameter format is `|idx:number|` where `idx` indicates an index of the loop.\n");
 }
 
 Gura_ImplementFunction(while_)
