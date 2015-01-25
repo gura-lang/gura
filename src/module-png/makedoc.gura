@@ -4,8 +4,36 @@ import(png)
 
 text = R'''
 # png Module
+
 ## Abstract
+
+This module provides measures to read/write image data in PNG format.
+To utilize it, import `png` module using `import` function.
+
+This uses `libpng` library that is published in the URL: http://www.libpng.org/pub/png/libpng.html.
+	
 ## Sample
+
+Read a PNG file:
+
+    import(png)
+    img = image('foo.png')
+
+## Exntension of Function's Capability
+
+This module extends the capability of function `image()` and instance method `image#write()`
+so that they can read/write PNG files.
+
+When function `image()` is provided with a stream that satisfies the following conditions,
+it would recognize the stream as a PNG file.
+
+- The identifier of the stream ends with a suffix `.png`.
+- The stream data begins with a byte sequence `0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a`.
+
+When instance method `image#write()` is provided with a stream that satisfies the following condition,
+it would write image data in PNG format.
+
+- The identifier of the stream ends with a suffix `.png`.
 '''
 
 write(doc:markdown.document) = {

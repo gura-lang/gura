@@ -11,6 +11,7 @@ This module provides measures to read/write image data in JPEG format.
 To utilize it, import `jpeg` module using `import` function.
 	
 ## Sample
+
     import(jpeg)
     img = image('foo.jpeg')
 

@@ -3400,10 +3400,43 @@ Renames a file or directory.
 <p>
 Removes a directory. If the directory contains sub directories, an error occurs. Specifying <code>:tree</code> attribute would delete such a directory.
 </p>
-<h1><span class="caption-index-1">14</span>gif Module</h1>
+<h1><span class="caption-index-1">14</span>jpeg Module</h1>
 <h2><span class="caption-index-2">14.1</span>Abstract</h2>
+<p>
+This module provides measures to read/write image data in GIF format. To utilize it, import <code>gif</code> module using <code>import</code> function.
+</p>
 <h2><span class="caption-index-2">14.2</span>Sample</h2>
-<h2><span class="caption-index-2">14.3</span>gif.content Class</h2>
+<p>
+Read a GIF file:
+</p>
+<pre><code>import(gif)
+img = image('foo.gif')
+</code></pre>
+<p>
+Create a GIF file that contains multiple images:
+</p>
+<pre><code>import(gif)
+g = gif.content()
+g.addimage(['cell1.png', 'cell2.png', 'cell3.png'], 10) g.write('anim.gif')
+</code></pre>
+<h2><span class="caption-index-2">14.3</span>Exntension of Function's Capability</h2>
+<p>
+This module extends the capability of function <code>image()</code> and instance method <code>image#write()</code> so that they can read/write GIF files.
+</p>
+<p>
+When function <code>image()</code> is provided with a stream that satisfies the following conditions, it would recognize the stream as a GIF file.
+</p>
+<ul>
+<li>The identifier of the stream ends with a suffix <code>.gif</code>.</li>
+<li>The stream data begins with a byte sequence "GIF87a" or "GIF89a".</li>
+</ul>
+<p>
+When instance method <code>image#write()</code> is provided with a stream that satisfies the following condition, it would write image data in GIF format.
+</p>
+<ul>
+<li>The identifier of the stream ends with a suffix <code>.gif</code>.</li>
+</ul>
+<h2><span class="caption-index-2">14.4</span>gif.content Class</h2>
 <p>
 <strong>gif.content</strong>
 </p>
@@ -3431,7 +3464,7 @@ Adds an image to GIF information. If you add multiple images, they are to be ren
 <p>
 Writes a GIF image to a stream.
 </p>
-<h2><span class="caption-index-2">14.4</span>Extension of image Class</h2>
+<h2><span class="caption-index-2">14.5</span>Extension of image Class</h2>
 <p>
 <strong>image#read@gif</strong>
 </p>
@@ -7803,9 +7836,38 @@ Creates an iterator that recursively lists item names under the specified direct
 </p>
 <h1><span class="caption-index-1">32</span>png Module</h1>
 <h2><span class="caption-index-2">32.1</span>Abstract</h2>
+<p>
+This module provides measures to read/write image data in PNG format. To utilize it, import <code>png</code> module using <code>import</code> function.
+</p>
+<p>
+This uses <code>libpng</code> library that is published in the URL: http://www.libpng.org/pub/png/libpng.html.
+</p>
 <h2><span class="caption-index-2">32.2</span>Sample</h2>
-<h2><span class="caption-index-2">32.3</span>Module Functions</h2>
-<h2><span class="caption-index-2">32.4</span>Extension of image Class</h2>
+<p>
+Read a PNG file:
+</p>
+<pre><code>import(png)
+img = image('foo.png')
+</code></pre>
+<h2><span class="caption-index-2">32.3</span>Exntension of Function's Capability</h2>
+<p>
+This module extends the capability of function <code>image()</code> and instance method <code>image#write()</code> so that they can read/write PNG files.
+</p>
+<p>
+When function <code>image()</code> is provided with a stream that satisfies the following conditions, it would recognize the stream as a PNG file.
+</p>
+<ul>
+<li>The identifier of the stream ends with a suffix <code>.png</code>.</li>
+<li>The stream data begins with a byte sequence <code>0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a</code>.</li>
+</ul>
+<p>
+When instance method <code>image#write()</code> is provided with a stream that satisfies the following condition, it would write image data in PNG format.
+</p>
+<ul>
+<li>The identifier of the stream ends with a suffix <code>.png</code>.</li>
+</ul>
+<h2><span class="caption-index-2">32.4</span>Module Functions</h2>
+<h2><span class="caption-index-2">32.5</span>Extension of image Class</h2>
 <p>
 <strong>image#read@png</strong>
 </p>

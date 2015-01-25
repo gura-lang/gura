@@ -3,9 +3,41 @@ import(markdown)
 import(gif)
 
 text = R'''
-# gif Module
+# jpeg Module
+
 ## Abstract
+
+This module provides measures to read/write image data in GIF format.
+To utilize it, import `gif` module using `import` function.
+	
 ## Sample
+
+Read a GIF file:
+
+    import(gif)
+    img = image('foo.gif')
+
+Create a GIF file that contains multiple images:
+
+    import(gif)
+    g = gif.content()
+    g.addimage(['cell1.png', 'cell2.png', 'cell3.png'], 10) g.write('anim.gif')
+
+## Exntension of Function's Capability
+
+This module extends the capability of function `image()` and instance method `image#write()`
+so that they can read/write GIF files.
+
+When function `image()` is provided with a stream that satisfies the following conditions,
+it would recognize the stream as a GIF file.
+
+- The identifier of the stream ends with a suffix `.gif`.
+- The stream data begins with a byte sequence "GIF87a" or "GIF89a".
+
+When instance method `image#write()` is provided with a stream that satisfies the following condition,
+it would write image data in GIF format.
+
+- The identifier of the stream ends with a suffix `.gif`.
 '''
 
 write(doc:markdown.document) = {
