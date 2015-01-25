@@ -1,12 +1,15 @@
 #!/usr/bin/env gura
 import(markdown)
 
+text = R'''
+# base64 Module
+
+## Abstract
+This module provides measures to read/write text stream that is formatted in base64 format.
+'''
+
 write(doc:markdown.document) = {
-	doc << '# base64 Module'
-	doc << '## Abstract'
-	doc << R'''
-	This module provides measures to read/write text stream that is formatted in base64 format.
-	'''
+	doc << text
 	doc << '## Module Functions'
 	doc << [
 		base64.decode

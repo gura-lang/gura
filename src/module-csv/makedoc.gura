@@ -2,16 +2,18 @@
 import(markdown)
 import(csv)
 
+text = R'''
+# csv Module
+## Sample
+    import(csv)
+    Record = struct(name:string, age:number, email:string)
+    records = Record * csv.read('records.csv')
+    printf('name:%s, age:%d, email:%s¥n',
+    records:*name, records:*age, records:*email)
+'''
+
 write(doc:markdown.document) = {
-	doc << R'''
-	# csv Module
-	## Sample
-	    import(csv)
-	    Record = struct(name:string, age:number, email:string)
-	    records = Record * csv.read('records.csv')
-	    printf('name:%s, age:%d, email:%s¥n',
-	    records:*name, records:*age, records:*email)
-	'''
+	doc << text
 	doc << R'''
 	## Module Functions
 	'''

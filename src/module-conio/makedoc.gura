@@ -2,23 +2,25 @@
 import(markdown)
 import(conio)
 
+text = R'''
+# conio Module
+## Abstract
+## Sample
+    conio.clear()
+    [w, h] = conio.getwinsize() conio.moveto(0, 0) {
+        print('*' * w)
+    }
+    conio.moveto(0, 1 .. (h - 2)) {
+        print('*', ' ' * (w - 2), '*')
+    }
+    conio.moveto(0, h - 1) {
+        print('*' * w)
+    }
+    conio.waitkey():raise
+'''
+
 write(doc:markdown.document) = {
-	doc << R'''
-	# conio Module
-	## Abstract
-	## Sample
-	    conio.clear()
-	    [w, h] = conio.getwinsize() conio.moveto(0, 0) {
-	        print('*' * w)
-	    }
-	    conio.moveto(0, 1 .. (h - 2)) {
-		    print('*', ' ' * (w - 2), '*')
-	    }
-	    conio.moveto(0, h - 1) {
-	        print('*' * w)
-	    }
-	    conio.waitkey():raise	
-	'''
+	doc << text
 	doc << R'''
 	## Module Functions
 	'''

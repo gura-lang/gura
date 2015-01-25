@@ -1,8 +1,12 @@
 #!/usr/bin/env gura
 import(markdown)
 
+text = R'''
+# Built-in Functions
+'''
+
 write(doc:markdown.document) = {
-	doc << '# Built-in Functions'
+	doc << text
 	doc << '## Formatting and Printing of Text'
 	doc << [
 		format

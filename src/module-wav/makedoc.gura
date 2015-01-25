@@ -2,12 +2,14 @@
 import(markdown)
 import(wav)
 
+text = R'''
+# wav Module
+## Abstract
+## Sample
+'''
+
 write(doc:markdown.document) = {
-	doc << R'''
-	# wav Module
-	## Abstract
-	## Sample
-	'''
+	doc << text
 	doc << '## Module Functions'
 	doc << [
 	]

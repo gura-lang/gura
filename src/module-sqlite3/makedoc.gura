@@ -2,12 +2,14 @@
 import(markdown)
 import(sqlite3)
 
+text = R'''
+# sqlite3 Module
+## Abstract
+## Sample
+'''
+
 write(doc:markdown.document) = {
-	doc << R'''
-	# sqlite3 Module
-	## Abstract
-	## Sample
-	'''
+	doc << text
 	doc << R'''
 	## Module Functions
 	'''

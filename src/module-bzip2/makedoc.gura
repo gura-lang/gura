@@ -2,12 +2,14 @@
 import(markdown)
 import(bzip2)
 
+text = R'''
+# bzip2 Module
+## Abstract
+## Sample
+'''
+
 write(doc:markdown.document) = {
-	doc << R'''
-	# bzip2 Module
-	## Abstract
-	## Sample
-	'''
+	doc << text
 	doc << R'''
 	## Module Functions
 	'''

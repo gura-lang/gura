@@ -2,12 +2,14 @@
 import(markdown)
 import(gif)
 
+text = R'''
+# gif Module
+## Abstract
+## Sample
+'''
+
 write(doc:markdown.document) = {
-	doc << R'''
-	# gif Module
-	## Abstract
-	## Sample
-	'''
+	doc << text
 	doc << R'''
 	## gif.content Class
 	'''

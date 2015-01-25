@@ -2,12 +2,14 @@
 import(markdown)
 import(png)
 
+text = R'''
+# png Module
+## Abstract
+## Sample
+'''
+
 write(doc:markdown.document) = {
-	doc << R'''
-	# png Module
-	## Abstract
-	## Sample
-	'''
+	doc << text
 	doc << R'''
 	## Module Functions
 	'''

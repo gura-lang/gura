@@ -2,12 +2,14 @@
 import(markdown)
 import(gmp)
 
+text = R'''
+# gmp Module
+## Abstract
+## Sample
+'''
+
 write(doc:markdown.document) = {
-	doc << R'''
-	# gmp Module
-	## Abstract
-	## Sample
-	'''
+	doc << text
 	doc << R'''
 	## Module Functions
 	'''

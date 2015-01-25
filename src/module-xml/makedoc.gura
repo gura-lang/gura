@@ -2,12 +2,14 @@
 import(markdown)
 import(xml)
 
+text = R'''
+# xml Module
+## Abstract
+## Sample
+'''
+
 write(doc:markdown.document) = {
-	doc << R'''
-	# xml Module
-	## Abstract
-	## Sample
-	'''
+	doc << text
 	doc << R'''
 	## Module Functions
 	'''

@@ -2,12 +2,14 @@
 import(markdown)
 import(mswin)
 
+text = R'''
+# mswin Module
+## Abstract
+## Sample
+'''
+
 write(doc:markdown.document) = {
-	doc << R'''
-	# mswin Module
-	## Abstract
-	## Sample
-	'''
+	doc << text
 	doc << R'''
 	## Module Functions
 	'''

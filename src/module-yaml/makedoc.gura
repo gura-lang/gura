@@ -2,12 +2,14 @@
 import(markdown)
 import(yaml)
 
+text = R'''
+# yaml Module
+## Abstract
+## Sample
+'''
+
 write(doc:markdown.document) = {
-	doc << R'''
-	# yaml Module
-	## Abstract
-	## Sample
-	'''
+	doc << text
 	doc << R'''
 	## Module Functions
 	'''

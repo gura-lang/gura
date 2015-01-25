@@ -1,12 +1,14 @@
 #!/usr/bin/env gura
 import(markdown)
 
+text = R'''
+# http Module
+## Abstract
+## Sample
+'''
+
 write(doc:markdown.document) = {
-	doc << R'''
-	# http Module
-	## Abstract
-	## Sample
-	'''
+	doc << text
 	doc << R'''
 	## Module Functions
 	'''

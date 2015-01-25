@@ -2,36 +2,38 @@
 import(markdown)
 import(bmp)
 
-write(doc:markdown.document) = {
-	doc << R'''
-	# bmp Module
+text = R'''
+# bmp Module
 
-	## Abstract
+## Abstract
 
-	This module provides measures to read/write image data in Microsoft BMP format.
-	To utilize it, import `bmp` module using `import` function.
+This module provides measures to read/write image data in Microsoft BMP format.
+To utilize it, import `bmp` module using `import` function.
 	
-	## Sample
-	    import(bmp)
-		img = image('foo.bmp')
-	'''
+## Sample
+    import(bmp)
+	img = image('foo.bmp')
+
+## Exntension of Function's Capability
+
+This module extends the capability of function `image()` and instance method `image#write()`
+so that they can read/write BMP files.
+
+When function `image()` is provided with a stream that satisfies the following conditions,
+it would recognize the stream as a BMP file.
+
+- The identifier of the stream ends with a suffix `.bmp`.
+- The stream data begins with a byte sequence "`BM`".
+
+When instance method `image#write()` is provided with a stream that satisfies the following condition,
+it would write image data in BMP format.
+
+- The identifier of the stream ends with a suffix `.bmp`.
+'''
+
+write(doc:markdown.document) = {
+	doc << text
 	doc << R'''
-	## Exntension of Function's Capability
-
-	This module extends the capability of function `image()` and instance method `image#write()`
-	so that they can read/write BMP files.
-
-	When function `image()` is provided with a stream that satisfies the following conditions,
-	it would recognize the stream as a BMP file.
-
-	- The identifier of the stream ends with a suffix `.bmp`.
-	- The stream data begins with a byte sequence "`BM`".
-
-	When instance method `image#write()` is provided with a stream that satisfies the following condition,
-	it would write image data in BMP format.
-
-	- The identifier of the stream ends with a suffix `.bmp`.
-
 	## Instance Methods Added to image Class
 	'''
 	doc << [

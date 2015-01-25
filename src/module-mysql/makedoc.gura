@@ -1,12 +1,14 @@
 #!/usr/bin/env gura
 import(markdown)
 
+text = R'''
+# mysql Module
+## Abstract
+## Sample
+'''
+
 write(doc:markdown.document) = {
-	doc << R'''
-	# mysql Module
-	## Abstract
-	## Sample
-	'''
+	doc << text
 	doc << R'''
 	## Module Functions
 	'''

@@ -2,14 +2,16 @@
 import(markdown)
 import(cairo)
 
-write(doc:markdown.document) = {
-	doc << R'''
-	# cairo Module
-	## About This Document
+text = R'''
+# cairo Module
+## About This Document
 	
-	This reference explains about specification of functions and classes defined in **Gura**'s `cairo` module.
-	Official site of SDL is <http://cairographics.org/>.
-	'''
+This reference explains about specification of functions and classes defined in **Gura**'s `cairo` module.
+Official site of SDL is <http://cairographics.org/>.
+'''
+
+write(doc:markdown.document) = {
+	doc << text
 	
 	doc << R'''
 	## Drawing

@@ -2,12 +2,14 @@
 import(markdown)
 import(glut)
 
+text = R'''
+# glut Module
+## Abstract
+## Sample
+'''
+
 write(doc:markdown.document) = {
-	doc << R'''
-	# glut Module
-	## Abstract
-	## Sample
-	'''
+	doc << text
 	doc << R'''
 	## Module Functions
 	'''

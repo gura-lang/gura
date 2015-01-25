@@ -2,37 +2,38 @@
 import(markdown)
 import(jpeg)
 
-write(doc:markdown.document) = {
-	doc << R'''
-	# jpeg Module
+text = R'''
+# jpeg Module
 
-	## Abstract
+## Abstract
 
-	This module provides measures to read/write image data in JPEG format.
-	To utilize it, import `jpeg` module using `import` function.
+This module provides measures to read/write image data in JPEG format.
+To utilize it, import `jpeg` module using `import` function.
 	
-	## Sample
-	    import(jpeg)
-		img = image('foo.jpeg')
-	'''
-	doc << R'''
-	## Exntension of Function's Capability
+## Sample
+    import(jpeg)
+    img = image('foo.jpeg')
 
-	This module extends the capability of function `image()` and instance method `image#write()`
-	so that they can read/write JPEG files.
+## Exntension of Function's Capability
 
-	When function `image()` is provided with a stream that satisfies the following conditions,
-	it would recognize the stream as a JPEG file.
+This module extends the capability of function `image()` and instance method `image#write()`
+so that they can read/write JPEG files.
 
-	- The identifier of the stream ends with a suffix `.jpeg`, `.jpg` or `.jpe`.
-	- The stream data begins with a byte sequence "`\xff\xd8`"
-	  that means SOI (start of Image) marker in JPEG specification.
+When function `image()` is provided with a stream that satisfies the following conditions,
+it would recognize the stream as a JPEG file.
 
-	When instance method `image#write()` is provided with a stream that satisfies the following condition,
-	it would write image data in JPEG format.
+- The identifier of the stream ends with a suffix `.jpeg`, `.jpg` or `.jpe`.
+- The stream data begins with a byte sequence "`\xff\xd8`"
+  that means SOI (start of Image) marker in JPEG specification.
 
-	- The identifier of the stream ends with a suffix `.jpeg`, `.jpg` or `.jpe`.
-	'''
+When instance method `image#write()` is provided with a stream that satisfies the following condition,
+it would write image data in JPEG format.
+
+- The identifier of the stream ends with a suffix `.jpeg`, `.jpg` or `.jpe`.
+'''
+
+write(doc:markdown.document) = {
+	doc << text
 	doc << R'''
 	## jpeg.exif Class
 	'''

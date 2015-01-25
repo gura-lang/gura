@@ -2,12 +2,14 @@
 import(markdown)
 import(freetype)
 
+text = R'''
+# freetype Module
+## Abstract
+## Sample
+'''
+
 write(doc:markdown.document) = {
-	doc << R'''
-	# freetype Module
-	## Abstract
-	## Sample
-	'''
+	doc << text
 	doc << R'''
 	## Module Functions
 	'''

@@ -2,12 +2,14 @@
 import(markdown)
 import(glu)
 
+text = R'''
+# glu Module
+## Abstract
+## Sample
+'''
+
 write(doc:markdown.document) = {
-	doc << R'''
-	# glu Module
-	## Abstract
-	## Sample
-	'''
+	doc << text
 	doc << R'''
 	## Module Functions
 	'''

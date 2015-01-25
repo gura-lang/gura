@@ -2,12 +2,14 @@
 import(markdown)
 import(ppm)
 
+text = R'''
+# ppm Module
+## Abstract
+## Sample
+'''
+
 write(doc:markdown.document) = {
-	doc << R'''
-	# ppm Module
-	## Abstract
-	## Sample
-	'''
+	doc << text
 	doc << R'''
 	## Module Functions
 	'''
