@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 // Tower of Hanoi
 
-nDisks = 5
+nDisks = 4
 
 resolve(n:number, from:number, to:number, via:number) = {
 	if (n == 1) {
