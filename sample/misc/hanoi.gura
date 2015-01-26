@@ -1,0 +1,12 @@
+#!/usr/bin/env gura
+
+hanoi(n:number, from:number, to:number, via:number) = {
+	if (n == 1) {
+		printf('%d => %d\n', from, to)
+	} else {
+		hanoi(n - 1, from, via, to)
+		printf('%d => %d\n', from, to)
+		hanoi(n - 1, via, to, from)
+	}
+}
+hanoi(3, 0, 1, 2)
