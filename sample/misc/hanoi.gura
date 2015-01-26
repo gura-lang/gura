@@ -1,12 +1,43 @@
 #!/usr/bin/env gura
+// Tower of Hanoi
 
-hanoi(n:number, from:number, to:number, via:number) = {
+nDisks = 5
+
+resolve(n:number, from:number, to:number, via:number) = {
 	if (n == 1) {
 		printf('%d => %d\n', from, to)
+		bars[to].Place(bars[from].Remove())
+		PrintStage()
 	} else {
-		hanoi(n - 1, from, via, to)
+		resolve(n - 1, from, via, to)
 		printf('%d => %d\n', from, to)
-		hanoi(n - 1, via, to, from)
+		bars[to].Place(bars[from].Remove())
+		PrintStage()
+		resolve(n - 1, via, to, from)
 	}
 }
-hanoi(3, 0, 1, 2)
+
+disks = [(((nDisks - 1)..0) * ' ') + (((1..nDisks) * 2 - 1) * '@') + (((nDisks - 1)..0) * ' ')]
+blank = ((nDisks - 1) * ' ') + '|' + ((nDisks - 1) * ' ')
+Bar = struct(disks[]:string) {
+	GetLine(i:number):map = {
+		i += this.disks.len() - nDisks
+		if (i < 0) { blank } else { this.disks[i] }
+	}
+	Remove() = {
+		disk = this.disks[0]
+		this.disks.erase(0)
+		disk
+	}
+	Place(disk:string) = {
+		this.disks.insert(0, disk)
+	}
+}
+bars = [Bar(disks), Bar([]), Bar([])]
+PrintStage() = {
+	repeat(nDisks) {|i|
+		println(bars[0..2]:*GetLine(i).join(' '))
+	}
+}
+PrintStage()
+resolve(nDisks, 0, 2, 1)
