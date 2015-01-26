@@ -112,6 +112,19 @@ footer = R'''
 </body>
 </html>
 '''
+
 fileName = 'gura-lib-e.html'
-doc.render@html(fileName, header, footer, true)
+open(fileName, 'w') {|out|
+	out.print(header)
+	out.println('<h1>Table of Contents</h1>')
+	doc.render@toc {|level:number, indices[]:number, captionId:string, text:string|
+		if (level == 0) {
+			out.printf('<div><span class="caption-index-1">%d</span><a href="#%s">%s</a>\</div>\n',
+					   indices[0], captionId, text)
+		}
+	}
+	out.println('<hr />')
+	doc.render@html(out, false, true)
+	out.print(footer)
+}
 println(fileName, ' was created.')

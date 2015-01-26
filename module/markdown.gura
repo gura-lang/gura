@@ -2,12 +2,12 @@
 import(conio)
 import(markdown):binary:mixin_type {*}
 
+MakeCaptionId(indices[]:number) = 'caption-' + format('%d', indices).join('-')
+
 Renderer@html = class {
-	__init__(out:stream:w, header:string, footer:string, captionIndex:boolean) = {
+	__init__(out:stream:w, captionIndex:boolean) = {
 		this.out = out
-		this.header = header
-		this.footer = footer
-		this.cntCaptions = dim(6) {0}
+		this.indices = dim(6) {0}
 		this.captionIndex = captionIndex
 	}
 	Render(doc:document):void = {
@@ -15,66 +15,76 @@ Renderer@html = class {
 	}
 	RenderItem(item:item):map:void = {
 		if (item.type == `root) {
-			this.out.print(this.header)
 			this.RenderItem(item.children)
-			this.out.print(this.footer)
 		} elsif (item.type == `h1) {
 			this.out.print('<h1>')
 			if (this.captionIndex) {
-				this.cntCaptions[0] += 1
-				this.cntCaptions[1..5] = 0
+				this.indices[0] += 1
+				this.indices[1..5] = 0
 				this.out.printf('<span class="caption-index-1">%d</span>',
-								this.cntCaptions[0])
+								this.indices[0])
 			}
+			this.out.printf('<a name="%s">', MakeCaptionId([this.indices[0]]))
+			this.out.print('</a>')
 			this.RenderItem(item.children)
 			this.out.print('</h1>\n')
 		} elsif (item.type == `h2) {
 			this.out.print('<h2>')
 			if (this.captionIndex) {
-				this.cntCaptions[1] += 1
-				this.cntCaptions[2..5] = 0
+				this.indices[1] += 1
+				this.indices[2..5] = 0
 				this.out.printf('<span class="caption-index-2">%d.%d</span>',
-								this.cntCaptions[0..1]*)
+								this.indices[0..1]*)
 			}
+			this.out.printf('<a name="%s">', MakeCaptionId(this.indices[0..1]))
+			this.out.print('</a>')
 			this.RenderItem(item.children)
 			this.out.print('</h2>\n')
 		} elsif (item.type == `h3) {
 			this.out.print('<h3>')
 			if (this.captionIndex) {
-				this.cntCaptions[2] += 1
-				this.cntCaptions[3..5] = 0
+				this.indices[2] += 1
+				this.indices[3..5] = 0
 				this.out.printf('<span class="caption-index-3">%d.%d.%d</span>',
-								this.cntCaptions[0..2]*)
+								this.indices[0..2]*)
 			}
+			this.out.printf('<a name="%s">', MakeCaptionId(this.indices[0..2]))
+			this.out.print('</a>')
 			this.RenderItem(item.children)
 			this.out.print('</h3>\n')
 		} elsif (item.type == `h4) {
 			this.out.print('<h4>')
 			if (this.captionIndex) {
-				this.cntCaptions[3] += 1
-				this.cntCaptions[4..5] = 0
+				this.indices[3] += 1
+				this.indices[4..5] = 0
 				this.out.printf('<span class="caption-index-4">%d.%d.%d.%d</span>',
-								this.cntCaptions[0..3]*)
+								this.indices[0..3]*)
 			}
+			this.out.printf('<a name="%s">', MakeCaptionId(this.indices[0..3]))
+			this.out.print('</a>')
 			this.RenderItem(item.children)
 			this.out.print('</h4>\n')
 		} elsif (item.type == `h5) {
 			this.out.print('<h5>')
 			if (this.captionIndex) {
-				this.cntCaptions[4] += 1
-				this.cntCaptions[5] = 0
+				this.indices[4] += 1
+				this.indices[5] = 0
 				this.out.printf('<span class="caption-index-5">%d.%d.%d.%d.%d</span>',
-								this.cntCaptions[0..4]*)
+								this.indices[0..4]*)
 			}
+			this.out.printf('<a name="%s">', MakeCaptionId(this.indices[0..4]))
+			this.out.print('</a>')
 			this.RenderItem(item.children)
 			this.out.print('</h5>\n')
 		} elsif (item.type == `h6) {
 			this.out.print('<h6>')
 			if (this.captionIndex) {
-				this.cntCaptions[5] += 1
+				this.indices[5] += 1
 				this.out.printf('<span class="caption-index-6">%d.%d.%d.%d.%d.%d</span>',
-								this.cntCaptions[0..5]*)
+								this.indices[0..5]*)
 			}
+			this.out.printf('<a name="%s">', MakeCaptionId(this.indices[0..5]))
+			this.out.print('</a>')
 			this.RenderItem(item.children)
 			this.out.print('</h6>\n')
 		} elsif (item.type == `p) {
@@ -391,6 +401,101 @@ Renderer@console = class {
 	}
 }
 
+Renderer@toc = class {
+	__init__(handler:function) = {
+		this.handler = handler
+		this.text = nil
+		this.indices = dim(6) {0}
+	}
+	Render(doc:document):void = {
+		this.RenderItem(doc.root)
+	}
+	RenderItem(item:item):map:void = {
+		if (item.type == `root) {
+			this.RenderItem(item.children)
+		} elsif (item.type == `h1) {
+			this.indices[0] += 1
+			this.indices[1..5] = 0
+			this.text = ''
+			this.RenderItem(item.children)
+			this.handler(0, this.indices, MakeCaptionId([this.indices[0]]), this.text)
+			this.text = nil
+		} elsif (item.type == `h2) {
+			this.indices[1] += 1
+			this.indices[2..5] = 0
+			this.text = ''
+			this.RenderItem(item.children)
+			this.handler(1, this.indices, MakeCaptionId(this.indices[0..1]), this.text)
+			this.text = nil
+		} elsif (item.type == `h3) {
+			this.indices[2] += 1
+			this.indices[3..5] = 0
+			this.text = ''
+			this.RenderItem(item.children)
+			this.handler(2, this.indices, MakeCaptionId(this.indices[0..2]), this.text)
+			this.text = nil
+		} elsif (item.type == `h4) {
+			this.indices[3] += 1
+			this.indices[4..5] = 0
+			this.text = ''
+			this.RenderItem(item.children)
+			this.handler(3, this.indices, MakeCaptionId(this.indices[0..3]), this.text)
+			this.text = nil
+		} elsif (item.type == `h5) {
+			this.indices[4] += 1
+			this.indices[5] = 0
+			this.text = ''
+			this.RenderItem(item.children)
+			this.handler(4, this.indices, MakeCaptionId(this.indices[0..4]), this.text)
+			this.text = nil
+		} elsif (item.type == `h6) {
+			this.indices[5] += 1
+			this.text = ''
+			this.RenderItem(item.children)
+			this.handler(5, this.indices, MakeCaptionId(this.indices[0..5]), this.text)
+			this.text = nil
+		} elsif (item.type == `p) {
+			// nothing to do
+		} elsif (item.type == `blockquote) {
+			// nothing to do
+		} elsif (item.type == `em) {
+			this.RenderItem(item.children)
+		} elsif (item.type == `strong) {
+			this.RenderItem(item.children)
+		} elsif (item.type == `codeblock) {
+			// nothing to do
+		} elsif (item.type == `ol) {
+			// nothing to do
+		} elsif (item.type == `ul) {
+			// nothing to do
+		} elsif (item.type == `li) {
+			// nothing to do
+		} elsif (item.type == `line) {
+			// nothing to do
+		} elsif (item.type == `a) {
+			this.RenderItem(item.children)
+		} elsif (item.type == `img) {
+			// nothing to do
+		} elsif (item.type == `text) {
+			if (this.text) {
+				this.text += item.text
+			}
+		} elsif (item.type == `code) {
+			if (this.text) {
+				this.text += item.text
+			}
+		} elsif (item.type == `entity) {
+			// nothing to do
+		} elsif (item.type == `tag) {
+			// nothing to do
+		} elsif (item.type == `hr) {
+			// nothing to do
+		} elsif (item.type == `br) {
+			// nothing to do
+		}
+	}
+}
+
 operator(`<<).assign(`document, `function) {|doc, func|
 	doc << '**' + function.getfullname(func).replace('_', '\\_') + '**'
 	doc << '\n'
@@ -400,38 +505,32 @@ operator(`<<).assign(`document, `function) {|doc, func|
 }
 
 classref(`document).render@html(
-		out?:stream:w, header?:string, footer?:string, captionIndex?:boolean) = {
-	header = header || R'''
+		out?:stream:w, easyFormatFlag:boolean => true, captionIndex:boolean => false) = {
+	out = out || sys.stdout
+	easyFormatFlag && out.print(R'''
 	<html>
 	<head>
 	</head>
 	<body>
-	'''
-	footer = footer || R'''
+	''')
+	Renderer@html(out, captionIndex).Render(this)
+	easyFormatFlag && out.print(R'''
 	</body>
 	</html>
-	'''
-	if (out) {
-		Renderer@html(out, header, footer, captionIndex).Render(this)
-	} else {
-		buff = binary()
-		Renderer@html(buff, header, footer, captionIndex).Render(this)
-		buff.decode('utf-8')
-	}
+	''')
 }
 
 classref(`document).render@rtf(out?:stream:w) = {
-	if (out) {
-		Renderer@rtf(out).Render(this)
-	} else {
-		buff = binary()
-		Renderer@rtf(buff).Render(this)
-		buff.decode('utf-8')
-	}
+	out = out || sys.stdout
+	Renderer@rtf(out).Render(this)
 }
 
 classref(`document).render@console() = {
 	Renderer@console().Render(this)
+}
+
+classref(`document).render@toc() {block} = {
+	Renderer@toc(block).Render(this)
 }
 
 setpresenter {|title:string:nil, doc:document:nil|

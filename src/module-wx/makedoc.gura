@@ -1,12 +1,14 @@
 #!/usr/bin/env gura
 import(markdown)
 
+text = R'''
+# wx Module
+## Abstract
+## Sample
+'''
+
 write(doc:markdown.document) = {
-	doc << R'''
-	## wx Module
-	### Abstract
-	### Sample
-	'''
+	doc << text
 	doc << '### Module Functions'
 	doc << [
 	]
