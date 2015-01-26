@@ -17,7 +17,7 @@ write(doc:markdown.document) = {
 		base64.reader
 		base64.writer
 	]
-	doc << '## Extension of stream Class'
+	doc << '## Methods Added to stream Class'
 	doc << R'''
 	After importing `base64` module, `stream` class is extended with methods that are described here.
 	'''

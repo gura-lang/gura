@@ -24,7 +24,7 @@ write(doc:markdown.document) = {
 		msico.content.addimage
 	]
 	doc << R'''
-	## Extension of image Class
+	## Methods Added to image Class
 	'''
 	doc << [
 		image.read@msico

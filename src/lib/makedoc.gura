@@ -3,18 +3,18 @@ import(markdown)
 
 write(doc:markdown.document) = {
 	doc << R'''
-	## Built-in Class
+	# Built-in Class
 	'''
-	doc << '### args Class'
+	doc << '## args Class'
 	doc << [
 		args.finalize_trailer
 		args.isset
 		args.quit_trailer
 	]
-	doc << '### array Class'
+	doc << '## array Class'
 	doc << [
 	]
-	doc << '### audio Class'
+	doc << '## audio Class'
 	doc << [
 		audio.each
 		audio.get
@@ -22,7 +22,7 @@ write(doc:markdown.document) = {
 		audio.sinewave
 		audio.store
 	]
-	doc << '### binary Class'
+	doc << '## binary Class'
 	doc << [
 		binary.add
 		binary.alloc
@@ -40,21 +40,21 @@ write(doc:markdown.document) = {
 		binary.unpacks
 		binary.writer
 	]
-	doc << '### codec Class'
+	doc << '## codec Class'
 	doc << [
 		codec.addcr
 		codec.decode
 		codec.delcr
 		codec.encode
 	]
-	doc << '### color Class'
+	doc << '## color Class'
 	doc << [
 		color
 		color.getgray
 		color.html
 		color.tolist
 	]
-	doc << '### datetime Class'
+	doc << '## datetime Class'
 	doc << [
 		datetime,
 		datetime.clrtzoff
@@ -69,11 +69,11 @@ write(doc:markdown.document) = {
 		datetime.utc
 		datetime.weekday
 	]
-	doc << '### declaration Class'
+	doc << '## declaration Class'
 	doc << [
 		declaration.istype
 	]
-	doc << '### dict Class'
+	doc << '## dict Class'
 	doc << [
 		dict,
 		dict.clear
@@ -90,20 +90,20 @@ write(doc:markdown.document) = {
 		dict.store
 		dict.values
 	]
-	doc << '### directory Class'
+	doc << '## directory Class'
 	doc << [
 		directory
 	]
-	doc << '### environment Class'
+	doc << '## environment Class'
 	doc << [
 		environment.getprop!
 		environment.lookup
 		environment.setprop!
 	]
-	doc << '### error Class'
+	doc << '## error Class'
 	doc << [
 	]
-	doc << '### expr Class'
+	doc << '## expr Class'
 	doc << [
 		expr
 		expr.eval
@@ -136,7 +136,7 @@ write(doc:markdown.document) = {
 		expr.isidentifier
 		expr.issuffixed
 	]
-	doc << '### formatter Class'
+	doc << '## formatter Class'
 	doc << [
 		formatter.getfieldminwidth
 		formatter.getpadding
@@ -146,7 +146,7 @@ write(doc:markdown.document) = {
 		formatter.issharp
 		formatter.isuppercase
 	]
-	doc << '### function Class'
+	doc << '## function Class'
 	doc << [
 		function
 		function.addhelp
@@ -159,10 +159,10 @@ write(doc:markdown.document) = {
 		function.getsymbol
 		function.mathdiff
 	]
-	doc << '### help Class'
+	doc << '## help Class'
 	doc << [
 	]
-	doc << '### image Class'
+	doc << '## image Class'
 	doc << [
 		image
 		image.allocbuff
@@ -191,7 +191,7 @@ write(doc:markdown.document) = {
 		image.thumbnail
 		image.write
 	]
-	doc << '### iterator Class'
+	doc << '## iterator Class'
 	doc << [
 		iterator
 		range
@@ -251,7 +251,7 @@ write(doc:markdown.document) = {
 		iterator.walk
 		iterator.while
 	]
-	doc << '### list Class'
+	doc << '## list Class'
 	doc << [
 		list
 		xlist
@@ -319,7 +319,7 @@ write(doc:markdown.document) = {
 		list.walk
 		list.while
 	]
-	doc << '### matrix Class'
+	doc << '## matrix Class'
 	doc << [
 		matrix
 		matrix.col
@@ -344,13 +344,13 @@ write(doc:markdown.document) = {
 		matrix.tolist
 		matrix.transpose
 	]
-	doc << '### operator Class'
+	doc << '## operator Class'
 	doc << [
 		operator
 		operator.assign
 		operator.entries
 	]
-	doc << '### palette Class'
+	doc << '## palette Class'
 	doc << [
 		palette
 		palette.each
@@ -358,7 +358,7 @@ write(doc:markdown.document) = {
 		palette.shrink
 		palette.updateby
 	]
-	doc << '### pointer Class'
+	doc << '## pointer Class'
 	doc << [
 		pointer.forward
 		pointer.pack
@@ -366,14 +366,14 @@ write(doc:markdown.document) = {
 		pointer.unpack
 		pointer.unpacks
 	]
-	doc << '### semaphore Class'
+	doc << '## semaphore Class'
 	doc << [
 		semaphore
 		semaphore.release
 		semaphore.session
 		semaphore.wait
 	]
-	doc << '### stream Class'
+	doc << '## stream Class'
 	doc << [
 		open
 		stream
@@ -403,12 +403,12 @@ write(doc:markdown.document) = {
 		stream.tell
 		stream.write
 	]
-	doc << '### suffixmgr Class'
+	doc << '## suffixmgr Class'
 	doc << [
 		suffixmgr
 		suffixmgr.assign
 	]
-	doc << '### template Class'
+	doc << '## template Class'
 	doc << [
 		template
 		template.block
@@ -427,11 +427,11 @@ write(doc:markdown.document) = {
 		template._R_extends
 		template._R_super
 	]
-	doc << '### timedelta Class'
+	doc << '## timedelta Class'
 	doc << [
 		timedelta
 	]
-	doc << '### uri Class'
+	doc << '## uri Class'
 	doc << [
 		uri
 		uri.getfragment

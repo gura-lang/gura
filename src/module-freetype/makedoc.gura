@@ -164,7 +164,7 @@ write(doc:markdown.document) = {
 		freetype.font.calcbbox
 	]
 	doc << R'''
-	## Extension of image Class
+	## Methods Added to image Class
 	'''
 	doc << [
 		image.drawtext

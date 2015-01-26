@@ -18,7 +18,7 @@ write(doc:markdown.document) = {
 		gzip.writer
 	]
 	doc << R'''
-	## Extension of image Class
+	## Methods Added to stream Class
 	'''
 	doc << [
 		stream.reader@gzip

@@ -29,7 +29,7 @@ write(doc:markdown.document) = {
 		csv.writer.write
 	]
 	doc << R'''
-	## Extension of stream Class
+	## Methods Added to stream Class
 	'''
 	doc << [
 		stream.read@csv

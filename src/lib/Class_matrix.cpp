@@ -658,10 +658,10 @@ Gura_DeclareMethod(matrix, tolist)
 		"one-dimentional list.\n"
 		"Example:\n"
 		"\n"
-		"    >>> @@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}.tolist()\n"
+		"    @@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}.tolist()\n"
 		"    [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\n"
-		"    >>> @@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}.tolist():transpose\n"
-		"    [[1, 4, 7], [2, 5, 8], [3, 6, 9]]");
+		"    @@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}.tolist():transpose\n"
+		"    [[1, 4, 7], [2, 5, 8], [3, 6, 9]]\n");
 }
 
 Gura_ImplementMethod(matrix, tolist)

@@ -3,7 +3,7 @@ import(markdown)
 import(gif)
 
 text = R'''
-# jpeg Module
+# gif Module
 
 ## Abstract
 
@@ -51,7 +51,7 @@ write(doc:markdown.document) = {
 		gif.content.write
 	]
 	doc << R'''
-	## Extension of image Class
+	## Methods Added to image Class
 	'''
 	doc << [
 		image.read@gif

@@ -58,6 +58,11 @@ baseNames = [
 moduleNames = 'makedoc_' + baseNames
 !path.exists('tmp') && fs.mkdir('tmp')
 fs.copy('../src/module-' + baseNames + '/makedoc.gura', 'tmp/' + moduleNames + '.gura'):overwrite
+scope {
+	moduleName = 'makedoc_lib'
+	fs.copy('../src/lib/makedoc.gura', 'tmp/' + moduleName + '.gura'):overwrite
+	moduleNames.insert(1, moduleName)
+}
 sys.path.insert(0, 'tmp')
 doc = markdown.document()
 doc << R'''
