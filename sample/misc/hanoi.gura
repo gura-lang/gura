@@ -1,8 +1,6 @@
 #!/usr/bin/env gura
 // Tower of Hanoi
 
-nDisks = 4
-
 resolve(n:number, from:number, to:number, via:number) = {
 	if (n == 1) {
 		printf('%d => %d\n', from, to)
@@ -17,8 +15,6 @@ resolve(n:number, from:number, to:number, via:number) = {
 	}
 }
 
-disks = [(((nDisks - 1)..0) * ' ') + (((1..nDisks) * 2 - 1) * '@') + (((nDisks - 1)..0) * ' ')]
-blank = ((nDisks - 1) * ' ') + '|' + ((nDisks - 1) * ' ')
 Bar = struct(disks[]:string) {
 	GetLine(i:number):map = {
 		i += this.disks.len() - nDisks
@@ -33,11 +29,20 @@ Bar = struct(disks[]:string) {
 		this.disks.insert(0, disk)
 	}
 }
-bars = [Bar(disks), Bar([]), Bar([])]
+
 PrintStage() = {
 	repeat(nDisks) {|i|
 		println(bars[0..2]:*GetLine(i).join(' '))
 	}
 }
+
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: gura hanoi.gura num_of_disks')
+	sys.exit(1)
+}
+nDisks = int(sys.argv[1])
+disks = [(((nDisks - 1)..0) * ' ') + (((1..nDisks) * 2 - 1) * '@') + (((nDisks - 1)..0) * ' ')]
+blank = ((nDisks - 1) * ' ') + '|' + ((nDisks - 1) * ' ')
+bars = [Bar(disks), Bar([]), Bar([])]
 PrintStage()
 resolve(nDisks, 0, 2, 1)

@@ -119,90 +119,310 @@ Week symbol that takes one of the followings:
 
 text_declaration = R'''
 ## declaration Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+</table>
 '''
 
 text_dict = R'''
 ## dict Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+</table>
 '''
 
 text_directory = R'''
 ## directory Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+</table>
 '''
 
 text_environment = R'''
 ## environment Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+</table>
 '''
 
 text_error = R'''
 ## error Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+</table>
 '''
 
 text_expr = R'''
 ## expr Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+</table>
 '''
 
 text_formatter = R'''
 ## formatter Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+</table>
 '''
 
 text_function = R'''
 ## function Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+</table>
 '''
 
 text_help = R'''
 ## help Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+</table>
 '''
 
 text_image = R'''
 ## image Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+</table>
 '''
 
 text_iterator = R'''
 ## iterator Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+</table>
 '''
 
 text_list = R'''
 ## list Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+</table>
 '''
 
 text_matrix = R'''
 ## matrix Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+</table>
 '''
 
 text_operator = R'''
 ## operator Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+</table>
 '''
 
 text_palette = R'''
 ## palette Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+</table>
 '''
 
 text_pointer = R'''
 ## pointer Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+</table>
 '''
 
 text_semaphore = R'''
 ## semaphore Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+</table>
 '''
 
 text_stream = R'''
 ## stream Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+</table>
 '''
 
 text_suffixmgr = R'''
 ## suffixmgr Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+</table>
 '''
 
 text_template = R'''
 ## template Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+</table>
 '''
 
 text_timedelta = R'''
 ## timedelta Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+</table>
 '''
 
 text_uri = R'''
 ## uri Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+</table>
 '''
 
 write(doc:markdown.document) = {
