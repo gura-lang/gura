@@ -11,10 +11,10 @@ text_args = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>Explanation</th></tr>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>values</code></td><td><code>list</code></td>
-<td>Values specified in the argument list.</td></tr>
+<tr><td><code>values</code></td><td><code>list</code></td><td>R</td>
+<td>List of Value passed in the argument.</td></tr>
 
 </table>
 '''
@@ -30,6 +30,16 @@ text_audio = R'''
 
 text_binary = R'''
 ## binary Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>writable</code></td><td><code>boolean</code></td><td>R</td>
+<td>Indicates if the content of the binary object is writable.</td></tr>
+
+</table>
 '''
 
 text_codec = R'''
@@ -38,10 +48,73 @@ text_codec = R'''
 
 text_color = R'''
 ## color Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>r</code></td><td><code>number</code></td><td>R/W</td>
+<td>Value of the red element.</td></tr>
+
+<tr><td><code>g</code></td><td><code>number</code></td><td>R/W</td>
+<td>Value of the green element.</td></tr>
+
+<tr><td><code>b</code></td><td><code>number</code></td><td>R/W</td>
+<td>Value of the blue element.</td></tr>
+
+<tr><td><code>a</code></td><td><code>number</code></td><td>R/W</td>
+<td>Value of the alpha element.</td></tr>
+
+</table>
 '''
 
 text_datetime = R'''
 ## datetime Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>year</code></td><td><code>number</code></td><td>R/W</td>
+<td>Chritian year.</td></tr>
+
+<tr><td><code>month</code></td><td><code>number</code></td><td>R/W</td>
+<td>Month starting from 1. Number from 1 to 12 corresponds to January to December.</td></tr>
+
+<tr><td><code>day</code></td><td><code>number</code></td><td>R/W</td>
+<td>Day in a month starting from 1. </td></tr>
+
+<tr><td><code>hour</code></td><td><code>number</code></td><td>R/W</td>
+<td>Hour in a day between 0 and 23.</td></tr>
+
+<tr><td><code>min</code></td><td><code>number</code></td><td>R/W</td>
+<td>Minute in an hour betwen 0 and 59.</td></tr>
+
+<tr><td><code>sec</code></td><td><code>number</code></td><td>R/W</td>
+<td>Second in a minute between 0 and 59.</td></tr>
+
+<tr><td><code>usec</code></td><td><code>number</code></td><td>R/W</td>
+<td>Milli second in a minute between 0 and 999.</td></tr>
+
+<tr><td><code>wday</code></td><td><code>number</code></td><td>R</td>
+<td>Week number starting from 0. Number from 0 to 6 corresponds to Sunday to Saturday.</td></tr>
+
+<tr><td><code>week</code></td><td><code>number</code></td><td>R</td>
+<td>
+Week symbol that takes one of the followings:
+`` `sunday``, `` `monday``, `` `tuesday``, `` `wednesday``,
+`` `thursday``, `` `friday``, `` `saturday``
+</td></tr>
+
+<tr><td><code>yday</code></td><td><code>number</code></td><td>R</td>
+<td>Day in a year starting from 1.</td></tr>
+
+<tr><td><code>unixtime</code></td><td><code>number</code></td><td>R</td>
+<td>Seconds passed from 00:00:00 on January 1st in 1970 in UTC.</td></tr>
+
+</table>
 '''
 
 text_declaration = R'''
