@@ -130,6 +130,34 @@ text_color = R'''
 text_datetime = R'''
 ## datetime Class
 
+### Predefined Variables
+
+<table>
+<tr><th>Variable</th><th>Type</th><th>Explanation</th></tr>
+
+<tr><td><code>datetime.Sunday</code></td><td><code>number</code></td>
+<td>Assigned with number 0 that represents Sunday.</td></tr>
+
+<tr><td><code>datetime.Monday</code></td><td><code>number</code></td>
+<td>Assigned with number 1 that represents Monday.</td></tr>
+
+<tr><td><code>datetime.Tuesday</code></td><td><code>number</code></td>
+<td>Assigned with number 2 that represents Tuesday.</td></tr>
+
+<tr><td><code>datetime.Wednesday</code></td><td><code>number</code></td>
+<td>Assigned with number 3 that represents Wednesday.</td></tr>
+
+<tr><td><code>datetime.Thursday</code></td><td><code>number</code></td>
+<td>Assigned with number 4 that represents Thursday.</td></tr>
+
+<tr><td><code>datetime.Friday</code></td><td><code>number</code></td>
+<td>Assigned with number 5 that represents Friday.</td></tr>
+
+<tr><td><code>datetime.Saturday</code></td><td><code>number</code></td>
+<td>Assigned with number 6 that represents Saturday.</td></tr>
+
+</table>
+
 ### Properties
 
 <table>
