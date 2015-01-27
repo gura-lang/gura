@@ -496,12 +496,16 @@ Renderer@toc = class {
 	}
 }
 
+classref(`document).writefunc(func:function, fullname:string, fmt:string) = {
+	this << '**' + fullname.replace('_', '\\_') + '**'
+	this << '\n'
+	this << '`' + fmt + '`'
+	this << '\n'
+	if (help = function.gethelp(func, `en)) { this << help.text }
+}
+
 operator(`<<).assign(`document, `function) {|doc, func|
-	doc << '**' + function.getfullname(func).replace('_', '\\_') + '**'
-	doc << '\n'
-	doc << '`' + function.getformat(func) + '`'
-	doc << '\n'
-	if (help = function.gethelp(func, `en)) { doc << help.text }
+	doc.writefunc(func, function.getfullname(func), function.getformat(func))
 }
 
 classref(`document).render@html(

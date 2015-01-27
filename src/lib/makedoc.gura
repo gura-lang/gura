@@ -1,20 +1,168 @@
 #!/usr/bin/env gura
 import(markdown)
 
+text = R'''
+# Built-in Classes
+'''
+
+text_args = R'''
+## args Class
+
+### Properties
+
+<table>
+<tr><th>Name</th><th>Type</th><th>Explanation</th></tr>
+
+<tr><td><code>values</code></td><td><code>list</code></td>
+<td>Values specified in the argument list.</td></tr>
+
+</table>
+'''
+
+text_array = R'''
+## array Class
+
+'''
+
+text_audio = R'''
+## audio Class
+'''
+
+text_binary = R'''
+## binary Class
+'''
+
+text_codec = R'''
+## codec Class
+'''
+
+text_color = R'''
+## color Class
+'''
+
+text_datetime = R'''
+## datetime Class
+'''
+
+text_declaration = R'''
+## declaration Class
+'''
+
+text_dict = R'''
+## dict Class
+'''
+
+text_directory = R'''
+## directory Class
+'''
+
+text_environment = R'''
+## environment Class
+'''
+
+text_error = R'''
+## error Class
+'''
+
+text_expr = R'''
+## expr Class
+'''
+
+text_formatter = R'''
+## formatter Class
+'''
+
+text_function = R'''
+## function Class
+'''
+
+text_help = R'''
+## help Class
+'''
+
+text_image = R'''
+## image Class
+'''
+
+text_iterator = R'''
+## iterator Class
+'''
+
+text_list = R'''
+## list Class
+'''
+
+text_matrix = R'''
+## matrix Class
+'''
+
+text_operator = R'''
+## operator Class
+'''
+
+text_palette = R'''
+## palette Class
+'''
+
+text_pointer = R'''
+## pointer Class
+'''
+
+text_semaphore = R'''
+## semaphore Class
+'''
+
+text_stream = R'''
+## stream Class
+'''
+
+text_suffixmgr = R'''
+## suffixmgr Class
+'''
+
+text_template = R'''
+## template Class
+'''
+
+text_timedelta = R'''
+## timedelta Class
+'''
+
+text_uri = R'''
+## uri Class
+'''
+
 write(doc:markdown.document) = {
-	doc << R'''
-	# Built-in Class
-	'''
-	doc << '## args Class'
+	doc << text
+	doc << text_args
+	doc << '### Methods'
 	doc << [
 		args.finalize_trailer
 		args.isset
 		args.quit_trailer
 	]
-	doc << '## array Class'
-	doc << [
-	]
-	doc << '## audio Class'
+/*
+		AssignFunction(new Func_dump(*this, GetValueType()));
+		AssignFunction(new Func_each(*this, GetValueType()));
+		AssignFunction(new Func_fill(*this, GetValueType()));
+		AssignFunction(new Func_head(*this, GetValueType()));
+		AssignFunction(new Func_offset(*this, GetValueType()));
+		AssignFunction(new Func_paste(*this, GetValueType()));
+		AssignFunction(new Func_tail(*this, GetValueType()));
+*/
+	doc << text_array
+	doc << '### Methods'
+	[
+		array@char,
+		array@char.dump, array@char.each, array@char.fill, array@char.head,
+		array@char.offset, array@char.paste, array@char.tail
+	].each {|func|
+		doc.writefunc(func,
+					  function.getfullname(func).replace('@char', '@XXX'),
+					  function.getformat(func).replace('@char', '@XXX'))
+	}
+	doc << text_audio
+	doc << '### Methods'
 	doc << [
 		audio.each
 		audio.get
@@ -22,8 +170,10 @@ write(doc:markdown.document) = {
 		audio.sinewave
 		audio.store
 	]
-	doc << '## binary Class'
+	doc << text_binary
+	doc << '### Methods'
 	doc << [
+		binary
 		binary.add
 		binary.alloc
 		binary.decode
@@ -40,21 +190,24 @@ write(doc:markdown.document) = {
 		binary.unpacks
 		binary.writer
 	]
-	doc << '## codec Class'
+	doc << text_codec
+	doc << '### Methods'
 	doc << [
 		codec.addcr
 		codec.decode
 		codec.delcr
 		codec.encode
 	]
-	doc << '## color Class'
+	doc << text_color
+	doc << '### Methods'
 	doc << [
 		color
 		color.getgray
 		color.html
 		color.tolist
 	]
-	doc << '## datetime Class'
+	doc << text_datetime
+	doc << '### Methods'
 	doc << [
 		datetime,
 		datetime.clrtzoff
@@ -69,11 +222,13 @@ write(doc:markdown.document) = {
 		datetime.utc
 		datetime.weekday
 	]
-	doc << '## declaration Class'
+	doc << text_declaration
+	doc << '### Methods'
 	doc << [
 		declaration.istype
 	]
-	doc << '## dict Class'
+	doc << text_dict
+	doc << '### Methods'
 	doc << [
 		dict,
 		dict.clear
@@ -90,20 +245,23 @@ write(doc:markdown.document) = {
 		dict.store
 		dict.values
 	]
-	doc << '## directory Class'
+	doc << text_directory
+	doc << '### Methods'
 	doc << [
 		directory
 	]
-	doc << '## environment Class'
+	doc << text_environment
+	doc << '### Methods'
 	doc << [
 		environment.getprop!
 		environment.lookup
 		environment.setprop!
 	]
-	doc << '## error Class'
+	doc << text_error
 	doc << [
 	]
-	doc << '## expr Class'
+	doc << text_expr
+	doc << '### Methods'
 	doc << [
 		expr
 		expr.eval
@@ -136,7 +294,8 @@ write(doc:markdown.document) = {
 		expr.isidentifier
 		expr.issuffixed
 	]
-	doc << '## formatter Class'
+	doc << text_formatter
+	doc << '### Methods'
 	doc << [
 		formatter.getfieldminwidth
 		formatter.getpadding
@@ -146,7 +305,8 @@ write(doc:markdown.document) = {
 		formatter.issharp
 		formatter.isuppercase
 	]
-	doc << '## function Class'
+	doc << text_function
+	doc << '### Methods'
 	doc << [
 		function
 		function.addhelp
@@ -159,10 +319,11 @@ write(doc:markdown.document) = {
 		function.getsymbol
 		function.mathdiff
 	]
-	doc << '## help Class'
+	doc << text_help
 	doc << [
 	]
-	doc << '## image Class'
+	doc << text_image
+	doc << '### Methods'
 	doc << [
 		image
 		image.allocbuff
@@ -191,7 +352,8 @@ write(doc:markdown.document) = {
 		image.thumbnail
 		image.write
 	]
-	doc << '## iterator Class'
+	doc << text_iterator
+	doc << '### Methods'
 	doc << [
 		iterator
 		range
@@ -251,7 +413,8 @@ write(doc:markdown.document) = {
 		iterator.walk
 		iterator.while
 	]
-	doc << '## list Class'
+	doc << text_list
+	doc << '### Methods'
 	doc << [
 		list
 		xlist
@@ -319,7 +482,8 @@ write(doc:markdown.document) = {
 		list.walk
 		list.while
 	]
-	doc << '## matrix Class'
+	doc << text_matrix
+	doc << '### Methods'
 	doc << [
 		matrix
 		matrix.col
@@ -344,13 +508,15 @@ write(doc:markdown.document) = {
 		matrix.tolist
 		matrix.transpose
 	]
-	doc << '## operator Class'
+	doc << text_operator
+	doc << '### Methods'
 	doc << [
 		operator
 		operator.assign
 		operator.entries
 	]
-	doc << '## palette Class'
+	doc << text_palette
+	doc << '### Methods'
 	doc << [
 		palette
 		palette.each
@@ -358,7 +524,8 @@ write(doc:markdown.document) = {
 		palette.shrink
 		palette.updateby
 	]
-	doc << '## pointer Class'
+	doc << text_pointer
+	doc << '### Methods'
 	doc << [
 		pointer.forward
 		pointer.pack
@@ -366,14 +533,16 @@ write(doc:markdown.document) = {
 		pointer.unpack
 		pointer.unpacks
 	]
-	doc << '## semaphore Class'
+	doc << text_semaphore
+	doc << '### Methods'
 	doc << [
 		semaphore
 		semaphore.release
 		semaphore.session
 		semaphore.wait
 	]
-	doc << '## stream Class'
+	doc << text_stream
+	doc << '### Methods'
 	doc << [
 		open
 		stream
@@ -403,12 +572,14 @@ write(doc:markdown.document) = {
 		stream.tell
 		stream.write
 	]
-	doc << '## suffixmgr Class'
+	doc << text_suffixmgr
+	doc << '### Methods'
 	doc << [
 		suffixmgr
 		suffixmgr.assign
 	]
-	doc << '## template Class'
+	doc << text_template
+	doc << '### Methods'
 	doc << [
 		template
 		template.block
@@ -427,11 +598,13 @@ write(doc:markdown.document) = {
 		template._R_extends
 		template._R_super
 	]
-	doc << '## timedelta Class'
+	doc << text_timedelta
+	doc << '### Methods'
 	doc << [
 		timedelta
 	]
-	doc << '## uri Class'
+	doc << text_uri
+	doc << '### Methods'
 	doc << [
 		uri
 		uri.getfragment
