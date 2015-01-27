@@ -949,7 +949,7 @@ Prints a help message for the specified function object.
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -1108,7 +1108,7 @@ Creates an array that extracts specified number of elements at the bottom of the
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -1119,7 +1119,7 @@ Explanation</th>
 <tr>
 <td>
 <code>
-writable</code>
+binary#writable</code>
 </td>
 <td>
 <code>
@@ -1267,11 +1267,226 @@ Returns a pointer instance that has an initial offset specified by the argument.
 <code>codec#encode(string:string):map</code>
 </p>
 <h2><span class="caption-index-2">4.6</span><a name="caption-4-6"></a>color Class</h2>
-<h3><span class="caption-index-3">4.6.1</span><a name="caption-4-6-1"></a>Properties</h3>
+<h3><span class="caption-index-3">4.6.1</span><a name="caption-4-6-1"></a>Predefined Variables</h3>
 <table>
 <tr>
 <th>
-Name</th>
+Variable</th>
+<th>
+Type</th>
+<th>
+Explanation</th>
+</tr>
+<tr>
+<td>
+<code>
+color.black</code>
+</td>
+<td>
+<code>
+color</code>
+</td>
+<td>
+Color instance of black.</td>
+</tr>
+<tr>
+<td>
+<code>
+color.maroon</code>
+</td>
+<td>
+<code>
+color</code>
+</td>
+<td>
+Color instance of maroon.</td>
+</tr>
+<tr>
+<td>
+<code>
+color.green</code>
+</td>
+<td>
+<code>
+color</code>
+</td>
+<td>
+Color instance of green.</td>
+</tr>
+<tr>
+<td>
+<code>
+color.olive</code>
+</td>
+<td>
+<code>
+color</code>
+</td>
+<td>
+Color instance of olive.</td>
+</tr>
+<tr>
+<td>
+<code>
+color.navy</code>
+</td>
+<td>
+<code>
+color</code>
+</td>
+<td>
+Color instance of navy.</td>
+</tr>
+<tr>
+<td>
+<code>
+color.purple</code>
+</td>
+<td>
+<code>
+color</code>
+</td>
+<td>
+Color instance of purple.</td>
+</tr>
+<tr>
+<td>
+<code>
+color.teal</code>
+</td>
+<td>
+<code>
+color</code>
+</td>
+<td>
+Color instance of teal.</td>
+</tr>
+<tr>
+<td>
+<code>
+color.gray</code>
+</td>
+<td>
+<code>
+color</code>
+</td>
+<td>
+Color instance of gray.</td>
+</tr>
+<tr>
+<td>
+<code>
+color.silver</code>
+</td>
+<td>
+<code>
+color</code>
+</td>
+<td>
+Color instance of silverk.</td>
+</tr>
+<tr>
+<td>
+<code>
+color.red</code>
+</td>
+<td>
+<code>
+color</code>
+</td>
+<td>
+Color instance of red.</td>
+</tr>
+<tr>
+<td>
+<code>
+color.lime</code>
+</td>
+<td>
+<code>
+color</code>
+</td>
+<td>
+Color instance of lime.</td>
+</tr>
+<tr>
+<td>
+<code>
+color.yellow</code>
+</td>
+<td>
+<code>
+color</code>
+</td>
+<td>
+Color instance of yellow.</td>
+</tr>
+<tr>
+<td>
+<code>
+color.blue</code>
+</td>
+<td>
+<code>
+color</code>
+</td>
+<td>
+Color instance of blue.</td>
+</tr>
+<tr>
+<td>
+<code>
+color.fuchsia</code>
+</td>
+<td>
+<code>
+color</code>
+</td>
+<td>
+Color instance of fuchsia.</td>
+</tr>
+<tr>
+<td>
+<code>
+color.aqua</code>
+</td>
+<td>
+<code>
+color</code>
+</td>
+<td>
+Color instance of aqua.</td>
+</tr>
+<tr>
+<td>
+<code>
+color.white</code>
+</td>
+<td>
+<code>
+color</code>
+</td>
+<td>
+Color instance of white.</td>
+</tr>
+<tr>
+<td>
+<code>
+color.zero</code>
+</td>
+<td>
+<code>
+color</code>
+</td>
+<td>
+Color instance with all the elements including alpha set to zero.</td>
+</tr>
+</table>
+<h3><span class="caption-index-3">4.6.2</span><a name="caption-4-6-2"></a>Properties</h3>
+<table>
+<tr>
+<th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -1282,7 +1497,7 @@ Explanation</th>
 <tr>
 <td>
 <code>
-r</code>
+color#r</code>
 </td>
 <td>
 <code>
@@ -1296,7 +1511,7 @@ Value of the red element.</td>
 <tr>
 <td>
 <code>
-g</code>
+color#g</code>
 </td>
 <td>
 <code>
@@ -1310,7 +1525,7 @@ Value of the green element.</td>
 <tr>
 <td>
 <code>
-b</code>
+color#b</code>
 </td>
 <td>
 <code>
@@ -1324,7 +1539,7 @@ Value of the blue element.</td>
 <tr>
 <td>
 <code>
-a</code>
+color#a</code>
 </td>
 <td>
 <code>
@@ -1336,7 +1551,7 @@ R/W</td>
 Value of the alpha element.</td>
 </tr>
 </table>
-<h3><span class="caption-index-3">4.6.2</span><a name="caption-4-6-2"></a>Methods</h3>
+<h3><span class="caption-index-3">4.6.3</span><a name="caption-4-6-3"></a>Methods</h3>
 <p>
 <strong>color</strong>
 </p>
@@ -1369,7 +1584,7 @@ Gets either of a color symbol or a list of elements of r, g, b and a, and return
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -1380,7 +1595,7 @@ Explanation</th>
 <tr>
 <td>
 <code>
-year</code>
+datetime#year</code>
 </td>
 <td>
 <code>
@@ -1394,7 +1609,7 @@ Chritian year.</td>
 <tr>
 <td>
 <code>
-month</code>
+datetime#month</code>
 </td>
 <td>
 <code>
@@ -1408,7 +1623,7 @@ Month starting from 1. Number from 1 to 12 corresponds to January to December.</
 <tr>
 <td>
 <code>
-day</code>
+datetime#day</code>
 </td>
 <td>
 <code>
@@ -1422,7 +1637,7 @@ Day in a month starting from 1. </td>
 <tr>
 <td>
 <code>
-hour</code>
+datetime#hour</code>
 </td>
 <td>
 <code>
@@ -1436,7 +1651,7 @@ Hour in a day between 0 and 23.</td>
 <tr>
 <td>
 <code>
-min</code>
+datetime#min</code>
 </td>
 <td>
 <code>
@@ -1450,7 +1665,7 @@ Minute in an hour betwen 0 and 59.</td>
 <tr>
 <td>
 <code>
-sec</code>
+datetime#sec</code>
 </td>
 <td>
 <code>
@@ -1464,7 +1679,7 @@ Second in a minute between 0 and 59.</td>
 <tr>
 <td>
 <code>
-usec</code>
+datetime#usec</code>
 </td>
 <td>
 <code>
@@ -1478,7 +1693,7 @@ Milli second in a minute between 0 and 999.</td>
 <tr>
 <td>
 <code>
-wday</code>
+datetime#wday</code>
 </td>
 <td>
 <code>
@@ -1492,7 +1707,7 @@ Week number starting from 0. Number from 0 to 6 corresponds to Sunday to Saturda
 <tr>
 <td>
 <code>
-week</code>
+datetime#week</code>
 </td>
 <td>
 <code>
@@ -1506,7 +1721,7 @@ Week symbol that takes one of the followings: <code>`sunday</code>, <code>`monda
 <tr>
 <td>
 <code>
-yday</code>
+datetime#yday</code>
 </td>
 <td>
 <code>
@@ -1520,7 +1735,7 @@ Day in a year starting from 1.</td>
 <tr>
 <td>
 <code>
-unixtime</code>
+datetime#unixtime</code>
 </td>
 <td>
 <code>
@@ -1627,7 +1842,7 @@ A custom-defined format is one of the symbols: <code>w3c,</code>http and <code>a
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -1638,16 +1853,44 @@ Explanation</th>
 <tr>
 <td>
 <code>
-</code>
+declaration#symbol</code>
 </td>
 <td>
 <code>
-number</code>
+symbol</code>
 </td>
 <td>
-R/W</td>
+R</td>
 <td>
+The name of the declaration in symbol.</td>
+</tr>
+<tr>
+<td>
+<code>
+declaration#name</code>
 </td>
+<td>
+<code>
+string</code>
+</td>
+<td>
+R</td>
+<td>
+The name of the declaration in string.</td>
+</tr>
+<tr>
+<td>
+<code>
+declaration#default</code>
+</td>
+<td>
+<code>
+expr</code>
+</td>
+<td>
+R</td>
+<td>
+The expression that provides a default value.</td>
 </tr>
 </table>
 <h3><span class="caption-index-3">4.8.2</span><a name="caption-4-8-2"></a>Methods</h3>
@@ -1658,34 +1901,7 @@ R/W</td>
 <code>declaration#istype(type+:expr):map</code>
 </p>
 <h2><span class="caption-index-2">4.9</span><a name="caption-4-9"></a>dict Class</h2>
-<h3><span class="caption-index-3">4.9.1</span><a name="caption-4-9-1"></a>Properties</h3>
-<table>
-<tr>
-<th>
-Name</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
-</tr>
-<tr>
-<td>
-<code>
-</code>
-</td>
-<td>
-<code>
-number</code>
-</td>
-<td>
-R/W</td>
-<td>
-</td>
-</tr>
-</table>
-<h3><span class="caption-index-3">4.9.2</span><a name="caption-4-9-2"></a>Methods</h3>
+<h3><span class="caption-index-3">4.9.1</span><a name="caption-4-9-1"></a>Methods</h3>
 <p>
 <strong>dict</strong>
 </p>
@@ -1775,7 +1991,7 @@ R/W</td>
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -1806,34 +2022,7 @@ R/W</td>
 <code>directory(pathname:string):map {block?}</code>
 </p>
 <h2><span class="caption-index-2">4.11</span><a name="caption-4-11"></a>environment Class</h2>
-<h3><span class="caption-index-3">4.11.1</span><a name="caption-4-11-1"></a>Properties</h3>
-<table>
-<tr>
-<th>
-Name</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
-</tr>
-<tr>
-<td>
-<code>
-</code>
-</td>
-<td>
-<code>
-number</code>
-</td>
-<td>
-R/W</td>
-<td>
-</td>
-</tr>
-</table>
-<h3><span class="caption-index-3">4.11.2</span><a name="caption-4-11-2"></a>Methods</h3>
+<h3><span class="caption-index-3">4.11.1</span><a name="caption-4-11-1"></a>Methods</h3>
 <p>
 <strong>environment#getprop!</strong>
 </p>
@@ -1860,7 +2049,7 @@ Looks up a specified symbol in the environment and returns the associated value.
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -1871,16 +2060,86 @@ Explanation</th>
 <tr>
 <td>
 <code>
-</code>
+error#source</code>
+</td>
+<td>
+<code>
+string</code>
+</td>
+<td>
+R</td>
+<td>
+The name of the file that causes this error.</td>
+</tr>
+<tr>
+<td>
+<code>
+error#lineno</code>
 </td>
 <td>
 <code>
 number</code>
 </td>
 <td>
-R/W</td>
+R</td>
 <td>
+The number of line where the expression that causes this error starts.</td>
+</tr>
+<tr>
+<td>
+<code>
+error#linenobtm</code>
 </td>
+<td>
+<code>
+number</code>
+</td>
+<td>
+R</td>
+<td>
+The number of line where the expression that causes this error ends.</td>
+</tr>
+<tr>
+<td>
+<code>
+error#postext</code>
+</td>
+<td>
+<code>
+string</code>
+</td>
+<td>
+R</td>
+<td>
+A text that consists of a source name and a line number.</td>
+</tr>
+<tr>
+<td>
+<code>
+error#text</code>
+</td>
+<td>
+<code>
+string</code>
+</td>
+<td>
+R</td>
+<td>
+An error message. If an attribute <code>:lineno</code> is specified, it would contain a line number.</td>
+</tr>
+<tr>
+<td>
+<code>
+error#trace</code>
+</td>
+<td>
+<code>
+expr []</code>
+</td>
+<td>
+R</td>
+<td>
+Stack trace.</td>
 </tr>
 </table>
 <h2><span class="caption-index-2">4.13</span><a name="caption-4-13"></a>expr Class</h2>
@@ -1888,7 +2147,7 @@ R/W</td>
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -2163,7 +2422,7 @@ Returns <code>true</code> if expr is an expression of suffixed.
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -2234,7 +2493,7 @@ R/W</td>
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -2326,7 +2585,7 @@ Gets a help object of the specified function object. <code>lang</code> is a symb
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -2354,7 +2613,7 @@ R/W</td>
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -2591,7 +2850,7 @@ Writes image data to a stream.
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -2986,7 +3245,7 @@ Returns an iterator that searches items recursively if they are lists or iterato
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -3559,7 +3818,7 @@ Creates an iterator that picks up each element in the list while criteria is eva
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -3773,7 +4032,7 @@ Returns a transpose matrix.
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -3823,7 +4082,7 @@ Returns an operator object
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -3897,7 +4156,7 @@ Updates palette entries according to color data in an image or a palette. The or
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -3956,7 +4215,7 @@ R/W</td>
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -4018,7 +4277,7 @@ Watis for the semaphore being released by other threads, and ghen grabs that own
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -4203,7 +4462,7 @@ R/W</td>
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -4244,7 +4503,7 @@ R/W</td>
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -4369,7 +4628,7 @@ R/W</td>
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>
@@ -4407,7 +4666,7 @@ Returns a timedelta instance with specified values. The instance actually holds 
 <table>
 <tr>
 <th>
-Name</th>
+Property</th>
 <th>
 Type</th>
 <th>

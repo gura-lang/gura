@@ -11,7 +11,7 @@ text_args = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code>values</code></td><td><code>list</code></td><td>R</td>
 <td>List of Value passed in the argument.</td></tr>
@@ -34,9 +34,9 @@ text_binary = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>writable</code></td><td><code>boolean</code></td><td>R</td>
+<tr><td><code>binary#writable</code></td><td><code>boolean</code></td><td>R</td>
 <td>Indicates if the content of the binary object is writable.</td></tr>
 
 </table>
@@ -49,21 +49,79 @@ text_codec = R'''
 text_color = R'''
 ## color Class
 
+### Predefined Variables
+
+<table>
+<tr><th>Variable</th><th>Type</th><th>Explanation</th></tr>
+
+<tr><td><code>color.black</code></td><td><code>color</code></td>
+<td>Color instance of black.</td></tr>
+
+<tr><td><code>color.maroon</code></td><td><code>color</code></td>
+<td>Color instance of maroon.</td></tr>
+
+<tr><td><code>color.green</code></td><td><code>color</code></td>
+<td>Color instance of green.</td></tr>
+
+<tr><td><code>color.olive</code></td><td><code>color</code></td>
+<td>Color instance of olive.</td></tr>
+
+<tr><td><code>color.navy</code></td><td><code>color</code></td>
+<td>Color instance of navy.</td></tr>
+
+<tr><td><code>color.purple</code></td><td><code>color</code></td>
+<td>Color instance of purple.</td></tr>
+
+<tr><td><code>color.teal</code></td><td><code>color</code></td>
+<td>Color instance of teal.</td></tr>
+
+<tr><td><code>color.gray</code></td><td><code>color</code></td>
+<td>Color instance of gray.</td></tr>
+
+<tr><td><code>color.silver</code></td><td><code>color</code></td>
+<td>Color instance of silverk.</td></tr>
+
+<tr><td><code>color.red</code></td><td><code>color</code></td>
+<td>Color instance of red.</td></tr>
+
+<tr><td><code>color.lime</code></td><td><code>color</code></td>
+<td>Color instance of lime.</td></tr>
+
+<tr><td><code>color.yellow</code></td><td><code>color</code></td>
+<td>Color instance of yellow.</td></tr>
+
+<tr><td><code>color.blue</code></td><td><code>color</code></td>
+<td>Color instance of blue.</td></tr>
+
+<tr><td><code>color.fuchsia</code></td><td><code>color</code></td>
+<td>Color instance of fuchsia.</td></tr>
+
+<tr><td><code>color.aqua</code></td><td><code>color</code></td>
+<td>Color instance of aqua.</td></tr>
+
+<tr><td><code>color.white</code></td><td><code>color</code></td>
+<td>Color instance of white.</td></tr>
+
+<tr><td><code>color.zero</code></td><td><code>color</code></td>
+<td>Color instance with all the elements including alpha set to zero.</td></tr>
+
+</table>
+
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>r</code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>color#r</code></td><td><code>number</code></td><td>R/W</td>
 <td>Value of the red element.</td></tr>
 
-<tr><td><code>g</code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>color#g</code></td><td><code>number</code></td><td>R/W</td>
 <td>Value of the green element.</td></tr>
 
-<tr><td><code>b</code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>color#b</code></td><td><code>number</code></td><td>R/W</td>
 <td>Value of the blue element.</td></tr>
 
-<tr><td><code>a</code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>color#a</code></td><td><code>number</code></td><td>R/W</td>
 <td>Value of the alpha element.</td></tr>
 
 </table>
@@ -75,43 +133,43 @@ text_datetime = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>year</code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>datetime#year</code></td><td><code>number</code></td><td>R/W</td>
 <td>Chritian year.</td></tr>
 
-<tr><td><code>month</code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>datetime#month</code></td><td><code>number</code></td><td>R/W</td>
 <td>Month starting from 1. Number from 1 to 12 corresponds to January to December.</td></tr>
 
-<tr><td><code>day</code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>datetime#day</code></td><td><code>number</code></td><td>R/W</td>
 <td>Day in a month starting from 1. </td></tr>
 
-<tr><td><code>hour</code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>datetime#hour</code></td><td><code>number</code></td><td>R/W</td>
 <td>Hour in a day between 0 and 23.</td></tr>
 
-<tr><td><code>min</code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>datetime#min</code></td><td><code>number</code></td><td>R/W</td>
 <td>Minute in an hour betwen 0 and 59.</td></tr>
 
-<tr><td><code>sec</code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>datetime#sec</code></td><td><code>number</code></td><td>R/W</td>
 <td>Second in a minute between 0 and 59.</td></tr>
 
-<tr><td><code>usec</code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>datetime#usec</code></td><td><code>number</code></td><td>R/W</td>
 <td>Milli second in a minute between 0 and 999.</td></tr>
 
-<tr><td><code>wday</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>datetime#wday</code></td><td><code>number</code></td><td>R</td>
 <td>Week number starting from 0. Number from 0 to 6 corresponds to Sunday to Saturday.</td></tr>
 
-<tr><td><code>week</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>datetime#week</code></td><td><code>number</code></td><td>R</td>
 <td>
 Week symbol that takes one of the followings:
 `` `sunday``, `` `monday``, `` `tuesday``, `` `wednesday``,
 `` `thursday``, `` `friday``, `` `saturday``
 </td></tr>
 
-<tr><td><code>yday</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>datetime#yday</code></td><td><code>number</code></td><td>R</td>
 <td>Day in a year starting from 1.</td></tr>
 
-<tr><td><code>unixtime</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>datetime#unixtime</code></td><td><code>number</code></td><td>R</td>
 <td>Seconds passed from 00:00:00 on January 1st in 1970 in UTC.</td></tr>
 
 </table>
@@ -123,10 +181,16 @@ text_declaration = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
-<td></td></tr>
+<tr><td><code>declaration#symbol</code></td><td><code>symbol</code></td><td>R</td>
+<td>The name of the declaration in symbol.</td></tr>
+
+<tr><td><code>declaration#name</code></td><td><code>string</code></td><td>R</td>
+<td>The name of the declaration in string.</td></tr>
+
+<tr><td><code>declaration#default</code></td><td><code>expr</code></td><td>R</td>
+<td>The expression that provides a default value.</td></tr>
 
 </table>
 '''
@@ -134,15 +198,6 @@ text_declaration = R'''
 text_dict = R'''
 ## dict Class
 
-### Properties
-
-<table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
-<td></td></tr>
-
-</table>
 '''
 
 text_directory = R'''
@@ -151,7 +206,7 @@ text_directory = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
 <td></td></tr>
@@ -162,15 +217,6 @@ text_directory = R'''
 text_environment = R'''
 ## environment Class
 
-### Properties
-
-<table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
-<td></td></tr>
-
-</table>
 '''
 
 text_error = R'''
@@ -179,12 +225,29 @@ text_error = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
-<td></td></tr>
+<tr><td><code>error#source</code></td><td><code>string</code></td><td>R</td>
+<td>The name of the file that causes this error.</td></tr>
+
+<tr><td><code>error#lineno</code></td><td><code>number</code></td><td>R</td>
+<td>The number of line where the expression that causes this error starts.</td></tr>
+
+<tr><td><code>error#linenobtm</code></td><td><code>number</code></td><td>R</td>
+<td>The number of line where the expression that causes this error ends.</td></tr>
+
+<tr><td><code>error#postext</code></td><td><code>string</code></td><td>R</td>
+<td>A text that consists of a source name and a line number.</td></tr>
+
+<tr><td><code>error#text</code></td><td><code>string</code></td><td>R</td>
+<td>An error message.
+If an attribute `:lineno` is specified, it would contain a line number.</td></tr>
+
+<tr><td><code>error#trace</code></td><td><code>expr[]</code></td><td>R</td>
+<td>Stack trace.</td></tr>
 
 </table>
+
 '''
 
 text_expr = R'''
@@ -193,7 +256,7 @@ text_expr = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
 <td></td></tr>
@@ -207,7 +270,7 @@ text_formatter = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
 <td></td></tr>
@@ -221,7 +284,7 @@ text_function = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
 <td></td></tr>
@@ -235,7 +298,7 @@ text_help = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
 <td></td></tr>
@@ -249,7 +312,7 @@ text_image = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
 <td></td></tr>
@@ -263,7 +326,7 @@ text_iterator = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
 <td></td></tr>
@@ -277,7 +340,7 @@ text_list = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
 <td></td></tr>
@@ -291,7 +354,7 @@ text_matrix = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
 <td></td></tr>
@@ -305,7 +368,7 @@ text_operator = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
 <td></td></tr>
@@ -319,7 +382,7 @@ text_palette = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
 <td></td></tr>
@@ -333,7 +396,7 @@ text_pointer = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
 <td></td></tr>
@@ -347,7 +410,7 @@ text_semaphore = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
 <td></td></tr>
@@ -361,7 +424,7 @@ text_stream = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
 <td></td></tr>
@@ -375,7 +438,7 @@ text_suffixmgr = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
 <td></td></tr>
@@ -389,7 +452,7 @@ text_template = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
 <td></td></tr>
@@ -403,7 +466,7 @@ text_timedelta = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
 <td></td></tr>
@@ -417,7 +480,7 @@ text_uri = R'''
 ### Properties
 
 <table>
-<tr><th>Name</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
 <td></td></tr>
@@ -427,6 +490,7 @@ text_uri = R'''
 
 write(doc:markdown.document) = {
 	doc << text
+	//-------------------------------------------------------------------------
 	doc << text_args
 	doc << '### Methods'
 	doc << [
@@ -434,15 +498,7 @@ write(doc:markdown.document) = {
 		args.isset
 		args.quit_trailer
 	]
-/*
-		AssignFunction(new Func_dump(*this, GetValueType()));
-		AssignFunction(new Func_each(*this, GetValueType()));
-		AssignFunction(new Func_fill(*this, GetValueType()));
-		AssignFunction(new Func_head(*this, GetValueType()));
-		AssignFunction(new Func_offset(*this, GetValueType()));
-		AssignFunction(new Func_paste(*this, GetValueType()));
-		AssignFunction(new Func_tail(*this, GetValueType()));
-*/
+	//-------------------------------------------------------------------------
 	doc << text_array
 	doc << '### Methods'
 	[
@@ -454,6 +510,7 @@ write(doc:markdown.document) = {
 					  function.getfullname(func).replace('@char', '@XXX'),
 					  function.getformat(func).replace('@char', '@XXX'))
 	}
+	//-------------------------------------------------------------------------
 	doc << text_audio
 	doc << '### Methods'
 	doc << [
@@ -463,6 +520,7 @@ write(doc:markdown.document) = {
 		audio.sinewave
 		audio.store
 	]
+	//-------------------------------------------------------------------------
 	doc << text_binary
 	doc << '### Methods'
 	doc << [
@@ -483,6 +541,7 @@ write(doc:markdown.document) = {
 		binary.unpacks
 		binary.writer
 	]
+	//-------------------------------------------------------------------------
 	doc << text_codec
 	doc << '### Methods'
 	doc << [
@@ -491,6 +550,7 @@ write(doc:markdown.document) = {
 		codec.delcr
 		codec.encode
 	]
+	//-------------------------------------------------------------------------
 	doc << text_color
 	doc << '### Methods'
 	doc << [
@@ -499,6 +559,7 @@ write(doc:markdown.document) = {
 		color.html
 		color.tolist
 	]
+	//-------------------------------------------------------------------------
 	doc << text_datetime
 	doc << '### Methods'
 	doc << [
@@ -515,11 +576,13 @@ write(doc:markdown.document) = {
 		datetime.utc
 		datetime.weekday
 	]
+	//-------------------------------------------------------------------------
 	doc << text_declaration
 	doc << '### Methods'
 	doc << [
 		declaration.istype
 	]
+	//-------------------------------------------------------------------------
 	doc << text_dict
 	doc << '### Methods'
 	doc << [
@@ -538,11 +601,13 @@ write(doc:markdown.document) = {
 		dict.store
 		dict.values
 	]
+	//-------------------------------------------------------------------------
 	doc << text_directory
 	doc << '### Methods'
 	doc << [
 		directory
 	]
+	//-------------------------------------------------------------------------
 	doc << text_environment
 	doc << '### Methods'
 	doc << [
@@ -550,9 +615,9 @@ write(doc:markdown.document) = {
 		environment.lookup
 		environment.setprop!
 	]
+	//-------------------------------------------------------------------------
 	doc << text_error
-	doc << [
-	]
+	//-------------------------------------------------------------------------
 	doc << text_expr
 	doc << '### Methods'
 	doc << [
@@ -587,6 +652,7 @@ write(doc:markdown.document) = {
 		expr.isidentifier
 		expr.issuffixed
 	]
+	//-------------------------------------------------------------------------
 	doc << text_formatter
 	doc << '### Methods'
 	doc << [
@@ -598,6 +664,7 @@ write(doc:markdown.document) = {
 		formatter.issharp
 		formatter.isuppercase
 	]
+	//-------------------------------------------------------------------------
 	doc << text_function
 	doc << '### Methods'
 	doc << [
@@ -612,9 +679,11 @@ write(doc:markdown.document) = {
 		function.getsymbol
 		function.mathdiff
 	]
+	//-------------------------------------------------------------------------
 	doc << text_help
 	doc << [
 	]
+	//-------------------------------------------------------------------------
 	doc << text_image
 	doc << '### Methods'
 	doc << [
@@ -645,6 +714,7 @@ write(doc:markdown.document) = {
 		image.thumbnail
 		image.write
 	]
+	//-------------------------------------------------------------------------
 	doc << text_iterator
 	doc << '### Methods'
 	doc << [
@@ -706,6 +776,7 @@ write(doc:markdown.document) = {
 		iterator.walk
 		iterator.while
 	]
+	//-------------------------------------------------------------------------
 	doc << text_list
 	doc << '### Methods'
 	doc << [
@@ -775,6 +846,7 @@ write(doc:markdown.document) = {
 		list.walk
 		list.while
 	]
+	//-------------------------------------------------------------------------
 	doc << text_matrix
 	doc << '### Methods'
 	doc << [
@@ -801,6 +873,7 @@ write(doc:markdown.document) = {
 		matrix.tolist
 		matrix.transpose
 	]
+	//-------------------------------------------------------------------------
 	doc << text_operator
 	doc << '### Methods'
 	doc << [
@@ -808,6 +881,7 @@ write(doc:markdown.document) = {
 		operator.assign
 		operator.entries
 	]
+	//-------------------------------------------------------------------------
 	doc << text_palette
 	doc << '### Methods'
 	doc << [
@@ -817,6 +891,7 @@ write(doc:markdown.document) = {
 		palette.shrink
 		palette.updateby
 	]
+	//-------------------------------------------------------------------------
 	doc << text_pointer
 	doc << '### Methods'
 	doc << [
@@ -826,6 +901,7 @@ write(doc:markdown.document) = {
 		pointer.unpack
 		pointer.unpacks
 	]
+	//-------------------------------------------------------------------------
 	doc << text_semaphore
 	doc << '### Methods'
 	doc << [
@@ -834,6 +910,7 @@ write(doc:markdown.document) = {
 		semaphore.session
 		semaphore.wait
 	]
+	//-------------------------------------------------------------------------
 	doc << text_stream
 	doc << '### Methods'
 	doc << [
@@ -865,12 +942,14 @@ write(doc:markdown.document) = {
 		stream.tell
 		stream.write
 	]
+	//-------------------------------------------------------------------------
 	doc << text_suffixmgr
 	doc << '### Methods'
 	doc << [
 		suffixmgr
 		suffixmgr.assign
 	]
+	//-------------------------------------------------------------------------
 	doc << text_template
 	doc << '### Methods'
 	doc << [
@@ -891,11 +970,13 @@ write(doc:markdown.document) = {
 		template._R_extends
 		template._R_super
 	]
+	//-------------------------------------------------------------------------
 	doc << text_timedelta
 	doc << '### Methods'
 	doc << [
 		timedelta
 	]
+	//-------------------------------------------------------------------------
 	doc << text_uri
 	doc << '### Methods'
 	doc << [
