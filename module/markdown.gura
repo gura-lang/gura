@@ -497,9 +497,13 @@ Renderer@toc = class {
 }
 
 classref(`document).writefunc(func:function, fullname:string, fmt:string) = {
-	this << '**' + fullname.replace('_', '\\_') + '**'
+	this << '**' + fullname.replace('_', '\\_').replace('`', '\\`') + '**'
 	this << '\n'
-	this << '`' + fmt + '`'
+	if (fmt.find('`')) {
+		this << '`` ' + fmt + '``'
+	} else {
+		this << '`' + fmt + '`'
+	}
 	this << '\n'
 	if (help = function.gethelp(func, `en)) { this << help.text }
 }

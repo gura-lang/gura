@@ -228,7 +228,7 @@ Converts <code>values</code> into string and outputs the results to standard out
 <strong>cross</strong>
 </p>
 <p>
-<code>cross (</code>expr+) {block}
+<code>cross (`expr+) {block}</code>
 </p>
 <p>
 Executes the block until it evaluates all the combinations of results from exprs "<code>var in iteratable</code>." You can specify one or more such exprs as arguments and they are counted up from the one on the right side. Iterators and lists are the most popular iteratables, but even any objects that are cable of generating iterators can be specified as such.
@@ -251,7 +251,7 @@ Block parameter format is <code>|idx:number, i0:number, i1:number, ..|</code> wh
 <strong>for</strong>
 </p>
 <p>
-<code>for (</code>expr+) {block}
+<code>for (`expr+) {block}</code>
 </p>
 <p>
 Executes the block until any of the exprs of "<code>var in iteratable</code>" reach at their ends. You can specify one or more such exprs as arguments. Iterators and lists are the most popular iteratables, but even any objects that are cable of generating iterators can be specified as such.
@@ -297,7 +297,7 @@ Block parameter format is <code>|idx:number|</code> where <code>idx</code> indic
 <strong>while</strong>
 </p>
 <p>
-<code>while (</code>cond) {block}
+<code>while (`cond) {block}</code>
 </p>
 <p>
 Executes the block while the evaluation result of <code>cond</code> is true.
@@ -355,7 +355,7 @@ Skips the remaining procedure of the current function and returns to context tha
 <strong>if</strong>
 </p>
 <p>
-<code>if (</code>cond):leader {block}
+<code>if (`cond):leader {block}</code>
 </p>
 <p>
 Specify an "if" block within a statement of <code>if-elsif-else</code>.
@@ -370,7 +370,7 @@ Otherwise, if the function is followed by a trailer <code>elsif</code> or <code>
 <strong>elsif</strong>
 </p>
 <p>
-<code>elsif (</code>cond):leader:trailer {block}
+<code>elsif (`cond):leader:trailer {block}</code>
 </p>
 <p>
 Specify an "elsif" block within a statement of <code>if-elsif-else</code>.
@@ -412,7 +412,7 @@ Form a switch block that contains <code>case()</code> and <code>default()</code>
 <strong>case</strong>
 </p>
 <p>
-<code>case(</code>cond) {block}
+<code>case(`cond) {block}</code>
 </p>
 <p>
 Specify an case block within a switch block. After evaluating an expr object cond, the block shall be executed if it has a value of true.
@@ -570,7 +570,7 @@ Looks up a class by an expression of a type name.
 <strong>struct</strong>
 </p>
 <p>
-<code>struct(</code>args+): [loose] {block?}
+<code>struct(`args+):[loose] {block?}</code>
 </p>
 <p>
 Returns a function object that constructs a structure instance that contains properties specified by args. It can optionally take block which declares some additional methods for constructed instances. If <code>:loose</code> attribute is speicied, the generated constructor function makes an existence check of arguments in a loose way.
@@ -604,7 +604,7 @@ super(b).func()  // A#func() is called.
 <strong>local</strong>
 </p>
 <p>
-<code>local(</code>syms+)
+<code>local(`syms+)</code>
 </p>
 <p>
 Declares symbols that is supposed to access variables in a local scope.
@@ -655,7 +655,7 @@ Evaluates block with a local scope.
 <strong>import</strong>
 </p>
 <p>
-<code>import(</code>module, <code>alias?):void:[binary,mixin_type,overwrite] {block?}</code>
+<code>import(`module, `alias?):void:[binary,mixin_type,overwrite] {block?}</code>
 </p>
 <p>
 Imports a module stored in directories specified by a variable sys.path and creates a variable that represents the imported module. There are three ways of calling this function like follow:
@@ -897,7 +897,7 @@ Returns <code>true</code> if the type of the specified <code>value</code> is uri
 <strong>isdefined</strong>
 </p>
 <p>
-<code>isdefined(</code>identifier)
+<code>isdefined(`identifier)</code>
 </p>
 <p>
 Returns <code>true</code> if <code>identifier</code> is defined, and <code>false</code> otherwise.
@@ -924,7 +924,7 @@ Returns <code>true</code> if <code>value</code> is of the type of <code>type</co
 <strong>typename</strong>
 </p>
 <p>
-<code>typename(</code>value)
+<code>typename(`value)</code>
 </p>
 <p>
 Returns a type name of the value.
@@ -933,7 +933,7 @@ Returns a type name of the value.
 <strong>undef</strong>
 </p>
 <p>
-<code>undef(</code>identifier+): [raise]
+<code>undef(`identifier+):[raise]</code>
 </p>
 <p>
 Undefines <code>identifier</code> in the current scope.
@@ -1998,7 +1998,7 @@ Seconds passed from 00:00:00 on January 1st in 1970 in UTC.</td>
 <strong>datetime#format</strong>
 </p>
 <p>
-<code>datetime#format(format =&gt;</code>w3c)
+<code>datetime#format(format =&gt; `w3c)</code>
 </p>
 <p>
 Returns a string after converting datetime properties with the specified format. The format can either be a string to specify a user-specific format or a symbol of custom-defined one. A user-specific format contains following specifiers.
@@ -2724,7 +2724,7 @@ Argument <code>indent</code> specifies a string for indentation. Default is a se
 <strong>expr#tofunction</strong>
 </p>
 <p>
-<code>expr#tofunction(</code>args<em>)</em>
+<code>expr#tofunction(`args*)</code>
 </p>
 <p>
 Creates a function with specified arguments and a body of expr.
@@ -3065,7 +3065,7 @@ R/W</td>
 <strong>function</strong>
 </p>
 <p>
-<code>function(</code>args<em>) {block}</em>
+<code>function(`args*) {block}</code>
 </p>
 <p>
 <strong>function.addhelp</strong>
@@ -3140,14 +3140,42 @@ Explanation</th>
 <tr>
 <td>
 <code>
-</code>
+format</code>
 </td>
 <td>
 <code>
-number</code>
+string</code>
 </td>
 <td>
-R/W</td>
+R</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>
+lang</code>
+</td>
+<td>
+<code>
+symbol</code>
+</td>
+<td>
+R</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>
+text</code>
+</td>
+<td>
+<code>
+string</code>
+</td>
+<td>
+R</td>
 <td>
 </td>
 </tr>
@@ -3168,14 +3196,56 @@ Explanation</th>
 <tr>
 <td>
 <code>
-</code>
+format</code>
+</td>
+<td>
+<code>
+symbol</code>
+</td>
+<td>
+R</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>
+height</code>
 </td>
 <td>
 <code>
 number</code>
 </td>
 <td>
+R</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>
+palette</code>
+</td>
+<td>
+<code>
+palette</code>
+</td>
+<td>
 R/W</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>
+width</code>
+</td>
+<td>
+<code>
+number</code>
+</td>
+<td>
+R</td>
 <td>
 </td>
 </tr>
@@ -3390,34 +3460,7 @@ Returns an iterator that scans pixels in the image.
 Writes image data to a stream.
 </p>
 <h2><span class="caption-index-2">5.18</span><a name="caption-5-18"></a>iterator Class</h2>
-<h3><span class="caption-index-3">5.18.1</span><a name="caption-5-18-1"></a>Properties</h3>
-<table>
-<tr>
-<th>
-Property</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
-</tr>
-<tr>
-<td>
-<code>
-</code>
-</td>
-<td>
-<code>
-number</code>
-</td>
-<td>
-R/W</td>
-<td>
-</td>
-</tr>
-</table>
-<h3><span class="caption-index-3">5.18.2</span><a name="caption-5-18-2"></a>Methods</h3>
+<h3><span class="caption-index-3">5.18.1</span><a name="caption-5-18-1"></a>Methods</h3>
 <p>
 <strong>iterator</strong>
 </p>
@@ -3785,34 +3828,7 @@ Returns an iterator that searches items recursively if they are lists or iterato
 <code>iterator#while (criteria) {block?}</code>
 </p>
 <h2><span class="caption-index-2">5.19</span><a name="caption-5-19"></a>list Class</h2>
-<h3><span class="caption-index-3">5.19.1</span><a name="caption-5-19-1"></a>Properties</h3>
-<table>
-<tr>
-<th>
-Property</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
-</tr>
-<tr>
-<td>
-<code>
-</code>
-</td>
-<td>
-<code>
-number</code>
-</td>
-<td>
-R/W</td>
-<td>
-</td>
-</tr>
-</table>
-<h3><span class="caption-index-3">5.19.2</span><a name="caption-5-19-2"></a>Methods</h3>
+<h3><span class="caption-index-3">5.19.1</span><a name="caption-5-19-1"></a>Methods</h3>
 <p>
 <strong>list</strong>
 </p>
@@ -4358,34 +4374,7 @@ Returns an iterator that searches items recursively if they are lists or iterato
 Creates an iterator that picks up each element in the list while criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute In default, it returns an iterator. If attribute :xiter is specified, it returns an iterator that eliminates nil value from the iterated result. If one of attributes :list, :xlist, :set and :xset is specified, it gathers results and returns a list of them. The rule is as follows :list  a list of result values :xlist a list of result values eliminating nil :set   a list of unique values of results :xset  a list of unique values of results eliminating nil Block parameter format: |value:list, idx:number|
 </p>
 <h2><span class="caption-index-2">5.20</span><a name="caption-5-20"></a>matrix Class</h2>
-<h3><span class="caption-index-3">5.20.1</span><a name="caption-5-20-1"></a>Properties</h3>
-<table>
-<tr>
-<th>
-Property</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
-</tr>
-<tr>
-<td>
-<code>
-</code>
-</td>
-<td>
-<code>
-number</code>
-</td>
-<td>
-R/W</td>
-<td>
-</td>
-</tr>
-</table>
-<h3><span class="caption-index-3">5.20.2</span><a name="caption-5-20-2"></a>Methods</h3>
+<h3><span class="caption-index-3">5.20.1</span><a name="caption-5-20-1"></a>Methods</h3>
 <p>
 <strong>matrix</strong>
 </p>
@@ -5093,7 +5082,7 @@ R/W</td>
 <strong>template#def</strong>
 </p>
 <p>
-<code>template#def(symbol:symbol,</code>args<em>):void {block}</em>
+<code>template#def(symbol:symbol, `args*):void {block}</code>
 </p>
 <p>
 <strong>template#embed</strong>
@@ -5147,7 +5136,7 @@ R/W</td>
 <strong>template#_R_def</strong>
 </p>
 <p>
-<code>template#_R_def(symbol:symbol,</code>args<em>):void</em>
+<code>template#_R_def(symbol:symbol, `args*):void</code>
 </p>
 <p>
 <strong>template#_R_embed</strong>
@@ -7813,7 +7802,7 @@ When instance method <code>image#write()</code> is provided with a stream that s
 <strong>gif.content</strong>
 </p>
 <p>
-<code>gif.content(stream?:stream:r, format:symbol =&gt;</code>rgba) {block?}
+<code>gif.content(stream?:stream:r, format:symbol =&gt; `rgba) {block?}</code>
 </p>
 <p>
 Reads a GIF data from a stream and returns an object that contains GIF related information and images of a specified format. format is is <code>rgb,</code>rgba or <code>noimage. If</code>noimage is specified, only the information data is read
@@ -7822,7 +7811,7 @@ Reads a GIF data from a stream and returns an object that contains GIF related i
 <strong>gif.content#addimage</strong>
 </p>
 <p>
-<code>gif.content#addimage(image:image, delayTime:number =&gt; 10, leftPos:number =&gt; 0, topPos:number =&gt; 0, disposalMethod:symbol =&gt;</code>none):map:reduce
+<code>gif.content#addimage(image:image, delayTime:number =&gt; 10, leftPos:number =&gt; 0, topPos:number =&gt; 0, disposalMethod:symbol =&gt; `none):map:reduce</code>
 </p>
 <p>
 Adds an image to GIF information. If you add multiple images, they are to be rendered in sequence like an animation. You can specify the delay time to switch to the next image by delayTime argument in 10 msec step. The offset for rendering is specified by leftPost and topPos. Parameter disposalMethod determine how the image should be treated after the time expires, and it takes one of <code>none,</code>keep, <code>background and</code>previous.
@@ -9411,7 +9400,7 @@ Returns a hyperbolic tangent value.
 <strong>math.least_square</strong>
 </p>
 <p>
-<code>math.least_square(x:iterator, y:iterator, dim:number =&gt; 1, var:symbol =&gt;</code>x)
+<code>math.least_square(x:iterator, y:iterator, dim:number =&gt; 1, var:symbol =&gt; `x)</code>
 </p>
 <p>
 Calculates a least square method using a sequence of pairs of <code>x</code> and <code>y</code>, and returns an expression of the fitted curve. You can specify the dimension by an argument <code>dim</code>. In default, a symbol of the expression's variable is <code>x</code>and it can be changed by specifying an argument <code>var</code>.
@@ -9820,7 +9809,7 @@ It creates an instance to access data in SoundFont file.
 <strong>msico.content</strong>
 </p>
 <p>
-<code>msico.content(stream?:stream:r, format:symbol =&gt;</code>rgba) {block?}
+<code>msico.content(stream?:stream:r, format:symbol =&gt; `rgba) {block?}</code>
 </p>
 <p>
 <strong>msico.content#write</strong>
