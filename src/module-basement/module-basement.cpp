@@ -834,7 +834,7 @@ Gura_DeclareFunctionAlias(class_, "class")
 		"Returns a function object that constructs an instance with methods and\n"
 		"properties specified in the block. If superclass, which is supposed to\n"
 		"be a constructor function, is specified, the new class shall inherits\n"
-		"methods and properties of the class associated with it.");
+		"methods and properties of a class associated with it.");
 }
 
 Gura_ImplementFunction(class_)
@@ -932,7 +932,22 @@ Gura_DeclareFunction(super)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a reference to `obj` that searches methods in a scope of the super class of its own.\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"    A = class {\n"
+		"        func() = {}\n"
+		"    }\n"
+		"    \n"
+		"    B = class(A) {\n"
+		"        func() = {}\n"
+		"    }\n"
+		"    \n"
+		"    b = B()\n"
+		"    b.func()         // B#func() is called.\n"
+		"    super(b).func()  // A#func() is called.\n"
+		);
 }
 
 Gura_ImplementFunction(super)
@@ -1451,7 +1466,12 @@ Gura_DeclareFunction(choose)
 	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Picks up a value placed at `index` in the argument list `values`.\n"
+		"\n"
+		"Sample:\n"
+		"\n"
+		"    choose(0, 'apple', 'orange', 'banana') // returns 'apple'\n"
+		"    choose(2, 'apple', 'orange', 'banana') // returns 'banana'\n");
 }
 
 Gura_ImplementFunction(choose)
@@ -1474,7 +1494,25 @@ Gura_DeclareFunction(cond)
 	DeclareArg(env, "value2", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns `value1` if `flag` is determined as true, and `value2` otherwise.\n"
+		"If argument `value2` is omitted, it will return `nil` when `flag` is determined as false.\n"
+		"\n"
+		"This function behaves in a similar way with `if` function when it's called like below:\n"
+		"\n"
+		"    if (flag) { value1 } else { value2 }\n"
+		"\n"
+		"But they are different in the following points:\n"
+		"\n"
+		"- Function `cond()` always evaluates arguments `value1` and `value2`\n"
+		"  no matter what `flag` value is,\n"
+		"  while function `if()` doesn't evaluate `value1` expression\n"
+		"  when `flag` is determined as false.\n"
+		"- Function `cond()` works with implicit mapping,\n"
+		"  which means that arguments `flag` may be lists or iterators\n"
+		"  that are to be supplied to a mapping process.\n"
+		"\n"
+		"Arguments `value1` and `value2` are not processed by implicit mapping,\n"
+		"so you can specify a list or an iterator for them as selected items.\n");
 }
 
 Gura_ImplementFunction(cond)
@@ -1491,7 +1529,25 @@ Gura_DeclareFunction(conds)
 	DeclareArg(env, "value2", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns `value1` if `flag` is determined as true, and `value2` otherwise.\n"
+		"If argument `value2` is omitted, it will return `nil` when `flag` is determined as false.\n"
+		"\n"
+		"This function behaves in a similar way with `if` function when it's called like below:\n"
+		"\n"
+		"    if (flag) { value1 } else { value2 }\n"
+		"\n"
+		"But they are different in the following points:\n"
+		"\n"
+		"- Function `conds()` always evaluates arguments `value1` and `value2`\n"
+		"  no matter what `flag` value is,\n"
+		"  while function `if()` doesn't evaluate `value1` expression\n"
+		"  when `flag` is determined as false.\n"
+		"- Function `conds()` works with implicit mapping,\n"
+		"  which means that arguments `flag`, `value1` and `value2` may be lists or iterators\n"
+		"  that are to be supplied to a mapping process.\n"
+		"\n"
+		"If you want to specify a list or an iterator for `value1` and `value2` as selected values,\n"
+		"use `cond()` function instead.\n");
 }
 
 Gura_ImplementFunction(conds)

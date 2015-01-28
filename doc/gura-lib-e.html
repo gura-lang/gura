@@ -581,6 +581,24 @@ Returns a function object that constructs a structure instance that contains pro
 <p>
 <code>super(obj):map {block?}</code>
 </p>
+<p>
+Returns a reference to <code>obj</code> that searches methods in a scope of the super class of its own.
+</p>
+<p>
+Example:
+</p>
+<pre><code>A = class {
+    func() = {}
+}
+
+B = class(A) {
+    func() = {}
+}
+
+b = B()
+b.func()         // B#func() is called.
+super(b).func()  // A#func() is called.
+</code></pre>
 <h2><span class="caption-index-2">4.8</span><a name="caption-4-8"></a>Scope Operations</h2>
 <p>
 <strong>local</strong>
@@ -928,16 +946,61 @@ Undefines <code>identifier</code> in the current scope.
 <code>choose(index:number, values+):map</code>
 </p>
 <p>
+Picks up a value placed at <code>index</code> in the argument list <code>values</code>.
+</p>
+<p>
+Sample:
+</p>
+<pre><code>choose(0, 'apple', 'orange', 'banana') // returns 'apple'
+choose(2, 'apple', 'orange', 'banana') // returns 'banana'
+</code></pre>
+<p>
 <strong>cond</strong>
 </p>
 <p>
 <code>cond(flag:boolean, value1:nomap, value2?:nomap):map</code>
 </p>
 <p>
+Returns <code>value1</code> if <code>flag</code> is determined as true, and <code>value2</code> otherwise. If argument <code>value2</code> is omitted, it will return <code>nil</code> when <code>flag</code> is determined as false.
+</p>
+<p>
+This function behaves in a similar way with <code>if</code> function when it's called like below:
+</p>
+<pre><code>if (flag) { value1 } else { value2 }
+</code></pre>
+<p>
+But they are different in the following points:
+</p>
+<ul>
+<li>Function <code>cond()</code> always evaluates arguments <code>value1</code> and <code>value2</code> no matter what <code>flag</code> value is, while function <code>if()</code> doesn't evaluate <code>value1</code> expression when <code>flag</code> is determined as false.</li>
+<li>Function <code>cond()</code> works with implicit mapping, which means that arguments <code>flag</code> may be lists or iterators that are to be supplied to a mapping process.</li>
+</ul>
+<p>
+Arguments <code>value1</code> and <code>value2</code> are not processed by implicit mapping, so you can specify a list or an iterator for them as selected items.
+</p>
+<p>
 <strong>conds</strong>
 </p>
 <p>
 <code>conds(flag:boolean, value1, value2?):map</code>
+</p>
+<p>
+Returns <code>value1</code> if <code>flag</code> is determined as true, and <code>value2</code> otherwise. If argument <code>value2</code> is omitted, it will return <code>nil</code> when <code>flag</code> is determined as false.
+</p>
+<p>
+This function behaves in a similar way with <code>if</code> function when it's called like below:
+</p>
+<pre><code>if (flag) { value1 } else { value2 }
+</code></pre>
+<p>
+But they are different in the following points:
+</p>
+<ul>
+<li>Function <code>conds()</code> always evaluates arguments <code>value1</code> and <code>value2</code> no matter what <code>flag</code> value is, while function <code>if()</code> doesn't evaluate <code>value1</code> expression when <code>flag</code> is determined as false.</li>
+<li>Function <code>conds()</code> works with implicit mapping, which means that arguments <code>flag</code>, <code>value1</code> and <code>value2</code> may be lists or iterators that are to be supplied to a mapping process.</li>
+</ul>
+<p>
+If you want to specify a list or an iterator for <code>value1</code> and <code>value2</code> as selected values, use <code>cond()</code> function instead.
 </p>
 <p>
 <strong>dim</strong>
