@@ -231,15 +231,6 @@ text_dict = R'''
 text_directory = R'''
 ## directory Class
 
-### Properties
-
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
-<td></td></tr>
-
-</table>
 '''
 
 text_environment = R'''
@@ -286,7 +277,70 @@ text_expr = R'''
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>attrs</code></td><td><code>symbol[]</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>attrsopt</code></td><td><code>symbol[]</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>block</code></td><td><code>expr</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>blockparam</code></td><td><code>iterator</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>body</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>car</code></td><td><code>expr</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>cdr</code></td><td><code>iterator</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>child</code></td><td><code>expr</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>children</code></td><td><code>iterator</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>left</code></td><td><code>expr</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>lineno</code></td><td><code>number</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>linenobtm</code></td><td><code>number</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>operator</code></td><td><code>operator</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>postext</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>right</code></td><td><code>expr</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>source</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>suffix</code></td><td><code>symbol</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>symbol</code></td><td><code>symbol</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>trailer</code></td><td><code>expr</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>typename</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>typesym</code></td><td><code>symbol</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>value</code></td><td><code>any</code></td><td>R</td>
 <td></td></tr>
 
 </table>
@@ -295,15 +349,6 @@ text_expr = R'''
 text_formatter = R'''
 ## formatter Class
 
-### Properties
-
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
-<td></td></tr>
-
-</table>
 '''
 
 text_function = R'''
@@ -314,7 +359,22 @@ text_function = R'''
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>decls</code></td><td><code>iterator</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>expr</code></td><td><code>expr</code></td><td>R/W</td>
+<td></td></tr>
+
+<tr><td><code>format</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>fullname</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>name</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>symbol</code></td><td><code>symbol</code></td><td>R/W</td>
 <td></td></tr>
 
 </table>
@@ -328,7 +388,13 @@ text_help = R'''
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>format</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>lang</code></td><td><code>symbol</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>text</code></td><td><code>string</code></td><td>R</td>
 <td></td></tr>
 
 </table>
@@ -342,7 +408,16 @@ text_image = R'''
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>format</code></td><td><code>symbol</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>height</code></td><td><code>number</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>palette</code></td><td><code>palette</code></td><td>R/W</td>
+<td></td></tr>
+
+<tr><td><code>width</code></td><td><code>number</code></td><td>R</td>
 <td></td></tr>
 
 </table>
@@ -351,43 +426,16 @@ text_image = R'''
 text_iterator = R'''
 ## iterator Class
 
-### Properties
-
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
-<td></td></tr>
-
-</table>
 '''
 
 text_list = R'''
 ## list Class
 
-### Properties
-
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
-<td></td></tr>
-
-</table>
 '''
 
 text_matrix = R'''
 ## matrix Class
 
-### Properties
-
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
-<td></td></tr>
-
-</table>
 '''
 
 text_operator = R'''
