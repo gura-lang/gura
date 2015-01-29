@@ -1040,8 +1040,25 @@ If you want to specify a list or an iterator for <code>value1</code> and <code>v
 <code>dim(n+:number) {block?}</code>
 </p>
 <p>
-Creates and returns a multi-dementional list that contains nested lists as specified by the arguments. Block parameter format: <code>|i0:number, i1:number, ..|</code>
+Creates a list that contains specified number of <code>nil</code> values by argument <code>n</code>. If you pass multiple numbers for <code>n</code>, it would create a nested list.
 </p>
+<p>
+Example:
+</p>
+<pre><code>x = dim(3)     // x is [nil, nil, nil]
+x = dim(3, 2)  // x is [[nil, nil], [nil, nil], [nil, nil]]
+</code></pre>
+<p>
+The optional <code>block</code> provides values for each element and takes a block parameters: <code>|i0:number, i1:number, ..|</code>.
+</p>
+<p>
+Example:
+</p>
+<pre><code>x = dim(3) {'Hi'}
+// x is ['Hi', 'Hi', 'Hi']
+x = dim(3, 2) {|i, j| format('%d-%d', i, j) }
+// x is [['0-0', '0-1'], ['1-0', '1-1'], ['2-0', '2-1']]
+</code></pre>
 <p>
 <strong>max</strong>
 </p>

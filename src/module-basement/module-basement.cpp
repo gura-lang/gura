@@ -1589,7 +1589,7 @@ Gura_DeclareFunction(dim)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates a list that contains specified number of `nil` values by argument `n`.\n"
+		"Returns a list that contains `n` values of `nil`.\n"
 		"If you pass multiple numbers for `n`, it would create a nested list.\n"
 		"\n"
 		"Example:\n"
