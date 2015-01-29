@@ -555,7 +555,25 @@ Converts a string into a symbol.
 <code>class(superclass?:function) {block?}</code>
 </p>
 <p>
-Returns a function object that constructs an instance with methods and properties specified in the block. If superclass, which is supposed to be a constructor function, is specified, the new class shall inherits methods and properties of a class associated with it.
+Returns a function object of a constructor for a class that includes methods and properties described in the content of the <code>block</code>. For a detail on how to describe the block content for this function, refer to "Gura Language Manual".
+</p>
+<p>
+Example:
+</p>
+<pre><code>Person = class {
+    __init__(name:string, age:number) = {
+        this.name = name
+        this.age = age
+    }
+    Print() = {
+        printf('name:%s age:%d\n', this.name, this.age)
+    }
+}
+person = Person('Smith', 26)
+person.Print()
+</code></pre>
+<p>
+If argument <code>superclass</code>, which is expected to be a constructor function of a super class, is specified, the created class shall inherits methods and properties from the specified class.
 </p>
 <p>
 <strong>classref</strong>
@@ -573,7 +591,20 @@ Looks up a class by an expression of a type name.
 <code>struct(`args+):[loose] {block?}</code>
 </p>
 <p>
-Returns a function object that constructs a structure instance that contains properties specified by args. It can optionally take block which declares some additional methods for constructed instances. If <code>:loose</code> attribute is speicied, the generated constructor function makes an existence check of arguments in a loose way.
+Returns a function object of a constructor for a structure that contains properties specified by <code>args</code>. It can optionally take block which declares methods and properties just like <code>class</code> function.
+</p>
+<p>
+An element in <code>args</code> is an expression that has the same format with one in the argument list of a function's declaration. Each variable name becomes a member name in the created instance.
+</p>
+<p>
+Example:
+</p>
+<pre><code>Person = struct(name:string, age:number)
+person = Person('Smith', 26)
+printf('name:%s age:%d\n', person.name, person.age)
+</code></pre>
+<p>
+If <code>:loose</code> attribute is speicied, the generated constructor would take all the arguments as optional. Omitted variables are set to <code>nil</code>
 </p>
 <p>
 <strong>super</strong>

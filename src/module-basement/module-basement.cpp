@@ -831,10 +831,28 @@ Gura_DeclareFunctionAlias(class_, "class")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a function object that constructs an instance with methods and\n"
-		"properties specified in the block. If superclass, which is supposed to\n"
-		"be a constructor function, is specified, the new class shall inherits\n"
-		"methods and properties of a class associated with it.");
+		"Returns a function object of a constructor for a class\n"
+		"that includes methods and properties described in the content of the `block`.\n"
+		"For a detail on how to describe the block content for this function,\n"
+		"refer to \"Gura Language Manual\".\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"    Person = class {\n"
+		"        __init__(name:string, age:number) = {\n"
+		"            this.name = name\n"
+		"            this.age = age\n"
+		"        }\n"
+		"        Print() = {\n"
+		"            printf('name:%s age:%d\\n', this.name, this.age)\n"
+		"        }\n"
+		"    }\n"
+		"    person = Person('Smith', 26)\n"
+		"    person.Print()\n"
+		"\n"
+		"If argument `superclass`,\n"
+		"which is expected to be a constructor function of a super class, is specified,\n"
+		"the created class shall inherits methods and properties from the specified class.\n");
 }
 
 Gura_ImplementFunction(class_)
@@ -871,15 +889,11 @@ Gura_ImplementFunction(classref)
 {
 	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetList(0));
 	if (pValueTypeInfo == NULL) return Value::Null;
-	//if (pValueTypeInfo->GetClass() == NULL) {
-	//	sig.SetError(ERR_ValueError, "not a class type");
-	//	return Value::Null;
-	//}
 	Value result(Class::Reference(pValueTypeInfo->GetClass()));
 	return ReturnValue(env, sig, args, result);
 }
 
-// struct(`args*) {block?}
+// struct(`args*):[loose] {block?}
 // if :loose attribute is specified, arguments in the generated function
 // will get the following modification.
 // - Once attribute will be modified to ZeroOrOnce.
@@ -892,11 +906,23 @@ Gura_DeclareFunctionAlias(struct_, "struct")
 	DeclareAttr(Gura_Symbol(loose));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a function object that constructs a structure instance that\n"
-		"contains properties specified by args. It can optionally take block\n"
-		"which declares some additional methods for constructed instances.\n"
-		"If `:loose` attribute is speicied, the generated constructor function\n"
-		"makes an existence check of arguments in a loose way.");
+		"Returns a function object of a constructor for a structure that\n"
+		"contains properties specified by `args`. It can optionally take block\n"
+		"which declares methods and properties just like `class` function.\n"
+		"\n"
+		"An element in `args` is an expression that has the same format with\n"
+		"one in the argument list of a function's declaration.\n"
+		"Each variable name becomes a member name in the created instance.\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"    Person = struct(name:string, age:number)\n"
+		"    person = Person('Smith', 26)\n"
+		"    printf('name:%s age:%d\\n', person.name, person.age)\n"
+		"\n"
+		"If `:loose` attribute is speicied, the generated constructor\n"
+		"would take all the arguments as optional.\n"
+		"Omitted variables are set to `nil`\n");
 }
 
 Gura_ImplementFunction(struct_)
