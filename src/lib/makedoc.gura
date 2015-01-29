@@ -446,8 +446,8 @@ text_operator = R'''
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
-<td></td></tr>
+<tr><td><code>symbol</code></td><td><code>symbol</code></td><td>R</td>
+<td>Operator symbol.</td></tr>
 
 </table>
 '''
@@ -455,43 +455,17 @@ text_operator = R'''
 text_palette = R'''
 ## palette Class
 
-### Properties
-
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
-<td></td></tr>
-
-</table>
 '''
 
 text_pointer = R'''
 ## pointer Class
 
-### Properties
 
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
-<td></td></tr>
-
-</table>
 '''
 
 text_semaphore = R'''
 ## semaphore Class
 
-### Properties
-
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
-<td></td></tr>
-
-</table>
 '''
 
 text_stream = R'''
@@ -502,8 +476,23 @@ text_stream = R'''
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
-<td></td></tr>
+<tr><td><code>stat</code></td><td><code>object</code></td><td>R</td>
+<td>Status of the stream.</td></tr>
+
+<tr><td><code>name</code></td><td><code>string</code></td><td>R</td>
+<td>Name of the stream.</td></tr>
+
+<tr><td><code>identifier</code></td><td><code>string</code></td><td>R</td>
+<td>Identifier of the stream.</td></tr>
+
+<tr><td><code>readable</code></td><td><code>boolean</code></td><td>R</td>
+<td>Indicates whether the stream is readable.</td></tr>
+
+<tr><td><code>writable</code></td><td><code>boolean</code></td><td>R</td>
+<td>Indicates whether the stream is writable.</td></tr>
+
+<tr><td><code>codec</code></td><td><code>codec</code></td><td>R</td>
+<td>`codec` instance associated with the stream.</td></tr>
 
 </table>
 '''
@@ -511,29 +500,11 @@ text_stream = R'''
 text_suffixmgr = R'''
 ## suffixmgr Class
 
-### Properties
-
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
-<td></td></tr>
-
-</table>
 '''
 
 text_template = R'''
 ## template Class
 
-### Properties
-
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
-<td></td></tr>
-
-</table>
 '''
 
 text_timedelta = R'''
@@ -544,7 +515,13 @@ text_timedelta = R'''
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>days</code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+<tr><td><code>secs</code></td><td><code>number</code></td><td>R/W</td>
+<td></td></tr>
+
+<tr><td><code>usec</code></td><td><code>number</code></td><td>R/W</td>
 <td></td></tr>
 
 </table>
@@ -558,7 +535,25 @@ text_uri = R'''
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code></code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>scheme</code></td><td><code>string</code></td><td>R/W</td>
+<td></td></tr>
+
+<tr><td><code>user</code></td><td><code>string</code></td><td>R/W</td>
+<td></td></tr>
+
+<tr><td><code>password</code></td><td><code>string</code></td><td>R/W</td>
+<td></td></tr>
+
+<tr><td><code>host</code></td><td><code>string</code></td><td>R/W</td>
+<td></td></tr>
+
+<tr><td><code>port</code></td><td><code>string</code></td><td>R/W</td>
+<td></td></tr>
+
+<tr><td><code>urlpath</code></td><td><code>string</code></td><td>R/W</td>
+<td></td></tr>
+
+<tr><td><code>misc</code></td><td><code>string</code></td><td>R/W</td>
 <td></td></tr>
 
 </table>

@@ -183,7 +183,7 @@ Prints out <code>values</code> to standard output.
 <code>printf(format:string, values*):map:void</code>
 </p>
 <p>
-Prints out <code>values</code> to standard output depending on formatter specifications in <code>format</code>. The format specifier comes like <code>%[flags][width][.precision]specifier</code>.
+Prints out <code>values</code> to standard output depending on formatter specifications in <code>format</code>. The format specifier has a format of <code>%[flags][width][.precision]specifier</code>.
 </p>
 <p>
 <code>specifier</code> is one of the following.
@@ -222,7 +222,7 @@ Prints out <code>values</code> to standard output depending on formatter specifi
 </p>
 <ul>
 <li><p>
-For specifiers that formats integer numbers .. it specifies a minimum character width and fills <code>0</code> for the lacking column. Specifiers "<code>%03d</code>" "<code>%.3d</code>" have the same effects. When it works in combination with <code>width</code>, padding of <code>0</code> with <code>precision</code> is processed before <code>width</code> works. An example is shown below:
+For specifiers that formats integer numbers .. it specifies a minimum character width and fills <code>0</code> for the lacking column. Format specifiers "<code>%03d</code>" and "<code>%.3d</code>" have the same effect. When it works in combination with <code>width</code>, <code>precision</code> fills <code>0</code> in the lacking space before <code>width</code> does padding. An example is shown below:
 </p>
 <pre><code>printf('%5.3d', 23) .. prints "  023"
 </code></pre>
@@ -4646,16 +4646,16 @@ Explanation</th>
 <tr>
 <td>
 <code>
-</code>
+symbol</code>
 </td>
 <td>
 <code>
-number</code>
+symbol</code>
 </td>
 <td>
-R/W</td>
+R</td>
 <td>
-</td>
+Operator symbol.</td>
 </tr>
 </table>
 <h3><span class="caption-index-3">5.21.2</span><a name="caption-5-21-2"></a>Methods</h3>
@@ -4681,34 +4681,7 @@ Returns an operator object
 <code>operator#entries(type?:symbol)</code>
 </p>
 <h2><span class="caption-index-2">5.22</span><a name="caption-5-22"></a>palette Class</h2>
-<h3><span class="caption-index-3">5.22.1</span><a name="caption-5-22-1"></a>Properties</h3>
-<table>
-<tr>
-<th>
-Property</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
-</tr>
-<tr>
-<td>
-<code>
-</code>
-</td>
-<td>
-<code>
-number</code>
-</td>
-<td>
-R/W</td>
-<td>
-</td>
-</tr>
-</table>
-<h3><span class="caption-index-3">5.22.2</span><a name="caption-5-22-2"></a>Methods</h3>
+<h3><span class="caption-index-3">5.22.1</span><a name="caption-5-22-1"></a>Methods</h3>
 <p>
 <strong>palette</strong>
 </p>
@@ -4755,34 +4728,7 @@ Shrinks the size of the palette to a number powered by two that is enough to con
 Updates palette entries according to color data in an image or a palette. The order of existing entries will be kept intact. If attribute shrink is specified, the whole size will be shrinked to a number powered by two that is enough to contain unique entries.
 </p>
 <h2><span class="caption-index-2">5.23</span><a name="caption-5-23"></a>pointer Class</h2>
-<h3><span class="caption-index-3">5.23.1</span><a name="caption-5-23-1"></a>Properties</h3>
-<table>
-<tr>
-<th>
-Property</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
-</tr>
-<tr>
-<td>
-<code>
-</code>
-</td>
-<td>
-<code>
-number</code>
-</td>
-<td>
-R/W</td>
-<td>
-</td>
-</tr>
-</table>
-<h3><span class="caption-index-3">5.23.2</span><a name="caption-5-23-2"></a>Methods</h3>
+<h3><span class="caption-index-3">5.23.1</span><a name="caption-5-23-1"></a>Methods</h3>
 <p>
 <strong>pointer#forward</strong>
 </p>
@@ -4814,34 +4760,7 @@ R/W</td>
 <code>pointer#unpacks(format:string, values*:number)</code>
 </p>
 <h2><span class="caption-index-2">5.24</span><a name="caption-5-24"></a>semaphore Class</h2>
-<h3><span class="caption-index-3">5.24.1</span><a name="caption-5-24-1"></a>Properties</h3>
-<table>
-<tr>
-<th>
-Property</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
-</tr>
-<tr>
-<td>
-<code>
-</code>
-</td>
-<td>
-<code>
-number</code>
-</td>
-<td>
-R/W</td>
-<td>
-</td>
-</tr>
-</table>
-<h3><span class="caption-index-3">5.24.2</span><a name="caption-5-24-2"></a>Methods</h3>
+<h3><span class="caption-index-3">5.24.1</span><a name="caption-5-24-1"></a>Methods</h3>
 <p>
 <strong>semaphore</strong>
 </p>
@@ -4891,16 +4810,86 @@ Explanation</th>
 <tr>
 <td>
 <code>
-</code>
+stat</code>
 </td>
 <td>
 <code>
-number</code>
+object</code>
 </td>
 <td>
-R/W</td>
+R</td>
 <td>
+Status of the stream.</td>
+</tr>
+<tr>
+<td>
+<code>
+name</code>
 </td>
+<td>
+<code>
+string</code>
+</td>
+<td>
+R</td>
+<td>
+Name of the stream.</td>
+</tr>
+<tr>
+<td>
+<code>
+identifier</code>
+</td>
+<td>
+<code>
+string</code>
+</td>
+<td>
+R</td>
+<td>
+Identifier of the stream.</td>
+</tr>
+<tr>
+<td>
+<code>
+readable</code>
+</td>
+<td>
+<code>
+boolean</code>
+</td>
+<td>
+R</td>
+<td>
+Indicates whether the stream is readable.</td>
+</tr>
+<tr>
+<td>
+<code>
+writable</code>
+</td>
+<td>
+<code>
+boolean</code>
+</td>
+<td>
+R</td>
+<td>
+Indicates whether the stream is writable.</td>
+</tr>
+<tr>
+<td>
+<code>
+codec</code>
+</td>
+<td>
+<code>
+codec</code>
+</td>
+<td>
+R</td>
+<td>
+<code>codec</code> instance associated with the stream.</td>
 </tr>
 </table>
 <h3><span class="caption-index-3">5.25.2</span><a name="caption-5-25-2"></a>Methods</h3>
@@ -5061,34 +5050,7 @@ R/W</td>
 <code>stream#write(buff:binary, len?:number):reduce</code>
 </p>
 <h2><span class="caption-index-2">5.26</span><a name="caption-5-26"></a>suffixmgr Class</h2>
-<h3><span class="caption-index-3">5.26.1</span><a name="caption-5-26-1"></a>Properties</h3>
-<table>
-<tr>
-<th>
-Property</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
-</tr>
-<tr>
-<td>
-<code>
-</code>
-</td>
-<td>
-<code>
-number</code>
-</td>
-<td>
-R/W</td>
-<td>
-</td>
-</tr>
-</table>
-<h3><span class="caption-index-3">5.26.2</span><a name="caption-5-26-2"></a>Methods</h3>
+<h3><span class="caption-index-3">5.26.1</span><a name="caption-5-26-1"></a>Methods</h3>
 <p>
 <strong>suffixmgr</strong>
 </p>
@@ -5102,34 +5064,7 @@ R/W</td>
 <code>suffixmgr#assign(suffix:symbol):void:[overwrite] {block}</code>
 </p>
 <h2><span class="caption-index-2">5.27</span><a name="caption-5-27"></a>template Class</h2>
-<h3><span class="caption-index-3">5.27.1</span><a name="caption-5-27-1"></a>Properties</h3>
-<table>
-<tr>
-<th>
-Property</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
-</tr>
-<tr>
-<td>
-<code>
-</code>
-</td>
-<td>
-<code>
-number</code>
-</td>
-<td>
-R/W</td>
-<td>
-</td>
-</tr>
-</table>
-<h3><span class="caption-index-3">5.27.2</span><a name="caption-5-27-2"></a>Methods</h3>
+<h3><span class="caption-index-3">5.27.1</span><a name="caption-5-27-1"></a>Methods</h3>
 <p>
 <strong>template</strong>
 </p>
@@ -5242,7 +5177,35 @@ Explanation</th>
 <tr>
 <td>
 <code>
-</code>
+days</code>
+</td>
+<td>
+<code>
+number</code>
+</td>
+<td>
+R/W</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>
+secs</code>
+</td>
+<td>
+<code>
+number</code>
+</td>
+<td>
+R/W</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>
+usec</code>
 </td>
 <td>
 <code>
@@ -5280,11 +5243,95 @@ Explanation</th>
 <tr>
 <td>
 <code>
-</code>
+scheme</code>
 </td>
 <td>
 <code>
-number</code>
+string</code>
+</td>
+<td>
+R/W</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>
+user</code>
+</td>
+<td>
+<code>
+string</code>
+</td>
+<td>
+R/W</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>
+password</code>
+</td>
+<td>
+<code>
+string</code>
+</td>
+<td>
+R/W</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>
+host</code>
+</td>
+<td>
+<code>
+string</code>
+</td>
+<td>
+R/W</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>
+port</code>
+</td>
+<td>
+<code>
+string</code>
+</td>
+<td>
+R/W</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>
+urlpath</code>
+</td>
+<td>
+<code>
+string</code>
+</td>
+<td>
+R/W</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>
+misc</code>
+</td>
+<td>
+<code>
+string</code>
 </td>
 <td>
 R/W</td>
