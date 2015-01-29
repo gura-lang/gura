@@ -1581,7 +1581,7 @@ Gura_ImplementFunction(conds)
 	return args.GetBoolean(0)? args.GetValue(1) : args.GetValue(2);
 }
 
-// dim(n+:number) {block}
+// dim(n+:number) {block?}
 Gura_DeclareFunction(dim)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
@@ -1589,9 +1589,23 @@ Gura_DeclareFunction(dim)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates and returns a multi-dementional list that contains nested lists as\n"
-		"specified by the arguments.\n"
-		"Block parameter format: `|i0:number, i1:number, ..|`");
+		"Creates a list that contains specified number of `nil` values by argument `n`.\n"
+		"If you pass multiple numbers for `n`, it would create a nested list.\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"    x = dim(3)     // x is [nil, nil, nil]\n"
+		"    x = dim(3, 2)  // x is [[nil, nil], [nil, nil], [nil, nil]]\n"
+		"\n"
+		"The optional `block` provides values for each element\n"
+		"and takes a block parameters: `|i0:number, i1:number, ..|`.\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"    x = dim(3) {'Hi'}\n"
+		"    // x is ['Hi', 'Hi', 'Hi']\n"
+		"    x = dim(3, 2) {|i, j| format('%d-%d', i, j) }\n"
+		"    // x is [['0-0', '0-1'], ['1-0', '1-1'], ['2-0', '2-1']]\n");
 }
 
 bool Func_dim_Sub(Environment &env, Signal sig, const Function *pFuncBlock, ValueList &valListParent,
