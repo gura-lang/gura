@@ -28,8 +28,10 @@ Gura_DeclareFunction(format)
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Converts `values` into string depending on formatter specification\n"
-		"in `format` and returns the result in string.");
+		"Converts `values` into string depending on formatter specifications\n"
+		"in `format` and returns the result in string.\n"
+		"For a detail information about formatter specications,\n"
+		"refer to the document of `printf()` function.");
 }
 
 Gura_ImplementFunction(format)
@@ -44,7 +46,7 @@ Gura_DeclareFunction(print)
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Converts `values` into string and outputs the results to standard output."
+		"Prints out `values` to standard output."
 	);
 }
 
@@ -67,8 +69,8 @@ Gura_DeclareFunction(printf)
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Converts `values` into string depending on formatter specification in `format` and outputs the result to standard output.\n"
-		"The format specifier comes like `%[flags][width][.precision]specifier`.\n"
+		"Prints out `values` to standard output depending on formatter specifications in `format`.\n"
+		"The format specifier has a format of `%[flags][width][.precision]specifier`.\n"
 		"\n"
 		"`specifier` is one of the following.\n"
 		"\n"
@@ -94,7 +96,32 @@ Gura_DeclareFunction(printf)
 		"- `[SPC]` .. space character precedes for positive numbers\n"
 		"- `#` .. converted results of binary, octdecimal and hexadecimal are preceded by `'0b'`, `'0'` and `'0x'` respectively\n"
 		"- `0` .. fill lacking columns with `'0'`\n"
-		);
+		"\n"
+		"`width` specifies a minimum character width with a decimal number.\n"
+		"If the length of the corresponding field is less than this number,\n"
+		"the lacking part will be filled with space characters.\n"
+		"If the length is equal to or more than this number, there's nothing to be processed.\n"
+		"If an asterisk character \"`*`\" is specified for `width`,\n"
+		"the minimum character width will be retrieved from the argument list.\n"
+		"\n"
+		"`precision` has different effects depending on `specifier`:\n"
+		"\n"
+		"- For specifiers that formats integer numbers .. it specifies a minimum character width\n"
+		"  and fills `0` for the lacking column.\n"
+		"  Format specifiers \"`%03d`\" and \"`%.3d`\" have the same effect.\n"
+		"  When it works in combination with `width`,\n"
+		"  `precision` fills `0` in the lacking space before `width` does padding.\n"
+		"  An example is shown below:\n"
+		"\n"
+		"        printf('%5.3d', 23) .. prints \"  023\"\n"
+		"\n"
+		"- For `e`, `f` and `g` .. it specifies a digit number after a decimal point.\n"
+		"  Examples are shown below:\n"
+		"\n"
+		"        printf('%.3f', 1 / 3) .. prints \"0.333\"\n"
+		"        printf('%.5f', 1 / 3) .. prints \"0.33333\"\n"
+		"\n"
+		"- For other specifiers .. it has no effect.\n");
 }
 
 Gura_ImplementFunction(printf)
@@ -112,8 +139,7 @@ Gura_DeclareFunction(println)
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Converts `values` into string and outputs the results to standard output before a carriage return."
-	);
+		"Prints out `values` and a carriage return to standard output.\n");
 }
 
 Gura_ImplementFunction(println)
