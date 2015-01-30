@@ -253,6 +253,7 @@ void Document::ResolveReference()
 
 bool Document::ParseChar(Signal sig, char ch)
 {
+	//::printf("%d %c\n", _stat, ch);
 	bool continueFlag = true;
 	do {
 	continueFlag = false;
@@ -862,15 +863,13 @@ bool Document::ParseChar(Signal sig, char ch)
 			_indentLevel += 1;
 		} else if (ch == '\t') {
 			_indentLevel += 4;
-		} else if (ch == '>') {
-			_indentLevel = -1;
-			_quoteLevel = 1;
-			_stat = STAT_CodeBlock_BlockQuote;
-#if 0
-		} else if (IsEOL(ch) || IsEOF(ch)) {
-			_cntEmptyLine++;
-			_indentLevel = 0;
-#endif
+		//} else if (ch == '>') {
+		//	_indentLevel = -1;
+		//	_quoteLevel = 1;
+		//	_stat = STAT_CodeBlock_BlockQuote;
+		//} else if (IsEOL(ch) || IsEOF(ch)) {
+		//	_cntEmptyLine++;
+		//	_indentLevel = 0;
 		} else if (_indentLevel >= INDENT_CodeBlock) {
 			Item *pItemParent = _itemStack.back();
 			for (int i = 0; i < _cntEmptyLine; i++) {
