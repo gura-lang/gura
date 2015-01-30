@@ -4,8 +4,8 @@ import(gzip)
 
 text = R'''
 # gzip Module
-## Abstract
-## Sample
+
+The `gzip` module provices measures to read/write GZIP files.
 '''
 
 write(doc:markdown.document) = {

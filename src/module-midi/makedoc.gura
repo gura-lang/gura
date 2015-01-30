@@ -4,8 +4,8 @@ import(midi)
 
 text = R'''
 # midi Module
-## Abstract
-## Sample
+
+The `midi` module provides measures to read/write MIDI files.
 '''
 
 write(doc:markdown.document) = {

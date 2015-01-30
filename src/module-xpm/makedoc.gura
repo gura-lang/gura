@@ -4,8 +4,7 @@ import(xpm)
 
 text = R'''
 # xpm Module
-## Abstract
-## Sample
+
 '''
 
 write(doc:markdown.document) = {

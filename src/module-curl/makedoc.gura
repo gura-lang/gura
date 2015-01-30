@@ -4,7 +4,8 @@ import(curl)
 
 text = R'''
 # curl Module
-## Sample
+
+The `curl` module provices measures to access Internet resources using cURL library.
 '''
 
 write(doc:markdown.document) = {

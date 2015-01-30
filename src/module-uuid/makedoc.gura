@@ -4,8 +4,7 @@ import(uuid)
 
 text = R'''
 # uuid Module
-## Abstract
-## Sample
+
 '''
 
 write(doc:markdown.document) = {

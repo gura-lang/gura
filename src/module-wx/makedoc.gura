@@ -3,8 +3,8 @@ import(markdown)
 
 text = R'''
 # wx Module
-## Abstract
-## Sample
+
+The `wx` module provides functions and methods of wxWidgets library.
 '''
 
 write(doc:markdown.document) = {

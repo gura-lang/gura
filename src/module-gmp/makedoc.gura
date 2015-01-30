@@ -4,8 +4,10 @@ import(gmp)
 
 text = R'''
 # gmp Module
-## Abstract
-## Sample
+
+The `gmp` module provides measures to calculate numbers in a variable-length format.
+It expands features of operators like addition and multiplier
+so that they can calculate such numbers.
 '''
 
 write(doc:markdown.document) = {

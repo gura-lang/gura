@@ -3,8 +3,8 @@ import(markdown)
 
 text = R'''
 # http Module
-## Abstract
-## Sample
+
+The `http` module provides measures to connect the Internet through HTTP protocol.
 '''
 
 write(doc:markdown.document) = {

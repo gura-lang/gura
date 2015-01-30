@@ -4,8 +4,7 @@ import(xml)
 
 text = R'''
 # xml Module
-## Abstract
-## Sample
+
 '''
 
 write(doc:markdown.document) = {

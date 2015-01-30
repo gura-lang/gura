@@ -3,8 +3,8 @@ import(markdown)
 
 text = R'''
 # emf Module
-## Abstract
-## Sample
+
+The `emf` module provices measures to read/write EMF (Enhanced Meta File) files.
 '''
 
 write(doc:markdown.document) = {

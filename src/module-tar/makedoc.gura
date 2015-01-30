@@ -4,8 +4,8 @@ import(tar)
 
 text = R'''
 # tar Module
-## Abstract
-## Sample
+
+The `tar` module provides measures to read/write TAR files.
 '''
 
 write(doc:markdown.document) = {

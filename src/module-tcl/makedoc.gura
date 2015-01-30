@@ -4,8 +4,7 @@ import(tcl)
 
 text = R'''
 # tcl Module
-## Abstract
-## Sample
+
 '''
 
 write(doc:markdown.document) = {

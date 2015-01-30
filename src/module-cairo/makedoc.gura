@@ -4,10 +4,9 @@ import(cairo)
 
 text = R'''
 # cairo Module
-## About This Document
 	
-This reference explains about specification of functions and classes defined in **Gura**'s `cairo` module.
-Official site of SDL is <http://cairographics.org/>.
+The `cairo` module provides methods to draw 2-D graphics using Cairo library.
+Official site of Cairo is <http://cairographics.org/>.
 '''
 
 write(doc:markdown.document) = {

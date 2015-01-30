@@ -3,8 +3,7 @@ import(markdown)
 
 text = R'''
 # math Module
-## Abstract
-## Sample
+
 '''
 
 write(doc:markdown.document) = {

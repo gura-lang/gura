@@ -4,8 +4,7 @@ import(wav)
 
 text = R'''
 # wav Module
-## Abstract
-## Sample
+
 '''
 
 write(doc:markdown.document) = {

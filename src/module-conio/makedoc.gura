@@ -4,8 +4,16 @@ import(conio)
 
 text = R'''
 # conio Module
-## Abstract
-## Sample
+
+The `conio` module provides following measures to control a console screen:
+
+- Moves the cursor where texts are printed.
+- Changes text colors.
+- Retrieves console size.
+- Waits for keyboard input.
+
+Below is an example:
+
     conio.clear()
     [w, h] = conio.getwinsize() conio.moveto(0, 0) {
         print('*' * w)

@@ -3,8 +3,9 @@ import(markdown)
 
 text = R'''
 ## example Module
-### Abstract
-### Sample
+
+The `example` module is just an example that is supposed to be referenced as a skeleton
+when you want to create a new module.
 '''
 
 write(doc:markdown.document) = {

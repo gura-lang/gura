@@ -4,8 +4,8 @@ import(sdl2)
 
 text = R'''
 # sdl2 Module
-## Abstract
-## Sample
+
+The `sdl2` module provices functions of SDL2 library.
 '''
 
 write(doc:markdown.document) = {

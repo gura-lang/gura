@@ -4,8 +4,8 @@ import(mswin)
 
 text = R'''
 # mswin Module
-## Abstract
-## Sample
+
+The `mswin` module provides methods that are related to Windows operating system.
 '''
 
 write(doc:markdown.document) = {

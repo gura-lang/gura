@@ -3,6 +3,8 @@ import(markdown)
 
 text = R'''
 # markdown Module
+
+The `markdown` module provides measures to parse a text formatted in markdown syntax.
 '''
 
 write(doc:markdown.document) = {

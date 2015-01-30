@@ -4,8 +4,8 @@ import(glut)
 
 text = R'''
 # glut Module
-## Abstract
-## Sample
+
+The `glut` module
 '''
 
 write(doc:markdown.document) = {

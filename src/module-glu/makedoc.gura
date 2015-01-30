@@ -4,8 +4,8 @@ import(glu)
 
 text = R'''
 # glu Module
-## Abstract
-## Sample
+
+The `glu` module
 '''
 
 write(doc:markdown.document) = {

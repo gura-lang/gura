@@ -4,8 +4,8 @@ import(re)
 
 text = R'''
 # re Module
-## Abstract
-## Sample
+
+The `re` module provides measures to operate strings with a regular expression.
 '''
 
 write(doc:markdown.document) = {

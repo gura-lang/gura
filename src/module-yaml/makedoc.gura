@@ -4,8 +4,8 @@ import(yaml)
 
 text = R'''
 # yaml Module
-## Abstract
-## Sample
+
+The `yaml` module provides measures to read/write YAML files.
 '''
 
 write(doc:markdown.document) = {

@@ -4,8 +4,8 @@ import(bzip2)
 
 text = R'''
 # bzip2 Module
-## Abstract
-## Sample
+
+
 '''
 
 write(doc:markdown.document) = {

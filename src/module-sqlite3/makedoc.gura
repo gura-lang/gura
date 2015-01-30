@@ -4,8 +4,7 @@ import(sqlite3)
 
 text = R'''
 # sqlite3 Module
-## Abstract
-## Sample
+
 '''
 
 write(doc:markdown.document) = {

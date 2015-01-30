@@ -5,12 +5,10 @@ import(jpeg)
 text = R'''
 # jpeg Module
 
-## Abstract
-
-This module provides measures to read/write image data in JPEG format.
+The `jpeg` module provides measures to read/write image data in JPEG format.
 To utilize it, import `jpeg` module using `import` function.
 	
-## Sample
+Below is an example:
 
     import(jpeg)
     img = image('foo.jpeg')

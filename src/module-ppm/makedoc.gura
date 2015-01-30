@@ -4,8 +4,7 @@ import(ppm)
 
 text = R'''
 # ppm Module
-## Abstract
-## Sample
+
 '''
 
 write(doc:markdown.document) = {

@@ -4,8 +4,8 @@ import(freetype)
 
 text = R'''
 # freetype Module
-## Abstract
-## Sample
+
+The `freetype` module provices measures to access vectorized font data using freetype library.
 '''
 
 write(doc:markdown.document) = {

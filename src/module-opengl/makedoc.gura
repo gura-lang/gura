@@ -4,8 +4,8 @@ import(opengl)
 
 text = R'''
 # opengl Module
-## Abstract
-## Sample
+
+The `opengl` module provides functions of OpenGL library.
 '''
 
 write(doc:markdown.document) = {

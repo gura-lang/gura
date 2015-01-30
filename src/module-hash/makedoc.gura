@@ -4,8 +4,8 @@ import(hash)
 
 text = R'''
 # hash Module
-## Abstract
-## Sample
+
+The `hash` module provides measures to calculate hash values of a data sequence in a stream.
 '''
 
 write(doc:markdown.document) = {

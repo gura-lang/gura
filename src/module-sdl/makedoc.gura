@@ -5,9 +5,7 @@ import(sdl)
 text = R'''
 # sdl Module
 
-## About This Document
-	
-This reference explains about specification of functions and classes defined in **Gura**'s `sdl` module.
+The `sdl` module provides functions of SDL library.
 Official site of SDL is <http://www.libsdl.org/>.
 '''
 

@@ -5,12 +5,11 @@ import(bmp)
 text = R'''
 # bmp Module
 
-## Abstract
-
-This module provides measures to read/write image data in Microsoft BMP format.
+The `bmp` module provides measures to read/write image data in Microsoft BMP format.
 To utilize it, import `bmp` module using `import` function.
 	
-## Sample
+Below is an example:
+
     import(bmp)
 	img = image('foo.bmp')
 

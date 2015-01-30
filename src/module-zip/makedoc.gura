@@ -4,12 +4,10 @@ import(zip)
 
 text = R'''
 # zip Module
-## Abstract
 
+The `zip` module provides measures to read/write ZIP files.
 	
-
-## Sample
-### Creates Archive File
+Below is an exapmple to create a ZIP archive file:
 
     import(zip)
     zip.writer('hoge.zip') {|w|
@@ -19,7 +17,7 @@ text = R'''
         w.close()
     }		
 		
-### Reads Entries from Archive File
+Below is an example to reads entries from an archive file:
 
     import(zip)
     zip.reader('hoge.zip') {|r|

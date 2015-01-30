@@ -3,8 +3,8 @@ import(markdown)
 
 text = R'''
 # os Module
-## Abstract
-## Sample
+
+The `os` module provides functions that are specific to each OS environment.
 '''
 
 write(doc:markdown.document) = {

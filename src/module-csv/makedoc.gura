@@ -4,7 +4,11 @@ import(csv)
 
 text = R'''
 # csv Module
-## Sample
+
+The `csv` module provices measures to read/write CSV files.
+
+Below is an example:
+
     import(csv)
     Record = struct(name:string, age:number, email:string)
     records = Record * csv.read('records.csv')

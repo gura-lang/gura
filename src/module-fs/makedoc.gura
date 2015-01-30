@@ -3,6 +3,9 @@ import(markdown)
 
 text = R'''
 # fs Module
+
+The `fs` module provices measures to access and modify information in file systems.
+
 '''
 
 write(doc:markdown.document) = {

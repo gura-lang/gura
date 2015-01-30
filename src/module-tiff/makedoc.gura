@@ -4,8 +4,7 @@ import(tiff)
 
 text = R'''
 # tiff Module
-## Abstract
-## Sample
+
 '''
 
 write(doc:markdown.document) = {
