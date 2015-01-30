@@ -991,6 +991,35 @@
         <text>'}'
   <p>
     <text>'paragraph'
+  <codeblock>
+    <line>
+      <text>'> hoge'
+    <line>
+      <text>'> foo'
+    <line>
+      <text>'> bar'
+  <p>
+    <text>'paragraph'
+  <codeblock>
+    <line>
+      <text>'+ hoge'
+    <line>
+      <text>'+ foo'
+    <line>
+      <text>'+ bar'
+    <line>
+      <text>''
+  <p>
+    <text>'paragraph'
+  <codeblock>
+    <line>
+      <text>'= hoge'
+    <line>
+      <text>'= foo'
+    <line>
+      <text>'= bar'
+  <p>
+    <text>'paragraph'
   <p>
     <text>'3 < 4 > 2'
   <p>
@@ -1035,6 +1064,14 @@
         <text>'item-4-1'
       <tag>'td'
         <text>'item-4-2'
+  <tag>'table'
+    <tag>'tr'
+      <tag>'td'
+        <text>'`ignore code`'
+      <tag>'td'
+        <text>'*ignore emphasis*'
+      <tag>'td'
+        <text>'**ignore strong**'
   <tag>'table'
   <tag>'br'
   <tag>'br'

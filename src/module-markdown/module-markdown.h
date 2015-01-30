@@ -119,6 +119,7 @@ public:
 class ItemList : public std::vector<Item *> {
 public:
 	Item *FindByRefId(const char *refId) const;
+	Item *FindByType(Item::Type type) const;
 	void Print(Signal sig, Stream &stream, int indentLevel) const;
 };
 

@@ -116,6 +116,15 @@ Item *ItemList::FindByRefId(const char *refId) const
 	return NULL;
 }
 
+Item *ItemList::FindByType(Item::Type type) const
+{
+	foreach_const (ItemList, ppItem, *this) {
+		Item *pItem = *ppItem;
+		if (pItem->GetType() == type) return pItem;
+	}
+	return NULL;
+}
+
 void ItemList::Print(Signal sig, Stream &stream, int indentLevel) const
 {
 	foreach_const (ItemList, ppItem, *this) {
@@ -253,7 +262,6 @@ void Document::ResolveReference()
 
 bool Document::ParseChar(Signal sig, char ch)
 {
-	//::printf("%d %c\n", _stat, ch);
 	bool continueFlag = true;
 	do {
 	continueFlag = false;
@@ -269,6 +277,9 @@ bool Document::ParseChar(Signal sig, char ch)
 			_indentLevel += 1;
 		} else if (ch == '\t') {
 			_indentLevel += 4;
+		} else if (_indentLevel >= INDENT_CodeBlock) {
+			continueFlag = true;
+			BeginCodeBlock(NULL);
 		} else if (ch == '>') {
 			_indentLevel = -1;
 			_quoteLevel = 1;
@@ -301,9 +312,6 @@ bool Document::ParseChar(Signal sig, char ch)
 			FlushItem(Item::TYPE_Paragraph, false, false);
 			_indentLevel = 0;
 			_stat = STAT_LineHeadNL;
-		} else if (_indentLevel >= INDENT_CodeBlock) {
-			continueFlag = true;
-			BeginCodeBlock(NULL);
 		} else if (ch == '[') {
 			_pItemLink.reset(new Item(Item::TYPE_Referee));
 			_textAhead.clear();
@@ -863,10 +871,6 @@ bool Document::ParseChar(Signal sig, char ch)
 			_indentLevel += 1;
 		} else if (ch == '\t') {
 			_indentLevel += 4;
-		//} else if (ch == '>') {
-		//	_indentLevel = -1;
-		//	_quoteLevel = 1;
-		//	_stat = STAT_CodeBlock_BlockQuote;
 		//} else if (IsEOL(ch) || IsEOF(ch)) {
 		//	_cntEmptyLine++;
 		//	_indentLevel = 0;
@@ -888,6 +892,10 @@ bool Document::ParseChar(Signal sig, char ch)
 			for (int i = 0; i < _indentLevel - INDENT_CodeBlock; i++) _text += ' ';
 			continueFlag = true;
 			_stat = STAT_CodeBlock;
+		} else if (ch == '>' && _indentLevel == 0) {
+			_indentLevel = -1;
+			_quoteLevel = 1;
+			_stat = STAT_CodeBlock_BlockQuote;
 		} else {
 			continueFlag = true;
 			EndCodeBlock();
@@ -1612,6 +1620,18 @@ bool Document::ParseChar(Signal sig, char ch)
 
 bool Document::CheckSpecialChar(char ch)
 {
+	if (_itemStack.FindByType(Item::TYPE_Tag) != NULL) {
+		// Ignore special characters except for '<' when in a tag.
+		if (ch == '<') {
+			_textAhead.clear();
+			_field.clear();
+			_textAhead += ch;
+			_statStack.Push(_stat);
+			_stat = STAT_AngleBracket;
+			return true;
+		}
+		return false;
+	}
 	if (ch == '\\') {
 		_statStack.Push(_stat);
 		_stat = STAT_Escape;

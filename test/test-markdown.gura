@@ -611,6 +611,24 @@ normal paragraph
 
 paragraph
 
+    > hoge
+	> foo
+	> bar
+
+paragraph
+
+    + hoge
+    + foo
+    + bar
+	
+paragraph
+
+    = hoge
+    = foo
+    = bar
+
+paragraph
+
 3 < 4 > 2
 
 out << hogehoge
@@ -625,6 +643,10 @@ out << hogehoge
   <tr><td>item-2-1</td><td>item-2-2</td></tr>
   <tr><td>item-3-1</td><td>item-3-2</td></tr>
   <tr><td>item-4-1</td><td>item-4-2</td></tr>
+</table>
+
+<table>
+  <tr><td>`ignore code`</td><td>*ignore emphasis*</td><td>**ignore strong**</td></tr>
 </table>
 
 <table>
