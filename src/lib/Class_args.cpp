@@ -67,7 +67,8 @@ Gura_DeclareMethod(args, isset)
 	DeclareArg(env, "symbol", VTYPE_symbol, OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns `true` if the function is called with an attribute of the specified symbol.\n");
+		"Returns `true` if the function is called with an attribute\n"
+		"that matches the specified symbol.\n");
 }
 
 Gura_ImplementMethod(args, isset)
@@ -83,7 +84,17 @@ Gura_DeclareMethod(args, quit_trailer)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Quits trailing sequence and cancels evaluation of following trailers.");
+		"Cancels evaluation of following trailers.\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"    f(flag:boolean) = {\n"
+		"        !flag && __args__.quit_trailer() \n"
+		"    }\n"
+		"    \n"
+		"    f(true) println('printed')\n"
+		"    f(false) println('not printed')\n"
+		);
 }
 
 Gura_ImplementMethod(args, quit_trailer)

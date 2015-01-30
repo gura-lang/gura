@@ -1154,6 +1154,20 @@ Prints a help message for the specified function object.
 </p>
 <h1><span class="caption-index-1">5</span><a name="caption-5"></a>Built-in Classes</h1>
 <h2><span class="caption-index-2">5.1</span><a name="caption-5-1"></a>args Class</h2>
+<p>
+The <code>args</code> class provides measures to access argument information that is passed to a function. One of its purposes is to check if an attribute is specified in the function call. It also provides a method to control a leader-trailer sequence, a mechanism that flow controls such as <code>if-elsif-else</code> and <code>try-catch</code> utilize.
+</p>
+<p>
+There's no constructor to realize an instance of <code>args</code> class. Its instance is implicitly created when a function is called, and you can refer to it by a variable named <code>__args__</code>.
+</p>
+<p>
+Below is an example to use <code>args</code> class:
+</p>
+<pre><code>func(v0, v1, v2):[attr1,attr2] = {
+    printf('arg#%d %s\n', 0.., __args__.values)
+    printf('attr1:%s attr2:%s\n', __args__.isset(`attr1), __args__.isset(`attr2))
+}       
+</code></pre>
 <h3><span class="caption-index-3">5.1.1</span><a name="caption-5-1-1"></a>Properties</h3>
 <table>
 <tr>
@@ -1178,7 +1192,7 @@ list</code>
 <td>
 R</td>
 <td>
-List of Value passed in the argument.</td>
+A list of argument values.</td>
 </tr>
 </table>
 <h3><span class="caption-index-3">5.1.2</span><a name="caption-5-1-2"></a>Methods</h3>
@@ -1198,7 +1212,7 @@ Signals finalizing status to trailers after the current function.
 <code>args#isset(symbol:symbol)</code>
 </p>
 <p>
-Returns <code>true</code> if the function is called with an attribute of the specified symbol.
+Returns <code>true</code> if the function is called with an attribute that matches the specified symbol.
 </p>
 <p>
 <strong>args#quit_trailer</strong>
@@ -1207,8 +1221,18 @@ Returns <code>true</code> if the function is called with an attribute of the spe
 <code>args#quit_trailer():void</code>
 </p>
 <p>
-Quits trailing sequence and cancels evaluation of following trailers.
+Cancels evaluation of following trailers.
 </p>
+<p>
+Example:
+</p>
+<pre><code>f(flag:boolean) = {
+    !flag &amp;&amp; __args__.quit_trailer() 
+}
+
+f(true) println('printed')
+f(false) println('not printed')
+</code></pre>
 <h2><span class="caption-index-2">5.2</span><a name="caption-5-2"></a>array Class</h2>
 <h3><span class="caption-index-3">5.2.1</span><a name="caption-5-2-1"></a>Methods</h3>
 <p>

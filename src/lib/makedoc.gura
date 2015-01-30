@@ -8,13 +8,29 @@ text = R'''
 text_args = R'''
 ## args Class
 
+The `args` class provides measures to access argument information that is passed to a function.
+One of its purposes is to check if an attribute is specified in the function call.
+It also provides a method to control a leader-trailer sequence,
+a mechanism that flow controls such as `if-elsif-else` and `try-catch` utilize.
+
+There's no constructor to realize an instance of `args` class.
+Its instance is implicitly created when a function is called,
+and you can refer to it by a variable named `__args__`.
+
+Below is an example to use `args` class:
+
+    func(v0, v1, v2):[attr1,attr2] = {
+        printf('arg#%d %s\n', 0.., __args__.values)
+        printf('attr1:%s attr2:%s\n', __args__.isset(`attr1), __args__.isset(`attr2))
+    }       
+
 ### Properties
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code>values</code></td><td><code>list</code></td><td>R</td>
-<td>List of Value passed in the argument.</td></tr>
+<td>A list of argument values.</td></tr>
 
 </table>
 '''
