@@ -1,4 +1,5 @@
 import(xpm)
+import(wx.show)
 
 zebra_xpm = @{
 /* columns rows colors chars-per-pixel */
@@ -410,5 +411,4 @@ zebra_xpm = @{
 };
 
 img = image(`rgba).xpmdata(zebra_xpm)
-import(show)
 img.show()

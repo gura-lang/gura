@@ -5,6 +5,13 @@ import(tiff)
 text = R'''
 # tiff Module
 
+The `tiff` module provides measures to read/write image data in TIFF format.
+To utilize it, import the `tiff` module using `import` function.
+	
+Below is an example to read a TIFF file:
+
+    import(tiff)
+	img = image('foo.tiff')
 '''
 
 write(doc:markdown.document) = {

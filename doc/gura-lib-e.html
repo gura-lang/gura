@@ -69,91 +69,72 @@ This reference explains about functions and classes that are shipped with Gura i
 <p>
 Functions in this reference are described in a generic expression. For example, if there is a reference described like <code>func(num:number)</code>, it means that <code>func</code> function takes one argument named <code>num</code> with value type of <code>number</code>. You can call it like <code>func(3)</code>.
 </p>
+<pre><code>
+</code></pre>
 <p>
 If an argument is optional, the argument name is followed by a symbol <code>?</code>. For example: <code>func(num?:number)</code>. You can call it as <code>func(2)</code> or can omit the arugument like <code>func()</code>.
 </p>
+<pre><code>
+</code></pre>
 <p>
 If the the arument name has <code>*</code> symbol followed, the arument takes zero or more values. For a function that has a generic expression <code>func(args*:number)</code>, it can be called like <code>func()</code>, <code>func(3)</code>, <code>func(3, 4)</code>, <code>func(3, 4, 2)</code>, and so on.
 </p>
+<pre><code>
+</code></pre>
 <p>
 If the the arument name has <code>+</code> symbol followed, the arument takes one or more values. For a function that has a generic expression <code>func(args+:number)</code>, it can be called like <code>func(3)</code>, <code>func(3, 4)</code>, <code>func(3, 4, 2)</code>, and so on. In difference with <code>*</code>, it must take at least one value.
 </p>
+<pre><code>
+</code></pre>
 <p>
 An argument may have a default value. The default value is described with <code>=&gt;</code> operator like <code>func(num:number =&gt; 4)</code>. In such a case, if <code>num</code> is omitted, the default value <code>4</code> shall be used.
 </p>
 <h1><span class="caption-index-1">3</span><a name="caption-3"></a>Predefined Variables</h1>
 <table>
 <tr>
-<th>
-Variable</th>
-<th>
-Type</th>
-<th>
-Explanation</th>
+<th>Variable</th>
+<th>Type</th>
+<th>Explanation</th>
 </tr>
 <tr>
-<td>
-<code>*</code></td>
-<td>
-<code>iterator</code></td>
-<td>
-An iterator instance equivalent with "<code>0..</code>".</td>
+<td>`*`</td>
+<td>`iterator`</td>
+<td>An iterator instance equivalent with "`0..`".</td>
 </tr>
 <tr>
-<td>
-<code>-</code></td>
-<td>
-<code>nil</code></td>
-<td>
-Value of <code>nil</code>.</td>
+<td>`-`</td>
+<td>`nil`</td>
+<td>Value of `nil`.</td>
 </tr>
 <tr>
-<td>
-<code>@rem</code></td>
-<td>
-<code>nil</code></td>
-<td>
-Value of <code>nil</code>.</td>
+<td>`@rem`</td>
+<td>`nil`</td>
+<td>Value of `nil`.</td>
 </tr>
 <tr>
-<td>
-<code>__name__</code></td>
-<td>
-<code>string</code></td>
-<td>
-If the current script is a main one that the interpreter launches, this variable is set to <code>'__main__'</code>. If it is imported by another as a module, this variable is set to that module name.</td>
+<td>`__name__`</td>
+<td>`string`</td>
+<td>If the current script is a main one that the interpreter launches, this variable is set to `'__main__'`. If it is imported by another as a module, this variable is set to that module name.</td>
 </tr>
 <tr>
-<td>
-<code>false</code></td>
-<td>
-<code>boolean</code></td>
-<td>
-Value of false.</td>
+<td>`false`</td>
+<td>`boolean`</td>
+<td>Value of false.</td>
 </tr>
 <tr>
-<td>
-<code>nil</code></td>
-<td>
-<code>nil</code></td>
-<td>
-Value of <code>nil</code>.</td>
+<td>`nil`</td>
+<td>`nil`</td>
+<td>Value of `nil`.</td>
 </tr>
 <tr>
-<td>
-<code>root</code></td>
-<td>
-<code>environment</code></td>
-<td>
-Top level scope.</td>
+<td>`root`</td>
+<td>`environment`</td>
+<td>Top level scope.</td>
 </tr>
 <tr>
-<td>
-<code>true</code></td>
-<td>
-<code>boolean</code></td>
-<td>
-Value of true.</td>
+<td>`true`</td>
+<td>`boolean`</td>
+<td>Value of true.</td>
 </tr>
 </table>
 <h1><span class="caption-index-1">4</span><a name="caption-4"></a>Built-in Functions</h1>
@@ -1171,28 +1152,18 @@ Below is an example to use <code>args</code> class:
 <h3><span class="caption-index-3">5.1.1</span><a name="caption-5-1-1"></a>Properties</h3>
 <table>
 <tr>
-<th>
-Property</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
+<th>Property</th>
+<th>Type</th>
+<th>R/W</th>
+<th>Explanation</th>
 </tr>
 <tr>
-<td>
-<code>
-values</code>
+<td><code>values</code>
 </td>
-<td>
-<code>
-list</code>
+<td><code>list</code>
 </td>
-<td>
-R</td>
-<td>
-A list of argument values.</td>
+<td>R</td>
+<td>A list of argument values.</td>
 </tr>
 </table>
 <h3><span class="caption-index-3">5.1.2</span><a name="caption-5-1-2"></a>Methods</h3>
@@ -1340,28 +1311,18 @@ Creates an array that extracts specified number of elements at the bottom of the
 <h3><span class="caption-index-3">5.4.1</span><a name="caption-5-4-1"></a>Properties</h3>
 <table>
 <tr>
-<th>
-Property</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
+<th>Property</th>
+<th>Type</th>
+<th>R/W</th>
+<th>Explanation</th>
 </tr>
 <tr>
-<td>
-<code>
-binary#writable</code>
+<td><code>binary#writable</code>
 </td>
-<td>
-<code>
-boolean</code>
+<td><code>boolean</code>
 </td>
-<td>
-R</td>
-<td>
-Indicates if the content of the binary object is writable.</td>
+<td>R</td>
+<td>Indicates if the content of the binary object is writable.</td>
 </tr>
 </table>
 <h3><span class="caption-index-3">5.4.2</span><a name="caption-5-4-2"></a>Methods</h3>
@@ -1503,285 +1464,169 @@ Returns a pointer instance that has an initial offset specified by the argument.
 <h3><span class="caption-index-3">5.6.1</span><a name="caption-5-6-1"></a>Predefined Variables</h3>
 <table>
 <tr>
-<th>
-Variable</th>
-<th>
-Type</th>
-<th>
-Explanation</th>
+<th>Variable</th>
+<th>Type</th>
+<th>Explanation</th>
 </tr>
 <tr>
-<td>
-<code>
-color.black</code>
+<td><code>color.black</code>
 </td>
-<td>
-<code>
-color</code>
+<td><code>color</code>
 </td>
-<td>
-Color instance of black.</td>
+<td>Color instance of black.</td>
 </tr>
 <tr>
-<td>
-<code>
-color.maroon</code>
+<td><code>color.maroon</code>
 </td>
-<td>
-<code>
-color</code>
+<td><code>color</code>
 </td>
-<td>
-Color instance of maroon.</td>
+<td>Color instance of maroon.</td>
 </tr>
 <tr>
-<td>
-<code>
-color.green</code>
+<td><code>color.green</code>
 </td>
-<td>
-<code>
-color</code>
+<td><code>color</code>
 </td>
-<td>
-Color instance of green.</td>
+<td>Color instance of green.</td>
 </tr>
 <tr>
-<td>
-<code>
-color.olive</code>
+<td><code>color.olive</code>
 </td>
-<td>
-<code>
-color</code>
+<td><code>color</code>
 </td>
-<td>
-Color instance of olive.</td>
+<td>Color instance of olive.</td>
 </tr>
 <tr>
-<td>
-<code>
-color.navy</code>
+<td><code>color.navy</code>
 </td>
-<td>
-<code>
-color</code>
+<td><code>color</code>
 </td>
-<td>
-Color instance of navy.</td>
+<td>Color instance of navy.</td>
 </tr>
 <tr>
-<td>
-<code>
-color.purple</code>
+<td><code>color.purple</code>
 </td>
-<td>
-<code>
-color</code>
+<td><code>color</code>
 </td>
-<td>
-Color instance of purple.</td>
+<td>Color instance of purple.</td>
 </tr>
 <tr>
-<td>
-<code>
-color.teal</code>
+<td><code>color.teal</code>
 </td>
-<td>
-<code>
-color</code>
+<td><code>color</code>
 </td>
-<td>
-Color instance of teal.</td>
+<td>Color instance of teal.</td>
 </tr>
 <tr>
-<td>
-<code>
-color.gray</code>
+<td><code>color.gray</code>
 </td>
-<td>
-<code>
-color</code>
+<td><code>color</code>
 </td>
-<td>
-Color instance of gray.</td>
+<td>Color instance of gray.</td>
 </tr>
 <tr>
-<td>
-<code>
-color.silver</code>
+<td><code>color.silver</code>
 </td>
-<td>
-<code>
-color</code>
+<td><code>color</code>
 </td>
-<td>
-Color instance of silverk.</td>
+<td>Color instance of silverk.</td>
 </tr>
 <tr>
-<td>
-<code>
-color.red</code>
+<td><code>color.red</code>
 </td>
-<td>
-<code>
-color</code>
+<td><code>color</code>
 </td>
-<td>
-Color instance of red.</td>
+<td>Color instance of red.</td>
 </tr>
 <tr>
-<td>
-<code>
-color.lime</code>
+<td><code>color.lime</code>
 </td>
-<td>
-<code>
-color</code>
+<td><code>color</code>
 </td>
-<td>
-Color instance of lime.</td>
+<td>Color instance of lime.</td>
 </tr>
 <tr>
-<td>
-<code>
-color.yellow</code>
+<td><code>color.yellow</code>
 </td>
-<td>
-<code>
-color</code>
+<td><code>color</code>
 </td>
-<td>
-Color instance of yellow.</td>
+<td>Color instance of yellow.</td>
 </tr>
 <tr>
-<td>
-<code>
-color.blue</code>
+<td><code>color.blue</code>
 </td>
-<td>
-<code>
-color</code>
+<td><code>color</code>
 </td>
-<td>
-Color instance of blue.</td>
+<td>Color instance of blue.</td>
 </tr>
 <tr>
-<td>
-<code>
-color.fuchsia</code>
+<td><code>color.fuchsia</code>
 </td>
-<td>
-<code>
-color</code>
+<td><code>color</code>
 </td>
-<td>
-Color instance of fuchsia.</td>
+<td>Color instance of fuchsia.</td>
 </tr>
 <tr>
-<td>
-<code>
-color.aqua</code>
+<td><code>color.aqua</code>
 </td>
-<td>
-<code>
-color</code>
+<td><code>color</code>
 </td>
-<td>
-Color instance of aqua.</td>
+<td>Color instance of aqua.</td>
 </tr>
 <tr>
-<td>
-<code>
-color.white</code>
+<td><code>color.white</code>
 </td>
-<td>
-<code>
-color</code>
+<td><code>color</code>
 </td>
-<td>
-Color instance of white.</td>
+<td>Color instance of white.</td>
 </tr>
 <tr>
-<td>
-<code>
-color.zero</code>
+<td><code>color.zero</code>
 </td>
-<td>
-<code>
-color</code>
+<td><code>color</code>
 </td>
-<td>
-Color instance with all the elements including alpha set to zero.</td>
+<td>Color instance with all the elements including alpha set to zero.</td>
 </tr>
 </table>
 <h3><span class="caption-index-3">5.6.2</span><a name="caption-5-6-2"></a>Properties</h3>
 <table>
 <tr>
-<th>
-Property</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
+<th>Property</th>
+<th>Type</th>
+<th>R/W</th>
+<th>Explanation</th>
 </tr>
 <tr>
-<td>
-<code>
-color#r</code>
+<td><code>color#r</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R/W</td>
-<td>
-Value of the red element.</td>
+<td>R/W</td>
+<td>Value of the red element.</td>
 </tr>
 <tr>
-<td>
-<code>
-color#g</code>
+<td><code>color#g</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R/W</td>
-<td>
-Value of the green element.</td>
+<td>R/W</td>
+<td>Value of the green element.</td>
 </tr>
 <tr>
-<td>
-<code>
-color#b</code>
+<td><code>color#b</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R/W</td>
-<td>
-Value of the blue element.</td>
+<td>R/W</td>
+<td>Value of the blue element.</td>
 </tr>
 <tr>
-<td>
-<code>
-color#a</code>
+<td><code>color#a</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R/W</td>
-<td>
-Value of the alpha element.</td>
+<td>R/W</td>
+<td>Value of the alpha element.</td>
 </tr>
 </table>
 <h3><span class="caption-index-3">5.6.3</span><a name="caption-5-6-3"></a>Methods</h3>
@@ -1816,263 +1661,155 @@ Gets either of a color symbol or a list of elements of r, g, b and a, and return
 <h3><span class="caption-index-3">5.7.1</span><a name="caption-5-7-1"></a>Predefined Variables</h3>
 <table>
 <tr>
-<th>
-Variable</th>
-<th>
-Type</th>
-<th>
-Explanation</th>
+<th>Variable</th>
+<th>Type</th>
+<th>Explanation</th>
 </tr>
 <tr>
-<td>
-<code>
-datetime.Sunday</code>
+<td><code>datetime.Sunday</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-Assigned with number 0 that represents Sunday.</td>
+<td>Assigned with number 0 that represents Sunday.</td>
 </tr>
 <tr>
-<td>
-<code>
-datetime.Monday</code>
+<td><code>datetime.Monday</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-Assigned with number 1 that represents Monday.</td>
+<td>Assigned with number 1 that represents Monday.</td>
 </tr>
 <tr>
-<td>
-<code>
-datetime.Tuesday</code>
+<td><code>datetime.Tuesday</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-Assigned with number 2 that represents Tuesday.</td>
+<td>Assigned with number 2 that represents Tuesday.</td>
 </tr>
 <tr>
-<td>
-<code>
-datetime.Wednesday</code>
+<td><code>datetime.Wednesday</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-Assigned with number 3 that represents Wednesday.</td>
+<td>Assigned with number 3 that represents Wednesday.</td>
 </tr>
 <tr>
-<td>
-<code>
-datetime.Thursday</code>
+<td><code>datetime.Thursday</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-Assigned with number 4 that represents Thursday.</td>
+<td>Assigned with number 4 that represents Thursday.</td>
 </tr>
 <tr>
-<td>
-<code>
-datetime.Friday</code>
+<td><code>datetime.Friday</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-Assigned with number 5 that represents Friday.</td>
+<td>Assigned with number 5 that represents Friday.</td>
 </tr>
 <tr>
-<td>
-<code>
-datetime.Saturday</code>
+<td><code>datetime.Saturday</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-Assigned with number 6 that represents Saturday.</td>
+<td>Assigned with number 6 that represents Saturday.</td>
 </tr>
 </table>
 <h3><span class="caption-index-3">5.7.2</span><a name="caption-5-7-2"></a>Properties</h3>
 <table>
 <tr>
-<th>
-Property</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
+<th>Property</th>
+<th>Type</th>
+<th>R/W</th>
+<th>Explanation</th>
 </tr>
 <tr>
-<td>
-<code>
-datetime#year</code>
+<td><code>datetime#year</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R/W</td>
-<td>
-Chritian year.</td>
+<td>R/W</td>
+<td>Chritian year.</td>
 </tr>
 <tr>
-<td>
-<code>
-datetime#month</code>
+<td><code>datetime#month</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R/W</td>
-<td>
-Month starting from 1. Number from 1 to 12 corresponds to January to December.</td>
+<td>R/W</td>
+<td>Month starting from 1. Number from 1 to 12 corresponds to January to December.</td>
 </tr>
 <tr>
-<td>
-<code>
-datetime#day</code>
+<td><code>datetime#day</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R/W</td>
-<td>
-Day in a month starting from 1. </td>
+<td>R/W</td>
+<td>Day in a month starting from 1. </td>
 </tr>
 <tr>
-<td>
-<code>
-datetime#hour</code>
+<td><code>datetime#hour</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R/W</td>
-<td>
-Hour in a day between 0 and 23.</td>
+<td>R/W</td>
+<td>Hour in a day between 0 and 23.</td>
 </tr>
 <tr>
-<td>
-<code>
-datetime#min</code>
+<td><code>datetime#min</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R/W</td>
-<td>
-Minute in an hour betwen 0 and 59.</td>
+<td>R/W</td>
+<td>Minute in an hour betwen 0 and 59.</td>
 </tr>
 <tr>
-<td>
-<code>
-datetime#sec</code>
+<td><code>datetime#sec</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R/W</td>
-<td>
-Second in a minute between 0 and 59.</td>
+<td>R/W</td>
+<td>Second in a minute between 0 and 59.</td>
 </tr>
 <tr>
-<td>
-<code>
-datetime#usec</code>
+<td><code>datetime#usec</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R/W</td>
-<td>
-Milli second in a minute between 0 and 999.</td>
+<td>R/W</td>
+<td>Milli second in a minute between 0 and 999.</td>
 </tr>
 <tr>
-<td>
-<code>
-datetime#wday</code>
+<td><code>datetime#wday</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R</td>
-<td>
-Week number starting from 0. Number from 0 to 6 corresponds to Sunday to Saturday.</td>
+<td>R</td>
+<td>Week number starting from 0. Number from 0 to 6 corresponds to Sunday to Saturday.</td>
 </tr>
 <tr>
-<td>
-<code>
-datetime#week</code>
+<td><code>datetime#week</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R</td>
-<td>
-Week symbol that takes one of the followings: <code>`sunday</code>, <code>`monday</code>, <code>`tuesday</code>, <code>`wednesday</code>, <code>`thursday</code>, <code>`friday</code>, <code>`saturday</code></td>
+<td>R</td>
+<td>Week symbol that takes one of the followings: `` `sunday``, `` `monday``, `` `tuesday``, `` `wednesday``, `` `thursday``, `` `friday``, `` `saturday`` </td>
 </tr>
 <tr>
-<td>
-<code>
-datetime#yday</code>
+<td><code>datetime#yday</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R</td>
-<td>
-Day in a year starting from 1.</td>
+<td>R</td>
+<td>Day in a year starting from 1.</td>
 </tr>
 <tr>
-<td>
-<code>
-datetime#unixtime</code>
+<td><code>datetime#unixtime</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R</td>
-<td>
-Seconds passed from 00:00:00 on January 1st in 1970 in UTC.</td>
+<td>R</td>
+<td>Seconds passed from 00:00:00 on January 1st in 1970 in UTC.</td>
 </tr>
 </table>
 <h3><span class="caption-index-3">5.7.3</span><a name="caption-5-7-3"></a>Methods</h3>
@@ -2169,56 +1906,34 @@ A custom-defined format is one of the symbols: <code>w3c,</code>http and <code>a
 <h3><span class="caption-index-3">5.8.1</span><a name="caption-5-8-1"></a>Properties</h3>
 <table>
 <tr>
-<th>
-Property</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
+<th>Property</th>
+<th>Type</th>
+<th>R/W</th>
+<th>Explanation</th>
 </tr>
 <tr>
-<td>
-<code>
-declaration#symbol</code>
+<td><code>declaration#symbol</code>
 </td>
-<td>
-<code>
-symbol</code>
+<td><code>symbol</code>
 </td>
-<td>
-R</td>
-<td>
-The name of the declaration in symbol.</td>
+<td>R</td>
+<td>The name of the declaration in symbol.</td>
 </tr>
 <tr>
-<td>
-<code>
-declaration#name</code>
+<td><code>declaration#name</code>
 </td>
-<td>
-<code>
-string</code>
+<td><code>string</code>
 </td>
-<td>
-R</td>
-<td>
-The name of the declaration in string.</td>
+<td>R</td>
+<td>The name of the declaration in string.</td>
 </tr>
 <tr>
-<td>
-<code>
-declaration#default</code>
+<td><code>declaration#default</code>
 </td>
-<td>
-<code>
-expr</code>
+<td><code>expr</code>
 </td>
-<td>
-R</td>
-<td>
-The expression that provides a default value.</td>
+<td>R</td>
+<td>The expression that provides a default value.</td>
 </tr>
 </table>
 <h3><span class="caption-index-3">5.8.2</span><a name="caption-5-8-2"></a>Methods</h3>
@@ -2349,420 +2064,244 @@ Looks up a specified symbol in the environment and returns the associated value.
 <h3><span class="caption-index-3">5.12.1</span><a name="caption-5-12-1"></a>Properties</h3>
 <table>
 <tr>
-<th>
-Property</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
+<th>Property</th>
+<th>Type</th>
+<th>R/W</th>
+<th>Explanation</th>
 </tr>
 <tr>
-<td>
-<code>
-error#source</code>
+<td><code>error#source</code>
 </td>
-<td>
-<code>
-string</code>
+<td><code>string</code>
 </td>
-<td>
-R</td>
-<td>
-The name of the file that causes this error.</td>
+<td>R</td>
+<td>The name of the file that causes this error.</td>
 </tr>
 <tr>
-<td>
-<code>
-error#lineno</code>
+<td><code>error#lineno</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R</td>
-<td>
-The number of line where the expression that causes this error starts.</td>
+<td>R</td>
+<td>The number of line where the expression that causes this error starts.</td>
 </tr>
 <tr>
-<td>
-<code>
-error#linenobtm</code>
+<td><code>error#linenobtm</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R</td>
-<td>
-The number of line where the expression that causes this error ends.</td>
+<td>R</td>
+<td>The number of line where the expression that causes this error ends.</td>
 </tr>
 <tr>
-<td>
-<code>
-error#postext</code>
+<td><code>error#postext</code>
 </td>
-<td>
-<code>
-string</code>
+<td><code>string</code>
 </td>
-<td>
-R</td>
-<td>
-A text that consists of a source name and a line number.</td>
+<td>R</td>
+<td>A text that consists of a source name and a line number.</td>
 </tr>
 <tr>
-<td>
-<code>
-error#text</code>
+<td><code>error#text</code>
 </td>
-<td>
-<code>
-string</code>
+<td><code>string</code>
 </td>
-<td>
-R</td>
-<td>
-An error message. If an attribute <code>:lineno</code> is specified, it would contain a line number.</td>
+<td>R</td>
+<td>An error message. If an attribute `:lineno` is specified, it would contain a line number.</td>
 </tr>
 <tr>
-<td>
-<code>
-error#trace</code>
+<td><code>error#trace</code>
 </td>
-<td>
-<code>
-expr []</code>
+<td><code>expr[]</code>
 </td>
-<td>
-R</td>
-<td>
-Stack trace.</td>
+<td>R</td>
+<td>Stack trace.</td>
 </tr>
 </table>
 <h2><span class="caption-index-2">5.13</span><a name="caption-5-13"></a>expr Class</h2>
 <h3><span class="caption-index-3">5.13.1</span><a name="caption-5-13-1"></a>Properties</h3>
 <table>
 <tr>
-<th>
-Property</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
+<th>Property</th>
+<th>Type</th>
+<th>R/W</th>
+<th>Explanation</th>
 </tr>
 <tr>
-<td>
-<code>
-attrs</code>
+<td><code>attrs</code>
 </td>
-<td>
-<code>
-symbol []</code>
+<td><code>symbol[]</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-attrsopt</code>
+<td><code>attrsopt</code>
 </td>
-<td>
-<code>
-symbol []</code>
+<td><code>symbol[]</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-block</code>
+<td><code>block</code>
 </td>
-<td>
-<code>
-expr</code>
+<td><code>expr</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-blockparam</code>
+<td><code>blockparam</code>
 </td>
-<td>
-<code>
-iterator</code>
+<td><code>iterator</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-body</code>
+<td><code>body</code>
 </td>
-<td>
-<code>
-string</code>
+<td><code>string</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-car</code>
+<td><code>car</code>
 </td>
-<td>
-<code>
-expr</code>
+<td><code>expr</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-cdr</code>
+<td><code>cdr</code>
 </td>
-<td>
-<code>
-iterator</code>
+<td><code>iterator</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-child</code>
+<td><code>child</code>
 </td>
-<td>
-<code>
-expr</code>
+<td><code>expr</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-children</code>
+<td><code>children</code>
 </td>
-<td>
-<code>
-iterator</code>
+<td><code>iterator</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-left</code>
+<td><code>left</code>
 </td>
-<td>
-<code>
-expr</code>
+<td><code>expr</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-lineno</code>
+<td><code>lineno</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-linenobtm</code>
+<td><code>linenobtm</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-operator</code>
+<td><code>operator</code>
 </td>
-<td>
-<code>
-operator</code>
+<td><code>operator</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-postext</code>
+<td><code>postext</code>
 </td>
-<td>
-<code>
-string</code>
+<td><code>string</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-right</code>
+<td><code>right</code>
 </td>
-<td>
-<code>
-expr</code>
+<td><code>expr</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-source</code>
+<td><code>source</code>
 </td>
-<td>
-<code>
-string</code>
+<td><code>string</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-suffix</code>
+<td><code>suffix</code>
 </td>
-<td>
-<code>
-symbol</code>
+<td><code>symbol</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-symbol</code>
+<td><code>symbol</code>
 </td>
-<td>
-<code>
-symbol</code>
+<td><code>symbol</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-trailer</code>
+<td><code>trailer</code>
 </td>
-<td>
-<code>
-expr</code>
+<td><code>expr</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-typename</code>
+<td><code>typename</code>
 </td>
-<td>
-<code>
-string</code>
+<td><code>string</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-typesym</code>
+<td><code>typesym</code>
 </td>
-<td>
-<code>
-symbol</code>
+<td><code>symbol</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-value</code>
+<td><code>value</code>
 </td>
-<td>
-<code>
-any</code>
+<td><code>any</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 </table>
 <h3><span class="caption-index-3">5.13.2</span><a name="caption-5-13-2"></a>Methods</h3>
@@ -3060,98 +2599,58 @@ Returns <code>true</code> if expr is an expression of suffixed.
 <h3><span class="caption-index-3">5.15.1</span><a name="caption-5-15-1"></a>Properties</h3>
 <table>
 <tr>
-<th>
-Property</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
+<th>Property</th>
+<th>Type</th>
+<th>R/W</th>
+<th>Explanation</th>
 </tr>
 <tr>
-<td>
-<code>
-decls</code>
+<td><code>decls</code>
 </td>
-<td>
-<code>
-iterator</code>
+<td><code>iterator</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-expr</code>
+<td><code>expr</code>
 </td>
-<td>
-<code>
-expr</code>
+<td><code>expr</code>
 </td>
-<td>
-R/W</td>
-<td>
-</td>
+<td>R/W</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-format</code>
+<td><code>format</code>
 </td>
-<td>
-<code>
-string</code>
+<td><code>string</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-fullname</code>
+<td><code>fullname</code>
 </td>
-<td>
-<code>
-string</code>
+<td><code>string</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-name</code>
+<td><code>name</code>
 </td>
-<td>
-<code>
-string</code>
+<td><code>string</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-symbol</code>
+<td><code>symbol</code>
 </td>
-<td>
-<code>
-symbol</code>
+<td><code>symbol</code>
 </td>
-<td>
-R/W</td>
-<td>
-</td>
+<td>R/W</td>
+<td></td>
 </tr>
 </table>
 <h3><span class="caption-index-3">5.15.2</span><a name="caption-5-15-2"></a>Methods</h3>
@@ -3222,126 +2721,76 @@ Gets a help object of the specified function object. <code>lang</code> is a symb
 <h3><span class="caption-index-3">5.16.1</span><a name="caption-5-16-1"></a>Properties</h3>
 <table>
 <tr>
-<th>
-Property</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
+<th>Property</th>
+<th>Type</th>
+<th>R/W</th>
+<th>Explanation</th>
 </tr>
 <tr>
-<td>
-<code>
-format</code>
+<td><code>format</code>
 </td>
-<td>
-<code>
-string</code>
+<td><code>string</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-lang</code>
+<td><code>lang</code>
 </td>
-<td>
-<code>
-symbol</code>
+<td><code>symbol</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-text</code>
+<td><code>text</code>
 </td>
-<td>
-<code>
-string</code>
+<td><code>string</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 </table>
 <h2><span class="caption-index-2">5.17</span><a name="caption-5-17"></a>image Class</h2>
 <h3><span class="caption-index-3">5.17.1</span><a name="caption-5-17-1"></a>Properties</h3>
 <table>
 <tr>
-<th>
-Property</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
+<th>Property</th>
+<th>Type</th>
+<th>R/W</th>
+<th>Explanation</th>
 </tr>
 <tr>
-<td>
-<code>
-format</code>
+<td><code>format</code>
 </td>
-<td>
-<code>
-symbol</code>
+<td><code>symbol</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-height</code>
+<td><code>height</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-palette</code>
+<td><code>palette</code>
 </td>
-<td>
-<code>
-palette</code>
+<td><code>palette</code>
 </td>
-<td>
-R/W</td>
-<td>
-</td>
+<td>R/W</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-width</code>
+<td><code>width</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R</td>
-<td>
-</td>
+<td>R</td>
+<td></td>
 </tr>
 </table>
 <h3><span class="caption-index-3">5.17.2</span><a name="caption-5-17-2"></a>Methods</h3>
@@ -4658,28 +4107,18 @@ Returns a transpose matrix.
 <h3><span class="caption-index-3">5.21.1</span><a name="caption-5-21-1"></a>Properties</h3>
 <table>
 <tr>
-<th>
-Property</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
+<th>Property</th>
+<th>Type</th>
+<th>R/W</th>
+<th>Explanation</th>
 </tr>
 <tr>
-<td>
-<code>
-symbol</code>
+<td><code>symbol</code>
 </td>
-<td>
-<code>
-symbol</code>
+<td><code>symbol</code>
 </td>
-<td>
-R</td>
-<td>
-Operator symbol.</td>
+<td>R</td>
+<td>Operator symbol.</td>
 </tr>
 </table>
 <h3><span class="caption-index-3">5.21.2</span><a name="caption-5-21-2"></a>Methods</h3>
@@ -4822,98 +4261,58 @@ Watis for the semaphore being released by other threads, and ghen grabs that own
 <h3><span class="caption-index-3">5.25.1</span><a name="caption-5-25-1"></a>Properties</h3>
 <table>
 <tr>
-<th>
-Property</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
+<th>Property</th>
+<th>Type</th>
+<th>R/W</th>
+<th>Explanation</th>
 </tr>
 <tr>
-<td>
-<code>
-stat</code>
+<td><code>stat</code>
 </td>
-<td>
-<code>
-object</code>
+<td><code>object</code>
 </td>
-<td>
-R</td>
-<td>
-Status of the stream.</td>
+<td>R</td>
+<td>Status of the stream.</td>
 </tr>
 <tr>
-<td>
-<code>
-name</code>
+<td><code>name</code>
 </td>
-<td>
-<code>
-string</code>
+<td><code>string</code>
 </td>
-<td>
-R</td>
-<td>
-Name of the stream.</td>
+<td>R</td>
+<td>Name of the stream.</td>
 </tr>
 <tr>
-<td>
-<code>
-identifier</code>
+<td><code>identifier</code>
 </td>
-<td>
-<code>
-string</code>
+<td><code>string</code>
 </td>
-<td>
-R</td>
-<td>
-Identifier of the stream.</td>
+<td>R</td>
+<td>Identifier of the stream.</td>
 </tr>
 <tr>
-<td>
-<code>
-readable</code>
+<td><code>readable</code>
 </td>
-<td>
-<code>
-boolean</code>
+<td><code>boolean</code>
 </td>
-<td>
-R</td>
-<td>
-Indicates whether the stream is readable.</td>
+<td>R</td>
+<td>Indicates whether the stream is readable.</td>
 </tr>
 <tr>
-<td>
-<code>
-writable</code>
+<td><code>writable</code>
 </td>
-<td>
-<code>
-boolean</code>
+<td><code>boolean</code>
 </td>
-<td>
-R</td>
-<td>
-Indicates whether the stream is writable.</td>
+<td>R</td>
+<td>Indicates whether the stream is writable.</td>
 </tr>
 <tr>
-<td>
-<code>
-codec</code>
+<td><code>codec</code>
 </td>
-<td>
-<code>
-codec</code>
+<td><code>codec</code>
 </td>
-<td>
-R</td>
-<td>
-<code>codec</code> instance associated with the stream.</td>
+<td>R</td>
+<td>`codec` instance associated with the stream.</td>
 </tr>
 </table>
 <h3><span class="caption-index-3">5.25.2</span><a name="caption-5-25-2"></a>Methods</h3>
@@ -5189,56 +4588,34 @@ R</td>
 <h3><span class="caption-index-3">5.28.1</span><a name="caption-5-28-1"></a>Properties</h3>
 <table>
 <tr>
-<th>
-Property</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
+<th>Property</th>
+<th>Type</th>
+<th>R/W</th>
+<th>Explanation</th>
 </tr>
 <tr>
-<td>
-<code>
-days</code>
+<td><code>days</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R/W</td>
-<td>
-</td>
+<td>R/W</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-secs</code>
+<td><code>secs</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R/W</td>
-<td>
-</td>
+<td>R/W</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-usec</code>
+<td><code>usec</code>
 </td>
-<td>
-<code>
-number</code>
+<td><code>number</code>
 </td>
-<td>
-R/W</td>
-<td>
-</td>
+<td>R/W</td>
+<td></td>
 </tr>
 </table>
 <h3><span class="caption-index-3">5.28.2</span><a name="caption-5-28-2"></a>Methods</h3>
@@ -5255,112 +4632,66 @@ Returns a timedelta instance with specified values. The instance actually holds 
 <h3><span class="caption-index-3">5.29.1</span><a name="caption-5-29-1"></a>Properties</h3>
 <table>
 <tr>
-<th>
-Property</th>
-<th>
-Type</th>
-<th>
-R/W</th>
-<th>
-Explanation</th>
+<th>Property</th>
+<th>Type</th>
+<th>R/W</th>
+<th>Explanation</th>
 </tr>
 <tr>
-<td>
-<code>
-scheme</code>
+<td><code>scheme</code>
 </td>
-<td>
-<code>
-string</code>
+<td><code>string</code>
 </td>
-<td>
-R/W</td>
-<td>
-</td>
+<td>R/W</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-user</code>
+<td><code>user</code>
 </td>
-<td>
-<code>
-string</code>
+<td><code>string</code>
 </td>
-<td>
-R/W</td>
-<td>
-</td>
+<td>R/W</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-password</code>
+<td><code>password</code>
 </td>
-<td>
-<code>
-string</code>
+<td><code>string</code>
 </td>
-<td>
-R/W</td>
-<td>
-</td>
+<td>R/W</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-host</code>
+<td><code>host</code>
 </td>
-<td>
-<code>
-string</code>
+<td><code>string</code>
 </td>
-<td>
-R/W</td>
-<td>
-</td>
+<td>R/W</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-port</code>
+<td><code>port</code>
 </td>
-<td>
-<code>
-string</code>
+<td><code>string</code>
 </td>
-<td>
-R/W</td>
-<td>
-</td>
+<td>R/W</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-urlpath</code>
+<td><code>urlpath</code>
 </td>
-<td>
-<code>
-string</code>
+<td><code>string</code>
 </td>
-<td>
-R/W</td>
-<td>
-</td>
+<td>R/W</td>
+<td></td>
 </tr>
 <tr>
-<td>
-<code>
-misc</code>
+<td><code>misc</code>
 </td>
-<td>
-<code>
-string</code>
+<td><code>string</code>
 </td>
-<td>
-R/W</td>
-<td>
-</td>
+<td>R/W</td>
+<td></td>
 </tr>
 </table>
 <h3><span class="caption-index-3">5.29.2</span><a name="caption-5-29-2"></a>Methods</h3>
@@ -5483,10 +4814,10 @@ If <code>block</code> is specified, it would be evaluated with block parameter <
 </p>
 <h1><span class="caption-index-1">7</span><a name="caption-7"></a>bmp Module</h1>
 <p>
-The <code>bmp</code> module provides measures to read/write image data in Microsoft BMP format. To utilize it, import <code>bmp</code> module using <code>import</code> function.
+The <code>bmp</code> module provides measures to read/write image data in Microsoft BMP format. To utilize it, import the <code>bmp</code> module using <code>import</code> function.
 </p>
 <p>
-Below is an example:
+Below is an example to read a BMP file:
 </p>
 <pre><code>import(bmp)
 img = image('foo.bmp')
@@ -5555,6 +4886,8 @@ Writes a BMP image to a stream.
 <code>stream#writer@bzip2(blockSize100k?:number) {block?}</code>
 </p>
 <h1><span class="caption-index-1">9</span><a name="caption-9"></a>cairo Module</h1>
+<pre><code>
+</code></pre>
 <p>
 The <code>cairo</code> module provides methods to draw 2-D graphics using Cairo library. Official site of Cairo is <a href="http://cairographics.org/">http://cairographics.org/</a>.
 </p>
@@ -7924,7 +7257,7 @@ Removes a directory. If the directory contains sub directories, an error occurs.
 </p>
 <h1><span class="caption-index-1">16</span><a name="caption-16"></a>gif Module</h1>
 <p>
-The <code>gif module provides measures to read/write image data in GIF format.</code>To utilize it, import <code>gif</code> module using <code>import</code> function.
+The <code>gif module provides measures to read/write image data in GIF format.</code>To utilize it, import the <code>gif</code> module using <code>import</code> function.
 </p>
 <p>
 Below is an example to read a GIF file:
@@ -9231,10 +8564,12 @@ The <code>http</code> module provides measures to connect the Internet through H
 <h2><span class="caption-index-2">23.1</span><a name="caption-23-1"></a>Module Functions</h2>
 <h1><span class="caption-index-1">24</span><a name="caption-24"></a>jpeg Module</h1>
 <p>
-The <code>jpeg</code> module provides measures to read/write image data in JPEG format. To utilize it, import <code>jpeg</code> module using <code>import</code> function.
+The <code>jpeg</code> module provides measures to read/write image data in JPEG format. To utilize it, import the <code>jpeg</code> module using <code>import</code> function.
 </p>
+<pre><code>
+</code></pre>
 <p>
-Below is an example:
+Below is an example to read a JPEG file:
 </p>
 <pre><code>import(jpeg)
 img = image('foo.jpeg')
@@ -9965,10 +9300,19 @@ It creates an instance to access data in SoundFont file.
 </p>
 <h2><span class="caption-index-2">28.11</span><a name="caption-28-11"></a>midi.synthesizer Class</h2>
 <h1><span class="caption-index-1">29</span><a name="caption-29"></a>msico Module</h1>
-<h2><span class="caption-index-2">29.1</span><a name="caption-29-1"></a>Abstract</h2>
-<h2><span class="caption-index-2">29.2</span><a name="caption-29-2"></a>Sample</h2>
-<h2><span class="caption-index-2">29.3</span><a name="caption-29-3"></a>Module Functions</h2>
-<h2><span class="caption-index-2">29.4</span><a name="caption-29-4"></a>msico.content Class</h2>
+<p>
+The <code>msico</code> module provides measures to read/write image data in Microsoft Icon file format. To utilize it, import the <code>msico</code> module using <code>import</code> function.
+</p>
+<pre><code>
+</code></pre>
+<p>
+Below is an example to read an ICO file:
+</p>
+<pre><code>import(msico)
+img = image('foo.ico')
+</code></pre>
+<h2><span class="caption-index-2">29.1</span><a name="caption-29-1"></a>Module Functions</h2>
+<h2><span class="caption-index-2">29.2</span><a name="caption-29-2"></a>msico.content Class</h2>
 <p>
 <strong>msico.content</strong>
 </p>
@@ -9990,7 +9334,7 @@ Writes an ICO image to a stream.
 <p>
 <code>msico.content#addimage(image:image):map:reduce</code>
 </p>
-<h2><span class="caption-index-2">29.5</span><a name="caption-29-5"></a>Methods Added to image Class</h2>
+<h2><span class="caption-index-2">29.3</span><a name="caption-29-3"></a>Methods Added to image Class</h2>
 <p>
 <strong>image#read@msico</strong>
 </p>
@@ -12359,19 +11703,18 @@ Creates an iterator that recursively lists item names under the specified direct
 </p>
 <h1><span class="caption-index-1">34</span><a name="caption-34"></a>png Module</h1>
 <p>
-The <code>png</code> module provides measures to read/write image data in PNG format. To utilize it, import <code>png</code> module using <code>import</code> function.
+The <code>png</code> module provides measures to read/write image data in PNG format. To utilize it, import the <code>png</code> module using <code>import</code> function.
 </p>
 <p>
 This uses <code>libpng</code> library that is published in the URL: http://www.libpng.org/pub/png/libpng.html.
 </p>
-<h2><span class="caption-index-2">34.1</span><a name="caption-34-1"></a>Sample</h2>
 <p>
-Read a PNG file:
+Below is an example to read a PNG file:
 </p>
 <pre><code>import(png)
 img = image('foo.png')
 </code></pre>
-<h2><span class="caption-index-2">34.2</span><a name="caption-34-2"></a>Exntension of Function's Capability</h2>
+<h2><span class="caption-index-2">34.1</span><a name="caption-34-1"></a>Exntension of Function's Capability</h2>
 <p>
 This module extends the capability of function <code>image()</code> and instance method <code>image#write()</code> so that they can read/write PNG files.
 </p>
@@ -12388,8 +11731,8 @@ When instance method <code>image#write()</code> is provided with a stream that s
 <ul>
 <li>The identifier of the stream ends with a suffix <code>.png</code>.</li>
 </ul>
-<h2><span class="caption-index-2">34.3</span><a name="caption-34-3"></a>Module Functions</h2>
-<h2><span class="caption-index-2">34.4</span><a name="caption-34-4"></a>Methods Added to image Class</h2>
+<h2><span class="caption-index-2">34.2</span><a name="caption-34-2"></a>Module Functions</h2>
+<h2><span class="caption-index-2">34.3</span><a name="caption-34-3"></a>Methods Added to image Class</h2>
 <p>
 <strong>image#read@png</strong>
 </p>
@@ -12411,6 +11754,17 @@ Writes a PNG image to a stream.
 <h1><span class="caption-index-1">35</span><a name="caption-35"></a>postgresql Module</h1>
 <h2><span class="caption-index-2">35.1</span><a name="caption-35-1"></a>Module Functions</h2>
 <h1><span class="caption-index-1">36</span><a name="caption-36"></a>ppm Module</h1>
+<p>
+The <code>ppm</code> module provides measures to read/write image data in PPM format. To utilize it, import the <code>ppm</code> module using <code>import</code> function.
+</p>
+<pre><code>
+</code></pre>
+<p>
+Below is an example to read a PPM file:
+</p>
+<pre><code>import(ppm)
+img = image('foo.ppm')
+</code></pre>
 <h2><span class="caption-index-2">36.1</span><a name="caption-36-1"></a>Module Functions</h2>
 <h2><span class="caption-index-2">36.2</span><a name="caption-36-2"></a>Methods Added to image Class</h2>
 <p>
@@ -15893,6 +15247,17 @@ The <code>tar</code> module provides measures to read/write TAR files.
 <h1><span class="caption-index-1">42</span><a name="caption-42"></a>tester Module</h1>
 <h2><span class="caption-index-2">42.1</span><a name="caption-42-1"></a>Module Functions</h2>
 <h1><span class="caption-index-1">43</span><a name="caption-43"></a>tiff Module</h1>
+<p>
+The <code>tiff</code> module provides measures to read/write image data in TIFF format. To utilize it, import the <code>tiff</code> module using <code>import</code> function.
+</p>
+<pre><code>
+</code></pre>
+<p>
+Below is an example to read a TIFF file:
+</p>
+<pre><code>import(tiff)
+img = image('foo.tiff')
+</code></pre>
 <h2><span class="caption-index-2">43.1</span><a name="caption-43-1"></a>Module Functions</h2>
 <h2><span class="caption-index-2">43.2</span><a name="caption-43-2"></a>Methods Added to image Class</h2>
 <p>
@@ -16026,6 +15391,33 @@ The <code>wx</code> module provides functions and methods of wxWidgets library.
 <code>xml.parser#parse(stream:stream:r):void</code>
 </p>
 <h1><span class="caption-index-1">48</span><a name="caption-48"></a>xpm Module</h1>
+<p>
+The <code>xpm</code> module provides measures to write image data in XPM format and to parse a list of strings that is described in the format. To utilize it, import the <code>xpm</code> module using <code>import</code> function.
+</p>
+<p>
+Below is an example to parse a list of string described in XPM format.
+</p>
+<pre><code>import(xpm)
+foo_xpm = @{
+"13 13 2 2 0 0",
+"   c #000000",
+"#  c #ffffff",
+"          #               ",
+"          #               ",
+"  # # # # # # # # # #     ",
+"          #               ",
+"          #     #         ",
+"        # # # # # #       ",
+"      #   #     #   #     ",
+"    #     #   #       #   ",
+"  #       #   #       #   ",
+"  #       #   #       #   ",
+"  #       # #         #   ",
+"    # # #           #     ",
+"                # #       ",
+}
+img = image(`rgba).xpmdata(foo_xpm)
+</code></pre>
 <h2><span class="caption-index-2">48.1</span><a name="caption-48-1"></a>Module Functions</h2>
 <h2><span class="caption-index-2">48.2</span><a name="caption-48-2"></a>Methods Added to image Class</h2>
 <p>
@@ -16079,6 +15471,8 @@ The <code>yaml</code> module provides measures to read/write YAML files.
 <p>
 The <code>zip</code> module provides measures to read/write ZIP files.
 </p>
+<pre><code>
+</code></pre>
 <p>
 Below is an exapmple to create a ZIP archive file:
 </p>

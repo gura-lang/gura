@@ -5,6 +5,32 @@ import(xpm)
 text = R'''
 # xpm Module
 
+The `xpm` module provides measures to write image data in XPM format
+and to parse a list of strings that is described in the format.
+To utilize it, import the `xpm` module using `import` function.
+
+Below is an example to parse a list of strings described in XPM format.
+
+    import(xpm)
+    foo_xpm = @{
+    "13 13 2 2 0 0",
+    "   c #000000",
+    "#  c #ffffff",
+    "          #               ",
+    "          #               ",
+    "  # # # # # # # # # #     ",
+    "          #               ",
+    "          #     #         ",
+    "        # # # # # #       ",
+    "      #   #     #   #     ",
+    "    #     #   #       #   ",
+    "  #       #   #       #   ",
+    "  #       #   #       #   ",
+    "  #       # #         #   ",
+    "    # # #           #     ",
+    "                # #       ",
+    }
+    img = image(`rgba).xpmdata(foo_xpm)
 '''
 
 write(doc:markdown.document) = {

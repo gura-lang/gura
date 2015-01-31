@@ -5,6 +5,13 @@ import(ppm)
 text = R'''
 # ppm Module
 
+The `ppm` module provides measures to read/write image data in PPM format.
+To utilize it, import the `ppm` module using `import` function.
+	
+Below is an example to read a PPM file:
+
+    import(ppm)
+	img = image('foo.ppm')
 '''
 
 write(doc:markdown.document) = {

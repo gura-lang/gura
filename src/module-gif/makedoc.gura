@@ -6,8 +6,8 @@ text = R'''
 # gif Module
 
 The `gif module provides measures to read/write image data in GIF format.
-To utilize it, import `gif` module using `import` function.
-	
+To utilize it, import the `gif` module using `import` function.
+
 Below is an example to read a GIF file:
 
     import(gif)

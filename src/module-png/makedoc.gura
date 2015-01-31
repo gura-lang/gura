@@ -6,13 +6,11 @@ text = R'''
 # png Module
 
 The `png` module provides measures to read/write image data in PNG format.
-To utilize it, import `png` module using `import` function.
+To utilize it, import the `png` module using `import` function.
 
 This uses `libpng` library that is published in the URL: http://www.libpng.org/pub/png/libpng.html.
-	
-## Sample
 
-Read a PNG file:
+Below is an example to read a PNG file:
 
     import(png)
     img = image('foo.png')
