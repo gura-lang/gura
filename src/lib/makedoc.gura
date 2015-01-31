@@ -29,7 +29,7 @@ Below is an example to use `args` class:
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>values</code></td><td><code>list</code></td><td>R</td>
+<tr><td><code>args#values</code></td><td><code>list</code></td><td>R</td>
 <td>A list of argument values.</td></tr>
 
 </table>
@@ -293,70 +293,70 @@ text_expr = R'''
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>attrs</code></td><td><code>symbol[]</code></td><td>R</td>
+<tr><td><code>expr#attrs</code></td><td><code>symbol[]</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>attrsopt</code></td><td><code>symbol[]</code></td><td>R</td>
+<tr><td><code>expr#attrsopt</code></td><td><code>symbol[]</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>block</code></td><td><code>expr</code></td><td>R</td>
+<tr><td><code>expr#block</code></td><td><code>expr</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>blockparam</code></td><td><code>iterator</code></td><td>R</td>
+<tr><td><code>expr#blockparam</code></td><td><code>iterator</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>body</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>expr#body</code></td><td><code>string</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>car</code></td><td><code>expr</code></td><td>R</td>
+<tr><td><code>expr#car</code></td><td><code>expr</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>cdr</code></td><td><code>iterator</code></td><td>R</td>
+<tr><td><code>expr#cdr</code></td><td><code>iterator</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>child</code></td><td><code>expr</code></td><td>R</td>
+<tr><td><code>expr#child</code></td><td><code>expr</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>children</code></td><td><code>iterator</code></td><td>R</td>
+<tr><td><code>expr#children</code></td><td><code>iterator</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>left</code></td><td><code>expr</code></td><td>R</td>
+<tr><td><code>expr#left</code></td><td><code>expr</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>lineno</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>expr#lineno</code></td><td><code>number</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>linenobtm</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>expr#linenobtm</code></td><td><code>number</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>operator</code></td><td><code>operator</code></td><td>R</td>
+<tr><td><code>expr#operator</code></td><td><code>operator</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>postext</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>expr#postext</code></td><td><code>string</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>right</code></td><td><code>expr</code></td><td>R</td>
+<tr><td><code>expr#right</code></td><td><code>expr</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>source</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>expr#source</code></td><td><code>string</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>suffix</code></td><td><code>symbol</code></td><td>R</td>
+<tr><td><code>expr#suffix</code></td><td><code>symbol</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>symbol</code></td><td><code>symbol</code></td><td>R</td>
+<tr><td><code>expr#symbol</code></td><td><code>symbol</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>trailer</code></td><td><code>expr</code></td><td>R</td>
+<tr><td><code>expr#trailer</code></td><td><code>expr</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>typename</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>expr#typename</code></td><td><code>string</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>typesym</code></td><td><code>symbol</code></td><td>R</td>
+<tr><td><code>expr#typesym</code></td><td><code>symbol</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>value</code></td><td><code>any</code></td><td>R</td>
+<tr><td><code>expr#value</code></td><td><code>any</code></td><td>R</td>
 <td></td></tr>
 
 </table>
@@ -375,22 +375,22 @@ text_function = R'''
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>decls</code></td><td><code>iterator</code></td><td>R</td>
+<tr><td><code>function#decls</code></td><td><code>iterator</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>expr</code></td><td><code>expr</code></td><td>R/W</td>
+<tr><td><code>function#expr</code></td><td><code>expr</code></td><td>R/W</td>
 <td></td></tr>
 
-<tr><td><code>format</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>function#format</code></td><td><code>string</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>fullname</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>function#fullname</code></td><td><code>string</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>name</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>function#name</code></td><td><code>string</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>symbol</code></td><td><code>symbol</code></td><td>R/W</td>
+<tr><td><code>function#symbol</code></td><td><code>symbol</code></td><td>R/W</td>
 <td></td></tr>
 
 </table>
@@ -404,13 +404,13 @@ text_help = R'''
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>format</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>help#format</code></td><td><code>string</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>lang</code></td><td><code>symbol</code></td><td>R</td>
+<tr><td><code>help#lang</code></td><td><code>symbol</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>text</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>help#text</code></td><td><code>string</code></td><td>R</td>
 <td></td></tr>
 
 </table>
@@ -424,16 +424,16 @@ text_image = R'''
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>format</code></td><td><code>symbol</code></td><td>R</td>
+<tr><td><code>image#format</code></td><td><code>symbol</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>height</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>image#height</code></td><td><code>number</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>palette</code></td><td><code>palette</code></td><td>R/W</td>
+<tr><td><code>image#palette</code></td><td><code>palette</code></td><td>R/W</td>
 <td></td></tr>
 
-<tr><td><code>width</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>image#width</code></td><td><code>number</code></td><td>R</td>
 <td></td></tr>
 
 </table>
@@ -462,7 +462,7 @@ text_operator = R'''
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>symbol</code></td><td><code>symbol</code></td><td>R</td>
+<tr><td><code>operator#symbol</code></td><td><code>symbol</code></td><td>R</td>
 <td>Operator symbol.</td></tr>
 
 </table>
@@ -492,22 +492,22 @@ text_stream = R'''
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>stat</code></td><td><code>object</code></td><td>R</td>
+<tr><td><code>stream#stat</code></td><td><code>object</code></td><td>R</td>
 <td>Status of the stream.</td></tr>
 
-<tr><td><code>name</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>stream#name</code></td><td><code>string</code></td><td>R</td>
 <td>Name of the stream.</td></tr>
 
-<tr><td><code>identifier</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>stream#identifier</code></td><td><code>string</code></td><td>R</td>
 <td>Identifier of the stream.</td></tr>
 
-<tr><td><code>readable</code></td><td><code>boolean</code></td><td>R</td>
+<tr><td><code>stream#readable</code></td><td><code>boolean</code></td><td>R</td>
 <td>Indicates whether the stream is readable.</td></tr>
 
-<tr><td><code>writable</code></td><td><code>boolean</code></td><td>R</td>
+<tr><td><code>stream#writable</code></td><td><code>boolean</code></td><td>R</td>
 <td>Indicates whether the stream is writable.</td></tr>
 
-<tr><td><code>codec</code></td><td><code>codec</code></td><td>R</td>
+<tr><td><code>stream#codec</code></td><td><code>codec</code></td><td>R</td>
 <td>`codec` instance associated with the stream.</td></tr>
 
 </table>
@@ -531,13 +531,13 @@ text_timedelta = R'''
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>days</code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>timedelta#days</code></td><td><code>number</code></td><td>R/W</td>
 <td></td></tr>
 
-<tr><td><code>secs</code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>timedelta#secs</code></td><td><code>number</code></td><td>R/W</td>
 <td></td></tr>
 
-<tr><td><code>usec</code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>timedelta#usec</code></td><td><code>number</code></td><td>R/W</td>
 <td></td></tr>
 
 </table>
@@ -551,25 +551,25 @@ text_uri = R'''
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>scheme</code></td><td><code>string</code></td><td>R/W</td>
+<tr><td><code>uri#scheme</code></td><td><code>string</code></td><td>R/W</td>
 <td></td></tr>
 
-<tr><td><code>user</code></td><td><code>string</code></td><td>R/W</td>
+<tr><td><code>uri#user</code></td><td><code>string</code></td><td>R/W</td>
 <td></td></tr>
 
-<tr><td><code>password</code></td><td><code>string</code></td><td>R/W</td>
+<tr><td><code>uri#password</code></td><td><code>string</code></td><td>R/W</td>
 <td></td></tr>
 
-<tr><td><code>host</code></td><td><code>string</code></td><td>R/W</td>
+<tr><td><code>uri#host</code></td><td><code>string</code></td><td>R/W</td>
 <td></td></tr>
 
-<tr><td><code>port</code></td><td><code>string</code></td><td>R/W</td>
+<tr><td><code>uri#port</code></td><td><code>string</code></td><td>R/W</td>
 <td></td></tr>
 
-<tr><td><code>urlpath</code></td><td><code>string</code></td><td>R/W</td>
+<tr><td><code>uri#urlpath</code></td><td><code>string</code></td><td>R/W</td>
 <td></td></tr>
 
-<tr><td><code>misc</code></td><td><code>string</code></td><td>R/W</td>
+<tr><td><code>uri#misc</code></td><td><code>string</code></td><td>R/W</td>
 <td></td></tr>
 
 </table>

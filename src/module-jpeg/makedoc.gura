@@ -7,7 +7,7 @@ text = R'''
 
 The `jpeg` module provides measures to read/write image data in JPEG format.
 To utilize it, import the `jpeg` module using `import` function.
-	
+
 Below is an example to read a JPEG file:
 
     import(jpeg)

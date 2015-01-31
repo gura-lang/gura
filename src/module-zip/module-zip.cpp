@@ -387,9 +387,9 @@ Gura_DeclareMethod(writer, add)
 		"\n"
 		"Argument `compression` specifies the compression method and takes one of the following symbol.\n"
 		"\n"
-		"- `store`\n"
-		"- `deflate`\n"
-		"- `bzip2`\n");
+		"- `` `store``\n"
+		"- `` `deflate``\n"
+		"- `` `bzip2``\n");
 }
 
 Gura_ImplementMethod(writer, add)
@@ -524,9 +524,9 @@ Gura_DeclareFunction(writer)
 		"\n"
 		"Argument `compression` specifies the compression method and takes one of the following symbol.\n"
 		"\n"
-		"- `store`\n"
-		"- `deflate`\n"
-		"- `bzip2`\n");
+		"- `` `store``\n"
+		"- `` `deflate``\n"
+		"- `` `bzip2``\n");
 }
 
 Gura_ImplementFunction(writer)

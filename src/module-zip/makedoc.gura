@@ -6,32 +6,27 @@ text = R'''
 # zip Module
 
 The `zip` module provides measures to read/write ZIP files.
-	
+
+Below is an example to reads entries from an archive file:
+
+    import(zip)
+    zip.reader('foo.zip') {|r|
+        println(r.entries():*stat:*filename)
+    }
+
 Below is an exapmple to create a ZIP archive file:
 
     import(zip)
-    zip.writer('hoge.zip') {|w|
+    zip.writer('foo.zip') {|w|
         w.add('file1.txt')
         w.add('file2.txt')
         w.add('file3.txt')
         w.close()
     }		
-		
-Below is an example to reads entries from an archive file:
-
-    import(zip)
-    zip.reader('hoge.zip') {|r|
-        println(r.entries():*stat:*filename)
-    }
 '''
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-	]
 	doc << R'''
 	## zip.reader Class
 	'''
