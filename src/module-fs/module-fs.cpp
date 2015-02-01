@@ -809,6 +809,7 @@ Gura_DeclareFunction(cpdir)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Copies a directory.\n"
+		"\n"
 		"Arguments `src` and `dst` specify source directory and destination directory respectively.\n"
 		"In default, sub directories are not copied.`\n"
 		"Specifying `:tree` attribute would copy all the sub directories in the source.\n");
@@ -852,6 +853,7 @@ Gura_DeclareFunction(mkdir)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates a directory.\n"
+		"\n"
 		"If `pathname` consists of multiple sub directories and some of them still doesn't exist,\n"
 		"an error occurs. Specifying `:tree` attribute would create such directories.\n");
 }
@@ -913,7 +915,9 @@ Gura_DeclareFunction(rmdir)
 	DeclareAttr(Gura_UserSymbol(tree));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Removes a directory. If the directory contains sub directories, an error occurs.\n"
+		"Removes a directory.\n"
+		"\n"
+		"If the directory contains sub directories, an error occurs.\n"
 		"Specifying `:tree` attribute would delete such a directory.\n");
 }
 

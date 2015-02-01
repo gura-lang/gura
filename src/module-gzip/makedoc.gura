@@ -6,6 +6,17 @@ text = R'''
 # gzip Module
 
 The `gzip` module provices measures to read/write GZIP files.
+To utilize it, import the `gzip` module using `import` function.
+
+Below is an example to read data from a GZIP file and write its uncompressed data to another file.
+
+    import(gzip)
+    gzip.reader('foo.dat.gz').copyto('foo.dat')
+
+Below is an example to read data from a file and write its compressed data to a GZIP file.
+
+    import(gzip)
+    gzip.writer('foo.dat.gz').copyfrom('foo.dat')
 '''
 
 write(doc:markdown.document) = {

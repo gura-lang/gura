@@ -5,7 +5,18 @@ import(bzip2)
 text = R'''
 # bzip2 Module
 
+The `bzip2` module provices measures to read/write BZIP2 files.
+To utilize it, import the `bzip2` module using `import` function.
 
+Below is an example to read data from a BZIP2 file and write its uncompressed data to another file.
+
+    import(bzip2)
+    bzip2.reader('foo.dat.bz2').copyto('foo.dat')
+
+Below is an example to read data from a file and write its compressed data to a BZIP2 file.
+
+    import(bzip2)
+    bzip2.writer('foo.dat.bz2').copyfrom('foo.dat')
 '''
 
 write(doc:markdown.document) = {

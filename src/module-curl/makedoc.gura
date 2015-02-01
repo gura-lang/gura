@@ -6,6 +6,7 @@ text = R'''
 # curl Module
 
 The `curl` module provices measures to access Internet resources using cURL library.
+To utilize it, import the `curl` module using `import` function.
 '''
 
 write(doc:markdown.document) = {

@@ -5,7 +5,7 @@ import(gif)
 text = R'''
 # gif Module
 
-The `gif module provides measures to read/write image data in GIF format.
+The `gif` module provides measures to read/write image data in GIF format.
 To utilize it, import the `gif` module using `import` function.
 
 Below is an example to read a GIF file:
@@ -28,7 +28,7 @@ When function `image()` is provided with a stream that satisfies the following c
 it would recognize the stream as a GIF file.
 
 - The identifier of the stream ends with a suffix `.gif`.
-- The stream data begins with a byte sequence "GIF87a" or "GIF89a".
+- The stream data begins with a byte sequence "`GIF87a`" or "`GIF89a`".
 
 When instance method `image#write()` is provided with a stream that satisfies the following condition,
 it would write image data in GIF format.

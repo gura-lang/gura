@@ -6,14 +6,16 @@ text = R'''
 # csv Module
 
 The `csv` module provices measures to read/write CSV files.
+To utilize it, import the `csv` module using `import` function.
 
-Below is an example:
+Below is an example to read a CSV file that contains three fields per line:
 
     import(csv)
+    
     Record = struct(name:string, age:number, email:string)
     records = Record * csv.read('records.csv')
     printf('name:%s, age:%d, email:%s¥n',
-    records:*name, records:*age, records:*email)
+           records:*name, records:*age, records:*email)
 '''
 
 write(doc:markdown.document) = {

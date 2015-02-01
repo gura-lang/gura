@@ -6,6 +6,7 @@ text = R'''
 # gmp Module
 
 The `gmp` module provides measures to calculate numbers in a variable-length format.
+
 It expands features of operators like addition and multiplier
 so that they can calculate such numbers.
 '''

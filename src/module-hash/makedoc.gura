@@ -6,6 +6,8 @@ text = R'''
 # hash Module
 
 The `hash` module provides measures to calculate hash values of a data sequence in a stream.
+To utilize it, import the `hash` module using `import` function.
+
 '''
 
 write(doc:markdown.document) = {

@@ -5,7 +5,7 @@ import(glu)
 text = R'''
 # glu Module
 
-The `glu` module
+The `glu` module provides functions of GLU library.
 '''
 
 write(doc:markdown.document) = {

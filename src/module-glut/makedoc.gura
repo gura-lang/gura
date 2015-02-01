@@ -5,7 +5,7 @@ import(glut)
 text = R'''
 # glut Module
 
-The `glut` module
+The `glut` module provides functions of GLUT library.
 '''
 
 write(doc:markdown.document) = {
