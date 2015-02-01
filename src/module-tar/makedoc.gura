@@ -6,6 +6,7 @@ text = R'''
 # tar Module
 
 The `tar` module provides measures to read/write TAR files.
+To utilize it, import the `tar` module using `import` function.
 '''
 
 write(doc:markdown.document) = {

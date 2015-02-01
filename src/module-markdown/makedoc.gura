@@ -5,6 +5,7 @@ text = R'''
 # markdown Module
 
 The `markdown` module provides measures to parse a text formatted in markdown syntax.
+To utilize it, import the `markdown` module using `import` function.
 '''
 
 write(doc:markdown.document) = {

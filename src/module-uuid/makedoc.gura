@@ -5,6 +5,8 @@ import(uuid)
 text = R'''
 # uuid Module
 
+The `uuid` module provides functions to generate UUIDs.
+To utilize it, import the `uuid` module using `import` function.
 '''
 
 write(doc:markdown.document) = {

@@ -5,7 +5,7 @@ import(gzip)
 text = R'''
 # gzip Module
 
-The `gzip` module provices measures to read/write GZIP files.
+The `gzip` module provides measures to read/write GZIP files.
 To utilize it, import the `gzip` module using `import` function.
 
 Below is an example to read data from a GZIP file and write its uncompressed data to another file.

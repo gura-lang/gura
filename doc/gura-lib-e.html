@@ -5536,6 +5536,21 @@ Reads an BMP image from a stream.
 Writes a BMP image to a stream.
 </p>
 <h1><span class="caption-index-1">8</span><a name="caption-8"></a>bzip2 Module</h1>
+<p>
+The <code>bzip2</code> module provices measures to read/write BZIP2 files. To utilize it, import the <code>bzip2</code> module using <code>import</code> function.
+</p>
+<p>
+Below is an example to read data from a BZIP2 file and write its uncompressed data to another file.
+</p>
+<pre><code>import(bzip2)
+bzip2.reader('foo.dat.bz2').copyto('foo.dat')
+</code></pre>
+<p>
+Below is an example to read data from a file and write its compressed data to a BZIP2 file.
+</p>
+<pre><code>import(bzip2)
+bzip2.writer('foo.dat.bz2').copyfrom('foo.dat')
+</code></pre>
 <h2><span class="caption-index-2">8.1</span><a name="caption-8-1"></a>Module Functions</h2>
 <p>
 <strong>bzip2.reader</strong>
@@ -7265,7 +7280,7 @@ Gets the weight a toy font.
 <h3><span class="caption-index-3">9.4.1</span><a name="caption-9-4-1"></a>cairo_matrix_t - Generic matrix operations</h3>
 <h1><span class="caption-index-1">10</span><a name="caption-10"></a>conio Module</h1>
 <p>
-The <code>conio</code> module provides following measures to control a console screen:
+The <code>conio</code> module provides following measures to work on a console screen:
 </p>
 <ul>
 <li>Moves the cursor where texts are printed.</li>
@@ -7274,10 +7289,16 @@ The <code>conio</code> module provides following measures to control a console s
 <li>Waits for keyboard input.</li>
 </ul>
 <p>
-Below is an example:
+To utilize it, import the <code>conio</code> module using <code>import</code> function.
 </p>
-<pre><code>conio.clear()
-[w, h] = conio.getwinsize() conio.moveto(0, 0) {
+<p>
+Below is an example to print a frame around a console:
+</p>
+<pre><code>import(conio)
+
+conio.clear()
+[w, h] = conio.getwinsize()
+conio.moveto(0, 0) {
     print('*' * w)
 }
 conio.moveto(0, 1 .. (h - 2)) {
@@ -7400,16 +7421,17 @@ Character code numbers of some of the special keys are defined as below:
 </ul>
 <h1><span class="caption-index-1">11</span><a name="caption-11"></a>csv Module</h1>
 <p>
-The <code>csv</code> module provices measures to read/write CSV files.
+The <code>csv</code> module provices measures to read/write CSV files. To utilize it, import the <code>csv</code> module using <code>import</code> function.
 </p>
 <p>
-Below is an example:
+Below is an example to read a CSV file that contains three fields per line:
 </p>
 <pre><code>import(csv)
+
 Record = struct(name:string, age:number, email:string)
 records = Record * csv.read('records.csv')
 printf('name:%s, age:%d, email:%s¥n',
-records:*name, records:*age, records:*email)
+       records:*name, records:*age, records:*email)
 </code></pre>
 <h2><span class="caption-index-2">11.1</span><a name="caption-11-1"></a>Module Functions</h2>
 <p>
@@ -7452,7 +7474,7 @@ records:*name, records:*age, records:*email)
 </p>
 <h1><span class="caption-index-1">12</span><a name="caption-12"></a>curl Module</h1>
 <p>
-The <code>curl</code> module provices measures to access Internet resources using cURL library.
+The <code>curl</code> module provices measures to access Internet resources using cURL library. To utilize it, import the <code>curl</code> module using <code>import</code> function.
 </p>
 <h2><span class="caption-index-2">12.1</span><a name="caption-12-1"></a>Module Functions</h2>
 <p>
@@ -7534,7 +7556,7 @@ The <code>example</code> module is just an example that is supposed to be refere
 <h3><span class="caption-index-3">13.2.1</span><a name="caption-13-2-1"></a>Module Functions</h3>
 <h1><span class="caption-index-1">14</span><a name="caption-14"></a>freetype Module</h1>
 <p>
-The <code>freetype</code> module provices measures to access vectorized font data using freetype library.
+The <code>freetype</code> module provices measures to access vectorized font data using freetype library. To utilize it, import the <code>freetype</code> module using <code>import</code> function.
 </p>
 <h2><span class="caption-index-2">14.1</span><a name="caption-14-1"></a>Module Functions</h2>
 <p>
@@ -7790,7 +7812,7 @@ Draws a text on the image.
 </p>
 <h1><span class="caption-index-1">15</span><a name="caption-15"></a>fs Module</h1>
 <p>
-The <code>fs</code> module provices measures to access and modify information in file systems.
+The <code>fs</code> module provides measures to access and modify information in file systems. This is a built-in module, so you can use it without being imported.
 </p>
 <h2><span class="caption-index-2">15.1</span><a name="caption-15-1"></a>Module Functions</h2>
 <p>
@@ -7885,7 +7907,10 @@ If a destination file already exists, an error occurs. Specifying an attribute <
 <code>fs.cpdir(src:string, dst:string):map:void:[tree]</code>
 </p>
 <p>
-Copies a directory. Arguments <code>src</code> and <code>dst</code> specify source directory and destination directory respectively. In default, sub directories are not copied.Specifying <code>:tree</code> attribute would copy all the sub directories in the source.
+Copies a directory.
+</p>
+<p>
+Arguments <code>src</code> and <code>dst</code> specify source directory and destination directory respectively. In default, sub directories are not copied.Specifying <code>:tree</code> attribute would copy all the sub directories in the source.
 </p>
 <p>
 <strong>fs.getcwd</strong>
@@ -7903,7 +7928,10 @@ Returns the current working directory.
 <code>fs.mkdir(pathname:string):map:void:[tree]</code>
 </p>
 <p>
-Creates a directory. If <code>pathname</code> consists of multiple sub directories and some of them still doesn't exist, an error occurs. Specifying <code>:tree</code> attribute would create such directories.
+Creates a directory.
+</p>
+<p>
+If <code>pathname</code> consists of multiple sub directories and some of them still doesn't exist, an error occurs. Specifying <code>:tree</code> attribute would create such directories.
 </p>
 <p>
 <strong>fs.remove</strong>
@@ -7930,11 +7958,14 @@ Renames a file or directory.
 <code>fs.rmdir(pathname:string):map:void:[tree]</code>
 </p>
 <p>
-Removes a directory. If the directory contains sub directories, an error occurs. Specifying <code>:tree</code> attribute would delete such a directory.
+Removes a directory.
+</p>
+<p>
+If the directory contains sub directories, an error occurs. Specifying <code>:tree</code> attribute would delete such a directory.
 </p>
 <h1><span class="caption-index-1">16</span><a name="caption-16"></a>gif Module</h1>
 <p>
-The <code>gif module provides measures to read/write image data in GIF format.</code>To utilize it, import the <code>gif</code> module using <code>import</code> function.
+The <code>gif</code> module provides measures to read/write image data in GIF format. To utilize it, import the <code>gif</code> module using <code>import</code> function.
 </p>
 <p>
 Below is an example to read a GIF file:
@@ -7958,7 +7989,7 @@ When function <code>image()</code> is provided with a stream that satisfies the 
 </p>
 <ul>
 <li>The identifier of the stream ends with a suffix <code>.gif</code>.</li>
-<li>The stream data begins with a byte sequence "GIF87a" or "GIF89a".</li>
+<li>The stream data begins with a byte sequence "<code>GIF87a</code>" or "<code>GIF89a</code>".</li>
 </ul>
 <p>
 When instance method <code>image#write()</code> is provided with a stream that satisfies the following condition, it would write image data in GIF format.
@@ -8015,7 +8046,7 @@ Writes a GIF image to a stream.
 </p>
 <h1><span class="caption-index-1">17</span><a name="caption-17"></a>glu Module</h1>
 <p>
-The <code>glu</code> module
+The <code>glu</code> module provides functions of GLU library.
 </p>
 <h2><span class="caption-index-2">17.1</span><a name="caption-17-1"></a>Module Functions</h2>
 <p>
@@ -8350,7 +8381,7 @@ The <code>glu</code> module
 </p>
 <h1><span class="caption-index-1">18</span><a name="caption-18"></a>glut Module</h1>
 <p>
-The <code>glut</code> module
+The <code>glut</code> module provides functions of GLUT library.
 </p>
 <h2><span class="caption-index-2">18.1</span><a name="caption-18-1"></a>Module Functions</h2>
 <p>
@@ -9093,7 +9124,10 @@ The <code>glut</code> module
 </p>
 <h1><span class="caption-index-1">19</span><a name="caption-19"></a>gmp Module</h1>
 <p>
-The <code>gmp</code> module provides measures to calculate numbers in a variable-length format. It expands features of operators like addition and multiplier so that they can calculate such numbers.
+The <code>gmp</code> module provides measures to calculate numbers in a variable-length format. To utilize it, import the <code>gmp</code> module using <code>import</code> function.
+</p>
+<p>
+It expands features of operators like addition and multiplier so that they can calculate such numbers.
 </p>
 <h2><span class="caption-index-2">19.1</span><a name="caption-19-1"></a>Module Functions</h2>
 <p>
@@ -9170,8 +9204,20 @@ The <code>gmp</code> module provides measures to calculate numbers in a variable
 <h2><span class="caption-index-2">20.1</span><a name="caption-20-1"></a>Module Functions</h2>
 <h1><span class="caption-index-1">21</span><a name="caption-21"></a>gzip Module</h1>
 <p>
-The <code>gzip</code> module provices measures to read/write GZIP files.
+The <code>gzip</code> module provides measures to read/write GZIP files. To utilize it, import the <code>gzip</code> module using <code>import</code> function.
 </p>
+<p>
+Below is an example to read data from a GZIP file and write its uncompressed data to another file.
+</p>
+<pre><code>import(gzip)
+gzip.reader('foo.dat.gz').copyto('foo.dat')
+</code></pre>
+<p>
+Below is an example to read data from a file and write its compressed data to a GZIP file.
+</p>
+<pre><code>import(gzip)
+gzip.writer('foo.dat.gz').copyfrom('foo.dat')
+</code></pre>
 <h2><span class="caption-index-2">21.1</span><a name="caption-21-1"></a>Module Functions</h2>
 <p>
 <strong>gzip.reader</strong>
@@ -9200,7 +9246,7 @@ The <code>gzip</code> module provices measures to read/write GZIP files.
 </p>
 <h1><span class="caption-index-1">22</span><a name="caption-22"></a>hash Module</h1>
 <p>
-The <code>hash</code> module provides measures to calculate hash values of a data sequence in a stream.
+The <code>hash</code> module provides measures to calculate hash values of a data sequence in a stream. To utilize it, import the <code>hash</code> module using <code>import</code> function.
 </p>
 <h2><span class="caption-index-2">22.1</span><a name="caption-22-1"></a>Module Functions</h2>
 <p>
@@ -9310,7 +9356,7 @@ Writes a JPEG image data to a stream.
 <h2><span class="caption-index-2">25.1</span><a name="caption-25-1"></a>Module Functions</h2>
 <h1><span class="caption-index-1">26</span><a name="caption-26"></a>markdown Module</h1>
 <p>
-The <code>markdown</code> module provides measures to parse a text formatted in markdown syntax.
+The <code>markdown</code> module provides measures to parse a text formatted in markdown syntax. To utilize it, import the <code>markdown</code> module using <code>import</code> function.
 </p>
 <h2><span class="caption-index-2">26.1</span><a name="caption-26-1"></a>Module Functions</h2>
 <p>
@@ -9361,6 +9407,9 @@ Parses a Markdown text from a stream.
 Prints structured content of the item. Argument <code>indent</code> specifies an indentation level and is set to zero when omitted.
 </p>
 <h1><span class="caption-index-1">27</span><a name="caption-27"></a>math Module</h1>
+<p>
+The <code>math</code> module provices functions for mathematical calculation. This is a built-in module, so you can use it without being imported.
+</p>
 <h2><span class="caption-index-2">27.1</span><a name="caption-27-1"></a>Module Functions</h2>
 <p>
 <strong>math.real</strong>
@@ -9658,7 +9707,7 @@ Returns a least common multiple among two or more numbers.
 </p>
 <h1><span class="caption-index-1">28</span><a name="caption-28"></a>midi Module</h1>
 <p>
-The <code>midi</code> module provides measures to read/write MIDI files.
+The <code>midi</code> module provides measures to read/write MIDI files. To utilize it, import the <code>midi</code> module using <code>import</code> function.
 </p>
 <h2><span class="caption-index-2">28.1</span><a name="caption-28-1"></a>Module Functions</h2>
 <h2><span class="caption-index-2">28.2</span><a name="caption-28-2"></a>midi.event Class</h2>
@@ -9978,8 +10027,6 @@ It creates an instance to access data in SoundFont file.
 <p>
 The <code>msico</code> module provides measures to read/write image data in Microsoft Icon file format. To utilize it, import the <code>msico</code> module using <code>import</code> function.
 </p>
-<pre><code>
-</code></pre>
 <p>
 Below is an example to read an ICO file:
 </p>
@@ -12131,7 +12178,7 @@ delimit the vertices of a primitive or a group of like primitives
 </p>
 <h1><span class="caption-index-1">32</span><a name="caption-32"></a>os Module</h1>
 <p>
-The <code>os</code> module provides functions that are specific to each OS environment.
+The <code>os</code> module provides functions that are specific to each OS environment. This is a built-in module, so you can use it without being imported.
 </p>
 <h2><span class="caption-index-2">32.1</span><a name="caption-32-1"></a>Module Functions</h2>
 <p>
@@ -12222,6 +12269,24 @@ Converts Gura's regulated string into binary data that includes OS's native stri
 Unset an environment variable.
 </p>
 <h1><span class="caption-index-1">33</span><a name="caption-33"></a>path Module</h1>
+<p>
+The <code>path</code> module provides functions related to path operations. This is a built-in module, so you can use it without being imported.
+</p>
+<p>
+Below is an example to list path names that exist in the current directory.
+</p>
+<pre><code>println(path.dir('.'))
+</code></pre>
+<p>
+Below is an example to list path names that exist in the current directory and its child directories.
+</p>
+<pre><code>println(path.walk('.'))
+</code></pre>
+<p>
+Below is an example to list path names that matches a wild card pattern "<code>*.txt</code>".
+</p>
+<pre><code>println(path.glob('*.txt'))
+</code></pre>
 <h2><span class="caption-index-2">33.1</span><a name="caption-33-1"></a>Module Functions</h2>
 <p>
 <strong>path.absname</strong>
@@ -12432,8 +12497,6 @@ Writes a PNG image to a stream.
 <p>
 The <code>ppm</code> module provides measures to read/write image data in PPM format. To utilize it, import the <code>ppm</code> module using <code>import</code> function.
 </p>
-<pre><code>
-</code></pre>
 <p>
 Below is an example to read a PPM file:
 </p>
@@ -12462,7 +12525,7 @@ Writes a PPM/PGM image to a stream.
 </p>
 <h1><span class="caption-index-1">37</span><a name="caption-37"></a>re Module</h1>
 <p>
-The <code>re</code> module provides measures to operate strings with a regular expression.
+The <code>re</code> module provides measures to operate strings with a regular expression. To utilize it, import the <code>re</code> module using <code>import</code> function.
 </p>
 <h2><span class="caption-index-2">37.1</span><a name="caption-37-1"></a>Module Functions</h2>
 <p>
@@ -15771,6 +15834,9 @@ It is possible for multiple errors to occur before calling <code>SDL_GetError()<
 <h2><span class="caption-index-2">38.24</span><a name="caption-38-24"></a>sdl2.Surface Class</h2>
 <h2><span class="caption-index-2">38.25</span><a name="caption-38-25"></a>sdl2.Finger Class</h2>
 <h1><span class="caption-index-1">39</span><a name="caption-39"></a>sqlite3 Module</h1>
+<p>
+The <code>sqlite3</code> module provices measures to access SQLite3 database. To utilize it, import the <code>sqlite3</code> module using <code>import</code> function.
+</p>
 <h2><span class="caption-index-2">39.1</span><a name="caption-39-1"></a>Module Functions</h2>
 <h2><span class="caption-index-2">39.2</span><a name="caption-39-2"></a>sqlite3.db Class</h2>
 <p>
@@ -15833,6 +15899,9 @@ Executes the block within a transaction. The process is like following:
 <li>Executes a sqlite3 command 'END TRANSACTION'</li>
 </ol>
 <h1><span class="caption-index-1">40</span><a name="caption-40"></a>sys Module</h1>
+<p>
+The <code>sys</code> module provides system-related information. This is a built-in module, so you can use it without being imported.
+</p>
 <h2><span class="caption-index-2">40.1</span><a name="caption-40-1"></a>Module Variables</h2>
 <ul>
 <li><code>sys.argv</code></li>
@@ -15885,7 +15954,7 @@ Raises an error if the running interpreter doesn't satisfy the required version.
 </p>
 <h1><span class="caption-index-1">41</span><a name="caption-41"></a>tar Module</h1>
 <p>
-The <code>tar</code> module provides measures to read/write TAR files.
+The <code>tar</code> module provides measures to read/write TAR files. To utilize it, import the <code>tar</code> module using <code>import</code> function.
 </p>
 <h2><span class="caption-index-2">41.1</span><a name="caption-41-1"></a>tar.reader Class</h2>
 <p>
@@ -15943,6 +16012,9 @@ img = image('foo.tiff')
 Reads a TIFF image from a stream.
 </p>
 <h1><span class="caption-index-1">44</span><a name="caption-44"></a>uuid Module</h1>
+<p>
+The <code>uuid</code> module provides functions to generate UUIDs. To utilize it, import the <code>uuid</code> module using <code>import</code> function.
+</p>
 <h2><span class="caption-index-2">44.1</span><a name="caption-44-1"></a>Module Functions</h2>
 <p>
 <strong>uuid.generate</strong>

@@ -5,6 +5,8 @@ import(sqlite3)
 text = R'''
 # sqlite3 Module
 
+The `sqlite3` module provices measures to access SQLite3 database.
+To utilize it, import the `sqlite3` module using `import` function.
 '''
 
 write(doc:markdown.document) = {

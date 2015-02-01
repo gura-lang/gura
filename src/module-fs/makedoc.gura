@@ -4,8 +4,8 @@ import(markdown)
 text = R'''
 # fs Module
 
-The `fs` module provices measures to access and modify information in file systems.
-This is a built-in module so you can use it without being imported.
+The `fs` module provides measures to access and modify information in file systems.
+This is a built-in module, so you can use it without being imported.
 '''
 
 write(doc:markdown.document) = {

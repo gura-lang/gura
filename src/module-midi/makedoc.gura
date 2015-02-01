@@ -6,6 +6,7 @@ text = R'''
 # midi Module
 
 The `midi` module provides measures to read/write MIDI files.
+To utilize it, import the `midi` module using `import` function.
 '''
 
 write(doc:markdown.document) = {

@@ -6,6 +6,7 @@ text = R'''
 # re Module
 
 The `re` module provides measures to operate strings with a regular expression.
+To utilize it, import the `re` module using `import` function.
 '''
 
 write(doc:markdown.document) = {

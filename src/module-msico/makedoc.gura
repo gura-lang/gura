@@ -7,7 +7,7 @@ text = R'''
 
 The `msico` module provides measures to read/write image data in Microsoft Icon file format.
 To utilize it, import the `msico` module using `import` function.
-	
+
 Below is an example to read an ICO file:
 
     import(msico)

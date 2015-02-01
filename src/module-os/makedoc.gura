@@ -5,6 +5,7 @@ text = R'''
 # os Module
 
 The `os` module provides functions that are specific to each OS environment.
+This is a built-in module, so you can use it without being imported.
 '''
 
 write(doc:markdown.document) = {

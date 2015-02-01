@@ -4,6 +4,8 @@ import(markdown)
 text = R'''
 # math Module
 
+The `math` module provices functions for mathematical calculation.
+This is a built-in module, so you can use it without being imported.
 '''
 
 write(doc:markdown.document) = {
