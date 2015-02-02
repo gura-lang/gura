@@ -510,9 +510,13 @@ Gura_DeclareFunctionEnd(list_xlist)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_OnceOrMore);
 	SetClassToConstruct(env.LookupClass(VTYPE_list));
+	String text = _acceptInvalidFlag?
+		"Creates a new list from given values in its argument list.\n" :
+		"Creates a new list from given values except for `nil` in its argument list.\n";
+	text +=
+		"If the value is a list or an iteartor, its elements are added to the created list.\n";
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Gura_Symbol(en), Help::FMT_markdown, text.c_str());
 }
 
 Gura_ImplementFunction(list_xlist)
@@ -555,9 +559,20 @@ Gura_DeclareFunctionEnd(set_xset)
 	DeclareAttr(Gura_Symbol(or));
 	DeclareAttr(Gura_Symbol(and));
 	DeclareAttr(Gura_Symbol(xor));
+	String text = _acceptInvalidFlag?
+		"Creates a new list that contains unique values from given iterators in its argument list.\n" :
+		"Creates a new list that contains unique values except for `nil` from given iterators in its argument list.\n";
+	text += 
+		"\n"
+		"In default, all the elements in each iterators are added to the created list.\n"
+		"Specifying the following attributes would apply a filtering condition.\n"
+		"\n"
+		"- `:and` .. Elements that exist in all the iterators are added.\n"
+		"- `:or` .. All the elements are added. This is the default behavior.\n"
+		"- `:xor` .. Elements that exist in only one iterator are added.\n";
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		text.c_str());
 }
 
 Gura_ImplementFunction(set_xset)
@@ -666,7 +681,15 @@ Gura_DeclareFunction(ListInit)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a list from the content of `block`.\n"
+		"If `block` is not specified, an empty list will be created.\n"
+		"\n"
+		"Below is an example to create a list containing four values.\n"
+		"\n"
+		"    x = @{1, 2, 3, 4}\n"
+		"\n"
+		"When the argument `func` is specified, it will be evaluated with each element of the block,\n"
+		"and then the result will be stored in the list.\n");
 }
 
 Gura_ImplementFunction(ListInit)

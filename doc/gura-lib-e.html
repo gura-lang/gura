@@ -3938,10 +3938,16 @@ Returns an iterator that searches items recursively if they are lists or iterato
 <code>list(value+)</code>
 </p>
 <p>
+Creates a new list from given values in its argument list. If the value is a list or an iteartor, its elements are added to the created list.
+</p>
+<p>
 <strong>xlist</strong>
 </p>
 <p>
 <code>xlist(value+)</code>
+</p>
+<p>
+Creates a new list from given values except for <code>nil</code> in its argument list. If the value is a list or an iteartor, its elements are added to the created list.
 </p>
 <p>
 <strong>set</strong>
@@ -3950,11 +3956,33 @@ Returns an iterator that searches items recursively if they are lists or iterato
 <code>set(iter+:iterator):[and,or,xor]</code>
 </p>
 <p>
+Creates a new list that contains unique values from given iterators in its argument list.
+</p>
+<p>
+In default, all the elements in each iterators are added to the created list. Specifying the following attributes would apply a filtering condition.
+</p>
+<ul>
+<li><code>:and</code> .. Elements that exist in all the iterators are added.</li>
+<li><code>:or</code> .. All the elements are added. This is the default behavior.</li>
+<li><code>:xor</code> .. Elements that exist in only one iterator are added.</li>
+</ul>
+<p>
 <strong>xset</strong>
 </p>
 <p>
 <code>xset(iter+:iterator):[and,or,xor]</code>
 </p>
+<p>
+Creates a new list that contains unique values except for <code>nil</code> from given iterators in its argument list.
+</p>
+<p>
+In default, all the elements in each iterators are added to the created list. Specifying the following attributes would apply a filtering condition.
+</p>
+<ul>
+<li><code>:and</code> .. Elements that exist in all the iterators are added.</li>
+<li><code>:or</code> .. All the elements are added. This is the default behavior.</li>
+<li><code>:xor</code> .. Elements that exist in only one iterator are added.</li>
+</ul>
 <p>
 <strong>list.zip</strong>
 </p>
@@ -9358,6 +9386,19 @@ Writes a JPEG image data to a stream.
 <p>
 The <code>markdown</code> module provides measures to parse a text formatted in markdown syntax. To utilize it, import the <code>markdown</code> module using <code>import</code> function.
 </p>
+<p>
+Below is an example to read a document written in Markdown format and then render its HTML text into a file.
+</p>
+<pre><code>import(markdown)
+markdown.document('foo.md').render@html('foo.html')
+</code></pre>
+<p>
+<code>markdown</code> module consists of the following two module files:
+</p>
+<ul>
+<li><code>markdown.gurd</code> .. a binary module file that provides parser procedures.</li>
+<li><code>markdown.gura</code> .. a script module file that renders parsed result in desired formats.</li>
+</ul>
 <h2><span class="caption-index-2">26.1</span><a name="caption-26-1"></a>Module Functions</h2>
 <p>
 <strong>markdown.document</strong>
