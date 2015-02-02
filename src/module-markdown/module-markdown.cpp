@@ -262,6 +262,7 @@ void Document::ResolveReference()
 
 bool Document::ParseChar(Signal sig, char ch)
 {
+	//::printf("%d %c\n", _stat, ch);
 	bool continueFlag = true;
 	do {
 	continueFlag = false;
@@ -1199,9 +1200,22 @@ bool Document::ParseChar(Signal sig, char ch)
 				} while (0);
 			} else if (IsBeginTag(_field.c_str(), tagName, attrs, endFlag)) {
 				FlushText(Item::TYPE_Text, false, false);
-				BeginTag(tagName.c_str(), attrs.c_str(), endFlag);
+				FlushItem(Item::TYPE_Paragraph, false, false);
+				do {
+					Item *pItemParent = _itemStack.back();
+					Item *pItem = new Item(Item::TYPE_Tag);
+					pItem->SetText(tagName);
+					if (!attrs.empty()) pItem->SetAttrs(attrs);
+					pItemParent->GetItemOwner()->push_back(pItem);
+					if (!endFlag) {
+						pItem->SetItemOwner(new ItemOwner());
+						_itemStack.push_back(pItem);
+					}
+				} while (0);
 			} else if (IsEndTag(_field.c_str(), tagName)) {
-				EndTag(tagName.c_str());
+				FlushElement();
+				Item *pItem = _itemStack.back();
+				if (pItem->IsTag()) _itemStack.pop_back();
 			} else {
 				_text += _textAhead;
 				_text += ch;
@@ -1850,29 +1864,6 @@ void Document::EndDecoration()
 {
 	FlushText(Item::TYPE_Text, false, false);
 	_pItemOwner.reset(_itemOwnerStack.Pop());
-}
-
-void Document::BeginTag(const char *tagName, const char *attrs, bool endFlag)
-{
-	FlushItem(Item::TYPE_Paragraph, false, false);
-	do {
-		Item *pItemParent = _itemStack.back();
-		Item *pItem = new Item(Item::TYPE_Tag);
-		pItem->SetText(tagName);
-		if (*attrs != '\0') pItem->SetAttrs(attrs);
-		pItemParent->GetItemOwner()->push_back(pItem);
-		if (!endFlag) {
-			pItem->SetItemOwner(new ItemOwner());
-			_itemStack.push_back(pItem);
-		}
-	} while (0);
-}
-
-void Document::EndTag(const char *tagName)
-{
-	FlushElement();
-	Item *pItem = _itemStack.back();
-	if (pItem->IsTag()) _itemStack.pop_back();
 }
 
 bool Document::IsAtxHeader2(const char *text)
