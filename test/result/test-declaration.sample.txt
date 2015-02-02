@@ -31,10 +31,10 @@ base64:module = <module:base64:<integrated>>
   __name__:string = base64
   __source__:string = <integrated>
   __symbol__:symbol = base64
-  base64.decode(stream:stream:r)
-  base64.encode(stream:stream:r, linelen:number:nil => 76)
-  base64.reader(stream:stream:r)
-  base64.writer(stream:stream:w, linelen:number:nil => 76)
+  base64.decode(stream:stream:r) {block?}
+  base64.encode(stream:stream:r, linelen:number:nil => 76) {block?}
+  base64.reader(stream:stream:r) {block?}
+  base64.writer(stream:stream:w, linelen:number:nil => 76) {block?}
 binary(buff*) {block?}
 case(`cond) {block}
 catch(errors*:error):leader:trailer {block}
@@ -237,7 +237,7 @@ public():void {block}
 raise(error:error, msg:string => 'error', value?)
 rand(range?:number) {block?}
 rands(range?:number, num?:number) {block?}
-randseed(seed:number)
+randseed(seed:number):void
 range(num:number, num_end?:number, step?:number):map {block?}
 rational(numer:number, denom?:number):map {block?}
 readlines(stream?:stream:r):[chop] {block?}
@@ -708,7 +708,7 @@ stream
   stream#println(values*):map:void
   stream#read(len?:number)
   stream#readchar()
-  stream#reader@base64()
+  stream#reader@base64() {block?}
   stream#readline():[chop]
   stream#readlines(nlines?:number):[chop] {block?}
   stream#readtext()
@@ -717,7 +717,7 @@ stream
   stream#setcodec(codec:codec:nil):reduce
   stream#tell()
   stream#write(buff:binary, len?:number):reduce
-  stream#writer@base64(linelen:number:nil => 76)
+  stream#writer@base64(linelen:number:nil => 76) {block?}
 string
   string#align(len:number, padding:string => ' '):map:[center,left,right]
   string.binary()
