@@ -1199,19 +1199,16 @@ bool Document::ParseChar(Signal sig, char ch)
 					pItemLink->GetItemOwner()->push_back(pItem);
 				} while (0);
 			} else if (IsBeginTag(_field.c_str(), tagName, attrs, closedFlag)) {
-				FlushText(Item::TYPE_Text, false, false);
 				FlushItem(Item::TYPE_Paragraph, false, false);
-				do {
-					Item *pItemParent = _itemStack.back();
-					Item *pItem = new Item(Item::TYPE_Tag);
-					pItem->SetText(tagName);
-					if (!attrs.empty()) pItem->SetAttrs(attrs);
-					pItemParent->GetItemOwner()->push_back(pItem);
-					if (!closedFlag) {
-						pItem->SetItemOwner(new ItemOwner());
-						_itemStack.push_back(pItem);
-					}
-				} while (0);
+				Item *pItemParent = _itemStack.back();
+				Item *pItem = new Item(Item::TYPE_Tag);
+				pItem->SetText(tagName);
+				if (!attrs.empty()) pItem->SetAttrs(attrs);
+				pItemParent->GetItemOwner()->push_back(pItem);
+				if (!closedFlag) {
+					pItem->SetItemOwner(new ItemOwner());
+					_itemStack.push_back(pItem);
+				}
 			} else if (IsEndTag(_field.c_str(), tagName)) {
 				FlushElement();
 				Item *pItem = _itemStack.back();
