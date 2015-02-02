@@ -62,9 +62,12 @@ Gura_DeclareFunction(suffixmgr)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates a reference to one of two suffix managers, number and string.\n"
-		"A number suffix manager is preceded by a number literal,\n"
-		"and a string suffix manager by a string literal.\n"
-		"Specify the argument `type` with a symbol `` `number`` for a number or `` `string`` for a string.\n");
+		"\n"
+		"- The number suffix manager works with number literals.\n"
+		"- The string suffix manager works with string literals.\n"
+		"\n"
+		"Specify the argument `type` with a symbol `` `number`` for a number suffix manager\n"
+		"and `` `string`` for a string suffix manager.\n");
 }
 
 Gura_ImplementFunction(suffixmgr)
@@ -96,7 +99,7 @@ Gura_DeclareMethod(suffixmgr, assign)
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Assigns a procedure to a specified suffix symbol in the suffix manager.\n"
+		"Assigns a procedure to a specified symbol in the suffix manager.\n"
 		"The procedure is provided by the `block` that takes a block parameter `|value|`\n"
 		"where `value` comes from the preceded literal.\n"
 		"\n"
