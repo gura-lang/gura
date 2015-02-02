@@ -6,6 +6,17 @@ text = R'''
 
 The `markdown` module provides measures to parse a text formatted in markdown syntax.
 To utilize it, import the `markdown` module using `import` function.
+
+Below is an example to read a document written in Markdown format
+and then render its HTML text into a file.
+
+    import(markdown)
+    markdown.document('foo.md').render@html('foo.html')
+
+`markdown` module consists of the following two module files:
+
+- `markdown.gurd` .. a binary module file that provides parser procedures.
+- `markdown.gura` .. a script module file that renders parsed result in desired formats.
 '''
 
 write(doc:markdown.document) = {
