@@ -52,16 +52,19 @@ String Object_suffixmgr::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// suffixmgr(target:symbol) {block?}
+// suffixmgr(type:symbol) {block?}
 Gura_DeclareFunction(suffixmgr)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "target", VTYPE_symbol);
+	DeclareArg(env, "type", VTYPE_symbol);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_suffixmgr));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a reference to one of two suffix managers, number and string.\n"
+		"A number suffix manager is preceded by a number literal,\n"
+		"and a string suffix manager by a string literal.\n"
+		"Specify the argument `type` with a symbol `` `number`` for a number or `` `string`` for a string.\n");
 }
 
 Gura_ImplementFunction(suffixmgr)
@@ -75,7 +78,7 @@ Gura_ImplementFunction(suffixmgr)
 		pObj.reset(new Object_suffixmgr(env,
 						env.GetGlobal()->GetSuffixMgrForString()));
 	} else {
-		sig.SetError(ERR_ValueError, "target must be `number or `string");
+		sig.SetError(ERR_ValueError, "type must be `number or `string");
 		return Value::Null;
 	}
 	return Value(pObj.release());
@@ -93,7 +96,12 @@ Gura_DeclareMethod(suffixmgr, assign)
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Assigns a procedure to a specified suffix symbol in the suffix manager.\n"
+		"The procedure is provided by the `block` that takes a block parameter `|value|`\n"
+		"where `value` comes from the preceded literal.\n"
+		"\n"
+		"An error occurs if the same suffix symbol has already been assigned.\n"
+		"Specifying `:overwrite` attribute will forcibly overwrite an existing assignment.\n");
 }
 
 Gura_ImplementMethod(suffixmgr, assign)
