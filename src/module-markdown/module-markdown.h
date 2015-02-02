@@ -318,7 +318,7 @@ private:
 	static bool IsAtxHeader2(const char *text);
 	static bool IsHorzRule(const char *text);
 	static bool IsLink(const char *text);
-	static bool IsBeginTag(const char *text, String &tagName, String &attrs, bool &endFlag);
+	static bool IsBeginTag(const char *text, String &tagName, String &attrs, bool &closedFlag);
 	static bool IsEndTag(const char *text, String &tagName);
 	inline static bool IsEOL(char ch) { return ch == '\n'; }
 	inline static bool IsEOF(char ch) { return ch == '\0'; }

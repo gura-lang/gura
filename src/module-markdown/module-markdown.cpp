@@ -1188,7 +1188,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_AngleBracket: {
 		if (ch == '>') {
 			String tagName, attrs;
-			bool endFlag = false;
+			bool closedFlag = false;
 			if (IsLink(_field.c_str())) {
 				FlushText(Item::TYPE_Text, false, false);
 				Item *pItemLink = new Item(Item::TYPE_Link, new ItemOwner());
@@ -1198,7 +1198,7 @@ bool Document::ParseChar(Signal sig, char ch)
 					Item *pItem = new Item(Item::TYPE_Text, _field);
 					pItemLink->GetItemOwner()->push_back(pItem);
 				} while (0);
-			} else if (IsBeginTag(_field.c_str(), tagName, attrs, endFlag)) {
+			} else if (IsBeginTag(_field.c_str(), tagName, attrs, closedFlag)) {
 				FlushText(Item::TYPE_Text, false, false);
 				FlushItem(Item::TYPE_Paragraph, false, false);
 				do {
@@ -1207,7 +1207,7 @@ bool Document::ParseChar(Signal sig, char ch)
 					pItem->SetText(tagName);
 					if (!attrs.empty()) pItem->SetAttrs(attrs);
 					pItemParent->GetItemOwner()->push_back(pItem);
-					if (!endFlag) {
+					if (!closedFlag) {
 						pItem->SetItemOwner(new ItemOwner());
 						_itemStack.push_back(pItem);
 					}
@@ -1965,7 +1965,7 @@ bool Document::IsLink(const char *text)
 }
 
 bool Document::IsBeginTag(const char *text,
-						String &tagName, String &attrs, bool &endFlag)
+						String &tagName, String &attrs, bool &closedFlag)
 {
 	enum Stat {
 		STAT_Begin,
@@ -1976,7 +1976,7 @@ bool Document::IsBeginTag(const char *text,
 	} stat = STAT_Begin;
 	tagName.clear();
 	attrs.clear();
-	endFlag = false;
+	closedFlag = false;
 	for (const char *p = text; ; p++) {
 		char ch = *p;
 		switch (stat) {
@@ -2030,7 +2030,7 @@ bool Document::IsBeginTag(const char *text,
 		}
 		case STAT_Slash: {
 			if (ch == '\0') {
-				endFlag = true;
+				closedFlag = true;
 			} else {
 				attrs += '/';
 				attrs += ch;
