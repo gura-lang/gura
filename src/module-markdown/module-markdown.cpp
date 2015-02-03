@@ -310,9 +310,14 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAhead += ch;
 			_stat = STAT_Digit;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			FlushItem(Item::TYPE_Paragraph, false, false);
-			_indentLevel = 0;
-			_stat = STAT_LineHeadNL;
+			if (_itemStackTag.empty()) {
+				FlushItem(Item::TYPE_Paragraph, false, false);
+				_indentLevel = 0;
+				_stat = STAT_LineHeadNL;
+			} else {
+				continueFlag = true;
+				_stat = STAT_Text;
+			}
 		} else if (ch == '[') {
 			_pItemLink.reset(new Item(Item::TYPE_Referee));
 			_textAhead.clear();

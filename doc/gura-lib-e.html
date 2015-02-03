@@ -69,27 +69,20 @@ This reference explains about functions and classes that are shipped with Gura i
 <p>
 Functions in this reference are described in a generic expression. For example, if there is a reference described like <code>func(num:number)</code>, it means that <code>func</code> function takes one argument named <code>num</code> with value type of <code>number</code>. You can call it like <code>func(3)</code>.
 </p>
-<pre><code>
-</code></pre>
 <p>
 If an argument is optional, the argument name is followed by a symbol <code>?</code>. For example: <code>func(num?:number)</code>. You can call it as <code>func(2)</code> or can omit the arugument like <code>func()</code>.
 </p>
-<pre><code>
-</code></pre>
 <p>
 If the the arument name has <code>*</code> symbol followed, the arument takes zero or more values. For a function that has a generic expression <code>func(args*:number)</code>, it can be called like <code>func()</code>, <code>func(3)</code>, <code>func(3, 4)</code>, <code>func(3, 4, 2)</code>, and so on.
 </p>
-<pre><code>
-</code></pre>
 <p>
 If the the arument name has <code>+</code> symbol followed, the arument takes one or more values. For a function that has a generic expression <code>func(args+:number)</code>, it can be called like <code>func(3)</code>, <code>func(3, 4)</code>, <code>func(3, 4, 2)</code>, and so on. In difference with <code>*</code>, it must take at least one value.
 </p>
-<pre><code>
-</code></pre>
 <p>
 An argument may have a default value. The default value is described with <code>=&gt;</code> operator like <code>func(num:number =&gt; 4)</code>. In such a case, if <code>num</code> is omitted, the default value <code>4</code> shall be used.
 </p>
 <h1><span class="caption-index-1">3</span><a name="caption-3"></a>Predefined Variables</h1>
+<p>
 <table>
 <tr>
 <th>
@@ -101,69 +94,113 @@ Explanation</th>
 </tr>
 <tr>
 <td>
-`*`</td>
+<code>
+*</code>
+</td>
 <td>
-`iterator`</td>
+<code>
+iterator</code>
+</td>
 <td>
-An iterator instance equivalent with "`0..`".</td>
+An iterator instance equivalent with "<code>
+0..</code>
+".</td>
 </tr>
 <tr>
 <td>
-`-`</td>
+<code>
+-</code>
+</td>
 <td>
-`nil`</td>
+<code>
+nil</code>
+</td>
 <td>
-Value of `nil`.</td>
+Value of <code>
+nil</code>
+.</td>
 </tr>
 <tr>
 <td>
-`@rem`</td>
+<code>
+@rem</code>
+</td>
 <td>
-`nil`</td>
+<code>
+nil</code>
+</td>
 <td>
-Value of `nil`.</td>
+Value of <code>
+nil</code>
+.</td>
 </tr>
 <tr>
 <td>
-`__name__`</td>
+<code>
+__name__</code>
+</td>
 <td>
-`string`</td>
+<code>
+string</code>
+</td>
 <td>
-If the current script is a main one that the interpreter launches, this variable is set to `'__main__'`. If it is imported by another as a module, this variable is set to that module name.</td>
+If the current script is a main one that the interpreter launches, this variable is set to <code>
+'__main__'</code>
+. If it is imported by another as a module, this variable is set to that module name.</td>
 </tr>
 <tr>
 <td>
-`false`</td>
+<code>
+false</code>
+</td>
 <td>
-`boolean`</td>
+<code>
+boolean</code>
+</td>
 <td>
 Value of false.</td>
 </tr>
 <tr>
 <td>
-`nil`</td>
+<code>
+nil</code>
+</td>
 <td>
-`nil`</td>
+<code>
+nil</code>
+</td>
 <td>
-Value of `nil`.</td>
+Value of <code>
+nil</code>
+.</td>
 </tr>
 <tr>
 <td>
-`root`</td>
+<code>
+root</code>
+</td>
 <td>
-`environment`</td>
+<code>
+environment</code>
+</td>
 <td>
 Top level scope.</td>
 </tr>
 <tr>
 <td>
-`true`</td>
+<code>
+true</code>
+</td>
 <td>
-`boolean`</td>
+<code>
+boolean</code>
+</td>
 <td>
 Value of true.</td>
 </tr>
 </table>
+
+</p>
 <h1><span class="caption-index-1">4</span><a name="caption-4"></a>Built-in Functions</h1>
 <h2><span class="caption-index-2">4.1</span><a name="caption-4-1"></a>Formatting and Printing of Text</h2>
 <p>
@@ -1177,6 +1214,7 @@ Below is an example to use <code>args</code> class:
 }       
 </code></pre>
 <h3><span class="caption-index-3">5.1.1</span><a name="caption-5-1-1"></a>Properties</h3>
+<p>
 <table>
 <tr>
 <th>
@@ -1203,6 +1241,8 @@ R</td>
 A list of argument values.</td>
 </tr>
 </table>
+
+</p>
 <h3><span class="caption-index-3">5.1.2</span><a name="caption-5-1-2"></a>Methods</h3>
 <p>
 <strong>args#finalize_trailer</strong>
@@ -1346,6 +1386,7 @@ Creates an array that extracts specified number of elements at the bottom of the
 </p>
 <h2><span class="caption-index-2">5.4</span><a name="caption-5-4"></a>binary Class</h2>
 <h3><span class="caption-index-3">5.4.1</span><a name="caption-5-4-1"></a>Properties</h3>
+<p>
 <table>
 <tr>
 <th>
@@ -1372,6 +1413,8 @@ R</td>
 Indicates if the content of the binary object is writable.</td>
 </tr>
 </table>
+
+</p>
 <h3><span class="caption-index-3">5.4.2</span><a name="caption-5-4-2"></a>Methods</h3>
 <p>
 <strong>binary</strong>
@@ -1509,6 +1552,7 @@ Returns a pointer instance that has an initial offset specified by the argument.
 </p>
 <h2><span class="caption-index-2">5.6</span><a name="caption-5-6"></a>color Class</h2>
 <h3><span class="caption-index-3">5.6.1</span><a name="caption-5-6-1"></a>Predefined Variables</h3>
+<p>
 <table>
 <tr>
 <th>
@@ -1723,7 +1767,10 @@ color</code>
 Color instance with all the elements including alpha set to zero.</td>
 </tr>
 </table>
+
+</p>
 <h3><span class="caption-index-3">5.6.2</span><a name="caption-5-6-2"></a>Properties</h3>
+<p>
 <table>
 <tr>
 <th>
@@ -1792,6 +1839,8 @@ R/W</td>
 Value of the alpha element.</td>
 </tr>
 </table>
+
+</p>
 <h3><span class="caption-index-3">5.6.3</span><a name="caption-5-6-3"></a>Methods</h3>
 <p>
 <strong>color</strong>
@@ -1822,6 +1871,7 @@ Gets either of a color symbol or a list of elements of r, g, b and a, and return
 </p>
 <h2><span class="caption-index-2">5.7</span><a name="caption-5-7"></a>datetime Class</h2>
 <h3><span class="caption-index-3">5.7.1</span><a name="caption-5-7-1"></a>Predefined Variables</h3>
+<p>
 <table>
 <tr>
 <th>
@@ -1916,7 +1966,10 @@ number</code>
 Assigned with number 6 that represents Saturday.</td>
 </tr>
 </table>
+
+</p>
 <h3><span class="caption-index-3">5.7.2</span><a name="caption-5-7-2"></a>Properties</h3>
+<p>
 <table>
 <tr>
 <th>
@@ -2083,6 +2136,8 @@ R</td>
 Seconds passed from 00:00:00 on January 1st in 1970 in UTC.</td>
 </tr>
 </table>
+
+</p>
 <h3><span class="caption-index-3">5.7.3</span><a name="caption-5-7-3"></a>Methods</h3>
 <p>
 <strong>datetime</strong>
@@ -2175,6 +2230,7 @@ A custom-defined format is one of the symbols: <code>w3c,</code>http and <code>a
 </p>
 <h2><span class="caption-index-2">5.8</span><a name="caption-5-8"></a>declaration Class</h2>
 <h3><span class="caption-index-3">5.8.1</span><a name="caption-5-8-1"></a>Properties</h3>
+<p>
 <table>
 <tr>
 <th>
@@ -2229,6 +2285,8 @@ R</td>
 The expression that provides a default value.</td>
 </tr>
 </table>
+
+</p>
 <h3><span class="caption-index-3">5.8.2</span><a name="caption-5-8-2"></a>Methods</h3>
 <p>
 <strong>declaration#istype</strong>
@@ -2355,6 +2413,7 @@ Looks up a specified symbol in the environment and returns the associated value.
 </p>
 <h2><span class="caption-index-2">5.12</span><a name="caption-5-12"></a>error Class</h2>
 <h3><span class="caption-index-3">5.12.1</span><a name="caption-5-12-1"></a>Properties</h3>
+<p>
 <table>
 <tr>
 <th>
@@ -2451,8 +2510,11 @@ R</td>
 Stack trace.</td>
 </tr>
 </table>
+
+</p>
 <h2><span class="caption-index-2">5.13</span><a name="caption-5-13"></a>expr Class</h2>
 <h3><span class="caption-index-3">5.13.1</span><a name="caption-5-13-1"></a>Properties</h3>
+<p>
 <table>
 <tr>
 <th>
@@ -2773,6 +2835,8 @@ R</td>
 </td>
 </tr>
 </table>
+
+</p>
 <h3><span class="caption-index-3">5.13.2</span><a name="caption-5-13-2"></a>Methods</h3>
 <p>
 <strong>expr</strong>
@@ -3066,6 +3130,7 @@ Returns <code>true</code> if expr is an expression of suffixed.
 </p>
 <h2><span class="caption-index-2">5.15</span><a name="caption-5-15"></a>function Class</h2>
 <h3><span class="caption-index-3">5.15.1</span><a name="caption-5-15-1"></a>Properties</h3>
+<p>
 <table>
 <tr>
 <th>
@@ -3162,6 +3227,8 @@ R/W</td>
 </td>
 </tr>
 </table>
+
+</p>
 <h3><span class="caption-index-3">5.15.2</span><a name="caption-5-15-2"></a>Methods</h3>
 <p>
 <strong>function</strong>
@@ -3228,6 +3295,7 @@ Gets a help object of the specified function object. <code>lang</code> is a symb
 </p>
 <h2><span class="caption-index-2">5.16</span><a name="caption-5-16"></a>help Class</h2>
 <h3><span class="caption-index-3">5.16.1</span><a name="caption-5-16-1"></a>Properties</h3>
+<p>
 <table>
 <tr>
 <th>
@@ -3282,8 +3350,11 @@ R</td>
 </td>
 </tr>
 </table>
+
+</p>
 <h2><span class="caption-index-2">5.17</span><a name="caption-5-17"></a>image Class</h2>
 <h3><span class="caption-index-3">5.17.1</span><a name="caption-5-17-1"></a>Properties</h3>
+<p>
 <table>
 <tr>
 <th>
@@ -3352,6 +3423,8 @@ R</td>
 </td>
 </tr>
 </table>
+
+</p>
 <h3><span class="caption-index-3">5.17.2</span><a name="caption-5-17-2"></a>Methods</h3>
 <p>
 <strong>image</strong>
@@ -4692,6 +4765,7 @@ Returns a transpose matrix.
 </p>
 <h2><span class="caption-index-2">5.21</span><a name="caption-5-21"></a>operator Class</h2>
 <h3><span class="caption-index-3">5.21.1</span><a name="caption-5-21-1"></a>Properties</h3>
+<p>
 <table>
 <tr>
 <th>
@@ -4718,6 +4792,8 @@ R</td>
 Operator symbol.</td>
 </tr>
 </table>
+
+</p>
 <h3><span class="caption-index-3">5.21.2</span><a name="caption-5-21-2"></a>Methods</h3>
 <p>
 <strong>operator</strong>
@@ -4856,6 +4932,7 @@ Watis for the semaphore being released by other threads, and ghen grabs that own
 </p>
 <h2><span class="caption-index-2">5.25</span><a name="caption-5-25"></a>stream Class</h2>
 <h3><span class="caption-index-3">5.25.1</span><a name="caption-5-25-1"></a>Properties</h3>
+<p>
 <table>
 <tr>
 <th>
@@ -4952,6 +5029,8 @@ R</td>
 `codec` instance associated with the stream.</td>
 </tr>
 </table>
+
+</p>
 <h3><span class="caption-index-3">5.25.2</span><a name="caption-5-25-2"></a>Methods</h3>
 <p>
 <strong>open</strong>
@@ -5115,13 +5194,29 @@ R</td>
 <strong>suffixmgr</strong>
 </p>
 <p>
-<code>suffixmgr(target:symbol) {block?}</code>
+<code>suffixmgr(type:symbol) {block?}</code>
+</p>
+<p>
+Creates a reference to one of two suffix managers, number and string.
+</p>
+<ul>
+<li>The number suffix manager works with number literals.</li>
+<li>The string suffix manager works with string literals.</li>
+</ul>
+<p>
+Specify the argument <code>type</code> with a symbol <code>`number</code> for a number suffix manager and <code>`string</code> for a string suffix manager.
 </p>
 <p>
 <strong>suffixmgr#assign</strong>
 </p>
 <p>
 <code>suffixmgr#assign(suffix:symbol):void:[overwrite] {block}</code>
+</p>
+<p>
+Assigns a procedure to a specified symbol in the suffix manager. The procedure is provided by the <code>block</code> that takes a block parameter <code>|value|</code> where <code>value</code> comes from the preceded literal.
+</p>
+<p>
+An error occurs if the same suffix symbol has already been assigned. Specifying <code>:overwrite</code> attribute will forcibly overwrite an existing assignment.
 </p>
 <h2><span class="caption-index-2">5.27</span><a name="caption-5-27"></a>template Class</h2>
 <h3><span class="caption-index-3">5.27.1</span><a name="caption-5-27-1"></a>Methods</h3>
@@ -5223,6 +5318,7 @@ R</td>
 </p>
 <h2><span class="caption-index-2">5.28</span><a name="caption-5-28"></a>timedelta Class</h2>
 <h3><span class="caption-index-3">5.28.1</span><a name="caption-5-28-1"></a>Properties</h3>
+<p>
 <table>
 <tr>
 <th>
@@ -5277,6 +5373,8 @@ R/W</td>
 </td>
 </tr>
 </table>
+
+</p>
 <h3><span class="caption-index-3">5.28.2</span><a name="caption-5-28-2"></a>Methods</h3>
 <p>
 <strong>timedelta</strong>
@@ -5289,6 +5387,7 @@ Returns a timedelta instance with specified values. The instance actually holds 
 </p>
 <h2><span class="caption-index-2">5.29</span><a name="caption-5-29"></a>uri Class</h2>
 <h3><span class="caption-index-3">5.29.1</span><a name="caption-5-29-1"></a>Properties</h3>
+<p>
 <table>
 <tr>
 <th>
@@ -5399,6 +5498,8 @@ R/W</td>
 </td>
 </tr>
 </table>
+
+</p>
 <h3><span class="caption-index-3">5.29.2</span><a name="caption-5-29-2"></a>Methods</h3>
 <p>
 <strong>uri</strong>
