@@ -1199,20 +1199,9 @@ bool Document::ParseChar(Signal sig, char ch)
 					pItemLink->GetItemOwner()->push_back(pItem);
 				} while (0);
 			} else if (IsBeginTag(_field.c_str(), tagName, attrs, closedFlag)) {
-				FlushItem(Item::TYPE_Paragraph, false, false);
-				Item *pItemParent = _itemStack.back();
-				Item *pItem = new Item(Item::TYPE_Tag);
-				pItem->SetText(tagName);
-				if (!attrs.empty()) pItem->SetAttrs(attrs);
-				pItemParent->GetItemOwner()->push_back(pItem);
-				if (!closedFlag) {
-					pItem->SetItemOwner(new ItemOwner());
-					_itemStack.push_back(pItem);
-				}
+				BeginTag(tagName.c_str(), attrs.c_str(), closedFlag);
 			} else if (IsEndTag(_field.c_str(), tagName)) {
-				FlushElement();
-				Item *pItem = _itemStack.back();
-				if (pItem->IsTag()) _itemStack.pop_back();
+				EndTag(tagName.c_str());
 			} else {
 				_text += _textAhead;
 				_text += ch;
@@ -1861,6 +1850,27 @@ void Document::EndDecoration()
 {
 	FlushText(Item::TYPE_Text, false, false);
 	_pItemOwner.reset(_itemOwnerStack.Pop());
+}
+
+void Document::BeginTag(const char *tagName, const char *attrs, bool closedFlag)
+{
+	FlushItem(Item::TYPE_Paragraph, false, false);
+	Item *pItemParent = _itemStack.back();
+	Item *pItem = new Item(Item::TYPE_Tag);
+	pItem->SetText(tagName);
+	if (attrs[0] != '\0') pItem->SetAttrs(attrs);
+	pItemParent->GetItemOwner()->push_back(pItem);
+	if (!closedFlag) {
+		pItem->SetItemOwner(new ItemOwner());
+		_itemStack.push_back(pItem);
+	}
+}
+
+void Document::EndTag(const char *tagName)
+{
+	FlushElement();
+	Item *pItem = _itemStack.back();
+	if (pItem->IsTag()) _itemStack.pop_back();
 }
 
 bool Document::IsAtxHeader2(const char *text)

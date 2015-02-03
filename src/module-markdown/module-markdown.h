@@ -315,6 +315,8 @@ private:
 	void EndListItem();
 	void BeginDecoration(Item::Type type);
 	void EndDecoration();
+	void BeginTag(const char *tagName, const char *attrs, bool closedFlag);
+	void EndTag(const char *tagName);
 	static bool IsAtxHeader2(const char *text);
 	static bool IsHorzRule(const char *text);
 	static bool IsLink(const char *text);
