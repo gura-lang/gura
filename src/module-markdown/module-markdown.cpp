@@ -262,7 +262,6 @@ void Document::ResolveReference()
 
 bool Document::ParseChar(Signal sig, char ch)
 {
-	//::printf("%d %c\n", _stat, ch);
 	bool continueFlag = true;
 	do {
 	continueFlag = false;
@@ -274,7 +273,11 @@ bool Document::ParseChar(Signal sig, char ch)
 		break;
 	}
 	case STAT_LineHead: {
-		if (ch == ' ') {
+		if (!_itemStackTag.empty()) {
+			// When within a tag, ignore special characters except for '<'.
+			continueFlag = true;
+			_stat = STAT_Text;
+		} else if (ch == ' ') {
 			_indentLevel += 1;
 		} else if (ch == '\t') {
 			_indentLevel += 4;
@@ -310,14 +313,9 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAhead += ch;
 			_stat = STAT_Digit;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			if (_itemStackTag.empty()) {
-				FlushItem(Item::TYPE_Paragraph, false, false);
-				_indentLevel = 0;
-				_stat = STAT_LineHeadNL;
-			} else {
-				continueFlag = true;
-				_stat = STAT_Text;
-			}
+			FlushItem(Item::TYPE_Paragraph, false, false);
+			_indentLevel = 0;
+			_stat = STAT_LineHeadNL;
 		} else if (ch == '[') {
 			_pItemLink.reset(new Item(Item::TYPE_Referee));
 			_textAhead.clear();
@@ -1016,8 +1014,14 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_Text: {
 		if (CheckSpecialChar(ch)) {
 			// nothing to do
-		} else if (IsEOL(ch) || IsEOF(ch)) {
-			continueFlag = IsEOF(ch);
+		} else if (IsEOL(ch)) {
+			if (_itemStackTag.empty()) {
+				_stat = STAT_LineTop;
+			} else {
+				_text += ch;
+			}
+		} else if (IsEOF(ch)) {
+			continueFlag = true;
 			_stat = STAT_LineTop;
 		} else {
 			_text += ch;
@@ -1629,7 +1633,7 @@ bool Document::ParseChar(Signal sig, char ch)
 bool Document::CheckSpecialChar(char ch)
 {
 	if (!_itemStackTag.empty()) {
-		// Ignore special characters except for '<' when in a tag.
+		// When within a tag, ignore special characters except for '<'.
 		if (ch == '<') {
 			_textAhead.clear();
 			_field.clear();
