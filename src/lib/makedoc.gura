@@ -1,10 +1,12 @@
 #!/usr/bin/env gura
 import(markdown)
 
+//-----------------------------------------------------------------------------
 text = R'''
 # Built-in Classes
 '''
 
+//-----------------------------------------------------------------------------
 text_args = R'''
 ## args Class
 
@@ -35,17 +37,28 @@ Below is an example to use `args` class:
 </table>
 '''
 
+//-----------------------------------------------------------------------------
 text_array = R'''
 ## array Class
 
+An instance of the `array` class stores multiple numeric values in a seamless binary sequence.
+With such a structure, data in the instances can be passed without any conversion
+to functions in C library that expect arrays of `char`, `short`, `int` and so on.
 '''
 
+//-----------------------------------------------------------------------------
 text_audio = R'''
 ## audio Class
+
+The `audio` class provides measures to work on audio data.
 '''
 
+//-----------------------------------------------------------------------------
 text_binary = R'''
 ## binary Class
+
+The `binary` class provides measures to work on binary data
+that is a byte sequence without any format.
 
 ### Properties
 
@@ -58,12 +71,18 @@ text_binary = R'''
 </table>
 '''
 
+//-----------------------------------------------------------------------------
 text_codec = R'''
 ## codec Class
+
+The `codec` class provides measures to convert character codes.
 '''
 
+//-----------------------------------------------------------------------------
 text_color = R'''
 ## color Class
+
+An instance of the `color` class represents a color data that consists of red, green, blue and alpha elements.
 
 ### Predefined Variables
 
@@ -143,6 +162,7 @@ text_color = R'''
 </table>
 '''
 
+//-----------------------------------------------------------------------------
 text_datetime = R'''
 ## datetime Class
 
@@ -219,6 +239,7 @@ Week symbol that takes one of the followings:
 </table>
 '''
 
+//-----------------------------------------------------------------------------
 text_declaration = R'''
 ## declaration Class
 
@@ -239,21 +260,25 @@ text_declaration = R'''
 </table>
 '''
 
+//-----------------------------------------------------------------------------
 text_dict = R'''
 ## dict Class
 
 '''
 
+//-----------------------------------------------------------------------------
 text_directory = R'''
 ## directory Class
 
 '''
 
+//-----------------------------------------------------------------------------
 text_environment = R'''
 ## environment Class
 
 '''
 
+//-----------------------------------------------------------------------------
 text_error = R'''
 ## error Class
 
@@ -285,6 +310,7 @@ If an attribute `:lineno` is specified, it would contain a line number.</td></tr
 
 '''
 
+//-----------------------------------------------------------------------------
 text_expr = R'''
 ## expr Class
 
@@ -362,11 +388,13 @@ text_expr = R'''
 </table>
 '''
 
+//-----------------------------------------------------------------------------
 text_formatter = R'''
 ## formatter Class
 
 '''
 
+//-----------------------------------------------------------------------------
 text_function = R'''
 ## function Class
 
@@ -396,6 +424,7 @@ text_function = R'''
 </table>
 '''
 
+//-----------------------------------------------------------------------------
 text_help = R'''
 ## help Class
 
@@ -416,6 +445,7 @@ text_help = R'''
 </table>
 '''
 
+//-----------------------------------------------------------------------------
 text_image = R'''
 ## image Class
 
@@ -439,21 +469,25 @@ text_image = R'''
 </table>
 '''
 
+//-----------------------------------------------------------------------------
 text_iterator = R'''
 ## iterator Class
 
 '''
 
+//-----------------------------------------------------------------------------
 text_list = R'''
 ## list Class
 
 '''
 
+//-----------------------------------------------------------------------------
 text_matrix = R'''
 ## matrix Class
 
 '''
 
+//-----------------------------------------------------------------------------
 text_operator = R'''
 ## operator Class
 
@@ -468,22 +502,26 @@ text_operator = R'''
 </table>
 '''
 
+//-----------------------------------------------------------------------------
 text_palette = R'''
 ## palette Class
 
 '''
 
+//-----------------------------------------------------------------------------
 text_pointer = R'''
 ## pointer Class
 
 
 '''
 
+//-----------------------------------------------------------------------------
 text_semaphore = R'''
 ## semaphore Class
 
 '''
 
+//-----------------------------------------------------------------------------
 text_stream = R'''
 ## stream Class
 
@@ -513,16 +551,30 @@ text_stream = R'''
 </table>
 '''
 
+//-----------------------------------------------------------------------------
 text_suffixmgr = R'''
 ## suffixmgr Class
 
+The `suffixmgr` class provides measures to access suffix managers
+that are responsible to handle suffix symbols appended to number or string literals.
+
+Below is an example to register a suffix `X` that converts a string into upper case
+after being appended to a string literal:
+
+    suffixmgr(`string).assign(`X) {|body| body.upper()}
+
+You can use that suffix like below:
+
+    'hello world'X
 '''
 
+//-----------------------------------------------------------------------------
 text_template = R'''
 ## template Class
 
 '''
 
+//-----------------------------------------------------------------------------
 text_timedelta = R'''
 ## timedelta Class
 
@@ -543,6 +595,7 @@ text_timedelta = R'''
 </table>
 '''
 
+//-----------------------------------------------------------------------------
 text_uri = R'''
 ## uri Class
 

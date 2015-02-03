@@ -1316,6 +1316,9 @@ f(true) println('printed')
 f(false) println('not printed')
 </code></pre>
 <h2><span class="caption-index-2">5.2</span><a name="caption-5-2"></a>array Class</h2>
+<p>
+An instance of the <code>array</code> class stores multiple numeric values in a seamless binary sequence. With such a structure, data in the instances can be passed without any conversion to functions in C library that expect arrays of <code>char</code>, <code>short</code>, <code>int</code> and so on.
+</p>
 <h3><span class="caption-index-3">5.2.1</span><a name="caption-5-2-1"></a>Methods</h3>
 <p>
 <strong>array@XXX</strong>
@@ -1387,6 +1390,9 @@ Pastes values in another source array.
 Creates an array that extracts specified number of elements at the bottom of the source.
 </p>
 <h2><span class="caption-index-2">5.3</span><a name="caption-5-3"></a>audio Class</h2>
+<p>
+The <code>audio</code> class provides measures to work on audio data.
+</p>
 <h3><span class="caption-index-3">5.3.1</span><a name="caption-5-3-1"></a>Methods</h3>
 <p>
 <strong>audio#each</strong>
@@ -1419,6 +1425,9 @@ Creates an array that extracts specified number of elements at the bottom of the
 <code>audio#store(channel:number, offset:number, data:iterator):reduce</code>
 </p>
 <h2><span class="caption-index-2">5.4</span><a name="caption-5-4"></a>binary Class</h2>
+<p>
+The <code>binary</code> class provides measures to work on binary data that is a byte sequence without any format.
+</p>
 <h3><span class="caption-index-3">5.4.1</span><a name="caption-5-4-1"></a>Properties</h3>
 <p>
 <table>
@@ -1565,6 +1574,9 @@ Returns a pointer instance that has an initial offset specified by the argument.
 <code>binary#writer() {block?}</code>
 </p>
 <h2><span class="caption-index-2">5.5</span><a name="caption-5-5"></a>codec Class</h2>
+<p>
+The <code>codec</code> class provides measures to convert character codes.
+</p>
 <h3><span class="caption-index-3">5.5.1</span><a name="caption-5-5-1"></a>Methods</h3>
 <p>
 <strong>codec#addcr</strong>
@@ -1591,6 +1603,9 @@ Returns a pointer instance that has an initial offset specified by the argument.
 <code>codec#encode(string:string):map</code>
 </p>
 <h2><span class="caption-index-2">5.6</span><a name="caption-5-6"></a>color Class</h2>
+<p>
+An instance of the <code>color</code> class represents a color data that consists of red, green, blue and alpha elements.
+</p>
 <h3><span class="caption-index-3">5.6.1</span><a name="caption-5-6-1"></a>Predefined Variables</h3>
 <p>
 <table>
@@ -5540,6 +5555,19 @@ R</td>
 <code>stream#write(buff:binary, len?:number):reduce</code>
 </p>
 <h2><span class="caption-index-2">5.26</span><a name="caption-5-26"></a>suffixmgr Class</h2>
+<p>
+The <code>suffixmgr</code> class provides measures to access suffix managers that are responsible to handle suffix symbols appended to number or string literals.
+</p>
+<p>
+Below is an example to register a suffix <code>X</code> that converts a string into upper case after being appended to a string literal:
+</p>
+<pre><code>suffixmgr(`string).assign(`X) {|body| body.upper()}
+</code></pre>
+<p>
+You can use it like below:
+</p>
+<pre><code>'hello world'X
+</code></pre>
 <h3><span class="caption-index-3">5.26.1</span><a name="caption-5-26-1"></a>Methods</h3>
 <p>
 <strong>suffixmgr</strong>
