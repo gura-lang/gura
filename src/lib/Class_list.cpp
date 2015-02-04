@@ -746,7 +746,8 @@ Gura_DeclareClassMethod(list, zip)
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Creates an iterator generating lists that bind given argument values.\n"
 		"When the value is a list or an iterator, each item in it would be zipped.\n"
-	GURA_ITERATOR_HELP);
+		"\n"
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementClassMethod(list, zip)
@@ -870,8 +871,10 @@ Gura_DeclareMethod(list, combination)
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Creates an iterator that generates lists that contain elements picked up\n"
 		"from the original list in a combination manner.\n"
+		"\n"
 		GURA_ITERATOR_HELP
-		"Block parameter format: |value:list, idx:number|");
+		"\n"
+		"Block parameter format: `|value:list, idx:number|`");
 }
 
 Gura_ImplementMethod(list, combination)
@@ -1076,8 +1079,10 @@ Gura_DeclareMethod(list, permutation)
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Creates an iterator that generates lists that contain elements picked up\n"
 		"from the original list in a permutation manner.\n"
+		"\n"
 		GURA_ITERATOR_HELP
-		"Block parameter format: |value:list, idx:number|");
+		"\n"
+		"Block parameter format: `|value:list, idx:number|`");
 }
 
 Gura_ImplementMethod(list, permutation)
@@ -1191,8 +1196,10 @@ Gura_DeclareMethod(list, after)
 		"Creates an iterator that picks up each element in the list after criteria\n"
 		"is evaluated as true. You can specify a function object, a list or an iterator\n"
 		"as the criteria.\n"
+		"\n"
 		GURA_ITERATOR_HELP
-		"Block parameter format: |value:list, idx:number|");
+		"\n"
+		"Block parameter format: `|value:list, idx:number|`");
 }
 
 Gura_ImplementMethod(list, after)
@@ -1281,8 +1288,10 @@ Gura_DeclareMethod(list, before)
 		"Creates an iterator that picks up each element in the list before criteria\n"
 		"is evaluated as true. You can specify a function object, a list or an iterator\n"
 		"as the criteria.\n"
+		"\n"
 		GURA_ITERATOR_HELP
-		"Block parameter format: |value:list, idx:number|");
+		"\n"
+		"Block parameter format: `|value:list, idx:number|`");
 }
 
 Gura_ImplementMethod(list, before)
@@ -1370,8 +1379,10 @@ Gura_DeclareMethod(list, each)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Creates an iterator that iterates each element in the list.\n"
+		"\n"
 		GURA_ITERATOR_HELP
-		"Block parameter format: |value, idx:number|");
+		"\n"
+		"Block parameter format: `|value, idx:number|`");
 }
 
 Gura_ImplementMethod(list, each)
@@ -1548,8 +1559,10 @@ Gura_DeclareMethod(list, map)
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Creates an iterator that generates element values after applying the specfied\n"
 		"function on them. The function must take one argument.\n"
+		"\n"
 		GURA_ITERATOR_HELP
-		"Block parameter format: |value, idx:number|");
+		"\n"
+		"Block parameter format: `|value, idx:number|`");
 }
 
 Gura_ImplementMethod(list, map)
@@ -1907,8 +1920,10 @@ Gura_DeclareMethod(list, since)
 		"Creates an iterator that picks up each element in the list since criteria\n"
 		"is evaluated as true. You can specify a function object, a list or an iterator\n"
 		"as the criteria.\n"
+		"\n"
 		GURA_ITERATOR_HELP
-		"Block parameter format: |value:list, idx:number|");
+		"\n"
+		"Block parameter format: `|value:list, idx:number|`");
 }
 
 Gura_ImplementMethod(list, since)
@@ -2071,8 +2086,10 @@ Gura_DeclareMethod(list, until)
 		"Creates an iterator that picks up each element in the list until criteria\n"
 		"is evaluated as true. You can specify a function object, a list or an iterator\n"
 		"as the criteria.\n"
+		"\n"
 		GURA_ITERATOR_HELP
-		"Block parameter format: |value:list, idx:number|");
+		"\n"
+		"Block parameter format: `|value:list, idx:number|`");
 }
 
 Gura_ImplementMethod(list, until)
@@ -2146,8 +2163,10 @@ Gura_DeclareMethodAlias(list, while_, "while")
 		"Creates an iterator that picks up each element in the list while criteria\n"
 		"is evaluated as true. You can specify a function object, a list or an iterator\n"
 		"as the criteria.\n"
+		"\n"
 		GURA_ITERATOR_HELP
-		"Block parameter format: |value:list, idx:number|");
+		"\n"
+		"Block parameter format: `|value:list, idx:number|`");
 }
 
 Gura_ImplementMethod(list, while_)

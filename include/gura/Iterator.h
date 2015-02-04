@@ -12,14 +12,17 @@
 "If a block is specified, it executes the block while evaluating the iterator\n" \
 "and returns the last evaluated value in the block as its own result.\n" \
 "Otherwise, it returns an iterator or a list according to the attribute\n" \
-"In default, it returns an iterator. If attribute :xiter is specified, it returns\n" \
-"an iterator that eliminates nil value from the iterated result.\n" \
-"If one of attributes :list, :xlist, :set and :xset is specified, it gathers results\n" \
-"and returns a list of them. The rule is as follows\n" \
-" :list  a list of result values\n" \
-" :xlist a list of result values eliminating nil\n" \
-" :set   a list of unique values of results\n" \
-" :xset  a list of unique values of results eliminating nil\n"
+"\n" \
+"In default, it returns an iterator. If attribute `:xiter` is specified, it returns\n" \
+"an iterator that eliminates `nil` value from the iterated result.\n" \
+"\n" \
+"If one of attributes `:list`, `:xlist`, `:set` and `:xset` is specified,\n" \
+"it would create the following value:\n" \
+"\n" \
+"- `:list` .. a list of values\n" \
+"- `:xlist` .. a list of values except for `nil`\n" \
+"- `:set` ..  a list of unique values\n" \
+"- `:xset` .. a list of unique values except for `nil`\n"
 
 namespace Gura {
 
