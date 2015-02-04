@@ -392,12 +392,56 @@ Renderer@console = class {
 				print(item.text.escapehtml())
 			}
 		} elsif (item.type == `tag) {
-			item.children && this.RenderItem(item.children)
+			if (item.text == 'table') {
+				this.RenderTable(item)
+			} else {
+				item.children && this.RenderItem(item.children)
+			}
 		} elsif (item.type == `hr) {
 			println('--------')
 		} elsif (item.type == `br) {
 			println()
 		}
+	}
+	RenderTable(item:item) = {
+		rows = item.children.each():xlist {|item|
+			(item.type != `tag || item.text.lower() != 'tr') && continue
+			headerFlag = false
+			cols = item.children.each():xlist {|item|
+				(item.type != `tag) && continue
+				tagName = item.text.lower()
+				if (tagName == 'th') {
+					headerFlag = true
+				} elsif (tagName == 'td') {
+					// nothing to do
+				} else {
+					continue
+				}
+				TableCol(JoinText(item))
+			}
+			TableRow(headerFlag, cols)
+		}
+		nCols = rows:*cols:*len().max()
+		rows::cols = rows:*cols::align(nCols, TableCol('')):list
+		widths = repeat(nCols):list {|iCol|
+			rows:*cols:*get(iCol):*text:*len().max()
+		}
+		separator = ('-' * widths).join('+')
+		rows.each {|row|
+			println(format('%-*s', widths, row.cols:*text).join('|'))
+			row.headerFlag && println(separator)
+		}
+	}
+}
+
+TableCol = struct(text:string)
+TableRow = struct(headerFlag:boolean, cols[]:TableCol)
+
+JoinText(item:item):map = {
+	if (item.children) {
+		JoinText(item.children).join()
+	} else {
+		item.text
 	}
 }
 
