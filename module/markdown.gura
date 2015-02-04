@@ -299,6 +299,14 @@ Renderer@rtf = class {
 
 Renderer@console = class {
 	__init__() = {
+		[this.wdScreen, this.htScreen] = conio.getwinsize()
+		if (this.wdScreen == 0) {
+			this.wdScreen = 80
+		}
+		this.wdScreen -= 1
+		if (this.htScreen == 0) {
+			this.htScreen = 25
+		}
 	}
 	Render(doc:document):void = {
 		this.RenderItem(doc.root)
@@ -426,9 +434,37 @@ Renderer@console = class {
 		widths = repeat(nCols):list {|iCol|
 			rows:*cols:*get(iCol):*text:*len().max()
 		}
+		wdAvailable = this.wdScreen + 1 - nCols // subtract width for vertical bar
+		wdThreshold = int(wdAvailable / nCols)
+		wdSum = widths.sum()
+		if (wdSum > wdAvailable) {
+			widthsShort = widths.filter(widths < wdThreshold)
+			widthsShortSum = widthsShort.sum() || 0
+			widthsLongSum = wdSum - widthsShortSum
+			wdRest = wdAvailable - widthsShortSum
+			if (wdRest < 0) {
+				widthsWk = int(widths * wdAvailable / wdSum)
+			} else {
+				widthsWk = widths.each():list {|width|
+					if (width < wdThreshold) {
+						width
+					} else {
+						width * wdRest / widthsLongSum
+					}
+				}
+			}
+			if ((widthsWk > 0).and()) {
+				widths = widthsWk
+			}
+		}
 		separator = ('-' * widths).join('+')
 		rows.each {|row|
-			println(format('%-*s', widths, row.cols:*text).join('|'))
+			textsFolded = row.cols:*text.each():list {|text, i|
+				text.split('\n'):*fold(widths[i]).flat().each()
+			}
+			while ((texts = textsFolded:*next()).or()) {
+				println(format('%-*s', widths, texts || '').join('|'))
+			}
 			row.headerFlag && println(separator)
 		}
 	}
