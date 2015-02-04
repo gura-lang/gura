@@ -4138,13 +4138,13 @@ Returns an iterator that searches items recursively if they are lists or iterato
 <strong>iterator#fold</strong>
 </p>
 <p>
-<code>iterator#fold(n:number, nstep?:number):[iteritem,neat] {block?}</code>
+<code>iterator#fold(n:number, nstep?:number):map:[iteritem,neat] {block?}</code>
 </p>
 <p>
 <strong>iterator#format</strong>
 </p>
 <p>
-<code>iterator#format(format:string) {block?}</code>
+<code>iterator#format(format:string):map {block?}</code>
 </p>
 <p>
 <strong>iterator#head</strong>
@@ -4156,7 +4156,7 @@ Returns an iterator that searches items recursively if they are lists or iterato
 <strong>iterator#join</strong>
 </p>
 <p>
-<code>iterator#join(sep?:string)</code>
+<code>iterator#join(sep?:string):map</code>
 </p>
 <p>
 <strong>iterator#joinb</strong>
@@ -4186,8 +4186,16 @@ Returns the length of the iterator.
 <code>iterator#max():[index,indices,last_index]</code>
 </p>
 <p>
-Returns the maximum value in the iterator when no attribute is specified. With an attribute :index, it returns an index of the maximum value. With an attribute :last<em>index, it returns the last index of the maximum value</em>when more than one elements have the same value. With an attribute :indices, it returns a list of indices of elements that has the maximum value.
+Returns the maximum value in the list.
 </p>
+<p>
+It would return a position index where the maximum value is found when one of the following attribute is specified:
+</p>
+<ul>
+<li><code>:index</code> .. an index of the maximum value.</li>
+<li><code>:indices</code> .. a list of indices where the maximum value is found.</li>
+<li><code>:last_index</code> .. the last index of the maximum value when the value exists at multiple positions.</li>
+</ul>
 <p>
 <strong>iterator#min</strong>
 </p>
@@ -4195,8 +4203,16 @@ Returns the maximum value in the iterator when no attribute is specified. With a
 <code>iterator#min():[index,indices,last_index]</code>
 </p>
 <p>
-Returns the minimum value in the iterator when no attribute is specified. With an attribute :index, it returns an index of the minimum value. With an attribute :last<em>index, it returns the last index of the minimum value</em>when more than one elements have the same value. With an attribute :indices, it returns a list of indices of elements that has the minimum value.
+Returns the minimum value in the list.
 </p>
+<p>
+It would return a position index where the minimum value is found when one of the following attribute is specified:
+</p>
+<ul>
+<li><code>:index</code> .. an index of the minimum value.</li>
+<li><code>:indices</code> .. a list of indices where the minimum value is found.</li>
+<li><code>:last_index</code> .. the last index of the minimum value when the value exists at multiple positions.</li>
+</ul>
 <p>
 <strong>iterator#nilto</strong>
 </p>
@@ -4642,13 +4658,13 @@ Returns a list that consists of elements of the original list after filtering by
 <strong>list#fold</strong>
 </p>
 <p>
-<code>list#fold(n:number, nstep?:number):[iteritem,neat] {block?}</code>
+<code>list#fold(n:number, nstep?:number):map:[iteritem,neat] {block?}</code>
 </p>
 <p>
 <strong>list#format</strong>
 </p>
 <p>
-<code>list#format(format:string):map</code>
+<code>list#format(format:string):map {block?}</code>
 </p>
 <p>
 Applies element values in the list to format string that contains C printfspecifiers	and returns a formatted string.
@@ -4663,7 +4679,7 @@ Applies element values in the list to format string that contains C printfspecif
 <strong>list#join</strong>
 </p>
 <p>
-<code>list#join(sep:string =&gt; '')</code>
+<code>list#join(sep?:string):map</code>
 </p>
 <p>
 Returns a string that joins strings of elements with the specified separator.
@@ -4693,8 +4709,16 @@ Creates an iterator that generates element values after applying the specfied fu
 <code>list#max():[index,indices,last_index]</code>
 </p>
 <p>
-Returns the maximum value in the list when no attribute is specified. With an attribute :index, it returns an index of the maximum value. With an attribute :last<em>index, it returns the last index of the maximum value</em>when more than one elements have the same value. With an attribute :indices, it returns a list of indices of elements that has the maximum value.
+Returns the maximum value in the list.
 </p>
+<p>
+It would return a position index where the maximum value is found when one of the following attribute is specified:
+</p>
+<ul>
+<li><code>:index</code> .. an index of the maximum value.</li>
+<li><code>:indices</code> .. a list of indices where the maximum value is found.</li>
+<li><code>:last_index</code> .. the last index of the maximum value when the value exists at multiple positions.</li>
+</ul>
 <p>
 <strong>list#min</strong>
 </p>
@@ -4702,8 +4726,16 @@ Returns the maximum value in the list when no attribute is specified. With an at
 <code>list#min():[index,indices,last_index]</code>
 </p>
 <p>
-Returns the minimum value in the list when no attribute is specified. With an attribute :index, it returns an index of the minimum value. With an attribute :last<em>index, it returns the last index of the minimum value</em>when more than one elements have the same value. With an attribute :indices, it returns a list of indices of elements that has the minimum value.
+Returns the minimum value in the list.
 </p>
+<p>
+It would return a position index where the minimum value is found when one of the following attribute is specified:
+</p>
+<ul>
+<li><code>:index</code> .. an index of the minimum value.</li>
+<li><code>:indices</code> .. a list of indices where the minimum value is found.</li>
+<li><code>:last_index</code> .. the last index of the minimum value when the value exists at multiple positions.</li>
+</ul>
 <p>
 <strong>list#nilto</strong>
 </p>
@@ -4791,7 +4823,7 @@ When an attribute :stable is specified, the original order shall be kept for ele
 <code>list#reduce(accum) {block}</code>
 </p>
 <p>
-Evaluates a block with a parameter format |value, accum| and leaves the result as the next accum value. It returns the final accum value as its result.
+Evaluates a block with a parameter format <code>|value, accum|</code> and leaves the result as the next <code>accum</code> value. It returns the final <code>accum</code> value as its result.
 </p>
 <p>
 <strong>list#replace</strong>
@@ -5564,7 +5596,7 @@ Below is an example to register a suffix <code>X</code> that converts a string i
 <pre><code>suffixmgr(`string).assign(`X) {|body| body.upper()}
 </code></pre>
 <p>
-You can use it like below:
+You can use that suffix like below:
 </p>
 <pre><code>'hello world'X
 </code></pre>

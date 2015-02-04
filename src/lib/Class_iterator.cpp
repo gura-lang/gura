@@ -826,7 +826,7 @@ Gura_DeclareMethod(iterator, max)
 	DeclareAttr(Gura_Symbol(indices));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns the maximum value in the list.\n"
+		"Returns the maximum value in the iterator.\n"
 		"\n"
 		"It would return a position index where the maximum value is found\n"
 		"when one of the following attribute is specified:\n"
@@ -855,7 +855,7 @@ Gura_DeclareMethod(iterator, min)
 	DeclareAttr(Gura_Symbol(indices));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns the minimum value in the list.\n"
+		"Returns the minimum value in the iterator.\n"
 		"\n"
 		"It would return a position index where the minimum value is found\n"
 		"when one of the following attribute is specified:\n"
