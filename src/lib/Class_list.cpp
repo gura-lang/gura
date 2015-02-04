@@ -1438,10 +1438,10 @@ Gura_ImplementMethod(list, find)
 	return value;
 }
 
-// list#fold(n:number, nstep?:number):[iteritem,neat] {block?}
+// list#fold(n:number, nstep?:number):map:[iteritem,neat] {block?}
 Gura_DeclareMethod(list, fold)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareArg(env, "nstep", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1465,11 +1465,12 @@ Gura_ImplementMethod(list, fold)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// list#format(format:string):map
+// list#format(format:string):map {block?}
 Gura_DeclareMethod(list, format)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_string);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Applies element values in the list to format string that contains C printf"
@@ -1479,7 +1480,8 @@ Gura_DeclareMethod(list, format)
 Gura_ImplementMethod(list, format)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	return Value(Formatter::Format(sig, args.GetString(0), pThis->GetList()));
+	return ReturnValue(env, sig, args,
+					   Value(Formatter::Format(sig, args.GetString(0), pThis->GetList())));
 }
 
 // list#head(n:number):map {block?}
@@ -1502,11 +1504,11 @@ Gura_ImplementMethod(list, head)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// list#join(sep:string => "")
+// list#join(sep?:string):map
 Gura_DeclareMethod(list, join)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "sep", VTYPE_string, OCCUR_Once, FLAG_None, new Expr_Value(Value("")));
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "sep", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Returns a string that joins strings of elements with the specified separator.");
@@ -1515,8 +1517,9 @@ Gura_DeclareMethod(list, join)
 Gura_ImplementMethod(list, join)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
+	const char *sep = args.Is_string(0)? args.GetString(0) : "";
 	ValueList &valList = pThis->GetList();
-	return Value(Join(valList, args.GetString(0)));
+	return Value(Join(valList, sep));
 }
 
 // list#len()
@@ -1568,12 +1571,15 @@ Gura_DeclareMethod(list, max)
 	DeclareAttr(Gura_Symbol(indices));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns the maximum value in the list when no attribute is specified.\n"
-		"With an attribute :index, it returns an index of the maximum value.\n"
-		"With an attribute :last_index, it returns the last index of the maximum value\n"
-		"when more than one elements have the same value.\n"
-		"With an attribute :indices, it returns a list of indices of elements that\n"
-		"has the maximum value.");
+		"Returns the maximum value in the list.\n"
+		"\n"
+		"It would return a position index where the maximum value is found\n"
+		"when one of the following attribute is specified:\n"
+		"\n"
+		"- `:index` .. an index of the maximum value.\n"
+		"- `:indices` .. a list of indices where the maximum value is found.\n"
+		"- `:last_index` .. the last index of the maximum value\n"
+		"                   when the value exists at multiple positions.\n");
 }
 
 Gura_ImplementMethod(list, max)
@@ -1595,12 +1601,15 @@ Gura_DeclareMethod(list, min)
 	DeclareAttr(Gura_Symbol(indices));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns the minimum value in the list when no attribute is specified.\n"
-		"With an attribute :index, it returns an index of the minimum value.\n"
-		"With an attribute :last_index, it returns the last index of the minimum value\n"
-		"when more than one elements have the same value.\n"
-		"With an attribute :indices, it returns a list of indices of elements that\n"
-		"has the minimum value.");
+		"Returns the minimum value in the list.\n"
+		"\n"
+		"It would return a position index where the minimum value is found\n"
+		"when one of the following attribute is specified:\n"
+		"\n"
+		"- `:index` .. an index of the minimum value.\n"
+		"- `:indices` .. a list of indices where the minimum value is found.\n"
+		"- `:last_index` .. the last index of the minimum value\n"
+		"                   when the value exists at multiple positions.\n");
 }
 
 Gura_ImplementMethod(list, min)
@@ -1789,8 +1798,8 @@ Gura_DeclareMethod(list, reduce)
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Evaluates a block with a parameter format |value, accum| and leaves the result\n"
-		"as the next accum value. It returns the final accum value as its result.");
+		"Evaluates a block with a parameter format `|value, accum|` and leaves the result\n"
+		"as the next `accum` value. It returns the final `accum` value as its result.");
 }
 
 Gura_ImplementMethod(list, reduce)

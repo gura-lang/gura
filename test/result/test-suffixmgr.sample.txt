@@ -2,7 +2,7 @@
 
 suffixmgr(`string) .. <suffixmgr>
 suffixmgr(`number) .. <suffixmgr>
-expected error occurs: ValueError: target must be `number or `string
+expected error occurs: ValueError: type must be `number or `string
 
 ======== #2 ========
 

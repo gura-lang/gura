@@ -249,7 +249,7 @@ set(iter+:iterator):[and,or,xor]
 stream(pathname:string, mode?:string, codec?:codec):map {block?}
 string:class = <class:string>
 struct(`args+):[loose] {block?}
-suffixmgr(target:symbol) {block?}
+suffixmgr(type:symbol) {block?}
 super(obj):map {block?}
 switch() {block}
 sys:module = <module:sys:<integrated>>
@@ -537,11 +537,11 @@ iterator
   iterator#filter(criteria?) {block?}
   iterator#find(criteria?):[index]
   iterator#flat():[bfs,dfs] {block?}
-  iterator#fold(n:number, nstep?:number):[iteritem,neat] {block?}
-  iterator#format(format:string) {block?}
+  iterator#fold(n:number, nstep?:number):map:[iteritem,neat] {block?}
+  iterator#format(format:string):map {block?}
   iterator#head(n:number):map {block?}
   iterator#isinfinite()
-  iterator#join(sep?:string)
+  iterator#join(sep?:string):map
   iterator#joinb()
   iterator#len()
   iterator#map(func:function) {block?}
@@ -593,13 +593,13 @@ list
   list#find(criteria?):[index]
   list#first()
   list#flat():[bfs,dfs]
-  list#fold(n:number, nstep?:number):[iteritem,neat] {block?}
-  list#format(format:string):map
+  list#fold(n:number, nstep?:number):map:[iteritem,neat] {block?}
+  list#format(format:string):map {block?}
   list#get(index:number):map:flat
   list#head(n:number):map {block?}
   list#insert(idx:number, elem+):reduce
   list#isempty()
-  list#join(sep:string => '')
+  list#join(sep?:string):map
   list#last()
   list#len()
   list#map(func:function) {block?}

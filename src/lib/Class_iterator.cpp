@@ -640,10 +640,10 @@ Gura_ImplementMethod(iterator, flat)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// iterator#fold(n:number, nstep?:number):[iteritem,neat] {block?}
+// iterator#fold(n:number, nstep?:number):map:[iteritem,neat] {block?}
 Gura_DeclareMethod(iterator, fold)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareArg(env, "nstep", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(iteritem));
@@ -666,10 +666,10 @@ Gura_ImplementMethod(iterator, fold)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// iterator#format(format:string) {block?}
+// iterator#format(format:string):map {block?}
 Gura_DeclareMethod(iterator, format)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -704,10 +704,10 @@ Gura_ImplementMethod(iterator, head)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// iterator#join(sep?:string)
+// iterator#join(sep?:string):map
 Gura_DeclareMethod(iterator, join)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "sep", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -797,7 +797,7 @@ Gura_ImplementMethod(iterator, len)
 	return Value(static_cast<Number>(cnt));
 }
 
-// iterator#map(func:Function) {block?}
+// iterator#map(func:function) {block?}
 Gura_DeclareMethod(iterator, map)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
@@ -826,12 +826,15 @@ Gura_DeclareMethod(iterator, max)
 	DeclareAttr(Gura_Symbol(indices));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns the maximum value in the iterator when no attribute is specified.\n"
-		"With an attribute :index, it returns an index of the maximum value.\n"
-		"With an attribute :last_index, it returns the last index of the maximum value\n"
-		"when more than one elements have the same value.\n"
-		"With an attribute :indices, it returns a list of indices of elements that\n"
-		"has the maximum value.");
+		"Returns the maximum value in the list.\n"
+		"\n"
+		"It would return a position index where the maximum value is found\n"
+		"when one of the following attribute is specified:\n"
+		"\n"
+		"- `:index` .. an index of the maximum value.\n"
+		"- `:indices` .. a list of indices where the maximum value is found.\n"
+		"- `:last_index` .. the last index of the maximum value\n"
+		"                   when the value exists at multiple positions.\n");
 }
 
 Gura_ImplementMethod(iterator, max)
@@ -852,12 +855,15 @@ Gura_DeclareMethod(iterator, min)
 	DeclareAttr(Gura_Symbol(indices));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns the minimum value in the iterator when no attribute is specified.\n"
-		"With an attribute :index, it returns an index of the minimum value.\n"
-		"With an attribute :last_index, it returns the last index of the minimum value\n"
-		"when more than one elements have the same value.\n"
-		"With an attribute :indices, it returns a list of indices of elements that\n"
-		"has the minimum value.");
+		"Returns the minimum value in the list.\n"
+		"\n"
+		"It would return a position index where the minimum value is found\n"
+		"when one of the following attribute is specified:\n"
+		"\n"
+		"- `:index` .. an index of the minimum value.\n"
+		"- `:indices` .. a list of indices where the minimum value is found.\n"
+		"- `:last_index` .. the last index of the minimum value\n"
+		"                   when the value exists at multiple positions.\n");
 }
 
 Gura_ImplementMethod(iterator, min)
