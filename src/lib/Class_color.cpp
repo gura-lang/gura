@@ -208,7 +208,6 @@ void Class_color::Prepare(Environment &env)
 	Gura_AssignMethod(color, html);
 	Gura_AssignMethod(color, tolist);
 	do {
-		Environment &env = *this;
 		Value value;
 		ValueList &valList = value.InitAsList(env);
 		size_t cnt = 0;
@@ -218,7 +217,7 @@ void Class_color::Prepare(Environment &env)
 			const Color::ElementEntry &elementEntry = elementEntries[i];
 			valList.push_back(Value(elementEntry.name));
 		}
-		Gura_AssignValue(names, value);
+		Gura_AssignClassValue(names, value);
 	} while (0);
 	Gura_AssignFunction(color);
 	Gura_AssignClassValue(black,	Value(new Object_color(env, Color::black)));
