@@ -4186,7 +4186,7 @@ Returns the length of the iterator.
 <code>iterator#max():[index,indices,last_index]</code>
 </p>
 <p>
-Returns the maximum value in the list.
+Returns the maximum value in the iterator.
 </p>
 <p>
 It would return a position index where the maximum value is found when one of the following attribute is specified:
@@ -4203,7 +4203,7 @@ It would return a position index where the maximum value is found when one of th
 <code>iterator#min():[index,indices,last_index]</code>
 </p>
 <p>
-Returns the minimum value in the list.
+Returns the minimum value in the iterator.
 </p>
 <p>
 It would return a position index where the minimum value is found when one of the following attribute is specified:
@@ -4418,8 +4418,23 @@ In default, all the elements in each iterators are added to the created list. Sp
 <code>list.zip(values+):static {block?}</code>
 </p>
 <p>
-Creates an iterator generating lists that bind given argument values. When the value is a list or an iterator, each item in it would be zipped. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute In default, it returns an iterator. If attribute :xiter is specified, it returns an iterator that eliminates nil value from the iterated result. If one of attributes :list, :xlist, :set and :xset is specified, it gathers results and returns a list of them. The rule is as follows :list  a list of result values :xlist a list of result values eliminating nil :set   a list of unique values of results :xset  a list of unique values of results eliminating nil
+Creates an iterator generating lists that bind given argument values. When the value is a list or an iterator, each item in it would be zipped.
 </p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
 <p>
 <strong>list#add</strong>
 </p>
@@ -4454,7 +4469,25 @@ Clear the content of the list.
 <code>list#combination(n:number) {block?}</code>
 </p>
 <p>
-Creates an iterator that generates lists that contain elements picked up from the original list in a combination manner. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute In default, it returns an iterator. If attribute :xiter is specified, it returns an iterator that eliminates nil value from the iterated result. If one of attributes :list, :xlist, :set and :xset is specified, it gathers results and returns a list of them. The rule is as follows :list  a list of result values :xlist a list of result values eliminating nil :set   a list of unique values of results :xset  a list of unique values of results eliminating nil Block parameter format: |value:list, idx:number|
+Creates an iterator that generates lists that contain elements picked up from the original list in a combination manner.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format: <code>|value:list, idx:number|</code>
 </p>
 <p>
 <strong>list#erase</strong>
@@ -4526,7 +4559,25 @@ Returns a last value in the list. An error occurs when the list is empty.
 <code>list#permutation(n?:number) {block?}</code>
 </p>
 <p>
-Creates an iterator that generates lists that contain elements picked up from the original list in a permutation manner. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute In default, it returns an iterator. If attribute :xiter is specified, it returns an iterator that eliminates nil value from the iterated result. If one of attributes :list, :xlist, :set and :xset is specified, it gathers results and returns a list of them. The rule is as follows :list  a list of result values :xlist a list of result values eliminating nil :set   a list of unique values of results :xset  a list of unique values of results eliminating nil Block parameter format: |value:list, idx:number|
+Creates an iterator that generates lists that contain elements picked up from the original list in a permutation manner.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format: <code>|value:list, idx:number|</code>
 </p>
 <p>
 <strong>list#printf</strong>
@@ -4571,7 +4622,25 @@ Shuffle the order of the list content based on random numbers.
 <code>list#after(criteria) {block?}</code>
 </p>
 <p>
-Creates an iterator that picks up each element in the list after criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute In default, it returns an iterator. If attribute :xiter is specified, it returns an iterator that eliminates nil value from the iterated result. If one of attributes :list, :xlist, :set and :xset is specified, it gathers results and returns a list of them. The rule is as follows :list  a list of result values :xlist a list of result values eliminating nil :set   a list of unique values of results :xset  a list of unique values of results eliminating nil Block parameter format: |value:list, idx:number|
+Creates an iterator that picks up each element in the list after criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format: <code>|value:list, idx:number|</code>
 </p>
 <p>
 <strong>list#align</strong>
@@ -4604,7 +4673,25 @@ Returns an average of values in the list.
 <code>list#before(criteria) {block?}</code>
 </p>
 <p>
-Creates an iterator that picks up each element in the list before criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute In default, it returns an iterator. If attribute :xiter is specified, it returns an iterator that eliminates nil value from the iterated result. If one of attributes :list, :xlist, :set and :xset is specified, it gathers results and returns a list of them. The rule is as follows :list  a list of result values :xlist a list of result values eliminating nil :set   a list of unique values of results :xset  a list of unique values of results eliminating nil Block parameter format: |value:list, idx:number|
+Creates an iterator that picks up each element in the list before criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format: <code>|value:list, idx:number|</code>
 </p>
 <p>
 <strong>list#contains</strong>
@@ -4637,7 +4724,25 @@ Returns a number of elements that matches the given criteria which is a single-a
 <code>list#each() {block?}</code>
 </p>
 <p>
-Creates an iterator that iterates each element in the list. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute In default, it returns an iterator. If attribute :xiter is specified, it returns an iterator that eliminates nil value from the iterated result. If one of attributes :list, :xlist, :set and :xset is specified, it gathers results and returns a list of them. The rule is as follows :list  a list of result values :xlist a list of result values eliminating nil :set   a list of unique values of results :xset  a list of unique values of results eliminating nil Block parameter format: |value, idx:number|
+Creates an iterator that iterates each element in the list.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format: <code>|value, idx:number|</code>
 </p>
 <p>
 <strong>list#filter</strong>
@@ -4700,7 +4805,25 @@ Returns the length of the list.
 <code>list#map(func:function) {block?}</code>
 </p>
 <p>
-Creates an iterator that generates element values after applying the specfied function on them. The function must take one argument. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute In default, it returns an iterator. If attribute :xiter is specified, it returns an iterator that eliminates nil value from the iterated result. If one of attributes :list, :xlist, :set and :xset is specified, it gathers results and returns a list of them. The rule is as follows :list  a list of result values :xlist a list of result values eliminating nil :set   a list of unique values of results :xset  a list of unique values of results eliminating nil Block parameter format: |value, idx:number|
+Creates an iterator that generates element values after applying the specfied function on them. The function must take one argument.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format: <code>|value, idx:number|</code>
 </p>
 <p>
 <strong>list#max</strong>
@@ -4856,7 +4979,25 @@ Evaluates a block with a parameter format <code>|value, accum|</code> and leaves
 <code>list#since(criteria) {block?}</code>
 </p>
 <p>
-Creates an iterator that picks up each element in the list since criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute In default, it returns an iterator. If attribute :xiter is specified, it returns an iterator that eliminates nil value from the iterated result. If one of attributes :list, :xlist, :set and :xset is specified, it gathers results and returns a list of them. The rule is as follows :list  a list of result values :xlist a list of result values eliminating nil :set   a list of unique values of results :xset  a list of unique values of results eliminating nil Block parameter format: |value:list, idx:number|
+Creates an iterator that picks up each element in the list since criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format: <code>|value:list, idx:number|</code>
 </p>
 <p>
 <strong>list#skip</strong>
@@ -4918,7 +5059,25 @@ Returns a sum of values in the list.
 <code>list#until(criteria) {block?}</code>
 </p>
 <p>
-Creates an iterator that picks up each element in the list until criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute In default, it returns an iterator. If attribute :xiter is specified, it returns an iterator that eliminates nil value from the iterated result. If one of attributes :list, :xlist, :set and :xset is specified, it gathers results and returns a list of them. The rule is as follows :list  a list of result values :xlist a list of result values eliminating nil :set   a list of unique values of results :xset  a list of unique values of results eliminating nil Block parameter format: |value:list, idx:number|
+Creates an iterator that picks up each element in the list until criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format: <code>|value:list, idx:number|</code>
 </p>
 <p>
 <strong>list#variance</strong>
@@ -4945,7 +5104,25 @@ Returns an iterator that searches items recursively if they are lists or iterato
 <code>list#while (criteria) {block?}</code>
 </p>
 <p>
-Creates an iterator that picks up each element in the list while criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute In default, it returns an iterator. If attribute :xiter is specified, it returns an iterator that eliminates nil value from the iterated result. If one of attributes :list, :xlist, :set and :xset is specified, it gathers results and returns a list of them. The rule is as follows :list  a list of result values :xlist a list of result values eliminating nil :set   a list of unique values of results :xset  a list of unique values of results eliminating nil Block parameter format: |value:list, idx:number|
+Creates an iterator that picks up each element in the list while criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format: <code>|value:list, idx:number|</code>
 </p>
 <h2><span class="caption-index-2">5.20</span><a name="caption-5-20"></a>matrix Class</h2>
 <h3><span class="caption-index-3">5.20.1</span><a name="caption-5-20-1"></a>Methods</h3>
@@ -5211,8 +5388,20 @@ Creates a palette of the specified type. type is a number of palette size or one
 <code>palette#each() {block?}</code>
 </p>
 <p>
-Creates an iterator that iterates each element in the palette. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute In default, it returns an iterator. If attribute :xiter is specified, it returns an iterator that eliminates nil value from the iterated result. If one of attributes :list, :xlist, :set and :xset is specified, it gathers results and returns a list of them. The rule is as follows :list  a list of result values :xlist a list of result values eliminating nil :set   a list of unique values of results :xset  a list of unique values of results eliminating nil Block parameter format: <code>|value, idx:number|</code>
+Creates an iterator that iterates each element in the palette. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
 </p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code> Block parameter format: <code>|value, idx:number|</code></li>
+</ul>
 <p>
 <strong>palette#nearest</strong>
 </p>
@@ -12920,8 +13109,20 @@ Returns a path name after eliminating its bottom part.
 <code>path.dir(directory?:directory, pattern*:string):map:flat:[dir,file,stat] {block?}</code>
 </p>
 <p>
-Creates an iterator that lists item names in the specified directory. If pathname is omitted, the current directory shall be listed. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute In default, it returns an iterator. If attribute :xiter is specified, it returns an iterator that eliminates nil value from the iterated result. If one of attributes :list, :xlist, :set and :xset is specified, it gathers results and returns a list of them. The rule is as follows :list  a list of result values :xlist a list of result values eliminating nil :set   a list of unique values of results :xset  a list of unique values of results eliminating nil
+Creates an iterator that lists item names in the specified directory. If pathname is omitted, the current directory shall be listed. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
 </p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
 <p>
 <strong>path.dirname</strong>
 </p>
@@ -12965,8 +13166,20 @@ Splits a pathname by a directory separator and returns a file name part.
 <code>path.glob(pattern:string):map:flat:[dir,file,stat] {block?}</code>
 </p>
 <p>
-Creates an iterator for item names that match with a pattern supporting UNIX shell-style wild cards. In default, case of characters is distinguished. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute In default, it returns an iterator. If attribute :xiter is specified, it returns an iterator that eliminates nil value from the iterated result. If one of attributes :list, :xlist, :set and :xset is specified, it gathers results and returns a list of them. The rule is as follows :list  a list of result values :xlist a list of result values eliminating nil :set   a list of unique values of results :xset  a list of unique values of results eliminating nil
+Creates an iterator for item names that match with a pattern supporting UNIX shell-style wild cards. In default, case of characters is distinguished. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
 </p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
 <p>
 <strong>path.join</strong>
 </p>
@@ -13028,8 +13241,20 @@ Returns a stat object associated with the specified item.
 <code>path.walk(directory?:directory, maxdepth?:number, pattern*:string):map:flat:[dir,file,stat] {block?}</code>
 </p>
 <p>
-Creates an iterator that recursively lists item names under the specified directory. If pathname is omitted, search starts at the current directory If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute In default, it returns an iterator. If attribute :xiter is specified, it returns an iterator that eliminates nil value from the iterated result. If one of attributes :list, :xlist, :set and :xset is specified, it gathers results and returns a list of them. The rule is as follows :list  a list of result values :xlist a list of result values eliminating nil :set   a list of unique values of results :xset  a list of unique values of results eliminating nil
+Creates an iterator that recursively lists item names under the specified directory. If pathname is omitted, search starts at the current directory If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
 </p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
 <h1><span class="caption-index-1">34</span><a name="caption-34"></a>png Module</h1>
 <p>
 The <code>png</code> module provides measures to read/write image data in PNG format. To utilize it, import the <code>png</code> module using <code>import</code> function.
