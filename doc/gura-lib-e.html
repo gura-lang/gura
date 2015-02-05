@@ -2279,7 +2279,7 @@ color()</code>
 
 </p>
 <p>
-And some color instances are assigned to the variables: <code>color.black</code>, <code>color.maroon</code>, <code>color.green</code>, <code>color.olive</code>, <code>color.navy</code>, <code>color.purple</code>, <code>color.teal</code>, <code>color.gray</code>, <code>color.silverk</code>, <code>color.red</code>, <code>color.lime</code>, <code>color.yellow</code>, <code>color.blue</code>, <code>color.aqua</code>, <code>color.white</code>
+And some color instances are assigned to the variables: <code>color.black</code>, <code>color.maroon</code>, <code>color.green</code>, <code>color.olive</code>, <code>color.navy</code>, <code>color.purple</code>, <code>color.teal</code>, <code>color.gray</code>, <code>color.silverk</code>, <code>color.red</code>, <code>color.lime</code>, <code>color.yellow</code>, <code>color.blue</code>, <code>color.aqua</code>, <code>color.white</code>.
 </p>
 <h3><span class="caption-index-3">6.6.2</span><a name="caption-6-6-2"></a>Properties</h3>
 <p>
@@ -2376,13 +2376,29 @@ Value of the alpha element.</td>
 <code>color(args+):map {block?}</code>
 </p>
 <p>
-Gets either of a color symbol or a list of elements of r, g, b and a, and returns an color object.
+Creates a color instance.
 </p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|c:color|</code>, where <code>c</code> is the created instance. In this case, the block's result would become the function's returned value.
+</p>
+<p>
+There are two forms to call this function as below:
+</p>
+<ul>
+<li><code>color(name:symbol, a?:number)</code> .. Specifies a color name and an optional alpha element.</li>
+<li><code>color(r:number, g?:number, b?:number, a?:number)</code> .. Specifies RGB and an optional alpha elements.</li>
+</ul>
 <p>
 <strong>color#getgray</strong>
 </p>
 <p>
 <code>color#getgray()</code>
+</p>
+<p>
+Calculates a gray scale from RGB elements in the <code>color</code> instance.
+</p>
+<p>
+This is computed by a formula: <code>gray = 0.299 * red + 0.587 * blue + 0.114 * blue</code>.
 </p>
 <p>
 <strong>color#html</strong>
@@ -2391,10 +2407,16 @@ Gets either of a color symbol or a list of elements of r, g, b and a, and return
 <code>color#html()</code>
 </p>
 <p>
+Returns a color string in a format of <code>#rrggbb</code> that is used in HTML documents.
+</p>
+<p>
 <strong>color#tolist</strong>
 </p>
 <p>
 <code>color#tolist():[alpha]</code>
+</p>
+<p>
+Returns a list of RGB elements in a form <code>[r, g, b]</code>. Specifying <code>:alpha</code> attribute would add alpha element to the list.
 </p>
 <h2><span class="caption-index-2">6.7</span><a name="caption-6-7"></a>datetime Class</h2>
 <p>
@@ -2743,7 +2765,7 @@ Seconds passed from 00:00:00 on January 1st in 1970 in UTC.</td>
 Creates an instance of <code>datetime</code> class based on the specified arguments.
 </p>
 <p>
-If <code>block</code> is specified, it would be evaluated with a block parameter <code>|dt:datetime|</code>, where <code>dt</code> is the created instance.
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|dt:datetime|</code>, where <code>dt</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 Meaning of the arguments are shown below:

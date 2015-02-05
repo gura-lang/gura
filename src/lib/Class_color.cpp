@@ -173,7 +173,7 @@ Gura_DeclareMethod(color, html)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a color string in a format of `#rrggbb` that is used in HTML document.");
+		"Returns a color string in a format of `#rrggbb` that is used in HTML documents.");
 }
 
 Gura_ImplementMethod(color, html)
@@ -189,7 +189,7 @@ Gura_DeclareMethod(color, tolist)
 	DeclareAttr(Gura_Symbol(alpha));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a list of RGB elements `[r, g, b]`.\n"
+		"Returns a list of RGB elements in a form `[r, g, b]`.\n"
 		"Specifying `:alpha` attribute would add alpha element to the list.");
 }
 
