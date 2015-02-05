@@ -154,11 +154,16 @@ fileName = 'gura-lib-e.html'
 open(fileName, 'w') {|out|
 	out.print(header)
 	out.println('<h1>Table of Contents</h1>')
+	
 	doc.render@toc {|level:number, indices[]:number, captionId:string, text:string|
 		if (level == 0) {
 			out.printf(
-					'<div><span class="caption-index-1">%d</span><a href="#%s">%s</a>\</div>\n',
+					'<div><span class="toc-index-1">%d</span><a href="#%s">%s</a>\</div>\n',
 					indices[0], captionId, text)
+		} elsif (level == 1 && indices[0] == 6) {
+			out.printf(
+					'<div><span class="toc-index-2">%d.%d</span><a href="#%s">%s</a>\</div>\n',
+					indices[0], indices[1], captionId, text)
 		}
 	}
 	out.println('<hr />')

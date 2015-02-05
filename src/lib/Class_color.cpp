@@ -106,14 +106,19 @@ Gura_DeclareFunction(color)
 Gura_ImplementFunction(color)
 {
 	const ValueList &valList = args.GetList(0);
-	if (valList[0].Is_string()) {
-		UChar a = (valList.size() < 2)? 255 : valList[1].GetUChar();
-		Color color = Color::CreateNamedColor(sig, valList[0].GetString(), a);
-		if (sig.IsSignalled()) return Value::Null;
-		return ReturnValue(env, sig, args, Value(new Object_color(env, color)));
-	} else if (valList[0].Is_symbol()) {
-		UChar a = (valList.size() < 2)? 255 : valList[1].GetUChar();
-		Color color = Color::CreateNamedColor(sig, valList[0].GetSymbol()->GetName(), a);
+	if (valList[0].Is_string() || valList[0].Is_symbol()) {
+		UChar a = 255;
+		if (valList.size() < 2) {
+			// nothing to do
+		} else if (valList[1].Is_number()) {
+			a = valList[1].GetUChar();
+		} else {
+			Declaration::SetError_InvalidArgument(sig);
+			return Value::Null;
+		}
+		const char *name = valList[0].Is_string()?
+			valList[0].GetString() : valList[0].GetSymbol()->GetName();
+		Color color = Color::CreateNamedColor(sig, name, a);
 		if (sig.IsSignalled()) return Value::Null;
 		return ReturnValue(env, sig, args, Value(new Object_color(env, color)));
 	} else if (valList[0].Is_number()) {

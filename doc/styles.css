@@ -80,6 +80,16 @@ a.radio-off {
   font-size:16px;
 }
 
+.toc-index-1 {
+  font-weight:600;
+  margin:0 1em 0 0;
+}
+
+.toc-index-2, .toc-index-3, .toc-index-4, .toc-index-5, .toc-index-6 {
+  font-weight:600;
+  margin:0 1em 0 .5em;
+}
+
 .caption-index-1, .caption-index-2, .caption-index-3, .caption-index-4, .caption-index-5, .caption-index-6 {
   margin:0 1em 0 0;
 }
