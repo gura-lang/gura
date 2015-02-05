@@ -384,11 +384,11 @@ Gura_DeclareClassMethod(datetime, parse)
 		"\n"
 		"It is capable of parsing the following style:\n"
 		"\n"
-		"- RFC1123 style: eg) `'Sat, 06 Nov 2010 08:49:37 GMT'`\n"
-		"- RFC1036 style: eg) `'Saturday, 06-Nov-10 08:49:37 GMT'`\n"
-		"- C's `asctime()` style: eg) `'Sat Nov  6 08:49:37 2010'`,\n"
+		"- RFC1123 style. eg) `'Sat, 06 Nov 2010 08:49:37 GMT'`\n"
+		"- RFC1036 style. eg) `'Saturday, 06-Nov-10 08:49:37 GMT'`\n"
+		"- C's `asctime()` style. eg) `'Sat Nov  6 08:49:37 2010'`,\n"
 		"                             `'Sat Nov  6 08:49:37 +0000 2010'`\n"
-		"- W3C style: eg) `'2010-11-06T08:49:37Z'`\n");
+		"- W3C style. eg) `'2010-11-06T08:49:37Z'`\n");
 }
 
 Gura_ImplementClassMethod(datetime, parse)
