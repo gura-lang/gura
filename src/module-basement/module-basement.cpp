@@ -9,13 +9,14 @@ Gura_BeginModuleBody(basement)
 #define REPEATER_HELP \
 "It returns the last evaluated value in the block as its own result,\n" \
 "but, if one of `:list`, `:xlist`, `:set`, `:xset` or `:iter` is specified,\n" \
-"it returns a list or evaluated value or an iterator. The rule is as follows.\n" \
-"- `:list` - returns a list of result values\n" \
-"- `:xlist` - returns a list of result values eliminating `nil`\n" \
-"- `:set` - returns a list of unique values of results\n" \
-"- `:xset` - returns a list of unique values of results eliminating `nil`\n" \
-"- `:iter` - returns an iterator that executes the block\n" \
-"- `:xiter` - returns an iterator that executes the block, skipping `nil`\n"
+"it returns a list or evaluated value or an iterator. The rule is as follows:\n" \
+"\n" \
+"- `:list` .. returns a list of result values\n" \
+"- `:xlist` .. returns a list of result values eliminating `nil`\n" \
+"- `:set` .. returns a list of unique values of results\n" \
+"- `:xset` .. returns a list of unique values of results eliminating `nil`\n" \
+"- `:iter` .. returns an iterator that executes the block\n" \
+"- `:xiter` .. returns an iterator that executes the block, skipping `nil`\n"
 
 //-----------------------------------------------------------------------------
 // formatting and printing of text
@@ -72,7 +73,7 @@ Gura_DeclareFunction(printf)
 		"Prints out `values` to standard output depending on formatter specifications in `format`.\n"
 		"The format specifier has a format of `%[flags][width][.precision]specifier`.\n"
 		"\n"
-		"`specifier` is one of the following.\n"
+		"`specifier` is one of the following:\n"
 		"\n"
 		"- `d`, `i` .. decimal integer number with a sign mark\n"
 		"- `u` .. decimal integer number wihout a sign mark\n"
@@ -1245,32 +1246,31 @@ Gura_DeclareFunctionAlias(import_, "import")
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Imports a module stored in directories specified by a variable sys.path\n"
 		"and creates a variable that represents the imported module.\n"
-		"There are three ways of calling this function like follow:\n"
+		"There are three format of calling this function like follow:\n"
 		"\n"
-		"1. `import(foo)`\n"
-		"2. `import(foo, bar)`\n"
-		"3. `import(foo) {symbol1, symbol2, symbol3}`\n"
+		"- `import(foo)` .. imports `foo` module and creates a module object named `foo`\n"
+		"- `import(foo, bar)` .. imports `foo` module and creates a module object named `bar`\n"
+		"- `import(foo) {symbol1, symbol2, symbol3}` .. imports `foo` and\n"
+		"  mixes up properties `symbol1`, `symbol2` and `symbol3` in the current scope,\n"
+		"  which are defined in the module.\n"
 		"\n"
-		"In the first format, it creates a module object named foo.\n"
-		"\n"
-		"In the second, it names the module object as bar instead of foo.\n"
-		"\n"
-		"In the third, it doesn't register the module name into the environment,\n"
-		"but it looks up symbols specified in the block and registers them.\n"
-		"In this case, if specified symbols conflict with the existing one,\n"
-		"it will cause an error while attribute `:overwrite` will disable such an error\n"
-		"detection and allow overwriting of symbols.\n"
-		"You can specify an asterisk character to include all the registered symbols like below.\n"
+		"In the third format, you can specify an asterisk character\n"
+		"to mixes up all the symbols defined in the module like below:\n"
 		"\n"
 		"    import(foo) {*}\n"
 		"\n"
+		"If a specified symbol conflicts with what already exists in the current scope,\n"
+		"it will cause an error.\n"
+		"Specifying the attribute `:overwrite` will avoid such an error\n"
+		"and allow overwriting of symbols.\n"
+		"\n"
 		"If the argument `module` is prefixed by a minus operator like `-foo`,\n"
-		"a variable that represents the imported module will not be created.\n"
+		"it will not create a variable that represents the imported module.\n"
 		"\n"
 		"If the argument `module` is prefixed by an and operator like `&foo`,\n"
-		"the trailing part will be evaluated and its result, which must be a string,\n"
+		"the trailing expression will be evaluated and its result, which must be a string,\n"
 		"is treated as a module name to be imported. Below is a sample to import `foo` module\n"
-		"through a variable that contains that name.\n"
+		"through a variable that contains that name:\n"
 		"\n"
 		"    var = 'foo'\n"
 		"    import(&var)\n");

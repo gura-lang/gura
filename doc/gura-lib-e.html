@@ -302,7 +302,7 @@ Prints out <code>values</code> to standard output.
 Prints out <code>values</code> to standard output depending on formatter specifications in <code>format</code>. The format specifier has a format of <code>%[flags][width][.precision]specifier</code>.
 </p>
 <p>
-<code>specifier</code> is one of the following.
+<code>specifier</code> is one of the following:
 </p>
 <ul>
 <li><code>d</code>, <code>i</code> .. decimal integer number with a sign mark</li>
@@ -372,15 +372,15 @@ Prints out <code>values</code> and a carriage return to standard output.
 Executes the block until it evaluates all the combinations of results from exprs "<code>var in iteratable</code>." You can specify one or more such exprs as arguments and they are counted up from the one on the right side. Iterators and lists are the most popular iteratables, but even any objects that are cable of generating iterators can be specified as such.
 </p>
 <p>
-It returns the last evaluated value in the block as its own result, but, if one of <code>:list</code>, <code>:xlist</code>, <code>:set</code>, <code>:xset</code> or <code>:iter</code> is specified, it returns a list or evaluated value or an iterator. The rule is as follows.
+It returns the last evaluated value in the block as its own result, but, if one of <code>:list</code>, <code>:xlist</code>, <code>:set</code>, <code>:xset</code> or <code>:iter</code> is specified, it returns a list or evaluated value or an iterator. The rule is as follows:
 </p>
 <ul>
-<li><code>:list</code> - returns a list of result values</li>
-<li><code>:xlist</code> - returns a list of result values eliminating <code>nil</code></li>
-<li><code>:set</code> - returns a list of unique values of results</li>
-<li><code>:xset</code> - returns a list of unique values of results eliminating <code>nil</code></li>
-<li><code>:iter</code> - returns an iterator that executes the block</li>
-<li><code>:xiter</code> - returns an iterator that executes the block, skipping <code>nil</code></li>
+<li><code>:list</code> .. returns a list of result values</li>
+<li><code>:xlist</code> .. returns a list of result values eliminating <code>nil</code></li>
+<li><code>:set</code> .. returns a list of unique values of results</li>
+<li><code>:xset</code> .. returns a list of unique values of results eliminating <code>nil</code></li>
+<li><code>:iter</code> .. returns an iterator that executes the block</li>
+<li><code>:xiter</code> .. returns an iterator that executes the block, skipping <code>nil</code></li>
 </ul>
 <p>
 Block parameter format is <code>|idx:number, i0:number, i1:number, ..|</code> where <code>idx</code> indicates an index of the whole loop and each of <code>i0</code>, <code>i1</code> .. indicates an index of each corresponding iterable.
@@ -395,15 +395,15 @@ Block parameter format is <code>|idx:number, i0:number, i1:number, ..|</code> wh
 Executes the block until any of the exprs of "<code>var in iteratable</code>" reach at their ends. You can specify one or more such exprs as arguments. Iterators and lists are the most popular iteratables, but even any objects that are cable of generating iterators can be specified as such.
 </p>
 <p>
-It returns the last evaluated value in the block as its own result, but, if one of <code>:list</code>, <code>:xlist</code>, <code>:set</code>, <code>:xset</code> or <code>:iter</code> is specified, it returns a list or evaluated value or an iterator. The rule is as follows.
+It returns the last evaluated value in the block as its own result, but, if one of <code>:list</code>, <code>:xlist</code>, <code>:set</code>, <code>:xset</code> or <code>:iter</code> is specified, it returns a list or evaluated value or an iterator. The rule is as follows:
 </p>
 <ul>
-<li><code>:list</code> - returns a list of result values</li>
-<li><code>:xlist</code> - returns a list of result values eliminating <code>nil</code></li>
-<li><code>:set</code> - returns a list of unique values of results</li>
-<li><code>:xset</code> - returns a list of unique values of results eliminating <code>nil</code></li>
-<li><code>:iter</code> - returns an iterator that executes the block</li>
-<li><code>:xiter</code> - returns an iterator that executes the block, skipping <code>nil</code></li>
+<li><code>:list</code> .. returns a list of result values</li>
+<li><code>:xlist</code> .. returns a list of result values eliminating <code>nil</code></li>
+<li><code>:set</code> .. returns a list of unique values of results</li>
+<li><code>:xset</code> .. returns a list of unique values of results eliminating <code>nil</code></li>
+<li><code>:iter</code> .. returns an iterator that executes the block</li>
+<li><code>:xiter</code> .. returns an iterator that executes the block, skipping <code>nil</code></li>
 </ul>
 <p>
 Block parameter format is <code>|idx:number|</code> where <code>idx</code> indicates an index of the loop.
@@ -418,15 +418,15 @@ Block parameter format is <code>|idx:number|</code> where <code>idx</code> indic
 Executes the block for <code>n</code> times. If <code>n</code> is omitted, it repeats the block execution forever.
 </p>
 <p>
-It returns the last evaluated value in the block as its own result, but, if one of <code>:list</code>, <code>:xlist</code>, <code>:set</code>, <code>:xset</code> or <code>:iter</code> is specified, it returns a list or evaluated value or an iterator. The rule is as follows.
+It returns the last evaluated value in the block as its own result, but, if one of <code>:list</code>, <code>:xlist</code>, <code>:set</code>, <code>:xset</code> or <code>:iter</code> is specified, it returns a list or evaluated value or an iterator. The rule is as follows:
 </p>
 <ul>
-<li><code>:list</code> - returns a list of result values</li>
-<li><code>:xlist</code> - returns a list of result values eliminating <code>nil</code></li>
-<li><code>:set</code> - returns a list of unique values of results</li>
-<li><code>:xset</code> - returns a list of unique values of results eliminating <code>nil</code></li>
-<li><code>:iter</code> - returns an iterator that executes the block</li>
-<li><code>:xiter</code> - returns an iterator that executes the block, skipping <code>nil</code></li>
+<li><code>:list</code> .. returns a list of result values</li>
+<li><code>:xlist</code> .. returns a list of result values eliminating <code>nil</code></li>
+<li><code>:set</code> .. returns a list of unique values of results</li>
+<li><code>:xset</code> .. returns a list of unique values of results eliminating <code>nil</code></li>
+<li><code>:iter</code> .. returns an iterator that executes the block</li>
+<li><code>:xiter</code> .. returns an iterator that executes the block, skipping <code>nil</code></li>
 </ul>
 <p>
 Block parameter format is <code>|idx:number|</code> where <code>idx</code> indicates an index of the loop.
@@ -441,15 +441,15 @@ Block parameter format is <code>|idx:number|</code> where <code>idx</code> indic
 Executes the block while the evaluation result of <code>cond</code> is true.
 </p>
 <p>
-It returns the last evaluated value in the block as its own result, but, if one of <code>:list</code>, <code>:xlist</code>, <code>:set</code>, <code>:xset</code> or <code>:iter</code> is specified, it returns a list or evaluated value or an iterator. The rule is as follows.
+It returns the last evaluated value in the block as its own result, but, if one of <code>:list</code>, <code>:xlist</code>, <code>:set</code>, <code>:xset</code> or <code>:iter</code> is specified, it returns a list or evaluated value or an iterator. The rule is as follows:
 </p>
 <ul>
-<li><code>:list</code> - returns a list of result values</li>
-<li><code>:xlist</code> - returns a list of result values eliminating <code>nil</code></li>
-<li><code>:set</code> - returns a list of unique values of results</li>
-<li><code>:xset</code> - returns a list of unique values of results eliminating <code>nil</code></li>
-<li><code>:iter</code> - returns an iterator that executes the block</li>
-<li><code>:xiter</code> - returns an iterator that executes the block, skipping <code>nil</code></li>
+<li><code>:list</code> .. returns a list of result values</li>
+<li><code>:xlist</code> .. returns a list of result values eliminating <code>nil</code></li>
+<li><code>:set</code> .. returns a list of unique values of results</li>
+<li><code>:xset</code> .. returns a list of unique values of results eliminating <code>nil</code></li>
+<li><code>:iter</code> .. returns an iterator that executes the block</li>
+<li><code>:xiter</code> .. returns an iterator that executes the block, skipping <code>nil</code></li>
 </ul>
 <p>
 Block parameter format is <code>|idx:number|</code> where <code>idx</code> indicates an index of the loop.
@@ -827,29 +827,26 @@ Evaluates block with a local scope.
 <code>import(`module, `alias?):void:[binary,mixin_type,overwrite] {block?}</code>
 </p>
 <p>
-Imports a module stored in directories specified by a variable sys.path and creates a variable that represents the imported module. There are three ways of calling this function like follow:
+Imports a module stored in directories specified by a variable sys.path and creates a variable that represents the imported module. There are three format of calling this function like follow:
 </p>
-<ol>
-<li><code>import(foo)</code></li>
-<li><code>import(foo, bar)</code></li>
-<li><code>import(foo) {symbol1, symbol2, symbol3}</code></li>
-</ol>
+<ul>
+<li><code>import(foo)</code> .. imports <code>foo</code> module and creates a module object named <code>foo</code></li>
+<li><code>import(foo, bar)</code> .. imports <code>foo</code> module and creates a module object named <code>bar</code></li>
+<li><code>import(foo) {symbol1, symbol2, symbol3}</code> .. imports <code>foo</code> and mixes up properties <code>symbol1</code>, <code>symbol2</code> and <code>symbol3</code> in the current scope, which are defined in the module.</li>
+</ul>
 <p>
-In the first format, it creates a module object named foo.
-</p>
-<p>
-In the second, it names the module object as bar instead of foo.
-</p>
-<p>
-In the third, it doesn't register the module name into the environment, but it looks up symbols specified in the block and registers them. In this case, if specified symbols conflict with the existing one, it will cause an error while attribute <code>:overwrite</code> will disable such an error detection and allow overwriting of symbols. You can specify an asterisk character to include all the registered symbols like below.
+In the third format, you can specify an asterisk character to mixes up all the symbols defined in the module like below:
 </p>
 <pre><code>import(foo) {*}
 </code></pre>
 <p>
-If the argument <code>module</code> is prefixed by a minus operator like <code>-foo</code>, a variable that represents the imported module will not be created.
+If a specified symbol conflicts with what already exists in the current scope, it will cause an error. Specifying the attribute <code>:overwrite</code> will avoid such an error and allow overwriting of symbols.
 </p>
 <p>
-If the argument <code>module</code> is prefixed by an and operator like <code>&amp;foo</code>, the trailing part will be evaluated and its result, which must be a string, is treated as a module name to be imported. Below is a sample to import <code>foo</code> module through a variable that contains that name.
+If the argument <code>module</code> is prefixed by a minus operator like <code>-foo</code>, it will not create a variable that represents the imported module.
+</p>
+<p>
+If the argument <code>module</code> is prefixed by an and operator like <code>&amp;foo</code>, the trailing expression will be evaluated and its result, which must be a string, is treated as a module name to be imported. Below is a sample to import <code>foo</code> module through a variable that contains that name:
 </p>
 <pre><code>var = 'foo'
 import(&amp;var)
