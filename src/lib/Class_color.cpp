@@ -90,7 +90,7 @@ String Object_color::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// color(args+) {block?}
+// color(args+):map {block?}
 Gura_DeclareFunction(color)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -99,8 +99,18 @@ Gura_DeclareFunction(color)
 	SetClassToConstruct(env.LookupClass(VTYPE_color));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Gets either of a color symbol or a list of elements of r, g, b and a,\n"
-		"and returns an color object.");
+		"Creates a color instance.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|c:color|`,\n"
+		"where `c` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n"
+		"\n"
+		"There are two forms to call this function as below:"
+		"\n"
+		"- `color(name:symbol, a?:number)` ..\n"
+		"  Specifies a color name and an optional alpha element.\n"
+		"- `color(r:number, g?:number, b?:number, a?:number)` ..\n"
+		"  Specifies RGB and an optional alpha elements.\n");
 }
 
 Gura_ImplementFunction(color)
@@ -146,7 +156,9 @@ Gura_DeclareMethod(color, getgray)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Calculates a gray scale from RGB elements in the `color` instance.\n"
+		"\n"
+		"This is computed by a formula: `gray = 0.299 * red + 0.587 * blue + 0.114 * blue`.\n");
 }
 
 Gura_ImplementMethod(color, getgray)
@@ -161,7 +173,7 @@ Gura_DeclareMethod(color, html)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a color string in a format of `#rrggbb` that is used in HTML document.");
 }
 
 Gura_ImplementMethod(color, html)
@@ -177,7 +189,8 @@ Gura_DeclareMethod(color, tolist)
 	DeclareAttr(Gura_Symbol(alpha));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a list of RGB elements `[r, g, b]`.\n"
+		"Specifying `:alpha` attribute would add alpha element to the list.");
 }
 
 Gura_ImplementMethod(color, tolist)

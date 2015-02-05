@@ -179,6 +179,7 @@ Gura_DeclareFunction(datetime)
 		"\n"
 		"If `block` is specified, it would be evaluated with a block parameter `|dt:datetime|`,\n"
 		"where `dt` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n"
 		"\n"
 		"Meaning of the arguments are shown below:\n"
 		"\n"
