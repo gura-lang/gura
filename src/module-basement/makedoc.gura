@@ -3,33 +3,83 @@ import(markdown)
 
 text = R'''
 # Built-in Functions
+'''
 
+text_formatting = R'''
+## Formatting and Printing of Text
+'''
 
+text_repetition = R'''
+## Repetition
+'''
+
+text_flow = R'''
+## Flow Control
+'''
+
+text_branch = R'''
+## Branch Control
+'''
+
+text_exception = R'''
+## Handling Exception
+'''
+
+text_data_trans = R'''
+## Data Transformation
+'''
+
+text_class = R'''
+## Class Operations
+'''
+
+text_scope = R'''
+## Scope Operations
+'''
+
+text_module = R'''
+## Module Operations
+'''
+
+text_valuetype = R'''
+## Value Type Information
+'''
+
+text_data_process = R'''
+## Data Processing
+'''
+
+text_random = R'''
+## Random
+'''
+
+text_help = R'''
+## Help Information
 '''
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << '## Formatting and Printing of Text'
+	doc << text_formatting
 	doc << [
 		format
 		print
 		printf
 		println
 	]
-	doc << '## Repetition'
+	doc << text_repetition
 	doc << [
 		cross
 		for
 		repeat
 		while
 	]
-	doc << '## Flow Control'
+	doc << text_flow
 	doc << [
 		break
 		continue
 		return
 	]
-	doc << '## Branch Control'
+	doc << text_branch
 	doc << [
 		if
 		elsif
@@ -39,14 +89,14 @@ write(doc:markdown.document) = {
 		case
 		default
 	]
-	doc << '## Handling Exception'
+	doc << text_exception
 	doc << [
 		try
 		catch
 		finally
 		raise
 	]
-	doc << '## Data Transformation'
+	doc << text_data_trans
 	doc << [
 		chr
 		hex
@@ -56,14 +106,14 @@ write(doc:markdown.document) = {
 		tostring
 		tosymbol
 	]
-	doc << '## Class Operations'
+	doc << text_class
 	doc << [
 		class
 		classref
 		struct
 		super
 	]
-	doc << '## Scope Operations'
+	doc << text_scope
 	doc << [
 		//extern
 		local
@@ -72,12 +122,12 @@ write(doc:markdown.document) = {
 		public
 		scope
 	]
-	doc << '## Module Operations'
+	doc << text_module
 	doc << [
 		import
 		module
 	]
-	doc << '## Value Type Information'
+	doc << text_valuetype
 	doc << [
 		isbinary
 		isboolean
@@ -107,7 +157,7 @@ write(doc:markdown.document) = {
 		typename
 		undef
 	]
-	doc << '## Data Processing'
+	doc << text_data_process
 	doc << [
 		choose
 		cond
@@ -116,12 +166,12 @@ write(doc:markdown.document) = {
 		max
 		min
 	]
-	doc << '## Random'
+	doc << text_random
 	doc << [
 		rand
 		randseed
 	]
-	doc << '## Help Information'
+	doc << text_help
 	doc << [
 		dir
 		dirtype
