@@ -161,58 +161,15 @@ An instance of the `color` class represents a color data that consists of red, g
 <table>
 <tr><th>Variable</th><th>Type</th><th>Explanation</th></tr>
 
-<tr><td><code>color.black</code></td><td><code>color</code></td>
-<td>Color instance of black.</td></tr>
-
-<tr><td><code>color.maroon</code></td><td><code>color</code></td>
-<td>Color instance of maroon.</td></tr>
-
-<tr><td><code>color.green</code></td><td><code>color</code></td>
-<td>Color instance of green.</td></tr>
-
-<tr><td><code>color.olive</code></td><td><code>color</code></td>
-<td>Color instance of olive.</td></tr>
-
-<tr><td><code>color.navy</code></td><td><code>color</code></td>
-<td>Color instance of navy.</td></tr>
-
-<tr><td><code>color.purple</code></td><td><code>color</code></td>
-<td>Color instance of purple.</td></tr>
-
-<tr><td><code>color.teal</code></td><td><code>color</code></td>
-<td>Color instance of teal.</td></tr>
-
-<tr><td><code>color.gray</code></td><td><code>color</code></td>
-<td>Color instance of gray.</td></tr>
-
-<tr><td><code>color.silver</code></td><td><code>color</code></td>
-<td>Color instance of silverk.</td></tr>
-
-<tr><td><code>color.red</code></td><td><code>color</code></td>
-<td>Color instance of red.</td></tr>
-
-<tr><td><code>color.lime</code></td><td><code>color</code></td>
-<td>Color instance of lime.</td></tr>
-
-<tr><td><code>color.yellow</code></td><td><code>color</code></td>
-<td>Color instance of yellow.</td></tr>
-
-<tr><td><code>color.blue</code></td><td><code>color</code></td>
-<td>Color instance of blue.</td></tr>
-
-<tr><td><code>color.fuchsia</code></td><td><code>color</code></td>
-<td>Color instance of fuchsia.</td></tr>
-
-<tr><td><code>color.aqua</code></td><td><code>color</code></td>
-<td>Color instance of aqua.</td></tr>
-
-<tr><td><code>color.white</code></td><td><code>color</code></td>
-<td>Color instance of white.</td></tr>
-
-<tr><td><code>color.zero</code></td><td><code>color</code></td>
-<td>Color instance with all the elements including alpha set to zero.</td></tr>
+<tr><td><code>color.names</code></td><td><code>string[]</code></td>
+<td>A list of color names that can be passed to <code>color()</code> function.</td></tr>
 
 </table>
+
+And some color instances are assigned to the variables:
+`color.black`, `color.maroon`, `color.green`, `color.olive`, `color.navy`, `color.purple`,
+`color.teal`, `color.gray`, `color.silverk`, `color.red`, `color.lime`, `color.yellow`,
+`color.blue`, `color.aqua`, `color.white`.
 
 ### Properties
 
