@@ -160,7 +160,7 @@ open(fileName, 'w') {|out|
 			out.printf(
 					'<div><span class="toc-index-1">%d</span><a href="#%s">%s</a>\</div>\n',
 					indices[0], captionId, text)
-		} elsif (level == 1 && indices[0] == 6) {
+		} elsif (level == 1 && indices[0] in [4, 6]) {
 			out.printf(
 					'<div><span class="toc-index-2">%d.%d</span><a href="#%s">%s</a>\</div>\n',
 					indices[0], indices[1], captionId, text)
