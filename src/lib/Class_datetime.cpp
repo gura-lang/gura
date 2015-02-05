@@ -175,7 +175,23 @@ Gura_DeclareFunction(datetime)
 	SetClassToConstruct(env.LookupClass(VTYPE_datetime));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an instance of `datetime` class based on the specified arguments.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|dt:datetime|`,\n"
+		"where `dt` is the created instance.\n"
+		"\n"
+		"Meaning of the arguments are shown below:\n"
+		"\n"
+		"- `year` .. Christian year.\n"
+		"- `month` .. Month starting from 1. Numbers from 1 to 12 correspond to January to December.\n"
+		"- `day` .. Day in a month starting from 1.\n"
+		"- `hour` .. Hour in a day between 0 and 23.\n"
+		"- `min` .. Minute in an hour between 0 and 59.\n"
+		"- `sec` .. Second in a minute between 0 and 59.\n"
+		"- `usec` .. Millisecond in a second between 0 and 999.\n"
+		"- `minsoff` .. Timezone offset in minutes.\n"
+		"\n"
+		"In default, the instance has a timezone offset based on the current system settings.\n");
 }
 
 Gura_ImplementFunction(datetime)
@@ -205,7 +221,7 @@ Gura_DeclareMethod(datetime, clrtzoff)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Eliminates timezone offset information from the instance.");
 }
 
 Gura_ImplementMethod(datetime, clrtzoff)
@@ -223,9 +239,11 @@ Gura_DeclareMethod(datetime, format)
 								FLAG_None, new Expr_Value(Gura_Symbol(w3c)));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a string after converting datetime properties with the specified format.\n"
-		"The format can either be a string to specify a user-specific format or a symbol of\n"
-		"custom-defined one. A user-specific format contains following specifiers.\n"
+		"Returns a string of the datetime properties based on the specified format.\n"
+		"For the argument `format`, you can specify either a string of user-specific format\n"
+		"or a symbol of predefined style.\n"
+		"\n"
+		"A string of user-specific format contains following specifiers:\n"
 		"\n"
 		"- `%d` .. day of month\n"
 		"- `%H` .. hour in 24-hour format\n"
@@ -233,11 +251,16 @@ Gura_DeclareMethod(datetime, format)
 		"- `%m` .. month\n"
 		"- `%M` .. minute\n"
 		"- `%S` .. second\n"
-		"- `%w` .. day of week\n"
+		"- `%w` .. week number starting from 0 for Sunday.\n"
 		"- `%y` .. lower two digits of year\n"
-		"- `%Y` .. year\n"
+		"- `%Y` .. four digits of year\n"
 		"\n"
-		"A custom-defined format is one of the symbols: `w3c, `http and `asctime.");
+		"Below are the symbols of predefined styles:\n"
+		"\n"
+		"- `` `w3c`` .. W3C style. eg) \"`2015-01-01T12:34:56+09:00`\"\n"
+		"- `` `http`` .. a style used in HTTP protocol. eg) \"`Thu, 01 Jan 2015 12:34:56 +0900`\"\n"
+		"- `` `asctime`` .. a style used by the C function `asctime()`.\n"
+		"                    eg) \"`Thu Jan  1 12:34:56 +0900 2015`\"\n");
 }
 
 Gura_ImplementMethod(datetime, format)
@@ -299,30 +322,13 @@ Gura_DeclareClassMethod(datetime, isleap)
 	DeclareArg(env, "year", VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns `true` if the specified year is a leap one.");
 }
 
 Gura_ImplementClassMethod(datetime, isleap)
 {
 	return Value(DateTime::IsLeapYear(args.GetShort(0)));
 }
-
-#if 0
-// datetime#isleap()
-Gura_DeclareMethod(datetime, isleap)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementMethod(datetime, isleap)
-{
-	const DateTime &dateTime = Object_datetime::GetThisObj(args)->GetDateTime();
-	return Value(dateTime.IsLeapYear());
-}
-#endif
 
 // datetime.monthdays(year:number, month:number):map {block?}
 Gura_DeclareClassMethod(datetime, monthdays)
@@ -333,7 +339,7 @@ Gura_DeclareClassMethod(datetime, monthdays)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a number of days that exists in the specified month.");
 }
 
 Gura_ImplementClassMethod(datetime, monthdays)
@@ -352,7 +358,10 @@ Gura_DeclareClassMethod(datetime, now)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `datetime` instance of the current time.\n"
+		"\n"
+		"In default, the timezone offset is set to one in the system setting.\n"
+		"Specifying `:utc` attribute would set the offset to 0.\n");
 }
 
 Gura_ImplementClassMethod(datetime, now)
@@ -369,7 +378,16 @@ Gura_DeclareClassMethod(datetime, parse)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Parses a string that describs date and time information\n"
+		"and returns the `datetime` instance.\n"
+		"\n"
+		"It is capable of parsing the following style:\n"
+		"\n"
+		"- RFC1123 style: eg) `'Sat, 06 Nov 2010 08:49:37 GMT'`\n"
+		"- RFC1036 style: eg) `'Saturday, 06-Nov-10 08:49:37 GMT'`\n"
+		"- C's `asctime()` style: eg) `'Sat Nov  6 08:49:37 2010'`,\n"
+		"                             `'Sat Nov  6 08:49:37 +0000 2010'`\n"
+		"- W3C style: eg) `'2010-11-06T08:49:37Z'`\n");
 }
 
 Gura_ImplementClassMethod(datetime, parse)
@@ -389,7 +407,7 @@ Gura_DeclareMethod(datetime, settzoff)
 	DeclareArg(env, "mins", VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Sets timezone offset in minutes.");
 }
 
 Gura_ImplementMethod(datetime, settzoff)
@@ -410,7 +428,8 @@ Gura_DeclareClassMethod(datetime, time)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `datetime` instance from time information.\n"
+		"The date inforomation is set to 1st of January in 0000.\n");
 }
 
 Gura_ImplementClassMethod(datetime, time)
@@ -434,7 +453,10 @@ Gura_DeclareClassMethod(datetime, today)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `datetime` instance of today. All the time information are cleared to 0.\n"
+		"\n"
+		"In default, the timezone offset is set to one in the system setting.\n"
+		"Specifying `:utc` attribute would set the offset to 0.\n");
 }
 
 Gura_ImplementClassMethod(datetime, today)
@@ -450,7 +472,8 @@ Gura_DeclareMethod(datetime, utc)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Calculates UTC time of the target `datetime` instance.\n"
+		"An error occurs if the instance has no timezone offset\n");
 }
 
 Gura_ImplementMethod(datetime, utc)
@@ -472,7 +495,7 @@ Gura_DeclareClassMethod(datetime, weekday)
 	DeclareArg(env, "day", VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a week number for the specified date, which starts from 0 for Sunday.\n");
 }
 
 Gura_ImplementClassMethod(datetime, weekday)

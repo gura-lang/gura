@@ -277,7 +277,7 @@ The `datetime` class provides measures to handle date and time information.
 <td>Chritian year.</td></tr>
 
 <tr><td><code>datetime#month</code></td><td><code>number</code></td><td>R/W</td>
-<td>Month starting from 1. Number from 1 to 12 corresponds to January to December.</td></tr>
+<td>Month starting from 1. Numbers from 1 to 12 correspond to January to December.</td></tr>
 
 <tr><td><code>datetime#day</code></td><td><code>number</code></td><td>R/W</td>
 <td>Day in a month starting from 1. </td></tr>
@@ -286,13 +286,13 @@ The `datetime` class provides measures to handle date and time information.
 <td>Hour in a day between 0 and 23.</td></tr>
 
 <tr><td><code>datetime#min</code></td><td><code>number</code></td><td>R/W</td>
-<td>Minute in an hour betwen 0 and 59.</td></tr>
+<td>Minute in an hour between 0 and 59.</td></tr>
 
 <tr><td><code>datetime#sec</code></td><td><code>number</code></td><td>R/W</td>
 <td>Second in a minute between 0 and 59.</td></tr>
 
 <tr><td><code>datetime#usec</code></td><td><code>number</code></td><td>R/W</td>
-<td>Milli second in a minute between 0 and 999.</td></tr>
+<td>Millisecond in a second between 0 and 999.</td></tr>
 
 <tr><td><code>datetime#wday</code></td><td><code>number</code></td><td>R</td>
 <td>Week number starting from 0. Number from 0 to 6 corresponds to Sunday to Saturday.</td></tr>
