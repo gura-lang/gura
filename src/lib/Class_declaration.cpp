@@ -58,7 +58,28 @@ Gura_DeclareMethod(declaration, istype)
 	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Return `true` if the declaration is defined as a type that is specified in the arguments.\n"
+		"\n"
+		"The argument `type` has following formats:\n"
+		"\n"
+		"- a single symbol.\n"
+		"- a sequence of symbols joined by a dot.\n"
+		"\n"
+		"In the second format, a symbol on the left side indicates a container\n"
+		"such as a module and a class.\n"
+		"\n"
+		"Below is an example to check if the declaration is defined as `number` type.\n"
+		"\n"
+		"    decl.istype(`number)\n"
+		"\n"
+		"Below is an example to check if the declaration is defined as `re.match` type,\n"
+		"which is a type named `match` defined in `re` module.\n"
+		"\n"
+		"    decl.istype(`re.match)\n"
+		"\n"
+		"You can also specify a type by describing factors in separate arguments like below:\n"
+		"\n"
+		"    decl.istype(`re, `match)\n");
 }
 
 Gura_ImplementMethod(declaration, istype)

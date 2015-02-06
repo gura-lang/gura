@@ -274,6 +274,19 @@ Week symbol that takes one of the followings:
 text_declaration = R'''
 ## declaration Class
 
+The `declaration` class provides information about argument's declaration defined in a function.
+You can get an iterator of `declaration` instances with the following measures
+that the `function` class provides:
+
+- `function#decls`
+- `function.getdecls()`
+
+Below is an example to print argument names in a function.
+
+    f(a, b, c, d) = {}
+	println(f.decls:*name)
+
+
 ### Properties
 
 <table>

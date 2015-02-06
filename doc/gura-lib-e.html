@@ -2930,6 +2930,19 @@ Calculates UTC time of the target <code>datetime</code> instance. An error occur
 Returns a week number for the specified date, which starts from 0 for Sunday.
 </p>
 <h2><span class="caption-index-2">6.8</span><a name="caption-6-8"></a>declaration Class</h2>
+<p>
+The <code>declaration</code> class provides information about argument's declaration defined in a function. You can get an iterator of <code>declaration</code> instances with the following measures that the <code>function</code> class provides:
+</p>
+<ul>
+<li><code>function#decls</code></li>
+<li><code>function.getdecls()</code></li>
+</ul>
+<p>
+Below is an example to print argument names in a function.
+</p>
+<pre><code>f(a, b, c, d) = {}
+println(f.decls:*name)
+</code></pre>
 <h3><span class="caption-index-3">6.8.1</span><a name="caption-6-8-1"></a>Properties</h3>
 <p>
 <table>
@@ -3007,6 +3020,34 @@ The expression that provides a default value.</td>
 <p>
 <code>declaration#istype(type+:expr):map</code>
 </p>
+<p>
+Return <code>true</code> if the declaration is defined as a type that is specified in the arguments.
+</p>
+<p>
+The argument <code>type</code> has following formats:
+</p>
+<ul>
+<li>a single symbol.</li>
+<li>a sequence of symbols joined by a dot.</li>
+</ul>
+<p>
+In the second format, a symbol on the left side indicates a container such as a module and a class.
+</p>
+<p>
+Below is an example to check if the declaration is defined as <code>number</code> type.
+</p>
+<pre><code>decl.istype(`number)
+</code></pre>
+<p>
+Below is an example to check if the declaration is defined as <code>re.match</code> type, which is a type named <code>match</code> defined in <code>re</code> module.
+</p>
+<pre><code>decl.istype(`re.match)
+</code></pre>
+<p>
+You can also specify a type by describing factors in separate arguments like below:
+</p>
+<pre><code>decl.istype(`re, `match)
+</code></pre>
 <h2><span class="caption-index-2">6.9</span><a name="caption-6-9"></a>dict Class</h2>
 <h3><span class="caption-index-3">6.9.1</span><a name="caption-6-9-1"></a>Methods</h3>
 <p>
