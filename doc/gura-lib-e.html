@@ -4087,6 +4087,30 @@ Adds help information to a <code>function</code> instance taking the following a
 <li><code>help</code>.. the help text.</li>
 </ul>
 <p>
+You can add multiple help information with different <code>lang</code>.
+</p>
+<p>
+Following two codes have the same effect with each other.
+</p>
+<pre><code>f(a, b, c) = {
+    (a + b + c) / 3
+}
+function.addhelp(
+    f, `en, 'markdown'
+    R'''
+    Computes a mean value of the provided three numbers.
+    ''')
+</code></pre>
+<pre><code>f(a, b, c) = {
+    (a + b + c) / 3
+} % {
+    `en, 'markdown'
+    R'''
+    Computes a mean value of the provided three numbers.
+    '''
+}
+</code></pre>
+<p>
 <strong>function.getdecls</strong>
 </p>
 <p>
@@ -4144,7 +4168,10 @@ This class method returns the same information as the property <code>function#fu
 <code>function.gethelp(func:function, lang?:symbol):static:map</code>
 </p>
 <p>
-Gets a help object of the specified function object. <code>lang</code> is a symbol that indicates a language in which the help is written. If help doesn't exist, it returns nil.
+Returns a <code>help</code> instance of the specified function. If no help has been registred, it would return <code>nil</code>.
+</p>
+<p>
+The argument <code>lang</code> is a symbol that indicates a language in which the help is written. If this argument is omitted or the specified language doesn't exist, help information that has been registered at first would be returned as a default.
 </p>
 <p>
 <strong>function.getname</strong>
