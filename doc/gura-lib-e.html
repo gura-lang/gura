@@ -2876,10 +2876,10 @@ Parses a string that describs date and time information and returns the <code>da
 It is capable of parsing the following style:
 </p>
 <ul>
-<li>RFC1123 style: eg) <code>'Sat, 06 Nov 2010 08:49:37 GMT'</code></li>
-<li>RFC1036 style: eg) <code>'Saturday, 06-Nov-10 08:49:37 GMT'</code></li>
-<li>C's <code>asctime()</code> style: eg) <code>'Sat Nov  6 08:49:37 2010'</code>, <code>'Sat Nov  6 08:49:37 +0000 2010'</code></li>
-<li>W3C style: eg) <code>'2010-11-06T08:49:37Z'</code></li>
+<li>RFC1123 style. eg) <code>'Sat, 06 Nov 2010 08:49:37 GMT'</code></li>
+<li>RFC1036 style. eg) <code>'Saturday, 06-Nov-10 08:49:37 GMT'</code></li>
+<li>C's <code>asctime()</code> style. eg) <code>'Sat Nov  6 08:49:37 2010'</code>, <code>'Sat Nov  6 08:49:37 +0000 2010'</code></li>
+<li>W3C style. eg) <code>'2010-11-06T08:49:37Z'</code></li>
 </ul>
 <p>
 <strong>datetime#settzoff</strong>
@@ -4062,16 +4062,41 @@ R/W</td>
 <code>function(`args*) {block}</code>
 </p>
 <p>
+Creates a <code>function</code> instance with an argument list of <code>args</code> and a procedure body provided by <code>block</code>.
+</p>
+<p>
+Following two codes have the same effect with each other.
+</p>
+<pre><code>f = function(a, b, c) { /* any job */ }
+</code></pre>
+<pre><code>f(a, b, c) = { /* any job */ }
+</code></pre>
+<p>
 <strong>function.addhelp</strong>
 </p>
 <p>
 <code>function.addhelp(func:function, lang:symbol, format:string, help:string):static:map:void</code>
 </p>
 <p>
+Adds help information to a <code>function</code> instance taking the following arguments:
+</p>
+<ul>
+<li><code>func</code> .. <code>function</code> instance to which the help is added.</li>
+<li><code>lang</code> .. a symbol of the language in which the help text is described, <code>`en</code> for English, <code>`ja</code> for Japanese and so on.</li>
+<li><code>format</code> .. a name of the syntax format in which the help text is described. Currently, only <code>'markdown'</code> is available.</li>
+<li><code>help</code>.. the help text.</li>
+</ul>
+<p>
 <strong>function.getdecls</strong>
 </p>
 <p>
 <code>function.getdecls(func:function):static:map</code>
+</p>
+<p>
+Creates an iterator of <code>declaration</code> instances that provide information about argument declaration the <code>function</code> defines.
+</p>
+<p>
+This class method returns the same information as the property <code>function#decls</code>.
 </p>
 <p>
 <strong>function.getexpr</strong>
@@ -4080,16 +4105,37 @@ R/W</td>
 <code>function.getexpr(func:function):static:map</code>
 </p>
 <p>
+Returns an expression of the function.
+</p>
+<p>
+It would return <code>nil</code> if the function is implemented with binary programs, not scripts.
+</p>
+<p>
+This class method returns the same information as the property <code>function#expr</code>.
+</p>
+<p>
 <strong>function.getformat</strong>
 </p>
 <p>
 <code>function.getformat(func:function):static:map</code>
 </p>
 <p>
+Returns a string showing a declared format of the function.
+</p>
+<p>
+This class method returns the same information as the property <code>function#format</code>.
+</p>
+<p>
 <strong>function.getfullname</strong>
 </p>
 <p>
 <code>function.getfullname(func:function):static:map</code>
+</p>
+<p>
+Returns a full name of the function that is prefixed by a name of the module or the class it belongs to.
+</p>
+<p>
+This class method returns the same information as the property <code>function#fullname</code>.
 </p>
 <p>
 <strong>function.gethelp</strong>
@@ -4107,10 +4153,22 @@ Gets a help object of the specified function object. <code>lang</code> is a symb
 <code>function.getname(func:function):static:map</code>
 </p>
 <p>
+Returns a name of the function in string.
+</p>
+<p>
+This class method returns the same information as the property <code>function#name</code>.
+</p>
+<p>
 <strong>function.getsymbol</strong>
 </p>
 <p>
 <code>function.getsymbol(func:function):static:map</code>
+</p>
+<p>
+Returns a name of the function in symbol.
+</p>
+<p>
+This class method returns the same information as the property <code>function#symbol</code>.
 </p>
 <p>
 <strong>function#mathdiff</strong>
@@ -4118,6 +4176,24 @@ Gets a help object of the specified function object. <code>lang</code> is a symb
 <p>
 <code>function#mathdiff(var?:symbol):reduce</code>
 </p>
+<p>
+Returns a <code>function</code> instance that computes derivation of the target function, which is expected to contain only mathematical procedures. An error occurs if the target function has any elements that have nothing to do with mathematics.
+</p>
+<p>
+In default, it differentiates the target function with respect to its first argument. Below is an example:
+</p>
+<pre><code>&gt;&gt;&gt; f(x) = math.sin(x)
+&gt;&gt;&gt; g = f.mathdiff()    // g is a function to compute math.cos(x)
+</code></pre>
+<p>
+Specify a symbol to argument <code>var</code> when you want to differentiate with respect to another variable.
+</p>
+<p>
+You can check the result of derivation by seeing property <code>function#expr</code> like below:
+</p>
+<pre><code>&gt;&gt;&gt; g.expr
+`math.cos(x)
+</code></pre>
 <h2><span class="caption-index-2">6.16</span><a name="caption-6-16"></a>help Class</h2>
 <h3><span class="caption-index-3">6.16.1</span><a name="caption-6-16-1"></a>Properties</h3>
 <p>

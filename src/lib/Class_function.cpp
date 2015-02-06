@@ -215,7 +215,29 @@ Gura_DeclareClassMethod(function, addhelp)
 		"            `` `en`` for English, `` `ja`` for Japanese and so on.\n"
 		"- `format` .. a name of the syntax format in which the help text is described.\n"
 		"  Currently, only `'markdown'` is available.\n"
-		"- `help`.. the help text.\n");
+		"- `help`.. the help text.\n"
+		"\n"
+		"You can add multiple help information with different `lang`.\n"
+		"\n"
+		"Following two codes have the same effect with each other.\n"
+		"\n"
+		"    f(a, b, c) = {\n"
+		"        (a + b + c) / 3\n"
+		"    }\n"
+		"    function.addhelp(\n"
+		"        f, `en, 'markdown'\n"
+		"        R'''\n"
+		"        Computes a mean value of the provided three numbers.\n"
+		"        ''')\n"
+		"\n"
+		"    f(a, b, c) = {\n"
+		"        (a + b + c) / 3\n"
+		"    } % {\n"
+		"        `en, 'markdown'\n"
+		"        R'''\n"
+		"        Computes a mean value of the provided three numbers.\n"
+		"        '''\n"
+		"    }\n");
 }
 
 Gura_ImplementClassMethod(function, addhelp)
@@ -313,9 +335,12 @@ Gura_DeclareClassMethod(function, gethelp)
 	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Gets a help object of the specified function object.\n"
-		"`lang` is a symbol that indicates a language in which the help is written.\n"
-		"If help doesn't exist, it returns nil.\n");
+		"Returns a `help` instance of the specified function.\n"
+		"If no help has been registred, it would return `nil`.\n"
+		"\n"
+		"The argument `lang` is a symbol that indicates a language in which the help is written.\n"
+		"If this argument is omitted or the specified language doesn't exist,\n"
+		"help information that has been registered at first would be returned as a default.\n");
 }
 
 Gura_ImplementClassMethod(function, gethelp)
