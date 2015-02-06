@@ -359,7 +359,7 @@ Gura_DeclareClassMethod(function, getname)
 	DeclareArg(env, "func", VTYPE_function);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a name of the function in string.\n"
+		"Returns a name of the function in `string`.\n"
 		"\n"
 		"This class method returns the same information as the property `function#name`.\n");
 }
@@ -377,7 +377,7 @@ Gura_DeclareClassMethod(function, getsymbol)
 	DeclareArg(env, "func", VTYPE_function);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a name of the function in symbol.\n"
+		"Returns a name of the function in `symbol`.\n"
 		"\n"
 		"This class method returns the same information as the property `function#symbol`.\n");
 }

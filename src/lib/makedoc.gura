@@ -435,22 +435,22 @@ text_function = R'''
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code>function#decls</code></td><td><code>iterator</code></td><td>R</td>
-<td></td></tr>
+<td>iterator of <code>declaration</code> instances that provide information about argument declaration the function defines.</td></tr>
 
 <tr><td><code>function#expr</code></td><td><code>expr</code></td><td>R/W</td>
-<td></td></tr>
+<td>an expression of the function.</td></tr>
 
 <tr><td><code>function#format</code></td><td><code>string</code></td><td>R</td>
-<td></td></tr>
+<td>a string showing a declared format of the function.</td></tr>
 
 <tr><td><code>function#fullname</code></td><td><code>string</code></td><td>R</td>
-<td></td></tr>
+<td>a full name of the function that is prefixed by a name of the module or the class it belongs to. </td></tr>
 
 <tr><td><code>function#name</code></td><td><code>string</code></td><td>R</td>
-<td></td></tr>
+<td>a name of the function in <code>string</code>.</td></tr>
 
 <tr><td><code>function#symbol</code></td><td><code>symbol</code></td><td>R/W</td>
-<td></td></tr>
+<td>a name of the function in <code>symbol</code>. </td></tr>
 
 </table>
 '''
