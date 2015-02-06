@@ -281,7 +281,7 @@ that the `function` class provides:
 - `function#decls`
 - `function.getdecls()`
 
-Below is an example to print argument names in a function.
+Below is an example to print argument names declared in a function.
 
     f(a, b, c, d) = {}
 	println(f.decls:*name)
