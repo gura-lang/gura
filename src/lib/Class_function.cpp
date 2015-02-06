@@ -156,7 +156,14 @@ Gura_DeclareFunction(function)
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `function` instance with an argument list of `args` and a procedure body\n"
+		"provided by `block`.\n"
+		"\n"
+		"Following two codes have the same effect with each other.\n"
+		"\n"
+		"    f = function(a, b, c) { /* any job */ }\n"
+		"\n"
+		"    f(a, b, c) = { /* any job */ }\n");
 }
 
 Gura_ImplementFunction(function)
@@ -201,7 +208,14 @@ Gura_DeclareClassMethod(function, addhelp)
 	DeclareArg(env, "help", VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Adds help information to a `function` instance taking the following arguments:\n"
+		"\n"
+		"- `func` .. `function` instance to which the help is added.\n"
+		"- `lang` .. a symbol of the language in which the help text is described,\n"
+		"            `` `en`` for English, `` `ja`` for Japanese and so on.\n"
+		"- `format` .. a name of the syntax format in which the help text is described.\n"
+		"  Currently, only `'markdown'` is available.\n"
+		"- `help`.. the help text.\n");
 }
 
 Gura_ImplementClassMethod(function, addhelp)
@@ -211,14 +225,17 @@ Gura_ImplementClassMethod(function, addhelp)
 	return Value::Null;
 }
 
-// function.getdecls(func:function):map
+// function.getdecls(func:function):static:map
 Gura_DeclareClassMethod(function, getdecls)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_function);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator of `declaration` instances that provide information\n"
+		"about argument declaration the `function` defines.\n"
+		"\n"
+		"This class method returns the same information as the property `function#decls`.\n");
 }
 
 Gura_ImplementClassMethod(function, getdecls)
@@ -228,14 +245,18 @@ Gura_ImplementClassMethod(function, getdecls)
 	return Value(new Object_iterator(env, pIterator));
 }
 
-// function.getexpr(func:function):map
+// function.getexpr(func:function):static:map
 Gura_DeclareClassMethod(function, getexpr)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_function);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns an expression of the function.\n"
+		"\n"
+		"It would return `nil` if the function is implemented with binary programs, not scripts.\n"
+		"\n"
+		"This class method returns the same information as the property `function#expr`.\n");
 }
 
 Gura_ImplementClassMethod(function, getexpr)
@@ -247,14 +268,16 @@ Gura_ImplementClassMethod(function, getexpr)
 	return Value(new Object_expr(env, Expr::Reference(pFuncCustom->GetExprBody())));
 }
 
-// function.getformat(func:function):map
+// function.getformat(func:function):static:map
 Gura_DeclareClassMethod(function, getformat)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_function);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a string showing a declared format of the function.\n"
+		"\n"
+		"This class method returns the same information as the property `function#format`.\n");
 }
 
 Gura_ImplementClassMethod(function, getformat)
@@ -263,14 +286,17 @@ Gura_ImplementClassMethod(function, getformat)
 	return Value(pFunc->ToString());
 }
 
-// function.getfullname(func:function):map
+// function.getfullname(func:function):static:map
 Gura_DeclareClassMethod(function, getfullname)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_function);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a full name of the function that is prefixed\n"
+		"by a name of the module or the class it belongs to.\n"
+		"\n"
+		"This class method returns the same information as the property `function#fullname`.\n");
 }
 
 Gura_ImplementClassMethod(function, getfullname)
@@ -279,7 +305,7 @@ Gura_ImplementClassMethod(function, getfullname)
 	return Value(pFunc->MakeFullName());
 }
 
-// function.gethelp(func:function, lang?:symbol):map
+// function.gethelp(func:function, lang?:symbol):static:map
 Gura_DeclareClassMethod(function, gethelp)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -301,14 +327,16 @@ Gura_ImplementClassMethod(function, gethelp)
 	return Value(new Object_help(env, pHelp->Reference()));
 }
 
-// function.getname(func:function):map
+// function.getname(func:function):static:map
 Gura_DeclareClassMethod(function, getname)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_function);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a name of the function in string.\n"
+		"\n"
+		"This class method returns the same information as the property `function#name`.\n");
 }
 
 Gura_ImplementClassMethod(function, getname)
@@ -317,14 +345,16 @@ Gura_ImplementClassMethod(function, getname)
 	return Value(pFunc->GetName());
 }
 
-// function.getsymbol(func:function):map
+// function.getsymbol(func:function):static:map
 Gura_DeclareClassMethod(function, getsymbol)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_function);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a name of the function in symbol.\n"
+		"\n"
+		"This class method returns the same information as the property `function#symbol`.\n");
 }
 
 Gura_ImplementClassMethod(function, getsymbol)
@@ -340,7 +370,24 @@ Gura_DeclareMethod(function, mathdiff)
 	DeclareArg(env, "var", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a `function` instance that computes derivation of the target function,\n"
+		"which is expected to contain only mathematical procedures.\n"
+		"An error occurs if the target function has any elements\n"
+		"that have nothing to do with mathematics.\n"
+		"\n"
+		"In default, it differentiates the target function with respect to its first argument.\n"
+		"Below is an example:\n"
+		"\n"
+		"    >>> f(x) = math.sin(x)\n"
+		"    >>> g = f.mathdiff()    // g is a function to compute math.cos(x)\n"
+		"\n"
+		"Specify a symbol to argument `var` when you want to differentiate\n"
+		"with respect to another variable.\n"
+		"\n"
+		"You can check the result of derivation by seeing property `function#expr` like below:\n"
+		"\n"
+		"    >>> g.expr\n"
+		"    `math.cos(x)\n");
 }
 
 Gura_ImplementMethod(function, mathdiff)
