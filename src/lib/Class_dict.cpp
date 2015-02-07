@@ -226,7 +226,33 @@ Gura_DeclareFunction(dict)
 	SetClassToConstruct(env.LookupClass(VTYPE_dict));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `dict` instance.\n"
+		"It takes a list of key-value pairs in an argument or in a block as shown below.\n"
+		"\n"
+		"    d = dict([['apple', 100], ['grape', 200], ['banana', 80]])\n"
+		"\n"
+		"    d = dict {\n"
+		"        ['apple', 100], ['grape', 200], ['banana', 80]\n"
+		"    }\n"
+		"\n"
+		"You can specify values of `number`, `string` or `symbol` as dictionary keys.\n"
+		"\n"
+		"You can also use the operator `=>` to create a key-value pair like below:\n"
+		"\n"
+		"    d = dict(['apple' => 100, 'grape' => 200, 'banana' => 80])\n"
+		"\n"
+		"    d = dict {\n"
+		"        'apple' => 100, 'grape' => 200, 'banana' => 80\n"
+		"    }\n"
+		"\n"
+		"The symbol `%` is an alias of the function `dict()`."
+		"\n"
+		"    d = %{\n"
+		"        'apple' => 100, 'grape' => 200, 'banana' => 80\n"
+		"    }\n"
+		"\n"
+		"In default, if keys contain alphabet characters, different cases are distinguished.\n"
+		"Appending the attribute `:icase` would ignore cases in them.\n");
 }
 
 Gura_ImplementFunction(dict)
@@ -266,7 +292,7 @@ Gura_DeclareMethod(dict, clear)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Clears all the key-value pairs in the dictionary.");
 }
 
 Gura_ImplementMethod(dict, clear)
@@ -283,7 +309,9 @@ Gura_DeclareMethod(dict, erase)
 	DeclareArg(env, "key", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Erases a key-value pair that mathces the provided `key`.\n"
+		"\n"
+		"The `key` is either `number`, `string` or `symbol`.\n");
 }
 
 Gura_ImplementMethod(dict, erase)
@@ -302,7 +330,15 @@ Gura_DeclareMethod(dict, get)
 	DeclareAttr(Gura_Symbol(raise));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Seeks a value that is associated with the specified `key`.\n"
+		"\n"
+		"The method would return `nil` as its default value\n"
+		"when the specified key doesn't exist in the dictionary.\n"
+		"It would use different value if the argument `default` is specified.\n"
+		"You can pass `list` or `iterator` for the `default` value\n"
+		"as it's not processed with implicit mapping.\n"
+		"\n"
+		"When the attribute `:raise` is specified, an error occurs in the case of the key's absence.\n");
 }
 
 Gura_ImplementMethod(dict, get)
@@ -331,7 +367,14 @@ Gura_DeclareMethod(dict, gets)
 	DeclareAttr(Gura_Symbol(raise));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Seeks a value that is associated with the specified `key`.\n"
+		"\n"
+		"The method would return `nil` as its default value\n"
+		"when the specified key doesn't exist in the dictionary.\n"
+		"It would use different value if the argument `default` is specified.\n"
+		"The `default` value is also processed with implicit mapping.\n"
+		"\n"
+		"When the attribute `:raise` is specified, an error occurs in the case of the key's absence.\n");
 }
 
 Gura_ImplementMethod(dict, gets)
@@ -358,7 +401,7 @@ Gura_DeclareMethod(dict, haskey)
 	DeclareArg(env, "key", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns `true` if the specified `key` exists in the dictionary.\n");
 }
 
 Gura_ImplementMethod(dict, haskey)
@@ -376,7 +419,9 @@ Gura_DeclareMethod(dict, items)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns an iterator of key-value pairs in the dictionary.\n"
+		"\n"
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(dict, items)
@@ -394,7 +439,9 @@ Gura_DeclareMethod(dict, keys)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns an iterator of keys in the dictionary.\n"
+		"\n"
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(dict, keys)
@@ -411,7 +458,7 @@ Gura_DeclareMethod(dict, len)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns the number of key-value pairs in the dictionary.");
 }
 
 Gura_ImplementMethod(dict, len)
@@ -537,7 +584,9 @@ Gura_DeclareMethod(dict, values)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns an iterator of values in the dictionary.\n"
+		"\n"
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(dict, values)

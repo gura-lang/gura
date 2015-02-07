@@ -2938,7 +2938,7 @@ The <code>declaration</code> class provides information about argument's declara
 <li><code>function.getdecls()</code></li>
 </ul>
 <p>
-Below is an example to print argument names in a function.
+Below is an example to print argument names declared in a function.
 </p>
 <pre><code>f(a, b, c, d) = {}
 println(f.decls:*name)
@@ -3057,10 +3057,44 @@ You can also specify a type by describing factors in separate arguments like bel
 <code>dict(elem[]?):[icase] {block?}</code>
 </p>
 <p>
+Creates a <code>dict</code> instance. It takes a list of key-value pairs in an argument or in a block as shown below.
+</p>
+<pre><code>d = dict([['apple', 100], ['grape', 200], ['banana', 80]])
+</code></pre>
+<pre><code>d = dict {
+    ['apple', 100], ['grape', 200], ['banana', 80]
+}
+</code></pre>
+<p>
+You can specify values of <code>number</code>, <code>string</code> or <code>symbol</code> as dictionary keys.
+</p>
+<p>
+You can also use the operator <code>=&gt;</code> to create a key-value pair like below:
+</p>
+<pre><code>d = dict(['apple' =&gt; 100, 'grape' =&gt; 200, 'banana' =&gt; 80])
+</code></pre>
+<pre><code>d = dict {
+    'apple' =&gt; 100, 'grape' =&gt; 200, 'banana' =&gt; 80
+}
+</code></pre>
+<p>
+The symbol <code>%</code> is an alias of the function <code>dict()</code>.
+</p>
+<pre><code>d = %{
+    'apple' =&gt; 100, 'grape' =&gt; 200, 'banana' =&gt; 80
+}
+</code></pre>
+<p>
+In default, if keys contain alphabet characters, different cases are distinguished. Appending the attribute <code>:icase</code> would ignore cases in them.
+</p>
+<p>
 <strong>dict#clear</strong>
 </p>
 <p>
 <code>dict#clear()</code>
+</p>
+<p>
+Clears all the key-value pairs in the dictionary.
 </p>
 <p>
 <strong>dict#erase</strong>
@@ -3069,10 +3103,25 @@ You can also specify a type by describing factors in separate arguments like bel
 <code>dict#erase(key):map</code>
 </p>
 <p>
+Erases a key-value pair that mathces the provided <code>key</code>.
+</p>
+<p>
+The <code>key</code> is either <code>number</code>, <code>string</code> or <code>symbol</code>.
+</p>
+<p>
 <strong>dict#get</strong>
 </p>
 <p>
 <code>dict#get(key, default?:nomap):map:[raise]</code>
+</p>
+<p>
+Seeks a value that is associated with the specified <code>key</code>.
+</p>
+<p>
+The method would return <code>nil</code> as its default value when the specified key doesn't exist in the dictionary. It would use different value if the argument <code>default</code> is specified. You can pass <code>list</code> or <code>iterator</code> for the <code>default</code> value as it's not processed with implicit mapping.
+</p>
+<p>
+When the attribute <code>:raise</code> is specified, an error occurs in the case of the key's absence.
 </p>
 <p>
 <strong>dict#gets</strong>
@@ -3081,10 +3130,22 @@ You can also specify a type by describing factors in separate arguments like bel
 <code>dict#gets(key, default?):map:[raise]</code>
 </p>
 <p>
+Seeks a value that is associated with the specified <code>key</code>.
+</p>
+<p>
+The method would return <code>nil</code> as its default value when the specified key doesn't exist in the dictionary. It would use different value if the argument <code>default</code> is specified. The <code>default</code> value is also processed with implicit mapping.
+</p>
+<p>
+When the attribute <code>:raise</code> is specified, an error occurs in the case of the key's absence.
+</p>
+<p>
 <strong>dict#haskey</strong>
 </p>
 <p>
 <code>dict#haskey(key):map</code>
+</p>
+<p>
+Returns <code>true</code> if the specified <code>key</code> exists in the dictionary.
 </p>
 <p>
 <strong>dict#items</strong>
@@ -3093,16 +3154,55 @@ You can also specify a type by describing factors in separate arguments like bel
 <code>dict#items() {block?}</code>
 </p>
 <p>
+Returns an iterator of key-value pairs in the dictionary.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
 <strong>dict#keys</strong>
 </p>
 <p>
 <code>dict#keys() {block?}</code>
 </p>
 <p>
+Returns an iterator of keys in the dictionary.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
 <strong>dict#len</strong>
 </p>
 <p>
 <code>dict#len()</code>
+</p>
+<p>
+Returns the number of key-value pairs in the dictionary.
 </p>
 <p>
 <strong>dict#set</strong>
@@ -3134,6 +3234,24 @@ You can also specify a type by describing factors in separate arguments like bel
 <p>
 <code>dict#values() {block?}</code>
 </p>
+<p>
+Returns an iterator of values in the dictionary.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
 <h2><span class="caption-index-2">6.10</span><a name="caption-6-10"></a>directory Class</h2>
 <h3><span class="caption-index-3">6.10.1</span><a name="caption-6-10-1"></a>Methods</h3>
 <p>
