@@ -4,8 +4,8 @@ import(helper.test) {*}
 testcase {
 	d = %{'a' => 3, 'b' => 2, 'c' => 1}
 	tester(`d)
-	tester(`d.setdefault('a', 99))
-	tester(`d.setdefault('e', 99))
+	tester(`d.set('a', 99):default)
+	tester(`d.set('e', 99):default)
 	tester(`d)
 	d.set('f', 100).set('g', 200).set('h', 300)
 	tester(`d)

@@ -441,15 +441,12 @@ declaration
 dict
   dict#clear()
   dict#erase(key):map
-  dict#get(key, default?:nomap):map:[raise]
-  dict#gets(key, default?):map:[raise]
+  dict#get(key, default?):map:[raise]
   dict#haskey(key):map
   dict#items() {block?}
   dict#keys() {block?}
   dict#len()
-  dict#set(key, value:nomap):map:reduce
-  dict#setdefault(key, value:nomap):map:reduce
-  dict#sets(key, value):map:void
+  dict#set(key, value):map:reduce:[default]
   dict#store(elems?):reduce:[default] {block?}
   dict#values() {block?}
 directory

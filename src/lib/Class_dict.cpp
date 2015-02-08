@@ -441,12 +441,13 @@ Gura_ImplementMethod(dict, len)
 	return Value(static_cast<Number>(pThis->GetDict().size()));
 }
 
-// dict#set(key, value):map:reduce:[]
+// dict#set(key, value):map:reduce:[default]
 Gura_DeclareMethod(dict, set)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_any);
 	DeclareArg(env, "value", VTYPE_any);
+	DeclareAttr(Gura_Symbol(default_));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -456,8 +457,10 @@ Gura_ImplementMethod(dict, set)
 {
 	Object_dict *pThis = Object_dict::GetThisObj(args);
 	const Value &valueIdx = args.GetValue(0);
-	//const Value *pValue = pThis->Find(sig, valueIdx);
-	//if (pValue != NULL) return *pValue;
+	if (args.IsSet(Gura_Symbol(default_))) {
+		const Value *pValue = pThis->Find(sig, valueIdx);
+		if (pValue != NULL) return args.GetThis();
+	}
 	const Value &value = args.GetValue(1);
 	pThis->IndexSet(env, sig, valueIdx, value);
 	if (sig.IsSignalled()) return Value::Null;
