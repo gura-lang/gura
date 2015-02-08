@@ -74,15 +74,15 @@ testcase {
 		`ffff	=>	'FFFFFFF'
 	}
 	tester(`d.get([`hoge, `foo, `aaaa, `bbbb, `cccc, `dddd, `eeee, `ffff, `eee]))
-	tester(`d.get([`hoge, `foo, `aaaa, `bbbb, `cccc, `dddd, `eeee, `ffff, `eee], [1, 2, 3]))
-	tester(`d.gets([`hoge, `foo, `aaaa, `Hoge, `Foo, `Aaaa], [1, 2, 3, 1, 2, 3]))
+	tester(`d.get([`hoge, `foo, `aaaa, `bbbb, `cccc, `dddd, `eeee, `ffff, `eee], [1, 2, 3].nomap()))
+	tester(`d.get([`hoge, `foo, `aaaa, `Hoge, `Foo, `Aaaa], [1, 2, 3, 1, 2, 3]))
 }
 testcase {
 	d = %{}
-	d.set([1, 2, 3], [4, 5, 6])
+	d.set([1, 2, 3], [4, 5, 6].nomap())
 	tester(`d)
 	d = %{}
-	d.sets([1, 2, 3], [4, 5, 6])
+	d.set([1, 2, 3], [4, 5, 6])
 	tester(`d)
 }
 testcase {

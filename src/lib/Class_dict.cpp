@@ -321,45 +321,8 @@ Gura_ImplementMethod(dict, erase)
 	return Value::Null;
 }
 
-// dict#get(key, default?:nomap):map:[raise]
+// dict#get(key, default?):map:[raise]
 Gura_DeclareMethod(dict, get)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "key", VTYPE_any);
-	DeclareArg(env, "default", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_NoMap);
-	DeclareAttr(Gura_Symbol(raise));
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Seeks a value that is associated with the specified `key`.\n"
-		"\n"
-		"The method would return `nil` as its default value\n"
-		"when the specified key doesn't exist in the dictionary.\n"
-		"It would use different value if the argument `default` is specified.\n"
-		"You can pass `list` or `iterator` for the `default` value\n"
-		"as it's not processed with implicit mapping.\n"
-		"\n"
-		"When the attribute `:raise` is specified, an error occurs in the case of the key's absence.\n");
-}
-
-Gura_ImplementMethod(dict, get)
-{
-	Object_dict *pThis = Object_dict::GetThisObj(args);
-	const Value &valueIdx = args.GetValue(0);
-	bool raiseFlag = args.IsSet(Gura_Symbol(raise));
-	const Value *pValue = pThis->Find(sig, valueIdx);
-	if (pValue != NULL) {
-		return *pValue;
-	} else if (raiseFlag) {
-		Object_dict::SetError_KeyNotFound(sig, valueIdx);
-		return Value::Null;
-	} else {
-		const Value &value = args.GetValue(1);
-		return value;
-	}
-}
-
-// dict#gets(key, default?):map:[raise]
-Gura_DeclareMethod(dict, gets)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_any);
@@ -372,12 +335,15 @@ Gura_DeclareMethod(dict, gets)
 		"The method would return `nil` as its default value\n"
 		"when the specified key doesn't exist in the dictionary.\n"
 		"It would use different value if the argument `default` is specified.\n"
-		"The `default` value is also processed with implicit mapping.\n"
+		"\n"
+		"Since the `default` value is also processed with implicit mapping,\n"
+		"you have to apply `object#nomap()` method to it\n"
+		"if you want to specify a list or an iterator as a default value.\n"
 		"\n"
 		"When the attribute `:raise` is specified, an error occurs in the case of the key's absence.\n");
 }
 
-Gura_ImplementMethod(dict, gets)
+Gura_ImplementMethod(dict, get)
 {
 	Object_dict *pThis = Object_dict::GetThisObj(args);
 	const Value &valueIdx = args.GetValue(0);
@@ -467,12 +433,12 @@ Gura_ImplementMethod(dict, len)
 	return Value(static_cast<Number>(pThis->GetDict().size()));
 }
 
-// dict#set(key, value:nomap):map:reduce
+// dict#set(key, value):map:reduce
 Gura_DeclareMethod(dict, set)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_any);
-	DeclareArg(env, "value", VTYPE_any, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "value", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -507,25 +473,6 @@ Gura_ImplementMethod(dict, setdefault)
 	pThis->IndexSet(env, sig, valueIdx, value);
 	if (sig.IsSignalled()) return Value::Null;
 	return value;
-}
-
-// dict#sets(key, value):map:void
-Gura_DeclareMethod(dict, sets)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "key", VTYPE_any);
-	DeclareArg(env, "value", VTYPE_any);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementMethod(dict, sets)
-{
-	Object_dict *pThis = Object_dict::GetThisObj(args);
-	const Value &valueIdx = args.GetValue(0);
-	pThis->IndexSet(env, sig, args.GetValue(0), args.GetValue(1));
-	return Value::Null;
 }
 
 // dict#store(elems?):reduce:[default] {block?}
@@ -611,14 +558,12 @@ void Class_dict::Prepare(Environment &env)
 	Gura_AssignMethod(dict, clear);
 	Gura_AssignMethod(dict, erase);
 	Gura_AssignMethod(dict, get);
-	Gura_AssignMethod(dict, gets);
 	Gura_AssignMethod(dict, haskey);
 	Gura_AssignMethod(dict, items);
 	Gura_AssignMethod(dict, keys);
 	Gura_AssignMethod(dict, len);
 	Gura_AssignMethod(dict, set);
 	Gura_AssignMethod(dict, setdefault);
-	Gura_AssignMethod(dict, sets);
 	Gura_AssignMethod(dict, store);
 	Gura_AssignMethod(dict, values);
 }

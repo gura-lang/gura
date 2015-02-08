@@ -22,7 +22,7 @@ listSymbols(skipWords:list, indent:number => 0, m?:module) = {
 			printf('%s:%s = %s\n', word, typename(value), value)
 		}
 		if (ismodule(value)) {
-			listSymbols(skipWordsMap.get(word, []), indent + 1, value)
+			listSymbols(skipWordsMap.get(word, [].nomap()), indent + 1, value)
 		}
 	}
 }

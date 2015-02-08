@@ -38,8 +38,8 @@ d .. %{hoge => 'AAAAAA', foo => 'bbbbb', bar => 'cccccc', hoge1 => 'DDDDD', hoge
 ======== #6 ========
 
 d.get([`hoge, `foo, `aaaa, `bbbb, `cccc, `dddd, `eeee, `ffff, `eee]) .. ['aaaaaa', 'bbbbb', 'AAAAAAA', 'BBBBBBB', 'CCCCCCC', 'DDDDDDD', 'EEEEEEE', 'FFFFFFF', nil]
-d.get([`hoge, `foo, `aaaa, `bbbb, `cccc, `dddd, `eeee, `ffff, `eee], [1, 2, 3]) .. ['aaaaaa', 'bbbbb', 'AAAAAAA', 'BBBBBBB', 'CCCCCCC', 'DDDDDDD', 'EEEEEEE', 'FFFFFFF', [1, 2, 3]]
-d.gets([`hoge, `foo, `aaaa, `Hoge, `Foo, `Aaaa], [1, 2, 3, 1, 2, 3]) .. ['aaaaaa', 'bbbbb', 'AAAAAAA', 1, 2, 3]
+d.get([`hoge, `foo, `aaaa, `bbbb, `cccc, `dddd, `eeee, `ffff, `eee], [1, 2, 3].nomap()) .. ['aaaaaa', 'bbbbb', 'AAAAAAA', 'BBBBBBB', 'CCCCCCC', 'DDDDDDD', 'EEEEEEE', 'FFFFFFF', [1, 2, 3]]
+d.get([`hoge, `foo, `aaaa, `Hoge, `Foo, `Aaaa], [1, 2, 3, 1, 2, 3]) .. ['aaaaaa', 'bbbbb', 'AAAAAAA', 1, 2, 3]
 
 ======== #7 ========
 
