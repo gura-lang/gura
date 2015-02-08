@@ -340,7 +340,15 @@ Gura_DeclareMethod(dict, get)
 		"you have to apply `object#nomap()` method to it\n"
 		"if you want to specify a list or an iterator as a default value.\n"
 		"\n"
-		"When the attribute `:raise` is specified, an error occurs in the case of the key's absence.\n");
+		"When the attribute `:raise` is specified,\n"
+		"an error occurs in the case of the key's absence.\n"
+		"\n"
+		"Another measure to get a value associated with a key is to use an index operator.\n"
+		"The following two codes have the same effect.\n"
+		"\n"
+		"    v = d['foo']\n"
+		"\n"
+		"    v = d.get('foo'):raise\n");
 }
 
 Gura_ImplementMethod(dict, get)
@@ -448,31 +456,12 @@ Gura_ImplementMethod(dict, set)
 {
 	Object_dict *pThis = Object_dict::GetThisObj(args);
 	const Value &valueIdx = args.GetValue(0);
-	pThis->IndexSet(env, sig, args.GetValue(0), args.GetValue(1));
-	return args.GetThis();
-}
-
-// dict#setdefault(key, value:nomap):map
-Gura_DeclareMethod(dict, setdefault)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
-	DeclareArg(env, "key", VTYPE_any);
-	DeclareArg(env, "value", VTYPE_any, OCCUR_Once, FLAG_NoMap);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementMethod(dict, setdefault)
-{
-	Object_dict *pThis = Object_dict::GetThisObj(args);
-	const Value &valueIdx = args.GetValue(0);
-	const Value *pValue = pThis->Find(sig, valueIdx);
-	if (pValue != NULL) return *pValue;
+	//const Value *pValue = pThis->Find(sig, valueIdx);
+	//if (pValue != NULL) return *pValue;
 	const Value &value = args.GetValue(1);
 	pThis->IndexSet(env, sig, valueIdx, value);
 	if (sig.IsSignalled()) return Value::Null;
-	return value;
+	return args.GetThis();
 }
 
 // dict#store(elems?):reduce:[default] {block?}
@@ -563,7 +552,6 @@ void Class_dict::Prepare(Environment &env)
 	Gura_AssignMethod(dict, keys);
 	Gura_AssignMethod(dict, len);
 	Gura_AssignMethod(dict, set);
-	Gura_AssignMethod(dict, setdefault);
 	Gura_AssignMethod(dict, store);
 	Gura_AssignMethod(dict, values);
 }
