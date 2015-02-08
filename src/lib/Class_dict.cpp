@@ -433,7 +433,7 @@ Gura_ImplementMethod(dict, len)
 	return Value(static_cast<Number>(pThis->GetDict().size()));
 }
 
-// dict#set(key, value):map:reduce
+// dict#set(key, value):map:reduce:[]
 Gura_DeclareMethod(dict, set)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
