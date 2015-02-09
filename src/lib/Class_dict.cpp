@@ -259,7 +259,7 @@ Gura_ImplementFunction(dict)
 {
 	Object_dict *pObj = new Object_dict(env, new ValueDict(args.IsSet(Gura_Symbol(icase))));
 	ValueDict &valDict = pObj->GetDict();
-	ValueDict::StoreMode storeMode = ValueDict::STORE_Normal;
+	ValueDict::StoreMode storeMode = ValueDict::STORE_Strict;
 	if (args.GetValue(0).Is_list() &&
 					!valDict.Store(sig, args.GetList(0), storeMode)) {
 		return Value::Null;
@@ -441,13 +441,14 @@ Gura_ImplementMethod(dict, len)
 	return Value(static_cast<Number>(pThis->GetDict().size()));
 }
 
-// dict#set(key, value):map:reduce:[default]
+// dict#set(key, value):map:reduce:[strict,timid]
 Gura_DeclareMethod(dict, set)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_any);
 	DeclareArg(env, "value", VTYPE_any);
-	DeclareAttr(Gura_Symbol(default_));
+	DeclareAttr(Gura_Symbol(strict));
+	DeclareAttr(Gura_Symbol(timid));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -455,24 +456,24 @@ Gura_DeclareMethod(dict, set)
 
 Gura_ImplementMethod(dict, set)
 {
-	Object_dict *pThis = Object_dict::GetThisObj(args);
+	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
 	const Value &valueIdx = args.GetValue(0);
-	if (args.IsSet(Gura_Symbol(default_))) {
-		const Value *pValue = pThis->Find(sig, valueIdx);
-		if (pValue != NULL) return args.GetThis();
-	}
 	const Value &value = args.GetValue(1);
-	pThis->IndexSet(env, sig, valueIdx, value);
-	if (sig.IsSignalled()) return Value::Null;
+	ValueDict::StoreMode storeMode =
+		args.IsSet(Gura_Symbol(strict))? ValueDict::STORE_Strict :
+		args.IsSet(Gura_Symbol(timid))? ValueDict::STORE_Timid :
+		ValueDict::STORE_Overwrite;
+	if (!valDict.Store(sig, valueIdx, value, storeMode)) return Value::Null;
 	return args.GetThis();
 }
 
-// dict#store(elems?):reduce:[default] {block?}
+// dict#store(elems?):reduce:[strict,timid] {block?}
 Gura_DeclareMethod(dict, store)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "elems", VTYPE_any, OCCUR_ZeroOrOnce);
-	DeclareAttr(Gura_Symbol(default_));
+	DeclareAttr(Gura_Symbol(strict));
+	DeclareAttr(Gura_Symbol(timid));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -483,8 +484,10 @@ Gura_ImplementMethod(dict, store)
 {
 	Object_dict *pThis = Object_dict::GetThisObj(args);
 	ValueDict &valDict = pThis->GetDict();
-	ValueDict::StoreMode storeMode = args.IsSet(Gura_Symbol(default_))?
-					ValueDict::STORE_Default : ValueDict::STORE_AllowDup;
+	ValueDict::StoreMode storeMode =
+		args.IsSet(Gura_Symbol(strict))? ValueDict::STORE_Strict :
+		args.IsSet(Gura_Symbol(timid))? ValueDict::STORE_Timid :
+		ValueDict::STORE_Overwrite;
 	if (args.GetValue(0).Is_list()) {
 		if (!valDict.Store(sig, args.GetList(0), storeMode)) {
 			return Value::Null;

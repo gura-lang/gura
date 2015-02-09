@@ -1001,9 +1001,9 @@ bool ValueDict::Store(Signal sig, const ValueList &valList, StoreMode storeMode)
 				ValueDict::iterator iterDst = find(valueIdx);
 				if (iterDst == end()) {
 					insert(ValueDict::value_type(valueIdx, value));
-				} else if (storeMode == STORE_AllowDup) {
+				} else if (storeMode == STORE_Overwrite) {
 					iterDst->second = value;
-				} else if (storeMode == STORE_Default) {
+				} else if (storeMode == STORE_Timid) {
 					// nothing to do
 				} else {
 					sig.SetError(ERR_KeyError, "duplicated key '%s'", valueIdx.ToString().c_str());
@@ -1016,9 +1016,9 @@ bool ValueDict::Store(Signal sig, const ValueList &valList, StoreMode storeMode)
 			ValueDict::iterator iterDst = find(valueIdx);
 			if (iterDst == end()) {
 				insert(ValueDict::value_type(valueIdx, *pValue));
-			} else if (storeMode == STORE_AllowDup) {
+			} else if (storeMode == STORE_Overwrite) {
 				iterDst->second = *pValue;
-			} else if (storeMode == STORE_Default) {
+			} else if (storeMode == STORE_Timid) {
 				// nothing to do
 			} else {
 				sig.SetError(ERR_KeyError, "duplicated key '%s'", valueIdx.ToString().c_str());
@@ -1041,9 +1041,9 @@ bool ValueDict::Store(Signal sig, const ValueDict &valDict, StoreMode storeMode)
 		ValueDict::iterator iterDst = find(valueIdx);
 		if (iterDst == end()) {
 			insert(*iterSrc);
-		} else if (storeMode == STORE_AllowDup) {
+		} else if (storeMode == STORE_Overwrite) {
 			iterDst->second = iterSrc->second;
-		} else if (storeMode == STORE_Default) {
+		} else if (storeMode == STORE_Timid) {
 			// nothing to do
 		} else {
 			sig.SetError(ERR_KeyError, "duplicated key '%s'", valueIdx.ToString().c_str());
@@ -1062,9 +1062,9 @@ bool ValueDict::Store(Signal sig, const Value &valueIdx, const Value &value, Sto
 	ValueDict::iterator iterDst = find(valueIdx);
 	if (iterDst == end()) {
 		insert(ValueDict::value_type(valueIdx, value));
-	} else if (storeMode == STORE_AllowDup) {
+	} else if (storeMode == STORE_Overwrite) {
 		iterDst->second = value;
-	} else if (storeMode == STORE_Default) {
+	} else if (storeMode == STORE_Timid) {
 		// nothing to do
 	} else {
 		sig.SetError(ERR_KeyError, "duplicated key '%s'", valueIdx.ToString().c_str());

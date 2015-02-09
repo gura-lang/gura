@@ -547,9 +547,9 @@ typedef std::deque<Value> ValueDeque;
 class GURA_DLLDECLARE ValueDict : public std::map<Value, Value, Value::KeyCompare> {
 public:
 	enum StoreMode {
-		STORE_Normal,
-		STORE_AllowDup,
-		STORE_Default,
+		STORE_Strict,
+		STORE_Overwrite,
+		STORE_Timid,
 	};
 	static const ValueDict Null;
 private:

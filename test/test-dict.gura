@@ -4,8 +4,8 @@ import(helper.test) {*}
 testcase {
 	d = %{'a' => 3, 'b' => 2, 'c' => 1}
 	tester(`d)
-	tester(`d.set('a', 99):default)
-	tester(`d.set('e', 99):default)
+	tester(`d.set('a', 99):timid)
+	tester(`d.set('e', 99):timid)
 	tester(`d)
 	d.set('f', 100).set('g', 200).set('h', 300)
 	tester(`d)
@@ -15,7 +15,7 @@ testcase {
 	tester(`d)
 	d.store {'a' => 33, 'b' => 22, 'c' => 11}
 	tester(`d)
-	d.store():default {'a' => 333, 'b' => 222, 'c' => 111, 'd' => 444}
+	d.store():timid {'a' => 333, 'b' => 222, 'c' => 111, 'd' => 444}
 	tester(`d)
 }
 testcase {

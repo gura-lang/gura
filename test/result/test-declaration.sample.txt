@@ -446,8 +446,8 @@ dict
   dict#items() {block?}
   dict#keys() {block?}
   dict#len()
-  dict#set(key, value):map:reduce:[default]
-  dict#store(elems?):reduce:[default] {block?}
+  dict#set(key, value):map:reduce:[strict,timid]
+  dict#store(elems?):reduce:[strict,timid] {block?}
   dict#values() {block?}
 directory
 expr
