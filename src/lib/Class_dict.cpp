@@ -15,7 +15,7 @@ Object *Object_dict::Clone() const
 
 Value Object_dict::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 {
-	const Value *pValue = Find(sig, valueIdx);
+	const Value *pValue = GetDict().Find(sig, valueIdx);
 	if (sig.IsSignalled()) {
 		return Value::Null;
 	} else if (pValue == NULL) {
@@ -61,16 +61,6 @@ String Object_dict::ToString(bool exprFlag)
 	}
 	str += "}";
 	return str;
-}
-
-const Value *Object_dict::Find(Signal sig, const Value &valueIdx) const
-{
-	if (!valueIdx.IsValidKey()) {
-		sig.SetError(ERR_KeyError, "invalid value type for key");
-		return NULL;
-	}
-	ValueDict::const_iterator iter = GetDict().find(valueIdx);
-	return (iter == GetDict().end())? NULL : &iter->second;
 }
 
 void Object_dict::SetError_KeyNotFound(Signal sig, const Value &valueIdx)
@@ -190,7 +180,7 @@ bool Object_dict::IteratorGet::DoNext(Environment &env, Signal sig, Value &value
 {
 	Value valueIdx;
 	if (!_pIteratorKey->Next(env, sig, valueIdx)) return false;
-	const Value *pValue = _pObj->Find(sig, valueIdx);
+	const Value *pValue = _pObj->GetDict().Find(sig, valueIdx);
 	if (pValue != NULL) {
 		value = *pValue;
 	} else if (_raiseFlag) {
@@ -297,8 +287,8 @@ Gura_DeclareMethod(dict, clear)
 
 Gura_ImplementMethod(dict, clear)
 {
-	Object_dict *pThis = Object_dict::GetThisObj(args);
-	pThis->GetDict().clear();
+	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
+	valDict.clear();
 	return Value::Null;
 }
 
@@ -316,8 +306,8 @@ Gura_DeclareMethod(dict, erase)
 
 Gura_ImplementMethod(dict, erase)
 {
-	Object_dict *pThis = Object_dict::GetThisObj(args);
-	pThis->GetDict().erase(args.GetValue(0));
+	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
+	valDict.erase(args.GetValue(0));
 	return Value::Null;
 }
 
@@ -353,10 +343,10 @@ Gura_DeclareMethod(dict, get)
 
 Gura_ImplementMethod(dict, get)
 {
-	Object_dict *pThis = Object_dict::GetThisObj(args);
+	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
 	const Value &valueIdx = args.GetValue(0);
 	bool raiseFlag = args.IsSet(Gura_Symbol(raise));
-	const Value *pValue = pThis->Find(sig, valueIdx);
+	const Value *pValue = valDict.Find(sig, valueIdx);
 	if (pValue != NULL) {
 		return *pValue;
 	} else if (raiseFlag) {
@@ -380,9 +370,9 @@ Gura_DeclareMethod(dict, haskey)
 
 Gura_ImplementMethod(dict, haskey)
 {
-	Object_dict *pThis = Object_dict::GetThisObj(args);
+	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
 	const Value &valueIdx = args.GetValue(0);
-	const Value *pValue = pThis->Find(sig, valueIdx);
+	const Value *pValue = valDict.Find(sig, valueIdx);
 	return Value(pValue != NULL);
 }
 
@@ -437,8 +427,8 @@ Gura_DeclareMethod(dict, len)
 
 Gura_ImplementMethod(dict, len)
 {
-	Object_dict *pThis = Object_dict::GetThisObj(args);
-	return Value(static_cast<Number>(pThis->GetDict().size()));
+	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
+	return Value(static_cast<Number>(valDict.size()));
 }
 
 // dict#set(key, value):map:reduce:[strict,timid]
@@ -482,8 +472,7 @@ Gura_DeclareMethod(dict, store)
 
 Gura_ImplementMethod(dict, store)
 {
-	Object_dict *pThis = Object_dict::GetThisObj(args);
-	ValueDict &valDict = pThis->GetDict();
+	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
 	ValueDict::StoreMode storeMode =
 		args.IsSet(Gura_Symbol(strict))? ValueDict::STORE_Strict :
 		args.IsSet(Gura_Symbol(timid))? ValueDict::STORE_Timid :

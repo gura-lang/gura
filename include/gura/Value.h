@@ -569,6 +569,7 @@ public:
 private:
 	inline ~ValueDict() {}
 public:
+	const Value *Find(Signal sig, const Value &valueIdx) const;
 	bool Store(Signal sig, const ValueList &valList, StoreMode storeMode);
 	bool Store(Signal sig, const ValueDict &valDict, StoreMode storeMode);
 	bool Store(Signal sig, const Value &valueIdx, const Value &value, StoreMode storeMode);

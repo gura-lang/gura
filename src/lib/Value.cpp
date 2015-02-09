@@ -972,6 +972,16 @@ const ValueMap ValueMap::Null;
 //-----------------------------------------------------------------------------
 const ValueDict ValueDict::Null;
 
+const Value *ValueDict::Find(Signal sig, const Value &valueIdx) const
+{
+	if (!valueIdx.IsValidKey()) {
+		sig.SetError(ERR_KeyError, "invalid value type for key");
+		return NULL;
+	}
+	const_iterator iter = find(valueIdx);
+	return (iter == end())? NULL : &iter->second;
+}
+
 bool ValueDict::Store(Signal sig, const ValueList &valList, StoreMode storeMode)
 {
 	enum { FIELD_Key, FIELD_Value } field = FIELD_Key;
