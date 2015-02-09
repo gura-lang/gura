@@ -634,7 +634,7 @@ Implement() {`block} = {
 }
 
 AddTypeConv(typeName:string, typeConv:TypeConv) = {
-	typeConvDict.set(typeName, typeConv)
+	typeConvDict.put(typeName, typeConv)
 } % {`en, 'markdown',
 	R'''
 	Adds a type converter information.
