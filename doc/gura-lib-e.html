@@ -1887,7 +1887,7 @@ Below is an example to use <code>args</code> class:
 <pre><code>func(v0, v1, v2):[attr1,attr2] = {
     printf('arg#%d %s\n', 0.., __args__.values)
     printf('attr1:%s attr2:%s\n', __args__.isset(`attr1), __args__.isset(`attr2))
-}       
+}
 </code></pre>
 <h3><span class="caption-index-3">6.1.1</span><a name="caption-6-1-1"></a>Properties</h3>
 <p>
@@ -3049,6 +3049,9 @@ You can also specify a type by describing factors in separate arguments like bel
 <pre><code>decl.istype(`re, `match)
 </code></pre>
 <h2><span class="caption-index-2">6.9</span><a name="caption-6-9"></a>dict Class</h2>
+<p>
+The <code>dict</code> class provides measures to handle dictionary data.
+</p>
 <h3><span class="caption-index-3">6.9.1</span><a name="caption-6-9-1"></a>Methods</h3>
 <p>
 <strong>dict</strong>
@@ -3234,6 +3237,13 @@ If the specified key already exists in the dictionary, it would be overwritten. 
 <li><code>:timid</code> .. keep the existing one</li>
 </ul>
 <p>
+Another measure to add a key-value pair is to use an index operator. The following two codes have the same effect.
+</p>
+<pre><code>d['foo'] = 3
+</code></pre>
+<pre><code>d.put('foo', 3)
+</code></pre>
+<p>
 <strong>dict#values</strong>
 </p>
 <p>
@@ -3289,6 +3299,21 @@ Looks up a specified symbol in the environment and returns the associated value.
 <code>environment#setprop!(symbol:symbol, value):map</code>
 </p>
 <h2><span class="caption-index-2">6.12</span><a name="caption-6-12"></a>error Class</h2>
+<p>
+The <code>error</code> class provides measures to access error information.
+</p>
+<p>
+The <code>error</code> instance is passed when a block of <code>catch()</code> function is evaluated in <code>try-catch</code> sequence.
+</p>
+<p>
+In the following code, <code>e</code> is an instance that contains information about an error that has occured in the <code>try</code> block.
+</p>
+<pre><code>try {
+    // any jobs
+} catch {|e:error|
+    // ...
+}
+</code></pre>
 <h3><span class="caption-index-3">6.12.1</span><a name="caption-6-12-1"></a>Properties</h3>
 <p>
 <table>
@@ -6665,42 +6690,6 @@ An error occurs if the same suffix symbol has already been assigned. Specifying 
 </p>
 <p>
 <code>template#super(super):void</code>
-</p>
-<p>
-<strong>template#_R_block</strong>
-</p>
-<p>
-<code>template#_R_block(symbol:symbol):void</code>
-</p>
-<p>
-<strong>template#_R_call</strong>
-</p>
-<p>
-<code>template#_R_call(symbol:symbol, args*):void</code>
-</p>
-<p>
-<strong>template#_R_def</strong>
-</p>
-<p>
-<code>template#_R_def(symbol:symbol, `args*):void</code>
-</p>
-<p>
-<strong>template#_R_embed</strong>
-</p>
-<p>
-<code>template#_R_embed(template:template):void</code>
-</p>
-<p>
-<strong>template#_R_extends</strong>
-</p>
-<p>
-<code>template#_R_extends(super):void:[lasteol,noindent]</code>
-</p>
-<p>
-<strong>template#_R_super</strong>
-</p>
-<p>
-<code>template#_R_super(symbol:symbol):void</code>
 </p>
 <h2><span class="caption-index-2">6.28</span><a name="caption-6-28"></a>timedelta Class</h2>
 <h3><span class="caption-index-3">6.28.1</span><a name="caption-6-28-1"></a>Properties</h3>

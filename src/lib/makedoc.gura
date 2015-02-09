@@ -96,7 +96,7 @@ Below is an example to use `args` class:
     func(v0, v1, v2):[attr1,attr2] = {
         printf('arg#%d %s\n', 0.., __args__.values)
         printf('attr1:%s attr2:%s\n', __args__.isset(`attr1), __args__.isset(`attr2))
-    }       
+    }
 
 ### Properties
 
@@ -308,6 +308,7 @@ Below is an example to print argument names declared in a function.
 text_dict = R'''
 ## dict Class
 
+The `dict` class provides measures to handle dictionary data.
 '''
 
 //-----------------------------------------------------------------------------
@@ -325,6 +326,20 @@ text_environment = R'''
 //-----------------------------------------------------------------------------
 text_error = R'''
 ## error Class
+
+The `error` class provides measures to access error information.
+
+The `error` instance is passed when a block of `catch()` function is evaluated
+in `try-catch` sequence.
+
+In the following code, `e` is an instance that contains information
+about an error that has occured in the `try` block.
+
+    try {
+        // any jobs
+    } catch {|e:error|
+        // ...
+    }
 
 ### Properties
 
@@ -1144,12 +1159,12 @@ write(doc:markdown.document) = {
 		template.read
 		template.render
 		template.super
-		template._R_block
-		template._R_call
-		template._R_def
-		template._R_embed
-		template._R_extends
-		template._R_super
+		//template._R_block
+		//template._R_call
+		//template._R_def
+		//template._R_embed
+		//template._R_extends
+		//template._R_super
 	]
 	//-------------------------------------------------------------------------
 	doc << text_timedelta

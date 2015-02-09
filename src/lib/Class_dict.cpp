@@ -518,7 +518,14 @@ Gura_DeclareMethod(dict, put)
 		"\n"
 		"- `:overwrite` .. overwrite the existing one (default)\n"
 		"- `:strict` .. raises an error\n"
-		"- `:timid` .. keep the existing one\n");
+		"- `:timid` .. keep the existing one\n"
+		"\n"
+		"Another measure to add a key-value pair is to use an index operator.\n"
+		"The following two codes have the same effect.\n"
+		"\n"
+		"    d['foo'] = 3\n"
+		"\n"
+		"    d.put('foo', 3)\n");
 }
 
 Gura_ImplementMethod(dict, put)
