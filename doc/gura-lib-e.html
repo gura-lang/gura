@@ -3054,7 +3054,7 @@ You can also specify a type by describing factors in separate arguments like bel
 <strong>dict</strong>
 </p>
 <p>
-<code>dict(elem[]?):[icase] {block?}</code>
+<code>dict(elems?):[icase] {block?}</code>
 </p>
 <p>
 Creates a <code>dict</code> instance. It takes a list of key-value pairs in an argument or in a block as shown below.
@@ -3112,32 +3112,27 @@ The <code>key</code> is either <code>number</code>, <code>string</code> or <code
 <strong>dict#get</strong>
 </p>
 <p>
-<code>dict#get(key, default?:nomap):map:[raise]</code>
+<code>dict#get(key, default?):map:[raise]</code>
 </p>
 <p>
 Seeks a value that is associated with the specified <code>key</code>.
 </p>
 <p>
-The method would return <code>nil</code> as its default value when the specified key doesn't exist in the dictionary. It would use different value if the argument <code>default</code> is specified. You can pass <code>list</code> or <code>iterator</code> for the <code>default</code> value as it's not processed with implicit mapping.
+The method would return <code>nil</code> as its default value when the specified key doesn't exist in the dictionary. It would use different value if the argument <code>default</code> is specified.
+</p>
+<p>
+Since the <code>default</code> value is also processed with implicit mapping, you have to apply <code>object#nomap()</code> method to it if you want to specify a list or an iterator as a default value.
 </p>
 <p>
 When the attribute <code>:raise</code> is specified, an error occurs in the case of the key's absence.
 </p>
 <p>
-<strong>dict#gets</strong>
+Another measure to get a value associated with a key is to use an index operator. The following two codes have the same effect.
 </p>
-<p>
-<code>dict#gets(key, default?):map:[raise]</code>
-</p>
-<p>
-Seeks a value that is associated with the specified <code>key</code>.
-</p>
-<p>
-The method would return <code>nil</code> as its default value when the specified key doesn't exist in the dictionary. It would use different value if the argument <code>default</code> is specified. The <code>default</code> value is also processed with implicit mapping.
-</p>
-<p>
-When the attribute <code>:raise</code> is specified, an error occurs in the case of the key's absence.
-</p>
+<pre><code>v = d['foo']
+</code></pre>
+<pre><code>v = d.get('foo'):raise
+</code></pre>
 <p>
 <strong>dict#haskey</strong>
 </p>
@@ -3208,26 +3203,36 @@ Returns the number of key-value pairs in the dictionary.
 <strong>dict#set</strong>
 </p>
 <p>
-<code>dict#set(key, value:nomap):map:reduce</code>
+<code>dict#set(key, value):map:reduce:[overwrite,strict,timid]</code>
 </p>
 <p>
-<strong>dict#setdefault</strong>
+Adds a new key-value pair.
 </p>
 <p>
-<code>dict#setdefault(key, value:nomap):map:reduce</code>
+If the specified key already exists in the dictionary, it would be overwritten. This behavior can be customized with the following attributes:
 </p>
-<p>
-<strong>dict#sets</strong>
-</p>
-<p>
-<code>dict#sets(key, value):map:void</code>
-</p>
+<ul>
+<li><code>:overwrite</code> .. overwrite the existing one (default)</li>
+<li><code>:strict</code> .. raises an error</li>
+<li><code>:timid</code> .. keep the existing one</li>
+</ul>
 <p>
 <strong>dict#store</strong>
 </p>
 <p>
-<code>dict#store(elems?):reduce:[default] {block?}</code>
+<code>dict#store(elems?):reduce:[overwrite,strict,timid] {block?}</code>
 </p>
+<p>
+Adds multiple key-value pairs. It takes a list of key-value pairs in an argument or in a block that has the same format with one for the function <code>dict()</code>.
+</p>
+<p>
+If the specified key already exists in the dictionary, it would be overwritten. This behavior can be customized with the following attributes:
+</p>
+<ul>
+<li><code>:overwrite</code> .. overwrite the existing one (default)</li>
+<li><code>:strict</code> .. raises an error</li>
+<li><code>:timid</code> .. keep the existing one</li>
+</ul>
 <p>
 <strong>dict#values</strong>
 </p>

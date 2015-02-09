@@ -774,14 +774,11 @@ write(doc:markdown.document) = {
 		dict.clear
 		dict.erase
 		dict.get
-		dict.gets
 		dict.haskey
 		dict.items
 		dict.keys
 		dict.len
 		dict.set
-		dict.setdefault
-		dict.sets
 		dict.store
 		dict.values
 	]

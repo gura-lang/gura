@@ -485,6 +485,8 @@ Gura_DeclareMethod(dict, store)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Adds multiple key-value pairs.\n"
+		"It takes a list of key-value pairs in an argument or in a block\n"
+		"that has the same format with one for the function `dict()`.\n"
 		"\n"
 		"If the specified key already exists in the dictionary, it would be overwritten.\n"
 		"This behavior can be customized with the following attributes:\n"
