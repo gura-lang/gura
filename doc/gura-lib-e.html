@@ -3088,6 +3088,23 @@ The symbol <code>%</code> is an alias of the function <code>dict()</code>.
 In default, if keys contain alphabet characters, different cases are distinguished. Appending the attribute <code>:icase</code> would ignore cases in them.
 </p>
 <p>
+<strong>dict#append</strong>
+</p>
+<p>
+<code>dict#append(elems?):reduce:[overwrite,strict,timid] {block?}</code>
+</p>
+<p>
+Adds multiple key-value pairs. It takes a list of key-value pairs in an argument or in a block that has the same format with one for the function <code>dict()</code>.
+</p>
+<p>
+If the specified key already exists in the dictionary, it would be overwritten. This behavior can be customized with the following attributes:
+</p>
+<ul>
+<li><code>:overwrite</code> .. overwrite the existing one (default)</li>
+<li><code>:strict</code> .. raises an error</li>
+<li><code>:timid</code> .. keep the existing one</li>
+</ul>
+<p>
 <strong>dict#clear</strong>
 </p>
 <p>
@@ -3200,30 +3217,13 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 Returns the number of key-value pairs in the dictionary.
 </p>
 <p>
-<strong>dict#set</strong>
+<strong>dict#put</strong>
 </p>
 <p>
-<code>dict#set(key, value):map:reduce:[overwrite,strict,timid]</code>
+<code>dict#put(key, value):map:reduce:[overwrite,strict,timid]</code>
 </p>
 <p>
 Adds a new key-value pair.
-</p>
-<p>
-If the specified key already exists in the dictionary, it would be overwritten. This behavior can be customized with the following attributes:
-</p>
-<ul>
-<li><code>:overwrite</code> .. overwrite the existing one (default)</li>
-<li><code>:strict</code> .. raises an error</li>
-<li><code>:timid</code> .. keep the existing one</li>
-</ul>
-<p>
-<strong>dict#store</strong>
-</p>
-<p>
-<code>dict#store(elems?):reduce:[overwrite,strict,timid] {block?}</code>
-</p>
-<p>
-Adds multiple key-value pairs. It takes a list of key-value pairs in an argument or in a block that has the same format with one for the function <code>dict()</code>.
 </p>
 <p>
 If the specified key already exists in the dictionary, it would be overwritten. This behavior can be customized with the following attributes:
