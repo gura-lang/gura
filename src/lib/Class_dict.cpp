@@ -284,6 +284,67 @@ Gura_ImplementFunction(dict)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
+// dict#append(elems?):reduce:[overwrite,strict,timid] {block?}
+Gura_DeclareMethod(dict, append)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "elems", VTYPE_any, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(overwrite));
+	DeclareAttr(Gura_Symbol(strict));
+	DeclareAttr(Gura_Symbol(timid));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Adds multiple key-value pairs.\n"
+		"It takes a list of key-value pairs in an argument or in a block\n"
+		"that has the same format with one for the function `dict()`.\n"
+		"\n"
+		"If the specified key already exists in the dictionary, it would be overwritten.\n"
+		"This behavior can be customized with the following attributes:\n"
+		"\n"
+		"- `:overwrite` .. overwrite the existing one (default)\n"
+		"- `:strict` .. raises an error\n"
+		"- `:timid` .. keep the existing one\n");
+}
+
+Gura_ImplementMethod(dict, append)
+{
+	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
+	ValueDict::StoreMode storeMode =
+		args.IsSet(Gura_Symbol(strict))? ValueDict::STORE_Strict :
+		args.IsSet(Gura_Symbol(timid))? ValueDict::STORE_Timid :
+		ValueDict::STORE_Overwrite;
+	if (args.GetValue(0).Is_list()) {
+		if (!valDict.Store(sig, args.GetList(0), storeMode)) {
+			return Value::Null;
+		}
+	} else if (args.GetValue(0).Is_dict()) {
+		if (!valDict.Store(sig, args.GetDict(0), storeMode)) {
+			return Value::Null;
+		}
+	} else if (args.IsValid(0)) {
+		sig.SetError(ERR_ValueError, "invalid argument type");
+		return Value::Null;
+	}
+	if (args.IsBlockSpecified()) {
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
+		ValueList valList;
+		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
+			SeqPostHandler *pSeqPostHandler = NULL;
+			Value value = (*ppExpr)->Exec2(*pEnvLister, sig, pSeqPostHandler);
+			if (sig.IsSignalled()) {
+				sig.AddExprCause(*ppExpr);
+				return Value::Null;
+			}
+			valList.push_back(value);
+		}
+		if (!valDict.Store(sig, valList, storeMode)) return Value::Null;
+	}
+	return args.GetThis();
+}
+
 // dict#clear()
 Gura_DeclareMethod(dict, clear)
 {
@@ -439,8 +500,8 @@ Gura_ImplementMethod(dict, len)
 	return Value(static_cast<Number>(valDict.size()));
 }
 
-// dict#set(key, value):map:reduce:[overwrite,strict,timid]
-Gura_DeclareMethod(dict, set)
+// dict#put(key, value):map:reduce:[overwrite,strict,timid]
+Gura_DeclareMethod(dict, put)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_any);
@@ -460,7 +521,7 @@ Gura_DeclareMethod(dict, set)
 		"- `:timid` .. keep the existing one\n");
 }
 
-Gura_ImplementMethod(dict, set)
+Gura_ImplementMethod(dict, put)
 {
 	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
 	const Value &valueIdx = args.GetValue(0);
@@ -470,67 +531,6 @@ Gura_ImplementMethod(dict, set)
 		args.IsSet(Gura_Symbol(timid))? ValueDict::STORE_Timid :
 		ValueDict::STORE_Overwrite;
 	if (!valDict.Store(sig, valueIdx, value, storeMode)) return Value::Null;
-	return args.GetThis();
-}
-
-// dict#store(elems?):reduce:[overwrite,strict,timid] {block?}
-Gura_DeclareMethod(dict, store)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "elems", VTYPE_any, OCCUR_ZeroOrOnce);
-	DeclareAttr(Gura_Symbol(overwrite));
-	DeclareAttr(Gura_Symbol(strict));
-	DeclareAttr(Gura_Symbol(timid));
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Adds multiple key-value pairs.\n"
-		"It takes a list of key-value pairs in an argument or in a block\n"
-		"that has the same format with one for the function `dict()`.\n"
-		"\n"
-		"If the specified key already exists in the dictionary, it would be overwritten.\n"
-		"This behavior can be customized with the following attributes:\n"
-		"\n"
-		"- `:overwrite` .. overwrite the existing one (default)\n"
-		"- `:strict` .. raises an error\n"
-		"- `:timid` .. keep the existing one\n");
-}
-
-Gura_ImplementMethod(dict, store)
-{
-	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
-	ValueDict::StoreMode storeMode =
-		args.IsSet(Gura_Symbol(strict))? ValueDict::STORE_Strict :
-		args.IsSet(Gura_Symbol(timid))? ValueDict::STORE_Timid :
-		ValueDict::STORE_Overwrite;
-	if (args.GetValue(0).Is_list()) {
-		if (!valDict.Store(sig, args.GetList(0), storeMode)) {
-			return Value::Null;
-		}
-	} else if (args.GetValue(0).Is_dict()) {
-		if (!valDict.Store(sig, args.GetDict(0), storeMode)) {
-			return Value::Null;
-		}
-	} else if (args.IsValid(0)) {
-		sig.SetError(ERR_ValueError, "invalid argument type");
-		return Value::Null;
-	}
-	if (args.IsBlockSpecified()) {
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-		if (sig.IsSignalled()) return Value::Null;
-		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
-		ValueList valList;
-		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
-			SeqPostHandler *pSeqPostHandler = NULL;
-			Value value = (*ppExpr)->Exec2(*pEnvLister, sig, pSeqPostHandler);
-			if (sig.IsSignalled()) {
-				sig.AddExprCause(*ppExpr);
-				return Value::Null;
-			}
-			valList.push_back(value);
-		}
-		if (!valDict.Store(sig, valList, storeMode)) return Value::Null;
-	}
 	return args.GetThis();
 }
 
@@ -565,6 +565,7 @@ void Class_dict::Prepare(Environment &env)
 {
 	Gura_AssignFunction(dict);
 	Gura_AssignFunctionEx(dict, "%");
+	Gura_AssignMethod(dict, append);
 	Gura_AssignMethod(dict, clear);
 	Gura_AssignMethod(dict, erase);
 	Gura_AssignMethod(dict, get);
@@ -572,8 +573,7 @@ void Class_dict::Prepare(Environment &env)
 	Gura_AssignMethod(dict, items);
 	Gura_AssignMethod(dict, keys);
 	Gura_AssignMethod(dict, len);
-	Gura_AssignMethod(dict, set);
-	Gura_AssignMethod(dict, store);
+	Gura_AssignMethod(dict, put);
 	Gura_AssignMethod(dict, values);
 }
 

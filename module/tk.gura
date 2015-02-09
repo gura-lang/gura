@@ -671,7 +671,7 @@ FontT = class {
 			[tosymbol(item[0].replace('-', '')), item[1]]
 		}
 		opts = dict(rtn)
-		block && opts.store {|block|}
+		block && opts.append {|block|}
 		opts
 	}
 	metrics(args*, opts%) = {
@@ -684,7 +684,7 @@ FontT = class {
 		}
 		dict(rtn)
 	}
-	customize(opts%) = Font(this.actual().store(opts)%)
+	customize(opts%) = Font(this.actual().append(opts)%)
 	families(args*, opts%):static = tclEval('font', 'families', args*, opts%)
 	names(args*, opts%):static = tclEval('font', 'names', args*, opts%)
 }

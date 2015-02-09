@@ -771,6 +771,7 @@ write(doc:markdown.document) = {
 	doc << '### Methods'
 	doc << [
 		dict,
+		dict.append
 		dict.clear
 		dict.erase
 		dict.get
@@ -778,8 +779,7 @@ write(doc:markdown.document) = {
 		dict.items
 		dict.keys
 		dict.len
-		dict.set
-		dict.store
+		dict.put
 		dict.values
 	]
 	//-------------------------------------------------------------------------
@@ -904,7 +904,7 @@ write(doc:markdown.document) = {
 		interval
 		consts
 		rands
-		// assignment of methods
+		// assignment of instance methods specific to iterator
 		iterator.delay
 		iterator.isinfinite
 		iterator.next
@@ -912,7 +912,7 @@ write(doc:markdown.document) = {
 		iterator.println
 		iterator.printf
 		iterator.repeater
-		// assignment of common methods with list
+		// assignment of instance methods that are common with list
 		iterator.after
 		iterator.align
 		iterator.and
@@ -967,7 +967,7 @@ write(doc:markdown.document) = {
 		xset
 		// assignment of class methods
 		list.zip
-		// assignment of instance methods
+		// assignment of instance methods specific to list
 		list.add
 		list.append
 		list.clear
@@ -984,7 +984,7 @@ write(doc:markdown.document) = {
 		list.put
 		list.shift
 		list.shuffle
-		// assignment of common methods with iterator
+		// assignment of instance methods that are common with iterator
 		list.after
 		list.align
 		list.and

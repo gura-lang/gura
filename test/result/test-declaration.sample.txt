@@ -439,6 +439,7 @@ datetime
 declaration
   declaration#istype(type+:expr):map
 dict
+  dict#append(elems?):reduce:[overwrite,strict,timid] {block?}
   dict#clear()
   dict#erase(key):map
   dict#get(key, default?):map:[raise]
@@ -446,8 +447,7 @@ dict
   dict#items() {block?}
   dict#keys() {block?}
   dict#len()
-  dict#set(key, value):map:reduce:[overwrite,strict,timid]
-  dict#store(elems?):reduce:[overwrite,strict,timid] {block?}
+  dict#put(key, value):map:reduce:[overwrite,strict,timid]
   dict#values() {block?}
 directory
 expr

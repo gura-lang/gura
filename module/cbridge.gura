@@ -642,7 +642,7 @@ AddTypeConv(typeName:string, typeConv:TypeConv) = {
 }
 
 AddTypeConvs() {`block} = {
-	typeConvDict.store {|block|}
+	typeConvDict.append {|block|}
 } % {`en, 'markdown',
 	R'''
 	Adds multiple entries of type converter information by specifying them in `block`.

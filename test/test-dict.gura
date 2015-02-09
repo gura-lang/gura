@@ -4,18 +4,18 @@ import(helper.test) {*}
 testcase {
 	d = %{'a' => 3, 'b' => 2, 'c' => 1}
 	tester(`d)
-	tester(`d.set('a', 99):timid)
-	tester(`d.set('e', 99):timid)
+	tester(`d.put('a', 99):timid)
+	tester(`d.put('e', 99):timid)
 	tester(`d)
-	d.set('f', 100).set('g', 200).set('h', 300)
+	d.put('f', 100).put('g', 200).put('h', 300)
 	tester(`d)
 }
 testcase {
 	d = %{'a' => 3, 'b' => 2, 'c' => 1}
 	tester(`d)
-	d.store {'a' => 33, 'b' => 22, 'c' => 11}
+	d.append {'a' => 33, 'b' => 22, 'c' => 11}
 	tester(`d)
-	d.store():timid {'a' => 333, 'b' => 222, 'c' => 111, 'd' => 444}
+	d.append():timid {'a' => 333, 'b' => 222, 'c' => 111, 'd' => 444}
 	tester(`d)
 }
 testcase {
@@ -47,19 +47,19 @@ testcase {
 		`hoge	=>	'aaaaaa'
 		`foo	=>	'bbbbb'
 	}
-	d.store {`bar => 'cccccc'}
+	d.append {`bar => 'cccccc'}
 	tester(`d)
-	d.store {`hoge => 'AAAAAA'}
+	d.append {`hoge => 'AAAAAA'}
 	tester(`d)
-	d.store([`hoge1, 'ddddd', `hoge2, 'eeeee'])
+	d.append([`hoge1, 'ddddd', `hoge2, 'eeeee'])
 	tester(`d)
-	d.store([[`hoge3, 'fffff'], [`hoge4, 'ggggg']])
+	d.append([[`hoge3, 'fffff'], [`hoge4, 'ggggg']])
 	tester(`d)
-	d.store([`hoge1, 'DDDDD', `hoge2, 'EEEEE'])
+	d.append([`hoge1, 'DDDDD', `hoge2, 'EEEEE'])
 	tester(`d)
-	d.store([[`hoge3, 'FFFFF'], [`hoge4, 'GGGGG']])
+	d.append([[`hoge3, 'FFFFF'], [`hoge4, 'GGGGG']])
 	tester(`d)
-	d.store(%{`hoge3 => '*FFFFF*', `hoge4 => '*GGGGG*'})
+	d.append(%{`hoge3 => '*FFFFF*', `hoge4 => '*GGGGG*'})
 	tester(`d)
 }
 testcase {
@@ -79,10 +79,10 @@ testcase {
 }
 testcase {
 	d = %{}
-	d.set([1, 2, 3], [4, 5, 6].nomap())
+	d.put([1, 2, 3], [4, 5, 6].nomap())
 	tester(`d)
 	d = %{}
-	d.set([1, 2, 3], [4, 5, 6])
+	d.put([1, 2, 3], [4, 5, 6])
 	tester(`d)
 }
 testcase {
