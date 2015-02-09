@@ -1,4 +1,4 @@
-%(elem[]?):[icase] {block?}
+%(elems?):[icase] {block?}
 &(`args*) {block}
 -:nil = nil
 @(func?:function) {block?}
@@ -77,7 +77,7 @@ cross (`expr+) {block}
 datetime(year:number, month:number, day:number, hour:number => 0, min:number => 0, sec:number => 0, usec:number => 0, minsoff?:number):map {block?}
 declaration:class = <class:declaration>
 default() {block}
-dict(elem[]?):[icase] {block?}
+dict(elems?):[icase] {block?}
 dim(n+:number) {block?}
 dir(obj?):[noesc]
 directory(pathname:string):map {block?}
@@ -446,8 +446,8 @@ dict
   dict#items() {block?}
   dict#keys() {block?}
   dict#len()
-  dict#set(key, value):map:reduce:[strict,timid]
-  dict#store(elems?):reduce:[strict,timid] {block?}
+  dict#set(key, value):map:reduce:[overwrite,strict,timid]
+  dict#store(elems?):reduce:[overwrite,strict,timid] {block?}
   dict#values() {block?}
 directory
 expr

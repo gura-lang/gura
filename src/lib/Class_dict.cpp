@@ -206,11 +206,11 @@ void Object_dict::IteratorGet::GatherFollower(Environment::Frame *pFrame, Enviro
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// dict(elem[]?):[icase] {block?}, %{block}
+// dict(elems?):[icase] {block?}, %{block}
 Gura_DeclareFunction(dict)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "elem", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_List);
+	DeclareArg(env, "elems", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(icase));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_dict));
@@ -250,8 +250,16 @@ Gura_ImplementFunction(dict)
 	Object_dict *pObj = new Object_dict(env, new ValueDict(args.IsSet(Gura_Symbol(icase))));
 	ValueDict &valDict = pObj->GetDict();
 	ValueDict::StoreMode storeMode = ValueDict::STORE_Strict;
-	if (args.GetValue(0).Is_list() &&
-					!valDict.Store(sig, args.GetList(0), storeMode)) {
+	if (args.GetValue(0).Is_list()) {
+		if (!valDict.Store(sig, args.GetList(0), storeMode)) {
+			return Value::Null;
+		}
+	} else if (args.GetValue(0).Is_dict()) {
+		if (!valDict.Store(sig, args.GetDict(0), storeMode)) {
+			return Value::Null;
+		}
+	} else if (args.IsValid(0)) {
+		sig.SetError(ERR_ValueError, "invalid argument type");
 		return Value::Null;
 	}
 	if (args.IsBlockSpecified()) {
@@ -431,17 +439,25 @@ Gura_ImplementMethod(dict, len)
 	return Value(static_cast<Number>(valDict.size()));
 }
 
-// dict#set(key, value):map:reduce:[strict,timid]
+// dict#set(key, value):map:reduce:[overwrite,strict,timid]
 Gura_DeclareMethod(dict, set)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_any);
 	DeclareArg(env, "value", VTYPE_any);
+	DeclareAttr(Gura_Symbol(overwrite));
 	DeclareAttr(Gura_Symbol(strict));
 	DeclareAttr(Gura_Symbol(timid));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Adds a new key-value pair.\n"
+		"\n"
+		"If the specified key already exists in the dictionary, it would be overwritten.\n"
+		"This behavior can be customized with the following attributes:\n"
+		"\n"
+		"- `:overwrite` .. overwrite the existing one (default)\n"
+		"- `:strict` .. raises an error\n"
+		"- `:timid` .. keep the existing one\n");
 }
 
 Gura_ImplementMethod(dict, set)
@@ -457,17 +473,25 @@ Gura_ImplementMethod(dict, set)
 	return args.GetThis();
 }
 
-// dict#store(elems?):reduce:[strict,timid] {block?}
+// dict#store(elems?):reduce:[overwrite,strict,timid] {block?}
 Gura_DeclareMethod(dict, store)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "elems", VTYPE_any, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(overwrite));
 	DeclareAttr(Gura_Symbol(strict));
 	DeclareAttr(Gura_Symbol(timid));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Adds multiple key-value pairs.\n"
+		"\n"
+		"If the specified key already exists in the dictionary, it would be overwritten.\n"
+		"This behavior can be customized with the following attributes:\n"
+		"\n"
+		"- `:overwrite` .. overwrite the existing one (default)\n"
+		"- `:strict` .. raises an error\n"
+		"- `:timid` .. keep the existing one\n");
 }
 
 Gura_ImplementMethod(dict, store)
