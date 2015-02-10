@@ -782,3 +782,17 @@ testcase('extracts rising tendency by list#fold') {
 	}
 	println(x)
 }
+testcase('list#print/println/printf') {
+	[1..10].print()
+	println()
+	[1..10].println()
+	[1..10].printf('%3d\n')
+	[['apple', 100], ['grape', 150], ['banana', 80]].printf('%s .. %d\n')
+}
+testcase('iterator#print/println/printf') {
+	[1..10].each().print()
+	println()
+	[1..10].each().println()
+	[1..10].each().printf('%3d\n')
+	[['apple', 100], ['grape', 150], ['banana', 80]].each().printf('%s .. %d\n')
+}
