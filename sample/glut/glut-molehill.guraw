@@ -117,7 +117,7 @@ main() = {
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_red_diffuse);
 		gluBeginSurface(nurb) {
 			gluNurbsSurface(nurb, knots, knots,
-							4 * 3, 3, pts1.flat(),
+							4 * 3, 3, pts1.flat():list,
 							4, 4, GL_MAP2_VERTEX_3);
 		}
 		
@@ -125,7 +125,7 @@ main() = {
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_green_diffuse);
 		gluBeginSurface(nurb) {
 			gluNurbsSurface(nurb, knots, knots,
-							4 * 3, 3, pts2.flat(),
+							4 * 3, 3, pts2.flat():list,
 							4, 4, GL_MAP2_VERTEX_3);
 		}
 		
@@ -133,7 +133,7 @@ main() = {
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_blue_diffuse);
 		gluBeginSurface(nurb) {
 			gluNurbsSurface(nurb, knots, knots,
-							4 * 3, 3, pts3.flat(),
+							4 * 3, 3, pts3.flat():list,
 							4, 4, GL_MAP2_VERTEX_3);
 		}
 		
@@ -141,7 +141,7 @@ main() = {
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_yellow_diffuse);
 		gluBeginSurface(nurb) {
 			gluNurbsSurface(nurb, knots, knots,
-							4 * 3, 3, pts4.flat(),
+							4 * 3, 3, pts4.flat():list,
 							4, 4, GL_MAP2_VERTEX_3);
 		}
 	}

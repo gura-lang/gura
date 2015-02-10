@@ -606,7 +606,7 @@ redraw() = {
 			
 			glPushMatrix {
 				/* Project the shadow. */
-				glMultMatrixf(floorShadow.flat());
+				glMultMatrixf(floorShadow.flat():list);
 				glPushMatrix {
 					glTranslatef(0, 8.01, 0);
 					drawModel();

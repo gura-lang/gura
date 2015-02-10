@@ -140,7 +140,7 @@ recalcModelView() = {
 	glPopMatrix();
 	glPushMatrix();
 	trackball.build_rotmatrix(m, curquat);
-	glMultMatrixf(m.flat());
+	glMultMatrixf(m.flat():list);
 	if (scalefactor == 1.0) {
 		glDisable(GL_NORMALIZE);
 	} else {

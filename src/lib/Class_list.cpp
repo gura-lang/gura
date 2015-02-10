@@ -788,7 +788,7 @@ Gura_ImplementClassMethod(list, zip)
 }
 
 //-----------------------------------------------------------------------------
-// Implementation of instance methods
+// Implementation of instance methods specific to list
 //-----------------------------------------------------------------------------
 // list#add(elem+):reduce
 Gura_DeclareMethod(list, add)
@@ -939,35 +939,6 @@ Gura_ImplementMethod(list, first)
 		return Value::Null;
 	}
 	return valList.front();
-}
-
-// list#flat():[dfs,bfs]
-Gura_DeclareMethod(list, flat)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareAttr(Gura_Symbol(dfs));
-	DeclareAttr(Gura_Symbol(bfs));
-	//DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates a flattened list by searching items recursively if they are lists or iterators.\n"
-		"Searching is done in order of depth-first-search by default.\n"
-		"Specifying attribute `:bfs` will process in breadth-first-search order.");
-}
-
-Gura_ImplementMethod(list, flat)
-{
-	Object_list *pThis = Object_list::GetThisObj(args);
-	Iterator_Walk::Mode mode = args.IsSet(Gura_Symbol(bfs))?
-		Iterator_Walk::MODE_BreadthFirstSearch : Iterator_Walk::MODE_DepthFirstSearch;
-	bool walkListFlag = true;
-	bool walkIteratorFlag = true;
-	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
-	if (sig.IsSignalled()) return Value::Null;
-	AutoPtr<Iterator> pIterator(new Iterator_Walk(
-									pIteratorSrc, mode, walkListFlag, walkIteratorFlag));
-	pIterator->SetInfiniteFlag(false);
-	return pIterator->ToList(env, sig, true, false);
 }
 
 // list#get(index:number):map:flat
@@ -1143,6 +1114,9 @@ Gura_ImplementMethod(list, shift)
 	return result;
 }
 
+//-----------------------------------------------------------------------------
+// Implementation of methods that are common between iterator and list
+//-----------------------------------------------------------------------------
 // list#after(criteria) {block?}
 Gura_DeclareMethod(list, after)
 {
@@ -1366,14 +1340,14 @@ Gura_ImplementMethod(list, filter)
 	Object_list *pThis = Object_list::GetThisObj(args);
 	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
 	if (sig.IsSignalled()) return Value::Null;
-	Iterator *pIterator = NULL;
+	AutoPtr<Iterator> pIterator;
 	if (args.IsValid(0)) {
-		pIterator = pIteratorSrc->Filter(env, sig, args.GetValue(0));
+		pIterator.reset(pIteratorSrc->Filter(env, sig, args.GetValue(0)));
 		if (sig.IsSignalled()) return Value::Null;
 	} else {
-		pIterator = new Iterator_SkipFalse(pIteratorSrc);
+		pIterator.reset(new Iterator_SkipFalse(pIteratorSrc));
 	}
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 // list#find(criteria?):[index]
@@ -1399,6 +1373,36 @@ Gura_ImplementMethod(list, find)
 	if (idx == InvalidSize) return Value::Null;
 	if (args.IsSet(Gura_Symbol(index))) return Value(static_cast<UInt>(idx));
 	return value;
+}
+
+// list#flat():[dfs,bfs] {block?}
+Gura_DeclareMethod(list, flat)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(dfs));
+	DeclareAttr(Gura_Symbol(bfs));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a flattened list by searching items recursively if they are lists or iterators.\n"
+		"Searching is done in order of depth-first-search by default.\n"
+		"Specifying attribute `:bfs` will process in breadth-first-search order.");
+}
+
+Gura_ImplementMethod(list, flat)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	Iterator_Walk::Mode mode = args.IsSet(Gura_Symbol(bfs))?
+		Iterator_Walk::MODE_BreadthFirstSearch : Iterator_Walk::MODE_DepthFirstSearch;
+	bool walkListFlag = true;
+	bool walkIteratorFlag = true;
+	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
+	if (sig.IsSignalled()) return Value::Null;
+	AutoPtr<Iterator> pIterator(new Iterator_Walk(
+									pIteratorSrc, mode, walkListFlag, walkIteratorFlag));
+	pIterator->SetInfiniteFlag(false);
+	//return pIterator->ToList(env, sig, true, false);
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 // list#fold(n:number, nstep?:number):map:[iteritem,neat] {block?}
@@ -2169,8 +2173,9 @@ Gura_ImplementMethod(list, walk)
 	bool walkIteratorFlag = true;
 	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
 	if (sig.IsSignalled()) return Value::Null;
-	Iterator *pIterator = new Iterator_Walk(pIteratorSrc, mode, walkListFlag, walkIteratorFlag);
-	return ReturnIterator(env, sig, args, pIterator);
+	AutoPtr<Iterator> pIterator(new Iterator_Walk(
+									pIteratorSrc, mode, walkListFlag, walkIteratorFlag));
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 // list#while(criteria) {block?}
@@ -2223,7 +2228,6 @@ void Class_list::Prepare(Environment &env)
 	Gura_AssignMethod(list, combination);
 	Gura_AssignMethod(list, erase);
 	Gura_AssignMethod(list, first);
-	Gura_AssignMethod(list, flat);
 	Gura_AssignMethod(list, get);
 	Gura_AssignMethod(list, insert);
 	Gura_AssignMethod(list, isempty);
@@ -2244,6 +2248,7 @@ void Class_list::Prepare(Environment &env)
 	Gura_AssignMethod(list, each);
 	Gura_AssignMethod(list, filter);
 	Gura_AssignMethod(list, find);
+	Gura_AssignMethod(list, flat);
 	Gura_AssignMethod(list, fold);
 	Gura_AssignMethod(list, format);
 	Gura_AssignMethod(list, head);

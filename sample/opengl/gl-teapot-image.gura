@@ -80,16 +80,16 @@ Teapot(grid:number) = {
 					}
 				}
 			}
-			glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, p.flat())
+			glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, p.flat():list)
 			glEnable(GL_MAP2_VERTEX_3)
 			glMapGrid2f(grid, 0.0, 1.0, grid, 0.0, 1.0)
 			glEvalMesh2(GL_FILL, 0, grid, 0, grid)
-			glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, q.flat())
+			glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, q.flat():list)
 			glEvalMesh2(GL_FILL, 0, grid, 0, grid)
 			if (i < 6) {
-				glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, r.flat())
+				glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, r.flat():list)
 				glEvalMesh2(GL_FILL, 0, grid, 0, grid)
-				glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, s.flat())
+				glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, s.flat():list)
 				glEvalMesh2(GL_FILL, 0, grid, 0, grid)
 			}
 		}
@@ -101,9 +101,9 @@ Teapot(grid:number) = {
 Init() = {
 	position = @{0.0, 3.0, 3.0, 0.0}
 	local_view = @{0.0}
-	ambient = @{0.1745, 0.01175, 0.01175}
-	diffuse = @{0.61424, 0.04136, 0.04136}
-	specular = @{0.727811, 0.626959, 0.626959}
+	ambient = @{0.1745, 0.01175, 0.01175, 0}
+	diffuse = @{0.61424, 0.04136, 0.04136, 0}
+	specular = @{0.727811, 0.626959, 0.626959, 0}
 	glEnable(GL_DEPTH_TEST)
 	glDepthFunc(GL_LESS)
 	glLightfv(GL_LIGHT0, GL_POSITION, position)

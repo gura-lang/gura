@@ -228,7 +228,7 @@ Gura_ImplementFunction(rands)
 }
 
 //-----------------------------------------------------------------------------
-// Implementation of methods
+// Implementation of methods specific to iterator
 //-----------------------------------------------------------------------------
 // iterator#delay(delay:number) {block?}
 Gura_DeclareMethod(iterator, delay)
@@ -297,6 +297,9 @@ Gura_ImplementMethod(iterator, repeater)
 	return args.GetThis();
 }
 
+//-----------------------------------------------------------------------------
+// Implementation of methods that are common between iterator and list
+//-----------------------------------------------------------------------------
 // iterator#after(criteria) {block?}
 Gura_DeclareMethod(iterator, after)
 {
@@ -391,9 +394,9 @@ Gura_ImplementMethod(iterator, before)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
-	Iterator *pIterator = pIteratorSrc->Until(env, sig, args.GetValue(0), false);
+	AutoPtr<Iterator> pIterator(pIteratorSrc->Until(env, sig, args.GetValue(0), false));
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 // iterator#contains(value)
@@ -493,14 +496,14 @@ Gura_ImplementMethod(iterator, filter)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
-	Iterator *pIterator = NULL;
+	AutoPtr<Iterator> pIterator;
 	if (args.IsValid(0)) {
-		pIterator = pIteratorSrc->Filter(env, sig, args.GetValue(0));
+		pIterator.reset(pIteratorSrc->Filter(env, sig, args.GetValue(0)));
 		if (sig.IsSignalled()) return Value::Null;
 	} else {
-		pIterator = new Iterator_SkipFalse(pIteratorSrc);
+		pIterator.reset(new Iterator_SkipFalse(pIteratorSrc));
 	}
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 // iterator#find(criteria?):[index]
@@ -550,9 +553,10 @@ Gura_ImplementMethod(iterator, flat)
 	bool walkListFlag = true;
 	bool walkIteratorFlag = true;
 	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
-	Iterator *pIterator = new Iterator_Walk(pIteratorSrc, mode, walkListFlag, walkIteratorFlag);
+	AutoPtr<Iterator> pIterator(new Iterator_Walk(
+									pIteratorSrc, mode, walkListFlag, walkIteratorFlag));
 	pIterator->SetInfiniteFlag(false);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 // iterator#fold(n:number, nstep?:number):map:[iteritem,neat] {block?}
@@ -1300,8 +1304,9 @@ Gura_ImplementMethod(iterator, walk)
 	bool walkListFlag = true;
 	bool walkIteratorFlag = true;
 	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
-	Iterator *pIterator = new Iterator_Walk(pIteratorSrc, mode, walkListFlag, walkIteratorFlag);
-	return ReturnIterator(env, sig, args, pIterator);
+	AutoPtr<Iterator> pIterator(new Iterator_Walk(
+								   pIteratorSrc, mode, walkListFlag, walkIteratorFlag));
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 // iterator#while(criteria) {block?}

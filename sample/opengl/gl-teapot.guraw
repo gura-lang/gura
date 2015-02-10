@@ -79,16 +79,16 @@ Teapot(grid:number) = {
 					}
 				}
 			}
-			glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, p.flat())
+			glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, p.flat():list)
 			glEnable(GL_MAP2_VERTEX_3)
 			glMapGrid2f(grid, 0.0, 1.0, grid, 0.0, 1.0)
 			glEvalMesh2(GL_FILL, 0, grid, 0, grid)
-			glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, q.flat())
+			glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, q.flat():list)
 			glEvalMesh2(GL_FILL, 0, grid, 0, grid)
 			if (i < 6) {
-				glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, r.flat())
+				glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, r.flat():list)
 				glEvalMesh2(GL_FILL, 0, grid, 0, grid)
-				glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, s.flat())
+				glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, s.flat():list)
 				glEvalMesh2(GL_FILL, 0, grid, 0, grid)
 			}
 		}

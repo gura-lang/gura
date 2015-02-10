@@ -392,7 +392,7 @@ drawAll() = {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glTranslatef(0, 0, -10);
-	glMultMatrixf(m.flat());
+	glMultMatrixf(m.flat():list);
 	glRotatef(180, 0, 0, 1);
 
 	if (depth) {

@@ -230,5 +230,5 @@ build_rotmatrix(q[]:number) = {
 	m[3][1] = 0.0
 	m[3][2] = 0.0
 	m[3][3] = 1.0
-	m.flat()
+	m.flat():list
 }

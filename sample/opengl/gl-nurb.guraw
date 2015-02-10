@@ -202,7 +202,7 @@ Draw(theNurbs, rotX, rotY) = {
 		glTranslatef(-4.0, -4.5, -2.5)
 		gluBeginSurface(theNurbs) {
 			gluNurbsSurface(theNurbs, sknots, glutnots, 4 * T_NUMPOINTS, 4,
-					 ctlpoints.flat(), S_ORDER, T_ORDER, GL_MAP2_VERTEX_4)
+					 ctlpoints.flat():list, S_ORDER, T_ORDER, GL_MAP2_VERTEX_4)
 		}
 	}
 	glFlush()
