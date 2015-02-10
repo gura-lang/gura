@@ -250,6 +250,7 @@ protected:
 	Class *_pClassToConstruct;
 	AutoPtr<Environment> _pEnvScope;
 	AutoPtr<DeclarationOwner> _pDeclOwner;
+	AutoPtr<Function> _pFuncHelpLink;
 	FunctionType _funcType;
 	ValueType _valTypeResult;
 	ResultMode _resultMode;
@@ -339,6 +340,8 @@ public:
 			BlockScope blockScope = BLKSCOPE_Through, bool quoteFlag = false);
 	void AddHelp(Help *pHelp);
 	void AddHelp(const Symbol *pSymbol, const String &formatName, const String &text);
+	void LinkHelp(const Function *pFunc);
+	bool LinkHelp(const Environment *pEnv, const Symbol *pSymbol);
 	const Help *GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) const;
 	String MakeFullName() const;
 	String ToString() const;

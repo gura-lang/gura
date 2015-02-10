@@ -1123,15 +1123,7 @@ Gura_DeclareMethod(list, after)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Creates an iterator that picks up each element in the list after criteria\n"
-		"is evaluated as true. You can specify a function object, a list or an iterator\n"
-		"as the criteria.\n"
-		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Block parameter format: `|value:list, idx:number|`");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, after)

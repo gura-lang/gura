@@ -220,8 +220,24 @@ void Function::AddHelp(const Symbol *pSymbol, const String &formatName, const St
 	AddHelp(new Help(pSymbol, formatName, text));
 }
 
+void Function::LinkHelp(const Function *pFunc)
+{
+	_pFuncHelpLink.reset(Function::Reference(pFunc));
+}
+
+bool Function::LinkHelp(const Environment *pEnv, const Symbol *pSymbol)
+{
+	const Function *pFunc = pEnv->LookupFunction(pSymbol, ENVREF_NoEscalate);
+	if (pFunc == NULL) return false;
+	LinkHelp(pFunc);
+	return true;
+}
+
 const Help *Function::GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) const
 {
+	const Help *pHelp = _pFuncHelpLink.IsNull()?
+		NULL : _pFuncHelpLink->GetHelp(pSymbol, defaultFirstFlag);
+	if (pHelp != NULL) return pHelp;
 	if (_helpOwner.empty()) return NULL;
 	if (pSymbol == NULL) return _helpOwner.front();
 	foreach_const (HelpOwner, ppHelp, _helpOwner) {

@@ -307,8 +307,15 @@ Gura_DeclareMethod(iterator, after)
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Creates an iterator that picks up elements that appear\n"
+		"at positions after the criteria is evaluated to be `true`.\n"
+		"\n"
+		"You can specify a function, a list or an iterator as the criteria.\n"
+		"\n"
+		GURA_ITERATOR_HELP
+		"\n"
+		"Block parameter format: `|value:list, idx:number|`");
 }
 
 Gura_ImplementMethod(iterator, after)
