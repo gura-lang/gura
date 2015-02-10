@@ -941,26 +941,6 @@ Gura_ImplementMethod(list, first)
 	return valList.front();
 }
 
-#if 0
-// list#flat()
-Gura_DeclareMethod(list, flat)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns the flattened list.");
-}
-
-Gura_ImplementMethod(list, flat)
-{
-	Object_list *pThis = Object_list::GetThisObj(args);
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	pThis->GetList().ExtractFlat(valList);
-	return result;
-}
-#endif
-
 // list#flat():[dfs,bfs]
 Gura_DeclareMethod(list, flat)
 {
@@ -1185,12 +1165,9 @@ Gura_ImplementMethod(list, after)
 	Object_list *pThis = Object_list::GetThisObj(args);
 	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
 	if (sig.IsSignalled()) return Value::Null;
-	Iterator *pIterator = pIteratorSrc->Since(env, sig, args.GetValue(0), false);
-	if (sig.IsSignalled()) {
-		Iterator::Delete(pIteratorSrc);
-		return Value::Null;
-	}
-	return ReturnIterator(env, sig, args, pIterator);
+	AutoPtr<Iterator> pIterator(pIteratorSrc->Since(env, sig, args.GetValue(0), false));
+	if (sig.IsSignalled()) return Value::Null;
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 // list#align(n:number, value?):map {block?}
@@ -1277,12 +1254,9 @@ Gura_ImplementMethod(list, before)
 	Object_list *pThis = Object_list::GetThisObj(args);
 	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
 	if (sig.IsSignalled()) return Value::Null;
-	Iterator *pIterator = pIteratorSrc->Until(env, sig, args.GetValue(0), false);
-	if (sig.IsSignalled()) {
-		Iterator::Delete(pIteratorSrc);
-		return Value::Null;
-	}
-	return ReturnIterator(env, sig, args, pIterator);
+	AutoPtr<Iterator> pIterator(pIteratorSrc->Until(env, sig, args.GetValue(0), false));
+	if (sig.IsSignalled()) return Value::Null;
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 // list#contains(value)
@@ -1984,12 +1958,9 @@ Gura_ImplementMethod(list, since)
 	Object_list *pThis = Object_list::GetThisObj(args);
 	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
 	if (sig.IsSignalled()) return Value::Null;
-	Iterator *pIterator = pIteratorSrc->Since(env, sig, args.GetValue(0), true);
-	if (sig.IsSignalled()) {
-		Iterator::Delete(pIteratorSrc);
-		return Value::Null;
-	}
-	return ReturnIterator(env, sig, args, pIterator);
+	AutoPtr<Iterator> pIterator(pIteratorSrc->Since(env, sig, args.GetValue(0), true));
+	if (sig.IsSignalled()) return Value::Null;
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 // list#skip(n:number):map {block?}
@@ -2150,12 +2121,9 @@ Gura_ImplementMethod(list, until)
 	Object_list *pThis = Object_list::GetThisObj(args);
 	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
 	if (sig.IsSignalled()) return Value::Null;
-	Iterator *pIterator = pIteratorSrc->Until(env, sig, args.GetValue(0), true);
-	if (sig.IsSignalled()) {
-		Iterator::Delete(pIteratorSrc);
-		return Value::Null;
-	}
-	return ReturnIterator(env, sig, args, pIterator);
+	AutoPtr<Iterator> pIterator(pIteratorSrc->Until(env, sig, args.GetValue(0), true));
+	if (sig.IsSignalled()) return Value::Null;
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 // list#variance()
@@ -2227,12 +2195,9 @@ Gura_ImplementMethod(list, while_)
 	Object_list *pThis = Object_list::GetThisObj(args);
 	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
 	if (sig.IsSignalled()) return Value::Null;
-	Iterator *pIterator = pIteratorSrc->While(env, sig, args.GetValue(0));
-	if (sig.IsSignalled()) {
-		Iterator::Delete(pIteratorSrc);
-		return Value::Null;
-	}
-	return ReturnIterator(env, sig, args, pIterator);
+	AutoPtr<Iterator> pIterator(pIteratorSrc->While(env, sig, args.GetValue(0)));
+	if (sig.IsSignalled()) return Value::Null;
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 //-----------------------------------------------------------------------------
