@@ -589,7 +589,7 @@ list
   list#filter(criteria?) {block?}
   list#find(criteria?):[index]
   list#first()
-  list#flat():[bfs,dfs]
+  list#flat():[bfs,dfs] {block?}
   list#fold(n:number, nstep?:number):map:[iteritem,neat] {block?}
   list#format(format:string):map {block?}
   list#get(index:number):map:flat
