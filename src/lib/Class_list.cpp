@@ -1098,28 +1098,6 @@ Gura_ImplementMethod(list, permutation)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// list#printf(format:string, stream?:stream:w):void
-Gura_DeclareMethod(list, printf)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "format", VTYPE_string);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Prints items in the list by using the format.");
-}
-
-Gura_ImplementMethod(list, printf)
-{
-	Object_list *pThis = Object_list::GetThisObj(args);
-	const char *format = args.GetString(0);
-	Stream *pConsole = args.IsInstanceOf(1, VTYPE_stream)?
-				&args.GetStream(1) : env.GetConsole();
-	if (pConsole == NULL) return Value::Null;
-	pConsole->PrintFmt(sig, args.GetString(0), pThis->GetList());
-	return Value::Null;
-}
-
 // list#put(index:number, value:nomap):reduce:map
 Gura_DeclareMethod(list, put)
 {
@@ -1771,6 +1749,62 @@ Gura_ImplementMethod(list, pingpong)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
+// list#print(stream?:stream:w):void
+Gura_DeclareMethod(list, print)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(list, print)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	Stream *pStream = args.IsValid(0)? &args.GetStream(0) : env.GetConsole();
+	pThis->GetList().PrintEach(env, sig, pStream);
+	return Value::Null;
+}
+
+// list#printf(format:string, stream?:stream:w):void
+Gura_DeclareMethod(list, printf)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "format", VTYPE_string);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Prints items in the list by using the format.");
+}
+
+Gura_ImplementMethod(list, printf)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	const char *format = args.GetString(0);
+	Stream *pStream = args.IsValid(1)? &args.GetStream(1) : env.GetConsole();
+	pThis->GetList().PrintfEach(env, sig, pStream, format);
+	return Value::Null;
+}
+
+// list#println(stream?:stream:w):void
+Gura_DeclareMethod(list, println)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(list, println)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	Stream *pStream = args.IsValid(0)? &args.GetStream(0) : env.GetConsole();
+	pThis->GetList().PrintlnEach(env, sig, pStream);
+	return Value::Null;
+}
+
 // list#rank(directive?):[stable] {block?}
 Gura_DeclareMethod(list, rank)
 {
@@ -2211,7 +2245,6 @@ void Class_list::Prepare(Environment &env)
 	Gura_AssignMethod(list, isempty);
 	Gura_AssignMethod(list, last);
 	Gura_AssignMethod(list, permutation);
-	Gura_AssignMethod(list, printf);
 	Gura_AssignMethod(list, put);
 	Gura_AssignMethod(list, shift);
 	Gura_AssignMethod(list, shuffle);
@@ -2240,6 +2273,9 @@ void Class_list::Prepare(Environment &env)
 	Gura_AssignMethod(list, or_);
 	Gura_AssignMethod(list, pack);
 	Gura_AssignMethod(list, pingpong);
+	Gura_AssignMethod(list, print);
+	Gura_AssignMethod(list, printf);
+	Gura_AssignMethod(list, println);
 	Gura_AssignMethod(list, rank);
 	Gura_AssignMethod(list, reduce);
 	Gura_AssignMethod(list, replace);

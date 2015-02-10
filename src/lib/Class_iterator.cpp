@@ -281,62 +281,6 @@ Gura_ImplementMethod(iterator, next)
 	return Value::Null;
 }
 
-// iterator#print(stream?:stream:w)
-Gura_DeclareMethod(iterator, print)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementMethod(iterator, print)
-{
-	Iterator *pIterator = Object_iterator::GetThisObj(args)->GetIterator()->Clone();
-	Stream *pStream = args.IsValid(0)? &args.GetStream(0) : env.GetConsole();
-	pIterator->PrintEach(env, sig, pStream);
-	return Value::Null;
-}
-
-// iterator#printf(format:string, stream?:stream:w)
-Gura_DeclareMethod(iterator, printf)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "format", VTYPE_string);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementMethod(iterator, printf)
-{
-	Iterator *pIterator = Object_iterator::GetThisObj(args)->GetIterator()->Clone();
-	const char *format = args.GetString(0);
-	Stream *pStream = args.IsValid(1)? &args.GetStream(1) : env.GetConsole();
-	pIterator->PrintfEach(env, sig, pStream, format);
-	return Value::Null;
-}
-
-// iterator#println(stream?:stream:w)
-Gura_DeclareMethod(iterator, println)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementMethod(iterator, println)
-{
-	Iterator *pIterator = Object_iterator::GetThisObj(args)->GetIterator()->Clone();
-	Stream *pStream = args.IsValid(0)? &args.GetStream(0) : env.GetConsole();
-	pIterator->PrintlnEach(env, sig, pStream);
-	return Value::Null;
-}
-
 // iterator#repeater()
 Gura_DeclareMethod(iterator, repeater)
 {
@@ -957,6 +901,62 @@ Gura_ImplementMethod(iterator, pingpong)
 			new Object_list::IteratorPingpong(pObj, cnt, stickyFlagL, stickyFlagR));
 }
 
+// iterator#print(stream?:stream:w):void
+Gura_DeclareMethod(iterator, print)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(iterator, print)
+{
+	Iterator *pIterator = Object_iterator::GetThisObj(args)->GetIterator()->Clone();
+	Stream *pStream = args.IsValid(0)? &args.GetStream(0) : env.GetConsole();
+	pIterator->PrintEach(env, sig, pStream);
+	return Value::Null;
+}
+
+// iterator#printf(format:string, stream?:stream:w):void
+Gura_DeclareMethod(iterator, printf)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "format", VTYPE_string);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(iterator, printf)
+{
+	Iterator *pIterator = Object_iterator::GetThisObj(args)->GetIterator()->Clone();
+	const char *format = args.GetString(0);
+	Stream *pStream = args.IsValid(1)? &args.GetStream(1) : env.GetConsole();
+	pIterator->PrintfEach(env, sig, pStream, format);
+	return Value::Null;
+}
+
+// iterator#println(stream?:stream:w):void
+Gura_DeclareMethod(iterator, println)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(iterator, println)
+{
+	Iterator *pIterator = Object_iterator::GetThisObj(args)->GetIterator()->Clone();
+	Stream *pStream = args.IsValid(0)? &args.GetStream(0) : env.GetConsole();
+	pIterator->PrintlnEach(env, sig, pStream);
+	return Value::Null;
+}
+
 // iterator#rank(directive?):[stable] {block?}
 Gura_DeclareMethod(iterator, rank)
 {
@@ -1339,13 +1339,10 @@ void Class_iterator::Prepare(Environment &env)
 	Gura_AssignFunction(interval);
 	Gura_AssignFunction(consts);
 	Gura_AssignFunction(rands);
-	// assignment of methods
+	// assignment of methods specific to iterator
 	Gura_AssignMethod(iterator, delay);
 	Gura_AssignMethod(iterator, isinfinite);
 	Gura_AssignMethod(iterator, next);
-	Gura_AssignMethod(iterator, print);
-	Gura_AssignMethod(iterator, println);
-	Gura_AssignMethod(iterator, printf);
 	Gura_AssignMethod(iterator, repeater);
 	// assignment of common methods with list
 	Gura_AssignMethod(iterator, after);
@@ -1374,6 +1371,9 @@ void Class_iterator::Prepare(Environment &env)
 	Gura_AssignMethod(iterator, or_);
 	Gura_AssignMethod(iterator, pack);
 	Gura_AssignMethod(iterator, pingpong);
+	Gura_AssignMethod(iterator, print);
+	Gura_AssignMethod(iterator, println);
+	Gura_AssignMethod(iterator, printf);
 	Gura_AssignMethod(iterator, rank);
 	Gura_AssignMethod(iterator, reduce);
 	Gura_AssignMethod(iterator, replace);

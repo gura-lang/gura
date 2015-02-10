@@ -504,6 +504,9 @@ public:
 	void Append(const ValueList &valList);
 	bool Append(Environment &env, Signal sig, Iterator *pIterator);
 	void Print(Signal sig, int indentLevel = 0) const;
+	void PrintEach(Environment &env, Signal sig, Stream *pStream) const;
+	void PrintfEach(Environment &env, Signal sig, Stream *pStream, const char *format) const;
+	void PrintlnEach(Environment &env, Signal sig, Stream *pStream) const;
 	bool ToStringList(Signal sig, StringList &strList) const;
 	static bool AssumeSameLength(Signal sig,
 					const ValueList &valList1, const ValueList &valList2);

@@ -929,6 +929,37 @@ void ValueList::Print(Signal sig, int indentLevel) const
 	}
 }
 
+void ValueList::PrintEach(Environment &env, Signal sig, Stream *pStream) const
+{
+	foreach_const (ValueList, pValue, *this) {
+		const Value &value = *pValue;
+		pStream->Print(sig, value.ToString(false).c_str());
+		if (sig.IsSignalled()) break;
+	}
+}
+
+void ValueList::PrintfEach(Environment &env, Signal sig, Stream *pStream, const char *format) const
+{
+	foreach_const (ValueList, pValue, *this) {
+		const Value &value = *pValue;
+		if (value.Is_list()) {
+			pStream->PrintFmt(sig, format, value.GetList());
+		} else {
+			pStream->PrintFmt(sig, format, ValueList(value));
+		}
+		if (sig.IsSignalled()) break;
+	}
+}
+
+void ValueList::PrintlnEach(Environment &env, Signal sig, Stream *pStream) const
+{
+	foreach_const (ValueList, pValue, *this) {
+		const Value &value = *pValue;
+		pStream->Println(sig, value.ToString(false).c_str());
+		if (sig.IsSignalled()) break;
+	}
+}
+
 bool ValueList::ToStringList(Signal sig, StringList &strList) const
 {
 	foreach_const (ValueList, pValue, *this) {
