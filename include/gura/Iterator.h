@@ -112,6 +112,9 @@ public:
 	Iterator *Since(Environment &env, Signal sig, const Value &criteria, bool containFirstFlag);
 	Iterator *Until(Environment &env, Signal sig, const Value &criteria, bool containLastFlag);
 	bool DoesContain(Environment &env, Signal sig, const Value &value);
+	void PrintEach(Environment &env, Signal sig, Stream *pStream);
+	void PrintfEach(Environment &env, Signal sig, Stream *pStream, const char *format);
+	void PrintlnEach(Environment &env, Signal sig, Stream *pStream);
 	virtual String ToString() const;
 	static void SetError_InvalidDataTypeOfElement(Signal sig);
 	static void SetError_InfiniteNotAllowed(Signal sig);

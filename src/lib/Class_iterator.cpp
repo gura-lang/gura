@@ -293,18 +293,9 @@ Gura_DeclareMethod(iterator, print)
 
 Gura_ImplementMethod(iterator, print)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
-	Stream *pConsole = args.IsInstanceOf(0, VTYPE_stream)?
-				&args.GetStream(0) : env.GetConsole();
-	if (pConsole == NULL) return Value::Null;
-	Iterator *pIterator = pThis->GetIterator()->Clone();
-	Value value;
-	while (pIterator->Next(env, sig, value)) {
-		String str(value.ToString(false));
-		if (sig.IsSignalled()) return Value::Null;
-		pConsole->Print(sig, str.c_str());
-		if (sig.IsSignalled()) return Value::Null;
-	}
+	Iterator *pIterator = Object_iterator::GetThisObj(args)->GetIterator()->Clone();
+	Stream *pStream = args.IsValid(0)? &args.GetStream(0) : env.GetConsole();
+	pIterator->PrintEach(env, sig, pStream);
 	return Value::Null;
 }
 
@@ -321,21 +312,10 @@ Gura_DeclareMethod(iterator, printf)
 
 Gura_ImplementMethod(iterator, printf)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Iterator *pIterator = Object_iterator::GetThisObj(args)->GetIterator()->Clone();
 	const char *format = args.GetString(0);
-	Stream *pConsole = args.IsInstanceOf(1, VTYPE_stream)?
-				&args.GetStream(1) : env.GetConsole();
-	if (pConsole == NULL) return Value::Null;
-	Iterator *pIterator = pThis->GetIterator()->Clone();
-	Value value;
-	while (pIterator->Next(env, sig, value)) {
-		if (value.Is_list()) {
-			pConsole->PrintFmt(sig, format, value.GetList());
-		} else {
-			pConsole->PrintFmt(sig, format, ValueList(value));
-		}
-		if (sig.IsSignalled()) return Value::Null;
-	}
+	Stream *pStream = args.IsValid(1)? &args.GetStream(1) : env.GetConsole();
+	pIterator->PrintfEach(env, sig, pStream, format);
 	return Value::Null;
 }
 
@@ -351,18 +331,9 @@ Gura_DeclareMethod(iterator, println)
 
 Gura_ImplementMethod(iterator, println)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
-	Stream *pConsole = args.IsInstanceOf(0, VTYPE_stream)?
-				&args.GetStream(0) : env.GetConsole();
-	if (pConsole == NULL) return Value::Null;
-	Iterator *pIterator = pThis->GetIterator()->Clone();
-	Value value;
-	while (pIterator->Next(env, sig, value)) {
-		String str(value.ToString(false));
-		if (sig.IsSignalled()) return Value::Null;
-		pConsole->Println(sig, str.c_str());
-		if (sig.IsSignalled()) return Value::Null;
-	}
+	Iterator *pIterator = Object_iterator::GetThisObj(args)->GetIterator()->Clone();
+	Stream *pStream = args.IsValid(0)? &args.GetStream(0) : env.GetConsole();
+	pIterator->PrintlnEach(env, sig, pStream);
 	return Value::Null;
 }
 

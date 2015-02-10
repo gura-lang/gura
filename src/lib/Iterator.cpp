@@ -566,6 +566,37 @@ bool Iterator::DoesContain(Environment &env, Signal sig, const Value &value)
 	return false;
 }
 
+void Iterator::PrintEach(Environment &env, Signal sig, Stream *pStream)
+{
+	Value value;
+	while (Next(env, sig, value)) {
+		pStream->Print(sig, value.ToString(false).c_str());
+		if (sig.IsSignalled()) break;
+	}
+}
+
+void Iterator::PrintfEach(Environment &env, Signal sig, Stream *pStream, const char *format)
+{
+	Value value;
+	while (Next(env, sig, value)) {
+		if (value.Is_list()) {
+			pStream->PrintFmt(sig, format, value.GetList());
+		} else {
+			pStream->PrintFmt(sig, format, ValueList(value));
+		}
+		if (sig.IsSignalled()) break;
+	}
+}
+
+void Iterator::PrintlnEach(Environment &env, Signal sig, Stream *pStream)
+{
+	Value value;
+	while (Next(env, sig, value)) {
+		pStream->Println(sig, value.ToString(false).c_str());
+		if (sig.IsSignalled()) break;
+	}
+}
+
 String Iterator::ToString() const
 {
 	return String("");
