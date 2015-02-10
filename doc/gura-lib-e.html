@@ -4841,24 +4841,6 @@ In default, the created iterator infinitely generates random numbers. The argume
 <code>iterator#next()</code>
 </p>
 <p>
-<strong>iterator#print</strong>
-</p>
-<p>
-<code>iterator#print(stream?:stream:w)</code>
-</p>
-<p>
-<strong>iterator#println</strong>
-</p>
-<p>
-<code>iterator#println(stream?:stream:w)</code>
-</p>
-<p>
-<strong>iterator#printf</strong>
-</p>
-<p>
-<code>iterator#printf(format:string, stream?:stream:w)</code>
-</p>
-<p>
 <strong>iterator#repeater</strong>
 </p>
 <p>
@@ -5053,6 +5035,24 @@ It would return a position index where the minimum value is found when one of th
 </p>
 <p>
 <code>iterator#pingpong(n?:number):[sticky,sticky_l,sticky_r] {block?}</code>
+</p>
+<p>
+<strong>iterator#print</strong>
+</p>
+<p>
+<code>iterator#print(stream?:stream:w):void</code>
+</p>
+<p>
+<strong>iterator#printf</strong>
+</p>
+<p>
+<code>iterator#printf(format:string, stream?:stream:w):void</code>
+</p>
+<p>
+<strong>iterator#println</strong>
+</p>
+<p>
+<code>iterator#println(stream?:stream:w):void</code>
 </p>
 <p>
 <strong>iterator#rank</strong>
@@ -5391,15 +5391,6 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 Block parameter format: <code>|value:list, idx:number|</code>
 </p>
 <p>
-<strong>list#printf</strong>
-</p>
-<p>
-<code>list#printf(format:string, stream?:stream:w):void</code>
-</p>
-<p>
-Prints items in the list by using the format.
-</p>
-<p>
 <strong>list#put</strong>
 </p>
 <p>
@@ -5732,6 +5723,27 @@ Following markers specify a storing format. They can be preceded by a number tha
 </p>
 <p>
 <code>list#pingpong(n?:number):[sticky,sticky_l,sticky_r] {block?}</code>
+</p>
+<p>
+<strong>list#print</strong>
+</p>
+<p>
+<code>list#print(stream?:stream:w)</code>
+</p>
+<p>
+<strong>list#printf</strong>
+</p>
+<p>
+<code>list#printf(format:string, stream?:stream:w):void</code>
+</p>
+<p>
+Prints items in the list by using the format.
+</p>
+<p>
+<strong>list#println</strong>
+</p>
+<p>
+<code>list#println(stream?:stream:w)</code>
 </p>
 <p>
 <strong>list#rank</strong>

@@ -673,7 +673,6 @@ Gura_ImplementMethod(iterator, joinb)
 		Iterator::SetError_InfiniteNotAllowed(sig);
 		return Value::Null;
 	}
-	const char *sep = args.Is_string(0)? args.GetString(0) : "";
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Binary buff;
 	Value value;

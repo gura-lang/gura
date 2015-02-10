@@ -923,9 +923,6 @@ write(doc:markdown.document) = {
 		iterator.delay
 		iterator.isinfinite
 		iterator.next
-		iterator.print
-		iterator.println
-		iterator.printf
 		iterator.repeater
 		// assignment of instance methods that are common with list
 		iterator.after
@@ -954,6 +951,9 @@ write(doc:markdown.document) = {
 		iterator.or
 		iterator.pack
 		iterator.pingpong
+		iterator.print
+		iterator.printf
+		iterator.println
 		iterator.rank
 		iterator.reduce
 		iterator.replace
@@ -995,7 +995,6 @@ write(doc:markdown.document) = {
 		list.isempty
 		list.last
 		list.permutation
-		list.printf
 		list.put
 		list.shift
 		list.shuffle
@@ -1015,6 +1014,7 @@ write(doc:markdown.document) = {
 		list.format
 		list.head
 		list.join
+		//list.joinb
 		list.len
 		list.map
 		list.max
@@ -1024,6 +1024,9 @@ write(doc:markdown.document) = {
 		list.or
 		list.pack
 		list.pingpong
+		list.print
+		list.printf
+		list.println
 		list.rank
 		list.reduce
 		list.replace

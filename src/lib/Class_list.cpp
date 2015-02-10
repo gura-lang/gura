@@ -1511,6 +1511,25 @@ Gura_ImplementMethod(list, join)
 	return Value(Join(valList, sep));
 }
 
+// list#joinb()
+Gura_DeclareMethod(list, joinb)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "sep", VTYPE_string, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a joined binary.\n");
+}
+
+Gura_ImplementMethod(list, joinb)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	const char *sep = args.Is_string(0)? args.GetString(0) : "";
+	ValueList &valList = pThis->GetList();
+	//return Value(Join(valList, sep));
+	return Value::Null;
+}
+
 // list#len()
 Gura_DeclareMethod(list, len)
 {
@@ -2264,6 +2283,7 @@ void Class_list::Prepare(Environment &env)
 	Gura_AssignMethod(list, format);
 	Gura_AssignMethod(list, head);
 	Gura_AssignMethod(list, join);
+	//Gura_AssignMethod(list, joinb);
 	Gura_AssignMethod(list, len);
 	Gura_AssignMethod(list, map);
 	Gura_AssignMethod(list, max);
