@@ -4785,7 +4785,7 @@ Returns an iterator that scans pixels in the image.
 Writes image data to a stream.
 </p>
 <h2><span class="caption-index-2">6.18</span><a name="caption-6-18"></a>iterator Class</h2>
-<h3><span class="caption-index-3">6.18.1</span><a name="caption-6-18-1"></a>Methods</h3>
+<h3><span class="caption-index-3">6.18.1</span><a name="caption-6-18-1"></a>Methods Specific to Iterator Class</h3>
 <p>
 <strong>iterator</strong>
 </p>
@@ -4846,11 +4846,36 @@ In default, the created iterator infinitely generates random numbers. The argume
 <p>
 <code>iterator#repeater()</code>
 </p>
+<h3><span class="caption-index-3">6.18.2</span><a name="caption-6-18-2"></a>Methods Common between Iterator and List Class</h3>
 <p>
 <strong>iterator#after</strong>
 </p>
 <p>
 <code>iterator#after(criteria) {block?}</code>
+</p>
+<p>
+Creates an iterator that picks up elements that appear at positions after the criteria is evaluated to be <code>true</code>.
+</p>
+<p>
+You can specify a function, a list or an iterator as the criteria.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format: <code>|value:list, idx:number|</code>
 </p>
 <p>
 <strong>iterator#align</strong>
@@ -4865,13 +4890,16 @@ In default, the created iterator infinitely generates random numbers. The argume
 <code>iterator#and()</code>
 </p>
 <p>
+Calculates a logical AND result of all the values in the list. Values of boolean type's false and nil are recognized as false while others are true.
+</p>
+<p>
 <strong>iterator#average</strong>
 </p>
 <p>
 <code>iterator#average()</code>
 </p>
 <p>
-Returns an average of values in the iterator.
+Returns an average of values in the iterable.
 </p>
 <p>
 <strong>iterator#before</strong>
@@ -4880,19 +4908,43 @@ Returns an average of values in the iterator.
 <code>iterator#before(criteria) {block?}</code>
 </p>
 <p>
+Creates an iterator that picks up each element in the list before criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format: <code>|value:list, idx:number|</code>
+</p>
+<p>
 <strong>iterator#contains</strong>
 </p>
 <p>
 <code>iterator#contains(value)</code>
 </p>
 <p>
-Returns true if a specified value exists in the iterated elements.
+Returns <code>true</code> if the specified value appears in the iterable.
 </p>
 <p>
 <strong>iterator#count</strong>
 </p>
 <p>
 <code>iterator#count(criteria?)</code>
+</p>
+<p>
+Returns a number of elements that matches the given criteria which is a single-argument function or a value. When a function is applied, it counts the number of true after evaluating element value with the function. If a value is applied, it counts the number of elements that are equal to the value.
 </p>
 <p>
 <strong>iterator#cycle</strong>
@@ -4907,10 +4959,34 @@ Returns true if a specified value exists in the iterated elements.
 <code>iterator#each() {block?}</code>
 </p>
 <p>
+Creates an iterator that iterates each element in the list.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format: <code>|value, idx:number|</code>
+</p>
+<p>
 <strong>iterator#filter</strong>
 </p>
 <p>
 <code>iterator#filter(criteria?) {block?}</code>
+</p>
+<p>
+Returns a list that consists of elements of the original list after filtering by a criteria. A criteria can be an iterator or a function object. When an iterator is supplied as a criteria, it picks up true value in the iterator and creates a list that contains elements at corresponding position in the original list When a function object is applied, each element is passed to the function as an argument, and it collects values with evaluated results being true.
 </p>
 <p>
 <strong>iterator#find</strong>
@@ -4925,7 +5001,17 @@ Returns true if a specified value exists in the iterated elements.
 <code>iterator#flat():[bfs,dfs] {block?}</code>
 </p>
 <p>
-Returns an iterator that searches items recursively if they are lists or iterators. Searching is done in order of depth-first-search by default. Specifying attribute <code>:bfs</code> will process in breadth-first-search order. Unlike <code>iterator#walk</code>, this always returns an iterator without an infinite flag.
+Returns an iterator that searches items recursively if they are lists or iterators.
+</p>
+<p>
+Specifying an attribute could customize searching order as below:
+</p>
+<ul>
+<li><code>:dfs</code> .. Searches in depth-first order. This is the default behavior.</li>
+<li><code>:bfs</code> .. Searches in breadth-first order.</li>
+</ul>
+<p>
+Unlike <code>iterator#walk()</code>, this always returns an iterator without an infinite flag.
 </p>
 <p>
 <strong>iterator#fold</strong>
@@ -4940,6 +5026,9 @@ Returns an iterator that searches items recursively if they are lists or iterato
 <code>iterator#format(format:string):map {block?}</code>
 </p>
 <p>
+Applies element values in the list to format string that contains C printfspecifiers	and returns a formatted string.
+</p>
+<p>
 <strong>iterator#head</strong>
 </p>
 <p>
@@ -4952,10 +5041,16 @@ Returns an iterator that searches items recursively if they are lists or iterato
 <code>iterator#join(sep?:string):map</code>
 </p>
 <p>
+Returns a string that joins strings of elements with the specified separator.
+</p>
+<p>
 <strong>iterator#joinb</strong>
 </p>
 <p>
 <code>iterator#joinb()</code>
+</p>
+<p>
+Returns a joined binary.
 </p>
 <p>
 <strong>iterator#len</strong>
@@ -4964,7 +5059,7 @@ Returns an iterator that searches items recursively if they are lists or iterato
 <code>iterator#len()</code>
 </p>
 <p>
-Returns the length of the iterator.
+Returns the length of the iterable.
 </p>
 <p>
 <strong>iterator#map</strong>
@@ -4973,13 +5068,34 @@ Returns the length of the iterator.
 <code>iterator#map(func:function) {block?}</code>
 </p>
 <p>
+Creates an iterator that generates element values after applying the specfied function on them. The function must take one argument.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format: <code>|value, idx:number|</code>
+</p>
+<p>
 <strong>iterator#max</strong>
 </p>
 <p>
 <code>iterator#max():[index,indices,last_index]</code>
 </p>
 <p>
-Returns the maximum value in the iterator.
+Returns the maximum value in the iterable.
 </p>
 <p>
 It would return a position index where the maximum value is found when one of the following attribute is specified:
@@ -4996,7 +5112,7 @@ It would return a position index where the maximum value is found when one of th
 <code>iterator#min():[index,indices,last_index]</code>
 </p>
 <p>
-Returns the minimum value in the iterator.
+Returns the minimum value in the iterable.
 </p>
 <p>
 It would return a position index where the minimum value is found when one of the following attribute is specified:
@@ -5025,11 +5141,44 @@ It would return a position index where the minimum value is found when one of th
 <code>iterator#or()</code>
 </p>
 <p>
+Calculates a logical OR result of all the values in the list. Values of boolean type's false and nil are recognized as false while others are true.
+</p>
+<p>
 <strong>iterator#pack</strong>
 </p>
 <p>
 <code>iterator#pack(format:string) {block?}</code>
 </p>
+<p>
+Returns a binary object packing elements values according to a format string. Following markers specify the order of how a multi-byte number is stored.
+</p>
+<ul>
+<li><code>@</code> .. sets as a native order for the current platform</li>
+<li><code>=</code> .. sets as a native order for the current platform</li>
+<li><code>&lt;</code> .. sets as a little-endian order</li>
+<li><code>&gt;</code> .. sets as a big-endian order</li>
+<li><code>!</code> .. sets as a big-endian order</li>
+</ul>
+<p>
+Following markers specify a storing format. They can be preceded by a number that specifies the number of values.
+</p>
+<ul>
+<li><code>x</code> .. just skips one byte</li>
+<li><code>c</code> .. takes a string that contains one character and stores it as a byte value</li>
+<li><code>b</code> .. stores a number as a signed byte value</li>
+<li><code>B</code> .. stores a number as an unsigned byte value</li>
+<li><code>h</code> .. stores a number as a signed half-word (2 bytes) value</li>
+<li><code>H</code> .. stores a number as an unsigned half-word (2 bytes) value</li>
+<li><code>i</code> .. stores a number as a signed integer (4 bytes) value</li>
+<li><code>I</code> .. stores a number as an unsigned integer (4 bytes) value</li>
+<li><code>l</code> .. stores a number as a signed integer (4 bytes) value</li>
+<li><code>L</code> .. stores a number as an unsigned integer (4 bytes) value</li>
+<li><code>q</code> .. stores a number as a signed long integer (8 bytes) value</li>
+<li><code>Q</code> .. stores a number as an unsigned long integer (8 bytes) value</li>
+<li><code>f</code> .. stores a number as a float (4 bytes) value</li>
+<li><code>d</code> .. stores a number as a double (8 bytes) value</li>
+<li><code>s</code> .. stores a string after character encoding</li>
+</ul>
 <p>
 <strong>iterator#pingpong</strong>
 </p>
@@ -5049,6 +5198,9 @@ It would return a position index where the minimum value is found when one of th
 <code>iterator#printf(format:string, stream?:stream:w):void</code>
 </p>
 <p>
+Prints items in the iterable by using the format.
+</p>
+<p>
 <strong>iterator#println</strong>
 </p>
 <p>
@@ -5061,10 +5213,24 @@ It would return a position index where the minimum value is found when one of th
 <code>iterator#rank(directive?) {block?}</code>
 </p>
 <p>
+Returns a list of rank numbers for elements after sorting them. In default, they are sorted in an ascending order. You can specify the following directives for sorting.
+</p>
+<ul>
+<li><code>`ascend</code> .. ascending order</li>
+<li><code>`descend</code> .. descending order</li>
+<li>function .. it takes two element values x and y and returns zero for x == y, plus value for x &lt; y and minus value for x &gt; y.</li>
+</ul>
+<p>
+When an attribute :stable is specified, the original order shall be kept for elements that are determined as the same.
+</p>
+<p>
 <strong>iterator#reduce</strong>
 </p>
 <p>
 <code>iterator#reduce(accum) {block}</code>
+</p>
+<p>
+Evaluates a block with a parameter format <code>|value, accum|</code> and leaves the result as the next <code>accum</code> value. It returns the final <code>accum</code> value as its result.
 </p>
 <p>
 <strong>iterator#replace</strong>
@@ -5097,6 +5263,27 @@ It would return a position index where the minimum value is found when one of th
 <code>iterator#since(criteria) {block?}</code>
 </p>
 <p>
+Creates an iterator that picks up each element in the list since criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format: <code>|value:list, idx:number|</code>
+</p>
+<p>
 <strong>iterator#skip</strong>
 </p>
 <p>
@@ -5115,13 +5302,24 @@ It would return a position index where the minimum value is found when one of th
 <code>iterator#sort(directive?, keys[]?):[stable] {block?}</code>
 </p>
 <p>
+Returns an iterator of elements after sorting them. In default, they are sorted in an ascending order. You can specify the following directives for sorting.
+</p>
+<ul>
+<li><code>`ascend</code> .. ascending order</li>
+<li><code>`descend</code> .. descending order</li>
+<li>function .. it takes two element values x and y and returns zero for x == y, plus value for x &lt; y and minus value for x &gt; y.</li>
+</ul>
+<p>
+If keys is specified, it shall be used as a key instead of element values. When an attribute :stable is specified, the original order shall be kept for elements that are determined as the same.
+</p>
+<p>
 <strong>iterator#stddev</strong>
 </p>
 <p>
 <code>iterator#stddev()</code>
 </p>
 <p>
-Returns a standard deviation of values in the iterator.
+Returns a standard deviation of values in the iterable.
 </p>
 <p>
 <strong>iterator#sum</strong>
@@ -5130,7 +5328,7 @@ Returns a standard deviation of values in the iterator.
 <code>iterator#sum()</code>
 </p>
 <p>
-Returns a sum of values in the iterator.
+Returns a sum of values in the iterable.
 </p>
 <p>
 <strong>iterator#tail</strong>
@@ -5145,13 +5343,34 @@ Returns a sum of values in the iterator.
 <code>iterator#until(criteria) {block?}</code>
 </p>
 <p>
+Creates an iterator that picks up each element in the list until criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format: <code>|value:list, idx:number|</code>
+</p>
+<p>
 <strong>iterator#variance</strong>
 </p>
 <p>
 <code>iterator#variance()</code>
 </p>
 <p>
-Returns a variance of values in the iterator.
+Returns a variance of values in the iterable.
 </p>
 <p>
 <strong>iterator#walk</strong>
@@ -5160,16 +5379,44 @@ Returns a variance of values in the iterator.
 <code>iterator#walk():[bfs,dfs] {block?}</code>
 </p>
 <p>
-Returns an iterator that searches items recursively if they are lists or iterators. Searching is done in order of depth-first-search by default. Specifying attribute <code>:bfs</code> will process in breadth-first-search order.
+Returns an iterator that searches items recursively if they are lists or iterators.
 </p>
+<p>
+Specifying an attribute could customize searching order as below:
+</p>
+<ul>
+<li><code>:dfs</code> .. Searches in depth-first order. This is the default behavior.</li>
+<li><code>:bfs</code> .. Searches in breadth-first order.</li>
+</ul>
 <p>
 <strong>iterator#while</strong>
 </p>
 <p>
 <code>iterator#while (criteria) {block?}</code>
 </p>
+<p>
+Creates an iterator that picks up each element in the list while criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format: <code>|value:list, idx:number|</code>
+</p>
 <h2><span class="caption-index-2">6.19</span><a name="caption-6-19"></a>list Class</h2>
-<h3><span class="caption-index-3">6.19.1</span><a name="caption-6-19-1"></a>Methods</h3>
+<h3><span class="caption-index-3">6.19.1</span><a name="caption-6-19-1"></a>Methods Specific to List Class</h3>
 <p>
 <strong>list</strong>
 </p>
@@ -5322,10 +5569,20 @@ Returns a first value in the list. An error occurs when the list is empty.
 <strong>list#flat</strong>
 </p>
 <p>
-<code>list#flat():[bfs,dfs]</code>
+<code>list#flat():[bfs,dfs] {block?}</code>
 </p>
 <p>
-Creates a flattened list by searching items recursively if they are lists or iterators. Searching is done in order of depth-first-search by default. Specifying attribute <code>:bfs</code> will process in breadth-first-search order.
+Returns an iterator that searches items recursively if they are lists or iterators.
+</p>
+<p>
+Specifying an attribute could customize searching order as below:
+</p>
+<ul>
+<li><code>:dfs</code> .. Searches in depth-first order. This is the default behavior.</li>
+<li><code>:bfs</code> .. Searches in breadth-first order.</li>
+</ul>
+<p>
+Unlike <code>iterator#walk()</code>, this always returns an iterator without an infinite flag.
 </p>
 <p>
 <strong>list#get</strong>
@@ -5417,6 +5674,7 @@ Shifts the elements of the list. If the content of the list is [1, 2, 3, 4], it 
 <p>
 Shuffle the order of the list content based on random numbers.
 </p>
+<h3><span class="caption-index-3">6.19.2</span><a name="caption-6-19-2"></a>Methods Common between Iterator and List Class</h3>
 <p>
 <strong>list#after</strong>
 </p>
@@ -5424,7 +5682,10 @@ Shuffle the order of the list content based on random numbers.
 <code>list#after(criteria) {block?}</code>
 </p>
 <p>
-Creates an iterator that picks up each element in the list after criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
+Creates an iterator that picks up elements that appear at positions after the criteria is evaluated to be <code>true</code>.
+</p>
+<p>
+You can specify a function, a list or an iterator as the criteria.
 </p>
 <p>
 If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
@@ -5466,7 +5727,7 @@ Calculates a logical AND result of all the values in the list. Values of boolean
 <code>list#average()</code>
 </p>
 <p>
-Returns an average of values in the list.
+Returns an average of values in the iterable.
 </p>
 <p>
 <strong>list#before</strong>
@@ -5502,7 +5763,7 @@ Block parameter format: <code>|value:list, idx:number|</code>
 <code>list#contains(value)</code>
 </p>
 <p>
-Returns true if a specified value exists in the list.
+Returns <code>true</code> if the specified value appears in the iterable.
 </p>
 <p>
 <strong>list#count</strong>
@@ -5598,7 +5859,7 @@ Returns a string that joins strings of elements with the specified separator.
 <code>list#len()</code>
 </p>
 <p>
-Returns the length of the list.
+Returns the length of the iterable.
 </p>
 <p>
 <strong>list#map</strong>
@@ -5634,7 +5895,7 @@ Block parameter format: <code>|value, idx:number|</code>
 <code>list#max():[index,indices,last_index]</code>
 </p>
 <p>
-Returns the maximum value in the list.
+Returns the maximum value in the iterable.
 </p>
 <p>
 It would return a position index where the maximum value is found when one of the following attribute is specified:
@@ -5651,7 +5912,7 @@ It would return a position index where the maximum value is found when one of th
 <code>list#min():[index,indices,last_index]</code>
 </p>
 <p>
-Returns the minimum value in the list.
+Returns the minimum value in the iterable.
 </p>
 <p>
 It would return a position index where the minimum value is found when one of the following attribute is specified:
@@ -5737,7 +5998,7 @@ Following markers specify a storing format. They can be preceded by a number tha
 <code>list#printf(format:string, stream?:stream:w):void</code>
 </p>
 <p>
-Prints items in the list by using the format.
+Prints items in the iterable by using the format.
 </p>
 <p>
 <strong>list#println</strong>
@@ -5858,7 +6119,7 @@ If keys is specified, it shall be used as a key instead of element values. When 
 <code>list#stddev()</code>
 </p>
 <p>
-Returns a standard deviation of values in the list.
+Returns a standard deviation of values in the iterable.
 </p>
 <p>
 <strong>list#sum</strong>
@@ -5867,7 +6128,7 @@ Returns a standard deviation of values in the list.
 <code>list#sum()</code>
 </p>
 <p>
-Returns a sum of values in the list.
+Returns a sum of values in the iterable.
 </p>
 <p>
 <strong>list#tail</strong>
@@ -5909,7 +6170,7 @@ Block parameter format: <code>|value:list, idx:number|</code>
 <code>list#variance()</code>
 </p>
 <p>
-Returns a variance of values in the list.
+Returns a variance of values in the iterable.
 </p>
 <p>
 <strong>list#walk</strong>
@@ -5918,8 +6179,15 @@ Returns a variance of values in the list.
 <code>list#walk():[bfs,dfs] {block?}</code>
 </p>
 <p>
-Returns an iterator that searches items recursively if they are lists or iterators. Searching is done in order of depth-first-search by default. Specifying attribute <code>:bfs</code> will process in breadth-first-search order.
+Returns an iterator that searches items recursively if they are lists or iterators.
 </p>
+<p>
+Specifying an attribute could customize searching order as below:
+</p>
+<ul>
+<li><code>:dfs</code> .. Searches in depth-first order. This is the default behavior.</li>
+<li><code>:bfs</code> .. Searches in breadth-first order.</li>
+</ul>
 <p>
 <strong>list#while</strong>
 </p>

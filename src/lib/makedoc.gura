@@ -912,7 +912,7 @@ write(doc:markdown.document) = {
 	]
 	//-------------------------------------------------------------------------
 	doc << text_iterator
-	doc << '### Methods'
+	doc << '### Methods Specific to Iterator Class'
 	doc << [
 		iterator
 		range
@@ -924,6 +924,9 @@ write(doc:markdown.document) = {
 		iterator.isinfinite
 		iterator.next
 		iterator.repeater
+	]
+	doc << '### Methods Common between Iterator and List Class'
+	doc << [
 		// assignment of instance methods that are common with list
 		iterator.after
 		iterator.align
@@ -974,7 +977,7 @@ write(doc:markdown.document) = {
 	]
 	//-------------------------------------------------------------------------
 	doc << text_list
-	doc << '### Methods'
+	doc << '### Methods Specific to List Class'
 	doc << [
 		list
 		xlist
@@ -998,7 +1001,9 @@ write(doc:markdown.document) = {
 		list.put
 		list.shift
 		list.shuffle
-		// assignment of instance methods that are common with iterator
+	]
+	doc << '### Methods Common between Iterator and List Class'
+	doc << [
 		list.after
 		list.align
 		list.and

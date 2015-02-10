@@ -1143,9 +1143,7 @@ Gura_DeclareMethod(list, align)
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, align)
@@ -1161,11 +1159,7 @@ Gura_ImplementMethod(list, align)
 Gura_DeclareMethodAlias(list, and_, "and")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Calculates a logical AND result of all the values in the list.\n"
-		"Values of boolean type's false and nil are recognized as false\n"
-		"while others are true.");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, and_)
@@ -1182,9 +1176,7 @@ Gura_ImplementMethod(list, and_)
 Gura_DeclareMethod(list, average)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an average of values in the list.");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, average)
@@ -1204,15 +1196,7 @@ Gura_DeclareMethod(list, before)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Creates an iterator that picks up each element in the list before criteria\n"
-		"is evaluated as true. You can specify a function object, a list or an iterator\n"
-		"as the criteria.\n"
-		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Block parameter format: `|value:list, idx:number|`");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, before)
@@ -1230,9 +1214,7 @@ Gura_DeclareMethod(list, contains)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns true if a specified value exists in the list.");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, contains)
@@ -1250,12 +1232,7 @@ Gura_DeclareMethod(list, count)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a number of elements that matches the given criteria which is a single-argument\n"
-		"function or a value. When a function is applied, it counts the number of true after\n"
-		"evaluating element value with the function. If a value is applied, it counts the number\n"
-		"of elements that are equal to the value.");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, count)
@@ -1275,9 +1252,7 @@ Gura_DeclareMethod(list, cycle)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, cycle)
@@ -1294,13 +1269,7 @@ Gura_DeclareMethod(list, each)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Creates an iterator that iterates each element in the list.\n"
-		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Block parameter format: `|value, idx:number|`");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, each)
@@ -1317,14 +1286,7 @@ Gura_DeclareMethod(list, filter)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a list that consists of elements of the original list after filtering\n"
-		"by a criteria. A criteria can be an iterator or a function object.\n"
-		"When an iterator is supplied as a criteria, it picks up true value in the iterator\n"
-		"and creates a list that contains elements at corresponding position in the original list\n"
-		"When a function object is applied, each element is passed to the function\n"
-		"as an argument, and it collects values with evaluated results being true.");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, filter)
@@ -1348,9 +1310,7 @@ Gura_DeclareMethod(list, find)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(index));
 	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, find)
@@ -1374,16 +1334,7 @@ Gura_DeclareMethod(list, flat)
 	DeclareAttr(Gura_Symbol(dfs));
 	DeclareAttr(Gura_Symbol(bfs));
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an iterator that searches items recursively if they are lists or iterators.\n"
-		"\n"
-		"Specifying an attribute could customize searching order as below:\n"
-		"\n"
-		"- `:dfs` .. Searches in depth-first order. This is the default behavior.\n"
-		"- `:bfs` .. Searches in breadth-first order.\n"
-		"\n"
-		"Unlike `list#walk()`, this always returns an iterator without an infinite flag.\n");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, flat)
@@ -1411,9 +1362,7 @@ Gura_DeclareMethod(list, fold)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(iteritem));
 	DeclareAttr(Gura_Symbol(neat));
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, fold)
@@ -1435,10 +1384,7 @@ Gura_DeclareMethod(list, format)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Applies element values in the list to format string that contains C printf"
-		"specifiers	and returns a formatted string.");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, format)
@@ -1454,9 +1400,7 @@ Gura_DeclareMethod(list, head)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, head)
@@ -1473,9 +1417,7 @@ Gura_DeclareMethod(list, join)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "sep", VTYPE_string, OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a string that joins strings of elements with the specified separator.");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, join)
@@ -1491,9 +1433,7 @@ Gura_DeclareMethod(list, joinb)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "sep", VTYPE_string, OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a joined binary.\n");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, joinb)
@@ -1509,9 +1449,7 @@ Gura_ImplementMethod(list, joinb)
 Gura_DeclareMethod(list, len)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns the length of the list.");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, len)
@@ -1527,14 +1465,7 @@ Gura_DeclareMethod(list, map)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "func", VTYPE_function);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Creates an iterator that generates element values after applying the specfied\n"
-		"function on them. The function must take one argument.\n"
-		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Block parameter format: `|value, idx:number|`");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, map)
@@ -1554,17 +1485,7 @@ Gura_DeclareMethod(list, max)
 	DeclareAttr(Gura_Symbol(index));
 	DeclareAttr(Gura_Symbol(last_index));
 	DeclareAttr(Gura_Symbol(indices));
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns the maximum value in the list.\n"
-		"\n"
-		"It would return a position index where the maximum value is found\n"
-		"when one of the following attribute is specified:\n"
-		"\n"
-		"- `:index` .. an index of the maximum value.\n"
-		"- `:indices` .. a list of indices where the maximum value is found.\n"
-		"- `:last_index` .. the last index of the maximum value\n"
-		"                   when the value exists at multiple positions.\n");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, max)
@@ -1584,17 +1505,7 @@ Gura_DeclareMethod(list, min)
 	DeclareAttr(Gura_Symbol(index));
 	DeclareAttr(Gura_Symbol(last_index));
 	DeclareAttr(Gura_Symbol(indices));
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns the minimum value in the list.\n"
-		"\n"
-		"It would return a position index where the minimum value is found\n"
-		"when one of the following attribute is specified:\n"
-		"\n"
-		"- `:index` .. an index of the minimum value.\n"
-		"- `:indices` .. a list of indices where the minimum value is found.\n"
-		"- `:last_index` .. the last index of the minimum value\n"
-		"                   when the value exists at multiple positions.\n");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, min)
@@ -1613,9 +1524,7 @@ Gura_DeclareMethod(list, nilto)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "replace", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, nilto)
@@ -1634,9 +1543,7 @@ Gura_DeclareMethod(list, offset)
 	DeclareBlock(OCCUR_Once);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, offset)
@@ -1652,11 +1559,7 @@ Gura_ImplementMethod(list, offset)
 Gura_DeclareMethodAlias(list, or_, "or")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Calculates a logical OR result of all the values in the list.\n"
-		"Values of boolean type's false and nil are recognized as false\n"
-		"while others are true.");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, or_)
@@ -1674,35 +1577,7 @@ Gura_DeclareMethod(list, pack)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a binary object packing elements values according to a format string.\n"
-		"Following markers specify the order of how a multi-byte number is stored.\n"
-		"\n"
-		"- `@` .. sets as a native order for the current platform\n"
-		"- `=` .. sets as a native order for the current platform\n"
-		"- `<` .. sets as a little-endian order\n"
-		"- `>` .. sets as a big-endian order\n"
-		"- `!` .. sets as a big-endian order\n"
-		"\n"
-		"Following markers specify a storing format. They can be preceded by a number\n"
-		"that specifies the number of values.\n"
-		"\n"
-		"- `x` .. just skips one byte\n"
-		"- `c` .. takes a string that contains one character and stores it as a byte value\n"
-		"- `b` .. stores a number as a signed byte value\n"
-		"- `B` .. stores a number as an unsigned byte value\n"
-		"- `h` .. stores a number as a signed half-word (2 bytes) value\n"
-		"- `H` .. stores a number as an unsigned half-word (2 bytes) value\n"
-		"- `i` .. stores a number as a signed integer (4 bytes) value\n"
-		"- `I` .. stores a number as an unsigned integer (4 bytes) value\n"
-		"- `l` .. stores a number as a signed integer (4 bytes) value\n"
-		"- `L` .. stores a number as an unsigned integer (4 bytes) value\n"
-		"- `q` .. stores a number as a signed long integer (8 bytes) value\n"
-		"- `Q` .. stores a number as an unsigned long integer (8 bytes) value\n"
-		"- `f` .. stores a number as a float (4 bytes) value\n"
-		"- `d` .. stores a number as a double (8 bytes) value\n"
-		"- `s` .. stores a string after character encoding\n");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, pack)
@@ -1724,9 +1599,7 @@ Gura_DeclareMethod(list, pingpong)
 	DeclareAttr(Gura_Symbol(sticky));
 	DeclareAttr(Gura_Symbol(sticky_l));
 	DeclareAttr(Gura_Symbol(sticky_r));
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, pingpong)
@@ -1748,9 +1621,7 @@ Gura_DeclareMethod(list, print)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, print)
@@ -1767,9 +1638,7 @@ Gura_DeclareMethod(list, printf)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Prints items in the list by using the format.");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, printf)
@@ -1786,9 +1655,7 @@ Gura_DeclareMethod(list, println)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, println)
@@ -1806,19 +1673,7 @@ Gura_DeclareMethod(list, rank)
 	DeclareArg(env, "directive", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(stable));
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a list of rank numbers for elements after sorting them.\n"
-		"In default, they are sorted in an ascending order. You can specify the following\n"
-		"directives for sorting.\n"
-		"\n"
-		"- `` `ascend`` .. ascending order\n"
-		"- `` `descend`` .. descending order\n"
-		"- function .. it takes two element values x and y and returns zero for x == y,\n"
-		"           plus value for x < y and minus value for x > y.\n"
-		"\n"
-		"When an attribute :stable is specified, the original order shall be kept for\n"
-		"elements that are determined as the same.");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, rank)
@@ -1837,10 +1692,7 @@ Gura_DeclareMethod(list, reduce)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "accum", VTYPE_any);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Evaluates a block with a parameter format `|value, accum|` and leaves the result\n"
-		"as the next `accum` value. It returns the final `accum` value as its result.");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, reduce)
@@ -1864,9 +1716,7 @@ Gura_DeclareMethod(list, replace)
 	DeclareArg(env, "value", VTYPE_any);
 	DeclareArg(env, "replace", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, replace)
@@ -1884,9 +1734,7 @@ Gura_DeclareMethod(list, reverse)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, reverse)
@@ -1904,9 +1752,7 @@ Gura_DeclareMethod(list, roundoff)
 	DeclareArg(env, "threshold", VTYPE_number, OCCUR_Once, FLAG_None,
 											new Expr_Value(RoundOffThreshold));
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, roundoff)
@@ -1923,9 +1769,7 @@ Gura_DeclareMethod(list, runlength)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, runlength)
@@ -1943,15 +1787,7 @@ Gura_DeclareMethod(list, since)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Creates an iterator that picks up each element in the list since criteria\n"
-		"is evaluated as true. You can specify a function object, a list or an iterator\n"
-		"as the criteria.\n"
-		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Block parameter format: `|value:list, idx:number|`");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, since)
@@ -1970,9 +1806,7 @@ Gura_DeclareMethod(list, skip)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, skip)
@@ -1989,9 +1823,7 @@ Gura_DeclareMethod(list, skipnil)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, skipnil)
@@ -2011,20 +1843,7 @@ Gura_DeclareMethod(list, sort)
 	DeclareArg(env, "keys", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_List);
 	DeclareAttr(Gura_Symbol(stable));
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns an iterator of elements after sorting them.\n"
-		"In default, they are sorted in an ascending order. You can specify the following\n"
-		"directives for sorting.\n"
-		"\n"
-		"- `` `ascend`` .. ascending order\n"
-		"- `` `descend`` .. descending order\n"
-		"- function .. it takes two element values x and y and returns zero for x == y,\n"
-		"           plus value for x < y and minus value for x > y.\n"
-		"\n"
-		"If keys is specified, it shall be used as a key instead of element values.\n"
-		"When an attribute :stable is specified, the original order shall be kept for\n"
-		"elements that are determined as the same.");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, sort)
@@ -2042,9 +1861,7 @@ Gura_ImplementMethod(list, sort)
 Gura_DeclareMethod(list, stddev)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a standard deviation of values in the list.");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, stddev)
@@ -2062,9 +1879,7 @@ Gura_ImplementMethod(list, stddev)
 Gura_DeclareMethod(list, sum)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a sum of values in the list.");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, sum)
@@ -2084,9 +1899,7 @@ Gura_DeclareMethod(list, tail)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, tail)
@@ -2106,15 +1919,7 @@ Gura_DeclareMethod(list, until)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Creates an iterator that picks up each element in the list until criteria\n"
-		"is evaluated as true. You can specify a function object, a list or an iterator\n"
-		"as the criteria.\n"
-		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Block parameter format: `|value:list, idx:number|`");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, until)
@@ -2131,9 +1936,7 @@ Gura_ImplementMethod(list, until)
 Gura_DeclareMethod(list, variance)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a variance of values in the list.");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, variance)
@@ -2154,14 +1957,7 @@ Gura_DeclareMethod(list, walk)
 	DeclareAttr(Gura_Symbol(dfs));
 	DeclareAttr(Gura_Symbol(bfs));
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an iterator that searches items recursively if they are lists or iterators.\n"
-		"\n"
-		"Specifying an attribute could customize searching order as below:\n"
-		"\n"
-		"- `:dfs` .. Searches in depth-first order. This is the default behavior.\n"
-		"- `:bfs` .. Searches in breadth-first order.\n");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, walk)
@@ -2184,15 +1980,7 @@ Gura_DeclareMethodAlias(list, while_, "while")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Creates an iterator that picks up each element in the list while criteria\n"
-		"is evaluated as true. You can specify a function object, a list or an iterator\n"
-		"as the criteria.\n"
-		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Block parameter format: `|value:list, idx:number|`");
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
 Gura_ImplementMethod(list, while_)

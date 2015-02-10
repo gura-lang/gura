@@ -352,8 +352,10 @@ Gura_DeclareMethodAlias(iterator, and_, "and")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Calculates a logical AND result of all the values in the list.\n"
+		"Values of boolean type's false and nil are recognized as false\n"
+		"while others are true.");
 }
 
 Gura_ImplementMethod(iterator, and_)
@@ -372,7 +374,7 @@ Gura_DeclareMethod(iterator, average)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an average of values in the iterator.");
+		"Returns an average of values in the iterable.");
 }
 
 Gura_ImplementMethod(iterator, average)
@@ -393,8 +395,14 @@ Gura_DeclareMethod(iterator, before)
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Creates an iterator that picks up each element in the list before criteria\n"
+		"is evaluated as true. You can specify a function object, a list or an iterator\n"
+		"as the criteria.\n"
+		"\n"
+		GURA_ITERATOR_HELP
+		"\n"
+		"Block parameter format: `|value:list, idx:number|`");
 }
 
 Gura_ImplementMethod(iterator, before)
@@ -413,7 +421,7 @@ Gura_DeclareMethod(iterator, contains)
 	DeclareArg(env, "value", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns true if a specified value exists in the iterated elements.");
+		"Returns `true` if the specified value appears in the iterable.");
 }
 
 Gura_ImplementMethod(iterator, contains)
@@ -432,8 +440,11 @@ Gura_DeclareMethod(iterator, count)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a number of elements that matches the given criteria which is a single-argument\n"
+		"function or a value. When a function is applied, it counts the number of true after\n"
+		"evaluating element value with the function. If a value is applied, it counts the number\n"
+		"of elements that are equal to the value.");
 }
 
 Gura_ImplementMethod(iterator, count)
@@ -477,8 +488,12 @@ Gura_DeclareMethod(iterator, each)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Creates an iterator that iterates each element in the list.\n"
+		"\n"
+		GURA_ITERATOR_HELP
+		"\n"
+		"Block parameter format: `|value, idx:number|`");
 }
 
 Gura_ImplementMethod(iterator, each)
@@ -495,8 +510,13 @@ Gura_DeclareMethod(iterator, filter)
 	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a list that consists of elements of the original list after filtering\n"
+		"by a criteria. A criteria can be an iterator or a function object.\n"
+		"When an iterator is supplied as a criteria, it picks up true value in the iterator\n"
+		"and creates a list that contains elements at corresponding position in the original list\n"
+		"When a function object is applied, each element is passed to the function\n"
+		"as an argument, and it collects values with evaluated results being true.");
 }
 
 Gura_ImplementMethod(iterator, filter)
@@ -603,8 +623,9 @@ Gura_DeclareMethod(iterator, format)
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Applies element values in the list to format string that contains C printf"
+		"specifiers	and returns a formatted string.");
 }
 
 Gura_ImplementMethod(iterator, format)
@@ -640,8 +661,8 @@ Gura_DeclareMethod(iterator, join)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "sep", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a string that joins strings of elements with the specified separator.");
 }
 
 Gura_ImplementMethod(iterator, join)
@@ -677,8 +698,8 @@ Gura_DeclareMethod(iterator, joinb)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a joined binary.\n");
 }
 
 Gura_ImplementMethod(iterator, joinb)
@@ -708,7 +729,7 @@ Gura_DeclareMethod(iterator, len)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns the length of the iterator.");
+		"Returns the length of the iterable.");
 }
 
 Gura_ImplementMethod(iterator, len)
@@ -733,8 +754,13 @@ Gura_DeclareMethod(iterator, map)
 	DeclareArg(env, "func", VTYPE_function);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Creates an iterator that generates element values after applying the specfied\n"
+		"function on them. The function must take one argument.\n"
+		"\n"
+		GURA_ITERATOR_HELP
+		"\n"
+		"Block parameter format: `|value, idx:number|`");
 }
 
 Gura_ImplementMethod(iterator, map)
@@ -755,7 +781,7 @@ Gura_DeclareMethod(iterator, max)
 	DeclareAttr(Gura_Symbol(indices));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns the maximum value in the iterator.\n"
+		"Returns the maximum value in the iterable.\n"
 		"\n"
 		"It would return a position index where the maximum value is found\n"
 		"when one of the following attribute is specified:\n"
@@ -784,7 +810,7 @@ Gura_DeclareMethod(iterator, min)
 	DeclareAttr(Gura_Symbol(indices));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns the minimum value in the iterator.\n"
+		"Returns the minimum value in the iterable.\n"
 		"\n"
 		"It would return a position index where the minimum value is found\n"
 		"when one of the following attribute is specified:\n"
@@ -850,8 +876,10 @@ Gura_DeclareMethodAlias(iterator, or_, "or")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Calculates a logical OR result of all the values in the list.\n"
+		"Values of boolean type's false and nil are recognized as false\n"
+		"while others are true.");
 }
 
 Gura_ImplementMethod(iterator, or_)
@@ -871,8 +899,34 @@ Gura_DeclareMethod(iterator, pack)
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a binary object packing elements values according to a format string.\n"
+		"Following markers specify the order of how a multi-byte number is stored.\n"
+		"\n"
+		"- `@` .. sets as a native order for the current platform\n"
+		"- `=` .. sets as a native order for the current platform\n"
+		"- `<` .. sets as a little-endian order\n"
+		"- `>` .. sets as a big-endian order\n"
+		"- `!` .. sets as a big-endian order\n"
+		"\n"
+		"Following markers specify a storing format. They can be preceded by a number\n"
+		"that specifies the number of values.\n"
+		"\n"
+		"- `x` .. just skips one byte\n"
+		"- `c` .. takes a string that contains one character and stores it as a byte value\n"
+		"- `b` .. stores a number as a signed byte value\n"
+		"- `B` .. stores a number as an unsigned byte value\n"
+		"- `h` .. stores a number as a signed half-word (2 bytes) value\n"
+		"- `H` .. stores a number as an unsigned half-word (2 bytes) value\n"
+		"- `i` .. stores a number as a signed integer (4 bytes) value\n"
+		"- `I` .. stores a number as an unsigned integer (4 bytes) value\n"
+		"- `l` .. stores a number as a signed integer (4 bytes) value\n"
+		"- `L` .. stores a number as an unsigned integer (4 bytes) value\n"
+		"- `q` .. stores a number as a signed long integer (8 bytes) value\n"
+		"- `Q` .. stores a number as an unsigned long integer (8 bytes) value\n"
+		"- `f` .. stores a number as a float (4 bytes) value\n"
+		"- `d` .. stores a number as a double (8 bytes) value\n"
+		"- `s` .. stores a string after character encoding\n");
 }
 
 Gura_ImplementMethod(iterator, pack)
@@ -941,7 +995,7 @@ Gura_DeclareMethod(iterator, printf)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Prints items in the iterable by using the format.");
 }
 
 Gura_ImplementMethod(iterator, printf)
@@ -978,8 +1032,18 @@ Gura_DeclareMethod(iterator, rank)
 	DeclareArg(env, "directive", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a list of rank numbers for elements after sorting them.\n"
+		"In default, they are sorted in an ascending order. You can specify the following\n"
+		"directives for sorting.\n"
+		"\n"
+		"- `` `ascend`` .. ascending order\n"
+		"- `` `descend`` .. descending order\n"
+		"- function .. it takes two element values x and y and returns zero for x == y,\n"
+		"           plus value for x < y and minus value for x > y.\n"
+		"\n"
+		"When an attribute :stable is specified, the original order shall be kept for\n"
+		"elements that are determined as the same.");
 }
 
 Gura_ImplementMethod(iterator, rank)
@@ -1003,8 +1067,9 @@ Gura_DeclareMethod(iterator, reduce)
 	DeclareArg(env, "accum", VTYPE_any);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Evaluates a block with a parameter format `|value, accum|` and leaves the result\n"
+		"as the next `accum` value. It returns the final `accum` value as its result.");
 }
 
 Gura_ImplementMethod(iterator, reduce)
@@ -1108,8 +1173,14 @@ Gura_DeclareMethod(iterator, since)
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Creates an iterator that picks up each element in the list since criteria\n"
+		"is evaluated as true. You can specify a function object, a list or an iterator\n"
+		"as the criteria.\n"
+		"\n"
+		GURA_ITERATOR_HELP
+		"\n"
+		"Block parameter format: `|value:list, idx:number|`");
 }
 
 Gura_ImplementMethod(iterator, since)
@@ -1166,8 +1237,19 @@ Gura_DeclareMethod(iterator, sort)
 	DeclareAttr(Gura_Symbol(stable));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns an iterator of elements after sorting them.\n"
+		"In default, they are sorted in an ascending order. You can specify the following\n"
+		"directives for sorting.\n"
+		"\n"
+		"- `` `ascend`` .. ascending order\n"
+		"- `` `descend`` .. descending order\n"
+		"- function .. it takes two element values x and y and returns zero for x == y,\n"
+		"           plus value for x < y and minus value for x > y.\n"
+		"\n"
+		"If keys is specified, it shall be used as a key instead of element values.\n"
+		"When an attribute :stable is specified, the original order shall be kept for\n"
+		"elements that are determined as the same.");
 }
 
 Gura_ImplementMethod(iterator, sort)
@@ -1192,7 +1274,7 @@ Gura_DeclareMethod(iterator, stddev)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a standard deviation of values in the iterator.");
+		"Returns a standard deviation of values in the iterable.");
 }
 
 Gura_ImplementMethod(iterator, stddev)
@@ -1212,7 +1294,7 @@ Gura_DeclareMethod(iterator, sum)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a sum of values in the iterator.");
+		"Returns a sum of values in the iterable.");
 }
 
 Gura_ImplementMethod(iterator, sum)
@@ -1260,8 +1342,14 @@ Gura_DeclareMethod(iterator, until)
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Creates an iterator that picks up each element in the list until criteria\n"
+		"is evaluated as true. You can specify a function object, a list or an iterator\n"
+		"as the criteria.\n"
+		"\n"
+		GURA_ITERATOR_HELP
+		"\n"
+		"Block parameter format: `|value:list, idx:number|`");
 }
 
 Gura_ImplementMethod(iterator, until)
@@ -1279,7 +1367,7 @@ Gura_DeclareMethod(iterator, variance)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a variance of values in the iterator.");
+		"Returns a variance of values in the iterable.");
 }
 
 Gura_ImplementMethod(iterator, variance)
@@ -1330,8 +1418,14 @@ Gura_DeclareMethodAlias(iterator, while_, "while")
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Creates an iterator that picks up each element in the list while criteria\n"
+		"is evaluated as true. You can specify a function object, a list or an iterator\n"
+		"as the criteria.\n"
+		"\n"
+		GURA_ITERATOR_HELP
+		"\n"
+		"Block parameter format: `|value:list, idx:number|`");
 }
 
 Gura_ImplementMethod(iterator, while_)

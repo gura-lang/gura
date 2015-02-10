@@ -227,6 +227,7 @@ void Function::LinkHelp(const Function *pFunc)
 
 bool Function::LinkHelp(const Environment *pEnv, const Symbol *pSymbol)
 {
+	if (pEnv == NULL) return false;
 	const Function *pFunc = pEnv->LookupFunction(pSymbol, ENVREF_NoEscalate);
 	if (pFunc == NULL) return false;
 	LinkHelp(pFunc);
