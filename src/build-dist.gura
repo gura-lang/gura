@@ -389,7 +389,7 @@ createMsi(fileNames) = {
 		dirRec = dirRecRoot
 		repeat (segs.len() - 1) {
 			dirName = seg.next()
-			dirRec.dirRecs.setdefault(dirName, DirectoryRec())
+			dirRec.dirRecs.put(dirName, DirectoryRec()):timid
 			dirRec = dirRec.dirRecs[dirName]
 		}
 		dirRec.fileNames.add(fileName)
