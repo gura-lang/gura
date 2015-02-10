@@ -540,9 +540,13 @@ Gura_DeclareMethod(iterator, flat)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns an iterator that searches items recursively if they are lists or iterators.\n"
-		"Searching is done in order of depth-first-search by default.\n"
-		"Specifying attribute `:bfs` will process in breadth-first-search order.\n"
-		"Unlike `iterator#walk`, this always returns an iterator without an infinite flag.\n");
+		"\n"
+		"Specifying an attribute could customize searching order as below:\n"
+		"\n"
+		"- `:dfs` .. Searches in depth-first order. This is the default behavior.\n"
+		"- `:bfs` .. Searches in breadth-first order.\n"
+		"\n"
+		"Unlike `iterator#walk()`, this always returns an iterator without an infinite flag.\n");
 }
 
 Gura_ImplementMethod(iterator, flat)
@@ -1292,8 +1296,11 @@ Gura_DeclareMethod(iterator, walk)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns an iterator that searches items recursively if they are lists or iterators.\n"
-		"Searching is done in order of depth-first-search by default.\n"
-		"Specifying attribute `:bfs` will process in breadth-first-search order.");
+		"\n"
+		"Specifying an attribute could customize searching order as below:\n"
+		"\n"
+		"- `:dfs` .. Searches in depth-first order. This is the default behavior.\n"
+		"- `:bfs` .. Searches in breadth-first order.\n");
 }
 
 Gura_ImplementMethod(iterator, walk)
