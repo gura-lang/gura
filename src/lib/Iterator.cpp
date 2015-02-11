@@ -604,7 +604,7 @@ String Iterator::Join(Environment &env, Signal sig, const char *sep)
 	String rtn;
 	Value value;
 	if (IsInfinite()) {
-		Iterator::SetError_InfiniteNotAllowed(sig);
+		SetError_InfiniteNotAllowed(sig);
 		return rtn;
 	}
 	if (Next(env, sig, value)) {
@@ -613,6 +613,24 @@ String Iterator::Join(Environment &env, Signal sig, const char *sep)
 			rtn += sep;
 			rtn += value.ToString(false);
 		}
+	}
+	return rtn;
+}
+
+Binary Iterator::Joinb(Environment &env, Signal sig)
+{
+	Binary rtn;
+	Value value;
+	if (IsInfinite()) {
+		SetError_InfiniteNotAllowed(sig);
+		return rtn;
+	}
+	while (Next(env, sig, value)) {
+		if (!value.Is_binary()) {
+			sig.SetError(ERR_ValueError, "invalid value type");
+			return "";
+		}
+		rtn += value.GetBinary();
 	}
 	return rtn;
 }

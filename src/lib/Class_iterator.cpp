@@ -688,21 +688,9 @@ Gura_ImplementMethod(iterator, joinb)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
-	if (pIterator->IsInfinite()) {
-		Iterator::SetError_InfiniteNotAllowed(sig);
-		return Value::Null;
-	}
-	Binary buff;
-	Value value;
-	while (pIterator->Next(env, sig, value)) {
-		if (!value.Is_binary()) {
-			sig.SetError(ERR_ValueError, "invalid value type");
-			return Value::Null;
-		}
-		buff += value.GetBinary();
-	}
+	Binary rtn = pIterator->Joinb(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
-	return Value(new Object_binary(env, buff, true));
+	return Value(new Object_binary(env, rtn, true));
 }
 
 // iterator#len()

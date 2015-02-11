@@ -1439,8 +1439,9 @@ Gura_ImplementMethod(list, joinb)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
 	ValueList &valList = pThis->GetList();
-	Binary buff = valList.Joinb(sig);
-	return Value(new Object_binary(env, buff, true));
+	Binary rtn = valList.Joinb(sig);
+	if (sig.IsSignalled()) return Value::Null;
+	return Value(new Object_binary(env, rtn, true));
 }
 
 // list#len()

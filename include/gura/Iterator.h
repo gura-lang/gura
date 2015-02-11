@@ -114,6 +114,7 @@ public:
 	Iterator *Until(Environment &env, Signal sig, const Value &criteria, bool containLastFlag);
 	bool DoesContain(Environment &env, Signal sig, const Value &value);
 	String Join(Environment &env, Signal sig, const char *sep);
+	Binary Joinb(Environment &env, Signal sig);
 	void PrintEach(Environment &env, Signal sig, Stream *pStream);
 	void PrintfEach(Environment &env, Signal sig, Stream *pStream, const char *format);
 	void PrintlnEach(Environment &env, Signal sig, Stream *pStream);
