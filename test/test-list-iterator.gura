@@ -802,3 +802,19 @@ testcase('iterator#print/println/printf') {
 	[1..10].each().printf('%3d\n')
 	[['apple', 100], ['grape', 150], ['banana', 80]].each().printf('%s .. %d\n')
 }
+testcase('iterable#joinb') {
+	x = [b'abc', b'def', b'ghi']
+	tester(`x.joinb())
+	tester(`x.each().joinb())
+	x = [b'abc', 1, b'def', b'ghi']
+	try {
+		x.joinb()
+	} catch {|e|
+		println('expected error occured: ', e.text)
+	}
+	try {
+		x.each().joinb()
+	} catch {|e|
+		println('expected error occured: ', e.text)
+	}
+}

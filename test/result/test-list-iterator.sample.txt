@@ -756,3 +756,10 @@ banana .. 80
 apple .. 100
 grape .. 150
 banana .. 80
+
+======== #49 iterable#joinb ========
+
+x.joinb() .. <binary:RW:9byte:'abcdefghi'>
+x.each().joinb() .. <binary:RW:9byte:'abcdefghi'>
+expected error occured: ValueError: invalid value type
+expected error occured: ValueError: invalid value type
