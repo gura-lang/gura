@@ -930,18 +930,18 @@ String ValueList::Join(const char *sep) const
 	return rtn;
 }
 
-Value ValueList::Joinb(Environment &env, Signal sig) const
+Binary ValueList::Joinb(Signal sig) const
 {
 	Binary buff;
 	foreach_const (ValueList, pValue, *this) {
 		const Value &value = *pValue;
 		if (!value.Is_binary()) {
 			sig.SetError(ERR_ValueError, "invalid value type");
-			return Value::Null;
+			return "";
 		}
 		buff += value.GetBinary();
 	}
-	return Value(new Object_binary(env, buff, true));
+	return buff;
 }
 
 void ValueList::Print(Signal sig, int indentLevel) const

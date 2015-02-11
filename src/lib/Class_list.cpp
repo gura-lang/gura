@@ -1439,7 +1439,8 @@ Gura_ImplementMethod(list, joinb)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
 	ValueList &valList = pThis->GetList();
-	return valList.Joinb(env, sig);
+	Binary buff = valList.Joinb(sig);
+	return Value(new Object_binary(env, buff, true));
 }
 
 // list#len()

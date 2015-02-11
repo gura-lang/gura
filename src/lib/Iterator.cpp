@@ -599,6 +599,24 @@ bool Iterator::DoesContain(Environment &env, Signal sig, const Value &value)
 	return false;
 }
 
+String Iterator::Join(Environment &env, Signal sig, const char *sep)
+{
+	String rtn;
+	Value value;
+	if (IsInfinite()) {
+		Iterator::SetError_InfiniteNotAllowed(sig);
+		return rtn;
+	}
+	if (Next(env, sig, value)) {
+		rtn += value.ToString(false);
+		while (Next(env, sig, value)) {
+			rtn += sep;
+			rtn += value.ToString(false);
+		}
+	}
+	return rtn;
+}
+
 void Iterator::PrintEach(Environment &env, Signal sig, Stream *pStream)
 {
 	Value value;

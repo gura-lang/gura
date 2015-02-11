@@ -668,27 +668,9 @@ Gura_DeclareMethod(iterator, join)
 Gura_ImplementMethod(iterator, join)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
-	if (pThis->GetIterator()->IsInfinite()) {
-		Iterator::SetError_InfiniteNotAllowed(sig);
-		return Value::Null;
-	}
 	const char *sep = args.Is_string(0)? args.GetString(0) : "";
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
-	String rtn;
-	Value value;
-	if (pIterator->Next(env, sig, value)) {
-		rtn += value.ToString(false);
-		if (sig.IsSignalled()) {
-			return Value::Null;
-		}
-		while (pIterator->Next(env, sig, value)) {
-			rtn += sep;
-			rtn += value.ToString(false);
-			if (sig.IsSignalled()) {
-				return Value::Null;
-			}
-		}
-	}
+	String rtn = pIterator->Join(env, sig, sep);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(rtn);
 }
@@ -705,11 +687,11 @@ Gura_DeclareMethod(iterator, joinb)
 Gura_ImplementMethod(iterator, joinb)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
-	if (pThis->GetIterator()->IsInfinite()) {
+	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
+	if (pIterator->IsInfinite()) {
 		Iterator::SetError_InfiniteNotAllowed(sig);
 		return Value::Null;
 	}
-	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Binary buff;
 	Value value;
 	while (pIterator->Next(env, sig, value)) {
