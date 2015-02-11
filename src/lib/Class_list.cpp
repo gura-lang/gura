@@ -1431,7 +1431,7 @@ Gura_ImplementMethod(list, join)
 // list#joinb()
 Gura_DeclareMethod(list, joinb)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 

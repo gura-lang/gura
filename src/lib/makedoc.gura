@@ -1019,7 +1019,7 @@ write(doc:markdown.document) = {
 		list.format
 		list.head
 		list.join
-		//list.joinb
+		list.joinb
 		list.len
 		list.map
 		list.max

@@ -598,6 +598,7 @@ list
   list#insert(idx:number, elem+):reduce
   list#isempty()
   list#join(sep?:string):map
+  list#joinb()
   list#last()
   list#len()
   list#map(func:function) {block?}
