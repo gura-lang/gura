@@ -892,20 +892,6 @@ String Middle(const char *str, int start, int len)
 	}
 }
 
-String Join(const ValueList &valList, const char *str)
-{
-	Signal sig;
-	ValueList::const_iterator pValue = valList.begin();
-	if (pValue == valList.end()) return "";
-	String rtn = pValue->ToString(false);
-	pValue++;
-	for ( ; pValue != valList.end(); pValue++) {
-		rtn += str;
-		rtn += pValue->ToString(false);
-	}
-	return rtn;
-}
-
 Value FindString(Environment &env, Signal sig,
 		const char *str, const char *sub, int start, const SymbolSet &attrs)
 {

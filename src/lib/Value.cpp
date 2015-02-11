@@ -917,6 +917,33 @@ bool ValueList::Append(Environment &env, Signal sig, Iterator *pIterator)
 	return !sig.IsSignalled();
 }
 
+String ValueList::Join(const char *sep) const
+{
+	ValueList::const_iterator pValue = begin();
+	if (pValue == end()) return "";
+	String rtn = pValue->ToString(false);
+	pValue++;
+	for ( ; pValue != end(); pValue++) {
+		rtn += sep;
+		rtn += pValue->ToString(false);
+	}
+	return rtn;
+}
+
+Value ValueList::Joinb(Environment &env, Signal sig) const
+{
+	Binary buff;
+	foreach_const (ValueList, pValue, *this) {
+		const Value &value = *pValue;
+		if (!value.Is_binary()) {
+			sig.SetError(ERR_ValueError, "invalid value type");
+			return Value::Null;
+		}
+		buff += value.GetBinary();
+	}
+	return Value(new Object_binary(env, buff, true));
+}
+
 void ValueList::Print(Signal sig, int indentLevel) const
 {
 	foreach_const (ValueList, pValue, *this) {

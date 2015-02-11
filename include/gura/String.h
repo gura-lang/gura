@@ -65,7 +65,6 @@ GURA_DLLDECLARE String RJust(const char *str, size_t len, const char *padding);
 GURA_DLLDECLARE String Left(const char *str, size_t len);
 GURA_DLLDECLARE String Right(const char *str, size_t len);
 GURA_DLLDECLARE String Middle(const char *str, int start, int len);
-GURA_DLLDECLARE String Join(const ValueList &valList, const char *str);
 GURA_DLLDECLARE String Replace(const char *str, const char *sub, const char *replace,
 									int nMaxReplace, const SymbolSet &attrs);
 GURA_DLLDECLARE void SplitPathList(const char *str, StringList &strList);
