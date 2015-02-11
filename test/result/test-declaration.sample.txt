@@ -553,6 +553,7 @@ iterator
   iterator#print(stream?:stream:w):void
   iterator#printf(format:string, stream?:stream:w):void
   iterator#println(stream?:stream:w):void
+  iterator#prod()
   iterator#rank(directive?) {block?}
   iterator#reduce(accum) {block}
   iterator#repeater()
@@ -611,6 +612,7 @@ list
   list#print(stream?:stream:w)
   list#printf(format:string, stream?:stream:w):void
   list#println(stream?:stream:w)
+  list#prod()
   list#put(index:number, value:nomap):map:reduce
   list#rank(directive?):[stable] {block?}
   list#reduce(accum) {block}

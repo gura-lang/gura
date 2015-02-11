@@ -1666,6 +1666,23 @@ Gura_ImplementMethod(list, println)
 	return Value::Null;
 }
 
+// list#prod()
+Gura_DeclareMethod(list, prod)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
+}
+
+Gura_ImplementMethod(list, prod)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
+	if (sig.IsSignalled()) return Value::Null;
+	Value result = pIterator->Prod(env, sig);
+	if (sig.IsSignalled()) return Value::Null;
+	return result;
+}
+
 // list#rank(directive?):[stable] {block?}
 Gura_DeclareMethod(list, rank)
 {
@@ -2054,6 +2071,7 @@ void Class_list::Prepare(Environment &env)
 	Gura_AssignMethod(list, print);
 	Gura_AssignMethod(list, printf);
 	Gura_AssignMethod(list, println);
+	Gura_AssignMethod(list, prod);
 	Gura_AssignMethod(list, rank);
 	Gura_AssignMethod(list, reduce);
 	Gura_AssignMethod(list, replace);

@@ -98,6 +98,7 @@ public:
 	Value MinMax(Environment &env, Signal sig,
 									bool maxFlag, const SymbolSet &attrs);
 	Value Sum(Environment &env, Signal sig, size_t &cnt);
+	Value Prod(Environment &env, Signal sig);
 	Value Average(Environment &env, Signal sig, size_t &cnt);
 	Value Variance(Environment &env, Signal sig, size_t &cnt);
 	Value StandardDeviation(Environment &env, Signal sig, size_t &cnt);

@@ -1025,6 +1025,25 @@ Gura_ImplementMethod(iterator, println)
 	return Value::Null;
 }
 
+// iterator#prod()
+Gura_DeclareMethod(iterator, prod)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a product of values in the iterable.");
+}
+
+Gura_ImplementMethod(iterator, prod)
+{
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
+	if (sig.IsSignalled()) return Value::Null;
+	Value result = pIterator->Prod(env, sig);
+	if (sig.IsSignalled()) return Value::Null;
+	return result;
+}
+
 // iterator#rank(directive?):[stable] {block?}
 Gura_DeclareMethod(iterator, rank)
 {
@@ -1486,6 +1505,7 @@ void Class_iterator::Prepare(Environment &env)
 	Gura_AssignMethod(iterator, print);
 	Gura_AssignMethod(iterator, println);
 	Gura_AssignMethod(iterator, printf);
+	Gura_AssignMethod(iterator, prod);
 	Gura_AssignMethod(iterator, rank);
 	Gura_AssignMethod(iterator, reduce);
 	Gura_AssignMethod(iterator, replace);

@@ -235,21 +235,23 @@ Value Iterator::Sum(Environment &env, Signal sig, size_t &cnt)
 	cnt = 0;
 	Value value;
 	if (!Next(env, sig, value)) return Value::Null;
-	Number result = 0;
-	do {
+	if (!value.Is_number()) {
+		const Operator *pOperatorAdd = env.GetOperator(OPTYPE_Add);
+		Value valResult(value);
+		cnt = 1;
+		while (Next(env, sig, value)) {
+			valResult = pOperatorAdd->EvalBinary(env, sig, valResult, value);
+			cnt++;
+			if (sig.IsSignalled()) return Value::Null;
+		}
+		return valResult;
+	}
+	Number result = value.GetNumber();
+	cnt = 1;
+	while (Next(env, sig, value)) {
 		if (value.Is_number()) {
 			result += value.GetNumber();
 			cnt++;
-		} else if (cnt == 0) {
-			const Operator *pOperatorAdd = env.GetOperator(OPTYPE_Add);
-			Value valResult(value);
-			cnt++;
-			while (Next(env, sig, value)) {
-				valResult = pOperatorAdd->EvalBinary(env, sig, valResult, value);
-				cnt++;
-				if (sig.IsSignalled()) return Value::Null;
-			}
-			return valResult;
 		} else {
 			const Operator *pOperatorAdd = env.GetOperator(OPTYPE_Add);
 			Value valResult(result);
@@ -260,7 +262,38 @@ Value Iterator::Sum(Environment &env, Signal sig, size_t &cnt)
 			} while (Next(env, sig, value));
 			return valResult;
 		}
-	} while (Next(env, sig, value));
+	}
+	return Value(result);
+}
+
+Value Iterator::Prod(Environment &env, Signal sig)
+{
+	Value value;
+	if (!Next(env, sig, value)) return Value::Null;
+	if (!value.Is_number()) {
+		const Operator *pOperatorMul = env.GetOperator(OPTYPE_Mul);
+		Value valResult(value);
+		while (Next(env, sig, value)) {
+			valResult = pOperatorMul->EvalBinary(env, sig, valResult, value);
+			if (sig.IsSignalled()) return Value::Null;
+		}
+		return valResult;
+	}
+	Number result = value.GetNumber();
+	while (Next(env, sig, value)) {
+		if (value.Is_number()) {
+			if (result == 0) break;
+			result *= value.GetNumber();
+		} else {
+			const Operator *pOperatorMul = env.GetOperator(OPTYPE_Mul);
+			Value valResult(result);
+			do {
+				valResult = pOperatorMul->EvalBinary(env, sig, valResult, value);
+				if (sig.IsSignalled()) return Value::Null;
+			} while (Next(env, sig, value));
+			return valResult;
+		}
+	}
 	return Value(result);
 }
 
