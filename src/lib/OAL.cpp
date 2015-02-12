@@ -1544,8 +1544,8 @@ bool ChangeMode(const char *mode, const char *pathName, bool followLinkFlag)
 void Sleep(Number delay)	// unit: sec
 {
 	struct timeval tv;
-	tv.tv_sec = 0;
-	tv.tv_usec = static_cast<int>(delay * 1000000);
+	tv.tv_sec = static_cast<long>(delay);
+	tv.tv_usec = static_cast<long>((delay - tv.tv_sec) * 1000000);
 	::select(0, NULL, NULL, NULL, &tv);
 }
 

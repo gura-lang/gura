@@ -266,7 +266,9 @@ Gura_DeclareMethod(iterator, delay)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns an iterator that returns each element with specified delay time between them.\n"
+		"\n"
+		"The argument `delay` is the delay time in seconds.\n");
 }
 
 Gura_ImplementMethod(iterator, delay)
@@ -283,7 +285,7 @@ Gura_DeclareMethod(iterator, isinfinite)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns `true` if the iterator is infinite one.");
 }
 
 Gura_ImplementMethod(iterator, isinfinite)
