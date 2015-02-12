@@ -504,7 +504,6 @@ Gura_ImplementMethod(iterator, cycle)
 	Value value = pIterator->Eval(env, sig, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
 	GURA_ASSUME(env, value.Is_list());
-	//Object_list *pObj = dynamic_cast<Object_list *>(value.GetListObj()->Clone());
 	Object_list *pObj = Object_list::Reference(Object_list::GetObject(value));
 	return ReturnIterator(env, sig, args,
 							new Object_list::IteratorCycle(pObj, cnt));
