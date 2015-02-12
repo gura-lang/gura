@@ -300,7 +300,7 @@ Gura_DeclareMethod(iterator, next)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a next element of the iterator.\n");
 }
 
 Gura_ImplementMethod(iterator, next)
@@ -317,7 +317,25 @@ Gura_DeclareMethod(iterator, repeater)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Makes the iterator behave as a \"repeater\".\n"
+		"This would allow the iterator be evaulated when it appears as an element\n"
+		"of another \"repeater\" iterator.\n"
+		"\n"
+		"Below is an example:\n"
+		"\n"
+		"    x = repeat(3):iter {\n"
+		"        ['apple', 'orange', 'grape'].each()\n"
+		"    }\n"
+		"    println(x)\n"
+		"    // Just prints iterator instance three times\n"
+		"    // since x can't evaluate the internal iterator.\n"
+		"    \n"
+		"    x = repeat(3):iter {\n"
+		"        ['apple', 'orange', 'grape'].each().repeater()\n"
+		"    }\n"
+		"    println(x)\n"
+		"    // Prints 'apple', 'orange' and  'grape' three times\n"
+		"    // after evaluating the internal iterator.\n");
 }
 
 Gura_ImplementMethod(iterator, repeater)
