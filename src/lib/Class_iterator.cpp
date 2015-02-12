@@ -164,10 +164,11 @@ Gura_DeclareFunction(interval)
 		"Creates an iterator that generates a sequence of numbers\n"
 		"by specifying the beginning and ending numbers, and the number of samples between them.\n"
 		
+		"\n"
 		"In default, it creates a sequence that contains the beginning and ending numbers.\n"
 		"Following attributes would generate the following numbers:\n"
 		"\n"
-		"- `:open` .. Numbers in range of `(begin, end)` that doesn't contain both `begin` and `end`.\n"
+		"- `:open` .. Numbers in range of `(begin, end)` that doesn't contain either `begin` or `end`.\n"
 		"- `:open_l` .. Numbers in range of `(begin, end]` that doesn't contain `begin`.\n"
 		"- `:open_r` .. Numbers in range of `[begin, end)` that doesn't contain `end`.\n");
 }
