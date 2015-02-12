@@ -113,9 +113,26 @@ Below is an example to use `args` class:
 text_array = R'''
 ## array Class
 
-An instance of the `array` class stores multiple numeric values in a seamless binary sequence.
-With such a structure, data in the instances can be passed without any conversion
-to functions in C library that expect arrays of `char`, `short`, `int` and so on.
+An instance of the `array` class stores multiple numeric values in a seamless binary sequence,
+which can be passed without any conversion to functions in C libraries
+that expect arrays of `char`, `short`, `int` and so on.
+
+There are several `array` classes depending on the element type they handle.
+They're listed in the the table below:
+
+<table>
+<tr><th>Class Name</th><th>Element Type</th></tr>
+<tr><td><code>array@char</code></td><td><code>char</code></td></tr>
+<tr><td><code>array@uchar</code></td><td><code>unsigned char</code></td></tr>
+<tr><td><code>array@short</code></td><td><code>short</code></td></tr>
+<tr><td><code>array@ushort</code></td><td><code>unsigned short</code></td></tr>
+<tr><td><code>array@long</code></td><td><code>long</code></td></tr>
+<tr><td><code>array@ulong</code></td><td><code>unsigned long</code></td></tr>
+<tr><td><code>array@int</code></td><td><code>int</code></td></tr>
+<tr><td><code>array@uint</code></td><td><code>unsigned int</code></td></tr>
+<tr><td><code>array@float</code></td><td><code>float</code></td></tr>
+<tr><td><code>array@double</code></td><td><code>double</code></td></tr>
+</table>
 '''
 
 //-----------------------------------------------------------------------------
@@ -131,6 +148,14 @@ text_binary = R'''
 
 The `binary` class provides measures to work on binary data
 that is a byte sequence without any format.
+
+You can create a `binary` instance by calling `binary()` constructor function.
+
+You can also create the instance by specifying `b` prefix before a string literal.
+For example, the code below creates a `binary` instance that contains a sequence
+`0x41, 0x42, 0xfe, 0x03, 0x43, 0x44`.
+
+    b'AB\xfe\x03CD'
 
 ### Properties
 
@@ -156,6 +181,13 @@ text_color = R'''
 
 An instance of the `color` class represents a color data that consists of red, green, blue and alpha elements.
 
+You can create a `color` instance by calling `color()` constructor function.
+
+Some instances are predefined as class variables:
+`color.black`, `color.maroon`, `color.green`, `color.olive`, `color.navy`, `color.purple`,
+`color.teal`, `color.gray`, `color.silverk`, `color.red`, `color.lime`, `color.yellow`,
+`color.blue`, `color.aqua`, `color.white`.
+
 ### Predefined Variables
 
 <table>
@@ -165,11 +197,6 @@ An instance of the `color` class represents a color data that consists of red, g
 <td>A list of color names that can be passed to <code>color()</code> function.</td></tr>
 
 </table>
-
-And some color instances are assigned to the variables:
-`color.black`, `color.maroon`, `color.green`, `color.olive`, `color.navy`, `color.purple`,
-`color.teal`, `color.gray`, `color.silverk`, `color.red`, `color.lime`, `color.yellow`,
-`color.blue`, `color.aqua`, `color.white`.
 
 ### Properties
 
@@ -196,6 +223,12 @@ text_datetime = R'''
 ## datetime Class
 
 The `datetime` class provides measures to handle date and time information.
+
+You can create a `datetime` instance by calling following functions:
+
+- `datetime()` constructor function
+- `datetime.now()`
+- `datetime.today()`
 
 ### Predefined Variables
 
@@ -309,6 +342,11 @@ text_dict = R'''
 ## dict Class
 
 The `dict` class provides measures to handle dictionary data.
+
+You can create a `dict` instance by calling `dict()` constructor function.
+
+You can also use a function named `%` to create an instance
+that is an alias of `dict()` function.
 '''
 
 //-----------------------------------------------------------------------------
@@ -329,8 +367,9 @@ text_error = R'''
 
 The `error` class provides measures to access error information.
 
-The `error` instance is passed when a block of `catch()` function is evaluated
-in `try-catch` sequence.
+There is no measures to create an `error` instance.
+They're instantiated and passed to a block of `catch()` function
+when an error occurs within a `try` block in a `try-catch` sequence.
 
 In the following code, `e` is an instance that contains information
 about an error that has occured in the `try` block.

@@ -1965,7 +1965,133 @@ f(false) println('not printed')
 </code></pre>
 <h2><span class="caption-index-2">6.2</span><a name="caption-6-2"></a>array Class</h2>
 <p>
-An instance of the <code>array</code> class stores multiple numeric values in a seamless binary sequence. With such a structure, data in the instances can be passed without any conversion to functions in C library that expect arrays of <code>char</code>, <code>short</code>, <code>int</code> and so on.
+An instance of the <code>array</code> class stores multiple numeric values in a seamless binary sequence, which can be passed without any conversion to functions in C libraries that expect arrays of <code>char</code>, <code>short</code>, <code>int</code> and so on.
+</p>
+<p>
+There are several <code>array</code> classes depending on the element type they handle. They're listed in the the table below:
+</p>
+<p>
+<table>
+
+<tr>
+<th>
+Class Name</th>
+<th>
+Element Type</th>
+</tr>
+
+<tr>
+<td>
+<code>
+array@char</code>
+</td>
+<td>
+<code>
+char</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+array@uchar</code>
+</td>
+<td>
+<code>
+unsigned char</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+array@short</code>
+</td>
+<td>
+<code>
+short</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+array@ushort</code>
+</td>
+<td>
+<code>
+unsigned short</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+array@long</code>
+</td>
+<td>
+<code>
+long</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+array@ulong</code>
+</td>
+<td>
+<code>
+unsigned long</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+array@int</code>
+</td>
+<td>
+<code>
+int</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+array@uint</code>
+</td>
+<td>
+<code>
+unsigned int</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+array@float</code>
+</td>
+<td>
+<code>
+float</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+array@double</code>
+</td>
+<td>
+<code>
+double</code>
+</td>
+</tr>
+
+</table>
+
 </p>
 <h3><span class="caption-index-3">6.2.1</span><a name="caption-6-2-1"></a>Methods</h3>
 <p>
@@ -2076,6 +2202,14 @@ The <code>audio</code> class provides measures to work on audio data.
 <p>
 The <code>binary</code> class provides measures to work on binary data that is a byte sequence without any format.
 </p>
+<p>
+You can create a <code>binary</code> instance by calling <code>binary()</code> constructor function.
+</p>
+<p>
+You can also create the instance by specifying <code>b</code> prefix before a string literal. For example, the code below creates a <code>binary</code> instance that contains a sequence <code>0x41, 0x42, 0xfe, 0x03, 0x43, 0x44</code>.
+</p>
+<pre><code>b'AB\xfe\x03CD'
+</code></pre>
 <h3><span class="caption-index-3">6.4.1</span><a name="caption-6-4-1"></a>Properties</h3>
 <p>
 <table>
@@ -2254,6 +2388,12 @@ The <code>codec</code> class provides measures to convert character codes.
 <p>
 An instance of the <code>color</code> class represents a color data that consists of red, green, blue and alpha elements.
 </p>
+<p>
+You can create a <code>color</code> instance by calling <code>color()</code> constructor function.
+</p>
+<p>
+Some instances are predefined as class variables: <code>color.black</code>, <code>color.maroon</code>, <code>color.green</code>, <code>color.olive</code>, <code>color.navy</code>, <code>color.purple</code>, <code>color.teal</code>, <code>color.gray</code>, <code>color.silverk</code>, <code>color.red</code>, <code>color.lime</code>, <code>color.yellow</code>, <code>color.blue</code>, <code>color.aqua</code>, <code>color.white</code>.
+</p>
 <h3><span class="caption-index-3">6.6.1</span><a name="caption-6-6-1"></a>Predefined Variables</h3>
 <p>
 <table>
@@ -2287,9 +2427,6 @@ color()</code>
 
 </table>
 
-</p>
-<p>
-And some color instances are assigned to the variables: <code>color.black</code>, <code>color.maroon</code>, <code>color.green</code>, <code>color.olive</code>, <code>color.navy</code>, <code>color.purple</code>, <code>color.teal</code>, <code>color.gray</code>, <code>color.silverk</code>, <code>color.red</code>, <code>color.lime</code>, <code>color.yellow</code>, <code>color.blue</code>, <code>color.aqua</code>, <code>color.white</code>.
 </p>
 <h3><span class="caption-index-3">6.6.2</span><a name="caption-6-6-2"></a>Properties</h3>
 <p>
@@ -2432,6 +2569,14 @@ Returns a list of RGB elements in a form <code>[r, g, b]</code>. Specifying <cod
 <p>
 The <code>datetime</code> class provides measures to handle date and time information.
 </p>
+<p>
+You can create a <code>datetime</code> instance by calling following functions:
+</p>
+<ul>
+<li><code>datetime()</code> constructor function</li>
+<li><code>datetime.now()</code></li>
+<li><code>datetime.today()</code></li>
+</ul>
 <h3><span class="caption-index-3">6.7.1</span><a name="caption-6-7-1"></a>Predefined Variables</h3>
 <p>
 <table>
@@ -3052,6 +3197,12 @@ You can also specify a type by describing factors in separate arguments like bel
 <p>
 The <code>dict</code> class provides measures to handle dictionary data.
 </p>
+<p>
+You can create a <code>dict</code> instance by calling <code>dict()</code> constructor function.
+</p>
+<p>
+You can also use a function named <code>%</code> to create an instance that is an alias of <code>dict()</code> function.
+</p>
 <h3><span class="caption-index-3">6.9.1</span><a name="caption-6-9-1"></a>Methods</h3>
 <p>
 <strong>dict</strong>
@@ -3303,7 +3454,7 @@ Looks up a specified symbol in the environment and returns the associated value.
 The <code>error</code> class provides measures to access error information.
 </p>
 <p>
-The <code>error</code> instance is passed when a block of <code>catch()</code> function is evaluated in <code>try-catch</code> sequence.
+There is no measures to create an <code>error</code> instance. They're instantiated and passed to a block of <code>catch()</code> function when an error occurs within a <code>try</code> block in a <code>try-catch</code> sequence.
 </p>
 <p>
 In the following code, <code>e</code> is an instance that contains information about an error that has occured in the <code>try</code> block.
