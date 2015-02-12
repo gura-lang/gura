@@ -384,6 +384,18 @@ Gura_DeclareMethod(iterator, align)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates an iterator that returns the specified number of elements in the source iterator.\n"
+		"If the number is larger than the length of the source iterator,\n"
+		"the lacking part is filled with `value`.\n"
+		"If the argument `value` is omitted, `nil` is used for the filling.\n"
+		"\n"
+		"Below are examples:\n"
+		"\n"
+		"    rtn = [3, 1, 4, 1, 5, 9].align(3)\n"
+		"    // an iterator to return 3, 1, 4.\n"
+		"\n"
+		"    rtn = [3, 1, 4, 1, 5, 9].align(10)\n"
+		"    // an iterator to return 3, 1, 4, 1, 5, 9, nil, nil, nil, nil.\n"
 		"");
 }
 
@@ -403,7 +415,7 @@ Gura_DeclareMethodAlias(iterator, and_, "and")
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Calculates a logical AND result of all the values in the list.\n"
 		"Values of boolean type's false and nil are recognized as false\n"
-		"while others are true.");
+		"while others are true.\n");
 }
 
 Gura_ImplementMethod(iterator, and_)
@@ -422,7 +434,7 @@ Gura_DeclareMethod(iterator, average)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an average of values in the iterable.");
+		"Returns an average of values in the iterable.\n");
 }
 
 Gura_ImplementMethod(iterator, average)
@@ -513,7 +525,16 @@ Gura_DeclareMethod(iterator, cycle)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that iterates elements in the source iterator cyclically.\n"
+		"\n"
+		"The argument `n` specifies the number of elements the created iterator returns.\n"
+		"If omitted, it would iterates elements infinitely.\n"
+		"\n"
+		"Below is an example:\n"
+		"\n"
+		"    rtn = [1, 2, 3, 4, 5].cycle()\n"
+		"    // an iterator to return 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, ..\n");
+
 }
 
 Gura_ImplementMethod(iterator, cycle)
