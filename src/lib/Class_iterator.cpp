@@ -57,7 +57,11 @@ Gura_DeclareFunction(iterator)
 	SetClassToConstruct(env.LookupClass(VTYPE_iterator));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that combines iterators given in the argument.\n"
+		"\n"
+		"If an argument is not an iterator, that would be added as an element.\n"
+		"\n"
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementFunction(iterator)
@@ -86,7 +90,16 @@ Gura_DeclareFunction(range)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that generates a sequence of integer numbers.\n"
+		"\n"
+		"This function can be called in three formats that generate following numbers:\n"
+		"\n"
+		"- `range(num)` .. Numbers between `0` and `(num - 1)`.\n"
+		"- `range(num, num_end)` .. Numbers between `num` and `(num_end - 1)`.\n"
+		"- `range(num, num_end, step)` .. Numbers between `num` and `(num_end - 1)`\n"
+		"  incremented by `step`.\n"
+		"\n"
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementFunction(range)
@@ -135,12 +148,12 @@ Gura_ImplementFunction(range)
 	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
-// interval(a:number, b:number, samples:number):map:[open,open_l,open_r] {block?}
+// interval(begin:number, end:number, samples:number):map:[open,open_l,open_r] {block?}
 Gura_DeclareFunction(interval)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "a", VTYPE_number);
-	DeclareArg(env, "b", VTYPE_number);
+	DeclareArg(env, "begin", VTYPE_number);
+	DeclareArg(env, "end", VTYPE_number);
 	DeclareArg(env, "samples", VTYPE_number);
 	DeclareAttr(Gura_Symbol(open));
 	DeclareAttr(Gura_Symbol(open_l));
@@ -148,7 +161,15 @@ Gura_DeclareFunction(interval)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that generates a sequence of numbers\n"
+		"by specifying the beginning and ending numbers, and the number of samples between them.\n"
+		
+		"In default, it creates a sequence that contains the beginning and ending numbers.\n"
+		"Following attributes would generate the following numbers:\n"
+		"\n"
+		"- `:open` .. Numbers in range of `(begin, end)` that doesn't contain both `begin` and `end`.\n"
+		"- `:open_l` .. Numbers in range of `(begin, end]` that doesn't contain `begin`.\n"
+		"- `:open_r` .. Numbers in range of `[begin, end)` that doesn't contain `end`.\n");
 }
 
 Gura_ImplementFunction(interval)
@@ -189,7 +210,12 @@ Gura_DeclareFunction(consts)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that generates the same value specified by the argument `value`.\n"
+		"\n"
+		"The argument `num` specifies the number of elements to be generated.\n"
+		"If omitted, it would generate the value infinitely.\n"
+		"\n"
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementFunction(consts)
@@ -213,10 +239,11 @@ Gura_DeclareFunction(rands)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates an iterator that returns random numbers between `0` and `range - 1`.\n"
+		"\n"
 		"If argument `range` is not specified, it generates random numbers in a range of [0, 1).\n"
 		"\n"
 		"In default, the created iterator infinitely generates random numbers.\n"
-		"The argument `num` specifies how many numbers should be generated.\n");
+		"The argument `num` specifies how many elements should be generated.\n");
 }
 
 Gura_ImplementFunction(rands)
