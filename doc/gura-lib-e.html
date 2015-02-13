@@ -3898,6 +3898,23 @@ Explanation</th>
 <tr>
 <td>
 <code>
+expr#attrfront</code>
+</td>
+<td>
+<code>
+symbol[]</code>
+</td>
+<td>
+R</td>
+
+<td>
+Exists in "identifier" and "caller".</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
 expr#attrs</code>
 </td>
 <td>
@@ -3908,7 +3925,7 @@ symbol[]</code>
 R</td>
 
 <td>
-</td>
+Exists in "identifier" and "caller".</td>
 </tr>
 
 
@@ -3925,7 +3942,7 @@ symbol[]</code>
 R</td>
 
 <td>
-</td>
+Exists in "identifier" and "caller".</td>
 </tr>
 
 
@@ -3942,7 +3959,7 @@ expr</code>
 R</td>
 
 <td>
-</td>
+Exists in "caller".</td>
 </tr>
 
 
@@ -3959,7 +3976,7 @@ iterator</code>
 R</td>
 
 <td>
-</td>
+Exists in "block".</td>
 </tr>
 
 
@@ -3976,7 +3993,7 @@ string</code>
 R</td>
 
 <td>
-</td>
+Exists in "suffixed".</td>
 </tr>
 
 
@@ -3993,7 +4010,7 @@ expr</code>
 R</td>
 
 <td>
-</td>
+Exists in "compound".</td>
 </tr>
 
 
@@ -4010,7 +4027,7 @@ iterator</code>
 R</td>
 
 <td>
-</td>
+Exists in "compound".</td>
 </tr>
 
 
@@ -4027,7 +4044,7 @@ expr</code>
 R</td>
 
 <td>
-</td>
+Exists in "unary".</td>
 </tr>
 
 
@@ -4044,7 +4061,7 @@ iterator</code>
 R</td>
 
 <td>
-</td>
+Exists in "collector".</td>
 </tr>
 
 
@@ -4061,7 +4078,7 @@ expr</code>
 R</td>
 
 <td>
-</td>
+Exists in "binary".</td>
 </tr>
 
 
@@ -4112,7 +4129,7 @@ operator</code>
 R</td>
 
 <td>
-</td>
+Exists in "unaryop", "binaryop" and "assign".</td>
 </tr>
 
 
@@ -4146,7 +4163,7 @@ expr</code>
 R</td>
 
 <td>
-</td>
+Exists in "binary".</td>
 </tr>
 
 
@@ -4180,7 +4197,7 @@ symbol</code>
 R</td>
 
 <td>
-</td>
+Exists in "suffixed".</td>
 </tr>
 
 
@@ -4197,7 +4214,7 @@ symbol</code>
 R</td>
 
 <td>
-</td>
+Exists in "identifier".</td>
 </tr>
 
 
@@ -4214,7 +4231,7 @@ expr</code>
 R</td>
 
 <td>
-</td>
+Exists in "caller".</td>
 </tr>
 
 
@@ -4265,7 +4282,7 @@ any</code>
 R</td>
 
 <td>
-</td>
+Exists in "value".</td>
 </tr>
 
 
@@ -4280,7 +4297,10 @@ R</td>
 <code>expr(src:stream:r):map {block?}</code>
 </p>
 <p>
-Parses a content of a script stream and returns an expr object.
+Parses a Gura script from the stream <code>src</code> and creates an <code>expr</code> instance.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|expr:expr|</code>, where <code>expr</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 <strong>expr#eval</strong>
@@ -4289,7 +4309,10 @@ Parses a content of a script stream and returns an expr object.
 <code>expr#eval(env?:environment)</code>
 </p>
 <p>
-Evaluates an expr object. If argument <code>env</code> is specified, that environment is used for evaluation. Otherwise, environment of the current scope is used.
+Evaluates the <code>expr</code> instance.
+</p>
+<p>
+If the argument <code>env</code> is specified, that environment is used for evaluation. If omitted, the current scope is used.
 </p>
 <p>
 <strong>expr.parse</strong>
@@ -4298,7 +4321,10 @@ Evaluates an expr object. If argument <code>env</code> is specified, that enviro
 <code>expr.parse(script:string):static:map {block?}</code>
 </p>
 <p>
-Parses a string and returns an expr object. If <code>block</code> is specified, it will be evaluated with block parameter in a format of <code>|expr:expr|</code> where <code>expr</code> is the created object.
+Parses a Gura script in the string <code>script</code> and creates an <code>expr</code> instance.
+</p>
+<p>
+If <code>block</code> is specified, it will be evaluated with block parameter in a format of <code>|expr:expr|</code> where <code>expr</code> is the created instance.
 </p>
 <p>
 <strong>expr#textize</strong>
@@ -4307,19 +4333,19 @@ Parses a string and returns an expr object. If <code>block</code> is specified, 
 <code>expr#textize(style?:symbol, indent?:string)</code>
 </p>
 <p>
-Composes a script text from a content of expr.
+Composes a script text from a content of <code>expr</code>.
 </p>
 <p>
-Argument <code>style</code> specifies the text style output, which takes the following symbols. Default is <code>fancy</code>.
+Argument <code>style</code> specifies the text style output, which takes the following symbols:
 </p>
 <ul>
-<li><code>`crammed</code> .. puts all the text in one line and removes volatile spaces</li>
-<li><code>`oneline</code> .. puts all the text in one line</li>
-<li><code>`brief</code> .. omits content of blocks and long strings with ".."</li>
-<li><code>`fancy</code> .. the most readable style</li>
+<li><code>`crammed</code> .. Puts all the text in one line and removes volatile spaces.</li>
+<li><code>`oneline</code> .. Puts all the text in one line.</li>
+<li><code>`brief</code> .. Omits content of blocks and long strings with "<code>..</code>".</li>
+<li><code>`fancy</code> .. Prints in the most readable style. This is the default.</li>
 </ul>
 <p>
-Argument <code>indent</code> specifies a string for indentation. Default is a sequence of four spaces.
+The argument <code>indent</code> specifies a string used for indentation. Its default is a sequence of four spaces.
 </p>
 <p>
 <strong>expr#tofunction</strong>
@@ -4328,13 +4354,22 @@ Argument <code>indent</code> specifies a string for indentation. Default is a se
 <code>expr#tofunction(`args*)</code>
 </p>
 <p>
-Creates a function with specified arguments and a body of expr.
+Converts the <code>expr</code> into a function.
+</p>
+<p>
+If the <code>expr</code> is a block that has a block parameter, that would be used as an argument list of the created function. Otherwise, the argument <code>args</code> declares the argument list.
+</p>
+<p>
+It would be an error if <code>args</code> is specified and a block parameter exists as well.
 </p>
 <p>
 <strong>expr#unquote</strong>
 </p>
 <p>
 <code>expr#unquote()</code>
+</p>
+<p>
+Returns <code>expr</code> instance that has removed quote operator from the original <code>expr</code>.
 </p>
 <p>
 <strong>expr#write</strong>
@@ -4346,16 +4381,16 @@ Creates a function with specified arguments and a body of expr.
 Outputs a script that describes the expression to the specified <code>stream</code>.
 </p>
 <p>
-Argument <code>style</code> specifies the text style output, which takes the following symbols. Default is <code>fancy</code>.
+Argument <code>style</code> specifies the text style output, which takes the following symbols:
 </p>
 <ul>
-<li><code>`crammed</code> .. puts all the text in one line and removes volatile spaces</li>
-<li><code>`oneline</code> .. puts all the text in one line</li>
-<li><code>`brief</code> .. omits content of blocks and long strings with ".."</li>
-<li><code>`fancy</code> .. the most readable style</li>
+<li><code>`crammed</code> .. Puts all the text in one line and removes volatile spaces.</li>
+<li><code>`oneline</code> .. Puts all the text in one line.</li>
+<li><code>`brief</code> .. Omits content of blocks and long strings with "<code>..</code>".</li>
+<li><code>`fancy</code> .. Prints in the most readable style. This is the default.</li>
 </ul>
 <p>
-Argument <code>indent</code> specifies a string for indentation. Default is a sequence of four spaces.
+The argument <code>indent</code> specifies a string used for indentation. Its default is a sequence of four spaces.
 </p>
 <p>
 <strong>expr#isunary</strong>
@@ -4520,6 +4555,24 @@ Returns <code>true</code> if expr is an expression of identifier.
 Returns <code>true</code> if expr is an expression of suffixed.
 </p>
 <h2><span class="caption-index-2">6.14</span><a name="caption-6-14"></a>formatter Class</h2>
+<p>
+The <code>formatter</code> class provides measures to get information printf-style format qualifier.
+</p>
+<p>
+The instance is referred in the overridden methods that are shown below:
+</p>
+<ul>
+<li><code>object#__format_d__(fmt:formatter)</code></li>
+<li><code>object#__format_u__(fmt:formatter)</code></li>
+<li><code>object#__format_b__(fmt:formatter)</code></li>
+<li><code>object#__format_o__(fmt:formatter)</code></li>
+<li><code>object#__format_x__(fmt:formatter)</code></li>
+<li><code>object#__format_e__(fmt:formatter)</code></li>
+<li><code>object#__format_f__(fmt:formatter)</code></li>
+<li><code>object#__format_g__(fmt:formatter)</code></li>
+<li><code>object#__format_s__(fmt:formatter)</code></li>
+<li><code>object#__format_c__(fmt:formatter)</code></li>
+</ul>
 <h3><span class="caption-index-3">6.14.1</span><a name="caption-6-14-1"></a>Methods</h3>
 <p>
 <strong>formatter#getfieldminwidth</strong>

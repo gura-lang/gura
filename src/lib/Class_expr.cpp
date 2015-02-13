@@ -284,7 +284,11 @@ Gura_DeclareFunction(expr)
 	SetClassToConstruct(env.LookupClass(VTYPE_expr));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Parses a content of a script stream and returns an expr object.");
+		"Parses a Gura script from the stream `src` and creates an `expr` instance.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|expr:expr|`,\n"
+		"where `expr` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementFunction(expr)
@@ -303,9 +307,10 @@ Gura_DeclareMethod(expr, eval)
 	DeclareArg(env, "env", VTYPE_environment, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Evaluates an expr object.\n"
-		"If argument `env` is specified, that environment is used for evaluation.\n"
-		"Otherwise, environment of the current scope is used.\n");
+		"Evaluates the `expr` instance.\n"
+		"\n"
+		"If the argument `env` is specified, that environment is used for evaluation.\n"
+		"If omitted, the current scope is used.\n");
 }
 
 Gura_ImplementMethod(expr, eval)
@@ -325,9 +330,10 @@ Gura_DeclareClassMethod(expr, parse)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Parses a string and returns an expr object.\n"
+		"Parses a Gura script in the string `script` and creates an `expr` instance.\n"
+		"\n"
 		"If `block` is specified, it will be evaluated with block parameter\n"
-		"in a format of `|expr:expr|` where `expr` is the created object.");
+		"in a format of `|expr:expr|` where `expr` is the created instance.");
 }
 
 Gura_ImplementClassMethod(expr, parse)
@@ -347,18 +353,17 @@ Gura_DeclareMethod(expr, textize)
 	DeclareArg(env, "indent", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Composes a script text from a content of expr.\n"
+		"Composes a script text from a content of `expr`.\n"
 		"\n"
-		"Argument `style` specifies the text style output, which takes the following symbols.\n"
-		"Default is `fancy`.\n"
+		"Argument `style` specifies the text style output, which takes the following symbols:\n"
 		"\n"
-		"- `` `crammed`` .. puts all the text in one line and removes volatile spaces\n"
-		"- `` `oneline`` .. puts all the text in one line\n"
-		"- `` `brief`` .. omits content of blocks and long strings with \"..\"\n"
-		"- `` `fancy`` .. the most readable style\n"
+		"- `` `crammed`` .. Puts all the text in one line and removes volatile spaces.\n"
+		"- `` `oneline`` .. Puts all the text in one line.\n"
+		"- `` `brief`` .. Omits content of blocks and long strings with \"`..`\".\n"
+		"- `` `fancy`` .. Prints in the most readable style. This is the default.\n"
 		"\n"
-		"Argument `indent` specifies a string for indentation.\n"
-		"Default is a sequence of four spaces.");
+		"The argument `indent` specifies a string used for indentation.\n"
+		"Its default is a sequence of four spaces.");
 }
 
 Gura_ImplementMethod(expr, textize)
@@ -388,7 +393,13 @@ Gura_DeclareMethod(expr, tofunction)
 	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates a function with specified arguments and a body of expr.");
+		"Converts the `expr` into a function.\n"
+		"\n"
+		"If the `expr` is a block that has a block parameter,\n"
+		"that would be used as an argument list of the created function.\n"
+		"Otherwise, the argument `args` declares the argument list.\n"
+		"\n"
+		"It would be an error if `args` is specified and a block parameter exists as well.\n");
 }
 
 Gura_ImplementMethod(expr, tofunction)
@@ -419,6 +430,9 @@ Gura_ImplementMethod(expr, tofunction)
 Gura_DeclareMethod(expr, unquote)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns `expr` instance that has removed quote operator from the original `expr`.");
 }
 
 Gura_ImplementMethod(expr, unquote)
@@ -439,16 +453,15 @@ Gura_DeclareMethod(expr, write)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Outputs a script that describes the expression to the specified `stream`.\n"
 		"\n"
-		"Argument `style` specifies the text style output, which takes the following symbols.\n"
-		"Default is `fancy`.\n"
+		"Argument `style` specifies the text style output, which takes the following symbols:\n"
 		"\n"
-		"- `` `crammed`` .. puts all the text in one line and removes volatile spaces\n"
-		"- `` `oneline`` .. puts all the text in one line\n"
-		"- `` `brief`` .. omits content of blocks and long strings with \"..\"\n"
-		"- `` `fancy`` .. the most readable style\n"
+		"- `` `crammed`` .. Puts all the text in one line and removes volatile spaces.\n"
+		"- `` `oneline`` .. Puts all the text in one line.\n"
+		"- `` `brief`` .. Omits content of blocks and long strings with \"`..`\".\n"
+		"- `` `fancy`` .. Prints in the most readable style. This is the default.\n"
 		"\n"
-		"Argument `indent` specifies a string for indentation.\n"
-		"Default is a sequence of four spaces.");
+		"The argument `indent` specifies a string used for indentation.\n"
+		"Its default is a sequence of four spaces.");
 }
 
 Gura_ImplementMethod(expr, write)

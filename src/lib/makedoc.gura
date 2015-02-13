@@ -505,35 +505,38 @@ text_expr = R'''
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
+<tr><td><code>expr#attrfront</code></td><td><code>symbol[]</code></td><td>R</td>
+<td>Exists in "identifier" and "caller".</td></tr>
+
 <tr><td><code>expr#attrs</code></td><td><code>symbol[]</code></td><td>R</td>
-<td></td></tr>
+<td>Exists in "identifier" and "caller".</td></tr>
 
 <tr><td><code>expr#attrsopt</code></td><td><code>symbol[]</code></td><td>R</td>
-<td></td></tr>
+<td>Exists in "identifier" and "caller".</td></tr>
 
 <tr><td><code>expr#block</code></td><td><code>expr</code></td><td>R</td>
-<td></td></tr>
+<td>Exists in "caller".</td></tr>
 
 <tr><td><code>expr#blockparam</code></td><td><code>iterator</code></td><td>R</td>
-<td></td></tr>
+<td>Exists in "block".</td></tr>
 
 <tr><td><code>expr#body</code></td><td><code>string</code></td><td>R</td>
-<td></td></tr>
+<td>Exists in "suffixed".</td></tr>
 
 <tr><td><code>expr#car</code></td><td><code>expr</code></td><td>R</td>
-<td></td></tr>
+<td>Exists in "compound".</td></tr>
 
 <tr><td><code>expr#cdr</code></td><td><code>iterator</code></td><td>R</td>
-<td></td></tr>
+<td>Exists in "compound".</td></tr>
 
 <tr><td><code>expr#child</code></td><td><code>expr</code></td><td>R</td>
-<td></td></tr>
+<td>Exists in "unary".</td></tr>
 
 <tr><td><code>expr#children</code></td><td><code>iterator</code></td><td>R</td>
-<td></td></tr>
+<td>Exists in "collector".</td></tr>
 
 <tr><td><code>expr#left</code></td><td><code>expr</code></td><td>R</td>
-<td></td></tr>
+<td>Exists in "binary".</td></tr>
 
 <tr><td><code>expr#lineno</code></td><td><code>number</code></td><td>R</td>
 <td></td></tr>
@@ -542,25 +545,25 @@ text_expr = R'''
 <td></td></tr>
 
 <tr><td><code>expr#operator</code></td><td><code>operator</code></td><td>R</td>
-<td></td></tr>
+<td>Exists in "unaryop", "binaryop" and "assign".</td></tr>
 
 <tr><td><code>expr#postext</code></td><td><code>string</code></td><td>R</td>
 <td></td></tr>
 
 <tr><td><code>expr#right</code></td><td><code>expr</code></td><td>R</td>
-<td></td></tr>
+<td>Exists in "binary".</td></tr>
 
 <tr><td><code>expr#source</code></td><td><code>string</code></td><td>R</td>
 <td></td></tr>
 
 <tr><td><code>expr#suffix</code></td><td><code>symbol</code></td><td>R</td>
-<td></td></tr>
+<td>Exists in "suffixed".</td></tr>
 
 <tr><td><code>expr#symbol</code></td><td><code>symbol</code></td><td>R</td>
-<td></td></tr>
+<td>Exists in "identifier".</td></tr>
 
 <tr><td><code>expr#trailer</code></td><td><code>expr</code></td><td>R</td>
-<td></td></tr>
+<td>Exists in "caller".</td></tr>
 
 <tr><td><code>expr#typename</code></td><td><code>string</code></td><td>R</td>
 <td></td></tr>
@@ -569,7 +572,7 @@ text_expr = R'''
 <td></td></tr>
 
 <tr><td><code>expr#value</code></td><td><code>any</code></td><td>R</td>
-<td></td></tr>
+<td>Exists in "value".</td></tr>
 
 </table>
 '''
@@ -577,6 +580,21 @@ text_expr = R'''
 //-----------------------------------------------------------------------------
 text_formatter = R'''
 ## formatter Class
+
+The `formatter` class provides measures to get information printf-style format qualifier.
+
+The instance is referred in the overridden methods that are shown below:
+
+- `object#__format_d__(fmt:formatter)`
+- `object#__format_u__(fmt:formatter)`
+- `object#__format_b__(fmt:formatter)`
+- `object#__format_o__(fmt:formatter)`
+- `object#__format_x__(fmt:formatter)`
+- `object#__format_e__(fmt:formatter)`
+- `object#__format_f__(fmt:formatter)`
+- `object#__format_g__(fmt:formatter)`
+- `object#__format_s__(fmt:formatter)`
+- `object#__format_c__(fmt:formatter)`
 
 '''
 
