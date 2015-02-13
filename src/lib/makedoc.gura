@@ -353,11 +353,20 @@ that is an alias of `dict()` function.
 text_directory = R'''
 ## directory Class
 
+The `directory` class handles information necessary to seek directory structure in a path.
+Its instance usually works with functions in `path` module: `path.dir()` and `path.walk()`.
+
+Though the instance can be created by `directory()` constructor function,
+you don't have to use it in many cases because a casting from `string` to `directory` instance
+works implicitly in a function call.
 '''
 
 //-----------------------------------------------------------------------------
 text_environment = R'''
 ## environment Class
+
+The `environment` class provides measures to operate variables in an environment,
+which is a fundamental mechanism to store variables.
 
 '''
 
@@ -379,6 +388,85 @@ about an error that has occured in the `try` block.
     } catch {|e:error|
         // ...
     }
+
+### Predefined Variables
+
+<table>
+<tr><th>Variable</th><th>Explanation</th></tr>
+
+<tr><td><code>error.ArgumentError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.ArithmeticError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.AttributeError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.CodecError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.CommandError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.DeclarationError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.FormatError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.IOError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.ImportError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.IndexError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.IteratorError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.KeyError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.MemberAccessError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.MemoryError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.NameError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.NotImplementedError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.OutOfRange</code></td>
+<td></td></tr>
+
+<tr><td><code>error.ResourceError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.RuntimeError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.SyntaxError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.SystemError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.TypeError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.ValueError</code></td>
+<td></td></tr>
+
+<tr><td><code>error.ZeroDivisionError</code></td>
+<td></td></tr>
+
+</table>
 
 ### Properties
 
@@ -495,6 +583,38 @@ text_formatter = R'''
 //-----------------------------------------------------------------------------
 text_function = R'''
 ## function Class
+
+The `function` class provides measure to inspect information about the instance.
+
+All the functions are instances of `function` class,
+so an implementation of a function means a realization of a `function` instance.
+You can also create the instance using `function()` constructor.
+The following two codes have the same result:
+
+    f(a:number, b:number, c:number) = {
+        (a + b + c) / 3
+    }
+
+    f = function(a:number, b:number, c:number) {
+        (a + b + c) / 3
+    }
+
+Using `function()`, you can use variables prefixed by a dollar character
+so that they are automatically added to the argument list.
+In such a case, the variables are added to the argument list in the same order as
+they appear in the function body.
+The code below creates a function with a declaration `f($a, $b, $c)`.
+
+    f = function {
+        ($a + $b + $c) / 3
+    }
+
+You can use `&` as an alias of `function()` as shown below:
+
+    f = &{
+        ($a + $b + $c) / 3
+    }
+
 
 ### Properties
 

@@ -23,9 +23,10 @@ Value Object_directory::DoGetProp(Environment &env, Signal sig, const Symbol *pS
 
 String Object_directory::ToString(bool exprFlag)
 {
+	const Directory *pDirectory = GetDirectory();
 	String str;
-	//Directory *pDirectory = GetDirectory();
 	str += "<directory:";
+	pDirectory->GetName();
 	str += ">";
 	return str;
 }
@@ -42,7 +43,7 @@ Gura_DeclareFunction(directory)
 	SetClassToConstruct(env.LookupClass(VTYPE_directory));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `directory` instance from the specified path name.\n");
 }
 
 Gura_ImplementFunction(directory)

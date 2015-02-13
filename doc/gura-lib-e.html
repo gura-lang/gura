@@ -3419,6 +3419,12 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
 <h2><span class="caption-index-2">6.10</span><a name="caption-6-10"></a>directory Class</h2>
+<p>
+The <code>directory</code> class handles information necessary to seek directory structure in a path. Its instance usually works with functions in <code>path</code> module: <code>path.dir()</code> and <code>path.walk()</code>.
+</p>
+<p>
+Though the instance can be created by <code>directory()</code> constructor function, you don't have to use it in many cases because a casting from <code>string</code> to <code>directory</code> instance works implicitly in a function call.
+</p>
 <h3><span class="caption-index-3">6.10.1</span><a name="caption-6-10-1"></a>Methods</h3>
 <p>
 <strong>directory</strong>
@@ -3426,7 +3432,13 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <p>
 <code>directory(pathname:string):map {block?}</code>
 </p>
+<p>
+Creates a <code>directory</code> instance from the specified path name.
+</p>
 <h2><span class="caption-index-2">6.11</span><a name="caption-6-11"></a>environment Class</h2>
+<p>
+The <code>environment</code> class provides measures to operate variables in an environment, which is a fundamental mechanism to store variables.
+</p>
 <h3><span class="caption-index-3">6.11.1</span><a name="caption-6-11-1"></a>Methods</h3>
 <p>
 <strong>environment#getprop!</strong>
@@ -3465,7 +3477,286 @@ In the following code, <code>e</code> is an instance that contains information a
     // ...
 }
 </code></pre>
-<h3><span class="caption-index-3">6.12.1</span><a name="caption-6-12-1"></a>Properties</h3>
+<h3><span class="caption-index-3">6.12.1</span><a name="caption-6-12-1"></a>Predefined Variables</h3>
+<p>
+<table>
+
+<tr>
+<th>
+Variable</th>
+<th>
+Explanation</th>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.ArgumentError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.ArithmeticError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.AttributeError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.CodecError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.CommandError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.DeclarationError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.FormatError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.IOError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.ImportError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.IndexError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.IteratorError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.KeyError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.MemberAccessError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.MemoryError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.NameError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.NotImplementedError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.OutOfRange</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.ResourceError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.RuntimeError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.SyntaxError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.SystemError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.TypeError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.ValueError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+error.ZeroDivisionError</code>
+</td>
+
+<td>
+</td>
+</tr>
+
+
+</table>
+
+</p>
+<h3><span class="caption-index-3">6.12.2</span><a name="caption-6-12-2"></a>Properties</h3>
 <p>
 <table>
 
@@ -4273,6 +4564,34 @@ Returns <code>true</code> if expr is an expression of suffixed.
 <code>formatter#isuppercase()</code>
 </p>
 <h2><span class="caption-index-2">6.15</span><a name="caption-6-15"></a>function Class</h2>
+<p>
+The <code>function</code> class provides measure to inspect information about the instance.
+</p>
+<p>
+All the functions are instances of <code>function</code> class, so an implementation of a function means a realization of a <code>function</code> instance. You can also create the instance using <code>function()</code> constructor. The following two codes have the same result:
+</p>
+<pre><code>f(a:number, b:number, c:number) = {
+    (a + b + c) / 3
+}
+</code></pre>
+<pre><code>f = function(a:number, b:number, c:number) {
+    (a + b + c) / 3
+}
+</code></pre>
+<p>
+Using <code>function()</code>, you can use variables prefixed by a dollar character so that they are automatically added to the argument list. In such a case, the variables are added to the argument list in the same order as they appear in the function body. The code below creates a function with a declaration <code>f($a, $b, $c)</code>.
+</p>
+<pre><code>f = function {
+    ($a + $b + $c) / 3
+}
+</code></pre>
+<p>
+You can use <code>&amp;</code> as an alias of <code>function()</code> as shown below:
+</p>
+<pre><code>f = &amp;{
+    ($a + $b + $c) / 3
+}
+</code></pre>
 <h3><span class="caption-index-3">6.15.1</span><a name="caption-6-15-1"></a>Properties</h3>
 <p>
 <table>
@@ -5003,10 +5322,13 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <code>interval(begin:number, end:number, samples:number):map:[open,open_l,open_r] {block?}</code>
 </p>
 <p>
-Creates an iterator that generates a sequence of numbers by specifying the beginning and ending numbers, and the number of samples between them. In default, it creates a sequence that contains the beginning and ending numbers. Following attributes would generate the following numbers:
+Creates an iterator that generates a sequence of numbers by specifying the beginning and ending numbers, and the number of samples between them.
+</p>
+<p>
+In default, it creates a sequence that contains the beginning and ending numbers. Following attributes would generate the following numbers:
 </p>
 <ul>
-<li><code>:open</code> .. Numbers in range of <code>(begin, end)</code> that doesn't contain both <code>begin</code> and <code>end</code>.</li>
+<li><code>:open</code> .. Numbers in range of <code>(begin, end)</code> that doesn't contain either <code>begin</code> or <code>end</code>.</li>
 <li><code>:open_l</code> .. Numbers in range of <code>(begin, end]</code> that doesn't contain <code>begin</code>.</li>
 <li><code>:open_r</code> .. Numbers in range of <code>[begin, end)</code> that doesn't contain <code>end</code>.</li>
 </ul>
@@ -5059,10 +5381,19 @@ In default, the created iterator infinitely generates random numbers. The argume
 <code>iterator#delay(delay:number) {block?}</code>
 </p>
 <p>
+Returns an iterator that returns each element with specified delay time between them.
+</p>
+<p>
+The argument <code>delay</code> is the delay time in seconds.
+</p>
+<p>
 <strong>iterator#isinfinite</strong>
 </p>
 <p>
 <code>iterator#isinfinite()</code>
+</p>
+<p>
+Returns <code>true</code> if the iterator is infinite one.
 </p>
 <p>
 <strong>iterator#next</strong>
@@ -5071,11 +5402,34 @@ In default, the created iterator infinitely generates random numbers. The argume
 <code>iterator#next()</code>
 </p>
 <p>
+Returns a next element of the iterator.
+</p>
+<p>
 <strong>iterator#repeater</strong>
 </p>
 <p>
 <code>iterator#repeater()</code>
 </p>
+<p>
+Makes the iterator behave as a "repeater". This would allow the iterator be evaulated when it appears as an element of another "repeater" iterator.
+</p>
+<p>
+Below is an example:
+</p>
+<pre><code>x = repeat(3):iter {
+    ['apple', 'orange', 'grape'].each()
+}
+println(x)
+// Just prints iterator instance three times
+// since x can't evaluate the internal iterator.
+
+x = repeat(3):iter {
+    ['apple', 'orange', 'grape'].each().repeater()
+}
+println(x)
+// Prints 'apple', 'orange' and  'grape' three times
+// after evaluating the internal iterator.
+</code></pre>
 <h3><span class="caption-index-3">6.18.2</span><a name="caption-6-18-2"></a>Methods Common between Iterator and List Class</h3>
 <p>
 <strong>iterator#after</strong>
@@ -5113,6 +5467,18 @@ Block parameter format: <code>|value:list, idx:number|</code>
 <p>
 <code>iterator#align(n:number, value?) {block?}</code>
 </p>
+<p>
+Creates an iterator that returns the specified number of elements in the source iterator. If the number is larger than the length of the source iterator, the lacking part is filled with <code>value</code>. If the argument <code>value</code> is omitted, <code>nil</code> is used for the filling.
+</p>
+<p>
+Below are examples:
+</p>
+<pre><code>rtn = [3, 1, 4, 1, 5, 9].align(3)
+// an iterator to return 3, 1, 4.
+</code></pre>
+<pre><code>rtn = [3, 1, 4, 1, 5, 9].align(10)
+// an iterator to return 3, 1, 4, 1, 5, 9, nil, nil, nil, nil.
+</code></pre>
 <p>
 <strong>iterator#and</strong>
 </p>
@@ -5182,6 +5548,18 @@ Returns a number of elements that matches the given criteria which is a single-a
 <p>
 <code>iterator#cycle(n?:number) {block?}</code>
 </p>
+<p>
+Creates an iterator that iterates elements in the source iterator cyclically.
+</p>
+<p>
+The argument <code>n</code> specifies the number of elements the created iterator returns. If omitted, it would iterates elements infinitely.
+</p>
+<p>
+Below is an example:
+</p>
+<pre><code>rtn = [1, 2, 3, 4, 5].cycle()
+// an iterator to return 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, ..
+</code></pre>
 <p>
 <strong>iterator#each</strong>
 </p>
@@ -5942,6 +6320,18 @@ Block parameter format: <code>|value:list, idx:number|</code>
 <code>list#align(n:number, value?):map {block?}</code>
 </p>
 <p>
+Creates an iterator that returns the specified number of elements in the source iterator. If the number is larger than the length of the source iterator, the lacking part is filled with <code>value</code>. If the argument <code>value</code> is omitted, <code>nil</code> is used for the filling.
+</p>
+<p>
+Below are examples:
+</p>
+<pre><code>rtn = [3, 1, 4, 1, 5, 9].align(3)
+// an iterator to return 3, 1, 4.
+</code></pre>
+<pre><code>rtn = [3, 1, 4, 1, 5, 9].align(10)
+// an iterator to return 3, 1, 4, 1, 5, 9, nil, nil, nil, nil.
+</code></pre>
+<p>
 <strong>list#and</strong>
 </p>
 <p>
@@ -6010,6 +6400,18 @@ Returns a number of elements that matches the given criteria which is a single-a
 <p>
 <code>list#cycle(n?:number) {block?}</code>
 </p>
+<p>
+Creates an iterator that iterates elements in the source iterator cyclically.
+</p>
+<p>
+The argument <code>n</code> specifies the number of elements the created iterator returns. If omitted, it would iterates elements infinitely.
+</p>
+<p>
+Below is an example:
+</p>
+<pre><code>rtn = [1, 2, 3, 4, 5].cycle()
+// an iterator to return 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, ..
+</code></pre>
 <p>
 <strong>list#each</strong>
 </p>
