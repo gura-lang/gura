@@ -401,14 +401,15 @@ Gura_DeclareMethod(iterator, align)
 		"the lacking part is filled with `value`.\n"
 		"If the argument `value` is omitted, `nil` is used for the filling.\n"
 		"\n"
-		"Below are examples:\n"
+		"Below is an example to specify a number less than the source length:\n"
 		"\n"
 		"    rtn = [3, 1, 4, 1, 5, 9].align(3)\n"
-		"    // an iterator to return 3, 1, 4.\n"
+		"    // rtn is an iterator to return 3, 1, 4.\n"
 		"\n"
-		"    rtn = [3, 1, 4, 1, 5, 9].align(10)\n"
-		"    // an iterator to return 3, 1, 4, 1, 5, 9, nil, nil, nil, nil.\n"
-		"");
+		"Below is an example to specify a number that exceeds the source length:\n"
+		"\n"
+		"    rtn = [3, 1, 4, 1, 5, 9].align(8)\n"
+		"    // rtn is an iterator to return 3, 1, 4, 1, 5, 9, nil, nil.\n");
 }
 
 Gura_ImplementMethod(iterator, align)
@@ -556,7 +557,7 @@ Gura_DeclareMethod(iterator, cycle)
 		"Below is an example:\n"
 		"\n"
 		"    rtn = [1, 2, 3, 4, 5].cycle()\n"
-		"    // an iterator to return 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, ..\n");
+		"    // rtn is an iterator to return 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, ..\n");
 
 }
 
@@ -602,12 +603,30 @@ Gura_DeclareMethod(iterator, filter)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns an iterable that consists of elements of the original iterable after filtering\n"
-		"by a criteria. A criteria can be an iterator or a function object.\n"
-		"When an iterator is supplied as a criteria, it picks up true value in the iterator\n"
-		"and creates an iterable that contains elements at corresponding position in the original iterablet\n"
-		"When a function object is applied, each element is passed to the function\n"
-		"as an argument, and it collects values with evaluated results being true.");
+		"Returns an iterable that filters values in the source iterable by a criteria.\n"
+		"\n"
+		"A criteria can be an iterable or a function instance.\n"
+		"\n"
+		"- When the criteria is an iterable, the created iterator would scan the source and\n"
+		"  the criteria iterable simultaneously and would return a value of the source\n"
+		"  when the corresponding criteria value is evaluated as `true`.\n"
+		"\n"
+		"- When the criteria is a function instance, the created iterator would give it\n"
+		"  a value of the source as an argument and would return the value\n"
+		"  when the function has returned `true`.\n"
+		"\n"
+		"Below is an example to use an iterable as its criteria:\n"
+		"\n"
+		"    x = [3, 1, 4, 1, 5, 9]\n"
+		"    y = filter(x > 3)\n"
+		"    // (x > 3) makes a list [false, false, true, false, true, true]\n"
+		"    // y is an iterator to return 4, 5, 9\n"
+		"\n"
+		"Below is an example to use a function as its criteria:\n"
+		"\n"
+		"    x = [3, 1, 4, 1, 5, 9]\n"
+		"    y = filter(&{$x > 3})\n"
+		"    // y is an iterator to return 4, 5, 9\n");
 }
 
 Gura_ImplementMethod(iterator, filter)
@@ -664,7 +683,7 @@ Gura_DeclareMethod(iterator, flat)
 		"- `:dfs` .. Searches in depth-first order. This is the default behavior.\n"
 		"- `:bfs` .. Searches in breadth-first order.\n"
 		"\n"
-		"Unlike `iterator#walk()`, this always returns an iterator without an infinite flag.\n");
+		"Unlike `iterator#walk()`, this always create an iterator without an infinite flag.\n");
 }
 
 Gura_ImplementMethod(iterator, flat)
@@ -692,7 +711,26 @@ Gura_DeclareMethod(iterator, fold)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that packs `n` elements of the source iterator into a list\n"
+		"and returns it as its element.\n"
+		"\n"
+		"The argument `nstep` specifies the shift amount to the next packing."
+		"If omitted, the next packing is shifted by `n` elements.\n"
+		"\n"
+		"Specifying the attribute `:iteritem` returns an iterator as its element instead of a list\n"
+		"\n"
+		"If the last packing doesn't satisfy `n` elements, its list would be shorter than `n`.\n"
+		"When specifying the attribute `:neat`, such an immature list would be eliminated.\n"
+		"\n"
+		"Following is an example to fold elements by 3:\n"
+		"\n"
+		"    x = [3, 1, 4, 1, 5, 9, 2, 6].fold(3)\n"
+		"    // x is an iterator to return [3, 1, 4], [1, 5, 9], [2, 6].\n"
+		"\n"
+		"Following is an example to fold elements by 3 with a step of 2:\n"
+		"\n"
+		"    x = [3, 1, 4, 1, 5, 9, 2, 6].fold(3, 2)\n"
+		"    // x is an iterator to return [3, 1, 4], [4, 1, 5], [5, 9, 2], [2, 6].\n");
 }
 
 Gura_ImplementMethod(iterator, fold)
@@ -715,8 +753,8 @@ Gura_DeclareMethod(iterator, format)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Applies element values in the iterable to format string that contains C printf"
-		"specifiers	and returns a formatted string.");
+		"Returns an iterator that converts element values in the source iterable into strings\n"
+		"depending on formatter specifier in `format`.\n");
 }
 
 Gura_ImplementMethod(iterator, format)
@@ -1487,7 +1525,9 @@ Gura_DeclareMethod(iterator, walk)
 		"Specifying an attribute could customize searching order as below:\n"
 		"\n"
 		"- `:dfs` .. Searches in depth-first order. This is the default behavior.\n"
-		"- `:bfs` .. Searches in breadth-first order.\n");
+		"- `:bfs` .. Searches in breadth-first order.\n"
+		"\n"
+		"Unlike `iterator#flat()`, the created iterator inherits infinity from the source one.\n");
 }
 
 Gura_ImplementMethod(iterator, walk)
