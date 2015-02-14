@@ -426,9 +426,7 @@ Gura_DeclareMethodAlias(iterator, and_, "and")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Calculates a logical AND result of all the values in the iterable.\n"
-		"Values of boolean type's false and nil are recognized as false\n"
-		"while others are true.\n");
+		"Calculates a logical AND result of all the values in the iterable.\n");
 }
 
 Gura_ImplementMethod(iterator, and_)
@@ -480,13 +478,13 @@ Gura_DeclareMethod(iterator, before)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Creates an iterator that picks up each element in the iterable before criteria\n"
+		"Creates an iterator that extracts elements in the iterable before criteria\n"
 		"is evaluated as true. You can specify a function object, a list or an iterator\n"
 		"as the criteria.\n"
 		"\n"
 		GURA_ITERATOR_HELP
 		"\n"
-		"Block parameter format: `|value:list, idx:number|`");
+		"Block parameter format is `|value, idx:number|` where `value` is the extracted elements.");
 }
 
 Gura_ImplementMethod(iterator, before)
@@ -526,7 +524,9 @@ Gura_DeclareMethod(iterator, count)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Returns a number of elements that matches the given criteria which is a single-argument\n"
-		"function or a value. When a function is applied, it counts the number of true after\n"
+		"function or a value.\n"
+		"\n"
+		"When a function is applied, it counts the number of true after\n"
 		"evaluating element value with the function. If a value is applied, it counts the number\n"
 		"of elements that are equal to the value.");
 }
@@ -754,7 +754,11 @@ Gura_DeclareMethod(iterator, format)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Returns an iterator that converts element values in the source iterable into strings\n"
-		"depending on formatter specifier in `format`.\n");
+		"depending on formatter specifier in `format`.\n"
+		"\n"
+		GURA_ITERATOR_HELP
+		"\n"
+		"Block parameter format is `|str:string, idx:number|` where `str` is the formatted result.");
 }
 
 Gura_ImplementMethod(iterator, format)
@@ -859,7 +863,7 @@ Gura_DeclareMethod(iterator, map)
 		"\n"
 		GURA_ITERATOR_HELP
 		"\n"
-		"Block parameter format: `|value, idx:number|`");
+		"Block parameter format is `|value, idx:number|`");
 }
 
 Gura_ImplementMethod(iterator, map)
@@ -937,7 +941,7 @@ Gura_DeclareMethod(iterator, nilto)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns an iterator that converts `nil` in the source iterable to the specified value.\n");
 }
 
 Gura_ImplementMethod(iterator, nilto)
@@ -976,9 +980,7 @@ Gura_DeclareMethodAlias(iterator, or_, "or")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Calculates a logical OR result of all the values in the iterable.\n"
-		"Values of boolean type's false and nil are recognized as false\n"
-		"while others are true.");
+		"Calculates a logical OR result of all the values in the iterable.\n");
 }
 
 Gura_ImplementMethod(iterator, or_)
