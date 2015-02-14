@@ -425,7 +425,7 @@ Gura_DeclareMethodAlias(iterator, and_, "and")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Calculates a logical AND result of all the values in the list.\n"
+		"Calculates a logical AND result of all the values in the iterable.\n"
 		"Values of boolean type's false and nil are recognized as false\n"
 		"while others are true.\n");
 }
@@ -449,13 +449,12 @@ Gura_DeclareMethod(iterator, average)
 		"Calculates an average of elements in the iterable.\n"
 		"\n"
 		"It can work on an iterable with elements of type that supports addition and division operators.\n"
-		"Below shows a list of such value types:\n"
+		"Below is a list of such value types:\n"
 		"\n"
 		"- `number`\n"
 		"- `complex`\n"
 		"- `matrix`\n"
 		"- `rational`\n"
-		"- `timedelta`\n"
 		"- `gmp.mpz`\n"
 		"- `gmp.mpq`\n"
 		"- `gmp.mpf`\n");
@@ -480,7 +479,7 @@ Gura_DeclareMethod(iterator, before)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Creates an iterator that picks up each element in the list before criteria\n"
+		"Creates an iterator that picks up each element in the iterable before criteria\n"
 		"is evaluated as true. You can specify a function object, a list or an iterator\n"
 		"as the criteria.\n"
 		"\n"
@@ -603,10 +602,10 @@ Gura_DeclareMethod(iterator, filter)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a list that consists of elements of the original list after filtering\n"
+		"Returns an iterable that consists of elements of the original iterable after filtering\n"
 		"by a criteria. A criteria can be an iterator or a function object.\n"
 		"When an iterator is supplied as a criteria, it picks up true value in the iterator\n"
-		"and creates a list that contains elements at corresponding position in the original list\n"
+		"and creates an iterable that contains elements at corresponding position in the original iterablet\n"
 		"When a function object is applied, each element is passed to the function\n"
 		"as an argument, and it collects values with evaluated results being true.");
 }
@@ -716,7 +715,7 @@ Gura_DeclareMethod(iterator, format)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Applies element values in the list to format string that contains C printf"
+		"Applies element values in the iterable to format string that contains C printf"
 		"specifiers	and returns a formatted string.");
 }
 
@@ -939,7 +938,7 @@ Gura_DeclareMethodAlias(iterator, or_, "or")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Calculates a logical OR result of all the values in the list.\n"
+		"Calculates a logical OR result of all the values in the iterable.\n"
 		"Values of boolean type's false and nil are recognized as false\n"
 		"while others are true.");
 }
@@ -1114,7 +1113,7 @@ Gura_DeclareMethod(iterator, rank)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a list of rank numbers for elements after sorting them.\n"
+		"Returns an iterable of rank numbers for elements after sorting them.\n"
 		"In default, they are sorted in an ascending order. You can specify the following\n"
 		"directives for sorting.\n"
 		"\n"
@@ -1255,7 +1254,7 @@ Gura_DeclareMethod(iterator, since)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Creates an iterator that picks up each element in the list since criteria\n"
+		"Creates an iterator that picks up each element in the iterable  since criteria\n"
 		"is evaluated as true. You can specify a function object, a list or an iterator\n"
 		"as the criteria.\n"
 		"\n"
@@ -1378,7 +1377,7 @@ Gura_DeclareMethod(iterator, sum)
 		"Calculates a summation of elements in the iterable.\n"
 		"\n"
 		"It can work on an iterable with elements of type that supports addition operator.\n"
-		"Below shows a list of such value types:\n"
+		"Below is a list of such value types:\n"
 		"\n"
 		"- `number`\n"
 		"- `complex`\n"
@@ -1420,7 +1419,6 @@ Gura_ImplementMethod(iterator, tail)
 	Value value = pIteratorSrc->Eval(env, sig, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
 	GURA_ASSUME(env, value.Is_list());
-	//Object_list *pObj = dynamic_cast<Object_list *>(value.GetListObj()->Clone());
 	Object_list *pObj = Object_list::Reference(Object_list::GetObject(value));
 	int cnt = args.GetInt(0);
 	int cntMax = static_cast<int>(pObj->GetList().size());
