@@ -216,7 +216,12 @@ Gura_DeclareFunction(consts)
 		"The argument `num` specifies the number of elements to be generated.\n"
 		"If omitted, it would generate the value infinitely.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_ITERATOR_HELP
+		"\n"
+		"Below is an example:\n"
+		"\n"
+		"    x = consts('hello', 10)\n"
+		"    // x is an iterator to generate 'hello' for 10 times\n");
 }
 
 Gura_ImplementFunction(consts)
@@ -244,7 +249,14 @@ Gura_DeclareFunction(rands)
 		"If argument `range` is not specified, it generates random numbers in a range of [0, 1).\n"
 		"\n"
 		"In default, the created iterator infinitely generates random numbers.\n"
-		"The argument `num` specifies how many elements should be generated.\n");
+		"The argument `num` specifies how many elements should be generated.\n"
+		"\n"
+		GURA_ITERATOR_HELP
+		"\n"
+		"Below is an example:\n"
+		"\n"
+		"    x = rands(100)\n"
+		"    // x is an infinite iterator to generates random numbers between 0 and 99\n");
 }
 
 Gura_ImplementFunction(rands)
@@ -434,7 +446,19 @@ Gura_DeclareMethod(iterator, average)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an average of values in the iterable.\n");
+		"Calculates an average of elements in the iterable.\n"
+		"\n"
+		"It can work on an iterable with elements of type that supports addition and division operators.\n"
+		"Below shows a list of such value types:\n"
+		"\n"
+		"- `number`\n"
+		"- `complex`\n"
+		"- `matrix`\n"
+		"- `rational`\n"
+		"- `timedelta`\n"
+		"- `gmp.mpz`\n"
+		"- `gmp.mpq`\n"
+		"- `gmp.mpf`\n");
 }
 
 Gura_ImplementMethod(iterator, average)
@@ -1351,7 +1375,20 @@ Gura_DeclareMethod(iterator, sum)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a sum of values in the iterable.");
+		"Calculates a summation of elements in the iterable.\n"
+		"\n"
+		"It can work on an iterable with elements of type that supports addition operator.\n"
+		"Below shows a list of such value types:\n"
+		"\n"
+		"- `number`\n"
+		"- `complex`\n"
+		"- `string`\n"
+		"- `matrix`\n"
+		"- `rational`\n"
+		"- `timedelta`\n"
+		"- `gmp.mpz`\n"
+		"- `gmp.mpq`\n"
+		"- `gmp.mpf`\n");
 }
 
 Gura_ImplementMethod(iterator, sum)
