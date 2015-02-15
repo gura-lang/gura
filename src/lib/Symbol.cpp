@@ -345,6 +345,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(math);
 	Gura_RealizeSymbol(message);
 	Gura_RealizeSymbol(min);
+	Gura_RealizeSymbol(minus);
 	Gura_RealizeSymbol(misc);
 	Gura_RealizeSymbol(mixin_type);
 	Gura_RealizeSymbol(mode);
@@ -366,6 +367,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(noflat);
 	Gura_RealizeSymbol(noindent);
 	Gura_RealizeSymbol(nomap);
+	Gura_RealizeSymbol(none);
 	Gura_RealizeSymbol(norm);
 	Gura_RealizeSymbol(nosort);
 	Gura_RealizeSymbol(nsec);
@@ -390,6 +392,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(percent);
 	Gura_RealizeSymbol(pi);
 	Gura_RealizeSymbol(pl);
+	Gura_RealizeSymbol(plus);
 	Gura_RealizeSymbol(port);
 	Gura_RealizeSymbol(postext);
 	Gura_RealizeSymbol(prec);
@@ -450,6 +453,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(single);
 	Gura_RealizeSymbol(sort);
 	Gura_RealizeSymbol(source);
+	Gura_RealizeSymbol(space);
 	Gura_RealizeSymbol(sqrt);
 	Gura_RealizeSymbol(stable);
 	Gura_RealizeSymbol(stat);

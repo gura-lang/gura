@@ -328,6 +328,7 @@ public:
 	Gura_DeclareSymbol(math);
 	Gura_DeclareSymbol(message);
 	Gura_DeclareSymbol(min);
+	Gura_DeclareSymbol(minus);
 	Gura_DeclareSymbol(misc);
 	Gura_DeclareSymbol(mixin_type);
 	Gura_DeclareSymbol(mode);
@@ -349,6 +350,7 @@ public:
 	Gura_DeclareSymbol(noflat);
 	Gura_DeclareSymbol(noindent);
 	Gura_DeclareSymbol(nomap);
+	Gura_DeclareSymbol(none);
 	Gura_DeclareSymbol(norm);
 	Gura_DeclareSymbol(nosort);
 	Gura_DeclareSymbol(nsec);
@@ -373,6 +375,7 @@ public:
 	Gura_DeclareSymbol(percent);
 	Gura_DeclareSymbol(pi);
 	Gura_DeclareSymbol(pl);
+	Gura_DeclareSymbol(plus);
 	Gura_DeclareSymbol(port);
 	Gura_DeclareSymbol(postext);
 	Gura_DeclareSymbol(prec);
@@ -433,6 +436,7 @@ public:
 	Gura_DeclareSymbol(single);
 	Gura_DeclareSymbol(sort);
 	Gura_DeclareSymbol(source);
+	Gura_DeclareSymbol(space);
 	Gura_DeclareSymbol(sqrt);
 	Gura_DeclareSymbol(stable);
 	Gura_DeclareSymbol(stat);

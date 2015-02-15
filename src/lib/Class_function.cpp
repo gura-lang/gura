@@ -336,7 +336,7 @@ Gura_DeclareClassMethod(function, gethelp)
 	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a `help` instance of the specified function instance `func`.\n"
+		"Returns a `help` instance associated with the specified function instance `func`.\n"
 		"If the function instance has no help registred, this function would return `nil`.\n"
 		"\n"
 		"The argument `lang` is a symbol that indicates a natural language\n"

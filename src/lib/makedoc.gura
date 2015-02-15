@@ -581,20 +581,36 @@ text_expr = R'''
 text_formatter = R'''
 ## formatter Class
 
-The `formatter` class provides measures to get information printf-style format qualifier.
+The `formatter` class provides information about a format specifier.
 
-The instance is referred in the overridden methods that are shown below:
+The function `printf()` has the following declaration:
 
-- `object#__format_d__(fmt:formatter)`
-- `object#__format_u__(fmt:formatter)`
-- `object#__format_b__(fmt:formatter)`
-- `object#__format_o__(fmt:formatter)`
-- `object#__format_x__(fmt:formatter)`
-- `object#__format_e__(fmt:formatter)`
-- `object#__format_f__(fmt:formatter)`
-- `object#__format_g__(fmt:formatter)`
-- `object#__format_s__(fmt:formatter)`
-- `object#__format_c__(fmt:formatter)`
+    printf(format:string, values*)
+
+The argument `format` is a string containing format specifiers like `%d` and `%s`
+that correspond to instances specified by the arguments `values`.
+When a qualifier is found during the evaluation of the function,
+a format handler associated with an corresponding instance is called.
+Format handlers are instance methods named like `__format_X__()`
+where `X` is the symbol of the specifier.
+For example, the instance method `__format_d__()` is responsible to work on a spcifier `%d`.
+
+The `formatter` instance is created for each specifier and passed to a method like
+`__format_X__(fmt:formatter)`. Below is a table showing specifiers and corresponding method names:
+
+<table>
+<tr><th>Specifier</th><th>Method Name</th></tr>
+<tr><td><code>%d</code></td><td><code>__format_d__</code></td></tr>
+<tr><td><code>%u</code></td><td><code>__format_u__</code></td></tr>
+<tr><td><code>%b</code></td><td><code>__format_b__</code></td></tr>
+<tr><td><code>%o</code></td><td><code>__format_o__</code></td></tr>
+<tr><td><code>%x</code></td><td><code>__format_x__</code></td></tr>
+<tr><td><code>%e</code></td><td><code>__format_e__</code></td></tr>
+<tr><td><code>%f</code></td><td><code>__format_f__</code></td></tr>
+<tr><td><code>%g</code></td><td><code>__format_g__</code></td></tr>
+<tr><td><code>%s</code></td><td><code>__format_s__</code></td></tr>
+<tr><td><code>%c</code></td><td><code>__format_c__</code></td></tr>
+</table>
 
 '''
 
@@ -1035,7 +1051,7 @@ write(doc:markdown.document) = {
 	doc << text_formatter
 	doc << '### Methods'
 	doc << [
-		formatter.getfieldminwidth
+		formatter.getminwidth
 		formatter.getpadding
 		formatter.getplusmode
 		formatter.getprecision

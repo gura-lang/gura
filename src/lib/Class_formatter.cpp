@@ -50,16 +50,18 @@ String Object_formatter::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// formatter#getfieldminwidth()
-Gura_DeclareMethod(formatter, getfieldminwidth)
+// formatter#getminwidth()
+Gura_DeclareMethod(formatter, getminwidth)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns minimum width for the field which is specified as a number literal after `%`.\n"
+		"\n"
+		"For example, with `%3d`, this method returns `3`.\n");
 }
 
-Gura_ImplementMethod(formatter, getfieldminwidth)
+Gura_ImplementMethod(formatter, getminwidth)
 {
 	const Formatter::Flags &flags = Object_formatter::GetThisObj(args)->GetFlags();
 	return Value(flags.fieldMinWidth);
@@ -71,7 +73,13 @@ Gura_DeclareMethod(formatter, getpadding)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a string containing a padding character, a space or '0'.\n"
+		"\n"
+		"In default, a space is used for padding.\n"
+		"For example, with `%3d`, this method returns `' '`.\n"
+		"\n"
+		"When a character `0` appears after `%`, that becomes the padding character.\n"
+		"For example, with `%03d`, this method returns `'0'`.\n");
 }
 
 Gura_ImplementMethod(formatter, getpadding)
@@ -87,13 +95,22 @@ Gura_DeclareMethod(formatter, getplusmode)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a symbol that indicates an action when a positive number appears.\n"
+		"\n"
+		"- `` `none`` .. No character ahead of the number.\n"
+		"- `` `space`` .. A space should be inserted.\n"
+		"- `` `plus`` .. A plus character should be inserted.\n");
 }
 
 Gura_ImplementMethod(formatter, getplusmode)
 {
 	const Formatter::Flags &flags = Object_formatter::GetThisObj(args)->GetFlags();
-	return Value(flags.plusMode);
+	const Symbol *pSymbol =
+		(flags.plusMode == Formatter::PLUSMODE_None)? Gura_Symbol(none) :
+		(flags.plusMode == Formatter::PLUSMODE_Space)? Gura_Symbol(space) :
+		(flags.plusMode == Formatter::PLUSMODE_Plus)? Gura_Symbol(plus) :
+		Gura_Symbol(none);
+	return Value(pSymbol);
 }
 
 // formatter#getprecision()
@@ -166,7 +183,7 @@ Class_formatter::Class_formatter(Environment *pEnvOuter) : Class(pEnvOuter, VTYP
 void Class_formatter::Prepare(Environment &env)
 {
 	Gura_AssignValue(formatter, Value(Reference()));
-	Gura_AssignMethod(formatter, getfieldminwidth);
+	Gura_AssignMethod(formatter, getminwidth);
 	Gura_AssignMethod(formatter, getpadding);
 	Gura_AssignMethod(formatter, getplusmode);
 	Gura_AssignMethod(formatter, getprecision);

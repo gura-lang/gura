@@ -4556,23 +4556,142 @@ Returns <code>true</code> if expr is an expression of suffixed.
 </p>
 <h2><span class="caption-index-2">6.14</span><a name="caption-6-14"></a>formatter Class</h2>
 <p>
-The <code>formatter</code> class provides measures to get information printf-style format qualifier.
+The <code>formatter</code> class provides information about a format specifier.
 </p>
 <p>
-The instance is referred in the overridden methods that are shown below:
+The function <code>printf()</code> has the following declaration:
 </p>
-<ul>
-<li><code>object#__format_d__(fmt:formatter)</code></li>
-<li><code>object#__format_u__(fmt:formatter)</code></li>
-<li><code>object#__format_b__(fmt:formatter)</code></li>
-<li><code>object#__format_o__(fmt:formatter)</code></li>
-<li><code>object#__format_x__(fmt:formatter)</code></li>
-<li><code>object#__format_e__(fmt:formatter)</code></li>
-<li><code>object#__format_f__(fmt:formatter)</code></li>
-<li><code>object#__format_g__(fmt:formatter)</code></li>
-<li><code>object#__format_s__(fmt:formatter)</code></li>
-<li><code>object#__format_c__(fmt:formatter)</code></li>
-</ul>
+<pre><code>printf(format:string, values*)
+</code></pre>
+<p>
+The argument <code>format</code> is a string containing format specifiers like <code>%d</code> and <code>%s</code> that correspond to instances specified by the arguments <code>values</code>. When a qualifier is found during the evaluation of the function, a format handler associated with an corresponding instance is called. Format handlers are instance methods named like <code>__format_X__()</code> where <code>X</code> is the symbol of the specifier. For example, the instance method <code>__format_d__()</code> is responsible to work on a spcifier <code>%d</code>.
+</p>
+<p>
+The <code>formatter</code> instance is created for each specifier and passed to a method like <code>__format_X__(fmt:formatter)</code>. Below is a table showing specifiers and corresponding method names:
+</p>
+<p>
+<table>
+
+<tr>
+<th>
+Specifier</th>
+<th>
+Method Name</th>
+</tr>
+
+<tr>
+<td>
+<code>
+%d</code>
+</td>
+<td>
+<code>
+__format_d__</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+%u</code>
+</td>
+<td>
+<code>
+__format_u__</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+%b</code>
+</td>
+<td>
+<code>
+__format_b__</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+%o</code>
+</td>
+<td>
+<code>
+__format_o__</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+%x</code>
+</td>
+<td>
+<code>
+__format_x__</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+%e</code>
+</td>
+<td>
+<code>
+__format_e__</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+%f</code>
+</td>
+<td>
+<code>
+__format_f__</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+%g</code>
+</td>
+<td>
+<code>
+__format_g__</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+%s</code>
+</td>
+<td>
+<code>
+__format_s__</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+%c</code>
+</td>
+<td>
+<code>
+__format_c__</code>
+</td>
+</tr>
+
+</table>
+
+</p>
 <h3><span class="caption-index-3">6.14.1</span><a name="caption-6-14-1"></a>Methods</h3>
 <p>
 <strong>formatter#getfieldminwidth</strong>
@@ -4887,7 +5006,7 @@ This class method returns the same information as the property <code>function#fu
 <code>function.gethelp(func:function, lang?:symbol):static:map</code>
 </p>
 <p>
-Returns a <code>help</code> instance of the specified function instance <code>func</code>. If no help has been registred, it would return <code>nil</code>.
+Returns a <code>help</code> instance of the specified function instance <code>func</code>. If the function instance has no help registred, this function would return <code>nil</code>.
 </p>
 <p>
 The argument <code>lang</code> is a symbol that indicates a natural language in which the help is written. If this argument is omitted or the specified language doesn't exist, help information that has been registered at first would be returned as a default.
