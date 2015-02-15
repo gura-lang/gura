@@ -113,7 +113,7 @@ if (`cond):leader {block}
 image(args+):map {block?}
 import(`module, `alias?):void:[binary,mixin_type,overwrite] {block?}
 int(value):map
-interval(a:number, b:number, samples:number):map:[open,open_l,open_r] {block?}
+interval(begin:number, end:number, samples:number):map:[open,open_l,open_r] {block?}
 isbinary(value)
 isboolean(value)
 isclass(value)
@@ -476,7 +476,7 @@ expr
   expr#unquote()
   expr#write(dst:stream:w, style?:symbol, indent?:string)
 formatter
-  formatter#getfieldminwidth()
+  formatter#getminwidth()
   formatter#getpadding()
   formatter#getplusmode()
   formatter#getprecision()
