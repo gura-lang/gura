@@ -664,19 +664,25 @@ You can use `&` as an alias of `function()` as shown below:
 text_help = R'''
 ## help Class
 
+The `help` class provides measures to access help information
+associated with a `function` instance.
+
+You can get a `help` instance by calling the class method `function.gethelp()`.
+
 ### Properties
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code>help#format</code></td><td><code>string</code></td><td>R</td>
-<td></td></tr>
+<td>A name of the syntax format in which the help text is described such as <code>'markdown'</code>.</td></tr>
 
 <tr><td><code>help#lang</code></td><td><code>symbol</code></td><td>R</td>
-<td></td></tr>
+<td>A symbol of the natural language in which the help text is written.
+For example, <code>`en</code> for English and <code>`ja</code> for Japanese.</td></tr>
 
 <tr><td><code>help#text</code></td><td><code>string</code></td><td>R</td>
-<td></td></tr>
+<td>The help text.</td></tr>
 
 </table>
 '''

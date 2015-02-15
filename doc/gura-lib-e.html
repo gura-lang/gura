@@ -4799,10 +4799,10 @@ Following two codes have the same effect with each other.
 Adds help information to a <code>function</code> instance taking the following arguments:
 </p>
 <ul>
-<li><code>func</code> .. <code>function</code> instance to which the help is added.</li>
-<li><code>lang</code> .. a symbol of the language in which the help text is described, <code>`en</code> for English, <code>`ja</code> for Japanese and so on.</li>
-<li><code>format</code> .. a name of the syntax format in which the help text is described. Currently, only <code>'markdown'</code> is available.</li>
-<li><code>help</code>.. the help text.</li>
+<li><code>func</code> .. The <code>function</code> instance to which the help is added.</li>
+<li><code>lang</code> .. A symbol of the natural language in which the help text is written. For example, <code>`en</code> for English and <code>`ja</code> for Japanese.</li>
+<li><code>format</code> .. A name of the syntax format in which the help text is described such as <code>'markdown'</code>.</li>
+<li><code>help</code>.. The help text.</li>
 </ul>
 <p>
 You can add multiple help information with different <code>lang</code>.
@@ -4810,16 +4810,17 @@ You can add multiple help information with different <code>lang</code>.
 <p>
 Following two codes have the same effect with each other.
 </p>
-<pre><code>f(a, b, c) = {
+<pre><code>f(a:number, b:number, c:number) = {
     (a + b + c) / 3
 }
+
 function.addhelp(
     f, `en, 'markdown'
     R'''
     Computes a mean value of the provided three numbers.
     ''')
 </code></pre>
-<pre><code>f(a, b, c) = {
+<pre><code>f(a:number, b:number, c:number) = {
     (a + b + c) / 3
 } % {
     `en, 'markdown'
@@ -4835,7 +4836,7 @@ function.addhelp(
 <code>function.getdecls(func:function):static:map</code>
 </p>
 <p>
-Creates an iterator of <code>declaration</code> instances that provide information about argument declaration the <code>function</code> defines.
+Creates an iterator of <code>declaration</code> instances that provide information about argument declaration that the function instance <code>func</code> defines.
 </p>
 <p>
 This class method returns the same information as the property <code>function#decls</code>.
@@ -4847,7 +4848,7 @@ This class method returns the same information as the property <code>function#de
 <code>function.getexpr(func:function):static:map</code>
 </p>
 <p>
-Returns an expression of the function.
+Returns an expression of the function instance <code>func</code>.
 </p>
 <p>
 It would return <code>nil</code> if the function is implemented with binary programs, not scripts.
@@ -4862,7 +4863,7 @@ This class method returns the same information as the property <code>function#ex
 <code>function.getformat(func:function):static:map</code>
 </p>
 <p>
-Returns a string showing a declared format of the function.
+Returns a string showing a declared format of the function instance <code>func</code>.
 </p>
 <p>
 This class method returns the same information as the property <code>function#format</code>.
@@ -4874,7 +4875,7 @@ This class method returns the same information as the property <code>function#fo
 <code>function.getfullname(func:function):static:map</code>
 </p>
 <p>
-Returns a full name of the function that is prefixed by a name of the module or the class it belongs to.
+Returns a full name of the function instance <code>func</code>, which is prefixed by a name of the module or the class the instance belongs to.
 </p>
 <p>
 This class method returns the same information as the property <code>function#fullname</code>.
@@ -4886,10 +4887,10 @@ This class method returns the same information as the property <code>function#fu
 <code>function.gethelp(func:function, lang?:symbol):static:map</code>
 </p>
 <p>
-Returns a <code>help</code> instance of the specified function. If no help has been registred, it would return <code>nil</code>.
+Returns a <code>help</code> instance of the specified function instance <code>func</code>. If no help has been registred, it would return <code>nil</code>.
 </p>
 <p>
-The argument <code>lang</code> is a symbol that indicates a language in which the help is written. If this argument is omitted or the specified language doesn't exist, help information that has been registered at first would be returned as a default.
+The argument <code>lang</code> is a symbol that indicates a natural language in which the help is written. If this argument is omitted or the specified language doesn't exist, help information that has been registered at first would be returned as a default.
 </p>
 <p>
 <strong>function.getname</strong>
@@ -4898,7 +4899,7 @@ The argument <code>lang</code> is a symbol that indicates a language in which th
 <code>function.getname(func:function):static:map</code>
 </p>
 <p>
-Returns a name of the function in <code>string</code>.
+Returns a name of the function instance <code>func</code> in <code>string</code> type.
 </p>
 <p>
 This class method returns the same information as the property <code>function#name</code>.
@@ -4910,7 +4911,7 @@ This class method returns the same information as the property <code>function#na
 <code>function.getsymbol(func:function):static:map</code>
 </p>
 <p>
-Returns a name of the function in <code>symbol</code>.
+Returns a name of the function instance <code>func</code> in <code>symbol</code> type.
 </p>
 <p>
 This class method returns the same information as the property <code>function#symbol</code>.
@@ -4940,6 +4941,12 @@ You can check the result of derivation by seeing property <code>function#expr</c
 `math.cos(x)
 </code></pre>
 <h2><span class="caption-index-2">6.16</span><a name="caption-6-16"></a>help Class</h2>
+<p>
+The <code>help</code> class provides measures to access help information associated with a <code>function</code> instance.
+</p>
+<p>
+You can get a <code>help</code> instance by calling the class method <code>function.gethelp()</code>.
+</p>
 <h3><span class="caption-index-3">6.16.1</span><a name="caption-6-16-1"></a>Properties</h3>
 <p>
 <table>
@@ -4969,7 +4976,9 @@ string</code>
 R</td>
 
 <td>
-</td>
+A name of the syntax format in which the help text is described such as <code>
+'markdown'</code>
+.</td>
 </tr>
 
 
@@ -4986,7 +4995,12 @@ symbol</code>
 R</td>
 
 <td>
-</td>
+A symbol of the natural language in which the help text is written.
+For example, <code>
+`en</code>
+ for English and <code>
+`ja</code>
+ for Japanese.</td>
 </tr>
 
 
@@ -5003,7 +5017,7 @@ string</code>
 R</td>
 
 <td>
-</td>
+The help text.</td>
 </tr>
 
 
@@ -5106,16 +5120,20 @@ R</td>
 <code>image(args+):map {block?}</code>
 </p>
 <p>
-Returns an image object with specified characteristics. There are three patterns to call the function as following:
+Returns an image instance with specified characteristics. There are three forms to call the function as below:
 </p>
 <ul>
-<li><code>image(stream:stream, format?:symbol, imagetype?:string)</code></li>
-<li><code>image(format:symbol)</code></li>
-<li><code>image(format:symbol, width:number, height:number, color?:color)</code></li>
+<li><code>image(format:symbol)</code> .. Creates an empty image with a specified format.</li>
+<li><code>image(stream:stream, format?:symbol, imagetype?:string)</code> .. Reads image data from the stream and expand it in the buffer.</li>
+<li><code>image(format:symbol, width:number, height:number, color?:color)</code> .. Allocates an image buffer with the specified size and fills it with the color.</li>
 </ul>
 <p>
-In the first pattern, it creates an empty image with a specified format. The second reads image data from the stream and expand it in the buffer. The last allocates an image buffer of specified size and fills it with the color. Parameter format specifies the internal format. Available formats are <code>rgb</code> and <code>rgba</code>.
+The argument <code>format</code> specifies what elements are stored in the memory and takes one of the following symbols:
 </p>
+<ul>
+<li><code>`rgb</code> .. red, green and blue</li>
+<li><code>`rgba</code> .. red, green, blue and alpha</li>
+</ul>
 <p>
 <strong>image#allocbuff</strong>
 </p>
@@ -5413,6 +5431,12 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
 <p>
+Below is an example:
+</p>
+<pre><code>x = consts('hello', 10)
+// x is an iterator to generate 'hello' for 10 times
+</code></pre>
+<p>
 <strong>rands</strong>
 </p>
 <p>
@@ -5427,6 +5451,27 @@ If argument <code>range</code> is not specified, it generates random numbers in 
 <p>
 In default, the created iterator infinitely generates random numbers. The argument <code>num</code> specifies how many elements should be generated.
 </p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Below is an example:
+</p>
+<pre><code>x = rands(100)
+// x is an infinite iterator to generates random numbers between 0 and 99
+</code></pre>
 <p>
 <strong>iterator#delay</strong>
 </p>
@@ -5524,13 +5569,16 @@ Block parameter format: <code>|value:list, idx:number|</code>
 Creates an iterator that returns the specified number of elements in the source iterator. If the number is larger than the length of the source iterator, the lacking part is filled with <code>value</code>. If the argument <code>value</code> is omitted, <code>nil</code> is used for the filling.
 </p>
 <p>
-Below are examples:
+Below is an example to specify a number less than the source length:
 </p>
 <pre><code>rtn = [3, 1, 4, 1, 5, 9].align(3)
-// an iterator to return 3, 1, 4.
+// rtn is an iterator to return 3, 1, 4.
 </code></pre>
-<pre><code>rtn = [3, 1, 4, 1, 5, 9].align(10)
-// an iterator to return 3, 1, 4, 1, 5, 9, nil, nil, nil, nil.
+<p>
+Below is an example to specify a number that exceeds the source length:
+</p>
+<pre><code>rtn = [3, 1, 4, 1, 5, 9].align(8)
+// rtn is an iterator to return 3, 1, 4, 1, 5, 9, nil, nil.
 </code></pre>
 <p>
 <strong>iterator#and</strong>
@@ -5539,7 +5587,7 @@ Below are examples:
 <code>iterator#and()</code>
 </p>
 <p>
-Calculates a logical AND result of all the values in the list. Values of boolean type's false and nil are recognized as false while others are true.
+Calculates a logical AND result of all the values in the iterable.
 </p>
 <p>
 <strong>iterator#average</strong>
@@ -5548,8 +5596,20 @@ Calculates a logical AND result of all the values in the list. Values of boolean
 <code>iterator#average()</code>
 </p>
 <p>
-Returns an average of values in the iterable.
+Calculates an average of elements in the iterable.
 </p>
+<p>
+It can work on an iterable with elements of type that supports addition and division operators. Below is a list of such value types:
+</p>
+<ul>
+<li><code>number</code></li>
+<li><code>complex</code></li>
+<li><code>matrix</code></li>
+<li><code>rational</code></li>
+<li><code>gmp.mpz</code></li>
+<li><code>gmp.mpq</code></li>
+<li><code>gmp.mpf</code></li>
+</ul>
 <p>
 <strong>iterator#before</strong>
 </p>
@@ -5557,7 +5617,7 @@ Returns an average of values in the iterable.
 <code>iterator#before(criteria) {block?}</code>
 </p>
 <p>
-Creates an iterator that picks up each element in the list before criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
+Creates an iterator that extracts elements in the iterable before criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
 </p>
 <p>
 If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
@@ -5575,7 +5635,7 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
 <p>
-Block parameter format: <code>|value:list, idx:number|</code>
+Block parameter format is <code>|value, idx:number|</code> where <code>value</code> is the extracted elements.
 </p>
 <p>
 <strong>iterator#contains</strong>
@@ -5593,7 +5653,10 @@ Returns <code>true</code> if the specified value appears in the iterable.
 <code>iterator#count(criteria?)</code>
 </p>
 <p>
-Returns a number of elements that matches the given criteria which is a single-argument function or a value. When a function is applied, it counts the number of true after evaluating element value with the function. If a value is applied, it counts the number of elements that are equal to the value.
+Returns a number of elements that matches the given criteria which is a single-argument function or a value.
+</p>
+<p>
+When a function is applied, it counts the number of true after evaluating element value with the function. If a value is applied, it counts the number of elements that are equal to the value.
 </p>
 <p>
 <strong>iterator#cycle</strong>
@@ -5611,7 +5674,7 @@ The argument <code>n</code> specifies the number of elements the created iterato
 Below is an example:
 </p>
 <pre><code>rtn = [1, 2, 3, 4, 5].cycle()
-// an iterator to return 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, ..
+// rtn is an iterator to return 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, ..
 </code></pre>
 <p>
 <strong>iterator#each</strong>
@@ -5647,8 +5710,30 @@ Block parameter format: <code>|value, idx:number|</code>
 <code>iterator#filter(criteria?) {block?}</code>
 </p>
 <p>
-Returns a list that consists of elements of the original list after filtering by a criteria. A criteria can be an iterator or a function object. When an iterator is supplied as a criteria, it picks up true value in the iterator and creates a list that contains elements at corresponding position in the original list When a function object is applied, each element is passed to the function as an argument, and it collects values with evaluated results being true.
+Returns an iterable that filters values in the source iterable by a criteria.
 </p>
+<p>
+A criteria can be an iterable or a function instance.
+</p>
+<ul>
+<li>When the criteria is an iterable, the created iterator would scan the source and the criteria iterable simultaneously and would return a value of the source when the corresponding criteria value is evaluated as <code>true</code>.</li>
+<li>When the criteria is a function instance, the created iterator would give it a value of the source as an argument and would return the value when the function has returned <code>true</code>.</li>
+</ul>
+<p>
+Below is an example to use an iterable as its criteria:
+</p>
+<pre><code>x = [3, 1, 4, 1, 5, 9]
+y = filter(x &gt; 3)
+// (x &gt; 3) makes a list [false, false, true, false, true, true]
+// y is an iterator to return 4, 5, 9
+</code></pre>
+<p>
+Below is an example to use a function as its criteria:
+</p>
+<pre><code>x = [3, 1, 4, 1, 5, 9]
+y = filter(&amp;{$x &gt; 3})
+// y is an iterator to return 4, 5, 9
+</code></pre>
 <p>
 <strong>iterator#find</strong>
 </p>
@@ -5672,7 +5757,7 @@ Specifying an attribute could customize searching order as below:
 <li><code>:bfs</code> .. Searches in breadth-first order.</li>
 </ul>
 <p>
-Unlike <code>iterator#walk()</code>, this always returns an iterator without an infinite flag.
+Unlike <code>iterator#walk()</code>, this always create an iterator without an infinite flag.
 </p>
 <p>
 <strong>iterator#fold</strong>
@@ -5681,13 +5766,55 @@ Unlike <code>iterator#walk()</code>, this always returns an iterator without an 
 <code>iterator#fold(n:number, nstep?:number):map:[iteritem,neat] {block?}</code>
 </p>
 <p>
+Creates an iterator that packs <code>n</code> elements of the source iterator into a list and returns it as its element.
+</p>
+<p>
+The argument <code>nstep</code> specifies the shift amount to the next packing.If omitted, the next packing is shifted by <code>n</code> elements.
+</p>
+<p>
+Specifying the attribute <code>:iteritem</code> returns an iterator as its element instead of a list
+</p>
+<p>
+If the last packing doesn't satisfy <code>n</code> elements, its list would be shorter than <code>n</code>. When specifying the attribute <code>:neat</code>, such an immature list would be eliminated.
+</p>
+<p>
+Following is an example to fold elements by 3:
+</p>
+<pre><code>x = [3, 1, 4, 1, 5, 9, 2, 6].fold(3)
+// x is an iterator to return [3, 1, 4], [1, 5, 9], [2, 6].
+</code></pre>
+<p>
+Following is an example to fold elements by 3 with a step of 2:
+</p>
+<pre><code>x = [3, 1, 4, 1, 5, 9, 2, 6].fold(3, 2)
+// x is an iterator to return [3, 1, 4], [4, 1, 5], [5, 9, 2], [2, 6].
+</code></pre>
+<p>
 <strong>iterator#format</strong>
 </p>
 <p>
 <code>iterator#format(format:string):map {block?}</code>
 </p>
 <p>
-Applies element values in the list to format string that contains C printfspecifiers	and returns a formatted string.
+Returns an iterator that converts element values in the source iterable into strings depending on formatter specifier in <code>format</code>.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format is <code>|str:string, idx:number|</code> where <code>str</code> is the formatted result.
 </p>
 <p>
 <strong>iterator#head</strong>
@@ -5747,7 +5874,7 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
 <p>
-Block parameter format: <code>|value, idx:number|</code>
+Block parameter format is <code>|value, idx:number|</code>
 </p>
 <p>
 <strong>iterator#max</strong>
@@ -5790,6 +5917,9 @@ It would return a position index where the minimum value is found when one of th
 <code>iterator#nilto(replace) {block?}</code>
 </p>
 <p>
+Returns an iterator that converts <code>nil</code> in the source iterable to the specified value.
+</p>
+<p>
 <strong>iterator#offset</strong>
 </p>
 <p>
@@ -5802,7 +5932,7 @@ It would return a position index where the minimum value is found when one of th
 <code>iterator#or()</code>
 </p>
 <p>
-Calculates a logical OR result of all the values in the list. Values of boolean type's false and nil are recognized as false while others are true.
+Calculates a logical OR result of all the values in the iterable.
 </p>
 <p>
 <strong>iterator#pack</strong>
@@ -5874,7 +6004,7 @@ Prints items in the iterable by using the format.
 <code>iterator#rank(directive?) {block?}</code>
 </p>
 <p>
-Returns a list of rank numbers for elements after sorting them. In default, they are sorted in an ascending order. You can specify the following directives for sorting.
+Returns an iterable of rank numbers for elements after sorting them. In default, they are sorted in an ascending order. You can specify the following directives for sorting.
 </p>
 <ul>
 <li><code>`ascend</code> .. ascending order</li>
@@ -5924,7 +6054,7 @@ Evaluates a block with a parameter format <code>|value, accum|</code> and leaves
 <code>iterator#since(criteria) {block?}</code>
 </p>
 <p>
-Creates an iterator that picks up each element in the list since criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
+Creates an iterator that picks up each element in the iterable  since criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
 </p>
 <p>
 If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
@@ -5989,8 +6119,22 @@ Returns a standard deviation of values in the iterable.
 <code>iterator#sum()</code>
 </p>
 <p>
-Returns a sum of values in the iterable.
+Calculates a summation of elements in the iterable.
 </p>
+<p>
+It can work on an iterable with elements of type that supports addition operator. Below is a list of such value types:
+</p>
+<ul>
+<li><code>number</code></li>
+<li><code>complex</code></li>
+<li><code>string</code></li>
+<li><code>matrix</code></li>
+<li><code>rational</code></li>
+<li><code>timedelta</code></li>
+<li><code>gmp.mpz</code></li>
+<li><code>gmp.mpq</code></li>
+<li><code>gmp.mpf</code></li>
+</ul>
 <p>
 <strong>iterator#tail</strong>
 </p>
@@ -6049,6 +6193,9 @@ Specifying an attribute could customize searching order as below:
 <li><code>:dfs</code> .. Searches in depth-first order. This is the default behavior.</li>
 <li><code>:bfs</code> .. Searches in breadth-first order.</li>
 </ul>
+<p>
+Unlike <code>iterator#flat()</code>, the created iterator inherits infinity from the source one.
+</p>
 <p>
 <strong>iterator#while</strong>
 </p>
@@ -6243,7 +6390,7 @@ Specifying an attribute could customize searching order as below:
 <li><code>:bfs</code> .. Searches in breadth-first order.</li>
 </ul>
 <p>
-Unlike <code>iterator#walk()</code>, this always returns an iterator without an infinite flag.
+Unlike <code>iterator#walk()</code>, this always create an iterator without an infinite flag.
 </p>
 <p>
 <strong>list#get</strong>
@@ -6376,13 +6523,16 @@ Block parameter format: <code>|value:list, idx:number|</code>
 Creates an iterator that returns the specified number of elements in the source iterator. If the number is larger than the length of the source iterator, the lacking part is filled with <code>value</code>. If the argument <code>value</code> is omitted, <code>nil</code> is used for the filling.
 </p>
 <p>
-Below are examples:
+Below is an example to specify a number less than the source length:
 </p>
 <pre><code>rtn = [3, 1, 4, 1, 5, 9].align(3)
-// an iterator to return 3, 1, 4.
+// rtn is an iterator to return 3, 1, 4.
 </code></pre>
-<pre><code>rtn = [3, 1, 4, 1, 5, 9].align(10)
-// an iterator to return 3, 1, 4, 1, 5, 9, nil, nil, nil, nil.
+<p>
+Below is an example to specify a number that exceeds the source length:
+</p>
+<pre><code>rtn = [3, 1, 4, 1, 5, 9].align(8)
+// rtn is an iterator to return 3, 1, 4, 1, 5, 9, nil, nil.
 </code></pre>
 <p>
 <strong>list#and</strong>
@@ -6391,7 +6541,7 @@ Below are examples:
 <code>list#and()</code>
 </p>
 <p>
-Calculates a logical AND result of all the values in the list. Values of boolean type's false and nil are recognized as false while others are true.
+Calculates a logical AND result of all the values in the iterable.
 </p>
 <p>
 <strong>list#average</strong>
@@ -6400,8 +6550,20 @@ Calculates a logical AND result of all the values in the list. Values of boolean
 <code>list#average()</code>
 </p>
 <p>
-Returns an average of values in the iterable.
+Calculates an average of elements in the iterable.
 </p>
+<p>
+It can work on an iterable with elements of type that supports addition and division operators. Below is a list of such value types:
+</p>
+<ul>
+<li><code>number</code></li>
+<li><code>complex</code></li>
+<li><code>matrix</code></li>
+<li><code>rational</code></li>
+<li><code>gmp.mpz</code></li>
+<li><code>gmp.mpq</code></li>
+<li><code>gmp.mpf</code></li>
+</ul>
 <p>
 <strong>list#before</strong>
 </p>
@@ -6409,7 +6571,7 @@ Returns an average of values in the iterable.
 <code>list#before(criteria) {block?}</code>
 </p>
 <p>
-Creates an iterator that picks up each element in the list before criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
+Creates an iterator that extracts elements in the iterable before criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
 </p>
 <p>
 If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
@@ -6427,7 +6589,7 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
 <p>
-Block parameter format: <code>|value:list, idx:number|</code>
+Block parameter format is <code>|value, idx:number|</code> where <code>value</code> is the extracted elements.
 </p>
 <p>
 <strong>list#contains</strong>
@@ -6445,7 +6607,10 @@ Returns <code>true</code> if the specified value appears in the iterable.
 <code>list#count(criteria?)</code>
 </p>
 <p>
-Returns a number of elements that matches the given criteria which is a single-argument function or a value. When a function is applied, it counts the number of true after evaluating element value with the function. If a value is applied, it counts the number of elements that are equal to the value.
+Returns a number of elements that matches the given criteria which is a single-argument function or a value.
+</p>
+<p>
+When a function is applied, it counts the number of true after evaluating element value with the function. If a value is applied, it counts the number of elements that are equal to the value.
 </p>
 <p>
 <strong>list#cycle</strong>
@@ -6463,7 +6628,7 @@ The argument <code>n</code> specifies the number of elements the created iterato
 Below is an example:
 </p>
 <pre><code>rtn = [1, 2, 3, 4, 5].cycle()
-// an iterator to return 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, ..
+// rtn is an iterator to return 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, ..
 </code></pre>
 <p>
 <strong>list#each</strong>
@@ -6499,8 +6664,30 @@ Block parameter format: <code>|value, idx:number|</code>
 <code>list#filter(criteria?) {block?}</code>
 </p>
 <p>
-Returns a list that consists of elements of the original list after filtering by a criteria. A criteria can be an iterator or a function object. When an iterator is supplied as a criteria, it picks up true value in the iterator and creates a list that contains elements at corresponding position in the original list When a function object is applied, each element is passed to the function as an argument, and it collects values with evaluated results being true.
+Returns an iterable that filters values in the source iterable by a criteria.
 </p>
+<p>
+A criteria can be an iterable or a function instance.
+</p>
+<ul>
+<li>When the criteria is an iterable, the created iterator would scan the source and the criteria iterable simultaneously and would return a value of the source when the corresponding criteria value is evaluated as <code>true</code>.</li>
+<li>When the criteria is a function instance, the created iterator would give it a value of the source as an argument and would return the value when the function has returned <code>true</code>.</li>
+</ul>
+<p>
+Below is an example to use an iterable as its criteria:
+</p>
+<pre><code>x = [3, 1, 4, 1, 5, 9]
+y = filter(x &gt; 3)
+// (x &gt; 3) makes a list [false, false, true, false, true, true]
+// y is an iterator to return 4, 5, 9
+</code></pre>
+<p>
+Below is an example to use a function as its criteria:
+</p>
+<pre><code>x = [3, 1, 4, 1, 5, 9]
+y = filter(&amp;{$x &gt; 3})
+// y is an iterator to return 4, 5, 9
+</code></pre>
 <p>
 <strong>list#find</strong>
 </p>
@@ -6514,13 +6701,55 @@ Returns a list that consists of elements of the original list after filtering by
 <code>list#fold(n:number, nstep?:number):map:[iteritem,neat] {block?}</code>
 </p>
 <p>
+Creates an iterator that packs <code>n</code> elements of the source iterator into a list and returns it as its element.
+</p>
+<p>
+The argument <code>nstep</code> specifies the shift amount to the next packing.If omitted, the next packing is shifted by <code>n</code> elements.
+</p>
+<p>
+Specifying the attribute <code>:iteritem</code> returns an iterator as its element instead of a list
+</p>
+<p>
+If the last packing doesn't satisfy <code>n</code> elements, its list would be shorter than <code>n</code>. When specifying the attribute <code>:neat</code>, such an immature list would be eliminated.
+</p>
+<p>
+Following is an example to fold elements by 3:
+</p>
+<pre><code>x = [3, 1, 4, 1, 5, 9, 2, 6].fold(3)
+// x is an iterator to return [3, 1, 4], [1, 5, 9], [2, 6].
+</code></pre>
+<p>
+Following is an example to fold elements by 3 with a step of 2:
+</p>
+<pre><code>x = [3, 1, 4, 1, 5, 9, 2, 6].fold(3, 2)
+// x is an iterator to return [3, 1, 4], [4, 1, 5], [5, 9, 2], [2, 6].
+</code></pre>
+<p>
 <strong>list#format</strong>
 </p>
 <p>
 <code>list#format(format:string):map {block?}</code>
 </p>
 <p>
-Applies element values in the list to format string that contains C printfspecifiers	and returns a formatted string.
+Returns an iterator that converts element values in the source iterable into strings depending on formatter specifier in <code>format</code>.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format is <code>|str:string, idx:number|</code> where <code>str</code> is the formatted result.
 </p>
 <p>
 <strong>list#head</strong>
@@ -6580,7 +6809,7 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
 <p>
-Block parameter format: <code>|value, idx:number|</code>
+Block parameter format is <code>|value, idx:number|</code>
 </p>
 <p>
 <strong>list#max</strong>
@@ -6623,6 +6852,9 @@ It would return a position index where the minimum value is found when one of th
 <code>list#nilto(replace) {block?}</code>
 </p>
 <p>
+Returns an iterator that converts <code>nil</code> in the source iterable to the specified value.
+</p>
+<p>
 <strong>list#offset</strong>
 </p>
 <p>
@@ -6635,7 +6867,7 @@ It would return a position index where the minimum value is found when one of th
 <code>list#or()</code>
 </p>
 <p>
-Calculates a logical OR result of all the values in the list. Values of boolean type's false and nil are recognized as false while others are true.
+Calculates a logical OR result of all the values in the iterable.
 </p>
 <p>
 <strong>list#pack</strong>
@@ -6707,7 +6939,7 @@ Prints items in the iterable by using the format.
 <code>list#rank(directive?):[stable] {block?}</code>
 </p>
 <p>
-Returns a list of rank numbers for elements after sorting them. In default, they are sorted in an ascending order. You can specify the following directives for sorting.
+Returns an iterable of rank numbers for elements after sorting them. In default, they are sorted in an ascending order. You can specify the following directives for sorting.
 </p>
 <ul>
 <li><code>`ascend</code> .. ascending order</li>
@@ -6757,7 +6989,7 @@ Evaluates a block with a parameter format <code>|value, accum|</code> and leaves
 <code>list#since(criteria) {block?}</code>
 </p>
 <p>
-Creates an iterator that picks up each element in the list since criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
+Creates an iterator that picks up each element in the iterable  since criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
 </p>
 <p>
 If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
@@ -6822,8 +7054,22 @@ Returns a standard deviation of values in the iterable.
 <code>list#sum()</code>
 </p>
 <p>
-Returns a sum of values in the iterable.
+Calculates a summation of elements in the iterable.
 </p>
+<p>
+It can work on an iterable with elements of type that supports addition operator. Below is a list of such value types:
+</p>
+<ul>
+<li><code>number</code></li>
+<li><code>complex</code></li>
+<li><code>string</code></li>
+<li><code>matrix</code></li>
+<li><code>rational</code></li>
+<li><code>timedelta</code></li>
+<li><code>gmp.mpz</code></li>
+<li><code>gmp.mpq</code></li>
+<li><code>gmp.mpf</code></li>
+</ul>
 <p>
 <strong>list#tail</strong>
 </p>
@@ -6882,6 +7128,9 @@ Specifying an attribute could customize searching order as below:
 <li><code>:dfs</code> .. Searches in depth-first order. This is the default behavior.</li>
 <li><code>:bfs</code> .. Searches in breadth-first order.</li>
 </ul>
+<p>
+Unlike <code>iterator#flat()</code>, the created iterator inherits infinity from the source one.
+</p>
 <p>
 <strong>list#while</strong>
 </p>

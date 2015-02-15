@@ -210,12 +210,12 @@ Gura_DeclareClassMethod(function, addhelp)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Adds help information to a `function` instance taking the following arguments:\n"
 		"\n"
-		"- `func` .. `function` instance to which the help is added.\n"
-		"- `lang` .. a symbol of the language in which the help text is described,\n"
-		"            `` `en`` for English, `` `ja`` for Japanese and so on.\n"
-		"- `format` .. a name of the syntax format in which the help text is described.\n"
-		"  Currently, only `'markdown'` is available.\n"
-		"- `help`.. the help text.\n"
+		"- `func` .. The `function` instance to which the help is added.\n"
+		"- `lang` .. A symbol of the natural language in which the help text is written.\n"
+		"            For example, `` `en`` for English and `` `ja`` for Japanese.\n"
+		"- `format` .. A name of the syntax format in which the help text is described\n"
+		"              such as `'markdown'`.\n"
+		"- `help`.. The help text.\n"
 		"\n"
 		"You can add multiple help information with different `lang`.\n"
 		"\n"
@@ -337,7 +337,7 @@ Gura_DeclareClassMethod(function, gethelp)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns a `help` instance of the specified function instance `func`.\n"
-		"If no help has been registred, it would return `nil`.\n"
+		"If the function instance has no help registred, this function would return `nil`.\n"
 		"\n"
 		"The argument `lang` is a symbol that indicates a natural language\n"
 		"in which the help is written.\n"
