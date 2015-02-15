@@ -221,16 +221,17 @@ Gura_DeclareClassMethod(function, addhelp)
 		"\n"
 		"Following two codes have the same effect with each other.\n"
 		"\n"
-		"    f(a, b, c) = {\n"
+		"    f(a:number, b:number, c:number) = {\n"
 		"        (a + b + c) / 3\n"
 		"    }\n"
+		"    \n"
 		"    function.addhelp(\n"
 		"        f, `en, 'markdown'\n"
 		"        R'''\n"
 		"        Computes a mean value of the provided three numbers.\n"
 		"        ''')\n"
 		"\n"
-		"    f(a, b, c) = {\n"
+		"    f(a:number, b:number, c:number) = {\n"
 		"        (a + b + c) / 3\n"
 		"    } % {\n"
 		"        `en, 'markdown'\n"
@@ -255,7 +256,7 @@ Gura_DeclareClassMethod(function, getdecls)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates an iterator of `declaration` instances that provide information\n"
-		"about argument declaration the `function` defines.\n"
+		"about argument declaration that the function instance `func` defines.\n"
 		"\n"
 		"This class method returns the same information as the property `function#decls`.\n");
 }
@@ -274,7 +275,7 @@ Gura_DeclareClassMethod(function, getexpr)
 	DeclareArg(env, "func", VTYPE_function);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an expression of the function.\n"
+		"Returns an expression of the function instance `func`.\n"
 		"\n"
 		"It would return `nil` if the function is implemented with binary programs, not scripts.\n"
 		"\n"
@@ -297,7 +298,7 @@ Gura_DeclareClassMethod(function, getformat)
 	DeclareArg(env, "func", VTYPE_function);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a string showing a declared format of the function.\n"
+		"Returns a string showing a declared format of the function instance `func`.\n"
 		"\n"
 		"This class method returns the same information as the property `function#format`.\n");
 }
@@ -315,8 +316,8 @@ Gura_DeclareClassMethod(function, getfullname)
 	DeclareArg(env, "func", VTYPE_function);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a full name of the function that is prefixed\n"
-		"by a name of the module or the class it belongs to.\n"
+		"Returns a full name of the function instance `func`,\n"
+		"which is prefixed by a name of the module or the class the instance belongs to.\n"
 		"\n"
 		"This class method returns the same information as the property `function#fullname`.\n");
 }
@@ -335,10 +336,11 @@ Gura_DeclareClassMethod(function, gethelp)
 	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a `help` instance of the specified function.\n"
+		"Returns a `help` instance of the specified function instance `func`.\n"
 		"If no help has been registred, it would return `nil`.\n"
 		"\n"
-		"The argument `lang` is a symbol that indicates a language in which the help is written.\n"
+		"The argument `lang` is a symbol that indicates a natural language\n"
+		"in which the help is written.\n"
 		"If this argument is omitted or the specified language doesn't exist,\n"
 		"help information that has been registered at first would be returned as a default.\n");
 }
@@ -359,7 +361,7 @@ Gura_DeclareClassMethod(function, getname)
 	DeclareArg(env, "func", VTYPE_function);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a name of the function in `string`.\n"
+		"Returns a name of the function instance `func` in `string` type.\n"
 		"\n"
 		"This class method returns the same information as the property `function#name`.\n");
 }
@@ -377,7 +379,7 @@ Gura_DeclareClassMethod(function, getsymbol)
 	DeclareArg(env, "func", VTYPE_function);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a name of the function in `symbol`.\n"
+		"Returns a name of the function instance `func` in `symbol` type.\n"
 		"\n"
 		"This class method returns the same information as the property `function#symbol`.\n");
 }
