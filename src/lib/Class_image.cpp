@@ -109,7 +109,7 @@ Gura_DeclareFunction(image)
 		"There are three forms to call the function as below:\n"
 		"\n"
 		"- `image(format:symbol)` ..\n"
-		"  Creates an empty image with a specified format.\n"
+		"  Creates an image instance of the specified format without buffer allocated.\n"
 		"- `image(format:symbol, width:number, height:number, color?:color)` ..\n"
 		"  Allocates an image buffer with the specified size and fills it with the color.\n"
 		"- `image(stream:stream, format?:symbol, imagetype?:string)` ..\n"
@@ -127,14 +127,14 @@ Gura_DeclareFunction(image)
 		"You can explicitly specify the image data format with the argument `imagetype` as well.\n"
 		"\n"
 		"Acceptable image data formats can be extended by importing modules.\n"
-		"The table below shows the image format and the corresponding module name and its `imagetype`.\n"
+		"The table below shows the image format, the responsible module name and a symbol for `imagetype`.\n"
 		"\n"
 		"<table>\n"
 		"<tr><th>Image Format</th><th>Module Name</th><th>imagetype</th></tr>\n"
 		"<tr><td>BMP</td><td><code>bmp</code></td><td><code>'bmp'</code></td></tr>\n"
 		"<tr><td>GIF</td><td><code>gif</code></td><td><code>'gif'</code></td></tr>\n"
 		"<tr><td>JPEG</td><td><code>jpeg</code></td><td><code>'jpeg'</code></td></tr>\n"
-		"<tr><td>Microsoft Icon</td>msico<td><code></code></td><td><code>'msico'</code></td></tr>\n"
+		"<tr><td>Microsoft Icon</td><td><code>msico</code></td><td><code>'msico'</code></td></tr>\n"
 		"<tr><td>PNG</td><td><code>png</code></td><td><code>'png'</code></td></tr>\n"
 		"<tr><td>PPM</td><td><code>ppm</code></td><td><code>'ppm'</code></td></tr>\n"
 		"<tr><td>TIFF</td><td><code>tiff</code></td><td><code>'tiff'</code></td></tr>\n"
@@ -212,9 +212,16 @@ Gura_DeclareMethod(image, allocbuff)
 	DeclareArg(env, "color", VTYPE_color, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Allocates a buffer of the specified size to an image instance that doesn't have buffer yet.\n"
+		"Allocates a specified size of buffer in the `image` instance\n"
+		"that is supposed to has no buffer allocated.\n"
 		"\n"
-		"The buffer will be filled with zero or a color of `color` argument if specified.\n");
+		"The allocated buffer will be filled with `color`.\n"
+		"If omitted, it will be filled with zero value.\n"
+		"\n"
+		"An error occurs in following cases:\n"
+		"\n"
+		"- It fails to allocate necessary buffer.\n"
+		"- The `image` instance already has allocated buffer.\n");
 }
 
 Gura_ImplementMethod(image, allocbuff)
@@ -254,8 +261,9 @@ Gura_DeclareMethod(image, clear)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Fills the buffer with zero value.\n"
-		"This has the same effect with calling `image#fill` with `color.Zero`.");
+		"Fills the buffer in the `image` instance with zero value.\n"
+		"\n"
+		"This has the same effect with calling `image#fill()` with `color.zero`.");
 }
 
 Gura_ImplementMethod(image, clear)
@@ -277,10 +285,20 @@ Gura_DeclareMethod(image, crop)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a new image instance after extracting part of the source image.\n"
-		"You can specify the left-top position of the extracted area with arguments `x` and `y`.\n"
-		"You can specify the extracted size with `width` and `height`.\n"
-		"If they're omitted, extraction will be done up to the right-bottom position of the source image.\n");
+		"Returns a new image instance of the extracted area of the source image.\n"
+		"\n"
+		"The extracted area is specified by the following arguments:\n"
+		"\n"
+		"- `x` .. The left position.\n"
+		"- `y` .. The top position.\n"
+		"- `width` .. The width. If it's omitted or specified with `nil`,\n"
+		"             the whole area on the right of `x` will be extracted.\n"
+		"- `height` .. The height. If it's omitted or specified with `nil`,\n"
+		"             the whole area on the bottom of `y` will be extracted.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|img:image|`,\n"
+		"where `img` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementMethod(image, crop)
@@ -304,7 +322,7 @@ Gura_DeclareMethod(image, delpalette)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Deletes the palette instance associated with the image.\n");
+		"Deletes a `palette` instance associated with the image.\n");
 }
 
 Gura_ImplementMethod(image, delpalette)
@@ -405,10 +423,14 @@ Gura_DeclareMethod(image, flip)
 		"Returns a new `image` instance that flips the source image horizontally or vertically.\n"
 		"You can specify the following symbol to the `orient` argument.\n"
 		"\n"
-		"- `horz` .. flips horizontally.\n"
-		"- `vert` .. flips vertically.\n"
-		"- `both` .. flips both horizontally and vertically. This has the same effect with\n"
-		"            rotating the image 180 degrees.\n");
+		"- `` `horz`` .. flips horizontally.\n"
+		"- `` `vert`` .. flips vertically.\n"
+		"- `` `both`` .. flips both horizontally and vertically. This has the same effect with\n"
+		"            rotating the image 180 degrees.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|img:image|`,\n"
+		"where `img` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementMethod(image, flip)
@@ -463,7 +485,12 @@ Gura_DeclareMethod(image, grayscale)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a new image instance that converts the source image into gray scale.\n");
+		"Returns a new image instance that converts the source image into gray scale.\n"
+		"\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|img:image|`,\n"
+		"where `img` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementMethod(image, grayscale)
