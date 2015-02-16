@@ -4694,10 +4694,16 @@ __format_c__</code>
 </p>
 <h3><span class="caption-index-3">6.14.1</span><a name="caption-6-14-1"></a>Methods</h3>
 <p>
-<strong>formatter#getfieldminwidth</strong>
+<strong>formatter#getminwidth</strong>
 </p>
 <p>
-<code>formatter#getfieldminwidth()</code>
+<code>formatter#getminwidth()</code>
+</p>
+<p>
+Returns an expected minimum width for the field.
+</p>
+<p>
+For example, with <code>%3d</code>, this method returns <code>3</code>.
 </p>
 <p>
 <strong>formatter#getpadding</strong>
@@ -4706,16 +4712,39 @@ __format_c__</code>
 <code>formatter#getpadding()</code>
 </p>
 <p>
+Returns a string containing a padding character, a space or '0'.
+</p>
+<p>
+In default, a space is used for padding. For example, with <code>%3d</code>, this method returns <code>' '</code>.
+</p>
+<p>
+When a character <code>0</code> appears after <code>%</code>, that becomes the padding character. For example, with <code>%03d</code>, this method returns <code>'0'</code>.
+</p>
+<p>
 <strong>formatter#getplusmode</strong>
 </p>
 <p>
 <code>formatter#getplusmode()</code>
 </p>
 <p>
+Returns a symbol that indicates an expected action when a positive number appears.
+</p>
+<ul>
+<li><code>`none</code> .. No character ahead of the number.</li>
+<li><code>`space</code> .. A space should be inserted.</li>
+<li><code>`plus</code> .. A plus character should be inserted.</li>
+</ul>
+<p>
 <strong>formatter#getprecision</strong>
 </p>
 <p>
 <code>formatter#getprecision()</code>
+</p>
+<p>
+Returns an expected precision for the field.
+</p>
+<p>
+For example, with <code>%.3d</code>, this method returns <code>3</code>.
 </p>
 <p>
 <strong>formatter#isleftalign</strong>
@@ -4724,16 +4753,31 @@ __format_c__</code>
 <code>formatter#isleftalign()</code>
 </p>
 <p>
+Returns <code>true</code> if the field is expected to be aligned on left.
+</p>
+<p>
+For example, with <code>%-3d</code>, this method returns <code>true</code>.
+</p>
+<p>
 <strong>formatter#issharp</strong>
 </p>
 <p>
 <code>formatter#issharp()</code>
 </p>
 <p>
+Returns <code>true</code> if the specifier sequence includes <code>#</code> flag.
+</p>
+<p>
 <strong>formatter#isuppercase</strong>
 </p>
 <p>
 <code>formatter#isuppercase()</code>
+</p>
+<p>
+Returns <code>true</code> if alphabet characters are expected to be shown in upper case.
+</p>
+<p>
+Upper case characters are requested when a specifier such as <code>%X</code>, <code>%E</code> and <code>%G</code> is specified.
 </p>
 <h2><span class="caption-index-2">6.15</span><a name="caption-6-15"></a>function Class</h2>
 <p>
@@ -5006,7 +5050,7 @@ This class method returns the same information as the property <code>function#fu
 <code>function.gethelp(func:function, lang?:symbol):static:map</code>
 </p>
 <p>
-Returns a <code>help</code> instance of the specified function instance <code>func</code>. If the function instance has no help registred, this function would return <code>nil</code>.
+Returns a <code>help</code> instance associated with the specified function instance <code>func</code>. If the function instance has no help registred, this function would return <code>nil</code>.
 </p>
 <p>
 The argument <code>lang</code> is a symbol that indicates a natural language in which the help is written. If this argument is omitted or the specified language doesn't exist, help information that has been registered at first would be returned as a default.
