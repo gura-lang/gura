@@ -110,16 +110,35 @@ Gura_DeclareFunction(image)
 		"\n"
 		"- `image(format:symbol)` ..\n"
 		"  Creates an empty image with a specified format.\n"
-		"- `image(stream:stream, format?:symbol, imagetype?:string)` ..\n"
-		"  Reads image data from the stream and expand it in the buffer.\n"
 		"- `image(format:symbol, width:number, height:number, color?:color)` ..\n"
 		"  Allocates an image buffer with the specified size and fills it with the color.\n"
+		"- `image(stream:stream, format?:symbol, imagetype?:string)` ..\n"
+		"  Reads image data from the stream and allocates necessary buffer\n"
+		"  in which the read data is stored.\n"
 		"\n"
 		"The argument `format` specifies what elements are stored in the memory\n"
 		"and takes one of the following symbols:\n"
 		"\n"
 		"- `` `rgb`` .. red, green and blue\n"
-		"- `` `rgba`` .. red, green, blue and alpha\n");
+		"- `` `rgba`` .. red, green, blue and alpha\n"
+		"\n"
+		"In the third form, the format of the image data is determined\n"
+		"by the byte sequence of the stream data and its file name.\n"
+		"You can explicitly specify the image data format with the argument `imagetype` as well.\n"
+		"\n"
+		"Acceptable image data formats can be extended by importing modules.\n"
+		"The table below shows the image format and the corresponding module name and its `imagetype`.\n"
+		"\n"
+		"<table>\n"
+		"<tr><th>Image Format</th><th>Module Name</th><th>imagetype</th></tr>\n"
+		"<tr><td>BMP</td><td><code>bmp</code></td><td><code>'bmp'</code></td></tr>\n"
+		"<tr><td>GIF</td><td><code>gif</code></td><td><code>'gif'</code></td></tr>\n"
+		"<tr><td>JPEG</td><td><code>jpeg</code></td><td><code>'jpeg'</code></td></tr>\n"
+		"<tr><td>Microsoft Icon</td>msico<td><code></code></td><td><code>'msico'</code></td></tr>\n"
+		"<tr><td>PNG</td><td><code>png</code></td><td><code>'png'</code></td></tr>\n"
+		"<tr><td>PPM</td><td><code>ppm</code></td><td><code>'ppm'</code></td></tr>\n"
+		"<tr><td>TIFF</td><td><code>tiff</code></td><td><code>'tiff'</code></td></tr>\n"
+		"</table>\n");
 }
 
 Gura_ImplementFunction(image)
@@ -194,6 +213,7 @@ Gura_DeclareMethod(image, allocbuff)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Allocates a buffer of the specified size to an image instance that doesn't have buffer yet.\n"
+		"\n"
 		"The buffer will be filled with zero or a color of `color` argument if specified.\n");
 }
 
