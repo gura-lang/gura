@@ -845,7 +845,7 @@ Color Color::CreateNamedColor(Signal sig, const char *name, UChar a)
 										elementEntry.g, elementEntry.b);
 		}
 	}
-	const Symbol *pSymbol = Symbol::Add(Lower(name).c_str());
+	const Symbol *pSymbol = Symbol::Add(name);
 	ColorMap::iterator iter = _pColorMap->find(pSymbol);
 	if (iter == _pColorMap->end()) {
 		sig.SetError(ERR_ValueError, "unknown color name %s\n", pSymbol->GetName());

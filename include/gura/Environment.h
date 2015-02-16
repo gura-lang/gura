@@ -44,8 +44,14 @@ AssignFunction(new Func_##className##__##name(*this, arg1, arg2))
 #define Gura_AssignValue(name, value) \
 env.AssignValue(Symbol::Add(#name), value, EXTRA_Public)
 
+#define Gura_AssignValueEx(name, value) \
+env.AssignValue(Symbol::Add(name), value, EXTRA_Public)
+
 #define Gura_AssignClassValue(name, value) \
 AssignValue(Symbol::Add(#name), value, EXTRA_Public)
+
+#define Gura_AssignClassValueEx(name, value) \
+AssignValue(Symbol::Add(name), value, EXTRA_Public)
 
 #define Gura_AssignValueTo(valType, name, value) \
 do { \
@@ -53,8 +59,6 @@ do { \
 	pClass->AssignValue(Symbol::Add(#name), value, EXTRA_Public); \
 } while (0)
 
-#define Gura_AssignValueEx(name, value) \
-env.AssignValue(Symbol::Add(name), value, EXTRA_Public)
 
 namespace Gura {
 

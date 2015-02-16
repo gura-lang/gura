@@ -106,7 +106,7 @@ Gura_DeclareFunction(uri)
 	SetClassToConstruct(env.LookupClass(VTYPE_uri));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates `uri` instance from a string.\n");
 }
 
 Gura_ImplementFunction(uri)
@@ -127,7 +127,7 @@ Gura_DeclareMethod(uri, getfragment)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns the fragment part contained in the URI path of the `uri` instance.");
 }
 
 Gura_ImplementMethod(uri, getfragment)
@@ -142,7 +142,7 @@ Gura_DeclareMethod(uri, getpath)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns the path part contained in the URI path of the `uri` instance.");
 }
 
 Gura_ImplementMethod(uri, getpath)
@@ -157,7 +157,7 @@ Gura_DeclareMethod(uri, getquery)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns the query part contained in the URI path of the `uri` instance.");
 }
 
 Gura_ImplementMethod(uri, getquery)
@@ -176,7 +176,8 @@ Gura_DeclareClassMethod(uri, parsequery)
 	DeclareArg(env, "query", VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Parses a query string and returns a dictionary\n"
+		"that contains key-value pairs of the query.");
 }
 
 Gura_ImplementClassMethod(uri, parsequery)

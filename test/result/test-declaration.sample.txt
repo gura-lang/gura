@@ -384,11 +384,11 @@ binary
 boolean
 codec
   codec#addcr(flag?:boolean):reduce
-  bom_utf16be:binary = <binary:R:2byte:'\xfe\xff'>
-  bom_utf16le:binary = <binary:R:2byte:'\xff\xfe'>
-  bom_utf32be:binary = <binary:R:4byte:'\x00\x00\xfe\xff'>
-  bom_utf32le:binary = <binary:R:4byte:'\xff\xfe\x00\x00'>
-  bom_utf8:binary = <binary:R:3byte:'\xef\xbb\xbf'>
+  bom@utf16be:binary = <binary:R:2byte:'\xfe\xff'>
+  bom@utf16le:binary = <binary:R:2byte:'\xff\xfe'>
+  bom@utf32be:binary = <binary:R:4byte:'\x00\x00\xfe\xff'>
+  bom@utf32le:binary = <binary:R:4byte:'\xff\xfe\x00\x00'>
+  bom@utf8:binary = <binary:R:3byte:'\xef\xbb\xbf'>
   codec#decode(buff:binary):map
   codec#delcr(flag?:boolean):reduce
   codec#encode(string:string):map

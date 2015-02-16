@@ -4703,7 +4703,7 @@ __format_c__</code>
 Returns an expected minimum width for the field.
 </p>
 <p>
-For example, with <code>%3d</code>, this method returns <code>3</code>.
+For example, with <code>%3d</code>, this method would return <code>3</code>.
 </p>
 <p>
 <strong>formatter#getpadding</strong>
@@ -4715,10 +4715,10 @@ For example, with <code>%3d</code>, this method returns <code>3</code>.
 Returns a string containing a padding character, a space or '0'.
 </p>
 <p>
-In default, a space is used for padding. For example, with <code>%3d</code>, this method returns <code>' '</code>.
+In default, a space is used for padding. For example, with <code>%3d</code>, this method would return <code>' '</code>.
 </p>
 <p>
-When a character <code>0</code> appears after <code>%</code>, that becomes the padding character. For example, with <code>%03d</code>, this method returns <code>'0'</code>.
+When a character <code>0</code> appears after <code>%</code>, that becomes the padding character. For example, with <code>%03d</code>, this method would return <code>'0'</code>.
 </p>
 <p>
 <strong>formatter#getplusmode</strong>
@@ -4744,7 +4744,7 @@ Returns a symbol that indicates an expected action when a positive number appear
 Returns an expected precision for the field.
 </p>
 <p>
-For example, with <code>%.3d</code>, this method returns <code>3</code>.
+For example, with <code>%.3d</code>, this method would return <code>3</code>.
 </p>
 <p>
 <strong>formatter#isleftalign</strong>
@@ -4756,7 +4756,7 @@ For example, with <code>%.3d</code>, this method returns <code>3</code>.
 Returns <code>true</code> if the field is expected to be aligned on left.
 </p>
 <p>
-For example, with <code>%-3d</code>, this method returns <code>true</code>.
+For example, with <code>%-3d</code>, this method would return <code>true</code>.
 </p>
 <p>
 <strong>formatter#issharp</strong>
@@ -4765,7 +4765,10 @@ For example, with <code>%-3d</code>, this method returns <code>true</code>.
 <code>formatter#issharp()</code>
 </p>
 <p>
-Returns <code>true</code> if the specifier sequence includes <code>#</code> flag.
+Returns <code>true</code> if the specifier sequence includes <code>#</code> flag, which means some literal prefixes such as <code>0x</code> are expected to be appended at the top.
+</p>
+<p>
+For example, with <code>%#x</code>, this method would return <code>true</code>.
 </p>
 <p>
 <strong>formatter#isuppercase</strong>
@@ -5286,9 +5289,9 @@ R</td>
 Returns an image instance with specified characteristics. There are three forms to call the function as below:
 </p>
 <ul>
-<li><code>image(format:symbol)</code> .. Creates an empty image with a specified format.</li>
-<li><code>image(stream:stream, format?:symbol, imagetype?:string)</code> .. Reads image data from the stream and expand it in the buffer.</li>
+<li><code>image(format:symbol)</code> .. Creates an image instance of the specified format without buffer allocated.</li>
 <li><code>image(format:symbol, width:number, height:number, color?:color)</code> .. Allocates an image buffer with the specified size and fills it with the color.</li>
+<li><code>image(stream:stream, format?:symbol, imagetype?:string)</code> .. Reads image data from the stream and allocates necessary buffer in which the read data is stored.</li>
 </ul>
 <p>
 The argument <code>format</code> specifies what elements are stored in the memory and takes one of the following symbols:
@@ -5298,14 +5301,136 @@ The argument <code>format</code> specifies what elements are stored in the memor
 <li><code>`rgba</code> .. red, green, blue and alpha</li>
 </ul>
 <p>
+In the third form, the format of the image data is determined by the byte sequence of the stream data and its file name. You can explicitly specify the image data format with the argument <code>imagetype</code> as well.
+</p>
+<p>
+Acceptable image data formats can be extended by importing modules. The table below shows the image format, the responsible module name and a symbol for <code>imagetype</code>.
+</p>
+<p>
+<table>
+
+<tr>
+<th>
+Image Format</th>
+<th>
+Module Name</th>
+<th>
+imagetype</th>
+</tr>
+
+<tr>
+<td>
+BMP</td>
+<td>
+<code>
+bmp</code>
+</td>
+<td>
+<code>
+'bmp'</code>
+</td>
+</tr>
+
+<tr>
+<td>
+GIF</td>
+<td>
+<code>
+gif</code>
+</td>
+<td>
+<code>
+'gif'</code>
+</td>
+</tr>
+
+<tr>
+<td>
+JPEG</td>
+<td>
+<code>
+jpeg</code>
+</td>
+<td>
+<code>
+'jpeg'</code>
+</td>
+</tr>
+
+<tr>
+<td>
+Microsoft Icon</td>
+<td>
+<code>
+msico</code>
+</td>
+<td>
+<code>
+'msico'</code>
+</td>
+</tr>
+
+<tr>
+<td>
+PNG</td>
+<td>
+<code>
+png</code>
+</td>
+<td>
+<code>
+'png'</code>
+</td>
+</tr>
+
+<tr>
+<td>
+PPM</td>
+<td>
+<code>
+ppm</code>
+</td>
+<td>
+<code>
+'ppm'</code>
+</td>
+</tr>
+
+<tr>
+<td>
+TIFF</td>
+<td>
+<code>
+tiff</code>
+</td>
+<td>
+<code>
+'tiff'</code>
+</td>
+</tr>
+
+</table>
+
+</p>
+<p>
 <strong>image#allocbuff</strong>
 </p>
 <p>
 <code>image#allocbuff(width:number, height:number, color?:color):reduce</code>
 </p>
 <p>
-Allocates a buffer of the specified size to an image instance that doesn't have buffer yet. The buffer will be filled with zero or a color of <code>color</code> argument if specified.
+Allocates a specified size of buffer in the <code>image</code> instance that is supposed to has no buffer allocated.
 </p>
+<p>
+The allocated buffer will be filled with <code>color</code>. If omitted, it will be filled with zero value.
+</p>
+<p>
+An error occurs in following cases:
+</p>
+<ul>
+<li>It fails to allocate necessary buffer.</li>
+<li>The <code>image</code> instance already has allocated buffer.</li>
+</ul>
 <p>
 <strong>image#blur</strong>
 </p>
@@ -5319,7 +5444,10 @@ Allocates a buffer of the specified size to an image instance that doesn't have 
 <code>image#clear():reduce</code>
 </p>
 <p>
-Fills the buffer with zero value. This has the same effect with calling <code>image#fill</code> with <code>color.Zero</code>.
+Fills the buffer in the <code>image</code> instance with zero value.
+</p>
+<p>
+This has the same effect with calling <code>image#fill()</code> with <code>color.zero</code>.
 </p>
 <p>
 <strong>image#crop</strong>
@@ -5328,7 +5456,19 @@ Fills the buffer with zero value. This has the same effect with calling <code>im
 <code>image#crop(x:number, y:number, width?:number, height?:number):map {block?}</code>
 </p>
 <p>
-Returns a new image instance after extracting part of the source image. You can specify the left-top position of the extracted area with arguments <code>x</code> and <code>y</code>. You can specify the extracted size with <code>width</code> and <code>height</code>. If they're omitted, extraction will be done up to the right-bottom position of the source image.
+Returns a new image instance of the extracted area of the source image.
+</p>
+<p>
+The extracted area is specified by the following arguments:
+</p>
+<ul>
+<li><code>x</code> .. The left position.</li>
+<li><code>y</code> .. The top position.</li>
+<li><code>width</code> .. The width. If it's omitted or specified with <code>nil</code>, the whole area on the right of <code>x</code> will be extracted.</li>
+<li><code>height</code> .. The height. If it's omitted or specified with <code>nil</code>, the whole area on the bottom of <code>y</code> will be extracted.</li>
+</ul>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|img:image|</code>, where <code>img</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 <strong>image#delpalette</strong>
@@ -5337,7 +5477,7 @@ Returns a new image instance after extracting part of the source image. You can 
 <code>image#delpalette():reduce</code>
 </p>
 <p>
-Deletes the palette instance associated with the image.
+Deletes a <code>palette</code> instance associated with the image.
 </p>
 <p>
 <strong>image#extract</strong>
@@ -5373,10 +5513,13 @@ Fills the specified arew with the specified color.
 Returns a new <code>image</code> instance that flips the source image horizontally or vertically. You can specify the following symbol to the <code>orient</code> argument.
 </p>
 <ul>
-<li><code>horz</code> .. flips horizontally.</li>
-<li><code>vert</code> .. flips vertically.</li>
-<li><code>both</code> .. flips both horizontally and vertically. This has the same effect with rotating the image 180 degrees.</li>
+<li><code>`horz</code> .. flips horizontally.</li>
+<li><code>`vert</code> .. flips vertically.</li>
+<li><code>`both</code> .. flips both horizontally and vertically. This has the same effect with rotating the image 180 degrees.</li>
 </ul>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|img:image|</code>, where <code>img</code> is the created instance. In this case, the block's result would become the function's returned value.
+</p>
 <p>
 <strong>image#getpixel</strong>
 </p>
@@ -5394,6 +5537,9 @@ Returns <code>color</code> instance of a color data at the specified position.
 </p>
 <p>
 Returns a new image instance that converts the source image into gray scale.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|img:image|</code>, where <code>img</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 <strong>image#mapcolorlevel</strong>

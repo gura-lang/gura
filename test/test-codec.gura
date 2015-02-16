@@ -6,11 +6,11 @@ sys.echo(false)
 sys.stdout.setcodec('shift_jis').addcr(false)
 
 testcase {
-	tester(`codec.bom_utf8)
-	tester(`codec.bom_utf16le)
-	tester(`codec.bom_utf16be)
-	tester(`codec.bom_utf32le)
-	tester(`codec.bom_utf32be)
+	tester(`codec.bom@utf8)
+	tester(`codec.bom@utf16le)
+	tester(`codec.bom@utf16be)
+	tester(`codec.bom@utf32le)
+	tester(`codec.bom@utf32be)
 }
 testcase {
 	'あいうえお'.binary().dump()

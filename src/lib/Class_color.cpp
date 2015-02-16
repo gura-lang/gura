@@ -99,7 +99,7 @@ Gura_DeclareFunction(color)
 	SetClassToConstruct(env.LookupClass(VTYPE_color));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates a color instance.\n"
+		"Creates a `color` instance.\n"
 		"\n"
 		"If `block` is specified, it would be evaluated with a block parameter `|c:color|`,\n"
 		"where `c` is the created instance.\n"
@@ -107,10 +107,13 @@ Gura_DeclareFunction(color)
 		"\n"
 		"There are two forms to call this function as below:"
 		"\n"
-		"- `color(name:symbol, a?:number)` ..\n"
-		"  Specifies a color name and an optional alpha element.\n"
+		"- `color(name:string, a?:number)` ..\n"
+		"  Creates an instance from color name and an optional alpha element.\n"
+		"  Predefined variable `color.names` is a list that contains available color names.\n"
+		"  A string in a format of `'#rrggbb'` that is used in HTML documents\n"
+		"  is also acceptable as a color name.\n"
 		"- `color(r:number, g?:number, b?:number, a?:number)` ..\n"
-		"  Specifies RGB and an optional alpha elements.\n");
+		"  Creates an instance from RGB elements and an optional alpha element.\n");
 }
 
 Gura_ImplementFunction(color)
@@ -173,7 +176,7 @@ Gura_DeclareMethod(color, html)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a color string in a format of `#rrggbb` that is used in HTML documents.");
+		"Returns a color string in a format of `'#rrggbb'` that is used in HTML documents.");
 }
 
 Gura_ImplementMethod(color, html)
@@ -190,7 +193,8 @@ Gura_DeclareMethod(color, tolist)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns a list of RGB elements in a form `[r, g, b]`.\n"
-		"Specifying `:alpha` attribute would add alpha element to the list.");
+		"\n"
+		"Specifying `:alpha` attribute would add the alpha element to the list.");
 }
 
 Gura_ImplementMethod(color, tolist)

@@ -45,7 +45,12 @@ Gura_DeclareFunction(codec)
 	SetClassToConstruct(env.LookupClass(VTYPE_codec));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `codec` instance of the specified encoding name.\n"
+		"You can call `codecs.dir()` to get a list of available encoding names.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|codec:codec|`,\n"
+		"where `codec` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementFunction(codec)
@@ -65,7 +70,8 @@ Gura_DeclareMethod(codec, addcr)
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Indicates the codec to add a carriage return code (0x0d)\n"
+		"before a new line code (0x0a) while encoding.");
 }
 
 Gura_ImplementMethod(codec, addcr)
@@ -83,7 +89,7 @@ Gura_DeclareMethod(codec, decode)
 	DeclareArg(env, "buff", VTYPE_binary);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Decodes a binary and returns the decoded result in `string`.\n");
 }
 
 Gura_ImplementMethod(codec, decode)
@@ -103,7 +109,8 @@ Gura_DeclareMethod(codec, delcr)
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Indicates the codec to remove CR code (0x0d)\n"
+		"before a line feed code (0x0a) while decoding.");
 }
 
 Gura_ImplementMethod(codec, delcr)
@@ -121,7 +128,7 @@ Gura_DeclareMethod(codec, encode)
 	DeclareArg(env, "string", VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Encodes a string and returns the encoded result in `binary`.\n");
 }
 
 Gura_ImplementMethod(codec, encode)
@@ -148,14 +155,11 @@ void Class_codec::Prepare(Environment &env)
 	Gura_AssignMethod(codec, decode);
 	Gura_AssignMethod(codec, delcr);
 	Gura_AssignMethod(codec, encode);
-	do {
-		Environment &env = *this;
-		Gura_AssignValue(bom_utf8, Value(new Object_binary(env, Codec::BOM_UTF8, false)));
-		Gura_AssignValue(bom_utf16le, Value(new Object_binary(env, Codec::BOM_UTF16LE, false)));
-		Gura_AssignValue(bom_utf16be, Value(new Object_binary(env, Codec::BOM_UTF16BE, false)));
-		Gura_AssignValue(bom_utf32le, Value(new Object_binary(env, Binary(Codec::BOM_UTF32LE, 4), false)));
-		Gura_AssignValue(bom_utf32be, Value(new Object_binary(env, Binary(Codec::BOM_UTF32BE, 4), false)));
-	} while (0);
+	Gura_AssignClassValueEx("bom@utf8", Value(new Object_binary(env, Codec::BOM_UTF8, false)));
+	Gura_AssignClassValueEx("bom@utf16le", Value(new Object_binary(env, Codec::BOM_UTF16LE, false)));
+	Gura_AssignClassValueEx("bom@utf16be", Value(new Object_binary(env, Codec::BOM_UTF16BE, false)));
+	Gura_AssignClassValueEx("bom@utf32le", Value(new Object_binary(env, Binary(Codec::BOM_UTF32LE, 4), false)));
+	Gura_AssignClassValueEx("bom@utf32be", Value(new Object_binary(env, Binary(Codec::BOM_UTF32BE, 4), false)));
 }
 
 bool Class_codec::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

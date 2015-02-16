@@ -943,6 +943,7 @@ write(doc:markdown.document) = {
 	doc << text_codec
 	doc << '### Methods'
 	doc << [
+		codec
 		codec.addcr
 		codec.decode
 		codec.delcr
