@@ -173,6 +173,28 @@ text_codec = R'''
 ## codec Class
 
 The `codec` class provides measures to convert character codes.
+
+### Predefined Variables
+
+<table>
+<tr><th>Variable</th><th>Type</th><th>Explanation</th></tr>
+
+<tr><td><code>codec.bom@utf8</code></td><td><code>binary</code></td>
+<td>BOM sequence of UTF-8</td></tr>
+
+<tr><td><code>codec.bom@utf16le</code></td><td><code>binary</code></td>
+<td>BOM sequence of UTF-16 little endian</td></tr>
+
+<tr><td><code>codec.bom@utf16be</code></td><td><code>binary</code></td>
+<td>BOM sequence of UTF-16 big endian</td></tr>
+
+<tr><td><code>codec.bom@utf32le</code></td><td><code>binary</code></td>
+<td>BOM sequence of UTF-32 little endian</td></tr>
+
+<tr><td><code>codec.bom@utf32be</code></td><td><code>binary</code></td>
+<td>BOM sequence of UTF-32 big endian</td></tr>
+
+</table>
 '''
 
 //-----------------------------------------------------------------------------
