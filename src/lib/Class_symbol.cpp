@@ -12,7 +12,9 @@ Gura_DeclareMethod(symbol, eval)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "env", VTYPE_environment, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Evaluate a symbol object.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Evaluate a symbol object.");
 }
 
 Gura_ImplementMethod(symbol, eval)

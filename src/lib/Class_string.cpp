@@ -15,7 +15,7 @@ Gura_ImplementSuffixMgrForString($)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// string#align(len:number, padding:string => " "):map:[center,left,right]
+// string#align(len:number, padding:string => ' '):map:[center,left,right]
 Gura_DeclareMethod(string, align)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -27,10 +27,13 @@ Gura_DeclareMethod(string, align)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Returns a string aligned in left, right or center within a specified length.\n"
-		"An attribute :center aligns the string in center, :left in left and :right in right\n"
-		"An attribute :center is the default behaviour.\n"
-		"It fills a padding area with a character specified by an argument padding,\n"
-		"and a white space is used when itt is omitted");
+		"\n"
+		"- `:center` .. aligns to center. This is the default.\n"
+		"- `:left` .. aligns to left\n"
+		"- `:right` aligns to right\n"
+		"\n"
+		"It fills a padding area with a character specified by an argument `padding`.\n"
+		"If omitted, a white space is used for padding.\n");
 }
 
 Gura_ImplementMethod(string, align)
@@ -92,7 +95,8 @@ Gura_DeclareMethod(string, chop)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Returns a string that removes a last character.\n"
-		"If an attribute :eol is specified, only the end-of-line character shall be\n"
+		"\n"
+		"If an attribute `:eol` is specified, only the end-of-line character shall be\n"
 		"removed. In this case, if the end-of-line has a sequence of CR-LF, CR code\n"
 		"shall be removed as well.");
 }
@@ -139,7 +143,7 @@ Gura_DeclareMethod(string, each)
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Creates an iterator generating strings of each character in the original one.\n"
 		GURA_ITERATOR_HELP
-		"Block parameter format: |char:string, idx:number|");
+		"Block parameter format: `|char:string, idx:number|`");
 }
 
 Gura_ImplementMethod(string, each)
@@ -164,10 +168,11 @@ Gura_DeclareMethod(string, eachline)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Creates an iterator generating strings of each line in the original one.\n"
+		"\n"
 		"In default, end-of-line characters are involved in the result,\n"
 		"and you can eliminates them by specifying :chop attribute.\n"
 		GURA_ITERATOR_HELP
-		"Block parameter format: |line:string, idx:number|");
+		"Block parameter format: `|line:string, idx:number|`");
 }
 
 Gura_ImplementMethod(string, eachline)
@@ -204,7 +209,7 @@ Gura_DeclareMethod(string, encodeuri)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a string in which non-URIC characters are percent-encoded.");
+		"Returns a string in which non-URIC characters are percent-encoded.\n");
 }
 
 Gura_ImplementMethod(string, encodeuri)
@@ -222,10 +227,14 @@ Gura_DeclareMethod(string, endswith)
 	DeclareAttr(Gura_Symbol(icase));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns true if the string ends with suffix. If attribute :rest is specified,\n"
-		"it returns the rest part if the string ends with suffix, or nil otherewise.\n"
-		"You can specify a bottom position for the matching by an argument endpos.\n"
-		"With an attribute :icase, case of characters are ignored while finding.");
+		"Returns `true` if the string ends with suffix.\n"
+		"\n"
+		"\n"
+		"If attribute `:rest` is specified,\n"
+		"it returns the rest part if the string ends with suffix, or `nil` otherewise.\n"
+		"You can specify a bottom position for the matching by an argument `endpos`.\n"
+		"\n"
+		"With an attribute `:icase`, character cases are ignored while matching.");
 }
 
 Gura_ImplementMethod(string, endswith)
@@ -269,6 +278,7 @@ Gura_DeclareMethod(string, find)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Finds a sub string from the string and returns its position.\n"
+		"\n"
 		"Number of position starts from zero. You can specify a position to start\n"
 		"finding by an argument pos. It returns nil if finding fails.\n"
 		"With an attribute :icase, case of characters are ignored while finding.\n"
@@ -293,7 +303,7 @@ Gura_DeclareMethod(string, fold)
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Creates an iterator that folds string in a specified length.\n"
 		GURA_ITERATOR_HELP
-		"Block parameter format: |sub:string, idx:number|");
+		"Block parameter format: `|sub:string, idx:number|`");
 }
 
 Gura_ImplementMethod(string, fold)
@@ -328,7 +338,7 @@ Gura_DeclareMethod(string, isempty)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns true if the string is empty.");
+		"Returns `true` if the string is empty.");
 }
 
 Gura_ImplementMethod(string, isempty)
@@ -343,7 +353,7 @@ Gura_DeclareMethod(string, left)
 	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a copy of the string in len characters from its left side");
+		"Returns a copy of the string in len characters from its left side.");
 }
 
 Gura_ImplementMethod(string, left)
@@ -390,7 +400,7 @@ Gura_DeclareMethod(string, mid)
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Returns a copy of part of the string in len characters starting from pos.\n"
 		"If an argument len is omitted, it returns a string from pos to its end.\n"
-		"Number of an argument pos starts from zero.\n"
+		"Number of an argument `pos` starts from zero.\n"
 		"\n"
 		"Below are examples:\n"
 		"\n"
@@ -468,9 +478,11 @@ Gura_DeclareMethod(string, replace)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Returns a string that substitutes sub strings in the string with replace.\n"
-		"An argument count limits the maximum number of substitution\n"
+		"\n"
+		"The argument `count` limits the maximum number of substitution\n"
 		"and there's no limit if it's omitted.\n"
-		"With an attribute :icase,	case of characgters are ignored while finding.");
+		"\n"
+		"With an attribute `:icase`, case of characgters are ignored while finding.");
 }
 
 Gura_ImplementMethod(string, replace)
@@ -550,6 +562,7 @@ Gura_DeclareMethod(string, startswith)
 		"If attribute `:rest` is specified,\n"
 		"it returns the rest part if the string starts with prefix, or `nil` otherewise.\n"
 		"You can specify a top position for the matching by an argument `pos`.\n"
+		"\n"
 		"With an attribute `:icase`, character cases are ignored while matching.");
 }
 

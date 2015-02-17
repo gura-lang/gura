@@ -79,6 +79,26 @@ text = R'''
 '''
 
 //-----------------------------------------------------------------------------
+text_Class = R'''
+## Class Class
+'''
+
+//-----------------------------------------------------------------------------
+text_Module = R'''
+## Module Class
+'''
+
+//-----------------------------------------------------------------------------
+text_Sequence = R'''
+## Sequence Class
+'''
+
+//-----------------------------------------------------------------------------
+text_any = R'''
+## any Class
+'''
+
+//-----------------------------------------------------------------------------
 text_args = R'''
 ## args Class
 
@@ -169,6 +189,11 @@ For example, the code below creates a `binary` instance that contains a sequence
 '''
 
 //-----------------------------------------------------------------------------
+text_boolean = R'''
+## boolean Class
+'''
+
+//-----------------------------------------------------------------------------
 text_codec = R'''
 ## codec Class
 
@@ -238,6 +263,11 @@ Some instances are predefined as class variables:
 <td>Value of the alpha element.</td></tr>
 
 </table>
+'''
+
+//-----------------------------------------------------------------------------
+text_complex = R'''
+## complex Class
 '''
 
 //-----------------------------------------------------------------------------
@@ -768,6 +798,16 @@ text_matrix = R'''
 '''
 
 //-----------------------------------------------------------------------------
+text_nil = R'''
+## nil Class
+'''
+
+//-----------------------------------------------------------------------------
+text_number = R'''
+## number Class
+'''
+
+//-----------------------------------------------------------------------------
 text_operator = R'''
 ## operator Class
 
@@ -791,8 +831,20 @@ text_palette = R'''
 //-----------------------------------------------------------------------------
 text_pointer = R'''
 ## pointer Class
+'''
 
+//-----------------------------------------------------------------------------
+text_quote = R'''
+## quote Class
+'''
 
+//-----------------------------------------------------------------------------
+text_rational = R'''
+## rational Class
+
+The `rational` class provides measures to handle rational numbers.
+
+A number literal suffixed by `r` would create a `rational` instance.
 '''
 
 //-----------------------------------------------------------------------------
@@ -832,6 +884,17 @@ text_stream = R'''
 '''
 
 //-----------------------------------------------------------------------------
+text_string = R'''
+## string Class
+
+The `string` class provides measures to operate on strings.
+
+When an string literal is suffixed by a character `$`,
+a handler registered by `string.translate()` function that is supposed to translate
+the string into other natural languages would be evaluated.
+'''
+
+//-----------------------------------------------------------------------------
 text_suffixmgr = R'''
 ## suffixmgr Class
 
@@ -846,6 +909,11 @@ after being appended to a string literal:
 You can use that suffix like below:
 
     'hello world'X
+'''
+
+//-----------------------------------------------------------------------------
+text_symbol = R'''
+## symbol Class
 '''
 
 //-----------------------------------------------------------------------------
@@ -873,6 +941,11 @@ text_timedelta = R'''
 <td></td></tr>
 
 </table>
+'''
+
+//-----------------------------------------------------------------------------
+text_undefined = R'''
+## undefined Class
 '''
 
 //-----------------------------------------------------------------------------
@@ -911,6 +984,26 @@ text_uri = R'''
 write(doc:markdown.document) = {
 	doc << text
 	//-------------------------------------------------------------------------
+	doc << text_Class
+	doc << '### Methods'
+	doc << [
+	]
+	//-------------------------------------------------------------------------
+	doc << text_Module
+	doc << '### Methods'
+	doc << [
+	]
+	//-------------------------------------------------------------------------
+	doc << text_Sequence
+	doc << '### Methods'
+	doc << [
+	]
+	//-------------------------------------------------------------------------
+	doc << text_any
+	doc << '### Methods'
+	doc << [
+	]
+	//-------------------------------------------------------------------------
 	doc << text_args
 	doc << '### Methods'
 	doc << [
@@ -939,6 +1032,11 @@ write(doc:markdown.document) = {
 		audio.put
 		audio.sinewave
 		audio.store
+	]
+	//-------------------------------------------------------------------------
+	doc << text_boolean
+	doc << '### Methods'
+	doc << [
 	]
 	//-------------------------------------------------------------------------
 	doc << text_binary
@@ -979,6 +1077,11 @@ write(doc:markdown.document) = {
 		color.getgray
 		color.html
 		color.tolist
+	]
+	//-------------------------------------------------------------------------
+	doc << text_complex
+	doc << '### Methods'
+	doc << [
 	]
 	//-------------------------------------------------------------------------
 	doc << text_datetime
@@ -1300,6 +1403,17 @@ write(doc:markdown.document) = {
 		matrix.transpose
 	]
 	//-------------------------------------------------------------------------
+	doc << text_nil
+	doc << '### Methods'
+	doc << [
+	]
+	//-------------------------------------------------------------------------
+	doc << text_number
+	doc << '### Methods'
+	doc << [
+		classref(`number).roundoff
+	]
+	//-------------------------------------------------------------------------
 	doc << text_operator
 	doc << '### Methods'
 	doc << [
@@ -1326,6 +1440,18 @@ write(doc:markdown.document) = {
 		pointer.reset
 		pointer.unpack
 		pointer.unpacks
+	]
+	//-------------------------------------------------------------------------
+	doc << text_quote
+	doc << '### Methods'
+	doc << [
+	]
+	//-------------------------------------------------------------------------
+	doc << text_rational
+	doc << '### Methods'
+	doc << [
+		rational
+		rational.reduce
 	]
 	//-------------------------------------------------------------------------
 	doc << text_semaphore
@@ -1369,11 +1495,55 @@ write(doc:markdown.document) = {
 		stream.write
 	]
 	//-------------------------------------------------------------------------
+	doc << text_string
+	doc << '### Methods'
+	doc << [
+		string.align
+		string.binary
+		string.capitalize
+		string.chop
+		string.decodeuri
+		string.each
+		string.eachline
+		string.encode
+		string.encodeuri
+		string.endswith
+		string.escapehtml
+		string.find
+		string.fold
+		string.format
+		string.isempty
+		string.left
+		string.len
+		string.lower
+		string.mid
+		string.print
+		string.println
+		string.reader
+		string.replace
+		string.right
+		string.split
+		string.startswith
+		string.strip
+		string.template
+		string.tosymbol
+		string.translator
+		string.unescapehtml
+		string.upper
+		string.zentohan
+	]
+	//-------------------------------------------------------------------------
 	doc << text_suffixmgr
 	doc << '### Methods'
 	doc << [
 		suffixmgr
 		suffixmgr.assign
+	]
+	//-------------------------------------------------------------------------
+	doc << text_symbol
+	doc << '### Methods'
+	doc << [
+		classref(`symbol).eval
 	]
 	//-------------------------------------------------------------------------
 	doc << text_template
@@ -1401,6 +1571,11 @@ write(doc:markdown.document) = {
 	doc << '### Methods'
 	doc << [
 		timedelta
+	]
+	//-------------------------------------------------------------------------
+	doc << text_undefined
+	doc << '### Methods'
+	doc << [
 	]
 	//-------------------------------------------------------------------------
 	doc << text_uri
