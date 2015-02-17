@@ -24,12 +24,13 @@ Gura_DeclareMethod(string, align)
 	DeclareAttr(Gura_Symbol(center));
 	DeclareAttr(Gura_Symbol(left));
 	DeclareAttr(Gura_Symbol(right));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string aligned in left, right or center within a specified length.\n"
-	"An attribute :center aligns the string in center, :left in left and :right in right\n"
-	"An attribute :center is the default behaviour.\n"
-	"It fills a padding area with a character specified by an argument padding,\n"
-	"and a white space is used when itt is omitted");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a string aligned in left, right or center within a specified length.\n"
+		"An attribute :center aligns the string in center, :left in left and :right in right\n"
+		"An attribute :center is the default behaviour.\n"
+		"It fills a padding area with a character specified by an argument padding,\n"
+		"and a white space is used when itt is omitted");
 }
 
 Gura_ImplementMethod(string, align)
@@ -55,6 +56,9 @@ Gura_ImplementMethod(string, align)
 Gura_DeclareMethodPrimitive(string, binary)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(string, binary)
@@ -67,9 +71,10 @@ Gura_ImplementMethod(string, binary)
 Gura_DeclareMethod(string, capitalize)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string copied from the original one but with the first character\n"
-	"capitalized.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a string copied from the original one but with the first character\n"
+		"capitalized.");
 }
 
 Gura_ImplementMethod(string, capitalize)
@@ -84,11 +89,12 @@ Gura_DeclareMethod(string, chop)
 	DeclareArg(env, "suffix", VTYPE_string, OCCUR_ZeroOrMore);
 	DeclareAttr(Gura_Symbol(eol));
 	DeclareAttr(Gura_Symbol(icase));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string that removes a last character.\n"
-	"If an attribute :eol is specified, only the end-of-line character shall be\n"
-	"removed. In this case, if the end-of-line has a sequence of CR-LF, CR code\n"
-	"shall be removed as well.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a string that removes a last character.\n"
+		"If an attribute :eol is specified, only the end-of-line character shall be\n"
+		"removed. In this case, if the end-of-line has a sequence of CR-LF, CR code\n"
+		"shall be removed as well.");
 }
 
 Gura_ImplementMethod(string, chop)
@@ -112,8 +118,9 @@ Gura_ImplementMethod(string, chop)
 Gura_DeclareMethod(string, decodeuri)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string in which percent-encoded characters are decoded.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a string in which percent-encoded characters are decoded.");
 }
 
 Gura_ImplementMethod(string, decodeuri)
@@ -128,10 +135,11 @@ Gura_DeclareMethod(string, each)
 	DeclareAttr(Gura_Symbol(utf8));
 	DeclareAttr(Gura_Symbol(utf32));
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator generating strings of each character in the original one.\n"
-	GURA_ITERATOR_HELP
-	"Block parameter format: |char:string, idx:number|");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Creates an iterator generating strings of each character in the original one.\n"
+		GURA_ITERATOR_HELP
+		"Block parameter format: |char:string, idx:number|");
 }
 
 Gura_ImplementMethod(string, each)
@@ -153,12 +161,13 @@ Gura_DeclareMethod(string, eachline)
 	DeclareArg(env, "nlines", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(chop));
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator generating strings of each line in the original one.\n"
-	"In default, end-of-line characters are involved in the result,\n"
-	"and you can eliminates them by specifying :chop attribute.\n"
-	GURA_ITERATOR_HELP
-	"Block parameter format: |line:string, idx:number|");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Creates an iterator generating strings of each line in the original one.\n"
+		"In default, end-of-line characters are involved in the result,\n"
+		"and you can eliminates them by specifying :chop attribute.\n"
+		GURA_ITERATOR_HELP
+		"Block parameter format: |line:string, idx:number|");
 }
 
 Gura_ImplementMethod(string, eachline)
@@ -174,6 +183,9 @@ Gura_DeclareMethodPrimitive(string, encode)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "codec", VTYPE_codec);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(string, encode)
@@ -190,8 +202,9 @@ Gura_ImplementMethod(string, encode)
 Gura_DeclareMethod(string, encodeuri)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string in which non-URIC characters are percent-encoded.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a string in which non-URIC characters are percent-encoded.");
 }
 
 Gura_ImplementMethod(string, encodeuri)
@@ -207,11 +220,12 @@ Gura_DeclareMethod(string, endswith)
 	DeclareArg(env, "endpos",	VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(rest));
 	DeclareAttr(Gura_Symbol(icase));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns true if the string ends with suffix. If attribute :rest is specified,\n"
-	"it returns the rest part if the string ends with suffix, or nil otherewise.\n"
-	"You can specify a bottom position for the matching by an argument endpos.\n"
-	"With an attribute :icase, case of characters are ignored while finding.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns true if the string ends with suffix. If attribute :rest is specified,\n"
+		"it returns the rest part if the string ends with suffix, or nil otherewise.\n"
+		"You can specify a bottom position for the matching by an argument endpos.\n"
+		"With an attribute :icase, case of characters are ignored while finding.");
 }
 
 Gura_ImplementMethod(string, endswith)
@@ -233,8 +247,9 @@ Gura_DeclareMethod(string, escapehtml)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(quote));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string that converts characters into escape sequences.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a string that converts characters into escape sequences.");
 }
 
 Gura_ImplementMethod(string, escapehtml)
@@ -251,12 +266,13 @@ Gura_DeclareMethod(string, find)
 	DeclareArg(env, "pos",	VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareAttr(Gura_Symbol(icase));
 	DeclareAttr(Gura_Symbol(rev));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Finds a sub string from the string and returns its position.\n"
-	"Number of position starts from zero. You can specify a position to start\n"
-	"finding by an argument pos. It returns nil if finding fails.\n"
-	"With an attribute :icase, case of characters are ignored while finding.\n"
-	"When an attribute :rev is specified, finding starts from tail of the string\n");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Finds a sub string from the string and returns its position.\n"
+		"Number of position starts from zero. You can specify a position to start\n"
+		"finding by an argument pos. It returns nil if finding fails.\n"
+		"With an attribute :icase, case of characters are ignored while finding.\n"
+		"When an attribute :rev is specified, finding starts from tail of the string\n");
 }
 
 Gura_ImplementMethod(string, find)
@@ -273,10 +289,11 @@ Gura_DeclareMethod(string, fold)
 	DeclareArg(env, "step", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(neat));
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator that folds string in a specified length.\n"
-	GURA_ITERATOR_HELP
-	"Block parameter format: |sub:string, idx:number|");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Creates an iterator that folds string in a specified length.\n"
+		GURA_ITERATOR_HELP
+		"Block parameter format: |sub:string, idx:number|");
 }
 
 Gura_ImplementMethod(string, fold)
@@ -294,9 +311,10 @@ Gura_DeclareMethod(string, format)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Parses the content of the string object as a format specifier similar to\n"
-	"C language's printf and returns a formatted string of argument values.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Parses the content of the string object as a format specifier similar to\n"
+		"C language's printf and returns a formatted string of argument values.");
 }
 
 Gura_ImplementMethod(string, format)
@@ -308,7 +326,9 @@ Gura_ImplementMethod(string, format)
 Gura_DeclareMethod(string, isempty)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns true if the string is empty.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns true if the string is empty.");
 }
 
 Gura_ImplementMethod(string, isempty)
@@ -321,7 +341,9 @@ Gura_DeclareMethod(string, left)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a copy of the string in len characters from its left side");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a copy of the string in len characters from its left side");
 }
 
 Gura_ImplementMethod(string, left)
@@ -334,7 +356,9 @@ Gura_ImplementMethod(string, left)
 Gura_DeclareMethod(string, len)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the length of the string in characters.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns the length of the string in characters.");
 }
 
 Gura_ImplementMethod(string, len)
@@ -346,7 +370,9 @@ Gura_ImplementMethod(string, len)
 Gura_DeclareMethod(string, lower)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a string of lowercase characters of the original one");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a string of lowercase characters of the original one");
 }
 
 Gura_ImplementMethod(string, lower)
@@ -360,15 +386,16 @@ Gura_DeclareMethod(string, mid)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a copy of part of the string in len characters starting from pos.\n"
-	"If an argument len is omitted, it returns a string from pos to its end.\n"
-	"Number of an argument pos starts from zero.\n"
-	"Example:\n"
-	">>> \"Hello world\".mid(3, 2)\n"
-	"lo\n"
-	">>> \"Hello world\".mid(5)\n"
-	"world");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a copy of part of the string in len characters starting from pos.\n"
+		"If an argument len is omitted, it returns a string from pos to its end.\n"
+		"Number of an argument pos starts from zero.\n"
+		"\n"
+		"Below are examples:\n"
+		"\n"
+		"    'Hello world'.mid(3, 2) // 'lo'\n"
+		"    'Hello world'.mid(5)    // 'world'\n");
 }
 
 Gura_ImplementMethod(string, mid)
@@ -382,6 +409,9 @@ Gura_DeclareMethodPrimitive(string, print)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(string, print)
@@ -397,6 +427,9 @@ Gura_DeclareMethodPrimitive(string, println)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(string, println)
@@ -412,6 +445,9 @@ Gura_DeclareMethod(string, reader)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(string, reader)
@@ -429,11 +465,12 @@ Gura_DeclareMethod(string, replace)
 	DeclareArg(env, "count",	VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(icase));
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string that substitutes sub strings in the string with replace.\n"
-	"An argument count limits the maximum number of substitution\n"
-	"and there's no limit if it's omitted.\n"
-	"With an attribute :icase,	case of characgters are ignored while finding.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a string that substitutes sub strings in the string with replace.\n"
+		"An argument count limits the maximum number of substitution\n"
+		"and there's no limit if it's omitted.\n"
+		"With an attribute :icase,	case of characgters are ignored while finding.");
 }
 
 Gura_ImplementMethod(string, replace)
@@ -454,7 +491,9 @@ Gura_DeclareMethod(string, right)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a copy of the string in len characters from its right side");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a copy of the string in len characters from its right side");
 }
 
 Gura_ImplementMethod(string, right)
@@ -471,12 +510,13 @@ Gura_DeclareMethod(string, split)
 	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(icase));
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator generating sub strings extracted from the original one\n"
-	"separated by a specified string sep.\n"
-	"With an attribute :icase, case of characgters are ignored while finding.\n"
-	GURA_ITERATOR_HELP
-	"Block parameter format: |sub:string, idx:number|");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Creates an iterator generating sub strings extracted from the original one\n"
+		"separated by a specified string `sep`.\n"
+		"With an attribute `:icase`, character cases are ignored while finding the separator.\n"
+		GURA_ITERATOR_HELP
+		"Block parameter format: `|sub:string, idx:number|`");
 }
 
 Gura_ImplementMethod(string, split)
@@ -503,11 +543,14 @@ Gura_DeclareMethod(string, startswith)
 	DeclareArg(env, "pos",		VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareAttr(Gura_Symbol(rest));
 	DeclareAttr(Gura_Symbol(icase));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns true if the string starts with prefix. If attribute :rest is specified,\n"
-	"it returns the rest part if the string starts with prefix, or nil otherewise.\n"
-	"You can specify a top position for the matching by an argument pos.\n"
-	"With an attribute :icase, case of characters are ignored while finding.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns `true` if the string starts with `prefix`.\n"
+		"\n"
+		"If attribute `:rest` is specified,\n"
+		"it returns the rest part if the string starts with prefix, or `nil` otherewise.\n"
+		"You can specify a top position for the matching by an argument `pos`.\n"
+		"With an attribute `:icase`, character cases are ignored while matching.");
 }
 
 Gura_ImplementMethod(string, startswith)
@@ -528,10 +571,16 @@ Gura_DeclareMethod(string, strip)
 	DeclareAttr(Gura_Symbol(both));
 	DeclareAttr(Gura_Symbol(left));
 	DeclareAttr(Gura_Symbol(right));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string that removes space characters on left, right or both of\n"
-	"the original one. An attribute :both removes spaces on both sides, :left on left\n"
-	"and :right on right. An attribut :both is the default behaviour.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a string that removes space characters on left, right or both\n"
+		"of the original string.\n"
+		"\n"
+		"The following attributes would customize the process:\n"
+		"\n"
+		"- `:both` .. Removes spaces on both sides. This is the default.\n"
+		"- `:left` .. Removes spaces on the left side.\n"
+		"- `:right` .. Removes spaces on the right side.\n");
 }
 
 Gura_ImplementMethod(string, strip)
@@ -546,8 +595,10 @@ Gura_DeclareMethodAlias(string, template_, "template")
 	DeclareAttr(Gura_Symbol(noindent));
 	DeclareAttr(Gura_Symbol(lasteol));
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Evaluate script coded that is embedded in a string.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Parses the content of the string as a text containing embedded scripts\n"
+		"and returns a `template` instance.\n");
 }
 
 Gura_ImplementMethod(string, template_)
@@ -566,6 +617,9 @@ Gura_ImplementMethod(string, template_)
 Gura_DeclareMethod(string, tosymbol)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(string, tosymbol)
@@ -578,8 +632,10 @@ Gura_DeclareClassMethod(string, translator)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Register a string translator.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Register a string translator that is evaluated\n"
+		"when a string literal is suffixed by a dollar symbol.");
 }
 
 Gura_ImplementClassMethod(string, translator)
@@ -598,8 +654,9 @@ Gura_ImplementClassMethod(string, translator)
 Gura_DeclareMethod(string, unescapehtml)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string that reverts escaped sequences into characters.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Converts escape sequences into readable characters.");
 }
 
 Gura_ImplementMethod(string, unescapehtml)
@@ -611,7 +668,9 @@ Gura_ImplementMethod(string, unescapehtml)
 Gura_DeclareMethod(string, upper)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a string of uppercase characters of the original one");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a string of uppercase characters of the original one");
 }
 
 Gura_ImplementMethod(string, upper)
@@ -623,7 +682,9 @@ Gura_ImplementMethod(string, upper)
 Gura_DeclareMethod(string, zentohan)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Converts zenkaku to hankaku characters");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Converts zenkaku to hankaku characters");
 }
 
 Gura_ImplementMethod(string, zentohan)
