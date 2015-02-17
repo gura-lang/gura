@@ -577,20 +577,17 @@ Renderer@toc = class {
 }
 
 _funcdoc(func:function, fullname:string, fmt:string):map = {
-	str = ''
-	str += '**' + fullname.replace('_', '\\_').replace('`', '\\`') + '**\n'
-	str += '\n'
+	str = '**' + fullname.replace('_', '\\_').replace('`', '\\`') + '**\n\n'
 	if (fmt.find('`')) {
-		str += '`` ' + fmt + '``\n'
+		str += '`` ' + fmt + '``\n\n'
 	} else {
-		str += '`' + fmt + '`\n'
+		str += '`' + fmt + '`\n\n'
 	}
-	str += '\n'
 	if (help = function.gethelp(func, `en)) {
 		str +=  help.text
 		if (!str.endswith('\n')) { str += '\n' }
+		str += '\n'
 	}
-	str += '\n'
 	str
 }
 
