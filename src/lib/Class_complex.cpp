@@ -15,8 +15,15 @@ Gura_DeclareFunction(complex)
 	DeclareArg(env, "imag", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_complex));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Creates a complex value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a `complex` instance with a real part `real` and an imaginary part `imag`.\n"
+		"\n"
+		"If the argument `imag` is omitted, the imaginary part would be set to zero.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|n:complex|`,\n"
+		"where `n` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementFunction(complex)
@@ -29,7 +36,7 @@ Gura_ImplementFunction(complex)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// complex.polar(abs:number, angle:number):map:[deg] {block?}
+// complex.polar(abs:number, arg:number):map:[deg] {block?}
 Gura_DeclareClassMethod(complex, polar)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -37,8 +44,17 @@ Gura_DeclareClassMethod(complex, polar)
 	DeclareArg(env, "arg", VTYPE_number);
 	DeclareAttr(Gura_Symbol(deg));
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Creates a complex value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a `complex` instance with an absolute number `abs`\n"
+		"and an angle `arg` in polar coords.\n"
+		"\n"
+		"The argument `arg` is specified in a unit of radian.\n"
+		"You can give it a degree value by calling the function with `:deg` attribute.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|n:complex|`,\n"
+		"where `n` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementClassMethod(complex, polar)
@@ -55,6 +71,9 @@ Gura_DeclareMethodPrimitive(complex, roundoff)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "threshold", VTYPE_number, OCCUR_Once, FLAG_None,
 											new Expr_Value(RoundOffThreshold));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(complex, roundoff)

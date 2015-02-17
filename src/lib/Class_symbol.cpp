@@ -36,6 +36,8 @@ Class_symbol::Class_symbol(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_symb
 
 void Class_symbol::Prepare(Environment &env)
 {
+	// class assignment
+	Gura_AssignValue(symbol, Value(Reference()));
 	// method assignment
 	Gura_AssignMethod(symbol, eval);	// primitive method
 }

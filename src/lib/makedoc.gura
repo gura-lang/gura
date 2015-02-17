@@ -79,27 +79,27 @@ text = R'''
 '''
 
 //-----------------------------------------------------------------------------
-text_Class = R'''
+text@Class = R'''
 ## Class Class
 '''
 
 //-----------------------------------------------------------------------------
-text_Module = R'''
+text@Module = R'''
 ## Module Class
 '''
 
 //-----------------------------------------------------------------------------
-text_Sequence = R'''
+text@Sequence = R'''
 ## Sequence Class
 '''
 
 //-----------------------------------------------------------------------------
-text_any = R'''
+text@any = R'''
 ## any Class
 '''
 
 //-----------------------------------------------------------------------------
-text_args = R'''
+text@args = R'''
 ## args Class
 
 The `args` class provides measures to access argument information that is passed to a function.
@@ -130,7 +130,7 @@ Below is an example to use `args` class:
 '''
 
 //-----------------------------------------------------------------------------
-text_array = R'''
+text@array = R'''
 ## array Class
 
 An instance of the `array` class stores multiple numeric values in a seamless binary sequence,
@@ -156,20 +156,20 @@ They're listed in the the table below:
 '''
 
 //-----------------------------------------------------------------------------
-text_audio = R'''
+text@audio = R'''
 ## audio Class
 
 The `audio` class provides measures to work on audio data.
 '''
 
 //-----------------------------------------------------------------------------
-text_binary = R'''
+text@binary = R'''
 ## binary Class
 
 The `binary` class provides measures to work on binary data
 that is a byte sequence without any format.
 
-You can create a `binary` instance by calling `binary()` constructor function.
+You can create a `binary` instance by calling `binary()` function.
 
 You can also create the instance by specifying `b` prefix before a string literal.
 For example, the code below creates a `binary` instance that contains a sequence
@@ -189,12 +189,12 @@ For example, the code below creates a `binary` instance that contains a sequence
 '''
 
 //-----------------------------------------------------------------------------
-text_boolean = R'''
+text@boolean = R'''
 ## boolean Class
 '''
 
 //-----------------------------------------------------------------------------
-text_codec = R'''
+text@codec = R'''
 ## codec Class
 
 The `codec` class provides measures to convert character codes.
@@ -223,12 +223,12 @@ The `codec` class provides measures to convert character codes.
 '''
 
 //-----------------------------------------------------------------------------
-text_color = R'''
+text@color = R'''
 ## color Class
 
 An instance of the `color` class represents a color data that consists of red, green, blue and alpha elements.
 
-You can create a `color` instance by calling `color()` constructor function.
+You can create a `color` instance by calling `color()` function.
 
 Some instances are predefined as class variables:
 `color.black`, `color.maroon`, `color.green`, `color.olive`, `color.navy`, `color.purple`,
@@ -266,21 +266,37 @@ Some instances are predefined as class variables:
 '''
 
 //-----------------------------------------------------------------------------
-text_complex = R'''
+text@complex = R'''
 ## complex Class
+
+The `complex` class provides measures to calculate complex numbers.
+
+You can create a `complex` instance by following ways:
+
+- Use `complex()` function.
+- Use `complex.polar()` function.
+- Append `j` suffix after a number literal.
+
+Below are examples to realize a complex number that has 2 as its real part
+and 3 as its imaginal part.
+
+    complex(2, 3)
+    2 + 3j
 '''
 
 //-----------------------------------------------------------------------------
-text_datetime = R'''
+text@datetime = R'''
 ## datetime Class
 
 The `datetime` class provides measures to handle date and time information.
 
 You can create a `datetime` instance by calling following functions:
 
-- `datetime()` constructor function
-- `datetime.now()`
-- `datetime.today()`
+- `datetime()` .. Creates from specified date and time.
+- `datetime.now()` .. Creates from the current date and time.
+- `datetime.today()` .. Creates from the current date. The time is set to 00:00:00.
+
+You can calculate between `datetime` and `timedelta` to put it forward and backward.
 
 ### Predefined Variables
 
@@ -356,7 +372,7 @@ Week symbol that takes one of the followings:
 '''
 
 //-----------------------------------------------------------------------------
-text_declaration = R'''
+text@declaration = R'''
 ## declaration Class
 
 The `declaration` class provides information about argument's declaration defined in a function.
@@ -390,31 +406,31 @@ Below is an example to print argument names declared in a function.
 '''
 
 //-----------------------------------------------------------------------------
-text_dict = R'''
+text@dict = R'''
 ## dict Class
 
 The `dict` class provides measures to handle dictionary data.
 
-You can create a `dict` instance by calling `dict()` constructor function.
+You can create a `dict` instance by calling `dict()` function.
 
 You can also use a function named `%` to create an instance
 that is an alias of `dict()` function.
 '''
 
 //-----------------------------------------------------------------------------
-text_directory = R'''
+text@directory = R'''
 ## directory Class
 
 The `directory` class handles information necessary to seek directory structure in a path.
 Its instance usually works with functions in `path` module: `path.dir()` and `path.walk()`.
 
-Though the instance can be created by `directory()` constructor function,
+Though the instance can be created by `directory()` function,
 you don't have to use it in many cases because a casting from `string` to `directory` instance
 works implicitly in a function call.
 '''
 
 //-----------------------------------------------------------------------------
-text_environment = R'''
+text@environment = R'''
 ## environment Class
 
 The `environment` class provides measures to operate variables in an environment,
@@ -423,7 +439,7 @@ which is a fundamental mechanism to store variables.
 '''
 
 //-----------------------------------------------------------------------------
-text_error = R'''
+text@error = R'''
 ## error Class
 
 The `error` class provides measures to access error information.
@@ -549,7 +565,7 @@ If an attribute `:lineno` is specified, it would contain a line number.</td></tr
 '''
 
 //-----------------------------------------------------------------------------
-text_expr = R'''
+text@expr = R'''
 ## expr Class
 
 ### Properties
@@ -630,7 +646,7 @@ text_expr = R'''
 '''
 
 //-----------------------------------------------------------------------------
-text_formatter = R'''
+text@formatter = R'''
 ## formatter Class
 
 The `formatter` class provides information about a format specifier.
@@ -667,7 +683,7 @@ The `formatter` instance is created for each specifier and passed to a method li
 '''
 
 //-----------------------------------------------------------------------------
-text_function = R'''
+text@function = R'''
 ## function Class
 
 The `function` class provides measure to inspect information about the instance.
@@ -729,7 +745,7 @@ You can use `&` as an alias of `function()` as shown below:
 '''
 
 //-----------------------------------------------------------------------------
-text_help = R'''
+text@help = R'''
 ## help Class
 
 The `help` class provides measures to access help information
@@ -756,7 +772,7 @@ For example, <code>`en</code> for English and <code>`ja</code> for Japanese.</td
 '''
 
 //-----------------------------------------------------------------------------
-text_image = R'''
+text@image = R'''
 ## image Class
 
 ### Properties
@@ -780,35 +796,35 @@ text_image = R'''
 '''
 
 //-----------------------------------------------------------------------------
-text_iterator = R'''
+text@iterator = R'''
 ## iterator Class
 
 '''
 
 //-----------------------------------------------------------------------------
-text_list = R'''
+text@list = R'''
 ## list Class
 
 '''
 
 //-----------------------------------------------------------------------------
-text_matrix = R'''
+text@matrix = R'''
 ## matrix Class
 
 '''
 
 //-----------------------------------------------------------------------------
-text_nil = R'''
+text@nil = R'''
 ## nil Class
 '''
 
 //-----------------------------------------------------------------------------
-text_number = R'''
+text@number = R'''
 ## number Class
 '''
 
 //-----------------------------------------------------------------------------
-text_operator = R'''
+text@operator = R'''
 ## operator Class
 
 ### Properties
@@ -823,38 +839,47 @@ text_operator = R'''
 '''
 
 //-----------------------------------------------------------------------------
-text_palette = R'''
+text@palette = R'''
 ## palette Class
 
 '''
 
 //-----------------------------------------------------------------------------
-text_pointer = R'''
+text@pointer = R'''
 ## pointer Class
 '''
 
 //-----------------------------------------------------------------------------
-text_quote = R'''
+text@quote = R'''
 ## quote Class
 '''
 
 //-----------------------------------------------------------------------------
-text_rational = R'''
+text@rational = R'''
 ## rational Class
 
 The `rational` class provides measures to handle rational numbers.
 
-A number literal suffixed by `r` would create a `rational` instance.
+You can create a `rational` instance with following ways:
+
+- Use `rational()` function.
+- Append `r` suffix after a number literal.
+
+Below are examples to realize a common fraction two-thirds:
+
+    rational(2, 3)
+    2r / 3
+    2 / 3r
 '''
 
 //-----------------------------------------------------------------------------
-text_semaphore = R'''
+text@semaphore = R'''
 ## semaphore Class
 
 '''
 
 //-----------------------------------------------------------------------------
-text_stream = R'''
+text@stream = R'''
 ## stream Class
 
 ### Properties
@@ -884,7 +909,7 @@ text_stream = R'''
 '''
 
 //-----------------------------------------------------------------------------
-text_string = R'''
+text@string = R'''
 ## string Class
 
 The `string` class provides measures to operate on strings.
@@ -895,7 +920,7 @@ the string into other natural languages would be evaluated.
 '''
 
 //-----------------------------------------------------------------------------
-text_suffixmgr = R'''
+text@suffixmgr = R'''
 ## suffixmgr Class
 
 The `suffixmgr` class provides measures to access suffix managers
@@ -912,19 +937,23 @@ You can use that suffix like below:
 '''
 
 //-----------------------------------------------------------------------------
-text_symbol = R'''
+text@symbol = R'''
 ## symbol Class
 '''
 
 //-----------------------------------------------------------------------------
-text_template = R'''
+text@template = R'''
 ## template Class
 
 '''
 
 //-----------------------------------------------------------------------------
-text_timedelta = R'''
+text@timedelta = R'''
 ## timedelta Class
+
+The `timedelta` instance provides a time delta information that works with `datetime` instance.
+You can shift time information of `datetime` by applying addition or subtraction
+of `timedelta` to it.
 
 ### Properties
 
@@ -932,24 +961,24 @@ text_timedelta = R'''
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code>timedelta#days</code></td><td><code>number</code></td><td>R/W</td>
-<td></td></tr>
+<td>Offset of days.</td></tr>
 
 <tr><td><code>timedelta#secs</code></td><td><code>number</code></td><td>R/W</td>
-<td></td></tr>
+<td>Offset of seconds.</td></tr>
 
 <tr><td><code>timedelta#usec</code></td><td><code>number</code></td><td>R/W</td>
-<td></td></tr>
+<td>Offset of micro seconds.</td></tr>
 
 </table>
 '''
 
 //-----------------------------------------------------------------------------
-text_undefined = R'''
+text@undefined = R'''
 ## undefined Class
 '''
 
 //-----------------------------------------------------------------------------
-text_uri = R'''
+text@uri = R'''
 ## uri Class
 
 ### Properties
@@ -984,27 +1013,27 @@ text_uri = R'''
 write(doc:markdown.document) = {
 	doc << text
 	//-------------------------------------------------------------------------
-	doc << text_Class
-	doc << '### Methods'
-	doc << [
-	]
+	//doc << text@Class
+	//doc << '### Methods'
+	//doc << [
+	//]
 	//-------------------------------------------------------------------------
-	doc << text_Module
-	doc << '### Methods'
-	doc << [
-	]
+	//doc << text@Module
+	//doc << '### Methods'
+	//doc << [
+	//]
 	//-------------------------------------------------------------------------
-	doc << text_Sequence
-	doc << '### Methods'
-	doc << [
-	]
+	//doc << text@Sequence
+	//doc << '### Methods'
+	//doc << [
+	//]
 	//-------------------------------------------------------------------------
-	doc << text_any
-	doc << '### Methods'
-	doc << [
-	]
+	//doc << text@any
+	//doc << '### Methods'
+	//doc << [
+	//]
 	//-------------------------------------------------------------------------
-	doc << text_args
+	doc << text@args
 	doc << '### Methods'
 	doc << [
 		args.finalize_trailer
@@ -1012,7 +1041,7 @@ write(doc:markdown.document) = {
 		args.quit_trailer
 	]
 	//-------------------------------------------------------------------------
-	doc << text_array
+	doc << text@array
 	doc << '### Methods'
 	[
 		array@char,
@@ -1024,7 +1053,7 @@ write(doc:markdown.document) = {
 					  function.getformat(func).replace('@char', '@XXX'))
 	}
 	//-------------------------------------------------------------------------
-	doc << text_audio
+	doc << text@audio
 	doc << '### Methods'
 	doc << [
 		audio.each
@@ -1034,12 +1063,9 @@ write(doc:markdown.document) = {
 		audio.store
 	]
 	//-------------------------------------------------------------------------
-	doc << text_boolean
-	doc << '### Methods'
-	doc << [
-	]
+	doc << text@boolean
 	//-------------------------------------------------------------------------
-	doc << text_binary
+	doc << text@binary
 	doc << '### Methods'
 	doc << [
 		binary
@@ -1060,7 +1086,7 @@ write(doc:markdown.document) = {
 		binary.writer
 	]
 	//-------------------------------------------------------------------------
-	doc << text_codec
+	doc << text@codec
 	doc << '### Methods'
 	doc << [
 		codec
@@ -1070,7 +1096,7 @@ write(doc:markdown.document) = {
 		codec.encode
 	]
 	//-------------------------------------------------------------------------
-	doc << text_color
+	doc << text@color
 	doc << '### Methods'
 	doc << [
 		color
@@ -1079,15 +1105,18 @@ write(doc:markdown.document) = {
 		color.tolist
 	]
 	//-------------------------------------------------------------------------
-	doc << text_complex
+	doc << text@complex
 	doc << '### Methods'
 	doc << [
+		complex
+		complex.polar
+		complex.roundoff
 	]
 	//-------------------------------------------------------------------------
-	doc << text_datetime
+	doc << text@datetime
 	doc << '### Methods'
 	doc << [
-		datetime,
+		datetime
 		datetime.clrtzoff
 		datetime.format
 		datetime.isleap
@@ -1101,16 +1130,16 @@ write(doc:markdown.document) = {
 		datetime.weekday
 	]
 	//-------------------------------------------------------------------------
-	doc << text_declaration
+	doc << text@declaration
 	doc << '### Methods'
 	doc << [
 		declaration.istype
 	]
 	//-------------------------------------------------------------------------
-	doc << text_dict
+	doc << text@dict
 	doc << '### Methods'
 	doc << [
-		dict,
+		dict
 		dict.append
 		dict.clear
 		dict.erase
@@ -1123,13 +1152,13 @@ write(doc:markdown.document) = {
 		dict.values
 	]
 	//-------------------------------------------------------------------------
-	doc << text_directory
+	doc << text@directory
 	doc << '### Methods'
 	doc << [
 		directory
 	]
 	//-------------------------------------------------------------------------
-	doc << text_environment
+	doc << text@environment
 	doc << '### Methods'
 	doc << [
 		environment.getprop!
@@ -1137,9 +1166,9 @@ write(doc:markdown.document) = {
 		environment.setprop!
 	]
 	//-------------------------------------------------------------------------
-	doc << text_error
+	doc << text@error
 	//-------------------------------------------------------------------------
-	doc << text_expr
+	doc << text@expr
 	doc << '### Methods'
 	doc << [
 		expr
@@ -1174,7 +1203,7 @@ write(doc:markdown.document) = {
 		expr.issuffixed
 	]
 	//-------------------------------------------------------------------------
-	doc << text_formatter
+	doc << text@formatter
 	doc << '### Methods'
 	doc << [
 		formatter.getminwidth
@@ -1186,7 +1215,7 @@ write(doc:markdown.document) = {
 		formatter.isuppercase
 	]
 	//-------------------------------------------------------------------------
-	doc << text_function
+	doc << text@function
 	doc << '### Methods'
 	doc << [
 		function
@@ -1201,11 +1230,11 @@ write(doc:markdown.document) = {
 		function.mathdiff
 	]
 	//-------------------------------------------------------------------------
-	doc << text_help
+	doc << text@help
 	doc << [
 	]
 	//-------------------------------------------------------------------------
-	doc << text_image
+	doc << text@image
 	doc << '### Methods'
 	doc << [
 		image
@@ -1236,7 +1265,7 @@ write(doc:markdown.document) = {
 		image.write
 	]
 	//-------------------------------------------------------------------------
-	doc << text_iterator
+	doc << text@iterator
 	doc << '### Methods Specific to Iterator Class'
 	doc << [
 		iterator
@@ -1301,7 +1330,7 @@ write(doc:markdown.document) = {
 		iterator.while
 	]
 	//-------------------------------------------------------------------------
-	doc << text_list
+	doc << text@list
 	doc << '### Methods Specific to List Class'
 	doc << [
 		list
@@ -1376,7 +1405,7 @@ write(doc:markdown.document) = {
 		list.while
 	]
 	//-------------------------------------------------------------------------
-	doc << text_matrix
+	doc << text@matrix
 	doc << '### Methods'
 	doc << [
 		matrix
@@ -1403,18 +1432,18 @@ write(doc:markdown.document) = {
 		matrix.transpose
 	]
 	//-------------------------------------------------------------------------
-	doc << text_nil
+	doc << text@nil
 	doc << '### Methods'
 	doc << [
 	]
 	//-------------------------------------------------------------------------
-	doc << text_number
+	doc << text@number
 	doc << '### Methods'
 	doc << [
 		classref(`number).roundoff
 	]
 	//-------------------------------------------------------------------------
-	doc << text_operator
+	doc << text@operator
 	doc << '### Methods'
 	doc << [
 		operator
@@ -1422,7 +1451,7 @@ write(doc:markdown.document) = {
 		operator.entries
 	]
 	//-------------------------------------------------------------------------
-	doc << text_palette
+	doc << text@palette
 	doc << '### Methods'
 	doc << [
 		palette
@@ -1432,7 +1461,7 @@ write(doc:markdown.document) = {
 		palette.updateby
 	]
 	//-------------------------------------------------------------------------
-	doc << text_pointer
+	doc << text@pointer
 	doc << '### Methods'
 	doc << [
 		pointer.forward
@@ -1442,19 +1471,19 @@ write(doc:markdown.document) = {
 		pointer.unpacks
 	]
 	//-------------------------------------------------------------------------
-	doc << text_quote
+	doc << text@quote
 	doc << '### Methods'
 	doc << [
 	]
 	//-------------------------------------------------------------------------
-	doc << text_rational
+	doc << text@rational
 	doc << '### Methods'
 	doc << [
 		rational
 		rational.reduce
 	]
 	//-------------------------------------------------------------------------
-	doc << text_semaphore
+	doc << text@semaphore
 	doc << '### Methods'
 	doc << [
 		semaphore
@@ -1463,7 +1492,7 @@ write(doc:markdown.document) = {
 		semaphore.wait
 	]
 	//-------------------------------------------------------------------------
-	doc << text_stream
+	doc << text@stream
 	doc << '### Methods'
 	doc << [
 		open
@@ -1495,7 +1524,7 @@ write(doc:markdown.document) = {
 		stream.write
 	]
 	//-------------------------------------------------------------------------
-	doc << text_string
+	doc << text@string
 	doc << '### Methods'
 	doc << [
 		string.align
@@ -1533,20 +1562,20 @@ write(doc:markdown.document) = {
 		string.zentohan
 	]
 	//-------------------------------------------------------------------------
-	doc << text_suffixmgr
+	doc << text@suffixmgr
 	doc << '### Methods'
 	doc << [
 		suffixmgr
 		suffixmgr.assign
 	]
 	//-------------------------------------------------------------------------
-	doc << text_symbol
+	doc << text@symbol
 	doc << '### Methods'
 	doc << [
 		classref(`symbol).eval
 	]
 	//-------------------------------------------------------------------------
-	doc << text_template
+	doc << text@template
 	doc << '### Methods'
 	doc << [
 		template
@@ -1567,18 +1596,18 @@ write(doc:markdown.document) = {
 		//template._R_super
 	]
 	//-------------------------------------------------------------------------
-	doc << text_timedelta
+	doc << text@timedelta
 	doc << '### Methods'
 	doc << [
 		timedelta
 	]
 	//-------------------------------------------------------------------------
-	doc << text_undefined
-	doc << '### Methods'
-	doc << [
-	]
+	//doc << text@undefined
+	//doc << '### Methods'
+	//doc << [
+	//]
 	//-------------------------------------------------------------------------
-	doc << text_uri
+	doc << text@uri
 	doc << '### Methods'
 	doc << [
 		uri

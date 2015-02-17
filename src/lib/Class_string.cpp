@@ -714,7 +714,7 @@ Class_string::Class_string(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_stri
 
 void Class_string::Prepare(Environment &env)
 {
-	// function assignment
+	// class assignment
 	Gura_AssignValue(string, Value(Reference()));
 	// method assignment
 	Gura_AssignMethod(string, align);

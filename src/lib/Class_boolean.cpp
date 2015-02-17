@@ -13,6 +13,8 @@ Class_boolean::Class_boolean(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_bo
 
 void Class_boolean::Prepare(Environment &env)
 {
+	// class assignment
+	Gura_AssignValue(boolean, Value(Reference()));
 }
 
 bool Class_boolean::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

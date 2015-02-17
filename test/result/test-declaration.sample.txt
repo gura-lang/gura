@@ -36,6 +36,7 @@ base64:module = <module:base64:<integrated>>
   base64.reader(stream:stream:r) {block?}
   base64.writer(stream:stream:w, linelen:number:nil => 76) {block?}
 binary(buff*) {block?}
+boolean:class = <class:boolean>
 case(`cond) {block}
 catch(errors*:error):leader:trailer {block}
 choose(index:number, values+):map
@@ -188,6 +189,7 @@ max(values+):map
 min(values+):map
 module() {block}
 nil:nil = nil
+number:class = <class:number>
 object() {block?}
 open(pathname:string, mode?:string, codec?:codec):map {block?}
 operator(op:symbol):map {block?}
@@ -252,6 +254,7 @@ struct(`args+):[loose] {block?}
 suffixmgr(type:symbol) {block?}
 super(obj):map {block?}
 switch() {block}
+symbol:class = <class:symbol>
 sys:module = <module:sys:<integrated>>
   __name__:string = sys
   __source__:string = <integrated>

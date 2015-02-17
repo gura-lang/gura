@@ -35,6 +35,8 @@ Class_number::Class_number(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_numb
 
 void Class_number::Prepare(Environment &env)
 {
+	// class assignment
+	Gura_AssignValue(number, Value(Reference()));
 	// method assignment
 	Gura_AssignMethod(number, roundoff);	// primitive method
 }
