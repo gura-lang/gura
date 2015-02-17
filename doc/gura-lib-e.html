@@ -65,8 +65,7 @@
 <div><span class="toc-index-2">6.34</span><a href="#caption-6-34">symbol Class</a></div>
 <div><span class="toc-index-2">6.35</span><a href="#caption-6-35">template Class</a></div>
 <div><span class="toc-index-2">6.36</span><a href="#caption-6-36">timedelta Class</a></div>
-<div><span class="toc-index-2">6.37</span><a href="#caption-6-37">undefined Class</a></div>
-<div><span class="toc-index-2">6.38</span><a href="#caption-6-38">uri Class</a></div>
+<div><span class="toc-index-2">6.37</span><a href="#caption-6-37">uri Class</a></div>
 <div><span class="toc-index-1">7</span><a href="#caption-7">base64 Module</a></div>
 <div><span class="toc-index-1">8</span><a href="#caption-8">bmp Module</a></div>
 <div><span class="toc-index-1">9</span><a href="#caption-9">bzip2 Module</a></div>
@@ -2761,6 +2760,9 @@ You can create a <code>datetime</code> instance by calling following functions:
 <li><code>datetime.now()</code> .. Creates from the current date and time.</li>
 <li><code>datetime.today()</code> .. Creates from the current date. The time is set to 00:00:00.</li>
 </ul>
+<p>
+You can calculate between <code>datetime</code> and <code>timedelta</code> to put it forward and backward.
+</p>
 <h3><span class="caption-index-3">6.9.1</span><a name="caption-6-9-1"></a>Predefined Variables</h3>
 <p>
 <table>
@@ -3050,8 +3052,22 @@ R</td>
 <td>
 
 Week symbol that takes one of the followings:
-`` `sunday``, `` `monday``, `` `tuesday``, `` `wednesday``,
-`` `thursday``, `` `friday``, `` `saturday``
+<code>
+`sunday</code>
+, <code>
+`monday</code>
+, <code>
+`tuesday</code>
+, <code>
+`wednesday</code>
+,
+<code>
+`thursday</code>
+, <code>
+`friday</code>
+, <code>
+`saturday</code>
+
 </td>
 </tr>
 
@@ -8849,6 +8865,9 @@ Evaluate a symbol object.
 <code>template#super(super):void</code>
 </p>
 <h2><span class="caption-index-2">6.36</span><a name="caption-6-36"></a>timedelta Class</h2>
+<p>
+The <code>timedelta</code> instance provides a time delta information that works with <code>datetime</code> instance. You can shift time information of <code>datetime</code> by applying addition or subtraction of <code>timedelta</code> to it.
+</p>
 <h3><span class="caption-index-3">6.36.1</span><a name="caption-6-36-1"></a>Properties</h3>
 <p>
 <table>
@@ -8878,7 +8897,7 @@ number</code>
 R/W</td>
 
 <td>
-</td>
+Offset of days.</td>
 </tr>
 
 
@@ -8895,7 +8914,7 @@ number</code>
 R/W</td>
 
 <td>
-</td>
+Offset of seconds.</td>
 </tr>
 
 
@@ -8912,7 +8931,7 @@ number</code>
 R/W</td>
 
 <td>
-</td>
+Offset of micro seconds.</td>
 </tr>
 
 
@@ -8929,10 +8948,8 @@ R/W</td>
 <p>
 Returns a timedelta instance with specified values. The instance actually holds properties of days, secs and usecs.
 </p>
-<h2><span class="caption-index-2">6.37</span><a name="caption-6-37"></a>undefined Class</h2>
-<h3><span class="caption-index-3">6.37.1</span><a name="caption-6-37-1"></a>Methods</h3>
-<h2><span class="caption-index-2">6.38</span><a name="caption-6-38"></a>uri Class</h2>
-<h3><span class="caption-index-3">6.38.1</span><a name="caption-6-38-1"></a>Properties</h3>
+<h2><span class="caption-index-2">6.37</span><a name="caption-6-37"></a>uri Class</h2>
+<h3><span class="caption-index-3">6.37.1</span><a name="caption-6-37-1"></a>Properties</h3>
 <p>
 <table>
 
@@ -9070,7 +9087,7 @@ R/W</td>
 </table>
 
 </p>
-<h3><span class="caption-index-3">6.38.2</span><a name="caption-6-38-2"></a>Methods</h3>
+<h3><span class="caption-index-3">6.37.2</span><a name="caption-6-37-2"></a>Methods</h3>
 <p>
 <strong>uri</strong>
 </p>

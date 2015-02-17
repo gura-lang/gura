@@ -576,16 +576,31 @@ Renderer@toc = class {
 	}
 }
 
-classref(`document).writefunc(func:function, fullname:string, fmt:string) = {
-	this << '**' + fullname.replace('_', '\\_').replace('`', '\\`') + '**'
-	this << '\n'
+_funcdoc(func:function, fullname:string, fmt:string):map = {
+	str = ''
+	str += '**' + fullname.replace('_', '\\_').replace('`', '\\`') + '**\n'
+	str += '\n'
 	if (fmt.find('`')) {
-		this << '`` ' + fmt + '``'
+		str += '`` ' + fmt + '``\n'
 	} else {
-		this << '`' + fmt + '`'
+		str += '`' + fmt + '`\n'
 	}
-	this << '\n'
-	if (help = function.gethelp(func, `en)) { this << help.text }
+	str += '\n'
+	if (help = function.gethelp(func, `en)) {
+		str +=  help.text
+		if (!str.endswith('\n')) { str += '\n' }
+	}
+	str += '\n'
+	str
+}
+
+funcdoc(funcs+:function) = {
+	funcs = funcs.each()
+	_funcdoc(funcs, function.getfullname(funcs), function.getformat(funcs))
+}
+
+classref(`document).writefunc(func:function, fullname:string, fmt:string) = {
+	this << _funcdoc(func, fullname, fmt)
 }
 
 operator(`<<).assign(`document, `function) {|doc, func|

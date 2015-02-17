@@ -127,6 +127,7 @@ Below is an example to use `args` class:
 <td>A list of argument values.</td></tr>
 
 </table>
+
 '''
 
 //-----------------------------------------------------------------------------
@@ -263,7 +264,16 @@ Some instances are predefined as class variables:
 <td>Value of the alpha element.</td></tr>
 
 </table>
-'''
+
+### Methods
+
+${markdown.funcdoc(
+color
+color.getgray
+color.html
+color.tolist
+)}
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@complex = R'''
@@ -358,8 +368,8 @@ You can calculate between `datetime` and `timedelta` to put it forward and backw
 <tr><td><code>datetime#week</code></td><td><code>number</code></td><td>R</td>
 <td>
 Week symbol that takes one of the followings:
-`` `sunday``, `` `monday``, `` `tuesday``, `` `wednesday``,
-`` `thursday``, `` `friday``, `` `saturday``
+<code>`sunday</code>, <code>`monday</code>, <code>`tuesday</code>, <code>`wednesday</code>,
+<code>`thursday</code>, <code>`friday</code>, <code>`saturday</code>
 </td></tr>
 
 <tr><td><code>datetime#yday</code></td><td><code>number</code></td><td>R</td>
@@ -1014,24 +1024,12 @@ write(doc:markdown.document) = {
 	doc << text
 	//-------------------------------------------------------------------------
 	//doc << text@Class
-	//doc << '### Methods'
-	//doc << [
-	//]
 	//-------------------------------------------------------------------------
 	//doc << text@Module
-	//doc << '### Methods'
-	//doc << [
-	//]
 	//-------------------------------------------------------------------------
 	//doc << text@Sequence
-	//doc << '### Methods'
-	//doc << [
-	//]
 	//-------------------------------------------------------------------------
 	//doc << text@any
-	//doc << '### Methods'
-	//doc << [
-	//]
 	//-------------------------------------------------------------------------
 	doc << text@args
 	doc << '### Methods'
@@ -1097,13 +1095,6 @@ write(doc:markdown.document) = {
 	]
 	//-------------------------------------------------------------------------
 	doc << text@color
-	doc << '### Methods'
-	doc << [
-		color
-		color.getgray
-		color.html
-		color.tolist
-	]
 	//-------------------------------------------------------------------------
 	doc << text@complex
 	doc << '### Methods'
@@ -1440,7 +1431,7 @@ write(doc:markdown.document) = {
 	doc << text@number
 	doc << '### Methods'
 	doc << [
-		classref(`number).roundoff
+		number.roundoff
 	]
 	//-------------------------------------------------------------------------
 	doc << text@operator
@@ -1572,7 +1563,7 @@ write(doc:markdown.document) = {
 	doc << text@symbol
 	doc << '### Methods'
 	doc << [
-		classref(`symbol).eval
+		symbol.eval
 	]
 	//-------------------------------------------------------------------------
 	doc << text@template
