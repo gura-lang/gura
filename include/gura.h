@@ -1,6 +1,6 @@
 //=============================================================================
 // Gura Programming Language
-// Copyright (C) 2011-2014 ypsitau
+// Copyright (C) 2011-2015 ypsitau
 //=============================================================================
 #ifndef __GURA_H__
 #define __GURA_H__
@@ -31,7 +31,6 @@
 #include "gura/Audio.h"
 #include "gura/Binary.h"
 #include "gura/Class.h"
-#include "gura/ClassBasic.h"
 #include "gura/ClassCustom.h"
 #include "gura/ClassOfStruct.h"
 #include "gura/Color.h"

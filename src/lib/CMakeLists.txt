@@ -48,7 +48,6 @@ Class_template.cpp
 Class_timedelta.cpp
 Class_undefined.cpp
 Class_uri.cpp
-ClassBasic.cpp
 ClassCustom.cpp
 ClassOfStruct.cpp
 Codec.cpp
