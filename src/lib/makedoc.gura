@@ -76,27 +76,27 @@ text = R'''
 </table>
 
 # Built-in Classes
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@Class = R'''
 ## Class Class
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@Module = R'''
 ## Module Class
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@Sequence = R'''
 ## Sequence Class
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@any = R'''
 ## any Class
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@args = R'''
@@ -128,7 +128,14 @@ Below is an example to use `args` class:
 
 </table>
 
-'''
+### Methods
+
+${markdown.funcdoc(
+args.finalize_trailer
+args.isset
+args.quit_trailer
+)}
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@array = R'''
@@ -154,14 +161,24 @@ They're listed in the the table below:
 <tr><td><code>array@float</code></td><td><code>float</code></td></tr>
 <tr><td><code>array@double</code></td><td><code>double</code></td></tr>
 </table>
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@audio = R'''
 ## audio Class
 
 The `audio` class provides measures to work on audio data.
-'''
+
+### Methods
+
+${markdown.funcdoc(
+audio.each
+audio.get
+audio.put
+audio.sinewave
+audio.store
+)}
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@binary = R'''
@@ -187,12 +204,33 @@ For example, the code below creates a `binary` instance that contains a sequence
 <td>Indicates if the content of the binary object is writable.</td></tr>
 
 </table>
-'''
+
+### Methods
+
+${markdown.funcdoc(
+binary
+binary.add
+binary.alloc
+binary.decode
+binary.dump
+binary.each
+binary.encodeuri
+binary.hex
+binary.len
+binary.pack
+binary.pointer
+binary.reader
+binary.store
+binary.unpack
+binary.unpacks
+binary.writer
+)}
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@boolean = R'''
 ## boolean Class
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@codec = R'''
@@ -221,7 +259,17 @@ The `codec` class provides measures to convert character codes.
 <td>BOM sequence of UTF-32 big endian</td></tr>
 
 </table>
-'''
+
+### Methods
+
+${markdown.funcdoc(
+codec
+codec.addcr
+codec.decode
+codec.delcr
+codec.encode
+)}
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@color = R'''
@@ -292,7 +340,15 @@ and 3 as its imaginal part.
 
     complex(2, 3)
     2 + 3j
-'''
+
+### Methods
+
+${markdown.funcdoc(
+complex
+complex.polar
+complex.roundoff
+)}
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@datetime = R'''
@@ -379,7 +435,24 @@ Week symbol that takes one of the followings:
 <td>Seconds passed from 00:00:00 on January 1st in 1970 in UTC.</td></tr>
 
 </table>
-'''
+
+### Methods
+
+${markdown.funcdoc(
+datetime
+datetime.clrtzoff
+datetime.format
+datetime.isleap
+datetime.monthdays
+datetime.now
+datetime.parse
+datetime.settzoff
+datetime.time
+datetime.today
+datetime.utc
+datetime.weekday
+)}
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@declaration = R'''
@@ -413,7 +486,13 @@ Below is an example to print argument names declared in a function.
 <td>The expression that provides a default value.</td></tr>
 
 </table>
-'''
+
+### Methods
+
+${markdown.funcdoc(
+declaration.istype
+)}
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@dict = R'''
@@ -425,7 +504,23 @@ You can create a `dict` instance by calling `dict()` function.
 
 You can also use a function named `%` to create an instance
 that is an alias of `dict()` function.
-'''
+
+### Methods
+
+${markdown.funcdoc(
+dict
+dict.append
+dict.clear
+dict.erase
+dict.get
+dict.haskey
+dict.items
+dict.keys
+dict.len
+dict.put
+dict.values
+)}
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@directory = R'''
@@ -437,7 +532,7 @@ Its instance usually works with functions in `path` module: `path.dir()` and `pa
 Though the instance can be created by `directory()` function,
 you don't have to use it in many cases because a casting from `string` to `directory` instance
 works implicitly in a function call.
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@environment = R'''
@@ -446,7 +541,7 @@ text@environment = R'''
 The `environment` class provides measures to operate variables in an environment,
 which is a fundamental mechanism to store variables.
 
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@error = R'''
@@ -572,7 +667,7 @@ If an attribute `:lineno` is specified, it would contain a line number.</td></tr
 
 </table>
 
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@expr = R'''
@@ -653,7 +748,7 @@ text@expr = R'''
 <td>Exists in "value".</td></tr>
 
 </table>
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@formatter = R'''
@@ -690,7 +785,7 @@ The `formatter` instance is created for each specifier and passed to a method li
 <tr><td><code>%c</code></td><td><code>__format_c__</code></td></tr>
 </table>
 
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@function = R'''
@@ -752,7 +847,7 @@ You can use `&` as an alias of `function()` as shown below:
 <td>a name of the function in <code>symbol</code>. </td></tr>
 
 </table>
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@help = R'''
@@ -779,7 +874,7 @@ For example, <code>`en</code> for English and <code>`ja</code> for Japanese.</td
 <td>The help text.</td></tr>
 
 </table>
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@image = R'''
@@ -803,35 +898,35 @@ text@image = R'''
 <td></td></tr>
 
 </table>
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@iterator = R'''
 ## iterator Class
 
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@list = R'''
 ## list Class
 
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@matrix = R'''
 ## matrix Class
 
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@nil = R'''
 ## nil Class
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@number = R'''
 ## number Class
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@operator = R'''
@@ -846,23 +941,23 @@ text@operator = R'''
 <td>Operator symbol.</td></tr>
 
 </table>
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@palette = R'''
 ## palette Class
 
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@pointer = R'''
 ## pointer Class
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@quote = R'''
 ## quote Class
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@rational = R'''
@@ -880,13 +975,13 @@ Below are examples to realize a common fraction two-thirds:
     rational(2, 3)
     2r / 3
     2 / 3r
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@semaphore = R'''
 ## semaphore Class
 
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@stream = R'''
@@ -916,7 +1011,7 @@ text@stream = R'''
 <td>`codec` instance associated with the stream.</td></tr>
 
 </table>
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@string = R'''
@@ -927,7 +1022,7 @@ The `string` class provides measures to operate on strings.
 When an string literal is suffixed by a character `$`,
 a handler registered by `string.translate()` function that is supposed to translate
 the string into other natural languages would be evaluated.
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@suffixmgr = R'''
@@ -944,18 +1039,18 @@ after being appended to a string literal:
 You can use that suffix like below:
 
     'hello world'X
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@symbol = R'''
 ## symbol Class
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@template = R'''
 ## template Class
 
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@timedelta = R'''
@@ -980,12 +1075,12 @@ of `timedelta` to it.
 <td>Offset of micro seconds.</td></tr>
 
 </table>
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@undefined = R'''
 ## undefined Class
-'''
+'''.template().render()
 
 //-----------------------------------------------------------------------------
 text@uri = R'''
@@ -1018,27 +1113,15 @@ text@uri = R'''
 <td></td></tr>
 
 </table>
-'''
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	//-------------------------------------------------------------------------
 	//doc << text@Class
-	//-------------------------------------------------------------------------
 	//doc << text@Module
-	//-------------------------------------------------------------------------
 	//doc << text@Sequence
-	//-------------------------------------------------------------------------
 	//doc << text@any
-	//-------------------------------------------------------------------------
 	doc << text@args
-	doc << '### Methods'
-	doc << [
-		args.finalize_trailer
-		args.isset
-		args.quit_trailer
-	]
-	//-------------------------------------------------------------------------
 	doc << text@array
 	doc << '### Methods'
 	[
@@ -1050,98 +1133,15 @@ write(doc:markdown.document) = {
 					  function.getfullname(func).replace('@char', '@XXX'),
 					  function.getformat(func).replace('@char', '@XXX'))
 	}
-	//-------------------------------------------------------------------------
 	doc << text@audio
-	doc << '### Methods'
-	doc << [
-		audio.each
-		audio.get
-		audio.put
-		audio.sinewave
-		audio.store
-	]
-	//-------------------------------------------------------------------------
 	doc << text@boolean
-	//-------------------------------------------------------------------------
 	doc << text@binary
-	doc << '### Methods'
-	doc << [
-		binary
-		binary.add
-		binary.alloc
-		binary.decode
-		binary.dump
-		binary.each
-		binary.encodeuri
-		binary.hex
-		binary.len
-		binary.pack
-		binary.pointer
-		binary.reader
-		binary.store
-		binary.unpack
-		binary.unpacks
-		binary.writer
-	]
-	//-------------------------------------------------------------------------
 	doc << text@codec
-	doc << '### Methods'
-	doc << [
-		codec
-		codec.addcr
-		codec.decode
-		codec.delcr
-		codec.encode
-	]
-	//-------------------------------------------------------------------------
 	doc << text@color
-	//-------------------------------------------------------------------------
 	doc << text@complex
-	doc << '### Methods'
-	doc << [
-		complex
-		complex.polar
-		complex.roundoff
-	]
-	//-------------------------------------------------------------------------
 	doc << text@datetime
-	doc << '### Methods'
-	doc << [
-		datetime
-		datetime.clrtzoff
-		datetime.format
-		datetime.isleap
-		datetime.monthdays
-		datetime.now
-		datetime.parse
-		datetime.settzoff
-		datetime.time
-		datetime.today
-		datetime.utc
-		datetime.weekday
-	]
-	//-------------------------------------------------------------------------
 	doc << text@declaration
-	doc << '### Methods'
-	doc << [
-		declaration.istype
-	]
-	//-------------------------------------------------------------------------
 	doc << text@dict
-	doc << '### Methods'
-	doc << [
-		dict
-		dict.append
-		dict.clear
-		dict.erase
-		dict.get
-		dict.haskey
-		dict.items
-		dict.keys
-		dict.len
-		dict.put
-		dict.values
-	]
 	//-------------------------------------------------------------------------
 	doc << text@directory
 	doc << '### Methods'
