@@ -101,7 +101,7 @@ UShort Codec::UTF16ToDBCS(const CodeRow codeRows[], int nCodeRows, UShort codeUT
 
 Codec::WidthProp Codec::GetWidthProp(ULong codeUTF32)
 {
-	for (const WidthInfo *p = _widthInfoTbl; p->codeCeil != 0x000000; p++) {
+	for (const WidthInfo *p = _widthInfoTbl; p->codeUTF32Ceil != 0x000000; p++) {
 		if (codeUTF32 < p->codeUTF32Ceil) return p->widthProp;
 	}
 	return WIDTHPROP_N;
