@@ -5837,82 +5837,6 @@ Writes image data to a stream.
 <h2><span class="caption-index-2">6.20</span><a name="caption-6-20"></a>iterator Class</h2>
 <h3><span class="caption-index-3">6.20.1</span><a name="caption-6-20-1"></a>Methods Specific to Iterator Class</h3>
 <p>
-<strong>iterator</strong>
-</p>
-<p>
-<code>iterator(value+) {block?}</code>
-</p>
-<p>
-Creates an iterator that combines iterators given in the argument.
-</p>
-<p>
-If an argument is not an iterator, that would be added as an element.
-</p>
-<p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
-</p>
-<ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
-</ul>
-<p>
-<strong>range</strong>
-</p>
-<p>
-<code>range(num:number, num_end?:number, step?:number):map {block?}</code>
-</p>
-<p>
-Creates an iterator that generates a sequence of integer numbers.
-</p>
-<p>
-This function can be called in three formats that generate following numbers:
-</p>
-<ul>
-<li><code>range(num)</code> .. Numbers between <code>0</code> and <code>(num - 1)</code>.</li>
-<li><code>range(num, num_end)</code> .. Numbers between <code>num</code> and <code>(num_end - 1)</code>.</li>
-<li><code>range(num, num_end, step)</code> .. Numbers between <code>num</code> and <code>(num_end - 1)</code> incremented by <code>step</code>.</li>
-</ul>
-<p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
-</p>
-<ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
-</ul>
-<p>
-<strong>interval</strong>
-</p>
-<p>
-<code>interval(begin:number, end:number, samples:number):map:[open,open_l,open_r] {block?}</code>
-</p>
-<p>
-Creates an iterator that generates a sequence of numbers by specifying the beginning and ending numbers, and the number of samples between them.
-</p>
-<p>
-In default, it creates a sequence that contains the beginning and ending numbers. Following attributes would generate the following numbers:
-</p>
-<ul>
-<li><code>:open</code> .. Numbers in range of <code>(begin, end)</code> that doesn't contain either <code>begin</code> or <code>end</code>.</li>
-<li><code>:open_l</code> .. Numbers in range of <code>(begin, end]</code> that doesn't contain <code>begin</code>.</li>
-<li><code>:open_r</code> .. Numbers in range of <code>[begin, end)</code> that doesn't contain <code>end</code>.</li>
-</ul>
-<p>
 <strong>consts</strong>
 </p>
 <p>
@@ -5945,6 +5869,50 @@ Below is an example:
 <pre><code>x = consts('hello', 10)
 // x is an iterator to generate 'hello' for 10 times
 </code></pre>
+<p>
+<strong>interval</strong>
+</p>
+<p>
+<code>interval(begin:number, end:number, samples:number):map:[open,open_l,open_r] {block?}</code>
+</p>
+<p>
+Creates an iterator that generates a sequence of numbers by specifying the beginning and ending numbers, and the number of samples between them.
+</p>
+<p>
+In default, it creates a sequence that contains the beginning and ending numbers. Following attributes would generate the following numbers:
+</p>
+<ul>
+<li><code>:open</code> .. Numbers in range of <code>(begin, end)</code> that doesn't contain either <code>begin</code> or <code>end</code>.</li>
+<li><code>:open_l</code> .. Numbers in range of <code>(begin, end]</code> that doesn't contain <code>begin</code>.</li>
+<li><code>:open_r</code> .. Numbers in range of <code>[begin, end)</code> that doesn't contain <code>end</code>.</li>
+</ul>
+<p>
+<strong>iterator</strong>
+</p>
+<p>
+<code>iterator(value+) {block?}</code>
+</p>
+<p>
+Creates an iterator that combines iterators given in the argument.
+</p>
+<p>
+If an argument is not an iterator, that would be added as an element.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
 <p>
 <strong>rands</strong>
 </p>
@@ -5981,6 +5949,38 @@ Below is an example:
 <pre><code>x = rands(100)
 // x is an infinite iterator to generates random numbers between 0 and 99
 </code></pre>
+<p>
+<strong>range</strong>
+</p>
+<p>
+<code>range(num:number, num_end?:number, step?:number):map {block?}</code>
+</p>
+<p>
+Creates an iterator that generates a sequence of integer numbers.
+</p>
+<p>
+This function can be called in three formats that generate following numbers:
+</p>
+<ul>
+<li><code>range(num)</code> .. Numbers between <code>0</code> and <code>(num - 1)</code>.</li>
+<li><code>range(num, num_end)</code> .. Numbers between <code>num</code> and <code>(num_end - 1)</code>.</li>
+<li><code>range(num, num_end, step)</code> .. Numbers between <code>num</code> and <code>(num_end - 1)</code> incremented by <code>step</code>.</li>
+</ul>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
 <p>
 <strong>iterator#delay</strong>
 </p>
@@ -6787,30 +6787,6 @@ In default, all the elements in each iterators are added to the created list. Sp
 <li><code>:xor</code> .. Elements that exist in only one iterator are added.</li>
 </ul>
 <p>
-<strong>list.zip</strong>
-</p>
-<p>
-<code>list.zip(values+):static {block?}</code>
-</p>
-<p>
-Creates an iterator generating lists that bind given argument values. When the value is a list or an iterator, each item in it would be zipped.
-</p>
-<p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
-</p>
-<ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
-</ul>
-<p>
 <strong>list#add</strong>
 </p>
 <p>
@@ -6991,6 +6967,30 @@ Shifts the elements of the list. If the content of the list is [1, 2, 3, 4], it 
 <p>
 Shuffle the order of the list content based on random numbers.
 </p>
+<p>
+<strong>list.zip</strong>
+</p>
+<p>
+<code>list.zip(values+):static {block?}</code>
+</p>
+<p>
+Creates an iterator generating lists that bind given argument values. When the value is a list or an iterator, each item in it would be zipped.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
 <h3><span class="caption-index-3">6.21.2</span><a name="caption-6-21-2"></a>Methods Common between Iterator and List Class</h3>
 <p>
 <strong>list#after</strong>
@@ -7855,7 +7855,6 @@ Converts the matrix into a list containing sub-lists that represents its rows. I
 Returns a transpose matrix.
 </p>
 <h2><span class="caption-index-2">6.23</span><a name="caption-6-23"></a>nil Class</h2>
-<h3><span class="caption-index-3">6.23.1</span><a name="caption-6-23-1"></a>Methods</h3>
 <h2><span class="caption-index-2">6.24</span><a name="caption-6-24"></a>number Class</h2>
 <h3><span class="caption-index-3">6.24.1</span><a name="caption-6-24-1"></a>Methods</h3>
 <p>
@@ -8015,7 +8014,6 @@ Updates palette entries according to color data in an image or a palette. The or
 <code>pointer#unpacks(format:string, values*:number)</code>
 </p>
 <h2><span class="caption-index-2">6.28</span><a name="caption-6-28"></a>quote Class</h2>
-<h3><span class="caption-index-3">6.28.1</span><a name="caption-6-28-1"></a>Methods</h3>
 <h2><span class="caption-index-2">6.29</span><a name="caption-6-29"></a>rational Class</h2>
 <p>
 The <code>rational</code> class provides measures to handle rational numbers.
@@ -8738,6 +8736,15 @@ Converts escape sequences into readable characters.
 </p>
 <p>
 Returns a string of uppercase characters of the original one
+</p>
+<p>
+<strong>string#width</strong>
+</p>
+<p>
+<code>string#width()</code>
+</p>
+<p>
+Returns the width of the string. This takes into account the character width based on the specification of East Asian Width.
 </p>
 <p>
 <strong>string#zentohan</strong>

@@ -532,6 +532,12 @@ Its instance usually works with functions in `path` module: `path.dir()` and `pa
 Though the instance can be created by `directory()` function,
 you don't have to use it in many cases because a casting from `string` to `directory` instance
 works implicitly in a function call.
+
+### Methods
+
+${markdown.funcdoc(
+directory
+)}
 '''.template().render()
 
 //-----------------------------------------------------------------------------
@@ -541,6 +547,13 @@ text@environment = R'''
 The `environment` class provides measures to operate variables in an environment,
 which is a fundamental mechanism to store variables.
 
+### Methods
+
+${markdown.funcdoc(
+environment.getprop!
+environment.lookup
+environment.setprop!
+)}
 '''.template().render()
 
 //-----------------------------------------------------------------------------
@@ -748,6 +761,41 @@ text@expr = R'''
 <td>Exists in "value".</td></tr>
 
 </table>
+
+### Methods
+
+${markdown.funcdoc(
+expr
+expr.eval
+expr.parse
+expr.textize
+expr.tofunction
+expr.unquote
+expr.write
+// type chekers - Unary and descendants
+expr.isunary
+expr.isunaryop
+expr.isquote
+// type chekers - Binary and descendants
+expr.isbinary
+expr.isbinaryop
+expr.isassign
+expr.ismember
+// type chekers - Collector and descendants
+expr.iscollector
+expr.isroot
+expr.isblock
+expr.islister
+expr.isiterer
+// type chekers - Compound and descendants
+expr.iscompound
+expr.isindexer
+expr.iscaller
+// type chekers - others
+expr.isvalue
+expr.isidentifier
+expr.issuffixed
+)}
 '''.template().render()
 
 //-----------------------------------------------------------------------------
@@ -785,6 +833,17 @@ The `formatter` instance is created for each specifier and passed to a method li
 <tr><td><code>%c</code></td><td><code>__format_c__</code></td></tr>
 </table>
 
+### Methods
+
+${markdown.funcdoc(
+formatter.getminwidth
+formatter.getpadding
+formatter.getplusmode
+formatter.getprecision
+formatter.isleftalign
+formatter.issharp
+formatter.isuppercase
+)}
 '''.template().render()
 
 //-----------------------------------------------------------------------------
@@ -847,6 +906,21 @@ You can use `&` as an alias of `function()` as shown below:
 <td>a name of the function in <code>symbol</code>. </td></tr>
 
 </table>
+
+### Methods
+
+${markdown.funcdoc(
+function
+function.addhelp
+function.getdecls
+function.getexpr
+function.getformat
+function.getfullname
+function.gethelp
+function.getname
+function.getsymbol
+function.mathdiff
+)}
 '''.template().render()
 
 //-----------------------------------------------------------------------------
@@ -898,24 +972,219 @@ text@image = R'''
 <td></td></tr>
 
 </table>
+
+### Methods
+
+${markdown.funcdoc(
+image
+image.allocbuff
+image.blur
+image.clear
+image.crop
+image.delpalette
+image.extract
+image.fill
+image.fillrect
+image.flip
+image.getpixel
+image.grayscale
+image.mapcolorlevel
+image.paste
+image.putpixel
+image.size
+image.store
+image.read
+image.reducecolor
+image.replacecolor
+image.resize
+image.rotate
+image.scan
+image.setalpha
+image.thumbnail
+image.write
+)}
 '''.template().render()
 
 //-----------------------------------------------------------------------------
 text@iterator = R'''
 ## iterator Class
 
+### Methods Specific to Iterator Class
+
+${markdown.funcdoc(
+consts
+interval
+iterator
+rands
+range
+iterator.delay
+iterator.isinfinite
+iterator.next
+iterator.repeater
+)}
+
+### Methods Common between Iterator and List Class
+
+${markdown.funcdoc(
+iterator.after
+iterator.align
+iterator.and
+iterator.average
+iterator.before
+iterator.contains
+iterator.count
+iterator.cycle
+iterator.each
+iterator.filter
+iterator.find
+iterator.flat
+iterator.fold
+iterator.format
+iterator.head
+iterator.join
+iterator.joinb
+iterator.len
+iterator.map
+iterator.max
+iterator.min
+iterator.nilto
+iterator.offset
+iterator.or
+iterator.pack
+iterator.pingpong
+iterator.print
+iterator.printf
+iterator.println
+iterator.rank
+iterator.reduce
+iterator.replace
+iterator.reverse
+iterator.roundoff
+iterator.runlength
+iterator.since
+iterator.skip
+iterator.skipnil
+iterator.sort
+iterator.stddev
+iterator.sum
+iterator.tail
+iterator.until
+iterator.variance
+iterator.walk
+iterator.while
+)}
 '''.template().render()
 
 //-----------------------------------------------------------------------------
 text@list = R'''
 ## list Class
 
+### Methods Specific to List Class
+
+${markdown.funcdoc(
+list
+xlist
+set
+xset
+list.add
+list.append
+list.clear
+list.combination
+list.erase
+list.first
+list.flat
+list.get
+list.insert
+list.isempty
+list.last
+list.permutation
+list.put
+list.shift
+list.shuffle
+list.zip
+)}
+
+### Methods Common between Iterator and List Class
+
+${markdown.funcdoc(
+list.after
+list.align
+list.and
+list.average
+list.before
+list.contains
+list.count
+list.cycle
+list.each
+list.filter
+list.find
+list.fold
+list.format
+list.head
+list.join
+list.joinb
+list.len
+list.map
+list.max
+list.min
+list.nilto
+list.offset
+list.or
+list.pack
+list.pingpong
+list.print
+list.printf
+list.println
+list.rank
+list.reduce
+list.replace
+list.reverse
+list.roundoff
+list.runlength
+list.since
+list.skip
+list.skipnil
+list.sort
+list.stddev
+list.sum
+list.tail
+list.until
+list.variance
+list.walk
+list.while
+)}
 '''.template().render()
 
 //-----------------------------------------------------------------------------
 text@matrix = R'''
 ## matrix Class
 
+### Methods
+
+${markdown.funcdoc(
+matrix
+matrix.col
+matrix.colsize
+matrix.each
+matrix.eachcol
+matrix.eachrow
+matrix.identity
+matrix.invert
+matrix.issquare
+matrix.rotation
+matrix.rotation_x
+matrix.rotation_y
+matrix.rotation_z
+matrix.roundoff
+matrix.row
+matrix.rowsize
+matrix.set
+matrix.setcol
+matrix.setrow
+matrix.submat
+matrix.tolist
+matrix.transpose
+)}
 '''.template().render()
 
 //-----------------------------------------------------------------------------
@@ -926,6 +1195,12 @@ text@nil = R'''
 //-----------------------------------------------------------------------------
 text@number = R'''
 ## number Class
+
+### Methods
+
+${markdown.funcdoc(
+number.roundoff
+)}
 '''.template().render()
 
 //-----------------------------------------------------------------------------
@@ -941,17 +1216,44 @@ text@operator = R'''
 <td>Operator symbol.</td></tr>
 
 </table>
+
+### Methods
+
+${markdown.funcdoc(
+operator
+operator.assign
+operator.entries
+)}
 '''.template().render()
 
 //-----------------------------------------------------------------------------
 text@palette = R'''
 ## palette Class
 
+### Methods
+
+${markdown.funcdoc(
+palette
+palette.each
+palette.nearest
+palette.shrink
+palette.updateby
+)}
 '''.template().render()
 
 //-----------------------------------------------------------------------------
 text@pointer = R'''
 ## pointer Class
+
+### Methods
+
+${markdown.funcdoc(
+pointer.forward
+pointer.pack
+pointer.reset
+pointer.unpack
+pointer.unpacks
+)}
 '''.template().render()
 
 //-----------------------------------------------------------------------------
@@ -975,12 +1277,27 @@ Below are examples to realize a common fraction two-thirds:
     rational(2, 3)
     2r / 3
     2 / 3r
+
+### Methods
+
+${markdown.funcdoc(
+rational
+rational.reduce
+)}
 '''.template().render()
 
 //-----------------------------------------------------------------------------
 text@semaphore = R'''
 ## semaphore Class
 
+### Methods
+
+${markdown.funcdoc(
+semaphore
+semaphore.release
+semaphore.session
+semaphore.wait
+)}
 '''.template().render()
 
 //-----------------------------------------------------------------------------
@@ -1011,6 +1328,38 @@ text@stream = R'''
 <td>`codec` instance associated with the stream.</td></tr>
 
 </table>
+
+### Methods
+
+${markdown.funcdoc(
+open
+stream
+readlines
+stream.addcr
+stream.close
+stream.compare
+stream.copy
+stream.copyfrom
+stream.copyto
+stream.delcr
+stream.deserialize
+stream.flush
+stream.peek
+//stream.prefetch
+stream.print
+stream.printf
+stream.println
+stream.read
+stream.readchar
+stream.readline
+stream.readlines
+stream.readtext
+stream.seek
+stream.serialize
+stream.setcodec
+stream.tell
+stream.write
+)}
 '''.template().render()
 
 //-----------------------------------------------------------------------------
@@ -1022,6 +1371,45 @@ The `string` class provides measures to operate on strings.
 When an string literal is suffixed by a character `$`,
 a handler registered by `string.translate()` function that is supposed to translate
 the string into other natural languages would be evaluated.
+
+### Methods
+
+${markdown.funcdoc(
+string.align
+string.binary
+string.capitalize
+string.chop
+string.decodeuri
+string.each
+string.eachline
+string.encode
+string.encodeuri
+string.endswith
+string.escapehtml
+string.find
+string.fold
+string.format
+string.isempty
+string.left
+string.len
+string.lower
+string.mid
+string.print
+string.println
+string.reader
+string.replace
+string.right
+string.split
+string.startswith
+string.strip
+string.template
+string.tosymbol
+string.translator
+string.unescapehtml
+string.upper
+string.width
+string.zentohan
+)}
 '''.template().render()
 
 //-----------------------------------------------------------------------------
@@ -1039,17 +1427,50 @@ after being appended to a string literal:
 You can use that suffix like below:
 
     'hello world'X
+
+### Methods
+
+${markdown.funcdoc(
+suffixmgr
+suffixmgr.assign
+)}
 '''.template().render()
 
 //-----------------------------------------------------------------------------
 text@symbol = R'''
 ## symbol Class
+
+### Methods
+
+${markdown.funcdoc(
+symbol.eval
+)}
 '''.template().render()
 
 //-----------------------------------------------------------------------------
 text@template = R'''
 ## template Class
 
+### Methods
+
+${markdown.funcdoc(
+template
+template.block
+template.call
+template.def
+template.embed
+template.extends
+template.parse
+template.read
+template.render
+template.super
+//template._R_block
+//template._R_call
+//template._R_def
+//template._R_embed
+//template._R_extends
+//template._R_super
+)}
 '''.template().render()
 
 //-----------------------------------------------------------------------------
@@ -1075,6 +1496,12 @@ of `timedelta` to it.
 <td>Offset of micro seconds.</td></tr>
 
 </table>
+
+### Methods
+
+${markdown.funcdoc(
+timedelta
+)}
 '''.template().render()
 
 //-----------------------------------------------------------------------------
@@ -1113,6 +1540,16 @@ text@uri = R'''
 <td></td></tr>
 
 </table>
+
+### Methods
+
+${markdown.funcdoc(
+uri
+uri.getfragment
+uri.getpath
+uri.getquery
+uri.parsequery
+)}
 '''.template().render()
 
 write(doc:markdown.document) = {
@@ -1142,471 +1579,33 @@ write(doc:markdown.document) = {
 	doc << text@datetime
 	doc << text@declaration
 	doc << text@dict
-	//-------------------------------------------------------------------------
 	doc << text@directory
-	doc << '### Methods'
-	doc << [
-		directory
-	]
-	//-------------------------------------------------------------------------
 	doc << text@environment
-	doc << '### Methods'
-	doc << [
-		environment.getprop!
-		environment.lookup
-		environment.setprop!
-	]
-	//-------------------------------------------------------------------------
 	doc << text@error
-	//-------------------------------------------------------------------------
 	doc << text@expr
-	doc << '### Methods'
-	doc << [
-		expr
-		expr.eval
-		expr.parse
-		expr.textize
-		expr.tofunction
-		expr.unquote
-		expr.write
-		// type chekers - Unary and descendants
-		expr.isunary
-		expr.isunaryop
-		expr.isquote
-		// type chekers - Binary and descendants
-		expr.isbinary
-		expr.isbinaryop
-		expr.isassign
-		expr.ismember
-		// type chekers - Collector and descendants
-		expr.iscollector
-		expr.isroot
-		expr.isblock
-		expr.islister
-		expr.isiterer
-		// type chekers - Compound and descendants
-		expr.iscompound
-		expr.isindexer
-		expr.iscaller
-		// type chekers - others
-		expr.isvalue
-		expr.isidentifier
-		expr.issuffixed
-	]
-	//-------------------------------------------------------------------------
 	doc << text@formatter
-	doc << '### Methods'
-	doc << [
-		formatter.getminwidth
-		formatter.getpadding
-		formatter.getplusmode
-		formatter.getprecision
-		formatter.isleftalign
-		formatter.issharp
-		formatter.isuppercase
-	]
-	//-------------------------------------------------------------------------
 	doc << text@function
-	doc << '### Methods'
-	doc << [
-		function
-		function.addhelp
-		function.getdecls
-		function.getexpr
-		function.getformat
-		function.getfullname
-		function.gethelp
-		function.getname
-		function.getsymbol
-		function.mathdiff
-	]
-	//-------------------------------------------------------------------------
 	doc << text@help
-	doc << [
-	]
-	//-------------------------------------------------------------------------
 	doc << text@image
-	doc << '### Methods'
-	doc << [
-		image
-		image.allocbuff
-		image.blur
-		image.clear
-		image.crop
-		image.delpalette
-		image.extract
-		image.fill
-		image.fillrect
-		image.flip
-		image.getpixel
-		image.grayscale
-		image.mapcolorlevel
-		image.paste
-		image.putpixel
-		image.size
-		image.store
-		image.read
-		image.reducecolor
-		image.replacecolor
-		image.resize
-		image.rotate
-		image.scan
-		image.setalpha
-		image.thumbnail
-		image.write
-	]
-	//-------------------------------------------------------------------------
 	doc << text@iterator
-	doc << '### Methods Specific to Iterator Class'
-	doc << [
-		iterator
-		range
-		interval
-		consts
-		rands
-		// assignment of instance methods specific to iterator
-		iterator.delay
-		iterator.isinfinite
-		iterator.next
-		iterator.repeater
-	]
-	doc << '### Methods Common between Iterator and List Class'
-	doc << [
-		// assignment of instance methods that are common with list
-		iterator.after
-		iterator.align
-		iterator.and
-		iterator.average
-		iterator.before
-		iterator.contains
-		iterator.count
-		iterator.cycle
-		iterator.each
-		iterator.filter
-		iterator.find
-		iterator.flat
-		iterator.fold
-		iterator.format
-		iterator.head
-		iterator.join
-		iterator.joinb
-		iterator.len
-		iterator.map
-		iterator.max
-		iterator.min
-		iterator.nilto
-		iterator.offset
-		iterator.or
-		iterator.pack
-		iterator.pingpong
-		iterator.print
-		iterator.printf
-		iterator.println
-		iterator.rank
-		iterator.reduce
-		iterator.replace
-		iterator.reverse
-		iterator.roundoff
-		iterator.runlength
-		iterator.since
-		iterator.skip
-		iterator.skipnil
-		iterator.sort
-		iterator.stddev
-		iterator.sum
-		iterator.tail
-		iterator.until
-		iterator.variance
-		iterator.walk
-		iterator.while
-	]
-	//-------------------------------------------------------------------------
 	doc << text@list
-	doc << '### Methods Specific to List Class'
-	doc << [
-		list
-		xlist
-		set
-		xset
-		// assignment of class methods
-		list.zip
-		// assignment of instance methods specific to list
-		list.add
-		list.append
-		list.clear
-		list.combination
-		list.erase
-		list.first
-		list.flat
-		list.get
-		list.insert
-		list.isempty
-		list.last
-		list.permutation
-		list.put
-		list.shift
-		list.shuffle
-	]
-	doc << '### Methods Common between Iterator and List Class'
-	doc << [
-		list.after
-		list.align
-		list.and
-		list.average
-		list.before
-		list.contains
-		list.count
-		list.cycle
-		list.each
-		list.filter
-		list.find
-		list.fold
-		list.format
-		list.head
-		list.join
-		list.joinb
-		list.len
-		list.map
-		list.max
-		list.min
-		list.nilto
-		list.offset
-		list.or
-		list.pack
-		list.pingpong
-		list.print
-		list.printf
-		list.println
-		list.rank
-		list.reduce
-		list.replace
-		list.reverse
-		list.roundoff
-		list.runlength
-		list.since
-		list.skip
-		list.skipnil
-		list.sort
-		list.stddev
-		list.sum
-		list.tail
-		list.until
-		list.variance
-		list.walk
-		list.while
-	]
-	//-------------------------------------------------------------------------
 	doc << text@matrix
-	doc << '### Methods'
-	doc << [
-		matrix
-		matrix.col
-		matrix.colsize
-		matrix.each
-		matrix.eachcol
-		matrix.eachrow
-		matrix.identity
-		matrix.invert
-		matrix.issquare
-		matrix.rotation
-		matrix.rotation_x
-		matrix.rotation_y
-		matrix.rotation_z
-		matrix.roundoff
-		matrix.row
-		matrix.rowsize
-		matrix.set
-		matrix.setcol
-		matrix.setrow
-		matrix.submat
-		matrix.tolist
-		matrix.transpose
-	]
-	//-------------------------------------------------------------------------
 	doc << text@nil
-	doc << '### Methods'
-	doc << [
-	]
-	//-------------------------------------------------------------------------
 	doc << text@number
-	doc << '### Methods'
-	doc << [
-		number.roundoff
-	]
-	//-------------------------------------------------------------------------
 	doc << text@operator
-	doc << '### Methods'
-	doc << [
-		operator
-		operator.assign
-		operator.entries
-	]
-	//-------------------------------------------------------------------------
 	doc << text@palette
-	doc << '### Methods'
-	doc << [
-		palette
-		palette.each
-		palette.nearest
-		palette.shrink
-		palette.updateby
-	]
-	//-------------------------------------------------------------------------
 	doc << text@pointer
-	doc << '### Methods'
-	doc << [
-		pointer.forward
-		pointer.pack
-		pointer.reset
-		pointer.unpack
-		pointer.unpacks
-	]
-	//-------------------------------------------------------------------------
 	doc << text@quote
-	doc << '### Methods'
-	doc << [
-	]
-	//-------------------------------------------------------------------------
 	doc << text@rational
-	doc << '### Methods'
-	doc << [
-		rational
-		rational.reduce
-	]
-	//-------------------------------------------------------------------------
 	doc << text@semaphore
-	doc << '### Methods'
-	doc << [
-		semaphore
-		semaphore.release
-		semaphore.session
-		semaphore.wait
-	]
-	//-------------------------------------------------------------------------
 	doc << text@stream
-	doc << '### Methods'
-	doc << [
-		open
-		stream
-		readlines
-		stream.addcr
-		stream.close
-		stream.compare
-		stream.copy
-		stream.copyfrom
-		stream.copyto
-		stream.delcr
-		stream.deserialize
-		stream.flush
-		stream.peek
-		//stream.prefetch
-		stream.print
-		stream.printf
-		stream.println
-		stream.read
-		stream.readchar
-		stream.readline
-		stream.readlines
-		stream.readtext
-		stream.seek
-		stream.serialize
-		stream.setcodec
-		stream.tell
-		stream.write
-	]
-	//-------------------------------------------------------------------------
 	doc << text@string
-	doc << '### Methods'
-	doc << [
-		string.align
-		string.binary
-		string.capitalize
-		string.chop
-		string.decodeuri
-		string.each
-		string.eachline
-		string.encode
-		string.encodeuri
-		string.endswith
-		string.escapehtml
-		string.find
-		string.fold
-		string.format
-		string.isempty
-		string.left
-		string.len
-		string.lower
-		string.mid
-		string.print
-		string.println
-		string.reader
-		string.replace
-		string.right
-		string.split
-		string.startswith
-		string.strip
-		string.template
-		string.tosymbol
-		string.translator
-		string.unescapehtml
-		string.upper
-		string.zentohan
-	]
-	//-------------------------------------------------------------------------
 	doc << text@suffixmgr
-	doc << '### Methods'
-	doc << [
-		suffixmgr
-		suffixmgr.assign
-	]
-	//-------------------------------------------------------------------------
 	doc << text@symbol
-	doc << '### Methods'
-	doc << [
-		symbol.eval
-	]
-	//-------------------------------------------------------------------------
 	doc << text@template
-	doc << '### Methods'
-	doc << [
-		template
-		template.block
-		template.call
-		template.def
-		template.embed
-		template.extends
-		template.parse
-		template.read
-		template.render
-		template.super
-		//template._R_block
-		//template._R_call
-		//template._R_def
-		//template._R_embed
-		//template._R_extends
-		//template._R_super
-	]
-	//-------------------------------------------------------------------------
 	doc << text@timedelta
-	doc << '### Methods'
-	doc << [
-		timedelta
-	]
-	//-------------------------------------------------------------------------
 	//doc << text@undefined
-	//doc << '### Methods'
-	//doc << [
-	//]
-	//-------------------------------------------------------------------------
 	doc << text@uri
-	doc << '### Methods'
-	doc << [
-		uri
-		uri.getfragment
-		uri.getpath
-		uri.getquery
-		uri.parsequery
-	]
 	doc
 }
 
