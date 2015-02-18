@@ -675,14 +675,13 @@ size_t Length(const char *str)
 size_t Width(const char *str)
 {
 	size_t width = 0;
-	for ( ; *str != '\0'; ) {
-		int ch = static_cast<UChar>(*str);
-		str++;
-		if (IsUTF8First(ch)) {
-			while (IsUTF8Follower(*str)) str++;
-			// East-asian characters are twice as wide as other characters.
-			// See http://www.unicode.org/reports/tr11/.
-			width += 1;
+	ULong codeUTF32 = 0;
+	for (const char *p = str; *p != '\0'; ) {
+		p = NextUTF32(p, codeUTF32);
+		Codec::WidthProp widthProp = Codec::GetWidthProp(codeUTF32);
+		if (widthProp == Codec::WIDTHPROP_A ||
+			widthProp == Codec::WIDTHPROP_W || widthProp == Codec::WIDTHPROP_F) {
+			width += 2;
 		} else {
 			width += 1;
 		}
@@ -770,8 +769,43 @@ String::const_iterator NextUTF32(const String &str, String::const_iterator p, UL
 			cntChars = 5;
 		}
 		p++;
-		for (int i = 0; i < cntChars && (*p & 0xc0) == 0x80; i++, p++) {
-			codeUTF32 = (codeUTF32 << 6) | (*p & 0x3f);
+		for (int i = 0; p != str.end() && i < cntChars &&
+				 		(static_cast<UChar>(*p) & 0xc0) == 0x80; i++, p++) {
+			codeUTF32 = (codeUTF32 << 6) | (static_cast<UChar>(*p) & 0x3f);
+		}
+	}
+	return p;
+}
+
+const char *NextUTF32(const char *p, ULong &codeUTF32)
+{
+	codeUTF32 = 0x00000000;
+	if (*p == '\0') {
+		// nothing to do
+	} else if ((*p & 0x80) == 0x00) {
+		codeUTF32 = static_cast<UChar>(*p);
+		p++;
+	} else {
+		int cntChars = 0;
+		if ((*p & 0xe0) == 0xc0) {
+			codeUTF32 = static_cast<UChar>(*p) & 0x1f;
+			cntChars = 1;
+		} else if ((*p & 0xf0) == 0xe0) {
+			codeUTF32 = static_cast<UChar>(*p) & 0x0f;
+			cntChars = 2;
+		} else if ((*p & 0xf8) == 0xf0) {
+			codeUTF32 = static_cast<UChar>(*p) & 0x07;
+			cntChars = 3;
+		} else if ((*p & 0xfc) == 0xf8) {
+			codeUTF32 = static_cast<UChar>(*p) & 0x03;
+			cntChars = 4;
+		} else {
+			codeUTF32 = static_cast<UChar>(*p) & 0x01;
+			cntChars = 5;
+		}
+		p++;
+		for (int i = 0; i < cntChars && (static_cast<UChar>(*p) & 0xc0) == 0x80; i++, p++) {
+			codeUTF32 = (codeUTF32 << 6) | (static_cast<UChar>(*p) & 0x3f);
 		}
 	}
 	return p;
@@ -823,7 +857,7 @@ String::const_iterator Forward(String::const_iterator str,
 
 String Center(const char *str, size_t len, const char *padding)
 {
-	size_t lenBody = Length(str);
+	size_t lenBody = Width(str);
 	if (len <= lenBody) return String(str);
 	String rtn;
 	size_t lenRight = (len - lenBody) / 2;
@@ -836,7 +870,7 @@ String Center(const char *str, size_t len, const char *padding)
 
 String LJust(const char *str, size_t len, const char *padding)
 {
-	size_t lenBody = Length(str);
+	size_t lenBody = Width(str);
 	if (len <= lenBody) return String(str);
 	String rtn;
 	size_t lenRight = len - lenBody;
@@ -847,7 +881,7 @@ String LJust(const char *str, size_t len, const char *padding)
 
 String RJust(const char *str, size_t len, const char *padding)
 {
-	size_t lenBody = Length(str);
+	size_t lenBody = Width(str);
 	if (len <= lenBody) return String(str);
 	String rtn;
 	size_t lenLeft = len - lenBody;

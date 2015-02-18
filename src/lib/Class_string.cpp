@@ -691,6 +691,21 @@ Gura_ImplementMethod(string, upper)
 	return Value(Upper(args.GetThis().GetString()));
 }
 
+// string#width()
+Gura_DeclareMethod(string, width)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns the width of the string.\n"
+		"This takes into account the character width based on the specification of East Asian Width.");
+}
+
+Gura_ImplementMethod(string, width)
+{
+	return Value(static_cast<UInt>(Width(args.GetThis().GetString())));
+}
+
 // string#zentohan()
 Gura_DeclareMethod(string, zentohan)
 {
@@ -749,6 +764,7 @@ void Class_string::Prepare(Environment &env)
 	Gura_AssignMethod(string, translator);
 	Gura_AssignMethod(string, unescapehtml);
 	Gura_AssignMethod(string, upper);
+	Gura_AssignMethod(string, width);
 	Gura_AssignMethod(string, zentohan);
 	// suffix manager assignment
 	Gura_AssignSuffixMgrForString($);
