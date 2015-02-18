@@ -377,3 +377,29 @@ testcase {
 	string.translator {|x| x.upper()}
 	tester(`'hello world'$)
 }
+testcase('string#align() with Japanese') {
+	str = 'あいうえお'
+	println(str)
+	tester(`str.align(16):center)
+	tester(`str.align(16):left)
+	tester(`str.align(16):right)
+	tester(`str.align(16, '*'):center)
+	tester(`str.align(16, '*'):left)
+	tester(`str.align(16, '*'):right)
+	tester(`str.align(15):center)
+	tester(`str.align(15):left)
+	tester(`str.align(15):right)
+	tester(`str.align(15, '*'):center)
+	tester(`str.align(15, '*'):left)
+	tester(`str.align(15, '*'):right)
+}
+testcase('string#width()') {
+	tester(`'ABCDEFGHIJ'.len())
+	tester(`'ABCDEFGHIJ'.width())
+	tester(`'あいうえお'.len())
+	tester(`'あいうえお'.width())
+	tester(`'西暦2014年'.len())
+	tester(`'西暦2014年'.width())
+	tester(`'半角空白 全角空白　'.len())
+	tester(`'半角空白 全角空白　'.width())
+}

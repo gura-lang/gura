@@ -1317,3 +1317,30 @@ str.lower() .. hello, world
 
 'hello world'$ .. hello world
 'hello world'$ .. HELLO WORLD
+
+======== #25 string#align() with Japanese ========
+
+あいうえお
+str.align(16):center ..    あいうえお   
+str.align(16):left .. あいうえお      
+str.align(16):right ..       あいうえお
+str.align(16, '*'):center .. ***あいうえお***
+str.align(16, '*'):left .. あいうえお******
+str.align(16, '*'):right .. ******あいうえお
+str.align(15):center ..    あいうえお  
+str.align(15):left .. あいうえお     
+str.align(15):right ..      あいうえお
+str.align(15, '*'):center .. ***あいうえお**
+str.align(15, '*'):left .. あいうえお*****
+str.align(15, '*'):right .. *****あいうえお
+
+======== #26 string#width() ========
+
+'ABCDEFGHIJ'.len() .. 10
+'ABCDEFGHIJ'.width() .. 10
+'あいうえお'.len() .. 5
+'あいうえお'.width() .. 10
+'西暦2014年'.len() .. 7
+'西暦2014年'.width() .. 10
+'半角空白 全角空白　'.len() .. 10
+'半角空白 全角空白　'.width() .. 19

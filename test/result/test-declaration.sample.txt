@@ -756,6 +756,7 @@ string
   string.translator():static:void {block}
   string#unescapehtml()
   string#upper()
+  string#width()
   string#zentohan()
 struct
   struct#tolist()
