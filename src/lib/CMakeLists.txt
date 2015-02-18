@@ -92,6 +92,7 @@ Unicode-CP932.cpp
 Unicode-CP936.cpp
 Unicode-CP949.cpp
 Unicode-CP950.cpp
+Unicode-EastAsianWidth.cpp
 Uri.cpp
 Value.cpp
 ValueType.cpp

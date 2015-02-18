@@ -273,6 +273,7 @@
     <ClCompile Include="Unicode-CP936.cpp" />
     <ClCompile Include="Unicode-CP949.cpp" />
     <ClCompile Include="Unicode-CP950.cpp" />
+    <ClCompile Include="Unicode-EastAsianWidth.cpp" />
     <ClCompile Include="Uri.cpp" />
     <ClCompile Include="Value.cpp" />
     <ClCompile Include="ValueType.cpp" />

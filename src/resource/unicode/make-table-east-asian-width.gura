@@ -1,0 +1,36 @@
+#!/usr/bin/env gura
+import(re)
+
+propPrev = nil
+codeNext = 0x000000
+println('const Codec::WidthInfo Codec::_widthInfoTbl[] = {')
+readlines('EastAsianWidth.txt'):chop {|line|
+	line = line.strip()
+	if (line.startswith('#') || line.isempty()) {
+		continue
+	} elsif (m = line.match(r'^([0-9a-fA-F]+);(\w+)')) {
+		codeBgn = codeEnd = int('0x' + m[1])
+		prop = m[2]
+	} elsif (m = line.match(r'^([0-9a-fA-F]+)\.\.([0-9a-fA-F]+);(\w+)')) {
+		codeBgn = int('0x' + m[1])
+		codeEnd = int('0x' + m[2])
+		prop = m[3]
+	} else {
+		println('*invalid format*')
+		println(line)
+		sys.exit(1)
+	}
+	if (codeNext != codeBgn) {
+		//println('*discontinuity error*')
+		//println(line)
+		codeBgn = codeNext
+	}
+	if (propPrev != prop) {
+		propPrev && printf('\t{ 0x%06x, WIDTHPROP_%-2s },\n', codeBgn, propPrev)
+		propPrev = prop
+	}
+	codeNext = codeEnd + 1
+}
+printf('\t{ 0x%06x, WIDTHPROP_%-2s },\n', codeBgn, propPrev)
+printf('\t{ 0x%06x, WIDTHPROP_%-2s },\n', 0x000000, 'N')
+println('};')

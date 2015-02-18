@@ -39,10 +39,22 @@ public:
 		RESULT_Complete,
 		RESULT_Error,
 	};
+	enum WidthProp {
+		WIDTHPROP_N,
+		WIDTHPROP_A,
+		WIDTHPROP_H,
+		WIDTHPROP_W,
+		WIDTHPROP_F,
+		WIDTHPROP_Na,
+	};
 	typedef std::map<UShort, UShort> Map;
 	struct CodeRow {
 		int nCols;
 		const UShort *row;
+	};
+	struct WidthInfo {
+		ULong codeUTF32Ceil;
+		WidthProp widthProp;
 	};
 public:
 	class GURA_DLLDECLARE DecEncBase {
@@ -87,6 +99,7 @@ private:
 	std::auto_ptr<Decoder> _pDecoder;
 	std::auto_ptr<Encoder> _pEncoder;
 	static CodecFactory *_pFactory_None;
+	static const WidthInfo _widthInfoTbl[];
 public:
 	static const char *BOM_UTF8;
 	static const char *BOM_UTF16BE;
@@ -111,6 +124,7 @@ public:
 	static void Initialize();
 	static UShort DBCSToUTF16(const CodeRow codeRows[], int nCodeRows, UShort codeDBCS);
 	static UShort UTF16ToDBCS(const CodeRow codeRows[], int nCodeRows, UShort codeUTF16, Map **ppMap);
+	static WidthProp GetWidthProp(ULong codeUTF32);
 public:
 	static const char *EncodingFromLANG();
 };

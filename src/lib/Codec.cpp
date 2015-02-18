@@ -99,6 +99,14 @@ UShort Codec::UTF16ToDBCS(const CodeRow codeRows[], int nCodeRows, UShort codeUT
 	return (iter == pMap->end())? 0x0000 : iter->second;
 }
 
+Codec::WidthProp Codec::GetWidthProp(ULong codeUTF32)
+{
+	for (const WidthInfo *p = _widthInfoTbl; p->codeCeil != 0x000000; p++) {
+		if (codeUTF32 < p->codeUTF32Ceil) return p->widthProp;
+	}
+	return WIDTHPROP_N;
+}
+
 //-----------------------------------------------------------------------------
 // Codec::DecEncBase
 //-----------------------------------------------------------------------------
