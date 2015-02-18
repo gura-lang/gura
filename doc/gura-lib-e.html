@@ -5876,7 +5876,7 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 Below is an example:
 </p>
 <pre><code>x = consts('hello', 10)
-// x is an iterator to generate 'hello' for 10 times
+// x generates 'hello' for 10 times
 </code></pre>
 <p>
 <strong>interval</strong>
@@ -5990,6 +5990,18 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:set</code> ..  a list of unique values</li>
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
+<p>
+Below are examples:
+</p>
+<pre><code>x = range(10)
+// x generates 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+
+x = range(3, 10)
+// x generates 3, 4, 5, 6, 7, 8, 9
+
+x = range(3, 10, 2)
+// x generates 3, 5, 7, 9
+</code></pre>
 <h3><span class="caption-index-3">6.20.2</span><a name="caption-6-20-2"></a>Methods Specific to Iterator Class</h3>
 <p>
 <strong>iterator#delay</strong>
@@ -6090,14 +6102,14 @@ Creates an iterator that returns the specified number of elements in the source 
 <p>
 Below is an example to specify a number less than the source length:
 </p>
-<pre><code>rtn = [3, 1, 4, 1, 5, 9].align(3)
-// rtn is an iterator to return 3, 1, 4.
+<pre><code>x = [3, 1, 4, 1, 5, 9].align(3)
+// x generates 3, 1, 4.
 </code></pre>
 <p>
 Below is an example to specify a number that exceeds the source length:
 </p>
-<pre><code>rtn = [3, 1, 4, 1, 5, 9].align(8)
-// rtn is an iterator to return 3, 1, 4, 1, 5, 9, nil, nil.
+<pre><code>x = [3, 1, 4, 1, 5, 9].align(8)
+// x generates 3, 1, 4, 1, 5, 9, nil, nil.
 </code></pre>
 <p>
 <strong>iterator#and</strong>
@@ -6192,8 +6204,8 @@ The argument <code>n</code> specifies the number of elements the created iterato
 <p>
 Below is an example:
 </p>
-<pre><code>rtn = [1, 2, 3, 4, 5].cycle()
-// rtn is an iterator to return 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, ..
+<pre><code>x = [1, 2, 3, 4, 5].cycle()
+// x generates 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, ..
 </code></pre>
 <p>
 <strong>iterator#each</strong>
@@ -6244,14 +6256,14 @@ Below is an example to use an iterable as its criteria:
 <pre><code>x = [3, 1, 4, 1, 5, 9]
 y = filter(x &gt; 3)
 // (x &gt; 3) makes a list [false, false, true, false, true, true]
-// y is an iterator to return 4, 5, 9
+// y generates 4, 5, 9
 </code></pre>
 <p>
 Below is an example to use a function as its criteria:
 </p>
 <pre><code>x = [3, 1, 4, 1, 5, 9]
 y = filter(&amp;{$x &gt; 3})
-// y is an iterator to return 4, 5, 9
+// y generates 4, 5, 9
 </code></pre>
 <p>
 <strong>iterator#find</strong>
@@ -6276,8 +6288,34 @@ Specifying an attribute could customize searching order as below:
 <li><code>:bfs</code> .. Searches in breadth-first order.</li>
 </ul>
 <p>
-Unlike <code>iterator#walk()</code>, this always create an iterator without an infinite flag.
+Unlike <code>iterator#walk()</code>, <code>iterator#flat()</code> creates an iterator without an infinite flag. This means that the created iterator can be converted to a list. You have to confirm that the source iterable doesn't contain any infinite iterators.
 </p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Below is an example:
+</p>
+<pre><code>x = [[`A, `B, `C], [`D, `E, [`F, `G, `H], `I, `J], `K, `L]
+
+y = x.flat():dfs
+// y generates `A, `B, `C, `D, `E, `F, `G, `H, `I, `J, `K, `L
+
+y = x.flat():bfs
+// y generates `K, `L, `A, `B, `C, `D, `E, `I, `J, `F, `G, `H
+</code></pre>
 <p>
 <strong>iterator#fold</strong>
 </p>
@@ -6300,13 +6338,13 @@ If the last packing doesn't satisfy <code>n</code> elements, its list would be s
 Following is an example to fold elements by 3:
 </p>
 <pre><code>x = [3, 1, 4, 1, 5, 9, 2, 6].fold(3)
-// x is an iterator to return [3, 1, 4], [1, 5, 9], [2, 6].
+// x generates [3, 1, 4], [1, 5, 9], [2, 6].
 </code></pre>
 <p>
 Following is an example to fold elements by 3 with a step of 2:
 </p>
 <pre><code>x = [3, 1, 4, 1, 5, 9, 2, 6].fold(3, 2)
-// x is an iterator to return [3, 1, 4], [4, 1, 5], [5, 9, 2], [2, 6].
+// x generates [3, 1, 4], [4, 1, 5], [5, 9, 2], [2, 6].
 </code></pre>
 <p>
 <strong>iterator#format</strong>
@@ -6713,8 +6751,34 @@ Specifying an attribute could customize searching order as below:
 <li><code>:bfs</code> .. Searches in breadth-first order.</li>
 </ul>
 <p>
-Unlike <code>iterator#flat()</code>, the created iterator inherits infinity from the source one.
+Unlike <code>iterator#flat()</code>, <code>iterator#walk()</code> creates an iterator with an infinite flag. This means that the created iterator is intended only for iteration and can not be converted to a list.
 </p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Below is an example:
+</p>
+<pre><code>x = [[`A, `B, `C], [`D, `E, [`F, `G, `H], `I, `J], `K, `L]
+
+y = x.walk():dfs
+// y generates `A, `B, `C, `D, `E, `F, `G, `H, `I, `J, `K, `L
+
+y = x.walk():bfs
+// y generates `K, `L, `A, `B, `C, `D, `E, `I, `J, `F, `G, `H
+</code></pre>
 <p>
 <strong>iterator#while</strong>
 </p>
@@ -6886,8 +6950,34 @@ Specifying an attribute could customize searching order as below:
 <li><code>:bfs</code> .. Searches in breadth-first order.</li>
 </ul>
 <p>
-Unlike <code>iterator#walk()</code>, this always create an iterator without an infinite flag.
+Unlike <code>iterator#walk()</code>, <code>iterator#flat()</code> creates an iterator without an infinite flag. This means that the created iterator can be converted to a list. You have to confirm that the source iterable doesn't contain any infinite iterators.
 </p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Below is an example:
+</p>
+<pre><code>x = [[`A, `B, `C], [`D, `E, [`F, `G, `H], `I, `J], `K, `L]
+
+y = x.flat():dfs
+// y generates `A, `B, `C, `D, `E, `F, `G, `H, `I, `J, `K, `L
+
+y = x.flat():bfs
+// y generates `K, `L, `A, `B, `C, `D, `E, `I, `J, `F, `G, `H
+</code></pre>
 <p>
 <strong>list#get</strong>
 </p>
@@ -7045,14 +7135,14 @@ Creates an iterator that returns the specified number of elements in the source 
 <p>
 Below is an example to specify a number less than the source length:
 </p>
-<pre><code>rtn = [3, 1, 4, 1, 5, 9].align(3)
-// rtn is an iterator to return 3, 1, 4.
+<pre><code>x = [3, 1, 4, 1, 5, 9].align(3)
+// x generates 3, 1, 4.
 </code></pre>
 <p>
 Below is an example to specify a number that exceeds the source length:
 </p>
-<pre><code>rtn = [3, 1, 4, 1, 5, 9].align(8)
-// rtn is an iterator to return 3, 1, 4, 1, 5, 9, nil, nil.
+<pre><code>x = [3, 1, 4, 1, 5, 9].align(8)
+// x generates 3, 1, 4, 1, 5, 9, nil, nil.
 </code></pre>
 <p>
 <strong>list#and</strong>
@@ -7147,8 +7237,8 @@ The argument <code>n</code> specifies the number of elements the created iterato
 <p>
 Below is an example:
 </p>
-<pre><code>rtn = [1, 2, 3, 4, 5].cycle()
-// rtn is an iterator to return 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, ..
+<pre><code>x = [1, 2, 3, 4, 5].cycle()
+// x generates 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, ..
 </code></pre>
 <p>
 <strong>list#each</strong>
@@ -7199,14 +7289,14 @@ Below is an example to use an iterable as its criteria:
 <pre><code>x = [3, 1, 4, 1, 5, 9]
 y = filter(x &gt; 3)
 // (x &gt; 3) makes a list [false, false, true, false, true, true]
-// y is an iterator to return 4, 5, 9
+// y generates 4, 5, 9
 </code></pre>
 <p>
 Below is an example to use a function as its criteria:
 </p>
 <pre><code>x = [3, 1, 4, 1, 5, 9]
 y = filter(&amp;{$x &gt; 3})
-// y is an iterator to return 4, 5, 9
+// y generates 4, 5, 9
 </code></pre>
 <p>
 <strong>list#find</strong>
@@ -7236,13 +7326,13 @@ If the last packing doesn't satisfy <code>n</code> elements, its list would be s
 Following is an example to fold elements by 3:
 </p>
 <pre><code>x = [3, 1, 4, 1, 5, 9, 2, 6].fold(3)
-// x is an iterator to return [3, 1, 4], [1, 5, 9], [2, 6].
+// x generates [3, 1, 4], [1, 5, 9], [2, 6].
 </code></pre>
 <p>
 Following is an example to fold elements by 3 with a step of 2:
 </p>
 <pre><code>x = [3, 1, 4, 1, 5, 9, 2, 6].fold(3, 2)
-// x is an iterator to return [3, 1, 4], [4, 1, 5], [5, 9, 2], [2, 6].
+// x generates [3, 1, 4], [4, 1, 5], [5, 9, 2], [2, 6].
 </code></pre>
 <p>
 <strong>list#format</strong>
@@ -7649,8 +7739,34 @@ Specifying an attribute could customize searching order as below:
 <li><code>:bfs</code> .. Searches in breadth-first order.</li>
 </ul>
 <p>
-Unlike <code>iterator#flat()</code>, the created iterator inherits infinity from the source one.
+Unlike <code>iterator#flat()</code>, <code>iterator#walk()</code> creates an iterator with an infinite flag. This means that the created iterator is intended only for iteration and can not be converted to a list.
 </p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Below is an example:
+</p>
+<pre><code>x = [[`A, `B, `C], [`D, `E, [`F, `G, `H], `I, `J], `K, `L]
+
+y = x.walk():dfs
+// y generates `A, `B, `C, `D, `E, `F, `G, `H, `I, `J, `K, `L
+
+y = x.walk():bfs
+// y generates `K, `L, `A, `B, `C, `D, `E, `I, `J, `F, `G, `H
+</code></pre>
 <p>
 <strong>list#while</strong>
 </p>

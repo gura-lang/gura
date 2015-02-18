@@ -99,7 +99,19 @@ Gura_DeclareFunction(range)
 		"- `range(num, num_end, step)` .. Numbers between `num` and `(num_end - 1)`\n"
 		"  incremented by `step`.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_ITERATOR_HELP
+		"\n"
+		"Below are examples:\n"
+		"\n"
+		"    x = range(10)\n"
+		"    // x generates 0, 1, 2, 3, 4, 5, 6, 7, 8, 9\n"
+		"    \n"
+		"    x = range(3, 10)\n"
+		"    // x generates 3, 4, 5, 6, 7, 8, 9\n"
+		"    \n"
+		"    x = range(3, 10, 2)\n"
+		"    // x generates 3, 5, 7, 9\n"
+		);
 }
 
 Gura_ImplementFunction(range)
@@ -221,7 +233,7 @@ Gura_DeclareFunction(consts)
 		"Below is an example:\n"
 		"\n"
 		"    x = consts('hello', 10)\n"
-		"    // x is an iterator to generate 'hello' for 10 times\n");
+		"    // x generates 'hello' for 10 times\n");
 }
 
 Gura_ImplementFunction(consts)
@@ -403,13 +415,13 @@ Gura_DeclareMethod(iterator, align)
 		"\n"
 		"Below is an example to specify a number less than the source length:\n"
 		"\n"
-		"    rtn = [3, 1, 4, 1, 5, 9].align(3)\n"
-		"    // rtn is an iterator to return 3, 1, 4.\n"
+		"    x = [3, 1, 4, 1, 5, 9].align(3)\n"
+		"    // x generates 3, 1, 4.\n"
 		"\n"
 		"Below is an example to specify a number that exceeds the source length:\n"
 		"\n"
-		"    rtn = [3, 1, 4, 1, 5, 9].align(8)\n"
-		"    // rtn is an iterator to return 3, 1, 4, 1, 5, 9, nil, nil.\n");
+		"    x = [3, 1, 4, 1, 5, 9].align(8)\n"
+		"    // x generates 3, 1, 4, 1, 5, 9, nil, nil.\n");
 }
 
 Gura_ImplementMethod(iterator, align)
@@ -556,8 +568,8 @@ Gura_DeclareMethod(iterator, cycle)
 		"\n"
 		"Below is an example:\n"
 		"\n"
-		"    rtn = [1, 2, 3, 4, 5].cycle()\n"
-		"    // rtn is an iterator to return 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, ..\n");
+		"    x = [1, 2, 3, 4, 5].cycle()\n"
+		"    // x generates 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, ..\n");
 
 }
 
@@ -620,13 +632,13 @@ Gura_DeclareMethod(iterator, filter)
 		"    x = [3, 1, 4, 1, 5, 9]\n"
 		"    y = filter(x > 3)\n"
 		"    // (x > 3) makes a list [false, false, true, false, true, true]\n"
-		"    // y is an iterator to return 4, 5, 9\n"
+		"    // y generates 4, 5, 9\n"
 		"\n"
 		"Below is an example to use a function as its criteria:\n"
 		"\n"
 		"    x = [3, 1, 4, 1, 5, 9]\n"
 		"    y = filter(&{$x > 3})\n"
-		"    // y is an iterator to return 4, 5, 9\n");
+		"    // y generates 4, 5, 9\n");
 }
 
 Gura_ImplementMethod(iterator, filter)
@@ -683,7 +695,21 @@ Gura_DeclareMethod(iterator, flat)
 		"- `:dfs` .. Searches in depth-first order. This is the default behavior.\n"
 		"- `:bfs` .. Searches in breadth-first order.\n"
 		"\n"
-		"Unlike `iterator#walk()`, this always create an iterator without an infinite flag.\n");
+		"Unlike `iterator#walk()`, `iterator#flat()` creates an iterator without an infinite flag.\n"
+		"This means that the created iterator can be converted to a list.\n"
+		"You have to confirm that the source iterable doesn't contain any infinite iterators.\n"
+		"\n"
+		GURA_ITERATOR_HELP
+		"\n"
+		"Below is an example:\n"
+		"\n"
+		"    x = [[`A, `B, `C], [`D, `E, [`F, `G, `H], `I, `J], `K, `L]\n"
+		"    \n"
+		"    y = x.flat():dfs\n"
+		"    // y generates `A, `B, `C, `D, `E, `F, `G, `H, `I, `J, `K, `L\n"
+		"    \n"
+		"    y = x.flat():bfs\n"
+		"    // y generates `K, `L, `A, `B, `C, `D, `E, `I, `J, `F, `G, `H\n");
 }
 
 Gura_ImplementMethod(iterator, flat)
@@ -725,12 +751,12 @@ Gura_DeclareMethod(iterator, fold)
 		"Following is an example to fold elements by 3:\n"
 		"\n"
 		"    x = [3, 1, 4, 1, 5, 9, 2, 6].fold(3)\n"
-		"    // x is an iterator to return [3, 1, 4], [1, 5, 9], [2, 6].\n"
+		"    // x generates [3, 1, 4], [1, 5, 9], [2, 6].\n"
 		"\n"
 		"Following is an example to fold elements by 3 with a step of 2:\n"
 		"\n"
 		"    x = [3, 1, 4, 1, 5, 9, 2, 6].fold(3, 2)\n"
-		"    // x is an iterator to return [3, 1, 4], [4, 1, 5], [5, 9, 2], [2, 6].\n");
+		"    // x generates [3, 1, 4], [4, 1, 5], [5, 9, 2], [2, 6].\n");
 }
 
 Gura_ImplementMethod(iterator, fold)
@@ -1529,7 +1555,21 @@ Gura_DeclareMethod(iterator, walk)
 		"- `:dfs` .. Searches in depth-first order. This is the default behavior.\n"
 		"- `:bfs` .. Searches in breadth-first order.\n"
 		"\n"
-		"Unlike `iterator#flat()`, the created iterator inherits infinity from the source one.\n");
+		"Unlike `iterator#flat()`, `iterator#walk()` creates an iterator with an infinite flag.\n"
+		"This means that the created iterator is intended only for iteration and\n"
+		"can not be converted to a list.\n"
+		"\n"
+		GURA_ITERATOR_HELP
+		"\n"
+		"Below is an example:\n"
+		"\n"
+		"    x = [[`A, `B, `C], [`D, `E, [`F, `G, `H], `I, `J], `K, `L]\n"
+		"    \n"
+		"    y = x.walk():dfs\n"
+		"    // y generates `A, `B, `C, `D, `E, `F, `G, `H, `I, `J, `K, `L\n"
+		"    \n"
+		"    y = x.walk():bfs\n"
+		"    // y generates `K, `L, `A, `B, `C, `D, `E, `I, `J, `F, `G, `H\n");
 }
 
 Gura_ImplementMethod(iterator, walk)
