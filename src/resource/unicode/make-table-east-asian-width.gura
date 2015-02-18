@@ -23,7 +23,6 @@ readlines('EastAsianWidth.txt'):chop {|line|
 	if (codeNext != codeBgn) {
 		//println('*discontinuity error*')
 		//println(line)
-		codeBgn = codeNext
 	}
 	if (propPrev != prop) {
 		propPrev && printf('\t{ 0x%06x, WIDTHPROP_%-2s },\n', codeBgn, propPrev)
@@ -31,6 +30,6 @@ readlines('EastAsianWidth.txt'):chop {|line|
 	}
 	codeNext = codeEnd + 1
 }
-printf('\t{ 0x%06x, WIDTHPROP_%-2s },\n', codeBgn, propPrev)
+printf('\t{ 0x%06x, WIDTHPROP_%-2s },\n', codeNext, propPrev)
 printf('\t{ 0x%06x, WIDTHPROP_%-2s },\n', 0x000000, 'N')
 println('};')
