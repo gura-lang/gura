@@ -205,10 +205,15 @@ For example, the code below creates a `binary` instance that contains a sequence
 
 </table>
 
-### Methods
+### Functions to Create Instance
 
 ${markdown.funcdoc(
 binary
+)}
+
+### Methods
+
+${markdown.funcdoc(
 binary.add
 binary.alloc
 binary.decode
@@ -260,10 +265,15 @@ The `codec` class provides measures to convert character codes.
 
 </table>
 
-### Methods
+### Functions to Create Instance
 
 ${markdown.funcdoc(
 codec
+)}
+
+### Methods
+
+${markdown.funcdoc(
 codec.addcr
 codec.decode
 codec.delcr
@@ -313,10 +323,15 @@ Some instances are predefined as class variables:
 
 </table>
 
-### Methods
+### Functions to Create Instance
 
 ${markdown.funcdoc(
 color
+)}
+
+### Methods
+
+${markdown.funcdoc(
 color.getgray
 color.html
 color.tolist
@@ -341,10 +356,15 @@ and 3 as its imaginal part.
     complex(2, 3)
     2 + 3j
 
-### Methods
+### Functions to Create Instance
 
 ${markdown.funcdoc(
 complex
+)}
+
+### Methods
+
+${markdown.funcdoc(
 complex.polar
 complex.roundoff
 )}
@@ -436,10 +456,15 @@ Week symbol that takes one of the followings:
 
 </table>
 
-### Methods
+### Functions to Create Instance
 
 ${markdown.funcdoc(
 datetime
+)}
+
+### Methods
+
+${markdown.funcdoc(
 datetime.clrtzoff
 datetime.format
 datetime.isleap
@@ -505,10 +530,15 @@ You can create a `dict` instance by calling `dict()` function.
 You can also use a function named `%` to create an instance
 that is an alias of `dict()` function.
 
-### Methods
+### Functions to Create Instance
 
 ${markdown.funcdoc(
 dict
+)}
+
+### Methods
+
+${markdown.funcdoc(
 dict.append
 dict.clear
 dict.erase
@@ -533,7 +563,7 @@ Though the instance can be created by `directory()` function,
 you don't have to use it in many cases because a casting from `string` to `directory` instance
 works implicitly in a function call.
 
-### Methods
+### Functions to Create Instance
 
 ${markdown.funcdoc(
 directory
@@ -762,10 +792,15 @@ text@expr = R'''
 
 </table>
 
-### Methods
+### Functions to Create Instance
 
 ${markdown.funcdoc(
 expr
+)}
+
+### Methods
+
+${markdown.funcdoc(
 expr.eval
 expr.parse
 expr.textize
@@ -907,10 +942,15 @@ You can use `&` as an alias of `function()` as shown below:
 
 </table>
 
-### Methods
+### Functions to Create Instance
 
 ${markdown.funcdoc(
 function
+)}
+
+### Methods
+
+${markdown.funcdoc(
 function.addhelp
 function.getdecls
 function.getexpr
@@ -973,10 +1013,15 @@ text@image = R'''
 
 </table>
 
-### Methods
+### Functions to Create Instance
 
 ${markdown.funcdoc(
 image
+)}
+
+### Methods
+
+${markdown.funcdoc(
 image.allocbuff
 image.blur
 image.clear
@@ -1009,7 +1054,7 @@ image.write
 text@iterator = R'''
 ## iterator Class
 
-### Methods Specific to Iterator Class
+### Functions to Create Instance
 
 ${markdown.funcdoc(
 consts
@@ -1017,6 +1062,11 @@ interval
 iterator
 rands
 range
+)}
+
+### Methods Specific to Iterator Class
+
+${markdown.funcdoc(
 iterator.delay
 iterator.isinfinite
 iterator.next
@@ -1079,13 +1129,18 @@ iterator.while
 text@list = R'''
 ## list Class
 
-### Methods Specific to List Class
+### Functions to Create Instance
 
 ${markdown.funcdoc(
 list
 xlist
 set
 xset
+)}
+
+### Methods Specific to List Class
+
+${markdown.funcdoc(
 list.add
 list.append
 list.clear
@@ -1159,10 +1214,15 @@ list.while
 text@matrix = R'''
 ## matrix Class
 
-### Methods
+### Functions to Create Instance
 
 ${markdown.funcdoc(
 matrix
+)}
+
+### Methods
+
+${markdown.funcdoc(
 matrix.col
 matrix.colsize
 matrix.each
@@ -1217,10 +1277,15 @@ text@operator = R'''
 
 </table>
 
-### Methods
+### Functions to Create Instance
 
 ${markdown.funcdoc(
 operator
+)}
+
+### Methods
+
+${markdown.funcdoc(
 operator.assign
 operator.entries
 )}
@@ -1230,10 +1295,15 @@ operator.entries
 text@palette = R'''
 ## palette Class
 
-### Methods
+### Functions to Create Instance
 
 ${markdown.funcdoc(
 palette
+)}
+
+### Methods
+
+${markdown.funcdoc(
 palette.each
 palette.nearest
 palette.shrink
@@ -1278,10 +1348,15 @@ Below are examples to realize a common fraction two-thirds:
     2r / 3
     2 / 3r
 
-### Methods
+### Functions to Create Instance
 
 ${markdown.funcdoc(
 rational
+)}
+
+### Methods
+
+${markdown.funcdoc(
 rational.reduce
 )}
 '''.template().render()
@@ -1290,10 +1365,15 @@ rational.reduce
 text@semaphore = R'''
 ## semaphore Class
 
-### Methods
+### Functions to Create Instance
 
 ${markdown.funcdoc(
 semaphore
+)}
+
+### Methods
+
+${markdown.funcdoc(
 semaphore.release
 semaphore.session
 semaphore.wait
@@ -1329,12 +1409,17 @@ text@stream = R'''
 
 </table>
 
-### Methods
+### Functions to Create Instance
 
 ${markdown.funcdoc(
 open
 stream
 readlines
+)}
+
+### Methods
+
+${markdown.funcdoc(
 stream.addcr
 stream.close
 stream.compare
@@ -1428,10 +1513,15 @@ You can use that suffix like below:
 
     'hello world'X
 
-### Methods
+### Functions to Create Instance
 
 ${markdown.funcdoc(
 suffixmgr
+)}
+
+### Methods
+
+${markdown.funcdoc(
 suffixmgr.assign
 )}
 '''.template().render()
@@ -1451,10 +1541,15 @@ symbol.eval
 text@template = R'''
 ## template Class
 
-### Methods
+### Functions to Create Instance
 
 ${markdown.funcdoc(
 template
+)}
+
+### Methods
+
+${markdown.funcdoc(
 template.block
 template.call
 template.def
@@ -1497,7 +1592,7 @@ of `timedelta` to it.
 
 </table>
 
-### Methods
+### Functions to Create Instance
 
 ${markdown.funcdoc(
 timedelta
@@ -1541,10 +1636,15 @@ text@uri = R'''
 
 </table>
 
-### Methods
+### Functions to Create Instance
 
 ${markdown.funcdoc(
 uri
+)}
+
+### Methods
+
+${markdown.funcdoc(
 uri.getfragment
 uri.getpath
 uri.getquery

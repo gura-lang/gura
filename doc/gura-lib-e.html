@@ -2255,13 +2255,14 @@ Indicates if the content of the binary object is writable.</td>
 </table>
 
 </p>
-<h3><span class="caption-index-3">6.5.2</span><a name="caption-6-5-2"></a>Methods</h3>
+<h3><span class="caption-index-3">6.5.2</span><a name="caption-6-5-2"></a>Functions to Create Instance</h3>
 <p>
 <strong>binary</strong>
 </p>
 <p>
 <code>binary(buff*) {block?}</code>
 </p>
+<h3><span class="caption-index-3">6.5.3</span><a name="caption-6-5-3"></a>Methods</h3>
 <p>
 <strong>binary#add</strong>
 </p>
@@ -2460,7 +2461,7 @@ BOM sequence of UTF-32 big endian</td>
 </table>
 
 </p>
-<h3><span class="caption-index-3">6.6.2</span><a name="caption-6-6-2"></a>Methods</h3>
+<h3><span class="caption-index-3">6.6.2</span><a name="caption-6-6-2"></a>Functions to Create Instance</h3>
 <p>
 <strong>codec</strong>
 </p>
@@ -2473,6 +2474,7 @@ Creates a <code>codec</code> instance of the specified encoding name. You can ca
 <p>
 If <code>block</code> is specified, it would be evaluated with a block parameter <code>|codec:codec|</code>, where <code>codec</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
+<h3><span class="caption-index-3">6.6.3</span><a name="caption-6-6-3"></a>Methods</h3>
 <p>
 <strong>codec#addcr</strong>
 </p>
@@ -2640,7 +2642,7 @@ Value of the alpha element.</td>
 </table>
 
 </p>
-<h3><span class="caption-index-3">6.7.3</span><a name="caption-6-7-3"></a>Methods</h3>
+<h3><span class="caption-index-3">6.7.3</span><a name="caption-6-7-3"></a>Functions to Create Instance</h3>
 <p>
 <strong>color</strong>
 </p>
@@ -2660,6 +2662,7 @@ There are two forms to call this function as below:
 <li><code>color(name:string, a?:number)</code> .. Creates an instance from color name and an optional alpha element. Predefined variable <code>color.names</code> is a list that contains available color names. A string in a format of <code>'#rrggbb'</code> that is used in HTML documents is also acceptable as a color name.</li>
 <li><code>color(r:number, g?:number, b?:number, a?:number)</code> .. Creates an instance from RGB elements and an optional alpha element.</li>
 </ul>
+<h3><span class="caption-index-3">6.7.4</span><a name="caption-6-7-4"></a>Methods</h3>
 <p>
 <strong>color#getgray</strong>
 </p>
@@ -2711,7 +2714,7 @@ Below are examples to realize a complex number that has 2 as its real part and 3
 <pre><code>complex(2, 3)
 2 + 3j
 </code></pre>
-<h3><span class="caption-index-3">6.8.1</span><a name="caption-6-8-1"></a>Methods</h3>
+<h3><span class="caption-index-3">6.8.1</span><a name="caption-6-8-1"></a>Functions to Create Instance</h3>
 <p>
 <strong>complex</strong>
 </p>
@@ -2727,6 +2730,7 @@ If the argument <code>imag</code> is omitted, the imaginary part would be set to
 <p>
 If <code>block</code> is specified, it would be evaluated with a block parameter <code>|n:complex|</code>, where <code>n</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
+<h3><span class="caption-index-3">6.8.2</span><a name="caption-6-8-2"></a>Methods</h3>
 <p>
 <strong>complex.polar</strong>
 </p>
@@ -3109,7 +3113,7 @@ Seconds passed from 00:00:00 on January 1st in 1970 in UTC.</td>
 </table>
 
 </p>
-<h3><span class="caption-index-3">6.9.3</span><a name="caption-6-9-3"></a>Methods</h3>
+<h3><span class="caption-index-3">6.9.3</span><a name="caption-6-9-3"></a>Functions to Create Instance</h3>
 <p>
 <strong>datetime</strong>
 </p>
@@ -3138,6 +3142,7 @@ Meaning of the arguments are shown below:
 <p>
 In default, the instance has a timezone offset based on the current system settings.
 </p>
+<h3><span class="caption-index-3">6.9.4</span><a name="caption-6-9-4"></a>Methods</h3>
 <p>
 <strong>datetime#clrtzoff</strong>
 </p>
@@ -3403,7 +3408,7 @@ You can create a <code>dict</code> instance by calling <code>dict()</code> funct
 <p>
 You can also use a function named <code>%</code> to create an instance that is an alias of <code>dict()</code> function.
 </p>
-<h3><span class="caption-index-3">6.11.1</span><a name="caption-6-11-1"></a>Methods</h3>
+<h3><span class="caption-index-3">6.11.1</span><a name="caption-6-11-1"></a>Functions to Create Instance</h3>
 <p>
 <strong>dict</strong>
 </p>
@@ -3441,6 +3446,7 @@ The symbol <code>%</code> is an alias of the function <code>dict()</code>.
 <p>
 In default, if keys contain alphabet characters, different cases are distinguished. Appending the attribute <code>:icase</code> would ignore cases in them.
 </p>
+<h3><span class="caption-index-3">6.11.2</span><a name="caption-6-11-2"></a>Methods</h3>
 <p>
 <strong>dict#append</strong>
 </p>
@@ -3625,7 +3631,7 @@ The <code>directory</code> class handles information necessary to seek directory
 <p>
 Though the instance can be created by <code>directory()</code> function, you don't have to use it in many cases because a casting from <code>string</code> to <code>directory</code> instance works implicitly in a function call.
 </p>
-<h3><span class="caption-index-3">6.12.1</span><a name="caption-6-12-1"></a>Methods</h3>
+<h3><span class="caption-index-3">6.12.1</span><a name="caption-6-12-1"></a>Functions to Create Instance</h3>
 <p>
 <strong>directory</strong>
 </p>
@@ -4489,7 +4495,7 @@ Exists in "value".</td>
 </table>
 
 </p>
-<h3><span class="caption-index-3">6.15.2</span><a name="caption-6-15-2"></a>Methods</h3>
+<h3><span class="caption-index-3">6.15.2</span><a name="caption-6-15-2"></a>Functions to Create Instance</h3>
 <p>
 <strong>expr</strong>
 </p>
@@ -4502,6 +4508,7 @@ Parses a Gura script from the stream <code>src</code> and creates an <code>expr<
 <p>
 If <code>block</code> is specified, it would be evaluated with a block parameter <code>|expr:expr|</code>, where <code>expr</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
+<h3><span class="caption-index-3">6.15.3</span><a name="caption-6-15-3"></a>Methods</h3>
 <p>
 <strong>expr#eval</strong>
 </p>
@@ -5138,7 +5145,7 @@ symbol</code>
 </table>
 
 </p>
-<h3><span class="caption-index-3">6.17.2</span><a name="caption-6-17-2"></a>Methods</h3>
+<h3><span class="caption-index-3">6.17.2</span><a name="caption-6-17-2"></a>Functions to Create Instance</h3>
 <p>
 <strong>function</strong>
 </p>
@@ -5155,6 +5162,7 @@ Following two codes have the same effect with each other.
 </code></pre>
 <pre><code>f(a, b, c) = { /* any job */ }
 </code></pre>
+<h3><span class="caption-index-3">6.17.3</span><a name="caption-6-17-3"></a>Methods</h3>
 <p>
 <strong>function.addhelp</strong>
 </p>
@@ -5478,7 +5486,7 @@ R</td>
 </table>
 
 </p>
-<h3><span class="caption-index-3">6.19.2</span><a name="caption-6-19-2"></a>Methods</h3>
+<h3><span class="caption-index-3">6.19.2</span><a name="caption-6-19-2"></a>Functions to Create Instance</h3>
 <p>
 <strong>image</strong>
 </p>
@@ -5612,6 +5620,7 @@ tiff</code>
 </table>
 
 </p>
+<h3><span class="caption-index-3">6.19.3</span><a name="caption-6-19-3"></a>Methods</h3>
 <p>
 <strong>image#allocbuff</strong>
 </p>
@@ -5835,7 +5844,7 @@ Returns an iterator that scans pixels in the image.
 Writes image data to a stream.
 </p>
 <h2><span class="caption-index-2">6.20</span><a name="caption-6-20"></a>iterator Class</h2>
-<h3><span class="caption-index-3">6.20.1</span><a name="caption-6-20-1"></a>Methods Specific to Iterator Class</h3>
+<h3><span class="caption-index-3">6.20.1</span><a name="caption-6-20-1"></a>Functions to Create Instance</h3>
 <p>
 <strong>consts</strong>
 </p>
@@ -5981,6 +5990,7 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:set</code> ..  a list of unique values</li>
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
+<h3><span class="caption-index-3">6.20.2</span><a name="caption-6-20-2"></a>Methods Specific to Iterator Class</h3>
 <p>
 <strong>iterator#delay</strong>
 </p>
@@ -6037,7 +6047,7 @@ println(x)
 // Prints 'apple', 'orange' and  'grape' three times
 // after evaluating the internal iterator.
 </code></pre>
-<h3><span class="caption-index-3">6.20.2</span><a name="caption-6-20-2"></a>Methods Common between Iterator and List Class</h3>
+<h3><span class="caption-index-3">6.20.3</span><a name="caption-6-20-3"></a>Methods Common between Iterator and List Class</h3>
 <p>
 <strong>iterator#after</strong>
 </p>
@@ -6733,7 +6743,7 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 Block parameter format: <code>|value:list, idx:number|</code>
 </p>
 <h2><span class="caption-index-2">6.21</span><a name="caption-6-21"></a>list Class</h2>
-<h3><span class="caption-index-3">6.21.1</span><a name="caption-6-21-1"></a>Methods Specific to List Class</h3>
+<h3><span class="caption-index-3">6.21.1</span><a name="caption-6-21-1"></a>Functions to Create Instance</h3>
 <p>
 <strong>list</strong>
 </p>
@@ -6786,6 +6796,7 @@ In default, all the elements in each iterators are added to the created list. Sp
 <li><code>:or</code> .. All the elements are added. This is the default behavior.</li>
 <li><code>:xor</code> .. Elements that exist in only one iterator are added.</li>
 </ul>
+<h3><span class="caption-index-3">6.21.2</span><a name="caption-6-21-2"></a>Methods Specific to List Class</h3>
 <p>
 <strong>list#add</strong>
 </p>
@@ -6991,7 +7002,7 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:set</code> ..  a list of unique values</li>
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
-<h3><span class="caption-index-3">6.21.2</span><a name="caption-6-21-2"></a>Methods Common between Iterator and List Class</h3>
+<h3><span class="caption-index-3">6.21.3</span><a name="caption-6-21-3"></a>Methods Common between Iterator and List Class</h3>
 <p>
 <strong>list#after</strong>
 </p>
@@ -7668,13 +7679,14 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 Block parameter format: <code>|value:list, idx:number|</code>
 </p>
 <h2><span class="caption-index-2">6.22</span><a name="caption-6-22"></a>matrix Class</h2>
-<h3><span class="caption-index-3">6.22.1</span><a name="caption-6-22-1"></a>Methods</h3>
+<h3><span class="caption-index-3">6.22.1</span><a name="caption-6-22-1"></a>Functions to Create Instance</h3>
 <p>
 <strong>matrix</strong>
 </p>
 <p>
 <code>matrix(nrows:number, ncols:number, value?) {block?}</code>
 </p>
+<h3><span class="caption-index-3">6.22.2</span><a name="caption-6-22-2"></a>Methods</h3>
 <p>
 <strong>matrix#col</strong>
 </p>
@@ -7900,7 +7912,7 @@ Operator symbol.</td>
 </table>
 
 </p>
-<h3><span class="caption-index-3">6.25.2</span><a name="caption-6-25-2"></a>Methods</h3>
+<h3><span class="caption-index-3">6.25.2</span><a name="caption-6-25-2"></a>Functions to Create Instance</h3>
 <p>
 <strong>operator</strong>
 </p>
@@ -7910,6 +7922,7 @@ Operator symbol.</td>
 <p>
 Returns an operator object
 </p>
+<h3><span class="caption-index-3">6.25.3</span><a name="caption-6-25-3"></a>Methods</h3>
 <p>
 <strong>operator#assign</strong>
 </p>
@@ -7923,7 +7936,7 @@ Returns an operator object
 <code>operator#entries(type?:symbol)</code>
 </p>
 <h2><span class="caption-index-2">6.26</span><a name="caption-6-26"></a>palette Class</h2>
-<h3><span class="caption-index-3">6.26.1</span><a name="caption-6-26-1"></a>Methods</h3>
+<h3><span class="caption-index-3">6.26.1</span><a name="caption-6-26-1"></a>Functions to Create Instance</h3>
 <p>
 <strong>palette</strong>
 </p>
@@ -7933,6 +7946,7 @@ Returns an operator object
 <p>
 Creates a palette of the specified type. type is a number of palette size or one of symbols: <code>basic,</code>win256 and <code>websafe.</code>
 </p>
+<h3><span class="caption-index-3">6.26.2</span><a name="caption-6-26-2"></a>Methods</h3>
 <p>
 <strong>palette#each</strong>
 </p>
@@ -8032,7 +8046,7 @@ Below are examples to realize a common fraction two-thirds:
 2r / 3
 2 / 3r
 </code></pre>
-<h3><span class="caption-index-3">6.29.1</span><a name="caption-6-29-1"></a>Methods</h3>
+<h3><span class="caption-index-3">6.29.1</span><a name="caption-6-29-1"></a>Functions to Create Instance</h3>
 <p>
 <strong>rational</strong>
 </p>
@@ -8042,6 +8056,7 @@ Below are examples to realize a common fraction two-thirds:
 <p>
 Creates a rational value.
 </p>
+<h3><span class="caption-index-3">6.29.2</span><a name="caption-6-29-2"></a>Methods</h3>
 <p>
 <strong>rational.reduce</strong>
 </p>
@@ -8049,13 +8064,14 @@ Creates a rational value.
 <code>rational.reduce()</code>
 </p>
 <h2><span class="caption-index-2">6.30</span><a name="caption-6-30"></a>semaphore Class</h2>
-<h3><span class="caption-index-3">6.30.1</span><a name="caption-6-30-1"></a>Methods</h3>
+<h3><span class="caption-index-3">6.30.1</span><a name="caption-6-30-1"></a>Functions to Create Instance</h3>
 <p>
 <strong>semaphore</strong>
 </p>
 <p>
 <code>semaphore()</code>
 </p>
+<h3><span class="caption-index-3">6.30.2</span><a name="caption-6-30-2"></a>Methods</h3>
 <p>
 <strong>semaphore#release</strong>
 </p>
@@ -8205,7 +8221,7 @@ R</td>
 </table>
 
 </p>
-<h3><span class="caption-index-3">6.31.2</span><a name="caption-6-31-2"></a>Methods</h3>
+<h3><span class="caption-index-3">6.31.2</span><a name="caption-6-31-2"></a>Functions to Create Instance</h3>
 <p>
 <strong>open</strong>
 </p>
@@ -8224,6 +8240,7 @@ R</td>
 <p>
 <code>readlines(stream?:stream:r):[chop] {block?}</code>
 </p>
+<h3><span class="caption-index-3">6.31.3</span><a name="caption-6-31-3"></a>Methods</h3>
 <p>
 <strong>stream#addcr</strong>
 </p>
@@ -8769,7 +8786,7 @@ You can use that suffix like below:
 </p>
 <pre><code>'hello world'X
 </code></pre>
-<h3><span class="caption-index-3">6.33.1</span><a name="caption-6-33-1"></a>Methods</h3>
+<h3><span class="caption-index-3">6.33.1</span><a name="caption-6-33-1"></a>Functions to Create Instance</h3>
 <p>
 <strong>suffixmgr</strong>
 </p>
@@ -8786,6 +8803,7 @@ Creates a reference to one of two suffix managers, number and string.
 <p>
 Specify the argument <code>type</code> with a symbol <code>`number</code> for a number suffix manager and <code>`string</code> for a string suffix manager.
 </p>
+<h3><span class="caption-index-3">6.33.2</span><a name="caption-6-33-2"></a>Methods</h3>
 <p>
 <strong>suffixmgr#assign</strong>
 </p>
@@ -8810,13 +8828,14 @@ An error occurs if the same suffix symbol has already been assigned. Specifying 
 Evaluate a symbol object.
 </p>
 <h2><span class="caption-index-2">6.35</span><a name="caption-6-35"></a>template Class</h2>
-<h3><span class="caption-index-3">6.35.1</span><a name="caption-6-35-1"></a>Methods</h3>
+<h3><span class="caption-index-3">6.35.1</span><a name="caption-6-35-1"></a>Functions to Create Instance</h3>
 <p>
 <strong>template</strong>
 </p>
 <p>
 <code>template(src?:stream:r):map:[lasteol,noindent] {block?}</code>
 </p>
+<h3><span class="caption-index-3">6.35.2</span><a name="caption-6-35-2"></a>Methods</h3>
 <p>
 <strong>template#block</strong>
 </p>
@@ -8945,7 +8964,7 @@ Offset of micro seconds.</td>
 </table>
 
 </p>
-<h3><span class="caption-index-3">6.36.2</span><a name="caption-6-36-2"></a>Methods</h3>
+<h3><span class="caption-index-3">6.36.2</span><a name="caption-6-36-2"></a>Functions to Create Instance</h3>
 <p>
 <strong>timedelta</strong>
 </p>
@@ -9094,7 +9113,7 @@ R/W</td>
 </table>
 
 </p>
-<h3><span class="caption-index-3">6.37.2</span><a name="caption-6-37-2"></a>Methods</h3>
+<h3><span class="caption-index-3">6.37.2</span><a name="caption-6-37-2"></a>Functions to Create Instance</h3>
 <p>
 <strong>uri</strong>
 </p>
@@ -9104,6 +9123,7 @@ R/W</td>
 <p>
 Creates <code>uri</code> instance from a string.
 </p>
+<h3><span class="caption-index-3">6.37.3</span><a name="caption-6-37-3"></a>Methods</h3>
 <p>
 <strong>uri#getfragment</strong>
 </p>
