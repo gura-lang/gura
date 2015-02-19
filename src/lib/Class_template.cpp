@@ -93,7 +93,15 @@ Gura_DeclareMethod(template_, block)
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Used in a template text as a directive: `${=block(symbol)} .. ${end}`.");
+		"Creates a template block from the specified block,\n"
+		"which is supposed to be replaced by a derived template,\n"
+		"and associates it with the specified symbol."
+		"\n"
+		"This method is called as a template directive as shown below:\n"
+		"\n"
+		"    ${=block(symbol)}\n"
+		"    (content of the template block)\n"
+		"    ${end}\n");
 }
 
 Gura_ImplementMethod(template_, block)
@@ -122,7 +130,11 @@ Gura_DeclareMethod(template_, call)
 	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Used in a template text as a directive: `${=call(symbol, arg1, arg2, ..)}`.");
+		"Calls a template macro that has been created by `${=def}` directive.\n"
+		"\n"
+		"This method is called as a template directive as shown below:\n"
+		"\n"
+		"    ${=call(symbol, arg1, arg2, ..)}\n");
 }
 
 Gura_ImplementMethod(template_, call)
@@ -140,7 +152,16 @@ Gura_DeclareMethod(template_, def)
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Used in a template text as a directive: `${=def(symbol, arg1, arg2, ..)} .. ${end}`.");
+		"Creates a template macro from the specified block,\n"
+		"which is supposed to be called by `${=call}` directive,\n"
+		"and associates it with the specified symbol.\n"
+		"\n"
+		"This method is called as a template directive as shown below:\n"
+		"\n"
+		"    ${=def(symbol, arg1, arg2, ..)}\n"
+		"    (content of the template macro)\n"
+		"    ${end}\n");
+			
 }
 
 Gura_ImplementMethod(template_, def)
@@ -178,7 +199,9 @@ Gura_DeclareMethod(template_, embed)
 	DeclareArg(env, "template", VTYPE_template);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Used in a template text as a directive: `${=embed(template)}`.");
+		"This method is called as a template directive as shown below:\n"
+		"\n"
+		"    ${=embed(template)}\n");
 }
 
 Gura_ImplementMethod(template_, embed)
@@ -187,14 +210,18 @@ Gura_ImplementMethod(template_, embed)
 	return Value::Null;
 }
 
-// template#extends(super:template):void
+// template#extends(template:template):void
 Gura_DeclareMethod(template_, extends)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "super", VTYPE_template);
+	DeclareArg(env, "template", VTYPE_template);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Used in a template text as a directive: `${=extends(super)}`.");
+		"Sets the specified template as a super class.\n"
+		"\n"
+		"This method is called as a template directive as shown below:\n"
+		"\n"
+		"    ${=extends(template)}\n");
 }
 
 Gura_ImplementMethod(template_, extends)
@@ -292,7 +319,9 @@ Gura_DeclareMethod(template_, super)
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Used in a template text as a directive: `${=super(symbol)}`.");
+		"This method is called as a template directive as shown below:\n"
+		"\n"
+		"    ${=super(symbol)}\n");
 }
 
 Gura_ImplementMethod(template_, super)

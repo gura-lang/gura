@@ -9063,8 +9063,12 @@ If the stream is omitted, the function returns the rendered result as a string.
 <code>template#block(symbol:symbol):void {block}</code>
 </p>
 <p>
-Used in a template text as a directive <code>${=block(symbol)}</code>.
+Creates a template block from the specified block, which is supposed to be replaced by a derived template, and associates it with the specified symbol. This method is called as a template directive as shown below:
 </p>
+<pre><code>${=block(symbol)}
+(content of the template block)
+${end}
+</code></pre>
 <p>
 <strong>template#call</strong>
 </p>
@@ -9072,8 +9076,13 @@ Used in a template text as a directive <code>${=block(symbol)}</code>.
 <code>template#call(symbol:symbol, args*):void</code>
 </p>
 <p>
-Used in a template text as a directive <code>${=call(symbol, arg1, arg2, ..)}</code>.
+Calls a template macro that has been created by <code>${=def}</code> directive.
 </p>
+<p>
+This method is called as a template directive as shown below:
+</p>
+<pre><code>${=call(symbol, arg1, arg2, ..)}
+</code></pre>
 <p>
 <strong>template#def</strong>
 </p>
@@ -9081,8 +9090,15 @@ Used in a template text as a directive <code>${=call(symbol, arg1, arg2, ..)}</c
 <code>template#def(symbol:symbol, `args*):void {block}</code>
 </p>
 <p>
-Used in a template text as a directive <code>${=def(symbol, arg1, arg2, ..)}</code>.
+Creates a template macro from the specified block, which is supposed to be called by <code>${=call}</code> directive, and associates it with the specified symbol.
 </p>
+<p>
+This method is called as a template directive as shown below:
+</p>
+<pre><code>${=def(symbol, arg1, arg2, ..)}
+(content of the template macro)
+${end}
+</code></pre>
 <p>
 <strong>template#embed</strong>
 </p>
@@ -9090,17 +9106,24 @@ Used in a template text as a directive <code>${=def(symbol, arg1, arg2, ..)}</co
 <code>template#embed(template:template):void</code>
 </p>
 <p>
-Used in a template text as a directive <code>${=embed(template)}</code>.
+This method is called as a template directive as shown below:
 </p>
+<pre><code>${=embed(template)}
+</code></pre>
 <p>
 <strong>template#extends</strong>
 </p>
 <p>
-<code>template#extends(super:template):void</code>
+<code>template#extends(template:template):void</code>
 </p>
 <p>
-Used in a template text as a directive <code>${=extends(super)}</code>.
+Sets the specified template as a super class.
 </p>
+<p>
+This method is called as a template directive as shown below:
+</p>
+<pre><code>${=extends(template)}
+</code></pre>
 <p>
 <strong>template#super</strong>
 </p>
@@ -9108,8 +9131,10 @@ Used in a template text as a directive <code>${=extends(super)}</code>.
 <code>template#super(symbol:symbol):void</code>
 </p>
 <p>
-Used in a template text as a directive <code>${=super(symbol)}</code>.
+This method is called as a template directive as shown below:
 </p>
+<pre><code>${=super(symbol)}
+</code></pre>
 <h2><span class="caption-index-2">6.36</span><a name="caption-6-36"></a>timedelta Class</h2>
 <p>
 The <code>timedelta</code> instance provides a time delta information that works with <code>datetime</code> instance. You can shift time information of <code>datetime</code> by applying addition or subtraction of <code>timedelta</code> to it.
