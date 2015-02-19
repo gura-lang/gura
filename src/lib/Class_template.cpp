@@ -58,7 +58,15 @@ Gura_DeclareFunctionAlias(template_, "template")
 	SetClassToConstruct(env.LookupClass(VTYPE_template));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `template` instance.\n"
+		"\n"
+		"If the stream `src` is specified, the instance would be initialized\n"
+		"with the parsed result of the script-embedded text from the stream.\n"
+		"\n"
+		"Following attributes would customize the parser's behavior:\n"
+		"\n"
+		"- `:lasteol`\n"
+		"- `:noindent`\n");
 }
 
 Gura_ImplementFunction(template_)
@@ -206,7 +214,12 @@ Gura_DeclareMethod(template_, parse)
 	DeclareAttr(Gura_Symbol(lasteol));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `template` instance by parsing a script-embedded text in a string.\n"
+		"\n"
+		"Following attributes would customize the parser's behavior:\n"
+		"\n"
+		"- `:lasteol`\n"
+		"- `:noindent`\n");
 }
 
 Gura_ImplementMethod(template_, parse)
@@ -228,7 +241,12 @@ Gura_DeclareMethod(template_, read)
 	DeclareAttr(Gura_Symbol(lasteol));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `template` instance by parsing a script-embedded text from a stream.\n"
+		"\n"
+		"Following attributes would customize the parser's behavior:\n"
+		"\n"
+		"- `:lasteol`\n"
+		"- `:noindent`\n");
 }
 
 Gura_ImplementMethod(template_, read)
@@ -247,7 +265,9 @@ Gura_DeclareMethod(template_, render)
 	DeclareArg(env, "dst", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Renders stored content to the specified stream.\n"
+		"\n"
+		"If the stream is omitted, the function returns the rendered result as a string.\n");
 }
 
 Gura_ImplementMethod(template_, render)
