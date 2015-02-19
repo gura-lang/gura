@@ -47,7 +47,7 @@ String Object_template::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// template(src?:stream:r):map:[noindent,lasteol] {block?}
+// template(src?:stream:r):map:[lasteol,noindent] {block?}
 Gura_DeclareFunctionAlias(template_, "template")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -93,7 +93,7 @@ Gura_DeclareMethod(template_, block)
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Used in a template text as a directive `${=block(symbol)}`.");
+		"Used in a template text as a directive: `${=block(symbol)} .. ${end}`.");
 }
 
 Gura_ImplementMethod(template_, block)
@@ -122,7 +122,7 @@ Gura_DeclareMethod(template_, call)
 	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Used in a template text as a directive `${=call(symbol, arg1, arg2, ..)}`.");
+		"Used in a template text as a directive: `${=call(symbol, arg1, arg2, ..)}`.");
 }
 
 Gura_ImplementMethod(template_, call)
@@ -140,7 +140,7 @@ Gura_DeclareMethod(template_, def)
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Used in a template text as a directive `${=def(symbol, arg1, arg2, ..)}`.");
+		"Used in a template text as a directive: `${=def(symbol, arg1, arg2, ..)} .. ${end}`.");
 }
 
 Gura_ImplementMethod(template_, def)
@@ -178,7 +178,7 @@ Gura_DeclareMethod(template_, embed)
 	DeclareArg(env, "template", VTYPE_template);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Used in a template text as a directive `${=embed(template)}`.");
+		"Used in a template text as a directive: `${=embed(template)}`.");
 }
 
 Gura_ImplementMethod(template_, embed)
@@ -194,7 +194,7 @@ Gura_DeclareMethod(template_, extends)
 	DeclareArg(env, "super", VTYPE_template);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Used in a template text as a directive `${=extends(super)}`.");
+		"Used in a template text as a directive: `${=extends(super)}`.");
 }
 
 Gura_ImplementMethod(template_, extends)
@@ -205,7 +205,7 @@ Gura_ImplementMethod(template_, extends)
 	return Value::Null;
 }
 
-// template#parse(str:string):void:[noindent,lasteol]
+// template#parse(str:string):void:[lasteol,noindent]
 Gura_DeclareMethod(template_, parse)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -232,7 +232,7 @@ Gura_ImplementMethod(template_, parse)
 	return Value::Null;
 }
 
-// template#read(src:stream:r):void:[noindent,lasteol]
+// template#read(src:stream:r):void:[lasteol,noindent]
 Gura_DeclareMethod(template_, read)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -292,7 +292,7 @@ Gura_DeclareMethod(template_, super)
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Used in a template text as a directive `${=super(symbol)}`.");
+		"Used in a template text as a directive: `${=super(symbol)}`.");
 }
 
 Gura_ImplementMethod(template_, super)
