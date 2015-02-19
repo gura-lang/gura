@@ -161,6 +161,20 @@ They're listed in the the table below:
 <tr><td><code>array@float</code></td><td><code>float</code></td></tr>
 <tr><td><code>array@double</code></td><td><code>double</code></td></tr>
 </table>
+
+### Method
+${
+funcs = [
+	array@char,
+	array@char.dump, array@char.each, array@char.fill, array@char.head,
+	array@char.offset, array@char.paste, array@char.tail
+]
+markdown._funcdoc(
+	funcs,
+	function.getfullname(funcs):*replace('@char', '@T'),
+	function.getformat(funcs):*replace('@char', '@T'))
+}
+
 '''.template().render()
 
 //-----------------------------------------------------------------------------
@@ -1660,16 +1674,6 @@ write(doc:markdown.document) = {
 	//doc << text@any
 	doc << text@args
 	doc << text@array
-	doc << '### Method'
-	[
-		array@char,
-		array@char.dump, array@char.each, array@char.fill, array@char.head,
-		array@char.offset, array@char.paste, array@char.tail
-	].each {|func|
-		doc.writefunc(func,
-					  function.getfullname(func).replace('@char', '@XXX'),
-					  function.getformat(func).replace('@char', '@XXX'))
-	}
 	doc << text@audio
 	doc << text@boolean
 	doc << text@binary

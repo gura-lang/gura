@@ -134,7 +134,7 @@ public:
 			return Value(new Object_array<T_Elem>(env, _valType, pArray.release()));
 		}
 	};
-	// array#each() {block?}
+	// array@T#each() {block?}
 	class Func_each : public Function {
 	private:
 		ValueType _valType;
@@ -147,6 +147,11 @@ public:
 			AddHelp(
 				Gura_Symbol(en), Help::FMT_markdown,
 				"Creates an iterator that iterates each element in the array.\n"
+				"\n"
+				GURA_ITERATOR_HELP
+				"\n"
+				"The block parameter is `|elem:number, idx:number|`\n"
+				"where `elem` is the element value.\n"
 			);
 		}
 		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
@@ -155,7 +160,7 @@ public:
 			return ReturnIterator(env, sig, args, pIterator.release());
 		}
 	};
-	// array#dump():void
+	// array@T#dump():void
 	class Func_dump : public Function {
 	private:
 		ValueType _valType;
@@ -180,7 +185,7 @@ public:
 			return Value::Null;
 		}
 	};
-	// array#fill(value:number):void
+	// array@T#fill(value:number):void
 	class Func_fill : public Function {
 	private:
 		ValueType _valType;
@@ -201,7 +206,7 @@ public:
 			return Value::Null;
 		}
 	};
-	// array#head(n:number):map {block?}
+	// array@T#head(n:number):map {block?}
 	class Func_head : public Function {
 	private:
 		ValueType _valType;
@@ -214,7 +219,12 @@ public:
 			DeclareBlock(OCCUR_ZeroOrOnce);
 			AddHelp(
 				Gura_Symbol(en), Help::FMT_markdown,
-				"Creates an array that extracts specified number of elements at the beginning of the source.\n"
+				"Creates an array that has extracted specified number of elements\n"
+				"from the beginning of the source.\n"
+				"\n"
+				"If `block` is specified, it would be evaluated with a block parameter\n"
+				"`|array:array@T|`, where `array` is the created instance.\n"
+				"In this case, the block's result would become the function's returned value.\n"
 			);
 		}
 		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
@@ -231,7 +241,7 @@ public:
 			return ReturnValue(env, sig, args, value);
 		}
 	};
-	// array#offset(n:number):map {block?}
+	// array@T#offset(n:number):map {block?}
 	class Func_offset : public Function {
 	private:
 		ValueType _valType;
@@ -244,7 +254,12 @@ public:
 			DeclareBlock(OCCUR_ZeroOrOnce);
 			AddHelp(
 				Gura_Symbol(en), Help::FMT_markdown,
-				"Creates an array that skips `n` elements of the source.\n"
+				"Creates an array that has extracted elements of the source\n"
+				"after skipping the first `n` elements.\n"
+				"\n"
+				"If `block` is specified, it would be evaluated with a block parameter\n"
+				"`|array:array@T|`, where `array` is the created instance.\n"
+				"In this case, the block's result would become the function's returned value.\n"
 			);
 		}
 		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
@@ -262,7 +277,7 @@ public:
 			return ReturnValue(env, sig, args, value);
 		}
 	};
-	// array#paste(offset:number, src:array):map:void
+	// array@T#paste(offset:number, src:array):map:void
 	class Func_paste : public Function {
 	private:
 		ValueType _valType;
@@ -275,7 +290,9 @@ public:
 			DeclareArg(env, "src", valType, OCCUR_Once);
 			AddHelp(
 				Gura_Symbol(en), Help::FMT_markdown,
-				"Pastes values in another source array.\n"
+				"Pastes elements of `src` into the target `array` instance.\n"
+				"\n"
+				"The argument `offset` specifies the posision where elements are pasted in\n"
 			);
 		}
 		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
@@ -286,7 +303,7 @@ public:
 			return Value::Null;
 		}
 	};
-	// array#tail(n:number):map {block?}
+	// array@T#tail(n:number):map {block?}
 	class Func_tail : public Function {
 	private:
 		ValueType _valType;
@@ -299,7 +316,12 @@ public:
 			DeclareBlock(OCCUR_ZeroOrOnce);
 			AddHelp(
 				Gura_Symbol(en), Help::FMT_markdown,
-				"Creates an array that extracts specified number of elements at the bottom of the source.\n"
+				"Creates an array that has extracted specified number of elements\n"
+				"from the bottom of the source.\n"
+				"\n"
+				"If `block` is specified, it would be evaluated with a block parameter\n"
+				"`|array:array@T|`, where `array` is the created instance.\n"
+				"In this case, the block's result would become the function's returned value.\n"
 			);
 		}
 		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
