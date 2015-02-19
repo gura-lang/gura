@@ -163,11 +163,11 @@ Gura_ImplementMethod(template_, def)
 	return Value::Null;
 }
 
-// template#embed(template):void
+// template#embed(template:template):void
 Gura_DeclareMethod(template_, embed)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "template", VTYPE_any);
+	DeclareArg(env, "template", VTYPE_template);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Used in a template text as a directive `${=embed(template)}`.");
