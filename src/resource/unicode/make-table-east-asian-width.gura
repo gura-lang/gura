@@ -2,6 +2,7 @@
 import(re)
 
 propPrev = nil
+wideFlagPrev = nil
 codeNext = 0x000000
 println('const Codec::WidthInfo Codec::_widthInfoTbl[] = {')
 readlines('EastAsianWidth.txt'):chop {|line|
@@ -20,9 +21,10 @@ readlines('EastAsianWidth.txt'):chop {|line|
 		println(line)
 		sys.exit(1)
 	}
-	if (codeNext != codeBgn) {
-		//println('*discontinuity error*')
-		//println(line)
+	wideFlag = prop in ['A', 'W', 'F']
+	if (wideFlagPrev != wideFlag) {
+		//(codeBgn != 0x000000) && printf('\t{ 0x%06x, %-5s },\n', codeBgn, wideFlagPrev)
+		wideFlagPrev = wideFlag
 	}
 	if (propPrev != prop) {
 		propPrev && printf('\t{ 0x%06x, WIDTHPROP_%-2s },\n', codeBgn, propPrev)
@@ -30,6 +32,8 @@ readlines('EastAsianWidth.txt'):chop {|line|
 	}
 	codeNext = codeEnd + 1
 }
+//printf('\t{ 0x%06x, %-5s },\n', codeNext, false)
+//printf('\t{ 0x%06x, %-5s },\n', 0x000000, false)
 printf('\t{ 0x%06x, WIDTHPROP_%-2s },\n', codeNext, propPrev)
 printf('\t{ 0x%06x, WIDTHPROP_%-2s },\n', 0x000000, 'N')
 println('};')
