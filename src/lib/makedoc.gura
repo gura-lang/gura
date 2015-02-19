@@ -1,6 +1,13 @@
 #!/usr/bin/env gura
 import(markdown)
 
+funcdoc_array(funcs+:function) = {
+	markdown._funcdoc(
+			funcs.each(),
+			function.getfullname(funcs):*replace('@char', '@T'),
+			function.getformat(funcs):*replace('@char', '@T'))
+}
+
 //-----------------------------------------------------------------------------
 text = R'''
 # Built-in Operators
@@ -162,18 +169,23 @@ They're listed in the the table below:
 <tr><td><code>array@double</code></td><td><code>double</code></td></tr>
 </table>
 
+### Function to Create Instance
+
+${funcdoc_array(
+array@char
+)}
+
 ### Method
-${
-funcs = [
-	array@char,
-	array@char.dump, array@char.each, array@char.fill, array@char.head,
-	array@char.offset, array@char.paste, array@char.tail
-]
-markdown._funcdoc(
-	funcs,
-	function.getfullname(funcs):*replace('@char', '@T'),
-	function.getformat(funcs):*replace('@char', '@T'))
-}
+
+${funcdoc_array(
+array@char.dump
+array@char.each
+array@char.fill
+array@char.head,
+array@char.offset
+array@char.paste
+array@char.tail
+)}
 
 '''.template().render()
 
