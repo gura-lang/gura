@@ -26,13 +26,13 @@ Gura_DeclareMethod(string, align)
 	DeclareAttr(Gura_Symbol(right));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a string aligned in left, right or center within a specified length.\n"
+		"Returns a string aligned to left, right or center within a specified length.\n"
 		"\n"
-		"- `:center` .. aligns to center. This is the default.\n"
-		"- `:left` .. aligns to left\n"
-		"- `:right` aligns to right\n"
+		"- `:center` .. Aligns to center. This is the default.\n"
+		"- `:left` .. Aligns to left\n"
+		"- `:right` .. Aligns to right\n"
 		"\n"
-		"It fills a padding area with a character specified by an argument `padding`.\n"
+		"It uses a string specified by the argument `padding` to fill lacking spaces.\n"
 		"If omitted, a white space is used for padding.\n");
 }
 
@@ -61,7 +61,7 @@ Gura_DeclareMethodPrimitive(string, binary)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Converts the string into `binary` instance.");
 }
 
 Gura_ImplementMethod(string, binary)
@@ -76,8 +76,7 @@ Gura_DeclareMethod(string, capitalize)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a string copied from the original one but with the first character\n"
-		"capitalized.");
+		"Returns a string that capitalizes the first character.\n");
 }
 
 Gura_ImplementMethod(string, capitalize)
@@ -169,9 +168,11 @@ Gura_DeclareMethod(string, eachline)
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Creates an iterator generating strings of each line in the original one.\n"
 		"\n"
-		"In default, end-of-line characters are involved in the result,\n"
-		"and you can eliminates them by specifying :chop attribute.\n"
+		"In default, end-of-line characters are involved in the result.\n"
+		"You can eliminates them by specifying `:chop` attribute.\n"
+		"\n"
 		GURA_ITERATOR_HELP
+		"\n"
 		"Block parameter format: `|line:string, idx:number|`");
 }
 
@@ -281,8 +282,10 @@ Gura_DeclareMethod(string, find)
 		"\n"
 		"Number of position starts from zero. You can specify a position to start\n"
 		"finding by an argument pos. It returns nil if finding fails.\n"
-		"With an attribute :icase, case of characters are ignored while finding.\n"
-		"When an attribute :rev is specified, finding starts from tail of the string\n");
+		"\n"
+		"With an attribute `:icase`, case of characters are ignored while finding.\n"
+		"\n"
+		"When an attribute `:rev`, finding starts from tail of the string\n");
 }
 
 Gura_ImplementMethod(string, find)
@@ -505,7 +508,7 @@ Gura_DeclareMethod(string, right)
 	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a copy of the string in len characters from its right side");
+		"Returns a copy of the string in `len` characters from its right side");
 }
 
 Gura_ImplementMethod(string, right)

@@ -8510,15 +8510,15 @@ When an string literal is suffixed by a character <code>$</code>, a handler regi
 <code>string#align(len:number, padding:string =&gt; ' '):map:[center,left,right]</code>
 </p>
 <p>
-Returns a string aligned in left, right or center within a specified length.
+Returns a string aligned to left, right or center within a specified length.
 </p>
 <ul>
-<li><code>:center</code> .. aligns to center. This is the default.</li>
-<li><code>:left</code> .. aligns to left</li>
-<li><code>:right</code> aligns to right</li>
+<li><code>:center</code> .. Aligns to center. This is the default.</li>
+<li><code>:left</code> .. Aligns to left</li>
+<li><code>:right</code> .. Aligns to right</li>
 </ul>
 <p>
-It fills a padding area with a character specified by an argument <code>padding</code>. If omitted, a white space is used for padding.
+It uses a string specified by the argument <code>padding</code> to fill lacking spaces. If omitted, a white space is used for padding.
 </p>
 <p>
 <strong>string.binary</strong>
@@ -8527,13 +8527,16 @@ It fills a padding area with a character specified by an argument <code>padding<
 <code>string.binary()</code>
 </p>
 <p>
+Converts the string into <code>binary</code> instance.
+</p>
+<p>
 <strong>string#capitalize</strong>
 </p>
 <p>
 <code>string#capitalize()</code>
 </p>
 <p>
-Returns a string copied from the original one but with the first character capitalized.
+Returns a string that capitalizes the first character.
 </p>
 <p>
 <strong>string#chop</strong>
@@ -8587,7 +8590,10 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 Creates an iterator generating strings of each line in the original one.
 </p>
 <p>
-In default, end-of-line characters are involved in the result, and you can eliminates them by specifying :chop attribute. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+In default, end-of-line characters are involved in the result. You can eliminates them by specifying <code>:chop</code> attribute.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
 </p>
 <p>
 In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
@@ -8599,8 +8605,11 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:list</code> .. a list of values</li>
 <li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
 <li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code> Block parameter format: <code>|line:string, idx:number|</code></li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
+<p>
+Block parameter format: <code>|line:string, idx:number|</code>
+</p>
 <p>
 <strong>string.encode</strong>
 </p>
@@ -8650,7 +8659,13 @@ Returns a string that converts characters into escape sequences.
 Finds a sub string from the string and returns its position.
 </p>
 <p>
-Number of position starts from zero. You can specify a position to start finding by an argument pos. It returns nil if finding fails. With an attribute :icase, case of characters are ignored while finding. When an attribute :rev is specified, finding starts from tail of the string
+Number of position starts from zero. You can specify a position to start finding by an argument pos. It returns nil if finding fails.
+</p>
+<p>
+With an attribute <code>:icase</code>, case of characters are ignored while finding.
+</p>
+<p>
+When an attribute <code>:rev</code>, finding starts from tail of the string
 </p>
 <p>
 <strong>string#fold</strong>
@@ -8773,7 +8788,7 @@ With an attribute <code>:icase</code>, case of characgters are ignored while fin
 <code>string#right(len?:number):map</code>
 </p>
 <p>
-Returns a copy of the string in len characters from its right side
+Returns a copy of the string in <code>len</code> characters from its right side
 </p>
 <p>
 <strong>string#split</strong>
