@@ -1550,22 +1550,22 @@ template
 ### Method
 
 ${markdown.funcdoc(
+template.parse
+template.read
+template.render
+)}
+
+### Method Used in Template
+
+${markdown.funcdoc(
 template.block
 template.call
 template.def
 template.embed
 template.extends
-template.parse
-template.read
-template.render
 template.super
-//template._R_block
-//template._R_call
-//template._R_def
-//template._R_embed
-//template._R_extends
-//template._R_super
 )}
+
 '''.template().render()
 
 //-----------------------------------------------------------------------------

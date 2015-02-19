@@ -85,7 +85,7 @@ Gura_DeclareMethod(template_, block)
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Used in a template text as a directive `${=block(symbol)}`.");
 }
 
 Gura_ImplementMethod(template_, block)
@@ -114,7 +114,7 @@ Gura_DeclareMethod(template_, call)
 	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Used in a template text as a directive `${=call(symbol, arg1, arg2, ..)}`.");
 }
 
 Gura_ImplementMethod(template_, call)
@@ -132,7 +132,7 @@ Gura_DeclareMethod(template_, def)
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Used in a template text as a directive `${=def(symbol, arg1, arg2, ..)}`.");
 }
 
 Gura_ImplementMethod(template_, def)
@@ -170,7 +170,7 @@ Gura_DeclareMethod(template_, embed)
 	DeclareArg(env, "template", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Used in a template text as a directive `${=embed(template)}`.");
 }
 
 Gura_ImplementMethod(template_, embed)
@@ -186,7 +186,7 @@ Gura_DeclareMethod(template_, extends)
 	DeclareArg(env, "super", VTYPE_template);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Used in a template text as a directive `${=extends(super)}`.");
 }
 
 Gura_ImplementMethod(template_, extends)
@@ -265,14 +265,14 @@ Gura_ImplementMethod(template_, render)
 	}
 }
 
-// template#super(symbol):void
+// template#super(symbol:symbol):void
 Gura_DeclareMethod(template_, super)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "super", VTYPE_any);
+	DeclareArg(env, "symbol", VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Used in a template text as a directive `${=super(symbol)}`.");
 }
 
 Gura_ImplementMethod(template_, super)
@@ -286,9 +286,7 @@ Gura_DeclareMethod(template_, _R_block)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("block"));
 }
 
 Gura_ImplementMethod(template_, _R_block)
@@ -311,9 +309,7 @@ Gura_DeclareMethod(template_, _R_call)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("call"));
 }
 
 Gura_ImplementMethod(template_, _R_call)
@@ -337,9 +333,7 @@ Gura_DeclareMethod(template_, _R_def)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrMore);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("def"));
 }
 
 Gura_ImplementMethod(template_, _R_def)
@@ -353,9 +347,7 @@ Gura_DeclareMethod(template_, _R_embed)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "template", VTYPE_template);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("embed"));
 }
 
 Gura_ImplementMethod(template_, _R_embed)
@@ -367,16 +359,14 @@ Gura_ImplementMethod(template_, _R_embed)
 	return Value::Null;
 }
 
-// template#_R_extends(super):void:[lasteol,noindent]
+// template#_R_extends(super:template):void:[lasteol,noindent]
 Gura_DeclareMethod(template_, _R_extends)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "super", VTYPE_any);
+	DeclareArg(env, "super", VTYPE_template);
 	DeclareAttr(Gura_Symbol(lasteol));
 	DeclareAttr(Gura_Symbol(noindent));
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("extends"));
 }
 
 Gura_ImplementMethod(template_, _R_extends)
@@ -390,9 +380,7 @@ Gura_DeclareMethod(template_, _R_super)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("super"));
 }
 
 Gura_ImplementMethod(template_, _R_super)
