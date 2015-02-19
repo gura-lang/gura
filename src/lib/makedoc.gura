@@ -118,7 +118,7 @@ Below is an example to use `args` class:
         printf('attr1:%s attr2:%s\n', __args__.isset(`attr1), __args__.isset(`attr2))
     }
 
-### Properties
+### Property
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
@@ -128,7 +128,7 @@ Below is an example to use `args` class:
 
 </table>
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 args.finalize_trailer
@@ -169,7 +169,7 @@ text@audio = R'''
 
 The `audio` class provides measures to work on audio data.
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 audio.each
@@ -195,7 +195,7 @@ For example, the code below creates a `binary` instance that contains a sequence
 
     b'AB\xfe\x03CD'
 
-### Properties
+### Property
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
@@ -205,13 +205,13 @@ For example, the code below creates a `binary` instance that contains a sequence
 
 </table>
 
-### Functions to Create Instance
+### Function to Create Instance
 
 ${markdown.funcdoc(
 binary
 )}
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 binary.add
@@ -243,7 +243,7 @@ text@codec = R'''
 
 The `codec` class provides measures to convert character codes.
 
-### Predefined Variables
+### Predefined Variable
 
 <table>
 <tr><th>Variable</th><th>Type</th><th>Explanation</th></tr>
@@ -265,13 +265,13 @@ The `codec` class provides measures to convert character codes.
 
 </table>
 
-### Functions to Create Instance
+### Function to Create Instance
 
 ${markdown.funcdoc(
 codec
 )}
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 codec.addcr
@@ -294,7 +294,7 @@ Some instances are predefined as class variables:
 `color.teal`, `color.gray`, `color.silverk`, `color.red`, `color.lime`, `color.yellow`,
 `color.blue`, `color.aqua`, `color.white`.
 
-### Predefined Variables
+### Predefined Variable
 
 <table>
 <tr><th>Variable</th><th>Type</th><th>Explanation</th></tr>
@@ -304,7 +304,7 @@ Some instances are predefined as class variables:
 
 </table>
 
-### Properties
+### Property
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
@@ -323,13 +323,13 @@ Some instances are predefined as class variables:
 
 </table>
 
-### Functions to Create Instance
+### Function to Create Instance
 
 ${markdown.funcdoc(
 color
 )}
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 color.getgray
@@ -356,13 +356,13 @@ and 3 as its imaginal part.
     complex(2, 3)
     2 + 3j
 
-### Functions to Create Instance
+### Function to Create Instance
 
 ${markdown.funcdoc(
 complex
 )}
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 complex.polar
@@ -384,7 +384,7 @@ You can create a `datetime` instance by calling following functions:
 
 You can calculate between `datetime` and `timedelta` to put it forward and backward.
 
-### Predefined Variables
+### Predefined Variable
 
 <table>
 <tr><th>Variable</th><th>Type</th><th>Explanation</th></tr>
@@ -412,7 +412,7 @@ You can calculate between `datetime` and `timedelta` to put it forward and backw
 
 </table>
 
-### Properties
+### Property
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
@@ -456,13 +456,13 @@ Week symbol that takes one of the followings:
 
 </table>
 
-### Functions to Create Instance
+### Function to Create Instance
 
 ${markdown.funcdoc(
 datetime
 )}
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 datetime.clrtzoff
@@ -496,7 +496,7 @@ Below is an example to print argument names declared in a function.
 	println(f.decls:*name)
 
 
-### Properties
+### Property
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
@@ -512,7 +512,7 @@ Below is an example to print argument names declared in a function.
 
 </table>
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 declaration.istype
@@ -530,13 +530,13 @@ You can create a `dict` instance by calling `dict()` function.
 You can also use a function named `%` to create an instance
 that is an alias of `dict()` function.
 
-### Functions to Create Instance
+### Function to Create Instance
 
 ${markdown.funcdoc(
 dict
 )}
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 dict.append
@@ -563,7 +563,7 @@ Though the instance can be created by `directory()` function,
 you don't have to use it in many cases because a casting from `string` to `directory` instance
 works implicitly in a function call.
 
-### Functions to Create Instance
+### Function to Create Instance
 
 ${markdown.funcdoc(
 directory
@@ -577,7 +577,7 @@ text@environment = R'''
 The `environment` class provides measures to operate variables in an environment,
 which is a fundamental mechanism to store variables.
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 environment.getprop!
@@ -605,7 +605,7 @@ about an error that has occured in the `try` block.
         // ...
     }
 
-### Predefined Variables
+### Predefined Variable
 
 <table>
 <tr><th>Variable</th><th>Explanation</th></tr>
@@ -684,7 +684,7 @@ about an error that has occured in the `try` block.
 
 </table>
 
-### Properties
+### Property
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
@@ -716,7 +716,7 @@ If an attribute `:lineno` is specified, it would contain a line number.</td></tr
 text@expr = R'''
 ## expr Class
 
-### Properties
+### Property
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
@@ -792,13 +792,13 @@ text@expr = R'''
 
 </table>
 
-### Functions to Create Instance
+### Function to Create Instance
 
 ${markdown.funcdoc(
 expr
 )}
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 expr.eval
@@ -868,7 +868,7 @@ The `formatter` instance is created for each specifier and passed to a method li
 <tr><td><code>%c</code></td><td><code>__format_c__</code></td></tr>
 </table>
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 formatter.getminwidth
@@ -917,7 +917,7 @@ You can use `&` as an alias of `function()` as shown below:
     }
 
 
-### Properties
+### Property
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
@@ -942,13 +942,13 @@ You can use `&` as an alias of `function()` as shown below:
 
 </table>
 
-### Functions to Create Instance
+### Function to Create Instance
 
 ${markdown.funcdoc(
 function
 )}
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 function.addhelp
@@ -972,7 +972,7 @@ associated with a `function` instance.
 
 You can get a `help` instance by calling the class method `function.gethelp()`.
 
-### Properties
+### Property
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
@@ -994,7 +994,7 @@ For example, <code>`en</code> for English and <code>`ja</code> for Japanese.</td
 text@image = R'''
 ## image Class
 
-### Properties
+### Property
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
@@ -1013,13 +1013,13 @@ text@image = R'''
 
 </table>
 
-### Functions to Create Instance
+### Function to Create Instance
 
 ${markdown.funcdoc(
 image
 )}
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 image.allocbuff
@@ -1054,7 +1054,7 @@ image.write
 text@iterator = R'''
 ## iterator Class
 
-### Functions to Create Instance
+### Function to Create Instance
 
 ${markdown.funcdoc(
 consts
@@ -1064,7 +1064,7 @@ rands
 range
 )}
 
-### Methods Specific to Iterator Class
+### Method Specific to Iterator Class
 
 ${markdown.funcdoc(
 iterator.delay
@@ -1073,7 +1073,7 @@ iterator.next
 iterator.repeater
 )}
 
-### Methods Common between Iterator and List Class
+### Method Common between Iterator and List Class
 
 ${markdown.funcdoc(
 iterator.after
@@ -1129,7 +1129,7 @@ iterator.while
 text@list = R'''
 ## list Class
 
-### Functions to Create Instance
+### Function to Create Instance
 
 ${markdown.funcdoc(
 list
@@ -1138,7 +1138,7 @@ set
 xset
 )}
 
-### Methods Specific to List Class
+### Method Specific to List Class
 
 ${markdown.funcdoc(
 list.add
@@ -1159,7 +1159,7 @@ list.shuffle
 list.zip
 )}
 
-### Methods Common between Iterator and List Class
+### Method Common between Iterator and List Class
 
 ${markdown.funcdoc(
 list.after
@@ -1214,13 +1214,13 @@ list.while
 text@matrix = R'''
 ## matrix Class
 
-### Functions to Create Instance
+### Function to Create Instance
 
 ${markdown.funcdoc(
 matrix
 )}
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 matrix.col
@@ -1256,7 +1256,7 @@ text@nil = R'''
 text@number = R'''
 ## number Class
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 number.roundoff
@@ -1267,7 +1267,7 @@ number.roundoff
 text@operator = R'''
 ## operator Class
 
-### Properties
+### Property
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
@@ -1277,13 +1277,13 @@ text@operator = R'''
 
 </table>
 
-### Functions to Create Instance
+### Function to Create Instance
 
 ${markdown.funcdoc(
 operator
 )}
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 operator.assign
@@ -1295,13 +1295,13 @@ operator.entries
 text@palette = R'''
 ## palette Class
 
-### Functions to Create Instance
+### Function to Create Instance
 
 ${markdown.funcdoc(
 palette
 )}
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 palette.each
@@ -1315,7 +1315,7 @@ palette.updateby
 text@pointer = R'''
 ## pointer Class
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 pointer.forward
@@ -1348,13 +1348,13 @@ Below are examples to realize a common fraction two-thirds:
     2r / 3
     2 / 3r
 
-### Functions to Create Instance
+### Function to Create Instance
 
 ${markdown.funcdoc(
 rational
 )}
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 rational.reduce
@@ -1365,13 +1365,13 @@ rational.reduce
 text@semaphore = R'''
 ## semaphore Class
 
-### Functions to Create Instance
+### Function to Create Instance
 
 ${markdown.funcdoc(
 semaphore
 )}
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 semaphore.release
@@ -1384,7 +1384,7 @@ semaphore.wait
 text@stream = R'''
 ## stream Class
 
-### Properties
+### Property
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
@@ -1409,7 +1409,7 @@ text@stream = R'''
 
 </table>
 
-### Functions to Create Instance
+### Function to Create Instance
 
 ${markdown.funcdoc(
 open
@@ -1417,7 +1417,7 @@ stream
 readlines
 )}
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 stream.addcr
@@ -1457,7 +1457,7 @@ When an string literal is suffixed by a character `$`,
 a handler registered by `string.translate()` function that is supposed to translate
 the string into other natural languages would be evaluated.
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 string.align
@@ -1513,13 +1513,13 @@ You can use that suffix like below:
 
     'hello world'X
 
-### Functions to Create Instance
+### Function to Create Instance
 
 ${markdown.funcdoc(
 suffixmgr
 )}
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 suffixmgr.assign
@@ -1530,7 +1530,7 @@ suffixmgr.assign
 text@symbol = R'''
 ## symbol Class
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 symbol.eval
@@ -1541,13 +1541,13 @@ symbol.eval
 text@template = R'''
 ## template Class
 
-### Functions to Create Instance
+### Function to Create Instance
 
 ${markdown.funcdoc(
 template
 )}
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 template.block
@@ -1576,7 +1576,7 @@ The `timedelta` instance provides a time delta information that works with `date
 You can shift time information of `datetime` by applying addition or subtraction
 of `timedelta` to it.
 
-### Properties
+### Property
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
@@ -1592,7 +1592,7 @@ of `timedelta` to it.
 
 </table>
 
-### Functions to Create Instance
+### Function to Create Instance
 
 ${markdown.funcdoc(
 timedelta
@@ -1608,7 +1608,7 @@ text@undefined = R'''
 text@uri = R'''
 ## uri Class
 
-### Properties
+### Property
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
@@ -1636,13 +1636,13 @@ text@uri = R'''
 
 </table>
 
-### Functions to Create Instance
+### Function to Create Instance
 
 ${markdown.funcdoc(
 uri
 )}
 
-### Methods
+### Method
 
 ${markdown.funcdoc(
 uri.getfragment
@@ -1660,7 +1660,7 @@ write(doc:markdown.document) = {
 	//doc << text@any
 	doc << text@args
 	doc << text@array
-	doc << '### Methods'
+	doc << '### Method'
 	[
 		array@char,
 		array@char.dump, array@char.each, array@char.fill, array@char.head,
