@@ -8154,11 +8154,19 @@ Operator symbol.</td>
 <strong>operator</strong>
 </p>
 <p>
-<code>operator(op:symbol):map {block?}</code>
+<code>operator(sym:symbol):map {block?}</code>
 </p>
 <p>
-Returns an operator object
+Creates an <code>operator</code> instance that is associated with the specified symbol.
 </p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|op:operator|</code>, where <code>op</code> is the created instance. In this case, the block's result would become the function's returned value.
+</p>
+<p>
+Below is an example to create an <code>operator</code> instance that is associated with the plus symbol.
+</p>
+<pre><code>op = operator(`+)
+</code></pre>
 <h3><span class="caption-index-3">6.25.3</span><a name="caption-6-25-3"></a>Method</h3>
 <p>
 <strong>operator#assign</strong>
