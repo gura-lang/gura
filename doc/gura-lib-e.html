@@ -7833,6 +7833,15 @@ Block parameter format: <code>|value:list, idx:number|</code>
 <p>
 <code>matrix(nrows:number, ncols:number, value?) {block?}</code>
 </p>
+<p>
+Creates a <code>matrix</code> instance that has specified rows and columns.
+</p>
+<p>
+The content of the content will be initialized with <code>value</code>. If omitted, it will be initialized with zero value.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|mat:matrix|</code>, where <code>mat</code> is the created instance. In this case, the block's result would become the function's returned value.
+</p>
 <h3><span class="caption-index-3">6.22.2</span><a name="caption-6-22-2"></a>Method</h3>
 <p>
 <strong>matrix#col</strong>
@@ -7910,22 +7919,90 @@ Returns true if the matrix is a square one.
 <code>matrix.rotation(angle:number, tx?:number, ty?:number):static:map:[deg] {block?}</code>
 </p>
 <p>
-<strong>matrix.rotation_x</strong>
+Creates a matrix that rotates a two-dimensional coordinate by the specified angle in radian unit.
 </p>
 <p>
-<code>matrix.rotation_x(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}</code>
+In addition to rotation, you can add translation factors by the arguments <code>tx</code> and <code>ty</code> that specify translation amount of x and y respectively.
 </p>
 <p>
-<strong>matrix.rotation_y</strong>
+You can specify the angle in degree unit by appending <code>:deg</code> attribute.
 </p>
 <p>
-<code>matrix.rotation_y(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}</code>
+Below is an example to create a matrix that rotates 30 degrees.
+</p>
+<pre><code>mat = matrix.rotation(30):deg
+</code></pre>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|mat:matrix|</code>, where <code>mat</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <p>
-<strong>matrix.rotation_z</strong>
+<strong>matrix.rotation@x</strong>
 </p>
 <p>
-<code>matrix.rotation_z(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}</code>
+<code>matrix.rotation@x(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}</code>
+</p>
+<p>
+Creates a matrix that rotates a three-dimensional coordinate around x-axis by the specified angle in radian unit.
+</p>
+<p>
+In addition to rotation, you can add translation factors by the arguments <code>tx</code>, <code>ty</code> and <code>tz</code> that specify translation amount of x, y and z respectively.
+</p>
+<p>
+You can specify the angle in degree unit by appending <code>:deg</code> attribute.
+</p>
+<p>
+Below is an example to create a matrix that rotates 30 degrees around x-axis.
+</p>
+<pre><code>mat = matrix.rotation@x(30):deg
+</code></pre>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|mat:matrix|</code>, where <code>mat</code> is the created instance. In this case, the block's result would become the function's returned value.
+</p>
+<p>
+<strong>matrix.rotation@y</strong>
+</p>
+<p>
+<code>matrix.rotation@y(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}</code>
+</p>
+<p>
+Creates a matrix that rotates a three-dimensional coordinate around y-axis by the specified angle in radian unit.
+</p>
+<p>
+In addition to rotation, you can add translation factors by the arguments <code>tx</code>, <code>ty</code> and <code>tz</code> that specify translation amount of x, y and z respectively.
+</p>
+<p>
+You can specify the angle in degree unit by appending <code>:deg</code> attribute.
+</p>
+<p>
+Below is an example to create a matrix that rotates 30 degrees around y-axis.
+</p>
+<pre><code>mat = matrix.rotation@y(30):deg
+</code></pre>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|mat:matrix|</code>, where <code>mat</code> is the created instance. In this case, the block's result would become the function's returned value.
+</p>
+<p>
+<strong>matrix.rotation@z</strong>
+</p>
+<p>
+<code>matrix.rotation@z(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}</code>
+</p>
+<p>
+Creates a matrix that rotates a three-dimensional coordinate around z-axis by the specified angle in radian unit.
+</p>
+<p>
+In addition to rotation, you can add translation factors by the arguments <code>tx</code>, <code>ty</code> and <code>tz</code> that specify translation amount of x, y and z respectively.
+</p>
+<p>
+You can specify the angle in degree unit by appending <code>:deg</code> attribute.
+</p>
+<p>
+Below is an example to create a matrix that rotates 30 degrees around z-axis.
+</p>
+<pre><code>mat = matrix.rotation@z(30):deg
+</code></pre>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|mat:matrix|</code>, where <code>mat</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 <strong>matrix#roundoff</strong>
@@ -7997,11 +8074,24 @@ Returns a sub matrix that refers to cells in a specified area of the matrix. Mod
 <code>matrix#tolist():[flat,transpose]</code>
 </p>
 <p>
-Converts the matrix into a list containing sub-lists that represents its rows. If :transpose attribute is specified, each sub-list contains values of corresponding column. If :flat attribute is specified, it generates one-dimentional list. Example:
+Converts the matrix into a list containing sub-lists that represents its rows.
+</p>
+<p>
+If <code>:transpose</code> attribute is specified, each sub-list contains values of corresponding column.
+</p>
+<p>
+If <code>:flat</code> attribute is specified, it generates one-dimentional list.
+</p>
+<p>
+Below is an example:
 </p>
 <pre><code>@@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}.tolist()
 [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-@@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}.tolist():transpose
+</code></pre>
+<p>
+Below is an example with <code>:transpose</code> attribute:
+</p>
+<pre><code>@@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}.tolist():transpose
 [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
 </code></pre>
 <p>
@@ -8011,7 +8101,7 @@ Converts the matrix into a list containing sub-lists that represents its rows. I
 <code>matrix#transpose()</code>
 </p>
 <p>
-Returns a transpose matrix.
+Returns a transposed matrix.
 </p>
 <h2><span class="caption-index-2">6.23</span><a name="caption-6-23"></a>nil Class</h2>
 <h2><span class="caption-index-2">6.24</span><a name="caption-6-24"></a>number Class</h2>

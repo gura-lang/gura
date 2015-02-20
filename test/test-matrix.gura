@@ -4,16 +4,16 @@ import(helper.test) {*}
 testcase {
 	tester(`matrix.rotation(math.pi / 6))
 	tester(`matrix.rotation(30):deg)
-	tester(`matrix.rotation_x(math.pi / 6))
-	tester(`matrix.rotation_x(30):deg)
-	tester(`matrix.rotation_y(math.pi / 6))
-	tester(`matrix.rotation_y(30):deg)
-	tester(`matrix.rotation_z(math.pi / 6))
-	tester(`matrix.rotation_z(30):deg)
+	tester(`matrix.rotation@x(math.pi / 6))
+	tester(`matrix.rotation@x(30):deg)
+	tester(`matrix.rotation@y(math.pi / 6))
+	tester(`matrix.rotation@y(30):deg)
+	tester(`matrix.rotation@z(math.pi / 6))
+	tester(`matrix.rotation@z(30):deg)
 	tester(`matrix.rotation(math.pi / 6, 11, 22))
-	tester(`matrix.rotation_x(math.pi / 6, 11, 22, 33))
-	tester(`matrix.rotation_y(math.pi / 6, 11, 22, 33))
-	tester(`matrix.rotation_z(math.pi / 6, 11, 22, 33))
+	tester(`matrix.rotation@x(math.pi / 6, 11, 22, 33))
+	tester(`matrix.rotation@y(math.pi / 6, 11, 22, 33))
+	tester(`matrix.rotation@z(math.pi / 6, 11, 22, 33))
 }
 testcase {
 	// http://web.sfc.keio.ac.jp/~kawazoe/math/book/d-chap8.pdf

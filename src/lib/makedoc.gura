@@ -1258,9 +1258,9 @@ matrix.identity
 matrix.invert
 matrix.issquare
 matrix.rotation
-matrix.rotation_x
-matrix.rotation_y
-matrix.rotation_z
+matrix.rotation@x
+matrix.rotation@y
+matrix.rotation@z
 matrix.roundoff
 matrix.row
 matrix.rowsize

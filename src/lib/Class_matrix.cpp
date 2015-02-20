@@ -189,7 +189,17 @@ Gura_DeclareFunction(MatrixInit)
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `matrix` instance and initializes its content with values listed in `block`.\n"
+		"\n"
+		"The `block` must contain a one- or two-dimentional list.\n"
+		"\n"
+		"Below is an example to create a matrix with 3 rows and 4 columns.\n"
+		"\n"
+		"    @@{{0, 1, 2, 3}, {4, 5, 6, 7}, {8, 9, 10, 11}}\n"
+		"\n"
+		"Below is an example to create a matrix with 4 rows and 1 column.\n"
+		"\n"
+		"    @@{1, 2, 3, 4}\n");
 }
 
 Gura_ImplementFunction(MatrixInit)
@@ -374,7 +384,21 @@ Gura_DeclareClassMethod(matrix, rotation)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a matrix that rotates a two-dimensional coordinate\n"
+		"by the specified angle in radian unit.\n"
+		"\n"
+		"In addition to rotation, you can add translation factors by the arguments `tx` and `ty`\n"
+		"that specify translation amount of x and y respectively.\n"
+		"\n"
+		"You can specify the angle in degree unit by appending `:deg` attribute.\n"
+		"\n"
+		"Below is an example to create a matrix that rotates 30 degrees.\n"
+		"\n"
+		"    mat = matrix.rotation(30):deg"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|mat:matrix|`,\n"
+		"where `mat` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 
@@ -397,8 +421,8 @@ Gura_ImplementClassMethod(matrix, rotation)
 	return ReturnValue(env, sig, args, Value(new Object_matrix(env, pMat.release())));
 }
 
-// matrix.rotation_x(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
-Gura_DeclareClassMethod(matrix, rotation_x)
+// matrix.rotation@x(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
+Gura_DeclareClassMethodAlias(matrix, rotation_x, "rotation@x")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number);
@@ -409,7 +433,21 @@ Gura_DeclareClassMethod(matrix, rotation_x)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a matrix that rotates a three-dimensional coordinate around x-axis\n"
+		"by the specified angle in radian unit.\n"
+		"\n"
+		"In addition to rotation, you can add translation factors by the arguments `tx`, `ty` and `tz`\n"
+		"that specify translation amount of x, y and z respectively.\n"
+		"\n"
+		"You can specify the angle in degree unit by appending `:deg` attribute.\n"
+		"\n"
+		"Below is an example to create a matrix that rotates 30 degrees around x-axis.\n"
+		"\n"
+		"    mat = matrix.rotation@x(30):deg"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|mat:matrix|`,\n"
+		"where `mat` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementClassMethod(matrix, rotation_x)
@@ -436,8 +474,8 @@ Gura_ImplementClassMethod(matrix, rotation_x)
 	return ReturnValue(env, sig, args, Value(new Object_matrix(env, pMat.release())));
 }
 
-// matrix.rotation_y(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
-Gura_DeclareClassMethod(matrix, rotation_y)
+// matrix.rotation@y(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
+Gura_DeclareClassMethodAlias(matrix, rotation_y, "rotation@y")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number);
@@ -448,7 +486,21 @@ Gura_DeclareClassMethod(matrix, rotation_y)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a matrix that rotates a three-dimensional coordinate around y-axis\n"
+		"by the specified angle in radian unit.\n"
+		"\n"
+		"In addition to rotation, you can add translation factors by the arguments `tx`, `ty` and `tz`\n"
+		"that specify translation amount of x, y and z respectively.\n"
+		"\n"
+		"You can specify the angle in degree unit by appending `:deg` attribute.\n"
+		"\n"
+		"Below is an example to create a matrix that rotates 30 degrees around y-axis.\n"
+		"\n"
+		"    mat = matrix.rotation@y(30):deg"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|mat:matrix|`,\n"
+		"where `mat` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementClassMethod(matrix, rotation_y)
@@ -475,8 +527,8 @@ Gura_ImplementClassMethod(matrix, rotation_y)
 	return ReturnValue(env, sig, args, Value(new Object_matrix(env, pMat.release())));
 }
 
-// matrix.rotation_z(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
-Gura_DeclareClassMethod(matrix, rotation_z)
+// matrix.rotation@z(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
+Gura_DeclareClassMethodAlias(matrix, rotation_z, "rotation@z")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number);
@@ -487,7 +539,21 @@ Gura_DeclareClassMethod(matrix, rotation_z)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a matrix that rotates a three-dimensional coordinate around z-axis\n"
+		"by the specified angle in radian unit.\n"
+		"\n"
+		"In addition to rotation, you can add translation factors by the arguments `tx`, `ty` and `tz`\n"
+		"that specify translation amount of x, y and z respectively.\n"
+		"\n"
+		"You can specify the angle in degree unit by appending `:deg` attribute.\n"
+		"\n"
+		"Below is an example to create a matrix that rotates 30 degrees around z-axis.\n"
+		"\n"
+		"    mat = matrix.rotation@z(30):deg"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|mat:matrix|`,\n"
+		"where `mat` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementClassMethod(matrix, rotation_z)
@@ -660,13 +726,19 @@ Gura_DeclareMethod(matrix, tolist)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Converts the matrix into a list containing sub-lists that represents its rows.\n"
-		"If :transpose attribute is specified, each sub-list contains values of\n"
-		"corresponding column. If :flat attribute is specified, it generates\n"
-		"one-dimentional list.\n"
-		"Example:\n"
+		"\n"
+		"If `:transpose` attribute is specified, each sub-list contains values of\n"
+		"corresponding column.\n"
+		"\n"
+		"If `:flat` attribute is specified, it generates one-dimentional list.\n"
+		"\n"
+		"Below is an example:\n"
 		"\n"
 		"    @@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}.tolist()\n"
 		"    [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\n"
+		"\n"
+		"Below is an example with `:transpose` attribute:\n"
+		"\n"
 		"    @@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}.tolist():transpose\n"
 		"    [[1, 4, 7], [2, 5, 8], [3, 6, 9]]\n");
 }
@@ -688,7 +760,7 @@ Gura_DeclareMethod(matrix, transpose)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a transpose matrix.");
+		"Returns a transposed matrix.");
 }
 
 Gura_ImplementMethod(matrix, transpose)

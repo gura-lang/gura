@@ -648,9 +648,9 @@ matrix
   matrix#invert()
   matrix#issquare()
   matrix.rotation(angle:number, tx?:number, ty?:number):static:map:[deg] {block?}
-  matrix.rotation_x(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
-  matrix.rotation_y(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
-  matrix.rotation_z(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
+  matrix.rotation@x(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
+  matrix.rotation@y(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
+  matrix.rotation@z(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
   matrix#roundoff(threshold:number => 1e-10)
   matrix#row(row:number):map
   matrix#rowsize()
@@ -769,17 +769,17 @@ template
   template#_R_call(symbol:symbol, args*):void
   template#_R_def(symbol:symbol, `args*):void
   template#_R_embed(template:template):void
-  template#_R_extends(super):void:[lasteol,noindent]
+  template#_R_extends(super:template):void:[lasteol,noindent]
   template#_R_super(symbol:symbol):void
   template#block(symbol:symbol):void {block}
   template#call(symbol:symbol, args*):void
   template#def(symbol:symbol, `args*):void {block}
-  template#embed(template):void
-  template#extends(super:template):void
+  template#embed(template:template):void
+  template#extends(template:template):void
   template#parse(str:string):void:[lasteol,noindent]
   template#read(src:stream:r):void:[lasteol,noindent]
   template#render(dst?:stream:w)
-  template#super(super):void
+  template#super(symbol:symbol):void
 timedelta
 undefined
 uri
