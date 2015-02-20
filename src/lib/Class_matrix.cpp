@@ -165,7 +165,14 @@ Gura_DeclareFunction(matrix)
 	SetClassToConstruct(env.LookupClass(VTYPE_matrix));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `matrix` instance that has specified rows and columns.\n"
+		"\n"
+		"The content of the content will be initialized with `value`.\n"
+		"If omitted, it will be initialized with zero value.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|mat:matrix|`,\n"
+		"where `mat` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementFunction(matrix)
