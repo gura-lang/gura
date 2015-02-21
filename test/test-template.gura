@@ -486,3 +486,15 @@ testcase('marker handling') {
 	${x}$$
 	'''.template().render(sys.stdout)
 }
+//-----------------------------------------------------------------------------
+testcase('define and call') {
+	R'''
+	${=define(`calc_mean, num1:number, num2:number)}${(num1 + num2) / 2}${end}
+	${=define(`show_person, name:string, age:number)}
+	${name} is ${age} years old.
+	${end}
+	${=call(`show_person, 'Harry', 24)}
+	
+	[${=call(`calc_mean, 12, 23)}]
+	'''.template().render(sys.stdout)
+}

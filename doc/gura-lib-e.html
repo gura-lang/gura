@@ -8154,7 +8154,7 @@ Operator symbol.</td>
 <strong>operator</strong>
 </p>
 <p>
-<code>operator(sym:symbol):map {block?}</code>
+<code>operator(symbol:symbol):map {block?}</code>
 </p>
 <p>
 Creates an <code>operator</code> instance that is associated with the specified symbol.
@@ -9153,19 +9153,60 @@ Renders stored content to the specified stream.
 <p>
 If the stream is omitted, the function returns the rendered result as a string.
 </p>
-<h3><span class="caption-index-3">6.35.3</span><a name="caption-6-35-3"></a>Method Used in Template</h3>
+<h3><span class="caption-index-3">6.35.3</span><a name="caption-6-35-3"></a>Method Called by Template Directive</h3>
 <p>
 <strong>template#block</strong>
 </p>
 <p>
-<code>template#block(symbol:symbol):void {block}</code>
+<code>template#block(symbol:symbol):void</code>
 </p>
 <p>
-Creates a template block from the specified block, which is supposed to be replaced by a derived template, and associates it with the specified symbol. This method is called as a template directive as shown below:
+Creates a template block which content is supposed to be replaced by a derived template.
 </p>
-<pre><code>${=block(symbol)}
-(content of the template block)
+<p>
+This method is called by template directive <code>${=block()}</code> during both the initialization and presentation phase of a template process.
+</p>
+<ul>
+<li><strong>Initialization:</strong> Creates a template block from the specified block that is then registered in the current template with the specified symbol.</li>
+<li><strong>Presentation:</strong> Evaluates a template block registered with the specified symbol.</li>
+</ul>
+<p>
+Consider an example. Assume that a block associated with symbol <code>`foo</code> is declared in a template file named <code>base.tmpl</code> as below:
+</p>
+<p>
+[base.tmpl]
+</p>
+<pre><code>Block begins here.
+${=block(`foo)}
+Content of base.
 ${end}
+Block ends here.
+</code></pre>
+<p>
+This template renders the following result:
+</p>
+<pre><code>Block begins here.
+Content of derived.
+Block ends here.
+</code></pre>
+<p>
+Below is another template named <code>derived.tmpl</code> that devies from <code>base.tmpl</code> and overrides the block <code>`foo</code>.
+</p>
+<p>
+[derived.tmpl]
+</p>
+<pre><code>${=extends('base.tmpl')}
+
+${=block(`foo)}
+Content of derived.
+${end}
+</code></pre>
+<p>
+This template renders the following result:
+</p>
+<pre><code>Block begins here.
+Content of derived.
+Block ends here.
 </code></pre>
 <p>
 <strong>template#call</strong>
@@ -9174,27 +9215,33 @@ ${end}
 <code>template#call(symbol:symbol, args*):void</code>
 </p>
 <p>
-Calls a template macro that has been created by <code>${=def}</code> directive.
+Calls a template macro that has been created by directive <code>${=define}</code>.
 </p>
 <p>
-This method is called as a template directive as shown below:
+This method is called by template directive <code>${=call()}</code> during the presentation phase of a template process.
 </p>
-<pre><code>${=call(symbol, arg1, arg2, ..)}
+<p>
+Below is an exemple of a template text:
+</p>
+<pre><code>${=call(`show_person, 'Harry', 24)}
 </code></pre>
 <p>
-<strong>template#def</strong>
+<strong>template#define</strong>
 </p>
 <p>
-<code>template#def(symbol:symbol, `args*):void {block}</code>
+<code>template#define(symbol:symbol, `args*):void</code>
 </p>
 <p>
 Creates a template macro from the specified block, which is supposed to be called by <code>${=call}</code> directive, and associates it with the specified symbol.
 </p>
 <p>
-This method is called as a template directive as shown below:
+This method is called by template directive <code>${=define()}</code> during the initialization phase of a template process.
 </p>
-<pre><code>${=def(symbol, arg1, arg2, ..)}
-(content of the template macro)
+<p>
+Below is an example to create a template macro:
+</p>
+<pre><code>${=define(`show_person, name:string, age:number)}
+${name} is ${age} years old.
 ${end}
 </code></pre>
 <p>
@@ -9204,9 +9251,15 @@ ${end}
 <code>template#embed(template:template):void</code>
 </p>
 <p>
-This method is called as a template directive as shown below:
+Renders the specified template at the current position.
 </p>
-<pre><code>${=embed(template)}
+<p>
+This method is called by template directive <code>${=embed()}</code> during the presentation phase of a template process.
+</p>
+<p>
+Below is an example to embeds a template file named <code>foo.tmpl</code>.
+</p>
+<pre><code>${=embed('foo.tmpl')}
 </code></pre>
 <p>
 <strong>template#extends</strong>
@@ -9215,12 +9268,18 @@ This method is called as a template directive as shown below:
 <code>template#extends(template:template):void</code>
 </p>
 <p>
-Sets the specified template as a super class.
+Declares the current template as a derived one from the specified template.
 </p>
 <p>
-This method is called as a template directive as shown below:
+This method is called by template directive <code>${=extends()}</code> during the initialization phase of a template process.
 </p>
-<pre><code>${=extends(template)}
+<p>
+The directive must appear in a template only once. An error occurs if the current template has already derived from another template.
+</p>
+<p>
+Below is an example to declare the current template as one derived from <code>base.tmpl</code>.
+</p>
+<pre><code>${=extends('base.tmpl')}
 </code></pre>
 <p>
 <strong>template#super</strong>
@@ -9229,9 +9288,50 @@ This method is called as a template directive as shown below:
 <code>template#super(symbol:symbol):void</code>
 </p>
 <p>
-This method is called as a template directive as shown below:
+Evaluates a template block registered with the specified symbol in a template from which the current template has derived.
 </p>
-<pre><code>${=super(symbol)}
+<p>
+This method is called by template directive <code>${=super()}</code> during the presentation phase of a template process. The directive is intended to be used within a directive <code>${=block()}</code>.
+</p>
+<p>
+Consider an example. Assume that a block associated with symbol <code>`foo</code> is declared in a template named <code>base.tmpl</code> as below:
+</p>
+<p>
+[base.tmpl]
+</p>
+<pre><code>Block begins here.
+${=block(`foo)}
+Content of base.
+${end}
+Block ends here.
+</code></pre>
+<p>
+This template renders the following result:
+</p>
+<pre><code>Block begins here.
+Content of derived.
+Block ends here.
+</code></pre>
+<p>
+Below is another template named <code>derived.tmpl</code> that devies from <code>base.tmpl</code> and overrides the block <code>`foo</code>.
+</p>
+<p>
+[derived.tmpl]
+</p>
+<pre><code>${=extends('base.tmpl')}
+
+${=block(`foo)}
+${=super(`foo)}
+Content of derived.
+${end}
+</code></pre>
+<p>
+This template renders the following result:
+</p>
+<pre><code>Block begins here.
+Content of base.
+Content of derived.
+Block ends here.
 </code></pre>
 <h2><span class="caption-index-2">6.36</span><a name="caption-6-36"></a>timedelta Class</h2>
 <p>

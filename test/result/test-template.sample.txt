@@ -488,3 +488,9 @@ $$hoge
 $$$hoge
 hoge$
 hoge$$
+
+======== #24 define and call ========
+
+Harry is 24 years old.
+
+[17.5]

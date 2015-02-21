@@ -1581,12 +1581,12 @@ template.read
 template.render
 )}
 
-### Method Used in Template
+### Method Called by Template Directive
 
 ${markdown.funcdoc(
 template.block
 template.call
-template.def
+template.define
 template.embed
 template.extends
 template.super

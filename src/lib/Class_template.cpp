@@ -92,21 +92,49 @@ Gura_DeclareMethod(template_, block)
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Declares a template block.\n"
+		"Creates a template block which content is supposed to be replaced by a derived template.\n"
 		"\n"
 		"This method is called by template directive `${=block()}`\n"
 		"during both the initialization and presentation phase of a template process.\n"
 		"\n"
-		"- *Initialization*: Creates a template block from the specified block\n"
+		"- **Initialization:** Creates a template block from the specified block\n"
 		"  that is then registered in the current template with the specified symbol.\n"
-		"- *Presentation*: Evaluates a template block registered with the specified symbol.\n"
+		"- **Presentation:** Evaluates a template block registered with the specified symbol.\n"
 		"\n"
-		"Below is an example to declare a template block:\n"
+		"Consider an example.\n"
+		"Assume that a block associated with symbol `` `foo`` is declared\n"
+		"in a template file named `base.tmpl` as below:\n"
 		"\n"
-		"    ${=block(`header)}\n"
-		"    Default Header\n"
+		"[base.tmpl]\n"
+		"\n"
+		"    Block begins here.\n"
+		"    ${=block(`foo)}\n"
+		"    Content of base.\n"
 		"    ${end}\n"
-		"\n");
+		"    Block ends here.\n"
+		"\n"
+		"This template renders the following result:\n"
+		"\n"
+		"    Block begins here.\n"
+		"    Content of derived.\n"
+		"    Block ends here.\n"
+		"\n"
+		"Below is another template named `derived.tmpl` that devies from `base.tmpl`\n"
+		"and overrides the block `` `foo``.\n"
+		"\n"
+		"[derived.tmpl]\n"
+		"\n"
+		"    ${=extends('base.tmpl')}\n"
+		"    \n"
+		"    ${=block(`foo)}\n"
+		"    Content of derived.\n"
+		"    ${end}\n"
+		"\n"
+		"This template renders the following result:\n"
+		"\n"
+		"    Block begins here.\n"
+		"    Content of derived.\n"
+		"    Block ends here.\n");
 }
 
 Gura_ImplementMethod(template_, block)
@@ -130,12 +158,12 @@ Gura_DeclareMethod(template_, call)
 	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Calls a template macro that has been created by directive `${=def}`.\n"
+		"Calls a template macro that has been created by directive `${=define}`.\n"
 		"\n"
 		"This method is called by template directive `${=call()}`\n"
 		"during the presentation phase of a template process.\n"
 		"\n"
-		"Below is an exemple of a template text:\n"
+		"Below is an exemple to call a template macro:\n"
 		"\n"
 		"    ${=call(`show_person, 'Harry', 24)}\n");
 }
@@ -155,8 +183,8 @@ Gura_ImplementMethod(template_, call)
 	return Value::Null;
 }
 
-// template#def(symbol:symbol, `args*):void
-Gura_DeclareMethod(template_, def)
+// template#define(symbol:symbol, `args*):void
+Gura_DeclareMethod(template_, define)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
@@ -167,17 +195,17 @@ Gura_DeclareMethod(template_, def)
 		"which is supposed to be called by `${=call}` directive,\n"
 		"and associates it with the specified symbol.\n"
 		"\n"
-		"This method is called by template directive `${=def()}`\n"
+		"This method is called by template directive `${=define()}`\n"
 		"during the initialization phase of a template process.\n"
 		"\n"
 		"Below is an example to create a template macro:\n"
 		"\n"
-		"    ${=def(`show_person, name:string, age:number)}\n"
+		"    ${=define(`show_person, name:string, age:number)}\n"
 		"    ${name} is ${age} years old.\n"
 		"    ${end}\n");
 }
 
-Gura_ImplementMethod(template_, def)
+Gura_ImplementMethod(template_, define)
 {
 	// nothing to do
 	return Value::Null;
@@ -195,7 +223,7 @@ Gura_DeclareMethod(template_, embed)
 		"This method is called by template directive `${=embed()}`\n"
 		"during the presentation phase of a template process.\n"
 		"\n"
-		"Below is an example to embeds a template file named `foo.tmpl`.\n"
+		"Below is an example to embed a template file named `foo.tmpl`.\n"
 		"\n"
 		"    ${=embed('foo.tmpl')}\n");
 }
@@ -224,7 +252,7 @@ Gura_DeclareMethod(template_, extends)
 		"The directive must appear in a template only once.\n"
 		"An error occurs if the current template has already derived from another template.\n"
 		"\n"
-		"Below is an example to declare an extention from a template file named `base.tmpl`.\n"
+		"Below is an example to declare the current template as one derived from `base.tmpl`.\n"
 		"\n"
 		"    ${=extends('base.tmpl')}\n");
 }
@@ -323,20 +351,29 @@ Gura_DeclareMethod(template_, super)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Evaluates a template block registered with the specified symbol in a template\n"
-		"that the current template has derived from.\n"
+		"from which the current template has derived.\n"
 		"\n"
 		"This method is called by template directive `${=super()}`\n"
 		"during the presentation phase of a template process.\n"
-		"\n"
 		"The directive is intended to be used within a directive `${=block()}`.\n"
+		"\n"
+		"Consider an example.\n"
 		"Assume that a block associated with symbol `` `foo`` is declared\n"
 		"in a template named `base.tmpl` as below:\n"
 		"\n"
 		"[base.tmpl]\n"
 		"\n"
+		"    Block begins here.\n"
 		"    ${=block(`foo)}\n"
 		"    Content of base.\n"
-		"    ${end}\n"		
+		"    ${end}\n"
+		"    Block ends here.\n"
+		"\n"
+		"This template renders the following result:\n"
+		"\n"
+		"    Block begins here.\n"
+		"    Content of derived.\n"
+		"    Block ends here.\n"
 		"\n"
 		"Below is another template named `derived.tmpl` that devies from `base.tmpl`\n"
 		"and overrides the block `` `foo``.\n"
@@ -350,10 +387,12 @@ Gura_DeclareMethod(template_, super)
 		"    Content of derived.\n"
 		"    ${end}\n"
 		"\n"
-		"Below is an output of the template:\n"
+		"This template renders the following result:\n"
 		"\n"
+		"    Block begins here.\n"
 		"    Content of base.\n"
-		"    Content of derived.\n");
+		"    Content of derived.\n"
+		"    Block ends here.\n");
 }
 
 Gura_ImplementMethod(template_, super)
@@ -413,17 +452,17 @@ Gura_ImplementMethod(template_, _init_call)
 	return Value::Null;
 }
 
-// template#_init_def(symbol:symbol, `args*):void {block}
-Gura_DeclareMethod(template_, _init_def)
+// template#_init_define(symbol:symbol, `args*):void {block}
+Gura_DeclareMethod(template_, _init_define)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_Once);
-	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("def"));
+	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("define"));
 }
 
-Gura_ImplementMethod(template_, _init_def)
+Gura_ImplementMethod(template_, _init_define)
 {
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
@@ -477,11 +516,6 @@ Gura_ImplementMethod(template_, _init_extends)
 {
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	Template *pTemplateSuper = Object_template::GetObject(args, 0)->GetTemplate();
-	if (pTemplate->GetTemplateSuper() != NULL) {
-		sig.SetError(ERR_DeclarationError,
-					 "the current template has already derived from another template.");
-		return Value::Null;
-	}
 	pTemplate->SetTemplateSuper(pTemplateSuper->Reference());
 	return Value::Null;
 }
@@ -512,7 +546,7 @@ void Class_template::Prepare(Environment &env)
 	Gura_AssignFunction(template_);
 	Gura_AssignMethod(template_, block);
 	Gura_AssignMethod(template_, call);
-	Gura_AssignMethod(template_, def);
+	Gura_AssignMethod(template_, define);
 	Gura_AssignMethod(template_, embed);
 	Gura_AssignMethod(template_, extends);
 	Gura_AssignMethod(template_, parse);
@@ -521,7 +555,7 @@ void Class_template::Prepare(Environment &env)
 	Gura_AssignMethod(template_, super);
 	Gura_AssignMethod(template_, _init_block);
 	Gura_AssignMethod(template_, _init_call);
-	Gura_AssignMethod(template_, _init_def);
+	Gura_AssignMethod(template_, _init_define);
 	Gura_AssignMethod(template_, _init_embed);
 	Gura_AssignMethod(template_, _init_extends);
 	Gura_AssignMethod(template_, _init_super);
