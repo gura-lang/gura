@@ -92,17 +92,21 @@ Gura_DeclareMethod(template_, block)
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates a template block from the specified block,\n"
-		"which is supposed to be replaced by a derived template,\n"
-		"and associates it with the specified symbol."
+		"Declares a template block.\n"
 		"\n"
-		"This method is called by a template directive as shown below:\n"
+		"This method is called by template directive `${=block()}`\n"
+		"during both the initialization and presentation phase of a template process.\n"
 		"\n"
-		"    ${=block(symbol)}\n"
-		"    (content of the template block)\n"
+		"- *Initialization*: Creates a template block from the specified block\n"
+		"  that is then registered in the current template with the specified symbol.\n"
+		"- *Presentation*: Evaluates a template block registered with the specified symbol.\n"
+		"\n"
+		"Below is an example to declare a template block:\n"
+		"\n"
+		"    ${=block(`header)}\n"
+		"    Default Header\n"
 		"    ${end}\n"
-		"\n"
-		"This works in both the initialization and presentation phase while processing a template.\n");
+		"\n");
 }
 
 Gura_ImplementMethod(template_, block)
@@ -110,12 +114,11 @@ Gura_ImplementMethod(template_, block)
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
 	const ValueEx *pValue = pTemplate->LookupValue(pSymbol);
-	if (pValue == NULL || !pValue->Is_function()) {
-		return Value::Null;
+	if (pValue != NULL && pValue->Is_function()) {
+		AutoPtr<Args> pArgs(new Args());
+		pArgs->SetThis(args.GetThis());
+		pValue->GetFunction()->Eval(env, sig, *pArgs);
 	}
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetThis(args.GetThis());
-	pValue->GetFunction()->Eval(env, sig, *pArgs);
 	return Value::Null;
 }
 
@@ -127,13 +130,14 @@ Gura_DeclareMethod(template_, call)
 	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Calls a template macro that has been created by `${=def}` directive.\n"
+		"Calls a template macro that has been created by directive `${=def}`.\n"
 		"\n"
-		"This method is called by a template directive as shown below:\n"
+		"This method is called by template directive `${=call()}`\n"
+		"during the presentation phase of a template process.\n"
 		"\n"
-		"    ${=call(symbol, arg1, arg2, ..)}\n"
+		"Below is an exemple of a template text:\n"
 		"\n"
-		"This only works in the presentation phase while processing a template.\n");
+		"    ${=call(`show_person, 'Harry', 24)}\n");
 }
 
 Gura_ImplementMethod(template_, call)
@@ -163,13 +167,14 @@ Gura_DeclareMethod(template_, def)
 		"which is supposed to be called by `${=call}` directive,\n"
 		"and associates it with the specified symbol.\n"
 		"\n"
-		"This method is called by a template directive as shown below:\n"
+		"This method is called by template directive `${=def()}`\n"
+		"during the initialization phase of a template process.\n"
 		"\n"
-		"    ${=def(symbol, arg1, arg2, ..)}\n"
-		"    (content of the template macro)\n"
-		"    ${end}\n"
+		"Below is an example to create a template macro:\n"
 		"\n"
-		"This only works in the initialization phase while processing a template.\n");
+		"    ${=def(`show_person, name:string, age:number)}\n"
+		"    ${name} is ${age} years old.\n"
+		"    ${end}\n");
 }
 
 Gura_ImplementMethod(template_, def)
@@ -185,11 +190,14 @@ Gura_DeclareMethod(template_, embed)
 	DeclareArg(env, "template", VTYPE_template);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"This method is called by a template directive as shown below:\n"
+		"Renders the specified template at the current position.\n"
 		"\n"
-		"    ${=embed(template)}\n"
+		"This method is called by template directive `${=embed()}`\n"
+		"during the presentation phase of a template process.\n"
 		"\n"
-		"This only works in the presentation phase while processing a template.\n");
+		"Below is an example to embeds a template file named `foo.tmpl`.\n"
+		"\n"
+		"    ${=embed('foo.tmpl')}\n");
 }
 
 Gura_ImplementMethod(template_, embed)
@@ -201,22 +209,24 @@ Gura_ImplementMethod(template_, embed)
 	return Value::Null;
 }
 
-// template#extends(super:template):void:[lasteol,noindent]
+// template#extends(template:template):void
 Gura_DeclareMethod(template_, extends)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "super", VTYPE_template);
-	DeclareAttr(Gura_Symbol(lasteol));
-	DeclareAttr(Gura_Symbol(noindent));
+	DeclareArg(env, "template", VTYPE_template);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Sets the specified template as a super class.\n"
+		"Declares the current template as a derived one from the specified template.\n"
 		"\n"
-		"This method is called by a template directive as shown below:\n"
+		"This method is called by template directive `${=extends()}`\n"
+		"during the initialization phase of a template process.\n"
 		"\n"
-		"    ${=extends(template)}\n"
+		"The directive must appear in a template only once.\n"
+		"An error occurs if the current template has already derived from another template.\n"
 		"\n"
-		"This only works in the initialization phase while processing a template.\n");
+		"Below is an example to declare an extention from a template file named `base.tmpl`.\n"
+		"\n"
+		"    ${=extends('base.tmpl')}\n");
 }
 
 Gura_ImplementMethod(template_, extends)
@@ -312,11 +322,38 @@ Gura_DeclareMethod(template_, super)
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"This method is called by a template directive as shown below:\n"
+		"Evaluates a template block registered with the specified symbol in a template\n"
+		"that the current template has derived from.\n"
 		"\n"
-		"    ${=super(symbol)}\n"
+		"This method is called by template directive `${=super()}`\n"
+		"during the presentation phase of a template process.\n"
 		"\n"
-		"This only works in the presentation phase while processing a template.\n");
+		"The directive is intended to be used within a directive `${=block()}`.\n"
+		"Assume that a block associated with symbol `` `foo`` is declared\n"
+		"in a template named `base.tmpl` as below:\n"
+		"\n"
+		"[base.tmpl]\n"
+		"\n"
+		"    ${=block(`foo)}\n"
+		"    Content of base.\n"
+		"    ${end}\n"		
+		"\n"
+		"Below is another template named `derived.tmpl` that devies from `base.tmpl`\n"
+		"and overrides the block `` `foo``.\n"
+		"\n"
+		"[derived.tmpl]\n"
+		"\n"
+		"    ${=extends('base.tmpl')}\n"
+		"    \n"
+		"    ${=block(`foo)}\n"
+		"    ${=super(`foo)}\n"
+		"    Content of derived.\n"
+		"    ${end}\n"
+		"\n"
+		"Below is an output of the template:\n"
+		"\n"
+		"    Content of base.\n"
+		"    Content of derived.\n");
 }
 
 Gura_ImplementMethod(template_, super)
@@ -326,11 +363,11 @@ Gura_ImplementMethod(template_, super)
 	Template *pTemplateSuper = pTemplate->GetTemplateSuper();
 	if (pTemplateSuper == NULL) return Value::Null;
 	const ValueEx *pValue = pTemplateSuper->LookupValue(pSymbol);
-	if (pValue == NULL) return Value::Null;
-	if (!pValue->Is_function()) return Value::Null;
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetThis(args.GetThis());
-	pValue->GetFunction()->Eval(env, sig, *pArgs);
+	if (pValue != NULL && pValue->Is_function()) {
+		AutoPtr<Args> pArgs(new Args());
+		pArgs->SetThis(args.GetThis());
+		pValue->GetFunction()->Eval(env, sig, *pArgs);
+	}
 	return Value::Null;
 }
 
@@ -440,6 +477,11 @@ Gura_ImplementMethod(template_, _init_extends)
 {
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	Template *pTemplateSuper = Object_template::GetObject(args, 0)->GetTemplate();
+	if (pTemplate->GetTemplateSuper() != NULL) {
+		sig.SetError(ERR_DeclarationError,
+					 "the current template has already derived from another template.");
+		return Value::Null;
+	}
 	pTemplate->SetTemplateSuper(pTemplateSuper->Reference());
 	return Value::Null;
 }
