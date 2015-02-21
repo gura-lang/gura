@@ -85,40 +85,37 @@ Gura_ImplementFunction(template_)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// template#block(symbol:symbol):void {block}
+// template#block(symbol:symbol):void
 Gura_DeclareMethod(template_, block)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
-	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates a template block from the specified block,\n"
 		"which is supposed to be replaced by a derived template,\n"
 		"and associates it with the specified symbol."
 		"\n"
-		"This method is called as a template directive as shown below:\n"
+		"This method is called by a template directive as shown below:\n"
 		"\n"
 		"    ${=block(symbol)}\n"
 		"    (content of the template block)\n"
-		"    ${end}\n");
+		"    ${end}\n"
+		"\n"
+		"This works in both the initialization and presentation phase while processing a template.\n");
 }
 
 Gura_ImplementMethod(template_, block)
 {
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
-	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-	if (sig.IsSignalled()) return Value::Null;
-	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
-						pSymbol, Expr::Reference(pExprBlock), FUNCTYPE_Instance));
-	pFunc->SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_DynamicScope);
-	ValueMap &valueMap = pTemplate->GetValueMap();
-	if (valueMap.find(pSymbol) != valueMap.end()) {
-		sig.SetError(ERR_KeyError, "duplicated symbol: %s", pSymbol->GetName());
+	const ValueEx *pValue = pTemplate->LookupValue(pSymbol);
+	if (pValue == NULL || !pValue->Is_function()) {
 		return Value::Null;
 	}
-	valueMap[pSymbol] = Value(new Object_function(env, pFunc->Reference()));
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetThis(args.GetThis());
+	pValue->GetFunction()->Eval(env, sig, *pArgs);
 	return Value::Null;
 }
 
@@ -132,63 +129,52 @@ Gura_DeclareMethod(template_, call)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Calls a template macro that has been created by `${=def}` directive.\n"
 		"\n"
-		"This method is called as a template directive as shown below:\n"
+		"This method is called by a template directive as shown below:\n"
 		"\n"
-		"    ${=call(symbol, arg1, arg2, ..)}\n");
+		"    ${=call(symbol, arg1, arg2, ..)}\n"
+		"\n"
+		"This only works in the presentation phase while processing a template.\n");
 }
 
 Gura_ImplementMethod(template_, call)
 {
-	// nothing to do
+	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	const Symbol *pSymbol = args.GetSymbol(0);
+	const ValueEx *pValue = pTemplate->LookupValue(pSymbol);
+	if (pValue == NULL || !pValue->Is_function()) {
+		return Value::Null;
+	}
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetThis(args.GetThis());
+	pArgs->SetValueListArg(args.GetList(1));
+	pValue->GetFunction()->Eval(env, sig, *pArgs);
 	return Value::Null;
 }
 
-// template#def(symbol:symbol, `args*):void {block}
+// template#def(symbol:symbol, `args*):void
 Gura_DeclareMethod(template_, def)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrMore);
-	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates a template macro from the specified block,\n"
 		"which is supposed to be called by `${=call}` directive,\n"
 		"and associates it with the specified symbol.\n"
 		"\n"
-		"This method is called as a template directive as shown below:\n"
+		"This method is called by a template directive as shown below:\n"
 		"\n"
 		"    ${=def(symbol, arg1, arg2, ..)}\n"
 		"    (content of the template macro)\n"
-		"    ${end}\n");
-			
+		"    ${end}\n"
+		"\n"
+		"This only works in the initialization phase while processing a template.\n");
 }
 
 Gura_ImplementMethod(template_, def)
 {
-	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
-	const Symbol *pSymbol = args.GetSymbol(0);
-	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-	if (sig.IsSignalled()) return Value::Null;
-	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
-						pSymbol, Expr::Reference(pExprBlock), FUNCTYPE_Instance));
-	pFunc->SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_DynamicScope);
-	AutoPtr<Args> pArgsSub(new Args());
-	do {
-		AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
-		foreach_const (ValueList, pValue, args.GetList(1)) {
-			pExprOwnerArg->push_back(pValue->GetExpr()->Reference());
-		}
-		pArgsSub->SetExprOwnerArg(pExprOwnerArg.release());
-	} while (0);
-	//pArgsSub->SetAttrs(args.GetAttrs());
-	if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgsSub)) return Value::Null;
-	ValueMap &valueMap = pTemplate->GetValueMap();
-	if (valueMap.find(pSymbol) != valueMap.end()) {
-		sig.SetError(ERR_KeyError, "duplicated symbol: %s", pSymbol->GetName());
-		return Value::Null;
-	}
-	valueMap[pSymbol] = Value(new Object_function(env, pFunc->Reference()));
+	// nothing to do
 	return Value::Null;
 }
 
@@ -199,36 +185,43 @@ Gura_DeclareMethod(template_, embed)
 	DeclareArg(env, "template", VTYPE_template);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"This method is called as a template directive as shown below:\n"
+		"This method is called by a template directive as shown below:\n"
 		"\n"
-		"    ${=embed(template)}\n");
+		"    ${=embed(template)}\n"
+		"\n"
+		"This only works in the presentation phase while processing a template.\n");
 }
 
 Gura_ImplementMethod(template_, embed)
 {
-	// nothing to do
+	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	Template *pTemplateToEmbed = Object_template::GetObject(args, 0)->GetTemplate();
+	SimpleStream *pStreamDst = pTemplate->GetStreamDst();
+	pTemplateToEmbed->Render(env, sig, pStreamDst);
 	return Value::Null;
 }
 
-// template#extends(template:template):void
+// template#extends(super:template):void:[lasteol,noindent]
 Gura_DeclareMethod(template_, extends)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "template", VTYPE_template);
+	DeclareArg(env, "super", VTYPE_template);
+	DeclareAttr(Gura_Symbol(lasteol));
+	DeclareAttr(Gura_Symbol(noindent));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Sets the specified template as a super class.\n"
 		"\n"
-		"This method is called as a template directive as shown below:\n"
+		"This method is called by a template directive as shown below:\n"
 		"\n"
-		"    ${=extends(template)}\n");
+		"    ${=extends(template)}\n"
+		"\n"
+		"This only works in the initialization phase while processing a template.\n");
 }
 
 Gura_ImplementMethod(template_, extends)
 {
-	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
-	Template *pTemplateSuper = Object_template::GetObject(args, 0)->GetTemplate();
-	pTemplate->SetTemplateSuper(pTemplateSuper->Reference());
+	// nothing to do
 	return Value::Null;
 }
 
@@ -319,120 +312,14 @@ Gura_DeclareMethod(template_, super)
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"This method is called as a template directive as shown below:\n"
+		"This method is called by a template directive as shown below:\n"
 		"\n"
-		"    ${=super(symbol)}\n");
+		"    ${=super(symbol)}\n"
+		"\n"
+		"This only works in the presentation phase while processing a template.\n");
 }
 
 Gura_ImplementMethod(template_, super)
-{
-	// nothing to do
-	return Value::Null;
-}
-
-// template#_R_block(symbol:symbol):void
-Gura_DeclareMethod(template_, _R_block)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "symbol", VTYPE_symbol);
-	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("block"));
-}
-
-Gura_ImplementMethod(template_, _R_block)
-{
-	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
-	const Symbol *pSymbol = args.GetSymbol(0);
-	const ValueEx *pValue = pTemplate->LookupValue(pSymbol);
-	if (pValue == NULL || !pValue->Is_function()) {
-		return Value::Null;
-	}
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetThis(args.GetThis());
-	pValue->GetFunction()->Eval(env, sig, *pArgs);
-	return Value::Null;
-}
-
-// template#_R_call(symbol:symbol, args*):void
-Gura_DeclareMethod(template_, _R_call)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "symbol", VTYPE_symbol);
-	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
-	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("call"));
-}
-
-Gura_ImplementMethod(template_, _R_call)
-{
-	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
-	const Symbol *pSymbol = args.GetSymbol(0);
-	const ValueEx *pValue = pTemplate->LookupValue(pSymbol);
-	if (pValue == NULL || !pValue->Is_function()) {
-		return Value::Null;
-	}
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetThis(args.GetThis());
-	pArgs->SetValueListArg(args.GetList(1));
-	pValue->GetFunction()->Eval(env, sig, *pArgs);
-	return Value::Null;
-}
-
-// template#_R_def(symbol:symbol, `args*):void
-Gura_DeclareMethod(template_, _R_def)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "symbol", VTYPE_symbol);
-	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrMore);
-	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("def"));
-}
-
-Gura_ImplementMethod(template_, _R_def)
-{
-	// nothing to do
-	return Value::Null;
-}
-
-// template#_R_embed(template:template):void
-Gura_DeclareMethod(template_, _R_embed)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "template", VTYPE_template);
-	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("embed"));
-}
-
-Gura_ImplementMethod(template_, _R_embed)
-{
-	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
-	Template *pTemplateToEmbed = Object_template::GetObject(args, 0)->GetTemplate();
-	SimpleStream *pStreamDst = pTemplate->GetStreamDst();
-	pTemplateToEmbed->Render(env, sig, pStreamDst);
-	return Value::Null;
-}
-
-// template#_R_extends(super:template):void:[lasteol,noindent]
-Gura_DeclareMethod(template_, _R_extends)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "super", VTYPE_template);
-	DeclareAttr(Gura_Symbol(lasteol));
-	DeclareAttr(Gura_Symbol(noindent));
-	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("extends"));
-}
-
-Gura_ImplementMethod(template_, _R_extends)
-{
-	// nothing to do
-	return Value::Null;
-}
-
-// template#_R_super(symbol:symbol):void
-Gura_DeclareMethod(template_, _R_super)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "symbol", VTYPE_symbol);
-	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("super"));
-}
-
-Gura_ImplementMethod(template_, _R_super)
 {
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
@@ -444,6 +331,130 @@ Gura_ImplementMethod(template_, _R_super)
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(args.GetThis());
 	pValue->GetFunction()->Eval(env, sig, *pArgs);
+	return Value::Null;
+}
+
+// template#_init_block(symbol:symbol):void {block}
+Gura_DeclareMethod(template_, _init_block)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "symbol", VTYPE_symbol);
+	DeclareBlock(OCCUR_Once);
+	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("block"));
+}
+
+Gura_ImplementMethod(template_, _init_block)
+{
+	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	const Symbol *pSymbol = args.GetSymbol(0);
+	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	if (sig.IsSignalled()) return Value::Null;
+	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
+						pSymbol, Expr::Reference(pExprBlock), FUNCTYPE_Instance));
+	pFunc->SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_DynamicScope);
+	ValueMap &valueMap = pTemplate->GetValueMap();
+	if (valueMap.find(pSymbol) != valueMap.end()) {
+		sig.SetError(ERR_KeyError, "duplicated symbol: %s", pSymbol->GetName());
+		return Value::Null;
+	}
+	valueMap[pSymbol] = Value(new Object_function(env, pFunc->Reference()));
+	return Value::Null;
+}
+
+// template#_init_call(symbol:symbol, args*):void
+Gura_DeclareMethod(template_, _init_call)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "symbol", VTYPE_symbol);
+	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
+	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("call"));
+}
+
+Gura_ImplementMethod(template_, _init_call)
+{
+	// nothing to do
+	return Value::Null;
+}
+
+// template#_init_def(symbol:symbol, `args*):void {block}
+Gura_DeclareMethod(template_, _init_def)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "symbol", VTYPE_symbol);
+	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrMore);
+	DeclareBlock(OCCUR_Once);
+	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("def"));
+}
+
+Gura_ImplementMethod(template_, _init_def)
+{
+	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	const Symbol *pSymbol = args.GetSymbol(0);
+	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	if (sig.IsSignalled()) return Value::Null;
+	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
+						pSymbol, Expr::Reference(pExprBlock), FUNCTYPE_Instance));
+	pFunc->SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_DynamicScope);
+	AutoPtr<Args> pArgsSub(new Args());
+	do {
+		AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
+		foreach_const (ValueList, pValue, args.GetList(1)) {
+			pExprOwnerArg->push_back(pValue->GetExpr()->Reference());
+		}
+		pArgsSub->SetExprOwnerArg(pExprOwnerArg.release());
+	} while (0);
+	//pArgsSub->SetAttrs(args.GetAttrs());
+	if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgsSub)) return Value::Null;
+	ValueMap &valueMap = pTemplate->GetValueMap();
+	if (valueMap.find(pSymbol) != valueMap.end()) {
+		sig.SetError(ERR_KeyError, "duplicated symbol: %s", pSymbol->GetName());
+		return Value::Null;
+	}
+	valueMap[pSymbol] = Value(new Object_function(env, pFunc->Reference()));
+	return Value::Null;
+}
+
+// template#_init_embed(template:template):void
+Gura_DeclareMethod(template_, _init_embed)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "template", VTYPE_template);
+	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("embed"));
+}
+
+Gura_ImplementMethod(template_, _init_embed)
+{
+	// nothing to do
+	return Value::Null;
+}
+
+// template#_init_extends(template:template):void
+Gura_DeclareMethod(template_, _init_extends)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "template", VTYPE_template);
+	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("extends"));
+}
+
+Gura_ImplementMethod(template_, _init_extends)
+{
+	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	Template *pTemplateSuper = Object_template::GetObject(args, 0)->GetTemplate();
+	pTemplate->SetTemplateSuper(pTemplateSuper->Reference());
+	return Value::Null;
+}
+
+// template#_init_super(symbol:symbol):void
+Gura_DeclareMethod(template_, _init_super)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "symbol", VTYPE_symbol);
+	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("super"));
+}
+
+Gura_ImplementMethod(template_, _init_super)
+{
+	// nothing to do
 	return Value::Null;
 }
 
@@ -466,12 +477,12 @@ void Class_template::Prepare(Environment &env)
 	Gura_AssignMethod(template_, read);
 	Gura_AssignMethod(template_, render);
 	Gura_AssignMethod(template_, super);
-	Gura_AssignMethod(template_, _R_block);
-	Gura_AssignMethod(template_, _R_call);
-	Gura_AssignMethod(template_, _R_def);
-	Gura_AssignMethod(template_, _R_embed);
-	Gura_AssignMethod(template_, _R_extends);
-	Gura_AssignMethod(template_, _R_super);
+	Gura_AssignMethod(template_, _init_block);
+	Gura_AssignMethod(template_, _init_call);
+	Gura_AssignMethod(template_, _init_def);
+	Gura_AssignMethod(template_, _init_embed);
+	Gura_AssignMethod(template_, _init_extends);
+	Gura_AssignMethod(template_, _init_super);
 }
 
 bool Class_template::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
