@@ -337,28 +337,38 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 			pTemplate, strIndent, strPost, _autoIndentFlag, _appendLastEOLFlag));
 	pExprTmplScript->SetSourceInfo(pSourceName->Reference(), cntLineTop + 1, cntLineBtm + 1);
 	if (*strTmplScript == '=') {
+		// Parsing template directive that looks like "${=foo()}".
 		strTmplScript++;
-		AutoPtr<ExprOwner> pExprOwnerPart(new ExprOwner());
+		AutoPtr<ExprOwner> pExprOwnerForInit(new ExprOwner());
 		do {
 			Gura::Parser parser(pSourceName->GetString(), cntLineTop);
-			if (!parser.ParseString(env, sig, *pExprOwnerPart, "this.", false)) return false;
-			if (!parser.ParseString(env, sig, *pExprOwnerPart, strTmplScript, true)) return false;
+			// Appends "this." before the script string while parsing
+			// so that it generates an expression "this.foo()" from the directive "${=foo()}".
+			if (!parser.ParseString(env, sig, *pExprOwnerForInit, "this.", false)) return false;
+			if (!parser.ParseString(env, sig, *pExprOwnerForInit, strTmplScript, true)) return false;
 		} while (0);
 		do {
 			ExprOwner &exprOwner = pExprTmplScript->GetExprOwner();
 			Gura::Parser parser(pSourceName->GetString(), cntLineTop);
+			// Appends "this._R_" before the script string while parsing
+			// so that it generates an expression "this._R_foo()" from the directive "${=foo()}".
 			if (!parser.ParseString(env, sig, exprOwner, "this._R_", false)) return false;
 			if (!parser.ParseString(env, sig, exprOwner, strTmplScript, true)) return false;
 		} while (0);
-		ExprOwner &exprOwnerForPresent = _exprLeaderStack.empty()?
+		do {
+			ExprOwner &exprOwnerForPresent = _exprLeaderStack.empty()?
 				pExprBlockRoot->GetExprOwner() :
 				_exprLeaderStack.back()->GetBlock()->GetExprOwner();
-		exprOwnerForPresent.push_back(Expr::Reference(pExprTmplScript.get()));
-		foreach (ExprOwner, ppExpr, *pExprOwnerPart) {
-			Expr *pExpr = *ppExpr;
-			pTemplate->GetExprOwnerForInit().push_back(Expr::Reference(pExpr));
-			pExprLast = pExpr;
-		}
+			exprOwnerForPresent.push_back(Expr::Reference(pExprTmplScript.get()));
+		} while (0);
+		do {
+			ExprOwner &exprOwnerForInit = pTemplate->GetExprOwnerForInit();
+			foreach (ExprOwner, ppExpr, *pExprOwnerForInit) {
+				Expr *pExpr = *ppExpr;
+				exprOwnerForInit.push_back(Expr::Reference(pExpr));
+				pExprLast = pExpr;
+			}
+		} while (0);
 		if (!pExprLast->IsCaller()) return true;
 		Expr_Caller *pExprLastCaller = dynamic_cast<Expr_Caller *>(pExprLast);
 		if (pExprLastCaller->GetBlock() == NULL) {
@@ -383,6 +393,7 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 			_exprLeaderStack.push_back(pExprLastCaller);
 		}
 	} else {
+		// Parsing a normal script other than template directive.
 		AutoPtr<ExprOwner> pExprOwnerPart(new ExprOwner());
 		Gura::Parser parser(pSourceName->GetString(), cntLineTop);
 		if (!parser.ParseString(env, sig, *pExprOwnerPart, strTmplScript, true)) return false;
