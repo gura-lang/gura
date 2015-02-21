@@ -90,11 +90,11 @@ const Symbol *Object_operator::GetSymbol() const
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// operator(sym:symbol) {block?}
+// operator(symbol:symbol) {block?}
 Gura_DeclareFunctionAlias(operator_, "operator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "sym", VTYPE_symbol);
+	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_operator));
 	AddHelp(

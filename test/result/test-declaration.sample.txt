@@ -192,7 +192,7 @@ nil:nil = nil
 number:class = <class:number>
 object() {block?}
 open(pathname:string, mode?:string, codec?:codec):map {block?}
-operator(op:symbol):map {block?}
+operator(symbol:symbol):map {block?}
 ord(str:string):map
 os:module = <module:os:<integrated>>
   __name__:string = os
