@@ -136,7 +136,33 @@ Gura_DeclareMethod(operator_, assign)
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Associates the `operator` instance with a procedure described in `block`\n"
+		"that takes values as a block parameter and returns its operation result.\n"
+		"\n"
+		"Some `operator` instances have two forms of expression: unary and binary.\n"
+		"This method assignes the procedure to one of them according to\n"
+		"how it takes its arguments as below:"
+		"\n"
+		"- `operator#assign(type:expr)` .. Assigns procedure to the unary form.\n"
+		"- `operator#assign(type_l:expr, type_r:expr)` .. Assignes procedure to the binary form.\n"
+		"\n"
+		"They take different format of block parameters as below:\n"
+		"\n"
+		"- `|value|` .. For unary form.\n"
+		"- `|value_l, value_r|` .. For binary form.\n"
+		"\n"
+		"Below is an example to assign a procedure to a unary form of operator `-`.\n"
+		"\n"
+		"    operator(`-).assign(`string) = {|value|\n"
+		"        // any job\n"
+		"    }\n"
+		"\n"
+		"Below is an example to assign a procedure to a binary form of operator `-`.\n"
+		"\n"
+		"    operator(`-).assign(`string, `number) = {|value_l, value_r|\n"
+		"        // any job\n"
+		"    }\n"
+		"\n");
 }
 
 Gura_ImplementMethod(operator_, assign)

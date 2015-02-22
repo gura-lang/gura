@@ -9221,7 +9221,7 @@ Calls a template macro that has been created by directive <code>${=define}</code
 This method is called by template directive <code>${=call()}</code> during the presentation phase of a template process.
 </p>
 <p>
-Below is an exemple of a template text:
+Below is an exemple to call a template macro:
 </p>
 <pre><code>${=call(`show_person, 'Harry', 24)}
 </code></pre>
@@ -9257,7 +9257,7 @@ Renders the specified template at the current position.
 This method is called by template directive <code>${=embed()}</code> during the presentation phase of a template process.
 </p>
 <p>
-Below is an example to embeds a template file named <code>foo.tmpl</code>.
+Below is an example to embed a template file named <code>foo.tmpl</code>.
 </p>
 <pre><code>${=embed('foo.tmpl')}
 </code></pre>
