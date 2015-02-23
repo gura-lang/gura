@@ -90,8 +90,26 @@ Gura_DeclareFunction(palette)
 	SetClassToConstruct(env.LookupClass(VTYPE_palette));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Creates a palette of the specified type. type is a number of palette size or\n"
-		"one of symbols: `basic, `win256 and `websafe.\n");
+		"Creates a `palette` instance.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|plt:palette|`,\n"
+		"where `plt` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n"
+		"\n"
+		"This function can be called in the following two forms:\n"
+		"\n"
+		"- `palette(n:number)` .. Creates an instance with the specified number of entries.\n"
+		"  All the entries are initialized with a color of black.\n"
+		"- `palette(type:symbol)` .. Creates an instance initialized with\n"
+		"  a pre-defined set of entries associated with the specified symbol.\n"
+		"\n"
+		"In the second form, it can take one of the following symbols:\n"
+		"\n"
+		"- `` `basic`` .. A palette with 16 basic colors.\n"
+		"- `` `win256`` .. A palette with 256 colors defined by Windows.\n"
+		"- `` `websafe`` .. A palette with 216 colors that assure to be displayed correctly\n"
+		"  in any Web environments. It actually has 256 entries\n"
+		"  though the last 40 entries are initialized with black.\n");
 }
 
 Gura_ImplementFunction(palette)
@@ -143,7 +161,10 @@ Gura_DeclareMethod(palette, nearest)
 	DeclareAttr(Gura_Symbol(index));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an index of the nearest entry with the specified color.");
+		"Returns a `color` instance in the palette that is the nearest with the specified color.\n"
+		"\n"
+		"If the attribute `:index` is specified, it would return an index\n"
+		"of the nearst entry instead of its `color` instance.\n");
 }
 
 Gura_ImplementMethod(palette, nearest)
@@ -163,7 +184,7 @@ Gura_DeclareMethod(palette, shrink)
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Shrinks the size of the palette to a number powered by two that is\n"
 		"enough to contain unique entries. The ordef of existing entries will\n"
-		"be kept intact.");
+		"be kept intact.\n");
 }
 
 Gura_ImplementMethod(palette, shrink)
@@ -183,6 +204,7 @@ Gura_DeclareMethod(palette, updateby)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Updates palette entries according to color data in an image or a palette.\n"
+		"\n"
 		"The order of existing entries will be kept intact. If attribute shrink is\n"
 		"specified, the whole size will be shrinked to a number powered by two that\n"
 		"is enough to contain unique entries.");
