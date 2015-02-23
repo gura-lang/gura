@@ -211,7 +211,16 @@ Gura_DeclareMethod(operator_, entries)
 	DeclareArg(env, "type", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a list that contains type expressions\n"
+		"that the operator can accept as its arguments.\n"
+		"\n"
+		"The argument `type` takes a symbol `` `binary`` or `` `unary``.\n"
+		"\n"
+		"- If it's omitted or specified with `` `binary``,\n"
+		"  the method would return a list of pairs of type expressions\n"
+		"  for its left element and right one.\n"
+		"- If it's specified with `` `unary``, the method would return a list of type expressions\n"
+		"  for its single element.\n");
 }
 
 Gura_ImplementMethod(operator_, entries)
