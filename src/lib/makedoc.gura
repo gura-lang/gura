@@ -317,12 +317,6 @@ You can create a `color` instance by calling `color()` function.
 
 There are class variables as shown below:
 
-- `color` instances of 16 basic colors:
-  `color.black`, `color.maroon`, `color.green`, `color.olive`, `color.navy`, `color.purple`,
-  `color.teal`, `color.gray`, `color.silver`, `color.red`, `color.lime`, `color.yellow`,
-  `color.blue`, `color.fuchsia`, `color.aqua` and `color.white`.
-- `color` instance with its elements red, green, blue and alpha set to zero: `color.zero`.
-
 ### Predefined Variable
 
 <table>
@@ -331,7 +325,15 @@ There are class variables as shown below:
 <tr><td><code>color.names</code></td><td><code>string[]</code></td>
 <td>A list of color names that can be passed to <code>color()</code> function.</td></tr>
 
+<tr><td><code>color.zero</code></td><td><code>color</code></td>
+<td>color instance created by <code>color(0, 0, 0, 0)</code></td></tr>
+
 </table>
+
+There are also predefined variables that are defined with `color` instances of 16 basic colors:
+`color.black`, `color.maroon`, `color.green`, `color.olive`, `color.navy`, `color.purple`,
+`color.teal`, `color.gray`, `color.silver`, `color.red`, `color.lime`, `color.yellow`,
+`color.blue`, `color.fuchsia`, `color.aqua` and `color.white`.
 
 ### Property
 
