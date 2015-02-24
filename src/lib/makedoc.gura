@@ -315,10 +315,13 @@ An instance of the `color` class represents a color data that consists of red, g
 
 You can create a `color` instance by calling `color()` function.
 
-Some instances are predefined as class variables:
-`color.black`, `color.maroon`, `color.green`, `color.olive`, `color.navy`, `color.purple`,
-`color.teal`, `color.gray`, `color.silverk`, `color.red`, `color.lime`, `color.yellow`,
-`color.blue`, `color.aqua`, `color.white`.
+There are class variables as shown below:
+
+- `color` instances of 16 basic colors:
+  `color.black`, `color.maroon`, `color.green`, `color.olive`, `color.navy`, `color.purple`,
+  `color.teal`, `color.gray`, `color.silver`, `color.red`, `color.lime`, `color.yellow`,
+  `color.blue`, `color.fuchsia`, `color.aqua` and `color.white`.
+- `color` instance with its elements red, green, blue and alpha set to zero: `color.zero`.
 
 ### Predefined Variable
 

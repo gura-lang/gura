@@ -2558,8 +2558,12 @@ An instance of the <code>color</code> class represents a color data that consist
 You can create a <code>color</code> instance by calling <code>color()</code> function.
 </p>
 <p>
-Some instances are predefined as class variables: <code>color.black</code>, <code>color.maroon</code>, <code>color.green</code>, <code>color.olive</code>, <code>color.navy</code>, <code>color.purple</code>, <code>color.teal</code>, <code>color.gray</code>, <code>color.silverk</code>, <code>color.red</code>, <code>color.lime</code>, <code>color.yellow</code>, <code>color.blue</code>, <code>color.aqua</code>, <code>color.white</code>.
+There are class variables as shown below:
 </p>
+<ul>
+<li><code>color</code> instances of 16 basic colors: <code>color.black</code>, <code>color.maroon</code>, <code>color.green</code>, <code>color.olive</code>, <code>color.navy</code>, <code>color.purple</code>, <code>color.teal</code>, <code>color.gray</code>, <code>color.silver</code>, <code>color.red</code>, <code>color.lime</code>, <code>color.yellow</code>, <code>color.blue</code>, <code>color.fuchsia</code>, <code>color.aqua</code> and <code>color.white</code>.</li>
+<li><code>color</code> instance with its elements red, green, blue and alpha set to zero: <code>color.zero</code>.</li>
+</ul>
 <h3><span class="caption-index-3">6.7.1</span><a name="caption-6-7-1"></a>Predefined Variable</h3>
 <p>
 <table>
@@ -8254,7 +8258,7 @@ This function can be called in the following two forms:
 In the second form, it can take one of the following symbols:
 </p>
 <ul>
-<li><code>`basic</code> .. A palette with 16 basic colors.</li>
+<li><code>`basic</code> .. A palette with 16 basic colors that are: <code>color.black</code>, <code>color.maroon</code>, <code>color.green</code>, <code>color.olive</code>, <code>color.navy</code>, <code>color.purple</code>, <code>color.teal</code>, <code>color.gray</code>, <code>color.silver</code>, <code>color.red</code>, <code>color.lime</code>, <code>color.yellow</code>,  <code>color.blue</code>, <code>color.fuchsia</code>, <code>color.aqua</code> and <code>color.white</code>.</li>
 <li><code>`win256</code> .. A palette with 256 colors defined by Windows.</li>
 <li><code>`websafe</code> .. A palette with 216 colors that assure to be displayed correctly in any Web environments. It actually has 256 entries though the last 40 entries are initialized with black.</li>
 </ul>
@@ -9747,7 +9751,13 @@ R/W</td>
 <code>uri(str?:string):map {block?}</code>
 </p>
 <p>
-Creates <code>uri</code> instance from a string.
+Creates <code>uri</code> instance.
+</p>
+<p>
+If the argument <code>str</code> is specified, it would be parsed as a URI which is stored in the instance.
+</p>
+<p>
+If omitted, the instance would be initialized as an empty one.
 </p>
 <h3><span class="caption-index-3">6.37.3</span><a name="caption-6-37-3"></a>Method</h3>
 <p>
