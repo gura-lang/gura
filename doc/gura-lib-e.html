@@ -2513,8 +2513,12 @@ If <code>block</code> is specified, it would be evaluated with a block parameter
 <code>codec#addcr(flag?:boolean):reduce</code>
 </p>
 <p>
-Indicates the codec to add a carriage return code (0x0d) before a new line code (0x0a) while encoding.
+The codec's encoder has a feature to add a CR code (0x0d) before a LF code (0x0a) so that the lines are joined with CR-LF codes in the encoded result. This method enables or disables the feature.
 </p>
+<ul>
+<li>To enable it, call the method with the argument <code>flag</code> set to <code>true</code> or without any argument.</li>
+<li>To disable it, call the method with the argument <code>flag</code> set to <code>false</code>.</li>
+</ul>
 <p>
 <strong>codec#decode</strong>
 </p>
@@ -2522,7 +2526,7 @@ Indicates the codec to add a carriage return code (0x0d) before a new line code 
 <code>codec#decode(buff:binary):map</code>
 </p>
 <p>
-Decodes a binary and returns the decoded result in <code>string</code>.
+Decodes a binary <code>buff</code> and returns the decoded result as <code>string</code>.
 </p>
 <p>
 <strong>codec#delcr</strong>
@@ -2531,16 +2535,20 @@ Decodes a binary and returns the decoded result in <code>string</code>.
 <code>codec#delcr(flag?:boolean):reduce</code>
 </p>
 <p>
-Indicates the codec to remove CR code (0x0d) before a line feed code (0x0a) while decoding.
+The codec's decoder has a feature to delete a CR code (0x0d) before a LF code (0x0a) so that the lines are joined with LF code in the decoded result. This method enables or disables the feature.
 </p>
+<ul>
+<li>To enable it, call the method with the argument <code>flag</code> set to <code>true</code> or without any argument.</li>
+<li>To disable it, call the method with the argument <code>flag</code> set to <code>false</code>.</li>
+</ul>
 <p>
 <strong>codec#encode</strong>
 </p>
 <p>
-<code>codec#encode(string:string):map</code>
+<code>codec#encode(str:string):map</code>
 </p>
 <p>
-Encodes a string and returns the encoded result in <code>binary</code>.
+Encodes a string <code>str</code> and returns the encoded result as <code>binary</code>.
 </p>
 <h2><span class="caption-index-2">6.7</span><a name="caption-6-7"></a>color Class</h2>
 <p>
@@ -8570,10 +8578,20 @@ Since the operator returns the <code>stream</code> instance specified on the lef
 <code>stream#addcr(flag?:boolean):reduce</code>
 </p>
 <p>
+The codec's encoder in the stream has a feature to add a CR code (0x0d) before a LF code (0x0a) so that the lines are joined with CR-LF codes in the encoded result. This method enables or disables the feature.
+</p>
+<ul>
+<li>To enable it, call the method with the argument <code>flag</code> set to <code>true</code> or without any argument.</li>
+<li>To disable it, call the method with the argument <code>flag</code> set to <code>false</code>.</li>
+</ul>
+<p>
 <strong>stream#close</strong>
 </p>
 <p>
 <code>stream#close():void</code>
+</p>
+<p>
+Closes the stream.
 </p>
 <p>
 <strong>stream#compare</strong>
@@ -8582,11 +8600,26 @@ Since the operator returns the <code>stream</code> instance specified on the lef
 <code>stream#compare(stream:stream:r):map</code>
 </p>
 <p>
+Returns <code>true</code> if there's no difference between the binary sequences of the target stream instance and that of <code>stream</code> in the argument.
+</p>
+<p>
 <strong>stream.copy</strong>
 </p>
 <p>
 <code>stream.copy(src:stream:r, dst:stream:w, bytesunit:number =&gt; 65536):static:map:void:[finalize] {block?}</code>
 </p>
+<p>
+Copies the content in <code>src</code> to the stream <code>dst</code>.
+</p>
+<p>
+The copying is done by the following process:
+</p>
+<ol>
+<li>Reads data from stream <code>src</code> into a buffer with the size specified by <code>bytesunit</code>.</li>
+<li>If <code>block</code> is specified, it would be evaluated with a block parameter <code>|buff:binary|</code> where <code>buff</code> contains the read data. When the block's result is a <code>binary</code> instance, the content would be written to the stream <code>dst</code>. Otherwise, the read data would be written to stream <code>dst</code>.</li>
+<li>If <code>block</code> is not specified,the read data would be written to stream <code>dst</code>.</li>
+<li>Continues step 1 to 3 until data from <code>src</code> runs out.</li>
+</ol>
 <p>
 <strong>stream#copyfrom</strong>
 </p>
@@ -8605,6 +8638,13 @@ Since the operator returns the <code>stream</code> instance specified on the lef
 <p>
 <code>stream#delcr(flag?:boolean):reduce</code>
 </p>
+<p>
+The codec's decoder in the stream has a feature to delete a CR code (0x0d) before a LF code (0x0a) so that the lines are joined with LF code in the decoded result. This method enables or disables the feature.
+</p>
+<ul>
+<li>To enable it, call the method with the argument <code>flag</code> set to <code>true</code> or without any argument.</li>
+<li>To disable it, call the method with the argument <code>flag</code> set to <code>false</code>.</li>
+</ul>
 <p>
 <strong>stream#deserialize</strong>
 </p>
@@ -8709,7 +8749,8 @@ The <code>string</code> class provides measures to operate on strings.
 You can create a <code>string</code> instance by embracing a sequence of characters with a pair of single- or double-quotes.
 </p>
 <pre><code>'Hello World'
-"Hello World'
+</code></pre>
+<pre><code>"Hello World'
 </code></pre>
 <p>
 If you need to declare a string that contains multiple lines, embrace it with a pair of sequences of three single- or double-quotes.

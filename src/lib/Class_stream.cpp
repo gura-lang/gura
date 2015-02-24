@@ -160,7 +160,13 @@ Gura_DeclareMethod(stream, addcr)
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"The codec's encoder in the stream has a feature\n"
+		"to add a CR code (0x0d) before a LF code (0x0a)\n"
+		"so that the lines are joined with CR-LF codes in the encoded result.\n"
+		"This method enables or disables the feature.\n"
+		"\n"
+		"- To enable it, call the method with the argument `flag` set to `true` or without any argument.\n"
+		"- To disable it, call the method with the argument `flag` set to `false`.\n");
 }
 
 Gura_ImplementMethod(stream, addcr)
@@ -177,7 +183,7 @@ Gura_DeclareMethod(stream, close)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Closes the stream.");
 }
 
 Gura_ImplementMethod(stream, close)
@@ -194,7 +200,8 @@ Gura_DeclareMethod(stream, compare)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns `true` if there's no difference between the binary sequences of\n"
+		"the target stream instance and that of `stream` in the argument.\n");
 }
 
 Gura_ImplementMethod(stream, compare)
@@ -218,7 +225,17 @@ Gura_DeclareClassMethod(stream, copy)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Copies the content in `src` to the stream `dst`.\n"
+		"\n"
+		"The copying is done by the following process:\n"
+		"\n"
+		"1. Reads data from stream `src` into a buffer with the size specified by `bytesunit`.\n"
+		"2. If `block` is specified, it would be evaluated with a block parameter `|buff:binary|`\n"
+		"   where `buff` contains the read data. When the block's result is a `binary` instance,\n"
+		"   the content would be written to the stream `dst`.\n"
+		"   Otherwise, the read data would be written to stream `dst`.\n"
+		"3. If `block` is not specified,the read data would be written to stream `dst`.\n"
+		"4. Continues step 1 to 3 until data from `src` runs out.\n");
 }
 
 Gura_ImplementClassMethod(stream, copy)
@@ -309,7 +326,13 @@ Gura_DeclareMethod(stream, delcr)
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"The codec's decoder in the stream has a feature\n"
+		"to delete a CR code (0x0d) before a LF code (0x0a)\n"
+		"so that the lines are joined with LF code in the decoded result.\n"
+		"This method enables or disables the feature.\n"
+		"\n"
+		"- To enable it, call the method with the argument `flag` set to `true` or without any argument.\n"
+		"- To disable it, call the method with the argument `flag` set to `false`.\n");
 }
 
 Gura_ImplementMethod(stream, delcr)
@@ -338,7 +361,7 @@ Gura_ImplementMethod(stream, deserialize)
 	return value;
 }
 
-// stream#flush();void
+// stream#flush():void
 Gura_DeclareMethod(stream, flush)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);

@@ -70,8 +70,13 @@ Gura_DeclareMethod(codec, addcr)
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Indicates the codec to add a carriage return code (0x0d)\n"
-		"before a new line code (0x0a) while encoding.");
+		"The codec's encoder has a feature\n"
+		"to add a CR code (0x0d) before a LF code (0x0a)\n"
+		"so that the lines are joined with CR-LF codes in the encoded result.\n"
+		"This method enables or disables the feature.\n"
+		"\n"
+		"- To enable it, call the method with the argument `flag` set to `true` or without any argument.\n"
+		"- To disable it, call the method with the argument `flag` set to `false`.\n");
 }
 
 Gura_ImplementMethod(codec, addcr)
@@ -89,7 +94,7 @@ Gura_DeclareMethod(codec, decode)
 	DeclareArg(env, "buff", VTYPE_binary);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Decodes a binary and returns the decoded result in `string`.\n");
+		"Decodes a binary `buff` and returns the decoded result as `string`.\n");
 }
 
 Gura_ImplementMethod(codec, decode)
@@ -109,8 +114,13 @@ Gura_DeclareMethod(codec, delcr)
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Indicates the codec to remove CR code (0x0d)\n"
-		"before a line feed code (0x0a) while decoding.");
+		"The codec's decoder has a feature\n"
+		"to delete a CR code (0x0d) before a LF code (0x0a)\n"
+		"so that the lines are joined with LF code in the decoded result.\n"
+		"This method enables or disables the feature.\n"
+		"\n"
+		"- To enable it, call the method with the argument `flag` set to `true` or without any argument.\n"
+		"- To disable it, call the method with the argument `flag` set to `false`.\n");
 }
 
 Gura_ImplementMethod(codec, delcr)
@@ -121,14 +131,14 @@ Gura_ImplementMethod(codec, delcr)
 	return args.GetThis();
 }
 
-// codec#encode(string:string):map
+// codec#encode(str:string):map
 Gura_DeclareMethod(codec, encode)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "string", VTYPE_string);
+	DeclareArg(env, "str", VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Encodes a string and returns the encoded result in `binary`.\n");
+		"Encodes a string `str` and returns the encoded result as `binary`.\n");
 }
 
 Gura_ImplementMethod(codec, encode)
