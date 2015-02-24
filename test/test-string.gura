@@ -403,3 +403,37 @@ testcase('string#width()') {
 	tester(`'半角空白 全角空白　'.len())
 	tester(`'半角空白 全角空白　'.width())
 }
+testcase('concatenation') {
+	str = 'abcde' 'fghij' 'klmno' 'pqrst' 'uvwxy' 'z'
+	println(str)
+	str = "abcde" "fghij" "klmno" "pqrst" "uvwxy" "z"
+	println(str)
+	str = '''abcde''' '''fghij''' '''klmno''' '''pqrst''' '''uvwxy''' '''z'''
+	println(str)
+	str = """abcde""" """fghij""" """klmno""" """pqrst""" """uvwxy""" """z"""
+	println(str)
+	str = r'''abcde''' r'''fghij''' r'''klmno''' r'''pqrst''' r'''uvwxy''' r'''z'''
+	println(str)
+	str = r"""abcde""" r"""fghij""" r"""klmno""" r"""pqrst""" r"""uvwxy""" r"""z"""
+	println(str)
+	str = R'''abcde''' R'''fghij''' R'''klmno''' R'''pqrst''' R'''uvwxy''' R'''z'''
+	println(str)
+	str = R"""abcde""" R"""fghij""" R"""klmno""" R"""pqrst""" R"""uvwxy""" R"""z"""
+	println(str)
+	str = R'''
+	abcde''' R'''
+	fghij''' R'''
+	klmno''' R'''
+	pqrst''' R'''
+	uvwxy''' R'''
+	z'''
+	println(str)
+	str = R"""
+	abcde""" R"""
+	fghij""" R"""
+	klmno""" R"""
+	pqrst""" R"""
+	uvwxy""" R"""
+	z"""
+	println(str)
+}

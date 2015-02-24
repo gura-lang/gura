@@ -1344,3 +1344,16 @@ str.align(15, '*'):right .. *****あいうえお
 '西暦2014年'.width() .. 10
 '半角空白 全角空白　'.len() .. 10
 '半角空白 全角空白　'.width() .. 19
+
+======== #27 concatenation ========
+
+abcdefghijklmnopqrstuvwxyz
+abcdefghijklmnopqrstuvwxyz
+abcdefghijklmnopqrstuvwxyz
+abcdefghijklmnopqrstuvwxyz
+abcdefghijklmnopqrstuvwxyz
+abcdefghijklmnopqrstuvwxyz
+abcdefghijklmnopqrstuvwxyz
+abcdefghijklmnopqrstuvwxyz
+abcdefghijklmnopqrstuvwxyz
+abcdefghijklmnopqrstuvwxyz

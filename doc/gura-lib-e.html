@@ -8175,11 +8175,52 @@ Below is an example to create an <code>operator</code> instance that is associat
 <code>operator#assign(type_l:expr, type_r?:expr):map:void {block}</code>
 </p>
 <p>
+Associates the <code>operator</code> instance with a procedure described in <code>block</code> that takes values as a block parameter and returns its operation result.
+</p>
+<p>
+Some <code>operator</code> instances have two forms of expression: unary and binary. This method assignes the procedure to one of them according to how it takes its arguments as below:
+</p>
+<ul>
+<li><code>operator#assign(type:expr)</code> .. Assigns procedure to the unary form.</li>
+<li><code>operator#assign(type_l:expr, type_r:expr)</code> .. Assignes procedure to the binary form.</li>
+</ul>
+<p>
+They take different format of block parameters as below:
+</p>
+<ul>
+<li><code>|value|</code> .. For unary form.</li>
+<li><code>|value_l, value_r|</code> .. For binary form.</li>
+</ul>
+<p>
+Below is an example to assign a procedure to a unary form of operator <code>-</code>.
+</p>
+<pre><code>operator(`-).assign(`string) = {|value|
+    // any job
+}
+</code></pre>
+<p>
+Below is an example to assign a procedure to a binary form of operator <code>-</code>.
+</p>
+<pre><code>operator(`-).assign(`string, `number) = {|value_l, value_r|
+    // any job
+}
+</code></pre>
+<p>
 <strong>operator#entries</strong>
 </p>
 <p>
 <code>operator#entries(type?:symbol)</code>
 </p>
+<p>
+Returns a list that contains type expressions that the operator can accept as its arguments.
+</p>
+<p>
+The argument <code>type</code> takes a symbol <code>`binary</code> or <code>`unary</code>.
+</p>
+<ul>
+<li>If it's omitted or specified with <code>`binary</code>, the method would return a list of pairs of type expressions for its left element and right one.</li>
+<li>If it's specified with <code>`unary</code>, the method would return a list of type expressions for its single element.</li>
+</ul>
 <h2><span class="caption-index-2">6.26</span><a name="caption-6-26"></a>palette Class</h2>
 <h3><span class="caption-index-3">6.26.1</span><a name="caption-6-26-1"></a>Function to Create Instance</h3>
 <p>
@@ -8189,8 +8230,26 @@ Below is an example to create an <code>operator</code> instance that is associat
 <code>palette(type) {block?}</code>
 </p>
 <p>
-Creates a palette of the specified type. type is a number of palette size or one of symbols: <code>basic,</code>win256 and <code>websafe.</code>
+Creates a <code>palette</code> instance.
 </p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|plt:palette|</code>, where <code>plt</code> is the created instance. In this case, the block's result would become the function's returned value.
+</p>
+<p>
+This function can be called in the following two forms:
+</p>
+<ul>
+<li><code>palette(n:number)</code> .. Creates an instance with the specified number of entries. All the entries are initialized with a color of black.</li>
+<li><code>palette(type:symbol)</code> .. Creates an instance initialized with a pre-defined set of entries associated with the specified symbol.</li>
+</ul>
+<p>
+In the second form, it can take one of the following symbols:
+</p>
+<ul>
+<li><code>`basic</code> .. A palette with 16 basic colors.</li>
+<li><code>`win256</code> .. A palette with 256 colors defined by Windows.</li>
+<li><code>`websafe</code> .. A palette with 216 colors that assure to be displayed correctly in any Web environments. It actually has 256 entries though the last 40 entries are initialized with black.</li>
+</ul>
 <h3><span class="caption-index-3">6.26.2</span><a name="caption-6-26-2"></a>Method</h3>
 <p>
 <strong>palette#each</strong>
@@ -8220,7 +8279,10 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <code>palette#nearest(color:color):map:[index]</code>
 </p>
 <p>
-Returns an index of the nearest entry with the specified color.
+Returns a <code>color</code> instance in the palette that is the nearest with the specified color.
+</p>
+<p>
+If the attribute <code>:index</code> is specified, it would return an index of the nearst entry instead of its <code>color</code> instance.
 </p>
 <p>
 <strong>palette#shrink</strong>
@@ -8238,7 +8300,10 @@ Shrinks the size of the palette to a number powered by two that is enough to con
 <code>palette#updateby(image_or_palette):reduce:[align,shrink]</code>
 </p>
 <p>
-Updates palette entries according to color data in an image or a palette. The order of existing entries will be kept intact. If attribute shrink is specified, the whole size will be shrinked to a number powered by two that is enough to contain unique entries.
+Updates palette entries according to color data in an image or a palette.
+</p>
+<p>
+The order of existing entries will be kept intact. If attribute shrink is specified, the whole size will be shrinked to a number powered by two that is enough to contain unique entries.
 </p>
 <h2><span class="caption-index-2">6.27</span><a name="caption-6-27"></a>pointer Class</h2>
 <h3><span class="caption-index-3">6.27.1</span><a name="caption-6-27-1"></a>Method</h3>
@@ -8466,7 +8531,19 @@ R</td>
 </table>
 
 </p>
-<h3><span class="caption-index-3">6.31.2</span><a name="caption-6-31-2"></a>Function to Create Instance</h3>
+<h3><span class="caption-index-3">6.31.2</span><a name="caption-6-31-2"></a>Operator</h3>
+<p>
+You can use the operator <code>&lt;&lt;</code> to output a content of a value to a <code>stream</code>. It comes like <code>stream &lt;&lt; obj</code> and <code>obj</code> is converted to a string before output to the stream.
+</p>
+<pre><code>sys.stdout &lt;&lt; 'Hello World.'
+
+</code></pre>
+<p>
+Since the operator returns the <code>stream</code> instance specified on the left as its result, you can chain multiple operations as below:
+</p>
+<pre><code>sys.stdout &lt;&lt; 'First' &lt;&lt; 'Second'
+</code></pre>
+<h3><span class="caption-index-3">6.31.3</span><a name="caption-6-31-3"></a>Function to Create Instance</h3>
 <p>
 <strong>open</strong>
 </p>
@@ -8485,7 +8562,7 @@ R</td>
 <p>
 <code>readlines(stream?:stream:r):[chop] {block?}</code>
 </p>
-<h3><span class="caption-index-3">6.31.3</span><a name="caption-6-31-3"></a>Method</h3>
+<h3><span class="caption-index-3">6.31.4</span><a name="caption-6-31-4"></a>Method</h3>
 <p>
 <strong>stream#addcr</strong>
 </p>
@@ -8629,9 +8706,19 @@ R</td>
 The <code>string</code> class provides measures to operate on strings.
 </p>
 <p>
+You can create a <code>string</code> instance by embracing a sequence of characters with a pair of single- or double-quotes.
+</p>
+<pre><code>'Hello World'
+"Hello World'
+</code></pre>
+<p>
+If you need to declare a string that contains multiple lines, embrace it with a pair of sequences of three single- or double-quotes.
+</p>
+<h3><span class="caption-index-3">6.32.1</span><a name="caption-6-32-1"></a>Suffix</h3>
+<p>
 When an string literal is suffixed by a character <code>$</code>, a handler registered by <code>string.translate()</code> function that is supposed to translate the string into other natural languages would be evaluated.
 </p>
-<h3><span class="caption-index-3">6.32.1</span><a name="caption-6-32-1"></a>Method</h3>
+<h3><span class="caption-index-3">6.32.2</span><a name="caption-6-32-2"></a>Method</h3>
 <p>
 <strong>string#align</strong>
 </p>
