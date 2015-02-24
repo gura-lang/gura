@@ -106,7 +106,12 @@ Gura_DeclareFunction(uri)
 	SetClassToConstruct(env.LookupClass(VTYPE_uri));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates `uri` instance from a string.\n");
+		"Creates `uri` instance.\n"
+		"\n"
+		"If the argument `str` is specified,\n"
+		"it would be parsed as a URI which is stored in the instance.\n"
+		"\n"
+		"If omitted, the instance would be initialized as an empty one.\n");
 }
 
 Gura_ImplementFunction(uri)
