@@ -1410,6 +1410,7 @@ semaphore.wait
 text@stream = R'''
 ## stream Class
 
+
 ### Property
 
 <table>
@@ -1434,6 +1435,19 @@ text@stream = R'''
 <td>`codec` instance associated with the stream.</td></tr>
 
 </table>
+
+### Operator
+
+You can use the operator `<<` to output a content of a value to a `stream`.
+It comes like `stream << obj` and `obj` is converted to a string before output to the stream.
+
+    sys.stdout << 'Hello World.'
+    
+Since the operator returns the `stream` instance specified on the left as its result,
+you can chain multiple operations as below:
+
+    sys.stdout << 'First' << 'Second'
+
 
 ### Function to Create Instance
 
@@ -1478,6 +1492,17 @@ text@string = R'''
 ## string Class
 
 The `string` class provides measures to operate on strings.
+
+You can create a `string` instance by embracing a sequence of characters
+with a pair of single- or double-quotes.
+
+    'Hello World'
+    "Hello World'
+
+If you need to declare a string that contains multiple lines,
+embrace it with a pair of sequences of three single- or double-quotes.
+
+### Suffix
 
 When an string literal is suffixed by a character `$`,
 a handler registered by `string.translate()` function that is supposed to translate
