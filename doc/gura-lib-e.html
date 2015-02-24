@@ -8617,20 +8617,62 @@ The copying is done by the following process:
 <ol>
 <li>Reads data from stream <code>src</code> into a buffer with the size specified by <code>bytesunit</code>.</li>
 <li>If <code>block</code> is specified, it would be evaluated with a block parameter <code>|buff:binary|</code> where <code>buff</code> contains the read data. When the block's result is a <code>binary</code> instance, the content would be written to the stream <code>dst</code>. Otherwise, the read data would be written to stream <code>dst</code>.</li>
-<li>If <code>block</code> is not specified,the read data would be written to stream <code>dst</code>.</li>
-<li>Continues step 1 to 3 until data from <code>src</code> runs out.</li>
+<li>If <code>block</code> is not specified,　the read data would be written to stream <code>dst</code>.</li>
+<li>Continues from step 1 to 3 until data from <code>src</code> runs out.</li>
 </ol>
+<p>
+If the attribute <code>:finalize</code> is specified, some finalizing process will be applied at the end such as copying time stamp and attributes.
+</p>
+<p>
+This has the same feature as <code>stream#copyfrom()</code> and <code>stream#copyto()</code>.
+</p>
 <p>
 <strong>stream#copyfrom</strong>
 </p>
 <p>
-<code>stream#copyfrom(stream:stream:r, bytesunit:number =&gt; 65536):map:reduce:[finalize] {block?}</code>
+<code>stream#copyfrom(src:stream:r, bytesunit:number =&gt; 65536):map:reduce:[finalize] {block?}</code>
+</p>
+<p>
+Copies the content in <code>src</code> to the target stream instance.
+</p>
+<p>
+The copying is done by the following process:
+</p>
+<ol>
+<li>Reads data from stream <code>src</code> into a buffer with the size specified by <code>bytesunit</code>.</li>
+<li>If <code>block</code> is specified, it would be evaluated with a block parameter <code>|buff:binary|</code> where <code>buff</code> contains the read data. When the block's result is a <code>binary</code> instance, the content would be written to the stream <code>dst</code>. Otherwise, the read data would be written to stream <code>dst</code>.</li>
+<li>If <code>block</code> is not specified,　the read data would be written to stream <code>dst</code>.</li>
+<li>Continues from step 1 to 3 until data from <code>src</code> runs out.</li>
+</ol>
+<p>
+If the attribute <code>:finalize</code> is specified, some finalizing process will be applied at the end such as copying time stamp and attributes.
+</p>
+<p>
+This has the same feature as <code>stream.copy()</code> and <code>stream#copyto()</code>.
 </p>
 <p>
 <strong>stream#copyto</strong>
 </p>
 <p>
 <code>stream#copyto(stream:stream:w, bytesunit:number =&gt; 65536):map:reduce:[finalize] {block?}</code>
+</p>
+<p>
+Copies the content in the target stream instance to stream <code>dst</code>.
+</p>
+<p>
+The copying is done by the following process:
+</p>
+<ol>
+<li>Reads data from stream <code>src</code> into a buffer with the size specified by <code>bytesunit</code>.</li>
+<li>If <code>block</code> is specified, it would be evaluated with a block parameter <code>|buff:binary|</code> where <code>buff</code> contains the read data. When the block's result is a <code>binary</code> instance, the content would be written to the stream <code>dst</code>. Otherwise, the read data would be written to stream <code>dst</code>.</li>
+<li>If <code>block</code> is not specified,　the read data would be written to stream <code>dst</code>.</li>
+<li>Continues from step 1 to 3 until data from <code>src</code> runs out.</li>
+</ol>
+<p>
+If the attribute <code>:finalize</code> is specified, some finalizing process will be applied at the end such as copying time stamp and attributes.
+</p>
+<p>
+This has the same feature as <code>stream.copy()</code> and <code>stream#copyfrom()</code>.
 </p>
 <p>
 <strong>stream#delcr</strong>
@@ -8656,6 +8698,9 @@ The codec's decoder in the stream has a feature to delete a CR code (0x0d) befor
 </p>
 <p>
 <code>stream#flush():void</code>
+</p>
+<p>
+Flushes cached data to the stream.
 </p>
 <p>
 <strong>stream#peek</strong>
