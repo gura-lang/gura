@@ -2701,7 +2701,25 @@ Value of the alpha element.</td>
 </table>
 
 </p>
-<h3><span class="caption-index-3">6.7.3</span><a name="caption-6-7-3"></a>Function to Create Instance</h3>
+<h3><span class="caption-index-3">6.7.3</span><a name="caption-6-7-3"></a>Cast</h3>
+<p>
+A function that expects a <code>color</code> instance in its argument can take a value of <code>symbol</code>, <code>string</code> and <code>list</code> as below:
+</p>
+<ul>
+<li><code>symbol</code> .. Recognized as a color name to look up the color table.</li>
+<li><code>string</code> .. Recognized as a color name to look up the color table.</li>
+<li><code>list</code> .. Expected to contain elements in a format <code>[red, green, blue]</code> or <code>[red, green, blue, alpha]</code>.</li>
+</ul>
+<p>
+With the above casting feature, you can call a function <code>f(c:color)</code> that takes a <code>color</code> instance in its argument as below:
+</p>
+<ul>
+<li><code>f(color(`purple))</code> .. The most explicit way.</li>
+<li><code>f(`purple)</code> .. Implicit casting: from <code>symbol</code> to <code>color</code>.</li>
+<li><code>f('purple')</code> .. Implicit casting: from <code>string</code> to <code>color</code>.</li>
+<li><code>f([128, 0, 128])</code> .. Implicit casting: from <code>list</code> to <code>color</code>.</li>
+</ul>
+<h3><span class="caption-index-3">6.7.4</span><a name="caption-6-7-4"></a>Function to Create Instance</h3>
 <p>
 <strong>color</strong>
 </p>
@@ -2721,7 +2739,7 @@ There are two forms to call this function as below:
 <li><code>color(name:string, a?:number)</code> .. Creates an instance from color name and an optional alpha element. Predefined variable <code>color.names</code> is a list that contains available color names. A string in a format of <code>'#rrggbb'</code> that is used in HTML documents is also acceptable as a color name.</li>
 <li><code>color(r:number, g?:number, b?:number, a?:number)</code> .. Creates an instance from RGB elements and an optional alpha element.</li>
 </ul>
-<h3><span class="caption-index-3">6.7.4</span><a name="caption-6-7-4"></a>Method</h3>
+<h3><span class="caption-index-3">6.7.5</span><a name="caption-6-7-5"></a>Method</h3>
 <p>
 <strong>color#getgray</strong>
 </p>
@@ -8571,7 +8589,23 @@ Since the operator returns the <code>stream</code> instance specified on the lef
 </p>
 <pre><code>sys.stdout &lt;&lt; 'First' &lt;&lt; 'Second'
 </code></pre>
-<h3><span class="caption-index-3">6.31.3</span><a name="caption-6-31-3"></a>Function to Create Instance</h3>
+<h3><span class="caption-index-3">6.31.3</span><a name="caption-6-31-3"></a>Cast</h3>
+<p>
+A function that expects a <code>stream</code> instance in its argument can take a value of <code>string</code> and <code>binary</code> as below:
+</p>
+<ul>
+<li><code>string</code> .. Recognized as a path name from which <code>stream</code> instance is created.</li>
+<li><code>binary</code> .. Creates a <code>stream</code> instance that contains the specified binary data.</li>
+</ul>
+<p>
+Using the above casting feature, you can call a function <code>f(stream:stream)</code> that takes a <code>stream</code> instance in its argument as below:
+</p>
+<ul>
+<li><code>f(stream('foo.txt'))</code> .. The most explicit way.</li>
+<li><code>f('foo.txt')</code> .. Implicit casting: from <code>string</code> to <code>stream</code>.</li>
+<li><code>f(b'\x00\x12\x34\x56')</code> .. Implicit casting: from <code>binary</code> to <code>stream</code>.</li>
+</ul>
+<h3><span class="caption-index-3">6.31.4</span><a name="caption-6-31-4"></a>Function to Create Instance</h3>
 <p>
 <strong>open</strong>
 </p>
@@ -8590,7 +8624,7 @@ Since the operator returns the <code>stream</code> instance specified on the lef
 <p>
 <code>readlines(stream?:stream:r):[chop] {block?}</code>
 </p>
-<h3><span class="caption-index-3">6.31.4</span><a name="caption-6-31-4"></a>Method</h3>
+<h3><span class="caption-index-3">6.31.5</span><a name="caption-6-31-5"></a>Method</h3>
 <p>
 <strong>stream#addcr</strong>
 </p>
@@ -9291,7 +9325,26 @@ An error occurs if the same suffix symbol has already been assigned. Specifying 
 Evaluate a symbol object.
 </p>
 <h2><span class="caption-index-2">6.35</span><a name="caption-6-35"></a>template Class</h2>
-<h3><span class="caption-index-3">6.35.1</span><a name="caption-6-35-1"></a>Function to Create Instance</h3>
+<h3><span class="caption-index-3">6.35.1</span><a name="caption-6-35-1"></a>Cast</h3>
+<p>
+A function that expects a <code>template</code> instance in its argument can take a value of <code>stream</code> as below:
+</p>
+<ul>
+<li><code>stream</code> .. Creates a <code>template</code> instance by parsing the content of the stream.</li>
+</ul>
+<p>
+As a <code>stream</code> is capable of being casted from <code>string</code> and <code>binary</code>, such values can also be passed to the argument that expects <code>template</code>.
+</p>
+<p>
+Using the above casting feature, you can call a function <code>f(tmpl:template)</code> that takes a <code>template</code> instance in its argument as below:
+</p>
+<ul>
+<li><code>f(template(stream('foo.txt')))</code> .. The most explicit way.</li>
+<li><code>f(stream('foo.txt'))</code> .. Implicit casting: from <code>stream</code> to <code>template</code>.</li>
+<li><code>f(template('foo.txt'))</code> .. Implicit casting: from <code>string</code> to <code>stream</code>.</li>
+<li><code>f('foo.txt')</code> .. Implicit casting: from <code>string</code> to <code>stream</code>, then from <code>stream</code> to <code>template</code>.</li>
+</ul>
+<h3><span class="caption-index-3">6.35.2</span><a name="caption-6-35-2"></a>Function to Create Instance</h3>
 <p>
 <strong>template</strong>
 </p>
@@ -9311,7 +9364,7 @@ Following attributes would customize the parser's behavior:
 <li><code>:lasteol</code></li>
 <li><code>:noindent</code></li>
 </ul>
-<h3><span class="caption-index-3">6.35.2</span><a name="caption-6-35-2"></a>Method</h3>
+<h3><span class="caption-index-3">6.35.3</span><a name="caption-6-35-3"></a>Method</h3>
 <p>
 <strong>template#parse</strong>
 </p>
@@ -9356,7 +9409,7 @@ Renders stored content to the specified stream.
 <p>
 If the stream is omitted, the function returns the rendered result as a string.
 </p>
-<h3><span class="caption-index-3">6.35.3</span><a name="caption-6-35-3"></a>Method Called by Template Directive</h3>
+<h3><span class="caption-index-3">6.35.4</span><a name="caption-6-35-4"></a>Method Called by Template Directive</h3>
 <p>
 <strong>template#block</strong>
 </p>

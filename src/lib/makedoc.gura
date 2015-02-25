@@ -354,6 +354,25 @@ There are also predefined variables that are defined with `color` instances of 1
 
 </table>
 
+### Cast
+
+A function that expects a `color` instance in its argument can take a value of
+`symbol`, `string` and `list` as below:
+
+- `symbol` .. Recognized as a color name to look up the color table.
+- `string` .. Recognized as a color name to look up the color table.
+- `list` .. Expected to contain elements in a format `[red, green, blue]` or
+  `[red, green, blue, alpha]`.
+
+With the above casting feature, you can call a function `f(c:color)`
+that takes a `color` instance in its argument as below:
+
+- ``f(color(`purple))`` .. The most explicit way.
+- ``f(`purple)`` .. Implicit casting: from `symbol` to `color`.
+- `f('purple')` .. Implicit casting: from `string` to `color`.
+- `f([128, 0, 128])` .. Implicit casting: from `list` to `color`.
+
+
 ### Function to Create Instance
 
 ${markdown.funcdoc(
@@ -1454,6 +1473,22 @@ you can chain multiple operations as below:
     sys.stdout << 'First' << 'Second'
 
 
+### Cast
+
+A function that expects a `stream` instance in its argument can take a value of
+`string` and `binary` as below:
+
+- `string` .. Recognized as a path name from which `stream` instance is created.
+- `binary` .. Creates a `stream` instance that contains the specified binary data.
+
+Using the above casting feature, you can call a function `f(stream:stream)`
+that takes a `stream` instance in its argument as below:
+
+- `f(stream('foo.txt'))` .. The most explicit way.
+- `f('foo.txt')` .. Implicit casting: from `string` to `stream`.
+- `f(b'\x00\x12\x34\x56')` .. Implicit casting: from `binary` to `stream`.
+
+
 ### Function to Create Instance
 
 ${markdown.funcdoc(
@@ -1609,6 +1644,24 @@ symbol.eval
 //-----------------------------------------------------------------------------
 text@template = R'''
 ## template Class
+
+### Cast
+
+A function that expects a `template` instance in its argument can take a value of
+`stream` as below:
+
+- `stream` .. Creates a `template` instance by parsing the content of the stream.
+
+As a `stream` is capable of being casted from `string` and `binary`,
+such values can also be passed to the argument that expects `template`.
+
+Using the above casting feature, you can call a function `f(tmpl:template)`
+that takes a `template` instance in its argument as below:
+
+- `f(template(stream('foo.txt')))` .. The most explicit way.
+- `f(stream('foo.txt'))` .. Implicit casting: from `stream` to `template`.
+- `f(template('foo.txt'))` .. Implicit casting: from `string` to `stream`.
+- `f('foo.txt')` .. Implicit casting: from `string` to `stream`, then from `stream` to `template`.
 
 ### Function to Create Instance
 
