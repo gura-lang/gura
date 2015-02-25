@@ -9430,7 +9430,7 @@ This method is called by template directive <code>${=block()}</code> during both
 Consider an example. Assume that a block associated with symbol <code>`foo</code> is declared in a template file named <code>base.tmpl</code> as below:
 </p>
 <p>
-[base.tmpl]
+<code>[base.tmpl]</code>
 </p>
 <pre><code>Block begins here.
 ${=block(`foo)}
@@ -9449,7 +9449,7 @@ Block ends here.
 Below is another template named <code>derived.tmpl</code> that devies from <code>base.tmpl</code> and overrides the block <code>`foo</code>.
 </p>
 <p>
-[derived.tmpl]
+<code>[derived.tmpl]</code>
 </p>
 <pre><code>${=extends('base.tmpl')}
 
@@ -9553,7 +9553,7 @@ This method is called by template directive <code>${=super()}</code> during the 
 Consider an example. Assume that a block associated with symbol <code>`foo</code> is declared in a template named <code>base.tmpl</code> as below:
 </p>
 <p>
-[base.tmpl]
+<code>[base.tmpl]</code>
 </p>
 <pre><code>Block begins here.
 ${=block(`foo)}
@@ -9572,7 +9572,7 @@ Block ends here.
 Below is another template named <code>derived.tmpl</code> that devies from <code>base.tmpl</code> and overrides the block <code>`foo</code>.
 </p>
 <p>
-[derived.tmpl]
+<code>[derived.tmpl]</code>
 </p>
 <pre><code>${=extends('base.tmpl')}
 

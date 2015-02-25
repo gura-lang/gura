@@ -85,6 +85,89 @@ Gura_ImplementFunction(template_)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
+// template#parse(str:string):void:[lasteol,noindent]
+Gura_DeclareMethod(template_, parse)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "str", VTYPE_string);
+	DeclareAttr(Gura_Symbol(noindent));
+	DeclareAttr(Gura_Symbol(lasteol));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a `template` instance by parsing a script-embedded text in a string.\n"
+		"\n"
+		"Following attributes would customize the parser's behavior:\n"
+		"\n"
+		"- `:lasteol`\n"
+		"- `:noindent`\n");
+}
+
+Gura_ImplementMethod(template_, parse)
+{
+	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
+	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
+	SimpleStream_CStringReader streamSrc(args.GetString(0));
+	pTemplate->Read(env, sig, streamSrc, autoIndentFlag, appendLastEOLFlag);
+	return Value::Null;
+}
+
+// template#read(src:stream:r):void:[lasteol,noindent]
+Gura_DeclareMethod(template_, read)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "src", VTYPE_stream, OCCUR_Once, FLAG_Read);
+	DeclareAttr(Gura_Symbol(noindent));
+	DeclareAttr(Gura_Symbol(lasteol));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a `template` instance by parsing a script-embedded text from a stream.\n"
+		"\n"
+		"Following attributes would customize the parser's behavior:\n"
+		"\n"
+		"- `:lasteol`\n"
+		"- `:noindent`\n");
+}
+
+Gura_ImplementMethod(template_, read)
+{
+	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
+	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
+	pTemplate->Read(env, sig, args.GetStream(0), autoIndentFlag, appendLastEOLFlag);
+	return Value::Null;
+}
+
+// template#render(dst?:stream:w)
+Gura_DeclareMethod(template_, render)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "dst", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Renders stored content to the specified stream.\n"
+		"\n"
+		"If the stream is omitted, the function returns the rendered result as a string.\n");
+}
+
+Gura_ImplementMethod(template_, render)
+{
+	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	if (args.Is_stream(0)) {
+		Stream &streamDst = args.GetStream(0);
+		pTemplate->Render(env, sig, &streamDst);
+		return Value::Null;
+	} else {
+		String strDst;
+		SimpleStream_StringWriter streamDst(strDst);
+		if (!pTemplate->Render(env, sig, &streamDst)) return Value::Null;
+		return Value(strDst);
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of methods for directives
+//-----------------------------------------------------------------------------
 // template#block(symbol:symbol):void
 Gura_DeclareMethod(template_, block)
 {
@@ -105,7 +188,7 @@ Gura_DeclareMethod(template_, block)
 		"Assume that a block associated with symbol `` `foo`` is declared\n"
 		"in a template file named `base.tmpl` as below:\n"
 		"\n"
-		"[base.tmpl]\n"
+		"`[base.tmpl]`\n"
 		"\n"
 		"    Block begins here.\n"
 		"    ${=block(`foo)}\n"
@@ -122,7 +205,7 @@ Gura_DeclareMethod(template_, block)
 		"Below is another template named `derived.tmpl` that devies from `base.tmpl`\n"
 		"and overrides the block `` `foo``.\n"
 		"\n"
-		"[derived.tmpl]\n"
+		"`[derived.tmpl]`\n"
 		"\n"
 		"    ${=extends('base.tmpl')}\n"
 		"    \n"
@@ -263,86 +346,6 @@ Gura_ImplementMethod(template_, extends)
 	return Value::Null;
 }
 
-// template#parse(str:string):void:[lasteol,noindent]
-Gura_DeclareMethod(template_, parse)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "str", VTYPE_string);
-	DeclareAttr(Gura_Symbol(noindent));
-	DeclareAttr(Gura_Symbol(lasteol));
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates a `template` instance by parsing a script-embedded text in a string.\n"
-		"\n"
-		"Following attributes would customize the parser's behavior:\n"
-		"\n"
-		"- `:lasteol`\n"
-		"- `:noindent`\n");
-}
-
-Gura_ImplementMethod(template_, parse)
-{
-	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
-	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
-	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
-	SimpleStream_CStringReader streamSrc(args.GetString(0));
-	pTemplate->Read(env, sig, streamSrc, autoIndentFlag, appendLastEOLFlag);
-	return Value::Null;
-}
-
-// template#read(src:stream:r):void:[lasteol,noindent]
-Gura_DeclareMethod(template_, read)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "src", VTYPE_stream, OCCUR_Once, FLAG_Read);
-	DeclareAttr(Gura_Symbol(noindent));
-	DeclareAttr(Gura_Symbol(lasteol));
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates a `template` instance by parsing a script-embedded text from a stream.\n"
-		"\n"
-		"Following attributes would customize the parser's behavior:\n"
-		"\n"
-		"- `:lasteol`\n"
-		"- `:noindent`\n");
-}
-
-Gura_ImplementMethod(template_, read)
-{
-	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
-	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
-	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
-	pTemplate->Read(env, sig, args.GetStream(0), autoIndentFlag, appendLastEOLFlag);
-	return Value::Null;
-}
-
-// template#render(dst?:stream:w)
-Gura_DeclareMethod(template_, render)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "dst", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Renders stored content to the specified stream.\n"
-		"\n"
-		"If the stream is omitted, the function returns the rendered result as a string.\n");
-}
-
-Gura_ImplementMethod(template_, render)
-{
-	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
-	if (args.Is_stream(0)) {
-		Stream &streamDst = args.GetStream(0);
-		pTemplate->Render(env, sig, &streamDst);
-		return Value::Null;
-	} else {
-		String strDst;
-		SimpleStream_StringWriter streamDst(strDst);
-		if (!pTemplate->Render(env, sig, &streamDst)) return Value::Null;
-		return Value(strDst);
-	}
-}
-
 // template#super(symbol:symbol):void
 Gura_DeclareMethod(template_, super)
 {
@@ -361,7 +364,7 @@ Gura_DeclareMethod(template_, super)
 		"Assume that a block associated with symbol `` `foo`` is declared\n"
 		"in a template named `base.tmpl` as below:\n"
 		"\n"
-		"[base.tmpl]\n"
+		"`[base.tmpl]`\n"
 		"\n"
 		"    Block begins here.\n"
 		"    ${=block(`foo)}\n"
@@ -378,7 +381,7 @@ Gura_DeclareMethod(template_, super)
 		"Below is another template named `derived.tmpl` that devies from `base.tmpl`\n"
 		"and overrides the block `` `foo``.\n"
 		"\n"
-		"[derived.tmpl]\n"
+		"`[derived.tmpl]`\n"
 		"\n"
 		"    ${=extends('base.tmpl')}\n"
 		"    \n"
@@ -544,14 +547,16 @@ Class_template::Class_template(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 void Class_template::Prepare(Environment &env)
 {
 	Gura_AssignFunction(template_);
+	// assignment of methods
+	Gura_AssignMethod(template_, parse);
+	Gura_AssignMethod(template_, read);
+	Gura_AssignMethod(template_, render);
+	// assignment of methods for directives
 	Gura_AssignMethod(template_, block);
 	Gura_AssignMethod(template_, call);
 	Gura_AssignMethod(template_, define);
 	Gura_AssignMethod(template_, embed);
 	Gura_AssignMethod(template_, extends);
-	Gura_AssignMethod(template_, parse);
-	Gura_AssignMethod(template_, read);
-	Gura_AssignMethod(template_, render);
 	Gura_AssignMethod(template_, super);
 	Gura_AssignMethod(template_, _init_block);
 	Gura_AssignMethod(template_, _init_call);
