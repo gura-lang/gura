@@ -9,7 +9,7 @@ namespace Gura {
 // Template
 //-----------------------------------------------------------------------------
 Template::Template() : _cntRef(1), _pExprOwnerForInit(new ExprOwner()),
-								_pValueMap(new ValueMap()), _pStreamDst(NULL)
+				   _pValueMap(new ValueMap()), _pStreamDst(NULL), _chLast('\0')
 {
 }
 
@@ -63,6 +63,19 @@ const ValueEx *Template::LookupValue(const Symbol *pSymbol) const
 		if (iter != valueMap.end()) return &iter->second;
 	}
 	return NULL;
+}
+
+void Template::PutChar(Signal sig, char ch)
+{
+	_pStreamDst->PutChar(sig, ch);
+	_chLast = ch;
+}
+
+void Template::Print(Signal sig, const char *str)
+{
+	_pStreamDst->Print(sig, str);
+	size_t len = ::strlen(str);
+	if (len > 0) _chLast = str[len - 1];
 }
 
 //-----------------------------------------------------------------------------
@@ -480,7 +493,7 @@ Expr *Expr_TmplString::Clone() const
 
 Value Expr_TmplString::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
 {
-	_pTemplate->GetStreamDst()->Print(sig, _str.c_str());
+	_pTemplate->Print(sig, _str.c_str());
 	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, Value::Null)) return Value::Null;
 	return Value::Null;
 }
@@ -520,7 +533,7 @@ Value Expr_TmplScript::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeq
 		if (sig.IsSignalled()) return Value::Null;
 	}
 	if (value.IsInvalid()) return Value::Null;
-	_pTemplate->GetStreamDst()->Print(sig, _strIndent.c_str());
+	_pTemplate->Print(sig, _strIndent.c_str());
 	String strLast;
 	if (value.Is_string()) {
 		strLast = value.GetStringSTL();
@@ -532,12 +545,12 @@ Value Expr_TmplScript::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeq
 			foreach_const (String, p, strLast) {
 				char ch = *p;
 				if (ch == '\n') {
-					_pTemplate->GetStreamDst()->PutChar(sig, ch);
+					_pTemplate->PutChar(sig, ch);
 					if (_autoIndentFlag && valueElem.IsValid()) {
-						_pTemplate->GetStreamDst()->Print(sig, _strIndent.c_str());
+						_pTemplate->Print(sig, _strIndent.c_str());
 					}
 				} else {
-					_pTemplate->GetStreamDst()->PutChar(sig, ch);
+					_pTemplate->PutChar(sig, ch);
 				}
 			}
 			if (valueElem.Is_string()) {
@@ -566,17 +579,17 @@ Value Expr_TmplScript::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeq
 	foreach_const (String, p, strLast) {
 		char ch = *p;
 		if (ch != '\n') {
-			_pTemplate->GetStreamDst()->PutChar(sig, ch);
+			_pTemplate->PutChar(sig, ch);
 		} else if (p + 1 != strLast.end()) {
-			_pTemplate->GetStreamDst()->PutChar(sig, ch);
+			_pTemplate->PutChar(sig, ch);
 			if (_autoIndentFlag) {
-				_pTemplate->GetStreamDst()->Print(sig, _strIndent.c_str());
+				_pTemplate->Print(sig, _strIndent.c_str());
 			}
 		} else if (_appendLastEOLFlag) {
-			_pTemplate->GetStreamDst()->PutChar(sig, ch);
+			_pTemplate->PutChar(sig, ch);
 		}
 	}
-	_pTemplate->GetStreamDst()->Print(sig, _strPost.c_str());
+	_pTemplate->Print(sig, _strPost.c_str());
 	return Value::Null;
 }
 

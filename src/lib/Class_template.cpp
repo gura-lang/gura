@@ -233,10 +233,10 @@ Gura_ImplementMethod(template_, block)
 	return Value::Null;
 }
 
-// template#call(symbol:symbol, args*):void
+// template#call(symbol:symbol, args*)
 Gura_DeclareMethod(template_, call)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
@@ -248,7 +248,10 @@ Gura_DeclareMethod(template_, call)
 		"\n"
 		"Below is an exemple to call a template macro:\n"
 		"\n"
-		"    ${=call(`show_person, 'Harry', 24)}\n");
+		"    ${=call(`show_person, 'Harry', 24)}\n"
+		"\n"
+		"This method always return an empty string to notify the Template Engine\n"
+		"that something has been rendered, which might affect line-break conditions.\n");
 }
 
 Gura_ImplementMethod(template_, call)
@@ -263,7 +266,7 @@ Gura_ImplementMethod(template_, call)
 	pArgs->SetThis(args.GetThis());
 	pArgs->SetValueListArg(args.GetList(1));
 	pValue->GetFunction()->Eval(env, sig, *pArgs);
-	return Value::Null;
+	return Value("");
 }
 
 // template#define(symbol:symbol, `args*):void
@@ -294,10 +297,10 @@ Gura_ImplementMethod(template_, define)
 	return Value::Null;
 }
 
-// template#embed(template:template):void
+// template#embed(template:template)
 Gura_DeclareMethod(template_, embed)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "template", VTYPE_template);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -308,7 +311,14 @@ Gura_DeclareMethod(template_, embed)
 		"\n"
 		"Below is an example to embed a template file named `foo.tmpl`.\n"
 		"\n"
-		"    ${=embed('foo.tmpl')}\n");
+		"    ${=embed('foo.tmpl')}\n"
+		"\n"
+		"As the template rendered by this method runs in a different context\n"
+		"from the current one, macros and blocks that it defines\n"
+		"are not reflected to the current context.\n"
+		"\n"
+		"This method always return an empty string to notify the Template Engine\n"
+		"that something has been rendered, which might affect line-break conditions.\n");
 }
 
 Gura_ImplementMethod(template_, embed)
@@ -317,7 +327,7 @@ Gura_ImplementMethod(template_, embed)
 	Template *pTemplateToEmbed = Object_template::GetObject(args, 0)->GetTemplate();
 	SimpleStream *pStreamDst = pTemplate->GetStreamDst();
 	pTemplateToEmbed->Render(env, sig, pStreamDst);
-	return Value::Null;
+	return Value("");
 }
 
 // template#extends(template:template):void

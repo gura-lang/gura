@@ -37,6 +37,7 @@ private:
 	AutoPtr<FunctionCustom> _pFuncForBody;
 	AutoPtr<ValueMap> _pValueMap;
 	SimpleStream *_pStreamDst;
+	char _chLast;
 public:
 	Gura_DeclareReferenceAccessor(Template);
 public:
@@ -49,6 +50,8 @@ public:
 	bool Render(Environment &env, Signal sig, SimpleStream *pStreamDst);
 	bool Prepare(Environment &env, Signal sig);
 	const ValueEx *LookupValue(const Symbol *pSymbol) const;
+	void PutChar(Signal sig, char ch);
+	void Print(Signal sig, const char *str);
 	inline void SetTemplateSuper(Template *pTemplateSuper) {
 		_pTemplateSuper.reset(pTemplateSuper);
 	}
@@ -62,6 +65,8 @@ public:
 	inline const ValueMap &GetValueMap() const { return *_pValueMap; }
 	inline void SetStreamDst(SimpleStream *pStreamDst) { _pStreamDst = pStreamDst; }
 	inline SimpleStream *GetStreamDst() { return _pStreamDst; }
+	inline void ClearLastChar()  { _chLast = '\0'; }
+	inline char GetLastChar() const { return _chLast; }
 };
 
 //-----------------------------------------------------------------------------
