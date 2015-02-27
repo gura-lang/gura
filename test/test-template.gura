@@ -486,6 +486,7 @@ testcase('marker handling') {
 	${x}$$
 	'''.template().render(sys.stdout)
 }
+
 //-----------------------------------------------------------------------------
 testcase('define and call') {
 	R'''
@@ -496,5 +497,25 @@ testcase('define and call') {
 	${=call(`show_person, 'Harry', 24)}
 	
 	[${=call(`calc_mean, 12, 23)}]
+	'''.template().render(sys.stdout)
+}
+
+//-----------------------------------------------------------------------------
+testcase('macro and line-break') {
+	R'''
+	${=define(`macro1)}${end}
+	${=define(`macro2)}Gura${end}
+	${=define(`macro3)}
+	Gura${end}
+	${=define(`macro4)}Gura
+	${end}
+	${=define(`macro5)}
+	Gura
+	${end}
+	Empty${=call(`macro1)}Here
+	NoLineBreak${=call(`macro2)}Here
+	NoLineBreak${=call(`macro3)}Here
+	LineBreak${=call(`macro4)}Here
+	LineBreak${=call(`macro5)}Here
 	'''.template().render(sys.stdout)
 }

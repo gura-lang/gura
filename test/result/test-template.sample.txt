@@ -494,3 +494,13 @@ hoge$$
 Harry is 24 years old.
 
 [17.5]
+
+======== #25 macro and line-break ========
+
+EmptyHere
+NoLineBreakGuraHere
+NoLineBreakGuraHere
+LineBreakGura
+Here
+LineBreakGura
+Here
