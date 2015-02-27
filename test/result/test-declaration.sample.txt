@@ -765,17 +765,17 @@ suffixmgr
 symbol
   symbol#eval(env?:environment)
 template
-  template#_init_block(symbol:symbol):void {block}
-  template#_init_call(symbol:symbol, args*):void
-  template#_init_define(symbol:symbol, `args*):void {block}
-  template#_init_embed(template:template):void
-  template#_init_extends(template:template):void
-  template#_init_super(symbol:symbol):void
   template#block(symbol:symbol):void
-  template#call(symbol:symbol, args*):void
+  template#call(symbol:symbol, args*)
   template#define(symbol:symbol, `args*):void
-  template#embed(template:template):void
+  template#embed(template:template)
   template#extends(template:template):void
+  template#init_block(symbol:symbol):void {block}
+  template#init_call(symbol:symbol, args*):void
+  template#init_define(symbol:symbol, `args*):void {block}
+  template#init_embed(template:template):void
+  template#init_extends(template:template):void
+  template#init_super(symbol:symbol):void
   template#parse(str:string):void:[lasteol,noindent]
   template#read(src:stream:r):void:[lasteol,noindent]
   template#render(dst?:stream:w)
