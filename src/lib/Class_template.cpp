@@ -425,8 +425,8 @@ Gura_ImplementMethod(template_, super)
 	return Value::Null;
 }
 
-// template#_init_block(symbol:symbol):void {block}
-Gura_DeclareMethod(template_, _init_block)
+// template#init_block(symbol:symbol):void {block}
+Gura_DeclareMethod(template_, init_block)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
@@ -434,7 +434,7 @@ Gura_DeclareMethod(template_, _init_block)
 	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("block"));
 }
 
-Gura_ImplementMethod(template_, _init_block)
+Gura_ImplementMethod(template_, init_block)
 {
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
@@ -452,8 +452,8 @@ Gura_ImplementMethod(template_, _init_block)
 	return Value::Null;
 }
 
-// template#_init_call(symbol:symbol, args*):void
-Gura_DeclareMethod(template_, _init_call)
+// template#init_call(symbol:symbol, args*):void
+Gura_DeclareMethod(template_, init_call)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
@@ -461,14 +461,14 @@ Gura_DeclareMethod(template_, _init_call)
 	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("call"));
 }
 
-Gura_ImplementMethod(template_, _init_call)
+Gura_ImplementMethod(template_, init_call)
 {
 	// nothing to do
 	return Value::Null;
 }
 
-// template#_init_define(symbol:symbol, `args*):void {block}
-Gura_DeclareMethod(template_, _init_define)
+// template#init_define(symbol:symbol, `args*):void {block}
+Gura_DeclareMethod(template_, init_define)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
@@ -477,7 +477,7 @@ Gura_DeclareMethod(template_, _init_define)
 	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("define"));
 }
 
-Gura_ImplementMethod(template_, _init_define)
+Gura_ImplementMethod(template_, init_define)
 {
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
@@ -505,29 +505,29 @@ Gura_ImplementMethod(template_, _init_define)
 	return Value::Null;
 }
 
-// template#_init_embed(template:template):void
-Gura_DeclareMethod(template_, _init_embed)
+// template#init_embed(template:template):void
+Gura_DeclareMethod(template_, init_embed)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "template", VTYPE_template);
 	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("embed"));
 }
 
-Gura_ImplementMethod(template_, _init_embed)
+Gura_ImplementMethod(template_, init_embed)
 {
 	// nothing to do
 	return Value::Null;
 }
 
-// template#_init_extends(template:template):void
-Gura_DeclareMethod(template_, _init_extends)
+// template#init_extends(template:template):void
+Gura_DeclareMethod(template_, init_extends)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "template", VTYPE_template);
 	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("extends"));
 }
 
-Gura_ImplementMethod(template_, _init_extends)
+Gura_ImplementMethod(template_, init_extends)
 {
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	Template *pTemplateSuper = Object_template::GetObject(args, 0)->GetTemplate();
@@ -535,15 +535,15 @@ Gura_ImplementMethod(template_, _init_extends)
 	return Value::Null;
 }
 
-// template#_init_super(symbol:symbol):void
-Gura_DeclareMethod(template_, _init_super)
+// template#init_super(symbol:symbol):void
+Gura_DeclareMethod(template_, init_super)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	LinkHelp(env.LookupClass(VTYPE_template), Symbol::Add("super"));
 }
 
-Gura_ImplementMethod(template_, _init_super)
+Gura_ImplementMethod(template_, init_super)
 {
 	// nothing to do
 	return Value::Null;
@@ -570,12 +570,12 @@ void Class_template::Prepare(Environment &env)
 	Gura_AssignMethod(template_, embed);
 	Gura_AssignMethod(template_, extends);
 	Gura_AssignMethod(template_, super);
-	Gura_AssignMethod(template_, _init_block);
-	Gura_AssignMethod(template_, _init_call);
-	Gura_AssignMethod(template_, _init_define);
-	Gura_AssignMethod(template_, _init_embed);
-	Gura_AssignMethod(template_, _init_extends);
-	Gura_AssignMethod(template_, _init_super);
+	Gura_AssignMethod(template_, init_block);
+	Gura_AssignMethod(template_, init_call);
+	Gura_AssignMethod(template_, init_define);
+	Gura_AssignMethod(template_, init_embed);
+	Gura_AssignMethod(template_, init_extends);
+	Gura_AssignMethod(template_, init_super);
 }
 
 bool Class_template::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
