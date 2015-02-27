@@ -517,5 +517,7 @@ testcase('macro and line-break') {
 	NoLineBreak${=call(`macro3)}Here
 	LineBreak${=call(`macro4)}Here
 	LineBreak${=call(`macro5)}Here
+	Macro:${=call(`macro2)}
+	Next Line
 	'''.template().render(sys.stdout)
 }

@@ -504,3 +504,5 @@ LineBreakGura
 Here
 LineBreakGura
 Here
+Macro:Gura
+Next Line
