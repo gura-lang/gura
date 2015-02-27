@@ -250,8 +250,8 @@ Gura_DeclareMethod(template_, call)
 		"\n"
 		"    ${=call(`show_person, 'Harry', 24)}\n"
 		"\n"
-		"This method always return an empty string to notify the Template Engine\n"
-		"that something has been rendered, which might affect line-break conditions.\n");
+		"This method would return `nil` if a line-break character is rendered at last\n"
+		"and would return a null string otherwise.\n");
 }
 
 Gura_ImplementMethod(template_, call)
@@ -265,8 +265,9 @@ Gura_ImplementMethod(template_, call)
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(args.GetThis());
 	pArgs->SetValueListArg(args.GetList(1));
+	pTemplate->ClearLastChar();
 	pValue->GetFunction()->Eval(env, sig, *pArgs);
-	return Value("");
+	return (pTemplate->GetLastChar() == '\n')? Value::Null : Value("");
 }
 
 // template#define(symbol:symbol, `args*):void
@@ -317,17 +318,18 @@ Gura_DeclareMethod(template_, embed)
 		"from the current one, macros and blocks that it defines\n"
 		"are not reflected to the current context.\n"
 		"\n"
-		"This method always return an empty string to notify the Template Engine\n"
-		"that something has been rendered, which might affect line-break conditions.\n");
+		"This method would return `nil` if a line-break character is rendered at last\n"
+		"and would return a null string otherwise.\n");
 }
 
 Gura_ImplementMethod(template_, embed)
 {
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
-	Template *pTemplateToEmbed = Object_template::GetObject(args, 0)->GetTemplate();
+	Template *pTemplateEmbedded = Object_template::GetObject(args, 0)->GetTemplate();
 	SimpleStream *pStreamDst = pTemplate->GetStreamDst();
-	pTemplateToEmbed->Render(env, sig, pStreamDst);
-	return Value("");
+	pTemplateEmbedded->ClearLastChar();
+	pTemplateEmbedded->Render(env, sig, pStreamDst);
+	return (pTemplateEmbedded->GetLastChar() == '\n')? Value::Null : Value("");
 }
 
 // template#extends(template:template):void
