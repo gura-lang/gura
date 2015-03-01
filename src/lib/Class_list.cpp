@@ -311,7 +311,7 @@ bool Object_list::IteratorPingpong::DoNext(Environment &env, Signal sig, Value &
 		_pValueFwd++;
 		if (_cnt > 0) _cnt--;
 		if (_pValueFwd == valList.end() ||
-				(!_stickyFlagR && _pValueFwd + 1 == valList.end())) {
+				(!_stickyFlagBtm && _pValueFwd + 1 == valList.end())) {
 			_forwardFlag = false;
 			_pValueBwd = valList.rbegin();
 		}
@@ -321,7 +321,7 @@ bool Object_list::IteratorPingpong::DoNext(Environment &env, Signal sig, Value &
 		_pValueBwd++;
 		if (_cnt > 0) _cnt--;
 		if (_pValueBwd == valList.rend() ||
-				(!_stickyFlagL && _pValueBwd + 1 == valList.rend())) {
+				(!_stickyFlagTop && _pValueBwd + 1 == valList.rend())) {
 			_forwardFlag = true;
 			_pValueFwd = valList.begin();
 		}
@@ -1589,15 +1589,15 @@ Gura_ImplementMethod(list, pack)
 	return Value(pObjBinary.release());
 }
 
-// list#pingpong(n?:number):[sticky,sticky_l,sticky_r] {block?}
+// list#pingpong(n?:number):[sticky,sticky@top,sticky@btm] {block?}
 Gura_DeclareMethod(list, pingpong)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(sticky));
-	DeclareAttr(Gura_Symbol(sticky_l));
-	DeclareAttr(Gura_Symbol(sticky_r));
+	DeclareAttr(Gura_Symbol(sticky_at_top));
+	DeclareAttr(Gura_Symbol(sticky_at_btm));
 	LinkHelp(env.LookupClass(VTYPE_iterator), GetSymbol());
 }
 
@@ -1605,13 +1605,13 @@ Gura_ImplementMethod(list, pingpong)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
 	int cnt = args.Is_number(0)? args.GetInt(0) : -1;
-	bool stickyFlagL = args.IsSet(Gura_Symbol(sticky)) ||
-						args.IsSet(Gura_Symbol(sticky_l));
-	bool stickyFlagR = args.IsSet(Gura_Symbol(sticky)) ||
-						args.IsSet(Gura_Symbol(sticky_r));
+	bool stickyFlagTop = args.IsSet(Gura_Symbol(sticky)) ||
+						args.IsSet(Gura_Symbol(sticky_at_top));
+	bool stickyFlagBtm = args.IsSet(Gura_Symbol(sticky)) ||
+						args.IsSet(Gura_Symbol(sticky_at_btm));
 	Object_list *pObj = Object_list::Reference(pThis);
 	Iterator *pIterator =
-		new Object_list::IteratorPingpong(pObj, cnt, stickyFlagL, stickyFlagR);
+		new Object_list::IteratorPingpong(pObj, cnt, stickyFlagTop, stickyFlagBtm);
 	return ReturnIterator(env, sig, args, pIterator);
 }
 

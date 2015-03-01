@@ -446,8 +446,8 @@ public:
 	Gura_DeclareSymbol(stdin);
 	Gura_DeclareSymbol(stdout);
 	Gura_DeclareSymbol(sticky);
-	Gura_DeclareSymbol(sticky_l);
-	Gura_DeclareSymbol(sticky_r);
+	Gura_DeclareSymbol(sticky_at_top);
+	Gura_DeclareSymbol(sticky_at_btm);
 	Gura_DeclareSymbol(stream);
 	Gura_DeclareSymbol(strict);
 	Gura_DeclareSymbol(string);

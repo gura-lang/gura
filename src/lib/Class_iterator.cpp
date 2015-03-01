@@ -290,9 +290,8 @@ Gura_DeclareMethod(iterator, delay)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an iterator that returns each element with specified delay time between them.\n"
-		"\n"
-		"The argument `delay` is the delay time in seconds.\n");
+		"Returns an iterator that returns each element with an interval time\n"
+		"specified by the argument `delay` in seconds.\n");
 }
 
 Gura_ImplementMethod(iterator, delay)
@@ -309,7 +308,12 @@ Gura_DeclareMethod(iterator, isinfinite)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns `true` if the iterator is infinite one.");
+		"Returns `true` if the iterator is infinite one.\n"
+		"\n"
+		"The trait of iterator's infinity is used to avoid an endless process\n"
+		"by evaluating an infinite iterator.\n"
+		"An attempt to evaluate an infinite iterator such as creation of a list from it\n"
+		"would occur an error.\n");
 }
 
 Gura_ImplementMethod(iterator, isinfinite)
@@ -324,7 +328,8 @@ Gura_DeclareMethod(iterator, next)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a next element of the iterator.\n");
+		"Returns a next element of the iterator.\n"
+		"This operation updates the iterator's internal status.\n");
 }
 
 Gura_ImplementMethod(iterator, next)
@@ -821,7 +826,11 @@ Gura_DeclareMethod(iterator, join)
 	DeclareArg(env, "sep", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a string that joins strings of elements with the specified separator.");
+		"Joins all the elements in the iterable as strings while inserting\n"
+		"the specified separator `sep` and returns the result.\n"
+		"\n"
+		"If an element is not a `string` value, it would be converted to a `string`\n"
+		"before being joined.\n");
 }
 
 Gura_ImplementMethod(iterator, join)
@@ -840,7 +849,7 @@ Gura_DeclareMethod(iterator, joinb)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a joined binary.\n");
+		"Joins all the `binary` values in the iterable and returns the result.\n");
 }
 
 Gura_ImplementMethod(iterator, joinb)
@@ -986,7 +995,11 @@ Gura_DeclareMethod(iterator, offset)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that returns skips the first `n` elements in the source iterable.\n"
+		"\n"
+		GURA_ITERATOR_HELP
+		"\n"
+		"Block parameter format is `|value, idx:number|`");
 }
 
 Gura_ImplementMethod(iterator, offset)
@@ -1026,34 +1039,66 @@ Gura_DeclareMethod(iterator, pack)
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a binary object packing elements values according to a format string.\n"
-		"Following markers specify the order of how a multi-byte number is stored.\n"
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a `binary` instance that has packed elements in the iterable\n"
+		"according to specifiers in the `format`.\n"
 		"\n"
-		"- `@` .. sets as a native order for the current platform\n"
-		"- `=` .. sets as a native order for the current platform\n"
-		"- `<` .. sets as a little-endian order\n"
-		"- `>` .. sets as a big-endian order\n"
-		"- `!` .. sets as a big-endian order\n"
+		"A specifier has a format of \"`nX`\" where `X` is a format character\n"
+		"that represents a packing format and `n` is a number of packing size.\n"
+		"The number can be omitted, and it would be treated as `1` in that case.\n"
 		"\n"
-		"Following markers specify a storing format. They can be preceded by a number\n"
-		"that specifies the number of values.\n"
+		"Following format characters would take a `number` value from the argument list\n"
+		"and pack them into a binary sequence.\n"
 		"\n"
-		"- `x` .. just skips one byte\n"
-		"- `c` .. takes a string that contains one character and stores it as a byte value\n"
-		"- `b` .. stores a number as a signed byte value\n"
-		"- `B` .. stores a number as an unsigned byte value\n"
-		"- `h` .. stores a number as a signed half-word (2 bytes) value\n"
-		"- `H` .. stores a number as an unsigned half-word (2 bytes) value\n"
-		"- `i` .. stores a number as a signed integer (4 bytes) value\n"
-		"- `I` .. stores a number as an unsigned integer (4 bytes) value\n"
-		"- `l` .. stores a number as a signed integer (4 bytes) value\n"
-		"- `L` .. stores a number as an unsigned integer (4 bytes) value\n"
-		"- `q` .. stores a number as a signed long integer (8 bytes) value\n"
-		"- `Q` .. stores a number as an unsigned long integer (8 bytes) value\n"
-		"- `f` .. stores a number as a float (4 bytes) value\n"
-		"- `d` .. stores a number as a double (8 bytes) value\n"
-		"- `s` .. stores a string after character encoding\n");
+		"- `b` .. A one-byte signed number.\n"
+		"- `B` .. A one-byte unsigned number.\n"
+		"- `h` .. A two-byte signed number.\n"
+		"- `H` .. A two-byte unsigned number.\n"
+		"- `i` .. A four-byte signed number.\n"
+		"- `I` .. A four-byte unsigned number.\n"
+		"- `l` .. A four-byte signed number.\n"
+		"- `L` .. A four-byte unsigned number.\n"
+		"- `q` .. A eight-byte signed number.\n"
+		"- `Q` .. A eight-byte unsigned number.\n"
+		"- `f` .. A float-typed number occupying four bytes.\n"
+		"- `d` .. A double-typed number occupying eight bytes.\n"
+		"\n"
+		"As for them, the packing size `n` means the number of values to be packed.\n"
+		"\n"
+		"Following format characters would take a `string` value from the argument list\n"
+		"and pack them into a binary sequence.\n"
+		"\n"
+		"- `s` .. Packs a sequence of UTF-8 codes in the string.\n"
+		"         The packing size `n` means the size of the room in bytes\n"
+		"         where the character codes are to be packed.\n"
+		"         Only the sequence within the allocated room would be packed.\n"
+		"         If the string length is smaller than the room,\n"
+		"         the lacking part would be filled with zero.\n"
+		"- `c` .. Picks the first byte of the string and packs it as a one-byte unsigned number.\n"
+		"         The packing size `n` means the number of values to be packed.\n"
+		"\n"
+		"Following format character would take no value from the argument list.\n"
+		"\n"
+		"- `x` .. Fills the binary with zero.\n"
+		"         The packing size `n` means the size of the room in bytes\n"
+		"         to be filled with zero.\n"
+		"\n"
+		"The default byte-order for numbers of two-byte, four-byte and eight-byte\n"
+		"depends on the system the interpreter is currently running.\n"
+		"You can change it by the following specifiers:\n"
+		"\n"
+		"- `@` .. System-dependent order.\n"
+		"- `=` .. System-dependent order.\n"
+		"- `<` .. Little endian\n"
+		"- `>` .. Big endian\n"
+		"- `!` .. Big endian\n"
+		"\n"
+		"You can specify an asterisk character \"`*`\" for the number of packing size\n"
+		"that picks that number from the argument list.\n"
+		"\n"
+		"You can specify encoding name embraced with \"`{`\" and \"`}`\" in the format\n"
+		"to change coding character set while packing a string with format character \"`s`\"\n"
+		"from UTF-8.\n");
 }
 
 Gura_ImplementMethod(iterator, pack)
@@ -1064,28 +1109,43 @@ Gura_ImplementMethod(iterator, pack)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// iterator#pingpong(n?:number):[sticky,sticky_l,sticky_r] {block?}
+// iterator#pingpong(n?:number):[sticky,sticky@top,sticky@btm] {block?}
 Gura_DeclareMethod(iterator, pingpong)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(sticky));
-	DeclareAttr(Gura_Symbol(sticky_l));
-	DeclareAttr(Gura_Symbol(sticky_r));
+	DeclareAttr(Gura_Symbol(sticky_at_top));
+	DeclareAttr(Gura_Symbol(sticky_at_btm));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that iterates elements in the source iterator from top to bottom,\n"
+		"and then from bottom to top repeatedly.\n"
+		"\n"
+		"The argument `n` specifies the number of elements the created iterator returns.\n"
+		"If omitted, it would iterates elements infinitely.\n"
+		"\n"
+		"Below is an example:\n"
+		"\n"
+		"    x = [`A, `B, `C, `D, `E].pingpong()\n"
+		"    // x generates `A, `B, `C, `D, `E, `D, `C, `B, `A, `B, ..\n"
+		"\n"
+		"The following attribute specifies \n"
+		"- `:sticky` .. \n"
+		"- `:sticky@top` .. \n"
+		"- `:sticky@btm` .. \n"
+		"\n");
 }
 
 Gura_ImplementMethod(iterator, pingpong)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	int cnt = args.Is_number(0)? args.GetInt(0) : -1;
-	bool stickyFlagL = args.IsSet(Gura_Symbol(sticky)) ||
-						args.IsSet(Gura_Symbol(sticky_l));
-	bool stickyFlagR = args.IsSet(Gura_Symbol(sticky)) ||
-						args.IsSet(Gura_Symbol(sticky_r));
+	bool stickyFlagTop = args.IsSet(Gura_Symbol(sticky)) ||
+						args.IsSet(Gura_Symbol(sticky_at_top));
+	bool stickyFlagBtm = args.IsSet(Gura_Symbol(sticky)) ||
+						args.IsSet(Gura_Symbol(sticky_at_btm));
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Value value = pIterator->Eval(env, sig, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
@@ -1093,7 +1153,7 @@ Gura_ImplementMethod(iterator, pingpong)
 	//Object_list *pObj = dynamic_cast<Object_list *>(value.GetListObj()->Clone());
 	Object_list *pObj = Object_list::Reference(Object_list::GetObject(value));
 	return ReturnIterator(env, sig, args,
-			new Object_list::IteratorPingpong(pObj, cnt, stickyFlagL, stickyFlagR));
+			new Object_list::IteratorPingpong(pObj, cnt, stickyFlagTop, stickyFlagBtm));
 }
 
 // iterator#print(stream?:stream:w):void

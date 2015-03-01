@@ -463,8 +463,8 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(stdin);
 	Gura_RealizeSymbol(stdout);
 	Gura_RealizeSymbol(sticky);
-	Gura_RealizeSymbol(sticky_l);
-	Gura_RealizeSymbol(sticky_r);
+	Gura_RealizeSymbolAlias(sticky_at_top,	"sticky@top");
+	Gura_RealizeSymbolAlias(sticky_at_btm,	"sticky@btm");
 	Gura_RealizeSymbol(stream);
 	Gura_RealizeSymbol(strict);
 	Gura_RealizeSymbol(string);

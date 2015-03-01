@@ -435,8 +435,6 @@ Gura_DeclareClassMethod(binary, pack)
 		"Below is an example to pack four `number` values as two-byte unsigned numbers\n"
 		"into a binary:\n"
 		"\n"
-		"    buff = binary.pack('4H', 1, 2, 3, 4)\n"
-		"\n"
 		"Following format characters would take a `string` value from the argument list\n"
 		"and pack them into a binary sequence.\n"
 		"\n"
@@ -470,9 +468,7 @@ Gura_DeclareClassMethod(binary, pack)
 		"\n"
 		"You can specify encoding name embraced with \"`{`\" and \"`}`\" in the format\n"
 		"to change coding character set while packing a string with format character \"`s`\"\n"
-		"from UTF-8.\n"
-		"\n"
-		"    buff = binary.pack('{shift_jis}10s', '日本語')\n");
+		"from UTF-8.\n");
 }
 
 Gura_ImplementClassMethod(binary, pack)

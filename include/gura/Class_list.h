@@ -83,14 +83,14 @@ public:
 	private:
 		AutoPtr<Object_list> _pObj;
 		int _cnt;
-		bool _stickyFlagL, _stickyFlagR;
+		bool _stickyFlagTop, _stickyFlagBtm;
 		bool _forwardFlag;
 		ValueList::iterator _pValueFwd;
 		ValueList::reverse_iterator _pValueBwd;
 	public:
-		inline IteratorPingpong(Object_list *pObj, int cnt, bool stickyFlagL, bool stickyFlagR) :
+		inline IteratorPingpong(Object_list *pObj, int cnt, bool stickyFlagTop, bool stickyFlagBtm) :
 			Iterator(cnt < 0), _pObj(pObj), _cnt(cnt),
-			_stickyFlagL(stickyFlagL), _stickyFlagR(stickyFlagR), _forwardFlag(true),
+			_stickyFlagTop(stickyFlagTop), _stickyFlagBtm(stickyFlagBtm), _forwardFlag(true),
 			_pValueFwd(pObj->GetList().begin()), _pValueBwd(pObj->GetList().rbegin()) {}
 		virtual ~IteratorPingpong();
 		virtual Iterator *GetSource();

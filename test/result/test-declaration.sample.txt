@@ -552,7 +552,7 @@ iterator
   iterator#offset(n:number) {block?}
   iterator#or()
   iterator#pack(format:string) {block?}
-  iterator#pingpong(n?:number):[sticky,sticky_l,sticky_r] {block?}
+  iterator#pingpong(n?:number):[sticky,sticky@top,sticky@btm] {block?}
   iterator#print(stream?:stream:w):void
   iterator#printf(format:string, stream?:stream:w):void
   iterator#println(stream?:stream:w):void
@@ -612,7 +612,7 @@ list
   list#or()
   list#pack(format:string)
   list#permutation(n?:number) {block?}
-  list#pingpong(n?:number):[sticky,sticky_l,sticky_r] {block?}
+  list#pingpong(n?:number):[sticky,sticky@top,sticky@btm] {block?}
   list#print(stream?:stream:w)
   list#printf(format:string, stream?:stream:w):void
   list#println(stream?:stream:w)
