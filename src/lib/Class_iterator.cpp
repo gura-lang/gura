@@ -1131,11 +1131,11 @@ Gura_DeclareMethod(iterator, pingpong)
 		"    x = [`A, `B, `C, `D, `E].pingpong()\n"
 		"    // x generates `A, `B, `C, `D, `E, `D, `C, `B, `A, `B, ..\n"
 		"\n"
-		"The following attribute specifies \n"
-		"- `:sticky` .. \n"
-		"- `:sticky@top` .. \n"
-		"- `:sticky@btm` .. \n"
-		"\n");
+		"The following attributes specify whether the elements on top and bottom are duplicated:\n"
+		"\n"
+		"- `:sticky` .. Duplicate the top and bottom elements.\n"
+		"- `:sticky@top` .. Duplicate the top element.\n"
+		"- `:sticky@btm` .. Duplicate the bottom element.\n");
 }
 
 Gura_ImplementMethod(iterator, pingpong)
@@ -1163,7 +1163,9 @@ Gura_DeclareMethod(iterator, print)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Prints elements to the specified `stream`.\n"
+		"\n"
+		"If omitted, they are printed to the standard output.\n");
 }
 
 Gura_ImplementMethod(iterator, print)
