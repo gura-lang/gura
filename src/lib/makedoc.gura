@@ -1583,6 +1583,7 @@ string.endswith
 string.escapehtml
 string.find
 string.fold
+string.foldw
 string.format
 string.isempty
 string.left

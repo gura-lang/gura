@@ -75,6 +75,20 @@ public:
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
+	class GURA_DLLDECLARE IteratorFoldw : public Iterator {
+	private:
+		String _str;
+		size_t _widthPerFold;
+		bool _paddingFlag;
+		String::const_iterator _pCur;
+	public:
+		IteratorFoldw(const String &str, size_t widthPerFold, bool paddingFlag);
+		virtual ~IteratorFoldw();
+		virtual Iterator *GetSource();
+		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual String ToString() const;
+		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+	};
 public:
 	Class_string(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);

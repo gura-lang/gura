@@ -680,7 +680,8 @@ size_t Width(const char *str)
 		p = NextUTF32(p, codeUTF32);
 		Codec::WidthProp widthProp = Codec::GetWidthProp(codeUTF32);
 		if (widthProp == Codec::WIDTHPROP_A ||
-			widthProp == Codec::WIDTHPROP_W || widthProp == Codec::WIDTHPROP_F) {
+			widthProp == Codec::WIDTHPROP_W ||
+			widthProp == Codec::WIDTHPROP_F) {
 			width += 2;
 		} else {
 			width += 1;

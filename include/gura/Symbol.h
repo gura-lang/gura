@@ -366,6 +366,7 @@ public:
 	Gura_DeclareSymbol(or);
 	Gura_DeclareSymbol(overwrite);
 	Gura_DeclareSymbol(p);
+	Gura_DeclareSymbol(padding);
 	Gura_DeclareSymbol(palette);
 	Gura_DeclareSymbol(parent);
 	Gura_DeclareSymbol(parents);

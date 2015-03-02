@@ -383,6 +383,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(or);
 	Gura_RealizeSymbol(overwrite);
 	Gura_RealizeSymbol(p);
+	Gura_RealizeSymbol(padding);
 	Gura_RealizeSymbol(palette);
 	Gura_RealizeSymbol(parent);
 	Gura_RealizeSymbol(parents);

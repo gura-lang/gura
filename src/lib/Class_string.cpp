@@ -304,8 +304,13 @@ Gura_DeclareMethod(string, fold)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Creates an iterator that folds string in a specified length.\n"
+		"Creates an iterator that folds the source string by the specified length.\n"
+		"\n"
+		"The argument `step` specifies the length of advancement for the next folding point.\n"
+		"If omitted, it would be the same amount as `len`.\n"
+		"\n"
 		GURA_ITERATOR_HELP
+		"\n"
 		"Block parameter format: `|sub:string, idx:number|`");
 }
 
@@ -316,6 +321,31 @@ Gura_ImplementMethod(string, fold)
 	bool neatFlag = args.IsSet(Gura_Symbol(neat));
 	Iterator *pIterator = new Class_string::IteratorFold(
 		args.GetThis().GetStringSTL(), cntPerFold, cntStep, neatFlag);
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
+// string#foldw(width:number):[padding] {block?}
+Gura_DeclareMethod(string, foldw)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "width", VTYPE_number);
+	DeclareAttr(Gura_Symbol(padding));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Creates an iterator that folds the source string by the specified width.\n"
+		"\n"
+		GURA_ITERATOR_HELP
+		"\n"
+		"Block parameter format: `|sub:string, idx:number|`");
+}
+
+Gura_ImplementMethod(string, foldw)
+{
+	int widthPerFold = args.GetInt(0);
+	bool paddingFlag = args.IsSet(Gura_Symbol(padding));
+	Iterator *pIterator = new Class_string::IteratorFoldw(
+		args.GetThis().GetStringSTL(), widthPerFold, paddingFlag);
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -748,6 +778,7 @@ void Class_string::Prepare(Environment &env)
 	Gura_AssignMethod(string, escapehtml);
 	Gura_AssignMethod(string, find);
 	Gura_AssignMethod(string, fold);
+	Gura_AssignMethod(string, foldw);
 	Gura_AssignMethod(string, format);
 	Gura_AssignMethod(string, isempty);
 	Gura_AssignMethod(string, left);
@@ -1023,6 +1054,62 @@ String Class_string::IteratorFold::ToString() const
 }
 
 void Class_string::IteratorFold::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Class_string::IteratorFoldw
+//-----------------------------------------------------------------------------
+Class_string::IteratorFoldw::IteratorFoldw(const String &str,
+							size_t widthPerFold, bool paddingFlag) :
+	Iterator(false), _str(str), _widthPerFold(widthPerFold), _paddingFlag(paddingFlag)
+{
+	_pCur = _str.begin();
+}
+
+Class_string::IteratorFoldw::~IteratorFoldw()
+{
+}
+
+Iterator *Class_string::IteratorFoldw::GetSource()
+{
+	return NULL;
+}
+
+bool Class_string::IteratorFoldw::DoNext(Environment &env, Signal sig, Value &value)
+{
+	ULong codeUTF32 = 0;
+	size_t width = 0; 
+	if (_pCur == _str.end()) return false;
+	String::const_iterator pHead = _pCur;
+	while (_pCur != _str.end()) {
+		String::const_iterator pNext = NextUTF32(_str, _pCur, codeUTF32);
+		Codec::WidthProp widthProp = Codec::GetWidthProp(codeUTF32);
+		width += (widthProp == Codec::WIDTHPROP_A ||
+				  widthProp == Codec::WIDTHPROP_W ||
+				  widthProp == Codec::WIDTHPROP_F)? 2 : 1;
+		if (width < _widthPerFold) {
+			_pCur = pNext;
+		} else if (width == _widthPerFold) {
+			_pCur = pNext;
+			break;
+		} else {
+			String str(pHead, _pCur);
+			if (_paddingFlag) str += ' ';
+			value = Value(str);
+			return true;
+		}
+	}
+	value = Value(String(pHead, _pCur));
+	return true;
+}
+
+String Class_string::IteratorFoldw::ToString() const
+{
+	return String("string#foldw");
+}
+
+void Class_string::IteratorFoldw::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }
 
