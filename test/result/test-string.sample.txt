@@ -52,7 +52,7 @@ pqrstuvwxyz{|}~
 ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ，．：；？！｀｜
 ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ，．：；？！｀｜
 
-======== #6 ========
+======== #6 string#fold() ========
 
 str.fold(10):list .. ['0123456789', '0123456789', '0123456789', '0123456789', '0123456789', '0123456789', '0123456789', '0123456789', '0123456789', '0123456789']
 str.fold(10, 5):list .. ['0123456789', '5678901234', '0123456789', '5678901234', '0123456789', '5678901234', '0123456789', '5678901234', '0123456789', '5678901234', '0123456789', '5678901234', '0123456789', '5678901234', '0123456789', '5678901234', '0123456789', '5678901234', '0123456789', '56789']
@@ -65,7 +65,7 @@ str.fold(5, 10):list .. ['01234', '01234', '01234', '01234', '01234', '01234', '
 'x &lt; 0 &amp; y &gt; 1'.unescapehtml() .. x < 0 & y > 1
 '&quot;hello world&quot;'.unescapehtml() .. "hello world"
 
-======== #8 ========
+======== #8 string#align() ========
 
 str.align(16):center ..    hello world  
 str.align(16):left .. hello world     
@@ -74,7 +74,7 @@ str.align(16, '*'):center .. ***hello world**
 str.align(16, '*'):left .. hello world*****
 str.align(16, '*'):right .. *****hello world
 
-======== #9 ========
+======== #9 string#strip() ========
 
 format('[%s]', str.strip():both) .. []
 format('[%s]', str.strip():left) .. []
@@ -1357,3 +1357,28 @@ abcdefghijklmnopqrstuvwxyz
 abcdefghijklmnopqrstuvwxyz
 abcdefghijklmnopqrstuvwxyz
 abcdefghijklmnopqrstuvwxyz
+
+======== #28 string#foldw() ========
+
+str.foldw(1):list .. ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+str.foldw(2):list .. ['AB', 'CD', 'EF', 'GH', 'IJ', 'KL', 'MN', 'OP', 'QR', 'ST', 'UV', 'WX', 'YZ']
+str.foldw(3):list .. ['ABC', 'DEF', 'GHI', 'JKL', 'MNO', 'PQR', 'STU', 'VWX', 'YZ']
+str.foldw(6):list .. ['ABCDEF', 'GHIJKL', 'MNOPQR', 'STUVWX', 'YZ']
+str.foldw(7):list .. ['ABCDEFG', 'HIJKLMN', 'OPQRSTU', 'VWXYZ']
+str.foldw(1):list:padding .. ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+str.foldw(2):list:padding .. ['AB', 'CD', 'EF', 'GH', 'IJ', 'KL', 'MN', 'OP', 'QR', 'ST', 'UV', 'WX', 'YZ']
+str.foldw(3):list:padding .. ['ABC', 'DEF', 'GHI', 'JKL', 'MNO', 'PQR', 'STU', 'VWX', 'YZ']
+str.foldw(6):list:padding .. ['ABCDEF', 'GHIJKL', 'MNOPQR', 'STUVWX', 'YZ']
+str.foldw(7):list:padding .. ['ABCDEFG', 'HIJKLMN', 'OPQRSTU', 'VWXYZ']
+str.foldw(1):list .. ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
+str.foldw(2):list .. ['あ', 'い', 'う', 'え', 'お', 'か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', 'そ', 'た', 'ち', 'つ', 'て', 'と']
+str.foldw(3):list .. ['あ', 'い', 'う', 'え', 'お', 'か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', 'そ', 'た', 'ち', 'つ', 'て', 'と']
+str.foldw(6):list .. ['あいう', 'えおか', 'きくけ', 'こさし', 'すせそ', 'たちつ', 'てと']
+str.foldw(7):list .. ['あいう', 'えおか', 'きくけ', 'こさし', 'すせそ', 'たちつ', 'てと']
+str.foldw(1):list:padding .. [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+str.foldw(2):list:padding .. ['あ', 'い', 'う', 'え', 'お', 'か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', 'そ', 'た', 'ち', 'つ', 'て', 'と']
+str.foldw(3):list:padding .. ['あ ', 'い ', 'う ', 'え ', 'お ', 'か ', 'き ', 'く ', 'け ', 'こ ', 'さ ', 'し ', 'す ', 'せ ', 'そ ', 'た ', 'ち ', 'つ ', 'て ', 'と']
+str.foldw(6):list:padding .. ['あいう', 'えおか', 'きくけ', 'こさし', 'すせそ', 'たちつ', 'てと']
+str.foldw(7):list:padding .. ['あいう ', 'えおか ', 'きくけ ', 'こさし ', 'すせそ ', 'たちつ ', 'てと']
+str.foldw(3):list .. ['西', '暦2', '014', '年']
+str.foldw(3):list:padding .. ['西 ', '暦2', '014', '年']

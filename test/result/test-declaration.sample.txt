@@ -737,6 +737,7 @@ string
   string#escapehtml():[quote]
   string#find(sub:string, pos:number => 0):map:[icase,rev]
   string#fold(len:number, step?:number):[neat] {block?}
+  string#foldw(width:number):[padding] {block?}
   string#format(values*):map
   string#isempty()
   string#left(len?:number):map

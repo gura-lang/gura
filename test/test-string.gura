@@ -54,7 +54,7 @@ testcase {
 	println(textUpper.lower())
 	println(textLower.lower())
 }
-testcase {
+testcase('string#fold()') {
 	str = (0..9).join() * 10
 	tester(`str.fold(10):list)
 	tester(`str.fold(10, 5):list)
@@ -66,7 +66,7 @@ testcase {
 	tester(`'x &lt; 0 &amp; y &gt; 1'.unescapehtml());
 	tester(`'&quot;hello world&quot;'.unescapehtml());
 }
-testcase {
+testcase('string#align()') {
 	str = 'hello world'
 	tester(`str.align(16):center)
 	tester(`str.align(16):left)
@@ -75,7 +75,7 @@ testcase {
 	tester(`str.align(16, '*'):left)
 	tester(`str.align(16, '*'):right)
 }
-testcase {
+testcase('string#strip()') {
 	str = ''
 	tester(`format('[%s]', str.strip():both))
 	tester(`format('[%s]', str.strip():left))
@@ -436,4 +436,31 @@ testcase('concatenation') {
 	uvwxy""" R"""
 	z"""
 	println(str)
+}
+testcase('string#foldw()') {
+	str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+	tester(`str.foldw(1):list)
+	tester(`str.foldw(2):list)
+	tester(`str.foldw(3):list)
+	tester(`str.foldw(6):list)
+	tester(`str.foldw(7):list)
+	tester(`str.foldw(1):list:padding)
+	tester(`str.foldw(2):list:padding)
+	tester(`str.foldw(3):list:padding)
+	tester(`str.foldw(6):list:padding)
+	tester(`str.foldw(7):list:padding)
+	str = 'あいうえおかきくけこさしすせそたちつてと'
+	tester(`str.foldw(1):list)
+	tester(`str.foldw(2):list)
+	tester(`str.foldw(3):list)
+	tester(`str.foldw(6):list)
+	tester(`str.foldw(7):list)
+	tester(`str.foldw(1):list:padding)
+	tester(`str.foldw(2):list:padding)
+	tester(`str.foldw(3):list:padding)
+	tester(`str.foldw(6):list:padding)
+	tester(`str.foldw(7):list:padding)
+	str = '西暦2014年'
+	tester(`str.foldw(3):list)
+	tester(`str.foldw(3):list:padding)
 }

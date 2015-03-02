@@ -1088,17 +1088,15 @@ bool Class_string::IteratorFoldw::DoNext(Environment &env, Signal sig, Value &va
 		width += (widthProp == Codec::WIDTHPROP_A ||
 				  widthProp == Codec::WIDTHPROP_W ||
 				  widthProp == Codec::WIDTHPROP_F)? 2 : 1;
-		if (width < _widthPerFold) {
-			_pCur = pNext;
-		} else if (width == _widthPerFold) {
-			_pCur = pNext;
-			break;
-		} else {
+		if (width > _widthPerFold) {
 			String str(pHead, _pCur);
 			if (_paddingFlag) str += ' ';
 			value = Value(str);
+			if (pHead == _pCur) _pCur = pNext;
 			return true;
 		}
+		_pCur = pNext;
+		if (width == _widthPerFold) break;
 	}
 	value = Value(String(pHead, _pCur));
 	return true;
