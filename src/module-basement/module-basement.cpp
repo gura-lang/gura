@@ -1878,26 +1878,6 @@ Gura_ImplementFunction(dirtype)
 	return result;
 }
 
-// help(func:function, lang?:symbol):map:void
-Gura_DeclareFunction(help)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "func", VTYPE_function);
-	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Prints a help message for the specified function object.");
-}
-
-Gura_ImplementFunction(help)
-{
-	const Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
-	const Symbol *pSymbol = args.Is_symbol(1)? args.GetSymbol(1) : env.GetLangCode();
-	HelpPresenter::Present(env, sig, pFunc->ToString().c_str(),
-						   pFunc->GetHelp(pSymbol, true));
-	return Value::Null;
-}
-
 // Module entry
 Gura_ModuleEntry()
 {
@@ -2004,7 +1984,6 @@ Gura_ModuleEntry()
 	// help information
 	Gura_AssignFunction(dir);
 	Gura_AssignFunction(dirtype);
-	Gura_AssignFunction(help);
 	return true;
 }
 

@@ -441,6 +441,19 @@ Gura_ImplementMethod(function, mathdiff)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of operator
+//-----------------------------------------------------------------------------
+// operator ~
+Gura_ImplementUnaryOperator(Inv, function)
+{
+	const Function *pFunc = Object_function::GetObject(value)->GetFunction();
+	const Symbol *pSymbol = env.GetLangCode();
+	HelpPresenter::Present(env, sig, pFunc->ToString().c_str(),
+						   pFunc->GetHelp(pSymbol, true));
+	return Value::Null;
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
 Class_function::Class_function(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_function)
@@ -460,6 +473,7 @@ void Class_function::Prepare(Environment &env)
 	Gura_AssignMethod(function, getname);
 	Gura_AssignMethod(function, getsymbol);
 	Gura_AssignMethod(function, mathdiff);
+	Gura_AssignUnaryOperator(Inv, function);
 }
 
 bool Class_function::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

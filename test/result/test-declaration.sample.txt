@@ -108,7 +108,6 @@ fs:module = <module:fs:<integrated>>
   fs.rename(src:string, dst:string):map:void
   fs.rmdir(pathname:string):map:void:[tree]
 function(`args*) {block}
-help(func:function, lang?:symbol):map:void
 hex(num:number, digits?:number):map:[upper]
 if (`cond):leader {block}
 image(args+):map {block?}

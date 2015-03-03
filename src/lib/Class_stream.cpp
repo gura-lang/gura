@@ -778,6 +778,9 @@ Gura_ImplementMethod(stream, write)
 	return args.GetThis();
 }
 
+//-----------------------------------------------------------------------------
+// Implementation of operator
+//-----------------------------------------------------------------------------
 // operator <<
 Gura_ImplementBinaryOperator(Shl, stream, any)
 {

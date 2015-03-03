@@ -34,7 +34,7 @@ func(a, b, c, d, e%, f*) = {}
 
 + [`complex, `number, `rational, `array@char, `array@uchar, `array@short, `array@ushort, `array@long, `array@ulong, `array@int, `array@uint, `array@float, `array@double, `matrix, `timedelta]
 - [`complex, `number, `rational, `array@char, `array@uchar, `array@short, `array@ushort, `array@long, `array@ulong, `array@int, `array@uint, `array@float, `array@double, `matrix, `timedelta]
-~ [`number]
+~ [`number, `function]
 ! [`any]
 .. [`number]
 + [[`complex, `complex], [`number, `complex], [`complex, `number], [`number, `number], [`rational, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`array@float, `number], [`array@double, `number], [`pointer, `number], [`number, `rational], [`rational, `rational], [`string, `string], [`any, `string], [`binary, `string], [`string, `any], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint], [`number, `array@float], [`array@float, `array@float], [`number, `array@double], [`array@double, `array@double], [`string, `binary], [`binary, `binary], [`timedelta, `datetime], [`matrix, `matrix], [`datetime, `timedelta], [`timedelta, `timedelta]]
