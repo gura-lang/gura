@@ -298,7 +298,7 @@ Renderer@rtf = class {
 }
 
 Renderer@console = class {
-	__init__() = {
+	__init__(colorFlag:boolean => true) = {
 		[this.wdScreen, this.htScreen] = conio.getwinsize()
 		if (this.wdScreen == 0) {
 			this.wdScreen = 80
@@ -308,6 +308,11 @@ Renderer@console = class {
 			this.htScreen = 25
 		}
 		this.indexStack = []
+		if (colorFlag) {
+			this.setcolor = conio.setcolor
+		} else {
+			this.setcolor(color:color) {block} = block()
+		}
 	}
 	Render(doc:document):void = {
 		this.RenderItem(doc.root)
@@ -317,37 +322,37 @@ Renderer@console = class {
 			this.RenderItem(item.children)
 		} elsif (item.type == `h1) {
 			println()
-			conio.setcolor(`green) {
+			this.setcolor(`green) {
 				this.RenderItem(item.children)
 			}
 			println()
 		} elsif (item.type == `h2) {
 			println()
-			conio.setcolor(`green) {
+			this.setcolor(`green) {
 				this.RenderItem(item.children)
 			}
 			println()
 		} elsif (item.type == `h3) {
 			println()
-			conio.setcolor(`green) {
+			this.setcolor(`green) {
 				this.RenderItem(item.children)
 			}
 			println()
 		} elsif (item.type == `h4) {
 			println()
-			conio.setcolor(`green) {
+			this.setcolor(`green) {
 				this.RenderItem(item.children)
 			}
 			println()
 		} elsif (item.type == `h5) {
 			println()
-			conio.setcolor(`green) {
+			this.setcolor(`green) {
 				this.RenderItem(item.children)
 			}
 			println()
 		} elsif (item.type == `h6) {
 			println()
-			conio.setcolor(`green) {
+			this.setcolor(`green) {
 				this.RenderItem(item.children)
 			}
 			println()
@@ -360,16 +365,16 @@ Renderer@console = class {
 			this.RenderItem(item.children)
 			println()
 		} elsif (item.type == `em) {
-			conio.setcolor(`red) {
+			this.setcolor(`red) {
 				this.RenderItem(item.children)
 			}
 		} elsif (item.type == `strong) {
-			conio.setcolor(`red) {
+			this.setcolor(`red) {
 				this.RenderItem(item.children)
 			}
 		} elsif (item.type == `codeblock) {
 			println()
-			conio.setcolor(`blue) {
+			this.setcolor(`blue) {
 				this.RenderItem(item.children)
 			}
 		} elsif (item.type == `ol) {
@@ -404,11 +409,11 @@ Renderer@console = class {
 		} elsif (item.type == `text) {
 			print(item.text)
 		} elsif (item.type == `code) {
-			conio.setcolor(`blue) {
+			this.setcolor(`blue) {
 				print(item.text)
 			}
 		} elsif (item.type == `entity) {
-			conio.setcolor(`black, `white) {
+			this.setcolor(`black, `white) {
 				print(item.text.escapehtml())
 			}
 		} elsif (item.type == `tag) {
@@ -637,8 +642,8 @@ classref(`document).render@rtf(out?:stream:w) = {
 	Renderer@rtf(out).Render(this)
 }
 
-classref(`document).render@console() = {
-	Renderer@console().Render(this)
+classref(`document).render@console(colorFlag:boolean => true) = {
+	Renderer@console(colorFlag).Render(this)
 }
 
 classref(`document).render@toc() {block} = {
