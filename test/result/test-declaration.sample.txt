@@ -724,7 +724,7 @@ stream
   stream#write(buff:binary, len?:number):reduce
   stream#writer@base64(linelen:number:nil => 76) {block?}
 string
-  string#align(len:number, padding:string => ' '):map:[center,left,right]
+  string#align(width:number, padding:string => ' '):map:[center,left,right]
   string.binary()
   string#capitalize()
   string#chop(suffix*:string):[eol,icase]

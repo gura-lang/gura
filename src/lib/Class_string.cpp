@@ -15,30 +15,38 @@ Gura_ImplementSuffixMgrForString($)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// string#align(len:number, padding:string => ' '):map:[center,left,right]
+// string#align(width:number, padding:string => ' '):map:[center,left,right]
 Gura_DeclareMethod(string, align)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "len", VTYPE_number);
+	DeclareArg(env, "width", VTYPE_number);
 	DeclareArg(env, "padding", VTYPE_string, OCCUR_Once, FLAG_None, new Expr_Value(Value(" ")));
 	DeclareAttr(Gura_Symbol(center));
 	DeclareAttr(Gura_Symbol(left));
 	DeclareAttr(Gura_Symbol(right));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a string aligned to left, right or center within a specified length.\n"
+		"Align the string to the left, right or center within the specified `width`\n"
+		"and returns the result.\n"
 		"\n"
-		"- `:center` .. Aligns to center. This is the default.\n"
-		"- `:left` .. Aligns to left\n"
-		"- `:right` .. Aligns to right\n"
+		"The following attributes specify the alignment position:\n"
+		"\n"
+		"- `:center` .. Aligns to the center. This is the default.\n"
+		"- `:left` .. Aligns to the left\n"
+		"- `:right` .. Aligns to the right\n"
+		"\n"
+		"If the string width is narrower than the specified `width`, nothing would be done.\n"
 		"\n"
 		"It uses a string specified by the argument `padding` to fill lacking spaces.\n"
-		"If omitted, a white space is used for padding.\n");
+		"If omitted, a white space is used for padding.\n"
+		"\n"
+		"This method takes into account the character width based on the specification\n"
+		"of East Asian Width. A kanji-character occupies two characters in width.\n");
 }
 
 Gura_ImplementMethod(string, align)
 {
-	size_t len = args.GetSizeT(0);
+	size_t width = args.GetSizeT(0);
 	const char *padding = args.GetString(1);
 	if (Length(padding) != 1) {
 		sig.SetError(ERR_ValueError, "padding must consist of a single character");
@@ -46,11 +54,11 @@ Gura_ImplementMethod(string, align)
 	}
 	String str;
 	if (args.IsSet(Gura_Symbol(right))) {
-		str = RJust(args.GetThis().GetString(), len, padding);
+		str = RJust(args.GetThis().GetString(), width, padding);
 	} else if (args.IsSet(Gura_Symbol(left))) {
-		str = LJust(args.GetThis().GetString(), len, padding);
+		str = LJust(args.GetThis().GetString(), width, padding);
 	} else {
-		str = Center(args.GetThis().GetString(), len, padding);
+		str = Center(args.GetThis().GetString(), width, padding);
 	}
 	return Value(str);
 }
@@ -191,7 +199,7 @@ Gura_DeclareMethodPrimitive(string, encode)
 	DeclareArg(env, "codec", VTYPE_codec);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Encodes the string with the given `codec` and return the result as a `binary`.\n");
 }
 
 Gura_ImplementMethod(string, encode)
@@ -335,6 +343,9 @@ Gura_DeclareMethod(string, foldw)
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Creates an iterator that folds the source string by the specified width.\n"
 		"\n"
+		"This method takes into account the character width based on the specification\n"
+		"of East Asian Width.\n"
+		"\n"
 		GURA_ITERATOR_HELP
 		"\n"
 		"Block parameter format: `|sub:string, idx:number|`");
@@ -355,9 +366,9 @@ Gura_DeclareMethod(string, format)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Parses the content of the string object as a format specifier similar to\n"
-		"C language's printf and returns a formatted string of argument values.");
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Taking the string instance as a printf-styled formatter string,\n"
+		"it converts `values` into a string depending on formatter specifiers in it.\n");
 }
 
 Gura_ImplementMethod(string, format)
@@ -386,7 +397,9 @@ Gura_DeclareMethod(string, left)
 	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a copy of the string in len characters from its left side.");
+		"Extracts the specified length of string from left of the source string.\n"
+		"\n"
+		"If the argument is omitted, it would return whole the source string.\n");
 }
 
 Gura_ImplementMethod(string, left)
@@ -415,7 +428,7 @@ Gura_DeclareMethod(string, lower)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a string of lowercase characters of the original one");
+		"Converts upper-case to lower-case characters.\n");
 }
 
 Gura_ImplementMethod(string, lower)
@@ -431,9 +444,10 @@ Gura_DeclareMethod(string, mid)
 	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a copy of part of the string in len characters starting from pos.\n"
-		"If an argument len is omitted, it returns a string from pos to its end.\n"
-		"Number of an argument `pos` starts from zero.\n"
+		"Extracts the specified length of string from the position `pos` and returns the result.\n"
+		"\n"
+		"If an argument `len` is omitted, it returns a string from `pos` to the end.\n"
+		"The number of an argument `pos` starts from zero.\n"
 		"\n"
 		"Below are examples:\n"
 		"\n"
@@ -454,7 +468,9 @@ Gura_DeclareMethodPrimitive(string, print)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Prints out the string to the specified `stream`.\n"
+		"\n"
+		"If the argument is omitted, it would print to the standard output.\n");
 }
 
 Gura_ImplementMethod(string, print)
@@ -472,7 +488,9 @@ Gura_DeclareMethodPrimitive(string, println)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Prints out the string and a line-break to the specified `stream`.\n"
+		"\n"
+		"If the argument is omitted, it would print to the standard output.\n");
 }
 
 Gura_ImplementMethod(string, println)
@@ -490,7 +508,11 @@ Gura_DeclareMethod(string, reader)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a `stream` instance that reads the string content as a binary sequence.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|s:stream|`,\n"
+		"where `s` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementMethod(string, reader)
@@ -510,12 +532,12 @@ Gura_DeclareMethod(string, replace)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a string that substitutes sub strings in the string with replace.\n"
+		"Replaces string parts that match `sub` with `replace` and returns the result.\n"
 		"\n"
-		"The argument `count` limits the maximum number of substitution\n"
-		"and there's no limit if it's omitted.\n"
+		"The argument `count` limits the maximum number of substitution.\n"
+		"If omitted, there's no limit of the work.\n"
 		"\n"
-		"With an attribute `:icase`, case of characgters are ignored while finding.");
+		"With an attribute `:icase`, character cases are ignored while matching strings.");
 }
 
 Gura_ImplementMethod(string, replace)
@@ -538,7 +560,9 @@ Gura_DeclareMethod(string, right)
 	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a copy of the string in `len` characters from its right side");
+		"Extracts the specified length of string from right of the source string.\n"
+		"\n"
+		"If the argument is omitted, it would return whole the source string.\n");
 }
 
 Gura_ImplementMethod(string, right)
@@ -619,10 +643,10 @@ Gura_DeclareMethod(string, strip)
 	DeclareAttr(Gura_Symbol(right));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a string that removes space characters on left, right or both\n"
+		"Returns a string that removes space characters on the left, the right or the both sides\n"
 		"of the original string.\n"
 		"\n"
-		"The following attributes would customize the process:\n"
+		"The following attributes would specify which side of spaces should be removed:\n"
 		"\n"
 		"- `:both` .. Removes spaces on both sides. This is the default.\n"
 		"- `:left` .. Removes spaces on the left side.\n"
@@ -665,7 +689,7 @@ Gura_DeclareMethod(string, tosymbol)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Convers the string into a symbol.\n");
 }
 
 Gura_ImplementMethod(string, tosymbol)
@@ -680,8 +704,13 @@ Gura_DeclareClassMethod(string, translator)
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Register a string translator that is evaluated\n"
-		"when a string literal is suffixed by a dollar symbol.");
+		"Register a procedure evaluated when a string literal\n"
+		"appears with a suffix symbol \"`$`\",\n"
+		"which is meant to translate the string into another language.\n"
+		"\n"
+		"The procedure is described in `block` takes a block parameter `|str:string|`\n"
+		"where `str` is the original string, and is expected to return a string\n"
+		"translated from the original.\n");
 }
 
 Gura_ImplementClassMethod(string, translator)
@@ -716,7 +745,7 @@ Gura_DeclareMethod(string, upper)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a string of uppercase characters of the original one");
+		"Converts lower-case to upper-case characters.\n");
 }
 
 Gura_ImplementMethod(string, upper)
@@ -731,7 +760,9 @@ Gura_DeclareMethod(string, width)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns the width of the string.\n"
-		"This takes into account the character width based on the specification of East Asian Width.");
+		"\n"
+		"This method takes into account the character width based on the specification\n"
+		"of East Asian Width. A kanji-character occupies two characters in width.\n");
 }
 
 Gura_ImplementMethod(string, width)

@@ -856,37 +856,37 @@ String::const_iterator Forward(String::const_iterator str,
 	return str;
 }
 
-String Center(const char *str, size_t len, const char *padding)
+String Center(const char *str, size_t width, const char *padding)
 {
-	size_t lenBody = Width(str);
-	if (len <= lenBody) return String(str);
+	size_t widthBody = Width(str);
+	if (width <= widthBody) return String(str);
 	String rtn;
-	size_t lenRight = (len - lenBody) / 2;
-	size_t lenLeft = len - lenBody - lenRight;
-	while (lenLeft-- > 0) rtn += padding;
+	size_t widthRight = (width - widthBody) / 2;
+	size_t widthLeft = width - widthBody - widthRight;
+	while (widthLeft-- > 0) rtn += padding;
 	rtn += str;
-	while (lenRight-- > 0) rtn += padding;
+	while (widthRight-- > 0) rtn += padding;
 	return rtn;
 }
 
-String LJust(const char *str, size_t len, const char *padding)
+String LJust(const char *str, size_t width, const char *padding)
 {
-	size_t lenBody = Width(str);
-	if (len <= lenBody) return String(str);
+	size_t widthBody = Width(str);
+	if (width <= widthBody) return String(str);
 	String rtn;
-	size_t lenRight = len - lenBody;
+	size_t widthRight = width - widthBody;
 	rtn += str;
-	while (lenRight-- > 0) rtn += padding;
+	while (widthRight-- > 0) rtn += padding;
 	return rtn;
 }
 
-String RJust(const char *str, size_t len, const char *padding)
+String RJust(const char *str, size_t width, const char *padding)
 {
-	size_t lenBody = Width(str);
-	if (len <= lenBody) return String(str);
+	size_t widthBody = Width(str);
+	if (width <= widthBody) return String(str);
 	String rtn;
-	size_t lenLeft = len - lenBody;
-	while (lenLeft-- > 0) rtn += padding;
+	size_t widthLeft = width - widthBody;
+	while (widthLeft-- > 0) rtn += padding;
 	rtn += str;
 	return rtn;
 }

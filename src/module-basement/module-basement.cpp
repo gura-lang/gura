@@ -70,10 +70,10 @@ Gura_DeclareFunction(printf)
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Prints out `values` to standard output depending on formatter specifications in `format`.\n"
+		"Prints out `values` to standard output depending on formatter specifiers in `format`.\n"
 		"The format specifier has a format of `%[flags][width][.precision]specifier`.\n"
 		"\n"
-		"`specifier` is one of the following:\n"
+		"The `specifier` takes one of the following characters:\n"
 		"\n"
 		"- `d`, `i` .. decimal integer number with a sign mark\n"
 		"- `u` .. decimal integer number wihout a sign mark\n"
@@ -90,22 +90,27 @@ Gura_DeclareFunction(printf)
 		"- `s` .. string\n"
 		"- `c` .. character\n"
 		"\n"
-		"`flags` is one of the following.\n"
+		"The `flags` takes one of the following characters.\n"
 		"\n"
-		"- `+` .. `+` precedes for positive numbers\n"
-		"- `-` .. adjust a string to left\n"
-		"- `[SPC]` .. space character precedes for positive numbers\n"
-		"- `#` .. converted results of binary, octdecimal and hexadecimal are preceded by `'0b'`, `'0'` and `'0x'` respectively\n"
-		"- `0` .. fill lacking columns with `'0'`\n"
+		"- `+` .. Appends a character \"`+`\" before a positive number.\n"
+		"- `-` .. Adjust a string to left.\n"
+		"- `[SPC]` .. Appends a space character before a positive number.\n"
+		"- `#` .. Appends a prefix before a numbers \"`0b`\" for a binary,\n"
+		"         \"`0`\" for an octal and \"`0x`\" for a hexadecimal number.\n"
+		"- `0` .. Fills lacking columns with \"`0`\" instead of space characters.`\n"
 		"\n"
-		"`width` specifies a minimum character width with a decimal number.\n"
-		"If the length of the corresponding field is less than this number,\n"
-		"the lacking part will be filled with space characters.\n"
-		"If the length is equal to or more than this number, there's nothing to be processed.\n"
+		"The `width` is a decimal number that specifies a minimum character.\n"
+		"If the width of the corresponding field is less than this number,\n"
+		"the lacking part will be filled with space characters or \"`0`\".\n"
+		"If the width is equal to or more than this number, there's nothing to be processed.\n"
 		"If an asterisk character \"`*`\" is specified for `width`,\n"
 		"the minimum character width will be retrieved from the argument list.\n"
 		"\n"
-		"`precision` has different effects depending on `specifier`:\n"
+		"The `width` it a character width that appears on a console,\n"
+		"and it takes into account each character width based on the specification\n"
+		"of East Asian Width. This means that a kanji-character occupies two characters in width.\n"
+		"\n"
+		"The `precision` is a decimal number and has different effects depending on `specifier`:\n"
 		"\n"
 		"- For specifiers that formats integer numbers .. it specifies a minimum character width\n"
 		"  and fills `0` for the lacking column.\n"
@@ -140,7 +145,7 @@ Gura_DeclareFunction(println)
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Prints out `values` and a carriage return to standard output.\n");
+		"Prints out `values` and a line-break to the standard output.\n");
 }
 
 Gura_ImplementFunction(println)

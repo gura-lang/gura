@@ -307,10 +307,10 @@ Prints out <code>values</code> to standard output.
 <code>printf(format:string, values*):map:void</code>
 </p>
 <p>
-Prints out <code>values</code> to standard output depending on formatter specifications in <code>format</code>. The format specifier has a format of <code>%[flags][width][.precision]specifier</code>.
+Prints out <code>values</code> to standard output depending on formatter specifiers in <code>format</code>. The format specifier has a format of <code>%[flags][width][.precision]specifier</code>.
 </p>
 <p>
-<code>specifier</code> is one of the following:
+The <code>specifier</code> takes one of the following characters:
 </p>
 <ul>
 <li><code>d</code>, <code>i</code> .. decimal integer number with a sign mark</li>
@@ -329,20 +329,23 @@ Prints out <code>values</code> to standard output depending on formatter specifi
 <li><code>c</code> .. character</li>
 </ul>
 <p>
-<code>flags</code> is one of the following.
+The <code>flags</code> takes one of the following characters.
 </p>
 <ul>
-<li><code>+</code> .. <code>+</code> precedes for positive numbers</li>
-<li><code>-</code> .. adjust a string to left</li>
-<li><code>[SPC]</code> .. space character precedes for positive numbers</li>
-<li><code>#</code> .. converted results of binary, octdecimal and hexadecimal are preceded by <code>'0b'</code>, <code>'0'</code> and <code>'0x'</code> respectively</li>
-<li><code>0</code> .. fill lacking columns with <code>'0'</code></li>
+<li><code>+</code> .. Appends a character "<code>+</code>" before a positive number.</li>
+<li><code>-</code> .. Adjust a string to left.</li>
+<li><code>[SPC]</code> .. Appends a space character before a positive number.</li>
+<li><code>#</code> .. Appends a prefix before a numbers "<code>0b</code>" for a binary, "<code>0</code>" for an octal and "<code>0x</code>" for a hexadecimal number.</li>
+<li><code>0</code> .. Fills lacking columns with "<code>0</code>" instead of space characters.</li>
 </ul>
 <p>
-<code>width</code> specifies a minimum character width with a decimal number. If the length of the corresponding field is less than this number, the lacking part will be filled with space characters. If the length is equal to or more than this number, there's nothing to be processed. If an asterisk character "<code>*</code>" is specified for <code>width</code>, the minimum character width will be retrieved from the argument list.
+The <code>width</code> is a decimal number that specifies a minimum character. If the width of the corresponding field is less than this number, the lacking part will be filled with space characters or "<code>0</code>". If the width is equal to or more than this number, there's nothing to be processed. If an asterisk character "<code>*</code>" is specified for <code>width</code>, the minimum character width will be retrieved from the argument list.
 </p>
 <p>
-<code>precision</code> has different effects depending on <code>specifier</code>:
+The <code>width</code> it a character width that appears on a console, and it takes into account each character width based on the specification of East Asian Width. This means that a kanji-character occupies two characters in width.
+</p>
+<p>
+The <code>precision</code> is a decimal number and has different effects depending on <code>specifier</code>:
 </p>
 <ul>
 <li><p>
@@ -367,7 +370,7 @@ printf('%.5f', 1 / 3) .. prints "0.33333"
 <code>println(values*):map:void</code>
 </p>
 <p>
-Prints out <code>values</code> and a carriage return to standard output.
+Prints out <code>values</code> and a line-break to the standard output.
 </p>
 <h2><span class="caption-index-2">4.2</span><a name="caption-4-2"></a>Repetition</h2>
 <p>
@@ -2356,6 +2359,61 @@ Returns the length of the buffer in binary.
 </p>
 <p>
 <code>binary.pack(format:string, value*):static:map {block?}</code>
+</p>
+<p>
+Creates a <code>binary</code> instance that has packed <code>values</code> in the argument list according to specifiers in the <code>format</code>.
+</p>
+<p>
+A specifier has a format of "<code>nX</code>" where <code>X</code> is a format character that represents a packing format and <code>n</code> is a number of packing size. The number can be omitted, and it would be treated as <code>1</code> in that case.
+</p>
+<p>
+Following format characters would take a <code>number</code> value from the argument list and pack them into a binary sequence.
+</p>
+<ul>
+<li><code>b</code> .. A one-byte signed number.</li>
+<li><code>B</code> .. A one-byte unsigned number.</li>
+<li><code>h</code> .. A two-byte signed number.</li>
+<li><code>H</code> .. A two-byte unsigned number.</li>
+<li><code>i</code> .. A four-byte signed number.</li>
+<li><code>I</code> .. A four-byte unsigned number.</li>
+<li><code>l</code> .. A four-byte signed number.</li>
+<li><code>L</code> .. A four-byte unsigned number.</li>
+<li><code>q</code> .. A eight-byte signed number.</li>
+<li><code>Q</code> .. A eight-byte unsigned number.</li>
+<li><code>f</code> .. A float-typed number occupying four bytes.</li>
+<li><code>d</code> .. A double-typed number occupying eight bytes.</li>
+</ul>
+<p>
+As for them, the packing size <code>n</code> means the number of values to be packed. Below is an example to pack four <code>number</code> values as two-byte unsigned numbers into a binary:
+</p>
+<p>
+Following format characters would take a <code>string</code> value from the argument list and pack them into a binary sequence.
+</p>
+<ul>
+<li><code>s</code> .. Packs a sequence of UTF-8 codes in the string. The packing size <code>n</code> means the size of the room in bytes where the character codes are to be packed. Only the sequence within the allocated room would be packed. If the string length is smaller than the room, the lacking part would be filled with zero.</li>
+<li><code>c</code> .. Picks the first byte of the string and packs it as a one-byte unsigned number. The packing size <code>n</code> means the number of values to be packed.</li>
+</ul>
+<p>
+Following format character would take no value from the argument list.
+</p>
+<ul>
+<li><code>x</code> .. Fills the binary with zero. The packing size <code>n</code> means the size of the room in bytes to be filled with zero.</li>
+</ul>
+<p>
+The default byte-order for numbers of two-byte, four-byte and eight-byte depends on the system the interpreter is currently running. You can change it by the following specifiers:
+</p>
+<ul>
+<li><code>@</code> .. System-dependent order.</li>
+<li><code>=</code> .. System-dependent order.</li>
+<li><code>&lt;</code> .. Little endian</li>
+<li><code>&gt;</code> .. Big endian</li>
+<li><code>!</code> .. Big endian</li>
+</ul>
+<p>
+You can specify an asterisk character "<code>*</code>" for the number of packing size that picks that number from the argument list.
+</p>
+<p>
+You can specify encoding name embraced with "<code>{</code>" and "<code>}</code>" in the format to change coding character set while packing a string with format character "<code>s</code>" from UTF-8.
 </p>
 <p>
 <strong>binary#pointer</strong>
@@ -6087,10 +6145,7 @@ x = range(3, 10, 2)
 <code>iterator#delay(delay:number) {block?}</code>
 </p>
 <p>
-Returns an iterator that returns each element with specified delay time between them.
-</p>
-<p>
-The argument <code>delay</code> is the delay time in seconds.
+Returns an iterator that returns each element with an interval time specified by the argument <code>delay</code> in seconds.
 </p>
 <p>
 <strong>iterator#isinfinite</strong>
@@ -6102,13 +6157,16 @@ The argument <code>delay</code> is the delay time in seconds.
 Returns <code>true</code> if the iterator is infinite one.
 </p>
 <p>
+The trait of iterator's infinity is used to avoid an endless process by evaluating an infinite iterator. An attempt to evaluate an infinite iterator such as creation of a list from it would occur an error.
+</p>
+<p>
 <strong>iterator#next</strong>
 </p>
 <p>
 <code>iterator#next()</code>
 </p>
 <p>
-Returns a next element of the iterator.
+Returns a next element of the iterator. This operation updates the iterator's internal status.
 </p>
 <p>
 <strong>iterator#repeater</strong>
@@ -6463,7 +6521,10 @@ Block parameter format is <code>|str:string, idx:number|</code> where <code>str<
 <code>iterator#join(sep?:string):map</code>
 </p>
 <p>
-Returns a string that joins strings of elements with the specified separator.
+Joins all the elements in the iterable as strings while inserting the specified separator <code>sep</code> and returns the result.
+</p>
+<p>
+If an element is not a <code>string</code> value, it would be converted to a <code>string</code> before being joined.
 </p>
 <p>
 <strong>iterator#joinb</strong>
@@ -6472,7 +6533,7 @@ Returns a string that joins strings of elements with the specified separator.
 <code>iterator#joinb()</code>
 </p>
 <p>
-Returns a joined binary.
+Joins all the <code>binary</code> values in the iterable and returns the result.
 </p>
 <p>
 <strong>iterator#len</strong>
@@ -6560,6 +6621,27 @@ Returns an iterator that converts <code>nil</code> in the source iterable to the
 <code>iterator#offset(n:number) {block?}</code>
 </p>
 <p>
+Creates an iterator that returns skips the first <code>n</code> elements in the source iterable.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format is <code>|value, idx:number|</code>
+</p>
+<p>
 <strong>iterator#or</strong>
 </p>
 <p>
@@ -6575,46 +6657,97 @@ Calculates a logical OR result of all the values in the iterable.
 <code>iterator#pack(format:string) {block?}</code>
 </p>
 <p>
-Returns a binary object packing elements values according to a format string. Following markers specify the order of how a multi-byte number is stored.
+Creates a <code>binary</code> instance that has packed elements in the iterable according to specifiers in the <code>format</code>.
+</p>
+<p>
+A specifier has a format of "<code>nX</code>" where <code>X</code> is a format character that represents a packing format and <code>n</code> is a number of packing size. The number can be omitted, and it would be treated as <code>1</code> in that case.
+</p>
+<p>
+Following format characters would take a <code>number</code> value from the argument list and pack them into a binary sequence.
 </p>
 <ul>
-<li><code>@</code> .. sets as a native order for the current platform</li>
-<li><code>=</code> .. sets as a native order for the current platform</li>
-<li><code>&lt;</code> .. sets as a little-endian order</li>
-<li><code>&gt;</code> .. sets as a big-endian order</li>
-<li><code>!</code> .. sets as a big-endian order</li>
+<li><code>b</code> .. A one-byte signed number.</li>
+<li><code>B</code> .. A one-byte unsigned number.</li>
+<li><code>h</code> .. A two-byte signed number.</li>
+<li><code>H</code> .. A two-byte unsigned number.</li>
+<li><code>i</code> .. A four-byte signed number.</li>
+<li><code>I</code> .. A four-byte unsigned number.</li>
+<li><code>l</code> .. A four-byte signed number.</li>
+<li><code>L</code> .. A four-byte unsigned number.</li>
+<li><code>q</code> .. A eight-byte signed number.</li>
+<li><code>Q</code> .. A eight-byte unsigned number.</li>
+<li><code>f</code> .. A float-typed number occupying four bytes.</li>
+<li><code>d</code> .. A double-typed number occupying eight bytes.</li>
 </ul>
 <p>
-Following markers specify a storing format. They can be preceded by a number that specifies the number of values.
+As for them, the packing size <code>n</code> means the number of values to be packed.
+</p>
+<p>
+Following format characters would take a <code>string</code> value from the argument list and pack them into a binary sequence.
 </p>
 <ul>
-<li><code>x</code> .. just skips one byte</li>
-<li><code>c</code> .. takes a string that contains one character and stores it as a byte value</li>
-<li><code>b</code> .. stores a number as a signed byte value</li>
-<li><code>B</code> .. stores a number as an unsigned byte value</li>
-<li><code>h</code> .. stores a number as a signed half-word (2 bytes) value</li>
-<li><code>H</code> .. stores a number as an unsigned half-word (2 bytes) value</li>
-<li><code>i</code> .. stores a number as a signed integer (4 bytes) value</li>
-<li><code>I</code> .. stores a number as an unsigned integer (4 bytes) value</li>
-<li><code>l</code> .. stores a number as a signed integer (4 bytes) value</li>
-<li><code>L</code> .. stores a number as an unsigned integer (4 bytes) value</li>
-<li><code>q</code> .. stores a number as a signed long integer (8 bytes) value</li>
-<li><code>Q</code> .. stores a number as an unsigned long integer (8 bytes) value</li>
-<li><code>f</code> .. stores a number as a float (4 bytes) value</li>
-<li><code>d</code> .. stores a number as a double (8 bytes) value</li>
-<li><code>s</code> .. stores a string after character encoding</li>
+<li><code>s</code> .. Packs a sequence of UTF-8 codes in the string. The packing size <code>n</code> means the size of the room in bytes where the character codes are to be packed. Only the sequence within the allocated room would be packed. If the string length is smaller than the room, the lacking part would be filled with zero.</li>
+<li><code>c</code> .. Picks the first byte of the string and packs it as a one-byte unsigned number. The packing size <code>n</code> means the number of values to be packed.</li>
 </ul>
+<p>
+Following format character would take no value from the argument list.
+</p>
+<ul>
+<li><code>x</code> .. Fills the binary with zero. The packing size <code>n</code> means the size of the room in bytes to be filled with zero.</li>
+</ul>
+<p>
+The default byte-order for numbers of two-byte, four-byte and eight-byte depends on the system the interpreter is currently running. You can change it by the following specifiers:
+</p>
+<ul>
+<li><code>@</code> .. System-dependent order.</li>
+<li><code>=</code> .. System-dependent order.</li>
+<li><code>&lt;</code> .. Little endian</li>
+<li><code>&gt;</code> .. Big endian</li>
+<li><code>!</code> .. Big endian</li>
+</ul>
+<p>
+You can specify an asterisk character "<code>*</code>" for the number of packing size that picks that number from the argument list.
+</p>
+<p>
+You can specify encoding name embraced with "<code>{</code>" and "<code>}</code>" in the format to change coding character set while packing a string with format character "<code>s</code>" from UTF-8.
+</p>
 <p>
 <strong>iterator#pingpong</strong>
 </p>
 <p>
-<code>iterator#pingpong(n?:number):[sticky,sticky_l,sticky_r] {block?}</code>
+<code>iterator#pingpong(n?:number):[sticky,sticky@top,sticky@btm] {block?}</code>
 </p>
+<p>
+Creates an iterator that iterates elements in the source iterator from top to bottom, and then from bottom to top repeatedly.
+</p>
+<p>
+The argument <code>n</code> specifies the number of elements the created iterator returns. If omitted, it would iterates elements infinitely.
+</p>
+<p>
+Below is an example:
+</p>
+<pre><code>x = [`A, `B, `C, `D, `E].pingpong()
+// x generates `A, `B, `C, `D, `E, `D, `C, `B, `A, `B, ..
+</code></pre>
+<p>
+The following attributes specify whether the elements on top and bottom are duplicated:
+</p>
+<ul>
+<li><code>:sticky</code> .. Duplicate the top and bottom elements.</li>
+<li><code>:sticky@top</code> .. Duplicate the top element.</li>
+<li><code>:sticky@btm</code> .. Duplicate the bottom element.</li>
+</ul>
 <p>
 <strong>iterator#print</strong>
 </p>
 <p>
 <code>iterator#print(stream?:stream:w):void</code>
+</p>
+<p>
+Prints elements to the specified <code>stream</code>.
+</p>
+<p>
+If omitted, they are printed to the standard output.
 </p>
 <p>
 <strong>iterator#printf</strong>
@@ -7451,7 +7584,10 @@ Block parameter format is <code>|str:string, idx:number|</code> where <code>str<
 <code>list#join(sep?:string):map</code>
 </p>
 <p>
-Returns a string that joins strings of elements with the specified separator.
+Joins all the elements in the iterable as strings while inserting the specified separator <code>sep</code> and returns the result.
+</p>
+<p>
+If an element is not a <code>string</code> value, it would be converted to a <code>string</code> before being joined.
 </p>
 <p>
 <strong>list#joinb</strong>
@@ -7460,7 +7596,7 @@ Returns a string that joins strings of elements with the specified separator.
 <code>list#joinb()</code>
 </p>
 <p>
-Returns a joined binary.
+Joins all the <code>binary</code> values in the iterable and returns the result.
 </p>
 <p>
 <strong>list#len</strong>
@@ -7548,6 +7684,27 @@ Returns an iterator that converts <code>nil</code> in the source iterable to the
 <code>list#offset(n:number):map {block?}</code>
 </p>
 <p>
+Creates an iterator that returns skips the first <code>n</code> elements in the source iterable.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format is <code>|value, idx:number|</code>
+</p>
+<p>
 <strong>list#or</strong>
 </p>
 <p>
@@ -7563,46 +7720,97 @@ Calculates a logical OR result of all the values in the iterable.
 <code>list#pack(format:string)</code>
 </p>
 <p>
-Returns a binary object packing elements values according to a format string. Following markers specify the order of how a multi-byte number is stored.
+Creates a <code>binary</code> instance that has packed elements in the iterable according to specifiers in the <code>format</code>.
+</p>
+<p>
+A specifier has a format of "<code>nX</code>" where <code>X</code> is a format character that represents a packing format and <code>n</code> is a number of packing size. The number can be omitted, and it would be treated as <code>1</code> in that case.
+</p>
+<p>
+Following format characters would take a <code>number</code> value from the argument list and pack them into a binary sequence.
 </p>
 <ul>
-<li><code>@</code> .. sets as a native order for the current platform</li>
-<li><code>=</code> .. sets as a native order for the current platform</li>
-<li><code>&lt;</code> .. sets as a little-endian order</li>
-<li><code>&gt;</code> .. sets as a big-endian order</li>
-<li><code>!</code> .. sets as a big-endian order</li>
+<li><code>b</code> .. A one-byte signed number.</li>
+<li><code>B</code> .. A one-byte unsigned number.</li>
+<li><code>h</code> .. A two-byte signed number.</li>
+<li><code>H</code> .. A two-byte unsigned number.</li>
+<li><code>i</code> .. A four-byte signed number.</li>
+<li><code>I</code> .. A four-byte unsigned number.</li>
+<li><code>l</code> .. A four-byte signed number.</li>
+<li><code>L</code> .. A four-byte unsigned number.</li>
+<li><code>q</code> .. A eight-byte signed number.</li>
+<li><code>Q</code> .. A eight-byte unsigned number.</li>
+<li><code>f</code> .. A float-typed number occupying four bytes.</li>
+<li><code>d</code> .. A double-typed number occupying eight bytes.</li>
 </ul>
 <p>
-Following markers specify a storing format. They can be preceded by a number that specifies the number of values.
+As for them, the packing size <code>n</code> means the number of values to be packed.
+</p>
+<p>
+Following format characters would take a <code>string</code> value from the argument list and pack them into a binary sequence.
 </p>
 <ul>
-<li><code>x</code> .. just skips one byte</li>
-<li><code>c</code> .. takes a string that contains one character and stores it as a byte value</li>
-<li><code>b</code> .. stores a number as a signed byte value</li>
-<li><code>B</code> .. stores a number as an unsigned byte value</li>
-<li><code>h</code> .. stores a number as a signed half-word (2 bytes) value</li>
-<li><code>H</code> .. stores a number as an unsigned half-word (2 bytes) value</li>
-<li><code>i</code> .. stores a number as a signed integer (4 bytes) value</li>
-<li><code>I</code> .. stores a number as an unsigned integer (4 bytes) value</li>
-<li><code>l</code> .. stores a number as a signed integer (4 bytes) value</li>
-<li><code>L</code> .. stores a number as an unsigned integer (4 bytes) value</li>
-<li><code>q</code> .. stores a number as a signed long integer (8 bytes) value</li>
-<li><code>Q</code> .. stores a number as an unsigned long integer (8 bytes) value</li>
-<li><code>f</code> .. stores a number as a float (4 bytes) value</li>
-<li><code>d</code> .. stores a number as a double (8 bytes) value</li>
-<li><code>s</code> .. stores a string after character encoding</li>
+<li><code>s</code> .. Packs a sequence of UTF-8 codes in the string. The packing size <code>n</code> means the size of the room in bytes where the character codes are to be packed. Only the sequence within the allocated room would be packed. If the string length is smaller than the room, the lacking part would be filled with zero.</li>
+<li><code>c</code> .. Picks the first byte of the string and packs it as a one-byte unsigned number. The packing size <code>n</code> means the number of values to be packed.</li>
 </ul>
+<p>
+Following format character would take no value from the argument list.
+</p>
+<ul>
+<li><code>x</code> .. Fills the binary with zero. The packing size <code>n</code> means the size of the room in bytes to be filled with zero.</li>
+</ul>
+<p>
+The default byte-order for numbers of two-byte, four-byte and eight-byte depends on the system the interpreter is currently running. You can change it by the following specifiers:
+</p>
+<ul>
+<li><code>@</code> .. System-dependent order.</li>
+<li><code>=</code> .. System-dependent order.</li>
+<li><code>&lt;</code> .. Little endian</li>
+<li><code>&gt;</code> .. Big endian</li>
+<li><code>!</code> .. Big endian</li>
+</ul>
+<p>
+You can specify an asterisk character "<code>*</code>" for the number of packing size that picks that number from the argument list.
+</p>
+<p>
+You can specify encoding name embraced with "<code>{</code>" and "<code>}</code>" in the format to change coding character set while packing a string with format character "<code>s</code>" from UTF-8.
+</p>
 <p>
 <strong>list#pingpong</strong>
 </p>
 <p>
-<code>list#pingpong(n?:number):[sticky,sticky_l,sticky_r] {block?}</code>
+<code>list#pingpong(n?:number):[sticky,sticky@top,sticky@btm] {block?}</code>
 </p>
+<p>
+Creates an iterator that iterates elements in the source iterator from top to bottom, and then from bottom to top repeatedly.
+</p>
+<p>
+The argument <code>n</code> specifies the number of elements the created iterator returns. If omitted, it would iterates elements infinitely.
+</p>
+<p>
+Below is an example:
+</p>
+<pre><code>x = [`A, `B, `C, `D, `E].pingpong()
+// x generates `A, `B, `C, `D, `E, `D, `C, `B, `A, `B, ..
+</code></pre>
+<p>
+The following attributes specify whether the elements on top and bottom are duplicated:
+</p>
+<ul>
+<li><code>:sticky</code> .. Duplicate the top and bottom elements.</li>
+<li><code>:sticky@top</code> .. Duplicate the top element.</li>
+<li><code>:sticky@btm</code> .. Duplicate the bottom element.</li>
+</ul>
 <p>
 <strong>list#print</strong>
 </p>
 <p>
 <code>list#print(stream?:stream:w)</code>
+</p>
+<p>
+Prints elements to the specified <code>stream</code>.
+</p>
+<p>
+If omitted, they are printed to the standard output.
 </p>
 <p>
 <strong>list#printf</strong>
@@ -8870,7 +9078,7 @@ second line
 third line
 """
 </code></pre>
-<h3><span class="caption-index-3">6.32.1</span><a name="caption-6-32-1"></a>Suffix</h3>
+<h3><span class="caption-index-3">6.32.1</span><a name="caption-6-32-1"></a>Suffix Management</h3>
 <p>
 When an string literal is suffixed by a character <code>$</code>, a handler registered by <code>string.translate()</code> function that is supposed to translate the string into other natural languages would be evaluated.
 </p>
@@ -8879,18 +9087,27 @@ When an string literal is suffixed by a character <code>$</code>, a handler regi
 <strong>string#align</strong>
 </p>
 <p>
-<code>string#align(len:number, padding:string =&gt; ' '):map:[center,left,right]</code>
+<code>string#align(width:number, padding:string =&gt; ' '):map:[center,left,right]</code>
 </p>
 <p>
-Returns a string aligned to left, right or center within a specified length.
+Align the string to the left, right or center within the specified <code>width</code> and returns the result.
+</p>
+<p>
+The following attributes specify the alignment position:
 </p>
 <ul>
-<li><code>:center</code> .. Aligns to center. This is the default.</li>
-<li><code>:left</code> .. Aligns to left</li>
-<li><code>:right</code> .. Aligns to right</li>
+<li><code>:center</code> .. Aligns to the center. This is the default.</li>
+<li><code>:left</code> .. Aligns to the left</li>
+<li><code>:right</code> .. Aligns to the right</li>
 </ul>
 <p>
+If the string width is narrower than the specified <code>width</code>, nothing would be done.
+</p>
+<p>
 It uses a string specified by the argument <code>padding</code> to fill lacking spaces. If omitted, a white space is used for padding.
+</p>
+<p>
+This method takes into account the character width based on the specification of East Asian Width. A kanji-character occupies two characters in width.
 </p>
 <p>
 <strong>string.binary</strong>
@@ -8989,6 +9206,9 @@ Block parameter format: <code>|line:string, idx:number|</code>
 <code>string.encode(codec:codec)</code>
 </p>
 <p>
+Encodes the string with the given <code>codec</code> and return the result as a <code>binary</code>.
+</p>
+<p>
 <strong>string#encodeuri</strong>
 </p>
 <p>
@@ -9046,7 +9266,13 @@ When an attribute <code>:rev</code>, finding starts from tail of the string
 <code>string#fold(len:number, step?:number):[neat] {block?}</code>
 </p>
 <p>
-Creates an iterator that folds string in a specified length. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+Creates an iterator that folds the source string by the specified length.
+</p>
+<p>
+The argument <code>step</code> specifies the length of advancement for the next folding point. If omitted, it would be the same amount as <code>len</code>.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
 </p>
 <p>
 In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
@@ -9058,8 +9284,41 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:list</code> .. a list of values</li>
 <li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
 <li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code> Block parameter format: <code>|sub:string, idx:number|</code></li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
+<p>
+Block parameter format: <code>|sub:string, idx:number|</code>
+</p>
+<p>
+<strong>string#foldw</strong>
+</p>
+<p>
+<code>string#foldw(width:number):[padding] {block?}</code>
+</p>
+<p>
+Creates an iterator that folds the source string by the specified width.
+</p>
+<p>
+This method takes into account the character width based on the specification of East Asian Width.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format: <code>|sub:string, idx:number|</code>
+</p>
 <p>
 <strong>string#format</strong>
 </p>
@@ -9067,7 +9326,7 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <code>string#format(values*):map</code>
 </p>
 <p>
-Parses the content of the string object as a format specifier similar to C language's printf and returns a formatted string of argument values.
+Taking the string instance as a printf-styled formatter string, it converts <code>values</code> into a string depending on formatter specifiers in it.
 </p>
 <p>
 <strong>string#isempty</strong>
@@ -9085,7 +9344,10 @@ Returns <code>true</code> if the string is empty.
 <code>string#left(len?:number):map</code>
 </p>
 <p>
-Returns a copy of the string in len characters from its left side.
+Extracts the specified length of string from left of the source string.
+</p>
+<p>
+If the argument is omitted, it would return whole the source string.
 </p>
 <p>
 <strong>string#len</strong>
@@ -9103,7 +9365,7 @@ Returns the length of the string in characters.
 <code>string#lower()</code>
 </p>
 <p>
-Returns a string of lowercase characters of the original one
+Converts upper-case to lower-case characters.
 </p>
 <p>
 <strong>string#mid</strong>
@@ -9112,7 +9374,10 @@ Returns a string of lowercase characters of the original one
 <code>string#mid(pos:number =&gt; 0, len?:number):map</code>
 </p>
 <p>
-Returns a copy of part of the string in len characters starting from pos. If an argument len is omitted, it returns a string from pos to its end. Number of an argument <code>pos</code> starts from zero.
+Extracts the specified length of string from the position <code>pos</code> and returns the result.
+</p>
+<p>
+If an argument <code>len</code> is omitted, it returns a string from <code>pos</code> to the end. The number of an argument <code>pos</code> starts from zero.
 </p>
 <p>
 Below are examples:
@@ -9127,10 +9392,22 @@ Below are examples:
 <code>string.print(stream?:stream:w):void</code>
 </p>
 <p>
+Prints out the string to the specified <code>stream</code>.
+</p>
+<p>
+If the argument is omitted, it would print to the standard output.
+</p>
+<p>
 <strong>string.println</strong>
 </p>
 <p>
 <code>string.println(stream?:stream:w):void</code>
+</p>
+<p>
+Prints out the string and a line-break to the specified <code>stream</code>.
+</p>
+<p>
+If the argument is omitted, it would print to the standard output.
 </p>
 <p>
 <strong>string#reader</strong>
@@ -9139,19 +9416,25 @@ Below are examples:
 <code>string#reader() {block?}</code>
 </p>
 <p>
+Returns a <code>stream</code> instance that reads the string content as a binary sequence.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|s:stream|</code>, where <code>s</code> is the created instance. In this case, the block's result would become the function's returned value.
+</p>
+<p>
 <strong>string#replace</strong>
 </p>
 <p>
 <code>string#replace(sub:string, replace:string, count?:number):map:[icase] {block?}</code>
 </p>
 <p>
-Returns a string that substitutes sub strings in the string with replace.
+Replaces string parts that match <code>sub</code> with <code>replace</code> and returns the result.
 </p>
 <p>
-The argument <code>count</code> limits the maximum number of substitution and there's no limit if it's omitted.
+The argument <code>count</code> limits the maximum number of substitution. If omitted, there's no limit of the work.
 </p>
 <p>
-With an attribute <code>:icase</code>, case of characgters are ignored while finding.
+With an attribute <code>:icase</code>, character cases are ignored while matching strings.
 </p>
 <p>
 <strong>string#right</strong>
@@ -9160,7 +9443,10 @@ With an attribute <code>:icase</code>, case of characgters are ignored while fin
 <code>string#right(len?:number):map</code>
 </p>
 <p>
-Returns a copy of the string in <code>len</code> characters from its right side
+Extracts the specified length of string from right of the source string.
+</p>
+<p>
+If the argument is omitted, it would return whole the source string.
 </p>
 <p>
 <strong>string#split</strong>
@@ -9205,10 +9491,10 @@ With an attribute <code>:icase</code>, character cases are ignored while matchin
 <code>string#strip():[both,left,right]</code>
 </p>
 <p>
-Returns a string that removes space characters on left, right or both of the original string.
+Returns a string that removes space characters on the left, the right or the both sides of the original string.
 </p>
 <p>
-The following attributes would customize the process:
+The following attributes would specify which side of spaces should be removed:
 </p>
 <ul>
 <li><code>:both</code> .. Removes spaces on both sides. This is the default.</li>
@@ -9231,13 +9517,19 @@ Parses the content of the string as a text containing embedded scripts and retur
 <code>string#tosymbol()</code>
 </p>
 <p>
+Convers the string into a symbol.
+</p>
+<p>
 <strong>string.translator</strong>
 </p>
 <p>
 <code>string.translator():static:void {block}</code>
 </p>
 <p>
-Register a string translator that is evaluated when a string literal is suffixed by a dollar symbol.
+Register a procedure evaluated when a string literal appears with a suffix symbol "<code>$</code>", which is meant to translate the string into another language.
+</p>
+<p>
+The procedure is described in <code>block</code> takes a block parameter <code>|str:string|</code> where <code>str</code> is the original string, and is expected to return a string translated from the original.
 </p>
 <p>
 <strong>string#unescapehtml</strong>
@@ -9255,7 +9547,7 @@ Converts escape sequences into readable characters.
 <code>string#upper()</code>
 </p>
 <p>
-Returns a string of uppercase characters of the original one
+Converts lower-case to upper-case characters.
 </p>
 <p>
 <strong>string#width</strong>
@@ -9264,7 +9556,10 @@ Returns a string of uppercase characters of the original one
 <code>string#width()</code>
 </p>
 <p>
-Returns the width of the string. This takes into account the character width based on the specification of East Asian Width.
+Returns the width of the string.
+</p>
+<p>
+This method takes into account the character width based on the specification of East Asian Width. A kanji-character occupies two characters in width.
 </p>
 <p>
 <strong>string#zentohan</strong>
@@ -9474,7 +9769,7 @@ Block ends here.
 <strong>template#call</strong>
 </p>
 <p>
-<code>template#call(symbol:symbol, args*):void</code>
+<code>template#call(symbol:symbol, args*)</code>
 </p>
 <p>
 Calls a template macro that has been created by directive <code>${=define}</code>.
@@ -9487,6 +9782,9 @@ Below is an exemple to call a template macro:
 </p>
 <pre><code>${=call(`show_person, 'Harry', 24)}
 </code></pre>
+<p>
+This method would return <code>nil</code> if a line-break character is rendered at last and would return a null string otherwise.
+</p>
 <p>
 <strong>template#define</strong>
 </p>
@@ -9510,7 +9808,7 @@ ${end}
 <strong>template#embed</strong>
 </p>
 <p>
-<code>template#embed(template:template):void</code>
+<code>template#embed(template:template)</code>
 </p>
 <p>
 Renders the specified template at the current position.
@@ -9523,6 +9821,12 @@ Below is an example to embed a template file named <code>foo.tmpl</code>.
 </p>
 <pre><code>${=embed('foo.tmpl')}
 </code></pre>
+<p>
+As the template rendered by this method runs in a different context from the current one, macros and blocks that it defines are not reflected to the current context.
+</p>
+<p>
+This method would return <code>nil</code> if a line-break character is rendered at last and would return a null string otherwise.
+</p>
 <p>
 <strong>template#extends</strong>
 </p>

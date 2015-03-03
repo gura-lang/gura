@@ -1561,7 +1561,7 @@ embrace it with a pair of sequences of three single- or double-quotes.
     third line
     """
 
-### Suffix
+### Suffix Management
 
 When an string literal is suffixed by a character `$`,
 a handler registered by `string.translate()` function that is supposed to translate
