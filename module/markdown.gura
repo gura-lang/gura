@@ -307,6 +307,7 @@ Renderer@console = class {
 		if (this.htScreen == 0) {
 			this.htScreen = 25
 		}
+		this.indexStack = []
 	}
 	Render(doc:document):void = {
 		this.RenderItem(doc.root)
@@ -373,12 +374,23 @@ Renderer@console = class {
 			}
 		} elsif (item.type == `ol) {
 			println()
+			this.indexStack.add(0)
 			this.RenderItem(item.children)
+			this.indexStack.erase(-1)
 		} elsif (item.type == `ul) {
 			println()
+			this.indexStack.add(nil)
 			this.RenderItem(item.children)
+			this.indexStack.erase(-1)
 		} elsif (item.type == `li) {
-			print('- ')
+			(this.indexStack.len() > 0) && print('  ' * (this.indexStack.len() - 1))
+			index = this.indexStack[-1]
+			if (index) {
+				printf('%d. ', index + 1)
+				this.indexStack[-1] += 1
+			} else {
+				print('- ')
+			}
 			this.RenderItem(item.children)
 			println()
 		} elsif (item.type == `line) {
@@ -460,7 +472,7 @@ Renderer@console = class {
 		separator = ('-' * widths).join('+')
 		rows.each {|row|
 			textsFolded = row.cols:*text.each():list {|text, i|
-				text.split('\n'):*fold(widths[i]).flat().each()
+				text.split('\n'):*foldw(widths[i]).flat().each()
 			}
 			while ((texts = textsFolded:*next()).or()) {
 				println(format('%-*s', widths, texts || '').join('|'))
