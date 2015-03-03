@@ -181,7 +181,7 @@ Gura_DeclareFunction(datetime)
 		"where `dt` is the created instance.\n"
 		"In this case, the block's result would become the function's returned value.\n"
 		"\n"
-		"Meaning of the arguments are shown below:\n"
+		"Explanations of the arguments are shown below:\n"
 		"\n"
 		"- `year` .. Christian year.\n"
 		"- `month` .. Month starting from 1. Numbers from 1 to 12 correspond to January to December.\n"
