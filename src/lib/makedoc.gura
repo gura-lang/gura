@@ -992,6 +992,13 @@ You can use `&` as an alias of `function()` as shown below:
 
 </table>
 
+### Operator
+
+You can print a function's help from the interactive prompt using the unary operator `~`.
+Below is an example to print the help of `printf()` function:
+
+    >>> ~printf
+
 ### Function to Create Instance
 
 ${markdown.funcdoc(
