@@ -508,20 +508,30 @@ Below is an example:
 Returns a list that contains <code>n</code> values of <code>nil</code>. If you pass multiple numbers for <code>n</code>, it would create a nested list.
 </p>
 <p>
-Example:
+Below is an example to create a one-dimentional list:
 </p>
-<pre><code>x = dim(3)     // x is [nil, nil, nil]
-x = dim(3, 2)  // x is [[nil, nil], [nil, nil], [nil, nil]]
+<pre><code>x = dim(3)
+// x is [nil, nil, nil]
 </code></pre>
 <p>
-The optional <code>block</code> provides values for each element and takes a block parameters: <code>|i0:number, i1:number, ..|</code>.
+Below is an example to create a two-dimentional list:
+</p>
+<pre><code>x = dim(3, 2)
+// x is [[nil, nil], [nil, nil], [nil, nil]]
+</code></pre>
+<p>
+The optional <code>block</code> should return values for each element and takes block parameters: <code>|i0:number, i1:number, ..|</code> where the arguments <code>i0</code> and <code>i1</code> take indices of the loops.
 </p>
 <p>
-Example:
+Below is an example to create a one-dimentional list containing a string:
 </p>
 <pre><code>x = dim(3) {'Hi'}
 // x is ['Hi', 'Hi', 'Hi']
-x = dim(3, 2) {|i, j| format('%d-%d', i, j) }
+</code></pre>
+<p>
+Below is an example to create a two-dimentional list that consists of strings showing indices.
+</p>
+<pre><code>x = dim(3, 2) {|i, j| format('%d-%d', i, j) }
 // x is [['0-0', '0-1'], ['1-0', '1-1'], ['2-0', '2-1']]
 </code></pre>
 <p>
