@@ -303,7 +303,7 @@ Gura_DeclareFunction(consts)
 		"\n"
 		GURA_ITERATOR_HELP
 		"\n"
-		"Below is an example:\n"
+		"Below is an example to create an iterator that returns constant values:\n"
 		"\n"
 		"    x = consts('hello', 10)\n"
 		"    // x generates 'hello' for 10 times\n");
@@ -558,12 +558,16 @@ Gura_DeclareFunctionAlias(break_, "break")
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Exits from an inside of a loop that is formed with functions `repeat()`, `while()`,\n"
-		"`for()` and `cross()`. If it takes an argument, that value is treated as a result of\n"
-		"the loop function. Otherwise, the result is nil and an argument list can be omitted.\n"
+		"Exits from an inside of a loop that is formed with repeating functions like\n"
+		"`repeat()`, `while()`, `for()` and `cross(),`\n"
+		"as well as other functions generating an iterator.\n"
 		"\n"
-		"If the loop function is called with one of attributes, `:list`, `:xlist`, `:set`,\n"
-		"`:xset`, `:iter` and `:xiter`,\n"
+		"After this function is called,\n"
+		"the current loop value would be set to `value` given in the function's argument.\n"
+		"If the argument is omitted, that would be set to `nil`.\n"
+		"\n"
+		"However, when the loop function is called with one of the attributes,\n"
+		"`:list`, `:xlist`, `:set`, `:xset`, `:iter` and `:xiter`,\n"
 		"the argument value of `break()` is NOT included as an element in the list or iterator.");
 }
 
@@ -580,13 +584,17 @@ Gura_DeclareFunctionAlias(continue_, "continue")
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"In a loop that is formed with functions `repeat()`, `while()`, `for()` and `cross()`,\n"
-		"skips the following part of it and gets to the top of its process.\n"
-		"If it takes an argument, that value is treated as a result of the loop function.\n"
-		"Otherwise, the result is nil and an argument list can be omitted.\n"
+		"Cancels the current turn of a loop and continues on to the next.\n"
+		"This function can be used in a loop that is formed with repeating functions like\n"
+		"`repeat()`, `while()`, `for()` and `cross()`,\n"
+		"as well as other functions generating an iterator.\n"
 		"\n"
-		"If the loop function is specified with one of `:list`, `:xlist`, `:set`,\n"
-		"`:xset`, `:iter` and `:xiter`,\n"
+		"After this function is called,\n"
+		"the current loop value would be set to `value` given in the function's argument.\n"
+		"If the argument is omitted, that would be set to `nil`.\n"
+		"\n"
+		"If the loop function is specified with one of the attributes\n"
+		"`:list`, `:xlist`, `:set`, `:xset`, `:iter` and `:xiter`,\n"
 		"the argument value of `continue()` is included as an element in the list or iterator.");
 }
 
@@ -603,7 +611,9 @@ Gura_DeclareFunctionAlias(return_, "return")
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Skips the remaining procedure of the current function and returns to context that calls it.\n"
+		"Skips the remaining procedure of the current function\n"
+		"and returns to the context that calls it.\n"
+		"\n"
 		"If it takes an argument, the value is treated as a result of the function.\n"
 		"Otherwise, the returned value would be `nil`.");
 }
@@ -709,7 +719,10 @@ Gura_DeclareFunction(end)
 	DeclareArg(env, "dummy", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Specify an end of a sequence. This is supposed to appear in a template script.\n");
+		"Specify an end of a sequence.\n"
+		"\n"
+		"This function is supposed to be used as a block terminator\n"
+		"in an embedded script of a template\n");
 }
 
 Gura_ImplementFunction(end)
@@ -1119,7 +1132,7 @@ Gura_ImplementFunction(tosymbol)
 //-----------------------------------------------------------------------------
 // Class Operations
 //-----------------------------------------------------------------------------
-// class(superclass?) {block?}
+// class(superclass?:function) {block?}
 Gura_DeclareFunctionAlias(class_, "class")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
@@ -1127,12 +1140,12 @@ Gura_DeclareFunctionAlias(class_, "class")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a function object of a constructor for a class\n"
-		"that includes methods and properties described in the content of the `block`.\n"
-		"For a detail on how to describe the block content for this function,\n"
-		"refer to \"Gura Language Manual\".\n"
+		"Creates a class that includes methods and properties\n"
+		"described in the content of the `block`.\n"
+		"The detail information on how to describe the block content for this function\n"
+		"is written in \"Gura Language Manual\".\n"
 		"\n"
-		"Example:\n"
+		"Below is an example to create a class named `Person`:\n"
 		"\n"
 		"    Person = class {\n"
 		"        __init__(name:string, age:number) = {\n"
@@ -1143,12 +1156,13 @@ Gura_DeclareFunctionAlias(class_, "class")
 		"            printf('name:%s age:%d\\n', this.name, this.age)\n"
 		"        }\n"
 		"    }\n"
+		"    \n"
 		"    person = Person('Smith', 26)\n"
 		"    person.Print()\n"
 		"\n"
-		"If argument `superclass`,\n"
+		"If the argument `superclass`,\n"
 		"which is expected to be a constructor function of a super class, is specified,\n"
-		"the created class shall inherits methods and properties from the specified class.\n");
+		"the created class would inherit methods and properties from the specified class.\n");
 }
 
 Gura_ImplementFunction(class_)
@@ -1210,7 +1224,7 @@ Gura_DeclareFunctionAlias(struct_, "struct")
 		"one in the argument list of a function's declaration.\n"
 		"Each variable name becomes a member name in the created instance.\n"
 		"\n"
-		"Example:\n"
+		"Below is an example to create a struct named `Person`:\n"
 		"\n"
 		"    Person = struct(name:string, age:number)\n"
 		"    person = Person('Smith', 26)\n"
@@ -1965,7 +1979,7 @@ Gura_DeclareFunction(rands)
 		"\n"
 		GURA_ITERATOR_HELP
 		"\n"
-		"Below is an example:\n"
+		"Below is an example to create a create that generates random numbers:\n"
 		"\n"
 		"    x = rands(100)\n"
 		"    // x is an infinite iterator to generates random numbers between 0 and 99\n");
