@@ -30,20 +30,20 @@ Below is an example to print a frame around a console:
         print('*' * w)
     }
     conio.waitkey():raise
-'''
+
+## Module Function
+
+${markdown.funcdoc(
+conio.clear
+conio.getwinsize
+conio.setcolor
+conio.moveto
+conio.waitkey
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-		conio.clear
-		conio.getwinsize
-		conio.setcolor
-		conio.moveto
-		conio.waitkey
-	]
 	doc
 }
 

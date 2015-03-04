@@ -7,25 +7,39 @@ text = R'''
 
 The `tar` module provides measures to read/write TAR files.
 To utilize it, import the `tar` module using `import` function.
-'''
+
+## tar.reader Class
+
+### Function To Create Instance
+
+${markdown.funcdoc(
+tar.reader
+)}
+
+### Method
+
+${markdown.funcdoc(
+tar.reader.entries
+)}
+
+## tar.writer Class
+
+### Function To Create Instance
+
+${markdown.funcdoc(
+tar.writer
+)}
+
+### Method
+
+${markdown.funcdoc(
+tar.writer.add
+tar.writer.close
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## tar.reader Class
-	'''
-	doc << [
-		tar.reader
-		tar.reader.entries
-	]
-	doc << R'''
-	## tar.writer Class
-	'''
-	doc << [
-		tar.writer
-		tar.writer.add
-		tar.writer.close
-	]
 	doc
 }
 

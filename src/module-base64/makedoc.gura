@@ -5,25 +5,29 @@ text = R'''
 # base64 Module
 
 The `base64` module provides measures to read/write text stream that is formatted in base64 format.
-'''
+
+## Module Function
+
+${markdown.funcdoc(
+base64.decode
+base64.encode
+base64.reader
+base64.writer
+)}
+
+## Extension of stream Class
+
+This module extends the `stream` class with methods described here.
+
+${markdown.funcdoc(
+stream.reader@base64
+stream.writer@base64
+)}
+
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << '## Module Functions'
-	doc << [
-		base64.decode
-		base64.encode
-		base64.reader
-		base64.writer
-	]
-	doc << '## Methods Added to stream Class'
-	doc << R'''
-	After importing `base64` module, `stream` class is extended with methods that are described here.
-	'''
-	doc << [
-		stream.reader@base64
-		stream.writer@base64
-	]
 	doc
 }
 

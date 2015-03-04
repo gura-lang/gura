@@ -1532,7 +1532,7 @@ Gura_DeclareFunctionAlias(import_, "import")
 		"\n"
 		"It searches module files in directories specified by a variable `sys.path`.\n"
 		"\n"
-		"There are three format of calling this function like follow:\n"
+		"There are three format to call this function like follow:\n"
 		"\n"
 		"- `import(foo)` .. imports `foo` module and creates a module object named `foo`\n"
 		"- `import(foo, bar)` .. imports `foo` module and creates a module object named `bar`\n"

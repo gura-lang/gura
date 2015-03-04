@@ -16,31 +16,40 @@ Below is an example to read a CSV file that contains three fields per line:
     records = Record * csv.read('records.csv')
     printf('name:%s, age:%d, email:%s¥n',
            records:*name, records:*age, records:*email)
-'''
+
+## Module Function
+
+${markdown.funcdoc(
+csv.parse
+csv.read
+)}
+
+## csv.writer Class
+
+### Function to Create Instance
+
+${markdown.funcdoc(
+csv.writer
+)}
+
+### Method
+
+${markdown.funcdoc(
+csv.writer.write
+)}
+
+## Extension of stream Class
+
+This module extends the `stream` class with methods described here.
+
+${markdown.funcdoc(
+stream.read@csv
+stream.writer@csv
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-		csv.parse
-		csv.read
-		csv.writer
-	]
-	doc << R'''
-	## csv.writer Class
-	'''
-	doc << [
-		csv.writer.write
-	]
-	doc << R'''
-	## Methods Added to stream Class
-	'''
-	doc << [
-		stream.read@csv
-		stream.writer@csv
-	]
 	doc
 }
 

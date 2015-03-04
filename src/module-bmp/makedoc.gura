@@ -28,17 +28,19 @@ When instance method `image#write()` is provided with a stream that satisfies th
 it would write image data in BMP format.
 
 - The identifier of the stream ends with a suffix `.bmp`.
-'''
+
+## Extension of image Class
+
+This module extends the `image` class with methods described here.
+
+${markdown.funcdoc(
+image.read@bmp
+image.write@bmp
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Methods Added to image Class
-	'''
-	doc << [
-		image.read@bmp
-		image.write@bmp
-	]
 	doc
 }
 

@@ -17,24 +17,26 @@ Below is an example to read data from a file and write its compressed data to a 
 
     import(bzip2)
     bzip2.writer('foo.dat.bz2').copyfrom('foo.dat')
-'''
+
+## Module Function
+
+${markdown.funcdoc(
+bzip2.reader
+bzip2.writer
+)}
+
+## Extension of stream Class
+
+This module extends the `stream` class with methods described here.
+
+${markdown.funcdoc(
+stream.reader@bzip2
+stream.writer@bzip2
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-		bzip2.reader
-		bzip2.writer
-	]
-	doc << R'''
-	## Methods Added to stream Class
-	'''
-	doc << [
-		stream.reader@bzip2
-		stream.writer@bzip2
-	]
 	doc
 }
 

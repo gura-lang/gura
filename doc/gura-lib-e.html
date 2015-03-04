@@ -10205,7 +10205,7 @@ Parses a query string and returns a dictionary that contains key-value pairs of 
 <p>
 The <code>base64</code> module provides measures to read/write text stream that is formatted in base64 format.
 </p>
-<h2><span class="caption-index-2">7.1</span><a name="caption-7-1"></a>Module Functions</h2>
+<h2><span class="caption-index-2">7.1</span><a name="caption-7-1"></a>Module Function</h2>
 <p>
 <strong>base64.decode</strong>
 </p>
@@ -10257,9 +10257,9 @@ The number of characters per line is specified by an argument <code>linelen</cod
 <p>
 If <code>block</code> is specified, it would be evaluated with block parameter <code>|s:stream|</code>, where <code>s</code> is the created stream instance.
 </p>
-<h2><span class="caption-index-2">7.2</span><a name="caption-7-2"></a>Methods Added to stream Class</h2>
+<h2><span class="caption-index-2">7.2</span><a name="caption-7-2"></a>Extension of stream Class</h2>
 <p>
-After importing <code>base64</code> module, <code>stream</code> class is extended with methods that are described here.
+This module extends the <code>stream</code> class with methods described here.
 </p>
 <p>
 <strong>stream#reader@base64</strong>
@@ -10315,7 +10315,10 @@ When instance method <code>image#write()</code> is provided with a stream that s
 <ul>
 <li>The identifier of the stream ends with a suffix <code>.bmp</code>.</li>
 </ul>
-<h2><span class="caption-index-2">8.2</span><a name="caption-8-2"></a>Methods Added to image Class</h2>
+<h2><span class="caption-index-2">8.2</span><a name="caption-8-2"></a>Extension of image Class</h2>
+<p>
+This module extends the <code>image</code> class with methods described here.
+</p>
 <p>
 <strong>image#read@bmp</strong>
 </p>
@@ -10350,7 +10353,7 @@ Below is an example to read data from a file and write its compressed data to a 
 <pre><code>import(bzip2)
 bzip2.writer('foo.dat.bz2').copyfrom('foo.dat')
 </code></pre>
-<h2><span class="caption-index-2">9.1</span><a name="caption-9-1"></a>Module Functions</h2>
+<h2><span class="caption-index-2">9.1</span><a name="caption-9-1"></a>Module Function</h2>
 <p>
 <strong>bzip2.reader</strong>
 </p>
@@ -10363,7 +10366,10 @@ bzip2.writer('foo.dat.bz2').copyfrom('foo.dat')
 <p>
 <code>bzip2.writer(stream:stream:w, blockSize100k?:number) {block?}</code>
 </p>
-<h2><span class="caption-index-2">9.2</span><a name="caption-9-2"></a>Methods Added to stream Class</h2>
+<h2><span class="caption-index-2">9.2</span><a name="caption-9-2"></a>Extension of stream Class</h2>
+<p>
+This module extends the <code>stream</code> class with methods described here.
+</p>
 <p>
 <strong>stream#reader@bzip2</strong>
 </p>
@@ -12108,7 +12114,7 @@ conio.moveto(0, h - 1) {
 }
 conio.waitkey():raise
 </code></pre>
-<h2><span class="caption-index-2">11.1</span><a name="caption-11-1"></a>Module Functions</h2>
+<h2><span class="caption-index-2">11.1</span><a name="caption-11-1"></a>Module Function</h2>
 <p>
 <strong>conio.clear</strong>
 </p>
@@ -12232,7 +12238,7 @@ records = Record * csv.read('records.csv')
 printf('name:%s, age:%d, email:%s¥n',
        records:*name, records:*age, records:*email)
 </code></pre>
-<h2><span class="caption-index-2">12.1</span><a name="caption-12-1"></a>Module Functions</h2>
+<h2><span class="caption-index-2">12.1</span><a name="caption-12-1"></a>Module Function</h2>
 <p>
 <strong>csv.parse</strong>
 </p>
@@ -12245,20 +12251,25 @@ printf('name:%s, age:%d, email:%s¥n',
 <p>
 <code>csv.read(stream:stream:r) {block?}</code>
 </p>
+<h2><span class="caption-index-2">12.2</span><a name="caption-12-2"></a>csv.writer Class</h2>
+<h3><span class="caption-index-3">12.2.1</span><a name="caption-12-2-1"></a>Function to Create Instance</h3>
 <p>
 <strong>csv.writer</strong>
 </p>
 <p>
 <code>csv.writer(stream:stream:w, format?:string) {block?}</code>
 </p>
-<h2><span class="caption-index-2">12.2</span><a name="caption-12-2"></a>csv.writer Class</h2>
+<h3><span class="caption-index-3">12.2.2</span><a name="caption-12-2-2"></a>Method</h3>
 <p>
 <strong>csv.writer#write</strong>
 </p>
 <p>
 <code>csv.writer#write(fields+):map:reduce</code>
 </p>
-<h2><span class="caption-index-2">12.3</span><a name="caption-12-3"></a>Methods Added to stream Class</h2>
+<h2><span class="caption-index-2">12.3</span><a name="caption-12-3"></a>Extension of stream Class</h2>
+<p>
+This module extends the <code>stream</code> class with methods described here.
+</p>
 <p>
 <strong>stream#read@csv</strong>
 </p>
@@ -20805,12 +20816,14 @@ Raises an error if the running interpreter doesn't satisfy the required version.
 The <code>tar</code> module provides measures to read/write TAR files. To utilize it, import the <code>tar</code> module using <code>import</code> function.
 </p>
 <h2><span class="caption-index-2">42.1</span><a name="caption-42-1"></a>tar.reader Class</h2>
+<h3><span class="caption-index-3">42.1.1</span><a name="caption-42-1-1"></a>Function To Create Instance</h3>
 <p>
 <strong>tar.reader</strong>
 </p>
 <p>
 <code>tar.reader(stream:stream:r, compression?:symbol) {block?}</code>
 </p>
+<h3><span class="caption-index-3">42.1.2</span><a name="caption-42-1-2"></a>Method</h3>
 <p>
 <strong>tar.reader#entries</strong>
 </p>
@@ -20818,12 +20831,14 @@ The <code>tar</code> module provides measures to read/write TAR files. To utiliz
 <code>tar.reader#entries() {block?}</code>
 </p>
 <h2><span class="caption-index-2">42.2</span><a name="caption-42-2"></a>tar.writer Class</h2>
+<h3><span class="caption-index-3">42.2.1</span><a name="caption-42-2-1"></a>Function To Create Instance</h3>
 <p>
 <strong>tar.writer</strong>
 </p>
 <p>
 <code>tar.writer(stream:stream:w, compression?:symbol) {block?}</code>
 </p>
+<h3><span class="caption-index-3">42.2.2</span><a name="caption-42-2-2"></a>Method</h3>
 <p>
 <strong>tar.writer#add</strong>
 </p>
