@@ -27,7 +27,7 @@
 <div><span class="toc-index-2">4.11</span><a href="#caption-4-11">Value Type Information</a></div>
 <div><span class="toc-index-2">4.12</span><a href="#caption-4-12">Data Processing</a></div>
 <div><span class="toc-index-2">4.13</span><a href="#caption-4-13">Random</a></div>
-<div><span class="toc-index-2">4.14</span><a href="#caption-4-14">Help Information</a></div>
+<div><span class="toc-index-2">4.14</span><a href="#caption-4-14">Property Listing</a></div>
 <div><span class="toc-index-1">5</span><a href="#caption-5">Built-in Operators</a></div>
 <div><span class="toc-index-1">6</span><a href="#caption-6">Built-in Classes</a></div>
 <div><span class="toc-index-2">6.1</span><a href="#caption-6-1">args Class</a></div>
@@ -465,6 +465,39 @@ It returns the last evaluated value in the block as its own result, but, if one 
 Block parameter format is <code>|idx:number|</code> where <code>idx</code> indicates an index of the loop.
 </p>
 <h2><span class="caption-index-2">4.3</span><a name="caption-4-3"></a>Value Generator</h2>
+<p>
+<strong>consts</strong>
+</p>
+<p>
+<code>consts(value, num?:number) {block?}</code>
+</p>
+<p>
+Creates an iterator that generates the same value specified by the argument <code>value</code>.
+</p>
+<p>
+The argument <code>num</code> specifies the number of elements to be generated. If omitted, it would generate the value infinitely.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Below is an example:
+</p>
+<pre><code>x = consts('hello', 10)
+// x generates 'hello' for 10 times
+</code></pre>
 <p>
 <strong>dim</strong>
 </p>
@@ -1225,7 +1258,7 @@ choose(2, 'apple', 'orange', 'banana') // returns 'banana'
 <code>cond(flag:boolean, value1:nomap, value2?:nomap):map</code>
 </p>
 <p>
-Returns <code>value1</code> if <code>flag</code> is determined as true, and <code>value2</code> otherwise. If argument <code>value2</code> is omitted, it will return <code>nil</code> when <code>flag</code> is determined as false.
+Returns <code>value1</code> if <code>flag</code> is determined as true, and <code>value2</code> otherwise. If the argument <code>value2</code> is omitted, it will return <code>nil</code> when <code>flag</code> is determined as false.
 </p>
 <p>
 This function behaves in a similar way with <code>if</code> function when it's called like below:
@@ -1233,14 +1266,14 @@ This function behaves in a similar way with <code>if</code> function when it's c
 <pre><code>if (flag) { value1 } else { value2 }
 </code></pre>
 <p>
-But they are different in the following points:
+Notice that they have the following differences:
 </p>
 <ul>
-<li>Function <code>cond()</code> always evaluates arguments <code>value1</code> and <code>value2</code> no matter what <code>flag</code> value is, while function <code>if()</code> doesn't evaluate <code>value1</code> expression when <code>flag</code> is determined as false.</li>
-<li>Function <code>cond()</code> works with implicit mapping, which means that arguments <code>flag</code> may be lists or iterators that are to be supplied to a mapping process.</li>
+<li>Function <code>cond()</code> always evaluates arguments <code>value1</code> and <code>value2</code> no matter what <code>flag</code> value is, while function <code>if()</code> doesn't evaluate <code>value1</code> expression when <code>flag</code> is determined as <code>false</code>.</li>
+<li>Function <code>cond()</code> works with implicit mapping, which means that the argument <code>flag</code> may be a list or an iterator that are to be processed with the implicit mapping.</li>
 </ul>
 <p>
-Arguments <code>value1</code> and <code>value2</code> are not processed by implicit mapping, so you can specify a list or an iterator for them as selected items.
+The arguments <code>value1</code> and <code>value2</code> are not processed by the implicit mapping, so you can specify a list or an iterator for them as selected items.
 </p>
 <p>
 <strong>conds</strong>
@@ -1257,11 +1290,11 @@ This function behaves in a similar way with <code>if</code> function when it's c
 <pre><code>if (flag) { value1 } else { value2 }
 </code></pre>
 <p>
-But they are different in the following points:
+Notice that they have the following differences:
 </p>
 <ul>
 <li>Function <code>conds()</code> always evaluates arguments <code>value1</code> and <code>value2</code> no matter what <code>flag</code> value is, while function <code>if()</code> doesn't evaluate <code>value1</code> expression when <code>flag</code> is determined as false.</li>
-<li>Function <code>conds()</code> works with implicit mapping, which means that arguments <code>flag</code>, <code>value1</code> and <code>value2</code> may be lists or iterators that are to be supplied to a mapping process.</li>
+<li>Function <code>conds()</code> works with implicit mapping, which means that the arguments <code>flag</code>, <code>value1</code> and <code>value2</code> may be lists or iterators that are to be processed with the implicig mapping.</li>
 </ul>
 <p>
 If you want to specify a list or an iterator for <code>value1</code> and <code>value2</code> as selected values, use <code>cond()</code> function instead.
@@ -1292,7 +1325,7 @@ Returns the minimum value among the given arguments.
 <code>rand(range?:number) {block?}</code>
 </p>
 <p>
-Returns a random number between <code>0</code> and <code>range - 1</code>. If argument <code>range</code> is not specified, it generates random numbers in a range of [0, 1).
+Returns a random number between <code>0</code> and <code>(range - 1)</code>. If argument <code>range</code> is not specified, it generates random numbers in a range of [0, 1).
 </p>
 <p>
 <strong>rands</strong>
@@ -1301,7 +1334,7 @@ Returns a random number between <code>0</code> and <code>range - 1</code>. If ar
 <code>rands(range?:number, num?:number) {block?}</code>
 </p>
 <p>
-Creates an iterator that returns random numbers between <code>0</code> and <code>range - 1</code>.
+Creates an iterator that returns random numbers between <code>0</code> and <code>(range - 1)</code>.
 </p>
 <p>
 If argument <code>range</code> is not specified, it generates random numbers in a range of [0, 1).
@@ -1339,7 +1372,7 @@ Below is an example:
 <p>
 Initializes random seed with a specified number.
 </p>
-<h2><span class="caption-index-2">4.14</span><a name="caption-4-14"></a>Help Information</h2>
+<h2><span class="caption-index-2">4.14</span><a name="caption-4-14"></a>Property Listing</h2>
 <p>
 <strong>dir</strong>
 </p>
@@ -6075,56 +6108,6 @@ Writes image data to a stream.
 <h2><span class="caption-index-2">6.20</span><a name="caption-6-20"></a>iterator Class</h2>
 <h3><span class="caption-index-3">6.20.1</span><a name="caption-6-20-1"></a>Function to Create Instance</h3>
 <p>
-<strong>consts</strong>
-</p>
-<p>
-<code>consts(value, num?:number) {block?}</code>
-</p>
-<p>
-Creates an iterator that generates the same value specified by the argument <code>value</code>.
-</p>
-<p>
-The argument <code>num</code> specifies the number of elements to be generated. If omitted, it would generate the value infinitely.
-</p>
-<p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
-</p>
-<ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
-</ul>
-<p>
-Below is an example:
-</p>
-<pre><code>x = consts('hello', 10)
-// x generates 'hello' for 10 times
-</code></pre>
-<p>
-<strong>interval</strong>
-</p>
-<p>
-<code>interval(begin:number, end:number, samples:number):map:[open,open_l,open_r] {block?}</code>
-</p>
-<p>
-Creates an iterator that generates a sequence of numbers by specifying the beginning and ending numbers, and the number of samples between them.
-</p>
-<p>
-In default, it creates a sequence that contains the beginning and ending numbers. Following attributes would generate the following numbers:
-</p>
-<ul>
-<li><code>:open</code> .. Numbers in range of <code>(begin, end)</code> that doesn't contain either <code>begin</code> or <code>end</code>.</li>
-<li><code>:open_l</code> .. Numbers in range of <code>(begin, end]</code> that doesn't contain <code>begin</code>.</li>
-<li><code>:open_r</code> .. Numbers in range of <code>[begin, end)</code> that doesn't contain <code>end</code>.</li>
-</ul>
-<p>
 <strong>iterator</strong>
 </p>
 <p>
@@ -6151,86 +6134,6 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:set</code> ..  a list of unique values</li>
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
-<p>
-<strong>rands</strong>
-</p>
-<p>
-<code>rands(range?:number, num?:number) {block?}</code>
-</p>
-<p>
-Creates an iterator that returns random numbers between <code>0</code> and <code>range - 1</code>.
-</p>
-<p>
-If argument <code>range</code> is not specified, it generates random numbers in a range of [0, 1).
-</p>
-<p>
-In default, the created iterator infinitely generates random numbers. The argument <code>num</code> specifies how many elements should be generated.
-</p>
-<p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
-</p>
-<ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
-</ul>
-<p>
-Below is an example:
-</p>
-<pre><code>x = rands(100)
-// x is an infinite iterator to generates random numbers between 0 and 99
-</code></pre>
-<p>
-<strong>range</strong>
-</p>
-<p>
-<code>range(num:number, num_end?:number, step?:number):map {block?}</code>
-</p>
-<p>
-Creates an iterator that generates a sequence of integer numbers.
-</p>
-<p>
-This function can be called in three formats that generate following numbers:
-</p>
-<ul>
-<li><code>range(num)</code> .. Numbers between <code>0</code> and <code>(num - 1)</code>.</li>
-<li><code>range(num, num_end)</code> .. Numbers between <code>num</code> and <code>(num_end - 1)</code>.</li>
-<li><code>range(num, num_end, step)</code> .. Numbers between <code>num</code> and <code>(num_end - 1)</code> incremented by <code>step</code>.</li>
-</ul>
-<p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
-</p>
-<ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
-</ul>
-<p>
-Below are examples:
-</p>
-<pre><code>x = range(10)
-// x generates 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
-
-x = range(3, 10)
-// x generates 3, 4, 5, 6, 7, 8, 9
-
-x = range(3, 10, 2)
-// x generates 3, 5, 7, 9
-</code></pre>
 <h3><span class="caption-index-3">6.20.2</span><a name="caption-6-20-2"></a>Method Specific to Iterator Class</h3>
 <p>
 <strong>iterator#delay</strong>

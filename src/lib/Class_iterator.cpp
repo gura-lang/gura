@@ -80,39 +80,6 @@ Gura_ImplementFunction(iterator)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// consts(value, num?:number) {block?}
-Gura_DeclareFunction(consts)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "value", VTYPE_any);
-	DeclareArg(env, "num", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates an iterator that generates the same value specified by the argument `value`.\n"
-		"\n"
-		"The argument `num` specifies the number of elements to be generated.\n"
-		"If omitted, it would generate the value infinitely.\n"
-		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Below is an example:\n"
-		"\n"
-		"    x = consts('hello', 10)\n"
-		"    // x generates 'hello' for 10 times\n");
-}
-
-Gura_ImplementFunction(consts)
-{
-	Iterator *pIterator = NULL;
-	if (args.Is_number(1)) {
-		pIterator = new Iterator_ConstantN(args.GetValue(0), args.GetInt(1));
-	} else {
-		pIterator = new Iterator_Constant(args.GetValue(0));
-	}
-	return ReturnIterator(env, sig, args, pIterator);
-}
-
 //-----------------------------------------------------------------------------
 // Implementation of methods specific to iterator
 //-----------------------------------------------------------------------------
@@ -1517,7 +1484,6 @@ Class_iterator::Class_iterator(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 void Class_iterator::Prepare(Environment &env)
 {
 	Gura_AssignFunction(iterator);
-	Gura_AssignFunction(consts);
 	// assignment of methods specific to iterator
 	Gura_AssignMethod(iterator, delay);
 	Gura_AssignMethod(iterator, isinfinite);

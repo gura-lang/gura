@@ -1114,11 +1114,7 @@ text@iterator = R'''
 ### Function to Create Instance
 
 ${markdown.funcdoc(
-consts
-interval
 iterator
-rands
-range
 )}
 
 ### Method Specific to Iterator Class

@@ -25,6 +25,7 @@ while
 ## Value Generator
 
 ${markdown.funcdoc(
+consts
 dim
 interval
 range

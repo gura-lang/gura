@@ -287,6 +287,39 @@ Gura_ImplementFunction(while_)
 //-----------------------------------------------------------------------------
 // Value Generator
 //-----------------------------------------------------------------------------
+// consts(value, num?:number) {block?}
+Gura_DeclareFunction(consts)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "value", VTYPE_any);
+	DeclareArg(env, "num", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates an iterator that generates the same value specified by the argument `value`.\n"
+		"\n"
+		"The argument `num` specifies the number of elements to be generated.\n"
+		"If omitted, it would generate the value infinitely.\n"
+		"\n"
+		GURA_ITERATOR_HELP
+		"\n"
+		"Below is an example:\n"
+		"\n"
+		"    x = consts('hello', 10)\n"
+		"    // x generates 'hello' for 10 times\n");
+}
+
+Gura_ImplementFunction(consts)
+{
+	Iterator *pIterator = NULL;
+	if (args.Is_number(1)) {
+		pIterator = new Iterator_ConstantN(args.GetValue(0), args.GetInt(1));
+	} else {
+		pIterator = new Iterator_Constant(args.GetValue(0));
+	}
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
 // dim(n+:number) {block?}
 Gura_DeclareFunction(dim)
 {
@@ -1890,7 +1923,7 @@ Gura_DeclareFunction(rand)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a random number between `0` and `range - 1`.\n"
+		"Returns a random number between `0` and `(range - 1)`.\n"
 		"If argument `range` is not specified, it generates random numbers in a range of [0, 1).");
 }
 
@@ -1913,7 +1946,7 @@ Gura_DeclareFunction(rands)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates an iterator that returns random numbers between `0` and `range - 1`.\n"
+		"Creates an iterator that returns random numbers between `0` and `(range - 1)`.\n"
 		"\n"
 		"If argument `range` is not specified, it generates random numbers in a range of [0, 1).\n"
 		"\n"
@@ -2073,6 +2106,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(repeat);
 	Gura_AssignFunction(while_);
 	// Value Generator
+	Gura_AssignFunction(consts);
 	Gura_AssignFunction(dim);
 	Gura_AssignFunction(interval);
 	Gura_AssignFunction(range);
