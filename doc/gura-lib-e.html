@@ -493,7 +493,7 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
 <p>
-Below is an example:
+Below is an example to create an iterator that returns constant values:
 </p>
 <pre><code>x = consts('hello', 10)
 // x generates 'hello' for 10 times
@@ -603,10 +603,13 @@ x = range(3, 10, 2)
 <code>break(value?):symbol_func:void</code>
 </p>
 <p>
-Exits from an inside of a loop that is formed with functions <code>repeat()</code>, <code>while()</code>, <code>for()</code> and <code>cross()</code>. If it takes an argument, that value is treated as a result of the loop function. Otherwise, the result is nil and an argument list can be omitted.
+Exits from an inside of a loop that is formed with repeating functions like <code>repeat()</code>, <code>while()</code>, <code>for()</code> and <code>cross(),</code> as well as other functions generating an iterator.
 </p>
 <p>
-If the loop function is called with one of attributes, <code>:list</code>, <code>:xlist</code>, <code>:set</code>, <code>:xset</code>, <code>:iter</code> and <code>:xiter</code>, the argument value of <code>break()</code> is NOT included as an element in the list or iterator.
+After this function is called, the current loop value would be set to <code>value</code> given in the function's argument. If the argument is omitted, that would be set to <code>nil</code>.
+</p>
+<p>
+However, when the loop function is called with one of the attributes, <code>:list</code>, <code>:xlist</code>, <code>:set</code>, <code>:xset</code>, <code>:iter</code> and <code>:xiter</code>, the argument value of <code>break()</code> is NOT included as an element in the list or iterator.
 </p>
 <p>
 <strong>continue</strong>
@@ -615,10 +618,13 @@ If the loop function is called with one of attributes, <code>:list</code>, <code
 <code>continue(value?):symbol_func:void</code>
 </p>
 <p>
-In a loop that is formed with functions <code>repeat()</code>, <code>while()</code>, <code>for()</code> and <code>cross()</code>, skips the following part of it and gets to the top of its process. If it takes an argument, that value is treated as a result of the loop function. Otherwise, the result is nil and an argument list can be omitted.
+Cancels the current turn of a loop and continues on to the next. This function can be used in a loop that is formed with repeating functions like <code>repeat()</code>, <code>while()</code>, <code>for()</code> and <code>cross()</code>, as well as other functions generating an iterator.
 </p>
 <p>
-If the loop function is specified with one of <code>:list</code>, <code>:xlist</code>, <code>:set</code>, <code>:xset</code>, <code>:iter</code> and <code>:xiter</code>, the argument value of <code>continue()</code> is included as an element in the list or iterator.
+After this function is called, the current loop value would be set to <code>value</code> given in the function's argument. If the argument is omitted, that would be set to <code>nil</code>.
+</p>
+<p>
+If the loop function is specified with one of the attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code>, <code>:xset</code>, <code>:iter</code> and <code>:xiter</code>, the argument value of <code>continue()</code> is included as an element in the list or iterator.
 </p>
 <p>
 <strong>return</strong>
@@ -627,7 +633,10 @@ If the loop function is specified with one of <code>:list</code>, <code>:xlist</
 <code>return(value?):symbol_func:void</code>
 </p>
 <p>
-Skips the remaining procedure of the current function and returns to context that calls it. If it takes an argument, the value is treated as a result of the function. Otherwise, the returned value would be <code>nil</code>.
+Skips the remaining procedure of the current function and returns to the context that calls it.
+</p>
+<p>
+If it takes an argument, the value is treated as a result of the function. Otherwise, the returned value would be <code>nil</code>.
 </p>
 <h2><span class="caption-index-2">4.5</span><a name="caption-4-5"></a>Branch Sequence</h2>
 <p>
@@ -676,7 +685,10 @@ Specify an "else" block within a statement of <code>if-elsif-else</code> or <cod
 <code>end(dummy*):symbol_func:trailer:end_marker:void</code>
 </p>
 <p>
-Specify an end of a sequence. This is supposed to appear in a template script.
+Specify an end of a sequence.
+</p>
+<p>
+This function is supposed to be used as a block terminator in an embedded script of a template
 </p>
 <p>
 <strong>switch</strong>
@@ -834,10 +846,10 @@ Converts a string into a symbol.
 <code>class(superclass?:function) {block?}</code>
 </p>
 <p>
-Returns a function object of a constructor for a class that includes methods and properties described in the content of the <code>block</code>. For a detail on how to describe the block content for this function, refer to "Gura Language Manual".
+Creates a class that includes methods and properties described in the content of the <code>block</code>. The detail information on how to describe the block content for this function is written in "Gura Language Manual".
 </p>
 <p>
-Example:
+Below is an example to create a class named <code>Person</code>:
 </p>
 <pre><code>Person = class {
     __init__(name:string, age:number) = {
@@ -848,11 +860,12 @@ Example:
         printf('name:%s age:%d\n', this.name, this.age)
     }
 }
+
 person = Person('Smith', 26)
 person.Print()
 </code></pre>
 <p>
-If argument <code>superclass</code>, which is expected to be a constructor function of a super class, is specified, the created class shall inherits methods and properties from the specified class.
+If the argument <code>superclass</code>, which is expected to be a constructor function of a super class, is specified, the created class would inherit methods and properties from the specified class.
 </p>
 <p>
 <strong>classref</strong>
@@ -876,7 +889,7 @@ Returns a function object of a constructor for a structure that contains propert
 An element in <code>args</code> is an expression that has the same format with one in the argument list of a function's declaration. Each variable name becomes a member name in the created instance.
 </p>
 <p>
-Example:
+Below is an example to create a struct named <code>Person</code>:
 </p>
 <pre><code>Person = struct(name:string, age:number)
 person = Person('Smith', 26)
@@ -1368,7 +1381,7 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
 <p>
-Below is an example:
+Below is an example to create a create that generates random numbers:
 </p>
 <pre><code>x = rands(100)
 // x is an infinite iterator to generates random numbers between 0 and 99

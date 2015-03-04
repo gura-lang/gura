@@ -1515,10 +1515,10 @@ Gura_ImplementFunction(module)
 	return Value(pModule);
 }
 
-// import(`module, `alias?):void:[binary,overwrite,mixin_type] {block?}
+// import(`module, `alias?):[binary,overwrite,mixin_type] {block?}
 Gura_DeclareFunctionAlias(import_, "import")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "module", VTYPE_quote);
 	DeclareArg(env, "alias", VTYPE_quote, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -1527,15 +1527,18 @@ Gura_DeclareFunctionAlias(import_, "import")
 	DeclareAttr(Gura_Symbol(mixin_type));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Imports a module stored in directories specified by a variable sys.path\n"
-		"and creates a variable that represents the imported module.\n"
+		"Imports a module and creates a variable that represents the imported module.\n"
+		"It also returns a value that is a reference to the module.\n"
+		"\n"
+		"It searches module files in directories specified by a variable `sys.path`.\n"
+		"\n"
 		"There are three format of calling this function like follow:\n"
 		"\n"
 		"- `import(foo)` .. imports `foo` module and creates a module object named `foo`\n"
 		"- `import(foo, bar)` .. imports `foo` module and creates a module object named `bar`\n"
 		"- `import(foo) {symbol1, symbol2, symbol3}` .. imports `foo` and\n"
-		"  mixes up properties `symbol1`, `symbol2` and `symbol3` in the current scope,\n"
-		"  which are defined in the module.\n"
+		"      mixes up the module's properties `symbol1`, `symbol2` and `symbol3`\n"
+		"      in the current scope.\n"
 		"\n"
 		"In the third format, you can specify an asterisk character\n"
 		"to mixes up all the symbols defined in the module like below:\n"
@@ -1590,11 +1593,10 @@ Gura_ImplementFunction(import_)
 	bool overwriteFlag = args.IsSet(Gura_Symbol(overwrite));
 	bool binaryOnlyFlag = args.IsSet(Gura_Symbol(binary));
 	bool mixinTypeFlag = args.IsSet(Gura_Symbol(mixin_type));
-	if (env.ImportModule(sig, args.GetExpr(0), pSymbolAlias, pSymbolsToMixIn,
-						overwriteFlag, binaryOnlyFlag, mixinTypeFlag) == NULL) {
-		return Value::Null;
-	}
-	return Value::Null;
+	Module *pModule = env.ImportModule(sig, args.GetExpr(0), pSymbolAlias, pSymbolsToMixIn,
+									   overwriteFlag, binaryOnlyFlag, mixinTypeFlag);
+	if (pModule == NULL) return Value::Null;
+	return Value(pModule);
 }
 
 //-----------------------------------------------------------------------------
