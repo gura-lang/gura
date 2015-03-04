@@ -978,15 +978,21 @@ Evaluates block with a local scope.
 <strong>import</strong>
 </p>
 <p>
-<code>import(`module, `alias?):void:[binary,mixin_type,overwrite] {block?}</code>
+<code>import(`module, `alias?):[binary,mixin_type,overwrite] {block?}</code>
 </p>
 <p>
-Imports a module stored in directories specified by a variable sys.path and creates a variable that represents the imported module. There are three format of calling this function like follow:
+Imports a module and creates a variable that represents the imported module. It also returns a value that is a reference to the module.
+</p>
+<p>
+It searches module files in directories specified by a variable <code>sys.path</code>.
+</p>
+<p>
+There are three format of calling this function like follow:
 </p>
 <ul>
 <li><code>import(foo)</code> .. imports <code>foo</code> module and creates a module object named <code>foo</code></li>
 <li><code>import(foo, bar)</code> .. imports <code>foo</code> module and creates a module object named <code>bar</code></li>
-<li><code>import(foo) {symbol1, symbol2, symbol3}</code> .. imports <code>foo</code> and mixes up properties <code>symbol1</code>, <code>symbol2</code> and <code>symbol3</code> in the current scope, which are defined in the module.</li>
+<li><code>import(foo) {symbol1, symbol2, symbol3}</code> .. imports <code>foo</code> and mixes up the module's properties <code>symbol1</code>, <code>symbol2</code> and <code>symbol3</code> in the current scope.</li>
 </ul>
 <p>
 In the third format, you can specify an asterisk character to mixes up all the symbols defined in the module like below:

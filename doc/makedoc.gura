@@ -128,10 +128,12 @@ If it is imported by another as a module, this variable is set to that module na
 
 </table>
 '''
+
 moduleNames.each {|moduleName|
-	import(&moduleName)
-	root.getprop!(moduleName).write(doc)
+	println('module: ', moduleName.replace('makedoc_', ''))
+	import(&moduleName).write(doc)
 }
+
 header = R'''
 <html>
 <head>
@@ -152,9 +154,9 @@ footer = R'''
 
 fileName = 'gura-lib-e.html'
 open(fileName, 'w') {|out|
+	println('rendering TOC..')
 	out.print(header)
 	out.println('<h1>Table of Contents</h1>')
-	
 	doc.render@toc {|level:number, indices[]:number, captionId:string, text:string|
 		if (level == 0) {
 			out.printf(
@@ -167,6 +169,7 @@ open(fileName, 'w') {|out|
 		}
 	}
 	out.println('<hr />')
+	println('rendering document body..')
 	doc.render@html(out, false, true)
 	out.print(footer)
 }
