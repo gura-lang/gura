@@ -3,180 +3,161 @@ import(markdown)
 
 text = R'''
 # Built-in Functions
-'''
 
-text_formatting = R'''
 ## Formatting and Printing of Text
-'''
 
-text_repetition = R'''
+${markdown.funcdoc(
+format
+print
+printf
+println
+)}
+
 ## Repetition
-'''
 
-text_flow = R'''
+${markdown.funcdoc(
+cross
+for
+repeat
+while
+)}
+
+## Value Generator
+
+${markdown.funcdoc(
+dim
+interval
+range
+)}
+
 ## Flow Control
-'''
 
-text_branch = R'''
-## Branch Control
-'''
+${markdown.funcdoc(
+break
+continue
+return
+)}
 
-text_exception = R'''
-## Handling Exception
-'''
+## Branch Sequence
 
-text_data_trans = R'''
-## Data Transformation
-'''
+${markdown.funcdoc(
+if
+elsif
+else
+end
+switch
+case
+default
+)}
 
-text_class = R'''
+## Exception Handling
+
+${markdown.funcdoc(
+try
+catch
+finally
+raise
+)}
+
+## Data Converter
+
+${markdown.funcdoc(
+chr
+hex
+int
+ord
+tonumber
+tostring
+tosymbol
+)}
+
 ## Class Operations
-'''
 
-text_scope = R'''
+${markdown.funcdoc(
+class
+classref
+struct
+super
+)}
+
 ## Scope Operations
-'''
 
-text_module = R'''
+${markdown.funcdoc(
+//extern
+local
+locals
+outers
+public
+scope
+)}
+
 ## Module Operations
-'''
 
-text_valuetype = R'''
+${markdown.funcdoc(
+import
+module
+)}
+
 ## Value Type Information
-'''
 
-text_data_process = R'''
+${markdown.funcdoc(
+isbinary
+isboolean
+isclass
+iscomplex
+isdatetime
+isdict
+isenvironment
+iserror
+isexpr
+isfunction
+isiterator
+islist
+ismatrix
+ismodule
+isnil
+isnumber
+isrational
+issemaphore
+isstring
+issymbol
+istimedelta
+isuri
+isdefined
+isinstance
+istype
+typename
+undef
+)}
+
 ## Data Processing
-'''
 
-text_random = R'''
+${markdown.funcdoc(
+choose
+cond
+conds
+max
+min
+)}
+
 ## Random
-'''
 
-text_help = R'''
-## Help Information
-'''
+${markdown.funcdoc(
+rand
+rands
+randseed
+)}
+
+## Property Listing
+
+${markdown.funcdoc(
+dir
+dirtype
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << text_formatting
-	doc << [
-		format
-		print
-		printf
-		println
-	]
-	doc << text_repetition
-	doc << [
-		cross
-		for
-		repeat
-		while
-	]
-	doc << text_flow
-	doc << [
-		break
-		continue
-		return
-	]
-	doc << text_branch
-	doc << [
-		if
-		elsif
-		else
-		end
-		switch
-		case
-		default
-	]
-	doc << text_exception
-	doc << [
-		try
-		catch
-		finally
-		raise
-	]
-	doc << text_data_trans
-	doc << [
-		chr
-		hex
-		int
-		ord
-		tonumber
-		tostring
-		tosymbol
-	]
-	doc << text_class
-	doc << [
-		class
-		classref
-		struct
-		super
-	]
-	doc << text_scope
-	doc << [
-		//extern
-		local
-		locals
-		outers
-		public
-		scope
-	]
-	doc << text_module
-	doc << [
-		import
-		module
-	]
-	doc << text_valuetype
-	doc << [
-		isbinary
-		isboolean
-		isclass
-		iscomplex
-		isdatetime
-		isdict
-		isenvironment
-		iserror
-		isexpr
-		isfunction
-		isiterator
-		islist
-		ismatrix
-		ismodule
-		isnil
-		isnumber
-		isrational
-		issemaphore
-		isstring
-		issymbol
-		istimedelta
-		isuri
-		isdefined
-		isinstance
-		istype
-		typename
-		undef
-	]
-	doc << text_data_process
-	doc << [
-		choose
-		cond
-		conds
-		dim
-		max
-		min
-	]
-	doc << text_random
-	doc << [
-		rand
-		randseed
-	]
-	doc << text_help
-	doc << [
-		dir
-		dirtype
-		help
-	]
 	doc
 }
 

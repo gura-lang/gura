@@ -19,7 +19,7 @@ Gura_BeginModuleBody(basement)
 "- `:xiter` .. returns an iterator that executes the block, skipping `nil`\n"
 
 //-----------------------------------------------------------------------------
-// formatting and printing of text
+// Formatting and Printing of Text
 //-----------------------------------------------------------------------------
 // format(format, value*):map
 Gura_DeclareFunction(format)
@@ -161,7 +161,7 @@ Gura_ImplementFunction(println)
 }
 
 //-----------------------------------------------------------------------------
-// repetition
+// Repetition
 //-----------------------------------------------------------------------------
 // cross (`expr+) {block}
 Gura_DeclareFunction(cross)
@@ -285,7 +285,228 @@ Gura_ImplementFunction(while_)
 }
 
 //-----------------------------------------------------------------------------
-// flow control
+// Value Generator
+//-----------------------------------------------------------------------------
+// dim(n+:number) {block?}
+Gura_DeclareFunction(dim)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_OnceOrMore);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a list that contains `n` values of `nil`.\n"
+		"If you pass multiple numbers for `n`, it would create a nested list.\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"    x = dim(3)     // x is [nil, nil, nil]\n"
+		"    x = dim(3, 2)  // x is [[nil, nil], [nil, nil], [nil, nil]]\n"
+		"\n"
+		"The optional `block` provides values for each element\n"
+		"and takes a block parameters: `|i0:number, i1:number, ..|`.\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"    x = dim(3) {'Hi'}\n"
+		"    // x is ['Hi', 'Hi', 'Hi']\n"
+		"    x = dim(3, 2) {|i, j| format('%d-%d', i, j) }\n"
+		"    // x is [['0-0', '0-1'], ['1-0', '1-1'], ['2-0', '2-1']]\n");
+}
+
+bool Func_dim_Sub(Environment &env, Signal sig, const Function *pFuncBlock, ValueList &valListParent,
+	IntList &cntList, IntList::iterator pCnt, IntList &idxList, IntList::iterator pIdx)
+{
+	if (pCnt + 1 == cntList.end()) {
+		if (pFuncBlock == NULL) {
+			for (*pIdx = 0; *pIdx < *pCnt; (*pIdx)++) {
+				valListParent.push_back(Value::Null);
+			}
+		} else {
+			for (*pIdx = 0; *pIdx < *pCnt; (*pIdx)++) {
+				AutoPtr<Args> pArgs(new Args());
+				pArgs->ReserveValueListArg(idxList.size());
+				foreach (IntList, pIdxWk, idxList) {
+					pArgs->AddValue(Value(*pIdxWk));
+				}
+				Value result = pFuncBlock->Eval(env, sig, *pArgs);
+				if (sig.IsSignalled()) return false;
+				valListParent.push_back(result);
+			}
+		}
+	} else {
+		for (*pIdx = 0; *pIdx < *pCnt; (*pIdx)++) {
+			Value result;
+			ValueList &valList = result.InitAsList(env);
+			valListParent.push_back(result);
+			if (!Func_dim_Sub(env, sig, pFuncBlock, valList,
+									cntList, pCnt + 1, idxList, pIdx + 1)) {
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+Gura_ImplementFunction(dim)
+{
+	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
+	const Function *pFuncBlock =
+						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
+	const ValueList &valListArg = args.GetList(0);
+	size_t nArgs = valListArg.size();
+	IntList cntList, idxList;
+	cntList.reserve(nArgs);
+	idxList.reserve(nArgs);
+	foreach_const (ValueList, pValArg, valListArg) {
+		cntList.push_back(pValArg->GetInt());
+		idxList.push_back(0);
+	}
+	Value result;
+	ValueList &valList = result.InitAsList(env);
+	if (!Func_dim_Sub(*pEnvBlock, sig, pFuncBlock, valList,
+						cntList, cntList.begin(), idxList, idxList.begin())) {
+		return Value::Null;
+	}
+	return result;
+}
+
+// interval(begin:number, end:number, samples:number):map:[open,open_l,open_r] {block?}
+Gura_DeclareFunction(interval)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "begin", VTYPE_number);
+	DeclareArg(env, "end", VTYPE_number);
+	DeclareArg(env, "samples", VTYPE_number);
+	DeclareAttr(Gura_Symbol(open));
+	DeclareAttr(Gura_Symbol(open_l));
+	DeclareAttr(Gura_Symbol(open_r));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates an iterator that generates a sequence of numbers\n"
+		"by specifying the beginning and ending numbers, and the number of samples between them.\n"
+		
+		"\n"
+		"In default, it creates a sequence that contains the beginning and ending numbers.\n"
+		"Following attributes would generate the following numbers:\n"
+		"\n"
+		"- `:open` .. Numbers in range of `(begin, end)` that doesn't contain either `begin` or `end`.\n"
+		"- `:open_l` .. Numbers in range of `(begin, end]` that doesn't contain `begin`.\n"
+		"- `:open_r` .. Numbers in range of `[begin, end)` that doesn't contain `end`.\n");
+}
+
+Gura_ImplementFunction(interval)
+{
+	Number numBegin = args.GetNumber(0);
+	Number numEnd = args.GetNumber(1);
+	int numSamples = args.GetInt(2);
+	if (numSamples <= 1) {
+		sig.SetError(ERR_ValueError, "samples must be more than one");
+		return Value::Null;
+	}
+	bool openFlag = args.IsSet(Gura_Symbol(open));
+	bool openLeftFlag = args.IsSet(Gura_Symbol(open_l));
+	bool openRightFlag = args.IsSet(Gura_Symbol(open_r));
+	int iFactor = 0;
+	Number numDenom = numSamples - 1;
+	if (openFlag || (openLeftFlag && openRightFlag)) {
+		numDenom = numSamples + 1;
+		iFactor = 1;
+	} else if (openLeftFlag) {
+		numDenom = numSamples;
+		iFactor = 1;
+	} else if (openRightFlag) {
+		numDenom = numSamples;
+		iFactor = 0;
+	}
+	Iterator *pIterator =
+		new Iterator_Interval(numBegin, numEnd, numSamples, numDenom, iFactor);
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
+// range(num:number, num_end?:number, step?:number):map {block?}
+Gura_DeclareFunction(range)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "num",		VTYPE_number);
+	DeclareArg(env, "num_end",	VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "step",		VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates an iterator that generates a sequence of integer numbers.\n"
+		"\n"
+		"This function can be called in three formats that generate following numbers:\n"
+		"\n"
+		"- `range(num)` .. Numbers between `0` and `(num - 1)`.\n"
+		"- `range(num, num_end)` .. Numbers between `num` and `(num_end - 1)`.\n"
+		"- `range(num, num_end, step)` .. Numbers between `num` and `(num_end - 1)`\n"
+		"  incremented by `step`.\n"
+		"\n"
+		GURA_ITERATOR_HELP
+		"\n"
+		"Below are examples:\n"
+		"\n"
+		"    x = range(10)\n"
+		"    // x generates 0, 1, 2, 3, 4, 5, 6, 7, 8, 9\n"
+		"    \n"
+		"    x = range(3, 10)\n"
+		"    // x generates 3, 4, 5, 6, 7, 8, 9\n"
+		"    \n"
+		"    x = range(3, 10, 2)\n"
+		"    // x generates 3, 5, 7, 9\n"
+		);
+}
+
+Gura_ImplementFunction(range)
+{
+	AutoPtr<Iterator> pIterator;
+	Number numBegin = 0.;
+	Number numEnd = 0.;
+	Number numStep = 1.;
+	if (args.IsInvalid(1)) {
+		if (args.IsValid(2)) {
+			numBegin = args.GetNumber(0);
+			numStep = args.GetNumber(2);
+			if (numStep == 0.) {
+				sig.SetError(ERR_ValueError, "step cannot be specified as zero");
+				return Value::Null;
+			}
+			pIterator.reset(new Iterator_SequenceInf(numBegin, numStep));
+		} else {
+			numEnd = args.GetNumber(0);
+			if (numBegin > numEnd) numStep = -1.;
+			pIterator.reset(new Iterator_Range(numBegin, numEnd, numStep));
+		}
+	} else if (args.IsInvalid(2)) {
+		numBegin = args.GetNumber(0);
+		numEnd = args.GetNumber(1);
+		if (numBegin > numEnd) numStep = -1.;
+		pIterator.reset(new Iterator_Range(numBegin, numEnd, numStep));
+	} else {
+		numBegin = args.GetNumber(0);
+		numEnd = args.GetNumber(1);
+		numStep = args.GetNumber(2);
+		if (numStep == 0.) {
+			sig.SetError(ERR_ValueError, "step cannot be specified as zero");
+			return Value::Null;
+		}
+		if (numBegin < numEnd && numStep < 0) {
+			sig.SetError(ERR_ValueError, "step value must be positive");
+			return Value::Null;
+		}
+		if (numBegin > numEnd && numStep > 0) {
+			sig.SetError(ERR_ValueError, "step value must be negative");
+			return Value::Null;
+		}
+		pIterator.reset(new Iterator_Range(numBegin, numEnd, numStep));
+	}
+	return ReturnIterator(env, sig, args, pIterator.release());
+}
+
+//-----------------------------------------------------------------------------
+// Flow Control
 //-----------------------------------------------------------------------------
 // break(value?):void:symbol_func
 Gura_DeclareFunctionAlias(break_, "break")
@@ -351,7 +572,7 @@ Gura_ImplementFunction(return_)
 }
 
 //-----------------------------------------------------------------------------
-// branch control
+// Branch Sequence
 //-----------------------------------------------------------------------------
 // if (`cond):leader {block}
 Gura_DeclareFunctionAlias(if_, "if")
@@ -534,7 +755,7 @@ Gura_ImplementFunction(default_)
 }
 
 //-----------------------------------------------------------------------------
-// handling exception
+// Exception Handling
 //-----------------------------------------------------------------------------
 // try ():leader {block}
 Gura_DeclareFunctionAlias(try_, "try")
@@ -647,7 +868,7 @@ Gura_ImplementFunction(raise)
 }
 
 //-----------------------------------------------------------------------------
-// data transformation
+// Data Converter
 //-----------------------------------------------------------------------------
 // chr(num:number):map:[nil]
 Gura_DeclareFunction(chr)
@@ -853,7 +1074,7 @@ Gura_ImplementFunction(tosymbol)
 }
 
 //-----------------------------------------------------------------------------
-// class operations
+// Class Operations
 //-----------------------------------------------------------------------------
 // class(superclass?) {block?}
 Gura_DeclareFunctionAlias(class_, "class")
@@ -1022,7 +1243,7 @@ Gura_ImplementFunction(super)
 }
 
 //-----------------------------------------------------------------------------
-// scope operations
+// Scope Operations
 //-----------------------------------------------------------------------------
 #if 0
 // Scope problem: when a block tries to assign a variable that has been declared by extern()
@@ -1214,7 +1435,7 @@ Gura_ImplementFunction(scope)
 }
 
 //-----------------------------------------------------------------------------
-// module operations
+// Module Operations
 //-----------------------------------------------------------------------------
 // module {block}
 Gura_DeclareFunction(module)
@@ -1320,7 +1541,7 @@ Gura_ImplementFunction(import_)
 }
 
 //-----------------------------------------------------------------------------
-// value type information
+// Value Type Information
 //-----------------------------------------------------------------------------
 // isdefined(`identifier)
 Gura_DeclareFunction(isdefined)
@@ -1513,7 +1734,7 @@ Gura_ImplementFunction(undef_)
 }
 
 //-----------------------------------------------------------------------------
-// data processing
+// Data Processing
 //-----------------------------------------------------------------------------
 // choose(index:number, values+):map
 Gura_DeclareFunction(choose)
@@ -1612,90 +1833,6 @@ Gura_ImplementFunction(conds)
 	return args.GetBoolean(0)? args.GetValue(1) : args.GetValue(2);
 }
 
-// dim(n+:number) {block?}
-Gura_DeclareFunction(dim)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "n", VTYPE_number, OCCUR_OnceOrMore);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a list that contains `n` values of `nil`.\n"
-		"If you pass multiple numbers for `n`, it would create a nested list.\n"
-		"\n"
-		"Example:\n"
-		"\n"
-		"    x = dim(3)     // x is [nil, nil, nil]\n"
-		"    x = dim(3, 2)  // x is [[nil, nil], [nil, nil], [nil, nil]]\n"
-		"\n"
-		"The optional `block` provides values for each element\n"
-		"and takes a block parameters: `|i0:number, i1:number, ..|`.\n"
-		"\n"
-		"Example:\n"
-		"\n"
-		"    x = dim(3) {'Hi'}\n"
-		"    // x is ['Hi', 'Hi', 'Hi']\n"
-		"    x = dim(3, 2) {|i, j| format('%d-%d', i, j) }\n"
-		"    // x is [['0-0', '0-1'], ['1-0', '1-1'], ['2-0', '2-1']]\n");
-}
-
-bool Func_dim_Sub(Environment &env, Signal sig, const Function *pFuncBlock, ValueList &valListParent,
-	IntList &cntList, IntList::iterator pCnt, IntList &idxList, IntList::iterator pIdx)
-{
-	if (pCnt + 1 == cntList.end()) {
-		if (pFuncBlock == NULL) {
-			for (*pIdx = 0; *pIdx < *pCnt; (*pIdx)++) {
-				valListParent.push_back(Value::Null);
-			}
-		} else {
-			for (*pIdx = 0; *pIdx < *pCnt; (*pIdx)++) {
-				AutoPtr<Args> pArgs(new Args());
-				pArgs->ReserveValueListArg(idxList.size());
-				foreach (IntList, pIdxWk, idxList) {
-					pArgs->AddValue(Value(*pIdxWk));
-				}
-				Value result = pFuncBlock->Eval(env, sig, *pArgs);
-				if (sig.IsSignalled()) return false;
-				valListParent.push_back(result);
-			}
-		}
-	} else {
-		for (*pIdx = 0; *pIdx < *pCnt; (*pIdx)++) {
-			Value result;
-			ValueList &valList = result.InitAsList(env);
-			valListParent.push_back(result);
-			if (!Func_dim_Sub(env, sig, pFuncBlock, valList,
-									cntList, pCnt + 1, idxList, pIdx + 1)) {
-				return false;
-			}
-		}
-	}
-	return true;
-}
-
-Gura_ImplementFunction(dim)
-{
-	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	const Function *pFuncBlock =
-						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
-	const ValueList &valListArg = args.GetList(0);
-	size_t nArgs = valListArg.size();
-	IntList cntList, idxList;
-	cntList.reserve(nArgs);
-	idxList.reserve(nArgs);
-	foreach_const (ValueList, pValArg, valListArg) {
-		cntList.push_back(pValArg->GetInt());
-		idxList.push_back(0);
-	}
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	if (!Func_dim_Sub(*pEnvBlock, sig, pFuncBlock, valList,
-						cntList, cntList.begin(), idxList, idxList.begin())) {
-		return Value::Null;
-	}
-	return result;
-}
-
 // max(values+):map
 Gura_DeclareFunction(max)
 {
@@ -1743,7 +1880,7 @@ Gura_ImplementFunction(min)
 }
 
 //-----------------------------------------------------------------------------
-// random
+// Random
 //-----------------------------------------------------------------------------
 // rand(range?:number) {block?}
 Gura_DeclareFunction(rand)
@@ -1767,6 +1904,38 @@ Gura_ImplementFunction(rand)
 	return ReturnValue(env, sig, args, Value(Random::Real2()));
 }
 
+// rands(range?:number, num?:number) {block?}
+Gura_DeclareFunction(rands)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "range", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "num", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates an iterator that returns random numbers between `0` and `range - 1`.\n"
+		"\n"
+		"If argument `range` is not specified, it generates random numbers in a range of [0, 1).\n"
+		"\n"
+		"In default, the created iterator infinitely generates random numbers.\n"
+		"The argument `num` specifies how many elements should be generated.\n"
+		"\n"
+		GURA_ITERATOR_HELP
+		"\n"
+		"Below is an example:\n"
+		"\n"
+		"    x = rands(100)\n"
+		"    // x is an infinite iterator to generates random numbers between 0 and 99\n");
+}
+
+Gura_ImplementFunction(rands)
+{
+	Iterator *pIterator = new Iterator_Rand(
+				args.Is_number(0)? args.GetInt(0) : 0,
+				args.Is_number(1)? args.GetInt(1) : -1);
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
 // randseed(seed:number):void
 Gura_DeclareFunction(randseed)
 {
@@ -1784,7 +1953,7 @@ Gura_ImplementFunction(randseed)
 }
 
 //-----------------------------------------------------------------------------
-// help information
+// Property Listing
 //-----------------------------------------------------------------------------
 // dir(obj?):[noesc]
 Gura_DeclareFunction(dir)
@@ -1893,21 +2062,25 @@ Gura_ModuleEntry()
 		Object_environment *pObj = new Object_environment(env);
 		Gura_AssignValue(root, Value(pObj));
 	} while (0);
-	// formatting and printing of text
+	// Formatting and Printing of Text
 	Gura_AssignFunction(format);
 	Gura_AssignFunction(print);
 	Gura_AssignFunction(printf);
 	Gura_AssignFunction(println);
-	// repetition
+	// Repetition
 	Gura_AssignFunction(cross);
 	Gura_AssignFunction(for_);
 	Gura_AssignFunction(repeat);
 	Gura_AssignFunction(while_);
-	// flow control
+	// Value Generator
+	Gura_AssignFunction(dim);
+	Gura_AssignFunction(interval);
+	Gura_AssignFunction(range);
+	// Flow Control
 	Gura_AssignFunction(break_);
 	Gura_AssignFunction(continue_);
 	Gura_AssignFunction(return_);
-	// branch control
+	// Branch Sequence
 	Gura_AssignFunction(if_);
 	Gura_AssignFunction(elsif_);
 	Gura_AssignFunction(else_);
@@ -1915,12 +2088,12 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(switch_);
 	Gura_AssignFunction(case_);
 	Gura_AssignFunction(default_);
-	// handling exception
+	// Exception Handling
 	Gura_AssignFunction(try_);
 	Gura_AssignFunction(catch_);
 	Gura_AssignFunction(finally_);
 	Gura_AssignFunction(raise);
-	// data transformation
+	// Data Converter
 	Gura_AssignFunction(chr);
 	Gura_AssignFunction(hex);
 	Gura_AssignFunction(int_);
@@ -1928,22 +2101,22 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(tonumber);
 	Gura_AssignFunction(tostring);
 	Gura_AssignFunction(tosymbol);
-	// class operations
+	// Class Operation
 	Gura_AssignFunction(class_);
 	Gura_AssignFunction(classref);
 	Gura_AssignFunction(struct_);
 	Gura_AssignFunction(super);
-	// scope operations
+	// Scope Operation
 	//Gura_AssignFunction(extern_);
 	Gura_AssignFunction(local);
 	Gura_AssignFunction(locals);
 	Gura_AssignFunction(outers);
 	Gura_AssignFunction(public_);
 	Gura_AssignFunction(scope);
-	// module operations
+	// Module Operation
 	Gura_AssignFunction(import_);
 	Gura_AssignFunction(module);
-	// value type information
+	// Value Type Information
 	Gura_AssignFunctionExx(istype_, "isbinary",		VTYPE_binary);
 	Gura_AssignFunctionExx(istype_, "isboolean",	VTYPE_boolean);
 	Gura_AssignFunctionExx(istype_, "isclass",		VTYPE_Class);
@@ -1971,17 +2144,17 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(istype);
 	Gura_AssignFunction(typename_);
 	Gura_AssignFunction(undef_);
-	// data processing
+	// Data Processing
 	Gura_AssignFunction(choose);
 	Gura_AssignFunction(cond);
 	Gura_AssignFunction(conds);
-	Gura_AssignFunction(dim);
 	Gura_AssignFunction(max);
 	Gura_AssignFunction(min);
-	// random
+	// Random
 	Gura_AssignFunction(rand);
+	Gura_AssignFunction(rands);
 	Gura_AssignFunction(randseed);
-	// help information
+	// Property Listing
 	Gura_AssignFunction(dir);
 	Gura_AssignFunction(dirtype);
 	return true;

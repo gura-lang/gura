@@ -80,140 +80,6 @@ Gura_ImplementFunction(iterator)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// range(num:number, num_end?:number, step?:number):map {block?}
-Gura_DeclareFunction(range)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "num",		VTYPE_number);
-	DeclareArg(env, "num_end",	VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "step",		VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates an iterator that generates a sequence of integer numbers.\n"
-		"\n"
-		"This function can be called in three formats that generate following numbers:\n"
-		"\n"
-		"- `range(num)` .. Numbers between `0` and `(num - 1)`.\n"
-		"- `range(num, num_end)` .. Numbers between `num` and `(num_end - 1)`.\n"
-		"- `range(num, num_end, step)` .. Numbers between `num` and `(num_end - 1)`\n"
-		"  incremented by `step`.\n"
-		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Below are examples:\n"
-		"\n"
-		"    x = range(10)\n"
-		"    // x generates 0, 1, 2, 3, 4, 5, 6, 7, 8, 9\n"
-		"    \n"
-		"    x = range(3, 10)\n"
-		"    // x generates 3, 4, 5, 6, 7, 8, 9\n"
-		"    \n"
-		"    x = range(3, 10, 2)\n"
-		"    // x generates 3, 5, 7, 9\n"
-		);
-}
-
-Gura_ImplementFunction(range)
-{
-	AutoPtr<Iterator> pIterator;
-	Number numBegin = 0.;
-	Number numEnd = 0.;
-	Number numStep = 1.;
-	if (args.IsInvalid(1)) {
-		if (args.IsValid(2)) {
-			numBegin = args.GetNumber(0);
-			numStep = args.GetNumber(2);
-			if (numStep == 0.) {
-				sig.SetError(ERR_ValueError, "step cannot be specified as zero");
-				return Value::Null;
-			}
-			pIterator.reset(new Iterator_SequenceInf(numBegin, numStep));
-		} else {
-			numEnd = args.GetNumber(0);
-			if (numBegin > numEnd) numStep = -1.;
-			pIterator.reset(new Iterator_Range(numBegin, numEnd, numStep));
-		}
-	} else if (args.IsInvalid(2)) {
-		numBegin = args.GetNumber(0);
-		numEnd = args.GetNumber(1);
-		if (numBegin > numEnd) numStep = -1.;
-		pIterator.reset(new Iterator_Range(numBegin, numEnd, numStep));
-	} else {
-		numBegin = args.GetNumber(0);
-		numEnd = args.GetNumber(1);
-		numStep = args.GetNumber(2);
-		if (numStep == 0.) {
-			sig.SetError(ERR_ValueError, "step cannot be specified as zero");
-			return Value::Null;
-		}
-		if (numBegin < numEnd && numStep < 0) {
-			sig.SetError(ERR_ValueError, "step value must be positive");
-			return Value::Null;
-		}
-		if (numBegin > numEnd && numStep > 0) {
-			sig.SetError(ERR_ValueError, "step value must be negative");
-			return Value::Null;
-		}
-		pIterator.reset(new Iterator_Range(numBegin, numEnd, numStep));
-	}
-	return ReturnIterator(env, sig, args, pIterator.release());
-}
-
-// interval(begin:number, end:number, samples:number):map:[open,open_l,open_r] {block?}
-Gura_DeclareFunction(interval)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "begin", VTYPE_number);
-	DeclareArg(env, "end", VTYPE_number);
-	DeclareArg(env, "samples", VTYPE_number);
-	DeclareAttr(Gura_Symbol(open));
-	DeclareAttr(Gura_Symbol(open_l));
-	DeclareAttr(Gura_Symbol(open_r));
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates an iterator that generates a sequence of numbers\n"
-		"by specifying the beginning and ending numbers, and the number of samples between them.\n"
-		
-		"\n"
-		"In default, it creates a sequence that contains the beginning and ending numbers.\n"
-		"Following attributes would generate the following numbers:\n"
-		"\n"
-		"- `:open` .. Numbers in range of `(begin, end)` that doesn't contain either `begin` or `end`.\n"
-		"- `:open_l` .. Numbers in range of `(begin, end]` that doesn't contain `begin`.\n"
-		"- `:open_r` .. Numbers in range of `[begin, end)` that doesn't contain `end`.\n");
-}
-
-Gura_ImplementFunction(interval)
-{
-	Number numBegin = args.GetNumber(0);
-	Number numEnd = args.GetNumber(1);
-	int numSamples = args.GetInt(2);
-	if (numSamples <= 1) {
-		sig.SetError(ERR_ValueError, "samples must be more than one");
-		return Value::Null;
-	}
-	bool openFlag = args.IsSet(Gura_Symbol(open));
-	bool openLeftFlag = args.IsSet(Gura_Symbol(open_l));
-	bool openRightFlag = args.IsSet(Gura_Symbol(open_r));
-	int iFactor = 0;
-	Number numDenom = numSamples - 1;
-	if (openFlag || (openLeftFlag && openRightFlag)) {
-		numDenom = numSamples + 1;
-		iFactor = 1;
-	} else if (openLeftFlag) {
-		numDenom = numSamples;
-		iFactor = 1;
-	} else if (openRightFlag) {
-		numDenom = numSamples;
-		iFactor = 0;
-	}
-	Iterator *pIterator =
-		new Iterator_Interval(numBegin, numEnd, numSamples, numDenom, iFactor);
-	return ReturnIterator(env, sig, args, pIterator);
-}
-
 // consts(value, num?:number) {block?}
 Gura_DeclareFunction(consts)
 {
@@ -244,38 +110,6 @@ Gura_ImplementFunction(consts)
 	} else {
 		pIterator = new Iterator_Constant(args.GetValue(0));
 	}
-	return ReturnIterator(env, sig, args, pIterator);
-}
-
-// rands(range?:number, num?:number) {block?}
-Gura_DeclareFunction(rands)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "range", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "num", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates an iterator that returns random numbers between `0` and `range - 1`.\n"
-		"\n"
-		"If argument `range` is not specified, it generates random numbers in a range of [0, 1).\n"
-		"\n"
-		"In default, the created iterator infinitely generates random numbers.\n"
-		"The argument `num` specifies how many elements should be generated.\n"
-		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Below is an example:\n"
-		"\n"
-		"    x = rands(100)\n"
-		"    // x is an infinite iterator to generates random numbers between 0 and 99\n");
-}
-
-Gura_ImplementFunction(rands)
-{
-	Iterator *pIterator = new Iterator_Rand(
-				args.Is_number(0)? args.GetInt(0) : 0,
-				args.Is_number(1)? args.GetInt(1) : -1);
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -1683,10 +1517,7 @@ Class_iterator::Class_iterator(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 void Class_iterator::Prepare(Environment &env)
 {
 	Gura_AssignFunction(iterator);
-	Gura_AssignFunction(range);
-	Gura_AssignFunction(interval);
 	Gura_AssignFunction(consts);
-	Gura_AssignFunction(rands);
 	// assignment of methods specific to iterator
 	Gura_AssignMethod(iterator, delay);
 	Gura_AssignMethod(iterator, isinfinite);

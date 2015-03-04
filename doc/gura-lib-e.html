@@ -16,17 +16,18 @@
 <div><span class="toc-index-1">4</span><a href="#caption-4">Built-in Functions</a></div>
 <div><span class="toc-index-2">4.1</span><a href="#caption-4-1">Formatting and Printing of Text</a></div>
 <div><span class="toc-index-2">4.2</span><a href="#caption-4-2">Repetition</a></div>
-<div><span class="toc-index-2">4.3</span><a href="#caption-4-3">Flow Control</a></div>
-<div><span class="toc-index-2">4.4</span><a href="#caption-4-4">Branch Control</a></div>
-<div><span class="toc-index-2">4.5</span><a href="#caption-4-5">Handling Exception</a></div>
-<div><span class="toc-index-2">4.6</span><a href="#caption-4-6">Data Transformation</a></div>
-<div><span class="toc-index-2">4.7</span><a href="#caption-4-7">Class Operations</a></div>
-<div><span class="toc-index-2">4.8</span><a href="#caption-4-8">Scope Operations</a></div>
-<div><span class="toc-index-2">4.9</span><a href="#caption-4-9">Module Operations</a></div>
-<div><span class="toc-index-2">4.10</span><a href="#caption-4-10">Value Type Information</a></div>
-<div><span class="toc-index-2">4.11</span><a href="#caption-4-11">Data Processing</a></div>
-<div><span class="toc-index-2">4.12</span><a href="#caption-4-12">Random</a></div>
-<div><span class="toc-index-2">4.13</span><a href="#caption-4-13">Help Information</a></div>
+<div><span class="toc-index-2">4.3</span><a href="#caption-4-3">Value Generator</a></div>
+<div><span class="toc-index-2">4.4</span><a href="#caption-4-4">Flow Control</a></div>
+<div><span class="toc-index-2">4.5</span><a href="#caption-4-5">Branch Sequence</a></div>
+<div><span class="toc-index-2">4.6</span><a href="#caption-4-6">Exception Handling</a></div>
+<div><span class="toc-index-2">4.7</span><a href="#caption-4-7">Data Converter</a></div>
+<div><span class="toc-index-2">4.8</span><a href="#caption-4-8">Class Operations</a></div>
+<div><span class="toc-index-2">4.9</span><a href="#caption-4-9">Scope Operations</a></div>
+<div><span class="toc-index-2">4.10</span><a href="#caption-4-10">Module Operations</a></div>
+<div><span class="toc-index-2">4.11</span><a href="#caption-4-11">Value Type Information</a></div>
+<div><span class="toc-index-2">4.12</span><a href="#caption-4-12">Data Processing</a></div>
+<div><span class="toc-index-2">4.13</span><a href="#caption-4-13">Random</a></div>
+<div><span class="toc-index-2">4.14</span><a href="#caption-4-14">Help Information</a></div>
 <div><span class="toc-index-1">5</span><a href="#caption-5">Built-in Operators</a></div>
 <div><span class="toc-index-1">6</span><a href="#caption-6">Built-in Classes</a></div>
 <div><span class="toc-index-2">6.1</span><a href="#caption-6-1">args Class</a></div>
@@ -345,24 +346,22 @@ The <code>width</code> is a decimal number that specifies a minimum character. I
 The <code>width</code> it a character width that appears on a console, and it takes into account each character width based on the specification of East Asian Width. This means that a kanji-character occupies two characters in width.
 </p>
 <p>
-The <code>precision</code> is a decimal number and has different effects depending on <code>specifier</code>:
+The <code>precision</code> is a decimal number and has different effects depending on <code>specifier</code>.
 </p>
-<ul>
-<li><p>
-For specifiers that formats integer numbers .. it specifies a minimum character width and fills <code>0</code> for the lacking column. Format specifiers "<code>%03d</code>" and "<code>%.3d</code>" have the same effect. When it works in combination with <code>width</code>, <code>precision</code> fills <code>0</code> in the lacking space before <code>width</code> does padding. An example is shown below:
+<p>
+For specifiers that formats integer numbers, it specifies a minimum character width and fills <code>0</code> for the lacking column. Format specifiers "<code>%03d</code>" and "<code>%.3d</code>" have the same effect. When it works in combination with <code>width</code>, <code>precision</code> fills <code>0</code> in the lacking space before <code>width</code> does padding. An example is shown below:
 </p>
 <pre><code>printf('%5.3d', 23) .. prints "  023"
 </code></pre>
-</li>
-<li><p>
-For <code>e</code>, <code>f</code> and <code>g</code> .. it specifies a digit number after a decimal point. Examples are shown below:
+<p>
+For specifiers <code>e</code>, <code>f</code> and <code>g</code>, it specifies a digit number after a decimal point. Examples are shown below:
 </p>
 <pre><code>printf('%.3f', 1 / 3) .. prints "0.333"
 printf('%.5f', 1 / 3) .. prints "0.33333"
 </code></pre>
-</li>
-<li>For other specifiers .. it has no effect.</li>
-</ul>
+<p>
+For other specifiers, it has no effect.
+</p>
 <p>
 <strong>println</strong>
 </p>
@@ -465,7 +464,95 @@ It returns the last evaluated value in the block as its own result, but, if one 
 <p>
 Block parameter format is <code>|idx:number|</code> where <code>idx</code> indicates an index of the loop.
 </p>
-<h2><span class="caption-index-2">4.3</span><a name="caption-4-3"></a>Flow Control</h2>
+<h2><span class="caption-index-2">4.3</span><a name="caption-4-3"></a>Value Generator</h2>
+<p>
+<strong>dim</strong>
+</p>
+<p>
+<code>dim(n+:number) {block?}</code>
+</p>
+<p>
+Returns a list that contains <code>n</code> values of <code>nil</code>. If you pass multiple numbers for <code>n</code>, it would create a nested list.
+</p>
+<p>
+Example:
+</p>
+<pre><code>x = dim(3)     // x is [nil, nil, nil]
+x = dim(3, 2)  // x is [[nil, nil], [nil, nil], [nil, nil]]
+</code></pre>
+<p>
+The optional <code>block</code> provides values for each element and takes a block parameters: <code>|i0:number, i1:number, ..|</code>.
+</p>
+<p>
+Example:
+</p>
+<pre><code>x = dim(3) {'Hi'}
+// x is ['Hi', 'Hi', 'Hi']
+x = dim(3, 2) {|i, j| format('%d-%d', i, j) }
+// x is [['0-0', '0-1'], ['1-0', '1-1'], ['2-0', '2-1']]
+</code></pre>
+<p>
+<strong>interval</strong>
+</p>
+<p>
+<code>interval(begin:number, end:number, samples:number):map:[open,open_l,open_r] {block?}</code>
+</p>
+<p>
+Creates an iterator that generates a sequence of numbers by specifying the beginning and ending numbers, and the number of samples between them.
+</p>
+<p>
+In default, it creates a sequence that contains the beginning and ending numbers. Following attributes would generate the following numbers:
+</p>
+<ul>
+<li><code>:open</code> .. Numbers in range of <code>(begin, end)</code> that doesn't contain either <code>begin</code> or <code>end</code>.</li>
+<li><code>:open_l</code> .. Numbers in range of <code>(begin, end]</code> that doesn't contain <code>begin</code>.</li>
+<li><code>:open_r</code> .. Numbers in range of <code>[begin, end)</code> that doesn't contain <code>end</code>.</li>
+</ul>
+<p>
+<strong>range</strong>
+</p>
+<p>
+<code>range(num:number, num_end?:number, step?:number):map {block?}</code>
+</p>
+<p>
+Creates an iterator that generates a sequence of integer numbers.
+</p>
+<p>
+This function can be called in three formats that generate following numbers:
+</p>
+<ul>
+<li><code>range(num)</code> .. Numbers between <code>0</code> and <code>(num - 1)</code>.</li>
+<li><code>range(num, num_end)</code> .. Numbers between <code>num</code> and <code>(num_end - 1)</code>.</li>
+<li><code>range(num, num_end, step)</code> .. Numbers between <code>num</code> and <code>(num_end - 1)</code> incremented by <code>step</code>.</li>
+</ul>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Below are examples:
+</p>
+<pre><code>x = range(10)
+// x generates 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+
+x = range(3, 10)
+// x generates 3, 4, 5, 6, 7, 8, 9
+
+x = range(3, 10, 2)
+// x generates 3, 5, 7, 9
+</code></pre>
+<h2><span class="caption-index-2">4.4</span><a name="caption-4-4"></a>Flow Control</h2>
 <p>
 <strong>break</strong>
 </p>
@@ -499,7 +586,7 @@ If the loop function is specified with one of <code>:list</code>, <code>:xlist</
 <p>
 Skips the remaining procedure of the current function and returns to context that calls it. If it takes an argument, the value is treated as a result of the function. Otherwise, the returned value would be <code>nil</code>.
 </p>
-<h2><span class="caption-index-2">4.4</span><a name="caption-4-4"></a>Branch Control</h2>
+<h2><span class="caption-index-2">4.5</span><a name="caption-4-5"></a>Branch Sequence</h2>
 <p>
 <strong>if</strong>
 </p>
@@ -575,7 +662,7 @@ Specify an case block within a switch block. After evaluating an expr object con
 <p>
 Specify a default block within a switch block. If all the preceding condition of case block are not evaluated as true, this block shall be executed.
 </p>
-<h2><span class="caption-index-2">4.5</span><a name="caption-4-5"></a>Handling Exception</h2>
+<h2><span class="caption-index-2">4.6</span><a name="caption-4-6"></a>Exception Handling</h2>
 <p>
 <strong>try</strong>
 </p>
@@ -609,7 +696,7 @@ Specify an catch block of a statement of try-catch-else. It can take multiple nu
 <p>
 Raises an error signal with a specified error object, a message string and an additional value.
 </p>
-<h2><span class="caption-index-2">4.6</span><a name="caption-4-6"></a>Data Transformation</h2>
+<h2><span class="caption-index-2">4.7</span><a name="caption-4-7"></a>Data Converter</h2>
 <p>
 <strong>chr</strong>
 </p>
@@ -696,7 +783,7 @@ Converts a value into a string.
 <p>
 Converts a string into a symbol.
 </p>
-<h2><span class="caption-index-2">4.7</span><a name="caption-4-7"></a>Class Operations</h2>
+<h2><span class="caption-index-2">4.8</span><a name="caption-4-8"></a>Class Operations</h2>
 <p>
 <strong>class</strong>
 </p>
@@ -779,7 +866,7 @@ b = B()
 b.func()         // B#func() is called.
 super(b).func()  // A#func() is called.
 </code></pre>
-<h2><span class="caption-index-2">4.8</span><a name="caption-4-8"></a>Scope Operations</h2>
+<h2><span class="caption-index-2">4.9</span><a name="caption-4-9"></a>Scope Operations</h2>
 <p>
 <strong>local</strong>
 </p>
@@ -830,7 +917,7 @@ If you want to make <code>foo</code> and <code>bar</code> accessible, call this 
 <p>
 Evaluates block with a local scope.
 </p>
-<h2><span class="caption-index-2">4.9</span><a name="caption-4-9"></a>Module Operations</h2>
+<h2><span class="caption-index-2">4.10</span><a name="caption-4-10"></a>Module Operations</h2>
 <p>
 <strong>import</strong>
 </p>
@@ -871,7 +958,7 @@ import(&amp;var)
 <p>
 Creates a module that contains functions and variables defined in the block and returns it as a module object. This can be used to realize a namespace.
 </p>
-<h2><span class="caption-index-2">4.10</span><a name="caption-4-10"></a>Value Type Information</h2>
+<h2><span class="caption-index-2">4.11</span><a name="caption-4-11"></a>Value Type Information</h2>
 <p>
 <strong>isbinary</strong>
 </p>
@@ -1115,7 +1202,7 @@ Returns a type name of the value.
 <p>
 Undefines <code>identifier</code> in the current scope.
 </p>
-<h2><span class="caption-index-2">4.11</span><a name="caption-4-11"></a>Data Processing</h2>
+<h2><span class="caption-index-2">4.12</span><a name="caption-4-12"></a>Data Processing</h2>
 <p>
 <strong>choose</strong>
 </p>
@@ -1180,32 +1267,6 @@ But they are different in the following points:
 If you want to specify a list or an iterator for <code>value1</code> and <code>value2</code> as selected values, use <code>cond()</code> function instead.
 </p>
 <p>
-<strong>dim</strong>
-</p>
-<p>
-<code>dim(n+:number) {block?}</code>
-</p>
-<p>
-Returns a list that contains <code>n</code> values of <code>nil</code>. If you pass multiple numbers for <code>n</code>, it would create a nested list.
-</p>
-<p>
-Example:
-</p>
-<pre><code>x = dim(3)     // x is [nil, nil, nil]
-x = dim(3, 2)  // x is [[nil, nil], [nil, nil], [nil, nil]]
-</code></pre>
-<p>
-The optional <code>block</code> provides values for each element and takes a block parameters: <code>|i0:number, i1:number, ..|</code>.
-</p>
-<p>
-Example:
-</p>
-<pre><code>x = dim(3) {'Hi'}
-// x is ['Hi', 'Hi', 'Hi']
-x = dim(3, 2) {|i, j| format('%d-%d', i, j) }
-// x is [['0-0', '0-1'], ['1-0', '1-1'], ['2-0', '2-1']]
-</code></pre>
-<p>
 <strong>max</strong>
 </p>
 <p>
@@ -1223,7 +1284,7 @@ Returns the maximum value among the given arguments.
 <p>
 Returns the minimum value among the given arguments.
 </p>
-<h2><span class="caption-index-2">4.12</span><a name="caption-4-12"></a>Random</h2>
+<h2><span class="caption-index-2">4.13</span><a name="caption-4-13"></a>Random</h2>
 <p>
 <strong>rand</strong>
 </p>
@@ -1234,6 +1295,42 @@ Returns the minimum value among the given arguments.
 Returns a random number between <code>0</code> and <code>range - 1</code>. If argument <code>range</code> is not specified, it generates random numbers in a range of [0, 1).
 </p>
 <p>
+<strong>rands</strong>
+</p>
+<p>
+<code>rands(range?:number, num?:number) {block?}</code>
+</p>
+<p>
+Creates an iterator that returns random numbers between <code>0</code> and <code>range - 1</code>.
+</p>
+<p>
+If argument <code>range</code> is not specified, it generates random numbers in a range of [0, 1).
+</p>
+<p>
+In default, the created iterator infinitely generates random numbers. The argument <code>num</code> specifies how many elements should be generated.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Below is an example:
+</p>
+<pre><code>x = rands(100)
+// x is an infinite iterator to generates random numbers between 0 and 99
+</code></pre>
+<p>
 <strong>randseed</strong>
 </p>
 <p>
@@ -1242,7 +1339,7 @@ Returns a random number between <code>0</code> and <code>range - 1</code>. If ar
 <p>
 Initializes random seed with a specified number.
 </p>
-<h2><span class="caption-index-2">4.13</span><a name="caption-4-13"></a>Help Information</h2>
+<h2><span class="caption-index-2">4.14</span><a name="caption-4-14"></a>Help Information</h2>
 <p>
 <strong>dir</strong>
 </p>
@@ -1266,15 +1363,6 @@ Returns a symbol list of value types that are assigned in the environment of <co
 </p>
 <p>
 In default, when the <code>obj</code> is an instance of a class, it also searches symbols assigned in the class that it belongs to and its parent classes. Specifying attribute <code>:noesc</code> inhibits avoids behavior.
-</p>
-<p>
-<strong>help</strong>
-</p>
-<p>
-<code>help(func:function, lang?:symbol):map:void</code>
-</p>
-<p>
-Prints a help message for the specified function object.
 </p>
 <h1><span class="caption-index-1">5</span><a name="caption-5"></a>Built-in Operators</h1>
 <p>
@@ -3262,7 +3350,7 @@ Creates an instance of <code>datetime</code> class based on the specified argume
 If <code>block</code> is specified, it would be evaluated with a block parameter <code>|dt:datetime|</code>, where <code>dt</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <p>
-Meaning of the arguments are shown below:
+Explanations of the arguments are shown below:
 </p>
 <ul>
 <li><code>year</code> .. Christian year.</li>
@@ -5280,7 +5368,13 @@ symbol</code>
 </table>
 
 </p>
-<h3><span class="caption-index-3">6.17.2</span><a name="caption-6-17-2"></a>Function to Create Instance</h3>
+<h3><span class="caption-index-3">6.17.2</span><a name="caption-6-17-2"></a>Operator</h3>
+<p>
+You can print a function's help from the interactive prompt using the unary operator <code>~</code>. Below is an example to print the help of <code>printf()</code> function:
+</p>
+<pre><code>&gt;&gt;&gt; ~printf
+</code></pre>
+<h3><span class="caption-index-3">6.17.3</span><a name="caption-6-17-3"></a>Function to Create Instance</h3>
 <p>
 <strong>function</strong>
 </p>
@@ -5297,7 +5391,7 @@ Following two codes have the same effect with each other.
 </code></pre>
 <pre><code>f(a, b, c) = { /* any job */ }
 </code></pre>
-<h3><span class="caption-index-3">6.17.3</span><a name="caption-6-17-3"></a>Method</h3>
+<h3><span class="caption-index-3">6.17.4</span><a name="caption-6-17-4"></a>Method</h3>
 <p>
 <strong>function.addhelp</strong>
 </p>
