@@ -12,29 +12,49 @@ Below is an example to read an ICO file:
 
     import(msico)
 	img = image('foo.ico')
-'''
+
+## Exntension to Function's Capability
+
+This module extends the capability of function `image()` and instance method `image#write()`
+so that they can read/write ICO files.
+
+When function `image()` is provided with a stream that satisfies the following conditions,
+it would recognize the stream as a ICO file.
+
+- The identifier of the stream ends with a suffix `.ico`.
+
+When instance method `image#write()` is provided with a stream that satisfies the following condition,
+it would write image data in ICO format.
+
+- The identifier of the stream ends with a suffix `.ico`.
+
+
+## msico.content Class
+
+### Function to Create Instance
+
+${markdown.funcdoc(
+msico.content
+)}
+
+### Method
+
+${markdown.funcdoc(
+msico.content.write
+msico.content.addimage
+)}
+
+## Extension to image Class
+
+This module extends the `image` class with methods described here.
+
+${markdown.funcdoc(
+image.read@msico
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-	]
-	doc << R'''
-	## msico.content Class
-	'''
-	doc << [
-		msico.content
-		msico.content.write
-		msico.content.addimage
-	]
-	doc << R'''
-	## Methods Added to image Class
-	'''
-	doc << [
-		image.read@msico
-	]
 	doc
 }
 

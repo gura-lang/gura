@@ -15,7 +15,7 @@ Below is an example to read a PNG file:
     import(png)
     img = image('foo.png')
 
-## Exntension of Function's Capability
+## Exntension to Function's Capability
 
 This module extends the capability of function `image()` and instance method `image#write()`
 so that they can read/write PNG files.
@@ -30,22 +30,21 @@ When instance method `image#write()` is provided with a stream that satisfies th
 it would write image data in PNG format.
 
 - The identifier of the stream ends with a suffix `.png`.
-'''
+
+## Module Function
+
+## Extension to image Class
+
+This module extends the `image` class with methods described here.
+
+${markdown.funcdoc(
+image.read@png
+image.write@png
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-	]
-	doc << R'''
-	## Methods Added to image Class
-	'''
-	doc << [
-		image.read@png
-		image.write@png
-	]
 	doc
 }
 

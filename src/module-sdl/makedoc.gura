@@ -7,193 +7,184 @@ text = R'''
 
 The `sdl` module provides functions of SDL library.
 Official site of SDL is <http://www.libsdl.org/>.
-'''
+
+## General
+
+${markdown.funcdoc(
+sdl.Init
+sdl.InitSubSystem
+sdl.QuitSubSystem
+sdl.Quit
+sdl.WasInit
+sdl.GetError
+)}
+
+## Video
+
+${markdown.funcdoc(
+sdl.GetVideoSurface
+sdl.GetVideoInfo
+sdl.VideoDriverName
+sdl.ListModes
+sdl.VideoModeOK
+sdl.SetVideoMode
+sdl.Surface.UpdateRect
+sdl.Surface.UpdateRects
+sdl.Surface.Flip
+sdl.Surface.SetColors
+sdl.Surface.SetPalette
+sdl.SetGamma
+sdl.GetGammaRamp
+sdl.SetGammaRamp
+sdl.PixelFormat.MapRGB
+sdl.PixelFormat.MapRGBA
+sdl.PixelFormat.GetRGB
+sdl.PixelFormat.GetRGBA
+sdl.CreateRGBSurface
+sdl.CreateRGBSurfaceFrom
+//sdl.Surface.FreeSurface
+sdl.Surface.LockSurface
+sdl.Surface.UnlockSurface
+sdl.LoadBMP
+sdl.Surface.SaveBMP
+sdl.Surface.SetColorKey
+sdl.Surface.SetAlpha
+sdl.Surface.SetClipRect
+sdl.Surface.GetClipRect
+sdl.Surface.ConvertSurface
+sdl.BlitSurface
+sdl.Surface.FillRect
+sdl.Surface.DisplayFormat
+sdl.Surface.DisplayFormatAlpha
+sdl.WarpMouse
+sdl.CreateCursor
+//sdl.Cursor.FreeCursor
+sdl.SetCursor
+sdl.GetCursor
+sdl.ShowCursor
+//sdl.GL_LoadLibrary
+//sdl.GL_GetProcAddress
+sdl.GL_GetAttribute
+sdl.GL_SetAttribute
+sdl.GL_SwapBuffers
+sdl.CreateYUVOverlay
+sdl.Overlay.LockYUVOverlay
+sdl.Overlay.UnlockYUVOverlay
+sdl.Overlay.DisplayYUVOverlay
+//sdl.Overlay.FreeYUVOverlay
+//sdl.Rect
+//sdl.Color
+//sdl.Palette
+//sdl.PixelFormat
+//sdl.Surface
+//sdl.VideoInfo
+//sdl.Overlay
+)}
+
+## Window Management
+
+${markdown.funcdoc(
+sdl.WM_SetCaption
+sdl.WM_GetCaption
+sdl.WM_SetIcon
+sdl.WM_IconifyWindow
+sdl.WM_ToggleFullScreen
+sdl.WM_GrabInput
+)}
+
+## Events
+
+${markdown.funcdoc(
+sdl.PumpEvents
+sdl.AddEvents
+sdl.PeekEvents
+sdl.GetEvents
+sdl.PollEvent
+sdl.WaitEvent
+sdl.PushEvent
+sdl.SetEventFilter
+sdl.GetEventFilter
+sdl.EventState
+sdl.CheckKeyState
+sdl.GetModState
+sdl.SetModState
+sdl.GetKeyName
+sdl.EnableUNICODE
+sdl.EnableKeyRepeat
+sdl.GetMouseState
+sdl.GetRelativeMouseState
+sdl.GetAppState
+sdl.JoystickEventState
+)}
+
+## Joystick
+
+${markdown.funcdoc(
+sdl.NumJoysticks
+sdl.JoystickName
+sdl.JoystickOpen
+sdl.JoystickOpened
+sdl.Joystick.JoystickIndex
+sdl.Joystick.JoystickNumAxes
+sdl.Joystick.JoystickNumBalls
+sdl.Joystick.JoystickNumHats
+sdl.Joystick.JoystickNumButtons
+sdl.JoystickUpdate
+sdl.Joystick.JoystickGetAxis
+sdl.Joystick.JoystickGetHat
+sdl.Joystick.JoystickGetButton
+sdl.Joystick.JoystickGetBall
+sdl.Joystick.JoystickClose
+)}
+
+## Audio
+
+${markdown.funcdoc(
+//sdl.AudioSpec
+sdl.OpenAudio
+sdl.PauseAudio
+sdl.GetAudioStatus
+sdl.LoadWAV
+//sdl.Audio.FreeWAV
+sdl.AudioCVT
+sdl.BuildAudioCVT
+//sdl.AudioCVT.ConvertAudio
+//sdl.MixAudio
+sdl.LockAudio
+sdl.UnlockAudio
+sdl.CloseAudio
+)}
+
+## CD-ROM
+
+${markdown.funcdoc(
+sdl.CDNumDrives
+sdl.CDName
+sdl.CDOpen
+sdl.CD.CDStatus
+sdl.CD.CDPlay
+sdl.CD.CDPlayTracks
+sdl.CD.CDPause
+sdl.CD.CDResume
+sdl.CD.CDStop
+sdl.CD.CDEject
+sdl.CD.CDClose
+//sdl.CDTrack
+)}
+
+## Time
+
+${markdown.funcdoc(
+sdl.GetTicks
+sdl.Delay
+sdl.AddTimer
+sdl.Timer.RemoveTimer
+//sdl.Timer.SetTimer
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	
-	// 5. General
-	doc << R'''
-	## General
-	'''
-	doc << [
-		sdl.Init
-		sdl.InitSubSystem
-		sdl.QuitSubSystem
-		sdl.Quit
-		sdl.WasInit
-		sdl.GetError
-	]
-	// 6. Video
-	doc << R'''
-	## Video
-	'''
-	doc << [
-		sdl.GetVideoSurface
-		sdl.GetVideoInfo
-		sdl.VideoDriverName
-		sdl.ListModes
-		sdl.VideoModeOK
-		sdl.SetVideoMode
-		sdl.Surface.UpdateRect
-		sdl.Surface.UpdateRects
-		sdl.Surface.Flip
-		sdl.Surface.SetColors
-		sdl.Surface.SetPalette
-		sdl.SetGamma
-		sdl.GetGammaRamp
-		sdl.SetGammaRamp
-		sdl.PixelFormat.MapRGB
-		sdl.PixelFormat.MapRGBA
-		sdl.PixelFormat.GetRGB
-		sdl.PixelFormat.GetRGBA
-		sdl.CreateRGBSurface
-		sdl.CreateRGBSurfaceFrom
-		//sdl.Surface.FreeSurface
-		sdl.Surface.LockSurface
-		sdl.Surface.UnlockSurface
-		sdl.LoadBMP
-		sdl.Surface.SaveBMP
-		sdl.Surface.SetColorKey
-		sdl.Surface.SetAlpha
-		sdl.Surface.SetClipRect
-		sdl.Surface.GetClipRect
-		sdl.Surface.ConvertSurface
-		sdl.BlitSurface
-		sdl.Surface.FillRect
-		sdl.Surface.DisplayFormat
-		sdl.Surface.DisplayFormatAlpha
-		sdl.WarpMouse
-		sdl.CreateCursor
-		//sdl.Cursor.FreeCursor
-		sdl.SetCursor
-		sdl.GetCursor
-		sdl.ShowCursor
-		//sdl.GL_LoadLibrary
-		//sdl.GL_GetProcAddress
-		sdl.GL_GetAttribute
-		sdl.GL_SetAttribute
-		sdl.GL_SwapBuffers
-		sdl.CreateYUVOverlay
-		sdl.Overlay.LockYUVOverlay
-		sdl.Overlay.UnlockYUVOverlay
-		sdl.Overlay.DisplayYUVOverlay
-		//sdl.Overlay.FreeYUVOverlay
-		//sdl.Rect
-		//sdl.Color
-		//sdl.Palette
-		//sdl.PixelFormat
-		//sdl.Surface
-		//sdl.VideoInfo
-		//sdl.Overlay
-	]
-	// 7. Window Management
-	doc << R'''
-	## Window Management
-	'''
-	doc << [
-		sdl.WM_SetCaption
-		sdl.WM_GetCaption
-		sdl.WM_SetIcon
-		sdl.WM_IconifyWindow
-		sdl.WM_ToggleFullScreen
-		sdl.WM_GrabInput
-	]
-	// 8. Events
-	doc << R'''
-	## Events
-	'''
-	doc << [
-		sdl.PumpEvents
-		sdl.AddEvents
-		sdl.PeekEvents
-		sdl.GetEvents
-		sdl.PollEvent
-		sdl.WaitEvent
-		sdl.PushEvent
-		sdl.SetEventFilter
-		sdl.GetEventFilter
-		sdl.EventState
-		sdl.CheckKeyState
-		sdl.GetModState
-		sdl.SetModState
-		sdl.GetKeyName
-		sdl.EnableUNICODE
-		sdl.EnableKeyRepeat
-		sdl.GetMouseState
-		sdl.GetRelativeMouseState
-		sdl.GetAppState
-		sdl.JoystickEventState
-	]
-	// 9. Joystick
-	doc << R'''
-	## Joystick
-	'''
-	doc << [
-		sdl.NumJoysticks
-		sdl.JoystickName
-		sdl.JoystickOpen
-		sdl.JoystickOpened
-		sdl.Joystick.JoystickIndex
-		sdl.Joystick.JoystickNumAxes
-		sdl.Joystick.JoystickNumBalls
-		sdl.Joystick.JoystickNumHats
-		sdl.Joystick.JoystickNumButtons
-		sdl.JoystickUpdate
-		sdl.Joystick.JoystickGetAxis
-		sdl.Joystick.JoystickGetHat
-		sdl.Joystick.JoystickGetButton
-		sdl.Joystick.JoystickGetBall
-		sdl.Joystick.JoystickClose
-	]
-	// 10. Audio
-	doc << R'''
-	## Audio
-	'''
-	doc << [
-		//sdl.AudioSpec
-		sdl.OpenAudio
-		sdl.PauseAudio
-		sdl.GetAudioStatus
-		sdl.LoadWAV
-		//sdl.Audio.FreeWAV
-		sdl.AudioCVT
-		sdl.BuildAudioCVT
-		//sdl.AudioCVT.ConvertAudio
-		//sdl.MixAudio
-		sdl.LockAudio
-		sdl.UnlockAudio
-		sdl.CloseAudio
-	]
-	// 11. CD-ROM
-	doc << R'''
-	## CD-ROM
-	'''
-	doc << [
-		sdl.CDNumDrives
-		sdl.CDName
-		sdl.CDOpen
-		sdl.CD.CDStatus
-		sdl.CD.CDPlay
-		sdl.CD.CDPlayTracks
-		sdl.CD.CDPause
-		sdl.CD.CDResume
-		sdl.CD.CDStop
-		sdl.CD.CDEject
-		sdl.CD.CDClose
-		//sdl.CDTrack
-	]
-	// 13. Time
-	doc << R'''
-	## Time
-	'''
-	doc << [
-		sdl.GetTicks
-		sdl.Delay
-		sdl.AddTimer
-		sdl.Timer.RemoveTimer
-		//sdl.Timer.SetTimer
-	]
 	doc
 }
 

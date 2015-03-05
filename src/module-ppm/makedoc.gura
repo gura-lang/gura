@@ -12,22 +12,37 @@ Below is an example to read a PPM file:
 
     import(ppm)
 	img = image('foo.ppm')
-'''
+
+
+## Exntension to Function's Capability
+
+This module extends the capability of function `image()` and instance method `image#write()`
+so that they can read/write PPM files.
+
+When function `image()` is provided with a stream that satisfies the following conditions,
+it would recognize the stream as a PPM file.
+
+- The identifier of the stream ends with a suffix `.ppm` or `.pbm`.
+- The stream data begins with a byte sequence "`P2`", "`P3`" or "`P6`".
+
+When instance method `image#write()` is provided with a stream that satisfies the following condition,
+it would write image data in PPM format.
+
+- The identifier of the stream ends with a suffix `.ppm` or `.pbm`.
+
+
+## Extension to image Class
+
+This module extends the `image` class with methods described here.
+
+${markdown.funcdoc(
+image.read@ppm
+image.write@ppm
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-	]
-	doc << R'''
-	## Methods Added to image Class
-	'''
-	doc << [
-		image.read@ppm
-		image.write@ppm
-	]
 	doc
 }
 

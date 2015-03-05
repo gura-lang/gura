@@ -5,15 +5,12 @@ text = R'''
 # http Module
 
 The `http` module provides measures to connect the Internet through HTTP protocol.
-'''
+
+## Module Functions
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-	]
 	doc
 }
 

@@ -6,130 +6,130 @@ text = R'''
 # glut Module
 
 The `glut` module provides functions of GLUT library.
-'''
+
+## Module Functions
+
+${markdown.funcdoc(
+glut.glutInit
+glut.glutInitDisplayMode
+glut.glutInitDisplayString
+glut.glutInitWindowPosition
+glut.glutInitWindowSize
+glut.glutMainLoop
+glut.glutCreateWindow
+glut.glutCreateSubWindow
+glut.glutDestroyWindow
+glut.glutPostRedisplay
+glut.glutPostWindowRedisplay
+glut.glutSwapBuffers
+glut.glutGetWindow
+glut.glutSetWindow
+glut.glutSetWindowTitle
+glut.glutSetIconTitle
+glut.glutPositionWindow
+glut.glutReshapeWindow
+glut.glutPopWindow
+glut.glutPushWindow
+glut.glutIconifyWindow
+glut.glutShowWindow
+glut.glutHideWindow
+glut.glutFullScreen
+glut.glutSetCursor
+glut.glutWarpPointer
+glut.glutEstablishOverlay
+glut.glutRemoveOverlay
+glut.glutUseLayer
+glut.glutPostOverlayRedisplay
+glut.glutPostWindowOverlayRedisplay
+glut.glutShowOverlay
+glut.glutHideOverlay
+glut.glutCreateMenu
+glut.glutDestroyMenu
+glut.glutGetMenu
+glut.glutSetMenu
+glut.glutAddMenuEntry
+glut.glutAddSubMenu
+glut.glutChangeToMenuEntry
+glut.glutChangeToSubMenu
+glut.glutRemoveMenuItem
+glut.glutAttachMenu
+glut.glutDetachMenu
+glut.glutDisplayFunc
+glut.glutReshapeFunc
+glut.glutKeyboardFunc
+glut.glutMouseFunc
+glut.glutMotionFunc
+glut.glutPassiveMotionFunc
+glut.glutEntryFunc
+glut.glutVisibilityFunc
+glut.glutIdleFunc
+glut.glutTimerFunc
+glut.glutMenuStateFunc
+glut.glutSpecialFunc
+glut.glutSpaceballMotionFunc
+glut.glutSpaceballRotateFunc
+glut.glutSpaceballButtonFunc
+glut.glutButtonBoxFunc
+glut.glutDialsFunc
+glut.glutTabletMotionFunc
+glut.glutTabletButtonFunc
+glut.glutMenuStatusFunc
+glut.glutOverlayDisplayFunc
+glut.glutWindowStatusFunc
+glut.glutKeyboardUpFunc
+glut.glutSpecialUpFunc
+glut.glutJoystickFunc
+glut.glutSetColor
+glut.glutGetColor
+glut.glutCopyColormap
+glut.glutGet
+glut.glutDeviceGet
+glut.glutExtensionSupported
+glut.glutGetModifiers
+glut.glutLayerGet
+glut.glutGetProcAddress
+glut.glutBitmapCharacter
+glut.glutBitmapWidth
+glut.glutStrokeCharacter
+glut.glutStrokeWidth
+glut.glutBitmapLength
+glut.glutStrokeLength
+glut.glutWireSphere
+glut.glutSolidSphere
+glut.glutWireCone
+glut.glutSolidCone
+glut.glutWireCube
+glut.glutSolidCube
+glut.glutWireTorus
+glut.glutSolidTorus
+glut.glutWireDodecahedron
+glut.glutSolidDodecahedron
+glut.glutWireTeapot
+glut.glutSolidTeapot
+glut.glutWireOctahedron
+glut.glutSolidOctahedron
+glut.glutWireTetrahedron
+glut.glutSolidTetrahedron
+glut.glutWireIcosahedron
+glut.glutSolidIcosahedron
+glut.glutVideoResizeGet
+glut.glutSetupVideoResizing
+glut.glutStopVideoResizing
+glut.glutVideoResize
+glut.glutVideoPan
+glut.glutReportErrors
+glut.glutIgnoreKeyRepeat
+glut.glutSetKeyRepeat
+glut.glutForceJoystickFunc
+glut.glutGameModeString
+glut.glutEnterGameMode
+glut.glutLeaveGameMode
+glut.glutGameModeGet
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-		glut.glutInit
-		glut.glutInitDisplayMode
-		glut.glutInitDisplayString
-		glut.glutInitWindowPosition
-		glut.glutInitWindowSize
-		glut.glutMainLoop
-		glut.glutCreateWindow
-		glut.glutCreateSubWindow
-		glut.glutDestroyWindow
-		glut.glutPostRedisplay
-		glut.glutPostWindowRedisplay
-		glut.glutSwapBuffers
-		glut.glutGetWindow
-		glut.glutSetWindow
-		glut.glutSetWindowTitle
-		glut.glutSetIconTitle
-		glut.glutPositionWindow
-		glut.glutReshapeWindow
-		glut.glutPopWindow
-		glut.glutPushWindow
-		glut.glutIconifyWindow
-		glut.glutShowWindow
-		glut.glutHideWindow
-		glut.glutFullScreen
-		glut.glutSetCursor
-		glut.glutWarpPointer
-		glut.glutEstablishOverlay
-		glut.glutRemoveOverlay
-		glut.glutUseLayer
-		glut.glutPostOverlayRedisplay
-		glut.glutPostWindowOverlayRedisplay
-		glut.glutShowOverlay
-		glut.glutHideOverlay
-		glut.glutCreateMenu
-		glut.glutDestroyMenu
-		glut.glutGetMenu
-		glut.glutSetMenu
-		glut.glutAddMenuEntry
-		glut.glutAddSubMenu
-		glut.glutChangeToMenuEntry
-		glut.glutChangeToSubMenu
-		glut.glutRemoveMenuItem
-		glut.glutAttachMenu
-		glut.glutDetachMenu
-		glut.glutDisplayFunc
-		glut.glutReshapeFunc
-		glut.glutKeyboardFunc
-		glut.glutMouseFunc
-		glut.glutMotionFunc
-		glut.glutPassiveMotionFunc
-		glut.glutEntryFunc
-		glut.glutVisibilityFunc
-		glut.glutIdleFunc
-		glut.glutTimerFunc
-		glut.glutMenuStateFunc
-		glut.glutSpecialFunc
-		glut.glutSpaceballMotionFunc
-		glut.glutSpaceballRotateFunc
-		glut.glutSpaceballButtonFunc
-		glut.glutButtonBoxFunc
-		glut.glutDialsFunc
-		glut.glutTabletMotionFunc
-		glut.glutTabletButtonFunc
-		glut.glutMenuStatusFunc
-		glut.glutOverlayDisplayFunc
-		glut.glutWindowStatusFunc
-		glut.glutKeyboardUpFunc
-		glut.glutSpecialUpFunc
-		glut.glutJoystickFunc
-		glut.glutSetColor
-		glut.glutGetColor
-		glut.glutCopyColormap
-		glut.glutGet
-		glut.glutDeviceGet
-		glut.glutExtensionSupported
-		glut.glutGetModifiers
-		glut.glutLayerGet
-		glut.glutGetProcAddress
-		glut.glutBitmapCharacter
-		glut.glutBitmapWidth
-		glut.glutStrokeCharacter
-		glut.glutStrokeWidth
-		glut.glutBitmapLength
-		glut.glutStrokeLength
-		glut.glutWireSphere
-		glut.glutSolidSphere
-		glut.glutWireCone
-		glut.glutSolidCone
-		glut.glutWireCube
-		glut.glutSolidCube
-		glut.glutWireTorus
-		glut.glutSolidTorus
-		glut.glutWireDodecahedron
-		glut.glutSolidDodecahedron
-		glut.glutWireTeapot
-		glut.glutSolidTeapot
-		glut.glutWireOctahedron
-		glut.glutSolidOctahedron
-		glut.glutWireTetrahedron
-		glut.glutSolidTetrahedron
-		glut.glutWireIcosahedron
-		glut.glutSolidIcosahedron
-		glut.glutVideoResizeGet
-		glut.glutSetupVideoResizing
-		glut.glutStopVideoResizing
-		glut.glutVideoResize
-		glut.glutVideoPan
-		glut.glutReportErrors
-		glut.glutIgnoreKeyRepeat
-		glut.glutSetKeyRepeat
-		glut.glutForceJoystickFunc
-		glut.glutGameModeString
-		glut.glutEnterGameMode
-		glut.glutLeaveGameMode
-		glut.glutGameModeGet
-	]
 	doc
 }
 

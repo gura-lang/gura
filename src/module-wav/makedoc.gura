@@ -5,18 +5,20 @@ import(wav)
 text = R'''
 # wav Module
 
-'''
+## Module Functions
+
+## Extension to audio Class
+
+This module extends the `audio` class with methods described here.
+
+${markdown.funcdoc(
+audio.read@wav
+audio.write@wav
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << '## Module Functions'
-	doc << [
-	]
-	doc << '## Extension of audio Class'
-	doc << [
-		audio.read@wav
-		audio.write@wav
-	]
 	doc
 }
 

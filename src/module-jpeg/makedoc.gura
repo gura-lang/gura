@@ -13,7 +13,7 @@ Below is an example to read a JPEG file:
     import(jpeg)
     img = image('foo.jpeg')
 
-## Exntension of Function's Capability
+## Exntension to Function's Capability
 
 This module extends the capability of function `image()` and instance method `image#write()`
 so that they can read/write JPEG files.
@@ -29,36 +29,43 @@ When instance method `image#write()` is provided with a stream that satisfies th
 it would write image data in JPEG format.
 
 - The identifier of the stream ends with a suffix `.jpeg`, `.jpg` or `.jpe`.
-'''
+
+## jpeg.exif Class
+
+### Function to Create Instance
+
+${markdown.funcdoc(
+jpeg.exif
+)}
+
+### Method
+
+${markdown.funcdoc(
+jpeg.exif.each
+)}
+
+## jpeg.ifd Class
+
+### Method
+
+${markdown.funcdoc(
+jpeg.ifd.each
+)}
+
+## jpeg.tag Class
+
+## Extension to image Class
+
+This module extends the `image` class with methods described here.
+
+${markdown.funcdoc(
+image.read@jpeg
+image.write@jpeg
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## jpeg.exif Class
-	'''
-	doc << [
-		jpeg.exif
-		jpeg.exif.each
-	]
-
-	doc << R'''
-	## jpeg.ifd Class
-	'''
-	doc << [
-		jpeg.ifd.each
-	]
-
-	doc << R'''
-	## jpeg.tag Class
-	'''
-
-	doc << R'''
-	## Methods Added to image Class
-	'''
-	doc << [
-		image.read@jpeg
-		image.write@jpeg
-	]
 	doc
 }
 

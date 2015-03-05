@@ -7,30 +7,30 @@ text = R'''
 
 The `curl` module provices measures to access Internet resources using cURL library.
 To utilize it, import the `curl` module using `import` function.
-'''
+
+## Module Functions
+
+${markdown.funcdoc(
+curl.version
+curl.easy_init
+)}
+
+## curl.easy\_handle Class
+
+${markdown.funcdoc(
+curl.easy_handle.escape
+curl.easy_handle.getinfo
+curl.easy_handle.perform
+curl.easy_handle.recv
+curl.easy_handle.reset
+curl.easy_handle.send
+curl.easy_handle.setopt
+curl.easy_handle.unescape
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-		curl.version
-		curl.easy_init
-	]
-	doc << R'''
-	## curl.easy\_handle Class
-	'''
-	doc << [
-		curl.easy_handle.escape
-		curl.easy_handle.getinfo
-		curl.easy_handle.perform
-		curl.easy_handle.recv
-		curl.easy_handle.reset
-		curl.easy_handle.send
-		curl.easy_handle.setopt
-		curl.easy_handle.unescape
-	]
 	doc
 }
 

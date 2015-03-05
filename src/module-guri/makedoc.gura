@@ -4,15 +4,12 @@ import(markdown)
 text = R'''
 # guri Module
 
+### Module Function
+
 '''
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-	]
 	doc
 }
 

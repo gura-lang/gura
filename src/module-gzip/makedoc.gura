@@ -17,24 +17,27 @@ Below is an example to read data from a file and write its compressed data to a 
 
     import(gzip)
     gzip.writer('foo.dat.gz').copyfrom('foo.dat')
-'''
+
+
+## Module Functions
+
+${markdown.funcdoc(
+gzip.reader
+gzip.writer
+)}
+
+## Extension to stream Class
+
+This module extends the `stream` class with methods described here.
+
+${markdown.funcdoc(
+stream.reader@gzip
+stream.writer@gzip
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-		gzip.reader
-		gzip.writer
-	]
-	doc << R'''
-	## Methods Added to stream Class
-	'''
-	doc << [
-		stream.reader@gzip
-		stream.writer@gzip
-	]
 	doc
 }
 

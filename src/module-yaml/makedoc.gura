@@ -6,19 +6,19 @@ text = R'''
 # yaml Module
 
 The `yaml` module provides measures to read/write YAML files.
-'''
+
+## Module Function
+
+${markdown.funcdoc(
+yaml.compose
+yaml.parse
+yaml.read
+yaml.write
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-		yaml.compose
-		yaml.parse
-		yaml.read
-		yaml.write
-	]
 	doc
 }
 

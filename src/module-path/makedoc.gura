@@ -18,32 +18,32 @@ Below is an example to list path names that exist in the current directory and i
 Below is an example to list path names that matches a wild card pattern "`*.txt`".
 
     println(path.glob('*.txt'))
-'''
+
+## Module Function
+
+${markdown.funcdoc(
+path.absname
+path.basename
+path.bottom
+path.cutbottom
+path.dir
+path.dirname
+path.exists
+path.extname
+path.filename
+path.glob
+path.join
+path.match
+path.regulate
+path.split
+path.splitext
+path.stat
+path.walk
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-		path.absname
-		path.basename
-		path.bottom
-		path.cutbottom
-		path.dir
-		path.dirname
-		path.exists
-		path.extname
-		path.filename
-		path.glob
-		path.join
-		path.match
-		path.regulate
-		path.split
-		path.splitext
-		path.stat
-		path.walk
-	]
 	doc
 }
 

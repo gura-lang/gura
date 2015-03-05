@@ -6,42 +6,40 @@ text = R'''
 
 The `sys` module provides system-related information.
 This is a built-in module, so you can use it without being imported.
-'''
+
+## Module Variable
+
+- `sys.argv`
+- `sys.path`
+- `sys.maindir`
+- `sys.version`
+- `sys.banner`
+- `sys.build`
+- `sys.platform`
+- `sys.ps1`
+- `sys.ps2`
+- `sys.langcode`
+- `sys.executable`
+- `sys.incdir`
+- `sys.libdir`
+- `sys.datadir`
+- `sys.moddir`
+- `sys.localdir`
+- `sys.appdir`
+- `sys.cfgdir`
+- `sys.workdir`
+
+## Module Function
+
+${markdown.funcdoc(
+sys.echo
+sys.exit
+sys.required_version
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Variables
-	'''
-	doc << R'''
-	- `sys.argv`
-	- `sys.path`
-	- `sys.maindir`
-	- `sys.version`
-	- `sys.banner`
-	- `sys.build`
-	- `sys.platform`
-	- `sys.ps1`
-	- `sys.ps2`
-	- `sys.langcode`
-	- `sys.executable`
-	- `sys.incdir`
-	- `sys.libdir`
-	- `sys.datadir`
-	- `sys.moddir`
-	- `sys.localdir`
-	- `sys.appdir`
-	- `sys.cfgdir`
-	- `sys.workdir`
-	'''
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-		sys.echo
-		sys.exit
-		sys.required_version
-	]
 	doc
 }
 

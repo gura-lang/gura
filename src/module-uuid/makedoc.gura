@@ -7,16 +7,16 @@ text = R'''
 
 The `uuid` module provides functions to generate UUIDs.
 To utilize it, import the `uuid` module using `import` function.
-'''
+
+## Module Function
+
+${markdown.funcdoc(
+uuid.generate
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-		uuid.generate
-	]
 	doc
 }
 

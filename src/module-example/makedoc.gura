@@ -10,9 +10,6 @@ when you want to create a new module.
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << '### Module Functions'
-	doc << [
-	]
 	doc
 }
 

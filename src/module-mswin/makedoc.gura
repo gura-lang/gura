@@ -6,36 +6,36 @@ text = R'''
 # mswin Module
 
 The `mswin` module provides methods that are related to Windows operating system.
-'''
+
+## Module Functions
+
+${markdown.funcdoc(
+GetACP
+)}
+
+## mswin.ole Class
+
+${markdown.funcdoc(
+mswin.ole
+)}
+
+## mswin.regkey Class
+
+${markdown.funcdoc(
+mswin.regkey
+mswin.regkey.createkey
+mswin.regkey.openkey
+mswin.regkey.deletekey
+mswin.regkey.enumkey
+mswin.regkey.setvalue
+mswin.regkey.deletevalue
+mswin.regkey.queryvalue
+mswin.regkey.enumvalue
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-		GetACP
-	]
-	doc << R'''
-	## mswin.ole Class
-	'''
-	doc << [
-		mswin.ole
-	]
-	doc << R'''
-	## mswin.regkey Class
-	'''
-	doc << [
-		mswin.regkey
-		mswin.regkey.createkey
-		mswin.regkey.openkey
-		mswin.regkey.deletekey
-		mswin.regkey.enumkey
-		mswin.regkey.setvalue
-		mswin.regkey.deletevalue
-		mswin.regkey.queryvalue
-		mswin.regkey.enumvalue
-	]
 	doc
 }
 

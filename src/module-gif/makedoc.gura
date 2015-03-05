@@ -19,7 +19,7 @@ Below is an example to create a GIF file that contains multiple images:
     g = gif.content()
     g.addimage(['cell1.png', 'cell2.png', 'cell3.png'], 10) g.write('anim.gif')
 
-## Exntension of Function's Capability
+## Exntension to Function's Capability
 
 This module extends the capability of function `image()` and instance method `image#write()`
 so that they can read/write GIF files.
@@ -34,25 +34,27 @@ When instance method `image#write()` is provided with a stream that satisfies th
 it would write image data in GIF format.
 
 - The identifier of the stream ends with a suffix `.gif`.
-'''
+
+## gif.content Class
+
+${markdown.funcdoc(
+gif.content
+gif.content.addimage
+gif.content.write
+)}
+
+## Extension to image Class
+
+This module extends the `stream` class with methods described here.
+
+${markdown.funcdoc(
+image.read@gif
+image.write@gif
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## gif.content Class
-	'''
-	doc << [
-		gif.content
-		gif.content.addimage
-		gif.content.write
-	]
-	doc << R'''
-	## Methods Added to image Class
-	'''
-	doc << [
-		image.read@gif
-		image.write@gif
-	]
 	doc
 }
 

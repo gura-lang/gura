@@ -10257,7 +10257,7 @@ The number of characters per line is specified by an argument <code>linelen</cod
 <p>
 If <code>block</code> is specified, it would be evaluated with block parameter <code>|s:stream|</code>, where <code>s</code> is the created stream instance.
 </p>
-<h2><span class="caption-index-2">7.2</span><a name="caption-7-2"></a>Extension of stream Class</h2>
+<h2><span class="caption-index-2">7.2</span><a name="caption-7-2"></a>Extension to stream Class</h2>
 <p>
 This module extends the <code>stream</code> class with methods described here.
 </p>
@@ -10298,7 +10298,7 @@ Below is an example to read a BMP file:
 <pre><code>import(bmp)
 img = image('foo.bmp')
 </code></pre>
-<h2><span class="caption-index-2">8.1</span><a name="caption-8-1"></a>Exntension of Function's Capability</h2>
+<h2><span class="caption-index-2">8.1</span><a name="caption-8-1"></a>Exntension to Function's Capability</h2>
 <p>
 This module extends the capability of function <code>image()</code> and instance method <code>image#write()</code> so that they can read/write BMP files.
 </p>
@@ -10315,7 +10315,7 @@ When instance method <code>image#write()</code> is provided with a stream that s
 <ul>
 <li>The identifier of the stream ends with a suffix <code>.bmp</code>.</li>
 </ul>
-<h2><span class="caption-index-2">8.2</span><a name="caption-8-2"></a>Extension of image Class</h2>
+<h2><span class="caption-index-2">8.2</span><a name="caption-8-2"></a>Extension to image Class</h2>
 <p>
 This module extends the <code>image</code> class with methods described here.
 </p>
@@ -10366,7 +10366,7 @@ bzip2.writer('foo.dat.bz2').copyfrom('foo.dat')
 <p>
 <code>bzip2.writer(stream:stream:w, blockSize100k?:number) {block?}</code>
 </p>
-<h2><span class="caption-index-2">9.2</span><a name="caption-9-2"></a>Extension of stream Class</h2>
+<h2><span class="caption-index-2">9.2</span><a name="caption-9-2"></a>Extension to stream Class</h2>
 <p>
 This module extends the <code>stream</code> class with methods described here.
 </p>
@@ -12363,7 +12363,6 @@ The <code>emf</code> module provices measures to read/write EMF (Enhanced Meta F
 <p>
 The <code>example</code> module is just an example that is supposed to be referenced as a skeleton when you want to create a new module.
 </p>
-<h3><span class="caption-index-3">14.2.1</span><a name="caption-14-2-1"></a>Module Functions</h3>
 <h1><span class="caption-index-1">15</span><a name="caption-15"></a>freetype Module</h1>
 <p>
 The <code>freetype</code> module provices measures to access vectorized font data using freetype library. To utilize it, import the <code>freetype</code> module using <code>import</code> function.
@@ -12378,6 +12377,7 @@ The <code>freetype</code> module provices measures to access vectorized font dat
 <h2><span class="caption-index-2">15.2</span><a name="caption-15-2"></a>freetype.BBox Class</h2>
 <h2><span class="caption-index-2">15.3</span><a name="caption-15-3"></a>freetype.BDF_Property Class</h2>
 <h2><span class="caption-index-2">15.4</span><a name="caption-15-4"></a>freetype.Bitmap Class</h2>
+<h3><span class="caption-index-3">15.4.1</span><a name="caption-15-4-1"></a>Method</h3>
 <p>
 <strong>freetype.Bitmap#Embolden</strong>
 </p>
@@ -12385,6 +12385,7 @@ The <code>freetype</code> module provices measures to access vectorized font dat
 <code>freetype.Bitmap#Embolden(strength:number):reduce</code>
 </p>
 <h2><span class="caption-index-2">15.5</span><a name="caption-15-5"></a>freetype.CharMap Class</h2>
+<h3><span class="caption-index-3">15.5.1</span><a name="caption-15-5-1"></a>Method</h3>
 <p>
 <strong>freetype.CharMap#Get_Index</strong>
 </p>
@@ -12400,12 +12401,14 @@ The <code>freetype</code> module provices measures to access vectorized font dat
 <h2><span class="caption-index-2">15.12</span><a name="caption-15-12"></a>freetype.FTC_SBitCache Class</h2>
 <h2><span class="caption-index-2">15.13</span><a name="caption-15-13"></a>freetype.FTC_Scaler Class</h2>
 <h2><span class="caption-index-2">15.14</span><a name="caption-15-14"></a>freetype.Face Class</h2>
+<h3><span class="caption-index-3">15.14.1</span><a name="caption-15-14-1"></a>Function to Create Instance</h3>
 <p>
 <strong>freetype.Face</strong>
 </p>
 <p>
 <code>freetype.Face(stream:stream, face_index:number =&gt; 0):map {block?}</code>
 </p>
+<h3><span class="caption-index-3">15.14.2</span><a name="caption-15-14-2"></a>Method</h3>
 <p>
 <strong>freetype.Face#CheckTrueTypePatents</strong>
 </p>
@@ -12467,6 +12470,7 @@ The <code>freetype</code> module provices measures to access vectorized font dat
 <code>freetype.Face#Set_Pixel_Sizes(pixel_width:number, pixel_height:number):reduce</code>
 </p>
 <h2><span class="caption-index-2">15.15</span><a name="caption-15-15"></a>freetype.Glyph Class</h2>
+<h3><span class="caption-index-3">15.15.1</span><a name="caption-15-15-1"></a>Method</h3>
 <p>
 <strong>freetype.Glyph#Copy</strong>
 </p>
@@ -12486,6 +12490,7 @@ The <code>freetype</code> module provices measures to access vectorized font dat
 <code>freetype.Glyph#StrokeBorder(stroker:freetype.Stroker, inside:boolean):reduce</code>
 </p>
 <h2><span class="caption-index-2">15.16</span><a name="caption-15-16"></a>freetype.GlyphSlot Class</h2>
+<h3><span class="caption-index-3">15.16.1</span><a name="caption-15-16-1"></a>Method</h3>
 <p>
 <strong>freetype.GlyphSlot#Get_Glyph</strong>
 </p>
@@ -12499,12 +12504,14 @@ The <code>freetype</code> module provices measures to access vectorized font dat
 <code>freetype.GlyphSlot#Render(render_mode:number):reduce</code>
 </p>
 <h2><span class="caption-index-2">15.17</span><a name="caption-15-17"></a>freetype.Matrix Class</h2>
+<h3><span class="caption-index-3">15.17.1</span><a name="caption-15-17-1"></a>Function to Create Instance</h3>
 <p>
 <strong>freetype.Matrix</strong>
 </p>
 <p>
 <code>freetype.Matrix(matrix:matrix):map {block?}</code>
 </p>
+<h3><span class="caption-index-3">15.17.2</span><a name="caption-15-17-2"></a>Method</h3>
 <p>
 <strong>freetype.Matrix#Multiply</strong>
 </p>
@@ -12518,6 +12525,7 @@ The <code>freetype</code> module provices measures to access vectorized font dat
 <code>freetype.Matrix#Invert():reduce</code>
 </p>
 <h2><span class="caption-index-2">15.18</span><a name="caption-15-18"></a>freetype.Outline Class</h2>
+<h3><span class="caption-index-3">15.18.1</span><a name="caption-15-18-1"></a>Method</h3>
 <p>
 <strong>freetype.Outline#Translate</strong>
 </p>
@@ -12545,12 +12553,14 @@ The <code>freetype</code> module provices measures to access vectorized font dat
 <h2><span class="caption-index-2">15.19</span><a name="caption-15-19"></a>freetype.Raster Class</h2>
 <h2><span class="caption-index-2">15.20</span><a name="caption-15-20"></a>freetype.Span Class</h2>
 <h2><span class="caption-index-2">15.21</span><a name="caption-15-21"></a>freetype.Stroker Class</h2>
+<h3><span class="caption-index-3">15.21.1</span><a name="caption-15-21-1"></a>Function to Create Instance</h3>
 <p>
 <strong>freetype.Stroker</strong>
 </p>
 <p>
 <code>freetype.Stroker():map {block?}</code>
 </p>
+<h3><span class="caption-index-3">15.21.2</span><a name="caption-15-21-2"></a>Method</h3>
 <p>
 <strong>freetype.Stroker#BeginSubPath</strong>
 </p>
@@ -12558,12 +12568,14 @@ The <code>freetype</code> module provices measures to access vectorized font dat
 <code>freetype.Stroker#BeginSubPath(to:freetype.Vector, open:boolean):reduce</code>
 </p>
 <h2><span class="caption-index-2">15.22</span><a name="caption-15-22"></a>freetype.Vector Class</h2>
+<h3><span class="caption-index-3">15.22.1</span><a name="caption-15-22-1"></a>Function to Create Instance</h3>
 <p>
 <strong>freetype.Vector</strong>
 </p>
 <p>
 <code>freetype.Vector(x:number, y:number):map {block?}</code>
 </p>
+<h3><span class="caption-index-3">15.22.2</span><a name="caption-15-22-2"></a>Method</h3>
 <p>
 <strong>freetype.Vector#Length</strong>
 </p>
@@ -12577,12 +12589,14 @@ The <code>freetype</code> module provices measures to access vectorized font dat
 <code>freetype.Vector#Transform(matrix:freetype.Matrix):reduce</code>
 </p>
 <h2><span class="caption-index-2">15.23</span><a name="caption-15-23"></a>freetype.font Class</h2>
+<h2><span class="caption-index-2">15.24</span><a name="caption-15-24"></a>Function to Create Instance</h2>
 <p>
 <strong>freetype.font</strong>
 </p>
 <p>
 <code>freetype.font(face:freetype.Face):map {block?}</code>
 </p>
+<h3><span class="caption-index-3">15.24.1</span><a name="caption-15-24-1"></a>Method</h3>
 <p>
 <strong>freetype.font#cleardeco</strong>
 </p>
@@ -12610,7 +12624,10 @@ Draws a text on the image.
 <p>
 <code>freetype.font#calcbbox(x:number, y:number, str:string):map</code>
 </p>
-<h2><span class="caption-index-2">15.24</span><a name="caption-15-24"></a>Methods Added to image Class</h2>
+<h2><span class="caption-index-2">15.25</span><a name="caption-15-25"></a>Extension to image Class</h2>
+<p>
+This module extends the <code>image</code> class with methods described here.
+</p>
 <p>
 <strong>image#drawtext</strong>
 </p>
@@ -12790,7 +12807,7 @@ Below is an example to create a GIF file that contains multiple images:
 g = gif.content()
 g.addimage(['cell1.png', 'cell2.png', 'cell3.png'], 10) g.write('anim.gif')
 </code></pre>
-<h2><span class="caption-index-2">17.1</span><a name="caption-17-1"></a>Exntension of Function's Capability</h2>
+<h2><span class="caption-index-2">17.1</span><a name="caption-17-1"></a>Exntension to Function's Capability</h2>
 <p>
 This module extends the capability of function <code>image()</code> and instance method <code>image#write()</code> so that they can read/write GIF files.
 </p>
@@ -12835,7 +12852,10 @@ Adds an image to GIF information. If you add multiple images, they are to be ren
 <p>
 Writes a GIF image to a stream.
 </p>
-<h2><span class="caption-index-2">17.3</span><a name="caption-17-3"></a>Methods Added to image Class</h2>
+<h2><span class="caption-index-2">17.3</span><a name="caption-17-3"></a>Extension to image Class</h2>
+<p>
+This module extends the <code>stream</code> class with methods described here.
+</p>
 <p>
 <strong>image#read@gif</strong>
 </p>
@@ -13959,12 +13979,14 @@ It expands features of operators like addition and multiplier so that they can c
 <code>gmp.sqrt(num):map</code>
 </p>
 <h2><span class="caption-index-2">20.2</span><a name="caption-20-2"></a>gmp.mpf Class</h2>
+<h3><span class="caption-index-3">20.2.1</span><a name="caption-20-2-1"></a>Function to Create Instance</h3>
 <p>
 <strong>gmp.mpf</strong>
 </p>
 <p>
 <code>gmp.mpf(value?, prec?:number):map {block?}</code>
 </p>
+<h3><span class="caption-index-3">20.2.2</span><a name="caption-20-2-2"></a>Method</h3>
 <p>
 <strong>gmp.mpf.get_default_prec</strong>
 </p>
@@ -13978,6 +14000,7 @@ It expands features of operators like addition and multiplier so that they can c
 <code>gmp.mpf.set_default_prec(prec:number):static:void</code>
 </p>
 <h2><span class="caption-index-2">20.3</span><a name="caption-20-3"></a>gmp.mpq Class</h2>
+<h3><span class="caption-index-3">20.3.1</span><a name="caption-20-3-1"></a>Function to Create Instance</h3>
 <p>
 <strong>gmp.mpq</strong>
 </p>
@@ -13985,13 +14008,17 @@ It expands features of operators like addition and multiplier so that they can c
 <code>gmp.mpq(numer?, denom?:number):map {block?}</code>
 </p>
 <h2><span class="caption-index-2">20.4</span><a name="caption-20-4"></a>gmp.mpz Class</h2>
+<h3><span class="caption-index-3">20.4.1</span><a name="caption-20-4-1"></a>Function to Create Instance</h3>
 <p>
 <strong>gmp.mpz</strong>
 </p>
 <p>
 <code>gmp.mpz(value?):map {block?}</code>
 </p>
-<h2><span class="caption-index-2">20.5</span><a name="caption-20-5"></a>Extention of string Class</h2>
+<h2><span class="caption-index-2">20.5</span><a name="caption-20-5"></a>Extention to string Class</h2>
+<p>
+This module extends the <code>string</code> class with methods described here.
+</p>
 <p>
 <strong>string#mpf</strong>
 </p>
@@ -14011,7 +14038,7 @@ It expands features of operators like addition and multiplier so that they can c
 <code>string#mpz(base?:number):map</code>
 </p>
 <h1><span class="caption-index-1">21</span><a name="caption-21"></a>guri Module</h1>
-<h2><span class="caption-index-2">21.1</span><a name="caption-21-1"></a>Module Functions</h2>
+<h3><span class="caption-index-3">21.0.1</span><a name="caption-21-0-1"></a>Module Function</h3>
 <h1><span class="caption-index-1">22</span><a name="caption-22"></a>gzip Module</h1>
 <p>
 The <code>gzip</code> module provides measures to read/write GZIP files. To utilize it, import the <code>gzip</code> module using <code>import</code> function.
@@ -14041,7 +14068,10 @@ gzip.writer('foo.dat.gz').copyfrom('foo.dat')
 <p>
 <code>gzip.writer(stream:stream:w, level?:number) {block?}</code>
 </p>
-<h2><span class="caption-index-2">22.2</span><a name="caption-22-2"></a>Methods Added to stream Class</h2>
+<h2><span class="caption-index-2">22.2</span><a name="caption-22-2"></a>Extension to stream Class</h2>
+<p>
+This module extends the <code>stream</code> class with methods described here.
+</p>
 <p>
 <strong>stream#reader@gzip</strong>
 </p>
@@ -14105,7 +14135,7 @@ Below is an example to read a JPEG file:
 <pre><code>import(jpeg)
 img = image('foo.jpeg')
 </code></pre>
-<h2><span class="caption-index-2">25.1</span><a name="caption-25-1"></a>Exntension of Function's Capability</h2>
+<h2><span class="caption-index-2">25.1</span><a name="caption-25-1"></a>Exntension to Function's Capability</h2>
 <p>
 This module extends the capability of function <code>image()</code> and instance method <code>image#write()</code> so that they can read/write JPEG files.
 </p>
@@ -14123,12 +14153,14 @@ When instance method <code>image#write()</code> is provided with a stream that s
 <li>The identifier of the stream ends with a suffix <code>.jpeg</code>, <code>.jpg</code> or <code>.jpe</code>.</li>
 </ul>
 <h2><span class="caption-index-2">25.2</span><a name="caption-25-2"></a>jpeg.exif Class</h2>
+<h3><span class="caption-index-3">25.2.1</span><a name="caption-25-2-1"></a>Function to Create Instance</h3>
 <p>
 <strong>jpeg.exif</strong>
 </p>
 <p>
 <code>jpeg.exif(stream?:stream:r):map:[raise] {block?}</code>
 </p>
+<h3><span class="caption-index-3">25.2.2</span><a name="caption-25-2-2"></a>Method</h3>
 <p>
 <strong>jpeg.exif#each</strong>
 </p>
@@ -14136,6 +14168,7 @@ When instance method <code>image#write()</code> is provided with a stream that s
 <code>jpeg.exif#each() {block?}</code>
 </p>
 <h2><span class="caption-index-2">25.3</span><a name="caption-25-3"></a>jpeg.ifd Class</h2>
+<h3><span class="caption-index-3">25.3.1</span><a name="caption-25-3-1"></a>Method</h3>
 <p>
 <strong>jpeg.ifd#each</strong>
 </p>
@@ -14143,7 +14176,10 @@ When instance method <code>image#write()</code> is provided with a stream that s
 <code>jpeg.ifd#each() {block?}</code>
 </p>
 <h2><span class="caption-index-2">25.4</span><a name="caption-25-4"></a>jpeg.tag Class</h2>
-<h2><span class="caption-index-2">25.5</span><a name="caption-25-5"></a>Methods Added to image Class</h2>
+<h2><span class="caption-index-2">25.5</span><a name="caption-25-5"></a>Extension to image Class</h2>
+<p>
+This module extends the <code>image</code> class with methods described here.
+</p>
 <p>
 <strong>image#read@jpeg</strong>
 </p>
@@ -14183,15 +14219,6 @@ markdown.document('foo.md').render@html('foo.html')
 </ul>
 <h2><span class="caption-index-2">27.1</span><a name="caption-27-1"></a>Module Functions</h2>
 <p>
-<strong>markdown.document</strong>
-</p>
-<p>
-<code>markdown.document(stream?:stream:r) {block?}</code>
-</p>
-<p>
-Returns an instance of <code>markdown.document</code>. If <code>stream</code> is specified, the content of the instance shall be initialized with the result of parsing the stream.
-</p>
-<p>
 <strong>markdown.setpresenter</strong>
 </p>
 <p>
@@ -14201,6 +14228,17 @@ Returns an instance of <code>markdown.document</code>. If <code>stream</code> is
 Sets a presentation procedure that shows helps written in Markdown format. The procedure is written in the function's block that takes block parameters: <code>|title:string, doc:markdown.document|</code>.
 </p>
 <h2><span class="caption-index-2">27.2</span><a name="caption-27-2"></a>markdown.document Class</h2>
+<h3><span class="caption-index-3">27.2.1</span><a name="caption-27-2-1"></a>Function to Create Instance</h3>
+<p>
+<strong>markdown.document</strong>
+</p>
+<p>
+<code>markdown.document(stream?:stream:r) {block?}</code>
+</p>
+<p>
+Returns an instance of <code>markdown.document</code>. If <code>stream</code> is specified, the content of the instance shall be initialized with the result of parsing the stream.
+</p>
+<h3><span class="caption-index-3">27.2.2</span><a name="caption-27-2-2"></a>Method</h3>
 <p>
 <strong>markdown.document#parse</strong>
 </p>
@@ -14220,6 +14258,7 @@ Parses a Markdown text in a string.
 Parses a Markdown text from a stream.
 </p>
 <h2><span class="caption-index-2">27.3</span><a name="caption-27-3"></a>markdown.item Class</h2>
+<h3><span class="caption-index-3">27.3.1</span><a name="caption-27-3-1"></a>Method</h3>
 <p>
 <strong>markdown.item#print</strong>
 </p>
@@ -14752,8 +14791,7 @@ It creates an instance that contains SMF information.
 <p>
 <code>midi.sequence#readmml(stream:stream, max_velocity?:number):reduce</code>
 </p>
-<h2><span class="caption-index-2">29.5</span><a name="caption-29-5"></a>midi.portinfo Class</h2>
-<h2><span class="caption-index-2">29.6</span><a name="caption-29-6"></a>midi.port Class</h2>
+<h2><span class="caption-index-2">29.5</span><a name="caption-29-5"></a>midi.port Class</h2>
 <p>
 <strong>midi.port#send</strong>
 </p>
@@ -14820,10 +14858,9 @@ It creates an instance that contains SMF information.
 <p>
 <code>midi.port#pitch_bend(channel:number, value:number):map:reduce</code>
 </p>
-<h2><span class="caption-index-2">29.7</span><a name="caption-29-7"></a>midi.player Class</h2>
-<h2><span class="caption-index-2">29.8</span><a name="caption-29-8"></a>midi.controller Class</h2>
-<h2><span class="caption-index-2">29.9</span><a name="caption-29-9"></a>midi.program Class</h2>
-<h2><span class="caption-index-2">29.10</span><a name="caption-29-10"></a>midi.soundfont Class</h2>
+<h2><span class="caption-index-2">29.6</span><a name="caption-29-6"></a>midi.controller Class</h2>
+<h2><span class="caption-index-2">29.7</span><a name="caption-29-7"></a>midi.program Class</h2>
+<h2><span class="caption-index-2">29.8</span><a name="caption-29-8"></a>midi.soundfont Class</h2>
 <p>
 <strong>midi.soundfont</strong>
 </p>
@@ -14845,7 +14882,7 @@ It creates an instance to access data in SoundFont file.
 <p>
 <code>midi.soundfont#print():void</code>
 </p>
-<h2><span class="caption-index-2">29.11</span><a name="caption-29-11"></a>midi.synthesizer Class</h2>
+<h2><span class="caption-index-2">29.9</span><a name="caption-29-9"></a>midi.synthesizer Class</h2>
 <h1><span class="caption-index-1">30</span><a name="caption-30"></a>msico Module</h1>
 <p>
 The <code>msico</code> module provides measures to read/write image data in Microsoft Icon file format. To utilize it, import the <code>msico</code> module using <code>import</code> function.
@@ -14856,14 +14893,31 @@ Below is an example to read an ICO file:
 <pre><code>import(msico)
 img = image('foo.ico')
 </code></pre>
-<h2><span class="caption-index-2">30.1</span><a name="caption-30-1"></a>Module Functions</h2>
+<h2><span class="caption-index-2">30.1</span><a name="caption-30-1"></a>Exntension to Function's Capability</h2>
+<p>
+This module extends the capability of function <code>image()</code> and instance method <code>image#write()</code> so that they can read/write ICO files.
+</p>
+<p>
+When function <code>image()</code> is provided with a stream that satisfies the following conditions, it would recognize the stream as a ICO file.
+</p>
+<ul>
+<li>The identifier of the stream ends with a suffix <code>.ico</code>.</li>
+</ul>
+<p>
+When instance method <code>image#write()</code> is provided with a stream that satisfies the following condition, it would write image data in ICO format.
+</p>
+<ul>
+<li>The identifier of the stream ends with a suffix <code>.ico</code>.</li>
+</ul>
 <h2><span class="caption-index-2">30.2</span><a name="caption-30-2"></a>msico.content Class</h2>
+<h3><span class="caption-index-3">30.2.1</span><a name="caption-30-2-1"></a>Function to Create Instance</h3>
 <p>
 <strong>msico.content</strong>
 </p>
 <p>
 <code>msico.content(stream?:stream:r, format:symbol =&gt; `rgba) {block?}</code>
 </p>
+<h3><span class="caption-index-3">30.2.2</span><a name="caption-30-2-2"></a>Method</h3>
 <p>
 <strong>msico.content#write</strong>
 </p>
@@ -14879,7 +14933,10 @@ Writes an ICO image to a stream.
 <p>
 <code>msico.content#addimage(image:image):map:reduce</code>
 </p>
-<h2><span class="caption-index-2">30.3</span><a name="caption-30-3"></a>Methods Added to image Class</h2>
+<h2><span class="caption-index-2">30.3</span><a name="caption-30-3"></a>Extension to image Class</h2>
+<p>
+This module extends the <code>image</code> class with methods described here.
+</p>
 <p>
 <strong>image#read@msico</strong>
 </p>
@@ -17110,7 +17167,7 @@ Below is an example to list path names that matches a wild card pattern "<code>*
 </p>
 <pre><code>println(path.glob('*.txt'))
 </code></pre>
-<h2><span class="caption-index-2">34.1</span><a name="caption-34-1"></a>Module Functions</h2>
+<h2><span class="caption-index-2">34.1</span><a name="caption-34-1"></a>Module Function</h2>
 <p>
 <strong>path.absname</strong>
 </p>
@@ -17313,7 +17370,7 @@ Below is an example to read a PNG file:
 <pre><code>import(png)
 img = image('foo.png')
 </code></pre>
-<h2><span class="caption-index-2">35.1</span><a name="caption-35-1"></a>Exntension of Function's Capability</h2>
+<h2><span class="caption-index-2">35.1</span><a name="caption-35-1"></a>Exntension to Function's Capability</h2>
 <p>
 This module extends the capability of function <code>image()</code> and instance method <code>image#write()</code> so that they can read/write PNG files.
 </p>
@@ -17330,8 +17387,11 @@ When instance method <code>image#write()</code> is provided with a stream that s
 <ul>
 <li>The identifier of the stream ends with a suffix <code>.png</code>.</li>
 </ul>
-<h2><span class="caption-index-2">35.2</span><a name="caption-35-2"></a>Module Functions</h2>
-<h2><span class="caption-index-2">35.3</span><a name="caption-35-3"></a>Methods Added to image Class</h2>
+<h2><span class="caption-index-2">35.2</span><a name="caption-35-2"></a>Module Function</h2>
+<h2><span class="caption-index-2">35.3</span><a name="caption-35-3"></a>Extension to image Class</h2>
+<p>
+This module extends the <code>image</code> class with methods described here.
+</p>
 <p>
 <strong>image#read@png</strong>
 </p>
@@ -17362,8 +17422,27 @@ Below is an example to read a PPM file:
 <pre><code>import(ppm)
 img = image('foo.ppm')
 </code></pre>
-<h2><span class="caption-index-2">37.1</span><a name="caption-37-1"></a>Module Functions</h2>
-<h2><span class="caption-index-2">37.2</span><a name="caption-37-2"></a>Methods Added to image Class</h2>
+<h2><span class="caption-index-2">37.1</span><a name="caption-37-1"></a>Exntension to Function's Capability</h2>
+<p>
+This module extends the capability of function <code>image()</code> and instance method <code>image#write()</code> so that they can read/write PPM files.
+</p>
+<p>
+When function <code>image()</code> is provided with a stream that satisfies the following conditions, it would recognize the stream as a PPM file.
+</p>
+<ul>
+<li>The identifier of the stream ends with a suffix <code>.ppm</code> or <code>.pbm</code>.</li>
+<li>The stream data begins with a byte sequence "<code>P2</code>", "<code>P3</code>" or "<code>P6</code>".</li>
+</ul>
+<p>
+When instance method <code>image#write()</code> is provided with a stream that satisfies the following condition, it would write image data in PPM format.
+</p>
+<ul>
+<li>The identifier of the stream ends with a suffix <code>.ppm</code> or <code>.pbm</code>.</li>
+</ul>
+<h2><span class="caption-index-2">37.2</span><a name="caption-37-2"></a>Extension to image Class</h2>
+<p>
+This module extends the <code>image</code> class with methods described here.
+</p>
 <p>
 <strong>image#read@ppm</strong>
 </p>
@@ -17386,7 +17465,7 @@ Writes a PPM/PGM image to a stream.
 <p>
 The <code>re</code> module provides measures to operate strings with a regular expression. To utilize it, import the <code>re</code> module using <code>import</code> function.
 </p>
-<h2><span class="caption-index-2">38.1</span><a name="caption-38-1"></a>Module Functions</h2>
+<h2><span class="caption-index-2">38.1</span><a name="caption-38-1"></a>Module Function</h2>
 <p>
 <strong>re.match</strong>
 </p>
@@ -17412,12 +17491,14 @@ The <code>re</code> module provides measures to operate strings with a regular e
 <code>re.scan(pattern:re.pattern, str:string, pos:number =&gt; 0, endpos?:number):map {block?}</code>
 </p>
 <h2><span class="caption-index-2">38.2</span><a name="caption-38-2"></a>re.pattern Class</h2>
+<h3><span class="caption-index-3">38.2.1</span><a name="caption-38-2-1"></a>Function to Create Instance</h3>
 <p>
 <strong>re.pattern</strong>
 </p>
 <p>
 <code>re.pattern(pattern:string):map:[icase,multiline] {block?}</code>
 </p>
+<h3><span class="caption-index-3">38.2.2</span><a name="caption-38-2-2"></a>Method</h3>
 <p>
 <strong>re.pattern#match</strong>
 </p>
@@ -17445,7 +17526,10 @@ Applies a pattern matching to a string and returns a match object.
 <p>
 <code>re.pattern#scan(str:string, pos:number =&gt; 0, endpos?:number):map {block?}</code>
 </p>
-<h2><span class="caption-index-2">38.3</span><a name="caption-38-3"></a>Extension of string Class</h2>
+<h2><span class="caption-index-2">38.3</span><a name="caption-38-3"></a>Extension to string Class</h2>
+<p>
+This module extends the <code>string</code> class with methods described here.
+</p>
 <p>
 <strong>string#match</strong>
 </p>
@@ -17470,19 +17554,15 @@ Applies a pattern matching to a string and returns a match object.
 <p>
 <code>string#scan(pattern:re.pattern, pos:number =&gt; 0, endpos?:number):map {block?}</code>
 </p>
-<h2><span class="caption-index-2">38.4</span><a name="caption-38-4"></a>Extension of list Class</h2>
+<h2><span class="caption-index-2">38.4</span><a name="caption-38-4"></a>Extension to iterable Classes</h2>
 <p>
-<strong>list#grep</strong>
+This module extends iterable classes, the <code>list</code> and <code>iterator</code> class, with methods described here.
 </p>
 <p>
-<code>list#grep(pattern:re.pattern):map {block?}</code>
-</p>
-<h2><span class="caption-index-2">38.5</span><a name="caption-38-5"></a>Extension of iterator Class</h2>
-<p>
-<strong>iterator#grep</strong>
+<strong>iterable#grep</strong>
 </p>
 <p>
-<code>iterator#grep(pattern:re.pattern):map {block?}</code>
+<code>iterable#grep(pattern:re.pattern):map {block?}</code>
 </p>
 <h1><span class="caption-index-1">39</span><a name="caption-39"></a>sdl2 Module</h1>
 <p>
@@ -20761,7 +20841,7 @@ Executes the block within a transaction. The process is like following:
 <p>
 The <code>sys</code> module provides system-related information. This is a built-in module, so you can use it without being imported.
 </p>
-<h2><span class="caption-index-2">41.1</span><a name="caption-41-1"></a>Module Variables</h2>
+<h2><span class="caption-index-2">41.1</span><a name="caption-41-1"></a>Module Variable</h2>
 <ul>
 <li><code>sys.argv</code></li>
 <li><code>sys.path</code></li>
@@ -20783,7 +20863,7 @@ The <code>sys</code> module provides system-related information. This is a built
 <li><code>sys.cfgdir</code></li>
 <li><code>sys.workdir</code></li>
 </ul>
-<h2><span class="caption-index-2">41.2</span><a name="caption-41-2"></a>Module Functions</h2>
+<h2><span class="caption-index-2">41.2</span><a name="caption-41-2"></a>Module Function</h2>
 <p>
 <strong>sys.echo</strong>
 </p>
@@ -20852,7 +20932,7 @@ The <code>tar</code> module provides measures to read/write TAR files. To utiliz
 <code>tar.writer#close():reduce</code>
 </p>
 <h1><span class="caption-index-1">43</span><a name="caption-43"></a>tester Module</h1>
-<h2><span class="caption-index-2">43.1</span><a name="caption-43-1"></a>Module Functions</h2>
+<h2><span class="caption-index-2">43.1</span><a name="caption-43-1"></a>Module Function</h2>
 <h1><span class="caption-index-1">44</span><a name="caption-44"></a>tiff Module</h1>
 <p>
 The <code>tiff</code> module provides measures to read/write image data in TIFF format. To utilize it, import the <code>tiff</code> module using <code>import</code> function.
@@ -20863,8 +20943,26 @@ Below is an example to read a TIFF file:
 <pre><code>import(tiff)
 img = image('foo.tiff')
 </code></pre>
-<h2><span class="caption-index-2">44.1</span><a name="caption-44-1"></a>Module Functions</h2>
-<h2><span class="caption-index-2">44.2</span><a name="caption-44-2"></a>Methods Added to image Class</h2>
+<h2><span class="caption-index-2">44.1</span><a name="caption-44-1"></a>Exntension to Function's Capability</h2>
+<p>
+This module extends the capability of function <code>image()</code> and instance method <code>image#write()</code> so that they can read/write TIFF files.
+</p>
+<p>
+When function <code>image()</code> is provided with a stream that satisfies the following conditions, it would recognize the stream as a TIFF file.
+</p>
+<ul>
+<li>The identifier of the stream ends with a suffix <code>.tif</code> or <code>.tiff</code>.</li>
+</ul>
+<p>
+When instance method <code>image#write()</code> is provided with a stream that satisfies the following condition, it would write image data in TIFF format.
+</p>
+<ul>
+<li>The identifier of the stream ends with a suffix <code>.tif</code> or <code>.tiff</code>.</li>
+</ul>
+<h2><span class="caption-index-2">44.2</span><a name="caption-44-2"></a>Extension to image Class</h2>
+<p>
+This module extends the <code>image</code> class with methods described here.
+</p>
 <p>
 <strong>image#read@tiff</strong>
 </p>
@@ -20878,7 +20976,7 @@ Reads a TIFF image from a stream.
 <p>
 The <code>uuid</code> module provides functions to generate UUIDs. To utilize it, import the <code>uuid</code> module using <code>import</code> function.
 </p>
-<h2><span class="caption-index-2">45.1</span><a name="caption-45-1"></a>Module Functions</h2>
+<h2><span class="caption-index-2">45.1</span><a name="caption-45-1"></a>Module Function</h2>
 <p>
 <strong>uuid.generate</strong>
 </p>
@@ -20890,7 +20988,10 @@ Generates a Universal Unique Identifier (UUID). In default, results are output i
 </p>
 <h1><span class="caption-index-1">46</span><a name="caption-46"></a>wav Module</h1>
 <h2><span class="caption-index-2">46.1</span><a name="caption-46-1"></a>Module Functions</h2>
-<h2><span class="caption-index-2">46.2</span><a name="caption-46-2"></a>Extension of audio Class</h2>
+<h2><span class="caption-index-2">46.2</span><a name="caption-46-2"></a>Extension to audio Class</h2>
+<p>
+This module extends the <code>audio</code> class with methods described here.
+</p>
 <p>
 <strong>audio#read@wav</strong>
 </p>
@@ -20913,9 +21014,9 @@ Writes WAV audio to a stream.
 <p>
 The <code>wx</code> module provides functions and methods of wxWidgets library.
 </p>
-<h3><span class="caption-index-3">47.0.1</span><a name="caption-47-0-1"></a>Module Functions</h3>
+<h3><span class="caption-index-3">47.0.1</span><a name="caption-47-0-1"></a>Module Function'</h3>
 <h1><span class="caption-index-1">48</span><a name="caption-48"></a>xml Module</h1>
-<h2><span class="caption-index-2">48.1</span><a name="caption-48-1"></a>Module Functions</h2>
+<h2><span class="caption-index-2">48.1</span><a name="caption-48-1"></a>Module Function</h2>
 <p>
 <strong>xml.comment</strong>
 </p>
@@ -20924,12 +21025,14 @@ The <code>wx</code> module provides functions and methods of wxWidgets library.
 </p>
 <h2><span class="caption-index-2">48.2</span><a name="caption-48-2"></a>xml.attribute Class</h2>
 <h2><span class="caption-index-2">48.3</span><a name="caption-48-3"></a>xml.document Class</h2>
+<h3><span class="caption-index-3">48.3.1</span><a name="caption-48-3-1"></a>Function to Create Instance</h3>
 <p>
 <strong>xml.document</strong>
 </p>
 <p>
 <code>xml.document(stream?:stream:r) {block?}</code>
 </p>
+<h3><span class="caption-index-3">48.3.2</span><a name="caption-48-3-2"></a>Method</h3>
 <p>
 <strong>xml.document#parse</strong>
 </p>
@@ -20955,12 +21058,14 @@ The <code>wx</code> module provides functions and methods of wxWidgets library.
 <code>xml.document#write(stream:stream:w, fancy?:boolean, tabs?:number):void</code>
 </p>
 <h2><span class="caption-index-2">48.4</span><a name="caption-48-4"></a>xml.element Class</h2>
+<h3><span class="caption-index-3">48.4.1</span><a name="caption-48-4-1"></a>Function to Create Instance</h3>
 <p>
 <strong>xml.element</strong>
 </p>
 <p>
 <code>xml.element(_tagname_:string, attrs%):map {block?}</code>
 </p>
+<h3><span class="caption-index-3">48.4.2</span><a name="caption-48-4-2"></a>Method</h3>
 <p>
 <strong>xml.element#addchild</strong>
 </p>
@@ -20986,12 +21091,14 @@ The <code>wx</code> module provides functions and methods of wxWidgets library.
 <code>xml.element#write(stream:stream:w, fancy?:boolean, indentLevel?:number, tabs?:number):void</code>
 </p>
 <h2><span class="caption-index-2">48.5</span><a name="caption-48-5"></a>xml.parser Class</h2>
+<h3><span class="caption-index-3">48.5.1</span><a name="caption-48-5-1"></a>Function to Create Instance</h3>
 <p>
 <strong>xml.parser</strong>
 </p>
 <p>
 <code>xml.parser() {block?}</code>
 </p>
+<h3><span class="caption-index-3">48.5.2</span><a name="caption-48-5-2"></a>Method</h3>
 <p>
 <strong>xml.parser#parse</strong>
 </p>
@@ -21026,8 +21133,10 @@ foo_xpm = @{
 }
 img = image(`rgba).xpmdata(foo_xpm)
 </code></pre>
-<h2><span class="caption-index-2">49.1</span><a name="caption-49-1"></a>Module Functions</h2>
-<h2><span class="caption-index-2">49.2</span><a name="caption-49-2"></a>Methods Added to image Class</h2>
+<h2><span class="caption-index-2">49.1</span><a name="caption-49-1"></a>Extension to image Class</h2>
+<p>
+This module extends the <code>image</code> class with methods described here.
+</p>
 <p>
 <strong>image#write@xpm</strong>
 </p>
@@ -21050,7 +21159,7 @@ Read xpm data from a string list.
 <p>
 The <code>yaml</code> module provides measures to read/write YAML files.
 </p>
-<h2><span class="caption-index-2">50.1</span><a name="caption-50-1"></a>Module Functions</h2>
+<h2><span class="caption-index-2">50.1</span><a name="caption-50-1"></a>Module Function</h2>
 <p>
 <strong>yaml.compose</strong>
 </p>
@@ -21099,6 +21208,7 @@ zip.writer('foo.zip') {|w|
 }		
 </code></pre>
 <h2><span class="caption-index-2">51.1</span><a name="caption-51-1"></a>zip.reader Class</h2>
+<h3><span class="caption-index-3">51.1.1</span><a name="caption-51-1-1"></a>Function to Create Instance</h3>
 <p>
 <strong>zip.reader</strong>
 </p>
@@ -21108,6 +21218,7 @@ zip.writer('foo.zip') {|w|
 <p>
 Creates <code>zip.reader</code> instance from the stream.
 </p>
+<h3><span class="caption-index-3">51.1.2</span><a name="caption-51-1-2"></a>Method</h3>
 <p>
 <strong>zip.reader#entry</strong>
 </p>
@@ -21127,6 +21238,7 @@ Seeks entry in the zip file that matches the specified name and returns the stre
 Creates an iterator that returns stream instances for each entry in the zip file.
 </p>
 <h2><span class="caption-index-2">51.2</span><a name="caption-51-2"></a>zip.writer Class</h2>
+<h3><span class="caption-index-3">51.2.1</span><a name="caption-51-2-1"></a>Function to Create Instance</h3>
 <p>
 <strong>zip.writer</strong>
 </p>
@@ -21144,6 +21256,7 @@ Argument <code>compression</code> specifies the compression method and takes one
 <li><code>`deflate</code></li>
 <li><code>`bzip2</code></li>
 </ul>
+<h3><span class="caption-index-3">51.2.2</span><a name="caption-51-2-2"></a>Method</h3>
 <p>
 <strong>zip.writer#add</strong>
 </p>

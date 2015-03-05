@@ -23,26 +23,40 @@ Below is an exapmple to create a ZIP archive file:
         w.add('file3.txt')
         w.close()
     }		
-'''
+
+## zip.reader Class
+
+### Function to Create Instance
+
+${markdown.funcdoc(
+zip.reader
+)}
+
+### Method
+
+${markdown.funcdoc(
+zip.reader.entry
+zip.reader.entries
+)}
+
+## zip.writer Class
+
+### Function to Create Instance
+
+${markdown.funcdoc(
+zip.writer
+)}
+
+### Method
+
+${markdown.funcdoc(
+zip.writer.add
+zip.writer.close
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## zip.reader Class
-	'''
-	doc << [
-		zip.reader
-		zip.reader.entry
-		zip.reader.entries
-	]
-	doc << R'''
-	## zip.writer Class
-	'''
-	doc << [
-		zip.writer
-		zip.writer.add
-		zip.writer.close
-	]
 	doc
 }
 

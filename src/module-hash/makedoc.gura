@@ -8,25 +8,24 @@ text = R'''
 The `hash` module provides measures to calculate hash values of a data sequence in a stream.
 To utilize it, import the `hash` module using `import` function.
 
-'''
+## Module Functions
+
+${markdown.funcdoc(
+hash.md5
+hash.sha1
+hash.crc32
+)}
+
+## hash.accumulator Class
+
+${markdown.funcdoc(
+hash.accumulator.init
+hash.accumulator.update
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-		hash.md5
-		hash.sha1
-		hash.crc32
-	]
-	doc << R'''
-	## hash.accumulator Class
-	'''
-	doc << [
-		hash.accumulator.init
-		hash.accumulator.update
-	]
 	doc
 }
 

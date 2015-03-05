@@ -7,26 +7,23 @@ text = R'''
 
 The `sqlite3` module provices measures to access SQLite3 database.
 To utilize it, import the `sqlite3` module using `import` function.
-'''
+
+## Module Functions
+
+## sqlite3.db Class
+
+${markdown.funcdoc(
+sqlite3.db
+sqlite3.db.close
+sqlite3.db.exec
+sqlite3.db.getcolnames
+sqlite3.db.query
+sqlite3.db.transaction
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-	]
-	doc << R'''
-	## sqlite3.db Class
-	'''
-	doc << [
-		sqlite3.db
-		sqlite3.db.close
-		sqlite3.db.exec
-		sqlite3.db.getcolnames
-		sqlite3.db.query
-		sqlite3.db.transaction
-	]
 	doc
 }
 

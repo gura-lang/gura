@@ -13,7 +13,8 @@ Below is an example to read a BMP file:
     import(bmp)
 	img = image('foo.bmp')
 
-## Exntension of Function's Capability
+
+## Exntension to Function's Capability
 
 This module extends the capability of function `image()` and instance method `image#write()`
 so that they can read/write BMP files.
@@ -29,7 +30,8 @@ it would write image data in BMP format.
 
 - The identifier of the stream ends with a suffix `.bmp`.
 
-## Extension of image Class
+
+## Extension to image Class
 
 This module extends the `image` class with methods described here.
 

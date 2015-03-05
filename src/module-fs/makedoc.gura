@@ -6,24 +6,24 @@ text = R'''
 
 The `fs` module provides measures to access and modify information in file systems.
 This is a built-in module, so you can use it without being imported.
-'''
+
+## Module Functions
+
+${markdown.funcdoc(
+fs.chdir
+fs.chmod
+fs.copy
+fs.cpdir
+fs.getcwd
+fs.mkdir
+fs.remove
+fs.rename
+fs.rmdir
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-		fs.chdir
-		fs.chmod
-		fs.copy
-		fs.cpdir
-		fs.getcwd
-		fs.mkdir
-		fs.remove
-		fs.rename
-		fs.rmdir
-	]
 	doc
 }
 

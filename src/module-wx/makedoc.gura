@@ -5,13 +5,12 @@ text = R'''
 # wx Module
 
 The `wx` module provides functions and methods of wxWidgets library.
+
+### Module Function'
 '''
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << '### Module Functions'
-	doc << [
-	]
 	doc
 }
 

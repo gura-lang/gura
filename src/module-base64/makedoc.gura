@@ -15,7 +15,7 @@ base64.reader
 base64.writer
 )}
 
-## Extension of stream Class
+## Extension to stream Class
 
 This module extends the `stream` class with methods described here.
 

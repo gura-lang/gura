@@ -31,22 +31,19 @@ Below is an example to parse a list of strings described in XPM format.
     "                # #       ",
     }
     img = image(`rgba).xpmdata(foo_xpm)
-'''
+
+## Extension to image Class
+
+This module extends the `image` class with methods described here.
+
+${markdown.funcdoc(
+image.write@xpm
+image.xpmdata
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-	]
-	doc << R'''
-	## Methods Added to image Class
-	'''
-	doc << [
-		image.write@xpm
-		image.xpmdata
-	]
 	doc
 }
 

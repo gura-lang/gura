@@ -17,30 +17,39 @@ and then render its HTML text into a file.
 
 - `markdown.gurd` .. a binary module file that provides parser procedures.
 - `markdown.gura` .. a script module file that renders parsed result in desired formats.
-'''
+
+## Module Functions
+
+${markdown.funcdoc(
+markdown.setpresenter
+)}
+
+## markdown.document Class
+
+### Function to Create Instance
+
+${markdown.funcdoc(
+markdown.document
+)}
+
+### Method
+
+${markdown.funcdoc(
+markdown.document.parse
+markdown.document.read
+)}
+
+## markdown.item Class
+
+### Method
+
+${markdown.funcdoc(
+markdown.item.print
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-		markdown.document
-		markdown.setpresenter
-	]
-	doc << R'''
-	## markdown.document Class
-	'''
-	doc << [
-		markdown.document.parse
-		markdown.document.read
-	]
-	doc << R'''
-	## markdown.item Class
-	'''
-	doc << [
-		markdown.item.print
-	]
 	doc
 }
 

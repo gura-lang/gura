@@ -7,169 +7,180 @@ text = R'''
 
 The `freetype` module provices measures to access vectorized font data using freetype library.
 To utilize it, import the `freetype` module using `import` function.
-'''
+
+## Module Functions
+
+${markdown.funcdoc(
+freetype.sysfontpath
+)}
+
+## freetype.BBox Class
+
+## freetype.BDF\_Property Class
+
+## freetype.Bitmap Class
+
+### Method
+
+${markdown.funcdoc(
+freetype.Bitmap.Embolden
+)}
+
+## freetype.CharMap Class
+
+### Method
+
+${markdown.funcdoc(
+freetype.CharMap.Get_Index
+)}
+
+## freetype.FTC\_CMapCache Class
+
+## freetype.FTC\_ImageCache Class
+
+## freetype.FTC\_ImageType Class
+
+## freetype.FTC\_Manager Class
+
+## freetype.FTC\_Node Class
+
+## freetype.FTC\_SBit Class
+
+## freetype.FTC\_SBitCache Class
+
+## freetype.FTC\_Scaler Class
+
+## freetype.Face Class
+
+### Function to Create Instance
+
+${markdown.funcdoc(
+freetype.Face
+)}
+
+### Method
+
+${markdown.funcdoc(
+freetype.Face.CheckTrueTypePatents
+freetype.Face.Get_Advance
+freetype.Face.Get_Advances
+freetype.Face.Get_Glyph_Name
+freetype.Face.Get_Postscript_Name
+freetype.Face.Get_Kerning
+freetype.Face.Load_Char
+freetype.Face.Load_Glyph
+//freetype.Face.Select_Charmap
+freetype.Face.Set_Charmap
+freetype.Face.Set_Pixel_Sizes
+)}
+
+## freetype.Glyph Class
+
+### Method
+
+${markdown.funcdoc(
+freetype.Glyph.Copy
+freetype.Glyph.Stroke
+freetype.Glyph.StrokeBorder
+)}
+
+## freetype.GlyphSlot Class
+
+### Method
+
+${markdown.funcdoc(
+freetype.GlyphSlot.Get_Glyph
+freetype.GlyphSlot.Render
+)}
+
+## freetype.Matrix Class
+
+### Function to Create Instance
+
+${markdown.funcdoc(
+freetype.Matrix
+)}
+
+### Method
+
+${markdown.funcdoc(
+freetype.Matrix.Multiply
+freetype.Matrix.Invert
+)}
+
+## freetype.Outline Class
+
+### Method
+
+${markdown.funcdoc(
+freetype.Outline.Translate
+freetype.Outline.Transform
+freetype.Outline.Embolden
+//freetype.Outline.EmboldenXY
+freetype.Outline.Reverse
+)}
+
+## freetype.Raster Class
+
+## freetype.Span Class
+
+## freetype.Stroker Class
+
+### Function to Create Instance
+
+${markdown.funcdoc(
+freetype.Stroker
+)}
+
+### Method
+
+${markdown.funcdoc(
+freetype.Stroker.BeginSubPath
+)}
+
+## freetype.Vector Class
+
+### Function to Create Instance
+
+${markdown.funcdoc(
+freetype.Vector
+)}
+
+### Method
+
+${markdown.funcdoc(
+freetype.Vector.Length
+freetype.Vector.Transform
+)}
+
+## freetype.font Class
+
+## Function to Create Instance
+
+${markdown.funcdoc(
+freetype.font
+)}
+
+### Method
+
+${markdown.funcdoc(
+freetype.font.cleardeco
+freetype.font.drawtext
+freetype.font.calcsize
+freetype.font.calcbbox
+)}
+
+## Extension to image Class
+
+This module extends the `image` class with methods described here.
+
+${markdown.funcdoc(
+image.drawtext
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-		freetype.sysfontpath
-	]
-	doc << R'''
-	## freetype.BBox Class
-	'''
-	doc << [
-	]
-	doc << R'''
-	## freetype.BDF\_Property Class
-	'''
-	doc << [
-	]
-	doc << R'''
-	## freetype.Bitmap Class
-	'''
-	doc << [
-		freetype.Bitmap.Embolden
-	]
-	doc << R'''
-	## freetype.CharMap Class
-	'''
-	doc << [
-		freetype.CharMap.Get_Index
-	]
-	doc << R'''
-	## freetype.FTC\_CMapCache Class
-	'''
-	doc << [
-	]
-	doc << R'''
-	## freetype.FTC\_ImageCache Class
-	'''
-	doc << [
-	]
-	doc << R'''
-	## freetype.FTC\_ImageType Class
-	'''
-	doc << [
-	]
-	doc << R'''
-	## freetype.FTC\_Manager Class
-	'''
-	doc << [
-	]
-	doc << R'''
-	## freetype.FTC\_Node Class
-	'''
-	doc << [
-	]
-	doc << R'''
-	## freetype.FTC\_SBit Class
-	'''
-	doc << [
-	]
-	doc << R'''
-	## freetype.FTC\_SBitCache Class
-	'''
-	doc << [
-	]
-	doc << R'''
-	## freetype.FTC\_Scaler Class
-	'''
-	doc << [
-	]
-	doc << R'''
-	## freetype.Face Class
-	'''
-	doc << [
-		freetype.Face
-		freetype.Face.CheckTrueTypePatents
-		freetype.Face.Get_Advance
-		freetype.Face.Get_Advances
-		freetype.Face.Get_Glyph_Name
-		freetype.Face.Get_Postscript_Name
-		freetype.Face.Get_Kerning
-		freetype.Face.Load_Char
-		freetype.Face.Load_Glyph
-		//freetype.Face.Select_Charmap
-		freetype.Face.Set_Charmap
-		freetype.Face.Set_Pixel_Sizes
-	]
-	doc << R'''
-	## freetype.Glyph Class
-	'''
-	doc << [
-		freetype.Glyph.Copy
-		freetype.Glyph.Stroke
-		freetype.Glyph.StrokeBorder
-	]
-	doc << R'''
-	## freetype.GlyphSlot Class
-	'''
-	doc << [
-		freetype.GlyphSlot.Get_Glyph
-		freetype.GlyphSlot.Render
-	]
-	doc << R'''
-	## freetype.Matrix Class
-	'''
-	doc << [
-		freetype.Matrix
-		freetype.Matrix.Multiply
-		freetype.Matrix.Invert
-	]
-	doc << R'''
-	## freetype.Outline Class
-	'''
-	doc << [
-		freetype.Outline.Translate
-		freetype.Outline.Transform
-		freetype.Outline.Embolden
-		//freetype.Outline.EmboldenXY
-		freetype.Outline.Reverse
-	]
-	doc << R'''
-	## freetype.Raster Class
-	'''
-	doc << [
-	]
-	doc << R'''
-	## freetype.Span Class
-	'''
-	doc << [
-	]
-	doc << R'''
-	## freetype.Stroker Class
-	'''
-	doc << [
-		freetype.Stroker
-		freetype.Stroker.BeginSubPath
-	]
-	doc << R'''
-	## freetype.Vector Class
-	'''
-	doc << [
-		freetype.Vector
-		freetype.Vector.Length
-		freetype.Vector.Transform
-	]
-	doc << R'''
-	## freetype.font Class
-	'''
-	doc << [
-		freetype.font
-		freetype.font.cleardeco
-		freetype.font.drawtext
-		freetype.font.calcsize
-		freetype.font.calcbbox
-	]
-	doc << R'''
-	## Methods Added to image Class
-	'''
-	doc << [
-		image.drawtext
-	]
 	doc
 }
 

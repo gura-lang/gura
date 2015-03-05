@@ -12,21 +12,35 @@ Below is an example to read a TIFF file:
 
     import(tiff)
 	img = image('foo.tiff')
-'''
+
+
+## Exntension to Function's Capability
+
+This module extends the capability of function `image()` and instance method `image#write()`
+so that they can read/write TIFF files.
+
+When function `image()` is provided with a stream that satisfies the following conditions,
+it would recognize the stream as a TIFF file.
+
+- The identifier of the stream ends with a suffix `.tif` or `.tiff`.
+
+When instance method `image#write()` is provided with a stream that satisfies the following condition,
+it would write image data in TIFF format.
+
+- The identifier of the stream ends with a suffix `.tif` or `.tiff`.
+
+
+## Extension to image Class
+
+This module extends the `image` class with methods described here.
+
+${markdown.funcdoc(
+image.read@tiff
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-	]
-	doc << R'''
-	## Methods Added to image Class
-	'''
-	doc << [
-		image.read@tiff
-	]
 	doc
 }
 

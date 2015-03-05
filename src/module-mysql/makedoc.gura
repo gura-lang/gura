@@ -4,15 +4,11 @@ import(markdown)
 text = R'''
 # mysql Module
 
+## Module Functions
 '''
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-	]
 	doc
 }
 

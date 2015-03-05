@@ -7,112 +7,90 @@ text = R'''
 
 The `midi` module provides measures to read/write MIDI files.
 To utilize it, import the `midi` module using `import` function.
-'''
+
+## Module Functions
+
+## midi.event Class
+
+## midi.track Class
+
+${markdown.funcdoc(
+midi.track.seek
+midi.track.tell
+midi.track.erase
+midi.track.mml
+midi.track.note_off
+midi.track.note_on
+midi.track.poly_pressure
+midi.track.control_change
+midi.track.program_change
+midi.track.channel_pressure
+midi.track.pitch_bend
+midi.track.sequence_number
+midi.track.text_event
+midi.track.copyright_notice
+midi.track.sequence_or_track_name
+midi.track.instrument_name
+midi.track.lyric_text
+midi.track.marker_text
+midi.track.cue_point
+midi.track.midi_channel_prefix_assignment
+midi.track.end_of_track
+midi.track.tempo_setting
+midi.track.smpte_offset
+midi.track.time_signature
+midi.track.key_signature
+midi.track.sequencer_specific_event
+)}
+
+## midi.sequence Class
+
+${markdown.funcdoc(
+midi.sequence
+midi.sequence.read
+midi.sequence.write
+midi.sequence.play
+midi.sequence.track
+midi.sequence.mml
+midi.sequence.readmml
+## midi.portinfo Class
+)}
+
+## midi.port Class
+
+${markdown.funcdoc(
+midi.port.send
+midi.port.play
+midi.port.mml
+midi.port.readmml
+midi.port.note_off
+midi.port.note_on
+midi.port.poly_pressure
+midi.port.control_change
+midi.port.program_change
+midi.port.channel_pressure
+midi.port.pitch_bend
+## midi.player Class
+)}
+
+## midi.controller Class
+
+## midi.program Class
+
+## midi.soundfont Class
+
+${markdown.funcdoc(
+midi.soundfont
+midi.soundfont.synthesizer,
+midi.soundfont.print
+)}
+
+## midi.synthesizer Class
+
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-	]
-	doc << R'''
-	## midi.event Class
-	'''
-	doc << [
-	]
-	doc << R'''
-	## midi.track Class
-	'''
-	doc << [
-		midi.track.seek
-		midi.track.tell
-		midi.track.erase
-		midi.track.mml
-		midi.track.note_off
-		midi.track.note_on
-		midi.track.poly_pressure
-		midi.track.control_change
-		midi.track.program_change
-		midi.track.channel_pressure
-		midi.track.pitch_bend
-		midi.track.sequence_number
-		midi.track.text_event
-		midi.track.copyright_notice
-		midi.track.sequence_or_track_name
-		midi.track.instrument_name
-		midi.track.lyric_text
-		midi.track.marker_text
-		midi.track.cue_point
-		midi.track.midi_channel_prefix_assignment
-		midi.track.end_of_track
-		midi.track.tempo_setting
-		midi.track.smpte_offset
-		midi.track.time_signature
-		midi.track.key_signature
-		midi.track.sequencer_specific_event
-	]
-	doc << R'''
-	## midi.sequence Class
-	'''
-	doc << [
-		midi.sequence
-		midi.sequence.read
-		midi.sequence.write
-		midi.sequence.play
-		midi.sequence.track
-		midi.sequence.mml
-		midi.sequence.readmml
-	]
-	doc << R'''
-	## midi.portinfo Class
-	'''
-	doc << [
-	]
-	doc << R'''
-	## midi.port Class
-	'''
-	doc << [
-		midi.port.send
-		midi.port.play
-		midi.port.mml
-		midi.port.readmml
-		midi.port.note_off
-		midi.port.note_on
-		midi.port.poly_pressure
-		midi.port.control_change
-		midi.port.program_change
-		midi.port.channel_pressure
-		midi.port.pitch_bend
-	]
-	doc << R'''
-	## midi.player Class
-	'''
-	doc << [
-	]
-	doc << R'''
-	## midi.controller Class
-	'''
-	doc << [
-	]
-	doc << R'''
-	## midi.program Class
-	'''
-	doc << [
-	]
-	doc << R'''
-	## midi.soundfont Class
-	'''
-	doc << [
-		midi.soundfont
-		midi.soundfont.synthesizer,
-		midi.soundfont.print
-	]
-	doc << R'''
-	## midi.synthesizer Class
-	'''
-	doc << [
-	]
 	doc
 }
 

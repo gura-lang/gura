@@ -5,46 +5,53 @@ import(tcl)
 text = R'''
 # tcl Module
 
-'''
+## Module Functions
+
+${markdown.funcdoc(
+tcl.TK_MainLoop
+)}
+
+## tcl.interp Class
+
+### Function to Create Instance
+
+${markdown.funcdoc(
+tcl.interp
+)}
+
+### Method
+
+${markdown.funcdoc(
+tcl.interp.command
+tcl.interp.eval
+tcl.interp.evalscript
+tcl.interp.timer
+tcl.interp.variable
+)}
+
+## tcl.timer Class
+
+### Method
+
+${markdown.funcdoc(
+timer.cancel
+timer.start
+)}
+
+## tcl.variable Class
+
+## Extension to image Class
+
+This module extends the `image` class with methods described here.
+
+${markdown.funcdoc(
+image.read@tcl
+image.write@tcl
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-		tcl.TK_MainLoop
-	]
-	doc << R'''
-	## tcl.interp Class
-	'''
-	doc << [
-		tcl.interp
-		tcl.interp.command
-		tcl.interp.eval
-		tcl.interp.evalscript
-		tcl.interp.timer
-		tcl.interp.variable
-	]
-	doc << R'''
-	## tcl.timer Class
-	'''
-	doc << [
-		timer.cancel
-		timer.start
-	]
-	doc << R'''
-	## tcl.variable Class
-	'''
-	doc << [
-	]
-	doc << R'''
-	## Methods Added to image Class
-	'''
-	doc << [
-		image.read@tcl
-		image.write@tcl
-	]
 	doc
 }
 

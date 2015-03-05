@@ -2,55 +2,67 @@
 import(markdown)
 import(re)
 
+funcdoc_iterable(funcs+:function) = {
+	markdown._funcdoc(
+			funcs.each(),
+			function.getfullname(funcs):*replace('iterator#', 'iterable#'),
+			function.getformat(funcs):*replace('iterator#', 'iterable#'))
+}
+
 text = R'''
 # re Module
 
 The `re` module provides measures to operate strings with a regular expression.
 To utilize it, import the `re` module using `import` function.
-'''
+
+## Module Function
+
+${markdown.funcdoc(
+re.match
+re.sub
+re.split
+re.scan
+)}
+
+## re.pattern Class
+
+### Function to Create Instance
+${markdown.funcdoc(
+re.pattern
+)}
+
+### Method
+
+${markdown.funcdoc(
+re.pattern.match
+re.pattern.sub
+re.pattern.split
+re.pattern.scan
+)}
+
+## Extension to string Class
+
+This module extends the `string` class with methods described here.
+
+${markdown.funcdoc(
+string.match
+string.sub
+string.splitreg
+string.scan
+)}
+
+## Extension to iterable Classes
+
+This module extends iterable classes, the `list` and `iterator` class, with methods described here.
+
+${funcdoc_iterable(
+iterator.grep
+)}
+
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-		re.match
-		re.sub
-		re.split
-		re.scan
-	]
-	doc << R'''
-	## re.pattern Class
-	'''
-	doc << [
-		re.pattern
-		re.pattern.match
-		re.pattern.sub
-		re.pattern.split
-		re.pattern.scan
-	]
-	doc << R'''
-	## Extension of string Class
-	'''
-	doc << [
-		string.match
-		string.sub
-		string.splitreg
-		string.scan
-	]
-	doc << R'''
-	## Extension of list Class
-	'''
-	doc << [
-		list.grep
-	]
-	doc << R'''
-	## Extension of iterator Class
-	'''
-	doc << [
-		iterator.grep
-	]
 	doc
 }
 

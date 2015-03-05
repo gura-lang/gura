@@ -5,48 +5,65 @@ import(xml)
 text = R'''
 # xml Module
 
-'''
+## Module Function
+
+${markdown.funcdoc(
+xml.comment
+)}
+
+## xml.attribute Class
+
+## xml.document Class
+
+### Function to Create Instance
+
+${markdown.funcdoc(
+xml.document
+)}
+
+### Method
+
+${markdown.funcdoc(
+xml.document.parse
+xml.document.read
+xml.document.textize
+xml.document.write
+)}
+
+## xml.element Class
+
+### Function to Create Instance
+
+${markdown.funcdoc(
+xml.element
+)}
+
+### Method
+
+${markdown.funcdoc(
+xml.element.addchild
+xml.element.gettext
+xml.element.textize
+xml.element.write
+)}
+
+## xml.parser Class
+
+### Function to Create Instance
+
+${markdown.funcdoc(
+xml.parser
+)}
+
+### Method
+
+${markdown.funcdoc(
+xml.parser.parse
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-		xml.comment
-	]
-	doc << R'''
-	## xml.attribute Class
-	'''
-	doc << [
-	]
-	doc << R'''
-	## xml.document Class
-	'''
-	doc << [
-		xml.document
-		xml.document.parse
-		xml.document.read
-		xml.document.textize
-		xml.document.write
-	]
-	doc << R'''
-	## xml.element Class
-	'''
-	doc << [
-		xml.element
-		xml.element.addchild
-		xml.element.gettext
-		xml.element.textize
-		xml.element.write
-	]
-	doc << R'''
-	## xml.parser Class
-	'''
-	doc << [
-		xml.parser
-		xml.parser.parse
-	]
 	doc
 }
 

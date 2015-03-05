@@ -6,363 +6,363 @@ text = R'''
 # opengl Module
 
 The `opengl` module provides functions of OpenGL library.
-'''
+
+## Module Functions
+
+${markdown.funcdoc(
+opengl.glAccum
+opengl.glAlphaFunc
+opengl.glAreTexturesResident
+opengl.glArrayElement
+opengl.glBegin
+opengl.glBindTexture
+opengl.glBitmap
+opengl.glBlendFunc
+opengl.glCallList
+opengl.glCallLists
+opengl.glClear
+opengl.glClearAccum
+opengl.glClearColor
+opengl.glClearDepth
+opengl.glClearIndex
+opengl.glClearStencil
+opengl.glClipPlane
+opengl.glColor3b
+opengl.glColor3bv
+opengl.glColor3d
+opengl.glColor3dv
+opengl.glColor3f
+opengl.glColor3fv
+opengl.glColor3i
+opengl.glColor3iv
+opengl.glColor3s
+opengl.glColor3sv
+opengl.glColor3ub
+opengl.glColor3ubv
+opengl.glColor3ui
+opengl.glColor3uiv
+opengl.glColor3us
+opengl.glColor3usv
+opengl.glColor4b
+opengl.glColor4bv
+opengl.glColor4d
+opengl.glColor4dv
+opengl.glColor4f
+opengl.glColor4fv
+opengl.glColor4i
+opengl.glColor4iv
+opengl.glColor4s
+opengl.glColor4sv
+opengl.glColor4ub
+opengl.glColor4ubv
+opengl.glColor4ui
+opengl.glColor4uiv
+opengl.glColor4us
+opengl.glColor4usv
+opengl.glColorMask
+opengl.glColorMaterial
+opengl.glCopyPixels
+opengl.glCopyTexImage1D
+opengl.glCopyTexImage2D
+opengl.glCopyTexSubImage1D
+opengl.glCopyTexSubImage2D
+opengl.glCullFace
+opengl.glDeleteLists
+opengl.glDeleteTextures
+opengl.glDepthFunc
+opengl.glDepthMask
+opengl.glDepthRange
+opengl.glDisable
+opengl.glDisableClientState
+opengl.glDrawArrays
+opengl.glDrawBuffer
+opengl.glDrawPixels
+opengl.glDrawPixelsFromImage
+opengl.glEdgeFlag
+opengl.glEdgeFlagv
+opengl.glEnable
+opengl.glEnableClientState
+opengl.glEnd
+opengl.glEndList
+opengl.glEvalCoord1d
+opengl.glEvalCoord1dv
+opengl.glEvalCoord1f
+opengl.glEvalCoord1fv
+opengl.glEvalCoord2d
+opengl.glEvalCoord2dv
+opengl.glEvalCoord2f
+opengl.glEvalCoord2fv
+opengl.glEvalMesh1
+opengl.glEvalMesh2
+opengl.glEvalPoint1
+opengl.glEvalPoint2
+opengl.glFeedbackBuffer
+opengl.glFinish
+opengl.glFlush
+opengl.glFogf
+opengl.glFogfv
+opengl.glFogi
+opengl.glFogiv
+opengl.glFrontFace
+opengl.glFrustum
+opengl.glGenLists
+opengl.glGenTextures
+opengl.glGetBooleanv
+opengl.glGetClipPlane
+opengl.glGetDoublev
+opengl.glGetError
+opengl.glGetFloatv
+opengl.glGetIntegerv
+opengl.glGetLightfv
+opengl.glGetLightiv
+opengl.glGetMapdv
+opengl.glGetMapfv
+opengl.glGetMapiv
+opengl.glGetMaterialfv
+opengl.glGetMaterialiv
+opengl.glGetPixelMapfv
+opengl.glGetPixelMapuiv
+opengl.glGetPixelMapusv
+opengl.glGetPolygonStipple
+opengl.glGetString
+opengl.glGetTexEnvfv
+opengl.glGetTexEnviv
+opengl.glGetTexGendv
+opengl.glGetTexGenfv
+opengl.glGetTexGeniv
+opengl.glGetTexLevelParameterfv
+opengl.glGetTexLevelParameteriv
+opengl.glGetTexParameterfv
+opengl.glGetTexParameteriv
+opengl.glHint
+opengl.glIndexMask
+opengl.glIndexd
+opengl.glIndexdv
+opengl.glIndexf
+opengl.glIndexfv
+opengl.glIndexi
+opengl.glIndexiv
+opengl.glIndexs
+opengl.glIndexsv
+opengl.glIndexub
+opengl.glIndexubv
+opengl.glInitNames
+opengl.glIsEnabled
+opengl.glIsList
+opengl.glIsTexture
+opengl.glLightModelf
+opengl.glLightModelfv
+opengl.glLightModeli
+opengl.glLightModeliv
+opengl.glLightf
+opengl.glLightfv
+opengl.glLighti
+opengl.glLightiv
+opengl.glLineStipple
+opengl.glLineWidth
+opengl.glListBase
+opengl.glLoadIdentity
+opengl.glLoadMatrixd
+opengl.glLoadMatrixf
+opengl.glLoadName
+opengl.glLogicOp
+opengl.glMap1d
+opengl.glMap1f
+opengl.glMap2d
+opengl.glMap2f
+opengl.glMapGrid1d
+opengl.glMapGrid1f
+opengl.glMapGrid2d
+opengl.glMapGrid2f
+opengl.glMaterialf
+opengl.glMaterialfv
+opengl.glMateriali
+opengl.glMaterialiv
+opengl.glMatrixMode
+opengl.glMultMatrixd
+opengl.glMultMatrixf
+opengl.glNewList
+opengl.glNormal3b
+opengl.glNormal3bv
+opengl.glNormal3d
+opengl.glNormal3dv
+opengl.glNormal3f
+opengl.glNormal3fv
+opengl.glNormal3i
+opengl.glNormal3iv
+opengl.glNormal3s
+opengl.glNormal3sv
+opengl.glOrtho
+opengl.glPassThrough
+opengl.glPixelMapfv
+opengl.glPixelMapuiv
+opengl.glPixelMapusv
+opengl.glPixelStoref
+opengl.glPixelStorei
+opengl.glPixelTransferf
+opengl.glPixelTransferi
+opengl.glPixelZoom
+opengl.glPointSize
+opengl.glPolygonMode
+opengl.glPolygonOffset
+opengl.glPolygonStipple
+opengl.glPopAttrib
+opengl.glPopClientAttrib
+opengl.glPopMatrix
+opengl.glPopName
+opengl.glPrioritizeTextures
+opengl.glPushAttrib
+opengl.glPushClientAttrib
+opengl.glPushMatrix
+opengl.glPushName
+opengl.glRasterPos2d
+opengl.glRasterPos2dv
+opengl.glRasterPos2f
+opengl.glRasterPos2fv
+opengl.glRasterPos2i
+opengl.glRasterPos2iv
+opengl.glRasterPos2s
+opengl.glRasterPos2sv
+opengl.glRasterPos3d
+opengl.glRasterPos3dv
+opengl.glRasterPos3f
+opengl.glRasterPos3fv
+opengl.glRasterPos3i
+opengl.glRasterPos3iv
+opengl.glRasterPos3s
+opengl.glRasterPos3sv
+opengl.glRasterPos4d
+opengl.glRasterPos4dv
+opengl.glRasterPos4f
+opengl.glRasterPos4fv
+opengl.glRasterPos4i
+opengl.glRasterPos4iv
+opengl.glRasterPos4s
+opengl.glRasterPos4sv
+opengl.glReadBuffer
+opengl.glReadPixels
+opengl.glRectd
+opengl.glRectdv
+opengl.glRectf
+opengl.glRectfv
+opengl.glRecti
+opengl.glRectiv
+opengl.glRects
+opengl.glRectsv
+opengl.glRenderMode
+opengl.glRotated
+opengl.glRotatef
+opengl.glScaled
+opengl.glScalef
+opengl.glScissor
+opengl.glSelectBuffer
+opengl.glShadeModel
+opengl.glStencilFunc
+opengl.glStencilMask
+opengl.glStencilOp
+opengl.glTexCoord1d
+opengl.glTexCoord1dv
+opengl.glTexCoord1f
+opengl.glTexCoord1fv
+opengl.glTexCoord1i
+opengl.glTexCoord1iv
+opengl.glTexCoord1s
+opengl.glTexCoord1sv
+opengl.glTexCoord2d
+opengl.glTexCoord2dv
+opengl.glTexCoord2f
+opengl.glTexCoord2fv
+opengl.glTexCoord2i
+opengl.glTexCoord2iv
+opengl.glTexCoord2s
+opengl.glTexCoord2sv
+opengl.glTexCoord3d
+opengl.glTexCoord3dv
+opengl.glTexCoord3f
+opengl.glTexCoord3fv
+opengl.glTexCoord3i
+opengl.glTexCoord3iv
+opengl.glTexCoord3s
+opengl.glTexCoord3sv
+opengl.glTexCoord4d
+opengl.glTexCoord4dv
+opengl.glTexCoord4f
+opengl.glTexCoord4fv
+opengl.glTexCoord4i
+opengl.glTexCoord4iv
+opengl.glTexCoord4s
+opengl.glTexCoord4sv
+opengl.glTexEnvf
+opengl.glTexEnvfv
+opengl.glTexEnvi
+opengl.glTexEnviv
+opengl.glTexGend
+opengl.glTexGendv
+opengl.glTexGenf
+opengl.glTexGenfv
+opengl.glTexGeni
+opengl.glTexGeniv
+opengl.glTexImage1D
+opengl.glTexImage1DFromImage
+opengl.glTexImage2D
+opengl.glTexImage2DFromImage
+opengl.glTexParameterf
+opengl.glTexParameterfv
+opengl.glTexParameteri
+opengl.glTexParameteriv
+opengl.glTexSubImage1D
+opengl.glTexSubImage1DFromImage
+opengl.glTexSubImage2D
+opengl.glTexSubImage2DFromImage
+opengl.glTranslated
+opengl.glTranslatef
+opengl.glVertex2d
+opengl.glVertex2dv
+opengl.glVertex2f
+opengl.glVertex2fv
+opengl.glVertex2i
+opengl.glVertex2iv
+opengl.glVertex2s
+opengl.glVertex2sv
+opengl.glVertex3d
+opengl.glVertex3dv
+opengl.glVertex3f
+opengl.glVertex3fv
+opengl.glVertex3i
+opengl.glVertex3iv
+opengl.glVertex3s
+opengl.glVertex3sv
+opengl.glVertex4d
+opengl.glVertex4dv
+opengl.glVertex4f
+opengl.glVertex4fv
+opengl.glVertex4i
+opengl.glVertex4iv
+opengl.glVertex4s
+opengl.glVertex4sv
+opengl.glViewport
+opengl.glGetAttachedShaders
+opengl.glGetShaderInfoLog
+opengl.glGetProgramInfoLog
+opengl.glGetUniformLocation
+opengl.glGetActiveUniform
+opengl.glGetUniformfv
+opengl.glGetUniformiv
+opengl.glGetShaderSource
+opengl.glBindAttribLocation
+opengl.glGetActiveAttrib
+opengl.glGetAttribLocation
+opengl.glUniformMatrix2x3fv
+opengl.glUniformMatrix3x2fv
+opengl.glUniformMatrix2x4fv
+opengl.glUniformMatrix4x2fv
+opengl.glUniformMatrix3x4fv
+opengl.glUniformMatrix4x3fv
+)}
+'''.template().render()
 
 write(doc:markdown.document) = {
 	doc << text
-	doc << R'''
-	## Module Functions
-	'''
-	doc << [
-		opengl.glAccum
-		opengl.glAlphaFunc
-		opengl.glAreTexturesResident
-		opengl.glArrayElement
-		opengl.glBegin
-		opengl.glBindTexture
-		opengl.glBitmap
-		opengl.glBlendFunc
-		opengl.glCallList
-		opengl.glCallLists
-		opengl.glClear
-		opengl.glClearAccum
-		opengl.glClearColor
-		opengl.glClearDepth
-		opengl.glClearIndex
-		opengl.glClearStencil
-		opengl.glClipPlane
-		opengl.glColor3b
-		opengl.glColor3bv
-		opengl.glColor3d
-		opengl.glColor3dv
-		opengl.glColor3f
-		opengl.glColor3fv
-		opengl.glColor3i
-		opengl.glColor3iv
-		opengl.glColor3s
-		opengl.glColor3sv
-		opengl.glColor3ub
-		opengl.glColor3ubv
-		opengl.glColor3ui
-		opengl.glColor3uiv
-		opengl.glColor3us
-		opengl.glColor3usv
-		opengl.glColor4b
-		opengl.glColor4bv
-		opengl.glColor4d
-		opengl.glColor4dv
-		opengl.glColor4f
-		opengl.glColor4fv
-		opengl.glColor4i
-		opengl.glColor4iv
-		opengl.glColor4s
-		opengl.glColor4sv
-		opengl.glColor4ub
-		opengl.glColor4ubv
-		opengl.glColor4ui
-		opengl.glColor4uiv
-		opengl.glColor4us
-		opengl.glColor4usv
-		opengl.glColorMask
-		opengl.glColorMaterial
-		opengl.glCopyPixels
-		opengl.glCopyTexImage1D
-		opengl.glCopyTexImage2D
-		opengl.glCopyTexSubImage1D
-		opengl.glCopyTexSubImage2D
-		opengl.glCullFace
-		opengl.glDeleteLists
-		opengl.glDeleteTextures
-		opengl.glDepthFunc
-		opengl.glDepthMask
-		opengl.glDepthRange
-		opengl.glDisable
-		opengl.glDisableClientState
-		opengl.glDrawArrays
-		opengl.glDrawBuffer
-		opengl.glDrawPixels
-		opengl.glDrawPixelsFromImage
-		opengl.glEdgeFlag
-		opengl.glEdgeFlagv
-		opengl.glEnable
-		opengl.glEnableClientState
-		opengl.glEnd
-		opengl.glEndList
-		opengl.glEvalCoord1d
-		opengl.glEvalCoord1dv
-		opengl.glEvalCoord1f
-		opengl.glEvalCoord1fv
-		opengl.glEvalCoord2d
-		opengl.glEvalCoord2dv
-		opengl.glEvalCoord2f
-		opengl.glEvalCoord2fv
-		opengl.glEvalMesh1
-		opengl.glEvalMesh2
-		opengl.glEvalPoint1
-		opengl.glEvalPoint2
-		opengl.glFeedbackBuffer
-		opengl.glFinish
-		opengl.glFlush
-		opengl.glFogf
-		opengl.glFogfv
-		opengl.glFogi
-		opengl.glFogiv
-		opengl.glFrontFace
-		opengl.glFrustum
-		opengl.glGenLists
-		opengl.glGenTextures
-		opengl.glGetBooleanv
-		opengl.glGetClipPlane
-		opengl.glGetDoublev
-		opengl.glGetError
-		opengl.glGetFloatv
-		opengl.glGetIntegerv
-		opengl.glGetLightfv
-		opengl.glGetLightiv
-		opengl.glGetMapdv
-		opengl.glGetMapfv
-		opengl.glGetMapiv
-		opengl.glGetMaterialfv
-		opengl.glGetMaterialiv
-		opengl.glGetPixelMapfv
-		opengl.glGetPixelMapuiv
-		opengl.glGetPixelMapusv
-		opengl.glGetPolygonStipple
-		opengl.glGetString
-		opengl.glGetTexEnvfv
-		opengl.glGetTexEnviv
-		opengl.glGetTexGendv
-		opengl.glGetTexGenfv
-		opengl.glGetTexGeniv
-		opengl.glGetTexLevelParameterfv
-		opengl.glGetTexLevelParameteriv
-		opengl.glGetTexParameterfv
-		opengl.glGetTexParameteriv
-		opengl.glHint
-		opengl.glIndexMask
-		opengl.glIndexd
-		opengl.glIndexdv
-		opengl.glIndexf
-		opengl.glIndexfv
-		opengl.glIndexi
-		opengl.glIndexiv
-		opengl.glIndexs
-		opengl.glIndexsv
-		opengl.glIndexub
-		opengl.glIndexubv
-		opengl.glInitNames
-		opengl.glIsEnabled
-		opengl.glIsList
-		opengl.glIsTexture
-		opengl.glLightModelf
-		opengl.glLightModelfv
-		opengl.glLightModeli
-		opengl.glLightModeliv
-		opengl.glLightf
-		opengl.glLightfv
-		opengl.glLighti
-		opengl.glLightiv
-		opengl.glLineStipple
-		opengl.glLineWidth
-		opengl.glListBase
-		opengl.glLoadIdentity
-		opengl.glLoadMatrixd
-		opengl.glLoadMatrixf
-		opengl.glLoadName
-		opengl.glLogicOp
-		opengl.glMap1d
-		opengl.glMap1f
-		opengl.glMap2d
-		opengl.glMap2f
-		opengl.glMapGrid1d
-		opengl.glMapGrid1f
-		opengl.glMapGrid2d
-		opengl.glMapGrid2f
-		opengl.glMaterialf
-		opengl.glMaterialfv
-		opengl.glMateriali
-		opengl.glMaterialiv
-		opengl.glMatrixMode
-		opengl.glMultMatrixd
-		opengl.glMultMatrixf
-		opengl.glNewList
-		opengl.glNormal3b
-		opengl.glNormal3bv
-		opengl.glNormal3d
-		opengl.glNormal3dv
-		opengl.glNormal3f
-		opengl.glNormal3fv
-		opengl.glNormal3i
-		opengl.glNormal3iv
-		opengl.glNormal3s
-		opengl.glNormal3sv
-		opengl.glOrtho
-		opengl.glPassThrough
-		opengl.glPixelMapfv
-		opengl.glPixelMapuiv
-		opengl.glPixelMapusv
-		opengl.glPixelStoref
-		opengl.glPixelStorei
-		opengl.glPixelTransferf
-		opengl.glPixelTransferi
-		opengl.glPixelZoom
-		opengl.glPointSize
-		opengl.glPolygonMode
-		opengl.glPolygonOffset
-		opengl.glPolygonStipple
-		opengl.glPopAttrib
-		opengl.glPopClientAttrib
-		opengl.glPopMatrix
-		opengl.glPopName
-		opengl.glPrioritizeTextures
-		opengl.glPushAttrib
-		opengl.glPushClientAttrib
-		opengl.glPushMatrix
-		opengl.glPushName
-		opengl.glRasterPos2d
-		opengl.glRasterPos2dv
-		opengl.glRasterPos2f
-		opengl.glRasterPos2fv
-		opengl.glRasterPos2i
-		opengl.glRasterPos2iv
-		opengl.glRasterPos2s
-		opengl.glRasterPos2sv
-		opengl.glRasterPos3d
-		opengl.glRasterPos3dv
-		opengl.glRasterPos3f
-		opengl.glRasterPos3fv
-		opengl.glRasterPos3i
-		opengl.glRasterPos3iv
-		opengl.glRasterPos3s
-		opengl.glRasterPos3sv
-		opengl.glRasterPos4d
-		opengl.glRasterPos4dv
-		opengl.glRasterPos4f
-		opengl.glRasterPos4fv
-		opengl.glRasterPos4i
-		opengl.glRasterPos4iv
-		opengl.glRasterPos4s
-		opengl.glRasterPos4sv
-		opengl.glReadBuffer
-		opengl.glReadPixels
-		opengl.glRectd
-		opengl.glRectdv
-		opengl.glRectf
-		opengl.glRectfv
-		opengl.glRecti
-		opengl.glRectiv
-		opengl.glRects
-		opengl.glRectsv
-		opengl.glRenderMode
-		opengl.glRotated
-		opengl.glRotatef
-		opengl.glScaled
-		opengl.glScalef
-		opengl.glScissor
-		opengl.glSelectBuffer
-		opengl.glShadeModel
-		opengl.glStencilFunc
-		opengl.glStencilMask
-		opengl.glStencilOp
-		opengl.glTexCoord1d
-		opengl.glTexCoord1dv
-		opengl.glTexCoord1f
-		opengl.glTexCoord1fv
-		opengl.glTexCoord1i
-		opengl.glTexCoord1iv
-		opengl.glTexCoord1s
-		opengl.glTexCoord1sv
-		opengl.glTexCoord2d
-		opengl.glTexCoord2dv
-		opengl.glTexCoord2f
-		opengl.glTexCoord2fv
-		opengl.glTexCoord2i
-		opengl.glTexCoord2iv
-		opengl.glTexCoord2s
-		opengl.glTexCoord2sv
-		opengl.glTexCoord3d
-		opengl.glTexCoord3dv
-		opengl.glTexCoord3f
-		opengl.glTexCoord3fv
-		opengl.glTexCoord3i
-		opengl.glTexCoord3iv
-		opengl.glTexCoord3s
-		opengl.glTexCoord3sv
-		opengl.glTexCoord4d
-		opengl.glTexCoord4dv
-		opengl.glTexCoord4f
-		opengl.glTexCoord4fv
-		opengl.glTexCoord4i
-		opengl.glTexCoord4iv
-		opengl.glTexCoord4s
-		opengl.glTexCoord4sv
-		opengl.glTexEnvf
-		opengl.glTexEnvfv
-		opengl.glTexEnvi
-		opengl.glTexEnviv
-		opengl.glTexGend
-		opengl.glTexGendv
-		opengl.glTexGenf
-		opengl.glTexGenfv
-		opengl.glTexGeni
-		opengl.glTexGeniv
-		opengl.glTexImage1D
-		opengl.glTexImage1DFromImage
-		opengl.glTexImage2D
-		opengl.glTexImage2DFromImage
-		opengl.glTexParameterf
-		opengl.glTexParameterfv
-		opengl.glTexParameteri
-		opengl.glTexParameteriv
-		opengl.glTexSubImage1D
-		opengl.glTexSubImage1DFromImage
-		opengl.glTexSubImage2D
-		opengl.glTexSubImage2DFromImage
-		opengl.glTranslated
-		opengl.glTranslatef
-		opengl.glVertex2d
-		opengl.glVertex2dv
-		opengl.glVertex2f
-		opengl.glVertex2fv
-		opengl.glVertex2i
-		opengl.glVertex2iv
-		opengl.glVertex2s
-		opengl.glVertex2sv
-		opengl.glVertex3d
-		opengl.glVertex3dv
-		opengl.glVertex3f
-		opengl.glVertex3fv
-		opengl.glVertex3i
-		opengl.glVertex3iv
-		opengl.glVertex3s
-		opengl.glVertex3sv
-		opengl.glVertex4d
-		opengl.glVertex4dv
-		opengl.glVertex4f
-		opengl.glVertex4fv
-		opengl.glVertex4i
-		opengl.glVertex4iv
-		opengl.glVertex4s
-		opengl.glVertex4sv
-		opengl.glViewport
-		opengl.glGetAttachedShaders
-		opengl.glGetShaderInfoLog
-		opengl.glGetProgramInfoLog
-		opengl.glGetUniformLocation
-		opengl.glGetActiveUniform
-		opengl.glGetUniformfv
-		opengl.glGetUniformiv
-		opengl.glGetShaderSource
-		opengl.glBindAttribLocation
-		opengl.glGetActiveAttrib
-		opengl.glGetAttribLocation
-		opengl.glUniformMatrix2x3fv
-		opengl.glUniformMatrix3x2fv
-		opengl.glUniformMatrix2x4fv
-		opengl.glUniformMatrix4x2fv
-		opengl.glUniformMatrix3x4fv
-		opengl.glUniformMatrix4x3fv
-	]
 	doc
 }
 
