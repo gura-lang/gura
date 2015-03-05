@@ -8,7 +8,32 @@ text = R'''
 The `hash` module provides measures to calculate hash values of a data sequence in a stream.
 To utilize it, import the `hash` module using `import` function.
 
-## Module Functions
+## hash.accumulator Class
+
+The `hash.accumulator` class provides measures to calculate hashed numbers
+including MD5, SH1 and CRC32.
+
+As the class inhefits from `stream`, you can call methods of `stream` class
+with `hash.accumulator` instances.
+
+### Property
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>hash.accumulator#digest</code></td><td><code>binary</code></td><td>R</td>
+<td>Returns the digest value as `binary`.</td></tr>
+
+<tr><td><code>hash.accumulator#hexdigest</code></td><td><code>string</code></td><td>R</td>
+<td>Returns the digest value as a string in hexadecimal format.</td></tr>
+
+<tr><td><code>hash.accumulator#number</code></td><td><code>number</code></td><td>R</td>
+<td>Returns the digest value in `number` if possible.</td></tr>
+
+</table>
+
+
+### Function to Create Instance
 
 ${markdown.funcdoc(
 hash.md5
@@ -16,7 +41,7 @@ hash.sha1
 hash.crc32
 )}
 
-## hash.accumulator Class
+### Method
 
 ${markdown.funcdoc(
 hash.accumulator.init
