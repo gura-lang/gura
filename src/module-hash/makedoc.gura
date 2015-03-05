@@ -11,7 +11,7 @@ To utilize it, import the `hash` module using `import` function.
 ## hash.accumulator Class
 
 The `hash.accumulator` class provides measures to calculate hashed numbers
-including MD5, SH1 and CRC32.
+including MD5, SHA-1 and CRC32.
 
 As the class inhefits from `stream`, you can call methods of `stream` class
 with `hash.accumulator` instances.
@@ -22,13 +22,14 @@ with `hash.accumulator` instances.
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code>hash.accumulator#digest</code></td><td><code>binary</code></td><td>R</td>
-<td>Returns the digest value as `binary`.</td></tr>
+<td>Returns the hashed result as <code>binary</code>.</td></tr>
 
 <tr><td><code>hash.accumulator#hexdigest</code></td><td><code>string</code></td><td>R</td>
-<td>Returns the digest value as a string in hexadecimal format.</td></tr>
+<td>Returns the hashed result as <code>string</code> in hexadecimal format.</td></tr>
 
 <tr><td><code>hash.accumulator#number</code></td><td><code>number</code></td><td>R</td>
-<td>Returns the digest value in `number` if possible.</td></tr>
+<td>Returns the hashed result as <code>number</code>.
+This field is valid only for CRC32 and returns `nil` for other hashes.</td></tr>
 
 </table>
 

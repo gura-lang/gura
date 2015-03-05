@@ -987,7 +987,7 @@ Imports a module and creates a variable that represents the imported module. It 
 It searches module files in directories specified by a variable <code>sys.path</code>.
 </p>
 <p>
-There are three format of calling this function like follow:
+There are three format to call this function like follow:
 </p>
 <ul>
 <li><code>import(foo)</code> .. imports <code>foo</code> module and creates a module object named <code>foo</code></li>
@@ -14089,12 +14089,91 @@ This module extends the <code>stream</code> class with methods described here.
 The <code>hash</code> module provides measures to calculate hash values of a data sequence in a stream. To utilize it, import the <code>hash</code> module using <code>import</code> function.
 </p>
 <h2><span class="caption-index-2">23.1</span><a name="caption-23-1"></a>hash.accumulator Class</h2>
-<h3><span class="caption-index-3">23.1.1</span><a name="caption-23-1-1"></a>Function to Create Instance</h3>
+<p>
+The <code>hash.accumulator</code> class provides measures to calculate hashed numbers including MD5, SH1 and CRC32.
+</p>
+<p>
+As the class inhefits from <code>stream</code>, you can call methods of <code>stream</code> class with <code>hash.accumulator</code> instances.
+</p>
+<h3><span class="caption-index-3">23.1.1</span><a name="caption-23-1-1"></a>Property</h3>
+<p>
+<table>
+
+<tr>
+<th>
+Property</th>
+<th>
+Type</th>
+<th>
+R/W</th>
+<th>
+Explanation</th>
+</tr>
+
+
+<tr>
+<td>
+<code>
+hash.accumulator#digest</code>
+</td>
+<td>
+<code>
+binary</code>
+</td>
+<td>
+R</td>
+
+<td>
+Returns the digest value as `binary`.</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+hash.accumulator#hexdigest</code>
+</td>
+<td>
+<code>
+string</code>
+</td>
+<td>
+R</td>
+
+<td>
+Returns the digest value as a string in hexadecimal format.</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+hash.accumulator#number</code>
+</td>
+<td>
+<code>
+number</code>
+</td>
+<td>
+R</td>
+
+<td>
+Returns the digest value in `number` if possible.</td>
+</tr>
+
+
+</table>
+
+</p>
+<h3><span class="caption-index-3">23.1.2</span><a name="caption-23-1-2"></a>Function to Create Instance</h3>
 <p>
 <strong>hash.md5</strong>
 </p>
 <p>
 <code>hash.md5(stream?:stream:r) {block?}</code>
+</p>
+<p>
+Creates an <code>hash.accumulator</code> instance that calculates MD5 hashed value from the content of <code>stream</code>.
 </p>
 <p>
 <strong>hash.sha1</strong>
@@ -14103,12 +14182,18 @@ The <code>hash</code> module provides measures to calculate hash values of a dat
 <code>hash.sha1(stream?:stream:r) {block?}</code>
 </p>
 <p>
+Creates an <code>hash.accumulator</code> instance that calculates SHA1 hashed value from the content of <code>stream</code>.
+</p>
+<p>
 <strong>hash.crc32</strong>
 </p>
 <p>
 <code>hash.crc32(stream?:stream:r) {block?}</code>
 </p>
-<h3><span class="caption-index-3">23.1.2</span><a name="caption-23-1-2"></a>Method</h3>
+<p>
+Creates an <code>hash.accumulator</code> instance that calculates CRC32 hashed value from the content of <code>stream</code>.
+</p>
+<h3><span class="caption-index-3">23.1.3</span><a name="caption-23-1-3"></a>Method</h3>
 <p>
 <strong>hash.accumulator#init</strong>
 </p>
@@ -14116,10 +14201,16 @@ The <code>hash</code> module provides measures to calculate hash values of a dat
 <code>hash.accumulator#init():reduce</code>
 </p>
 <p>
+Initializes the state of the accumulator.
+</p>
+<p>
 <strong>hash.accumulator#update</strong>
 </p>
 <p>
 <code>hash.accumulator#update(stream:stream:r):reduce</code>
+</p>
+<p>
+Updates the accumulator with the content of <code>stream</code>.
 </p>
 <h1><span class="caption-index-1">24</span><a name="caption-24"></a>http Module</h1>
 <p>
