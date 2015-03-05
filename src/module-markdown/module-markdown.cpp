@@ -2144,8 +2144,8 @@ Object *Object_document::Clone() const
 bool Object_document::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(root));
 	symbols.insert(Gura_UserSymbol(refs));
+	symbols.insert(Gura_UserSymbol(root));
 	return true;
 }
 
@@ -2153,13 +2153,13 @@ Value Object_document::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(root))) {
-		_pDocument->ResolveReference();
-		return Value(new Object_item(_pDocument->GetItemRoot()->Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(refs))) {
+	if (pSymbol->IsIdentical(Gura_UserSymbol(refs))) {
 		const ItemOwner *pItemOwner = _pDocument->GetItemRefereeOwner();
 		Iterator *pIterator = new Iterator_item(pItemOwner->Reference());
 		return Value(new Object_iterator(env, pIterator));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(root))) {
+		_pDocument->ResolveReference();
+		return Value(new Object_item(_pDocument->GetItemRoot()->Reference()));
 	}
 	evaluatedFlag = false;
 	return Value::Null;

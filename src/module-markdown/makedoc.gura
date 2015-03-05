@@ -26,6 +26,29 @@ markdown.setpresenter
 
 ## markdown.document Class
 
+The `markdown.document` class provides measures to parse a document written in Markdown format.
+
+You can parse documents written in both string and stream using the following methods:
+
+- `markdown.document#parse()` .. Parses document written in a string.
+- `markdown.document#read()` .. Parses document from a stream.
+
+You can get the parsed result by inspecting a property `markdown.document#root`
+and its children that are `markdown.item` instances.
+
+### Property
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>markdown.document#refs</code></td><td><code>iterator</code></td><td>R</td>
+<td>An iterator that returns referee items as <code>markdown.item</code>.</td></tr>
+
+<tr><td><code>markdown.document#root</code></td><td><code>markdown.item</code></td><td>R</td>
+<td>The root item of the parsed Markdown document.</td></tr>
+
+</table>
+
 ### Function to Create Instance
 
 ${markdown.funcdoc(
@@ -40,6 +63,68 @@ markdown.document.read
 )}
 
 ## markdown.item Class
+
+The `markdown.item` class provides information about items that composes a Markdown document.
+
+Below is a table of item type:
+
+<table>
+
+<tr><th>Item Type</th><th>Explanation</th></tr>
+
+<tr><td><code>root</code></td><td>container</td></tr>
+<tr><td><code>h1</code></td><td>container</td></tr>
+<tr><td><code>h2</code></td><td>container</td></tr>
+<tr><td><code>h3</code></td><td>container</td></tr>
+<tr><td><code>h4</code></td><td>container</td></tr>
+<tr><td><code>h5</code></td><td>container</td></tr>
+<tr><td><code>h6</code></td><td>container</td></tr>
+<tr><td><code>p</code></td><td>container</td></tr>
+<tr><td><code>blockquote</code></td><td>container</td></tr>
+<tr><td><code>em</code></td><td>container</td></tr>
+<tr><td><code>strong</code></td><td>container</td></tr>
+<tr><td><code>codeblock</code></td><td>container</td></tr>
+<tr><td><code>ol</code></td><td>container</td></tr>
+<tr><td><code>ul</code></td><td>container</td></tr>
+<tr><td><code>li</code></td><td>container</td></tr>
+<tr><td><code>line</code></td><td>container</td></tr>
+<tr><td><code>a</code></td><td>container</td></tr>
+<tr><td><code>img</code></td><td>text</td></tr>
+<tr><td><code>text</code></td><td>text</td></tr>
+<tr><td><code>code</code></td><td>text</td></tr>
+<tr><td><code>entity</code></td><td>text</td></tr>
+<tr><td><code>tag</code></td><td>container/text</td></tr>
+<tr><td><code>hr</code></td><td>no-content</td></tr>
+<tr><td><code>br</code></td><td>no-content</td></tr>
+<tr><td><code>referee</code></td><td>no-content</td></tr>
+
+</table>
+
+
+### Property
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>markdown.item#type</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>markdown.item#text</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>markdown.item#children</code></td><td><code>iterator</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>markdown.item#url</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>markdown.item#title</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>markdown.item#attrs</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
+</table>
 
 ### Method
 

@@ -154,7 +154,7 @@ footer = R'''
 
 fileName = 'gura-lib-e.html'
 open(fileName, 'w') {|out|
-	println('rendering TOC..')
+	println('rendering TOC ..')
 	out.print(header)
 	out.println('<h1>Table of Contents</h1>')
 	doc.render@toc {|level:number, indices[]:number, captionId:string, text:string|
@@ -169,7 +169,7 @@ open(fileName, 'w') {|out|
 		}
 	}
 	out.println('<hr />')
-	println('rendering document body..')
+	println('rendering document body ..')
 	doc.render@html(out, false, true)
 	out.print(footer)
 }
