@@ -1596,7 +1596,7 @@ Gura_ImplementFunction(import_)
 	Module *pModule = env.ImportModule(sig, args.GetExpr(0), pSymbolAlias, pSymbolsToMixIn,
 									   overwriteFlag, binaryOnlyFlag, mixinTypeFlag);
 	if (pModule == NULL) return Value::Null;
-	return Value(pModule);
+	return Value(Module::Reference(pModule));
 }
 
 //-----------------------------------------------------------------------------
