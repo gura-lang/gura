@@ -14316,7 +14316,17 @@ markdown.document('foo.md').render@html('foo.html')
 <li><code>markdown.gurd</code> .. a binary module file that provides parser procedures.</li>
 <li><code>markdown.gura</code> .. a script module file that renders parsed result in desired formats.</li>
 </ul>
-<h2><span class="caption-index-2">27.1</span><a name="caption-27-1"></a>Module Functions</h2>
+<h2><span class="caption-index-2">27.1</span><a name="caption-27-1"></a>Operator</h2>
+<p>
+<code>markdown.document &lt;&lt; function</code>
+</p>
+<h2><span class="caption-index-2">27.2</span><a name="caption-27-2"></a>Module Functions</h2>
+<p>
+<strong>markdown.funcdoc</strong>
+</p>
+<p>
+<code>markdown.funcdoc(funcs+:function)</code>
+</p>
 <p>
 <strong>markdown.setpresenter</strong>
 </p>
@@ -14326,7 +14336,7 @@ markdown.document('foo.md').render@html('foo.html')
 <p>
 Sets a presentation procedure that shows helps written in Markdown format. The procedure is written in the function's block that takes block parameters: <code>|title:string, doc:markdown.document|</code>.
 </p>
-<h2><span class="caption-index-2">27.2</span><a name="caption-27-2"></a>markdown.document Class</h2>
+<h2><span class="caption-index-2">27.3</span><a name="caption-27-3"></a>markdown.document Class</h2>
 <p>
 The <code>markdown.document</code> class provides measures to parse a document written in Markdown format.
 </p>
@@ -14340,7 +14350,7 @@ You can parse documents written in both string and stream using the following me
 <p>
 You can get the parsed result by inspecting a property <code>markdown.document#root</code> and its children that are <code>markdown.item</code> instances.
 </p>
-<h3><span class="caption-index-3">27.2.1</span><a name="caption-27-2-1"></a>Property</h3>
+<h3><span class="caption-index-3">27.3.1</span><a name="caption-27-3-1"></a>Property</h3>
 <p>
 <table>
 
@@ -14395,7 +14405,7 @@ The root item of the parsed Markdown document.</td>
 </table>
 
 </p>
-<h3><span class="caption-index-3">27.2.2</span><a name="caption-27-2-2"></a>Function to Create Instance</h3>
+<h3><span class="caption-index-3">27.3.2</span><a name="caption-27-3-2"></a>Function to Create Instance</h3>
 <p>
 <strong>markdown.document</strong>
 </p>
@@ -14405,7 +14415,7 @@ The root item of the parsed Markdown document.</td>
 <p>
 Returns an instance of <code>markdown.document</code>. If <code>stream</code> is specified, the content of the instance shall be initialized with the result of parsing the stream.
 </p>
-<h3><span class="caption-index-3">27.2.3</span><a name="caption-27-2-3"></a>Method</h3>
+<h3><span class="caption-index-3">27.3.3</span><a name="caption-27-3-3"></a>Method</h3>
 <p>
 <strong>markdown.document#parse</strong>
 </p>
@@ -14424,7 +14434,31 @@ Parses a Markdown text in a string.
 <p>
 Parses a Markdown text from a stream.
 </p>
-<h2><span class="caption-index-2">27.3</span><a name="caption-27-3"></a>markdown.item Class</h2>
+<p>
+<strong>markdown.render@console</strong>
+</p>
+<p>
+<code>markdown.render@console(colorFlag:boolean =&gt; true)</code>
+</p>
+<p>
+Renders the content of markdown document to the console.
+</p>
+<p>
+In default, it uses colors to highlight items. Specify the argument <code>colorFlag</code> with <code>false</code> to disable the coloring.
+</p>
+<p>
+<strong>markdown.render@html</strong>
+</p>
+<p>
+<code>markdown.render@html(out?:stream:w, easyFormatFlag:boolean =&gt; true, captionIndex:boolean =&gt; false)</code>
+</p>
+<p>
+<strong>markdown.render@toc</strong>
+</p>
+<p>
+<code>markdown.render@toc() {block}</code>
+</p>
+<h2><span class="caption-index-2">27.4</span><a name="caption-27-4"></a>markdown.item Class</h2>
 <p>
 The <code>markdown.item</code> class provides information about items that composes a Markdown document.
 </p>
@@ -14672,7 +14706,7 @@ no-content</td>
 </table>
 
 </p>
-<h3><span class="caption-index-3">27.3.1</span><a name="caption-27-3-1"></a>Property</h3>
+<h3><span class="caption-index-3">27.4.1</span><a name="caption-27-4-1"></a>Property</h3>
 <p>
 <table>
 
@@ -14793,7 +14827,7 @@ R</td>
 </table>
 
 </p>
-<h3><span class="caption-index-3">27.3.2</span><a name="caption-27-3-2"></a>Method</h3>
+<h3><span class="caption-index-3">27.4.2</span><a name="caption-27-4-2"></a>Method</h3>
 <p>
 <strong>markdown.item#print</strong>
 </p>

@@ -644,6 +644,13 @@ classref(`document).render@rtf(out?:stream:w) = {
 
 classref(`document).render@console(colorFlag:boolean => true) = {
 	Renderer@console(colorFlag).Render(this)
+} % { `en, 'markdown',
+R'''
+Renders the content of markdown document to the console.
+
+In default, it uses colors to highlight items.
+Specify the argument `colorFlag` with `false` to disable the coloring process.
+'''
 }
 
 classref(`document).render@toc() {block} = {

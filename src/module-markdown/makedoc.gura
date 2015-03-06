@@ -18,9 +18,15 @@ and then render its HTML text into a file.
 - `markdown.gurd` .. a binary module file that provides parser procedures.
 - `markdown.gura` .. a script module file that renders parsed result in desired formats.
 
+## Operator
+
+`markdown.document << function`
+
+
 ## Module Functions
 
 ${markdown.funcdoc(
+markdown.funcdoc
 markdown.setpresenter
 )}
 
@@ -60,6 +66,9 @@ markdown.document
 ${markdown.funcdoc(
 markdown.document.parse
 markdown.document.read
+markdown.document.render@console
+markdown.document.render@html
+markdown.document.render@toc
 )}
 
 ## markdown.item Class
