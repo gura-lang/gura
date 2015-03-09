@@ -16,7 +16,9 @@ Gura_DeclareMethodAlias(image, read_bmp, "read@bmp")
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Reads an BMP image from a stream.");
+		"Reads an BMP image from a stream.\n"
+		"\n"
+		"This method returns the reference to the target instance itself.\n");
 }
 
 Gura_ImplementMethod(image, read_bmp)
@@ -26,14 +28,16 @@ Gura_ImplementMethod(image, read_bmp)
 	return args.GetThis();
 }
 
-// image#write_bmp(stream:stream:w):reduce
+// image#write@bmp(stream:stream:w):reduce
 Gura_DeclareMethodAlias(image, write_bmp, "write@bmp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Writes a BMP image to a stream.");
+		"Writes a BMP image to a stream.\n"
+		"\n"
+		"This method returns the reference to the target instance itself.\n");
 }
 
 Gura_ImplementMethod(image, write_bmp)

@@ -1134,7 +1134,9 @@ Gura_DeclareMethod(content, write)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Writes a GIF image to a stream.");
+		"Writes a GIF image to a stream.\n"
+		"\n"
+		"This method returns the reference to the target instance itself.\n");
 }
 
 Gura_ImplementMethod(content, write)
@@ -1164,12 +1166,23 @@ Gura_DeclareMethod(content, addimage)
 						FLAG_None, new Expr_Value(Gura_UserSymbol(none)));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Adds an image to GIF information. If you add multiple images, they are to be\n"
-		"rendered in sequence like an animation. You can specify the delay time to\n"
-		"switch to the next image by delayTime argument in 10 msec step.\n"
-		"The offset for rendering is specified by leftPost and topPos.\n"
-		"Parameter disposalMethod determine how the image should be treated after\n"
-		"the time expires, and it takes one of `none, `keep, `background and `previous.\n");
+		"Adds an image to GIF information.\n"
+		"\n"
+		"You can add multiple images that can be played as a motion picture.\n"
+		"\n"
+		"The argument `delayTime` specifies the delay time in 10 milli seconds between images.\n"
+		"\n"
+		"The arguments `leftPost` and `topPos` specifies the rendered offset in the screen.\n"
+		"\n"
+		"The argument `disposalMethod` takes one of following symbols that specifies\n"
+		"how the image will be treated after being rendered.\n"
+		"\n"
+		"- `` `none`` .. \n"
+		"- `` `keep`` .. \n"
+		"- `` `background``.. \n"
+		"- `` `previous`` .. \n"
+		"\n"
+		"This method returns the reference to the target instance itself.\n");
 }
 
 Gura_ImplementMethod(content, addimage)
@@ -1365,7 +1378,9 @@ Gura_DeclareMethodAlias(image, read_gif, "read@gif")
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Reads a GIF image from a stream.");
+		"Reads a GIF image from a stream.\n"
+		"\n"
+		"This method returns the reference to the target instance itself.\n");
 }
 
 Gura_ImplementMethod(image, read_gif)
@@ -1387,7 +1402,9 @@ Gura_DeclareMethodAlias(image, write_gif, "write@gif")
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Writes a GIF image to a stream.");
+		"Writes a GIF image to a stream.\n"
+		"\n"
+		"This method returns the reference to the target instance itself.\n");
 }
 
 Gura_ImplementMethod(image, write_gif)

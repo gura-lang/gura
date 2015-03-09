@@ -124,7 +124,8 @@ Gura_DeclareFunction(image)
 		"\n"
 		"In the third form, the format of the image data is determined\n"
 		"by the byte sequence of the stream data and its file name.\n"
-		"You can explicitly specify the image data format with the argument `imagetype` as well.\n"
+		"\n"
+		"You can also explicitly specify the image data format by the argument `imagetype`.\n"
 		"\n"
 		"Acceptable image data formats can be extended by importing modules.\n"
 		"The table below shows the image format, the responsible module name and a symbol for `imagetype`.\n"
@@ -626,7 +627,15 @@ Gura_DeclareMethod(image, paste)
 	DeclareArg(env, "a", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(255));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Pastes the source image `src` onto the target image instance at the specified position.\n"
+		"\n"
+		"The argument `width`, `height`, `xoffset` and `yoffset` specify\n"
+		"the source image's area to be pasted.\n"
+		"If they're omitted, the whole image will be pasted.\n"
+		"\n"
+		"The argument `a` specifies the alpha value that is put on the target image.\n"
+		"\n"
+		"This method returns the reference to the target instance itself.\n");
 }
 
 Gura_ImplementMethod(image, paste)
@@ -666,7 +675,9 @@ Gura_DeclareMethod(image, putpixel)
 	DeclareArg(env, "color", VTYPE_color);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Puts a color on the specified position.\n"
+		"\n"
+		"This method returns the reference to the target instance itself.\n");
 }
 
 Gura_ImplementMethod(image, putpixel)
@@ -688,7 +699,28 @@ Gura_DeclareMethod(image, read)
 	DeclareArg(env, "imagetype", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Reads image data from a stream.");
+		"Reads image data from a stream.\n"
+		"\n"
+		"The format of the image data is determined\n"
+		"by the byte sequence of the stream data and its file name.\n"
+		"\n"
+		"You can also explicitly specify the image data format by the argument `imagetype`.\n"
+		"\n"
+		"Acceptable image data formats can be extended by importing modules.\n"
+		"The table below shows the image format, the responsible module name and a symbol for `imagetype`.\n"
+		"\n"
+		"<table>\n"
+		"<tr><th>Image Format</th><th>Module Name</th><th>imagetype</th></tr>\n"
+		"<tr><td>BMP</td><td><code>bmp</code></td><td><code>'bmp'</code></td></tr>\n"
+		"<tr><td>GIF</td><td><code>gif</code></td><td><code>'gif'</code></td></tr>\n"
+		"<tr><td>JPEG</td><td><code>jpeg</code></td><td><code>'jpeg'</code></td></tr>\n"
+		"<tr><td>Microsoft Icon</td><td><code>msico</code></td><td><code>'msico'</code></td></tr>\n"
+		"<tr><td>PNG</td><td><code>png</code></td><td><code>'png'</code></td></tr>\n"
+		"<tr><td>PPM</td><td><code>ppm</code></td><td><code>'ppm'</code></td></tr>\n"
+		"<tr><td>TIFF</td><td><code>tiff</code></td><td><code>'tiff'</code></td></tr>\n"
+		"</table>\n"
+		"\n"
+		"This method returns the reference to the target instance itself.\n");
 }
 
 Gura_ImplementMethod(image, read)
@@ -1036,7 +1068,7 @@ Gura_DeclareMethod(image, write)
 	DeclareArg(env, "imagetype", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Writes image data to a stream.");
+		"Writes image data to a stream.\n");
 }
 
 Gura_ImplementMethod(image, write)
