@@ -242,7 +242,11 @@ Gura_DeclareMethod(image, blur)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a new image that blurs the original image with the given parameters.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|img:image|`,\n"
+		"where `img` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementMethod(image, blur)
@@ -263,7 +267,9 @@ Gura_DeclareMethod(image, clear)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Fills the buffer in the `image` instance with zero value.\n"
 		"\n"
-		"This has the same effect with calling `image#fill()` with `color.zero`.");
+		"This has the same effect with calling `image#fill()` with `color.zero`.\n"
+		"\n"
+		"This method returns the reference to the target instance itself.\n");
 }
 
 Gura_ImplementMethod(image, clear)
@@ -322,7 +328,9 @@ Gura_DeclareMethod(image, delpalette)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Deletes a `palette` instance associated with the image.\n");
+		"Deletes a `palette` instance the image owns if it does.\n"
+		"\n"
+		"This method returns the reference to the target instance itself.\n");
 }
 
 Gura_ImplementMethod(image, delpalette)
@@ -344,7 +352,23 @@ Gura_DeclareMethod(image, extract)
 	DeclareArg(env, "dst", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Extracts the element values within the specified area of the image,\n"
+		"and store them into a list or matrix.\n"
+		"The argument `x` and `y` specifies the left-top position,\n"
+		"and `width`, and `height` does the size of the area.\n"
+		"\n"
+		"The argument `element` takes the following symbol\n"
+		"that specifies which element should be extracted:\n"
+		"\n"
+		"- `` `r`` .. red\n"
+		"- `` `g`` .. green\n"
+		"- `` `b`` .. blue\n"
+		"- `` `a`` .. alpha\n"
+		"\n"
+		"The argument `dst` specifies the variable into which the extracted data is stored,\n"
+		"which must be a list or matrix that has enough space to store the data.\n"
+		"\n"
+		"This method returns the reference to the target instance itself.\n");
 }
 
 Gura_ImplementMethod(image, extract)
@@ -376,7 +400,9 @@ Gura_DeclareMethod(image, fill)
 	DeclareArg(env, "color", VTYPE_color);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Fills the whole image with the specified color.");
+		"Fills the whole image with the specified color.\n"
+		"\n"
+		"This method returns the reference to the target instance itself.\n");
 }
 
 Gura_ImplementMethod(image, fill)
@@ -398,7 +424,12 @@ Gura_DeclareMethod(image, fillrect)
 	DeclareArg(env, "color", VTYPE_color);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Fills the specified arew with the specified color.");
+		"Fills the specified area with the specified color."
+		"\n"
+		"The argument `x` and `y` specifies the left-top position,\n"
+		"and `width`, and `height` does the size of the area.\n"
+		"\n"
+		"This method returns the reference to the target instance itself.\n");
 }
 
 Gura_ImplementMethod(image, fillrect)
@@ -463,7 +494,11 @@ Gura_DeclareMethod(image, getpixel)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns `color` instance of a color data at the specified position.");
+		"Returns a color of a pixel data at the specified position.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|c:color|`,\n"
+		"where `img` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementMethod(image, getpixel)
@@ -487,7 +522,6 @@ Gura_DeclareMethod(image, grayscale)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns a new image instance that converts the source image into gray scale.\n"
 		"\n"
-		"\n"
 		"If `block` is specified, it would be evaluated with a block parameter `|img:image|`,\n"
 		"where `img` is the created instance.\n"
 		"In this case, the block's result would become the function's returned value.\n");
@@ -501,17 +535,30 @@ Gura_ImplementMethod(image, grayscale)
 	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
 }
 
-// image#mapcolorlevel(map_r[]:number, map_g?[]:number, map_b?[]:number) {block?}
+// image#mapcolorlevel(map@r[]:number, map@g?[]:number, map@b?[]:number) {block?}
 Gura_DeclareMethod(image, mapcolorlevel)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "map_r", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "map_g", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_List);
-	DeclareArg(env, "map_b", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_List);
+	DeclareArg(env, "map@r", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "map@g", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_List);
+	DeclareArg(env, "map@b", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_List);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a new image that converts color levels according to the given table.\n"
+		"\n"
+		"Each of the arguments `map@r`, `map@g` and `map@b` is a list\n"
+		"containing 256 numbers between 0 and 255\n"
+		"and corresponds to elements red, green and blue respectively.\n"
+		"An element value in the source image becomes an index of the list\n"
+		"and the indexed value will be stored as a converted element value.\n"
+		"\n"
+		"If you want to apply a mapping table to all the elements,\n"
+		"call the method with a single argument like `image#mapcolorlevel(map)`.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|img:image|`,\n"
+		"where `img` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 UChar *ValueListToMapTable(Signal sig, const ValueList &valList)

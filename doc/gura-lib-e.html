@@ -5938,6 +5938,12 @@ An error occurs in following cases:
 <code>image#blur(radius:number, sigma?:number) {block?}</code>
 </p>
 <p>
+Returns a new image that blurs the original image with the given parameters.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|img:image|</code>, where <code>img</code> is the created instance. In this case, the block's result would become the function's returned value.
+</p>
+<p>
 <strong>image#clear</strong>
 </p>
 <p>
@@ -5948,6 +5954,9 @@ Fills the buffer in the <code>image</code> instance with zero value.
 </p>
 <p>
 This has the same effect with calling <code>image#fill()</code> with <code>color.zero</code>.
+</p>
+<p>
+This method returns the reference to the target instance itself.
 </p>
 <p>
 <strong>image#crop</strong>
@@ -5977,13 +5986,34 @@ If <code>block</code> is specified, it would be evaluated with a block parameter
 <code>image#delpalette():reduce</code>
 </p>
 <p>
-Deletes a <code>palette</code> instance associated with the image.
+Deletes a <code>palette</code> instance the image owns if it does.
+</p>
+<p>
+This method returns the reference to the target instance itself.
 </p>
 <p>
 <strong>image#extract</strong>
 </p>
 <p>
 <code>image#extract(x:number, y:number, width:number, height:number, element:symbol, dst):reduce</code>
+</p>
+<p>
+Extracts the element values within the specified area of the image, and store them into a list or matrix. The argument <code>x</code> and <code>y</code> specifies the left-top position, and <code>width</code>, and <code>height</code> does the size of the area.
+</p>
+<p>
+The argument <code>element</code> takes the following symbol that specifies which element should be extracted:
+</p>
+<ul>
+<li><code>`r</code> .. red</li>
+<li><code>`g</code> .. green</li>
+<li><code>`b</code> .. blue</li>
+<li><code>`a</code> .. alpha</li>
+</ul>
+<p>
+The argument <code>dst</code> specifies the variable into which the extracted data is stored, which must be a list or matrix that has enough space to store the data.
+</p>
+<p>
+This method returns the reference to the target instance itself.
 </p>
 <p>
 <strong>image#fill</strong>
@@ -5995,13 +6025,19 @@ Deletes a <code>palette</code> instance associated with the image.
 Fills the whole image with the specified color.
 </p>
 <p>
+This method returns the reference to the target instance itself.
+</p>
+<p>
 <strong>image#fillrect</strong>
 </p>
 <p>
 <code>image#fillrect(x:number, y:number, width:number, height:number, color:color):map:reduce</code>
 </p>
 <p>
-Fills the specified arew with the specified color.
+Fills the specified area with the specified color. The argument <code>x</code> and <code>y</code> specifies the left-top position, and <code>width</code>, and <code>height</code> does the size of the area.
+</p>
+<p>
+This method returns the reference to the target instance itself.
 </p>
 <p>
 <strong>image#flip</strong>
@@ -6027,7 +6063,10 @@ If <code>block</code> is specified, it would be evaluated with a block parameter
 <code>image#getpixel(x:number, y:number):map {block?}</code>
 </p>
 <p>
-Returns <code>color</code> instance of a color data at the specified position.
+Returns a color of a pixel data at the specified position.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|c:color|</code>, where <code>img</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 <strong>image#grayscale</strong>
@@ -6045,7 +6084,19 @@ If <code>block</code> is specified, it would be evaluated with a block parameter
 <strong>image#mapcolorlevel</strong>
 </p>
 <p>
-<code>image#mapcolorlevel(map_r[]:number, map_g[]?:number, map_b[]?:number) {block?}</code>
+<code>image#mapcolorlevel(map@r[]:number, map@g[]?:number, map@b[]?:number) {block?}</code>
+</p>
+<p>
+Returns a new image that converts color levels according to the given table.
+</p>
+<p>
+Each of the arguments <code>map@r</code>, <code>map@g</code> and <code>map@b</code> is a list containing 256 numbers between 0 and 255 and corresponds to elements red, green and blue respectively. An element value in the source image becomes an index of the list and the indexed value will be stored as a converted element value.
+</p>
+<p>
+If you want to apply a mapping table to all the elements, call the method with a single argument like <code>image#mapcolorlevel(map)</code>.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|img:image|</code>, where <code>img</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 <strong>image#paste</strong>
@@ -14444,7 +14495,7 @@ Parses a Markdown text from a stream.
 Renders the content of markdown document to the console.
 </p>
 <p>
-In default, it uses colors to highlight items. Specify the argument <code>colorFlag</code> with <code>false</code> to disable the coloring.
+In default, it uses colors to highlight items. Specify the argument <code>colorFlag</code> with <code>false</code> to disable the coloring process.
 </p>
 <p>
 <strong>markdown.render@html</strong>
