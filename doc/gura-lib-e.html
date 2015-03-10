@@ -6165,6 +6165,9 @@ This method returns the reference to the target instance itself.
 <code>image#size()</code>
 </p>
 <p>
+Returns the image size as a list <code>[width, height]</code>.
+</p>
+<p>
 <strong>image#store</strong>
 </p>
 <p>
@@ -6304,16 +6307,52 @@ This method returns the reference to the target instance itself.
 <code>image#reducecolor(palette?:palette) {block?}</code>
 </p>
 <p>
+Creates an image that reduces colors in the original image with a set of colors in the given palette. The specified palette would be associated with the created image.
+</p>
+<p>
+If no argument is specified, the associated palette would be used. In this case, an error occurs if there's no palette associated.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|img:image|</code>, where <code>img</code> is the created instance. In this case, the block's result would become the function's returned value.
+</p>
+<p>
 <strong>image#replacecolor</strong>
 </p>
 <p>
 <code>image#replacecolor(colorOrg:color, color:color, tolerance?:number):reduce</code>
 </p>
 <p>
+Replaces pixels that have a color matching <code>colorOrg</code> with the <code>color</code>.
+</p>
+<p>
+The argument <code>tolerance</code> specifies an acceptable distance for the matching. If omitted, only an exact match is acceptable.
+</p>
+<p>
+This method returns the reference to the target instance itself.
+</p>
+<p>
 <strong>image#resize</strong>
 </p>
 <p>
 <code>image#resize(width?:number, height?:number):map:[box,ratio] {block?}</code>
+</p>
+<p>
+Creates an image that resizes the original image to the sprcified <code>width</code> and <code>height</code>.
+</p>
+<ul>
+<li>When both <code>width</code> and <code>height</code> are specified, the image would be resized to the size.</li>
+<li>When <code>width</code> is specified and <code>height</code> is omitted or <code>nil</code>, the resized height would be calculated from the width so that they keep the same ratio as the original.</li>
+<li>When <code>width</code> is <code>nil</code> and <code>height</code> is specified, the resized width would be calculated from the height so that they keep the same ratio as the original.</li>
+</ul>
+<p>
+The following attributes are acceptable:
+</p>
+<ul>
+<li><code>box</code> .. </li>
+<li><code>ratio</code> .. </li>
+</ul>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|img:image|</code>, where <code>img</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 <strong>image#rotate</strong>
@@ -6350,6 +6389,124 @@ Returns an iterator that scans pixels in the image.
 </p>
 <p>
 Writes image data to a stream.
+</p>
+<p>
+The format of the image data is determined by the stream's file name.
+</p>
+<p>
+You can also explicitly specify the image data format by the argument <code>imagetype</code>.
+</p>
+<p>
+Acceptable image data formats can be extended by importing modules. The table below shows the image format, the responsible module name and a symbol for <code>imagetype</code>.
+</p>
+<p>
+<table>
+
+<tr>
+<th>
+Image Format</th>
+<th>
+Module Name</th>
+<th>
+imagetype</th>
+</tr>
+
+<tr>
+<td>
+BMP</td>
+<td>
+<code>
+bmp</code>
+</td>
+<td>
+<code>
+'bmp'</code>
+</td>
+</tr>
+
+<tr>
+<td>
+GIF</td>
+<td>
+<code>
+gif</code>
+</td>
+<td>
+<code>
+'gif'</code>
+</td>
+</tr>
+
+<tr>
+<td>
+JPEG</td>
+<td>
+<code>
+jpeg</code>
+</td>
+<td>
+<code>
+'jpeg'</code>
+</td>
+</tr>
+
+<tr>
+<td>
+Microsoft Icon</td>
+<td>
+<code>
+msico</code>
+</td>
+<td>
+<code>
+'msico'</code>
+</td>
+</tr>
+
+<tr>
+<td>
+PNG</td>
+<td>
+<code>
+png</code>
+</td>
+<td>
+<code>
+'png'</code>
+</td>
+</tr>
+
+<tr>
+<td>
+PPM</td>
+<td>
+<code>
+ppm</code>
+</td>
+<td>
+<code>
+'ppm'</code>
+</td>
+</tr>
+
+<tr>
+<td>
+TIFF</td>
+<td>
+<code>
+tiff</code>
+</td>
+<td>
+<code>
+'tiff'</code>
+</td>
+</tr>
+
+</table>
+
+</p>
+<p>
+This method returns the reference to the target instance itself.
 </p>
 <h2><span class="caption-index-2">6.20</span><a name="caption-6-20"></a>iterator Class</h2>
 <h3><span class="caption-index-3">6.20.1</span><a name="caption-6-20-1"></a>Function to Create Instance</h3>
