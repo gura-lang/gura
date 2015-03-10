@@ -739,7 +739,16 @@ Gura_DeclareMethod(image, reducecolor)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an image that reduces colors in the original image\n"
+		"with a set of colors in the given palette.\n"
+		"The specified palette would be associated with the created image.\n"
+		"\n"
+		"If no argument is specified, the associated palette would be used.\n"
+		"In this case, an error occurs if there's no palette associated.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|img:image|`,\n"
+		"where `img` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementMethod(image, reducecolor)
@@ -766,7 +775,12 @@ Gura_DeclareMethod(image, replacecolor)
 	DeclareArg(env, "tolerance", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Replaces pixels that have a color matching `colorOrg` with the `color`.\n"
+		"\n"
+		"The argument `tolerance` specifies an acceptable distance for the matching.\n"
+		"If omitted, only an exact match is acceptable.\n"
+		"\n"
+		"This method returns the reference to the target instance itself.\n");
 }
 
 Gura_ImplementMethod(image, replacecolor)
@@ -790,7 +804,24 @@ Gura_DeclareMethod(image, resize)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an image that resizes the original image to the sprcified `width` and `height`.\n"
+		"\n"
+		"- When both `width` and `height` are specified, the image would be resized to the size.\n"
+		"- When `width` is specified and `height` is omitted or `nil`,\n"
+		"  the resized height would be calculated from the width\n"
+		"  so that they keep the same ratio as the original.\n"
+		"- When `width` is `nil` and `height` is specified,\n"
+		"  the resized width would be calculated from the height\n"
+		"  so that they keep the same ratio as the original.\n"
+		"\n"
+		"The following attributes are acceptable:\n"
+		"\n"
+		"- `box` .. \n"
+		"- `ratio` .. \n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|img:image|`,\n"
+		"where `img` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementMethod(image, resize)
