@@ -5690,6 +5690,9 @@ The help text.</td>
 
 </p>
 <h2><span class="caption-index-2">6.19</span><a name="caption-6-19"></a>image Class</h2>
+<p>
+The <code>image</code> class provides measures to handle graphic image data.
+</p>
 <h3><span class="caption-index-3">6.19.1</span><a name="caption-6-19-1"></a>Property</h3>
 <p>
 <table>
@@ -5719,41 +5722,26 @@ symbol</code>
 R</td>
 
 <td>
-</td>
-</tr>
 
+<p>
+Takes one of the following symbols indicating what elements are stored in the memory:</p>
 
-<tr>
-<td>
+<ul>
+
+<li>
 <code>
-image#height</code>
-</td>
-<td>
+`rgb</code>
+ .. red, green and blue</li>
+
+<li>
 <code>
-number</code>
-</td>
-<td>
-R</td>
+`rgba</code>
+ .. red, green, blue and alpha</li>
 
-<td>
-</td>
-</tr>
+</ul>
 
+</td>
 
-<tr>
-<td>
-<code>
-image#palette</code>
-</td>
-<td>
-<code>
-palette</code>
-</td>
-<td>
-R/W</td>
-
-<td>
-</td>
 </tr>
 
 
@@ -5770,7 +5758,46 @@ number</code>
 R</td>
 
 <td>
+Image width.</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+image#height</code>
 </td>
+<td>
+<code>
+number</code>
+</td>
+<td>
+R</td>
+
+<td>
+Image height.</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+image#palette</code>
+</td>
+<td>
+<code>
+palette</code>
+</td>
+<td>
+R/W</td>
+
+<td>
+A <code>
+palette</code>
+ instance associated with this image.
+If there's no palette associated, this property returns <code>
+nil</code>
+.</td>
 </tr>
 
 
@@ -10519,6 +10546,9 @@ This module extends the <code>image</code> class with methods described here.
 Reads an BMP image from a stream.
 </p>
 <p>
+This method returns the reference to the target instance itself.
+</p>
+<p>
 <strong>image#write@bmp</strong>
 </p>
 <p>
@@ -10526,6 +10556,9 @@ Reads an BMP image from a stream.
 </p>
 <p>
 Writes a BMP image to a stream.
+</p>
+<p>
+This method returns the reference to the target instance itself.
 </p>
 <h1><span class="caption-index-1">9</span><a name="caption-9"></a>bzip2 Module</h1>
 <p>
@@ -13031,7 +13064,28 @@ Reads a GIF data from a stream and returns an object that contains GIF related i
 <code>gif.content#addimage(image:image, delayTime:number =&gt; 10, leftPos:number =&gt; 0, topPos:number =&gt; 0, disposalMethod:symbol =&gt; `none):map:reduce</code>
 </p>
 <p>
-Adds an image to GIF information. If you add multiple images, they are to be rendered in sequence like an animation. You can specify the delay time to switch to the next image by delayTime argument in 10 msec step. The offset for rendering is specified by leftPost and topPos. Parameter disposalMethod determine how the image should be treated after the time expires, and it takes one of <code>none,</code>keep, <code>background and</code>previous.
+Adds an image to GIF information.
+</p>
+<p>
+You can add multiple images that can be played as a motion picture.
+</p>
+<p>
+The argument <code>delayTime</code> specifies the delay time in 10 milli seconds between images.
+</p>
+<p>
+The arguments <code>leftPost</code> and <code>topPos</code> specifies the rendered offset in the screen.
+</p>
+<p>
+The argument <code>disposalMethod</code> takes one of following symbols that specifies how the image will be treated after being rendered.
+</p>
+<ul>
+<li><code>`none</code> .. </li>
+<li><code>`keep</code> .. </li>
+<li><code>`background</code>.. </li>
+<li><code>`previous</code> .. </li>
+</ul>
+<p>
+This method returns the reference to the target instance itself.
 </p>
 <p>
 <strong>gif.content#write</strong>
@@ -13041,6 +13095,9 @@ Adds an image to GIF information. If you add multiple images, they are to be ren
 </p>
 <p>
 Writes a GIF image to a stream.
+</p>
+<p>
+This method returns the reference to the target instance itself.
 </p>
 <h2><span class="caption-index-2">17.3</span><a name="caption-17-3"></a>Extension to image Class</h2>
 <p>
@@ -13056,6 +13113,9 @@ This module extends the <code>stream</code> class with methods described here.
 Reads a GIF image from a stream.
 </p>
 <p>
+This method returns the reference to the target instance itself.
+</p>
+<p>
 <strong>image#write@gif</strong>
 </p>
 <p>
@@ -13063,6 +13123,9 @@ Reads a GIF image from a stream.
 </p>
 <p>
 Writes a GIF image to a stream.
+</p>
+<p>
+This method returns the reference to the target instance itself.
 </p>
 <h1><span class="caption-index-1">18</span><a name="caption-18"></a>glu Module</h1>
 <p>

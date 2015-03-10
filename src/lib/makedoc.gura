@@ -1,13 +1,6 @@
 #!/usr/bin/env gura
 import(markdown)
 
-funcdoc_array(funcs+:function) = {
-	markdown._funcdoc(
-			funcs.each(),
-			function.getfullname(funcs):*replace('@char', '@T'),
-			function.getformat(funcs):*replace('@char', '@T'))
-}
-
 //-----------------------------------------------------------------------------
 text = R'''
 # Built-in Operators
@@ -101,6 +94,13 @@ text@Sequence = R'''
 '''.template().render()
 
 //-----------------------------------------------------------------------------
+funcdoc@array(funcs+:function) = {
+	markdown._funcdoc(
+			funcs.each(),
+			function.getfullname(funcs):*replace('@char', '@T'),
+			function.getformat(funcs):*replace('@char', '@T'))
+}
+
 text@any = R'''
 ## any Class
 '''.template().render()
@@ -171,13 +171,13 @@ They're listed in the the table below:
 
 ### Function to Create Instance
 
-${funcdoc_array(
+${funcdoc@array(
 array@char
 )}
 
 ### Method
 
-${funcdoc_array(
+${funcdoc@array(
 array@char.dump
 array@char.each
 array@char.fill
@@ -1051,22 +1051,32 @@ For example, <code>`en</code> for English and <code>`ja</code> for Japanese.</td
 text@image = R'''
 ## image Class
 
+The `image` class provides measures to handle graphic image data.
+
 ### Property
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code>image#format</code></td><td><code>symbol</code></td><td>R</td>
-<td></td></tr>
-
-<tr><td><code>image#height</code></td><td><code>number</code></td><td>R</td>
-<td></td></tr>
-
-<tr><td><code>image#palette</code></td><td><code>palette</code></td><td>R/W</td>
-<td></td></tr>
+<td>
+<p>Takes one of the following symbols indicating what elements are stored in the memory:</p>
+<ul>
+<li><code>`rgb</code> .. red, green and blue</li>
+<li><code>`rgba</code> .. red, green, blue and alpha</li>
+</ul>
+</td>
+</tr>
 
 <tr><td><code>image#width</code></td><td><code>number</code></td><td>R</td>
-<td></td></tr>
+<td>Image width.</td></tr>
+
+<tr><td><code>image#height</code></td><td><code>number</code></td><td>R</td>
+<td>Image height.</td></tr>
+
+<tr><td><code>image#palette</code></td><td><code>palette</code></td><td>R/W</td>
+<td>A <code>palette</code> instance associated with this image.
+If there's no palette associated, this property returns <code>nil</code>.</td></tr>
 
 </table>
 
