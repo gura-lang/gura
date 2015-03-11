@@ -7188,13 +7188,19 @@ When an attribute :stable is specified, the original order shall be kept for ele
 <code>iterator#reduce(accum) {block}</code>
 </p>
 <p>
-Evaluates a block with a parameter format <code>|value, accum|</code> and leaves the result as the next <code>accum</code> value. It returns the final <code>accum</code> value as its result.
+Evaluates a block with a parameter format <code>|value, accum|</code> and leaves the result as the next <code>accum</code> value.
+</p>
+<p>
+It returns the final <code>accum</code> value as its result.
 </p>
 <p>
 <strong>iterator#replace</strong>
 </p>
 <p>
 <code>iterator#replace(value, replace) {block?}</code>
+</p>
+<p>
+Creates an iterator that replaces an element in the original iterable with <code>replace</code> if it equals to <code>value</code>
 </p>
 <p>
 <strong>iterator#reverse</strong>
@@ -7289,7 +7295,7 @@ Returns a standard deviation of values in the iterable.
 Calculates a summation of elements in the iterable.
 </p>
 <p>
-It can work on an iterable with elements of type that supports addition operator. Below is a list of such value types:
+It can work on an iterable with elements of a value type that supports addition operator. Below is a list of such value types:
 </p>
 <ul>
 <li><code>number</code></li>
@@ -8251,13 +8257,19 @@ When an attribute :stable is specified, the original order shall be kept for ele
 <code>list#reduce(accum) {block}</code>
 </p>
 <p>
-Evaluates a block with a parameter format <code>|value, accum|</code> and leaves the result as the next <code>accum</code> value. It returns the final <code>accum</code> value as its result.
+Evaluates a block with a parameter format <code>|value, accum|</code> and leaves the result as the next <code>accum</code> value.
+</p>
+<p>
+It returns the final <code>accum</code> value as its result.
 </p>
 <p>
 <strong>list#replace</strong>
 </p>
 <p>
 <code>list#replace(value, replace) {block?}</code>
+</p>
+<p>
+Creates an iterator that replaces an element in the original iterable with <code>replace</code> if it equals to <code>value</code>
 </p>
 <p>
 <strong>list#reverse</strong>
@@ -8352,7 +8364,7 @@ Returns a standard deviation of values in the iterable.
 Calculates a summation of elements in the iterable.
 </p>
 <p>
-It can work on an iterable with elements of type that supports addition operator. Below is a list of such value types:
+It can work on an iterable with elements of a value type that supports addition operator. Below is a list of such value types:
 </p>
 <ul>
 <li><code>number</code></li>
