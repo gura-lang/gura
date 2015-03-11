@@ -6537,6 +6537,9 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:set</code> ..  a list of unique values</li>
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
+<p>
+Block parameter format is <code>|value, idx:number|</code>.
+</p>
 <h3><span class="caption-index-3">6.20.2</span><a name="caption-6-20-2"></a>Method Specific to Iterator Class</h3>
 <p>
 <strong>iterator#delay</strong>
@@ -6545,7 +6548,7 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <code>iterator#delay(delay:number) {block?}</code>
 </p>
 <p>
-Returns an iterator that returns each element with an interval time specified by the argument <code>delay</code> in seconds.
+Creates an iterator that returns each element with an interval time specified by the argument <code>delay</code> in seconds.
 </p>
 <p>
 <strong>iterator#isinfinite</strong>
@@ -6623,7 +6626,7 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
 <p>
-Block parameter format: <code>|value:list, idx:number|</code>
+Block parameter format: <code>|value, idx:number|</code>
 </p>
 <p>
 <strong>iterator#align</strong>
@@ -6767,7 +6770,7 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
 <p>
-Block parameter format: <code>|value, idx:number|</code>
+Block parameter format: <code>|value, idx:number|</code>.
 </p>
 <p>
 <strong>iterator#filter</strong>
@@ -6776,7 +6779,7 @@ Block parameter format: <code>|value, idx:number|</code>
 <code>iterator#filter(criteria?) {block?}</code>
 </p>
 <p>
-Returns an iterable that filters values in the source iterable by a criteria.
+Creates an iterable that filters values in the source iterable by a criteria.
 </p>
 <p>
 A criteria can be an iterable or a function instance.
@@ -6813,7 +6816,7 @@ y = filter(&amp;{$x &gt; 3})
 <code>iterator#flat():[bfs,dfs] {block?}</code>
 </p>
 <p>
-Returns an iterator that searches items recursively if they are lists or iterators.
+Creates an iterator that searches items recursively if they are lists or iterators.
 </p>
 <p>
 Specifying an attribute could customize searching order as below:
@@ -6840,6 +6843,9 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:set</code> ..  a list of unique values</li>
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
+<p>
+Block parameter format is <code>|value, idx:number|</code>.
+</p>
 <p>
 Below is an example:
 </p>
@@ -6888,7 +6894,7 @@ Following is an example to fold elements by 3 with a step of 2:
 <code>iterator#format(format:string):map {block?}</code>
 </p>
 <p>
-Returns an iterator that converts element values in the source iterable into strings depending on formatter specifier in <code>format</code>.
+Creates an iterator that converts element values in the source iterable into strings depending on formatter specifier in <code>format</code>.
 </p>
 <p>
 If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
@@ -7012,7 +7018,7 @@ It would return a position index where the minimum value is found when one of th
 <code>iterator#nilto(replace) {block?}</code>
 </p>
 <p>
-Returns an iterator that converts <code>nil</code> in the source iterable to the specified value.
+Creates an iterator that converts <code>nil</code> in the source iterable to the specified value.
 </p>
 <p>
 <strong>iterator#offset</strong>
@@ -7171,7 +7177,7 @@ Prints items in the iterable by using the format.
 <code>iterator#rank(directive?) {block?}</code>
 </p>
 <p>
-Returns an iterable of rank numbers for elements after sorting them. In default, they are sorted in an ascending order. You can specify the following directives for sorting.
+Creates an iterable of rank numbers for elements after sorting them. In default, they are sorted in an ascending order. You can specify the following directives for sorting.
 </p>
 <ul>
 <li><code>`ascend</code> .. ascending order</li>
@@ -7200,7 +7206,25 @@ It returns the final <code>accum</code> value as its result.
 <code>iterator#replace(value, replace) {block?}</code>
 </p>
 <p>
-Creates an iterator that replaces an element in the original iterable with <code>replace</code> if it equals to <code>value</code>
+Creates an iterator that replaces the <code>value</code> in the original iterablewith the value of <code>replace</code>.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format is <code>|value, idx:number|</code>.
 </p>
 <p>
 <strong>iterator#reverse</strong>
@@ -7227,7 +7251,7 @@ Creates an iterator that replaces an element in the original iterable with <code
 <code>iterator#since(criteria) {block?}</code>
 </p>
 <p>
-Creates an iterator that picks up each element in the iterable  since criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
+Creates an iterator that picks up each element in the iterable since criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
 </p>
 <p>
 If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
@@ -7245,7 +7269,7 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
 <p>
-Block parameter format: <code>|value:list, idx:number|</code>
+Block parameter format: <code>|value, idx:number|</code>.
 </p>
 <p>
 <strong>iterator#skip</strong>
@@ -7254,10 +7278,52 @@ Block parameter format: <code>|value:list, idx:number|</code>
 <code>iterator#skip(n:number) {block?}</code>
 </p>
 <p>
+Creates an iterator that skips <code>n</code> elements before picking up next element.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format: <code>|value, idx:number|</code>.
+</p>
+<p>
 <strong>iterator#skipnil</strong>
 </p>
 <p>
 <code>iterator#skipnil() {block?}</code>
+</p>
+<p>
+Creates an iterator that skips <code>nil</code> in the source iterable.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format: <code>|value, idx:number|</code>.
 </p>
 <p>
 <strong>iterator#sort</strong>
@@ -7266,7 +7332,7 @@ Block parameter format: <code>|value:list, idx:number|</code>
 <code>iterator#sort(directive?, keys[]?):[stable] {block?}</code>
 </p>
 <p>
-Returns an iterator of elements after sorting them. In default, they are sorted in an ascending order. You can specify the following directives for sorting.
+Creates an iterator of elements after sorting them. In default, they are sorted in an ascending order. You can specify the following directives for sorting.
 </p>
 <ul>
 <li><code>`ascend</code> .. ascending order</li>
@@ -7283,7 +7349,7 @@ If keys is specified, it shall be used as a key instead of element values. When 
 <code>iterator#stddev()</code>
 </p>
 <p>
-Returns a standard deviation of values in the iterable.
+Calculates a standard deviation of elements in the iterable.
 </p>
 <p>
 <strong>iterator#sum</strong>
@@ -7339,7 +7405,7 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
 <p>
-Block parameter format: <code>|value:list, idx:number|</code>
+Block parameter format: <code>|value, idx:number|</code>.
 </p>
 <p>
 <strong>iterator#variance</strong>
@@ -7348,7 +7414,7 @@ Block parameter format: <code>|value:list, idx:number|</code>
 <code>iterator#variance()</code>
 </p>
 <p>
-Returns a variance of values in the iterable.
+Calculates a variance of elements in the iterable.
 </p>
 <p>
 <strong>iterator#walk</strong>
@@ -7357,7 +7423,7 @@ Returns a variance of values in the iterable.
 <code>iterator#walk():[bfs,dfs] {block?}</code>
 </p>
 <p>
-Returns an iterator that searches items recursively if they are lists or iterators.
+Creates an iterator that searches items recursively if they are lists or iterators.
 </p>
 <p>
 Specifying an attribute could customize searching order as below:
@@ -7384,6 +7450,9 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:set</code> ..  a list of unique values</li>
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
+<p>
+Block parameter format is <code>|value, idx:number|</code>.
+</p>
 <p>
 Below is an example:
 </p>
@@ -7420,7 +7489,7 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
 <p>
-Block parameter format: <code>|value:list, idx:number|</code>
+Block parameter format is <code>|value, idx:number|</code>.
 </p>
 <h2><span class="caption-index-2">6.21</span><a name="caption-6-21"></a>list Class</h2>
 <h3><span class="caption-index-3">6.21.1</span><a name="caption-6-21-1"></a>Function to Create Instance</h3>
@@ -7556,7 +7625,7 @@ Returns a first value in the list. An error occurs when the list is empty.
 <code>list#flat():[bfs,dfs] {block?}</code>
 </p>
 <p>
-Returns an iterator that searches items recursively if they are lists or iterators.
+Creates an iterator that searches items recursively if they are lists or iterators.
 </p>
 <p>
 Specifying an attribute could customize searching order as below:
@@ -7583,6 +7652,9 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:set</code> ..  a list of unique values</li>
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
+<p>
+Block parameter format is <code>|value, idx:number|</code>.
+</p>
 <p>
 Below is an example:
 </p>
@@ -7737,7 +7809,7 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
 <p>
-Block parameter format: <code>|value:list, idx:number|</code>
+Block parameter format: <code>|value, idx:number|</code>
 </p>
 <p>
 <strong>list#align</strong>
@@ -7881,7 +7953,7 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
 <p>
-Block parameter format: <code>|value, idx:number|</code>
+Block parameter format: <code>|value, idx:number|</code>.
 </p>
 <p>
 <strong>list#filter</strong>
@@ -7890,7 +7962,7 @@ Block parameter format: <code>|value, idx:number|</code>
 <code>list#filter(criteria?) {block?}</code>
 </p>
 <p>
-Returns an iterable that filters values in the source iterable by a criteria.
+Creates an iterable that filters values in the source iterable by a criteria.
 </p>
 <p>
 A criteria can be an iterable or a function instance.
@@ -7957,7 +8029,7 @@ Following is an example to fold elements by 3 with a step of 2:
 <code>list#format(format:string):map {block?}</code>
 </p>
 <p>
-Returns an iterator that converts element values in the source iterable into strings depending on formatter specifier in <code>format</code>.
+Creates an iterator that converts element values in the source iterable into strings depending on formatter specifier in <code>format</code>.
 </p>
 <p>
 If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
@@ -8081,7 +8153,7 @@ It would return a position index where the minimum value is found when one of th
 <code>list#nilto(replace) {block?}</code>
 </p>
 <p>
-Returns an iterator that converts <code>nil</code> in the source iterable to the specified value.
+Creates an iterator that converts <code>nil</code> in the source iterable to the specified value.
 </p>
 <p>
 <strong>list#offset</strong>
@@ -8240,7 +8312,7 @@ Prints items in the iterable by using the format.
 <code>list#rank(directive?):[stable] {block?}</code>
 </p>
 <p>
-Returns an iterable of rank numbers for elements after sorting them. In default, they are sorted in an ascending order. You can specify the following directives for sorting.
+Creates an iterable of rank numbers for elements after sorting them. In default, they are sorted in an ascending order. You can specify the following directives for sorting.
 </p>
 <ul>
 <li><code>`ascend</code> .. ascending order</li>
@@ -8269,7 +8341,25 @@ It returns the final <code>accum</code> value as its result.
 <code>list#replace(value, replace) {block?}</code>
 </p>
 <p>
-Creates an iterator that replaces an element in the original iterable with <code>replace</code> if it equals to <code>value</code>
+Creates an iterator that replaces the <code>value</code> in the original iterablewith the value of <code>replace</code>.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format is <code>|value, idx:number|</code>.
 </p>
 <p>
 <strong>list#reverse</strong>
@@ -8296,7 +8386,7 @@ Creates an iterator that replaces an element in the original iterable with <code
 <code>list#since(criteria) {block?}</code>
 </p>
 <p>
-Creates an iterator that picks up each element in the iterable  since criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
+Creates an iterator that picks up each element in the iterable since criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
 </p>
 <p>
 If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
@@ -8314,7 +8404,7 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
 <p>
-Block parameter format: <code>|value:list, idx:number|</code>
+Block parameter format: <code>|value, idx:number|</code>.
 </p>
 <p>
 <strong>list#skip</strong>
@@ -8323,10 +8413,52 @@ Block parameter format: <code>|value:list, idx:number|</code>
 <code>list#skip(n:number):map {block?}</code>
 </p>
 <p>
+Creates an iterator that skips <code>n</code> elements before picking up next element.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format: <code>|value, idx:number|</code>.
+</p>
+<p>
 <strong>list#skipnil</strong>
 </p>
 <p>
 <code>list#skipnil() {block?}</code>
+</p>
+<p>
+Creates an iterator that skips <code>nil</code> in the source iterable.
+</p>
+<p>
+If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+</p>
+<p>
+In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
+</p>
+<p>
+If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+</p>
+<ul>
+<li><code>:list</code> .. a list of values</li>
+<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
+<li><code>:set</code> ..  a list of unique values</li>
+<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+</ul>
+<p>
+Block parameter format: <code>|value, idx:number|</code>.
 </p>
 <p>
 <strong>list#sort</strong>
@@ -8335,7 +8467,7 @@ Block parameter format: <code>|value:list, idx:number|</code>
 <code>list#sort(directive?, keys[]?):[stable] {block?}</code>
 </p>
 <p>
-Returns an iterator of elements after sorting them. In default, they are sorted in an ascending order. You can specify the following directives for sorting.
+Creates an iterator of elements after sorting them. In default, they are sorted in an ascending order. You can specify the following directives for sorting.
 </p>
 <ul>
 <li><code>`ascend</code> .. ascending order</li>
@@ -8352,7 +8484,7 @@ If keys is specified, it shall be used as a key instead of element values. When 
 <code>list#stddev()</code>
 </p>
 <p>
-Returns a standard deviation of values in the iterable.
+Calculates a standard deviation of elements in the iterable.
 </p>
 <p>
 <strong>list#sum</strong>
@@ -8408,7 +8540,7 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
 <p>
-Block parameter format: <code>|value:list, idx:number|</code>
+Block parameter format: <code>|value, idx:number|</code>.
 </p>
 <p>
 <strong>list#variance</strong>
@@ -8417,7 +8549,7 @@ Block parameter format: <code>|value:list, idx:number|</code>
 <code>list#variance()</code>
 </p>
 <p>
-Returns a variance of values in the iterable.
+Calculates a variance of elements in the iterable.
 </p>
 <p>
 <strong>list#walk</strong>
@@ -8426,7 +8558,7 @@ Returns a variance of values in the iterable.
 <code>list#walk():[bfs,dfs] {block?}</code>
 </p>
 <p>
-Returns an iterator that searches items recursively if they are lists or iterators.
+Creates an iterator that searches items recursively if they are lists or iterators.
 </p>
 <p>
 Specifying an attribute could customize searching order as below:
@@ -8453,6 +8585,9 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:set</code> ..  a list of unique values</li>
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
+<p>
+Block parameter format is <code>|value, idx:number|</code>.
+</p>
 <p>
 Below is an example:
 </p>
@@ -8489,7 +8624,7 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 <li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
 </ul>
 <p>
-Block parameter format: <code>|value:list, idx:number|</code>
+Block parameter format is <code>|value, idx:number|</code>.
 </p>
 <h2><span class="caption-index-2">6.22</span><a name="caption-6-22"></a>matrix Class</h2>
 <h3><span class="caption-index-3">6.22.1</span><a name="caption-6-22-1"></a>Function to Create Instance</h3>

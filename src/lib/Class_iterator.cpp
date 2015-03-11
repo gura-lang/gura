@@ -61,7 +61,9 @@ Gura_DeclareFunction(iterator)
 		"\n"
 		"If an argument is not an iterator, that would be added as an element.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_ITERATOR_HELP
+		"\n"
+		"Block parameter format is `|value, idx:number|`.\n");
 }
 
 Gura_ImplementFunction(iterator)
@@ -91,7 +93,7 @@ Gura_DeclareMethod(iterator, delay)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an iterator that returns each element with an interval time\n"
+		"Creates an iterator that returns each element with an interval time\n"
 		"specified by the argument `delay` in seconds.\n");
 }
 
@@ -193,7 +195,7 @@ Gura_DeclareMethod(iterator, after)
 		"\n"
 		GURA_ITERATOR_HELP
 		"\n"
-		"Block parameter format: `|value:list, idx:number|`");
+		"Block parameter format: `|value, idx:number|`\n");
 }
 
 Gura_ImplementMethod(iterator, after)
@@ -302,7 +304,7 @@ Gura_DeclareMethod(iterator, before)
 		"\n"
 		GURA_ITERATOR_HELP
 		"\n"
-		"Block parameter format is `|value, idx:number|` where `value` is the extracted elements.");
+		"Block parameter format is `|value, idx:number|` where `value` is the extracted elements.\n");
 }
 
 Gura_ImplementMethod(iterator, before)
@@ -403,7 +405,7 @@ Gura_DeclareMethod(iterator, each)
 		"\n"
 		GURA_ITERATOR_HELP
 		"\n"
-		"Block parameter format: `|value, idx:number|`");
+		"Block parameter format: `|value, idx:number|`.");
 }
 
 Gura_ImplementMethod(iterator, each)
@@ -421,7 +423,7 @@ Gura_DeclareMethod(iterator, filter)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns an iterable that filters values in the source iterable by a criteria.\n"
+		"Creates an iterable that filters values in the source iterable by a criteria.\n"
 		"\n"
 		"A criteria can be an iterable or a function instance.\n"
 		"\n"
@@ -494,7 +496,7 @@ Gura_DeclareMethod(iterator, flat)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an iterator that searches items recursively if they are lists or iterators.\n"
+		"Creates an iterator that searches items recursively if they are lists or iterators.\n"
 		"\n"
 		"Specifying an attribute could customize searching order as below:\n"
 		"\n"
@@ -506,6 +508,8 @@ Gura_DeclareMethod(iterator, flat)
 		"You have to confirm that the source iterable doesn't contain any infinite iterators.\n"
 		"\n"
 		GURA_ITERATOR_HELP
+		"\n"
+		"Block parameter format is `|value, idx:number|`.\n"
 		"\n"
 		"Below is an example:\n"
 		"\n"
@@ -585,7 +589,7 @@ Gura_DeclareMethod(iterator, format)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns an iterator that converts element values in the source iterable into strings\n"
+		"Creates an iterator that converts element values in the source iterable into strings\n"
 		"depending on formatter specifier in `format`.\n"
 		"\n"
 		GURA_ITERATOR_HELP
@@ -777,7 +781,7 @@ Gura_DeclareMethod(iterator, nilto)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an iterator that converts `nil` in the source iterable to the specified value.\n");
+		"Creates an iterator that converts `nil` in the source iterable to the specified value.\n");
 }
 
 Gura_ImplementMethod(iterator, nilto)
@@ -1053,7 +1057,7 @@ Gura_DeclareMethod(iterator, rank)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns an iterable of rank numbers for elements after sorting them.\n"
+		"Creates an iterable of rank numbers for elements after sorting them.\n"
 		"In default, they are sorted in an ascending order. You can specify the following\n"
 		"directives for sorting.\n"
 		"\n"
@@ -1118,8 +1122,12 @@ Gura_DeclareMethod(iterator, replace)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates an iterator that replaces an element in the original iterable with `replace`\n"
-		"if it equals to `value`\n");
+		"Creates an iterator that replaces the `value` in the original iterable"
+		"with the value of `replace`.\n"
+		"\n"
+		GURA_ITERATOR_HELP
+		"\n"
+		"Block parameter format is `|value, idx:number|`.");
 }
 
 Gura_ImplementMethod(iterator, replace)
@@ -1197,13 +1205,13 @@ Gura_DeclareMethod(iterator, since)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Creates an iterator that picks up each element in the iterable  since criteria\n"
+		"Creates an iterator that picks up each element in the iterable since criteria\n"
 		"is evaluated as true. You can specify a function object, a list or an iterator\n"
 		"as the criteria.\n"
 		"\n"
 		GURA_ITERATOR_HELP
 		"\n"
-		"Block parameter format: `|value:list, idx:number|`");
+		"Block parameter format: `|value, idx:number|`.");
 }
 
 Gura_ImplementMethod(iterator, since)
@@ -1223,7 +1231,11 @@ Gura_DeclareMethod(iterator, skip)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that skips `n` elements before picking up next element.\n"
+		"\n"
+		GURA_ITERATOR_HELP
+		"\n"
+		"Block parameter format: `|value, idx:number|`.");
 }
 
 Gura_ImplementMethod(iterator, skip)
@@ -1241,7 +1253,11 @@ Gura_DeclareMethod(iterator, skipnil)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that skips `nil` in the source iterable.\n"
+		"\n"
+		GURA_ITERATOR_HELP
+		"\n"
+		"Block parameter format: `|value, idx:number|`.");
 }
 
 Gura_ImplementMethod(iterator, skipnil)
@@ -1261,7 +1277,7 @@ Gura_DeclareMethod(iterator, sort)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns an iterator of elements after sorting them.\n"
+		"Creates an iterator of elements after sorting them.\n"
 		"In default, they are sorted in an ascending order. You can specify the following\n"
 		"directives for sorting.\n"
 		"\n"
@@ -1297,7 +1313,7 @@ Gura_DeclareMethod(iterator, stddev)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a standard deviation of values in the iterable.");
+		"Calculates a standard deviation of elements in the iterable.\n");
 }
 
 Gura_ImplementMethod(iterator, stddev)
@@ -1384,7 +1400,7 @@ Gura_DeclareMethod(iterator, until)
 		"\n"
 		GURA_ITERATOR_HELP
 		"\n"
-		"Block parameter format: `|value:list, idx:number|`");
+		"Block parameter format: `|value, idx:number|`.");
 }
 
 Gura_ImplementMethod(iterator, until)
@@ -1402,7 +1418,7 @@ Gura_DeclareMethod(iterator, variance)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a variance of values in the iterable.");
+		"Calculates a variance of elements in the iterable.\n");
 }
 
 Gura_ImplementMethod(iterator, variance)
@@ -1425,7 +1441,7 @@ Gura_DeclareMethod(iterator, walk)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an iterator that searches items recursively if they are lists or iterators.\n"
+		"Creates an iterator that searches items recursively if they are lists or iterators.\n"
 		"\n"
 		"Specifying an attribute could customize searching order as below:\n"
 		"\n"
@@ -1437,6 +1453,8 @@ Gura_DeclareMethod(iterator, walk)
 		"can not be converted to a list.\n"
 		"\n"
 		GURA_ITERATOR_HELP
+		"\n"
+		"Block parameter format is `|value, idx:number|`.\n"
 		"\n"
 		"Below is an example:\n"
 		"\n"
@@ -1476,7 +1494,7 @@ Gura_DeclareMethodAlias(iterator, while_, "while")
 		"\n"
 		GURA_ITERATOR_HELP
 		"\n"
-		"Block parameter format: `|value:list, idx:number|`");
+		"Block parameter format is `|value, idx:number|`.");
 }
 
 Gura_ImplementMethod(iterator, while_)
