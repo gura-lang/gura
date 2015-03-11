@@ -1021,7 +1021,18 @@ Gura_DeclareMethod(iterator, prod)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a product of values in the iterable.");
+		"Calculates a product of elements in the iterable.\n"
+		"\n"
+		"It can work on an iterable with elements of a value type that supports multiplier operator.\n"
+		"Below is a list of such value types:\n"
+		"\n"
+		"- `number`\n"
+		"- `complex`\n"
+		"- `matrix`\n"
+		"- `rational`\n"
+		"- `gmp.mpz`\n"
+		"- `gmp.mpq`\n"
+		"- `gmp.mpf`\n");
 }
 
 Gura_ImplementMethod(iterator, prod)
@@ -1078,7 +1089,9 @@ Gura_DeclareMethod(iterator, reduce)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Evaluates a block with a parameter format `|value, accum|` and leaves the result\n"
-		"as the next `accum` value. It returns the final `accum` value as its result.");
+		"as the next `accum` value.\n"
+		"\n"
+		"It returns the final `accum` value as its result.");
 }
 
 Gura_ImplementMethod(iterator, reduce)
@@ -1105,7 +1118,8 @@ Gura_DeclareMethod(iterator, replace)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that replaces an element in the original iterable with `replace`\n"
+		"if it equals to `value`\n");
 }
 
 Gura_ImplementMethod(iterator, replace)
@@ -1305,7 +1319,7 @@ Gura_DeclareMethod(iterator, sum)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Calculates a summation of elements in the iterable.\n"
 		"\n"
-		"It can work on an iterable with elements of type that supports addition operator.\n"
+		"It can work on an iterable with elements of a value type that supports addition operator.\n"
 		"Below is a list of such value types:\n"
 		"\n"
 		"- `number`\n"
