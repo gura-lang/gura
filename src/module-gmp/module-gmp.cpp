@@ -161,6 +161,17 @@ mpf_class MpfFromRational(Signal sig, const Rational &ratio)
 	return numer / denom;
 }
 
+mpf_class MpfFromMpq(Signal sig, const mpq_class &num)
+{
+	mpf_class numer = num.get_num();
+	mpf_class denom = num.get_den();
+	if (denom == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return mpf_class(0);
+	}
+	return numer / denom;
+}
+
 bool _Format_d(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpz_class &num)
 {

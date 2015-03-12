@@ -60,9 +60,9 @@ testcase('declaration') {
 		`gmp.mpz('314')
 		`gmp.mpq('314')
 		`gmp.mpf('314')
-		`'314'.mpz()
-		`'314'.mpq()
-		`'314'.mpf()
+		`'314'.cast@mpz()
+		`'314'.cast@mpq()
+		`'314'.cast@mpf()
 		`3.14L
 		//`3.14Lr
 		`123456789012345678901234567890123456789012345678901234567890L
@@ -191,5 +191,11 @@ testcase('type cast') {
 	tester(`gmp.mpf(3))
 	tester(`gmp.mpf(3L))
 	tester(`gmp.mpf(3.L))
+	tester(`gmp.mpf(3Lr))
+	tester(`gmp.mpf(3Lr / 2))
+	tester(`gmp.mpf(2Lr / 3))
 	tester(`gmp.mpq(3))
+	tester(`(1Lr).cast@mpf())
+	tester(`(3Lr / 2).cast@mpf())
+	tester(`(2Lr / 3).cast@mpf())
 }

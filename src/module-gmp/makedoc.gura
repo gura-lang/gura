@@ -41,6 +41,11 @@ ${markdown.funcdoc(
 gmp.mpq
 )}
 
+### Method
+${markdown.funcdoc(
+gmp.mpq.cast@mpf
+)}
+
 ## gmp.mpz Class
 
 ### Function to Create Instance
@@ -54,9 +59,9 @@ gmp.mpz
 This module extends the `string` class with methods described here.
 
 ${markdown.funcdoc(
-string.mpf
-string.mpq
-string.mpz
+string.cast@mpf
+string.cast@mpq
+string.cast@mpz
 )}
 '''.template().render()
 

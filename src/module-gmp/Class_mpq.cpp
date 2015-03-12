@@ -96,14 +96,30 @@ Gura_ImplementFunction(mpq)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// string#mpq(base?:number):map {block?}
-Gura_DeclareMethod(string, mpq)
+// gmp.mpq#cast@mpf() {block?}
+Gura_DeclareMethodAlias(mpq, cast_mpf, "cast@mpf")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(mpq, cast_mpf)
+{
+	const mpq_class &num = Object_mpq::GetThisEntity(args);
+	mpf_class numResult = MpfFromMpq(sig, num);
+	if (sig.IsSignalled()) return Value::Null;
+	return ReturnValue(env, sig, args, Value(new Object_mpf(numResult)));
+}
+
+// string#cast@mpq(base?:number):map {block?}
+Gura_DeclareMethodAlias(string, cast_mpq, "cast@mpq")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "base", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(string, mpq)
+Gura_ImplementMethod(string, cast_mpq)
 {
 	const char *strThis = args.GetThis().GetString();
 	int base = args.Is_number(0)? args.GetInt(0) : 0;
@@ -125,7 +141,8 @@ Gura_ImplementUserClassWithCast(mpq)
 	// assignment of functions
 	Gura_AssignFunction(mpq);
 	// assignment of methods
-	Gura_AssignMethodTo(VTYPE_string, string, mpq);
+	Gura_AssignMethod(mpq, cast_mpf);
+	Gura_AssignMethodTo(VTYPE_string, string, cast_mpq);
 }
 
 Gura_ImplementCastFrom(mpq)

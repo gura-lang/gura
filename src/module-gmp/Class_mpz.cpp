@@ -76,14 +76,14 @@ Gura_ImplementFunction(mpz)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// string#mpz(base?:number):map {block?}
-Gura_DeclareMethod(string, mpz)
+// string#cast@mpz(base?:number):map {block?}
+Gura_DeclareMethodAlias(string, cast_mpz, "cast@mpz")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "base", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(string, mpz)
+Gura_ImplementMethod(string, cast_mpz)
 {
 	const char *strThis = args.GetThis().GetString();
 	int base = args.Is_number(0)? args.GetInt(0) : 0;
@@ -106,7 +106,7 @@ Gura_ImplementUserClassWithCast(mpz)
 	// assignment of functions
 	Gura_AssignFunction(mpz);
 	// assignment of methods
-	Gura_AssignMethodTo(VTYPE_string, string, mpz);
+	Gura_AssignMethodTo(VTYPE_string, string, cast_mpz);
 }
 
 Gura_ImplementCastFrom(mpz)

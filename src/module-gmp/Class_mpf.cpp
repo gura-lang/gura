@@ -96,6 +96,11 @@ Gura_ImplementFunction(mpf)
 	} else if (args.IsType(0, VTYPE_mpz)) {
 		mpf_class num(Object_mpz::GetEntity(args, 0), prec);
 		value = Value(new Object_mpf(num));
+	} else if (args.IsType(0, VTYPE_mpq)) {
+		mpq_class num(Object_mpq::GetEntity(args, 0));
+		mpf_class numResult = MpfFromMpq(sig, num);
+		if (sig.IsSignalled()) return Value::Null;
+		value = Value(new Object_mpf(numResult));
 	} else {
 		SetError_ArgumentTypeByIndex(sig, args, 0);
 		return Value::Null;
@@ -141,8 +146,24 @@ Gura_ImplementClassMethod(mpf, set_default_prec)
 //-----------------------------------------------------------------------------
 // Implementation of instance methods
 //-----------------------------------------------------------------------------
-// string#mpf(base?:number):map {block?}
-Gura_DeclareMethod(string, mpf)
+#if 0
+// gmp.mpf#cast@mpz() {block?}
+Gura_DeclareMethodAlias(mpf, cast_mpz, "cast@mpz")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(mpf, cast_mpz)
+{
+	const mpf_class &num = Object_mpf::GetThisEntity(args);
+	mpz_class numResult = num;
+	return ReturnValue(env, sig, args, Value(new Object_mpz(numResult)));
+}
+#endif
+
+// string#cast@mpf(base?:number):map {block?}
+Gura_DeclareMethodAlias(string, cast_mpf, "cast@mpf")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "base", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -151,7 +172,7 @@ Gura_DeclareMethod(string, mpf)
 		"");
 }
 
-Gura_ImplementMethod(string, mpf)
+Gura_ImplementMethod(string, cast_mpf)
 {
 	const char *strThis = args.GetThis().GetString();
 	int base = args.Is_number(0)? args.GetInt(0) : 0;
@@ -176,8 +197,8 @@ Gura_ImplementUserClassWithCast(mpf)
 	Gura_AssignMethod(mpf, get_default_prec);
 	Gura_AssignMethod(mpf, set_default_prec);
 	// assignment of instance methods
-	
-	Gura_AssignMethodTo(VTYPE_string, string, mpf);
+	//Gura_AssignMethod(mpf, cast_mpz);
+	Gura_AssignMethodTo(VTYPE_string, string, cast_mpf);
 }
 
 Gura_ImplementCastFrom(mpf)
@@ -201,7 +222,11 @@ Gura_ImplementCastFrom(mpf)
 	} else if (value.IsType(VTYPE_mpz)) {
 		
 	} else if (value.IsType(VTYPE_mpq)) {
-		
+		mpq_class num(Object_mpq::GetEntity(value));
+		mpf_class numResult = MpfFromMpq(sig, num);
+		if (sig.IsSignalled()) return false;
+		value = Value(new Object_mpf(numResult));
+		return true;
 	}
 	return false;
 }
