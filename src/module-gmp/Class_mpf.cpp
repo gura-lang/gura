@@ -163,8 +163,8 @@ Gura_DeclareMethodAlias(mpf, cast_mpz, "cast@mpz")
 Gura_ImplementMethod(mpf, cast_mpz)
 {
 	const mpf_class &num = Object_mpf::GetThisEntity(args);
-	mpz_class numResult(num);
-	return ReturnValue(env, sig, args, Value(new Object_mpz(numResult)));
+	mpz_class numCasted(num);
+	return ReturnValue(env, sig, args, Value(new Object_mpz(numCasted)));
 }
 
 // string#cast@mpf(prec?:number) {block?}
@@ -216,23 +216,21 @@ Gura_ImplementUserClassWithCast(mpf)
 Gura_ImplementCastFrom(mpf)
 {
 	if (value.Is_number()) {
-		mpf_t num;
-		::mpf_init(num);
-		::mpf_set_d(num, value.GetDouble());
+		mpf_class num = value.GetDouble();
 		value = Value(new Object_mpf(num));
 		return true;
 	} else if (value.Is_string()) {
-		mpf_t num;
-		::mpf_init(num);
-		if (::mpf_set_str(num, value.GetString(), 0) < 0) {
-			::mpf_clear(num);
+		mpf_class num;
+		if (num.set_str(value.GetString(), 0) < 0) {
 			sig.SetError(ERR_ValueError, "invalid string format for gmp.mpf");
 			return false;
 		}
 		value = Value(new Object_mpf(num));
 		return true;
 	} else if (value.IsType(VTYPE_mpz)) {
-		
+		mpf_class num = Object_mpz::GetEntity(value);
+		value = Value(new Object_mpf(num));
+		return true;
 	} else if (value.IsType(VTYPE_mpq)) {
 		mpq_class num(Object_mpq::GetEntity(value));
 		mpf_class numResult = MpfFromMpq(sig, num);

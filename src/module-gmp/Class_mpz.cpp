@@ -105,10 +105,8 @@ Gura_ImplementMethod(string, cast_mpz)
 {
 	const char *strThis = args.GetThis().GetString();
 	int base = args.Is_number(0)? args.GetInt(0) : 0;
-	mpz_t num;
-	::mpz_init(num);
-	if (::mpz_set_str(num, strThis, base) < 0) {
-		::mpz_clear(num);
+	mpz_class num;
+	if (num.set_str(strThis, base) < 0) {
 		sig.SetError(ERR_ValueError, "invalid string format for gmp.mpz");
 		return false;
 	}
@@ -130,16 +128,12 @@ Gura_ImplementUserClassWithCast(mpz)
 Gura_ImplementCastFrom(mpz)
 {
 	if (value.Is_number()) {
-		mpz_t num;
-		::mpz_init(num);
-		::mpz_set_d(num, value.GetDouble());
+		mpz_class num = value.GetDouble();
 		value = Value(new Object_mpz(num));
 		return true;
 	} else if (value.Is_string()) {
-		mpz_t num;
-		::mpz_init(num);
-		if (::mpz_set_str(num, value.GetString(), 0) < 0) {
-			::mpz_clear(num);
+		mpz_class num;
+		if (num.set_str(value.GetString(), 0) < 0) {
 			sig.SetError(ERR_ValueError, "invalid string format for gmp.mpz");
 			return false;
 		}

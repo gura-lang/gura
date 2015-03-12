@@ -78,18 +78,15 @@ Gura_ImplementFunction(mpq)
 	if (args.IsInvalid(0)) {
 		// nothing to do
 	} else if (args.Is_number(0)) {
-		mpq_t num;
-		::mpq_init(num);
-		::mpz_set_si(mpq_numref(num), args.GetInt(0));
+		mpq_class num;
+		num.get_num() = args.GetInt(0);
 		if (args.Is_number(1)) {
-			::mpz_set_si(mpq_denref(num), args.GetInt(1));
+			num.get_den() = args.GetInt(1);
 		}
 		value = Value(new Object_mpq(num));
 	} else if (args.Is_string(0)) {
-		mpq_t num;
-		::mpq_init(num);
-		if (::mpq_set_str(num, args.GetString(0), 0) < 0) {
-			::mpq_clear(num);
+		mpq_class num;
+		if (num.set_str(args.GetString(0), 0) < 0) {
 			sig.SetError(ERR_ValueError, "invalid string format for gmp.mpq");
 			return Value::Null;
 		}
@@ -123,9 +120,9 @@ Gura_DeclareMethodAlias(mpq, cast_mpf, "cast@mpf")
 Gura_ImplementMethod(mpq, cast_mpf)
 {
 	const mpq_class &num = Object_mpq::GetThisEntity(args);
-	mpf_class numResult = MpfFromMpq(sig, num);
+	mpf_class numCasted = MpfFromMpq(sig, num);
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_mpf(numResult)));
+	return ReturnValue(env, sig, args, Value(new Object_mpf(numCasted)));
 }
 
 // string#cast@mpq():map {block?}
@@ -146,10 +143,8 @@ Gura_ImplementMethod(string, cast_mpq)
 {
 	const char *strThis = args.GetThis().GetString();
 	int base = 0;
-	mpq_t num;
-	::mpq_init(num);
-	if (::mpq_set_str(num, strThis, base) < 0) {
-		::mpq_clear(num);
+	mpq_class num;
+	if (num.set_str(strThis, base) < 0) {
 		sig.SetError(ERR_ValueError, "invalid string format for gmp.mpq");
 		return false;
 	}
@@ -171,16 +166,12 @@ Gura_ImplementUserClassWithCast(mpq)
 Gura_ImplementCastFrom(mpq)
 {
 	if (value.Is_number()) {
-		mpq_t num;
-		::mpq_init(num);
-		::mpq_set_d(num, value.GetDouble());
+		mpq_class num = value.GetDouble();
 		value = Value(new Object_mpq(num));
 		return true;
 	} else if (value.Is_string()) {
-		mpq_t num;
-		::mpq_init(num);
-		if (::mpq_set_str(num, value.GetString(), 0) < 0) {
-			::mpq_clear(num);
+		mpq_class num;
+		if (num.set_str(value.GetString(), 0) < 0) {
 			sig.SetError(ERR_ValueError, "invalid string format for gmp.mpq");
 			return false;
 		}
