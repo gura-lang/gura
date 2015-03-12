@@ -60,6 +60,16 @@ Gura_DeclareFunction(mpq)
 	DeclareArg(env, "denom", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_mpq));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a `gmp.mpq` instance.\n"
+		"\n"
+		"You can call this function with one of the following form.\n"
+		"\n"
+		"- `gmp.mpq(numer:number)`\n"
+		"- `gmp.mpq(numer:number, denom:number)`\n"
+		"- `gmp.mpq(str:string)`\n"
+		"- `gmp.mpq(num:gmp.mpq)`\n");
 }
 
 Gura_ImplementFunction(mpq)
@@ -101,6 +111,13 @@ Gura_DeclareMethodAlias(mpq, cast_mpf, "cast@mpf")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Casts the value to `gmp.mpf`.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|num:gmp.mpf|`,\n"
+		"where `num` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementMethod(mpq, cast_mpf)
@@ -111,18 +128,24 @@ Gura_ImplementMethod(mpq, cast_mpf)
 	return ReturnValue(env, sig, args, Value(new Object_mpf(numResult)));
 }
 
-// string#cast@mpq(base?:number):map {block?}
+// string#cast@mpq():map {block?}
 Gura_DeclareMethodAlias(string, cast_mpq, "cast@mpq")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "base", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Casts the string to `gmp.mpq`.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|num:gmp.mpq|`,\n"
+		"where `num` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementMethod(string, cast_mpq)
 {
 	const char *strThis = args.GetThis().GetString();
-	int base = args.Is_number(0)? args.GetInt(0) : 0;
+	int base = 0;
 	mpq_t num;
 	::mpq_init(num);
 	if (::mpq_set_str(num, strThis, base) < 0) {

@@ -72,7 +72,14 @@ Gura_DeclareFunction(mpf)
 	SetClassToConstruct(env.LookupClass(VTYPE_mpf));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `gmp.mpf` instance.\n"
+		"\n"
+		"If the argument `value` is specified, it would be casted to `gmp.mpf`.\n"
+		"Acceptable types for `value` are: `number`, `string`,\n"
+		"`gmp.mpf`, `gmp.mpz` and `gmp.mpq`.\n"
+		"\n"
+		"You can specify the precision of the number by the argument `prec`.\n"
+		"If it's omitted, a default precision would be applied.\n");
 }
 
 Gura_ImplementFunction(mpf)
@@ -117,7 +124,7 @@ Gura_DeclareClassMethod(mpf, get_default_prec)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Gets the default precision for `gmp.mpf`.\n");
 }
 
 Gura_ImplementClassMethod(mpf, get_default_prec)
@@ -133,7 +140,7 @@ Gura_DeclareClassMethod(mpf, set_default_prec)
 	DeclareArg(env, "prec", VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Sets the default precision for `gmp.mpf`.\n");
 }
 
 Gura_ImplementClassMethod(mpf, set_default_prec)
@@ -146,7 +153,6 @@ Gura_ImplementClassMethod(mpf, set_default_prec)
 //-----------------------------------------------------------------------------
 // Implementation of instance methods
 //-----------------------------------------------------------------------------
-#if 0
 // gmp.mpf#cast@mpz() {block?}
 Gura_DeclareMethodAlias(mpf, cast_mpz, "cast@mpz")
 {
@@ -157,31 +163,37 @@ Gura_DeclareMethodAlias(mpf, cast_mpz, "cast@mpz")
 Gura_ImplementMethod(mpf, cast_mpz)
 {
 	const mpf_class &num = Object_mpf::GetThisEntity(args);
-	mpz_class numResult = num;
+	mpz_class numResult(num);
 	return ReturnValue(env, sig, args, Value(new Object_mpz(numResult)));
 }
-#endif
 
-// string#cast@mpf(base?:number):map {block?}
+// string#cast@mpf(prec?:number) {block?}
 Gura_DeclareMethodAlias(string, cast_mpf, "cast@mpf")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "base", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "prec", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Casts the string to `gmp.mpf`.\n"
+		"\n"
+		"You can specify the precision of the number by the argument `prec`.\n"
+		"If it's omitted, a default precision would be applied.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|num:gmp.mpf|`,\n"
+		"where `num` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementMethod(string, cast_mpf)
 {
 	const char *strThis = args.GetThis().GetString();
-	int base = args.Is_number(0)? args.GetInt(0) : 0;
-	mpf_t num;
-	::mpf_init(num);
-	if (::mpf_set_str(num, strThis, base) < 0) {
-		::mpf_clear(num);
+	int base = 0;
+	ULong prec = args.Is_number(0)? args.GetInt(0) : ::mpf_get_default_prec();
+	mpf_class num;
+	num.set_prec(prec);
+	if (num.set_str(strThis, base) < 0) {
 		sig.SetError(ERR_ValueError, "invalid string format for gmp.mpf");
-		return false;
+		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_mpf(num)));
 }
@@ -197,7 +209,7 @@ Gura_ImplementUserClassWithCast(mpf)
 	Gura_AssignMethod(mpf, get_default_prec);
 	Gura_AssignMethod(mpf, set_default_prec);
 	// assignment of instance methods
-	//Gura_AssignMethod(mpf, cast_mpz);
+	Gura_AssignMethod(mpf, cast_mpz);
 	Gura_AssignMethodTo(VTYPE_string, string, cast_mpf);
 }
 

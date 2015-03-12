@@ -45,6 +45,13 @@ Gura_DeclareFunction(mpz)
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_mpz));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a `gmp.mpz` instance.\n"
+		"\n"
+		"If the argument `value` is specified, it would be casted to `gmp.mpz`.\n"
+		"Acceptable types for `value` are: `number`, `string`,\n"
+		"`gmp.mpf` and `gmp.mpz`.\n");
 }
 
 Gura_ImplementFunction(mpz)
@@ -81,6 +88,17 @@ Gura_DeclareMethodAlias(string, cast_mpz, "cast@mpz")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "base", VTYPE_number, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Casts the string to `gmp.mpz`.\n"
+		"\n"
+		"You can specify the basement of the number format by the argument `base`.\n"
+		"If it's omitted, the basement would be decided by the prefix described in the string\n"
+		"such as \"`0`\" and \"`0x`\".\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|num:gmp.mpz|`,\n"
+		"where `num` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementMethod(string, cast_mpz)
