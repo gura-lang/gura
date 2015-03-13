@@ -5,13 +5,67 @@ import(gmp)
 text = R'''
 # gmp Module
 
-The `gmp` module provides measures to calculate numbers in a variable-length format.
-To utilize it, import the `gmp` module using `import` function.
+The `gmp` module provides measures to calculate numbers with multiple precision
+using GMP library. To utilize it, import the `gmp` module using `import` function.
 
 It expands features of operators like addition and multiplier
 so that they can calculate such numbers.
 
-## Module Functions
+Official site of GMP is: [https://gmplib.org](https://gmplib.org)
+
+## Operator
+
+Following tables show values types of operands and returned value for each operator:
+
+<table>
+<tr><td><code>x + y</code></td>
+    <td><code><b>gmp.mpz</b></code></td>
+	<td><code><b>gmp.mpq</b></code></td>
+	<td><code><b>gmp.mpf</b></code></td>
+    <td><code><b>number</b></code></td>
+	<td><code><b>rational</b></code></td></tr>
+<tr><td><code><b>gmp.mpz</b></code></td>
+    <td><code>gmp.mpz</code></td>
+	<td><code>gmp.mpq</code></td>
+	<td><code>gmp.mpf</code></td>
+    <td><code>gmp.mpf</code></td>
+	<td><code>gmp.mpq</code></td></tr>
+<tr><td><code><b>gmp.mpq</b></code></td>
+    <td><code>gmp.mpz</code></td>
+	<td><code>gmp.mpq</code></td>
+	<td><code>gmp.mpf</code></td>
+    <td><code>gmp.mpf</code></td>
+	<td><code>gmp.mpq</code></td></tr>
+<tr><td><code><b>gmp.mpf</b></code></td>
+    <td><code>gmp.mpz</code></td>
+	<td><code>gmp.mpq</code></td>
+	<td><code>gmp.mpf</code></td>
+    <td><code>gmp.mpf</code></td>
+	<td><code>gmp.mpq</code></td></tr>
+<tr><td><code><b>number</b></code></td>
+    <td><code>gmp.mpz</code></td>
+	<td><code>gmp.mpq</code></td>
+	<td><code>gmp.mpf</code></td>
+    <td><code>number</code></td>
+	<td><code>rational</code></td></tr>
+<tr><td><code><b>rational</b></code></td>
+    <td><code>gmp.mpz</code></td>
+	<td><code>gmp.mpq</code></td>
+	<td><code>gmp.mpf</code></td>
+    <td><code>rational</code></td>
+	<td><code>rational</code></td></tr>
+</table>
+
+`+x; -x; x + y; x - y; x * y; x / y; x % y`
+
+`x == y; x != y; x > y; x < y; x >= y; x <= y; x <=> y`
+
+`~x; x & y; x | y; x ^ y; x << y; x >> y`
+
+`x..; x .. y`
+
+
+## Module Function
 
 ${markdown.funcdoc(
 gmp.gcd

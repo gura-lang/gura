@@ -14511,12 +14511,243 @@ The <code>glut</code> module provides functions of GLUT library.
 </p>
 <h1><span class="caption-index-1">20</span><a name="caption-20"></a>gmp Module</h1>
 <p>
-The <code>gmp</code> module provides measures to calculate numbers in a variable-length format. To utilize it, import the <code>gmp</code> module using <code>import</code> function.
+The <code>gmp</code> module provides measures to calculate numbers with multiple precision using GMP library. To utilize it, import the <code>gmp</code> module using <code>import</code> function.
 </p>
 <p>
 It expands features of operators like addition and multiplier so that they can calculate such numbers.
 </p>
-<h2><span class="caption-index-2">20.1</span><a name="caption-20-1"></a>Module Functions</h2>
+<p>
+Official site of GMP is: <a href="https://gmplib.org">https://gmplib.org</a>
+</p>
+<h2><span class="caption-index-2">20.1</span><a name="caption-20-1"></a>Operator</h2>
+<p>
+Following tables show values types of operands and returned value for each operator:
+</p>
+<p>
+<table>
+
+<tr>
+<td>
+<code>
+x + y</code>
+</td>
+
+    <td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+
+    <td>
+<code>
+<b>
+number</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+rational</b>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+    <td>
+<code>
+gmp.mpz</code>
+</td>
+
+	<td>
+<code>
+gmp.mpq</code>
+</td>
+
+	<td>
+<code>
+gmp.mpf</code>
+</td>
+
+    <td>
+<code>
+gmp.mpf</code>
+</td>
+
+	<td>
+<code>
+gmp.mpq</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+    <td>
+<code>
+gmp.mpz</code>
+</td>
+
+	<td>
+<code>
+gmp.mpq</code>
+</td>
+
+	<td>
+<code>
+gmp.mpf</code>
+</td>
+
+    <td>
+<code>
+gmp.mpf</code>
+</td>
+
+	<td>
+<code>
+gmp.mpq</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+
+    <td>
+<code>
+gmp.mpz</code>
+</td>
+
+	<td>
+<code>
+gmp.mpq</code>
+</td>
+
+	<td>
+<code>
+gmp.mpf</code>
+</td>
+
+    <td>
+<code>
+gmp.mpf</code>
+</td>
+
+	<td>
+<code>
+gmp.mpq</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+number</b>
+</code>
+</td>
+
+    <td>
+<code>
+gmp.mpz</code>
+</td>
+
+	<td>
+<code>
+gmp.mpq</code>
+</td>
+
+	<td>
+<code>
+gmp.mpf</code>
+</td>
+
+    <td>
+<code>
+gmp.mpf</code>
+</td>
+
+	<td>
+<code>
+gmp.mpq</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+rational</b>
+</code>
+</td>
+
+    <td>
+<code>
+gmp.mpz</code>
+</td>
+
+	<td>
+<code>
+gmp.mpq</code>
+</td>
+
+	<td>
+<code>
+gmp.mpf</code>
+</td>
+
+    <td>
+<code>
+gmp.mpf</code>
+</td>
+
+	<td>
+<code>
+gmp.mpq</code>
+</td>
+</tr>
+
+</table>
+
+</p>
+<ul>
+<li>Arithmetic: <code>+x; -x; x + y; x - y; x * y; x / y; x % y</code></li>
+<li>Comparison: <code>x == y; x != y; x &gt; y; x &lt; y; x &gt;= y; x &lt;= y; x &lt;=&gt; y</code></li>
+<li>Bit Operation: <code>~x; x &amp; y; x | y; x ^ y; x &lt;&lt; y; x &gt;&gt; y</code></li>
+<li>Sequence Generator: <code>x..; x .. y</code></li>
+</ul>
+<h2><span class="caption-index-2">20.2</span><a name="caption-20-2"></a>Module Function</h2>
 <p>
 <strong>gmp.gcd</strong>
 </p>
@@ -14547,8 +14778,8 @@ Calculates the square root of <code>num</code>.
 <p>
 The type of the argument <code>num</code> must be <code>gmp.mpz</code>, <code>gmp.mpq</code>, <code>gmp.mpf</code> or <code>number</code>.
 </p>
-<h2><span class="caption-index-2">20.2</span><a name="caption-20-2"></a>gmp.mpf Class</h2>
-<h3><span class="caption-index-3">20.2.1</span><a name="caption-20-2-1"></a>Function to Create Instance</h3>
+<h2><span class="caption-index-2">20.3</span><a name="caption-20-3"></a>gmp.mpf Class</h2>
+<h3><span class="caption-index-3">20.3.1</span><a name="caption-20-3-1"></a>Function to Create Instance</h3>
 <p>
 <strong>gmp.mpf</strong>
 </p>
@@ -14564,7 +14795,7 @@ If the argument <code>value</code> is specified, it would be casted to <code>gmp
 <p>
 You can specify the precision of the number by the argument <code>prec</code>. If it's omitted, a default precision would be applied.
 </p>
-<h3><span class="caption-index-3">20.2.2</span><a name="caption-20-2-2"></a>Method</h3>
+<h3><span class="caption-index-3">20.3.2</span><a name="caption-20-3-2"></a>Method</h3>
 <p>
 <strong>gmp.mpf.get_default_prec</strong>
 </p>
@@ -14583,8 +14814,8 @@ Gets the default precision for <code>gmp.mpf</code>.
 <p>
 Sets the default precision for <code>gmp.mpf</code>.
 </p>
-<h2><span class="caption-index-2">20.3</span><a name="caption-20-3"></a>gmp.mpq Class</h2>
-<h3><span class="caption-index-3">20.3.1</span><a name="caption-20-3-1"></a>Function to Create Instance</h3>
+<h2><span class="caption-index-2">20.4</span><a name="caption-20-4"></a>gmp.mpq Class</h2>
+<h3><span class="caption-index-3">20.4.1</span><a name="caption-20-4-1"></a>Function to Create Instance</h3>
 <p>
 <strong>gmp.mpq</strong>
 </p>
@@ -14603,7 +14834,7 @@ You can call this function with one of the following form.
 <li><code>gmp.mpq(str:string)</code></li>
 <li><code>gmp.mpq(num:gmp.mpq)</code></li>
 </ul>
-<h3><span class="caption-index-3">20.3.2</span><a name="caption-20-3-2"></a>Method</h3>
+<h3><span class="caption-index-3">20.4.2</span><a name="caption-20-4-2"></a>Method</h3>
 <p>
 <strong>gmp.mpq#cast@mpf</strong>
 </p>
@@ -14616,8 +14847,8 @@ Casts the value to <code>gmp.mpf</code>.
 <p>
 If <code>block</code> is specified, it would be evaluated with a block parameter <code>|num:gmp.mpf|</code>, where <code>num</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
-<h2><span class="caption-index-2">20.4</span><a name="caption-20-4"></a>gmp.mpz Class</h2>
-<h3><span class="caption-index-3">20.4.1</span><a name="caption-20-4-1"></a>Function to Create Instance</h3>
+<h2><span class="caption-index-2">20.5</span><a name="caption-20-5"></a>gmp.mpz Class</h2>
+<h3><span class="caption-index-3">20.5.1</span><a name="caption-20-5-1"></a>Function to Create Instance</h3>
 <p>
 <strong>gmp.mpz</strong>
 </p>
@@ -14630,7 +14861,7 @@ Creates a <code>gmp.mpz</code> instance.
 <p>
 If the argument <code>value</code> is specified, it would be casted to <code>gmp.mpz</code>. Acceptable types for <code>value</code> are: <code>number</code>, <code>string</code>, <code>gmp.mpf</code> and <code>gmp.mpz</code>.
 </p>
-<h2><span class="caption-index-2">20.5</span><a name="caption-20-5"></a>Extention to string Class</h2>
+<h2><span class="caption-index-2">20.6</span><a name="caption-20-6"></a>Extention to string Class</h2>
 <p>
 This module extends the <code>string</code> class with methods described here.
 </p>
