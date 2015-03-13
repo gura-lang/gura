@@ -550,13 +550,13 @@ Gura_DeclareMethod(iterator, fold)
 		"\n"
 		"Following is an example to fold elements by 3:\n"
 		"\n"
-		"    x = [3, 1, 4, 1, 5, 9, 2, 6].fold(3)\n"
-		"    // x generates [3, 1, 4], [1, 5, 9], [2, 6].\n"
+		"    x = [`A, `B, `C, `D, `E, `F, `G, `H].fold(3)\n"
+		"    // x generates [`A, `B, `C], [`D, `E, `F], [`G, `H].\n"
 		"\n"
 		"Following is an example to fold elements by 3 with a step of 2:\n"
 		"\n"
-		"    x = [3, 1, 4, 1, 5, 9, 2, 6].fold(3, 2)\n"
-		"    // x generates [3, 1, 4], [4, 1, 5], [5, 9, 2], [2, 6].\n");
+		"    x = [`A, `B, `C, `D, `E, `F, `G, `H].fold(3, 2)\n"
+		"    // x generates [`A, `B, `C], [`C, `D, `E], [`E, `F, `G], [`G, `H].\n");
 }
 
 Gura_ImplementMethod(iterator, fold)
@@ -931,7 +931,12 @@ Gura_DeclareMethod(iterator, pingpong)
 		"\n"
 		"- `:sticky` .. Duplicate the top and bottom elements.\n"
 		"- `:sticky@top` .. Duplicate the top element.\n"
-		"- `:sticky@btm` .. Duplicate the bottom element.\n");
+		"- `:sticky@btm` .. Duplicate the bottom element.\n"
+		"\n"
+		"Below is an example:\n"
+		"\n"
+		"    x = [`A, `B, `C, `D, `E].pingpong():sticky\n"
+		"    // x generates `A, `B, `C, `D, `E, `E, `D, `C, `B, `A, `A, `B, ..\n");
 }
 
 Gura_ImplementMethod(iterator, pingpong)
@@ -1049,13 +1054,22 @@ Gura_DeclareMethod(iterator, rank)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Creates an iterable of rank numbers for elements after sorting them.\n"
-		"In default, they are sorted in an ascending order. You can specify the following\n"
-		"directives for sorting.\n"
 		"\n"
-		"- `` `ascend`` .. ascending order\n"
-		"- `` `descend`` .. descending order\n"
-		"- function .. it takes two element values x and y and returns zero for x == y,\n"
-		"           plus value for x < y and minus value for x > y.\n"
+		"In default, they are sorted in an ascending order.\n"
+		"This means that, if two elements `x` and `y` has the relationship of `x < y`,\n"
+		"`x` would be placed before `y`.\n"
+		"You can change the order by specifying the argument `directive`\n"
+		"with the following symbols:\n"
+		"\n"
+		"- `` `ascend`` .. Sorts in an ascending order. This is the default.\n"
+		"- `` `descend`` .. Sorts in a descending order.\n"
+		"\n"
+		"You can also put a function to the argument `directive`\n"
+		"that takes two arguments `x` and `y` and is expected to return numbers below:"
+		"\n"
+		"- Zero for `x == y`.n"
+		"- A number less than zero for `x < y`.\n"
+		"- A number greater than zero for `x > y`.\n"
 		"\n"
 		"When an attribute :stable is specified, the original order shall be kept for\n"
 		"elements that are determined as the same.");
@@ -1271,17 +1285,27 @@ Gura_DeclareMethod(iterator, sort)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Creates an iterator of elements after sorting them.\n"
-		"In default, they are sorted in an ascending order. You can specify the following\n"
-		"directives for sorting.\n"
 		"\n"
-		"- `` `ascend`` .. ascending order\n"
-		"- `` `descend`` .. descending order\n"
-		"- function .. it takes two element values x and y and returns zero for x == y,\n"
-		"           plus value for x < y and minus value for x > y.\n"
+		"In default, they are sorted in an ascending order.\n"
+		"This means that, if two elements `x` and `y` has the relationship of `x < y`,\n"
+		"`x` would be placed before `y`.\n"
+		"You can change the order by specifying the argument `directive`\n"
+		"with the following symbols:\n"
 		"\n"
-		"If keys is specified, it shall be used as a key instead of element values.\n"
+		"- `` `ascend`` .. Sorts in an ascending order. This is the default.\n"
+		"- `` `descend`` .. Sorts in a descending order.\n"
+		"\n"
+		"You can also put a function to the argument `directive`\n"
+		"that takes two arguments `x` and `y` and is expected to return numbers below:"
+		"\n"
+		"- Zero for `x == y`.n"
+		"- A number less than zero for `x < y`.\n"
+		"- A number greater than zero for `x > y`.\n"
+		"\n"
 		"When an attribute :stable is specified, the original order shall be kept for\n"
-		"elements that are determined as the same.");
+		"elements that are determined as the same."
+		"\n"
+		"If the argument `keys` is specified, it would be used as a key instead of element values.\n");
 }
 
 Gura_ImplementMethod(iterator, sort)
