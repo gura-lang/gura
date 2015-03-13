@@ -872,9 +872,7 @@ Gura_DeclareMethod(list, combination)
 		"Creates an iterator that generates lists that contain elements picked up\n"
 		"from the original list in a combination manner.\n"
 		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Block parameter format: `|value:list, idx:number|`");
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(list, combination)
@@ -1031,9 +1029,7 @@ Gura_DeclareMethod(list, permutation)
 		"Creates an iterator that generates lists that contain elements picked up\n"
 		"from the original list in a permutation manner.\n"
 		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Block parameter format: `|value:list, idx:number|`");
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(list, permutation)

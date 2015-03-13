@@ -61,9 +61,7 @@ Gura_DeclareFunction(iterator)
 		"\n"
 		"If an argument is not an iterator, that would be added as an element.\n"
 		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Block parameter format is `|value, idx:number|`.\n");
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementFunction(iterator)
@@ -193,9 +191,7 @@ Gura_DeclareMethod(iterator, after)
 		"\n"
 		"You can specify a function, a list or an iterator as the criteria.\n"
 		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Block parameter format: `|value, idx:number|`\n");
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(iterator, after)
@@ -302,9 +298,7 @@ Gura_DeclareMethod(iterator, before)
 		"is evaluated as true. You can specify a function object, a list or an iterator\n"
 		"as the criteria.\n"
 		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Block parameter format is `|value, idx:number|` where `value` is the extracted elements.\n");
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(iterator, before)
@@ -403,9 +397,7 @@ Gura_DeclareMethod(iterator, each)
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Creates an iterator that iterates each element in the list.\n"
 		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Block parameter format: `|value, idx:number|`.");
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(iterator, each)
@@ -509,8 +501,6 @@ Gura_DeclareMethod(iterator, flat)
 		"\n"
 		GURA_ITERATOR_HELP
 		"\n"
-		"Block parameter format is `|value, idx:number|`.\n"
-		"\n"
 		"Below is an example:\n"
 		"\n"
 		"    x = [[`A, `B, `C], [`D, `E, [`F, `G, `H], `I, `J], `K, `L]\n"
@@ -592,9 +582,7 @@ Gura_DeclareMethod(iterator, format)
 		"Creates an iterator that converts element values in the source iterable into strings\n"
 		"depending on formatter specifier in `format`.\n"
 		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Block parameter format is `|str:string, idx:number|` where `str` is the formatted result.");
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(iterator, format)
@@ -613,7 +601,9 @@ Gura_DeclareMethod(iterator, head)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that takes the first `n` elements from the source iterable.\n"
+		"\n"
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(iterator, head)
@@ -701,9 +691,7 @@ Gura_DeclareMethod(iterator, map)
 		"Creates an iterator that generates element values after applying the specfied\n"
 		"function on them. The function must take one argument.\n"
 		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Block parameter format is `|value, idx:number|`");
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(iterator, map)
@@ -804,7 +792,10 @@ Gura_DeclareMethod(iterator, offset)
 		"\n"
 		GURA_ITERATOR_HELP
 		"\n"
-		"Block parameter format is `|value, idx:number|`");
+		"Below is an example:\n"
+		"\n"
+		"    x = [`A, `B, `C, `D, `E, `F, `G, `H].offset(3)\n"
+		"    // x generates `D, `E, `F, `G, `H\n");
 }
 
 Gura_ImplementMethod(iterator, offset)
@@ -1125,9 +1116,7 @@ Gura_DeclareMethod(iterator, replace)
 		"Creates an iterator that replaces the `value` in the original iterable"
 		"with the value of `replace`.\n"
 		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Block parameter format is `|value, idx:number|`.");
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(iterator, replace)
@@ -1209,9 +1198,7 @@ Gura_DeclareMethod(iterator, since)
 		"is evaluated as true. You can specify a function object, a list or an iterator\n"
 		"as the criteria.\n"
 		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Block parameter format: `|value, idx:number|`.");
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(iterator, since)
@@ -1235,7 +1222,10 @@ Gura_DeclareMethod(iterator, skip)
 		"\n"
 		GURA_ITERATOR_HELP
 		"\n"
-		"Block parameter format: `|value, idx:number|`.");
+		"Below is an example:\n"
+		"\n"
+		"    x = [`A, `B, `C, `D, `E, `F, `G, `H].skip(2)\n"
+		"    // x generates `A, `D, `G\n");
 }
 
 Gura_ImplementMethod(iterator, skip)
@@ -1257,7 +1247,10 @@ Gura_DeclareMethod(iterator, skipnil)
 		"\n"
 		GURA_ITERATOR_HELP
 		"\n"
-		"Block parameter format: `|value, idx:number|`.");
+		"Below is an example:\n"
+		"\n"
+		"    x = [`A, nil, `C, nil, nil, `F, nil, `H].skipnil()\n"
+		"    // x generates `A, `C, `F, `H\n");
 }
 
 Gura_ImplementMethod(iterator, skipnil)
@@ -1368,7 +1361,9 @@ Gura_DeclareMethod(iterator, tail)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that takes the last `n` elements from the source iterable.\n"
+		"\n"
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(iterator, tail)
@@ -1398,9 +1393,7 @@ Gura_DeclareMethod(iterator, until)
 		"is evaluated as true. You can specify a function object, a list or an iterator\n"
 		"as the criteria.\n"
 		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Block parameter format: `|value, idx:number|`.");
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(iterator, until)
@@ -1454,8 +1447,6 @@ Gura_DeclareMethod(iterator, walk)
 		"\n"
 		GURA_ITERATOR_HELP
 		"\n"
-		"Block parameter format is `|value, idx:number|`.\n"
-		"\n"
 		"Below is an example:\n"
 		"\n"
 		"    x = [[`A, `B, `C], [`D, `E, [`F, `G, `H], `I, `J], `K, `L]\n"
@@ -1492,9 +1483,7 @@ Gura_DeclareMethodAlias(iterator, while_, "while")
 		"is evaluated as true. You can specify a function object, a list or an iterator\n"
 		"as the criteria.\n"
 		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Block parameter format is `|value, idx:number|`.");
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(iterator, while_)

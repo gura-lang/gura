@@ -146,8 +146,8 @@ Gura_DeclareMethod(palette, each)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Creates an iterator that iterates each element in the palette.\n"
-		GURA_ITERATOR_HELP
-		"Block parameter format: `|value, idx:number|`");
+		"\n"
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(palette, each)

@@ -149,8 +149,8 @@ Gura_DeclareMethod(string, each)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Creates an iterator generating strings of each character in the original one.\n"
-		GURA_ITERATOR_HELP
-		"Block parameter format: `|char:string, idx:number|`");
+		"\n"
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(string, each)
@@ -179,9 +179,7 @@ Gura_DeclareMethod(string, eachline)
 		"In default, end-of-line characters are involved in the result.\n"
 		"You can eliminates them by specifying `:chop` attribute.\n"
 		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Block parameter format: `|line:string, idx:number|`");
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(string, eachline)
@@ -317,9 +315,7 @@ Gura_DeclareMethod(string, fold)
 		"The argument `step` specifies the length of advancement for the next folding point.\n"
 		"If omitted, it would be the same amount as `len`.\n"
 		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Block parameter format: `|sub:string, idx:number|`");
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(string, fold)
@@ -346,9 +342,7 @@ Gura_DeclareMethod(string, foldw)
 		"This method takes into account the character width based on the specification\n"
 		"of East Asian Width.\n"
 		"\n"
-		GURA_ITERATOR_HELP
-		"\n"
-		"Block parameter format: `|sub:string, idx:number|`");
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(string, foldw)
@@ -584,8 +578,8 @@ Gura_DeclareMethod(string, split)
 		"Creates an iterator generating sub strings extracted from the original one\n"
 		"separated by a specified string `sep`.\n"
 		"With an attribute `:icase`, character cases are ignored while finding the separator.\n"
-		GURA_ITERATOR_HELP
-		"Block parameter format: `|sub:string, idx:number|`");
+		"\n"
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(string, split)

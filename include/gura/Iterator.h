@@ -9,20 +9,22 @@
 #include "Value.h"
 
 #define GURA_ITERATOR_HELP \
-"If a block is specified, it executes the block while evaluating the iterator\n" \
-"and returns the last evaluated value in the block as its own result.\n" \
-"Otherwise, it returns an iterator or a list according to the attribute\n" \
+"In default, this returns an iterator as its result value.\n" \
+"Specifying the following attributes would convert it into other formats:\n" \
 "\n" \
-"In default, it returns an iterator. If attribute `:xiter` is specified, it returns\n" \
-"an iterator that eliminates `nil` value from the iterated result.\n" \
+"- `:iter` .. An iterator. This is the default behavior.\n" \
+"- `:xiter` .. An iterator that eliminates `nil` from its elements.\n" \
+"- `:list` .. A list.\n" \
+"- `:xlist` .. A list that eliminates `nil` from its elements.\n" \
+"- `:set` ..  A list that eliminates duplicated values from its elements.\n" \
+"- `:xset` .. A list that eliminates duplicated values and `nil` from its elements.\n" \
 "\n" \
-"If one of attributes `:list`, `:xlist`, `:set` and `:xset` is specified,\n" \
-"it would create the following value:\n" \
-"\n" \
-"- `:list` .. a list of values\n" \
-"- `:xlist` .. a list of values except for `nil`\n" \
-"- `:set` ..  a list of unique values\n" \
-"- `:xset` .. a list of unique values except for `nil`\n"
+"If a block is specified, it would be evaluated repeatingly\n" \
+"with block parameters `|value, idx:number|` where `value` is the iterated value\n" \
+"and `idx` the loop index starting from zero.\n" \
+"In this case, the last evaluated value of the block would be the result value.\n" \
+"If one of the attributes listed above is specified,\n" \
+"an iterator or a list of the evaluated value would be returned.\n" 
 
 namespace Gura {
 
