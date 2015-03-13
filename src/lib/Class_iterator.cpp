@@ -219,13 +219,13 @@ Gura_DeclareMethod(iterator, align)
 		"\n"
 		"Below is an example to specify a number less than the source length:\n"
 		"\n"
-		"    x = [3, 1, 4, 1, 5, 9].align(3)\n"
-		"    // x generates 3, 1, 4.\n"
+		"    x = [`A, `B, `C, `D, `E, `F].align(3)\n"
+		"    // x generates `A, `B, `C.\n"
 		"\n"
 		"Below is an example to specify a number that exceeds the source length:\n"
 		"\n"
-		"    x = [3, 1, 4, 1, 5, 9].align(8)\n"
-		"    // x generates 3, 1, 4, 1, 5, 9, nil, nil.\n");
+		"    x = [`A, `B, `C, `D, `E, `F].align(8)\n"
+		"    // x generates `A, `B, `C, `D, `E, `F, nil, nil.\n");
 }
 
 Gura_ImplementMethod(iterator, align)
@@ -370,8 +370,8 @@ Gura_DeclareMethod(iterator, cycle)
 		"\n"
 		"Below is an example:\n"
 		"\n"
-		"    x = [1, 2, 3, 4, 5].cycle()\n"
-		"    // x generates 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, ..\n");
+		"    x = [`A, `B, `C, `D, `E].cycle()\n"
+		"    // x generates `A, `B, `C, `D, `E, `A, `B, `C, `D, `E, `A, `B, ..\n");
 
 }
 
@@ -1067,9 +1067,9 @@ Gura_DeclareMethod(iterator, rank)
 		"You can also put a function to the argument `directive`\n"
 		"that takes two arguments `x` and `y` and is expected to return numbers below:"
 		"\n"
-		"- Zero for `x == y`.n"
-		"- A number less than zero for `x < y`.\n"
-		"- A number greater than zero for `x > y`.\n"
+		"- `x == y` .. Zero.\n"
+		"- `x < y` .. A number less than zero.\n"
+		"- `x > y` .. A number greater than zero.\n"
 		"\n"
 		"When an attribute :stable is specified, the original order shall be kept for\n"
 		"elements that are determined as the same.");
@@ -1100,7 +1100,13 @@ Gura_DeclareMethod(iterator, reduce)
 		"Evaluates a block with a parameter format `|value, accum|` and leaves the result\n"
 		"as the next `accum` value.\n"
 		"\n"
-		"It returns the final `accum` value as its result.");
+		"It returns the final `accum` value as its result.\n"
+		"\n"
+		"Below is an example to calculate summation of the elements:\n"
+		"\n"
+		"    x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\n"
+		"    n = x.reduce(0) {|value, accum| value + accum}\n"
+		"    // n is 55\n");
 }
 
 Gura_ImplementMethod(iterator, reduce)
@@ -1148,7 +1154,9 @@ Gura_DeclareMethod(iterator, reverse)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that iterates elements in the source iterable from tail to top.\n"
+		"\n"
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(iterator, reverse)
@@ -1172,7 +1180,10 @@ Gura_DeclareMethod(iterator, roundoff)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that replaces a number with zero\n"
+		"if it is less than the specified `threshold`.\n"
+		"\n"
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(iterator, roundoff)
@@ -1190,7 +1201,16 @@ Gura_DeclareMethod(iterator, runlength)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that counts the number of consecutive same value\n"
+		"and generates elements in a form of `[cnt, value]` where `cnt` indicates\n"
+		"how many `value` appears in a row.\n"
+		"\n"
+		GURA_ITERATOR_HELP
+		"\n"
+		"Below is an example:\n"
+		"\n"
+		"    x = [`A, `A, `B, `C, `C, `C, `D, `D].runlength()\n"
+		"    // x generates [2, `A], [1, `B], [3, `C], [2, `D]\n");
 }
 
 Gura_ImplementMethod(iterator, runlength)
@@ -1298,9 +1318,9 @@ Gura_DeclareMethod(iterator, sort)
 		"You can also put a function to the argument `directive`\n"
 		"that takes two arguments `x` and `y` and is expected to return numbers below:"
 		"\n"
-		"- Zero for `x == y`.n"
-		"- A number less than zero for `x < y`.\n"
-		"- A number greater than zero for `x > y`.\n"
+		"- `x == y` .. Zero.\n"
+		"- `x < y` .. A number less than zero.\n"
+		"- `x > y` .. A number greater than zero.\n"
 		"\n"
 		"When an attribute :stable is specified, the original order shall be kept for\n"
 		"elements that are determined as the same."

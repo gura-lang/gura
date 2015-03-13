@@ -478,20 +478,19 @@ Creates an iterator that generates the same value specified by the argument <cod
 The argument <code>num</code> specifies the number of elements to be generated. If omitted, it would generate the value infinitely.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
 <p>
 Below is an example to create an iterator that returns constant values:
 </p>
@@ -569,20 +568,19 @@ This function can be called in three formats that generate following numbers:
 <li><code>range(num, num_end, step)</code> .. Numbers between <code>num</code> and <code>(num_end - 1)</code> incremented by <code>step</code>.</li>
 </ul>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
 <p>
 Below are examples:
 </p>
@@ -1372,20 +1370,19 @@ If argument <code>range</code> is not specified, it generates random numbers in 
 In default, the created iterator infinitely generates random numbers. The argument <code>num</code> specifies how many elements should be generated.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
 <p>
 Below is an example to create a create that generates random numbers:
 </p>
@@ -2281,20 +2278,19 @@ Prints out a binary dump of the array's content.
 Creates an iterator that iterates each element in the array.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
 <p>
 The block parameter is <code>|elem:number, idx:number|</code> where <code>elem</code> is the element value.
 </p>
@@ -3814,20 +3810,19 @@ Returns <code>true</code> if the specified <code>key</code> exists in the dictio
 Returns an iterator of key-value pairs in the dictionary.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
 <p>
 <strong>dict#keys</strong>
 </p>
@@ -3838,20 +3833,19 @@ If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> 
 Returns an iterator of keys in the dictionary.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
 <p>
 <strong>dict#len</strong>
 </p>
@@ -3895,20 +3889,19 @@ Another measure to add a key-value pair is to use an index operator. The followi
 Returns an iterator of values in the dictionary.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
 <h2><span class="caption-index-2">6.12</span><a name="caption-6-12"></a>directory Class</h2>
 <p>
 The <code>directory</code> class handles information necessary to seek directory structure in a path. Its instance usually works with functions in <code>path</code> module: <code>path.dir()</code> and <code>path.walk()</code>.
@@ -6523,22 +6516,18 @@ Creates an iterator that combines iterators given in the argument.
 If an argument is not an iterator, that would be added as an element.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format is <code>|value, idx:number|</code>.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <h3><span class="caption-index-3">6.20.2</span><a name="caption-6-20-2"></a>Method Specific to Iterator Class</h3>
 <p>
@@ -6611,22 +6600,18 @@ Creates an iterator that picks up elements that appear at positions after the cr
 You can specify a function, a list or an iterator as the criteria.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format: <code>|value, idx:number|</code>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>iterator#align</strong>
@@ -6640,14 +6625,14 @@ Creates an iterator that returns the specified number of elements in the source 
 <p>
 Below is an example to specify a number less than the source length:
 </p>
-<pre><code>x = [3, 1, 4, 1, 5, 9].align(3)
-// x generates 3, 1, 4.
+<pre><code>x = [`A, `B, `C, `D, `E, `F].align(3)
+// x generates `A, `B, `C.
 </code></pre>
 <p>
 Below is an example to specify a number that exceeds the source length:
 </p>
-<pre><code>x = [3, 1, 4, 1, 5, 9].align(8)
-// x generates 3, 1, 4, 1, 5, 9, nil, nil.
+<pre><code>x = [`A, `B, `C, `D, `E, `F].align(8)
+// x generates `A, `B, `C, `D, `E, `F, nil, nil.
 </code></pre>
 <p>
 <strong>iterator#and</strong>
@@ -6689,22 +6674,18 @@ It can work on an iterable with elements of type that supports addition and divi
 Creates an iterator that extracts elements in the iterable before criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format is <code>|value, idx:number|</code> where <code>value</code> is the extracted elements.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>iterator#contains</strong>
@@ -6742,8 +6723,8 @@ The argument <code>n</code> specifies the number of elements the created iterato
 <p>
 Below is an example:
 </p>
-<pre><code>x = [1, 2, 3, 4, 5].cycle()
-// x generates 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, ..
+<pre><code>x = [`A, `B, `C, `D, `E].cycle()
+// x generates `A, `B, `C, `D, `E, `A, `B, `C, `D, `E, `A, `B, ..
 </code></pre>
 <p>
 <strong>iterator#each</strong>
@@ -6755,22 +6736,18 @@ Below is an example:
 Creates an iterator that iterates each element in the list.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format: <code>|value, idx:number|</code>.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>iterator#filter</strong>
@@ -6829,22 +6806,18 @@ Specifying an attribute could customize searching order as below:
 Unlike <code>iterator#walk()</code>, <code>iterator#flat()</code> creates an iterator without an infinite flag. This means that the created iterator can be converted to a list. You have to confirm that the source iterable doesn't contain any infinite iterators.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format is <code>|value, idx:number|</code>.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 Below is an example:
@@ -6878,14 +6851,14 @@ If the last packing doesn't satisfy <code>n</code> elements, its list would be s
 <p>
 Following is an example to fold elements by 3:
 </p>
-<pre><code>x = [3, 1, 4, 1, 5, 9, 2, 6].fold(3)
-// x generates [3, 1, 4], [1, 5, 9], [2, 6].
+<pre><code>x = [`A, `B, `C, `D, `E, `F, `G, `H].fold(3)
+// x generates [`A, `B, `C], [`D, `E, `F], [`G, `H].
 </code></pre>
 <p>
 Following is an example to fold elements by 3 with a step of 2:
 </p>
-<pre><code>x = [3, 1, 4, 1, 5, 9, 2, 6].fold(3, 2)
-// x generates [3, 1, 4], [4, 1, 5], [5, 9, 2], [2, 6].
+<pre><code>x = [`A, `B, `C, `D, `E, `F, `G, `H].fold(3, 2)
+// x generates [`A, `B, `C], [`C, `D, `E], [`E, `F, `G], [`G, `H].
 </code></pre>
 <p>
 <strong>iterator#format</strong>
@@ -6897,28 +6870,41 @@ Following is an example to fold elements by 3 with a step of 2:
 Creates an iterator that converts element values in the source iterable into strings depending on formatter specifier in <code>format</code>.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format is <code>|str:string, idx:number|</code> where <code>str</code> is the formatted result.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>iterator#head</strong>
 </p>
 <p>
 <code>iterator#head(n:number):map {block?}</code>
+</p>
+<p>
+Creates an iterator that takes the first <code>n</code> elements from the source iterable.
+</p>
+<p>
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
+</p>
+<ul>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
+</ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>iterator#join</strong>
@@ -6960,22 +6946,18 @@ Returns the length of the iterable.
 Creates an iterator that generates element values after applying the specfied function on them. The function must take one argument.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format is <code>|value, idx:number|</code>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>iterator#max</strong>
@@ -7030,23 +7012,25 @@ Creates an iterator that converts <code>nil</code> in the source iterable to the
 Creates an iterator that returns skips the first <code>n</code> elements in the source iterable.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format is <code>|value, idx:number|</code>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
+<p>
+Below is an example:
+</p>
+<pre><code>x = [`A, `B, `C, `D, `E, `F, `G, `H].offset(3)
+// x generates `D, `E, `F, `G, `H
+</code></pre>
 <p>
 <strong>iterator#or</strong>
 </p>
@@ -7144,6 +7128,12 @@ The following attributes specify whether the elements on top and bottom are dupl
 <li><code>:sticky@btm</code> .. Duplicate the bottom element.</li>
 </ul>
 <p>
+Below is an example:
+</p>
+<pre><code>x = [`A, `B, `C, `D, `E].pingpong():sticky
+// x generates `A, `B, `C, `D, `E, `E, `D, `C, `B, `A, `A, `B, ..
+</code></pre>
+<p>
 <strong>iterator#print</strong>
 </p>
 <p>
@@ -7177,12 +7167,22 @@ Prints items in the iterable by using the format.
 <code>iterator#rank(directive?) {block?}</code>
 </p>
 <p>
-Creates an iterable of rank numbers for elements after sorting them. In default, they are sorted in an ascending order. You can specify the following directives for sorting.
+Creates an iterable of rank numbers for elements after sorting them.
+</p>
+<p>
+In default, they are sorted in an ascending order. This means that, if two elements <code>x</code> and <code>y</code> has the relationship of <code>x &lt; y</code>, <code>x</code> would be placed before <code>y</code>. You can change the order by specifying the argument <code>directive</code> with the following symbols:
 </p>
 <ul>
-<li><code>`ascend</code> .. ascending order</li>
-<li><code>`descend</code> .. descending order</li>
-<li>function .. it takes two element values x and y and returns zero for x == y, plus value for x &lt; y and minus value for x &gt; y.</li>
+<li><code>`ascend</code> .. Sorts in an ascending order. This is the default.</li>
+<li><code>`descend</code> .. Sorts in a descending order.</li>
+</ul>
+<p>
+You can also put a function to the argument <code>directive</code> that takes two arguments <code>x</code> and <code>y</code> and is expected to return numbers below:
+</p>
+<ul>
+<li><code>x == y</code> .. Zero.</li>
+<li><code>x &lt; y</code> .. A number less than zero.</li>
+<li><code>x &gt; y</code> .. A number greater than zero.</li>
 </ul>
 <p>
 When an attribute :stable is specified, the original order shall be kept for elements that are determined as the same.
@@ -7200,6 +7200,13 @@ Evaluates a block with a parameter format <code>|value, accum|</code> and leaves
 It returns the final <code>accum</code> value as its result.
 </p>
 <p>
+Below is an example to calculate summation of the elements:
+</p>
+<pre><code>x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+n = x.reduce(0) {|value, accum| value + accum}
+// n is 55
+</code></pre>
+<p>
 <strong>iterator#replace</strong>
 </p>
 <p>
@@ -7209,22 +7216,18 @@ It returns the final <code>accum</code> value as its result.
 Creates an iterator that replaces the <code>value</code> in the original iterablewith the value of <code>replace</code>.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format is <code>|value, idx:number|</code>.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>iterator#reverse</strong>
@@ -7233,10 +7236,44 @@ Block parameter format is <code>|value, idx:number|</code>.
 <code>iterator#reverse() {block?}</code>
 </p>
 <p>
+Creates an iterator that iterates elements in the source iterable from tail to top.
+</p>
+<p>
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
+</p>
+<ul>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
+</ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
+<p>
 <strong>iterator#roundoff</strong>
 </p>
 <p>
 <code>iterator#roundoff(threshold:number =&gt; 1e-10) {block?}</code>
+</p>
+<p>
+Creates an iterator that replaces a number with zero if it is less than the specified <code>threshold</code>.
+</p>
+<p>
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
+</p>
+<ul>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
+</ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>iterator#runlength</strong>
@@ -7244,6 +7281,29 @@ Block parameter format is <code>|value, idx:number|</code>.
 <p>
 <code>iterator#runlength() {block?}</code>
 </p>
+<p>
+Creates an iterator that counts the number of consecutive same value and generates elements in a form of <code>[cnt, value]</code> where <code>cnt</code> indicates how many <code>value</code> appears in a row.
+</p>
+<p>
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
+</p>
+<ul>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
+</ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
+<p>
+Below is an example:
+</p>
+<pre><code>x = [`A, `A, `B, `C, `C, `C, `D, `D].runlength()
+// x generates [2, `A], [1, `B], [3, `C], [2, `D]
+</code></pre>
 <p>
 <strong>iterator#since</strong>
 </p>
@@ -7254,22 +7314,18 @@ Block parameter format is <code>|value, idx:number|</code>.
 Creates an iterator that picks up each element in the iterable since criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format: <code>|value, idx:number|</code>.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>iterator#skip</strong>
@@ -7281,23 +7337,25 @@ Block parameter format: <code>|value, idx:number|</code>.
 Creates an iterator that skips <code>n</code> elements before picking up next element.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format: <code>|value, idx:number|</code>.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
+<p>
+Below is an example:
+</p>
+<pre><code>x = [`A, `B, `C, `D, `E, `F, `G, `H].skip(2)
+// x generates `A, `D, `G
+</code></pre>
 <p>
 <strong>iterator#skipnil</strong>
 </p>
@@ -7308,23 +7366,25 @@ Block parameter format: <code>|value, idx:number|</code>.
 Creates an iterator that skips <code>nil</code> in the source iterable.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format: <code>|value, idx:number|</code>.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
+<p>
+Below is an example:
+</p>
+<pre><code>x = [`A, nil, `C, nil, nil, `F, nil, `H].skipnil()
+// x generates `A, `C, `F, `H
+</code></pre>
 <p>
 <strong>iterator#sort</strong>
 </p>
@@ -7332,15 +7392,25 @@ Block parameter format: <code>|value, idx:number|</code>.
 <code>iterator#sort(directive?, keys[]?):[stable] {block?}</code>
 </p>
 <p>
-Creates an iterator of elements after sorting them. In default, they are sorted in an ascending order. You can specify the following directives for sorting.
+Creates an iterator of elements after sorting them.
+</p>
+<p>
+In default, they are sorted in an ascending order. This means that, if two elements <code>x</code> and <code>y</code> has the relationship of <code>x &lt; y</code>, <code>x</code> would be placed before <code>y</code>. You can change the order by specifying the argument <code>directive</code> with the following symbols:
 </p>
 <ul>
-<li><code>`ascend</code> .. ascending order</li>
-<li><code>`descend</code> .. descending order</li>
-<li>function .. it takes two element values x and y and returns zero for x == y, plus value for x &lt; y and minus value for x &gt; y.</li>
+<li><code>`ascend</code> .. Sorts in an ascending order. This is the default.</li>
+<li><code>`descend</code> .. Sorts in a descending order.</li>
 </ul>
 <p>
-If keys is specified, it shall be used as a key instead of element values. When an attribute :stable is specified, the original order shall be kept for elements that are determined as the same.
+You can also put a function to the argument <code>directive</code> that takes two arguments <code>x</code> and <code>y</code> and is expected to return numbers below:
+</p>
+<ul>
+<li><code>x == y</code> .. Zero.</li>
+<li><code>x &lt; y</code> .. A number less than zero.</li>
+<li><code>x &gt; y</code> .. A number greater than zero.</li>
+</ul>
+<p>
+When an attribute :stable is specified, the original order shall be kept for elements that are determined as the same. If the argument <code>keys</code> is specified, it would be used as a key instead of element values.
 </p>
 <p>
 <strong>iterator#stddev</strong>
@@ -7381,6 +7451,23 @@ It can work on an iterable with elements of a value type that supports addition 
 <code>iterator#tail(n:number) {block?}</code>
 </p>
 <p>
+Creates an iterator that takes the last <code>n</code> elements from the source iterable.
+</p>
+<p>
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
+</p>
+<ul>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
+</ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
+<p>
 <strong>iterator#until</strong>
 </p>
 <p>
@@ -7390,22 +7477,18 @@ It can work on an iterable with elements of a value type that supports addition 
 Creates an iterator that picks up each element in the list until criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format: <code>|value, idx:number|</code>.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>iterator#variance</strong>
@@ -7436,22 +7519,18 @@ Specifying an attribute could customize searching order as below:
 Unlike <code>iterator#flat()</code>, <code>iterator#walk()</code> creates an iterator with an infinite flag. This means that the created iterator is intended only for iteration and can not be converted to a list.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format is <code>|value, idx:number|</code>.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 Below is an example:
@@ -7474,22 +7553,18 @@ y = x.walk():bfs
 Creates an iterator that picks up each element in the list while criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format is <code>|value, idx:number|</code>.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <h2><span class="caption-index-2">6.21</span><a name="caption-6-21"></a>list Class</h2>
 <h3><span class="caption-index-3">6.21.1</span><a name="caption-6-21-1"></a>Function to Create Instance</h3>
@@ -7583,22 +7658,18 @@ Clear the content of the list.
 Creates an iterator that generates lists that contain elements picked up from the original list in a combination manner.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format: <code>|value:list, idx:number|</code>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>list#erase</strong>
@@ -7638,22 +7709,18 @@ Specifying an attribute could customize searching order as below:
 Unlike <code>iterator#walk()</code>, <code>iterator#flat()</code> creates an iterator without an infinite flag. This means that the created iterator can be converted to a list. You have to confirm that the source iterable doesn't contain any infinite iterators.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format is <code>|value, idx:number|</code>.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 Below is an example:
@@ -7712,22 +7779,18 @@ Returns a last value in the list. An error occurs when the list is empty.
 Creates an iterator that generates lists that contain elements picked up from the original list in a permutation manner.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format: <code>|value:list, idx:number|</code>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>list#put</strong>
@@ -7766,20 +7829,19 @@ Shuffle the order of the list content based on random numbers.
 Creates an iterator generating lists that bind given argument values. When the value is a list or an iterator, each item in it would be zipped.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
 <h3><span class="caption-index-3">6.21.3</span><a name="caption-6-21-3"></a>Method Common between Iterator and List Class</h3>
 <p>
 <strong>list#after</strong>
@@ -7794,22 +7856,18 @@ Creates an iterator that picks up elements that appear at positions after the cr
 You can specify a function, a list or an iterator as the criteria.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format: <code>|value, idx:number|</code>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>list#align</strong>
@@ -7823,14 +7881,14 @@ Creates an iterator that returns the specified number of elements in the source 
 <p>
 Below is an example to specify a number less than the source length:
 </p>
-<pre><code>x = [3, 1, 4, 1, 5, 9].align(3)
-// x generates 3, 1, 4.
+<pre><code>x = [`A, `B, `C, `D, `E, `F].align(3)
+// x generates `A, `B, `C.
 </code></pre>
 <p>
 Below is an example to specify a number that exceeds the source length:
 </p>
-<pre><code>x = [3, 1, 4, 1, 5, 9].align(8)
-// x generates 3, 1, 4, 1, 5, 9, nil, nil.
+<pre><code>x = [`A, `B, `C, `D, `E, `F].align(8)
+// x generates `A, `B, `C, `D, `E, `F, nil, nil.
 </code></pre>
 <p>
 <strong>list#and</strong>
@@ -7872,22 +7930,18 @@ It can work on an iterable with elements of type that supports addition and divi
 Creates an iterator that extracts elements in the iterable before criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format is <code>|value, idx:number|</code> where <code>value</code> is the extracted elements.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>list#contains</strong>
@@ -7925,8 +7979,8 @@ The argument <code>n</code> specifies the number of elements the created iterato
 <p>
 Below is an example:
 </p>
-<pre><code>x = [1, 2, 3, 4, 5].cycle()
-// x generates 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, ..
+<pre><code>x = [`A, `B, `C, `D, `E].cycle()
+// x generates `A, `B, `C, `D, `E, `A, `B, `C, `D, `E, `A, `B, ..
 </code></pre>
 <p>
 <strong>list#each</strong>
@@ -7938,22 +7992,18 @@ Below is an example:
 Creates an iterator that iterates each element in the list.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format: <code>|value, idx:number|</code>.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>list#filter</strong>
@@ -8013,14 +8063,14 @@ If the last packing doesn't satisfy <code>n</code> elements, its list would be s
 <p>
 Following is an example to fold elements by 3:
 </p>
-<pre><code>x = [3, 1, 4, 1, 5, 9, 2, 6].fold(3)
-// x generates [3, 1, 4], [1, 5, 9], [2, 6].
+<pre><code>x = [`A, `B, `C, `D, `E, `F, `G, `H].fold(3)
+// x generates [`A, `B, `C], [`D, `E, `F], [`G, `H].
 </code></pre>
 <p>
 Following is an example to fold elements by 3 with a step of 2:
 </p>
-<pre><code>x = [3, 1, 4, 1, 5, 9, 2, 6].fold(3, 2)
-// x generates [3, 1, 4], [4, 1, 5], [5, 9, 2], [2, 6].
+<pre><code>x = [`A, `B, `C, `D, `E, `F, `G, `H].fold(3, 2)
+// x generates [`A, `B, `C], [`C, `D, `E], [`E, `F, `G], [`G, `H].
 </code></pre>
 <p>
 <strong>list#format</strong>
@@ -8032,28 +8082,41 @@ Following is an example to fold elements by 3 with a step of 2:
 Creates an iterator that converts element values in the source iterable into strings depending on formatter specifier in <code>format</code>.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format is <code>|str:string, idx:number|</code> where <code>str</code> is the formatted result.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>list#head</strong>
 </p>
 <p>
 <code>list#head(n:number):map {block?}</code>
+</p>
+<p>
+Creates an iterator that takes the first <code>n</code> elements from the source iterable.
+</p>
+<p>
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
+</p>
+<ul>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
+</ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>list#join</strong>
@@ -8095,22 +8158,18 @@ Returns the length of the iterable.
 Creates an iterator that generates element values after applying the specfied function on them. The function must take one argument.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format is <code>|value, idx:number|</code>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>list#max</strong>
@@ -8165,23 +8224,25 @@ Creates an iterator that converts <code>nil</code> in the source iterable to the
 Creates an iterator that returns skips the first <code>n</code> elements in the source iterable.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format is <code>|value, idx:number|</code>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
+<p>
+Below is an example:
+</p>
+<pre><code>x = [`A, `B, `C, `D, `E, `F, `G, `H].offset(3)
+// x generates `D, `E, `F, `G, `H
+</code></pre>
 <p>
 <strong>list#or</strong>
 </p>
@@ -8279,6 +8340,12 @@ The following attributes specify whether the elements on top and bottom are dupl
 <li><code>:sticky@btm</code> .. Duplicate the bottom element.</li>
 </ul>
 <p>
+Below is an example:
+</p>
+<pre><code>x = [`A, `B, `C, `D, `E].pingpong():sticky
+// x generates `A, `B, `C, `D, `E, `E, `D, `C, `B, `A, `A, `B, ..
+</code></pre>
+<p>
 <strong>list#print</strong>
 </p>
 <p>
@@ -8312,12 +8379,22 @@ Prints items in the iterable by using the format.
 <code>list#rank(directive?):[stable] {block?}</code>
 </p>
 <p>
-Creates an iterable of rank numbers for elements after sorting them. In default, they are sorted in an ascending order. You can specify the following directives for sorting.
+Creates an iterable of rank numbers for elements after sorting them.
+</p>
+<p>
+In default, they are sorted in an ascending order. This means that, if two elements <code>x</code> and <code>y</code> has the relationship of <code>x &lt; y</code>, <code>x</code> would be placed before <code>y</code>. You can change the order by specifying the argument <code>directive</code> with the following symbols:
 </p>
 <ul>
-<li><code>`ascend</code> .. ascending order</li>
-<li><code>`descend</code> .. descending order</li>
-<li>function .. it takes two element values x and y and returns zero for x == y, plus value for x &lt; y and minus value for x &gt; y.</li>
+<li><code>`ascend</code> .. Sorts in an ascending order. This is the default.</li>
+<li><code>`descend</code> .. Sorts in a descending order.</li>
+</ul>
+<p>
+You can also put a function to the argument <code>directive</code> that takes two arguments <code>x</code> and <code>y</code> and is expected to return numbers below:
+</p>
+<ul>
+<li><code>x == y</code> .. Zero.</li>
+<li><code>x &lt; y</code> .. A number less than zero.</li>
+<li><code>x &gt; y</code> .. A number greater than zero.</li>
 </ul>
 <p>
 When an attribute :stable is specified, the original order shall be kept for elements that are determined as the same.
@@ -8335,6 +8412,13 @@ Evaluates a block with a parameter format <code>|value, accum|</code> and leaves
 It returns the final <code>accum</code> value as its result.
 </p>
 <p>
+Below is an example to calculate summation of the elements:
+</p>
+<pre><code>x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+n = x.reduce(0) {|value, accum| value + accum}
+// n is 55
+</code></pre>
+<p>
 <strong>list#replace</strong>
 </p>
 <p>
@@ -8344,22 +8428,18 @@ It returns the final <code>accum</code> value as its result.
 Creates an iterator that replaces the <code>value</code> in the original iterablewith the value of <code>replace</code>.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format is <code>|value, idx:number|</code>.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>list#reverse</strong>
@@ -8368,10 +8448,44 @@ Block parameter format is <code>|value, idx:number|</code>.
 <code>list#reverse() {block?}</code>
 </p>
 <p>
+Creates an iterator that iterates elements in the source iterable from tail to top.
+</p>
+<p>
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
+</p>
+<ul>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
+</ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
+<p>
 <strong>list#roundoff</strong>
 </p>
 <p>
 <code>list#roundoff(threshold:number =&gt; 1e-10) {block?}</code>
+</p>
+<p>
+Creates an iterator that replaces a number with zero if it is less than the specified <code>threshold</code>.
+</p>
+<p>
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
+</p>
+<ul>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
+</ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>list#runlength</strong>
@@ -8379,6 +8493,29 @@ Block parameter format is <code>|value, idx:number|</code>.
 <p>
 <code>list#runlength() {block?}</code>
 </p>
+<p>
+Creates an iterator that counts the number of consecutive same value and generates elements in a form of <code>[cnt, value]</code> where <code>cnt</code> indicates how many <code>value</code> appears in a row.
+</p>
+<p>
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
+</p>
+<ul>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
+</ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
+<p>
+Below is an example:
+</p>
+<pre><code>x = [`A, `A, `B, `C, `C, `C, `D, `D].runlength()
+// x generates [2, `A], [1, `B], [3, `C], [2, `D]
+</code></pre>
 <p>
 <strong>list#since</strong>
 </p>
@@ -8389,22 +8526,18 @@ Block parameter format is <code>|value, idx:number|</code>.
 Creates an iterator that picks up each element in the iterable since criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format: <code>|value, idx:number|</code>.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>list#skip</strong>
@@ -8416,23 +8549,25 @@ Block parameter format: <code>|value, idx:number|</code>.
 Creates an iterator that skips <code>n</code> elements before picking up next element.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format: <code>|value, idx:number|</code>.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
+<p>
+Below is an example:
+</p>
+<pre><code>x = [`A, `B, `C, `D, `E, `F, `G, `H].skip(2)
+// x generates `A, `D, `G
+</code></pre>
 <p>
 <strong>list#skipnil</strong>
 </p>
@@ -8443,23 +8578,25 @@ Block parameter format: <code>|value, idx:number|</code>.
 Creates an iterator that skips <code>nil</code> in the source iterable.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format: <code>|value, idx:number|</code>.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
+<p>
+Below is an example:
+</p>
+<pre><code>x = [`A, nil, `C, nil, nil, `F, nil, `H].skipnil()
+// x generates `A, `C, `F, `H
+</code></pre>
 <p>
 <strong>list#sort</strong>
 </p>
@@ -8467,15 +8604,25 @@ Block parameter format: <code>|value, idx:number|</code>.
 <code>list#sort(directive?, keys[]?):[stable] {block?}</code>
 </p>
 <p>
-Creates an iterator of elements after sorting them. In default, they are sorted in an ascending order. You can specify the following directives for sorting.
+Creates an iterator of elements after sorting them.
+</p>
+<p>
+In default, they are sorted in an ascending order. This means that, if two elements <code>x</code> and <code>y</code> has the relationship of <code>x &lt; y</code>, <code>x</code> would be placed before <code>y</code>. You can change the order by specifying the argument <code>directive</code> with the following symbols:
 </p>
 <ul>
-<li><code>`ascend</code> .. ascending order</li>
-<li><code>`descend</code> .. descending order</li>
-<li>function .. it takes two element values x and y and returns zero for x == y, plus value for x &lt; y and minus value for x &gt; y.</li>
+<li><code>`ascend</code> .. Sorts in an ascending order. This is the default.</li>
+<li><code>`descend</code> .. Sorts in a descending order.</li>
 </ul>
 <p>
-If keys is specified, it shall be used as a key instead of element values. When an attribute :stable is specified, the original order shall be kept for elements that are determined as the same.
+You can also put a function to the argument <code>directive</code> that takes two arguments <code>x</code> and <code>y</code> and is expected to return numbers below:
+</p>
+<ul>
+<li><code>x == y</code> .. Zero.</li>
+<li><code>x &lt; y</code> .. A number less than zero.</li>
+<li><code>x &gt; y</code> .. A number greater than zero.</li>
+</ul>
+<p>
+When an attribute :stable is specified, the original order shall be kept for elements that are determined as the same. If the argument <code>keys</code> is specified, it would be used as a key instead of element values.
 </p>
 <p>
 <strong>list#stddev</strong>
@@ -8516,6 +8663,23 @@ It can work on an iterable with elements of a value type that supports addition 
 <code>list#tail(n:number):map {block?}</code>
 </p>
 <p>
+Creates an iterator that takes the last <code>n</code> elements from the source iterable.
+</p>
+<p>
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
+</p>
+<ul>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
+</ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
+<p>
 <strong>list#until</strong>
 </p>
 <p>
@@ -8525,22 +8689,18 @@ It can work on an iterable with elements of a value type that supports addition 
 Creates an iterator that picks up each element in the list until criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format: <code>|value, idx:number|</code>.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>list#variance</strong>
@@ -8571,22 +8731,18 @@ Specifying an attribute could customize searching order as below:
 Unlike <code>iterator#flat()</code>, <code>iterator#walk()</code> creates an iterator with an infinite flag. This means that the created iterator is intended only for iteration and can not be converted to a list.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format is <code>|value, idx:number|</code>.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 Below is an example:
@@ -8609,22 +8765,18 @@ y = x.walk():bfs
 Creates an iterator that picks up each element in the list while criteria is evaluated as true. You can specify a function object, a list or an iterator as the criteria.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format is <code>|value, idx:number|</code>.
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <h2><span class="caption-index-2">6.22</span><a name="caption-6-22"></a>matrix Class</h2>
 <h3><span class="caption-index-3">6.22.1</span><a name="caption-6-22-1"></a>Function to Create Instance</h3>
@@ -9065,20 +9217,22 @@ In the second form, it can take one of the following symbols:
 <code>palette#each() {block?}</code>
 </p>
 <p>
-Creates an iterator that iterates each element in the palette. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+Creates an iterator that iterates each element in the palette.
 </p>
 <p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code> Block parameter format: <code>|value, idx:number|</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
 <p>
 <strong>palette#nearest</strong>
 </p>
@@ -9702,20 +9856,22 @@ Returns a string in which percent-encoded characters are decoded.
 <code>string#each():map:[utf32,utf8] {block?}</code>
 </p>
 <p>
-Creates an iterator generating strings of each character in the original one. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+Creates an iterator generating strings of each character in the original one.
 </p>
 <p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code> Block parameter format: <code>|char:string, idx:number|</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
 <p>
 <strong>string#eachline</strong>
 </p>
@@ -9729,22 +9885,18 @@ Creates an iterator generating strings of each line in the original one.
 In default, end-of-line characters are involved in the result. You can eliminates them by specifying <code>:chop</code> attribute.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format: <code>|line:string, idx:number|</code>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>string.encode</strong>
@@ -9819,22 +9971,18 @@ Creates an iterator that folds the source string by the specified length.
 The argument <code>step</code> specifies the length of advancement for the next folding point. If omitted, it would be the same amount as <code>len</code>.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format: <code>|sub:string, idx:number|</code>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>string#foldw</strong>
@@ -9849,22 +9997,18 @@ Creates an iterator that folds the source string by the specified width.
 This method takes into account the character width based on the specification of East Asian Width.
 </p>
 <p>
-If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
 <p>
-Block parameter format: <code>|sub:string, idx:number|</code>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>string#format</strong>
@@ -10002,20 +10146,22 @@ If the argument is omitted, it would return whole the source string.
 <code>string#split(sep?:string, count?:number):[icase] {block?}</code>
 </p>
 <p>
-Creates an iterator generating sub strings extracted from the original one separated by a specified string <code>sep</code>. With an attribute <code>:icase</code>, character cases are ignored while finding the separator. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
+Creates an iterator generating sub strings extracted from the original one separated by a specified string <code>sep</code>. With an attribute <code>:icase</code>, character cases are ignored while finding the separator.
 </p>
 <p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code> Block parameter format: <code>|sub:string, idx:number|</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
 <p>
 <strong>string#startswith</strong>
 </p>
@@ -14695,12 +14841,12 @@ gmp.mpf</code>
 
     <td>
 <code>
-gmp.mpf</code>
+number</code>
 </td>
 
 	<td>
 <code>
-gmp.mpq</code>
+rational</code>
 </td>
 </tr>
 
@@ -14729,24 +14875,30 @@ gmp.mpf</code>
 
     <td>
 <code>
-gmp.mpf</code>
+rational</code>
 </td>
 
 	<td>
 <code>
-gmp.mpq</code>
+rational</code>
 </td>
 </tr>
 
 </table>
 
 </p>
-<ul>
-<li>Arithmetic: <code>+x; -x; x + y; x - y; x * y; x / y; x % y</code></li>
-<li>Comparison: <code>x == y; x != y; x &gt; y; x &lt; y; x &gt;= y; x &lt;= y; x &lt;=&gt; y</code></li>
-<li>Bit Operation: <code>~x; x &amp; y; x | y; x ^ y; x &lt;&lt; y; x &gt;&gt; y</code></li>
-<li>Sequence Generator: <code>x..; x .. y</code></li>
-</ul>
+<p>
+<code>+x; -x; x + y; x - y; x * y; x / y; x % y</code>
+</p>
+<p>
+<code>x == y; x != y; x &gt; y; x &lt; y; x &gt;= y; x &lt;= y; x &lt;=&gt; y</code>
+</p>
+<p>
+<code>~x; x &amp; y; x | y; x ^ y; x &lt;&lt; y; x &gt;&gt; y</code>
+</p>
+<p>
+<code>x..; x .. y</code>
+</p>
 <h2><span class="caption-index-2">20.2</span><a name="caption-20-2"></a>Module Function</h2>
 <p>
 <strong>gmp.gcd</strong>
@@ -18650,20 +18802,19 @@ Returns a path name after eliminating its bottom part.
 <code>path.dir(directory?:directory, pattern*:string):map:flat:[dir,file,stat] {block?}</code>
 </p>
 <p>
-Creates an iterator that lists item names in the specified directory. If pathname is omitted, the current directory shall be listed. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+Creates an iterator that lists item names in the specified directory. If pathname is omitted, the current directory shall be listed. In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
 <p>
 <strong>path.dirname</strong>
 </p>
@@ -18707,20 +18858,19 @@ Splits a pathname by a directory separator and returns a file name part.
 <code>path.glob(pattern:string):map:flat:[dir,file,stat] {block?}</code>
 </p>
 <p>
-Creates an iterator for item names that match with a pattern supporting UNIX shell-style wild cards. In default, case of characters is distinguished. If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+Creates an iterator for item names that match with a pattern supporting UNIX shell-style wild cards. In default, case of characters is distinguished. In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
 <p>
 <strong>path.join</strong>
 </p>
@@ -18782,20 +18932,19 @@ Returns a stat object associated with the specified item.
 <code>path.walk(directory?:directory, maxdepth?:number, pattern*:string):map:flat:[dir,file,stat] {block?}</code>
 </p>
 <p>
-Creates an iterator that recursively lists item names under the specified directory. If pathname is omitted, search starts at the current directory If a block is specified, it executes the block while evaluating the iterator and returns the last evaluated value in the block as its own result. Otherwise, it returns an iterator or a list according to the attribute
-</p>
-<p>
-In default, it returns an iterator. If attribute <code>:xiter</code> is specified, it returns an iterator that eliminates <code>nil</code> value from the iterated result.
-</p>
-<p>
-If one of attributes <code>:list</code>, <code>:xlist</code>, <code>:set</code> and <code>:xset</code> is specified, it would create the following value:
+Creates an iterator that recursively lists item names under the specified directory. If pathname is omitted, search starts at the current directory In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
-<li><code>:list</code> .. a list of values</li>
-<li><code>:xlist</code> .. a list of values except for <code>nil</code></li>
-<li><code>:set</code> ..  a list of unique values</li>
-<li><code>:xset</code> .. a list of unique values except for <code>nil</code></li>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
 </ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
 <h1><span class="caption-index-1">35</span><a name="caption-35"></a>png Module</h1>
 <p>
 The <code>png</code> module provides measures to read/write image data in PNG format. To utilize it, import the <code>png</code> module using <code>import</code> function.
