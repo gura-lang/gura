@@ -45,24 +45,24 @@ The table below shows the features related to regular-expression and functions t
 <table>
 <tr><th>Feature</th><th>Module Function</th><th>Method of re.pattern</th><th>Method of string</th></tr>
 <tr><td>Match</td>
-<td><code>re.match</code></td>
-<td><code>re.pattern#match</code></td>
-<td><code>string#match</code></td>
+<td><code>re.match()</code></td>
+<td><code>re.pattern#match()</code></td>
+<td><code>string#match()</code></td>
 </tr>
 <tr><td>Subtraction</td>
-<td><code>re.sub</code></td>
-<td><code>re.pattern#sub</code></td>
-<td><code>string#sub</code></td>
+<td><code>re.sub()</code></td>
+<td><code>re.pattern#sub()</code></td>
+<td><code>string#sub()</code></td>
 </tr>
 <tr><td>Split</td>
-<td><code>re.split</code></td>
-<td><code>re.pattern#split</code></td>
-<td><code>string#splitsub</code></td>
+<td><code>re.split()</code></td>
+<td><code>re.pattern#split()</code></td>
+<td><code>string#splitsub()</code></td>
 </tr>
 <tr><td>Scan</td>
-<td><code>re.scan</code></td>
-<td><code>re.pattern#scan</code></td>
-<td><code>string#scan</code></td>
+<td><code>re.scan()</code></td>
+<td><code>re.pattern#scan()</code></td>
+<td><code>string#scan()</code></td>
 </tr>
 </table>
 
@@ -71,7 +71,8 @@ The table below shows the features related to regular-expression and functions t
 
 ## re.match Class
 
-`re.match`, `re.pattern#match` and `string#match`
+An instance of `re.match` class is used as a result value of
+`re.match()`, `re.pattern#match()` and `string#match()` to provide matching information.
 
 
 ### Property
