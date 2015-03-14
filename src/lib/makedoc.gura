@@ -354,9 +354,9 @@ There are also predefined variables that are defined with `color` instances of 1
 
 </table>
 
-### Cast
+### Cast Operation
 
-A function that expects a `color` instance in its argument can take a value of
+A function that expects a `color` instance in its argument can also take a value of
 `symbol`, `string` and `list` as below:
 
 - `symbol` .. Recognized as a color name to look up the color table.
@@ -1192,6 +1192,22 @@ iterator.while
 text@list = R'''
 ## list Class
 
+The `list` class provides measures to handle a list structure,
+which stores values on memory that can be accessed by indexer.
+
+
+### Index Access
+
+You can read and write element values in a list with an indexer
+by giving it an index number starting from zero.
+Below is an example:
+
+    x = [`A, `B, `C, `D, `E, `F]
+
+    println(x[2]) // prints `C
+    x[4] = `e     // replaces `E with `e
+
+
 ### Function to Create Instance
 
 ${markdown.funcdoc(
@@ -1200,6 +1216,7 @@ xlist
 set
 xset
 )}
+
 
 ### Method Specific to List Class
 
@@ -1492,9 +1509,9 @@ you can chain multiple operations as below:
     sys.stdout << 'First' << 'Second'
 
 
-### Cast
+### Cast Operation
 
-A function that expects a `stream` instance in its argument can take a value of
+A function that expects a `stream` instance in its argument can also take a value of
 `string` and `binary` as below:
 
 - `string` .. Recognized as a path name from which `stream` instance is created.
@@ -1665,9 +1682,9 @@ symbol.eval
 text@template = R'''
 ## template Class
 
-### Cast
+### Cast Operation
 
-A function that expects a `template` instance in its argument can take a value of
+A function that expects a `template` instance in its argument can also take a value of
 `stream` as below:
 
 - `stream` .. Creates a `template` instance by parsing the content of the stream.

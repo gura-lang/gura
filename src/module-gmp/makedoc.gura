@@ -11,7 +11,9 @@ using GMP library. To utilize it, import the `gmp` module using `import` functio
 It expands features of operators like addition and multiplier
 so that they can calculate such numbers.
 
-Official site of GMP is: [https://gmplib.org](https://gmplib.org)
+The official site of GMP is:
+
+[https://gmplib.org](https://gmplib.org)
 
 ## Operator
 

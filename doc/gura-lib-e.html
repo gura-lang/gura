@@ -2905,9 +2905,9 @@ Value of the alpha element.</td>
 </table>
 
 </p>
-<h3><span class="caption-index-3">6.7.3</span><a name="caption-6-7-3"></a>Cast</h3>
+<h3><span class="caption-index-3">6.7.3</span><a name="caption-6-7-3"></a>Cast Operation</h3>
 <p>
-A function that expects a <code>color</code> instance in its argument can take a value of <code>symbol</code>, <code>string</code> and <code>list</code> as below:
+A function that expects a <code>color</code> instance in its argument can also take a value of <code>symbol</code>, <code>string</code> and <code>list</code> as below:
 </p>
 <ul>
 <li><code>symbol</code> .. Recognized as a color name to look up the color table.</li>
@@ -7567,7 +7567,19 @@ In default, this returns an iterator as its result value. Specifying the followi
 If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <h2><span class="caption-index-2">6.21</span><a name="caption-6-21"></a>list Class</h2>
-<h3><span class="caption-index-3">6.21.1</span><a name="caption-6-21-1"></a>Function to Create Instance</h3>
+<p>
+The <code>list</code> class provides measures to handle a list structure, which stores values on memory that can be accessed by indexer.
+</p>
+<h3><span class="caption-index-3">6.21.1</span><a name="caption-6-21-1"></a>Index Access</h3>
+<p>
+You can read and write element values in a list with an indexer by giving it an index number starting from zero. Below is an example:
+</p>
+<pre><code>x = [`A, `B, `C, `D, `E, `F]
+</code></pre>
+<pre><code>println(x[2]) // prints `C
+x[4] = `e     // replaces `E with `e
+</code></pre>
+<h3><span class="caption-index-3">6.21.2</span><a name="caption-6-21-2"></a>Function to Create Instance</h3>
 <p>
 <strong>list</strong>
 </p>
@@ -7620,7 +7632,7 @@ In default, all the elements in each iterators are added to the created list. Sp
 <li><code>:or</code> .. All the elements are added. This is the default behavior.</li>
 <li><code>:xor</code> .. Elements that exist in only one iterator are added.</li>
 </ul>
-<h3><span class="caption-index-3">6.21.2</span><a name="caption-6-21-2"></a>Method Specific to List Class</h3>
+<h3><span class="caption-index-3">6.21.3</span><a name="caption-6-21-3"></a>Method Specific to List Class</h3>
 <p>
 <strong>list#add</strong>
 </p>
@@ -7842,7 +7854,7 @@ In default, this returns an iterator as its result value. Specifying the followi
 <p>
 If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
-<h3><span class="caption-index-3">6.21.3</span><a name="caption-6-21-3"></a>Method Common between Iterator and List Class</h3>
+<h3><span class="caption-index-3">6.21.4</span><a name="caption-6-21-4"></a>Method Common between Iterator and List Class</h3>
 <p>
 <strong>list#after</strong>
 </p>
@@ -9504,9 +9516,9 @@ Since the operator returns the <code>stream</code> instance specified on the lef
 </p>
 <pre><code>sys.stdout &lt;&lt; 'First' &lt;&lt; 'Second'
 </code></pre>
-<h3><span class="caption-index-3">6.31.3</span><a name="caption-6-31-3"></a>Cast</h3>
+<h3><span class="caption-index-3">6.31.3</span><a name="caption-6-31-3"></a>Cast Operation</h3>
 <p>
-A function that expects a <code>stream</code> instance in its argument can take a value of <code>string</code> and <code>binary</code> as below:
+A function that expects a <code>stream</code> instance in its argument can also take a value of <code>string</code> and <code>binary</code> as below:
 </p>
 <ul>
 <li><code>string</code> .. Recognized as a path name from which <code>stream</code> instance is created.</li>
@@ -10319,9 +10331,9 @@ An error occurs if the same suffix symbol has already been assigned. Specifying 
 Evaluate a symbol object.
 </p>
 <h2><span class="caption-index-2">6.35</span><a name="caption-6-35"></a>template Class</h2>
-<h3><span class="caption-index-3">6.35.1</span><a name="caption-6-35-1"></a>Cast</h3>
+<h3><span class="caption-index-3">6.35.1</span><a name="caption-6-35-1"></a>Cast Operation</h3>
 <p>
-A function that expects a <code>template</code> instance in its argument can take a value of <code>stream</code> as below:
+A function that expects a <code>template</code> instance in its argument can also take a value of <code>stream</code> as below:
 </p>
 <ul>
 <li><code>stream</code> .. Creates a <code>template</code> instance by parsing the content of the stream.</li>
@@ -14663,7 +14675,10 @@ The <code>gmp</code> module provides measures to calculate numbers with multiple
 It expands features of operators like addition and multiplier so that they can calculate such numbers.
 </p>
 <p>
-Official site of GMP is: <a href="https://gmplib.org">https://gmplib.org</a>
+The official site of GMP is:
+</p>
+<p>
+<a href="https://gmplib.org">https://gmplib.org</a>
 </p>
 <h2><span class="caption-index-2">20.1</span><a name="caption-20-1"></a>Operator</h2>
 <p>
@@ -19053,7 +19068,213 @@ Writes a PPM/PGM image to a stream.
 <p>
 The <code>re</code> module provides measures to operate strings with a regular expression. To utilize it, import the <code>re</code> module using <code>import</code> function.
 </p>
-<h2><span class="caption-index-2">38.1</span><a name="caption-38-1"></a>Module Function</h2>
+<p>
+This module uses Oniguruma to handle regular expressions. The official site of Oniguruma is:
+</p>
+<p>
+<a href="http://www.geocities.jp/kosako3/oniguruma/index.html">http://www.geocities.jp/kosako3/oniguruma/index.html</a>
+</p>
+<p>
+This module provides three different forms of function that has the same feature as below:
+</p>
+<ul>
+<li>Module function</li>
+<li>Method of <code>re.pattern</code> class</li>
+<li>Method of <code>string</code> class</li>
+</ul>
+<p>
+For example, a feature to match a string with a regular expression can be described as below:
+</p>
+<p>
+Using a module function:
+</p>
+<pre><code>m = re.match('gur[ai]', str)
+</code></pre>
+<p>
+Using a method of <code>re.pattern</code> class:
+</p>
+<pre><code>m = re.pattern('gur[ai]').match(str)
+</code></pre>
+<p>
+Using a method of <code>string</code> class:
+</p>
+<pre><code>m = str.match('gur[ai]')
+</code></pre>
+<p>
+The table below shows the features related to regular-expression and functions that provides them.
+</p>
+<p>
+<table>
+
+<tr>
+<th>
+Feature</th>
+<th>
+Module Function</th>
+<th>
+Method of re.pattern</th>
+<th>
+Method of string</th>
+</tr>
+
+<tr>
+<td>
+Match</td>
+
+<td>
+<code>
+re.match</code>
+</td>
+
+<td>
+<code>
+re.pattern#match</code>
+</td>
+
+<td>
+<code>
+string#match</code>
+</td>
+
+</tr>
+
+<tr>
+<td>
+Subtraction</td>
+
+<td>
+<code>
+re.sub</code>
+</td>
+
+<td>
+<code>
+re.pattern#sub</code>
+</td>
+
+<td>
+<code>
+string#sub</code>
+</td>
+
+</tr>
+
+<tr>
+<td>
+Split</td>
+
+<td>
+<code>
+re.split</code>
+</td>
+
+<td>
+<code>
+re.pattern#split</code>
+</td>
+
+<td>
+<code>
+string#splitsub</code>
+</td>
+
+</tr>
+
+<tr>
+<td>
+Scan</td>
+
+<td>
+<code>
+re.scan</code>
+</td>
+
+<td>
+<code>
+re.pattern#scan</code>
+</td>
+
+<td>
+<code>
+string#scan</code>
+</td>
+
+</tr>
+
+</table>
+
+</p>
+<h2><span class="caption-index-2">38.1</span><a name="caption-38-1"></a>Regular Expression</h2>
+<h2><span class="caption-index-2">38.2</span><a name="caption-38-2"></a>re.match Class</h2>
+<p>
+<code>re.match</code>, <code>re.pattern#match</code> and <code>string#match</code>
+</p>
+<h3><span class="caption-index-3">38.2.1</span><a name="caption-38-2-1"></a>Property</h3>
+<p>
+<table>
+
+<tr>
+<th>
+Property</th>
+<th>
+Type</th>
+<th>
+R/W</th>
+<th>
+Explanation</th>
+</tr>
+
+
+<tr>
+<td>
+<code>
+re.match#string</code>
+</td>
+<td>
+<code>
+string</code>
+</td>
+<td>
+R</td>
+
+<td>
+</td>
+</tr>
+
+
+</table>
+
+</p>
+<h3><span class="caption-index-3">38.2.2</span><a name="caption-38-2-2"></a>Index Access</h3>
+<p>
+A <code>re.match</code> instance can be indexed with a <code>number</code> or <code>string</code> value that represents a grouping index or a group name. This has the same effect as calling <code>re.match#group</code> method.
+</p>
+<h3><span class="caption-index-3">38.2.3</span><a name="caption-38-2-3"></a>Method</h3>
+<p>
+<strong>re.match#group</strong>
+</p>
+<p>
+<code>re.match#group(index):map</code>
+</p>
+<p>
+<strong>re.match#groups</strong>
+</p>
+<p>
+<code>re.match#groups()</code>
+</p>
+<p>
+<strong>re.match#start</strong>
+</p>
+<p>
+<code>re.match#start(index):map</code>
+</p>
+<p>
+<strong>re.match#end</strong>
+</p>
+<p>
+<code>re.match#end(index):map</code>
+</p>
+<h2><span class="caption-index-2">38.3</span><a name="caption-38-3"></a>Module Function</h2>
 <p>
 <strong>re.match</strong>
 </p>
@@ -19078,15 +19299,29 @@ The <code>re</code> module provides measures to operate strings with a regular e
 <p>
 <code>re.scan(pattern:re.pattern, str:string, pos:number =&gt; 0, endpos?:number):map {block?}</code>
 </p>
-<h2><span class="caption-index-2">38.2</span><a name="caption-38-2"></a>re.pattern Class</h2>
-<h3><span class="caption-index-3">38.2.1</span><a name="caption-38-2-1"></a>Function to Create Instance</h3>
+<h2><span class="caption-index-2">38.4</span><a name="caption-38-4"></a>re.pattern Class</h2>
+<h3><span class="caption-index-3">38.4.1</span><a name="caption-38-4-1"></a>Cast Operation</h3>
+<p>
+A function that expects a <code>re.pattern</code> instance in its argument can also take a value of <code>string</code> below:
+</p>
+<ul>
+<li><code>string</code> .. Recognized as a regular expression from which <code>re.pattern</code> instance is created.</li>
+</ul>
+<p>
+Using the above casting feature, you can call a function <code>f(pattern:re.pattern)</code> that takes a <code>re.pattern</code> instance in its argument as below:
+</p>
+<ul>
+<li><code>f(re.pattern('gur[ai]'))</code> .. The most explicit way.</li>
+<li><code>f('gur[ai]')</code> .. Implicit casting: from <code>string</code> to <code>re.pattern</code>.</li>
+</ul>
+<h3><span class="caption-index-3">38.4.2</span><a name="caption-38-4-2"></a>Function to Create Instance</h3>
 <p>
 <strong>re.pattern</strong>
 </p>
 <p>
 <code>re.pattern(pattern:string):map:[icase,multiline] {block?}</code>
 </p>
-<h3><span class="caption-index-3">38.2.2</span><a name="caption-38-2-2"></a>Method</h3>
+<h3><span class="caption-index-3">38.4.3</span><a name="caption-38-4-3"></a>Method</h3>
 <p>
 <strong>re.pattern#match</strong>
 </p>
@@ -19114,7 +19349,7 @@ Applies a pattern matching to a string and returns a match object.
 <p>
 <code>re.pattern#scan(str:string, pos:number =&gt; 0, endpos?:number):map {block?}</code>
 </p>
-<h2><span class="caption-index-2">38.3</span><a name="caption-38-3"></a>Extension to string Class</h2>
+<h2><span class="caption-index-2">38.5</span><a name="caption-38-5"></a>Extension to string Class</h2>
 <p>
 This module extends the <code>string</code> class with methods described here.
 </p>
@@ -19142,9 +19377,9 @@ This module extends the <code>string</code> class with methods described here.
 <p>
 <code>string#scan(pattern:re.pattern, pos:number =&gt; 0, endpos?:number):map {block?}</code>
 </p>
-<h2><span class="caption-index-2">38.4</span><a name="caption-38-4"></a>Extension to iterable Classes</h2>
+<h2><span class="caption-index-2">38.6</span><a name="caption-38-6"></a>Extension to iterable Classes</h2>
 <p>
-This module extends iterable classes, the <code>list</code> and <code>iterator</code> class, with methods described here.
+This module extends the iterable classes, <code>list</code> and <code>iterator</code>, with methods described here.
 </p>
 <p>
 <strong>iterable#grep</strong>
