@@ -27,27 +27,31 @@ void SetError_OnigurumaError(Signal sig, int rtn);
 void SetError_FailInOniguruma(Signal sig);
 
 //-----------------------------------------------------------------------------
+// Group
+//-----------------------------------------------------------------------------
+class Group {
+private:
+	int _posBegin, _posEnd;
+public:
+	inline Group(int posBegin, int posEnd) :
+					_posBegin(posBegin), _posEnd(posEnd) {}
+	inline Group(const Group &group) :
+					_posBegin(group._posBegin), _posEnd(group._posEnd) {}
+	inline void operator=(const Group &group) {
+		_posBegin = group._posBegin, _posEnd = group._posEnd;
+	}
+	inline int GetPosBegin() const { return _posBegin; }
+	inline int GetPosEnd() const { return _posEnd; }
+	inline int GetLength() const { return _posEnd - _posBegin; }
+};
+
+//-----------------------------------------------------------------------------
 // Class declaration for re.match
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(match);
 
 class Object_match : public Object {
 public:
-	class Group {
-	private:
-		int _posBegin, _posEnd;
-	public:
-		inline Group(int posBegin, int posEnd) :
-						_posBegin(posBegin), _posEnd(posEnd) {}
-		inline Group(const Group &group) :
-						_posBegin(group._posBegin), _posEnd(group._posEnd) {}
-		inline void operator=(const Group &group) {
-			_posBegin = group._posBegin, _posEnd = group._posEnd;
-		}
-		inline int GetPosBegin() const { return _posBegin; }
-		inline int GetPosEnd() const { return _posEnd; }
-		inline int GetLength() const { return _posEnd - _posBegin; }
-	};
 	typedef std::vector<Group> GroupList;
 	typedef std::map<String, size_t> GroupNameDict;
 public:

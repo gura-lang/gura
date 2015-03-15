@@ -418,7 +418,7 @@ bool Object_match::SetMatchInfo(const char *str,
 	return true;
 }
 
-const Object_match::Group *Object_match::GetGroup(Signal sig, const Value &index) const
+const Group *Object_match::GetGroup(Signal sig, const Value &index) const
 {
 	if (index.Is_number()) {
 		size_t indexNum = static_cast<size_t>(index.GetNumber());
@@ -513,7 +513,7 @@ Gura_DeclareMethod(match, start)
 Gura_ImplementMethod(match, start)
 {
 	Object_match *pThis = Object_match::GetThisObj(args);
-	const Object_match::Group *pGroup = pThis->GetGroup(sig, args.GetValue(0));
+	const Group *pGroup = pThis->GetGroup(sig, args.GetValue(0));
 	if (pGroup == NULL) return Value::Null;
 	return Value(pGroup->GetPosBegin());
 }
@@ -531,7 +531,7 @@ Gura_DeclareMethod(match, end)
 Gura_ImplementMethod(match, end)
 {
 	Object_match *pThis = Object_match::GetThisObj(args);
-	const Object_match::Group *pGroup = pThis->GetGroup(sig, args.GetValue(0));
+	const Group *pGroup = pThis->GetGroup(sig, args.GetValue(0));
 	if (pGroup == NULL) return Value::Null;
 	return Value(pGroup->GetPosEnd());
 }
