@@ -366,7 +366,7 @@ Value Object_match::IndexGet(Environment &env, Signal sig, const Value &valueIdx
 {
 	const Group *pGroup = GetGroup(sig, valueIdx);
 	if (pGroup == NULL) return Value::Null;
-	return Value(GetGroupString(*pGroup));
+	return Value(pGroup->GetString());
 }
 
 bool Object_match::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -381,7 +381,7 @@ Value Object_match::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(string))) {
-		return Value(_str);
+		return Value(GetString());
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -406,14 +406,14 @@ bool Object_match::SetMatchInfo(const char *str,
 {
 	if (pRegion->num_regs == 0) return false;
 	::onig_foreach_name(pRegEx, &ForeachNameCallbackStub, this);
-	_str = str;
+	_pStrRef.reset(new StringRef(str));
 	for (int iGroup = 0; iGroup < pRegion->num_regs; iGroup++) {
 		int idxBegin = pRegion->beg[iGroup];
 		int idxEnd = pRegion->end[iGroup];
 		if (idxBegin > idxEnd) return false;
 		int posBegin = static_cast<int>(CalcCharPos(str, idxBegin)) + posOffset;
 		int posEnd = static_cast<int>(CalcCharPos(str, idxEnd)) + posOffset;
-		_groupList.push_back(Group(posBegin, posEnd));
+		_groupList.push_back(Group(_pStrRef->Reference(), posBegin, posEnd));
 	}
 	return true;
 }
@@ -491,11 +491,11 @@ Gura_ImplementMethod(match, groups)
 	Object_match *pThis = Object_match::GetThisObj(args);
 	Value result;
 	ValueList &valList = result.InitAsList(env);
-	const Object_match::GroupList &groupList = pThis->GetGroupList();
-	Object_match::GroupList::const_iterator pGroup = groupList.begin();
+	const GroupList &groupList = pThis->GetGroupList();
+	GroupList::const_iterator pGroup = groupList.begin();
 	if (pGroup != groupList.end()) pGroup++;
 	for ( ; pGroup != groupList.end(); pGroup++) {
-		valList.push_back(Value(pThis->GetGroupString(*pGroup)));
+		valList.push_back(Value(pGroup->GetString()));
 	}
 	return result;
 }

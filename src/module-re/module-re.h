@@ -31,19 +31,26 @@ void SetError_FailInOniguruma(Signal sig);
 //-----------------------------------------------------------------------------
 class Group {
 private:
+	AutoPtr<StringRef> _pStrRef;
 	int _posBegin, _posEnd;
 public:
-	inline Group(int posBegin, int posEnd) :
-					_posBegin(posBegin), _posEnd(posEnd) {}
-	inline Group(const Group &group) :
-					_posBegin(group._posBegin), _posEnd(group._posEnd) {}
+	inline Group(StringRef *pStrRef, int posBegin, int posEnd) :
+				_pStrRef(pStrRef), _posBegin(posBegin), _posEnd(posEnd) {}
+	inline Group(const Group &group) : _pStrRef(group._pStrRef->Reference()),
+				_posBegin(group._posBegin), _posEnd(group._posEnd) {}
 	inline void operator=(const Group &group) {
+		_pStrRef.reset(group._pStrRef->Reference()),
 		_posBegin = group._posBegin, _posEnd = group._posEnd;
+	}
+	inline String GetString() const {
+		return Middle(_pStrRef->GetString(), _posBegin, GetLength());
 	}
 	inline int GetPosBegin() const { return _posBegin; }
 	inline int GetPosEnd() const { return _posEnd; }
 	inline int GetLength() const { return _posEnd - _posBegin; }
 };
+
+typedef std::vector<Group> GroupList;
 
 //-----------------------------------------------------------------------------
 // Class declaration for re.match
@@ -52,18 +59,17 @@ Gura_DeclareUserClass(match);
 
 class Object_match : public Object {
 public:
-	typedef std::vector<Group> GroupList;
 	typedef std::map<String, size_t> GroupNameDict;
 public:
 	Gura_DeclareObjectAccessor(match)
 private:
-	String _str;
+	AutoPtr<StringRef> _pStrRef;
 	GroupList _groupList;
 	GroupNameDict _groupNameDict;
 public:
 	inline Object_match(Environment &env) : Object(Gura_UserClass(match)) {}
 	inline Object_match(const Object_match &obj) : Object(obj),
-							_str(obj._str), _groupList(obj._groupList) {}
+			_pStrRef(obj._pStrRef->Reference()), _groupList(obj._groupList) {}
 	virtual ~Object_match();
 	virtual Object *Clone() const;
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
@@ -73,9 +79,7 @@ public:
 	virtual String ToString(bool exprFlag);
 	bool SetMatchInfo(const char *str, regex_t *pRegEx,
 								const OnigRegion *pRegion, int posOffset);
-	inline String GetGroupString(const Group &group) const {
-		return Middle(_str.c_str(), group.GetPosBegin(), group.GetLength());
-	}
+	inline const char *GetString() const { return _pStrRef->GetString(); }
 	const Group *GetGroup(Signal sig, const Value &index) const;
 	const GroupList &GetGroupList() const { return _groupList; }
 private:
