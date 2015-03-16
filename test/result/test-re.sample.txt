@@ -193,3 +193,13 @@ re.pattern('-{1,2}').sub(dashrepl, 'pro----gram-files') .. pro--gram files
 ======== #30 ========
 
  sourceforge.jp slashdot.jp www.google.com
+
+======== #31 group test ========
+
+12         0-2
+345        3-6
+6789       7-11
+01         12-14
+234        15-18
+567        19-22
+890        23-26
