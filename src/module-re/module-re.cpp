@@ -213,8 +213,8 @@ bool Object_match::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(source));
 	symbols.insert(Gura_Symbol(string));
-	symbols.insert(Gura_UserSymbol(start));
-	symbols.insert(Gura_UserSymbol(end));
+	symbols.insert(Gura_Symbol(begin));
+	symbols.insert(Gura_Symbol(end));
 	return true;
 }
 
@@ -227,9 +227,9 @@ Value Object_match::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 		return Value(GetString());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(string))) {
 		return Value(group.GetString());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(start))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(begin))) {
 		return Value(group.GetPosBegin());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(end))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(end))) {
 		return Value(group.GetPosEnd());
 	}
 	evaluatedFlag = false;
@@ -350,8 +350,8 @@ bool Object_group::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(string));
-	symbols.insert(Gura_UserSymbol(start));
-	symbols.insert(Gura_UserSymbol(end));
+	symbols.insert(Gura_Symbol(begin));
+	symbols.insert(Gura_Symbol(end));
 	return true;
 }
 
@@ -361,9 +361,9 @@ Value Object_group::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(string))) {
 		return Value(_group.GetString());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(start))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(begin))) {
 		return Value(_group.GetPosBegin());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(end))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(end))) {
 		return Value(_group.GetPosEnd());
 	}
 	evaluatedFlag = false;
@@ -845,9 +845,7 @@ Gura_ImplementFunction(scan)
 Gura_ModuleEntry()
 {
 	// symbol realization
-	Gura_RealizeUserSymbol(end);
 	Gura_RealizeUserSymbol(re);
-	Gura_RealizeUserSymbol(start);
 	Gura_RealizeUserSymbol(string);
 	Gura_RealizeUserSymbol(multiline);
 	// class realization
