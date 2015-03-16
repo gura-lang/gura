@@ -190,6 +190,42 @@ void IteratorGrep::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &en
 }
 
 //-----------------------------------------------------------------------------
+// IteratorGroup
+//-----------------------------------------------------------------------------
+IteratorGroup::IteratorGroup(Object_match *pObjMatch) :
+						Iterator(false), _pObjMatch(pObjMatch), _iGroup(1)
+{
+}
+
+Iterator *IteratorGroup::GetSource()
+{
+	return NULL;
+}
+
+bool IteratorGroup::DoNext(Environment &env, Signal sig, Value &value)
+{
+	const GroupList &groupList = _pObjMatch->GetGroupList();
+	if (_iGroup < groupList.size()) {
+		value = Value(new Object_group(groupList[_iGroup]));
+		_iGroup++;
+		return true;
+	}
+	return false;
+}
+
+String IteratorGroup::ToString() const
+{
+	String rtn;
+	rtn += "<iterator:re.group:";
+	rtn += ">";
+	return rtn;
+}
+
+void IteratorGroup::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
+//-----------------------------------------------------------------------------
 // Object_match
 //-----------------------------------------------------------------------------
 Object_match::~Object_match()
@@ -326,12 +362,30 @@ Gura_ImplementMethod(match, group)
 	return Value(new Object_group(*pGroup));
 }
 
+// re.match#groups() {block?}
+Gura_DeclareMethod(match, groups)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(match, groups)
+{
+	Object_match *pThis = Object_match::GetThisObj(args);
+	AutoPtr<Iterator> pIterator(new IteratorGroup(pThis->Reference()));
+	return ReturnIterator(env, sig, args, pIterator.release());
+}
+
 //-----------------------------------------------------------------------------
 // Class implementation for re.match
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(match)
 {
 	Gura_AssignMethod(match, group);
+	Gura_AssignMethod(match, groups);
 }
 
 //-----------------------------------------------------------------------------

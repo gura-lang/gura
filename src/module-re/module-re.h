@@ -190,6 +190,21 @@ public:
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
+//-----------------------------------------------------------------------------
+// IteratorGroup class declaration
+//-----------------------------------------------------------------------------
+class IteratorGroup : public Iterator {
+private:
+	AutoPtr<Object_match> _pObjMatch;
+	size_t _iGroup;
+public:
+	IteratorGroup(Object_match *pObjMatch);
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual String ToString() const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+};
+
 Gura_EndModuleHeader(re)
 
 #endif
