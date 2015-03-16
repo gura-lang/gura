@@ -12,16 +12,16 @@ testcase {
 }
 testcase {
 	x = ['apple', 'orange', 'pencil', '1234', 'grape', '5678']
-	tester(`x.grep(r'\w+'):*string.join(','))
-	tester(`x.grep(r'r'):*string.join(','))
-	tester(`x.grep(r'^a'):*string.join(','))
-	tester(`x.grep(r'^o'):*string.join(','))
-	tester(`x.grep(r'pe$'):*string.join(','))
-	tester(`x.grep(r'\d+'):*string.join(','))
-	tester(`['1-1', '11-a', '1', '00-', '1-0'].grep(r'\d+-\d+'):*string.join(','))
+	tester(`x.grep(r'\w+'):*source.join(','))
+	tester(`x.grep(r'r'):*source.join(','))
+	tester(`x.grep(r'^a'):*source.join(','))
+	tester(`x.grep(r'^o'):*source.join(','))
+	tester(`x.grep(r'pe$'):*source.join(','))
+	tester(`x.grep(r'\d+'):*source.join(','))
+	tester(`['1-1', '11-a', '1', '00-', '1-0'].grep(r'\d+-\d+'):*source.join(','))
 }
 testcase {
-	tester(`(0..):*tostring():*match('3').skipnil().head(30):*string.join(','))
+	tester(`(0..):*tostring():*match('3').skipnil().head(30):*source.join(','))
 }
 testcase {
 	str = 'hoge(ABCD, EFGH, IJKL), foo(MNOP, QRST), bar(UVWX, 1234)'
@@ -34,16 +34,22 @@ testcase {
 testcase {
 	str = 'あいうえお かきくけこ さしすせそ たちつてと'
 	tester(`str)
-	tester(`re.scan(r'\w+', str)::group(0))
-	tester(`re.scan(r'\w+', str, 10)::group(0))
-	tester(`re.scan(r'\w+', str, 0, 10)::group(0))
+	tester(`re.scan(r'\w+', str)::string)
+	tester(`re.scan(r'\w+', str, 10)::string)
+	tester(`re.scan(r'\w+', str, 0, 10)::string)
+	tester(`re.scan(r'\w+', str):*group(0)::string)
+	tester(`re.scan(r'\w+', str, 10):*group(0)::string)
+	tester(`re.scan(r'\w+', str, 0, 10):*group(0)::string)
 }
 testcase {
 	str = 'あいうえお かきくけこ さしすせそ たちつてと'
 	tester(`str)
-	tester(`str.scan(r'\w+')::group(0))
-	tester(`str.scan(r'\w+', 10)::group(0))
-	tester(`str.scan(r'\w+', 0, 10)::group(0))
+	tester(`str.scan(r'\w+')::string)
+	tester(`str.scan(r'\w+', 10)::string)
+	tester(`str.scan(r'\w+', 0, 10)::string)
+	tester(`str.scan(r'\w+'):*group(0)::string)
+	tester(`str.scan(r'\w+', 10):*group(0)::string)
+	tester(`str.scan(r'\w+', 0, 10):*group(0)::string)
 }
 testcase {
 	str = 'あいうえお かきくけこ さしすせそ たちつてと'
@@ -55,10 +61,9 @@ testcase {
 }
 testcase {
 	m = '3.14'.match(r'(\d+)\.(\d*)')
-	tester(`m.string)
+	tester(`m.source)
 	tester(`m[1])
 	tester(`m[2])
-	tester(`m.groups())
 }
 testcase {
 	tester(`re.scan('(ba)(.)', 'foobarbazfoobarbaz'):list {|m| [m[0], m[1, 2]] })
@@ -72,15 +77,15 @@ http://slashdot.jp/
 http://www.google.com/
 hoge
 '''.eachline()
-	println(pattern.match(lines).skipnil():*group(1))
+	println(pattern.match(lines).skipnil():*group(1):*string)
 }
 testcase {
 	ms = re.scan(r'\[([^]]+)\]', 'jkfdjf[hoge]kdsaa[foo]kfjdkjfkd[bar]saajkjkjfdsfdaaa');
-	println(ms::group(1)):nomap
+	println(ms:*group(1)::string):nomap
 	ms = re.pattern(r'\[([^]]+)\]').scan('jkfdjf[hoge]kdsaa[foo]kfjdkjfkd[bar]saajkjkjfdsfdaaa');
-	println(ms::group(1)):nomap
+	println(ms:*group(1)::string):nomap
 	text = 'fjdkjf[0]jfkdjk[100]fdfdsfjdsfjdkshe[300]llofkdjsk[999]fjdsfjdshello[9999]'
-	println(re.scan(r'\[(\d+)\]', text):*group(1))
+	println(re.scan(r'\[(\d+)\]', text):*group(1):*string)
 }
 testcase {
 	fields = [re.split('a+', 'aaaaaaabbbbbbaaacccccDDa')];
@@ -99,26 +104,25 @@ testcase {
 }
 testcase {
 	m = re.match(r'(\d+)\.(\d*)', '3.14')
-	tester(`m.string)
+	tester(`m.source)
 	tester(`m[1])
 	tester(`m[2])
-	tester(`m.groups())
 }
 testcase {
 	m = re.match(r'(?<first>\d+)\.(?<second>\d*)', '3.14')
-	tester(`m.string)
+	tester(`m.source)
 	tester(`m['first'])
 	tester(`m['second'])
 }
 testcase {
 	m = re.match(r'(?<first>\d+)\.(\d*)', '3.14')
-	tester(`m.string)
+	tester(`m.source)
 	tester(`m['first'])
 	tester(`m[2])
 }
 testcase {
 	m = re.match(r'(\d+)\.(?<second>\d*)', '3.14')
-	tester(`m.string)
+	tester(`m.source)
 	tester(`m[1])
 	tester(`m['second'])
 }
@@ -129,26 +133,25 @@ testcase {
 // match with pattern object
 testcase {
 	m = re.pattern(r'(\d+)\.(\d*)').match('3.14')
-	tester(`m.string)
+	tester(`m.source)
 	tester(`m[1])
 	tester(`m[2])
-	tester(`m.groups())
 }
 testcase {
 	m = re.pattern(r'(?<first>\d+)\.(?<second>\d*)').match('3.14')
-	tester(`m.string)
+	tester(`m.source)
 	tester(`m['first'])
 	tester(`m['second'])
 }
 testcase {
 	m = re.pattern(r'(?<first>\d+)\.(\d*)').match('3.14')
-	tester(`m.string)
+	tester(`m.source)
 	tester(`m['first'])
 	tester(`m[2])
 }
 testcase {
 	m = re.pattern(r'(\d+)\.(?<second>\d*)').match('3.14')
-	tester(`m.string)
+	tester(`m.source)
 	tester(`m[1])
 	tester(`m['second'])
 }
@@ -204,6 +207,6 @@ http://slashdot.jp/
 http://www.google.com/
 hoge
 '''.eachline()
-	print(' ', (re.match(r'^http://([^/]+)', lines):xlist)::group(1))
+	print(' ', (re.match(r'^http://([^/]+)', lines):xlist):*group(1):*string)
 	println()
 }

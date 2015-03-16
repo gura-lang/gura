@@ -32,7 +32,7 @@ buff.stream().addcr(true).readlines() {|line|
 		} else {
 			fields = re.split(r" \| ", lineInfo):list
 			if (m = re.match(r"\d{4}-\d{2}-\d{2}", fields[2])) {
-				headerNew = m.group(0)
+				headerNew = m.string
 				if (header == headerNew) {
 					println(headerBlank, " ", line)
 				} else {

@@ -211,7 +211,10 @@ Value Object_match::IndexGet(Environment &env, Signal sig, const Value &valueIdx
 bool Object_match::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_Symbol(source));
 	symbols.insert(Gura_Symbol(string));
+	symbols.insert(Gura_UserSymbol(start));
+	symbols.insert(Gura_UserSymbol(end));
 	return true;
 }
 
@@ -219,8 +222,15 @@ Value Object_match::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(string))) {
+	const Group &group = _groupList.front();
+	if (pSymbol->IsIdentical(Gura_Symbol(source))) {
 		return Value(GetString());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(string))) {
+		return Value(group.GetString());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(start))) {
+		return Value(group.GetPosBegin());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(end))) {
+		return Value(group.GetPosEnd());
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -230,12 +240,10 @@ String Object_match::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<match:";
-	foreach_const (GroupList, pGroup, _groupList) {
-		if (pGroup != _groupList.begin()) rtn += ",";
-		char str[80];
-		::sprintf(str, "%d-%d", pGroup->GetPosBegin(), pGroup->GetPosEnd());
-		rtn += str;
-	}
+	const Group &group = _groupList.front();
+	char str[80];
+	::sprintf(str, "%d-%d", group.GetPosBegin(), group.GetPosEnd());
+	rtn += str;
 	rtn += ">";
 	return rtn;
 }
@@ -313,66 +321,9 @@ Gura_DeclareMethod(match, group)
 Gura_ImplementMethod(match, group)
 {
 	Object_match *pThis = Object_match::GetThisObj(args);
-	return pThis->IndexGet(env, sig, args.GetValue(0));
-}
-
-// re.match#groups()
-Gura_DeclareMethod(match, groups)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementMethod(match, groups)
-{
-	Object_match *pThis = Object_match::GetThisObj(args);
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	const GroupList &groupList = pThis->GetGroupList();
-	GroupList::const_iterator pGroup = groupList.begin();
-	if (pGroup != groupList.end()) pGroup++;
-	for ( ; pGroup != groupList.end(); pGroup++) {
-		valList.push_back(Value(pGroup->GetString()));
-	}
-	return result;
-}
-
-// re.match#start(index):map
-Gura_DeclareMethod(match, start)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "index", VTYPE_any);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementMethod(match, start)
-{
-	Object_match *pThis = Object_match::GetThisObj(args);
 	const Group *pGroup = pThis->GetGroup(sig, args.GetValue(0));
 	if (pGroup == NULL) return Value::Null;
-	return Value(pGroup->GetPosBegin());
-}
-
-// re.match#end(index):map
-Gura_DeclareMethod(match, end)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "index", VTYPE_any);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementMethod(match, end)
-{
-	Object_match *pThis = Object_match::GetThisObj(args);
-	const Group *pGroup = pThis->GetGroup(sig, args.GetValue(0));
-	if (pGroup == NULL) return Value::Null;
-	return Value(pGroup->GetPosEnd());
+	return Value(new Object_group(*pGroup));
 }
 
 //-----------------------------------------------------------------------------
@@ -381,9 +332,6 @@ Gura_ImplementMethod(match, end)
 Gura_ImplementUserClass(match)
 {
 	Gura_AssignMethod(match, group);
-	Gura_AssignMethod(match, groups);
-	Gura_AssignMethod(match, start);
-	Gura_AssignMethod(match, end);
 }
 
 //-----------------------------------------------------------------------------
@@ -402,6 +350,8 @@ bool Object_group::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(string));
+	symbols.insert(Gura_UserSymbol(start));
+	symbols.insert(Gura_UserSymbol(end));
 	return true;
 }
 
@@ -410,7 +360,11 @@ Value Object_group::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(string))) {
-		//return Value(GetString());
+		return Value(_group.GetString());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(start))) {
+		return Value(_group.GetPosBegin());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(end))) {
+		return Value(_group.GetPosEnd());
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -420,6 +374,9 @@ String Object_group::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<group:";
+	char str[80];
+	::sprintf(str, "%d-%d", _group.GetPosBegin(), _group.GetPosEnd());
+	rtn += str;
 	rtn += ">";
 	return rtn;
 }
@@ -888,7 +845,9 @@ Gura_ImplementFunction(scan)
 Gura_ModuleEntry()
 {
 	// symbol realization
+	Gura_RealizeUserSymbol(end);
 	Gura_RealizeUserSymbol(re);
+	Gura_RealizeUserSymbol(start);
 	Gura_RealizeUserSymbol(string);
 	Gura_RealizeUserSymbol(multiline);
 	// class realization

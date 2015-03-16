@@ -34,9 +34,9 @@ fileNames.each {|fileName|
 	try {
 		readlines(fileName).grep(pattern) {|m, i, iLine|
 			if (cfg['line-number']) {
-				printf('%s:%d:%s', fileName, iLine + 1, m.string)
+				printf('%s:%d:%s', fileName, iLine + 1, m.source)
 			} else {
-				printf('%s:%s', fileName, m.string)
+				printf('%s:%s', fileName, m.source)
 			}
 		}
 	} catch {|e|

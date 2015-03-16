@@ -9,7 +9,9 @@
 
 Gura_BeginModuleHeader(re)
 
+Gura_DeclareUserSymbol(end);
 Gura_DeclareUserSymbol(re);
+Gura_DeclareUserSymbol(start);
 Gura_DeclareUserSymbol(string);
 Gura_DeclareUserSymbol(multiline);
 

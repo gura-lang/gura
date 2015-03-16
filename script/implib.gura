@@ -22,7 +22,7 @@ lines = lines.since(lines:*match(r'^\s+ordinal\s+hint\s+RVA\s+name')).offset(2)
 lines = lines.while(!lines:*isempty())
 open(fileNameDEF, 'w') {|f|
 	f.println('EXPORTS')
-	f.println('\t', lines:*match(r'(\d+)\s+([\da-fA-F]+)\s+([\da-fA-F]+)\s+(.+)').skipnil():*group(4))
+	f.println('\t', lines:*match(r'(\d+)\s+([\da-fA-F]+)\s+([\da-fA-F]+)\s+(.+)').skipnil():*group(4):*string)
 	f.close()
 }
 println(fileNameDEF, ' was created')

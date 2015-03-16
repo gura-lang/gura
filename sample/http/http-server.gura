@@ -78,11 +78,11 @@ http.server(port => port).wait {|req|
 		addedLines:extern += '<div>hello</div>\n'
 	} elsif (m = req.path.match(r'/image/(.+)')) {
 		try {
-			stream = open('../resource/' + m.group(1)),
+			stream = open('../resource/' + m[1]),
 			req.response('200', nil, stream, headerCommon%,
 				'Connection'	=> 'Keep-Alive')
 		} catch {
-			str = 'image not found: ' + m.group(1)
+			str = 'image not found: ' + m[1]
 			req.response('404', nil, str.encode('utf-8'), headerCommon%,
 				'Connection'	=> 'close'
 				'Content-Type'	=> 'text/html')
