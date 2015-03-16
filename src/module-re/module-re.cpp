@@ -190,167 +190,6 @@ void IteratorGrep::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &en
 }
 
 //-----------------------------------------------------------------------------
-// Object_pattern
-//-----------------------------------------------------------------------------
-Object_pattern::~Object_pattern()
-{
-	if (_pRegEx != NULL) {
-		::onig_free(_pRegEx);
-	}
-}
-
-Object *Object_pattern::Clone() const
-{
-	return NULL;
-}
-
-String Object_pattern::ToString(bool exprFlag)
-{
-	String rtn;
-	rtn += "<re.pattern:'";
-	rtn += _pattern;
-	rtn += "'>";
-	return rtn;
-}
-
-//-----------------------------------------------------------------------------
-// Gura interfaces for re.pattern
-//-----------------------------------------------------------------------------
-// re.pattern#match(str:string, pos:number => 0):map {block?}
-Gura_DeclareMethod(pattern, match)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "str", VTYPE_string);
-	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Applies a pattern matching to a string and returns a match object.");
-}
-
-Gura_ImplementMethod(pattern, match)
-{
-	Object_pattern *pThis = Object_pattern::GetThisObj(args);
-	Value result = DoMatch(env, sig, pThis->GetRegEx(), args.GetString(0),
-			args.GetInt(1), args.Is_number(2)? args.GetInt(2) : -1);
-	if (result.IsInvalid()) return result;
-	return ReturnValue(env, sig, args, result);
-}
-
-// re.pattern#sub(replace, str:string, count?:number):map {block?}
-Gura_DeclareMethod(pattern, sub)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "replace", VTYPE_any);
-	DeclareArg(env, "str", VTYPE_string);
-	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementMethod(pattern, sub)
-{
-	Object_pattern *pThis = Object_pattern::GetThisObj(args);
-	int cnt = args.Is_number(2)? static_cast<int>(args.GetNumber(2)) : -1;
-	String result;
-	if (args.Is_string(0)) {
-		result = DoSubWithString(env, sig, pThis->GetRegEx(),
-						args.GetString(0), args.GetString(1), cnt);
-	} else if (args.Is_function(0)) {
-		result = DoSubWithFunc(env, sig, pThis->GetRegEx(),
-						args.GetFunction(0), args.GetString(1), cnt);
-	} else {
-		SetError_ArgumentTypeByIndex(sig, args, 0);
-		return Value::Null;
-	}
-	if (sig.IsSignalled()) return Value::Null;
-	if (!args.IsBlockSpecified()) return Value(result);
-	ValueList valListArg;
-	valListArg.reserve(2);
-	valListArg.push_back(Value(result));
-	valListArg.push_back(Value(result != args.GetStringSTL(1)));
-	return ReturnValues(env, sig, args, valListArg);
-}
-
-// re.pattern#split(str:string, count?:number):map {block?}
-Gura_DeclareMethod(pattern, split)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "str", VTYPE_string);
-	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementMethod(pattern, split)
-{
-	Object_pattern *pThis = Object_pattern::GetThisObj(args);
-	Object_pattern *pObjPattern = Object_pattern::Reference(pThis);
-	String str = args.GetStringSTL(0);
-	int cntMax = args.Is_number(1)? static_cast<int>(args.GetNumber(1)) : -1;
-	return ReturnIterator(env, sig, args,
-							new IteratorSplit(pObjPattern, str, cntMax));
-}
-
-// re.pattern#scan(str:string, pos:number => 0, endpos?:number):map {block?}
-Gura_DeclareMethod(pattern, scan)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "str", VTYPE_string);
-	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementMethod(pattern, scan)
-{
-	Object_pattern *pThis = Object_pattern::GetThisObj(args);
-	Object_pattern *pObjPattern = Object_pattern::Reference(pThis);
-	String str = args.GetStringSTL(0);
-	int posEnd = args.Is_number(2)? args.GetInt(2) : -1;
-	return ReturnIterator(env, sig, args,
-				new IteratorScan(pObjPattern, str, args.GetInt(1), posEnd));
-}
-
-//-----------------------------------------------------------------------------
-// Class implementation for re.pattern
-//-----------------------------------------------------------------------------
-Gura_ImplementUserClassWithCast(pattern)
-{
-	Gura_AssignMethod(pattern, match);
-	Gura_AssignMethod(pattern, sub);
-	Gura_AssignMethod(pattern, split);
-	Gura_AssignMethod(pattern, scan);
-}
-
-Gura_ImplementCastFrom(pattern)
-{
-	if (value.Is_string()) {
-		Object_pattern *pObjPattern = new Object_pattern(env);
-		if (!pObjPattern->SetPattern(sig, value.GetString(), SymbolSet::Null)) {
-			delete pObjPattern;
-			return false;
-		}
-		value = Value(pObjPattern);
-		return true;
-	}
-	return false;
-}
-
-Gura_ImplementCastTo(pattern)
-{
-	return false;
-}
-
-//-----------------------------------------------------------------------------
 // Object_match
 //-----------------------------------------------------------------------------
 Object_match::~Object_match()
@@ -545,6 +384,212 @@ Gura_ImplementUserClass(match)
 	Gura_AssignMethod(match, groups);
 	Gura_AssignMethod(match, start);
 	Gura_AssignMethod(match, end);
+}
+
+//-----------------------------------------------------------------------------
+// Object_group
+//-----------------------------------------------------------------------------
+Object_group::~Object_group()
+{
+}
+
+Object *Object_group::Clone() const
+{
+	return new Object_group(*this);
+}
+
+bool Object_group::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_Symbol(string));
+	return true;
+}
+
+Value Object_group::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_Symbol(string))) {
+		//return Value(GetString());
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+String Object_group::ToString(bool exprFlag)
+{
+	String rtn;
+	rtn += "<group:";
+	rtn += ">";
+	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Class implementation for re.group
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(group)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Object_pattern
+//-----------------------------------------------------------------------------
+Object_pattern::~Object_pattern()
+{
+	if (_pRegEx != NULL) {
+		::onig_free(_pRegEx);
+	}
+}
+
+Object *Object_pattern::Clone() const
+{
+	return NULL;
+}
+
+String Object_pattern::ToString(bool exprFlag)
+{
+	String rtn;
+	rtn += "<re.pattern:'";
+	rtn += _pattern;
+	rtn += "'>";
+	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for re.pattern
+//-----------------------------------------------------------------------------
+// re.pattern#match(str:string, pos:number => 0):map {block?}
+Gura_DeclareMethod(pattern, match)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "str", VTYPE_string);
+	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Applies a pattern matching to a string and returns a match object.");
+}
+
+Gura_ImplementMethod(pattern, match)
+{
+	Object_pattern *pThis = Object_pattern::GetThisObj(args);
+	Value result = DoMatch(env, sig, pThis->GetRegEx(), args.GetString(0),
+			args.GetInt(1), args.Is_number(2)? args.GetInt(2) : -1);
+	if (result.IsInvalid()) return result;
+	return ReturnValue(env, sig, args, result);
+}
+
+// re.pattern#sub(replace, str:string, count?:number):map {block?}
+Gura_DeclareMethod(pattern, sub)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "replace", VTYPE_any);
+	DeclareArg(env, "str", VTYPE_string);
+	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(pattern, sub)
+{
+	Object_pattern *pThis = Object_pattern::GetThisObj(args);
+	int cnt = args.Is_number(2)? static_cast<int>(args.GetNumber(2)) : -1;
+	String result;
+	if (args.Is_string(0)) {
+		result = DoSubWithString(env, sig, pThis->GetRegEx(),
+						args.GetString(0), args.GetString(1), cnt);
+	} else if (args.Is_function(0)) {
+		result = DoSubWithFunc(env, sig, pThis->GetRegEx(),
+						args.GetFunction(0), args.GetString(1), cnt);
+	} else {
+		SetError_ArgumentTypeByIndex(sig, args, 0);
+		return Value::Null;
+	}
+	if (sig.IsSignalled()) return Value::Null;
+	if (!args.IsBlockSpecified()) return Value(result);
+	ValueList valListArg;
+	valListArg.reserve(2);
+	valListArg.push_back(Value(result));
+	valListArg.push_back(Value(result != args.GetStringSTL(1)));
+	return ReturnValues(env, sig, args, valListArg);
+}
+
+// re.pattern#split(str:string, count?:number):map {block?}
+Gura_DeclareMethod(pattern, split)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "str", VTYPE_string);
+	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(pattern, split)
+{
+	Object_pattern *pThis = Object_pattern::GetThisObj(args);
+	Object_pattern *pObjPattern = Object_pattern::Reference(pThis);
+	String str = args.GetStringSTL(0);
+	int cntMax = args.Is_number(1)? static_cast<int>(args.GetNumber(1)) : -1;
+	return ReturnIterator(env, sig, args,
+							new IteratorSplit(pObjPattern, str, cntMax));
+}
+
+// re.pattern#scan(str:string, pos:number => 0, endpos?:number):map {block?}
+Gura_DeclareMethod(pattern, scan)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "str", VTYPE_string);
+	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(pattern, scan)
+{
+	Object_pattern *pThis = Object_pattern::GetThisObj(args);
+	Object_pattern *pObjPattern = Object_pattern::Reference(pThis);
+	String str = args.GetStringSTL(0);
+	int posEnd = args.Is_number(2)? args.GetInt(2) : -1;
+	return ReturnIterator(env, sig, args,
+				new IteratorScan(pObjPattern, str, args.GetInt(1), posEnd));
+}
+
+//-----------------------------------------------------------------------------
+// Class implementation for re.pattern
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClassWithCast(pattern)
+{
+	Gura_AssignMethod(pattern, match);
+	Gura_AssignMethod(pattern, sub);
+	Gura_AssignMethod(pattern, split);
+	Gura_AssignMethod(pattern, scan);
+}
+
+Gura_ImplementCastFrom(pattern)
+{
+	if (value.Is_string()) {
+		Object_pattern *pObjPattern = new Object_pattern(env);
+		if (!pObjPattern->SetPattern(sig, value.GetString(), SymbolSet::Null)) {
+			delete pObjPattern;
+			return false;
+		}
+		value = Value(pObjPattern);
+		return true;
+	}
+	return false;
+}
+
+Gura_ImplementCastTo(pattern)
+{
+	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -848,6 +893,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(multiline);
 	// class realization
 	Gura_RealizeUserClass(match, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(group, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(pattern, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(pattern);

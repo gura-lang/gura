@@ -53,6 +53,27 @@ public:
 typedef std::vector<Group> GroupList;
 
 //-----------------------------------------------------------------------------
+// Class declaration for re.group
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(group);
+
+class Object_group : public Object {
+public:
+	Gura_DeclareObjectAccessor(group)
+private:
+	Group _group;
+public:
+	inline Object_group(const Group &group) : Object(Gura_UserClass(group)), _group(group) {}
+	inline Object_group(const Object_group &obj) : Object(obj), _group(obj._group) {}
+	virtual ~Object_group();
+	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(bool exprFlag);
+};
+
+//-----------------------------------------------------------------------------
 // Class declaration for re.match
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(match);
