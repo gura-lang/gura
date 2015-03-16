@@ -88,7 +88,7 @@ private:
 	GroupList _groupList;
 	GroupNameDict _groupNameDict;
 public:
-	inline Object_match(Environment &env) : Object(Gura_UserClass(match)) {}
+	inline Object_match() : Object(Gura_UserClass(match)) {}
 	inline Object_match(const Object_match &obj) : Object(obj),
 			_pStrRef(obj._pStrRef->Reference()), _groupList(obj._groupList) {}
 	virtual ~Object_match();
@@ -123,8 +123,7 @@ private:
 public:
 	Gura_DeclareObjectAccessor(pattern)
 public:
-	inline Object_pattern(Environment &env) :
-						Object(Gura_UserClass(pattern)), _pRegEx(NULL) {}
+	inline Object_pattern() : Object(Gura_UserClass(pattern)), _pRegEx(NULL) {}
 	virtual ~Object_pattern();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);

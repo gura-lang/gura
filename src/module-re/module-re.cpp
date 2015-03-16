@@ -117,7 +117,7 @@ bool IteratorScan::DoNext(Environment &env, Signal sig, Value &value)
 		if (_pRegion->end[0] == _idx) {
 			return false;
 		}
-		Object_match *pObj = new Object_match(env);
+		Object_match *pObj = new Object_match();
 		if (!pObj->SetMatchInfo(str, _pObjPattern->GetRegEx(), _pRegion, 0)) {
 			SetError_FailInOniguruma(sig);
 			delete pObj;
@@ -576,7 +576,7 @@ Gura_ImplementUserClassWithCast(pattern)
 Gura_ImplementCastFrom(pattern)
 {
 	if (value.Is_string()) {
-		Object_pattern *pObjPattern = new Object_pattern(env);
+		Object_pattern *pObjPattern = new Object_pattern();
 		if (!pObjPattern->SetPattern(sig, value.GetString(), SymbolSet::Null)) {
 			delete pObjPattern;
 			return false;
@@ -767,7 +767,7 @@ Gura_DeclareFunction(pattern)
 
 Gura_ImplementFunction(pattern)
 {
-	Object_pattern *pObjPattern = new Object_pattern(env);
+	Object_pattern *pObjPattern = new Object_pattern();
 	if (!pObjPattern->SetPattern(sig, args.GetString(0), args.GetAttrs())) {
 		delete pObjPattern;
 		return Value::Null;
@@ -958,7 +958,7 @@ Value DoMatch(Environment &env, Signal sig, regex_t *pRegEx,
 				reinterpret_cast<const OnigUChar *>(strEnd),
 				pRegion, ONIG_OPTION_NONE);
 	if (rtn >= 0) {
-		Object_match *pObj = new Object_match(env);
+		Object_match *pObj = new Object_match();
 		if (pObj->SetMatchInfo(str, pRegEx, pRegion, pos)) {
 			result.InitAsObject(pObj);
 		} else {
@@ -1051,7 +1051,7 @@ String DoSubWithFunc(Environment &env, Signal sig, regex_t *pRegEx,
 					reinterpret_cast<const OnigUChar *>(str + len),
 					pRegion, ONIG_OPTION_NONE);
 		if (rtn >= 0) {
-			Object_match *pObj = new Object_match(env);
+			Object_match *pObj = new Object_match();
 			if (!pObj->SetMatchInfo(str, pRegEx, pRegion, 0)) {
 				SetError_FailInOniguruma(sig);
 				delete pObj;
