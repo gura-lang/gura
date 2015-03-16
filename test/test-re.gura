@@ -243,9 +243,13 @@ hoge
 
 testcase('group test') {
 	str = '12 345 6789 01 234 567 890'
-	ms = str.match(r'(\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+)')
+	m = str.match(r'(\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+)')
+	println('using re.match#group()')
 	repeat(7) {|i|
-		group = ms.group(i + 1)
+		group = m.group(i + 1)
 		printf('%-10s %d-%d\n', group.string, group.begin, group.end)
 	}
+	println('using re.match#groups()')
+	groups = m.groups()
+	printf('%-10s %d-%d\n', groups:*string, groups:*begin, groups:*end)
 }

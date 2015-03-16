@@ -546,8 +546,8 @@ Gura_ImplementMethod(pattern, split)
 	Object_pattern *pObjPattern = Object_pattern::Reference(pThis);
 	String str = args.GetStringSTL(0);
 	int cntMax = args.Is_number(1)? static_cast<int>(args.GetNumber(1)) : -1;
-	return ReturnIterator(env, sig, args,
-							new IteratorSplit(pObjPattern, str, cntMax));
+	AutoPtr<Iterator> pIterator(new IteratorSplit(pObjPattern, str, cntMax));
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 // re.pattern#scan(str:string, pos:number => 0, endpos?:number):map {block?}
@@ -569,8 +569,8 @@ Gura_ImplementMethod(pattern, scan)
 	Object_pattern *pObjPattern = Object_pattern::Reference(pThis);
 	String str = args.GetStringSTL(0);
 	int posEnd = args.Is_number(2)? args.GetInt(2) : -1;
-	return ReturnIterator(env, sig, args,
-				new IteratorScan(pObjPattern, str, args.GetInt(1), posEnd));
+	AutoPtr<Iterator> pIterator(new IteratorScan(pObjPattern, str, args.GetInt(1), posEnd));
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 //-----------------------------------------------------------------------------
@@ -685,8 +685,8 @@ Gura_ImplementMethod(string, splitreg)
 	Object_pattern *pObjPattern =
 			dynamic_cast<Object_pattern *>(Object::Reference(args.GetObject(0)));
 	int cntMax = args.Is_number(1)? static_cast<int>(args.GetNumber(1)) : -1;
-	return ReturnIterator(env, sig, args,
-				new IteratorSplit(pObjPattern, strThis, cntMax));
+	AutoPtr<Iterator> pIterator(new IteratorSplit(pObjPattern, strThis, cntMax));
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 // string#scan(pattern:pattern, pos:number => 0, endpos?:number):map {block?}
@@ -708,8 +708,8 @@ Gura_ImplementMethod(string, scan)
 	Object_pattern *pObjPattern =
 			dynamic_cast<Object_pattern *>(Object::Reference(args.GetObject(0)));
 	int posEnd = args.Is_number(2)? args.GetInt(2) : -1;
-	return ReturnIterator(env, sig, args,
-			new IteratorScan(pObjPattern, strThis, args.GetInt(1), posEnd));
+	AutoPtr<Iterator> pIterator(new IteratorScan(pObjPattern, strThis, args.GetInt(1), posEnd));
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 //-----------------------------------------------------------------------------
@@ -867,8 +867,8 @@ Gura_ImplementFunction(split)
 			dynamic_cast<Object_pattern *>(Object::Reference(args.GetObject(0)));
 	String str = args.GetStringSTL(1);
 	int cntMax = args.Is_number(2)? static_cast<int>(args.GetNumber(2)) : -1;
-	return ReturnIterator(env, sig, args,
-							new IteratorSplit(pObjPattern, str, cntMax));
+	AutoPtr<Iterator> pIterator(new IteratorSplit(pObjPattern, str, cntMax));
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 // re.scan(pattern:pattern, str:string, pos:number => 0, endpos?:number):map {block?}
@@ -891,8 +891,8 @@ Gura_ImplementFunction(scan)
 			dynamic_cast<Object_pattern *>(Object::Reference(args.GetObject(0)));
 	String str = args.GetStringSTL(1);
 	int posEnd = args.Is_number(3)? args.GetInt(3) : -1;
-	return ReturnIterator(env, sig, args,
-				new IteratorScan(pObjPattern, str, args.GetInt(2), posEnd));
+	AutoPtr<Iterator> pIterator(new IteratorScan(pObjPattern, str, args.GetInt(2), posEnd));
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 // Module entry
