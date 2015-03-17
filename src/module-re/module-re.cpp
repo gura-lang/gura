@@ -351,7 +351,7 @@ Gura_DeclareMethod(match, group)
 	DeclareArg(env, "index", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a `re.group` instance that is associated with the value of `index`.\n");
 }
 
 Gura_ImplementMethod(match, group)
@@ -369,7 +369,7 @@ Gura_DeclareMethod(match, groups)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that returns `re.group` instances.");
 }
 
 Gura_ImplementMethod(match, groups)
@@ -479,7 +479,8 @@ Gura_DeclareMethod(pattern, match)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Applies a pattern matching to a string and returns a match object.");
+		"Applies a pattern matching to the given string and returns a `re.match` instance\n"
+		"if the matching successes. If not, it would return `nil`.\n");
 }
 
 Gura_ImplementMethod(pattern, match)
