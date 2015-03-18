@@ -3,6 +3,49 @@
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
+// match(pattern:pattern, str:string, pos:number => 0, endpos?:number):map {block?}
+#define Help_match \
+"Applies a pattern matching to the given string and returns a `re.match` instance\n" \
+"if the matching successes. If not, it would return `nil`.\n" \
+"\n" \
+"The argument `pos` specifies the starting position for matching process.\n" \
+"If omitted, it starts from the beginning of the string.\n" \
+"\n" \
+"The argument `endpos` specifies the ending position for matching process.\n" \
+"If omitted, it would be processed until the end of the string.\n" \
+"\n" \
+"If `block` is specified, it would be evaluated with a block parameter `|m:re.match|`,\n" \
+"where `m` is the created instance.\n" \
+"In this case, the block's result would become the function's returned value.\n"
+
+// sub(pattern:pattern, replace, str:string, count?:number):map {block?}
+#define Help_sub \
+"Substitutes strings that matches `pattern` with the specified replacer.\n" \
+"\n" \
+"The argument `replace` takes a `string` or `function`.\n" \
+"\n" \
+"If a `string` is specified, it would be used as a substituting string,\n" \
+"in which you can use macros `\\0`, `\\1`, `\\2` .. to refer to matched groups.\n" \
+"\n" \
+"If a `function` is specified, it would be called with an argument `m:re.match`\n" \
+"and is expected to return a string for subsitution.\n" \
+"\n" \
+"The argument `count` specifies the maximum number of substitutions.\n" \
+"If omitted, no limit would be applied.\n" \
+"\n" \
+"If `block` is specified, it would be evaluated with a block parameter `|str:string|`,\n" \
+"where `str` is the result string.\n" \
+"In this case, the block's result would become the function's returned value.\n"
+
+
+// split(pattern:pattern, str:string, count?:number):map {block?}
+#define Help_split \
+""
+
+// scan(pattern:pattern, str:string, pos:number => 0, endpos?:number):map {block?}
+#define Help_scan \
+""
+
 Gura_BeginModuleBody(re)
 
 //-----------------------------------------------------------------------------
@@ -344,7 +387,7 @@ int Object_match::ForeachNameCallbackStub(
 //-----------------------------------------------------------------------------
 // Gura interfaces for re.match
 //-----------------------------------------------------------------------------
-// re.match(pattern:pattern, str:string, pos:number => 0):map {block?}
+// re.match(pattern:pattern, str:string, pos:number => 0, endpos?:number):map {block?}
 Gura_DeclareFunction(match)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -356,7 +399,7 @@ Gura_DeclareFunction(match)
 	SetClassToConstruct(Gura_UserClass(match));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Help_match);
 }
 
 Gura_ImplementFunction(match)
@@ -546,7 +589,7 @@ Gura_ImplementFunction(pattern)
 	return ReturnValue(env, sig, args, Value(pObjPattern));
 }
 
-// re.pattern#match(str:string, pos:number => 0):map {block?}
+// re.pattern#match(str:string, pos:number => 0, endpos?:number):map {block?}
 Gura_DeclareMethod(pattern, match)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -556,8 +599,7 @@ Gura_DeclareMethod(pattern, match)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Applies a pattern matching to the given string and returns a `re.match` instance\n"
-		"if the matching successes. If not, it would return `nil`.\n");
+		Help_match);
 }
 
 Gura_ImplementMethod(pattern, match)
@@ -579,7 +621,7 @@ Gura_DeclareMethod(pattern, sub)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Help_sub);
 }
 
 Gura_ImplementMethod(pattern, sub)
@@ -615,7 +657,7 @@ Gura_DeclareMethod(pattern, split)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Help_split);
 }
 
 Gura_ImplementMethod(pattern, split)
@@ -638,7 +680,7 @@ Gura_DeclareMethod(pattern, scan)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Help_scan);
 }
 
 Gura_ImplementMethod(pattern, scan)
@@ -695,7 +737,7 @@ Gura_DeclareMethod(string, match)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Help_match);
 }
 
 Gura_ImplementMethod(string, match)
@@ -718,7 +760,7 @@ Gura_DeclareMethod(string, sub)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Help_sub);
 }
 
 Gura_ImplementMethod(string, sub)
@@ -755,7 +797,7 @@ Gura_DeclareMethod(string, splitreg)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Help_split);
 }
 
 Gura_ImplementMethod(string, splitreg)
@@ -778,7 +820,7 @@ Gura_DeclareMethod(string, scan)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Help_scan);
 }
 
 Gura_ImplementMethod(string, scan)
@@ -852,7 +894,7 @@ Gura_DeclareFunction(sub)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Help_sub);
 }
 
 Gura_ImplementFunction(sub)
@@ -889,7 +931,7 @@ Gura_DeclareFunction(split)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Help_split);
 }
 
 Gura_ImplementFunction(split)
@@ -913,7 +955,7 @@ Gura_DeclareFunction(scan)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		Help_scan);
 }
 
 Gura_ImplementFunction(scan)

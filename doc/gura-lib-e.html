@@ -19205,6 +19205,19 @@ string#scan()</code>
 
 </p>
 <h2><span class="caption-index-2">38.1</span><a name="caption-38-1"></a>Regular Expression</h2>
+<p>
+You can describe a matching pattern using a syntax based on POSIX Extended Regular Expression.
+</p>
+<p>
+The syntax uses a back slash character to avoid some characters such as "<code>(</code>" and "<code>)</code>" from being recognized as a meta character. Since a back slash is used as an escaping character in Gura string as well, you have to write two back slashes to represent a single back slash in a regular expression. For example, an expression "<code>sin\(x\)</code>" that matches a string "<code>sin(x)</code>" is described as below:
+</p>
+<pre><code>m = str.match('sin\\(x\\)')
+</code></pre>
+<p>
+Using a raw string appended with a prefix "<code>r</code>", in which a back slash is parsed as a regular character, could avoid such complications.
+</p>
+<pre><code>m = str.match(r'sin\(x\)')
+</code></pre>
 <h2><span class="caption-index-2">38.2</span><a name="caption-38-2"></a>re.match Class</h2>
 <p>
 An instance of <code>re.match</code> class is used as a result value of <code>re.match()</code>, <code>re.pattern#match()</code> and <code>string#match()</code> to provide matching information.
@@ -19238,7 +19251,7 @@ string</code>
 R</td>
 
 <td>
-</td>
+String that has been matched.</td>
 </tr>
 
 
@@ -19255,7 +19268,7 @@ string</code>
 R</td>
 
 <td>
-</td>
+String of the matched part.</td>
 </tr>
 
 
@@ -19272,7 +19285,7 @@ number</code>
 R</td>
 
 <td>
-</td>
+Beginning position of the matched part.</td>
 </tr>
 
 
@@ -19289,7 +19302,7 @@ number</code>
 R</td>
 
 <td>
-</td>
+Ending position of the matched part.</td>
 </tr>
 
 
@@ -19384,6 +19397,9 @@ In default, this returns an iterator as its result value. Specifying the followi
 If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <h2><span class="caption-index-2">38.3</span><a name="caption-38-3"></a>re.group Class</h2>
+<p>
+The <code>re.group</code> instance provides information of capturing groups that are stored in <code>re.match</code> instance.
+</p>
 <h3><span class="caption-index-3">38.3.1</span><a name="caption-38-3-1"></a>Property</h3>
 <p>
 <table>
@@ -19413,7 +19429,7 @@ string</code>
 R</td>
 
 <td>
-</td>
+String of the group.</td>
 </tr>
 
 
@@ -19430,7 +19446,7 @@ number</code>
 R</td>
 
 <td>
-</td>
+Beginning position of the group.</td>
 </tr>
 
 
@@ -19447,7 +19463,7 @@ number</code>
 R</td>
 
 <td>
-</td>
+Ending position of the group.</td>
 </tr>
 
 
@@ -19455,6 +19471,9 @@ R</td>
 
 </p>
 <h2><span class="caption-index-2">38.4</span><a name="caption-38-4"></a>re.pattern Class</h2>
+<p>
+The <code>re.pattern</code> class is used to describe a pattern of regular expression.
+</p>
 <h3><span class="caption-index-3">38.4.1</span><a name="caption-38-4-1"></a>Cast Operation</h3>
 <p>
 A function that expects a <code>re.pattern</code> instance in its argument can also take a value of <code>string</code> below:
