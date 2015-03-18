@@ -19362,7 +19362,7 @@ m.group(2).string // returns the 2nd group: 34
 m.group(3).string // returns the 3rd group: 56
 </code></pre>
 <p>
-The value of <code>string</code> is used to point out a named capturing group that is described as "<code>(?&lt;name&gt;group)</code>" in a regular expression.
+The value of <code>string</code> is used to point out a named capturing group that is described in a regular expression as "<code>(?&lt;name&gt;group)</code>".
 </p>
 <p>
 Below is an example:
@@ -19506,10 +19506,37 @@ Using the above casting feature, you can call a function <code>f(pattern:re.patt
 Applies a pattern matching to the given string and returns a <code>re.match</code> instance if the matching successes. If not, it would return <code>nil</code>.
 </p>
 <p>
+The argument <code>pos</code> specifies the starting position for matching process. If omitted, it starts from the beginning of the string.
+</p>
+<p>
+The argument <code>endpos</code> specifies the ending position for matching process. If omitted, it would be processed until the end of the string.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|m:re.match|</code>, where <code>m</code> is the created instance. In this case, the block's result would become the function's returned value.
+</p>
+<p>
 <strong>re.pattern#sub</strong>
 </p>
 <p>
 <code>re.pattern#sub(replace, str:string, count?:number):map {block?}</code>
+</p>
+<p>
+Substitutes strings that matches <code>pattern</code> with the specified replacer.
+</p>
+<p>
+The argument <code>replace</code> takes a <code>string</code> or <code>function</code>.
+</p>
+<p>
+If a <code>string</code> is specified, it would be used as a substituting string, in which you can use macros <code>\0</code>, <code>\1</code>, <code>\2</code> .. to refer to matched groups.
+</p>
+<p>
+If a <code>function</code> is specified, it would be called with an argument <code>m:re.match</code> and is expected to return a string for subsitution.
+</p>
+<p>
+The argument <code>count</code> specifies the maximum number of substitutions. If omitted, no limit would be applied.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|str:string|</code>, where <code>str</code> is the result string. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 <strong>re.pattern#split</strong>
@@ -19534,10 +19561,40 @@ This module extends the <code>string</code> class with methods described here.
 <code>string#match(pattern:re.pattern, pos:number =&gt; 0, endpos?:number):map {block?}</code>
 </p>
 <p>
+Applies a pattern matching to the given string and returns a <code>re.match</code> instance if the matching successes. If not, it would return <code>nil</code>.
+</p>
+<p>
+The argument <code>pos</code> specifies the starting position for matching process. If omitted, it starts from the beginning of the string.
+</p>
+<p>
+The argument <code>endpos</code> specifies the ending position for matching process. If omitted, it would be processed until the end of the string.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|m:re.match|</code>, where <code>m</code> is the created instance. In this case, the block's result would become the function's returned value.
+</p>
+<p>
 <strong>string#sub</strong>
 </p>
 <p>
 <code>string#sub(pattern:re.pattern, replace, count?:number):map {block?}</code>
+</p>
+<p>
+Substitutes strings that matches <code>pattern</code> with the specified replacer.
+</p>
+<p>
+The argument <code>replace</code> takes a <code>string</code> or <code>function</code>.
+</p>
+<p>
+If a <code>string</code> is specified, it would be used as a substituting string, in which you can use macros <code>\0</code>, <code>\1</code>, <code>\2</code> .. to refer to matched groups.
+</p>
+<p>
+If a <code>function</code> is specified, it would be called with an argument <code>m:re.match</code> and is expected to return a string for subsitution.
+</p>
+<p>
+The argument <code>count</code> specifies the maximum number of substitutions. If omitted, no limit would be applied.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|str:string|</code>, where <code>str</code> is the result string. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 <strong>string#splitreg</strong>
@@ -19569,10 +19626,40 @@ This module extends the iterable classes, <code>list</code> and <code>iterator</
 <code>re.match(pattern:re.pattern, str:string, pos:number =&gt; 0, endpos?:number):map {block?}</code>
 </p>
 <p>
+Applies a pattern matching to the given string and returns a <code>re.match</code> instance if the matching successes. If not, it would return <code>nil</code>.
+</p>
+<p>
+The argument <code>pos</code> specifies the starting position for matching process. If omitted, it starts from the beginning of the string.
+</p>
+<p>
+The argument <code>endpos</code> specifies the ending position for matching process. If omitted, it would be processed until the end of the string.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|m:re.match|</code>, where <code>m</code> is the created instance. In this case, the block's result would become the function's returned value.
+</p>
+<p>
 <strong>re.sub</strong>
 </p>
 <p>
 <code>re.sub(pattern:re.pattern, replace, str:string, count?:number):map {block?}</code>
+</p>
+<p>
+Substitutes strings that matches <code>pattern</code> with the specified replacer.
+</p>
+<p>
+The argument <code>replace</code> takes a <code>string</code> or <code>function</code>.
+</p>
+<p>
+If a <code>string</code> is specified, it would be used as a substituting string, in which you can use macros <code>\0</code>, <code>\1</code>, <code>\2</code> .. to refer to matched groups.
+</p>
+<p>
+If a <code>function</code> is specified, it would be called with an argument <code>m:re.match</code> and is expected to return a string for subsitution.
+</p>
+<p>
+The argument <code>count</code> specifies the maximum number of substitutions. If omitted, no limit would be applied.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|str:string|</code>, where <code>str</code> is the result string. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 <strong>re.split</strong>
