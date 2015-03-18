@@ -253,3 +253,14 @@ testcase('group test') {
 	groups = m.groups()
 	printf('%-10s %d-%d\n', groups:*string, groups:*begin, groups:*end)
 }
+
+testcase('named capturing group') {
+	str = '12:34:56'
+	m = str.match(r'(?<hour>\d\d):(?<min>\d\d):(?<sec>\d\d)')
+	println(m.group('hour').string)
+	println(m.group('min').string)
+	println(m.group('sec').string)
+	println(m['hour'])
+	println(m['min'])
+	println(m['sec'])
+}
