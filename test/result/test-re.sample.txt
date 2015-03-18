@@ -212,3 +212,12 @@ using re.match#groups()
 234        15-18
 567        19-22
 890        23-26
+
+======== #32 named capturing group ========
+
+12
+34
+56
+12
+34
+56

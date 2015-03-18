@@ -80,7 +80,16 @@ An instance of `re.match` class is used as a result value of
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
+<tr><td><code>re.match#source</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
 <tr><td><code>re.match#string</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>re.match#begin</code></td><td><code>number</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>re.match#end</code></td><td><code>number</code></td><td>R</td>
 <td></td></tr>
 
 </table>
@@ -88,9 +97,31 @@ An instance of `re.match` class is used as a result value of
 
 ### Index Access
 
-A `re.match` instance can be indexed with a `number` or `string` value
-that represents a grouping index or a group name.
-This has the same effect as calling `re.match#group` method.
+A `re.match` instance can be indexed with a `number` or `string` value.
+
+The value of `number` indicates the group index number that starts from zero.
+The group indexed by zero is special and represents the whole region of the match.
+The groups indexed by numbers greater than zero correspond to matching patterns of grouping.
+
+Below is an example:
+
+    str = '12:34:56'\n"
+    m = str.match(r'(\d\d):(\d\d):(\d\d)')\n"
+    m[0]  // returns the whole region of matching: 12:34:56\n"
+    m[1]  // returns the 1st group: 12\n"
+    m[2]  // returns the 2nd group: 34\n"
+    m[3]  // returns the 3rd group: 56\n"
+
+The value of `string` is used to point out a named capturing group
+that is described as "`(?<name>group)`" in a regular expression.
+
+Below is an example:
+
+    str = '12:34:56'\n"
+    m = str.match(r'(?<hour>\d\d):(?<min>\d\d):(?<sec>\d\d)')\n"
+    m['hour']  // returns the group named 'hour': 12\n"
+    m['min']   // returns the group named 'min': 34\n"
+    m['sec']   // returns the group named 'sec': 56\n");
 
 
 ### Method
@@ -98,19 +129,27 @@ This has the same effect as calling `re.match#group` method.
 ${markdown.funcdoc(
 re.match.group
 re.match.groups
-re.match.start
-re.match.end
 )}
 
 
-## Module Function
+## re.group Class
 
-${markdown.funcdoc(
-re.match
-re.sub
-re.split
-re.scan
-)}
+
+### Property
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>re.group#string</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>re.group#begin</code></td><td><code>number</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>re.group#end</code></td><td><code>number</code></td><td>R</td>
+<td></td></tr>
+
+</table>
 
 
 ## re.pattern Class
@@ -123,7 +162,7 @@ A function that expects a `re.pattern` instance in its argument can also take a 
 - `string` .. Recognized as a regular expression from which `re.pattern` instance is created.
 
 Using the above casting feature, you can call a function `f(pattern:re.pattern)`
-that takes a `re.pattern` instance in its argument as below:
+that expects a `re.pattern` instance in its argument as below:
 
 - `f(re.pattern('gur[ai]'))` .. The most explicit way.
 - `f('gur[ai]')` .. Implicit casting: from `string` to `re.pattern`.
@@ -165,6 +204,15 @@ ${funcdoc_iterable(
 iterator.grep
 )}
 
+
+## Module Function
+
+${markdown.funcdoc(
+re.match
+re.sub
+re.split
+re.scan
+)}
 '''.template().render()
 
 write(doc:markdown.document) = {

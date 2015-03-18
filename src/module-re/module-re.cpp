@@ -344,6 +344,30 @@ int Object_match::ForeachNameCallbackStub(
 //-----------------------------------------------------------------------------
 // Gura interfaces for re.match
 //-----------------------------------------------------------------------------
+// re.match(pattern:pattern, str:string, pos:number => 0):map {block?}
+Gura_DeclareFunction(match)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "pattern", VTYPE_pattern);
+	DeclareArg(env, "str", VTYPE_string);
+	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(Gura_UserClass(match));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(match)
+{
+	regex_t *pRegEx = dynamic_cast<Object_pattern *>(args.GetObject(0))->GetRegEx();
+	Value result = DoMatch(env, sig, pRegEx, args.GetString(1),
+			args.GetInt(2), args.Is_number(3)? args.GetInt(3) : -1);
+	if (result.IsInvalid()) return result;
+	return ReturnValue(env, sig, args, result);
+}
+
 // re.match#group(index):map
 Gura_DeclareMethod(match, group)
 {
@@ -351,7 +375,32 @@ Gura_DeclareMethod(match, group)
 	DeclareArg(env, "index", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a `re.group` instance that is associated with the value of `index`.\n");
+		"Returns a `re.group` instance that is positioned by the specified index.\n"
+		"\n"
+		"The argument `index` is a value of `number` or `string`.\n"
+		"\n"
+		"The value of `number` indicates the group index number that starts from zero.\n"
+		"The group indexed by zero is special and represents the whole region of the match.\n"
+		"The groups indexed by numbers greater than zero correspond to matching patterns of grouping.\n"
+		"Below is an example:\n"
+		"\n"
+		"    str = '12:34:56'\n"
+		"    m = str.match(r'(\d\d):(\d\d):(\d\d)')\n"
+		"    m.group(0).string // returns the whole region of matching: 12:34:56\n"
+		"    m.group(1).string // returns the 1st group: 12\n"
+		"    m.group(2).string // returns the 2nd group: 34\n"
+		"    m.group(3).string // returns the 3rd group: 56\n"
+		"\n"
+		"The value of `string` is used to point out a named capturing group\n"
+		"that is described in a regular expression as \"`(?<name>group)`\".\n"
+		"\n"
+		"Below is an example:\n"
+		"\n"
+		"    str = '12:34:56'\n"
+		"    m = str.match(r'(?<hour>\d\d):(?<min>\d\d):(?<sec>\d\d)')\n"
+		"    m.group('hour').string // returns the group named 'hour': 12\n"
+		"    m.group('min').string  // returns the group named 'min': 34\n"
+		"    m.group('sec').string  // returns the group named 'sec': 56\n");
 }
 
 Gura_ImplementMethod(match, group)
@@ -369,7 +418,9 @@ Gura_DeclareMethod(match, groups)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates an iterator that returns `re.group` instances.");
+		"Creates an iterator that returns `re.group` instances.\n"
+		"\n"
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(match, groups)
@@ -384,6 +435,7 @@ Gura_ImplementMethod(match, groups)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(match)
 {
+	Gura_AssignFunction(match);
 	Gura_AssignMethod(match, group);
 	Gura_AssignMethod(match, groups);
 }
@@ -440,6 +492,7 @@ String Object_group::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(group)
 {
+	Gura_AssignValue(group, Reference());
 }
 
 //-----------------------------------------------------------------------------
@@ -469,6 +522,30 @@ String Object_pattern::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for re.pattern
 //-----------------------------------------------------------------------------
+// re.pattern(pattern:string):map:[icase,multiline] {block?}
+Gura_DeclareFunction(pattern)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "pattern", VTYPE_string);
+	DeclareAttr(Gura_Symbol(icase));
+	DeclareAttr(Gura_UserSymbol(multiline));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(Gura_UserClass(pattern));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(pattern)
+{
+	Object_pattern *pObjPattern = new Object_pattern();
+	if (!pObjPattern->SetPattern(sig, args.GetString(0), args.GetAttrs())) {
+		delete pObjPattern;
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(pObjPattern));
+}
+
 // re.pattern#match(str:string, pos:number => 0):map {block?}
 Gura_DeclareMethod(pattern, match)
 {
@@ -579,6 +656,7 @@ Gura_ImplementMethod(pattern, scan)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClassWithCast(pattern)
 {
+	Gura_AssignFunction(pattern);
 	Gura_AssignMethod(pattern, match);
 	Gura_AssignMethod(pattern, sub);
 	Gura_AssignMethod(pattern, split);
@@ -763,54 +841,6 @@ Gura_ImplementMethod(iterator, grep)
 //-----------------------------------------------------------------------------
 // Gura module functions: re
 //-----------------------------------------------------------------------------
-// re.pattern(pattern:string):map:[icase,multiline] {block?}
-Gura_DeclareFunction(pattern)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "pattern", VTYPE_string);
-	DeclareAttr(Gura_Symbol(icase));
-	DeclareAttr(Gura_UserSymbol(multiline));
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetClassToConstruct(Gura_UserClass(pattern));
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementFunction(pattern)
-{
-	Object_pattern *pObjPattern = new Object_pattern();
-	if (!pObjPattern->SetPattern(sig, args.GetString(0), args.GetAttrs())) {
-		delete pObjPattern;
-		return Value::Null;
-	}
-	return ReturnValue(env, sig, args, Value(pObjPattern));
-}
-
-// re.match(pattern:pattern, str:string, pos:number => 0):map {block?}
-Gura_DeclareFunction(match)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "pattern", VTYPE_pattern);
-	DeclareArg(env, "str", VTYPE_string);
-	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetClassToConstruct(Gura_UserClass(match));
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementFunction(match)
-{
-	regex_t *pRegEx = dynamic_cast<Object_pattern *>(args.GetObject(0))->GetRegEx();
-	Value result = DoMatch(env, sig, pRegEx, args.GetString(1),
-			args.GetInt(2), args.Is_number(3)? args.GetInt(3) : -1);
-	if (result.IsInvalid()) return result;
-	return ReturnValue(env, sig, args, result);
-}
-
 // re.sub(pattern:pattern, replace, str:string, count?:number):map {block?}
 Gura_DeclareFunction(sub)
 {
@@ -904,12 +934,13 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(string);
 	Gura_RealizeUserSymbol(multiline);
 	// class realization
-	Gura_RealizeUserClass(match, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(group, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(pattern, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassWithoutPrepare(match, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassWithoutPrepare(group, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassWithoutPrepare(pattern, env.LookupClass(VTYPE_object));
+	Gura_UserClass(match)->Prepare(env);
+	Gura_UserClass(group)->Prepare(env);
+	Gura_UserClass(pattern)->Prepare(env);
 	// function assignment
-	Gura_AssignFunction(pattern);
-	Gura_AssignFunction(match);
 	Gura_AssignFunction(sub);
 	Gura_AssignFunction(split);
 	Gura_AssignFunction(scan);

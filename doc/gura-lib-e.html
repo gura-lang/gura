@@ -19228,6 +19228,23 @@ Explanation</th>
 <tr>
 <td>
 <code>
+re.match#source</code>
+</td>
+<td>
+<code>
+string</code>
+</td>
+<td>
+R</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
 re.match#string</code>
 </td>
 <td>
@@ -19242,13 +19259,72 @@ R</td>
 </tr>
 
 
+<tr>
+<td>
+<code>
+re.match#begin</code>
+</td>
+<td>
+<code>
+number</code>
+</td>
+<td>
+R</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+re.match#end</code>
+</td>
+<td>
+<code>
+number</code>
+</td>
+<td>
+R</td>
+
+<td>
+</td>
+</tr>
+
+
 </table>
 
 </p>
 <h3><span class="caption-index-3">38.2.2</span><a name="caption-38-2-2"></a>Index Access</h3>
 <p>
-A <code>re.match</code> instance can be indexed with a <code>number</code> or <code>string</code> value that represents a grouping index or a group name. This has the same effect as calling <code>re.match#group</code> method.
+A <code>re.match</code> instance can be indexed with a <code>number</code> or <code>string</code> value.
 </p>
+<p>
+The value of <code>number</code> indicates the group index number that starts from zero. The group indexed by zero is special and represents the whole region of the match. The groups indexed by numbers greater than zero correspond to matching patterns of grouping.
+</p>
+<p>
+Below is an example:
+</p>
+<pre><code>str = '12:34:56'\n"
+m = str.match(r'(\d\d):(\d\d):(\d\d)')\n"
+m[0]  // returns the whole region of matching: 12:34:56\n"
+m[1]  // returns the 1st group: 12\n"
+m[2]  // returns the 2nd group: 34\n"
+m[3]  // returns the 3rd group: 56\n"
+</code></pre>
+<p>
+The value of <code>string</code> is used to point out a named capturing group that is described as "<code>(?&lt;name&gt;group)</code>" in a regular expression.
+</p>
+<p>
+Below is an example:
+</p>
+<pre><code>str = '12:34:56'\n"
+m = str.match(r'(?&lt;hour&gt;\d\d):(?&lt;min&gt;\d\d):(?&lt;sec&gt;\d\d)')\n"
+m['hour']  // returns the group named 'hour': 12\n"
+m['min']   // returns the group named 'min': 34\n"
+m['sec']   // returns the group named 'sec': 56\n");
+</code></pre>
 <h3><span class="caption-index-3">38.2.3</span><a name="caption-38-2-3"></a>Method</h3>
 <p>
 <strong>re.match#group</strong>
@@ -19257,47 +19333,126 @@ A <code>re.match</code> instance can be indexed with a <code>number</code> or <c
 <code>re.match#group(index):map</code>
 </p>
 <p>
+Returns a <code>re.group</code> instance that is positioned by the specified index.
+</p>
+<p>
+The argument <code>index</code> is a value of <code>number</code> or <code>string</code>.
+</p>
+<p>
+The value of <code>number</code> indicates the group index number that starts from zero. The group indexed by zero is special and represents the whole region of the match. The groups indexed by numbers greater than zero correspond to matching patterns of grouping. Below is an example:
+</p>
+<pre><code>str = '12:34:56'
+m = str.match(r'(dd):(dd):(dd)')
+m.group(0).string // returns the whole region of matching: 12:34:56
+m.group(1).string // returns the 1st group: 12
+m.group(2).string // returns the 2nd group: 34
+m.group(3).string // returns the 3rd group: 56
+</code></pre>
+<p>
+The value of <code>string</code> is used to point out a named capturing group that is described as "<code>(?&lt;name&gt;group)</code>" in a regular expression.
+</p>
+<p>
+Below is an example:
+</p>
+<pre><code>str = '12:34:56'
+m = str.match(r'(?&lt;hour&gt;dd):(?&lt;min&gt;dd):(?&lt;sec&gt;dd)')
+m.group('hour').string // returns the group named 'hour': 12
+m.group('min').string  // returns the group named 'min': 34
+m.group('sec').string  // returns the group named 'sec': 56
+</code></pre>
+<p>
 <strong>re.match#groups</strong>
 </p>
 <p>
-<code>re.match#groups()</code>
+<code>re.match#groups() {block?}</code>
 </p>
 <p>
-<strong>re.match#start</strong>
+Creates an iterator that returns <code>re.group</code> instances.
 </p>
 <p>
-<code>re.match#start(index):map</code>
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
+<ul>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
+</ul>
 <p>
-<strong>re.match#end</strong>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
+<h2><span class="caption-index-2">38.3</span><a name="caption-38-3"></a>re.group Class</h2>
+<h3><span class="caption-index-3">38.3.1</span><a name="caption-38-3-1"></a>Property</h3>
 <p>
-<code>re.match#end(index):map</code>
-</p>
-<h2><span class="caption-index-2">38.3</span><a name="caption-38-3"></a>Module Function</h2>
-<p>
-<strong>re.match</strong>
-</p>
-<p>
-<code>re.match(pattern:re.pattern, str:string, pos:number =&gt; 0, endpos?:number):map {block?}</code>
-</p>
-<p>
-<strong>re.sub</strong>
-</p>
-<p>
-<code>re.sub(pattern:re.pattern, replace, str:string, count?:number):map {block?}</code>
-</p>
-<p>
-<strong>re.split</strong>
-</p>
-<p>
-<code>re.split(pattern:re.pattern, str:string, count?:number):map {block?}</code>
-</p>
-<p>
-<strong>re.scan</strong>
-</p>
-<p>
-<code>re.scan(pattern:re.pattern, str:string, pos:number =&gt; 0, endpos?:number):map {block?}</code>
+<table>
+
+<tr>
+<th>
+Property</th>
+<th>
+Type</th>
+<th>
+R/W</th>
+<th>
+Explanation</th>
+</tr>
+
+
+<tr>
+<td>
+<code>
+re.group#string</code>
+</td>
+<td>
+<code>
+string</code>
+</td>
+<td>
+R</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+re.group#begin</code>
+</td>
+<td>
+<code>
+number</code>
+</td>
+<td>
+R</td>
+
+<td>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+re.group#end</code>
+</td>
+<td>
+<code>
+number</code>
+</td>
+<td>
+R</td>
+
+<td>
+</td>
+</tr>
+
+
+</table>
+
 </p>
 <h2><span class="caption-index-2">38.4</span><a name="caption-38-4"></a>re.pattern Class</h2>
 <h3><span class="caption-index-3">38.4.1</span><a name="caption-38-4-1"></a>Cast Operation</h3>
@@ -19308,7 +19463,7 @@ A function that expects a <code>re.pattern</code> instance in its argument can a
 <li><code>string</code> .. Recognized as a regular expression from which <code>re.pattern</code> instance is created.</li>
 </ul>
 <p>
-Using the above casting feature, you can call a function <code>f(pattern:re.pattern)</code> that takes a <code>re.pattern</code> instance in its argument as below:
+Using the above casting feature, you can call a function <code>f(pattern:re.pattern)</code> that expects a <code>re.pattern</code> instance in its argument as below:
 </p>
 <ul>
 <li><code>f(re.pattern('gur[ai]'))</code> .. The most explicit way.</li>
@@ -19329,7 +19484,7 @@ Using the above casting feature, you can call a function <code>f(pattern:re.patt
 <code>re.pattern#match(str:string, pos:number =&gt; 0, endpos?:number):map {block?}</code>
 </p>
 <p>
-Applies a pattern matching to a string and returns a match object.
+Applies a pattern matching to the given string and returns a <code>re.match</code> instance if the matching successes. If not, it would return <code>nil</code>.
 </p>
 <p>
 <strong>re.pattern#sub</strong>
@@ -19386,6 +19541,31 @@ This module extends the iterable classes, <code>list</code> and <code>iterator</
 </p>
 <p>
 <code>iterable#grep(pattern:re.pattern):map {block?}</code>
+</p>
+<h2><span class="caption-index-2">38.7</span><a name="caption-38-7"></a>Module Function</h2>
+<p>
+<strong>re.match</strong>
+</p>
+<p>
+<code>re.match(pattern:re.pattern, str:string, pos:number =&gt; 0, endpos?:number):map {block?}</code>
+</p>
+<p>
+<strong>re.sub</strong>
+</p>
+<p>
+<code>re.sub(pattern:re.pattern, replace, str:string, count?:number):map {block?}</code>
+</p>
+<p>
+<strong>re.split</strong>
+</p>
+<p>
+<code>re.split(pattern:re.pattern, str:string, count?:number):map {block?}</code>
+</p>
+<p>
+<strong>re.scan</strong>
+</p>
+<p>
+<code>re.scan(pattern:re.pattern, str:string, pos:number =&gt; 0, endpos?:number):map {block?}</code>
 </p>
 <h1><span class="caption-index-1">39</span><a name="caption-39"></a>sdl2 Module</h1>
 <p>
