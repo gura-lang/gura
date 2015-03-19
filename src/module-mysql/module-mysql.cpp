@@ -219,7 +219,7 @@ Gura_ImplementFunction(test)
 Gura_ModuleEntry()
 {
 	// class realization
-	Gura_RealizeUserClass(mysql, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(mysql, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(connect);
 	Gura_AssignFunction(test);

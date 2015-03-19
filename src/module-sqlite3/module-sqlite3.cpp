@@ -331,7 +331,7 @@ Gura_ImplementFunction(db)
 Gura_ModuleEntry()
 {
 	// class realization
-	Gura_RealizeUserClass(db, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(db, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(db);
 	return true;

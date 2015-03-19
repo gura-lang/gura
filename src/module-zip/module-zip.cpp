@@ -587,9 +587,9 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(wavpack);
 	Gura_RealizeUserSymbol(ppmd);
 	// class realization
-	Gura_RealizeUserClass(reader, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(writer, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(stat, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(reader, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(writer, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(stat, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(reader);
 	Gura_AssignFunction(writer);

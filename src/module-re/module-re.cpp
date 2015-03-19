@@ -976,12 +976,12 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(string);
 	Gura_RealizeUserSymbol(multiline);
 	// class realization
-	Gura_RealizeUserClassWithoutPrepare(match, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClassWithoutPrepare(group, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClassWithoutPrepare(pattern, env.LookupClass(VTYPE_object));
-	Gura_UserClass(match)->Prepare(env);
-	Gura_UserClass(group)->Prepare(env);
-	Gura_UserClass(pattern)->Prepare(env);
+	Gura_RealizeUserClass(match, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(group, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(pattern, env.LookupClass(VTYPE_object));
+	Gura_PrepareUserClass(match);
+	Gura_PrepareUserClass(group);
+	Gura_PrepareUserClass(pattern);
 	// function assignment
 	Gura_AssignFunction(sub);
 	Gura_AssignFunction(split);

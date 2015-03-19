@@ -280,7 +280,7 @@ Gura_ModuleEntry()
 	// symbol realization
 	Gura_RealizeUserSymbol(images);
 	// class realization
-	Gura_RealizeUserClass(content, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(content, env.LookupClass(VTYPE_object));
 	// method assignment to image class
 	Gura_AssignMethodTo(VTYPE_image, image, read_msico);
 	// function assignment

@@ -60,7 +60,7 @@ void SetError_NotImpFunction(Signal &sig, const char *funcName)
 Gura_ModuleEntry()
 {
 	// class realization
-	Gura_RealizeUserClass(Font, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(Font, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(test);
 	AssignValues(env);

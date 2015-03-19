@@ -819,9 +819,9 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(bzip2);
 	Gura_RealizeUserSymbol(auto);
 	// class realization
-	Gura_RealizeUserClass(reader, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(writer, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(stat, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(reader, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(writer, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(stat, env.LookupClass(VTYPE_object));
 #if 0
 const char REGTYPE			= '0';		// regular file
 const char AREGTYPE			= '\0';		// regular file

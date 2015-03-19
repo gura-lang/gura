@@ -296,9 +296,9 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(Interoperability);
 	Gura_RealizeUserSymbol(GPSInfo);
 	// class realization
-	Gura_RealizeUserClass(tag, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(ifd, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(exif, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(tag, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(ifd, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(exif, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(exif);
 	Gura_AssignFunction(test);

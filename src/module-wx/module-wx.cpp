@@ -30,13 +30,13 @@ BOOL WINAPI DllMain(HINSTANCE hInst, DWORD dwReason, LPVOID lpvReserved)
 #undef FR_NOWHOLEWORD
 
 #define RealizeBaseClass(className) \
-Gura_RealizeUserClassExWithoutPrepare(wx_##className, #className, env.LookupClass(VTYPE_object))
+Gura_RealizeUserClassEx(wx_##className, #className, env.LookupClass(VTYPE_object))
 
 #define RealizeDervClass(className, classNameParent) \
-Gura_RealizeUserClassExWithoutPrepare(wx_##className, #className, Gura_UserClass(wx_##classNameParent))
+Gura_RealizeUserClassEx(wx_##className, #className, Gura_UserClass(wx_##classNameParent))
 
 #define PrepareClass(className) \
-Gura_UserClass(wx_##className)->Prepare(env)
+Gura_PrepareUserClass(wx_##className)
 
 Gura_BeginModuleBody(wx)
 

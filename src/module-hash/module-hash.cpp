@@ -336,7 +336,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(sha1);
 	Gura_AssignFunction(crc32);
 	// class realization
-	Gura_RealizeUserClass(accumulator, env.LookupClass(VTYPE_stream));
+	Gura_RealizeAndPrepareUserClass(accumulator, env.LookupClass(VTYPE_stream));
 	return true;
 }
 

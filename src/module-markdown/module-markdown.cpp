@@ -2463,10 +2463,10 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(title);
 	Gura_RealizeUserSymbol(attrs);
 	// class realization
-	Gura_RealizeUserClassWithoutPrepare(document, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClassWithoutPrepare(item, env.LookupClass(VTYPE_object));
-	Gura_UserClass(document)->Prepare(env);
-	Gura_UserClass(item)->Prepare(env);
+	Gura_RealizeUserClass(document, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(item, env.LookupClass(VTYPE_object));
+	Gura_PrepareUserClass(document);
+	Gura_PrepareUserClass(item);
 	// class reference assignment
 	Gura_AssignValue(item, Value(Gura_UserClass(item)->Reference()));
 	// function assignment

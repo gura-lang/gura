@@ -83,23 +83,26 @@ Object *Class_##name::CreateDescendant(Environment &env, Signal sig, Class *pCla
 	Class_##name *pClass = new Class_##name(pClassBase, \
 						Class_##name::_pValueTypeInfo->GetValueType()); \
 	Class_##name::_pValueTypeInfo->SetClass(pClass); \
-	pClass->Prepare(env); \
 } while (0)
 
-#define Gura_RealizeUserClassExWithoutPrepare(name, str, pClassBase) do { \
+#define Gura_RealizeAndPrepareUserClassEx(name, str, pClassBase) do { \
 	Class_##name::_pValueTypeInfo = ValueTypePool::GetInstance()->Add(Symbol::Add(str)); \
 	env.AssignValueType(Class_##name::_pValueTypeInfo); \
 	VTYPE_##name = Class_##name::_pValueTypeInfo->GetValueType(); \
 	Class_##name *pClass = new Class_##name(pClassBase, \
 						Class_##name::_pValueTypeInfo->GetValueType()); \
 	Class_##name::_pValueTypeInfo->SetClass(pClass); \
+	pClass->Prepare(env); \
 } while (0)
 
 #define Gura_RealizeUserClass(name, pClassBase) \
 Gura_RealizeUserClassEx(name, #name, pClassBase)
 
-#define Gura_RealizeUserClassWithoutPrepare(name, pClassBase) \
-Gura_RealizeUserClassExWithoutPrepare(name, #name, pClassBase)
+#define Gura_RealizeAndPrepareUserClass(name, pClassBase) \
+Gura_RealizeAndPrepareUserClassEx(name, #name, pClassBase)
+
+#define Gura_PrepareUserClass(name) \
+Gura_UserClass(name)->Prepare(env);
 
 #define Gura_DeclareObjectAccessorEx(T) \
 inline static T *GetObject(const Value &value) { \

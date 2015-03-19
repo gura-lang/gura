@@ -76,7 +76,7 @@ Gura_ModuleEntry()
 	// symbol realization
 	Gura_RealizeUserSymbol(hoge_symbol);
 	// class realization
-	Gura_RealizeUserClass(foo, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(foo, env.LookupClass(VTYPE_object));
 	// value assignment
 	Gura_AssignValue(foo, Value("a value in example module"));
 	// function assignment

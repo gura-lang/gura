@@ -4354,22 +4354,22 @@ Gura_ModuleEntry()
 	// symbols for other purposes
 	Gura_RealizeUserSymbolAlias(thread_, "thread")
 	// class realization
-	Gura_RealizeUserClass(Cursor,		env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(Timer,		env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(Event,		env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(Rect,			env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(Color,		env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(Palette,		env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(PixelFormat,	env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(Surface,		env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(Overlay,		env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(VideoInfo,	env.LookupClass(VTYPE_object));
-	//Gura_RealizeUserClass(Font,		env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(Joystick,		env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(AudioSpec,	env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(AudioCVT,		env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(CDtrack,		env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(CD,			env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(Cursor,		env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(Timer,		env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(Event,		env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(Rect,			env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(Color,		env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(Palette,		env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(PixelFormat,	env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(Surface,		env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(Overlay,		env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(VideoInfo,	env.LookupClass(VTYPE_object));
+	//Gura_RealizeAndPrepareUserClass(Font,		env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(Joystick,		env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(AudioSpec,	env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(AudioCVT,		env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(CDtrack,		env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(CD,			env.LookupClass(VTYPE_object));
 	// value assignment
 	Gura_AssignValue(ACTIVEEVENT,		Value(SDL_ACTIVEEVENT));
 	Gura_AssignValue(KEYDOWN,			Value(SDL_KEYDOWN));

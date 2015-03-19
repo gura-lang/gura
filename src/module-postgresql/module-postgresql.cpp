@@ -202,7 +202,7 @@ Gura_ImplementFunction(test)
 Gura_ModuleEntry()
 {
 	// class realization
-	Gura_RealizeUserClass(postgresql, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(postgresql, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(connect);
 	Gura_AssignFunction(test);

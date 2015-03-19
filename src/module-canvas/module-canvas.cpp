@@ -877,7 +877,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(nw);
 	Gura_RealizeUserSymbol(c);
 	// class realization
-	Gura_RealizeUserClassEx(Canvas, "canvas", env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClassEx(Canvas, "canvas", env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(create_emf);
 	return true;

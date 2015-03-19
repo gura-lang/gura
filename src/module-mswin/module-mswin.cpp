@@ -1039,8 +1039,8 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(no_const);
 	Gura_RealizeUserSymbol(openkey);
 	// class realization
-	Gura_RealizeUserClass(regkey, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(ole, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(regkey, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(ole, env.LookupClass(VTYPE_object));
 	// value assignment
 	Gura_AssignValue(HKEY_CLASSES_ROOT,			Value(new Object_regkey(HKEY_CLASSES_ROOT, false)));
 	Gura_AssignValue(HKEY_CURRENT_CONFIG,		Value(new Object_regkey(HKEY_CURRENT_CONFIG, false)));

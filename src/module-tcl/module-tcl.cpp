@@ -835,9 +835,9 @@ Gura_ModuleEntry()
 	// symbol realization
 	Gura_RealizeUserSymbol(__tclname__);
 	// class realization
-	Gura_RealizeUserClass(interp,	env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(variable,	env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(timer,	env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(interp,	env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(variable,	env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(timer,	env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(interp);
 	Gura_AssignFunction(Tk_MainLoop);

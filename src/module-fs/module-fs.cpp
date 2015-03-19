@@ -956,7 +956,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(tree);
 	Gura_RealizeUserSymbol(follow_link);
 	// class realization
-	Gura_RealizeUserClassEx(Stat, "stat", env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClassEx(Stat, "stat", env.LookupClass(VTYPE_object));
 	// symbol realization
 	PathMgr::Register(env, new PathMgr_FileSys());
 	// assign symbols in sys module

@@ -1515,15 +1515,15 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(SizeOfLocalColorTable);
 	Gura_RealizeUserSymbol(GraphicControl);
 	Gura_RealizeUserSymbol(ImageDescriptor);
-	Gura_RealizeUserClass(content, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(Header, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(LogicalScreenDescriptor, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(CommentExtension, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(PlainTextExtension, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(ApplicationExtension, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(GraphicControl, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(ImageDescriptor, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(imgprop, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(content, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(Header, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(LogicalScreenDescriptor, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(CommentExtension, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(PlainTextExtension, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(ApplicationExtension, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(GraphicControl, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(ImageDescriptor, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(imgprop, env.LookupClass(VTYPE_object));
 	// method assignment to image class
 	Gura_AssignMethodTo(VTYPE_image, image, read_gif);
 	Gura_AssignMethodTo(VTYPE_image, image, write_gif);

@@ -240,7 +240,7 @@ Gura_ModuleEntry()
 	// symbol realization
 	Gura_RealizeUserSymbol(format);
 	// class realization
-	Gura_RealizeUserClass(writer, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(writer, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(parse);
 	Gura_AssignFunction(read);

@@ -123,9 +123,9 @@ Gura_ImplementSuffixMgrForNumber(Lr)
 Gura_ModuleEntry()
 {
 	// realization of classes
-	Gura_RealizeUserClass(mpz, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(mpq, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(mpf, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(mpz, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(mpq, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(mpf, env.LookupClass(VTYPE_object));
 	// assignment of functions
 	Gura_AssignFunction(gcd);
 	Gura_AssignFunction(lcm);

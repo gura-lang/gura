@@ -2662,13 +2662,13 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(expires);			// 14.21 Expires
 	Gura_RealizeUserSymbol(last_modified);		// 14.29 Last-Modified
 	// class realization
-	Gura_RealizeUserClassEx(stat, "stat", env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(request, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(response, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(session, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(server, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(client, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(proxy, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClassEx(stat, "stat", env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(request, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(response, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(session, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(server, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(client, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(proxy, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(addproxy);
 	Gura_AssignFunction(server);

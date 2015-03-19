@@ -6,10 +6,10 @@
 #undef CreateWindow
 
 #define RealizeClass(className) \
-Gura_RealizeUserClassExWithoutPrepare(className, #className, env.LookupClass(VTYPE_object))
+Gura_RealizeUserClassEx(className, #className, env.LookupClass(VTYPE_object))
 
 #define PrepareClass(className) \
-Gura_UserClass(className)->Prepare(env)
+Gura_PrepareUserClass(className)
 
 #define Gura_AssignValueKMOD(name) Gura_AssignValue(KMOD_##name, Value(KMOD_##name))
 

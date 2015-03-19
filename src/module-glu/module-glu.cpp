@@ -557,9 +557,9 @@ Gura_ModuleEntry()
 {
 	g_sig = sig;
 	// class realization
-	Gura_RealizeUserClass(Quadric,		env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(Tesselator,	env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(Nurbs,		env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(Quadric,		env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(Tesselator,	env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(Nurbs,		env.LookupClass(VTYPE_object));
 	AssignValues(env);
 	AssignFunctions(env);
 	return true;

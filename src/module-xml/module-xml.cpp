@@ -1476,10 +1476,10 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(NotationDecl);
 	Gura_RealizeUserSymbol(NotStandalone);
 	// class realization
-	Gura_RealizeUserClass(attribute, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(element, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(parser, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(document, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(attribute, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(element, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(parser, env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(document, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(parser);
 	Gura_AssignFunction(element);

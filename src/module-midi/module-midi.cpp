@@ -2308,26 +2308,27 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(progress);
 	Gura_RealizeUserSymbol(audio);
 	// class realization
-	Gura_RealizeUserClassWithoutPrepare(event, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClassWithoutPrepare(track, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClassWithoutPrepare(sequence, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClassWithoutPrepare(portinfo, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClassWithoutPrepare(port, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClassWithoutPrepare(player, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClassWithoutPrepare(controller, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClassWithoutPrepare(program, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClassWithoutPrepare(soundfont, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClassWithoutPrepare(synthesizer, env.LookupClass(VTYPE_object));
-	Gura_UserClass(event)->Prepare(env);
-	Gura_UserClass(track)->Prepare(env);
-	Gura_UserClass(sequence)->Prepare(env);
-	Gura_UserClass(portinfo)->Prepare(env);
-	Gura_UserClass(port)->Prepare(env);
-	Gura_UserClass(player)->Prepare(env);
-	Gura_UserClass(controller)->Prepare(env);
-	Gura_UserClass(program)->Prepare(env);
-	Gura_UserClass(soundfont)->Prepare(env);
-	Gura_UserClass(synthesizer)->Prepare(env);
+	Gura_RealizeUserClass(event, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(track, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(sequence, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(portinfo, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(port, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(player, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(controller, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(program, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(soundfont, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(synthesizer, env.LookupClass(VTYPE_object));
+	// class preparation
+	Gura_PrepareUserClass(event);
+	Gura_PrepareUserClass(track);
+	Gura_PrepareUserClass(sequence);
+	Gura_PrepareUserClass(portinfo);
+	Gura_PrepareUserClass(port);
+	Gura_PrepareUserClass(player);
+	Gura_PrepareUserClass(controller);
+	Gura_PrepareUserClass(program);
+	Gura_PrepareUserClass(soundfont);
+	Gura_PrepareUserClass(synthesizer);
 	// value assignment
 	do {
 		Value value;
