@@ -19495,6 +19495,19 @@ Using the above casting feature, you can call a function <code>f(pattern:re.patt
 <p>
 <code>re.pattern(pattern:string):map:[icase,multiline] {block?}</code>
 </p>
+<p>
+Creates a <code>re.pattern</code> instance from the given pattern string.
+</p>
+<p>
+Following attributes would customize some traits of the pattern:
+</p>
+<ul>
+<li><code>:icase</code> .. Ignores character cases.</li>
+<li><code>:multiline</code> .. The pattern can process a string containing multiple lines.</li>
+</ul>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|pat:re.pattern|</code>, where <code>pat</code> is the created instance. In this case, the block's result would become the function's returned value.
+</p>
 <h3><span class="caption-index-3">38.4.3</span><a name="caption-38-4-3"></a>Method</h3>
 <p>
 <strong>re.pattern#match</strong>
@@ -19545,10 +19558,53 @@ If <code>block</code> is specified, it would be evaluated with a block parameter
 <code>re.pattern#split(str:string, count?:number):map {block?}</code>
 </p>
 <p>
+Creates an iterator that splits the source string with the specified pattern.
+</p>
+<p>
+The argument <code>count</code> specifies the maximum number for splitting. If omitted, no limit would be applied.
+</p>
+<p>
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
+</p>
+<ul>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
+</ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
+<p>
 <strong>re.pattern#scan</strong>
 </p>
 <p>
 <code>re.pattern#scan(str:string, pos:number =&gt; 0, endpos?:number):map {block?}</code>
+</p>
+<p>
+Creates an iterator that returns strings that match the specified pattern.
+</p>
+<p>
+The argument <code>pos</code> specifies the starting position for matching process. If omitted, it starts from the beginning of the string.
+</p>
+<p>
+The argument <code>endpos</code> specifies the ending position for matching process. If omitted, it would be processed until the end of the string.
+</p>
+<p>
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
+</p>
+<ul>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
+</ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <h2><span class="caption-index-2">38.5</span><a name="caption-38-5"></a>Extension to string Class</h2>
 <p>
@@ -19603,10 +19659,53 @@ If <code>block</code> is specified, it would be evaluated with a block parameter
 <code>string#splitreg(pattern:re.pattern, count?:number):map {block?}</code>
 </p>
 <p>
+Creates an iterator that splits the source string with the specified pattern.
+</p>
+<p>
+The argument <code>count</code> specifies the maximum number for splitting. If omitted, no limit would be applied.
+</p>
+<p>
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
+</p>
+<ul>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
+</ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
+<p>
 <strong>string#scan</strong>
 </p>
 <p>
 <code>string#scan(pattern:re.pattern, pos:number =&gt; 0, endpos?:number):map {block?}</code>
+</p>
+<p>
+Creates an iterator that returns strings that match the specified pattern.
+</p>
+<p>
+The argument <code>pos</code> specifies the starting position for matching process. If omitted, it starts from the beginning of the string.
+</p>
+<p>
+The argument <code>endpos</code> specifies the ending position for matching process. If omitted, it would be processed until the end of the string.
+</p>
+<p>
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
+</p>
+<ul>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
+</ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <h2><span class="caption-index-2">38.6</span><a name="caption-38-6"></a>Extension to iterable Classes</h2>
 <p>
@@ -19668,10 +19767,53 @@ If <code>block</code> is specified, it would be evaluated with a block parameter
 <code>re.split(pattern:re.pattern, str:string, count?:number):map {block?}</code>
 </p>
 <p>
+Creates an iterator that splits the source string with the specified pattern.
+</p>
+<p>
+The argument <code>count</code> specifies the maximum number for splitting. If omitted, no limit would be applied.
+</p>
+<p>
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
+</p>
+<ul>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
+</ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
+<p>
 <strong>re.scan</strong>
 </p>
 <p>
 <code>re.scan(pattern:re.pattern, str:string, pos:number =&gt; 0, endpos?:number):map {block?}</code>
+</p>
+<p>
+Creates an iterator that returns strings that match the specified pattern.
+</p>
+<p>
+The argument <code>pos</code> specifies the starting position for matching process. If omitted, it starts from the beginning of the string.
+</p>
+<p>
+The argument <code>endpos</code> specifies the ending position for matching process. If omitted, it would be processed until the end of the string.
+</p>
+<p>
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
+</p>
+<ul>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
+</ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <h1><span class="caption-index-1">39</span><a name="caption-39"></a>sdl2 Module</h1>
 <p>

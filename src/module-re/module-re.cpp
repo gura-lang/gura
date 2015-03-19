@@ -531,7 +531,16 @@ Gura_DeclareFunction(pattern)
 	SetClassToConstruct(Gura_UserClass(pattern));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `re.pattern` instance from the given pattern string.\n"
+		"\n"
+		"Following attributes would customize some traits of the pattern:\n"
+		"\n"
+		"- `:icase` .. Ignores character cases.\n"
+		"- `:multiline` .. The pattern can process a string containing multiple lines.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|pat:re.pattern|`,\n"
+		"where `pat` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementFunction(pattern)
@@ -770,7 +779,12 @@ Gura_DeclareMethod(string, splitreg)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that splits the source string with the specified pattern.\n"
+		"\n"
+		"The argument `count` specifies the maximum number for splitting.\n"
+		"If omitted, no limit would be applied.\n"
+		"\n"
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(string, splitreg)
@@ -793,7 +807,15 @@ Gura_DeclareMethod(string, scan)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that returns strings that match the specified pattern.\n"
+		"\n"
+		"The argument `pos` specifies the starting position for matching process.\n"
+		"If omitted, it starts from the beginning of the string.\n"
+		"\n"
+		"The argument `endpos` specifies the ending position for matching process.\n"
+		"If omitted, it would be processed until the end of the string.\n"
+		"\n"
+		GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementMethod(string, scan)
