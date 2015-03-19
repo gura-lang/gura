@@ -76,7 +76,7 @@ bool Class_##name::CastTo(Environment &env, Signal sig, Value &value, const Decl
 #define Gura_ImplementDescendantCreator(name) \
 Object *Class_##name::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 
-#define Gura_RealizeUserClassEx(name, str, pClassBase) do { \
+#define Gura_RealizeUserClassAlias(name, str, pClassBase) do { \
 	Class_##name::_pValueTypeInfo = ValueTypePool::GetInstance()->Add(Symbol::Add(str)); \
 	env.AssignValueType(Class_##name::_pValueTypeInfo); \
 	VTYPE_##name = Class_##name::_pValueTypeInfo->GetValueType(); \
@@ -85,7 +85,7 @@ Object *Class_##name::CreateDescendant(Environment &env, Signal sig, Class *pCla
 	Class_##name::_pValueTypeInfo->SetClass(pClass); \
 } while (0)
 
-#define Gura_RealizeAndPrepareUserClassEx(name, str, pClassBase) do { \
+#define Gura_RealizeAndPrepareUserClassAlias(name, str, pClassBase) do { \
 	Class_##name::_pValueTypeInfo = ValueTypePool::GetInstance()->Add(Symbol::Add(str)); \
 	env.AssignValueType(Class_##name::_pValueTypeInfo); \
 	VTYPE_##name = Class_##name::_pValueTypeInfo->GetValueType(); \
@@ -96,10 +96,10 @@ Object *Class_##name::CreateDescendant(Environment &env, Signal sig, Class *pCla
 } while (0)
 
 #define Gura_RealizeUserClass(name, pClassBase) \
-Gura_RealizeUserClassEx(name, #name, pClassBase)
+Gura_RealizeUserClassAlias(name, #name, pClassBase)
 
 #define Gura_RealizeAndPrepareUserClass(name, pClassBase) \
-Gura_RealizeAndPrepareUserClassEx(name, #name, pClassBase)
+Gura_RealizeAndPrepareUserClassAlias(name, #name, pClassBase)
 
 #define Gura_PrepareUserClass(name) \
 Gura_UserClass(name)->Prepare(env);

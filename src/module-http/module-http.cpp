@@ -2662,7 +2662,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(expires);			// 14.21 Expires
 	Gura_RealizeUserSymbol(last_modified);		// 14.29 Last-Modified
 	// class realization
-	Gura_RealizeAndPrepareUserClassEx(stat, "stat", env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClassAlias(stat, "stat", env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(request, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(response, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(session, env.LookupClass(VTYPE_object));

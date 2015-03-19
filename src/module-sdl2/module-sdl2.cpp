@@ -6,7 +6,7 @@
 #undef CreateWindow
 
 #define RealizeClass(className) \
-Gura_RealizeUserClassEx(className, #className, env.LookupClass(VTYPE_object))
+Gura_RealizeUserClass(className, env.LookupClass(VTYPE_object))
 
 #define PrepareClass(className) \
 Gura_PrepareUserClass(className)
