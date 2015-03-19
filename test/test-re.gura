@@ -264,3 +264,8 @@ testcase('named capturing group') {
 	println(m['min'])
 	println(m['sec'])
 }
+
+testcase('test of :multiline') {
+	tester(`re.pattern('foo.bar').match('foo\nbar'))
+	tester(`(re.pattern('foo.bar'):multiline).match('foo\nbar'))
+}

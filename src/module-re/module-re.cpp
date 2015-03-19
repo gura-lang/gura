@@ -536,7 +536,7 @@ Gura_DeclareFunction(pattern)
 		"Following attributes would customize some traits of the pattern:\n"
 		"\n"
 		"- `:icase` .. Ignores character cases.\n"
-		"- `:multiline` .. The pattern can process a string containing multiple lines.\n"
+		"- `:multiline` .. Matches \"`.`\" with a line break.\n"
 		"\n"
 		"If `block` is specified, it would be evaluated with a block parameter `|pat:re.pattern|`,\n"
 		"where `pat` is the created instance.\n"

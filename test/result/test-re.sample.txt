@@ -221,3 +221,8 @@ using re.match#groups()
 12
 34
 56
+
+======== #33 test of :multiline ========
+
+re.pattern('foo.bar').match('foo\nbar') .. nil
+(re.pattern('foo.bar'):multiline).match('foo\nbar') .. <match:0-7>
