@@ -16,7 +16,12 @@ Gura_DeclareFunction(reader)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a stream instance that decompresses bzip2 data from the specified `stream`\n"
+		"that has readable attribute.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|st:stream|`,\n"
+		"where `st` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementFunction(reader)
@@ -36,7 +41,17 @@ Gura_DeclareFunction(writer)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a stream instance that compresses data into bzip2 format\n"
+		"and writes it to the specified `stream` that has writable attribute.\n"
+		"\n"
+		"The argument `blockSize100k` takes a number between 1 and 9\n"
+		"that specifies the block size to be used for compression.\n"
+		"The actual block size is 100000 times of this value.\n"
+		"Nine gives the best compression but takes most memory.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|st:stream|`,\n"
+		"where `st` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementFunction(writer)
@@ -62,7 +77,12 @@ Gura_DeclareMethodAlias(stream, reader_bzip2, "reader@bzip2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a stream instance that decompresses bzip2 data from the specified `stream`\n"
+		"that has readable attribute.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|st:stream|`,\n"
+		"where `st` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementMethod(stream, reader_bzip2)
@@ -81,7 +101,17 @@ Gura_DeclareMethodAlias(stream, writer_bzip2, "writer@bzip2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a stream instance that compresses data into bzip2 format\n"
+		"and writes it to the specified `stream` that has writable attribute.\n"
+		"\n"
+		"The argument `blockSize100k` takes a number between 1 and 9\n"
+		"that specifies the block size to be used for compression.\n"
+		"The actual block size is 100000 times of this value.\n"
+		"Nine gives the best compression but takes most memory.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|st:stream|`,\n"
+		"where `st` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementMethod(stream, writer_bzip2)
