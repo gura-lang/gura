@@ -12,9 +12,9 @@ Gura_BeginModuleBody(codecs)
 Gura_DeclareFunction(dir)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"returns a list that contains registered encodings."
-	);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a list of registered encoding names.");
 }
 
 Gura_ImplementFunction(dir)
