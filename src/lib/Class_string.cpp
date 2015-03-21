@@ -504,9 +504,7 @@ Gura_DeclareMethod(string, reader)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns a `stream` instance that reads the string content as a binary sequence.\n"
 		"\n"
-		"If `block` is specified, it would be evaluated with a block parameter `|s:stream|`,\n"
-		"where `s` is the created instance.\n"
-		"In this case, the block's result would become the function's returned value.\n");
+		GURA_BLOCK_HELP("s", "stream"));
 }
 
 Gura_ImplementMethod(string, reader)

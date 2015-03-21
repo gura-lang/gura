@@ -112,9 +112,7 @@ Gura_DeclareMethodAlias(mpq, cast_mpf, "cast@mpf")
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Casts the value to `gmp.mpf`.\n"
 		"\n"
-		"If `block` is specified, it would be evaluated with a block parameter `|num:gmp.mpf|`,\n"
-		"where `num` is the created instance.\n"
-		"In this case, the block's result would become the function's returned value.\n");
+		GURA_BLOCK_HELP("num", "gmp.mpf"));
 }
 
 Gura_ImplementMethod(mpq, cast_mpf)
@@ -134,9 +132,7 @@ Gura_DeclareMethodAlias(string, cast_mpq, "cast@mpq")
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Casts the string to `gmp.mpq`.\n"
 		"\n"
-		"If `block` is specified, it would be evaluated with a block parameter `|num:gmp.mpq|`,\n"
-		"where `num` is the created instance.\n"
-		"In this case, the block's result would become the function's returned value.\n");
+		GURA_BLOCK_HELP("num", "gmp.mpq"));
 }
 
 Gura_ImplementMethod(string, cast_mpq)

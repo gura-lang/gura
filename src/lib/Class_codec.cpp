@@ -48,9 +48,7 @@ Gura_DeclareFunction(codec)
 		"Creates a `codec` instance of the specified encoding name.\n"
 		"You can call `codecs.dir()` to get a list of available encoding names.\n"
 		"\n"
-		"If `block` is specified, it would be evaluated with a block parameter `|codec:codec|`,\n"
-		"where `codec` is the created instance.\n"
-		"In this case, the block's result would become the function's returned value.\n");
+		GURA_BLOCK_HELP("codec", "codec"));
 }
 
 Gura_ImplementFunction(codec)

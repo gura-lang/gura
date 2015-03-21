@@ -101,9 +101,7 @@ Gura_DeclareFunction(color)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates a `color` instance.\n"
 		"\n"
-		"If `block` is specified, it would be evaluated with a block parameter `|c:color|`,\n"
-		"where `c` is the created instance.\n"
-		"In this case, the block's result would become the function's returned value.\n"
+		GURA_BLOCK_HELP("c", "color")
 		"\n"
 		"There are two forms to call this function as below:"
 		"\n"

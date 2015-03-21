@@ -92,9 +92,7 @@ Gura_DeclareFunction(palette)
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Creates a `palette` instance.\n"
 		"\n"
-		"If `block` is specified, it would be evaluated with a block parameter `|plt:palette|`,\n"
-		"where `plt` is the created instance.\n"
-		"In this case, the block's result would become the function's returned value.\n"
+		GURA_BLOCK_HELP("plt", "palette")
 		"\n"
 		"This function can be called in the following two forms:\n"
 		"\n"

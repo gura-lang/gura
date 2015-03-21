@@ -538,9 +538,7 @@ Gura_DeclareFunction(pattern)
 		"- `:icase` .. Ignores character cases.\n"
 		"- `:multiline` .. Matches \"`.`\" with a line break.\n"
 		"\n"
-		"If `block` is specified, it would be evaluated with a block parameter `|pat:re.pattern|`,\n"
-		"where `pat` is the created instance.\n"
-		"In this case, the block's result would become the function's returned value.\n");
+		GURA_BLOCK_HELP("pat", "re.pattern"));
 }
 
 Gura_ImplementFunction(pattern)
@@ -702,9 +700,7 @@ Gura_DeclareMethod(string, match)
 		"The argument `endpos` specifies the ending position for matching process.\n"
 		"If omitted, it would be processed until the end of the string.\n"
 		"\n"
-		"If `block` is specified, it would be evaluated with a block parameter `|m:re.match|`,\n"
-		"where `m` is the created instance.\n"
-		"In this case, the block's result would become the function's returned value.\n");
+		GURA_BLOCK_HELP("m", "re.match"));
 }
 
 Gura_ImplementMethod(string, match)
@@ -740,9 +736,7 @@ Gura_DeclareMethod(string, sub)
 		"The argument `count` specifies the maximum number of substitutions.\n"
 		"If omitted, no limit would be applied.\n"
 		"\n"
-		"If `block` is specified, it would be evaluated with a block parameter `|str:string|`,\n"
-		"where `str` is the result string.\n"
-		"In this case, the block's result would become the function's returned value.\n");
+		GURA_BLOCK_HELP("str", "string"));
 }
 
 Gura_ImplementMethod(string, sub)

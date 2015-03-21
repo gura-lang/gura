@@ -177,9 +177,7 @@ Gura_DeclareFunction(datetime)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates an instance of `datetime` class based on the specified arguments.\n"
 		"\n"
-		"If `block` is specified, it would be evaluated with a block parameter `|dt:datetime|`,\n"
-		"where `dt` is the created instance.\n"
-		"In this case, the block's result would become the function's returned value.\n"
+		GURA_BLOCK_HELP("dt", "datetime")
 		"\n"
 		"Explanations of the arguments are shown below:\n"
 		"\n"

@@ -18,8 +18,7 @@ Gura_DeclareFunction(decode)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Reads text stream that is formatted in base64 and returns the decoded result in binary.\n"
 		"\n"
-		"If `block` is specified, it would be evaluated with block parameter `|data:binary|`,\n"
-		"where `data` is the created binary instance.\n");
+		GURA_BLOCK_HELP("data", "binary"));
 }
 
 Gura_ImplementFunction(decode)
@@ -44,8 +43,7 @@ Gura_DeclareFunction(encode)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Encodes content of the stream into base64 format and returns the result in binary.\n"
 		"\n"
-		"If `block` is specified, it would be evaluated with block parameter `|data:binary|`,\n"
-		"where `data` is the created binary instance.\n");
+		GURA_BLOCK_HELP("data", "binary"));
 }
 
 Gura_ImplementFunction(encode)
@@ -69,8 +67,7 @@ Gura_DeclareFunction(reader)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates a stream instance that reads data formatted in base64 from `stream`.\n"
 		"\n"
-		"If `block` is specified, it would be evaluated with block parameter `|s:stream|`,\n"
-		"where `s` is the created stream instance.\n");
+		GURA_BLOCK_HELP("s", "stream"));
 }
 
 Gura_ImplementFunction(reader)
@@ -94,8 +91,7 @@ Gura_DeclareFunction(writer)
 		"The number of characters per line is specified by an argument `linelen`.\n"
 		"If omitted, that is 76.\n"
 		"\n"
-		"If `block` is specified, it would be evaluated with block parameter `|s:stream|`,\n"
-		"where `s` is the created stream instance.\n");
+		GURA_BLOCK_HELP("s", "stream"));
 }
 
 Gura_ImplementFunction(writer)
@@ -119,8 +115,7 @@ Gura_DeclareMethodAlias(stream, reader_base64, "reader@base64")
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates a stream instance that reads data formatted in base64 from the target stream instance.\n"
 		"\n"
-		"If `block` is specified, it would be evaluated with block parameter `|s:stream|`,\n"
-		"where `s` is the created stream instance.\n");
+		GURA_BLOCK_HELP("s", "stream"));
 }
 
 Gura_ImplementMethod(stream, reader_base64)
@@ -143,8 +138,7 @@ Gura_DeclareMethodAlias(stream, writer_base64, "writer@base64")
 		"The number of characters per line is specified by an argument `linelen`.\n"
 		"If omitted, that is 76.\n"
 		"\n"
-		"If `block` is specified, it would be evaluated with block parameter `|s:stream|`,\n"
-		"where `s` is the created stream instance.\n");
+		GURA_BLOCK_HELP("s", "stream"));
 }
 
 Gura_ImplementMethod(stream, writer_base64)

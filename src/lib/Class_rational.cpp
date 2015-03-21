@@ -3,11 +3,6 @@
 //=============================================================================
 #include "stdafx.h"
 
-#define GURA_BLOCK_HELP(var, type) \
-"If `block` is specified, it would be evaluated with a block parameter `|" var ":" type "|`,\n" \
-"where `" var "` is the created instance.\n" \
-"In this case, the block's result would become the function's returned value.\n"
-
 namespace Gura {
 
 //-----------------------------------------------------------------------------

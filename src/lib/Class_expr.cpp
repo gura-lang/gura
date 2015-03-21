@@ -286,9 +286,7 @@ Gura_DeclareFunction(expr)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Parses a Gura script from the stream `src` and creates an `expr` instance.\n"
 		"\n"
-		"If `block` is specified, it would be evaluated with a block parameter `|expr:expr|`,\n"
-		"where `expr` is the created instance.\n"
-		"In this case, the block's result would become the function's returned value.\n");
+		GURA_BLOCK_HELP("expr", "expr"));
 }
 
 Gura_ImplementFunction(expr)
