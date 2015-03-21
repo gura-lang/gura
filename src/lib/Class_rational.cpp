@@ -3,6 +3,11 @@
 //=============================================================================
 #include "stdafx.h"
 
+#define GURA_BLOCK_HELP(var, type) \
+"If `block` is specified, it would be evaluated with a block parameter `|" var ":" type "|`,\n" \
+"where `" var "` is the created instance.\n" \
+"In this case, the block's result would become the function's returned value.\n"
+
 namespace Gura {
 
 //-----------------------------------------------------------------------------
@@ -22,9 +27,7 @@ Gura_DeclareFunction(rational)
 		"\n"
 		"If the argument `denom` is omitted, one is set as its denominator.\n"
 		"\n"
-		"If `block` is specified, it would be evaluated with a block parameter `|r:rational|`,\n"
-		"where `r` is the created instance.\n"
-		"In this case, the block's result would become the function's returned value.\n");
+		GURA_BLOCK_HELP("r", "rational"));
 }
 
 Gura_ImplementFunction(rational)

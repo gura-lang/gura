@@ -8,24 +8,6 @@
 #include "Signal.h"
 #include "Value.h"
 
-#define GURA_ITERATOR_HELP \
-"In default, this returns an iterator as its result value.\n" \
-"Specifying the following attributes would convert it into other formats:\n" \
-"\n" \
-"- `:iter` .. An iterator. This is the default behavior.\n" \
-"- `:xiter` .. An iterator that eliminates `nil` from its elements.\n" \
-"- `:list` .. A list.\n" \
-"- `:xlist` .. A list that eliminates `nil` from its elements.\n" \
-"- `:set` ..  A list that eliminates duplicated values from its elements.\n" \
-"- `:xset` .. A list that eliminates duplicated values and `nil` from its elements.\n" \
-"\n" \
-"If a block is specified, it would be evaluated repeatingly\n" \
-"with block parameters `|value, idx:number|` where `value` is the iterated value\n" \
-"and `idx` the loop index starting from zero.\n" \
-"In this case, the last evaluated value of the block would be the result value.\n" \
-"If one of the attributes listed above is specified,\n" \
-"an iterator or a list of the evaluated value would be returned.\n" 
-
 namespace Gura {
 
 class Args;
