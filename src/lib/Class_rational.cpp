@@ -4,6 +4,7 @@
 #include "stdafx.h"
 
 namespace Gura {
+
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
@@ -15,7 +16,15 @@ Gura_DeclareFunction(rational)
 	DeclareArg(env, "denom", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_rational));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Creates a rational value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a rational value from given numerator `numer` and denominator `denom`.\n"
+		"\n"
+		"If the argument `denom` is omitted, one is set as its denominator.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|r:rational|`,\n"
+		"where `r` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementFunction(rational)
@@ -39,6 +48,9 @@ Gura_ImplementFunction(rational)
 Gura_DeclareMethodPrimitive(rational, reduce)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Reduces the rational number by dividing its numerator and denominator by their GCD.\n");
 }
 
 Gura_ImplementMethod(rational, reduce)
