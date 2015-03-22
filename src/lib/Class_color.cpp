@@ -101,7 +101,7 @@ Gura_DeclareFunction(color)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates a `color` instance.\n"
 		"\n"
-		GURA_BLOCK_HELP("c", "color")
+		GURA_HELPTEXT_BLOCK_en("c", "color")
 		"\n"
 		"There are two forms to call this function as below:"
 		"\n"

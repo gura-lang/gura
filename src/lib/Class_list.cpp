@@ -747,7 +747,7 @@ Gura_DeclareClassMethod(list, zip)
 		"Creates an iterator generating lists that bind given argument values.\n"
 		"When the value is a list or an iterator, each item in it would be zipped.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementClassMethod(list, zip)
@@ -872,7 +872,7 @@ Gura_DeclareMethod(list, combination)
 		"Creates an iterator that generates lists that contain elements picked up\n"
 		"from the original list in a combination manner.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(list, combination)
@@ -1029,7 +1029,7 @@ Gura_DeclareMethod(list, permutation)
 		"Creates an iterator that generates lists that contain elements picked up\n"
 		"from the original list in a permutation manner.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(list, permutation)

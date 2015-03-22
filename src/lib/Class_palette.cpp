@@ -92,7 +92,7 @@ Gura_DeclareFunction(palette)
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Creates a `palette` instance.\n"
 		"\n"
-		GURA_BLOCK_HELP("plt", "palette")
+		GURA_HELPTEXT_BLOCK_en("plt", "palette")
 		"\n"
 		"This function can be called in the following two forms:\n"
 		"\n"
@@ -145,7 +145,7 @@ Gura_DeclareMethod(palette, each)
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Creates an iterator that iterates each element in the palette.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(palette, each)

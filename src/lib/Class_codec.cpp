@@ -48,7 +48,7 @@ Gura_DeclareFunction(codec)
 		"Creates a `codec` instance of the specified encoding name.\n"
 		"You can call `codecs.dir()` to get a list of available encoding names.\n"
 		"\n"
-		GURA_BLOCK_HELP("codec", "codec"));
+		GURA_HELPTEXT_BLOCK_en("codec", "codec"));
 }
 
 Gura_ImplementFunction(codec)

@@ -6,7 +6,7 @@
 
 #include "Common.h"
 
-#define GURA_ITERATOR_HELP \
+#define GURA_HELPTEXT_ITERATOR_en() \
 "In default, this returns an iterator as its result value.\n" \
 "Specifying the following attributes would convert it into other formats:\n" \
 "\n" \
@@ -24,7 +24,7 @@
 "If one of the attributes listed above is specified,\n" \
 "an iterator or a list of the evaluated value would be returned.\n" 
 
-#define GURA_BLOCK_HELP(var, type) \
+#define GURA_HELPTEXT_BLOCK_en(var, type) \
 "If `block` is specified, it would be evaluated with a block parameter `|" var ":" type "|`,\n" \
 "where `" var "` is the created instance.\n" \
 "In this case, the block's result would become the function's returned value.\n"

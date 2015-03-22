@@ -301,7 +301,7 @@ Gura_DeclareFunction(consts)
 		"The argument `num` specifies the number of elements to be generated.\n"
 		"If omitted, it would generate the value infinitely.\n"
 		"\n"
-		GURA_ITERATOR_HELP
+		GURA_HELPTEXT_ITERATOR_en()
 		"\n"
 		"Below is an example to create an iterator that returns constant values:\n"
 		"\n"
@@ -487,7 +487,7 @@ Gura_DeclareFunction(range)
 		"- `range(num, num_end, step)` .. Numbers between `num` and `(num_end - 1)`\n"
 		"  incremented by `step`.\n"
 		"\n"
-		GURA_ITERATOR_HELP
+		GURA_HELPTEXT_ITERATOR_en()
 		"\n"
 		"Below are examples:\n"
 		"\n"
@@ -1979,7 +1979,7 @@ Gura_DeclareFunction(rands)
 		"In default, the created iterator infinitely generates random numbers.\n"
 		"The argument `num` specifies how many elements should be generated.\n"
 		"\n"
-		GURA_ITERATOR_HELP
+		GURA_HELPTEXT_ITERATOR_en()
 		"\n"
 		"Below is an example to create a create that generates random numbers:\n"
 		"\n"

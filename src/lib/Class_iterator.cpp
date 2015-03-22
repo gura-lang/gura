@@ -61,7 +61,7 @@ Gura_DeclareFunction(iterator)
 		"\n"
 		"If an argument is not an iterator, that would be added as an element.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementFunction(iterator)
@@ -191,7 +191,7 @@ Gura_DeclareMethod(iterator, after)
 		"\n"
 		"You can specify a function, a list or an iterator as the criteria.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(iterator, after)
@@ -298,7 +298,7 @@ Gura_DeclareMethod(iterator, before)
 		"is evaluated as true. You can specify a function object, a list or an iterator\n"
 		"as the criteria.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(iterator, before)
@@ -397,7 +397,7 @@ Gura_DeclareMethod(iterator, each)
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Creates an iterator that iterates each element in the list.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(iterator, each)
@@ -499,7 +499,7 @@ Gura_DeclareMethod(iterator, flat)
 		"This means that the created iterator can be converted to a list.\n"
 		"You have to confirm that the source iterable doesn't contain any infinite iterators.\n"
 		"\n"
-		GURA_ITERATOR_HELP
+		GURA_HELPTEXT_ITERATOR_en()
 		"\n"
 		"Below is an example:\n"
 		"\n"
@@ -582,7 +582,7 @@ Gura_DeclareMethod(iterator, format)
 		"Creates an iterator that converts element values in the source iterable into strings\n"
 		"depending on formatter specifier in `format`.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(iterator, format)
@@ -603,7 +603,7 @@ Gura_DeclareMethod(iterator, head)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates an iterator that takes the first `n` elements from the source iterable.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(iterator, head)
@@ -691,7 +691,7 @@ Gura_DeclareMethod(iterator, map)
 		"Creates an iterator that generates element values after applying the specfied\n"
 		"function on them. The function must take one argument.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(iterator, map)
@@ -790,7 +790,7 @@ Gura_DeclareMethod(iterator, offset)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates an iterator that returns skips the first `n` elements in the source iterable.\n"
 		"\n"
-		GURA_ITERATOR_HELP
+		GURA_HELPTEXT_ITERATOR_en()
 		"\n"
 		"Below is an example:\n"
 		"\n"
@@ -1136,7 +1136,7 @@ Gura_DeclareMethod(iterator, replace)
 		"Creates an iterator that replaces the `value` in the original iterable"
 		"with the value of `replace`.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(iterator, replace)
@@ -1156,7 +1156,7 @@ Gura_DeclareMethod(iterator, reverse)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates an iterator that iterates elements in the source iterable from tail to top.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(iterator, reverse)
@@ -1183,7 +1183,7 @@ Gura_DeclareMethod(iterator, roundoff)
 		"Creates an iterator that replaces a number with zero\n"
 		"if it is less than the specified `threshold`.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(iterator, roundoff)
@@ -1205,7 +1205,7 @@ Gura_DeclareMethod(iterator, runlength)
 		"and generates elements in a form of `[cnt, value]` where `cnt` indicates\n"
 		"how many `value` appears in a row.\n"
 		"\n"
-		GURA_ITERATOR_HELP
+		GURA_HELPTEXT_ITERATOR_en()
 		"\n"
 		"Below is an example:\n"
 		"\n"
@@ -1232,7 +1232,7 @@ Gura_DeclareMethod(iterator, since)
 		"is evaluated as true. You can specify a function object, a list or an iterator\n"
 		"as the criteria.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(iterator, since)
@@ -1254,7 +1254,7 @@ Gura_DeclareMethod(iterator, skip)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates an iterator that skips `n` elements before picking up next element.\n"
 		"\n"
-		GURA_ITERATOR_HELP
+		GURA_HELPTEXT_ITERATOR_en()
 		"\n"
 		"Below is an example:\n"
 		"\n"
@@ -1279,7 +1279,7 @@ Gura_DeclareMethod(iterator, skipnil)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates an iterator that skips `nil` in the source iterable.\n"
 		"\n"
-		GURA_ITERATOR_HELP
+		GURA_HELPTEXT_ITERATOR_en()
 		"\n"
 		"Below is an example:\n"
 		"\n"
@@ -1407,7 +1407,7 @@ Gura_DeclareMethod(iterator, tail)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates an iterator that takes the last `n` elements from the source iterable.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(iterator, tail)
@@ -1437,7 +1437,7 @@ Gura_DeclareMethod(iterator, until)
 		"is evaluated as true. You can specify a function object, a list or an iterator\n"
 		"as the criteria.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(iterator, until)
@@ -1489,7 +1489,7 @@ Gura_DeclareMethod(iterator, walk)
 		"This means that the created iterator is intended only for iteration and\n"
 		"can not be converted to a list.\n"
 		"\n"
-		GURA_ITERATOR_HELP
+		GURA_HELPTEXT_ITERATOR_en()
 		"\n"
 		"Below is an example:\n"
 		"\n"
@@ -1527,7 +1527,7 @@ Gura_DeclareMethodAlias(iterator, while_, "while")
 		"is evaluated as true. You can specify a function object, a list or an iterator\n"
 		"as the criteria.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(iterator, while_)

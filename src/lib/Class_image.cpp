@@ -245,7 +245,7 @@ Gura_DeclareMethod(image, blur)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns a new image that blurs the original image with the given parameters.\n"
 		"\n"
-		GURA_BLOCK_HELP("img", "image"));
+		GURA_HELPTEXT_BLOCK_en("img", "image"));
 }
 
 Gura_ImplementMethod(image, blur)
@@ -301,7 +301,7 @@ Gura_DeclareMethod(image, crop)
 		"- `height` .. The height. If it's omitted or specified with `nil`,\n"
 		"             the whole area on the bottom of `y` will be extracted.\n"
 		"\n"
-		GURA_BLOCK_HELP("img", "image"));
+		GURA_HELPTEXT_BLOCK_en("img", "image"));
 }
 
 Gura_ImplementMethod(image, crop)
@@ -456,7 +456,7 @@ Gura_DeclareMethod(image, flip)
 		"- `` `both`` .. flips both horizontally and vertically. This has the same effect with\n"
 		"            rotating the image 180 degrees.\n"
 		"\n"
-		GURA_BLOCK_HELP("img", "image"));
+		GURA_HELPTEXT_BLOCK_en("img", "image"));
 }
 
 Gura_ImplementMethod(image, flip)
@@ -491,7 +491,7 @@ Gura_DeclareMethod(image, getpixel)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns a color of a pixel data at the specified position.\n"
 		"\n"
-		GURA_BLOCK_HELP("c", "color"));
+		GURA_HELPTEXT_BLOCK_en("c", "color"));
 }
 
 Gura_ImplementMethod(image, getpixel)
@@ -515,7 +515,7 @@ Gura_DeclareMethod(image, grayscale)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns a new image instance that converts the source image into gray scale.\n"
 		"\n"
-		GURA_BLOCK_HELP("img", "image"));
+		GURA_HELPTEXT_BLOCK_en("img", "image"));
 }
 
 Gura_ImplementMethod(image, grayscale)
@@ -547,7 +547,7 @@ Gura_DeclareMethod(image, mapcolorlevel)
 		"If you want to apply a mapping table to all the elements,\n"
 		"call the method with a single argument like `image#mapcolorlevel(map)`.\n"
 		"\n"
-		GURA_BLOCK_HELP("img", "image"));
+		GURA_HELPTEXT_BLOCK_en("img", "image"));
 }
 
 UChar *ValueListToMapTable(Signal sig, const ValueList &valList)
@@ -734,7 +734,7 @@ Gura_DeclareMethod(image, reducecolor)
 		"If no argument is specified, the associated palette would be used.\n"
 		"In this case, an error occurs if there's no palette associated.\n"
 		"\n"
-		GURA_BLOCK_HELP("img", "image"));
+		GURA_HELPTEXT_BLOCK_en("img", "image"));
 }
 
 Gura_ImplementMethod(image, reducecolor)
@@ -805,7 +805,7 @@ Gura_DeclareMethod(image, resize)
 		"- `box` .. \n"
 		"- `ratio` .. \n"
 		"\n"
-		GURA_BLOCK_HELP("img", "image"));
+		GURA_HELPTEXT_BLOCK_en("img", "image"));
 }
 
 Gura_ImplementMethod(image, resize)

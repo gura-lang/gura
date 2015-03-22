@@ -101,7 +101,7 @@ Gura_DeclareFunctionAlias(operator_, "operator")
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Creates an `operator` instance that is associated with the specified symbol.\n"
 		"\n"
-		GURA_BLOCK_HELP("op", "operator")
+		GURA_HELPTEXT_BLOCK_en("op", "operator")
 		"\n"
 		"Below is an example to create an `operator` instance that is associated with the plus symbol.\n"
 		"\n"

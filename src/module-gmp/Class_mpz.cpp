@@ -96,7 +96,7 @@ Gura_DeclareMethodAlias(string, cast_mpz, "cast@mpz")
 		"If it's omitted, the basement would be decided by the prefix described in the string\n"
 		"such as \"`0`\" and \"`0x`\".\n"
 		"\n"
-		GURA_BLOCK_HELP("num", "gmp.mpz"));
+		GURA_HELPTEXT_BLOCK_en("num", "gmp.mpz"));
 }
 
 Gura_ImplementMethod(string, cast_mpz)

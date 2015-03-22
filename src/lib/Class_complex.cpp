@@ -21,7 +21,7 @@ Gura_DeclareFunction(complex)
 		"\n"
 		"If the argument `imag` is omitted, the imaginary part would be set to zero.\n"
 		"\n"
-		GURA_BLOCK_HELP("n", "complex"));
+		GURA_HELPTEXT_BLOCK_en("n", "complex"));
 }
 
 Gura_ImplementFunction(complex)
@@ -50,7 +50,7 @@ Gura_DeclareClassMethod(complex, polar)
 		"The argument `arg` is specified in a unit of radian.\n"
 		"You can give it a degree value by calling the function with `:deg` attribute.\n"
 		"\n"
-		GURA_BLOCK_HELP("n", "complex"));
+		GURA_HELPTEXT_BLOCK_en("n", "complex"));
 }
 
 Gura_ImplementClassMethod(complex, polar)

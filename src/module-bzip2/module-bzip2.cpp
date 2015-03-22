@@ -19,7 +19,7 @@ Gura_DeclareFunction(reader)
 		"Creates a stream instance that decompresses bzip2 data from the specified `stream`\n"
 		"that has readable attribute.\n"
 		"\n"
-		GURA_BLOCK_HELP("st", "stream"));
+		GURA_HELPTEXT_BLOCK_en("st", "stream"));
 }
 
 Gura_ImplementFunction(reader)
@@ -47,7 +47,7 @@ Gura_DeclareFunction(writer)
 		"The actual block size is 100000 times of this value.\n"
 		"Nine gives the best compression but takes most memory.\n"
 		"\n"
-		GURA_BLOCK_HELP("st", "stream"));
+		GURA_HELPTEXT_BLOCK_en("st", "stream"));
 }
 
 Gura_ImplementFunction(writer)
@@ -76,7 +76,7 @@ Gura_DeclareMethodAlias(stream, reader_bzip2, "reader@bzip2")
 		"Creates a stream instance that decompresses bzip2 data from the specified `stream`\n"
 		"that has readable attribute.\n"
 		"\n"
-		GURA_BLOCK_HELP("st", "stream"));
+		GURA_HELPTEXT_BLOCK_en("st", "stream"));
 }
 
 Gura_ImplementMethod(stream, reader_bzip2)
@@ -103,7 +103,7 @@ Gura_DeclareMethodAlias(stream, writer_bzip2, "writer@bzip2")
 		"The actual block size is 100000 times of this value.\n"
 		"Nine gives the best compression but takes most memory.\n"
 		"\n"
-		GURA_BLOCK_HELP("st", "stream"));
+		GURA_HELPTEXT_BLOCK_en("st", "stream"));
 }
 
 Gura_ImplementMethod(stream, writer_bzip2)

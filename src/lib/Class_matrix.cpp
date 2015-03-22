@@ -170,7 +170,7 @@ Gura_DeclareFunction(matrix)
 		"The content of the content will be initialized with `value`.\n"
 		"If omitted, it will be initialized with zero value.\n"
 		"\n"
-		GURA_BLOCK_HELP("mat", "matrix"));
+		GURA_HELPTEXT_BLOCK_en("mat", "matrix"));
 }
 
 Gura_ImplementFunction(matrix)
@@ -394,7 +394,7 @@ Gura_DeclareClassMethod(matrix, rotation)
 		"\n"
 		"    mat = matrix.rotation(30):deg"
 		"\n"
-		GURA_BLOCK_HELP("mat", "matrix"));
+		GURA_HELPTEXT_BLOCK_en("mat", "matrix"));
 }
 
 
@@ -441,7 +441,7 @@ Gura_DeclareClassMethodAlias(matrix, rotation_x, "rotation@x")
 		"\n"
 		"    mat = matrix.rotation@x(30):deg"
 		"\n"
-		GURA_BLOCK_HELP("mat", "matrix"));
+		GURA_HELPTEXT_BLOCK_en("mat", "matrix"));
 }
 
 Gura_ImplementClassMethod(matrix, rotation_x)
@@ -492,7 +492,7 @@ Gura_DeclareClassMethodAlias(matrix, rotation_y, "rotation@y")
 		"\n"
 		"    mat = matrix.rotation@y(30):deg"
 		"\n"
-		GURA_BLOCK_HELP("mat", "matrix"));
+		GURA_HELPTEXT_BLOCK_en("mat", "matrix"));
 }
 
 Gura_ImplementClassMethod(matrix, rotation_y)
@@ -543,7 +543,7 @@ Gura_DeclareClassMethodAlias(matrix, rotation_z, "rotation@z")
 		"\n"
 		"    mat = matrix.rotation@z(30):deg"
 		"\n"
-		GURA_BLOCK_HELP("mat", "matrix"));
+		GURA_HELPTEXT_BLOCK_en("mat", "matrix"));
 }
 
 Gura_ImplementClassMethod(matrix, rotation_z)

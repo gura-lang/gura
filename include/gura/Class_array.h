@@ -148,7 +148,7 @@ public:
 				Gura_Symbol(en), Help::FMT_markdown,
 				"Creates an iterator that iterates each element in the array.\n"
 				"\n"
-				GURA_ITERATOR_HELP
+				GURA_HELPTEXT_ITERATOR_en()
 				"\n"
 				"The block parameter is `|elem:number, idx:number|`\n"
 				"where `elem` is the element value.\n"

@@ -65,6 +65,26 @@ String Object_help::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of methods
+//-----------------------------------------------------------------------------
+// help.gettext_iterator_en() {block?}
+Gura_DeclareClassMethod(help, gettext_iterator_en)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a help text for functions that return an iterator.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("str", "string"));
+}
+
+Gura_ImplementClassMethod(help, gettext_iterator_en)
+{
+	return ReturnValue(env, sig, args, Value(GURA_HELPTEXT_ITERATOR_en()));
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
 Class_help::Class_help(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_help)
@@ -73,6 +93,8 @@ Class_help::Class_help(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_help)
 
 void Class_help::Prepare(Environment &env)
 {
+	// methods assignment
+	Gura_AssignMethod(help, gettext_iterator_en);
 }
 
 }

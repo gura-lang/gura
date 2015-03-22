@@ -454,7 +454,7 @@ Gura_DeclareMethod(dict, items)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns an iterator of key-value pairs in the dictionary.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(dict, items)
@@ -474,7 +474,7 @@ Gura_DeclareMethod(dict, keys)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns an iterator of keys in the dictionary.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(dict, keys)
@@ -550,7 +550,7 @@ Gura_DeclareMethod(dict, values)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns an iterator of values in the dictionary.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(dict, values)

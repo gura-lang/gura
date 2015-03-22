@@ -150,7 +150,7 @@ Gura_DeclareMethod(string, each)
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Creates an iterator generating strings of each character in the original one.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(string, each)
@@ -179,7 +179,7 @@ Gura_DeclareMethod(string, eachline)
 		"In default, end-of-line characters are involved in the result.\n"
 		"You can eliminates them by specifying `:chop` attribute.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(string, eachline)
@@ -315,7 +315,7 @@ Gura_DeclareMethod(string, fold)
 		"The argument `step` specifies the length of advancement for the next folding point.\n"
 		"If omitted, it would be the same amount as `len`.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(string, fold)
@@ -342,7 +342,7 @@ Gura_DeclareMethod(string, foldw)
 		"This method takes into account the character width based on the specification\n"
 		"of East Asian Width.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(string, foldw)
@@ -504,7 +504,7 @@ Gura_DeclareMethod(string, reader)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns a `stream` instance that reads the string content as a binary sequence.\n"
 		"\n"
-		GURA_BLOCK_HELP("s", "stream"));
+		GURA_HELPTEXT_BLOCK_en("s", "stream"));
 }
 
 Gura_ImplementMethod(string, reader)
@@ -577,7 +577,7 @@ Gura_DeclareMethod(string, split)
 		"separated by a specified string `sep`.\n"
 		"With an attribute `:icase`, character cases are ignored while finding the separator.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(string, split)

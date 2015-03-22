@@ -112,7 +112,7 @@ Gura_DeclareMethodAlias(mpq, cast_mpf, "cast@mpf")
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Casts the value to `gmp.mpf`.\n"
 		"\n"
-		GURA_BLOCK_HELP("num", "gmp.mpf"));
+		GURA_HELPTEXT_BLOCK_en("num", "gmp.mpf"));
 }
 
 Gura_ImplementMethod(mpq, cast_mpf)
@@ -132,7 +132,7 @@ Gura_DeclareMethodAlias(string, cast_mpq, "cast@mpq")
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Casts the string to `gmp.mpq`.\n"
 		"\n"
-		GURA_BLOCK_HELP("num", "gmp.mpq"));
+		GURA_HELPTEXT_BLOCK_en("num", "gmp.mpq"));
 }
 
 Gura_ImplementMethod(string, cast_mpq)

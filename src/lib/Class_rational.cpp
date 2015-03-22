@@ -22,7 +22,7 @@ Gura_DeclareFunction(rational)
 		"\n"
 		"If the argument `denom` is omitted, one is set as its denominator.\n"
 		"\n"
-		GURA_BLOCK_HELP("r", "rational"));
+		GURA_HELPTEXT_BLOCK_en("r", "rational"));
 }
 
 Gura_ImplementFunction(rational)

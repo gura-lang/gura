@@ -418,7 +418,7 @@ Gura_DeclareMethod(match, groups)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates an iterator that returns `re.group` instances.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(match, groups)
@@ -538,7 +538,7 @@ Gura_DeclareFunction(pattern)
 		"- `:icase` .. Ignores character cases.\n"
 		"- `:multiline` .. Matches \"`.`\" with a line break.\n"
 		"\n"
-		GURA_BLOCK_HELP("pat", "re.pattern"));
+		GURA_HELPTEXT_BLOCK_en("pat", "re.pattern"));
 }
 
 Gura_ImplementFunction(pattern)
@@ -700,7 +700,7 @@ Gura_DeclareMethod(string, match)
 		"The argument `endpos` specifies the ending position for matching process.\n"
 		"If omitted, it would be processed until the end of the string.\n"
 		"\n"
-		GURA_BLOCK_HELP("m", "re.match"));
+		GURA_HELPTEXT_BLOCK_en("m", "re.match"));
 }
 
 Gura_ImplementMethod(string, match)
@@ -736,7 +736,7 @@ Gura_DeclareMethod(string, sub)
 		"The argument `count` specifies the maximum number of substitutions.\n"
 		"If omitted, no limit would be applied.\n"
 		"\n"
-		GURA_BLOCK_HELP("str", "string"));
+		GURA_HELPTEXT_BLOCK_en("str", "string"));
 }
 
 Gura_ImplementMethod(string, sub)
@@ -778,7 +778,7 @@ Gura_DeclareMethod(string, splitreg)
 		"The argument `count` specifies the maximum number for splitting.\n"
 		"If omitted, no limit would be applied.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(string, splitreg)
@@ -809,7 +809,7 @@ Gura_DeclareMethod(string, scan)
 		"The argument `endpos` specifies the ending position for matching process.\n"
 		"If omitted, it would be processed until the end of the string.\n"
 		"\n"
-		GURA_ITERATOR_HELP);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(string, scan)

@@ -179,7 +179,7 @@ Gura_DeclareMethodAlias(string, cast_mpf, "cast@mpf")
 		"You can specify the precision of the number by the argument `prec`.\n"
 		"If it's omitted, a default precision would be applied.\n"
 		"\n"
-		GURA_BLOCK_HELP("num", "gmp.mpf"));
+		GURA_HELPTEXT_BLOCK_en("num", "gmp.mpf"));
 }
 
 Gura_ImplementMethod(string, cast_mpf)
