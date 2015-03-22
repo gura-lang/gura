@@ -70,7 +70,7 @@ void Signal::SetErrorV(ErrorType errType,
 					const char *format, va_list ap, const char *textPre)
 {
 	Signal sig;
-	String text = Formatter::Format(sig, format, ap);
+	String text = Formatter::FormatV(sig, format, ap);
 	_pShared->sigType = SIGTYPE_Error;
 	*_pShared->pValue = Value::Null;
 	_pShared->err.Set(errType, textPre, text);

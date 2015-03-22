@@ -367,7 +367,7 @@ Gura_DeclareMethod(string, format)
 
 Gura_ImplementMethod(string, format)
 {
-	return Value(Formatter::Format(sig, args.GetThis().GetString(), args.GetList(0)));
+	return Value(Formatter::FormatValueList(sig, args.GetThis().GetString(), args.GetList(0)));
 }
 
 // string#isempty()

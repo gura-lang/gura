@@ -37,7 +37,7 @@ Gura_DeclareFunction(format)
 
 Gura_ImplementFunction(format)
 {
-	return Value(Formatter::Format(sig, args.GetString(0), args.GetList(1)));
+	return Value(Formatter::FormatValueList(sig, args.GetString(0), args.GetList(1)));
 }
 
 // print(value*):map:void
@@ -984,10 +984,10 @@ Gura_ImplementFunction(hex)
 	bool upperFlag = args.IsSet(Gura_Symbol(upper));
 	String str;
 	if (digits <= 0) {
-		str = Formatter::Format(sig, upperFlag? "%X" : "%x",
+		str = Formatter::FormatValueList(sig, upperFlag? "%X" : "%x",
 						ValueList(args.GetValue(0)));
 	} else {
-		str = Formatter::Format(sig, upperFlag? "%0*X" : "%0*x",
+		str = Formatter::FormatValueList(sig, upperFlag? "%0*X" : "%0*x",
 						ValueList(Value(digits), args.GetValue(0)));
 	}
 	if (sig.IsSignalled()) return Value::Null;

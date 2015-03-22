@@ -232,29 +232,35 @@ bool Formatter::PutInvalid(Signal sig, const Flags &flags)
 	return PutAlignedString(sig, flags, str.c_str());
 }
 
-String Formatter::Format(Signal sig,
-						const char *format, const ValueList &valList)
+String Formatter::Format(Signal sig, const char *format, ...)
 {
-	FormatterString formatter;
-	formatter.DoFormat(sig, format, valList);
-	return formatter.GetStringSTL();
+	va_list ap;
+	va_start(ap, format);
+	return Formatter::FormatV(sig, format, ap);
 }
 
-String Formatter::Format(Signal sig, const char *format, va_list ap)
+String Formatter::FormatV(Signal sig, const char *format, va_list ap)
 {
 	FormatterString formatter;
 	formatter.DoFormat(sig, format, ap);
 	return formatter.GetStringSTL();
 }
 
-Value Formatter::Format(Environment &env, Signal sig,
+String Formatter::FormatValueList(Signal sig, const char *format, const ValueList &valList)
+{
+	FormatterString formatter;
+	formatter.DoFormat(sig, format, valList);
+	return formatter.GetStringSTL();
+}
+
+Value Formatter::FormatIterator(Environment &env, Signal sig,
 						const char *format, IteratorOwner &iterOwner)
 {
 	Value result;
 	ValueList &valListResult = result.InitAsList(env);
 	ValueList valList;
 	while (iterOwner.Next(env, sig, valList)) {
-		String str = Format(sig, format, valList);
+		String str = FormatValueList(sig, format, valList);
 		if (sig.IsSignalled()) return Value::Null;
 		valListResult.push_back(Value(str));
 	}

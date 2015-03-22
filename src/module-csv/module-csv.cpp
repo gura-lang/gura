@@ -76,9 +76,9 @@ bool Object_writer::PutValue(Environment &env, Signal sig, const Value &value)
 	if (value.IsInvalid()) {
 		return true;
 	} else if (value.Is_number()) {
-		str = Formatter::Format(sig, _format.c_str(), ValueList(value));
+		str = Formatter::FormatValueList(sig, _format.c_str(), ValueList(value));
 	} else if (value.Is_complex()) {
-		str = Formatter::Format(sig, _format.c_str(), ValueList(value));
+		str = Formatter::FormatValueList(sig, _format.c_str(), ValueList(value));
 	} else if (value.Is_string()) {
 		str += '"';
 		for (const char *p = value.GetString(); *p != '\0'; p++) {

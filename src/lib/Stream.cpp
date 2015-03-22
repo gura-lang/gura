@@ -21,7 +21,7 @@ void SimpleStream::Println(Signal sig, const char *str)
 
 void SimpleStream::PrintFmt(Signal sig, const char *format, const ValueList &valList)
 {
-	String str = Formatter::Format(sig, format, valList);
+	String str = Formatter::FormatValueList(sig, format, valList);
 	if (sig.IsSignalled()) return;
 	Print(sig, str.c_str());
 }
@@ -30,7 +30,7 @@ void SimpleStream::Printf(Signal sig, const char *format, ...)
 {
 	va_list ap;
 	va_start(ap, format);
-	String str = Formatter::Format(sig, format, ap);
+	String str = Formatter::FormatV(sig, format, ap);
 	va_end(ap);
 	if (sig.IsSignalled()) return;
 	Print(sig, str.c_str());

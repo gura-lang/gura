@@ -24,6 +24,8 @@
 "If one of the attributes listed above is specified,\n" \
 "an iterator or a list of the evaluated value would be returned.\n" 
 
+// revise implementation of help.gettext_block_en in Class_help.cpp
+// after this text is modified.
 #define GURA_HELPTEXT_BLOCK_en(var, type) \
 "If `block` is specified, it would be evaluated with a block parameter `|" var ":" type "|`,\n" \
 "where `" var "` is the created instance.\n" \

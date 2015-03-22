@@ -948,13 +948,13 @@ Value Operator_Mod::EvalMapBinary(Environment &env, Signal sig,
 	} else if (valueLeft.Is_string()) {
 		const char *format = valueLeft.GetString();
 		if (!valueRight.Is_list()) {
-			String str = Formatter::Format(sig, format, ValueList(valueRight));
+			String str = Formatter::FormatValueList(sig, format, ValueList(valueRight));
 			if (sig.IsSignalled()) return Value::Null;
 			return Value(str);
 		} else {
 			const ValueList &valList = valueRight.GetList();
 			if (valList.IsFlat() && !valList.DoesContainIterator()) {
-				String str = Formatter::Format(sig, format, valList);
+				String str = Formatter::FormatValueList(sig, format, valList);
 				if (sig.IsSignalled()) return Value::Null;
 				return Value(str);
 			} else {
@@ -969,7 +969,7 @@ Value Operator_Mod::EvalMapBinary(Environment &env, Signal sig,
 					}
 					iterOwner.push_back(pIterator.release());
 				}
-				return Formatter::Format(env, sig, format, iterOwner);
+				return Formatter::FormatIterator(env, sig, format, iterOwner);
 			}
 		}
 	}

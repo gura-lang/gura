@@ -84,6 +84,30 @@ Gura_ImplementClassMethod(help, gettext_iterator_en)
 	return ReturnValue(env, sig, args, Value(GURA_HELPTEXT_ITERATOR_en()));
 }
 
+// help.gettext_block_en(varname:string, typename:string) {block?}
+Gura_DeclareClassMethod(help, gettext_block_en)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "varname", VTYPE_string);
+	DeclareArg(env, "typename", VTYPE_string);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a help text for functions that take a block.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("str", "string"));
+}
+
+Gura_ImplementClassMethod(help, gettext_block_en)
+{
+	const char *varName = args.GetString(0);
+	const char *typeName = args.GetString(1);
+	String buff = Formatter::Format(
+		sig, GURA_HELPTEXT_BLOCK_en("%s", "%s"), varName, typeName, varName);
+	if (sig.IsSignalled()) return Value::Null;
+	return ReturnValue(env, sig, args, Value(buff));
+}
+
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
@@ -93,8 +117,11 @@ Class_help::Class_help(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_help)
 
 void Class_help::Prepare(Environment &env)
 {
+	// class assignment
+	Gura_AssignValue(help, Value(Reference()));
 	// methods assignment
 	Gura_AssignMethod(help, gettext_iterator_en);
+	Gura_AssignMethod(help, gettext_block_en);
 }
 
 }
