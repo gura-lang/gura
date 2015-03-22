@@ -108,6 +108,7 @@ fs:module = <module:fs:<integrated>>
   fs.rename(src:string, dst:string):map:void
   fs.rmdir(pathname:string):map:void:[tree]
 function(`args*) {block}
+help:class = <class:help>
 hex(num:number, digits?:number):map:[upper]
 if (`cond):leader {block}
 image(args+):map {block?}
@@ -496,6 +497,8 @@ function
   function.getsymbol(func:function):static:map
   function#mathdiff(var?:symbol):reduce
 help
+  help.gettext_block_en(varname:string, typename:string):static {block?}
+  help.gettext_iterator_en():static {block?}
 image
   image#allocbuff(width:number, height:number, color?:color):reduce
   image#blur(radius:number, sigma?:number) {block?}
