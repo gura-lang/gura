@@ -396,15 +396,10 @@ The `complex` class provides measures to calculate complex numbers.
 
 You can create a `complex` instance by following ways:
 
-- Use `complex()` function.
-- Use `complex.polar()` function.
-- Append `j` suffix after a number literal.
+- Use `complex()` function. eg) `complex(2, 3)`
+- Use `complex.polar()` function. eg) `complex.polar(5, math.pi / 6)`
+- Append `j` suffix after a number literal. eg) `2 + 3j`
 
-Below are examples to realize a complex number that has 2 as its real part
-and 3 as its imaginal part.
-
-    complex(2, 3)
-    2 + 3j
 
 ### Function to Create Instance
 

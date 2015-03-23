@@ -61,15 +61,20 @@ Gura_ImplementClassMethod(complex, polar)
 	return ReturnValue(env, sig, args, Value(Complex::Polar(abs, arg)));
 }
 
-// complex#roundoff(threshold:number => 1e-10)
+// complex#roundoff(threshold:number => 1e-10) {block?}
 Gura_DeclareMethodPrimitive(complex, roundoff)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "threshold", VTYPE_number, OCCUR_Once, FLAG_None,
 											new Expr_Value(RoundOffThreshold));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a complex number with real and imaginary parts being rounded off.\n"
+		"\n"
+		"The argument `threshold` specifies the threshold value for the round-off.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("n", "complex"));
 }
 
 Gura_ImplementMethod(complex, roundoff)
@@ -82,7 +87,7 @@ Gura_ImplementMethod(complex, roundoff)
 	if (realAbs < numThreshold) real = 0;
 	if (imagAbs < numThreshold) imag = 0;
 	if (imag == 0) return Value(real);
-	return Value(Complex(real, imag));
+	return ReturnValue(env, sig, args, Value(Complex(real, imag)));
 }
 
 //-----------------------------------------------------------------------------

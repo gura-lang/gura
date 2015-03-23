@@ -570,22 +570,28 @@ Gura_ImplementClassMethod(matrix, rotation_z)
 	return ReturnValue(env, sig, args, Value(new Object_matrix(env, pMat.release())));
 }
 
-// matrix#roundoff(threshold:number => 1e-10)
+// matrix#roundoff(threshold:number => 1e-10) {block?}
 Gura_DeclareMethod(matrix, roundoff)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "threshold", VTYPE_number, OCCUR_Once, FLAG_None,
 										new Expr_Value(RoundOffThreshold));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a matrix with values that have been rounded off.");
+		"Returns a matrix with element values being rounded off.\n"
+		"\n"
+		"The argument `threshold` specifies the threshold value for the round-off.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("mat", "matrix"));
 }
 
 Gura_ImplementMethod(matrix, roundoff)
 {
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	Value value = pThis->GetMatrix()->RoundOff(env, sig, args.GetNumber(0));
 	if (sig.IsSignalled()) return Value::Null;
-	return pThis->GetMatrix()->RoundOff(env, sig, args.GetNumber(0));
+	return ReturnValue(env, sig, args, value);
 }
 
 // matrix#row(row:number):map

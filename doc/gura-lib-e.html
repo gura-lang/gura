@@ -2985,16 +2985,10 @@ The <code>complex</code> class provides measures to calculate complex numbers.
 You can create a <code>complex</code> instance by following ways:
 </p>
 <ul>
-<li>Use <code>complex()</code> function.</li>
-<li>Use <code>complex.polar()</code> function.</li>
-<li>Append <code>j</code> suffix after a number literal.</li>
+<li>Use <code>complex()</code> function. eg) <code>complex(2, 3)</code></li>
+<li>Use <code>complex.polar()</code> function. eg) <code>complex.polar(5, math.pi / 6)</code></li>
+<li>Append <code>j</code> suffix after a number literal. eg) <code>2 + 3j</code></li>
 </ul>
-<p>
-Below are examples to realize a complex number that has 2 as its real part and 3 as its imaginal part.
-</p>
-<pre><code>complex(2, 3)
-2 + 3j
-</code></pre>
 <h3><span class="caption-index-3">6.8.1</span><a name="caption-6-8-1"></a>Function to Create Instance</h3>
 <p>
 <strong>complex</strong>
@@ -3031,7 +3025,16 @@ If <code>block</code> is specified, it would be evaluated with a block parameter
 <strong>complex.roundoff</strong>
 </p>
 <p>
-<code>complex.roundoff(threshold:number =&gt; 1e-10)</code>
+<code>complex.roundoff(threshold:number =&gt; 1e-10) {block?}</code>
+</p>
+<p>
+Returns a complex number with real and imaginary parts being rounded off.
+</p>
+<p>
+The argument <code>threshold</code> specifies the threshold value for the round-off.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|n:complex|</code>, where <code>n</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <h2><span class="caption-index-2">6.9</span><a name="caption-6-9"></a>datetime Class</h2>
 <p>
@@ -6089,7 +6092,7 @@ If <code>block</code> is specified, it would be evaluated with a block parameter
 Returns a color of a pixel data at the specified position.
 </p>
 <p>
-If <code>block</code> is specified, it would be evaluated with a block parameter <code>|c:color|</code>, where <code>img</code> is the created instance. In this case, the block's result would become the function's returned value.
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|c:color|</code>, where <code>c</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 <strong>image#grayscale</strong>
@@ -8973,10 +8976,16 @@ If <code>block</code> is specified, it would be evaluated with a block parameter
 <strong>matrix#roundoff</strong>
 </p>
 <p>
-<code>matrix#roundoff(threshold:number =&gt; 1e-10)</code>
+<code>matrix#roundoff(threshold:number =&gt; 1e-10) {block?}</code>
 </p>
 <p>
-Returns a matrix with values that have been rounded off.
+Returns a matrix with element values being rounded off.
+</p>
+<p>
+The argument <code>threshold</code> specifies the threshold value for the round-off.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|mat:matrix|</code>, where <code>mat</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 <strong>matrix#row</strong>
@@ -9337,7 +9346,13 @@ Below are examples to realize a common fraction two-thirds:
 <code>rational(numer:number, denom?:number):map {block?}</code>
 </p>
 <p>
-Creates a rational value.
+Creates a rational value from given numerator <code>numer</code> and denominator <code>denom</code>.
+</p>
+<p>
+If the argument <code>denom</code> is omitted, one is set as its denominator.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|r:rational|</code>, where <code>r</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <h3><span class="caption-index-3">6.29.2</span><a name="caption-6-29-2"></a>Method</h3>
 <p>
@@ -9345,6 +9360,9 @@ Creates a rational value.
 </p>
 <p>
 <code>rational.reduce()</code>
+</p>
+<p>
+Reduces the rational number by dividing its numerator and denominator by their GCD.
 </p>
 <h2><span class="caption-index-2">6.30</span><a name="caption-6-30"></a>semaphore Class</h2>
 <h3><span class="caption-index-3">6.30.1</span><a name="caption-6-30-1"></a>Function to Create Instance</h3>
@@ -10895,7 +10913,7 @@ The <code>base64</code> module provides measures to read/write text stream that 
 Reads text stream that is formatted in base64 and returns the decoded result in binary.
 </p>
 <p>
-If <code>block</code> is specified, it would be evaluated with block parameter <code>|data:binary|</code>, where <code>data</code> is the created binary instance.
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|data:binary|</code>, where <code>data</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 <strong>base64.encode</strong>
@@ -10907,7 +10925,7 @@ If <code>block</code> is specified, it would be evaluated with block parameter <
 Encodes content of the stream into base64 format and returns the result in binary.
 </p>
 <p>
-If <code>block</code> is specified, it would be evaluated with block parameter <code>|data:binary|</code>, where <code>data</code> is the created binary instance.
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|data:binary|</code>, where <code>data</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 <strong>base64.reader</strong>
@@ -10919,7 +10937,7 @@ If <code>block</code> is specified, it would be evaluated with block parameter <
 Creates a stream instance that reads data formatted in base64 from <code>stream</code>.
 </p>
 <p>
-If <code>block</code> is specified, it would be evaluated with block parameter <code>|s:stream|</code>, where <code>s</code> is the created stream instance.
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|s:stream|</code>, where <code>s</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 <strong>base64.writer</strong>
@@ -10934,7 +10952,7 @@ Creates a stream instance that encodes data to base64 format and writes it to th
 The number of characters per line is specified by an argument <code>linelen</code>. If omitted, that is 76.
 </p>
 <p>
-If <code>block</code> is specified, it would be evaluated with block parameter <code>|s:stream|</code>, where <code>s</code> is the created stream instance.
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|s:stream|</code>, where <code>s</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <h2><span class="caption-index-2">7.2</span><a name="caption-7-2"></a>Extension to stream Class</h2>
 <p>
@@ -10950,7 +10968,7 @@ This module extends the <code>stream</code> class with methods described here.
 Creates a stream instance that reads data formatted in base64 from the target stream instance.
 </p>
 <p>
-If <code>block</code> is specified, it would be evaluated with block parameter <code>|s:stream|</code>, where <code>s</code> is the created stream instance.
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|s:stream|</code>, where <code>s</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 <strong>stream#writer@base64</strong>
@@ -10965,7 +10983,7 @@ Creates a stream instance that encodes data to base64 format and writes it to th
 The number of characters per line is specified by an argument <code>linelen</code>. If omitted, that is 76.
 </p>
 <p>
-If <code>block</code> is specified, it would be evaluated with block parameter <code>|s:stream|</code>, where <code>s</code> is the created stream instance.
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|s:stream|</code>, where <code>s</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <h1><span class="caption-index-1">8</span><a name="caption-8"></a>bmp Module</h1>
 <p>
@@ -19579,7 +19597,7 @@ If a <code>function</code> is specified, it would be called with an argument <co
 The argument <code>count</code> specifies the maximum number of substitutions. If omitted, no limit would be applied.
 </p>
 <p>
-If <code>block</code> is specified, it would be evaluated with a block parameter <code>|str:string|</code>, where <code>str</code> is the result string. In this case, the block's result would become the function's returned value.
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|str:string|</code>, where <code>str</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 <strong>re.pattern#split</strong>
@@ -19680,7 +19698,7 @@ If a <code>function</code> is specified, it would be called with an argument <co
 The argument <code>count</code> specifies the maximum number of substitutions. If omitted, no limit would be applied.
 </p>
 <p>
-If <code>block</code> is specified, it would be evaluated with a block parameter <code>|str:string|</code>, where <code>str</code> is the result string. In this case, the block's result would become the function's returned value.
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|str:string|</code>, where <code>str</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 <strong>string#splitreg</strong>
@@ -19788,7 +19806,7 @@ If a <code>function</code> is specified, it would be called with an argument <co
 The argument <code>count</code> specifies the maximum number of substitutions. If omitted, no limit would be applied.
 </p>
 <p>
-If <code>block</code> is specified, it would be evaluated with a block parameter <code>|str:string|</code>, where <code>str</code> is the result string. In this case, the block's result would become the function's returned value.
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|str:string|</code>, where <code>str</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 <strong>re.split</strong>

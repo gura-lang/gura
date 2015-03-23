@@ -419,7 +419,7 @@ color
   zero:color = <color:#000000,a:00>
 complex
   complex.polar(abs:number, arg:number):static:map:[deg] {block?}
-  complex.roundoff(threshold:number => 1e-10)
+  complex.roundoff(threshold:number => 1e-10) {block?}
 datetime
   Friday:number = 5
   Monday:number = 1
@@ -653,7 +653,7 @@ matrix
   matrix.rotation@x(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
   matrix.rotation@y(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
   matrix.rotation@z(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
-  matrix#roundoff(threshold:number => 1e-10)
+  matrix#roundoff(threshold:number => 1e-10) {block?}
   matrix#row(row:number):map
   matrix#rowsize()
   matrix#set(value)
