@@ -256,11 +256,25 @@ binary.unpack
 binary.unpacks
 binary.writer
 )}
+
 '''.template().render()
 
 //-----------------------------------------------------------------------------
 text@boolean = R'''
 ## boolean Class
+
+The `boolean` class represents a boolean data type that is used in logical operations
+such as NOT, AND and OR.
+
+There are only two values of pure `boolean` type: `true` and `false`.
+But other types of values can also be specified in logical operations
+according to the following general rule:
+
+- Values `false` and `nil` are evaluated as false value.
+- Other values are evaluated as true.
+
+Notice that the number `0` is treated as true in logical operations.
+
 '''.template().render()
 
 //-----------------------------------------------------------------------------
@@ -275,19 +289,19 @@ The `codec` class provides measures to convert character codes.
 <tr><th>Variable</th><th>Type</th><th>Explanation</th></tr>
 
 <tr><td><code>codec.bom@utf8</code></td><td><code>binary</code></td>
-<td>BOM sequence of UTF-8</td></tr>
+<td>BOM sequence of UTF-8: <code>'\xef\xbb\xbf'</code></td></tr>
 
 <tr><td><code>codec.bom@utf16le</code></td><td><code>binary</code></td>
-<td>BOM sequence of UTF-16 little endian</td></tr>
+<td>BOM sequence of UTF-16 little endian: <code>'\xff\xfe'</code></td></tr>
 
 <tr><td><code>codec.bom@utf16be</code></td><td><code>binary</code></td>
-<td>BOM sequence of UTF-16 big endian</td></tr>
+<td>BOM sequence of UTF-16 big endian: <code>'\xfe\xff'</code></td></tr>
 
 <tr><td><code>codec.bom@utf32le</code></td><td><code>binary</code></td>
-<td>BOM sequence of UTF-32 little endian</td></tr>
+<td>BOM sequence of UTF-32 little endian<code>'\xff\xfe\x00\x00'</code></td></tr>
 
 <tr><td><code>codec.bom@utf32be</code></td><td><code>binary</code></td>
-<td>BOM sequence of UTF-32 big endian</td></tr>
+<td>BOM sequence of UTF-32 big endian: <code>'\x00\x00\xfe\xff'</code></td></tr>
 
 </table>
 
@@ -305,6 +319,7 @@ codec.decode
 codec.delcr
 codec.encode
 )}
+
 '''.template().render()
 
 //-----------------------------------------------------------------------------
@@ -1817,8 +1832,8 @@ write(doc:markdown.document) = {
 	doc << text@args
 	doc << text@array
 	doc << text@audio
-	doc << text@boolean
 	doc << text@binary
+	doc << text@boolean
 	doc << text@codec
 	doc << text@color
 	doc << text@complex

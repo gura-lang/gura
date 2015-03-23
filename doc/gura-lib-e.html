@@ -33,8 +33,8 @@
 <div><span class="toc-index-2">6.1</span><a href="#caption-6-1">args Class</a></div>
 <div><span class="toc-index-2">6.2</span><a href="#caption-6-2">array Class</a></div>
 <div><span class="toc-index-2">6.3</span><a href="#caption-6-3">audio Class</a></div>
-<div><span class="toc-index-2">6.4</span><a href="#caption-6-4">boolean Class</a></div>
-<div><span class="toc-index-2">6.5</span><a href="#caption-6-5">binary Class</a></div>
+<div><span class="toc-index-2">6.4</span><a href="#caption-6-4">binary Class</a></div>
+<div><span class="toc-index-2">6.5</span><a href="#caption-6-5">boolean Class</a></div>
 <div><span class="toc-index-2">6.6</span><a href="#caption-6-6">codec Class</a></div>
 <div><span class="toc-index-2">6.7</span><a href="#caption-6-7">color Class</a></div>
 <div><span class="toc-index-2">6.8</span><a href="#caption-6-8">complex Class</a></div>
@@ -2386,8 +2386,7 @@ The <code>audio</code> class provides measures to work on audio data.
 <p>
 <code>audio#store(channel:number, offset:number, data:iterator):reduce</code>
 </p>
-<h2><span class="caption-index-2">6.4</span><a name="caption-6-4"></a>boolean Class</h2>
-<h2><span class="caption-index-2">6.5</span><a name="caption-6-5"></a>binary Class</h2>
+<h2><span class="caption-index-2">6.4</span><a name="caption-6-4"></a>binary Class</h2>
 <p>
 The <code>binary</code> class provides measures to work on binary data that is a byte sequence without any format.
 </p>
@@ -2399,7 +2398,7 @@ You can also create the instance by specifying <code>b</code> prefix before a st
 </p>
 <pre><code>b'AB\xfe\x03CD'
 </code></pre>
-<h3><span class="caption-index-3">6.5.1</span><a name="caption-6-5-1"></a>Property</h3>
+<h3><span class="caption-index-3">6.4.1</span><a name="caption-6-4-1"></a>Property</h3>
 <p>
 <table>
 
@@ -2435,14 +2434,14 @@ Indicates if the content of the binary object is writable.</td>
 </table>
 
 </p>
-<h3><span class="caption-index-3">6.5.2</span><a name="caption-6-5-2"></a>Function to Create Instance</h3>
+<h3><span class="caption-index-3">6.4.2</span><a name="caption-6-4-2"></a>Function to Create Instance</h3>
 <p>
 <strong>binary</strong>
 </p>
 <p>
 <code>binary(buff*) {block?}</code>
 </p>
-<h3><span class="caption-index-3">6.5.3</span><a name="caption-6-5-3"></a>Method</h3>
+<h3><span class="caption-index-3">6.4.3</span><a name="caption-6-4-3"></a>Method</h3>
 <p>
 <strong>binary#add</strong>
 </p>
@@ -2600,6 +2599,20 @@ Returns a pointer instance that has an initial offset specified by the argument.
 <p>
 <code>binary#writer() {block?}</code>
 </p>
+<h2><span class="caption-index-2">6.5</span><a name="caption-6-5"></a>boolean Class</h2>
+<p>
+The <code>boolean</code> class represents a boolean data type that is used in logical operations such as NOT, AND and OR.
+</p>
+<p>
+There are only two values of pure <code>boolean</code> type: <code>true</code> and <code>false</code>. But other types of values can also be specified in logical operations according to the following general rule:
+</p>
+<ul>
+<li>Values <code>false</code> and <code>nil</code> are evaluated as false value.</li>
+<li>Other values are evaluated as true.</li>
+</ul>
+<p>
+Notice that the number <code>0</code> is treated as true in logical operations.
+</p>
 <h2><span class="caption-index-2">6.6</span><a name="caption-6-6"></a>codec Class</h2>
 <p>
 The <code>codec</code> class provides measures to convert character codes.
@@ -2629,7 +2642,9 @@ binary</code>
 </td>
 
 <td>
-BOM sequence of UTF-8</td>
+BOM sequence of UTF-8: <code>
+'\xef\xbb\xbf'</code>
+</td>
 </tr>
 
 
@@ -2644,7 +2659,9 @@ binary</code>
 </td>
 
 <td>
-BOM sequence of UTF-16 little endian</td>
+BOM sequence of UTF-16 little endian: <code>
+'\xff\xfe'</code>
+</td>
 </tr>
 
 
@@ -2659,7 +2676,9 @@ binary</code>
 </td>
 
 <td>
-BOM sequence of UTF-16 big endian</td>
+BOM sequence of UTF-16 big endian: <code>
+'\xfe\xff'</code>
+</td>
 </tr>
 
 
@@ -2674,7 +2693,9 @@ binary</code>
 </td>
 
 <td>
-BOM sequence of UTF-32 little endian</td>
+BOM sequence of UTF-32 little endian<code>
+'\xff\xfe\x00\x00'</code>
+</td>
 </tr>
 
 
@@ -2689,7 +2710,9 @@ binary</code>
 </td>
 
 <td>
-BOM sequence of UTF-32 big endian</td>
+BOM sequence of UTF-32 big endian: <code>
+'\x00\x00\xfe\xff'</code>
+</td>
 </tr>
 
 

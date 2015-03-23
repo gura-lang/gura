@@ -802,8 +802,8 @@ Gura_DeclareMethod(image, resize)
 		"\n"
 		"The following attributes are acceptable:\n"
 		"\n"
-		"- `box` .. \n"
-		"- `ratio` .. \n"
+		"- `box` .. When only `width` is specified, the same value is set to `height`.\n"
+		"- `ratio` .. Treats values of `width` and `height` as magnifying ration instead of pixel size.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("img", "image"));
 }
@@ -864,7 +864,18 @@ Gura_DeclareMethod(image, rotate)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an image that rotates the original image by the specified angle.\n"
+		"\n"
+		"The argument `angle` specifies the rotation angle in degree unit,\n"
+		"and positive numbers for counterclockwise direction and\n"
+		"negative for clockwise direction.\n"
+		"\n"
+		"The created instance has a size that exactly fits the rotated image.\n"
+		"The argument `background` specifies the color of pixels to fill\n"
+		"the empty area that appears after rotation.\n"
+		"If omitted, the color that has all elements set to zero is used for filling.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("img", "image"));
 }
 
 Gura_ImplementMethod(image, rotate)
@@ -892,7 +903,25 @@ Gura_DeclareMethod(image, scan)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an iterator that scans pixels in the image.");
+		"Returns an iterator that scans pixels in the image.\n"
+		"\n"
+		"The arguments `x`, `y`, `width` and `height` specify the image area to scan.\n"
+		"The argument `scandir` specifies the scan direction and\n"
+		"takes one of the following symbol:\n"
+		"\n"
+		"<table>\n"
+		"<tr><th>Symbol</th><th>Start Pos</th><th>Direction</th></tr>\n"
+		"<tr><td><code>`left_top_horz</code></td><td>left-top</td><td>horizontal</td></tr>\n"
+		"<tr><td><code>`left_top_vert</code></td><td>left-top</td><td>vertical</td></tr>\n"
+		"<tr><td><code>`left_bottom_horz</code></td><td>left-bottom</td><td>horizontal</td></tr>\n"
+		"<tr><td><code>`left_bottom_vert</code></td><td>left-bottom</td><td>vertical</td></tr>\n"
+		"<tr><td><code>`right_top_horz</code></td><td>right-top</td><td>horizontal</td></tr>\n"
+		"<tr><td><code>`right_top_vert</code></td><td>right-top</td><td>vertical</td></tr>\n"
+		"<tr><td><code>`right_bottom_horz</code></td><td>right-bottom</td><td>horizontal</td></tr>\n"
+		"<tr><td><code>`right_bottom_vert</code></td><td>right-bottom</td><td>vertical</td></tr>\n"
+		"</table>\n"
+		"\n"
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(image, scan)
