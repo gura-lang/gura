@@ -423,11 +423,13 @@ The `datetime` class provides measures to handle date and time information.
 
 You can create a `datetime` instance by calling following functions:
 
-- `datetime()` .. Creates from specified date and time.
-- `datetime.now()` .. Creates from the current date and time.
-- `datetime.today()` .. Creates from the current date. The time is set to 00:00:00.
+- `datetime()` .. Creates an intance from specified date and time.
+- `datetime.now()` .. Creates an instance with its date and time fields set as the current one.
+- `datetime.today()` .. Creates an instance with its date field set as the current one.
+  Its time fields, `hour`, `min`, `sec` and `usec`, are set to zero.
 
-You can calculate between `datetime` and `timedelta` to put it forward and backward.
+You can calculate a `datetime` with a `timedelta` to
+put its date and time values forward and backward.
 
 ### Predefined Variable
 
@@ -532,8 +534,8 @@ The `declaration` class provides information about argument's declaration define
 You can get an iterator of `declaration` instances with the following measures
 that the `function` class provides:
 
-- `function#decls`
-- `function.getdecls()`
+- A property value: `function#decls`
+- An instance method: `function.getdecls()`
 
 Below is an example to print argument names declared in a function.
 

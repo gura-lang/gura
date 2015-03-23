@@ -177,8 +177,6 @@ Gura_DeclareFunction(datetime)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates an instance of `datetime` class based on the specified arguments.\n"
 		"\n"
-		GURA_HELPTEXT_BLOCK_en("dt", "datetime")
-		"\n"
 		"Explanations of the arguments are shown below:\n"
 		"\n"
 		"- `year` .. Christian year.\n"
@@ -190,7 +188,9 @@ Gura_DeclareFunction(datetime)
 		"- `usec` .. Millisecond in a second between 0 and 999.\n"
 		"- `minsoff` .. Timezone offset in minutes.\n"
 		"\n"
-		"In default, the instance has a timezone offset based on the current system settings.\n");
+		"In default, the instance has a timezone offset based on the current system settings.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("dt", "datetime"));
 }
 
 Gura_ImplementFunction(datetime)
@@ -256,10 +256,10 @@ Gura_DeclareMethod(datetime, format)
 		"\n"
 		"Below are the symbols of predefined styles:\n"
 		"\n"
-		"- `` `w3c`` .. W3C style. eg) \"`2015-01-01T12:34:56+09:00`\"\n"
-		"- `` `http`` .. a style used in HTTP protocol. eg) \"`Thu, 01 Jan 2015 12:34:56 +0900`\"\n"
+		"- `` `w3c`` .. W3C style. eg) `'2015-01-01T12:34:56+09:00'`\n"
+		"- `` `http`` .. a style used in HTTP protocol. eg) `'Thu, 01 Jan 2015 12:34:56 +0900'`\n"
 		"- `` `asctime`` .. a style used by the C function `asctime()`.\n"
-		"                    eg) \"`Thu Jan  1 12:34:56 +0900 2015`\"\n");
+		"                    eg) `'Thu Jan  1 12:34:56 +0900 2015'`\n");
 }
 
 Gura_ImplementMethod(datetime, format)
@@ -338,7 +338,9 @@ Gura_DeclareClassMethod(datetime, monthdays)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a number of days that exists in the specified month.");
+		"Returns a number of days that exists in the specified month.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("n", "number"));
 }
 
 Gura_ImplementClassMethod(datetime, monthdays)
@@ -360,7 +362,9 @@ Gura_DeclareClassMethod(datetime, now)
 		"Creates a `datetime` instance of the current time.\n"
 		"\n"
 		"In default, the timezone offset is set to one in the system setting.\n"
-		"Specifying `:utc` attribute would set the offset to 0.\n");
+		"Specifying `:utc` attribute would set the offset to 0.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("dt", "datetime"));
 }
 
 Gura_ImplementClassMethod(datetime, now)
@@ -386,7 +390,9 @@ Gura_DeclareClassMethod(datetime, parse)
 		"- RFC1036 style. eg) `'Saturday, 06-Nov-10 08:49:37 GMT'`\n"
 		"- C's `asctime()` style. eg) `'Sat Nov  6 08:49:37 2010'`,\n"
 		"                             `'Sat Nov  6 08:49:37 +0000 2010'`\n"
-		"- W3C style. eg) `'2010-11-06T08:49:37Z'`\n");
+		"- W3C style. eg) `'2010-11-06T08:49:37Z'`\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("dt", "datetime"));
 }
 
 Gura_ImplementClassMethod(datetime, parse)
@@ -428,7 +434,9 @@ Gura_DeclareClassMethod(datetime, time)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates a `datetime` instance from time information.\n"
-		"The date inforomation is set to 1st of January in 0000.\n");
+		"The date inforomation is set as 1st of January in the Christian year of 0.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("dt", "datetime"));
 }
 
 Gura_ImplementClassMethod(datetime, time)
@@ -455,7 +463,9 @@ Gura_DeclareClassMethod(datetime, today)
 		"Creates a `datetime` instance of today. All the time information are cleared to 0.\n"
 		"\n"
 		"In default, the timezone offset is set to one in the system setting.\n"
-		"Specifying `:utc` attribute would set the offset to 0.\n");
+		"Specifying `:utc` attribute would set the offset to 0.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("dt", "datetime"));
 }
 
 Gura_ImplementClassMethod(datetime, today)

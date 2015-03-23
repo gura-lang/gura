@@ -3044,12 +3044,12 @@ The <code>datetime</code> class provides measures to handle date and time inform
 You can create a <code>datetime</code> instance by calling following functions:
 </p>
 <ul>
-<li><code>datetime()</code> .. Creates from specified date and time.</li>
-<li><code>datetime.now()</code> .. Creates from the current date and time.</li>
-<li><code>datetime.today()</code> .. Creates from the current date. The time is set to 00:00:00.</li>
+<li><code>datetime()</code> .. Creates an intance from specified date and time.</li>
+<li><code>datetime.now()</code> .. Creates an instance with its date and time fields set as the current one.</li>
+<li><code>datetime.today()</code> .. Creates an instance with its date field set as the current one. Its time fields, <code>hour</code>, <code>min</code>, <code>sec</code> and <code>usec</code>, are set to zero.</li>
 </ul>
 <p>
-You can calculate between <code>datetime</code> and <code>timedelta</code> to put it forward and backward.
+You can calculate a <code>datetime</code> with a <code>timedelta</code> to put its date and time values forward and backward.
 </p>
 <h3><span class="caption-index-3">6.9.1</span><a name="caption-6-9-1"></a>Predefined Variable</h3>
 <p>
@@ -3408,9 +3408,6 @@ Seconds passed from 00:00:00 on January 1st in 1970 in UTC.</td>
 Creates an instance of <code>datetime</code> class based on the specified arguments.
 </p>
 <p>
-If <code>block</code> is specified, it would be evaluated with a block parameter <code>|dt:datetime|</code>, where <code>dt</code> is the created instance. In this case, the block's result would become the function's returned value.
-</p>
-<p>
 Explanations of the arguments are shown below:
 </p>
 <ul>
@@ -3425,6 +3422,9 @@ Explanations of the arguments are shown below:
 </ul>
 <p>
 In default, the instance has a timezone offset based on the current system settings.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|dt:datetime|</code>, where <code>dt</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <h3><span class="caption-index-3">6.9.4</span><a name="caption-6-9-4"></a>Method</h3>
 <p>
@@ -3463,9 +3463,9 @@ A string of user-specific format contains following specifiers:
 Below are the symbols of predefined styles:
 </p>
 <ul>
-<li><code>`w3c</code> .. W3C style. eg) "<code>2015-01-01T12:34:56+09:00</code>"</li>
-<li><code>`http</code> .. a style used in HTTP protocol. eg) "<code>Thu, 01 Jan 2015 12:34:56 +0900</code>"</li>
-<li><code>`asctime</code> .. a style used by the C function <code>asctime()</code>. eg) "<code>Thu Jan  1 12:34:56 +0900 2015</code>"</li>
+<li><code>`w3c</code> .. W3C style. eg) <code>'2015-01-01T12:34:56+09:00'</code></li>
+<li><code>`http</code> .. a style used in HTTP protocol. eg) <code>'Thu, 01 Jan 2015 12:34:56 +0900'</code></li>
+<li><code>`asctime</code> .. a style used by the C function <code>asctime()</code>. eg) <code>'Thu Jan  1 12:34:56 +0900 2015'</code></li>
 </ul>
 <p>
 <strong>datetime.isleap</strong>
@@ -3486,6 +3486,9 @@ Returns <code>true</code> if the specified year is a leap one.
 Returns a number of days that exists in the specified month.
 </p>
 <p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|n:number|</code>, where <code>n</code> is the created instance. In this case, the block's result would become the function's returned value.
+</p>
+<p>
 <strong>datetime.now</strong>
 </p>
 <p>
@@ -3496,6 +3499,9 @@ Creates a <code>datetime</code> instance of the current time.
 </p>
 <p>
 In default, the timezone offset is set to one in the system setting. Specifying <code>:utc</code> attribute would set the offset to 0.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|dt:datetime|</code>, where <code>dt</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 <strong>datetime.parse</strong>
@@ -3516,6 +3522,9 @@ It is capable of parsing the following style:
 <li>W3C style. eg) <code>'2010-11-06T08:49:37Z'</code></li>
 </ul>
 <p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|dt:datetime|</code>, where <code>dt</code> is the created instance. In this case, the block's result would become the function's returned value.
+</p>
+<p>
 <strong>datetime#settzoff</strong>
 </p>
 <p>
@@ -3531,7 +3540,10 @@ Sets timezone offset in minutes.
 <code>datetime.time(hour:number =&gt; 0, minute:number =&gt; 0, sec:number =&gt; 0, usec:number =&gt; 0):static:map {block?}</code>
 </p>
 <p>
-Creates a <code>datetime</code> instance from time information. The date inforomation is set to 1st of January in 0000.
+Creates a <code>datetime</code> instance from time information. The date inforomation is set as 1st of January in the Christian year of 0.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|dt:datetime|</code>, where <code>dt</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 <strong>datetime.today</strong>
@@ -3544,6 +3556,9 @@ Creates a <code>datetime</code> instance of today. All the time information are 
 </p>
 <p>
 In default, the timezone offset is set to one in the system setting. Specifying <code>:utc</code> attribute would set the offset to 0.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|dt:datetime|</code>, where <code>dt</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
 <p>
 <strong>datetime#utc</strong>
@@ -3568,8 +3583,8 @@ Returns a week number for the specified date, which starts from 0 for Sunday.
 The <code>declaration</code> class provides information about argument's declaration defined in a function. You can get an iterator of <code>declaration</code> instances with the following measures that the <code>function</code> class provides:
 </p>
 <ul>
-<li><code>function#decls</code></li>
-<li><code>function.getdecls()</code></li>
+<li>A property value: <code>function#decls</code></li>
+<li>An instance method: <code>function.getdecls()</code></li>
 </ul>
 <p>
 Below is an example to print argument names declared in a function.
