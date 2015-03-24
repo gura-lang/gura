@@ -125,21 +125,7 @@ Gura_DeclareFunction(image)
 		"In the third form, the format of the image data is determined\n"
 		"by the byte sequence of the stream data and its file name.\n"
 		"\n"
-		"You can also explicitly specify the image data format by the argument `imagetype`.\n"
-		"\n"
-		"Acceptable image data formats can be extended by importing modules.\n"
-		"The table below shows the image format, the responsible module name and a symbol for `imagetype`.\n"
-		"\n"
-		"<table>\n"
-		"<tr><th>Image Format</th><th>Module Name</th><th>imagetype</th></tr>\n"
-		"<tr><td>BMP</td><td><code>bmp</code></td><td><code>'bmp'</code></td></tr>\n"
-		"<tr><td>GIF</td><td><code>gif</code></td><td><code>'gif'</code></td></tr>\n"
-		"<tr><td>JPEG</td><td><code>jpeg</code></td><td><code>'jpeg'</code></td></tr>\n"
-		"<tr><td>Microsoft Icon</td><td><code>msico</code></td><td><code>'msico'</code></td></tr>\n"
-		"<tr><td>PNG</td><td><code>png</code></td><td><code>'png'</code></td></tr>\n"
-		"<tr><td>PPM</td><td><code>ppm</code></td><td><code>'ppm'</code></td></tr>\n"
-		"<tr><td>TIFF</td><td><code>tiff</code></td><td><code>'tiff'</code></td></tr>\n"
-		"</table>\n");
+		"You can also explicitly specify the image data format by the argument `imagetype`.\n");
 }
 
 Gura_ImplementFunction(image)
@@ -694,20 +680,6 @@ Gura_DeclareMethod(image, read)
 		"\n"
 		"You can also explicitly specify the image data format by the argument `imagetype`.\n"
 		"\n"
-		"Acceptable image data formats can be extended by importing modules.\n"
-		"The table below shows the image format, the responsible module name and a symbol for `imagetype`.\n"
-		"\n"
-		"<table>\n"
-		"<tr><th>Image Format</th><th>Module Name</th><th>imagetype</th></tr>\n"
-		"<tr><td>BMP</td><td><code>bmp</code></td><td><code>'bmp'</code></td></tr>\n"
-		"<tr><td>GIF</td><td><code>gif</code></td><td><code>'gif'</code></td></tr>\n"
-		"<tr><td>JPEG</td><td><code>jpeg</code></td><td><code>'jpeg'</code></td></tr>\n"
-		"<tr><td>Microsoft Icon</td><td><code>msico</code></td><td><code>'msico'</code></td></tr>\n"
-		"<tr><td>PNG</td><td><code>png</code></td><td><code>'png'</code></td></tr>\n"
-		"<tr><td>PPM</td><td><code>ppm</code></td><td><code>'ppm'</code></td></tr>\n"
-		"<tr><td>TIFF</td><td><code>tiff</code></td><td><code>'tiff'</code></td></tr>\n"
-		"</table>\n"
-		"\n"
 		"This method returns the reference to the target instance itself.\n");
 }
 
@@ -1117,20 +1089,6 @@ Gura_DeclareMethod(image, write)
 		"The format of the image data is determined by the stream's file name.\n"
 		"\n"
 		"You can also explicitly specify the image data format by the argument `imagetype`.\n"
-		"\n"
-		"Acceptable image data formats can be extended by importing modules.\n"
-		"The table below shows the image format, the responsible module name and a symbol for `imagetype`.\n"
-		"\n"
-		"<table>\n"
-		"<tr><th>Image Format</th><th>Module Name</th><th>imagetype</th></tr>\n"
-		"<tr><td>BMP</td><td><code>bmp</code></td><td><code>'bmp'</code></td></tr>\n"
-		"<tr><td>GIF</td><td><code>gif</code></td><td><code>'gif'</code></td></tr>\n"
-		"<tr><td>JPEG</td><td><code>jpeg</code></td><td><code>'jpeg'</code></td></tr>\n"
-		"<tr><td>Microsoft Icon</td><td><code>msico</code></td><td><code>'msico'</code></td></tr>\n"
-		"<tr><td>PNG</td><td><code>png</code></td><td><code>'png'</code></td></tr>\n"
-		"<tr><td>PPM</td><td><code>ppm</code></td><td><code>'ppm'</code></td></tr>\n"
-		"<tr><td>TIFF</td><td><code>tiff</code></td><td><code>'tiff'</code></td></tr>\n"
-		"</table>\n"
 		"\n"
 		"This method returns the reference to the target instance itself.\n");
 }

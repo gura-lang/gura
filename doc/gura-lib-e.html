@@ -2049,6 +2049,9 @@ Below is an example to use <code>args</code> class:
 </code></pre>
 <h3><span class="caption-index-3">6.1.1</span><a name="caption-6-1-1"></a>Property</h3>
 <p>
+An <code>args</code> instance has the following properties:
+</p>
+<p>
 <table>
 
 <tr>
@@ -2399,6 +2402,9 @@ You can also create the instance by specifying <code>b</code> prefix before a st
 <pre><code>b'AB\xfe\x03CD'
 </code></pre>
 <h3><span class="caption-index-3">6.4.1</span><a name="caption-6-4-1"></a>Property</h3>
+<p>
+A <code>binary</code> instance has the following properties:
+</p>
 <p>
 <table>
 
@@ -2843,6 +2849,9 @@ There are also predefined variables that are defined with <code>color</code> ins
 </p>
 <h3><span class="caption-index-3">6.7.2</span><a name="caption-6-7-2"></a>Property</h3>
 <p>
+A <code>color</code> instance has the following properties:
+</p>
+<p>
 <table>
 
 <tr>
@@ -3197,6 +3206,9 @@ Assigned with number 6 that represents Saturday.</td>
 
 </p>
 <h3><span class="caption-index-3">6.9.2</span><a name="caption-6-9-2"></a>Property</h3>
+<p>
+A <code>datetime</code> instance has the following properties:
+</p>
 <p>
 <table>
 
@@ -3616,6 +3628,9 @@ Below is an example to print argument names declared in a function.
 println(f.decls:*name)
 </code></pre>
 <h3><span class="caption-index-3">6.10.1</span><a name="caption-6-10-1"></a>Property</h3>
+<p>
+A <code>declaration</code> instance has the following properties:
+</p>
 <p>
 <table>
 
@@ -4283,6 +4298,9 @@ error.ZeroDivisionError</code>
 </p>
 <h3><span class="caption-index-3">6.14.2</span><a name="caption-6-14-2"></a>Property</h3>
 <p>
+An <code>error</code> instance has the following properties:
+</p>
+<p>
 <table>
 
 <tr>
@@ -4405,6 +4423,9 @@ Stack trace.</td>
 </p>
 <h2><span class="caption-index-2">6.15</span><a name="caption-6-15"></a>expr Class</h2>
 <h3><span class="caption-index-3">6.15.1</span><a name="caption-6-15-1"></a>Property</h3>
+<p>
+An <code>expr</code> instance has the following properties:
+</p>
 <p>
 <table>
 
@@ -5339,6 +5360,9 @@ You can use <code>&amp;</code> as an alias of <code>function()</code> as shown b
 </code></pre>
 <h3><span class="caption-index-3">6.17.1</span><a name="caption-6-17-1"></a>Property</h3>
 <p>
+A <code>function</code> instance has the following properties:
+</p>
+<p>
 <table>
 
 <tr>
@@ -5648,6 +5672,9 @@ You can get a <code>help</code> instance by calling the class method <code>funct
 </p>
 <h3><span class="caption-index-3">6.18.1</span><a name="caption-6-18-1"></a>Property</h3>
 <p>
+A <code>help</code> instance has the following properties:
+</p>
+<p>
 <table>
 
 <tr>
@@ -5725,9 +5752,126 @@ The help text.</td>
 </p>
 <h2><span class="caption-index-2">6.19</span><a name="caption-6-19"></a>image Class</h2>
 <p>
-The <code>image</code> class provides measures to handle graphic image data.
+The <code>image</code> class provides following measures to handle graphic image data:
+</p>
+<ul>
+<li>Reads image data from a file.</li>
+<li>Writes image data to a file.</li>
+<li>Apply some modifications on image data including rotation, resize and color conversion.</li>
+</ul>
+<p>
+Acceptable image data formats can be extended by importing modules. Below is a table to show image formats and name of modules that handle them. The string listed in "imagetype" column shows a name that is used by functions <code>image()</code>, <code>image#read()</code> and <code>image#write()</code> to explicitly specify the image data format in a process of reading and writing files.
+</p>
+<p>
+<table>
+
+<tr>
+<th>
+Image Format</th>
+<th>
+Module Name</th>
+<th>
+imagetype</th>
+</tr>
+
+<tr>
+<td>
+BMP</td>
+<td>
+<code>
+bmp</code>
+</td>
+<td>
+<code>
+'bmp'</code>
+</td>
+</tr>
+
+<tr>
+<td>
+GIF</td>
+<td>
+<code>
+gif</code>
+</td>
+<td>
+<code>
+'gif'</code>
+</td>
+</tr>
+
+<tr>
+<td>
+JPEG</td>
+<td>
+<code>
+jpeg</code>
+</td>
+<td>
+<code>
+'jpeg'</code>
+</td>
+</tr>
+
+<tr>
+<td>
+Microsoft Icon</td>
+<td>
+<code>
+msico</code>
+</td>
+<td>
+<code>
+'msico'</code>
+</td>
+</tr>
+
+<tr>
+<td>
+PNG</td>
+<td>
+<code>
+png</code>
+</td>
+<td>
+<code>
+'png'</code>
+</td>
+</tr>
+
+<tr>
+<td>
+PPM</td>
+<td>
+<code>
+ppm</code>
+</td>
+<td>
+<code>
+'ppm'</code>
+</td>
+</tr>
+
+<tr>
+<td>
+TIFF</td>
+<td>
+<code>
+tiff</code>
+</td>
+<td>
+<code>
+'tiff'</code>
+</td>
+</tr>
+
+</table>
+
 </p>
 <h3><span class="caption-index-3">6.19.1</span><a name="caption-6-19-1"></a>Property</h3>
+<p>
+An <code>image</code> instance has the following properties:
+</p>
 <p>
 <table>
 
@@ -5865,115 +6009,6 @@ In the third form, the format of the image data is determined by the byte sequen
 </p>
 <p>
 You can also explicitly specify the image data format by the argument <code>imagetype</code>.
-</p>
-<p>
-Acceptable image data formats can be extended by importing modules. The table below shows the image format, the responsible module name and a symbol for <code>imagetype</code>.
-</p>
-<p>
-<table>
-
-<tr>
-<th>
-Image Format</th>
-<th>
-Module Name</th>
-<th>
-imagetype</th>
-</tr>
-
-<tr>
-<td>
-BMP</td>
-<td>
-<code>
-bmp</code>
-</td>
-<td>
-<code>
-'bmp'</code>
-</td>
-</tr>
-
-<tr>
-<td>
-GIF</td>
-<td>
-<code>
-gif</code>
-</td>
-<td>
-<code>
-'gif'</code>
-</td>
-</tr>
-
-<tr>
-<td>
-JPEG</td>
-<td>
-<code>
-jpeg</code>
-</td>
-<td>
-<code>
-'jpeg'</code>
-</td>
-</tr>
-
-<tr>
-<td>
-Microsoft Icon</td>
-<td>
-<code>
-msico</code>
-</td>
-<td>
-<code>
-'msico'</code>
-</td>
-</tr>
-
-<tr>
-<td>
-PNG</td>
-<td>
-<code>
-png</code>
-</td>
-<td>
-<code>
-'png'</code>
-</td>
-</tr>
-
-<tr>
-<td>
-PPM</td>
-<td>
-<code>
-ppm</code>
-</td>
-<td>
-<code>
-'ppm'</code>
-</td>
-</tr>
-
-<tr>
-<td>
-TIFF</td>
-<td>
-<code>
-tiff</code>
-</td>
-<td>
-<code>
-'tiff'</code>
-</td>
-</tr>
-
-</table>
-
 </p>
 <h3><span class="caption-index-3">6.19.3</span><a name="caption-6-19-3"></a>Method</h3>
 <p>
@@ -6223,115 +6258,6 @@ The format of the image data is determined by the byte sequence of the stream da
 You can also explicitly specify the image data format by the argument <code>imagetype</code>.
 </p>
 <p>
-Acceptable image data formats can be extended by importing modules. The table below shows the image format, the responsible module name and a symbol for <code>imagetype</code>.
-</p>
-<p>
-<table>
-
-<tr>
-<th>
-Image Format</th>
-<th>
-Module Name</th>
-<th>
-imagetype</th>
-</tr>
-
-<tr>
-<td>
-BMP</td>
-<td>
-<code>
-bmp</code>
-</td>
-<td>
-<code>
-'bmp'</code>
-</td>
-</tr>
-
-<tr>
-<td>
-GIF</td>
-<td>
-<code>
-gif</code>
-</td>
-<td>
-<code>
-'gif'</code>
-</td>
-</tr>
-
-<tr>
-<td>
-JPEG</td>
-<td>
-<code>
-jpeg</code>
-</td>
-<td>
-<code>
-'jpeg'</code>
-</td>
-</tr>
-
-<tr>
-<td>
-Microsoft Icon</td>
-<td>
-<code>
-msico</code>
-</td>
-<td>
-<code>
-'msico'</code>
-</td>
-</tr>
-
-<tr>
-<td>
-PNG</td>
-<td>
-<code>
-png</code>
-</td>
-<td>
-<code>
-'png'</code>
-</td>
-</tr>
-
-<tr>
-<td>
-PPM</td>
-<td>
-<code>
-ppm</code>
-</td>
-<td>
-<code>
-'ppm'</code>
-</td>
-</tr>
-
-<tr>
-<td>
-TIFF</td>
-<td>
-<code>
-tiff</code>
-</td>
-<td>
-<code>
-'tiff'</code>
-</td>
-</tr>
-
-</table>
-
-</p>
-<p>
 This method returns the reference to the target instance itself.
 </p>
 <p>
@@ -6382,8 +6308,8 @@ Creates an image that resizes the original image to the sprcified <code>width</c
 The following attributes are acceptable:
 </p>
 <ul>
-<li><code>box</code> .. </li>
-<li><code>ratio</code> .. </li>
+<li><code>box</code> .. When only <code>width</code> is specified, the same value is set to <code>height</code>.</li>
+<li><code>ratio</code> .. Treats values of <code>width</code> and <code>height</code> as magnifying ration instead of pixel size.</li>
 </ul>
 <p>
 If <code>block</code> is specified, it would be evaluated with a block parameter <code>|img:image|</code>, where <code>img</code> is the created instance. In this case, the block's result would become the function's returned value.
@@ -6395,6 +6321,18 @@ If <code>block</code> is specified, it would be evaluated with a block parameter
 <code>image#rotate(rotate:number, background?:color):map {block?}</code>
 </p>
 <p>
+Creates an image that rotates the original image by the specified angle.
+</p>
+<p>
+The argument <code>angle</code> specifies the rotation angle in degree unit, and positive numbers for counterclockwise direction and negative for clockwise direction.
+</p>
+<p>
+The created instance has a size that exactly fits the rotated image. The argument <code>background</code> specifies the color of pixels to fill the empty area that appears after rotation. If omitted, the color that has all elements set to zero is used for filling.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|img:image|</code>, where <code>img</code> is the created instance. In this case, the block's result would become the function's returned value.
+</p>
+<p>
 <strong>image#scan</strong>
 </p>
 <p>
@@ -6402,6 +6340,126 @@ If <code>block</code> is specified, it would be evaluated with a block parameter
 </p>
 <p>
 Returns an iterator that scans pixels in the image.
+</p>
+<p>
+The arguments <code>x</code>, <code>y</code>, <code>width</code> and <code>height</code> specify the image area to scan. The argument <code>scandir</code> specifies the scan direction and takes one of the following symbol:
+</p>
+<p>
+<table>
+
+<tr>
+<th>
+Symbol</th>
+<th>
+Start Pos</th>
+<th>
+Direction</th>
+</tr>
+
+<tr>
+<td>
+<code>
+`left_top_horz</code>
+</td>
+<td>
+left-top</td>
+<td>
+horizontal</td>
+</tr>
+
+<tr>
+<td>
+<code>
+`left_top_vert</code>
+</td>
+<td>
+left-top</td>
+<td>
+vertical</td>
+</tr>
+
+<tr>
+<td>
+<code>
+`left_bottom_horz</code>
+</td>
+<td>
+left-bottom</td>
+<td>
+horizontal</td>
+</tr>
+
+<tr>
+<td>
+<code>
+`left_bottom_vert</code>
+</td>
+<td>
+left-bottom</td>
+<td>
+vertical</td>
+</tr>
+
+<tr>
+<td>
+<code>
+`right_top_horz</code>
+</td>
+<td>
+right-top</td>
+<td>
+horizontal</td>
+</tr>
+
+<tr>
+<td>
+<code>
+`right_top_vert</code>
+</td>
+<td>
+right-top</td>
+<td>
+vertical</td>
+</tr>
+
+<tr>
+<td>
+<code>
+`right_bottom_horz</code>
+</td>
+<td>
+right-bottom</td>
+<td>
+horizontal</td>
+</tr>
+
+<tr>
+<td>
+<code>
+`right_bottom_vert</code>
+</td>
+<td>
+right-bottom</td>
+<td>
+vertical</td>
+</tr>
+
+</table>
+
+</p>
+<p>
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
+</p>
+<ul>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
+</ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <p>
 <strong>image#setalpha</strong>
@@ -6429,115 +6487,6 @@ The format of the image data is determined by the stream's file name.
 </p>
 <p>
 You can also explicitly specify the image data format by the argument <code>imagetype</code>.
-</p>
-<p>
-Acceptable image data formats can be extended by importing modules. The table below shows the image format, the responsible module name and a symbol for <code>imagetype</code>.
-</p>
-<p>
-<table>
-
-<tr>
-<th>
-Image Format</th>
-<th>
-Module Name</th>
-<th>
-imagetype</th>
-</tr>
-
-<tr>
-<td>
-BMP</td>
-<td>
-<code>
-bmp</code>
-</td>
-<td>
-<code>
-'bmp'</code>
-</td>
-</tr>
-
-<tr>
-<td>
-GIF</td>
-<td>
-<code>
-gif</code>
-</td>
-<td>
-<code>
-'gif'</code>
-</td>
-</tr>
-
-<tr>
-<td>
-JPEG</td>
-<td>
-<code>
-jpeg</code>
-</td>
-<td>
-<code>
-'jpeg'</code>
-</td>
-</tr>
-
-<tr>
-<td>
-Microsoft Icon</td>
-<td>
-<code>
-msico</code>
-</td>
-<td>
-<code>
-'msico'</code>
-</td>
-</tr>
-
-<tr>
-<td>
-PNG</td>
-<td>
-<code>
-png</code>
-</td>
-<td>
-<code>
-'png'</code>
-</td>
-</tr>
-
-<tr>
-<td>
-PPM</td>
-<td>
-<code>
-ppm</code>
-</td>
-<td>
-<code>
-'ppm'</code>
-</td>
-</tr>
-
-<tr>
-<td>
-TIFF</td>
-<td>
-<code>
-tiff</code>
-</td>
-<td>
-<code>
-'tiff'</code>
-</td>
-</tr>
-
-</table>
-
 </p>
 <p>
 This method returns the reference to the target instance itself.
@@ -9130,6 +9079,9 @@ The <code>number</code> class provides measures to calculate numbers.
 <h2><span class="caption-index-2">6.25</span><a name="caption-6-25"></a>operator Class</h2>
 <h3><span class="caption-index-3">6.25.1</span><a name="caption-6-25-1"></a>Property</h3>
 <p>
+An <code>operator</code> instance has the following properties:
+</p>
+<p>
 <table>
 
 <tr>
@@ -9440,6 +9392,9 @@ Watis for the semaphore being released by other threads, and ghen grabs that own
 </p>
 <h2><span class="caption-index-2">6.31</span><a name="caption-6-31"></a>stream Class</h2>
 <h3><span class="caption-index-3">6.31.1</span><a name="caption-6-31-1"></a>Property</h3>
+<p>
+A <code>stream</code> instance has the following properties:
+</p>
 <p>
 <table>
 
@@ -10666,6 +10621,9 @@ The <code>timedelta</code> instance provides a time delta information that works
 </p>
 <h3><span class="caption-index-3">6.36.1</span><a name="caption-6-36-1"></a>Property</h3>
 <p>
+A <code>timedelta</code> instance has the following properties:
+</p>
+<p>
 <table>
 
 <tr>
@@ -10746,6 +10704,9 @@ Returns a timedelta instance with specified values. The instance actually holds 
 </p>
 <h2><span class="caption-index-2">6.37</span><a name="caption-6-37"></a>uri Class</h2>
 <h3><span class="caption-index-3">6.37.1</span><a name="caption-6-37-1"></a>Property</h3>
+<p>
+A <code>uri</code> instance has the following properties:
+</p>
 <p>
 <table>
 

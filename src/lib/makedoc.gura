@@ -127,6 +127,8 @@ Below is an example to use `args` class:
 
 ### Property
 
+An `args` instance has the following properties:
+
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
@@ -222,6 +224,8 @@ For example, the code below creates a `binary` instance that contains a sequence
     b'AB\xfe\x03CD'
 
 ### Property
+
+A `binary` instance has the following properties:
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
@@ -352,6 +356,8 @@ There are also predefined variables that are defined with `color` instances of 1
 
 ### Property
 
+A `color` instance has the following properties:
+
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
@@ -476,6 +482,8 @@ put its date and time values forward and backward.
 
 ### Property
 
+A `datetime` instance has the following properties:
+
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
@@ -559,6 +567,8 @@ Below is an example to print argument names declared in a function.
 
 
 ### Property
+
+A `declaration` instance has the following properties:
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
@@ -748,6 +758,8 @@ about an error that has occured in the `try` block.
 
 ### Property
 
+An `error` instance has the following properties:
+
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
@@ -779,6 +791,8 @@ text@expr = R'''
 ## expr Class
 
 ### Property
+
+An `expr` instance has the following properties:
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
@@ -981,6 +995,8 @@ You can use `&` as an alias of `function()` as shown below:
 
 ### Property
 
+A `function` instance has the following properties:
+
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
@@ -1043,6 +1059,8 @@ You can get a `help` instance by calling the class method `function.gethelp()`.
 
 ### Property
 
+A `help` instance has the following properties:
+
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
@@ -1063,9 +1081,32 @@ For example, <code>`en</code> for English and <code>`ja</code> for Japanese.</td
 text@image = R'''
 ## image Class
 
-The `image` class provides measures to handle graphic image data.
+The `image` class provides following measures to handle graphic image data:
+
+- Reads image data from a file.
+- Writes image data to a file.
+- Apply some modifications on image data including rotation, resize and color conversion.
+
+Acceptable image data formats can be extended by importing modules.
+Below is a table to show image formats and name of modules that handle them.
+The string listed in "imagetype" column shows a name that is used by functions
+`image()`, `image#read()` and `image#write()` to explicitly specify the image data format
+in a process of reading and writing files.
+
+<table>
+<tr><th>Image Format</th><th>Module Name</th><th>imagetype</th></tr>
+<tr><td>BMP</td><td><code>bmp</code></td><td><code>'bmp'</code></td></tr>
+<tr><td>GIF</td><td><code>gif</code></td><td><code>'gif'</code></td></tr>
+<tr><td>JPEG</td><td><code>jpeg</code></td><td><code>'jpeg'</code></td></tr>
+<tr><td>Microsoft Icon</td><td><code>msico</code></td><td><code>'msico'</code></td></tr>
+<tr><td>PNG</td><td><code>png</code></td><td><code>'png'</code></td></tr>
+<tr><td>PPM</td><td><code>ppm</code></td><td><code>'ppm'</code></td></tr>
+<tr><td>TIFF</td><td><code>tiff</code></td><td><code>'tiff'</code></td></tr>
+</table>
 
 ### Property
+
+An `image` instance has the following properties:
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
@@ -1363,6 +1404,8 @@ text@operator = R'''
 
 ### Property
 
+An `operator` instance has the following properties:
+
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
@@ -1484,6 +1527,8 @@ text@stream = R'''
 
 
 ### Property
+
+A `stream` instance has the following properties:
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
@@ -1749,6 +1794,8 @@ of `timedelta` to it.
 
 ### Property
 
+A `timedelta` instance has the following properties:
+
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
@@ -1780,6 +1827,8 @@ text@uri = R'''
 ## uri Class
 
 ### Property
+
+A `uri` instance has the following properties:
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
