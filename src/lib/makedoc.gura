@@ -1402,6 +1402,9 @@ number.roundoff
 text@operator = R'''
 ## operator Class
 
+The `operator` class provides measures to assign operators with user-defined procedures.
+
+
 ### Property
 
 An `operator` instance has the following properties:
@@ -1414,11 +1417,13 @@ An `operator` instance has the following properties:
 
 </table>
 
+
 ### Function to Create Instance
 
 ${markdown.funcdoc(
 operator
 )}
+
 
 ### Method
 
@@ -1433,7 +1438,6 @@ text@palette = R'''
 ## palette Class
 
 The `palette` instance has a set of `color` instance.
-
 
 
 ### Function to Create Instance
@@ -1455,6 +1459,8 @@ palette.updateby
 //-----------------------------------------------------------------------------
 text@pointer = R'''
 ## pointer Class
+
+The `pointer` class provides measures to read and write content in a `binary` instance.
 
 ### Method
 
