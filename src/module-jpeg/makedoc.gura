@@ -41,8 +41,20 @@ A `jpeg.exif` instance has the following properties:
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>color#r</code></td><td><code>number</code></td><td>R/W</td>
-<td>Value of the red element.</td></tr>
+<tr><td><code>jpeg.exif#endian</code></td><td><code>symbol</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>jpeg.exif#ifd0</code></td><td><code>jpeg.ifd</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>jpeg.exif#ifd1</code></td><td><code>jpeg.ifd</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>jpeg.exif#thumbnail</code></td><td><code>image</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>jpeg.exif#thumbnail@jpeg</code></td><td><code>binary</code></td><td>R</td>
+<td></td></tr>
 
 </table>
 
@@ -69,8 +81,11 @@ A `jpeg.ifd` instance has the following properties:
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>color#r</code></td><td><code>number</code></td><td>R/W</td>
-<td>Value of the red element.</td></tr>
+<tr><td><code>jpeg.ifd#name</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>jpeg.ifd#symbol</code></td><td><code>symbol</code></td><td>R</td>
+<td></td></tr>
 
 </table>
 
@@ -91,8 +106,23 @@ A `jpeg.tag` instance has the following properties:
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>color#r</code></td><td><code>number</code></td><td>R/W</td>
-<td>Value of the red element.</td></tr>
+<tr><td><code>jpeg.tag#id</code></td><td><code>number</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>jpeg.tag#name</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>jpeg.tag#symbol</code></td><td><code>symbol</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>jpeg.tag#type</code></td><td><code>number</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>jpeg.tag#value</code></td><td><code>any</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>jpeg.tag#ifd</code></td><td><code>jpeg.ifd</code></td><td>R</td>
+<td></td></tr>
 
 </table>
 
