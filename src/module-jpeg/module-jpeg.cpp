@@ -291,7 +291,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(ifd0);
 	Gura_RealizeUserSymbol(ifd1);
 	Gura_RealizeUserSymbol(thumbnail);
-	Gura_RealizeUserSymbol(thumbnail_jpeg);
+	Gura_RealizeUserSymbolAlias(thumbnail_at_jpeg, "thumbnail@jpeg");
 	Gura_RealizeUserSymbol(Exif);
 	Gura_RealizeUserSymbol(Interoperability);
 	Gura_RealizeUserSymbol(GPSInfo);

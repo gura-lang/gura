@@ -26,7 +26,7 @@ Gura_DeclareUserSymbol(ifd);
 Gura_DeclareUserSymbol(ifd0);
 Gura_DeclareUserSymbol(ifd1);
 Gura_DeclareUserSymbol(thumbnail);
-Gura_DeclareUserSymbol(thumbnail_jpeg);
+Gura_DeclareUserSymbol(thumbnail_at_jpeg);
 Gura_DeclareUserSymbol(Exif);
 Gura_DeclareUserSymbol(Interoperability);
 Gura_DeclareUserSymbol(GPSInfo);

@@ -34,10 +34,11 @@ bool Object_exif::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	if (_pObj0thIFD.IsNull()) return true;
+	symbols.insert(Gura_UserSymbol(endian));
 	symbols.insert(Gura_UserSymbol(ifd0));
 	symbols.insert(Gura_UserSymbol(ifd1));
 	symbols.insert(Gura_UserSymbol(thumbnail));
-	symbols.insert(Gura_UserSymbol(thumbnail_jpeg));
+	symbols.insert(Gura_UserSymbol(thumbnail_at_jpeg));
 	return _pObj0thIFD->DoDirProp(env, sig, symbols);
 }
 
@@ -85,7 +86,7 @@ Value Object_exif::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 			_pObjImageThumbnail.reset(pObjImage.release());
 		}
 		return Value(Object_image::Reference(_pObjImageThumbnail.get()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(thumbnail_jpeg))) {
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(thumbnail_at_jpeg))) {
 		if (_pObjBinaryThumbnail.IsNull() || _strip.validFlag) return Value::Null;
 		return Value(Object_binary::Reference(_pObjBinaryThumbnail.get()));
 	}
