@@ -20,6 +20,39 @@ The official site of GMP is:
 Following tables show values types of operands and returned value for each operator:
 
 <table>
+<tr><td><code>+x</code></td>
+    <td><code><b>gmp.mpz</b></code></td>
+	<td><code><b>gmp.mpq</b></code></td>
+	<td><code><b>gmp.mpf</b></code></td></tr>
+<tr><td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td></tr>
+</table>
+
+<table>
+<tr><td><code>-x</code></td>
+    <td><code><b>gmp.mpz</b></code></td>
+	<td><code><b>gmp.mpq</b></code></td>
+	<td><code><b>gmp.mpf</b></code></td></tr>
+<tr><td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td></tr>
+</table>
+
+<table>
+<tr><td><code>~x</code></td>
+    <td><code><b>gmp.mpz</b></code></td>
+	<td><code><b>gmp.mpq</b></code></td>
+	<td><code><b>gmp.mpf</b></code></td></tr>
+<tr><td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td></tr>
+</table>
+
+<table>
 <tr><td><code>x + y</code></td>
     <td><code><b>gmp.mpz</b></code></td>
 	<td><code><b>gmp.mpq</b></code></td>
@@ -58,11 +91,397 @@ Following tables show values types of operands and returned value for each opera
 	<td><code>rational</code></td></tr>
 </table>
 
-`+x; -x; x + y; x - y; x * y; x / y; x % y`
+<table>
+<tr><td><code>x - y</code></td>
+    <td><code><b>gmp.mpz</b></code></td>
+	<td><code><b>gmp.mpq</b></code></td>
+	<td><code><b>gmp.mpf</b></code></td>
+    <td><code><b>number</b></code></td>
+	<td><code><b>rational</b></code></td></tr>
+<tr><td><code><b>gmp.mpz</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>gmp.mpq</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>gmp.mpf</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>number</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>rational</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+</table>
+
+<table>
+<tr><td><code>x * y</code></td>
+    <td><code><b>gmp.mpz</b></code></td>
+	<td><code><b>gmp.mpq</b></code></td>
+	<td><code><b>gmp.mpf</b></code></td>
+    <td><code><b>number</b></code></td>
+	<td><code><b>rational</b></code></td></tr>
+<tr><td><code><b>gmp.mpz</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>gmp.mpq</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>gmp.mpf</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>number</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>rational</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+</table>
+
+<table>
+<tr><td><code>x / y</code></td>
+    <td><code><b>gmp.mpz</b></code></td>
+	<td><code><b>gmp.mpq</b></code></td>
+	<td><code><b>gmp.mpf</b></code></td>
+    <td><code><b>number</b></code></td>
+	<td><code><b>rational</b></code></td></tr>
+<tr><td><code><b>gmp.mpz</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>gmp.mpq</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>gmp.mpf</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>number</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>rational</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+</table>
+
+<table>
+<tr><td><code>x % y</code></td>
+    <td><code><b>gmp.mpz</b></code></td>
+	<td><code><b>gmp.mpq</b></code></td>
+	<td><code><b>gmp.mpf</b></code></td>
+    <td><code><b>number</b></code></td>
+	<td><code><b>rational</b></code></td></tr>
+<tr><td><code><b>gmp.mpz</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>gmp.mpq</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>gmp.mpf</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>number</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>rational</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+</table>
 
 `x == y; x != y; x > y; x < y; x >= y; x <= y; x <=> y`
 
-`~x; x & y; x | y; x ^ y; x << y; x >> y`
+<table>
+<tr><td><code>comparator</code></td>
+    <td><code><b>gmp.mpz</b></code></td>
+	<td><code><b>gmp.mpq</b></code></td>
+	<td><code><b>gmp.mpf</b></code></td>
+    <td><code><b>number</b></code></td>
+	<td><code><b>rational</b></code></td></tr>
+<tr><td><code><b>gmp.mpz</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>gmp.mpq</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>gmp.mpf</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>number</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>rational</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+</table>
+
+<table>
+<tr><td><code>x & y</code></td>
+    <td><code><b>gmp.mpz</b></code></td>
+	<td><code><b>gmp.mpq</b></code></td>
+	<td><code><b>gmp.mpf</b></code></td>
+    <td><code><b>number</b></code></td>
+	<td><code><b>rational</b></code></td></tr>
+<tr><td><code><b>gmp.mpz</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>gmp.mpq</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>gmp.mpf</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>number</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>rational</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+</table>
+
+<table>
+<tr><td><code>x | y</code></td>
+    <td><code><b>gmp.mpz</b></code></td>
+	<td><code><b>gmp.mpq</b></code></td>
+	<td><code><b>gmp.mpf</b></code></td>
+    <td><code><b>number</b></code></td>
+	<td><code><b>rational</b></code></td></tr>
+<tr><td><code><b>gmp.mpz</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>gmp.mpq</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>gmp.mpf</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>number</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>rational</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+</table>
+
+<table>
+<tr><td><code>x ^ y</code></td>
+    <td><code><b>gmp.mpz</b></code></td>
+	<td><code><b>gmp.mpq</b></code></td>
+	<td><code><b>gmp.mpf</b></code></td>
+    <td><code><b>number</b></code></td>
+	<td><code><b>rational</b></code></td></tr>
+<tr><td><code><b>gmp.mpz</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>gmp.mpq</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>gmp.mpf</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>number</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>rational</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+</table>
+
+<table>
+<tr><td><code>x &lt;&lt; y</code></td>
+    <td><code><b>gmp.mpz</b></code></td>
+	<td><code><b>gmp.mpq</b></code></td>
+	<td><code><b>gmp.mpf</b></code></td>
+    <td><code><b>number</b></code></td>
+	<td><code><b>rational</b></code></td></tr>
+<tr><td><code><b>gmp.mpz</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>gmp.mpq</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>gmp.mpf</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>number</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>rational</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+</table>
+
+<table>
+<tr><td><code>x &gt;&gt; y</code></td>
+    <td><code><b>gmp.mpz</b></code></td>
+	<td><code><b>gmp.mpq</b></code></td>
+	<td><code><b>gmp.mpf</b></code></td>
+    <td><code><b>number</b></code></td>
+	<td><code><b>rational</b></code></td></tr>
+<tr><td><code><b>gmp.mpz</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>gmp.mpq</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>gmp.mpf</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>number</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+<tr><td><code><b>rational</b></code></td>
+    <td><code></code></td>
+	<td><code></code></td>
+	<td><code></code></td>
+    <td><code></code></td>
+	<td><code></code></td></tr>
+</table>
 
 `x..; x .. y`
 

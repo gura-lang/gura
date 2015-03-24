@@ -22,13 +22,13 @@ so that they can read/write BMP files.
 When function `image()` is provided with a stream that satisfies the following conditions,
 it would recognize the stream as a BMP file.
 
-- The identifier of the stream ends with a suffix `.bmp`.
+- The identifier of the stream ends with a suffix "`.bmp`".
 - The stream data begins with a byte sequence "`BM`".
 
 When instance method `image#write()` is provided with a stream that satisfies the following condition,
 it would write image data in BMP format.
 
-- The identifier of the stream ends with a suffix `.bmp`.
+- The identifier of the stream ends with a suffix "`.bmp`".
 
 
 ## Extension to image Class

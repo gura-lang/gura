@@ -22,13 +22,13 @@ so that they can read/write PPM files.
 When function `image()` is provided with a stream that satisfies the following conditions,
 it would recognize the stream as a PPM file.
 
-- The identifier of the stream ends with a suffix `.ppm` or `.pbm`.
+- The identifier of the stream ends with a suffix "`.ppm`" or "`.pbm`".
 - The stream data begins with a byte sequence "`P2`", "`P3`" or "`P6`".
 
 When instance method `image#write()` is provided with a stream that satisfies the following condition,
 it would write image data in PPM format.
 
-- The identifier of the stream ends with a suffix `.ppm` or `.pbm`.
+- The identifier of the stream ends with a suffix "`.ppm`" or "`.pbm`".
 
 
 ## Extension to image Class

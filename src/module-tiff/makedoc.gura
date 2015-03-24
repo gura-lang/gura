@@ -22,12 +22,12 @@ so that they can read/write TIFF files.
 When function `image()` is provided with a stream that satisfies the following conditions,
 it would recognize the stream as a TIFF file.
 
-- The identifier of the stream ends with a suffix `.tif` or `.tiff`.
+- The identifier of the stream ends with a suffix "`.tif`" or "`.tiff`".
 
 When instance method `image#write()` is provided with a stream that satisfies the following condition,
 it would write image data in TIFF format.
 
-- The identifier of the stream ends with a suffix `.tif` or `.tiff`.
+- The identifier of the stream ends with a suffix "`.tif`" or "`.tiff`".
 
 
 ## Extension to image Class

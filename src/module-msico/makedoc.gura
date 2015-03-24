@@ -21,12 +21,12 @@ so that they can read/write ICO files.
 When function `image()` is provided with a stream that satisfies the following conditions,
 it would recognize the stream as a ICO file.
 
-- The identifier of the stream ends with a suffix `.ico`.
+- The identifier of the stream ends with a suffix "`.ico`".
 
 When instance method `image#write()` is provided with a stream that satisfies the following condition,
 it would write image data in ICO format.
 
-- The identifier of the stream ends with a suffix `.ico`.
+- The identifier of the stream ends with a suffix "`.ico`".
 
 
 ## msico.content Class

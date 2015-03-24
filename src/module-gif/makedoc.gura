@@ -27,13 +27,13 @@ so that they can read/write GIF files.
 When function `image()` is provided with a stream that satisfies the following conditions,
 it would recognize the stream as a GIF file.
 
-- The identifier of the stream ends with a suffix `.gif`.
+- The identifier of the stream ends with a suffix "`.gif`".
 - The stream data begins with a byte sequence "`GIF87a`" or "`GIF89a`".
 
 When instance method `image#write()` is provided with a stream that satisfies the following condition,
 it would write image data in GIF format.
 
-- The identifier of the stream ends with a suffix `.gif`.
+- The identifier of the stream ends with a suffix "`.gif`".
 
 ## gif.content Class
 

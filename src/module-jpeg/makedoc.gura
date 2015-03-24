@@ -13,6 +13,7 @@ Below is an example to read a JPEG file:
     import(jpeg)
     img = image('foo.jpeg')
 
+
 ## Exntension to Function's Capability
 
 This module extends the capability of function `image()` and instance method `image#write()`
@@ -21,16 +22,30 @@ so that they can read/write JPEG files.
 When function `image()` is provided with a stream that satisfies the following conditions,
 it would recognize the stream as a JPEG file.
 
-- The identifier of the stream ends with a suffix `.jpeg`, `.jpg` or `.jpe`.
+- The identifier of the stream ends with a suffix "`.jpeg`", "`.jpg`" or "`.jpe`".
 - The stream data begins with a byte sequence "`\xff\xd8`"
   that means SOI (start of Image) marker in JPEG specification.
 
 When instance method `image#write()` is provided with a stream that satisfies the following condition,
 it would write image data in JPEG format.
 
-- The identifier of the stream ends with a suffix `.jpeg`, `.jpg` or `.jpe`.
+- The identifier of the stream ends with a suffix "`.jpeg`", "`.jpg`" or "`.jpe`".
+
 
 ## jpeg.exif Class
+
+### Property
+
+A `jpeg.exif` instance has the following properties:
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>color#r</code></td><td><code>number</code></td><td>R/W</td>
+<td>Value of the red element.</td></tr>
+
+</table>
+
 
 ### Function to Create Instance
 
@@ -44,7 +59,21 @@ ${markdown.funcdoc(
 jpeg.exif.each
 )}
 
+
 ## jpeg.ifd Class
+
+### Property
+
+A `jpeg.ifd` instance has the following properties:
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>color#r</code></td><td><code>number</code></td><td>R/W</td>
+<td>Value of the red element.</td></tr>
+
+</table>
+
 
 ### Method
 
@@ -52,7 +81,21 @@ ${markdown.funcdoc(
 jpeg.ifd.each
 )}
 
+
 ## jpeg.tag Class
+
+### Property
+
+A `jpeg.tag` instance has the following properties:
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>color#r</code></td><td><code>number</code></td><td>R/W</td>
+<td>Value of the red element.</td></tr>
+
+</table>
+
 
 ## Extension to image Class
 

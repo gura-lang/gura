@@ -33,7 +33,7 @@ testcase {
 		}
 		if (exif.thumbnail) {
 			println(exif.thumbnail)
-			println(exif.thumbnail_jpeg)
+			println(exif.thumbnail@jpeg)
 		}
 	}
 }

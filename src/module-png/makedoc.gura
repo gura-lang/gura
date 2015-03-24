@@ -23,13 +23,13 @@ so that they can read/write PNG files.
 When function `image()` is provided with a stream that satisfies the following conditions,
 it would recognize the stream as a PNG file.
 
-- The identifier of the stream ends with a suffix `.png`.
-- The stream data begins with a byte sequence `0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a`.
+- The identifier of the stream ends with a suffix "`.png`".
+- The stream data begins with a byte sequence "`\x89\x50\x4e\x47\x0d\x0a\x1a\x0a`".
 
 When instance method `image#write()` is provided with a stream that satisfies the following condition,
 it would write image data in PNG format.
 
-- The identifier of the stream ends with a suffix `.png`.
+- The identifier of the stream ends with a suffix "`.png`".
 
 ## Module Function
 

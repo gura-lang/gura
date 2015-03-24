@@ -9078,7 +9078,7 @@ The <code>number</code> class provides measures to calculate numbers.
 </p>
 <h2><span class="caption-index-2">6.25</span><a name="caption-6-25"></a>operator Class</h2>
 <p>
-The <code>operator</code> class provides measures to assign operators with user-defined procedures.
+The <code>operator</code> class provides measures to assign operators with a user-defined procedure.
 </p>
 <h3><span class="caption-index-3">6.25.1</span><a name="caption-6-25-1"></a>Property</h3>
 <p>
@@ -11008,14 +11008,14 @@ This module extends the capability of function <code>image()</code> and instance
 When function <code>image()</code> is provided with a stream that satisfies the following conditions, it would recognize the stream as a BMP file.
 </p>
 <ul>
-<li>The identifier of the stream ends with a suffix <code>.bmp</code>.</li>
+<li>The identifier of the stream ends with a suffix "<code>.bmp</code>".</li>
 <li>The stream data begins with a byte sequence "<code>BM</code>".</li>
 </ul>
 <p>
 When instance method <code>image#write()</code> is provided with a stream that satisfies the following condition, it would write image data in BMP format.
 </p>
 <ul>
-<li>The identifier of the stream ends with a suffix <code>.bmp</code>.</li>
+<li>The identifier of the stream ends with a suffix "<code>.bmp</code>".</li>
 </ul>
 <h2><span class="caption-index-2">8.2</span><a name="caption-8-2"></a>Extension to image Class</h2>
 <p>
@@ -13553,14 +13553,14 @@ This module extends the capability of function <code>image()</code> and instance
 When function <code>image()</code> is provided with a stream that satisfies the following conditions, it would recognize the stream as a GIF file.
 </p>
 <ul>
-<li>The identifier of the stream ends with a suffix <code>.gif</code>.</li>
+<li>The identifier of the stream ends with a suffix "<code>.gif</code>".</li>
 <li>The stream data begins with a byte sequence "<code>GIF87a</code>" or "<code>GIF89a</code>".</li>
 </ul>
 <p>
 When instance method <code>image#write()</code> is provided with a stream that satisfies the following condition, it would write image data in GIF format.
 </p>
 <ul>
-<li>The identifier of the stream ends with a suffix <code>.gif</code>.</li>
+<li>The identifier of the stream ends with a suffix "<code>.gif</code>".</li>
 </ul>
 <h2><span class="caption-index-2">17.2</span><a name="caption-17-2"></a>gif.content Class</h2>
 <p>
@@ -14743,6 +14743,174 @@ Following tables show values types of operands and returned value for each opera
 <tr>
 <td>
 <code>
++x</code>
+</td>
+
+    <td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+</table>
+
+</p>
+<p>
+<table>
+
+<tr>
+<td>
+<code>
+-x</code>
+</td>
+
+    <td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+</table>
+
+</p>
+<p>
+<table>
+
+<tr>
+<td>
+<code>
+~x</code>
+</td>
+
+    <td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+</table>
+
+</p>
+<p>
+<table>
+
+<tr>
+<td>
+<code>
 x + y</code>
 </td>
 
@@ -14956,13 +15124,2187 @@ rational</code>
 
 </p>
 <p>
-<code>+x; -x; x + y; x - y; x * y; x / y; x % y</code>
+<table>
+
+<tr>
+<td>
+<code>
+x - y</code>
+</td>
+
+    <td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+
+    <td>
+<code>
+<b>
+number</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+rational</b>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+number</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+rational</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+</table>
+
+</p>
+<p>
+<table>
+
+<tr>
+<td>
+<code>
+x * y</code>
+</td>
+
+    <td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+
+    <td>
+<code>
+<b>
+number</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+rational</b>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+number</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+rational</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+</table>
+
+</p>
+<p>
+<table>
+
+<tr>
+<td>
+<code>
+x / y</code>
+</td>
+
+    <td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+
+    <td>
+<code>
+<b>
+number</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+rational</b>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+number</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+rational</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+</table>
+
+</p>
+<p>
+<table>
+
+<tr>
+<td>
+<code>
+x % y</code>
+</td>
+
+    <td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+
+    <td>
+<code>
+<b>
+number</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+rational</b>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+number</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+rational</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+</table>
+
 </p>
 <p>
 <code>x == y; x != y; x &gt; y; x &lt; y; x &gt;= y; x &lt;= y; x &lt;=&gt; y</code>
 </p>
 <p>
-<code>~x; x &amp; y; x | y; x ^ y; x &lt;&lt; y; x &gt;&gt; y</code>
+<table>
+
+<tr>
+<td>
+<code>
+comparator</code>
+</td>
+
+    <td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+
+    <td>
+<code>
+<b>
+number</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+rational</b>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+number</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+rational</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+</table>
+
+</p>
+<p>
+<table>
+
+<tr>
+<td>
+<code>
+x &amp; y</code>
+</td>
+
+    <td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+
+    <td>
+<code>
+<b>
+number</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+rational</b>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+number</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+rational</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+</table>
+
+</p>
+<p>
+<table>
+
+<tr>
+<td>
+<code>
+x | y</code>
+</td>
+
+    <td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+
+    <td>
+<code>
+<b>
+number</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+rational</b>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+number</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+rational</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+</table>
+
+</p>
+<p>
+<table>
+
+<tr>
+<td>
+<code>
+x ^ y</code>
+</td>
+
+    <td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+
+    <td>
+<code>
+<b>
+number</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+rational</b>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+number</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+rational</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+</table>
+
+</p>
+<p>
+<table>
+
+<tr>
+<td>
+<code>
+x &amp;lt;&amp;lt; y</code>
+</td>
+
+    <td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+
+    <td>
+<code>
+<b>
+number</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+rational</b>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+number</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+rational</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+</table>
+
+</p>
+<p>
+<table>
+
+<tr>
+<td>
+<code>
+x &amp;gt;&amp;gt; y</code>
+</td>
+
+    <td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+
+    <td>
+<code>
+<b>
+number</b>
+</code>
+</td>
+
+	<td>
+<code>
+<b>
+rational</b>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpz</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpq</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+gmp.mpf</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+number</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>
+<b>
+rational</b>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+
+    <td>
+<code>
+</code>
+</td>
+
+	<td>
+<code>
+</code>
+</td>
+</tr>
+
+</table>
+
 </p>
 <p>
 <code>x..; x .. y</code>
@@ -15332,14 +17674,14 @@ This module extends the capability of function <code>image()</code> and instance
 When function <code>image()</code> is provided with a stream that satisfies the following conditions, it would recognize the stream as a JPEG file.
 </p>
 <ul>
-<li>The identifier of the stream ends with a suffix <code>.jpeg</code>, <code>.jpg</code> or <code>.jpe</code>.</li>
+<li>The identifier of the stream ends with a suffix "<code>.jpeg</code>", "<code>.jpg</code>" or "<code>.jpe</code>".</li>
 <li>The stream data begins with a byte sequence "<code>\xff\xd8</code>" that means SOI (start of Image) marker in JPEG specification.</li>
 </ul>
 <p>
 When instance method <code>image#write()</code> is provided with a stream that satisfies the following condition, it would write image data in JPEG format.
 </p>
 <ul>
-<li>The identifier of the stream ends with a suffix <code>.jpeg</code>, <code>.jpg</code> or <code>.jpe</code>.</li>
+<li>The identifier of the stream ends with a suffix "<code>.jpeg</code>", "<code>.jpg</code>" or "<code>.jpe</code>".</li>
 </ul>
 <h2><span class="caption-index-2">25.2</span><a name="caption-25-2"></a>jpeg.exif Class</h2>
 <h3><span class="caption-index-3">25.2.1</span><a name="caption-25-2-1"></a>Function to Create Instance</h3>
@@ -16560,13 +18902,13 @@ This module extends the capability of function <code>image()</code> and instance
 When function <code>image()</code> is provided with a stream that satisfies the following conditions, it would recognize the stream as a ICO file.
 </p>
 <ul>
-<li>The identifier of the stream ends with a suffix <code>.ico</code>.</li>
+<li>The identifier of the stream ends with a suffix "<code>.ico</code>".</li>
 </ul>
 <p>
 When instance method <code>image#write()</code> is provided with a stream that satisfies the following condition, it would write image data in ICO format.
 </p>
 <ul>
-<li>The identifier of the stream ends with a suffix <code>.ico</code>.</li>
+<li>The identifier of the stream ends with a suffix "<code>.ico</code>".</li>
 </ul>
 <h2><span class="caption-index-2">30.2</span><a name="caption-30-2"></a>msico.content Class</h2>
 <h3><span class="caption-index-3">30.2.1</span><a name="caption-30-2-1"></a>Function to Create Instance</h3>
@@ -19034,14 +21376,14 @@ This module extends the capability of function <code>image()</code> and instance
 When function <code>image()</code> is provided with a stream that satisfies the following conditions, it would recognize the stream as a PNG file.
 </p>
 <ul>
-<li>The identifier of the stream ends with a suffix <code>.png</code>.</li>
-<li>The stream data begins with a byte sequence <code>0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a</code>.</li>
+<li>The identifier of the stream ends with a suffix "<code>.png</code>".</li>
+<li>The stream data begins with a byte sequence "<code>\x89\x50\x4e\x47\x0d\x0a\x1a\x0a</code>".</li>
 </ul>
 <p>
 When instance method <code>image#write()</code> is provided with a stream that satisfies the following condition, it would write image data in PNG format.
 </p>
 <ul>
-<li>The identifier of the stream ends with a suffix <code>.png</code>.</li>
+<li>The identifier of the stream ends with a suffix "<code>.png</code>".</li>
 </ul>
 <h2><span class="caption-index-2">35.2</span><a name="caption-35-2"></a>Module Function</h2>
 <h2><span class="caption-index-2">35.3</span><a name="caption-35-3"></a>Extension to image Class</h2>
@@ -19086,14 +21428,14 @@ This module extends the capability of function <code>image()</code> and instance
 When function <code>image()</code> is provided with a stream that satisfies the following conditions, it would recognize the stream as a PPM file.
 </p>
 <ul>
-<li>The identifier of the stream ends with a suffix <code>.ppm</code> or <code>.pbm</code>.</li>
+<li>The identifier of the stream ends with a suffix "<code>.ppm</code>" or "<code>.pbm</code>".</li>
 <li>The stream data begins with a byte sequence "<code>P2</code>", "<code>P3</code>" or "<code>P6</code>".</li>
 </ul>
 <p>
 When instance method <code>image#write()</code> is provided with a stream that satisfies the following condition, it would write image data in PPM format.
 </p>
 <ul>
-<li>The identifier of the stream ends with a suffix <code>.ppm</code> or <code>.pbm</code>.</li>
+<li>The identifier of the stream ends with a suffix "<code>.ppm</code>" or "<code>.pbm</code>".</li>
 </ul>
 <h2><span class="caption-index-2">37.2</span><a name="caption-37-2"></a>Extension to image Class</h2>
 <p>
@@ -23255,13 +25597,13 @@ This module extends the capability of function <code>image()</code> and instance
 When function <code>image()</code> is provided with a stream that satisfies the following conditions, it would recognize the stream as a TIFF file.
 </p>
 <ul>
-<li>The identifier of the stream ends with a suffix <code>.tif</code> or <code>.tiff</code>.</li>
+<li>The identifier of the stream ends with a suffix "<code>.tif</code>" or "<code>.tiff</code>".</li>
 </ul>
 <p>
 When instance method <code>image#write()</code> is provided with a stream that satisfies the following condition, it would write image data in TIFF format.
 </p>
 <ul>
-<li>The identifier of the stream ends with a suffix <code>.tif</code> or <code>.tiff</code>.</li>
+<li>The identifier of the stream ends with a suffix "<code>.tif</code>" or "<code>.tiff</code>".</li>
 </ul>
 <h2><span class="caption-index-2">44.2</span><a name="caption-44-2"></a>Extension to image Class</h2>
 <p>
