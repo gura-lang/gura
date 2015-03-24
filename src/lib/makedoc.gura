@@ -1402,7 +1402,7 @@ number.roundoff
 text@operator = R'''
 ## operator Class
 
-The `operator` class provides measures to assign operators with user-defined procedures.
+The `operator` class provides measures to assign operators with a user-defined procedure.
 
 
 ### Property
