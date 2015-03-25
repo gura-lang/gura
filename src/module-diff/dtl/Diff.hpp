@@ -113,7 +113,7 @@ namespace dtl {
             return ses;
         }
         
-        uniHunkVec getUniHunks () const {
+        const uniHunkVec &getUniHunks () const {
             return uniHunks;
         }
         

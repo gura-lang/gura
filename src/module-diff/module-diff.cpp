@@ -21,37 +21,30 @@ Gura_DeclareFunction(diff)
 
 Gura_ImplementFunction(diff)
 {
-	typedef std::string elem;
-	typedef std::vector<elem> sequence;
-	typedef std::pair<elem, dtl::elemInfo> sesElem;
-	
+	typedef dtl::Diff<String> DiffString;
 	bool includeEOLFlag = true;
-	sequence seq1, seq2;
-	for (;;) {
-		String str;
-		if (!args.GetStream(0).ReadLine(sig, str, includeEOLFlag)) break;
-		seq1.push_back(str.c_str());
-	}
-	for (;;) {
-		String str;
-		if (!args.GetStream(1).ReadLine(sig, str, includeEOLFlag)) break;
-		seq2.push_back(str.c_str());
-	}
-	dtl::Diff<elem, sequence> diff(seq1, seq2);
+	StringList seq1, seq2;
+	args.GetStream(0).ReadLines(sig, seq1, includeEOLFlag);
+	args.GetStream(1).ReadLines(sig, seq2, includeEOLFlag);
+	DiffString diff(seq1, seq2);
 	diff.onHuge();
 	diff.compose();
 	diff.composeUnifiedHunks();
-	diff.printUnifiedFormat();
-	foreach_const (dtl::Diff<elem>::uniHunkVec, pUniHunk, diff.getUniHunks()) {
-		::printf("@@ -%d,%d +%d,%d @@\n", pUniHunk->a, pUniHunk->b, pUniHunk->c, pUniHunk->d);
-		foreach_const (std::vector<sesElem>, pSesElem, pUniHunk->common[0]) {
-			::printf("%s\n", pSesElem->first.c_str());
+	//diff.printUnifiedFormat();
+	foreach_const (DiffString::uniHunkVec, pUniHunk, diff.getUniHunks()) {
+		::printf("@@ -%lld,%lld +%lld,%lld @@\n", pUniHunk->a, pUniHunk->b, pUniHunk->c, pUniHunk->d);
+		foreach_const (DiffString::sesElemVec, pSesElem, pUniHunk->common[0]) {
+			::printf(" %s", pSesElem->first.c_str());
 		}
-		foreach_const (std::vector<sesElem>, pSesElem, pUniHunk->change) {
-			::printf("%s\n", pSesElem->first.c_str());
+		foreach_const (DiffString::sesElemVec, pSesElem, pUniHunk->change) {
+			::printf("%c%s",
+					 (pSesElem->second.type == dtl::SES_ADD)? '+' :
+					 (pSesElem->second.type == dtl::SES_DELETE)? '-' :
+					 (pSesElem->second.type == dtl::SES_COMMON)? ' ' : ' ',
+					 pSesElem->first.c_str());
 		}
-		foreach_const (std::vector<sesElem>, pSesElem, pUniHunk->common[1]) {
-			::printf("%s\n", pSesElem->first.c_str());
+		foreach_const (DiffString::sesElemVec, pSesElem, pUniHunk->common[1]) {
+			::printf(" %s", pSesElem->first.c_str());
 		}
 	}
 	return Value::Null;

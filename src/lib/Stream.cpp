@@ -50,6 +50,16 @@ bool SimpleStream::ReadLine(Signal sig, String &str, bool includeEOLFlag)
 	return !sig.IsSignalled();
 }
 
+bool SimpleStream::ReadLines(Signal sig, StringList &strList, bool includeEOLFlag)
+{
+	for (;;) {
+		String str;
+		if (!ReadLine(sig, str, includeEOLFlag)) break;
+		strList.push_back(str);
+	}
+	return !sig.IsSignalled();
+}
+
 void SimpleStream::Dump(Signal sig, const void *buff, size_t bytes, bool upperFlag)
 {
 	int iCol = 0;

@@ -25,6 +25,7 @@ public:
 	void PrintFmt(Signal sig, const char *format, const ValueList &valList);
 	void Printf(Signal sig, const char *format, ...);
 	bool ReadLine(Signal sig, String &str, bool includeEOLFlag);
+	bool ReadLines(Signal sig, StringList &strList, bool includeEOLFlag);
 	void Dump(Signal sig, const void *buff, size_t bytes, bool upperFlag = false);
 	virtual const char *GetName() const = 0;
 	virtual int GetChar(Signal sig) = 0;
