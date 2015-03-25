@@ -17684,6 +17684,18 @@ When instance method <code>image#write()</code> is provided with a stream that s
 <li>The identifier of the stream ends with a suffix "<code>.jpeg</code>", "<code>.jpg</code>" or "<code>.jpe</code>".</li>
 </ul>
 <h2><span class="caption-index-2">25.2</span><a name="caption-25-2"></a>jpeg.exif Class</h2>
+<p>
+The <code>jpeg.exif</code> class provides EXIF information in a JPEG stream.
+</p>
+<p>
+A <code>jpeg.exif</code> instance contains <code>jpeg.ifd</code> instances as properties named <code>jpeg.exif#ifd0</code> and <code>jpeg.exif#ifd1</code> that include a list of <code>jpeg.tag</code> instances.
+</p>
+<pre><code>+-----------+             +----------+        +----------+
+| jpeg.exif |ifd0, ifd1   | jpeg.ifd |1..     | jpeg.tag |
+|-----------*-------------+----------*--------+----------|
+|           |             |          |        |          |
++-----------+             +----------+        +----------+
+</code></pre>
 <h3><span class="caption-index-3">25.2.1</span><a name="caption-25-2-1"></a>Property</h3>
 <p>
 A <code>jpeg.exif</code> instance has the following properties:
@@ -17716,7 +17728,12 @@ symbol</code>
 R</td>
 
 <td>
-</td>
+The endian type: <code>
+`big</code>
+ for big-endian and
+<code>
+`little</code>
+ for little-endian.</td>
 </tr>
 
 
@@ -17733,7 +17750,7 @@ jpeg.ifd</code>
 R</td>
 
 <td>
-</td>
+IFD0 instance.</td>
 </tr>
 
 
@@ -17750,7 +17767,7 @@ jpeg.ifd</code>
 R</td>
 
 <td>
-</td>
+IFD1 instance.</td>
 </tr>
 
 
@@ -17767,7 +17784,9 @@ image</code>
 R</td>
 
 <td>
-</td>
+Thumbnail image as <code>
+image</code>
+ value.</td>
 </tr>
 
 
@@ -17784,7 +17803,7 @@ binary</code>
 R</td>
 
 <td>
-</td>
+Thumbnail image as JPEG binary data.</td>
 </tr>
 
 
@@ -17798,12 +17817,38 @@ R</td>
 <p>
 <code>jpeg.exif(stream?:stream:r):map:[raise] {block?}</code>
 </p>
+<p>
+Reads EXIF data from <code>stream</code> and creates a <code>jpeg.exif</code> instance.
+</p>
+<p>
+If no EXIF information exists in the stream, this function returns <code>nil</code>. If the attribute <code>:raise</code> is specified, an error occurs for that case.
+</p>
+<p>
+If <code>block</code> is specified, it would be evaluated with a block parameter <code>|exif:jpeg.exif|</code>, where <code>exif</code> is the created instance. In this case, the block's result would become the function's returned value.
+</p>
 <h3><span class="caption-index-3">25.2.3</span><a name="caption-25-2-3"></a>Method</h3>
 <p>
 <strong>jpeg.exif#each</strong>
 </p>
 <p>
 <code>jpeg.exif#each() {block?}</code>
+</p>
+<p>
+Creates an iterator that returns <code>jpeg.tag</code> values as elements that are stored in the property <code>jpeg.exif#ifd0</code>.
+</p>
+<p>
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
+</p>
+<ul>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
+</ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
 </p>
 <h2><span class="caption-index-2">25.3</span><a name="caption-25-3"></a>jpeg.ifd Class</h2>
 <h3><span class="caption-index-3">25.3.1</span><a name="caption-25-3-1"></a>Property</h3>
@@ -17869,6 +17914,23 @@ R</td>
 <p>
 <code>jpeg.ifd#each() {block?}</code>
 </p>
+<p>
+Creates an iterator that returns <code>jpeg.tag</code> values as elements that are stored in the target <code>jpeg.ifd</code> instance.
+</p>
+<p>
+In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
+</p>
+<ul>
+<li><code>:iter</code> .. An iterator. This is the default behavior.</li>
+<li><code>:xiter</code> .. An iterator that eliminates <code>nil</code> from its elements.</li>
+<li><code>:list</code> .. A list.</li>
+<li><code>:xlist</code> .. A list that eliminates <code>nil</code> from its elements.</li>
+<li><code>:set</code> ..  A list that eliminates duplicated values from its elements.</li>
+<li><code>:xset</code> .. A list that eliminates duplicated values and <code>nil</code> from its elements.</li>
+</ul>
+<p>
+If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
 <h2><span class="caption-index-2">25.4</span><a name="caption-25-4"></a>jpeg.tag Class</h2>
 <h3><span class="caption-index-3">25.4.1</span><a name="caption-25-4-1"></a>Property</h3>
 <p>
@@ -17902,7 +17964,7 @@ number</code>
 R</td>
 
 <td>
-</td>
+Tag ID.</td>
 </tr>
 
 
@@ -17919,7 +17981,7 @@ string</code>
 R</td>
 
 <td>
-</td>
+Tag name.</td>
 </tr>
 
 
@@ -17936,7 +17998,9 @@ symbol</code>
 R</td>
 
 <td>
-</td>
+Tag name as <code>
+symbol</code>
+.</td>
 </tr>
 
 
@@ -17953,7 +18017,24 @@ number</code>
 R</td>
 
 <td>
+Tag type.</td>
+</tr>
+
+
+<tr>
+<td>
+<code>
+jpeg.tag#typename</code>
 </td>
+<td>
+<code>
+string</code>
+</td>
+<td>
+R</td>
+
+<td>
+Tag type name.</td>
 </tr>
 
 
@@ -17970,7 +18051,10 @@ any</code>
 R</td>
 
 <td>
-</td>
+Tag value. When the attribute <code>
+:cooked</code>
+ is specified,
+numbers in some tags are translated to human-readable symbols.</td>
 </tr>
 
 
@@ -17987,7 +18071,14 @@ jpeg.ifd</code>
 R</td>
 
 <td>
-</td>
+IFD instance. Valid only for tags <code>
+Exif</code>
+, <code>
+GPSInfo</code>
+ and
+<code>
+Interoperability</code>
+.</td>
 </tr>
 
 

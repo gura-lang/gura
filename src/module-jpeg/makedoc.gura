@@ -34,6 +34,19 @@ it would write image data in JPEG format.
 
 ## jpeg.exif Class
 
+The `jpeg.exif` class provides EXIF information in a JPEG stream.
+
+A `jpeg.exif` instance contains `jpeg.ifd` instances as properties
+named `jpeg.exif#ifd0` and `jpeg.exif#ifd1`
+that include a list of `jpeg.tag` instances.
+
+    +-----------+             +----------+        +----------+
+    | jpeg.exif |ifd0, ifd1   | jpeg.ifd |1..     | jpeg.tag |
+    |-----------*-------------+----------*--------+----------|
+    |           |             |          |        |          |
+    +-----------+             +----------+        +----------+
+
+
 ### Property
 
 A `jpeg.exif` instance has the following properties:
