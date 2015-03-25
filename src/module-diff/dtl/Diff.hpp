@@ -47,8 +47,9 @@ namespace dtl {
     template <typename elem, typename sequence = vector< elem >, typename comparator = Compare< elem > >
     class Diff
     {
-    private :
+    public :
         dtl_typedefs(elem, sequence)
+    private :
         sequence           A;
         sequence           B;
         size_t             M;

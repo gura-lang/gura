@@ -3,5 +3,5 @@ import(helper.test) {*}
 import(diff)
 
 testcase {
-	println(diff.test(3, 4))
+	diff.diff('a.txt', 'b.txt')
 }
