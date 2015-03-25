@@ -878,8 +878,10 @@ Iterator *Object_stream::IteratorLine::GetSource()
 bool Object_stream::IteratorLine::DoNext(Environment &env, Signal sig, Value &value)
 {
 	Stream &stream = _pObj->GetStream();
-	String str;
 	if (_nLines == _nLinesMax) return false;
+	String str;
+	if (!stream.ReadLine(sig, str, _includeEOLFlag)) return false;
+#if 0	
 	int ch = stream.GetChar(sig);
 	if (ch < 0) return false;
 	for ( ; ch >= 0; ch = stream.GetChar(sig)) {
@@ -890,6 +892,7 @@ bool Object_stream::IteratorLine::DoNext(Environment &env, Signal sig, Value &va
 		str += ch;
 	}
 	if (sig.IsSignalled()) return false;
+#endif
 	_nLines++;
 	value = Value(str);
 	return true;

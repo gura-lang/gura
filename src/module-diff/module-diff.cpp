@@ -8,20 +8,20 @@ Gura_BeginModuleBody(diff)
 //-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
-// diff.test(num1:number, num2:number)
-Gura_DeclareFunction(test)
+// diff.diff(stream1:stream, stream2:stream)
+Gura_DeclareFunction(diff)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "num1", VTYPE_number);
-	DeclareArg(env, "num2", VTYPE_number);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"This function adds two numbers and returns the result."
-	);
+	DeclareArg(env, "stream1", VTYPE_stream);
+	DeclareArg(env, "stream2", VTYPE_stream);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"This function adds two numbers and returns the result.");
 }
 
-Gura_ImplementFunction(test)
+Gura_ImplementFunction(diff)
 {
-	return Value(args.GetNumber(0) + args.GetNumber(1));
+	return Value::Null;
 }
 
 //-----------------------------------------------------------------------------
@@ -30,7 +30,7 @@ Gura_ImplementFunction(test)
 Gura_ModuleEntry()
 {
 	// function assignment
-	Gura_AssignFunction(test);
+	Gura_AssignFunction(diff);
 	return true;
 }
 

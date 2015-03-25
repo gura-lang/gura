@@ -36,6 +36,20 @@ void SimpleStream::Printf(Signal sig, const char *format, ...)
 	Print(sig, str.c_str());
 }
 
+bool SimpleStream::ReadLine(Signal sig, String &str, bool includeEOLFlag)
+{
+	int ch = GetChar(sig);
+	if (ch < 0) return false;
+	for ( ; ch >= 0; ch = GetChar(sig)) {
+		if (ch == '\n') {
+			if (includeEOLFlag) str += ch;
+			break;
+		}
+		str += ch;
+	}
+	return !sig.IsSignalled();
+}
+
 void SimpleStream::Dump(Signal sig, const void *buff, size_t bytes, bool upperFlag)
 {
 	int iCol = 0;
