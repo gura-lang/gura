@@ -42,19 +42,20 @@ A `jpeg.exif` instance has the following properties:
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code>jpeg.exif#endian</code></td><td><code>symbol</code></td><td>R</td>
-<td></td></tr>
+<td>The endian type: <code>`big</code> for big-endian and
+<code>`little</code> for little-endian.</td></tr>
 
 <tr><td><code>jpeg.exif#ifd0</code></td><td><code>jpeg.ifd</code></td><td>R</td>
-<td></td></tr>
+<td>IFD0 instance.</td></tr>
 
 <tr><td><code>jpeg.exif#ifd1</code></td><td><code>jpeg.ifd</code></td><td>R</td>
-<td></td></tr>
+<td>IFD1 instance.</td></tr>
 
 <tr><td><code>jpeg.exif#thumbnail</code></td><td><code>image</code></td><td>R</td>
-<td></td></tr>
+<td>Thumbnail image as <code>image</code> value.</td></tr>
 
 <tr><td><code>jpeg.exif#thumbnail@jpeg</code></td><td><code>binary</code></td><td>R</td>
-<td></td></tr>
+<td>Thumbnail image as JPEG binary data.</td></tr>
 
 </table>
 
@@ -107,22 +108,27 @@ A `jpeg.tag` instance has the following properties:
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code>jpeg.tag#id</code></td><td><code>number</code></td><td>R</td>
-<td></td></tr>
+<td>Tag ID.</td></tr>
 
 <tr><td><code>jpeg.tag#name</code></td><td><code>string</code></td><td>R</td>
-<td></td></tr>
+<td>Tag name.</td></tr>
 
 <tr><td><code>jpeg.tag#symbol</code></td><td><code>symbol</code></td><td>R</td>
-<td></td></tr>
+<td>Tag name as <code>symbol</code>.</td></tr>
 
 <tr><td><code>jpeg.tag#type</code></td><td><code>number</code></td><td>R</td>
-<td></td></tr>
+<td>Tag type.</td></tr>
+
+<tr><td><code>jpeg.tag#typename</code></td><td><code>string</code></td><td>R</td>
+<td>Tag type name.</td></tr>
 
 <tr><td><code>jpeg.tag#value</code></td><td><code>any</code></td><td>R</td>
-<td></td></tr>
+<td>Tag value. When the attribute <code>:cooked</code> is specified,
+numbers in some tags are translated to human-readable symbols.</td></tr>
 
 <tr><td><code>jpeg.tag#ifd</code></td><td><code>jpeg.ifd</code></td><td>R</td>
-<td></td></tr>
+<td>IFD instance. Valid only for tags <code>Exif</code>, <code>GPSInfo</code> and
+<code>Interoperability</code>.</td></tr>
 
 </table>
 
@@ -137,10 +143,7 @@ image.write@jpeg
 )}
 '''.template().render()
 
-write(doc:markdown.document) = {
-	doc << text
-	doc
-}
+write(doc:markdown.document) = doc << text
 
 if (__name__ == '__main__') {
 	write(markdown.document()).render@html(sys.stdout)

@@ -241,6 +241,43 @@ Object_exif *Object_exif::ReadStream(Environment &env, Signal sig, Stream &strea
 //-----------------------------------------------------------------------------
 // Gura interfaces for jpeg.exif
 //-----------------------------------------------------------------------------
+// jpeg.exif(stream?:stream):map:[raise] {block?}
+Gura_DeclareFunction(exif)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(raise));
+	SetClassToConstruct(Gura_UserClass(exif));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Reads EXIF data from `stream` and creates a `jpeg.exif` instance.\n"
+		"\n"
+		"If no EXIF information exists in the stream, this function returns `nil`.\n"
+		"If the attribute `:raise` is specified, an error occurs for that case.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("exif", "jpeg.exif"));
+}
+
+Gura_ImplementFunction(exif)
+{
+	Value value;
+	if (args.Is_stream(0)) {
+		Object_exif *pObj = Object_exif::ReadStream(env, sig, args.GetStream(0));
+		if (sig.IsSignalled()) return Value::Null;
+		if (pObj != NULL) {
+			value = Value(pObj);
+		} else if (args.IsSet(Gura_Symbol(raise))) {
+			sig.SetError(ERR_FormatError, "Exif information doesn't exist");
+			return Value::Null;
+		}
+	} else {
+		Object_exif *pObj = new Object_exif();
+		value = Value(pObj);
+	}
+	return ReturnValue(env, sig, args, value);
+}
+
 // jpeg.exif#each() {block?}
 Gura_DeclareMethod(exif, each)
 {
@@ -248,7 +285,10 @@ Gura_DeclareMethod(exif, each)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that returns `jpeg.tag` values as elements\n"
+		"that are stored in the property `jpeg.exif#ifd0`.\n"
+		"\n"
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(exif, each)
@@ -262,6 +302,7 @@ Gura_ImplementMethod(exif, each)
 // implementation of class exif
 Gura_ImplementUserClass(exif)
 {
+	Gura_AssignFunction(exif);
 	Gura_AssignMethod(exif, each);
 }
 

@@ -59,6 +59,9 @@ Value Object_tag::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 		return Value(_pSymbol);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
 		return Value(_type);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(typename))) {
+		const TypeInfo *pTypeInfo = TypeToInfo(_type);
+		return Value((pTypeInfo == NULL)? "(unknown)" : pTypeInfo->name);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(value))) {
 		if (attrs.IsSet(Gura_UserSymbol(cooked))) {
 			return _valueCooked;

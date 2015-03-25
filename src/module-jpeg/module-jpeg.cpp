@@ -224,38 +224,6 @@ Gura_ImplementMethod(image, write_jpeg)
 	return args.GetThis();
 }
 
-// jpeg.exif(stream?:stream) {block?}
-Gura_DeclareFunction(exif)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareAttr(Gura_Symbol(raise));
-	SetClassToConstruct(Gura_UserClass(exif));
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementFunction(exif)
-{
-	Value value;
-	if (args.Is_stream(0)) {
-		Object_exif *pObj = Object_exif::ReadStream(env, sig, args.GetStream(0));
-		if (sig.IsSignalled()) return Value::Null;
-		if (pObj != NULL) {
-			value = Value(pObj);
-		} else if (args.IsSet(Gura_Symbol(raise))) {
-			sig.SetError(ERR_FormatError, "Exif information doesn't exist");
-			return Value::Null;
-		}
-	} else {
-		Object_exif *pObj = new Object_exif();
-		value = Value(pObj);
-	}
-	return ReturnValue(env, sig, args, value);
-}
-
 // jpeg.test()
 Gura_DeclareFunction(test)
 {
@@ -285,6 +253,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(name);
 	Gura_RealizeUserSymbol(symbol);
 	Gura_RealizeUserSymbol(type);
+	Gura_RealizeUserSymbol(typename);
 	Gura_RealizeUserSymbol(value);
 	Gura_RealizeUserSymbol(cooked);
 	Gura_RealizeUserSymbol(ifd);
@@ -300,7 +269,6 @@ Gura_ModuleEntry()
 	Gura_RealizeAndPrepareUserClass(ifd, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(exif, env.LookupClass(VTYPE_object));
 	// function assignment
-	Gura_AssignFunction(exif);
 	Gura_AssignFunction(test);
 	// method assignment to image
 	Gura_AssignMethodTo(VTYPE_image, image, read_jpeg);
