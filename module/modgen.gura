@@ -61,9 +61,9 @@ Gura_DeclareFunction(test)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "num1", VTYPE_number);
 	DeclareArg(env, "num2", VTYPE_number);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"This function adds two numbers and returns the result."
-	);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"This function adds two numbers and returns the result.");
 }
 
 Gura_ImplementFunction(test)
