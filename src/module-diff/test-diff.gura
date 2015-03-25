@@ -1,0 +1,7 @@
+#!/usr/bin/env gura
+import(helper.test) {*}
+import(diff)
+
+testcase {
+	println(diff.test(3, 4))
+}
