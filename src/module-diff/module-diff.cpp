@@ -29,7 +29,7 @@ Gura_ImplementFunction(diff)
 	DiffString diff(seq1, seq2);
 	diff.onHuge();
 	diff.compose();
-
+	/*
 	foreach_const (DiffString::sesElemVec, pSesElem, diff.getSes().getSequence()) {
 		::printf("%c %lld %lld %s",
 				 (pSesElem->second.type == dtl::SES_ADD)? '+' :
@@ -39,9 +39,8 @@ Gura_ImplementFunction(diff)
 				 pSesElem->second.afterIdx,
 				 pSesElem->first.c_str());
 	}
-	/*
+	*/
 	diff.composeUnifiedHunks();
-	//diff.printUnifiedFormat();
 	foreach_const (DiffString::uniHunkVec, pUniHunk, diff.getUniHunks()) {
 		::printf("@@ -%lld,%lld +%lld,%lld @@\n", pUniHunk->a, pUniHunk->b, pUniHunk->c, pUniHunk->d);
 		foreach_const (DiffString::sesElemVec, pSesElem, pUniHunk->common[0]) {
@@ -58,7 +57,6 @@ Gura_ImplementFunction(diff)
 			::printf(" %s", pSesElem->first.c_str());
 		}
 	}
-	*/
 	return Value::Null;
 }
 

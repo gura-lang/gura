@@ -231,7 +231,7 @@ namespace dtl {
             const sesElemVec& sesSeq = ses.getSequence();
             elemList      seqLst(seq.begin(), seq.end());
             elemList_iter lstIt  = seqLst.begin();
-            for (sesElemVec_iter sesIt=sesSeq.begin();sesIt!=sesSeq.end();++sesIt) {
+            for (typename sesElemVec::const_iterator sesIt=sesSeq.begin();sesIt!=sesSeq.end();++sesIt) {
                 switch (sesIt->second.type) {
                 case SES_ADD :
                     seqLst.insert(lstIt, sesIt->first);
@@ -387,7 +387,7 @@ namespace dtl {
             isMiddle = isAfter = false;
             a = b = c = d = 0;
             
-            for (sesElemVec_iter it=ses_v.begin();it!=ses_v.end();++it, ++l_cnt) {
+            for (typename sesElemVec::const_iterator it=ses_v.begin();it!=ses_v.end();++it, ++l_cnt) {
                 einfo = it->second;
                 switch (einfo.type) {
                 case SES_ADD :
@@ -454,7 +454,7 @@ namespace dtl {
                 }
                 // compose unified format hunk
                 if (isAfter && !change.empty()) {
-                    sesElemVec_iter cit = it;
+                    typename sesElemVec::const_iterator cit = it;
                     long long       cnt = 0;
                     for (long long i=0;i<DTL_SEPARATE_SIZE && (cit != ses_v.end());++i, ++cit) {
                         if (cit->second.type == SES_COMMON) {
