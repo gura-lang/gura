@@ -116,7 +116,7 @@ namespace dtl {
             }
         }
         
-        sesElemVec getSequence () const {
+        const sesElemVec& getSequence () const {
             return sequence;
         }
     private :

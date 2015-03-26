@@ -101,19 +101,19 @@ namespace dtl {
             return editDistance;
         }
         
-        Lcs< elem > getLcs () const {
+        const Lcs< elem >& getLcs () const {
             return lcs;
         }
         
-        elemVec getLcsVec () const {
+        const elemVec& getLcsVec () const {
             return lcs.getSequence();
         }
         
-        Ses< elem > getSes () const {
+        const Ses< elem >& getSes () const {
             return ses;
         }
         
-        const uniHunkVec &getUniHunks () const {
+        const uniHunkVec& getUniHunks () const {
             return uniHunks;
         }
         

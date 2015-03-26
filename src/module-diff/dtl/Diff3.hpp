@@ -73,7 +73,7 @@ namespace dtl {
             return conflict;
         }
         
-        sequence getMergedSequence () const {
+        const sequence& getMergedSequence () const {
             return S;
         }
         

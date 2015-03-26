@@ -51,7 +51,7 @@ namespace dtl {
         Sequence () {}
         virtual ~Sequence () {}
         
-        elemVec getSequence () const {
+        const elemVec& getSequence () const {
             return sequence;
         }
         void addSequence (elem e) {
