@@ -228,7 +228,7 @@ namespace dtl {
          * patching with Shortest Edit Script (SES)
          */
         sequence patch (const sequence& seq) const {
-            sesElemVec    sesSeq = ses.getSequence();
+            const sesElemVec& sesSeq = ses.getSequence();
             elemList      seqLst(seq.begin(), seq.end());
             elemList_iter lstIt  = seqLst.begin();
             for (sesElemVec_iter sesIt=sesSeq.begin();sesIt!=sesSeq.end();++sesIt) {
@@ -312,7 +312,7 @@ namespace dtl {
          */
         template < typename stream >
         void printSES (stream& out) const {
-            sesElemVec ses_v = ses.getSequence();
+            const sesElemVec& ses_v = ses.getSequence();
             for_each(ses_v.begin(), ses_v.end(), ChangePrinter< sesElem, stream >(out));
         }
         
@@ -325,7 +325,7 @@ namespace dtl {
          */
         template < typename stream >
         static void printSES (const Ses< elem >& s, stream& out) {
-            sesElemVec ses_v = s.getSequence();
+            const sesElemVec& ses_v = s.getSequence();
             for_each(ses_v.begin(), ses_v.end(), ChangePrinter< sesElem, stream >(out));
         }
         
@@ -338,7 +338,7 @@ namespace dtl {
          */
         template < typename stream, template < typename SEET, typename STRT > class PT >
         void printSES (stream& out) const {
-            sesElemVec ses_v = ses.getSequence ();
+            const sesElemVec& ses_v = ses.getSequence ();
             for_each (ses_v.begin (), ses_v.end(), PT < sesElem, stream > (out));
         }
         
@@ -372,7 +372,7 @@ namespace dtl {
         void composeUnifiedHunks () {
             sesElemVec         common[2];
             sesElemVec         change;
-            sesElemVec         ses_v  = ses.getSequence();
+            const sesElemVec&  ses_v  = ses.getSequence();
             long long          l_cnt  = 1;
             long long          length = distance(ses_v.begin(), ses_v.end());
             long long          middle = 0;

@@ -3,5 +3,5 @@ import(helper.test) {*}
 import(diff)
 
 testcase {
-	diff.diff('module-diff.cpp', 'module-diff-a.cpp')
+	diff.diff('module-diff-a.cpp', 'module-diff.cpp')
 }
