@@ -194,7 +194,7 @@ void IteratorEdit::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &en
 // IteratorHunk
 //-----------------------------------------------------------------------------
 IteratorHunk::IteratorHunk(DiffEngine *pDiffEngine, size_t nLinesCommon) :
-	Iterator(false), _pDiffEngine(pDiffEngine), _idxEdit(0), _nLinesCommon(nLinesCommon)
+	Iterator(false), _pDiffEngine(pDiffEngine), _idxEditCur(0), _nLinesCommon(nLinesCommon)
 {
 }
 
@@ -205,8 +205,39 @@ Iterator *IteratorHunk::GetSource()
 
 bool IteratorHunk::DoNext(Environment &env, Signal sig, Value &value)
 {
-	if (_idxEdit >= _pDiffEngine->CountEdits()) return false;
-	_pDiffEngine->GetEdit(_idxEdit);
+	enum {
+		STAT_SeekDiff, STAT_Hunk,
+	} stat = STAT_SeekDiff;
+	if (_idxEditCur >= _pDiffEngine->CountEdits()) return false;
+	size_t nLines = 0;
+	size_t idxEdit = _idxEditCur;
+	size_t idxEditBegin = 0;
+	for ( ; idxEdit < _pDiffEngine->CountEdits(); idxEdit++) {
+		const DiffString::Edit &edit = _pDiffEngine->GetEdit(_idxEditCur);
+		switch (stat) {
+		case STAT_SeekDiff: {
+			if (edit.second.type == dtl::SES_COMMON) {
+				// nothing to do
+			} else {
+				idxEditBegin = (idxEdit > _idxEditCur + _nLinesCommon)?
+					idxEdit - _nLinesCommon : _idxEditCur;
+				stat = STAT_Hunk;
+			}
+			break;
+		}
+		case STAT_Hunk: {
+			if (edit.second.type == dtl::SES_COMMON) {
+				
+				nLines = 1;
+			} else {
+				// nothing to do
+			}
+			break;
+		}
+		}
+	}
+	
+	_idxEditCur = idxEdit;
 	return true;
 }
 

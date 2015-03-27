@@ -135,7 +135,7 @@ public:
 class IteratorHunk : public Iterator {
 private:
 	AutoPtr<DiffEngine> _pDiffEngine;
-	size_t _idxEdit;
+	size_t _idxEditCur;
 	size_t _nLinesCommon;
 public:
 	IteratorHunk(DiffEngine *pDiffEngine, size_t nLinesCommon);
