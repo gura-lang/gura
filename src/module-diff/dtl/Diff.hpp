@@ -97,6 +97,14 @@ namespace dtl {
         
         ~Diff() {}
         
+        sequence& getA() {
+            return A;
+        }
+        
+        sequence& getB() {
+            return B;
+        }
+        
         long long getEditDistance () const {
             return editDistance;
         }
@@ -529,7 +537,7 @@ namespace dtl {
             return ret;
         }
         
-    private :
+    public :
         /**
          * initialize
          */
@@ -552,6 +560,7 @@ namespace dtl {
             fp               = NULL;
         }
         
+    private :
         /**
          * search shortest path and record the path
          */
