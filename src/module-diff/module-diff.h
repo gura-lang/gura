@@ -44,6 +44,7 @@ public:
 	bool DiffStream(Signal sig, Stream &src1, Stream &src2);
 	bool PrintEdits(Signal sig, Stream &stream) const;
 	bool PrintEdits(Signal sig, Stream &stream, size_t idxEditBegin, size_t idxEditEnd) const;
+	bool NextHunk(size_t &idxEdit, size_t nLinesCommon, size_t &idxEditBegin) const;
 	inline size_t CountEdits() const {
 		return _diffString.GetEditList().size();
 	}
@@ -135,7 +136,7 @@ public:
 class IteratorHunk : public Iterator {
 private:
 	AutoPtr<DiffEngine> _pDiffEngine;
-	size_t _idxEditCur;
+	size_t _idxEdit;
 	size_t _nLinesCommon;
 public:
 	IteratorHunk(DiffEngine *pDiffEngine, size_t nLinesCommon);

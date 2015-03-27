@@ -3,6 +3,6 @@ import(helper.test) {*}
 import(diff)
 
 testcase {
-	diff.diff@stream('module-diff-a.cpp', 'module-diff.cpp', sys.stdout)
+	diff.unidiff@stream('module-diff-a.cpp', 'module-diff.cpp', sys.stdout)
 	//printf('%4d%4d %s%s\n', edits:*lineno@L, edits:*lineno@R, edits:*mark, edits:*text)
 }

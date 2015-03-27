@@ -50,6 +50,35 @@ bool DiffEngine::ReadLines(Signal sig, Stream &src,
 	return !sig.IsSignalled();
 }
 
+bool DiffEngine::NextHunk(size_t &idxEdit, size_t nLinesCommon, size_t &idxEditBegin) const
+{
+	size_t nEdits = CountEdits();
+	if (idxEdit >= nEdits) return false;
+	size_t nLines = 0;
+	size_t idxEditTop = idxEdit;
+	for ( ; idxEdit < nEdits; idxEdit++) {
+		const DiffString::Edit &edit = GetEdit(idxEdit);
+		if (edit.second.type == dtl::SES_COMMON) continue;
+		idxEditBegin = (idxEdit > idxEditTop + nLinesCommon)?
+			idxEdit - nLinesCommon : idxEditTop;
+		idxEdit++;
+		for ( ; idxEdit < nEdits; idxEdit++) {
+			const DiffString::Edit &edit = GetEdit(idxEdit);
+			if (edit.second.type == dtl::SES_COMMON) {
+				nLines++;
+				if (nLines >= nLinesCommon * 2) {
+					idxEdit = idxEdit + 1 - nLinesCommon;
+					break;
+				}
+			} else {
+				nLines = 0;
+			}
+		}
+		return true;
+	}
+	return false;
+}
+
 //-----------------------------------------------------------------------------
 // Object_edit
 //-----------------------------------------------------------------------------
@@ -194,7 +223,7 @@ void IteratorEdit::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &en
 // IteratorHunk
 //-----------------------------------------------------------------------------
 IteratorHunk::IteratorHunk(DiffEngine *pDiffEngine, size_t nLinesCommon) :
-	Iterator(false), _pDiffEngine(pDiffEngine), _idxEditCur(0), _nLinesCommon(nLinesCommon)
+	Iterator(false), _pDiffEngine(pDiffEngine), _idxEdit(0), _nLinesCommon(nLinesCommon)
 {
 }
 
@@ -205,39 +234,12 @@ Iterator *IteratorHunk::GetSource()
 
 bool IteratorHunk::DoNext(Environment &env, Signal sig, Value &value)
 {
-	enum {
-		STAT_SeekDiff, STAT_Hunk,
-	} stat = STAT_SeekDiff;
-	if (_idxEditCur >= _pDiffEngine->CountEdits()) return false;
-	size_t nLines = 0;
-	size_t idxEdit = _idxEditCur;
 	size_t idxEditBegin = 0;
-	for ( ; idxEdit < _pDiffEngine->CountEdits(); idxEdit++) {
-		const DiffString::Edit &edit = _pDiffEngine->GetEdit(_idxEditCur);
-		switch (stat) {
-		case STAT_SeekDiff: {
-			if (edit.second.type == dtl::SES_COMMON) {
-				// nothing to do
-			} else {
-				idxEditBegin = (idxEdit > _idxEditCur + _nLinesCommon)?
-					idxEdit - _nLinesCommon : _idxEditCur;
-				stat = STAT_Hunk;
-			}
-			break;
-		}
-		case STAT_Hunk: {
-			if (edit.second.type == dtl::SES_COMMON) {
-				
-				nLines = 1;
-			} else {
-				// nothing to do
-			}
-			break;
-		}
-		}
+	if (!_pDiffEngine->NextHunk(_idxEdit, _nLinesCommon, idxEditBegin)) {
+		return false;
 	}
-	
-	_idxEditCur = idxEdit;
+	value = Value(new Object_hunk(
+					  _pDiffEngine->Reference(), idxEditBegin, _idxEdit));
 	return true;
 }
 
@@ -276,9 +278,44 @@ Gura_ImplementFunction(diff_at_stream)
 		pDiffEngine->PrintEdits(sig, args.GetStream(2));
 		return Value::Null;
 	} else {
-		AutoPtr<Iterator> pIterator(new IteratorEdit(pDiffEngine->Reference()));
+		AutoPtr<IteratorEdit> pIterator(new IteratorEdit(pDiffEngine->Reference()));
 		return ReturnIterator(env, sig, args, pIterator.release());
 	}
+}
+
+// diff.unidiff@stream(src1:stream, src2:stream, out?:stream:w, lines?:number) {block?}
+Gura_DeclareFunctionAlias(unidiff_at_stream, "unidiff@stream")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "src1", VTYPE_stream);
+	DeclareArg(env, "src2", VTYPE_stream);
+	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	DeclareArg(env, "lines", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(unidiff_at_stream)
+{
+	AutoPtr<DiffEngine> pDiffEngine(new DiffEngine());
+	if (!pDiffEngine->DiffStream(sig, args.GetStream(0), args.GetStream(1))) return Value::Null;
+	size_t nLinesCommon = args.IsValid(3)? args.GetSizeT(3) : 3;
+	if (args.IsValid(2)) {
+		Stream &streamOut = args.GetStream(2);
+		size_t idxEdit = 0;
+		size_t idxEditBegin = 0;
+		while (pDiffEngine->NextHunk(idxEdit, nLinesCommon, idxEditBegin)) {
+			::printf("********\n");
+			if (!pDiffEngine->PrintEdits(sig, streamOut, idxEditBegin, idxEdit)) {
+				break;
+			}
+		}
+		return Value::Null;
+	}
+	AutoPtr<IteratorHunk> pIterator(new IteratorHunk(pDiffEngine->Reference(), nLinesCommon));
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 //-----------------------------------------------------------------------------
@@ -301,6 +338,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(hunk, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(diff_at_stream);
+	Gura_AssignFunction(unidiff_at_stream);
 	return true;
 }
 
