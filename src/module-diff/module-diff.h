@@ -60,6 +60,7 @@ protected:
 	inline ~DiffEngine() {}
 public:
 	bool DiffStream(Signal sig, Stream &src1, Stream &src2);
+	void DiffString(const char *src1, const char *src2);
 	bool PrintEdits(Signal sig, Stream &stream) const;
 	bool PrintHunk(Signal sig, Stream &stream, const Hunk &hunk) const;
 	bool NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const;
@@ -78,11 +79,12 @@ public:
 								 const DiffString::Edit &edit) {
 		stream.Print(sig, GetEditMark(edit));
 		if (sig.IsSignalled()) return false;
-		stream.Print(sig, edit.first.c_str());
+		stream.Println(sig, edit.first.c_str());
 		return !sig.IsSignalled();
 	}
 private:
 	static bool ReadLines(Signal sig, Stream &stream, std::vector<String> &seq);
+	static void SplitLines(const char *src, std::vector<String> &seq);
 };
 
 //-----------------------------------------------------------------------------

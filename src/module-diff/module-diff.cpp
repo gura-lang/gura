@@ -40,6 +40,15 @@ bool DiffEngine::DiffStream(Signal sig, Stream &src1, Stream &src2)
 	return true;
 }
 
+void DiffEngine::DiffString(const char *src1, const char *src2)
+{
+	SplitLines(src1, _diffString.getA());
+	SplitLines(src2, _diffString.getB());
+	_diffString.init();
+	_diffString.onHuge();
+	_diffString.compose();
+}
+
 bool DiffEngine::PrintEdits(Signal sig, Stream &stream) const
 {
 	foreach_const (DiffString::EditList, pEdit, _diffString.GetEditList()) {
@@ -114,13 +123,28 @@ bool DiffEngine::NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) co
 
 bool DiffEngine::ReadLines(Signal sig, Stream &src, std::vector<String> &seq)
 {
-	bool includeEOLFlag = true;
+	bool includeEOLFlag = false;
 	for (;;) {
 		String str;
 		if (!src.ReadLine(sig, str, includeEOLFlag)) break;
 		seq.push_back(str);
 	}
 	return !sig.IsSignalled();
+}
+
+void DiffEngine::SplitLines(const char *src, std::vector<String> &seq)
+{
+	String str;
+	for (const char *p = src; *p != '\0'; p++) {
+		char ch = *p;
+		if (ch == '\n') {
+			seq.push_back(str);
+			str.clear();
+		} else {
+			str += ch;
+		}
+	}
+	if (!str.empty()) seq.push_back(str);
 }
 
 //-----------------------------------------------------------------------------
@@ -170,8 +194,17 @@ Value Object_edit::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 
 String Object_edit::ToString(bool exprFlag)
 {
+	const DiffString::Edit &edit = _pDiffEngine->GetEdit(_idxEdit);
 	String str;
-	str += "<diff.edit>";
+	str += "<diff.edit:";
+	if (edit.second.type == dtl::SES_ADD) {
+		str += "add";
+	} else if (edit.second.type == dtl::SES_DELETE) {
+		str += "delete";
+	} else {
+		str += "copy";
+	}
+	str += ">";
 	return str;
 }
 
@@ -340,6 +373,32 @@ Gura_ImplementFunction(diff_at_stream)
 	}
 }
 
+// diff.diff@string(src1:string, src2:string, out?:stream:w) {block?}
+Gura_DeclareFunctionAlias(diff_at_string, "diff@string")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "src1", VTYPE_string);
+	DeclareArg(env, "src2", VTYPE_string);
+	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(diff_at_string)
+{
+	AutoPtr<DiffEngine> pDiffEngine(new DiffEngine());
+	pDiffEngine->DiffString(args.GetString(0), args.GetString(1));
+	if (args.IsValid(2)) {
+		pDiffEngine->PrintEdits(sig, args.GetStream(2));
+		return Value::Null;
+	} else {
+		AutoPtr<IteratorEdit> pIterator(new IteratorEdit(pDiffEngine->Reference()));
+		return ReturnIterator(env, sig, args, pIterator.release());
+	}
+}
+
 // diff.unidiff@stream(src1:stream, src2:stream, out?:stream:w, lines?:number) {block?}
 Gura_DeclareFunctionAlias(unidiff_at_stream, "unidiff@stream")
 {
@@ -358,6 +417,38 @@ Gura_ImplementFunction(unidiff_at_stream)
 {
 	AutoPtr<DiffEngine> pDiffEngine(new DiffEngine());
 	if (!pDiffEngine->DiffStream(sig, args.GetStream(0), args.GetStream(1))) return Value::Null;
+	size_t nLinesCommon = args.IsValid(3)? args.GetSizeT(3) : 3;
+	if (args.IsValid(2)) {
+		Stream &streamOut = args.GetStream(2);
+		size_t idxEdit = 0;
+		Hunk hunk;
+		while (pDiffEngine->NextHunk(&idxEdit, nLinesCommon, &hunk)) {
+			if (!pDiffEngine->PrintHunk(sig, streamOut, hunk)) break;
+		}
+		return Value::Null;
+	}
+	AutoPtr<IteratorHunk> pIterator(new IteratorHunk(pDiffEngine->Reference(), nLinesCommon));
+	return ReturnIterator(env, sig, args, pIterator.release());
+}
+
+// diff.unidiff@string(src1:string, src2:string, out?:stream:w, lines?:number) {block?}
+Gura_DeclareFunctionAlias(unidiff_at_string, "unidiff@string")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "src1", VTYPE_string);
+	DeclareArg(env, "src2", VTYPE_string);
+	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	DeclareArg(env, "lines", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(unidiff_at_string)
+{
+	AutoPtr<DiffEngine> pDiffEngine(new DiffEngine());
+	pDiffEngine->DiffString(args.GetString(0), args.GetString(1));
 	size_t nLinesCommon = args.IsValid(3)? args.GetSizeT(3) : 3;
 	if (args.IsValid(2)) {
 		Stream &streamOut = args.GetStream(2);
@@ -394,7 +485,9 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(hunk, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(diff_at_stream);
+	Gura_AssignFunction(diff_at_string);
 	Gura_AssignFunction(unidiff_at_stream);
+	Gura_AssignFunction(unidiff_at_string);
 	return true;
 }
 
