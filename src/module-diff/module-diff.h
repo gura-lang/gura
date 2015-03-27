@@ -15,6 +15,8 @@ Gura_DeclareUserSymbol(edits);
 Gura_DeclareUserSymbol(lineno_at_org);
 Gura_DeclareUserSymbol(lineno_at_new);
 Gura_DeclareUserSymbol(mark);
+Gura_DeclareUserSymbol(nlines_at_org);
+Gura_DeclareUserSymbol(nlines_at_new);
 Gura_DeclareUserSymbol(source);
 Gura_DeclareUserSymbol(type);
 
@@ -28,6 +30,7 @@ struct Hunk {
 	size_t linenoNew;
 	size_t nLinesOrg;
 	size_t nLinesNew;
+	String MakeRangeText() const;
 };
 
 //-----------------------------------------------------------------------------
@@ -58,7 +61,7 @@ protected:
 public:
 	bool DiffStream(Signal sig, Stream &src1, Stream &src2);
 	bool PrintEdits(Signal sig, Stream &stream) const;
-	bool PrintEditsInHunk(Signal sig, Stream &stream, const Hunk &hunk) const;
+	bool PrintHunk(Signal sig, Stream &stream, const Hunk &hunk) const;
 	bool NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const;
 	inline size_t CountEdits() const {
 		return _diffString.GetEditList().size();

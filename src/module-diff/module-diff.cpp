@@ -6,6 +6,28 @@
 Gura_BeginModuleBody(diff)
 
 //-----------------------------------------------------------------------------
+// Hunk
+//-----------------------------------------------------------------------------
+String Hunk::MakeRangeText() const
+{
+	String str;
+	char buff[80];
+	::sprintf(buff, "-%lu", linenoOrg);
+	str += buff;
+	if (nLinesOrg != 1) {
+		::sprintf(buff, ",%lu", nLinesOrg);
+		str += buff;
+	}
+	::sprintf(buff, " +%lu", linenoNew);
+	str += buff;
+	if (nLinesNew != 1) {
+		::sprintf(buff, ",%lu", nLinesNew);
+		str += buff;
+	}
+	return str;
+}
+
+//-----------------------------------------------------------------------------
 // DiffEngine
 //-----------------------------------------------------------------------------
 bool DiffEngine::DiffStream(Signal sig, Stream &src1, Stream &src2)
@@ -26,35 +48,26 @@ bool DiffEngine::PrintEdits(Signal sig, Stream &stream) const
 	return true;
 }
 
-bool DiffEngine::PrintEditsInHunk(Signal sig, Stream &stream, const Hunk &hunk) const
+bool DiffEngine::PrintHunk(Signal sig, Stream &stream, const Hunk &hunk) const
 {
 	const DiffString::EditList &edits = _diffString.GetEditList();
 	DiffString::EditList::const_iterator pEdit = edits.begin() + hunk.idxEditBegin;
 	DiffString::EditList::const_iterator pEditEnd = edits.begin() + hunk.idxEditEnd;
+	stream.Printf(sig, "@@ %s @@\n", hunk.MakeRangeText().c_str());
 	for ( ; pEdit != pEditEnd; pEdit++) {
 		if (!PrintEdit(sig, stream, *pEdit)) return false;
 	}
 	return true;
 }
 
-bool DiffEngine::ReadLines(Signal sig, Stream &src, std::vector<String> &seq)
-{
-	bool includeEOLFlag = true;
-	for (;;) {
-		String str;
-		if (!src.ReadLine(sig, str, includeEOLFlag)) break;
-		seq.push_back(str);
-	}
-	return !sig.IsSignalled();
-}
-
 bool DiffEngine::NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const
 {
-	size_t &idxEdit = *pIdxEdit;
+	::memset(pHunk, 0x00, sizeof(Hunk));
+	size_t idxEdit = *pIdxEdit;
+	size_t idxEditTop = idxEdit;
 	size_t nEdits = CountEdits();
 	if (idxEdit >= nEdits) return false;
 	size_t nLines = 0;
-	size_t idxEditTop = idxEdit;
 	for ( ; idxEdit < nEdits; idxEdit++) {
 		const DiffString::Edit &edit = GetEdit(idxEdit);
 		if (edit.second.type == dtl::SES_COMMON) continue;
@@ -73,12 +86,41 @@ bool DiffEngine::NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) co
 				nLines = 0;
 			}
 		}
+		*pIdxEdit = idxEdit;
 		pHunk->idxEditEnd = idxEdit;
-		pHunk->linenoOrg = pHunk->linenoNew = 0;
-		pHunk->nLinesOrg = pHunk->nLinesNew = 0;
+		do {
+			const DiffString::Edit &edit = GetEdit(pHunk->idxEditBegin);
+			pHunk->linenoOrg = edit.second.beforeIdx;
+			pHunk->linenoNew = edit.second.afterIdx;
+			if (pHunk->linenoOrg == 0 && pHunk->idxEditBegin > 0) {
+				const DiffString::Edit &edit = GetEdit(pHunk->idxEditBegin - 1);
+				pHunk->linenoOrg = edit.second.beforeIdx;
+			}
+			if (pHunk->linenoNew == 0 && pHunk->idxEditBegin > 0) {
+				const DiffString::Edit &edit = GetEdit(pHunk->idxEditBegin - 1);
+				pHunk->linenoNew = edit.second.afterIdx;
+			}
+		} while (0);
+		for (size_t idxEdit = pHunk->idxEditBegin; idxEdit < pHunk->idxEditEnd; idxEdit++) {
+			const DiffString::Edit &edit = GetEdit(idxEdit);
+			if (edit.second.type != dtl::SES_ADD) pHunk->nLinesOrg++;
+			if (edit.second.type != dtl::SES_DELETE) pHunk->nLinesNew++;
+		}
 		return true;
 	}
+	*pIdxEdit = idxEdit;
 	return false;
+}
+
+bool DiffEngine::ReadLines(Signal sig, Stream &src, std::vector<String> &seq)
+{
+	bool includeEOLFlag = true;
+	for (;;) {
+		String str;
+		if (!src.ReadLine(sig, str, includeEOLFlag)) break;
+		seq.push_back(str);
+	}
+	return !sig.IsSignalled();
 }
 
 //-----------------------------------------------------------------------------
@@ -152,6 +194,10 @@ bool Object_hunk::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(edits));
+	symbols.insert(Gura_UserSymbol(lineno_at_org));
+	symbols.insert(Gura_UserSymbol(lineno_at_new));
+	symbols.insert(Gura_UserSymbol(nlines_at_org));
+	symbols.insert(Gura_UserSymbol(nlines_at_new));
 	return false;
 }
 
@@ -162,6 +208,14 @@ Value Object_hunk::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	if (pSymbol->IsIdentical(Gura_UserSymbol(edits))) {
 		AutoPtr<Iterator> pIterator(new IteratorEdit(_pDiffEngine->Reference(), _hunk));
 		return Value(new Object_iterator(env, pIterator.release()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_org))) {
+		return Value(_hunk.linenoOrg);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_new))) {
+		return Value(_hunk.linenoNew);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(nlines_at_org))) {
+		return Value(_hunk.nLinesOrg);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(nlines_at_new))) {
+		return Value(_hunk.nLinesNew);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -169,8 +223,11 @@ Value Object_hunk::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 
 String Object_hunk::ToString(bool exprFlag)
 {
+	char buff[80];
 	String str;
-	str += "<diff.hunk>";
+	str += "<diff.hunk:";
+	str += _hunk.MakeRangeText();
+	str += ">";
 	return str;
 }
 
@@ -307,10 +364,7 @@ Gura_ImplementFunction(unidiff_at_stream)
 		size_t idxEdit = 0;
 		Hunk hunk;
 		while (pDiffEngine->NextHunk(&idxEdit, nLinesCommon, &hunk)) {
-			::printf("********\n");
-			if (!pDiffEngine->PrintEditsInHunk(sig, streamOut, hunk)) {
-				break;
-			}
+			if (!pDiffEngine->PrintHunk(sig, streamOut, hunk)) break;
 		}
 		return Value::Null;
 	}
@@ -331,6 +385,8 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbolAlias(lineno_at_org, "lineno@org");
 	Gura_RealizeUserSymbolAlias(lineno_at_new, "lineno@new");
 	Gura_RealizeUserSymbol(mark);
+	Gura_RealizeUserSymbolAlias(nlines_at_org, "nlines@org");
+	Gura_RealizeUserSymbolAlias(nlines_at_new, "nlines@new");
 	Gura_RealizeUserSymbol(source);
 	Gura_RealizeUserSymbol(type);
 	// class realization
