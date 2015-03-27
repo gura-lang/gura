@@ -18,6 +18,21 @@ Gura_DeclareUserSymbol(mark);
 Gura_DeclareUserSymbol(source);
 Gura_DeclareUserSymbol(type);
 
+//-----------------------------------------------------------------------------
+// Hunk
+//-----------------------------------------------------------------------------
+struct Hunk {
+	size_t idxEditBegin;
+	size_t idxEditEnd;
+	size_t linenoOrg;
+	size_t linenoNew;
+	size_t nLinesOrg;
+	size_t nLinesNew;
+};
+
+//-----------------------------------------------------------------------------
+// DiffString
+//-----------------------------------------------------------------------------
 class DiffString : public dtl::Diff<String> {
 public:
 	typedef sesElem Edit;
@@ -43,8 +58,8 @@ protected:
 public:
 	bool DiffStream(Signal sig, Stream &src1, Stream &src2);
 	bool PrintEdits(Signal sig, Stream &stream) const;
-	bool PrintEdits(Signal sig, Stream &stream, size_t idxEditBegin, size_t idxEditEnd) const;
-	bool NextHunk(size_t &idxEdit, size_t nLinesCommon, size_t &idxEditBegin) const;
+	bool PrintEditsInHunk(Signal sig, Stream &stream, const Hunk &hunk) const;
+	bool NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const;
 	inline size_t CountEdits() const {
 		return _diffString.GetEditList().size();
 	}
@@ -64,8 +79,7 @@ public:
 		return !sig.IsSignalled();
 	}
 private:
-	static bool ReadLines(Signal sig, Stream &stream,
-						  std::vector<String> &seq, bool includeEOLFlag);
+	static bool ReadLines(Signal sig, Stream &stream, std::vector<String> &seq);
 };
 
 //-----------------------------------------------------------------------------
@@ -97,14 +111,12 @@ Gura_DeclareUserClass(hunk);
 class Object_hunk : public Object {
 private:
 	AutoPtr<DiffEngine> _pDiffEngine;
-	size_t _idxEditBegin;
-	size_t _idxEditEnd;
+	Hunk _hunk;
 public:
 	Gura_DeclareObjectAccessor(hunk)
 public:
-	inline Object_hunk(DiffEngine *pDiffEngine, size_t idxEditBegin, size_t idxEditEnd) :
-		Object(Gura_UserClass(hunk)), _pDiffEngine(pDiffEngine),
-		_idxEditBegin(idxEditBegin), _idxEditEnd(idxEditEnd) {}
+	inline Object_hunk(DiffEngine *pDiffEngine, const Hunk &hunk) :
+		Object(Gura_UserClass(hunk)), _pDiffEngine(pDiffEngine), _hunk(hunk) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
@@ -123,7 +135,7 @@ private:
 	size_t _idxEditEnd;
 public:
 	IteratorEdit(DiffEngine *pDiffEngine);
-	IteratorEdit(DiffEngine *pDiffEngine, size_t idxEditBegin, size_t idxEditEnd);
+	IteratorEdit(DiffEngine *pDiffEngine, const Hunk &hunk);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString() const;
