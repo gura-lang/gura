@@ -292,6 +292,7 @@ bool Object_edit::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	symbols.insert(Gura_UserSymbol(lineno_at_org));
 	symbols.insert(Gura_UserSymbol(lineno_at_new));
 	symbols.insert(Gura_UserSymbol(source));
+	symbols.insert(Gura_UserSymbol(unified));
 	return true;
 }
 
@@ -316,8 +317,8 @@ Value Object_edit::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		return Value(edit.second.afterIdx);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(source))) {
 		return Value(edit.first);
-	//} else if (pSymbol->IsIdentical(Gura_UserSymbol(unified))) {
-	//	return Value(edit.first);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(unified))) {
+		return Value(DiffString::TextizeUnifiedEdit(edit));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -583,6 +584,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbolAlias(nlines_at_new, "nlines@new");
 	Gura_RealizeUserSymbol(source);
 	Gura_RealizeUserSymbol(type);
+	Gura_RealizeUserSymbol(unified);
 	// class realization
 	Gura_RealizeUserClass(result, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(edit, env.LookupClass(VTYPE_object));

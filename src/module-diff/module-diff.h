@@ -20,6 +20,7 @@ Gura_DeclareUserSymbol(nlines_at_org);
 Gura_DeclareUserSymbol(nlines_at_new);
 Gura_DeclareUserSymbol(source);
 Gura_DeclareUserSymbol(type);
+Gura_DeclareUserSymbol(unified);
 
 //-----------------------------------------------------------------------------
 // Hunk
