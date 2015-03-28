@@ -28,9 +28,9 @@ String Hunk::MakeRangeText() const
 }
 
 //-----------------------------------------------------------------------------
-// DiffEngine
+// Processor
 //-----------------------------------------------------------------------------
-bool DiffEngine::DiffStream(Signal sig, Stream &src1, Stream &src2)
+bool Processor::DiffStream(Signal sig, Stream &src1, Stream &src2)
 {
 	if (!ReadLines(sig, src1, _diffString.getA())) return false;
 	if (!ReadLines(sig, src2, _diffString.getB())) return false;
@@ -40,7 +40,7 @@ bool DiffEngine::DiffStream(Signal sig, Stream &src1, Stream &src2)
 	return true;
 }
 
-void DiffEngine::DiffString(const char *src1, const char *src2)
+void Processor::DiffString(const char *src1, const char *src2)
 {
 	SplitLines(src1, _diffString.getA());
 	SplitLines(src2, _diffString.getB());
@@ -49,7 +49,7 @@ void DiffEngine::DiffString(const char *src1, const char *src2)
 	_diffString.compose();
 }
 
-bool DiffEngine::PrintEdit(Signal sig, Stream &stream, const DiffString::Edit &edit)
+bool Processor::PrintEdit(Signal sig, Stream &stream, const DiffString::Edit &edit)
 {
 	stream.Print(sig, GetEditMark(edit));
 	if (sig.IsSignalled()) return false;
@@ -57,7 +57,7 @@ bool DiffEngine::PrintEdit(Signal sig, Stream &stream, const DiffString::Edit &e
 	return !sig.IsSignalled();
 }
 
-bool DiffEngine::PrintEdits(Signal sig, Stream &stream) const
+bool Processor::PrintEdits(Signal sig, Stream &stream) const
 {
 	foreach_const (DiffString::EditList, pEdit, _diffString.GetEditList()) {
 		if (!PrintEdit(sig, stream, *pEdit)) return false;
@@ -65,7 +65,7 @@ bool DiffEngine::PrintEdits(Signal sig, Stream &stream) const
 	return true;
 }
 
-bool DiffEngine::PrintHunk(Signal sig, Stream &stream, const Hunk &hunk) const
+bool Processor::PrintHunk(Signal sig, Stream &stream, const Hunk &hunk) const
 {
 	const DiffString::EditList &edits = _diffString.GetEditList();
 	DiffString::EditList::const_iterator pEdit = edits.begin() + hunk.idxEditBegin;
@@ -77,7 +77,7 @@ bool DiffEngine::PrintHunk(Signal sig, Stream &stream, const Hunk &hunk) const
 	return true;
 }
 
-bool DiffEngine::PrintHunks(Signal sig, Stream &stream, size_t nLinesCommon) const
+bool Processor::PrintHunks(Signal sig, Stream &stream, size_t nLinesCommon) const
 {
 	size_t idxEdit = 0;
 	Hunk hunk;
@@ -87,7 +87,7 @@ bool DiffEngine::PrintHunks(Signal sig, Stream &stream, size_t nLinesCommon) con
 	return true;
 }
 
-bool DiffEngine::NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const
+bool Processor::NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const
 {
 	::memset(pHunk, 0x00, sizeof(Hunk));
 	size_t idxEdit = *pIdxEdit;
@@ -139,7 +139,7 @@ bool DiffEngine::NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) co
 	return false;
 }
 
-bool DiffEngine::ReadLines(Signal sig, Stream &src, std::vector<String> &seq)
+bool Processor::ReadLines(Signal sig, Stream &src, std::vector<String> &seq)
 {
 	bool includeEOLFlag = false;
 	for (;;) {
@@ -150,7 +150,7 @@ bool DiffEngine::ReadLines(Signal sig, Stream &src, std::vector<String> &seq)
 	return !sig.IsSignalled();
 }
 
-void DiffEngine::SplitLines(const char *src, std::vector<String> &seq)
+void Processor::SplitLines(const char *src, std::vector<String> &seq)
 {
 	String str;
 	for (const char *p = src; *p != '\0'; p++) {
@@ -187,7 +187,7 @@ bool Object_edit::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 Value Object_edit::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	const DiffString::Edit &edit = _pDiffEngine->GetEdit(_idxEdit);
+	const DiffString::Edit &edit = _pProcessor->GetEdit(_idxEdit);
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
 		if (edit.second.type == dtl::SES_ADD) {
@@ -198,7 +198,7 @@ Value Object_edit::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 			return Value(Gura_UserSymbol(copy));
 		}
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mark))) {
-		return Value(DiffEngine::GetEditMark(edit));
+		return Value(Processor::GetEditMark(edit));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_org))) {
 		return Value(edit.second.beforeIdx);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_new))) {
@@ -212,7 +212,7 @@ Value Object_edit::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 
 String Object_edit::ToString(bool exprFlag)
 {
-	const DiffString::Edit &edit = _pDiffEngine->GetEdit(_idxEdit);
+	const DiffString::Edit &edit = _pProcessor->GetEdit(_idxEdit);
 	String str;
 	str += "<diff.edit:";
 	if (edit.second.type == dtl::SES_ADD) {
@@ -257,7 +257,7 @@ Value Object_hunk::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(edits))) {
-		AutoPtr<Iterator> pIterator(new IteratorEdit(_pDiffEngine->Reference(), _hunk));
+		AutoPtr<Iterator> pIterator(new IteratorEdit(_pProcessor->Reference(), _hunk));
 		return Value(new Object_iterator(env, pIterator.release()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_org))) {
 		return Value(_hunk.linenoOrg);
@@ -292,14 +292,14 @@ Gura_ImplementUserClass(hunk)
 //-----------------------------------------------------------------------------
 // IteratorEdit
 //-----------------------------------------------------------------------------
-IteratorEdit::IteratorEdit(DiffEngine *pDiffEngine) :
-	Iterator(false), _pDiffEngine(pDiffEngine),
-	_idxEdit(0), _idxEditBegin(0), _idxEditEnd(pDiffEngine->CountEdits())
+IteratorEdit::IteratorEdit(Processor *pProcessor) :
+	Iterator(false), _pProcessor(pProcessor),
+	_idxEdit(0), _idxEditBegin(0), _idxEditEnd(pProcessor->CountEdits())
 {
 }
 
-IteratorEdit::IteratorEdit(DiffEngine *pDiffEngine, const Hunk &hunk) :
-	Iterator(false), _pDiffEngine(pDiffEngine),
+IteratorEdit::IteratorEdit(Processor *pProcessor, const Hunk &hunk) :
+	Iterator(false), _pProcessor(pProcessor),
 	_idxEdit(hunk.idxEditBegin), _idxEditBegin(hunk.idxEditBegin), _idxEditEnd(hunk.idxEditEnd)
 {
 }
@@ -312,7 +312,7 @@ Iterator *IteratorEdit::GetSource()
 bool IteratorEdit::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (_idxEdit >= _idxEditEnd) return false;
-	value = Value(new Object_edit(_pDiffEngine->Reference(), _idxEdit));
+	value = Value(new Object_edit(_pProcessor->Reference(), _idxEdit));
 	_idxEdit++;
 	return true;
 }
@@ -331,8 +331,8 @@ void IteratorEdit::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &en
 //-----------------------------------------------------------------------------
 // IteratorHunk
 //-----------------------------------------------------------------------------
-IteratorHunk::IteratorHunk(DiffEngine *pDiffEngine, size_t nLinesCommon) :
-	Iterator(false), _pDiffEngine(pDiffEngine), _idxEdit(0), _nLinesCommon(nLinesCommon)
+IteratorHunk::IteratorHunk(Processor *pProcessor, size_t nLinesCommon) :
+	Iterator(false), _pProcessor(pProcessor), _idxEdit(0), _nLinesCommon(nLinesCommon)
 {
 }
 
@@ -344,8 +344,8 @@ Iterator *IteratorHunk::GetSource()
 bool IteratorHunk::DoNext(Environment &env, Signal sig, Value &value)
 {
 	Hunk hunk;
-	if (_pDiffEngine->NextHunk(&_idxEdit, _nLinesCommon, &hunk)) {
-		value = Value(new Object_hunk(_pDiffEngine->Reference(), hunk));
+	if (_pProcessor->NextHunk(&_idxEdit, _nLinesCommon, &hunk)) {
+		value = Value(new Object_hunk(_pProcessor->Reference(), hunk));
 		return true;
 	}
 	return false;
@@ -380,13 +380,13 @@ Gura_DeclareFunctionAlias(diff_at_stream, "diff@stream")
 
 Gura_ImplementFunction(diff_at_stream)
 {
-	AutoPtr<DiffEngine> pDiffEngine(new DiffEngine());
-	if (!pDiffEngine->DiffStream(sig, args.GetStream(0), args.GetStream(1))) return Value::Null;
+	AutoPtr<Processor> pProcessor(new Processor());
+	if (!pProcessor->DiffStream(sig, args.GetStream(0), args.GetStream(1))) return Value::Null;
 	if (args.IsValid(2)) {
-		pDiffEngine->PrintEdits(sig, args.GetStream(2));
+		pProcessor->PrintEdits(sig, args.GetStream(2));
 		return Value::Null;
 	}
-	AutoPtr<IteratorEdit> pIterator(new IteratorEdit(pDiffEngine->Reference()));
+	AutoPtr<IteratorEdit> pIterator(new IteratorEdit(pProcessor->Reference()));
 	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
@@ -405,13 +405,13 @@ Gura_DeclareFunctionAlias(diff_at_string, "diff@string")
 
 Gura_ImplementFunction(diff_at_string)
 {
-	AutoPtr<DiffEngine> pDiffEngine(new DiffEngine());
-	pDiffEngine->DiffString(args.GetString(0), args.GetString(1));
+	AutoPtr<Processor> pProcessor(new Processor());
+	pProcessor->DiffString(args.GetString(0), args.GetString(1));
 	if (args.IsValid(2)) {
-		pDiffEngine->PrintEdits(sig, args.GetStream(2));
+		pProcessor->PrintEdits(sig, args.GetStream(2));
 		return Value::Null;
 	}
-	AutoPtr<IteratorEdit> pIterator(new IteratorEdit(pDiffEngine->Reference()));
+	AutoPtr<IteratorEdit> pIterator(new IteratorEdit(pProcessor->Reference()));
 	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
@@ -431,14 +431,14 @@ Gura_DeclareFunctionAlias(unidiff_at_stream, "unidiff@stream")
 
 Gura_ImplementFunction(unidiff_at_stream)
 {
-	AutoPtr<DiffEngine> pDiffEngine(new DiffEngine());
-	if (!pDiffEngine->DiffStream(sig, args.GetStream(0), args.GetStream(1))) return Value::Null;
+	AutoPtr<Processor> pProcessor(new Processor());
+	if (!pProcessor->DiffStream(sig, args.GetStream(0), args.GetStream(1))) return Value::Null;
 	size_t nLinesCommon = args.IsValid(3)? args.GetSizeT(3) : 3;
 	if (args.IsValid(2)) {
-		pDiffEngine->PrintHunks(sig, args.GetStream(2), nLinesCommon);
+		pProcessor->PrintHunks(sig, args.GetStream(2), nLinesCommon);
 		return Value::Null;
 	}
-	AutoPtr<IteratorHunk> pIterator(new IteratorHunk(pDiffEngine->Reference(), nLinesCommon));
+	AutoPtr<IteratorHunk> pIterator(new IteratorHunk(pProcessor->Reference(), nLinesCommon));
 	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
@@ -458,14 +458,14 @@ Gura_DeclareFunctionAlias(unidiff_at_string, "unidiff@string")
 
 Gura_ImplementFunction(unidiff_at_string)
 {
-	AutoPtr<DiffEngine> pDiffEngine(new DiffEngine());
-	pDiffEngine->DiffString(args.GetString(0), args.GetString(1));
+	AutoPtr<Processor> pProcessor(new Processor());
+	pProcessor->DiffString(args.GetString(0), args.GetString(1));
 	size_t nLinesCommon = args.IsValid(3)? args.GetSizeT(3) : 3;
 	if (args.IsValid(2)) {
-		pDiffEngine->PrintHunks(sig, args.GetStream(2), nLinesCommon);
+		pProcessor->PrintHunks(sig, args.GetStream(2), nLinesCommon);
 		return Value::Null;
 	}
-	AutoPtr<IteratorHunk> pIterator(new IteratorHunk(pDiffEngine->Reference(), nLinesCommon));
+	AutoPtr<IteratorHunk> pIterator(new IteratorHunk(pProcessor->Reference(), nLinesCommon));
 	return ReturnIterator(env, sig, args, pIterator.release());
 }
 

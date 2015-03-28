@@ -46,18 +46,18 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// DiffEngine
+// Processor
 //-----------------------------------------------------------------------------
-class DiffEngine {
+class Processor {
 private:
 	int _cntRef;
 	DiffString _diffString;
 public:
-	Gura_DeclareReferenceAccessor(DiffEngine);
+	Gura_DeclareReferenceAccessor(Processor);
 public:
-	inline DiffEngine() : _cntRef(1) {}
+	inline Processor() : _cntRef(1) {}
 protected:
-	inline ~DiffEngine() {}
+	inline ~Processor() {}
 public:
 	bool DiffStream(Signal sig, Stream &src1, Stream &src2);
 	void DiffString(const char *src1, const char *src2);
@@ -89,13 +89,13 @@ Gura_DeclareUserClass(edit);
 
 class Object_edit : public Object {
 private:
-	AutoPtr<DiffEngine> _pDiffEngine;
+	AutoPtr<Processor> _pProcessor;
 	size_t _idxEdit;
 public:
 	Gura_DeclareObjectAccessor(edit)
 public:
-	inline Object_edit(DiffEngine *pDiffEngine, size_t idxEdit) :
-		Object(Gura_UserClass(edit)), _pDiffEngine(pDiffEngine), _idxEdit(idxEdit) {}
+	inline Object_edit(Processor *pProcessor, size_t idxEdit) :
+		Object(Gura_UserClass(edit)), _pProcessor(pProcessor), _idxEdit(idxEdit) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
@@ -110,13 +110,13 @@ Gura_DeclareUserClass(hunk);
 
 class Object_hunk : public Object {
 private:
-	AutoPtr<DiffEngine> _pDiffEngine;
+	AutoPtr<Processor> _pProcessor;
 	Hunk _hunk;
 public:
 	Gura_DeclareObjectAccessor(hunk)
 public:
-	inline Object_hunk(DiffEngine *pDiffEngine, const Hunk &hunk) :
-		Object(Gura_UserClass(hunk)), _pDiffEngine(pDiffEngine), _hunk(hunk) {}
+	inline Object_hunk(Processor *pProcessor, const Hunk &hunk) :
+		Object(Gura_UserClass(hunk)), _pProcessor(pProcessor), _hunk(hunk) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
@@ -129,13 +129,13 @@ public:
 //-----------------------------------------------------------------------------
 class IteratorEdit : public Iterator {
 private:
-	AutoPtr<DiffEngine> _pDiffEngine;
+	AutoPtr<Processor> _pProcessor;
 	size_t _idxEdit;
 	size_t _idxEditBegin;
 	size_t _idxEditEnd;
 public:
-	IteratorEdit(DiffEngine *pDiffEngine);
-	IteratorEdit(DiffEngine *pDiffEngine, const Hunk &hunk);
+	IteratorEdit(Processor *pProcessor);
+	IteratorEdit(Processor *pProcessor, const Hunk &hunk);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString() const;
@@ -147,11 +147,11 @@ public:
 //-----------------------------------------------------------------------------
 class IteratorHunk : public Iterator {
 private:
-	AutoPtr<DiffEngine> _pDiffEngine;
+	AutoPtr<Processor> _pProcessor;
 	size_t _idxEdit;
 	size_t _nLinesCommon;
 public:
-	IteratorHunk(DiffEngine *pDiffEngine, size_t nLinesCommon);
+	IteratorHunk(Processor *pProcessor, size_t nLinesCommon);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString() const;

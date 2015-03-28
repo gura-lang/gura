@@ -3,6 +3,14 @@ import(helper.test) {*}
 import(diff)
 
 testcase {
+	//diff.unidiff@string('module-diff-a.cpp', 'module-diff.cpp') {|hunk|
+	//	println(hunk)
+	//	println(hunk.edits)
+	//}
+}
+sys.exit()
+
+testcase {
 	textOrg = R'''
 	I need to buy apples.
 	I need to run the laundry.
@@ -86,8 +94,4 @@ testcase {
 	The door of all subtleties!
 	'''
 	diff.unidiff@string(textOrg, textNew, sys.stdout)
-	//diff.unidiff@string('module-diff-a.cpp', 'module-diff.cpp') {|hunk|
-	//	println(hunk)
-	//	println(hunk.edits)
-	//}
 }
