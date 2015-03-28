@@ -3,12 +3,23 @@ import(helper.test) {*}
 import(diff)
 
 testcase {
-	//diff.unidiff@string('module-diff-a.cpp', 'module-diff.cpp') {|hunk|
-	//	println(hunk)
-	//	println(hunk.edits)
-	//}
+	textOrg = R'''
+	I need to buy apples.
+	I need to run the laundry.
+	I need to wash the dog.
+	I need to get the car detailed.
+	'''
+	textNew = R'''
+	I need to buy apples.
+	I need to do the laundry.
+	I need to wash the car.
+	I need to get the dog detailed.
+	'''
+	diff.diff(textOrg, textNew) {|d|
+		println(d)
+	}
 }
-
+sys.exit()
 testcase {
 	textOrg = R'''
 	I need to buy apples.
