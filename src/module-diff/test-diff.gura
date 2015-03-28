@@ -11,12 +11,13 @@ testcase {
 	'''
 	textNew = R'''
 	I need to buy apples.
-	I need to do the laundry.
-	I need to wash the car.
-	I need to get the dog detailed.
+	I need to run the laundry.
+	I need to wash the dogg.
+	I need to get the car detailed.
 	'''
 	diff.diff(textOrg, textNew) {|d|
-		println(d)
+		d.eachedit()::print()
+		//d.eachhunk()::print()
 	}
 }
 sys.exit()

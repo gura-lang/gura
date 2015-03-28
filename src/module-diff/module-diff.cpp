@@ -8,7 +8,7 @@ Gura_BeginModuleBody(diff)
 //-----------------------------------------------------------------------------
 // Hunk
 //-----------------------------------------------------------------------------
-String Hunk::MakeRangeText() const
+String Hunk::MakeUnifiedRange() const
 {
 	String str;
 	char buff[80];
@@ -74,6 +74,12 @@ bool Result::PrintEdit(Signal sig, Stream &stream, const DiffString::Edit &edit)
 	return !sig.IsSignalled();
 }
 
+bool Result::PrintEdit(Signal sig, Stream &stream, size_t idxEdit)
+{
+	const DiffString::Edit &edit = _diffString.GetEditList()[idxEdit];
+	return PrintEdit(sig, stream, edit);
+}
+
 bool Result::PrintEdits(Signal sig, Stream &stream) const
 {
 	foreach_const (DiffString::EditList, pEdit, _diffString.GetEditList()) {
@@ -87,7 +93,7 @@ bool Result::PrintHunk(Signal sig, Stream &stream, const Hunk &hunk) const
 	const DiffString::EditList &edits = _diffString.GetEditList();
 	DiffString::EditList::const_iterator pEdit = edits.begin() + hunk.idxEditBegin;
 	DiffString::EditList::const_iterator pEditEnd = edits.begin() + hunk.idxEditEnd;
-	stream.Printf(sig, "@@ %s @@\n", hunk.MakeRangeText().c_str());
+	stream.Printf(sig, "@@ %s @@\n", hunk.MakeUnifiedRange().c_str());
 	for ( ; pEdit != pEditEnd; pEdit++) {
 		if (!PrintEdit(sig, stream, *pEdit)) return false;
 	}
@@ -326,10 +332,33 @@ String Object_edit::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Methods of diff.edit
+//-----------------------------------------------------------------------------
+// diff.edit#print(out?:stream:w):void
+Gura_DeclareMethod(edit, print)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(edit, print)
+{
+	Object_edit *pThis = Object_edit::GetThisObj(args);
+	Stream &stream = args.IsValid(0)? args.GetStream(0) : *env.GetConsole();
+	pThis->GetResult()->PrintEdit(sig, stream, pThis->GetEditIndex());
+	return Value::Null;
+}
+
+//-----------------------------------------------------------------------------
 // Class implementation for diff.edit
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(edit)
 {
+	Gura_AssignMethod(edit, print);
 }
 
 //-----------------------------------------------------------------------------
@@ -376,7 +405,7 @@ String Object_hunk::ToString(bool exprFlag)
 	char buff[80];
 	String str;
 	str += "<diff.hunk:";
-	str += _hunk.MakeRangeText();
+	str += _hunk.MakeUnifiedRange();
 	str += ">";
 	return str;
 }
@@ -384,12 +413,31 @@ String Object_hunk::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Methods of diff.hunk
 //-----------------------------------------------------------------------------
+// diff.hunk#print(out?:stream:w):void
+Gura_DeclareMethod(hunk, print)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(hunk, print)
+{
+	Object_hunk *pThis = Object_hunk::GetThisObj(args);
+	Stream &stream = args.IsValid(0)? args.GetStream(0) : *env.GetConsole();
+	pThis->GetResult()->PrintHunk(sig, stream, pThis->GetHunk());
+	return Value::Null;
+}
 
 //-----------------------------------------------------------------------------
 // Class implementation for diff.hunk
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(hunk)
 {
+	Gura_AssignMethod(hunk, print);
 }
 
 //-----------------------------------------------------------------------------

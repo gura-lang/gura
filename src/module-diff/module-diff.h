@@ -31,7 +31,7 @@ struct Hunk {
 	size_t linenoNew;
 	size_t nLinesOrg;
 	size_t nLinesNew;
-	String MakeRangeText() const;
+	String MakeUnifiedRange() const;
 };
 
 //-----------------------------------------------------------------------------
@@ -67,6 +67,7 @@ public:
 	inline long long GetEditDistance() const { return _diffString.getEditDistance(); }
 	void Process();
 	static bool PrintEdit(Signal sig, Stream &stream, const DiffString::Edit &edit);
+	bool PrintEdit(Signal sig, Stream &stream, size_t idxEdit);
 	bool PrintEdits(Signal sig, Stream &stream) const;
 	bool PrintHunk(Signal sig, Stream &stream, const Hunk &hunk) const;
 	bool PrintHunks(Signal sig, Stream &stream, size_t nLinesCommon) const;
@@ -103,6 +104,8 @@ public:
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
+	Result *GetResult() { return _pResult.get(); }
+	size_t GetEditIndex() const { return _idxEdit; }
 };
 
 //-----------------------------------------------------------------------------
@@ -145,6 +148,8 @@ public:
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
+	inline Result *GetResult() { return _pResult.get(); }
+	inline const Hunk &GetHunk() const { return _hunk; }
 };
 
 //-----------------------------------------------------------------------------
