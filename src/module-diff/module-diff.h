@@ -48,7 +48,7 @@ public:
 	static bool ReadLines(Signal sig, Stream &stream, std::vector<String> &seq);
 	static void SplitLines(const char *src, std::vector<String> &seq);
 	static String TextizeUnifiedEdit(const Edit &edit);
-	static bool PrintEdit(Signal sig, Stream &stream, const Edit &edit);
+	static bool PrintEdit(Signal sig, SimpleStream &stream, const Edit &edit);
 	inline static const char *GetEditMark(const Edit &edit) {
 		return
 			(edit.second.type == dtl::SES_ADD)? "+" :
@@ -74,10 +74,10 @@ public:
 	inline std::vector<String> &GetSeqB() { return _diffString.getB(); }
 	inline long long GetEditDistance() const { return _diffString.getEditDistance(); }
 	void Compose();
-	bool PrintEdit(Signal sig, Stream &stream, size_t idxEdit);
-	bool PrintEdits(Signal sig, Stream &stream) const;
-	bool PrintHunk(Signal sig, Stream &stream, const Hunk &hunk) const;
-	bool PrintHunks(Signal sig, Stream &stream, size_t nLinesCommon) const;
+	bool PrintEdit(Signal sig, SimpleStream &stream, size_t idxEdit);
+	bool PrintEdits(Signal sig, SimpleStream &stream) const;
+	bool PrintHunk(Signal sig, SimpleStream &stream, const Hunk &hunk) const;
+	bool PrintHunks(Signal sig, SimpleStream &stream, size_t nLinesCommon) const;
 	bool NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const;
 	inline size_t CountEdits() const {
 		return _diffString.GetEditList().size();

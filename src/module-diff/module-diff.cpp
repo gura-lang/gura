@@ -64,7 +64,7 @@ String DiffString::TextizeUnifiedEdit(const DiffString::Edit &edit)
 	return str;
 }
 
-bool DiffString::PrintEdit(Signal sig, Stream &stream, const DiffString::Edit &edit)
+bool DiffString::PrintEdit(Signal sig, SimpleStream &stream, const DiffString::Edit &edit)
 {
 	stream.Println(sig, TextizeUnifiedEdit(edit).c_str());
 	return !sig.IsSignalled();
@@ -80,13 +80,13 @@ void Result::Compose()
 	_diffString.compose();
 }
 
-bool Result::PrintEdit(Signal sig, Stream &stream, size_t idxEdit)
+bool Result::PrintEdit(Signal sig, SimpleStream &stream, size_t idxEdit)
 {
 	const DiffString::Edit &edit = _diffString.GetEditList()[idxEdit];
 	return DiffString::PrintEdit(sig, stream, edit);
 }
 
-bool Result::PrintEdits(Signal sig, Stream &stream) const
+bool Result::PrintEdits(Signal sig, SimpleStream &stream) const
 {
 	foreach_const (DiffString::EditList, pEdit, _diffString.GetEditList()) {
 		if (!DiffString::PrintEdit(sig, stream, *pEdit)) return false;
@@ -94,7 +94,7 @@ bool Result::PrintEdits(Signal sig, Stream &stream) const
 	return true;
 }
 
-bool Result::PrintHunk(Signal sig, Stream &stream, const Hunk &hunk) const
+bool Result::PrintHunk(Signal sig, SimpleStream &stream, const Hunk &hunk) const
 {
 	const DiffString::EditList &edits = _diffString.GetEditList();
 	DiffString::EditList::const_iterator pEdit = edits.begin() + hunk.idxEditBegin;
@@ -106,7 +106,7 @@ bool Result::PrintHunk(Signal sig, Stream &stream, const Hunk &hunk) const
 	return true;
 }
 
-bool Result::PrintHunks(Signal sig, Stream &stream, size_t nLinesCommon) const
+bool Result::PrintHunks(Signal sig, SimpleStream &stream, size_t nLinesCommon) const
 {
 	size_t idxEdit = 0;
 	Hunk hunk;
@@ -244,8 +244,8 @@ Gura_ImplementMethod(result, eachhunk)
 	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
-// diff.result#output@unified(out?:stream:w, lines?:number):void
-Gura_DeclareMethodAlias(result, output_at_unified, "output@unified")
+// diff.result#render@unified(out?:stream:w, lines?:number):void
+Gura_DeclareMethodAlias(result, render_at_unified, "render@unified")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
@@ -256,7 +256,7 @@ Gura_DeclareMethodAlias(result, output_at_unified, "output@unified")
 		"");
 }
 
-Gura_ImplementMethod(result, output_at_unified)
+Gura_ImplementMethod(result, render_at_unified)
 {
 	Result *pResult = Object_result::GetThisObj(args)->GetResult();
 	Stream &stream = args.IsValid(0)? args.GetStream(0) : *env.GetConsole();
@@ -273,7 +273,7 @@ Gura_ImplementUserClass(result)
 	Gura_AssignValue(result, Value(Reference()));
 	Gura_AssignMethod(result, eachedit);
 	Gura_AssignMethod(result, eachhunk);
-	Gura_AssignMethod(result, output_at_unified);
+	Gura_AssignMethod(result, render_at_unified);
 }
 
 //-----------------------------------------------------------------------------
