@@ -8,7 +8,6 @@ testcase {
 	//	println(hunk.edits)
 	//}
 }
-sys.exit()
 
 testcase {
 	textOrg = R'''
@@ -23,9 +22,9 @@ testcase {
 	I need to wash the car.
 	I need to get the dog detailed.
 	'''
-	diff.unidiff@string(textOrg, textNew, sys.stdout)
+	diff.processString(textOrg, textNew).output@unified()
 }
-
+sys.exit()
 testcase {
 	textOrg = R'''
 	I need to go to the store.

@@ -196,10 +196,74 @@ String Object_processor::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Methods of diff.processor
+//-----------------------------------------------------------------------------
+// diff.processor#edits() {block?}
+Gura_DeclareMethod(processor, edits)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(processor, edits)
+{
+	Processor *pProcessor = Object_processor::GetThisObj(args)->GetProcessor();
+	AutoPtr<IteratorEdit> pIterator(new IteratorEdit(pProcessor->Reference()));
+	return ReturnIterator(env, sig, args, pIterator.release());
+}
+
+// diff.processor#hunks(lines?:number) {block?}
+Gura_DeclareMethod(processor, hunks)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "lines", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(processor, hunks)
+{
+	Processor *pProcessor = Object_processor::GetThisObj(args)->GetProcessor();
+	size_t nLinesCommon = args.IsValid(0)? args.GetSizeT(0) : 3;
+	AutoPtr<IteratorHunk> pIterator(new IteratorHunk(pProcessor->Reference(), nLinesCommon));
+	return ReturnIterator(env, sig, args, pIterator.release());
+}
+
+// diff.processor#output@unified(out?:stream:w, lines?:number):void
+Gura_DeclareMethodAlias(processor, output_at_unified, "output@unified")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	DeclareArg(env, "lines", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(processor, output_at_unified)
+{
+	Processor *pProcessor = Object_processor::GetThisObj(args)->GetProcessor();
+	Stream &stream = args.IsValid(0)? args.GetStream(0) : *env.GetConsole();
+	size_t nLinesCommon = args.IsValid(1)? args.GetSizeT(1) : 3;
+	pProcessor->PrintHunks(sig, stream, nLinesCommon);
+	return Value::Null;
+}
+
+//-----------------------------------------------------------------------------
 // Class implementation for diff.processor
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(processor)
 {
+	Gura_AssignValue(processor, Value(Reference()));
+	Gura_AssignMethod(processor, edits);
+	Gura_AssignMethod(processor, hunks);
+	Gura_AssignMethod(processor, output_at_unified);
 }
 
 //-----------------------------------------------------------------------------
@@ -320,6 +384,10 @@ String Object_hunk::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Methods of diff.hunk
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
 // Class implementation for diff.hunk
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(hunk)
@@ -402,6 +470,44 @@ void IteratorHunk::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &en
 //-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
+// diff.processStream(src1:stream, src2:stream) {block?}
+Gura_DeclareFunction(processStream)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "src1", VTYPE_stream);
+	DeclareArg(env, "src2", VTYPE_stream);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(processStream)
+{
+	AutoPtr<Processor> pProcessor(new Processor());
+	if (!pProcessor->ProcessStream(sig, args.GetStream(0), args.GetStream(1))) return Value::Null;
+	return ReturnValue(env, sig, args, Value(new Object_processor(pProcessor.release())));
+}
+
+// diff.processString(src1:string, src2:string) {block?}
+Gura_DeclareFunction(processString)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "src1", VTYPE_string);
+	DeclareArg(env, "src2", VTYPE_string);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(processString)
+{
+	AutoPtr<Processor> pProcessor(new Processor());
+	pProcessor->ProcessString(args.GetString(0), args.GetString(1));
+	return ReturnValue(env, sig, args, Value(new Object_processor(pProcessor.release())));
+}
+
 // diff.diff@stream(src1:stream, src2:stream, out?:stream:w) {block?}
 Gura_DeclareFunctionAlias(diff_at_stream, "diff@stream")
 {
@@ -527,7 +633,13 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(processor, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(edit, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(hunk, env.LookupClass(VTYPE_object));
+	// class preparation
+	Gura_PrepareUserClass(processor);
+	Gura_PrepareUserClass(edit);
+	Gura_PrepareUserClass(hunk);
 	// function assignment
+	Gura_AssignFunction(processStream);
+	Gura_AssignFunction(processString);
 	Gura_AssignFunction(diff_at_stream);
 	Gura_AssignFunction(diff_at_string);
 	Gura_AssignFunction(unidiff_at_stream);
