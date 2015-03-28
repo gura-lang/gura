@@ -49,6 +49,14 @@ void DiffEngine::DiffString(const char *src1, const char *src2)
 	_diffString.compose();
 }
 
+bool DiffEngine::PrintEdit(Signal sig, Stream &stream, const DiffString::Edit &edit)
+{
+	stream.Print(sig, GetEditMark(edit));
+	if (sig.IsSignalled()) return false;
+	stream.Println(sig, edit.first.c_str());
+	return !sig.IsSignalled();
+}
+
 bool DiffEngine::PrintEdits(Signal sig, Stream &stream) const
 {
 	foreach_const (DiffString::EditList, pEdit, _diffString.GetEditList()) {
@@ -65,6 +73,16 @@ bool DiffEngine::PrintHunk(Signal sig, Stream &stream, const Hunk &hunk) const
 	stream.Printf(sig, "@@ %s @@\n", hunk.MakeRangeText().c_str());
 	for ( ; pEdit != pEditEnd; pEdit++) {
 		if (!PrintEdit(sig, stream, *pEdit)) return false;
+	}
+	return true;
+}
+
+bool DiffEngine::PrintHunks(Signal sig, Stream &stream, size_t nLinesCommon) const
+{
+	size_t idxEdit = 0;
+	Hunk hunk;
+	while (NextHunk(&idxEdit, nLinesCommon, &hunk)) {
+		if (!PrintHunk(sig, stream, hunk)) return false;
 	}
 	return true;
 }
@@ -367,10 +385,9 @@ Gura_ImplementFunction(diff_at_stream)
 	if (args.IsValid(2)) {
 		pDiffEngine->PrintEdits(sig, args.GetStream(2));
 		return Value::Null;
-	} else {
-		AutoPtr<IteratorEdit> pIterator(new IteratorEdit(pDiffEngine->Reference()));
-		return ReturnIterator(env, sig, args, pIterator.release());
 	}
+	AutoPtr<IteratorEdit> pIterator(new IteratorEdit(pDiffEngine->Reference()));
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 // diff.diff@string(src1:string, src2:string, out?:stream:w) {block?}
@@ -393,10 +410,9 @@ Gura_ImplementFunction(diff_at_string)
 	if (args.IsValid(2)) {
 		pDiffEngine->PrintEdits(sig, args.GetStream(2));
 		return Value::Null;
-	} else {
-		AutoPtr<IteratorEdit> pIterator(new IteratorEdit(pDiffEngine->Reference()));
-		return ReturnIterator(env, sig, args, pIterator.release());
 	}
+	AutoPtr<IteratorEdit> pIterator(new IteratorEdit(pDiffEngine->Reference()));
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 // diff.unidiff@stream(src1:stream, src2:stream, out?:stream:w, lines?:number) {block?}
@@ -419,12 +435,7 @@ Gura_ImplementFunction(unidiff_at_stream)
 	if (!pDiffEngine->DiffStream(sig, args.GetStream(0), args.GetStream(1))) return Value::Null;
 	size_t nLinesCommon = args.IsValid(3)? args.GetSizeT(3) : 3;
 	if (args.IsValid(2)) {
-		Stream &streamOut = args.GetStream(2);
-		size_t idxEdit = 0;
-		Hunk hunk;
-		while (pDiffEngine->NextHunk(&idxEdit, nLinesCommon, &hunk)) {
-			if (!pDiffEngine->PrintHunk(sig, streamOut, hunk)) break;
-		}
+		pDiffEngine->PrintHunks(sig, args.GetStream(2), nLinesCommon);
 		return Value::Null;
 	}
 	AutoPtr<IteratorHunk> pIterator(new IteratorHunk(pDiffEngine->Reference(), nLinesCommon));
@@ -451,12 +462,7 @@ Gura_ImplementFunction(unidiff_at_string)
 	pDiffEngine->DiffString(args.GetString(0), args.GetString(1));
 	size_t nLinesCommon = args.IsValid(3)? args.GetSizeT(3) : 3;
 	if (args.IsValid(2)) {
-		Stream &streamOut = args.GetStream(2);
-		size_t idxEdit = 0;
-		Hunk hunk;
-		while (pDiffEngine->NextHunk(&idxEdit, nLinesCommon, &hunk)) {
-			if (!pDiffEngine->PrintHunk(sig, streamOut, hunk)) break;
-		}
+		pDiffEngine->PrintHunks(sig, args.GetStream(2), nLinesCommon);
 		return Value::Null;
 	}
 	AutoPtr<IteratorHunk> pIterator(new IteratorHunk(pDiffEngine->Reference(), nLinesCommon));

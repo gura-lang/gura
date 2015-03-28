@@ -61,8 +61,10 @@ protected:
 public:
 	bool DiffStream(Signal sig, Stream &src1, Stream &src2);
 	void DiffString(const char *src1, const char *src2);
+	static bool PrintEdit(Signal sig, Stream &stream, const DiffString::Edit &edit);
 	bool PrintEdits(Signal sig, Stream &stream) const;
 	bool PrintHunk(Signal sig, Stream &stream, const Hunk &hunk) const;
+	bool PrintHunks(Signal sig, Stream &stream, size_t nLinesCommon) const;
 	bool NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const;
 	inline size_t CountEdits() const {
 		return _diffString.GetEditList().size();
@@ -74,13 +76,6 @@ public:
 		return
 			(edit.second.type == dtl::SES_ADD)? "+" :
 			(edit.second.type == dtl::SES_DELETE)? "-" : " ";
-	}
-	inline static bool PrintEdit(Signal sig, Stream &stream,
-								 const DiffString::Edit &edit) {
-		stream.Print(sig, GetEditMark(edit));
-		if (sig.IsSignalled()) return false;
-		stream.Println(sig, edit.first.c_str());
-		return !sig.IsSignalled();
 	}
 private:
 	static bool ReadLines(Signal sig, Stream &stream, std::vector<String> &seq);
