@@ -104,6 +104,27 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// Class declaration for diff.processor
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(processor);
+
+class Object_processor : public Object {
+private:
+	AutoPtr<Processor> _pProcessor;
+public:
+	Gura_DeclareObjectAccessor(processor)
+public:
+	inline Object_processor(Processor *pProcessor) :
+		Object(Gura_UserClass(processor)), _pProcessor(pProcessor) {}
+	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(bool exprFlag);
+	inline Processor *GetProcessor() { return _pProcessor.get(); }
+};
+
+//-----------------------------------------------------------------------------
 // Class declaration for diff.hunk
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(hunk);

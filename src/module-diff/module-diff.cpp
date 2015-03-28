@@ -166,6 +166,43 @@ void Processor::SplitLines(const char *src, std::vector<String> &seq)
 }
 
 //-----------------------------------------------------------------------------
+// Object_processor
+//-----------------------------------------------------------------------------
+Object *Object_processor::Clone() const
+{
+	return NULL;
+}
+
+bool Object_processor::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	return true;
+}
+
+Value Object_processor::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+String Object_processor::ToString(bool exprFlag)
+{
+	char buff[80];
+	String str;
+	str += "<diff.processor:";
+	str += ">";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Class implementation for diff.processor
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(processor)
+{
+}
+
+//-----------------------------------------------------------------------------
 // Object_edit
 //-----------------------------------------------------------------------------
 Object *Object_edit::Clone() const
@@ -181,7 +218,7 @@ bool Object_edit::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	symbols.insert(Gura_UserSymbol(lineno_at_org));
 	symbols.insert(Gura_UserSymbol(lineno_at_new));
 	symbols.insert(Gura_UserSymbol(source));
-	return false;
+	return true;
 }
 
 Value Object_edit::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
@@ -249,7 +286,7 @@ bool Object_hunk::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	symbols.insert(Gura_UserSymbol(lineno_at_new));
 	symbols.insert(Gura_UserSymbol(nlines_at_org));
 	symbols.insert(Gura_UserSymbol(nlines_at_new));
-	return false;
+	return true;
 }
 
 Value Object_hunk::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
@@ -487,6 +524,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(source);
 	Gura_RealizeUserSymbol(type);
 	// class realization
+	Gura_RealizeUserClass(processor, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(edit, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(hunk, env.LookupClass(VTYPE_object));
 	// function assignment
