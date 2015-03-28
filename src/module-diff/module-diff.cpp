@@ -8,7 +8,7 @@ Gura_BeginModuleBody(diff)
 //-----------------------------------------------------------------------------
 // Hunk
 //-----------------------------------------------------------------------------
-String Hunk::MakeUnifiedRange() const
+String Hunk::TextizeUnifiedRange() const
 {
 	String str;
 	char buff[80];
@@ -56,6 +56,20 @@ void DiffString::SplitLines(const char *src, std::vector<String> &seq)
 	if (!str.empty()) seq.push_back(str);
 }
 
+String DiffString::TextizeUnifiedEdit(const DiffString::Edit &edit)
+{
+	String str;
+	str += GetEditMark(edit);
+	str += edit.first;
+	return str;
+}
+
+bool DiffString::PrintEdit(Signal sig, Stream &stream, const DiffString::Edit &edit)
+{
+	stream.Println(sig, TextizeUnifiedEdit(edit).c_str());
+	return !sig.IsSignalled();
+}
+
 //-----------------------------------------------------------------------------
 // Result
 //-----------------------------------------------------------------------------
@@ -66,24 +80,16 @@ void Result::Process()
 	_diffString.compose();
 }
 
-bool Result::PrintEdit(Signal sig, Stream &stream, const DiffString::Edit &edit)
-{
-	stream.Print(sig, GetEditMark(edit));
-	if (sig.IsSignalled()) return false;
-	stream.Println(sig, edit.first.c_str());
-	return !sig.IsSignalled();
-}
-
 bool Result::PrintEdit(Signal sig, Stream &stream, size_t idxEdit)
 {
 	const DiffString::Edit &edit = _diffString.GetEditList()[idxEdit];
-	return PrintEdit(sig, stream, edit);
+	return DiffString::PrintEdit(sig, stream, edit);
 }
 
 bool Result::PrintEdits(Signal sig, Stream &stream) const
 {
 	foreach_const (DiffString::EditList, pEdit, _diffString.GetEditList()) {
-		if (!PrintEdit(sig, stream, *pEdit)) return false;
+		if (!DiffString::PrintEdit(sig, stream, *pEdit)) return false;
 	}
 	return true;
 }
@@ -93,9 +99,9 @@ bool Result::PrintHunk(Signal sig, Stream &stream, const Hunk &hunk) const
 	const DiffString::EditList &edits = _diffString.GetEditList();
 	DiffString::EditList::const_iterator pEdit = edits.begin() + hunk.idxEditBegin;
 	DiffString::EditList::const_iterator pEditEnd = edits.begin() + hunk.idxEditEnd;
-	stream.Printf(sig, "@@ %s @@\n", hunk.MakeUnifiedRange().c_str());
+	stream.Printf(sig, "@@ %s @@\n", hunk.TextizeUnifiedRange().c_str());
 	for ( ; pEdit != pEditEnd; pEdit++) {
-		if (!PrintEdit(sig, stream, *pEdit)) return false;
+		if (!DiffString::PrintEdit(sig, stream, *pEdit)) return false;
 	}
 	return true;
 }
@@ -303,13 +309,15 @@ Value Object_edit::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 			return Value(Gura_UserSymbol(copy));
 		}
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mark))) {
-		return Value(Result::GetEditMark(edit));
+		return Value(DiffString::GetEditMark(edit));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_org))) {
 		return Value(edit.second.beforeIdx);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_new))) {
 		return Value(edit.second.afterIdx);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(source))) {
 		return Value(edit.first);
+	//} else if (pSymbol->IsIdentical(Gura_UserSymbol(unified))) {
+	//	return Value(edit.first);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -337,7 +345,7 @@ String Object_edit::ToString(bool exprFlag)
 // diff.edit#print(out?:stream:w):void
 Gura_DeclareMethod(edit, print)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -358,6 +366,7 @@ Gura_ImplementMethod(edit, print)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(edit)
 {
+	Gura_AssignValue(edit, Value(Reference()));
 	Gura_AssignMethod(edit, print);
 }
 
@@ -405,7 +414,7 @@ String Object_hunk::ToString(bool exprFlag)
 	char buff[80];
 	String str;
 	str += "<diff.hunk:";
-	str += _hunk.MakeUnifiedRange();
+	str += _hunk.TextizeUnifiedRange();
 	str += ">";
 	return str;
 }
@@ -416,7 +425,7 @@ String Object_hunk::ToString(bool exprFlag)
 // diff.hunk#print(out?:stream:w):void
 Gura_DeclareMethod(hunk, print)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -437,6 +446,7 @@ Gura_ImplementMethod(hunk, print)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(hunk)
 {
+	Gura_AssignValue(hunk, Value(Reference()));
 	Gura_AssignMethod(hunk, print);
 }
 

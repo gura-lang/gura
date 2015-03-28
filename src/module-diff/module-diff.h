@@ -31,7 +31,7 @@ struct Hunk {
 	size_t linenoNew;
 	size_t nLinesOrg;
 	size_t nLinesNew;
-	String MakeUnifiedRange() const;
+	String TextizeUnifiedRange() const;
 };
 
 //-----------------------------------------------------------------------------
@@ -46,6 +46,13 @@ public:
 	inline const EditList &GetEditList() const { return getSes().getSequence(); }
 	static bool ReadLines(Signal sig, Stream &stream, std::vector<String> &seq);
 	static void SplitLines(const char *src, std::vector<String> &seq);
+	static String TextizeUnifiedEdit(const Edit &edit);
+	static bool PrintEdit(Signal sig, Stream &stream, const Edit &edit);
+	inline static const char *GetEditMark(const Edit &edit) {
+		return
+			(edit.second.type == dtl::SES_ADD)? "+" :
+			(edit.second.type == dtl::SES_DELETE)? "-" : " ";
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -66,7 +73,6 @@ public:
 	inline std::vector<String> &GetSeqB() { return _diffString.getB(); }
 	inline long long GetEditDistance() const { return _diffString.getEditDistance(); }
 	void Process();
-	static bool PrintEdit(Signal sig, Stream &stream, const DiffString::Edit &edit);
 	bool PrintEdit(Signal sig, Stream &stream, size_t idxEdit);
 	bool PrintEdits(Signal sig, Stream &stream) const;
 	bool PrintHunk(Signal sig, Stream &stream, const Hunk &hunk) const;
@@ -77,11 +83,6 @@ public:
 	}
 	inline const DiffString::Edit &GetEdit(size_t idxEdit) const {
 		return _diffString.GetEditList()[idxEdit];
-	}
-	inline static const char *GetEditMark(const DiffString::Edit &edit) {
-		return
-			(edit.second.type == dtl::SES_ADD)? "+" :
-			(edit.second.type == dtl::SES_DELETE)? "-" : " ";
 	}
 };
 
