@@ -59,8 +59,8 @@ public:
 protected:
 	inline ~Processor() {}
 public:
-	bool DiffStream(Signal sig, Stream &src1, Stream &src2);
-	void DiffString(const char *src1, const char *src2);
+	bool ProcessStream(Signal sig, Stream &src1, Stream &src2);
+	void ProcessString(const char *src1, const char *src2);
 	static bool PrintEdit(Signal sig, Stream &stream, const DiffString::Edit &edit);
 	bool PrintEdits(Signal sig, Stream &stream) const;
 	bool PrintHunk(Signal sig, Stream &stream, const Hunk &hunk) const;

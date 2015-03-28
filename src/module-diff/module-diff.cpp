@@ -30,7 +30,7 @@ String Hunk::MakeRangeText() const
 //-----------------------------------------------------------------------------
 // Processor
 //-----------------------------------------------------------------------------
-bool Processor::DiffStream(Signal sig, Stream &src1, Stream &src2)
+bool Processor::ProcessStream(Signal sig, Stream &src1, Stream &src2)
 {
 	if (!ReadLines(sig, src1, _diffString.getA())) return false;
 	if (!ReadLines(sig, src2, _diffString.getB())) return false;
@@ -40,7 +40,7 @@ bool Processor::DiffStream(Signal sig, Stream &src1, Stream &src2)
 	return true;
 }
 
-void Processor::DiffString(const char *src1, const char *src2)
+void Processor::ProcessString(const char *src1, const char *src2)
 {
 	SplitLines(src1, _diffString.getA());
 	SplitLines(src2, _diffString.getB());
@@ -381,7 +381,7 @@ Gura_DeclareFunctionAlias(diff_at_stream, "diff@stream")
 Gura_ImplementFunction(diff_at_stream)
 {
 	AutoPtr<Processor> pProcessor(new Processor());
-	if (!pProcessor->DiffStream(sig, args.GetStream(0), args.GetStream(1))) return Value::Null;
+	if (!pProcessor->ProcessStream(sig, args.GetStream(0), args.GetStream(1))) return Value::Null;
 	if (args.IsValid(2)) {
 		pProcessor->PrintEdits(sig, args.GetStream(2));
 		return Value::Null;
@@ -406,7 +406,7 @@ Gura_DeclareFunctionAlias(diff_at_string, "diff@string")
 Gura_ImplementFunction(diff_at_string)
 {
 	AutoPtr<Processor> pProcessor(new Processor());
-	pProcessor->DiffString(args.GetString(0), args.GetString(1));
+	pProcessor->ProcessString(args.GetString(0), args.GetString(1));
 	if (args.IsValid(2)) {
 		pProcessor->PrintEdits(sig, args.GetStream(2));
 		return Value::Null;
@@ -432,7 +432,7 @@ Gura_DeclareFunctionAlias(unidiff_at_stream, "unidiff@stream")
 Gura_ImplementFunction(unidiff_at_stream)
 {
 	AutoPtr<Processor> pProcessor(new Processor());
-	if (!pProcessor->DiffStream(sig, args.GetStream(0), args.GetStream(1))) return Value::Null;
+	if (!pProcessor->ProcessStream(sig, args.GetStream(0), args.GetStream(1))) return Value::Null;
 	size_t nLinesCommon = args.IsValid(3)? args.GetSizeT(3) : 3;
 	if (args.IsValid(2)) {
 		pProcessor->PrintHunks(sig, args.GetStream(2), nLinesCommon);
@@ -459,7 +459,7 @@ Gura_DeclareFunctionAlias(unidiff_at_string, "unidiff@string")
 Gura_ImplementFunction(unidiff_at_string)
 {
 	AutoPtr<Processor> pProcessor(new Processor());
-	pProcessor->DiffString(args.GetString(0), args.GetString(1));
+	pProcessor->ProcessString(args.GetString(0), args.GetString(1));
 	size_t nLinesCommon = args.IsValid(3)? args.GetSizeT(3) : 3;
 	if (args.IsValid(2)) {
 		pProcessor->PrintHunks(sig, args.GetStream(2), nLinesCommon);
