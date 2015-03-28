@@ -16,11 +16,11 @@ testcase {
 	I need to get the car detailed.
 	'''
 	diff.diff(textOrg, textNew) {|d|
-		d.eachedit()::print()
+		println(d.eachedit():*unified)
 		//d.eachhunk()::print()
 	}
 }
-sys.exit()
+
 testcase {
 	textOrg = R'''
 	I need to buy apples.
