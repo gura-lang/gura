@@ -28,9 +28,9 @@ String Hunk::MakeRangeText() const
 }
 
 //-----------------------------------------------------------------------------
-// Processor
+// Result
 //-----------------------------------------------------------------------------
-bool Processor::ProcessStream(Signal sig, Stream &src1, Stream &src2)
+bool Result::ProcessStream(Signal sig, Stream &src1, Stream &src2)
 {
 	if (!ReadLines(sig, src1, _diffString.getA())) return false;
 	if (!ReadLines(sig, src2, _diffString.getB())) return false;
@@ -40,7 +40,7 @@ bool Processor::ProcessStream(Signal sig, Stream &src1, Stream &src2)
 	return true;
 }
 
-void Processor::ProcessString(const char *src1, const char *src2)
+void Result::ProcessString(const char *src1, const char *src2)
 {
 	SplitLines(src1, _diffString.getA());
 	SplitLines(src2, _diffString.getB());
@@ -49,7 +49,7 @@ void Processor::ProcessString(const char *src1, const char *src2)
 	_diffString.compose();
 }
 
-bool Processor::PrintEdit(Signal sig, Stream &stream, const DiffString::Edit &edit)
+bool Result::PrintEdit(Signal sig, Stream &stream, const DiffString::Edit &edit)
 {
 	stream.Print(sig, GetEditMark(edit));
 	if (sig.IsSignalled()) return false;
@@ -57,7 +57,7 @@ bool Processor::PrintEdit(Signal sig, Stream &stream, const DiffString::Edit &ed
 	return !sig.IsSignalled();
 }
 
-bool Processor::PrintEdits(Signal sig, Stream &stream) const
+bool Result::PrintEdits(Signal sig, Stream &stream) const
 {
 	foreach_const (DiffString::EditList, pEdit, _diffString.GetEditList()) {
 		if (!PrintEdit(sig, stream, *pEdit)) return false;
@@ -65,7 +65,7 @@ bool Processor::PrintEdits(Signal sig, Stream &stream) const
 	return true;
 }
 
-bool Processor::PrintHunk(Signal sig, Stream &stream, const Hunk &hunk) const
+bool Result::PrintHunk(Signal sig, Stream &stream, const Hunk &hunk) const
 {
 	const DiffString::EditList &edits = _diffString.GetEditList();
 	DiffString::EditList::const_iterator pEdit = edits.begin() + hunk.idxEditBegin;
@@ -77,7 +77,7 @@ bool Processor::PrintHunk(Signal sig, Stream &stream, const Hunk &hunk) const
 	return true;
 }
 
-bool Processor::PrintHunks(Signal sig, Stream &stream, size_t nLinesCommon) const
+bool Result::PrintHunks(Signal sig, Stream &stream, size_t nLinesCommon) const
 {
 	size_t idxEdit = 0;
 	Hunk hunk;
@@ -87,7 +87,7 @@ bool Processor::PrintHunks(Signal sig, Stream &stream, size_t nLinesCommon) cons
 	return true;
 }
 
-bool Processor::NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const
+bool Result::NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const
 {
 	::memset(pHunk, 0x00, sizeof(Hunk));
 	size_t idxEdit = *pIdxEdit;
@@ -139,7 +139,7 @@ bool Processor::NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) con
 	return false;
 }
 
-bool Processor::ReadLines(Signal sig, Stream &src, std::vector<String> &seq)
+bool Result::ReadLines(Signal sig, Stream &src, std::vector<String> &seq)
 {
 	bool includeEOLFlag = false;
 	for (;;) {
@@ -150,7 +150,7 @@ bool Processor::ReadLines(Signal sig, Stream &src, std::vector<String> &seq)
 	return !sig.IsSignalled();
 }
 
-void Processor::SplitLines(const char *src, std::vector<String> &seq)
+void Result::SplitLines(const char *src, std::vector<String> &seq)
 {
 	String str;
 	for (const char *p = src; *p != '\0'; p++) {
@@ -166,40 +166,40 @@ void Processor::SplitLines(const char *src, std::vector<String> &seq)
 }
 
 //-----------------------------------------------------------------------------
-// Object_processor
+// Object_result
 //-----------------------------------------------------------------------------
-Object *Object_processor::Clone() const
+Object *Object_result::Clone() const
 {
 	return NULL;
 }
 
-bool Object_processor::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_result::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	return true;
 }
 
-Value Object_processor::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_result::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
 	return Value::Null;
 }
 
-String Object_processor::ToString(bool exprFlag)
+String Object_result::ToString(bool exprFlag)
 {
 	char buff[80];
 	String str;
-	str += "<diff.processor:";
+	str += "<diff.result:";
 	str += ">";
 	return str;
 }
 
 //-----------------------------------------------------------------------------
-// Methods of diff.processor
+// Methods of diff.result
 //-----------------------------------------------------------------------------
-// diff.processor#edits() {block?}
-Gura_DeclareMethod(processor, edits)
+// diff.result#edits() {block?}
+Gura_DeclareMethod(result, edits)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -208,15 +208,15 @@ Gura_DeclareMethod(processor, edits)
 		"");
 }
 
-Gura_ImplementMethod(processor, edits)
+Gura_ImplementMethod(result, edits)
 {
-	Processor *pProcessor = Object_processor::GetThisObj(args)->GetProcessor();
-	AutoPtr<IteratorEdit> pIterator(new IteratorEdit(pProcessor->Reference()));
+	Result *pResult = Object_result::GetThisObj(args)->GetResult();
+	AutoPtr<IteratorEdit> pIterator(new IteratorEdit(pResult->Reference()));
 	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
-// diff.processor#hunks(lines?:number) {block?}
-Gura_DeclareMethod(processor, hunks)
+// diff.result#hunks(lines?:number) {block?}
+Gura_DeclareMethod(result, hunks)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "lines", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -226,16 +226,16 @@ Gura_DeclareMethod(processor, hunks)
 		"");
 }
 
-Gura_ImplementMethod(processor, hunks)
+Gura_ImplementMethod(result, hunks)
 {
-	Processor *pProcessor = Object_processor::GetThisObj(args)->GetProcessor();
+	Result *pResult = Object_result::GetThisObj(args)->GetResult();
 	size_t nLinesCommon = args.IsValid(0)? args.GetSizeT(0) : 3;
-	AutoPtr<IteratorHunk> pIterator(new IteratorHunk(pProcessor->Reference(), nLinesCommon));
+	AutoPtr<IteratorHunk> pIterator(new IteratorHunk(pResult->Reference(), nLinesCommon));
 	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
-// diff.processor#output@unified(out?:stream:w, lines?:number):void
-Gura_DeclareMethodAlias(processor, output_at_unified, "output@unified")
+// diff.result#output@unified(out?:stream:w, lines?:number):void
+Gura_DeclareMethodAlias(result, output_at_unified, "output@unified")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
@@ -246,24 +246,24 @@ Gura_DeclareMethodAlias(processor, output_at_unified, "output@unified")
 		"");
 }
 
-Gura_ImplementMethod(processor, output_at_unified)
+Gura_ImplementMethod(result, output_at_unified)
 {
-	Processor *pProcessor = Object_processor::GetThisObj(args)->GetProcessor();
+	Result *pResult = Object_result::GetThisObj(args)->GetResult();
 	Stream &stream = args.IsValid(0)? args.GetStream(0) : *env.GetConsole();
 	size_t nLinesCommon = args.IsValid(1)? args.GetSizeT(1) : 3;
-	pProcessor->PrintHunks(sig, stream, nLinesCommon);
+	pResult->PrintHunks(sig, stream, nLinesCommon);
 	return Value::Null;
 }
 
 //-----------------------------------------------------------------------------
-// Class implementation for diff.processor
+// Class implementation for diff.result
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClass(processor)
+Gura_ImplementUserClass(result)
 {
-	Gura_AssignValue(processor, Value(Reference()));
-	Gura_AssignMethod(processor, edits);
-	Gura_AssignMethod(processor, hunks);
-	Gura_AssignMethod(processor, output_at_unified);
+	Gura_AssignValue(result, Value(Reference()));
+	Gura_AssignMethod(result, edits);
+	Gura_AssignMethod(result, hunks);
+	Gura_AssignMethod(result, output_at_unified);
 }
 
 //-----------------------------------------------------------------------------
@@ -288,7 +288,7 @@ bool Object_edit::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 Value Object_edit::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	const DiffString::Edit &edit = _pProcessor->GetEdit(_idxEdit);
+	const DiffString::Edit &edit = _pResult->GetEdit(_idxEdit);
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
 		if (edit.second.type == dtl::SES_ADD) {
@@ -299,7 +299,7 @@ Value Object_edit::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 			return Value(Gura_UserSymbol(copy));
 		}
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mark))) {
-		return Value(Processor::GetEditMark(edit));
+		return Value(Result::GetEditMark(edit));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_org))) {
 		return Value(edit.second.beforeIdx);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_new))) {
@@ -313,7 +313,7 @@ Value Object_edit::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 
 String Object_edit::ToString(bool exprFlag)
 {
-	const DiffString::Edit &edit = _pProcessor->GetEdit(_idxEdit);
+	const DiffString::Edit &edit = _pResult->GetEdit(_idxEdit);
 	String str;
 	str += "<diff.edit:";
 	if (edit.second.type == dtl::SES_ADD) {
@@ -358,7 +358,7 @@ Value Object_hunk::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(edits))) {
-		AutoPtr<Iterator> pIterator(new IteratorEdit(_pProcessor->Reference(), _hunk));
+		AutoPtr<Iterator> pIterator(new IteratorEdit(_pResult->Reference(), _hunk));
 		return Value(new Object_iterator(env, pIterator.release()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_org))) {
 		return Value(_hunk.linenoOrg);
@@ -397,14 +397,14 @@ Gura_ImplementUserClass(hunk)
 //-----------------------------------------------------------------------------
 // IteratorEdit
 //-----------------------------------------------------------------------------
-IteratorEdit::IteratorEdit(Processor *pProcessor) :
-	Iterator(false), _pProcessor(pProcessor),
-	_idxEdit(0), _idxEditBegin(0), _idxEditEnd(pProcessor->CountEdits())
+IteratorEdit::IteratorEdit(Result *pResult) :
+	Iterator(false), _pResult(pResult),
+	_idxEdit(0), _idxEditBegin(0), _idxEditEnd(pResult->CountEdits())
 {
 }
 
-IteratorEdit::IteratorEdit(Processor *pProcessor, const Hunk &hunk) :
-	Iterator(false), _pProcessor(pProcessor),
+IteratorEdit::IteratorEdit(Result *pResult, const Hunk &hunk) :
+	Iterator(false), _pResult(pResult),
 	_idxEdit(hunk.idxEditBegin), _idxEditBegin(hunk.idxEditBegin), _idxEditEnd(hunk.idxEditEnd)
 {
 }
@@ -417,7 +417,7 @@ Iterator *IteratorEdit::GetSource()
 bool IteratorEdit::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (_idxEdit >= _idxEditEnd) return false;
-	value = Value(new Object_edit(_pProcessor->Reference(), _idxEdit));
+	value = Value(new Object_edit(_pResult->Reference(), _idxEdit));
 	_idxEdit++;
 	return true;
 }
@@ -436,8 +436,8 @@ void IteratorEdit::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &en
 //-----------------------------------------------------------------------------
 // IteratorHunk
 //-----------------------------------------------------------------------------
-IteratorHunk::IteratorHunk(Processor *pProcessor, size_t nLinesCommon) :
-	Iterator(false), _pProcessor(pProcessor), _idxEdit(0), _nLinesCommon(nLinesCommon)
+IteratorHunk::IteratorHunk(Result *pResult, size_t nLinesCommon) :
+	Iterator(false), _pResult(pResult), _idxEdit(0), _nLinesCommon(nLinesCommon)
 {
 }
 
@@ -449,8 +449,8 @@ Iterator *IteratorHunk::GetSource()
 bool IteratorHunk::DoNext(Environment &env, Signal sig, Value &value)
 {
 	Hunk hunk;
-	if (_pProcessor->NextHunk(&_idxEdit, _nLinesCommon, &hunk)) {
-		value = Value(new Object_hunk(_pProcessor->Reference(), hunk));
+	if (_pResult->NextHunk(&_idxEdit, _nLinesCommon, &hunk)) {
+		value = Value(new Object_hunk(_pResult->Reference(), hunk));
 		return true;
 	}
 	return false;
@@ -484,9 +484,9 @@ Gura_DeclareFunction(processStream)
 
 Gura_ImplementFunction(processStream)
 {
-	AutoPtr<Processor> pProcessor(new Processor());
-	if (!pProcessor->ProcessStream(sig, args.GetStream(0), args.GetStream(1))) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_processor(pProcessor.release())));
+	AutoPtr<Result> pResult(new Result());
+	if (!pResult->ProcessStream(sig, args.GetStream(0), args.GetStream(1))) return Value::Null;
+	return ReturnValue(env, sig, args, Value(new Object_result(pResult.release())));
 }
 
 // diff.processString(src1:string, src2:string) {block?}
@@ -503,113 +503,9 @@ Gura_DeclareFunction(processString)
 
 Gura_ImplementFunction(processString)
 {
-	AutoPtr<Processor> pProcessor(new Processor());
-	pProcessor->ProcessString(args.GetString(0), args.GetString(1));
-	return ReturnValue(env, sig, args, Value(new Object_processor(pProcessor.release())));
-}
-
-// diff.diff@stream(src1:stream, src2:stream, out?:stream:w) {block?}
-Gura_DeclareFunctionAlias(diff_at_stream, "diff@stream")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "src1", VTYPE_stream);
-	DeclareArg(env, "src2", VTYPE_stream);
-	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementFunction(diff_at_stream)
-{
-	AutoPtr<Processor> pProcessor(new Processor());
-	if (!pProcessor->ProcessStream(sig, args.GetStream(0), args.GetStream(1))) return Value::Null;
-	if (args.IsValid(2)) {
-		pProcessor->PrintEdits(sig, args.GetStream(2));
-		return Value::Null;
-	}
-	AutoPtr<IteratorEdit> pIterator(new IteratorEdit(pProcessor->Reference()));
-	return ReturnIterator(env, sig, args, pIterator.release());
-}
-
-// diff.diff@string(src1:string, src2:string, out?:stream:w) {block?}
-Gura_DeclareFunctionAlias(diff_at_string, "diff@string")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "src1", VTYPE_string);
-	DeclareArg(env, "src2", VTYPE_string);
-	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementFunction(diff_at_string)
-{
-	AutoPtr<Processor> pProcessor(new Processor());
-	pProcessor->ProcessString(args.GetString(0), args.GetString(1));
-	if (args.IsValid(2)) {
-		pProcessor->PrintEdits(sig, args.GetStream(2));
-		return Value::Null;
-	}
-	AutoPtr<IteratorEdit> pIterator(new IteratorEdit(pProcessor->Reference()));
-	return ReturnIterator(env, sig, args, pIterator.release());
-}
-
-// diff.unidiff@stream(src1:stream, src2:stream, out?:stream:w, lines?:number) {block?}
-Gura_DeclareFunctionAlias(unidiff_at_stream, "unidiff@stream")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "src1", VTYPE_stream);
-	DeclareArg(env, "src2", VTYPE_stream);
-	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
-	DeclareArg(env, "lines", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementFunction(unidiff_at_stream)
-{
-	AutoPtr<Processor> pProcessor(new Processor());
-	if (!pProcessor->ProcessStream(sig, args.GetStream(0), args.GetStream(1))) return Value::Null;
-	size_t nLinesCommon = args.IsValid(3)? args.GetSizeT(3) : 3;
-	if (args.IsValid(2)) {
-		pProcessor->PrintHunks(sig, args.GetStream(2), nLinesCommon);
-		return Value::Null;
-	}
-	AutoPtr<IteratorHunk> pIterator(new IteratorHunk(pProcessor->Reference(), nLinesCommon));
-	return ReturnIterator(env, sig, args, pIterator.release());
-}
-
-// diff.unidiff@string(src1:string, src2:string, out?:stream:w, lines?:number) {block?}
-Gura_DeclareFunctionAlias(unidiff_at_string, "unidiff@string")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "src1", VTYPE_string);
-	DeclareArg(env, "src2", VTYPE_string);
-	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
-	DeclareArg(env, "lines", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementFunction(unidiff_at_string)
-{
-	AutoPtr<Processor> pProcessor(new Processor());
-	pProcessor->ProcessString(args.GetString(0), args.GetString(1));
-	size_t nLinesCommon = args.IsValid(3)? args.GetSizeT(3) : 3;
-	if (args.IsValid(2)) {
-		pProcessor->PrintHunks(sig, args.GetStream(2), nLinesCommon);
-		return Value::Null;
-	}
-	AutoPtr<IteratorHunk> pIterator(new IteratorHunk(pProcessor->Reference(), nLinesCommon));
-	return ReturnIterator(env, sig, args, pIterator.release());
+	AutoPtr<Result> pResult(new Result());
+	pResult->ProcessString(args.GetString(0), args.GetString(1));
+	return ReturnValue(env, sig, args, Value(new Object_result(pResult.release())));
 }
 
 //-----------------------------------------------------------------------------
@@ -630,20 +526,16 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(source);
 	Gura_RealizeUserSymbol(type);
 	// class realization
-	Gura_RealizeUserClass(processor, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(result, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(edit, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(hunk, env.LookupClass(VTYPE_object));
 	// class preparation
-	Gura_PrepareUserClass(processor);
+	Gura_PrepareUserClass(result);
 	Gura_PrepareUserClass(edit);
 	Gura_PrepareUserClass(hunk);
 	// function assignment
 	Gura_AssignFunction(processStream);
 	Gura_AssignFunction(processString);
-	Gura_AssignFunction(diff_at_stream);
-	Gura_AssignFunction(diff_at_string);
-	Gura_AssignFunction(unidiff_at_stream);
-	Gura_AssignFunction(unidiff_at_string);
 	return true;
 }
 

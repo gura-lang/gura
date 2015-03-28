@@ -46,18 +46,18 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Processor
+// Result
 //-----------------------------------------------------------------------------
-class Processor {
+class Result {
 private:
 	int _cntRef;
 	DiffString _diffString;
 public:
-	Gura_DeclareReferenceAccessor(Processor);
+	Gura_DeclareReferenceAccessor(Result);
 public:
-	inline Processor() : _cntRef(1) {}
+	inline Result() : _cntRef(1) {}
 protected:
-	inline ~Processor() {}
+	inline ~Result() {}
 public:
 	bool ProcessStream(Signal sig, Stream &src1, Stream &src2);
 	void ProcessString(const char *src1, const char *src2);
@@ -89,13 +89,13 @@ Gura_DeclareUserClass(edit);
 
 class Object_edit : public Object {
 private:
-	AutoPtr<Processor> _pProcessor;
+	AutoPtr<Result> _pResult;
 	size_t _idxEdit;
 public:
 	Gura_DeclareObjectAccessor(edit)
 public:
-	inline Object_edit(Processor *pProcessor, size_t idxEdit) :
-		Object(Gura_UserClass(edit)), _pProcessor(pProcessor), _idxEdit(idxEdit) {}
+	inline Object_edit(Result *pResult, size_t idxEdit) :
+		Object(Gura_UserClass(edit)), _pResult(pResult), _idxEdit(idxEdit) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
@@ -104,24 +104,24 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Class declaration for diff.processor
+// Class declaration for diff.result
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(processor);
+Gura_DeclareUserClass(result);
 
-class Object_processor : public Object {
+class Object_result : public Object {
 private:
-	AutoPtr<Processor> _pProcessor;
+	AutoPtr<Result> _pResult;
 public:
-	Gura_DeclareObjectAccessor(processor)
+	Gura_DeclareObjectAccessor(result)
 public:
-	inline Object_processor(Processor *pProcessor) :
-		Object(Gura_UserClass(processor)), _pProcessor(pProcessor) {}
+	inline Object_result(Result *pResult) :
+		Object(Gura_UserClass(result)), _pResult(pResult) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
-	inline Processor *GetProcessor() { return _pProcessor.get(); }
+	inline Result *GetResult() { return _pResult.get(); }
 };
 
 //-----------------------------------------------------------------------------
@@ -131,13 +131,13 @@ Gura_DeclareUserClass(hunk);
 
 class Object_hunk : public Object {
 private:
-	AutoPtr<Processor> _pProcessor;
+	AutoPtr<Result> _pResult;
 	Hunk _hunk;
 public:
 	Gura_DeclareObjectAccessor(hunk)
 public:
-	inline Object_hunk(Processor *pProcessor, const Hunk &hunk) :
-		Object(Gura_UserClass(hunk)), _pProcessor(pProcessor), _hunk(hunk) {}
+	inline Object_hunk(Result *pResult, const Hunk &hunk) :
+		Object(Gura_UserClass(hunk)), _pResult(pResult), _hunk(hunk) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
@@ -150,13 +150,13 @@ public:
 //-----------------------------------------------------------------------------
 class IteratorEdit : public Iterator {
 private:
-	AutoPtr<Processor> _pProcessor;
+	AutoPtr<Result> _pResult;
 	size_t _idxEdit;
 	size_t _idxEditBegin;
 	size_t _idxEditEnd;
 public:
-	IteratorEdit(Processor *pProcessor);
-	IteratorEdit(Processor *pProcessor, const Hunk &hunk);
+	IteratorEdit(Result *pResult);
+	IteratorEdit(Result *pResult, const Hunk &hunk);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString() const;
@@ -168,11 +168,11 @@ public:
 //-----------------------------------------------------------------------------
 class IteratorHunk : public Iterator {
 private:
-	AutoPtr<Processor> _pProcessor;
+	AutoPtr<Result> _pResult;
 	size_t _idxEdit;
 	size_t _nLinesCommon;
 public:
-	IteratorHunk(Processor *pProcessor, size_t nLinesCommon);
+	IteratorHunk(Result *pResult, size_t nLinesCommon);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString() const;
