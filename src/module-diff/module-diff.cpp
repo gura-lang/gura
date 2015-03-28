@@ -73,7 +73,7 @@ bool DiffString::PrintEdit(Signal sig, Stream &stream, const DiffString::Edit &e
 //-----------------------------------------------------------------------------
 // Result
 //-----------------------------------------------------------------------------
-void Result::Process()
+void Result::Compose()
 {
 	_diffString.init();
 	_diffString.onHuge();
@@ -562,7 +562,7 @@ Gura_ImplementFunction(diff)
 		sig.SetError(ERR_TypeError, "difference source must be string or stream");
 		return Value::Null;
 	}
-	pResult->Process();
+	pResult->Compose();
 	return ReturnValue(env, sig, args, Value(new Object_result(pResult.release())));
 }
 

@@ -73,7 +73,7 @@ public:
 	inline std::vector<String> &GetSeqA() { return _diffString.getA(); }
 	inline std::vector<String> &GetSeqB() { return _diffString.getB(); }
 	inline long long GetEditDistance() const { return _diffString.getEditDistance(); }
-	void Process();
+	void Compose();
 	bool PrintEdit(Signal sig, Stream &stream, size_t idxEdit);
 	bool PrintEdits(Signal sig, Stream &stream) const;
 	bool PrintHunk(Signal sig, Stream &stream, const Hunk &hunk) const;
