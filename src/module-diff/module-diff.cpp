@@ -28,22 +28,39 @@ String Hunk::MakeRangeText() const
 }
 
 //-----------------------------------------------------------------------------
-// Result
+// DiffString
 //-----------------------------------------------------------------------------
-bool Result::ProcessStream(Signal sig, Stream &src1, Stream &src2)
+bool DiffString::ReadLines(Signal sig, Stream &src, std::vector<String> &seq)
 {
-	if (!ReadLines(sig, src1, _diffString.getA())) return false;
-	if (!ReadLines(sig, src2, _diffString.getB())) return false;
-	_diffString.init();
-	_diffString.onHuge();
-	_diffString.compose();
-	return true;
+	bool includeEOLFlag = false;
+	for (;;) {
+		String str;
+		if (!src.ReadLine(sig, str, includeEOLFlag)) break;
+		seq.push_back(str);
+	}
+	return !sig.IsSignalled();
 }
 
-void Result::ProcessString(const char *src1, const char *src2)
+void DiffString::SplitLines(const char *src, std::vector<String> &seq)
 {
-	SplitLines(src1, _diffString.getA());
-	SplitLines(src2, _diffString.getB());
+	String str;
+	for (const char *p = src; *p != '\0'; p++) {
+		char ch = *p;
+		if (ch == '\n') {
+			seq.push_back(str);
+			str.clear();
+		} else {
+			str += ch;
+		}
+	}
+	if (!str.empty()) seq.push_back(str);
+}
+
+//-----------------------------------------------------------------------------
+// Result
+//-----------------------------------------------------------------------------
+void Result::Process()
+{
 	_diffString.init();
 	_diffString.onHuge();
 	_diffString.compose();
@@ -139,32 +156,6 @@ bool Result::NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const
 	return false;
 }
 
-bool Result::ReadLines(Signal sig, Stream &src, std::vector<String> &seq)
-{
-	bool includeEOLFlag = false;
-	for (;;) {
-		String str;
-		if (!src.ReadLine(sig, str, includeEOLFlag)) break;
-		seq.push_back(str);
-	}
-	return !sig.IsSignalled();
-}
-
-void Result::SplitLines(const char *src, std::vector<String> &seq)
-{
-	String str;
-	for (const char *p = src; *p != '\0'; p++) {
-		char ch = *p;
-		if (ch == '\n') {
-			seq.push_back(str);
-			str.clear();
-		} else {
-			str += ch;
-		}
-	}
-	if (!str.empty()) seq.push_back(str);
-}
-
 //-----------------------------------------------------------------------------
 // Object_result
 //-----------------------------------------------------------------------------
@@ -176,12 +167,17 @@ Object *Object_result::Clone() const
 bool Object_result::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(distance));
 	return true;
 }
 
 Value Object_result::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(distance))) {
+		return Value(_pResult->GetEditDistance());
+	}
 	evaluatedFlag = false;
 	return Value::Null;
 }
@@ -191,6 +187,8 @@ String Object_result::ToString(bool exprFlag)
 	char buff[80];
 	String str;
 	str += "<diff.result:";
+	::sprintf(buff, "dist=%lld", _pResult->GetEditDistance());
+	str += buff;
 	str += ">";
 	return str;
 }
@@ -198,8 +196,8 @@ String Object_result::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Methods of diff.result
 //-----------------------------------------------------------------------------
-// diff.result#edits() {block?}
-Gura_DeclareMethod(result, edits)
+// diff.result#eachedit() {block?}
+Gura_DeclareMethod(result, eachedit)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -208,15 +206,15 @@ Gura_DeclareMethod(result, edits)
 		"");
 }
 
-Gura_ImplementMethod(result, edits)
+Gura_ImplementMethod(result, eachedit)
 {
 	Result *pResult = Object_result::GetThisObj(args)->GetResult();
 	AutoPtr<IteratorEdit> pIterator(new IteratorEdit(pResult->Reference()));
 	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
-// diff.result#hunks(lines?:number) {block?}
-Gura_DeclareMethod(result, hunks)
+// diff.result#eachhunk(lines?:number) {block?}
+Gura_DeclareMethod(result, eachhunk)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "lines", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -226,7 +224,7 @@ Gura_DeclareMethod(result, hunks)
 		"");
 }
 
-Gura_ImplementMethod(result, hunks)
+Gura_ImplementMethod(result, eachhunk)
 {
 	Result *pResult = Object_result::GetThisObj(args)->GetResult();
 	size_t nLinesCommon = args.IsValid(0)? args.GetSizeT(0) : 3;
@@ -261,8 +259,8 @@ Gura_ImplementMethod(result, output_at_unified)
 Gura_ImplementUserClass(result)
 {
 	Gura_AssignValue(result, Value(Reference()));
-	Gura_AssignMethod(result, edits);
-	Gura_AssignMethod(result, hunks);
+	Gura_AssignMethod(result, eachedit);
+	Gura_AssignMethod(result, eachhunk);
 	Gura_AssignMethod(result, output_at_unified);
 }
 
@@ -470,41 +468,42 @@ void IteratorHunk::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &en
 //-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
-// diff.processStream(src1:stream, src2:stream) {block?}
-Gura_DeclareFunction(processStream)
+// diff.diff(src1, src2) {block?}
+Gura_DeclareFunction(diff)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "src1", VTYPE_stream);
-	DeclareArg(env, "src2", VTYPE_stream);
+	DeclareArg(env, "src1", VTYPE_any);
+	DeclareArg(env, "src2", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
 }
 
-Gura_ImplementFunction(processStream)
+Gura_ImplementFunction(diff)
 {
 	AutoPtr<Result> pResult(new Result());
-	if (!pResult->ProcessStream(sig, args.GetStream(0), args.GetStream(1))) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_result(pResult.release())));
-}
-
-// diff.processString(src1:string, src2:string) {block?}
-Gura_DeclareFunction(processString)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "src1", VTYPE_string);
-	DeclareArg(env, "src2", VTYPE_string);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementFunction(processString)
-{
-	AutoPtr<Result> pResult(new Result());
-	pResult->ProcessString(args.GetString(0), args.GetString(1));
+	if (args.IsType(0, VTYPE_string)) {
+		DiffString::SplitLines(args.GetString(0), pResult->GetSeqA());
+	} else if (args.IsType(0, VTYPE_stream)) {
+		if (!DiffString::ReadLines(sig, args.GetStream(0), pResult->GetSeqA())) {
+			return Value::Null;
+		}
+	} else {
+		sig.SetError(ERR_TypeError, "difference source must be string or stream");
+		return Value::Null;
+	}
+	if (args.IsType(1, VTYPE_string)) {
+		DiffString::SplitLines(args.GetString(1), pResult->GetSeqB());
+	} else if (args.IsType(1, VTYPE_stream)) {
+		if (!DiffString::ReadLines(sig, args.GetStream(1), pResult->GetSeqB())) {
+			return Value::Null;
+		}
+	} else {
+		sig.SetError(ERR_TypeError, "difference source must be string or stream");
+		return Value::Null;
+	}
+	pResult->Process();
 	return ReturnValue(env, sig, args, Value(new Object_result(pResult.release())));
 }
 
@@ -517,6 +516,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(add);
 	Gura_RealizeUserSymbol(copy);
 	Gura_RealizeUserSymbol(delete);
+	Gura_RealizeUserSymbol(distance);
 	Gura_RealizeUserSymbol(edits);
 	Gura_RealizeUserSymbolAlias(lineno_at_org, "lineno@org");
 	Gura_RealizeUserSymbolAlias(lineno_at_new, "lineno@new");
@@ -534,8 +534,7 @@ Gura_ModuleEntry()
 	Gura_PrepareUserClass(edit);
 	Gura_PrepareUserClass(hunk);
 	// function assignment
-	Gura_AssignFunction(processStream);
-	Gura_AssignFunction(processString);
+	Gura_AssignFunction(diff);
 	return true;
 }
 

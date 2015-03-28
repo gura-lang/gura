@@ -11,6 +11,7 @@ Gura_BeginModuleHeader(diff)
 Gura_DeclareUserSymbol(add);
 Gura_DeclareUserSymbol(copy);
 Gura_DeclareUserSymbol(delete);
+Gura_DeclareUserSymbol(distance);
 Gura_DeclareUserSymbol(edits);
 Gura_DeclareUserSymbol(lineno_at_org);
 Gura_DeclareUserSymbol(lineno_at_new);
@@ -43,6 +44,8 @@ public:
 public:
 	inline DiffString() {}
 	inline const EditList &GetEditList() const { return getSes().getSequence(); }
+	static bool ReadLines(Signal sig, Stream &stream, std::vector<String> &seq);
+	static void SplitLines(const char *src, std::vector<String> &seq);
 };
 
 //-----------------------------------------------------------------------------
@@ -59,8 +62,10 @@ public:
 protected:
 	inline ~Result() {}
 public:
-	bool ProcessStream(Signal sig, Stream &src1, Stream &src2);
-	void ProcessString(const char *src1, const char *src2);
+	inline std::vector<String> &GetSeqA() { return _diffString.getA(); }
+	inline std::vector<String> &GetSeqB() { return _diffString.getB(); }
+	inline long long GetEditDistance() const { return _diffString.getEditDistance(); }
+	void Process();
 	static bool PrintEdit(Signal sig, Stream &stream, const DiffString::Edit &edit);
 	bool PrintEdits(Signal sig, Stream &stream) const;
 	bool PrintHunk(Signal sig, Stream &stream, const Hunk &hunk) const;
@@ -77,9 +82,6 @@ public:
 			(edit.second.type == dtl::SES_ADD)? "+" :
 			(edit.second.type == dtl::SES_DELETE)? "-" : " ";
 	}
-private:
-	static bool ReadLines(Signal sig, Stream &stream, std::vector<String> &seq);
-	static void SplitLines(const char *src, std::vector<String> &seq);
 };
 
 //-----------------------------------------------------------------------------

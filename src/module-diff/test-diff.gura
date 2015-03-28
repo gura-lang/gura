@@ -22,9 +22,9 @@ testcase {
 	I need to wash the car.
 	I need to get the dog detailed.
 	'''
-	diff.processString(textOrg, textNew).output@unified()
+	diff.diff(textOrg, textNew).output@unified()
 }
-sys.exit()
+
 testcase {
 	textOrg = R'''
 	I need to go to the store.
@@ -37,7 +37,7 @@ testcase {
 	Oh yeah, I also need to buy grated cheese.
 	When I get home, I'll wash the dog.
 	'''
-	diff.unidiff@string(textOrg, textNew, sys.stdout)
+	diff.diff(textOrg, textNew).output@unified()
 }
 
 testcase {
@@ -52,7 +52,7 @@ testcase {
 	I need to buy some apples.
 	When I get home, I'll wash the dog.
 	'''
-	diff.unidiff@string(textOrg, textNew, sys.stdout)
+	diff.diff(textOrg, textNew).output@unified()
 }
 
 testcase {
@@ -60,7 +60,7 @@ testcase {
 	'''
 	textNew = R'''
 	'''
-	diff.unidiff@string(textOrg, textNew, sys.stdout)
+	diff.diff(textOrg, textNew).output@unified()
 }
 
 testcase {
@@ -92,5 +92,5 @@ testcase {
 	Deeper and more profound,
 	The door of all subtleties!
 	'''
-	diff.unidiff@string(textOrg, textNew, sys.stdout)
+	diff.diff(textOrg, textNew).output@unified()
 }
