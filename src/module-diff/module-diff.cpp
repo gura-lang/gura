@@ -249,7 +249,9 @@ Gura_DeclareMethod(result, eachedit)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that returns `diff.edit` instance stored in the result.\n"
+		"\n"
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(result, eachedit)
@@ -267,7 +269,9 @@ Gura_DeclareMethod(result, eachhunk)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that returns `diff.hunk` instance stored in the result.\n"
+		"\n"
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(result, eachhunk)
@@ -278,17 +282,29 @@ Gura_ImplementMethod(result, eachhunk)
 	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
-// diff.result#render(out?:stream:w, format?:symbol, lines?:number):void
+// diff.result#render(out?:stream:w, format?:symbol, lines?:number)
 Gura_DeclareMethodAlias(result, render, "render")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	DeclareArg(env, "format", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "lines", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Renders diff result to the specified stream.\n"
+		"\n"
+		"If the argument `out` is omitted, this method returns a string of the rendered text.\n"
+		"Otherwise, it returns `nil`.\n"
+		"\n"
+		"The argument `format` takes one of the symbols that specifies the rendering format:\n"
+		"\n"
+		"- `` `legacy`` .. Legacy format (not supported yet).\n"
+		"- `` `context`` .. Context format (not supported yet).\n"
+		"- `` `unified`` .. Unified format.\n"
+		"\n"
+		"The argument `lines` specifies a number of common lines appended before and after\n"
+		"different lines\n");
 }
 
 Gura_ImplementMethod(result, render)
@@ -398,7 +414,7 @@ Gura_DeclareMethod(edit, print)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Prints the content of the `diff.edit` instance to the specified stream.\n");
 }
 
 Gura_ImplementMethod(edit, print)
@@ -479,7 +495,13 @@ Gura_DeclareMethod(hunk, print)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Prints the content of the `diff.hunk` instance to the specified stream.\n"
+		"\n"
+		"The argument `format` takes one of the symbols that specifies the rendering format:\n"
+		"\n"
+		"- `` `legacy`` .. Legacy format (not supported yet).\n"
+		"- `` `context`` .. Context format (not supported yet).\n"
+		"- `` `unified`` .. Unified format.\n");
 }
 
 Gura_ImplementMethod(hunk, print)
@@ -589,7 +611,10 @@ Gura_DeclareFunction(compose)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Calculates differences between string sources and returns `diff.result` instance\n"
+		"that contains the difference information.\n"
+		"\n"
+		"You can specify a `string` or `stream` for the argument `src1` and `src2`.\n");
 }
 
 Gura_ImplementFunction(compose)
