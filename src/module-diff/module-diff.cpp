@@ -160,10 +160,22 @@ bool Result::NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const
 		}
 		*pIdxEdit = idxEdit;
 		pHunk->idxEditEnd = idxEdit;
+		for (size_t idxEdit = pHunk->idxEditBegin; idxEdit < pHunk->idxEditEnd; idxEdit++) {
+			const DiffString::Edit &edit = GetEdit(idxEdit);
+			if (edit.second.beforeIdx > 0) {
+				pHunk->linenoOrg = edit.second.beforeIdx;
+				break;
+			}
+		}
+		for (size_t idxEdit = pHunk->idxEditBegin; idxEdit < pHunk->idxEditEnd; idxEdit++) {
+			const DiffString::Edit &edit = GetEdit(idxEdit);
+			if (edit.second.afterIdx > 0) {
+				pHunk->linenoNew = edit.second.afterIdx;
+				break;
+			}
+		}
 		do {
 			const DiffString::Edit &edit = GetEdit(pHunk->idxEditBegin);
-			pHunk->linenoOrg = edit.second.beforeIdx;
-			pHunk->linenoNew = edit.second.afterIdx;
 			if (pHunk->linenoOrg == 0 && pHunk->idxEditBegin > 0) {
 				const DiffString::Edit &edit = GetEdit(pHunk->idxEditBegin - 1);
 				pHunk->linenoOrg = edit.second.beforeIdx;
