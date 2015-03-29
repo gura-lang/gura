@@ -9,10 +9,12 @@
 Gura_BeginModuleHeader(diff)
 
 Gura_DeclareUserSymbol(add);
+Gura_DeclareUserSymbol(context);
 Gura_DeclareUserSymbol(copy);
 Gura_DeclareUserSymbol(delete);
 Gura_DeclareUserSymbol(distance);
 Gura_DeclareUserSymbol(edits);
+Gura_DeclareUserSymbol(legacy);
 Gura_DeclareUserSymbol(lineno_at_org);
 Gura_DeclareUserSymbol(lineno_at_new);
 Gura_DeclareUserSymbol(mark);
@@ -26,13 +28,23 @@ Gura_DeclareUserSymbol(unified);
 // Hunk
 //-----------------------------------------------------------------------------
 struct Hunk {
+public:
+	enum Format {
+		FORMAT_None,
+		FORMAT_Legacy,
+		FORMAT_Context,
+		FORMAT_Unified,
+	};
+public:
 	size_t idxEditBegin;
 	size_t idxEditEnd;
 	size_t linenoOrg;
 	size_t linenoNew;
 	size_t nLinesOrg;
 	size_t nLinesNew;
+public:
 	String TextizeUnifiedRange() const;
+	static Format SymbolToFormat(const Symbol *pSymbol);
 };
 
 //-----------------------------------------------------------------------------

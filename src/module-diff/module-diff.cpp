@@ -27,6 +27,15 @@ String Hunk::TextizeUnifiedRange() const
 	return str;
 }
 
+Hunk::Format Hunk::SymbolToFormat(const Symbol *pSymbol)
+{
+	return
+		pSymbol->IsIdentical(Gura_UserSymbol(legacy))? FORMAT_Legacy :
+		pSymbol->IsIdentical(Gura_UserSymbol(context))? FORMAT_Context :
+		pSymbol->IsIdentical(Gura_UserSymbol(unified))? FORMAT_Unified :
+		FORMAT_None;
+}
+
 //-----------------------------------------------------------------------------
 // DiffString
 //-----------------------------------------------------------------------------
@@ -244,11 +253,12 @@ Gura_ImplementMethod(result, eachhunk)
 	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
-// diff.result#render@unified(out?:stream:w, lines?:number):void
-Gura_DeclareMethodAlias(result, render_at_unified, "render@unified")
+// diff.result#render(out?:stream:w, format?:symbol, lines?:number):void
+Gura_DeclareMethodAlias(result, render, "render")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	DeclareArg(env, "format", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "lines", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -256,10 +266,15 @@ Gura_DeclareMethodAlias(result, render_at_unified, "render@unified")
 		"");
 }
 
-Gura_ImplementMethod(result, render_at_unified)
+Gura_ImplementMethod(result, render)
 {
 	Result *pResult = Object_result::GetThisObj(args)->GetResult();
-	size_t nLinesCommon = args.IsValid(1)? args.GetSizeT(1) : 3;
+	Hunk::Format format = Hunk::SymbolToFormat(args.GetSymbol(1));
+	if (format == Hunk::FORMAT_None) {
+		sig.SetError(ERR_ValueError, "invalid symbol for the argument format");
+		return Value::Null;
+	}
+	size_t nLinesCommon = args.IsValid(2)? args.GetSizeT(2) : 3;
 	if (args.IsValid(0)) {
 		Stream &streamOut = args.GetStream(0);
 		pResult->PrintHunks(sig, streamOut, nLinesCommon);
@@ -280,7 +295,7 @@ Gura_ImplementUserClass(result)
 	Gura_AssignValue(result, Value(Reference()));
 	Gura_AssignMethod(result, eachedit);
 	Gura_AssignMethod(result, eachhunk);
-	Gura_AssignMethod(result, render_at_unified);
+	Gura_AssignMethod(result, render);
 }
 
 //-----------------------------------------------------------------------------
@@ -572,10 +587,12 @@ Gura_ModuleEntry()
 {
 	// symbol realization
 	Gura_RealizeUserSymbol(add);
+	Gura_RealizeUserSymbol(context);
 	Gura_RealizeUserSymbol(copy);
 	Gura_RealizeUserSymbol(delete);
 	Gura_RealizeUserSymbol(distance);
 	Gura_RealizeUserSymbol(edits);
+	Gura_RealizeUserSymbol(legacy);
 	Gura_RealizeUserSymbolAlias(lineno_at_org, "lineno@org");
 	Gura_RealizeUserSymbolAlias(lineno_at_new, "lineno@new");
 	Gura_RealizeUserSymbol(mark);
