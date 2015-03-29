@@ -259,10 +259,17 @@ Gura_DeclareMethodAlias(result, render_at_unified, "render@unified")
 Gura_ImplementMethod(result, render_at_unified)
 {
 	Result *pResult = Object_result::GetThisObj(args)->GetResult();
-	Stream &stream = args.IsValid(0)? args.GetStream(0) : *env.GetConsole();
 	size_t nLinesCommon = args.IsValid(1)? args.GetSizeT(1) : 3;
-	pResult->PrintHunks(sig, stream, nLinesCommon);
-	return Value::Null;
+	if (args.IsValid(0)) {
+		Stream &streamOut = args.GetStream(0);
+		pResult->PrintHunks(sig, streamOut, nLinesCommon);
+		return Value::Null;
+	} else {
+		String strOut;
+		SimpleStream_StringWriter streamOut(strOut);
+		pResult->PrintHunks(sig, streamOut, nLinesCommon);
+		return Value(strOut);
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -527,8 +534,8 @@ void IteratorHunk::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &en
 //-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
-// diff.diff(src1, src2) {block?}
-Gura_DeclareFunction(diff)
+// diff.compose(src1, src2) {block?}
+Gura_DeclareFunction(compose)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "src1", VTYPE_any);
@@ -539,28 +546,20 @@ Gura_DeclareFunction(diff)
 		"");
 }
 
-Gura_ImplementFunction(diff)
+Gura_ImplementFunction(compose)
 {
 	AutoPtr<Result> pResult(new Result());
-	if (args.IsType(0, VTYPE_string)) {
-		DiffString::SplitLines(args.GetString(0), pResult->GetSeqA());
-	} else if (args.IsType(0, VTYPE_stream)) {
-		if (!DiffString::ReadLines(sig, args.GetStream(0), pResult->GetSeqA())) {
+	for (size_t i = 0; i < 2; i++) {
+		if (args.IsType(i, VTYPE_string)) {
+			DiffString::SplitLines(args.GetString(i), pResult->GetSeq(i));
+		} else if (args.IsType(i, VTYPE_stream)) {
+			if (!DiffString::ReadLines(sig, args.GetStream(i), pResult->GetSeq(i))) {
+				return Value::Null;
+			}
+		} else {
+			sig.SetError(ERR_TypeError, "difference source must be string or stream");
 			return Value::Null;
 		}
-	} else {
-		sig.SetError(ERR_TypeError, "difference source must be string or stream");
-		return Value::Null;
-	}
-	if (args.IsType(1, VTYPE_string)) {
-		DiffString::SplitLines(args.GetString(1), pResult->GetSeqB());
-	} else if (args.IsType(1, VTYPE_stream)) {
-		if (!DiffString::ReadLines(sig, args.GetStream(1), pResult->GetSeqB())) {
-			return Value::Null;
-		}
-	} else {
-		sig.SetError(ERR_TypeError, "difference source must be string or stream");
-		return Value::Null;
 	}
 	pResult->Compose();
 	return ReturnValue(env, sig, args, Value(new Object_result(pResult.release())));
@@ -594,7 +593,7 @@ Gura_ModuleEntry()
 	Gura_PrepareUserClass(edit);
 	Gura_PrepareUserClass(hunk);
 	// function assignment
-	Gura_AssignFunction(diff);
+	Gura_AssignFunction(compose);
 	return true;
 }
 
