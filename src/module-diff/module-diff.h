@@ -70,10 +70,10 @@ public:
 protected:
 	inline ~Result() {}
 public:
+	inline long long GetEditDistance() const { return _diffString.getEditDistance(); }
 	inline std::vector<String> &GetSeq(size_t idx) {
 		return (idx == 0)? _diffString.getA() : _diffString.getB();
 	}
-	inline long long GetEditDistance() const { return _diffString.getEditDistance(); }
 	void Compose();
 	bool PrintEdit(Signal sig, SimpleStream &stream, size_t idxEdit);
 	bool PrintEdits(Signal sig, SimpleStream &stream) const;
