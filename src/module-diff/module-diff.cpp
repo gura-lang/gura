@@ -196,6 +196,8 @@ bool Object_result::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(distance));
+	symbols.insert(Gura_UserSymbol(nlines_at_org));
+	symbols.insert(Gura_UserSymbol(nlines_at_new));
 	return true;
 }
 
@@ -205,6 +207,10 @@ Value Object_result::DoGetProp(Environment &env, Signal sig, const Symbol *pSymb
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(distance))) {
 		return Value(_pResult->GetEditDistance());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(nlines_at_org))) {
+		return Value(_pResult->GetSeq(0).size());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(nlines_at_new))) {
+		return Value(_pResult->GetSeq(1).size());
 	}
 	evaluatedFlag = false;
 	return Value::Null;
