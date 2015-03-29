@@ -614,7 +614,19 @@ Gura_DeclareFunction(compose)
 		"Calculates differences between string sources and returns `diff.result` instance\n"
 		"that contains the difference information.\n"
 		"\n"
-		"You can specify a `string` or `stream` for the argument `src1` and `src2`.\n");
+		"You can specify a `string` or `stream` for the argument `src1` and `src2`.\n"
+		"\n"
+		"Below is an example to compare between two strings:\n"
+		"\n"
+		"    result = diff.compose(txtOrg, txtNew)\n"
+		"\n"
+		"Below is an example to compare between two files:\n"
+		"\n"
+		"    result = diff.compose(open('org.txt'), open('new.txt'))\n"
+		"\n"
+		"Below is an example to compare between a file and a string:\n"
+		"\n"
+		"    result = diff.compose(open('org.txt'), txtNew)\n");
 }
 
 Gura_ImplementFunction(compose)

@@ -11,6 +11,7 @@ baseNames = [
 	'conio'
 	'csv'
 	'curl'
+	'diff'
 	'emf'
 	'example'
 	'freetype'
