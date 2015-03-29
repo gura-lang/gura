@@ -27,13 +27,18 @@ String Hunk::TextizeUnifiedRange() const
 	return str;
 }
 
-Hunk::Format Hunk::SymbolToFormat(const Symbol *pSymbol)
+Hunk::Format Hunk::SymbolToFormat(Signal sig, const Symbol *pSymbol)
 {
-	return
-		pSymbol->IsIdentical(Gura_UserSymbol(legacy))? FORMAT_Legacy :
-		pSymbol->IsIdentical(Gura_UserSymbol(context))? FORMAT_Context :
-		pSymbol->IsIdentical(Gura_UserSymbol(unified))? FORMAT_Unified :
-		FORMAT_None;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(legacy))) {
+		return FORMAT_Legacy;
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(context))) {
+		return FORMAT_Context;
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(unified))) {
+		return FORMAT_Unified;
+	} else {		
+		sig.SetError(ERR_ValueError, "invalid symbol for the format");
+		return FORMAT_None;
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -103,7 +108,8 @@ bool Result::PrintEdits(Signal sig, SimpleStream &stream) const
 	return true;
 }
 
-bool Result::PrintHunk(Signal sig, SimpleStream &stream, const Hunk &hunk) const
+bool Result::PrintHunk(Signal sig, SimpleStream &stream,
+					   Hunk::Format format, const Hunk &hunk) const
 {
 	const DiffString::EditList &edits = _diffString.GetEditList();
 	DiffString::EditList::const_iterator pEdit = edits.begin() + hunk.idxEditBegin;
@@ -115,12 +121,13 @@ bool Result::PrintHunk(Signal sig, SimpleStream &stream, const Hunk &hunk) const
 	return true;
 }
 
-bool Result::PrintHunks(Signal sig, SimpleStream &stream, size_t nLinesCommon) const
+bool Result::PrintHunks(Signal sig, SimpleStream &stream,
+						Hunk::Format format, size_t nLinesCommon) const
 {
 	size_t idxEdit = 0;
 	Hunk hunk;
 	while (NextHunk(&idxEdit, nLinesCommon, &hunk)) {
-		if (!PrintHunk(sig, stream, hunk)) return false;
+		if (!PrintHunk(sig, stream, format, hunk)) return false;
 	}
 	return true;
 }
@@ -269,20 +276,17 @@ Gura_DeclareMethodAlias(result, render, "render")
 Gura_ImplementMethod(result, render)
 {
 	Result *pResult = Object_result::GetThisObj(args)->GetResult();
-	Hunk::Format format = Hunk::SymbolToFormat(args.GetSymbol(1));
-	if (format == Hunk::FORMAT_None) {
-		sig.SetError(ERR_ValueError, "invalid symbol for the argument format");
-		return Value::Null;
-	}
+	Hunk::Format format = Hunk::SymbolToFormat(sig, args.GetSymbol(1));
+	if (format == Hunk::FORMAT_None) return Value::Null;
 	size_t nLinesCommon = args.IsValid(2)? args.GetSizeT(2) : 3;
 	if (args.IsValid(0)) {
 		Stream &streamOut = args.GetStream(0);
-		pResult->PrintHunks(sig, streamOut, nLinesCommon);
+		pResult->PrintHunks(sig, streamOut, format, nLinesCommon);
 		return Value::Null;
 	} else {
 		String strOut;
 		SimpleStream_StringWriter streamOut(strOut);
-		pResult->PrintHunks(sig, streamOut, nLinesCommon);
+		pResult->PrintHunks(sig, streamOut, format, nLinesCommon);
 		return Value(strOut);
 	}
 }
@@ -445,11 +449,12 @@ String Object_hunk::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Methods of diff.hunk
 //-----------------------------------------------------------------------------
-// diff.hunk#print(out?:stream:w):void
+// diff.hunk#print(out?:stream:w, format?:symbol):void
 Gura_DeclareMethod(hunk, print)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "format", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -460,7 +465,9 @@ Gura_ImplementMethod(hunk, print)
 {
 	Object_hunk *pThis = Object_hunk::GetThisObj(args);
 	Stream &stream = args.IsValid(0)? args.GetStream(0) : *env.GetConsole();
-	pThis->GetResult()->PrintHunk(sig, stream, pThis->GetHunk());
+	Hunk::Format format = Hunk::SymbolToFormat(sig, args.GetSymbol(1));
+	if (format == Hunk::FORMAT_None) return Value::Null;
+	pThis->GetResult()->PrintHunk(sig, stream, format, pThis->GetHunk());
 	return Value::Null;
 }
 

@@ -44,7 +44,7 @@ public:
 	size_t nLinesNew;
 public:
 	String TextizeUnifiedRange() const;
-	static Format SymbolToFormat(const Symbol *pSymbol);
+	static Format SymbolToFormat(Signal sig, const Symbol *pSymbol);
 };
 
 //-----------------------------------------------------------------------------
@@ -89,8 +89,10 @@ public:
 	void Compose();
 	bool PrintEdit(Signal sig, SimpleStream &stream, size_t idxEdit);
 	bool PrintEdits(Signal sig, SimpleStream &stream) const;
-	bool PrintHunk(Signal sig, SimpleStream &stream, const Hunk &hunk) const;
-	bool PrintHunks(Signal sig, SimpleStream &stream, size_t nLinesCommon) const;
+	bool PrintHunk(Signal sig, SimpleStream &stream,
+				   Hunk::Format format, const Hunk &hunk) const;
+	bool PrintHunks(Signal sig, SimpleStream &stream,
+					Hunk::Format format, size_t nLinesCommon) const;
 	bool NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const;
 	inline size_t CountEdits() const {
 		return _diffString.GetEditList().size();
