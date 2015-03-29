@@ -276,8 +276,11 @@ Gura_DeclareMethodAlias(result, render, "render")
 Gura_ImplementMethod(result, render)
 {
 	Result *pResult = Object_result::GetThisObj(args)->GetResult();
-	Hunk::Format format = Hunk::SymbolToFormat(sig, args.GetSymbol(1));
-	if (format == Hunk::FORMAT_None) return Value::Null;
+	Hunk::Format format = Hunk::FORMAT_Unified;
+	if (args.IsValid(1)) {
+		format = Hunk::SymbolToFormat(sig, args.GetSymbol(1));
+		if (format == Hunk::FORMAT_None) return Value::Null;
+	}
 	size_t nLinesCommon = args.IsValid(2)? args.GetSizeT(2) : 3;
 	if (args.IsValid(0)) {
 		Stream &streamOut = args.GetStream(0);
@@ -465,8 +468,11 @@ Gura_ImplementMethod(hunk, print)
 {
 	Object_hunk *pThis = Object_hunk::GetThisObj(args);
 	Stream &stream = args.IsValid(0)? args.GetStream(0) : *env.GetConsole();
-	Hunk::Format format = Hunk::SymbolToFormat(sig, args.GetSymbol(1));
-	if (format == Hunk::FORMAT_None) return Value::Null;
+	Hunk::Format format = Hunk::FORMAT_Unified;
+	if (args.IsValid(1)) {
+		format = Hunk::SymbolToFormat(sig, args.GetSymbol(1));
+		if (format == Hunk::FORMAT_None) return Value::Null;
+	}
 	pThis->GetResult()->PrintHunk(sig, stream, format, pThis->GetHunk());
 	return Value::Null;
 }

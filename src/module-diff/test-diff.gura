@@ -59,7 +59,7 @@ testcase {
 	important new additions
 	to this document.
 	'''
-	diff.compose(textOrg, textNew).render@unified(sys.stdout)
+	diff.compose(textOrg, textNew).render(sys.stdout)
 }
 
 testcase {
@@ -94,7 +94,7 @@ testcase {
 	I need to wash the car.
 	I need to get the dog detailed.
 	'''
-	diff.compose(textOrg, textNew).render@unified(sys.stdout)
+	diff.compose(textOrg, textNew).render(sys.stdout)
 }
 
 testcase {
@@ -109,7 +109,7 @@ testcase {
 	Oh yeah, I also need to buy grated cheese.
 	When I get home, I'll wash the dog.
 	'''
-	diff.compose(textOrg, textNew).render@unified(sys.stdout)
+	diff.compose(textOrg, textNew).render(sys.stdout)
 }
 
 testcase {
@@ -124,7 +124,7 @@ testcase {
 	I need to buy some apples.
 	When I get home, I'll wash the dog.
 	'''
-	diff.compose(textOrg, textNew).render@unified(sys.stdout)
+	diff.compose(textOrg, textNew).render(sys.stdout)
 }
 
 testcase {
@@ -132,7 +132,7 @@ testcase {
 	'''
 	textNew = R'''
 	'''
-	diff.compose(textOrg, textNew).render@unified(sys.stdout)
+	diff.compose(textOrg, textNew).render(sys.stdout)
 }
 
 testcase {
@@ -164,5 +164,5 @@ testcase {
 	Deeper and more profound,
 	The door of all subtleties!
 	'''
-	diff.compose(textOrg, textNew).render@unified(sys.stdout)
+	diff.compose(textOrg, textNew).render(sys.stdout)
 }
