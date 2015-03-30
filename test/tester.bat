@@ -65,11 +65,11 @@ set cases=%cases% xml
 set cases=%cases% xpm
 set cases=%cases% yaml
 
-set options=""
+set options=
 if "%1" == "" goto usage
 if "%1" == "all" goto all
 set cases=%1
-set options="--detail"
+set options=--detail
 :all
 if "%2" == "genscript" goto genscript
 if "%2" == "update" goto update
