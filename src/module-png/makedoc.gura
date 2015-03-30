@@ -8,8 +8,6 @@ text = R'''
 The `png` module provides measures to read/write image data in PNG format.
 To utilize it, import the `png` module using `import` function.
 
-This uses `libpng` library that is published in the URL: http://www.libpng.org/pub/png/libpng.html.
-
 Below is an example to read a PNG file:
 
     import(png)
@@ -41,6 +39,12 @@ ${markdown.funcdoc(
 image.read@png
 image.write@png
 )}
+
+## Thanks
+
+This module uses libpng library which is distributed in the following site:
+
+[http://www.libpng.org/pub/png/libpng.html](http://www.libpng.org/pub/png/libpng.html)
 '''.template().render()
 
 write(doc:markdown.document) = {

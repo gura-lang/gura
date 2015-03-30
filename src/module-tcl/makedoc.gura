@@ -48,6 +48,13 @@ ${markdown.funcdoc(
 image.read@tcl
 image.write@tcl
 )}
+
+
+## Thanks
+
+This module uses Tcl library which is distributed in the following site:
+
+[http://www.tcl.tk/](http://www.tcl.tk/)
 '''.template().render()
 
 write(doc:markdown.document) = {

@@ -39,7 +39,7 @@ stream.writer@bzip2
 
 ## Thanks
 
-This module uses libbzip2 which official site is:
+This module uses libbzip2 which is distributed in the following site:
 
 [http://www.bzip.org/](http://www.bzip.org/)
 '''.template().render()

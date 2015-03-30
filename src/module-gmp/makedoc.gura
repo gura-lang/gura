@@ -537,7 +537,7 @@ string.cast@mpz
 
 ## Thanks
 
-This module uses GMP and its forked project MPIR which official sites are:
+This module uses GMP and its forked project MPIR which are distributed in the following sites:
 
 - [https://gmplib.org](https://gmplib.org)
 - [http://www.mpir.org/](http://www.mpir.org/)

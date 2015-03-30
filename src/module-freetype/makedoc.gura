@@ -181,7 +181,7 @@ image.drawtext
 
 ## Thanks
 
-This module uses FreeType library which official site is :
+This module uses FreeType library which is distributed in the following site:
 
 [http://www.freetype.org/](http://www.freetype.org/)
 '''.template().render()

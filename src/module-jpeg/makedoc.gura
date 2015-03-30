@@ -154,6 +154,13 @@ ${markdown.funcdoc(
 image.read@jpeg
 image.write@jpeg
 )}
+
+
+## Thanks
+
+This module uses JPEG library which is distributed in the following site:
+
+[http://www.ijg.org/](http://www.ijg.org/)
 '''.template().render()
 
 write(doc:markdown.document) = doc << text

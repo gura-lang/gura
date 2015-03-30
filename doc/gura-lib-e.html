@@ -11121,6 +11121,13 @@ The argument <code>blockSize100k</code> takes a number between 1 and 9 that spec
 <p>
 If <code>block</code> is specified, it would be evaluated with a block parameter <code>|st:stream|</code>, where <code>st</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
+<h2><span class="caption-index-2">9.3</span><a name="caption-9-3"></a>Thanks</h2>
+<p>
+This module uses libbzip2 which is distributed in the following site:
+</p>
+<p>
+<a href="http://www.bzip.org/">http://www.bzip.org/</a>
+</p>
 <h1><span class="caption-index-1">10</span><a name="caption-10"></a>cairo Module</h1>
 <pre><code>
 </code></pre>
@@ -13093,6 +13100,13 @@ Initializes cURL and returns a easy<em>handle object.</em>
 <p>
 <code>curl.easy_handle#unescape(string:string):void</code>
 </p>
+<h2><span class="caption-index-2">13.3</span><a name="caption-13-3"></a>Thanks</h2>
+<p>
+This module uses libcurl which is distributed in the following site:
+</p>
+<p>
+<a href="http://curl.haxx.se/libcurl/">http://curl.haxx.se/libcurl/</a>
+</p>
 <h1><span class="caption-index-1">14</span><a name="caption-14"></a>diff Module</h1>
 <p>
 The <code>diff</code> module provices measures to detect differences between texts. To utilize it, import the <code>diff</code> module using <code>import</code> function.
@@ -13113,17 +13127,20 @@ You can specify a <code>string</code> or <code>stream</code> for the argument <c
 <p>
 Below is an example to compare between two strings:
 </p>
-<pre><code>result = diff.compose(txtOrg, txtNew)
+<pre><code>strOrg = '...'
+strNew = '...'
+result = diff.compose(strOrg, strNew)
 </code></pre>
 <p>
 Below is an example to compare between two files:
 </p>
-<pre><code>result = diff.compose(open('org.txt'), open('new.txt'))
+<pre><code>result = diff.compose(stream('org.txt'), stream('new.txt'))
 </code></pre>
 <p>
 Below is an example to compare between a file and a string:
 </p>
-<pre><code>result = diff.compose(open('org.txt'), txtNew)
+<pre><code>strNew = '...'
+result = diff.compose(stream('org.txt'), strNew)
 </code></pre>
 <h2><span class="caption-index-2">14.2</span><a name="caption-14-2"></a>diff.result Class</h2>
 <p>
@@ -13530,6 +13547,13 @@ The argument <code>format</code> takes one of the symbols that specifies the ren
 <li><code>`context</code> .. Context format (not supported yet).</li>
 <li><code>`unified</code> .. Unified format.</li>
 </ul>
+<h2><span class="caption-index-2">14.5</span><a name="caption-14-5"></a>Thanks</h2>
+<p>
+This module uses dtl (Diff Template Library) which is distributed in the following site:
+</p>
+<p>
+<a href="https://code.google.com/p/dtl-cpp/">https://code.google.com/p/dtl-cpp/</a>
+</p>
 <h1><span class="caption-index-1">15</span><a name="caption-15"></a>emf Module</h1>
 <p>
 The <code>emf</code> module provices measures to read/write EMF (Enhanced Meta File) files.
@@ -13812,6 +13836,13 @@ This module extends the <code>image</code> class with methods described here.
 </p>
 <p>
 Draws a text on the image.
+</p>
+<h2><span class="caption-index-2">16.26</span><a name="caption-16-26"></a>Thanks</h2>
+<p>
+This module uses FreeType library which is distributed in the following site:
+</p>
+<p>
+<a href="http://www.freetype.org/">http://www.freetype.org/</a>
 </p>
 <h1><span class="caption-index-1">17</span><a name="caption-17"></a>fs Module</h1>
 <p>
@@ -15158,18 +15189,19 @@ The <code>glut</code> module provides functions of GLUT library.
 <p>
 <code>glut.glutGameModeGet(mode:number):map {block?}</code>
 </p>
+<h2><span class="caption-index-2">20.2</span><a name="caption-20-2"></a>Thanks</h2>
+<p>
+This module uses freeglut which official site is:
+</p>
+<p>
+<a href="http://freeglut.sourceforge.net/">http://freeglut.sourceforge.net/</a>
+</p>
 <h1><span class="caption-index-1">21</span><a name="caption-21"></a>gmp Module</h1>
 <p>
 The <code>gmp</code> module provides measures to calculate numbers with multiple precision using GMP library. To utilize it, import the <code>gmp</code> module using <code>import</code> function.
 </p>
 <p>
 It expands features of operators like addition and multiplier so that they can calculate such numbers.
-</p>
-<p>
-The official site of GMP is:
-</p>
-<p>
-<a href="https://gmplib.org">https://gmplib.org</a>
 </p>
 <h2><span class="caption-index-2">21.1</span><a name="caption-21-1"></a>Operator</h2>
 <p>
@@ -17907,6 +17939,14 @@ You can specify the basement of the number format by the argument <code>base</co
 <p>
 If <code>block</code> is specified, it would be evaluated with a block parameter <code>|num:gmp.mpz|</code>, where <code>num</code> is the created instance. In this case, the block's result would become the function's returned value.
 </p>
+<h2><span class="caption-index-2">21.7</span><a name="caption-21-7"></a>Thanks</h2>
+<p>
+This module uses GMP and its forked project MPIR which are distributed in the following sites:
+</p>
+<ul>
+<li><a href="https://gmplib.org">https://gmplib.org</a></li>
+<li><a href="http://www.mpir.org/">http://www.mpir.org/</a></li>
+</ul>
 <h1><span class="caption-index-1">22</span><a name="caption-22"></a>guri Module</h1>
 <h3><span class="caption-index-3">22.0.1</span><a name="caption-22-0-1"></a>Module Function</h3>
 <h1><span class="caption-index-1">23</span><a name="caption-23"></a>gzip Module</h1>
@@ -17953,6 +17993,13 @@ This module extends the <code>stream</code> class with methods described here.
 </p>
 <p>
 <code>stream#writer@gzip(level?:number) {block?}</code>
+</p>
+<h2><span class="caption-index-2">23.3</span><a name="caption-23-3"></a>Thanks</h2>
+<p>
+This module uses zlib which official site is:
+</p>
+<p>
+<a href="http://zlib.net/">http://zlib.net/</a>
 </p>
 <h1><span class="caption-index-1">24</span><a name="caption-24"></a>hash Module</h1>
 <p>
@@ -18544,6 +18591,13 @@ Reads a JPEG image data from a stream.
 </p>
 <p>
 Writes a JPEG image data to a stream.
+</p>
+<h2><span class="caption-index-2">26.6</span><a name="caption-26-6"></a>Thanks</h2>
+<p>
+This module uses JPEG library which is distributed in the following site:
+</p>
+<p>
+<a href="http://www.ijg.org/">http://www.ijg.org/</a>
 </p>
 <h1><span class="caption-index-1">27</span><a name="caption-27"></a>llvm Module</h1>
 <h2><span class="caption-index-2">27.1</span><a name="caption-27-1"></a>Module Functions</h2>
@@ -22176,9 +22230,6 @@ If a block is specified, it would be evaluated repeatingly with block parameters
 The <code>png</code> module provides measures to read/write image data in PNG format. To utilize it, import the <code>png</code> module using <code>import</code> function.
 </p>
 <p>
-This uses <code>libpng</code> library that is published in the URL: http://www.libpng.org/pub/png/libpng.html.
-</p>
-<p>
 Below is an example to read a PNG file:
 </p>
 <pre><code>import(png)
@@ -22223,6 +22274,13 @@ Reads a PNG image from a stream.
 </p>
 <p>
 Writes a PNG image to a stream.
+</p>
+<h2><span class="caption-index-2">36.4</span><a name="caption-36-4"></a>Thanks</h2>
+<p>
+This module uses libpng library which is distributed in the following site:
+</p>
+<p>
+<a href="http://www.libpng.org/pub/png/libpng.html">http://www.libpng.org/pub/png/libpng.html</a>
 </p>
 <h1><span class="caption-index-1">37</span><a name="caption-37"></a>postgresql Module</h1>
 <h2><span class="caption-index-2">37.1</span><a name="caption-37-1"></a>Module Functions</h2>
@@ -22278,12 +22336,6 @@ Writes a PPM/PGM image to a stream.
 <h1><span class="caption-index-1">39</span><a name="caption-39"></a>re Module</h1>
 <p>
 The <code>re</code> module provides measures to operate strings with a regular expression. To utilize it, import the <code>re</code> module using <code>import</code> function.
-</p>
-<p>
-This module uses Oniguruma to handle regular expressions. The official site of Oniguruma is:
-</p>
-<p>
-<a href="http://www.geocities.jp/kosako3/oniguruma/index.html">http://www.geocities.jp/kosako3/oniguruma/index.html</a>
 </p>
 <p>
 This module provides three different forms of function that has the same feature as below:
@@ -23025,6 +23077,13 @@ In default, this returns an iterator as its result value. Specifying the followi
 </ul>
 <p>
 If a block is specified, it would be evaluated repeatingly with block parameters <code>|value, idx:number|</code> where <code>value</code> is the iterated value and <code>idx</code> the loop index starting from zero. In this case, the last evaluated value of the block would be the result value. If one of the attributes listed above is specified, an iterator or a list of the evaluated value would be returned.
+</p>
+<h2><span class="caption-index-2">39.8</span><a name="caption-39-8"></a>Thanks</h2>
+<p>
+This module uses Oniguruma library which is distributed in the following site:
+</p>
+<p>
+<a href="http://www.geocities.jp/kosako3/oniguruma/index.html">http://www.geocities.jp/kosako3/oniguruma/index.html</a>
 </p>
 <h1><span class="caption-index-1">40</span><a name="caption-40"></a>sdl2 Module</h1>
 <p>
@@ -26234,6 +26293,13 @@ It is possible for multiple errors to occur before calling <code>SDL_GetError()<
 <h2><span class="caption-index-2">40.23</span><a name="caption-40-23"></a>sdl2.HapticEffect Class</h2>
 <h2><span class="caption-index-2">40.24</span><a name="caption-40-24"></a>sdl2.Surface Class</h2>
 <h2><span class="caption-index-2">40.25</span><a name="caption-40-25"></a>sdl2.Finger Class</h2>
+<h2><span class="caption-index-2">40.26</span><a name="caption-40-26"></a>Thanks</h2>
+<p>
+This module uses SDL2 library which is distributed in the following site:
+</p>
+<p>
+<a href="http://www.libsdl.org/">http://www.libsdl.org/</a>
+</p>
 <h1><span class="caption-index-1">41</span><a name="caption-41"></a>sqlite3 Module</h1>
 <p>
 The <code>sqlite3</code> module provices measures to access SQLite3 database. To utilize it, import the <code>sqlite3</code> module using <code>import</code> function.
@@ -26299,6 +26365,13 @@ Executes the block within a transaction. The process is like following:
 <li>Executes code in the block</li>
 <li>Executes a sqlite3 command 'END TRANSACTION'</li>
 </ol>
+<h2><span class="caption-index-2">41.3</span><a name="caption-41-3"></a>Thanks</h2>
+<p>
+This module uses SQlite3 library which is distributed in the following site:
+</p>
+<p>
+<a href="http://www.sqlite.org/index.html">http://www.sqlite.org/index.html</a>
+</p>
 <h1><span class="caption-index-1">42</span><a name="caption-42"></a>sys Module</h1>
 <p>
 The <code>sys</code> module provides system-related information. This is a built-in module, so you can use it without being imported.
@@ -26393,6 +26466,14 @@ The <code>tar</code> module provides measures to read/write TAR files. To utiliz
 <p>
 <code>tar.writer#close():reduce</code>
 </p>
+<h2><span class="caption-index-2">43.3</span><a name="caption-43-3"></a>Thanks</h2>
+<p>
+This module uses zlib and bzip2 library which are distributed in the following sites:
+</p>
+<ul>
+<li><a href="http://zlib.net/">http://zlib.net/</a></li>
+<li><a href="http://www.bzip.org/">http://www.bzip.org/</a></li>
+</ul>
 <h1><span class="caption-index-1">44</span><a name="caption-44"></a>tester Module</h1>
 <h2><span class="caption-index-2">44.1</span><a name="caption-44-1"></a>Module Function</h2>
 <h1><span class="caption-index-1">45</span><a name="caption-45"></a>tiff Module</h1>
@@ -26433,6 +26514,13 @@ This module extends the <code>image</code> class with methods described here.
 </p>
 <p>
 Reads a TIFF image from a stream.
+</p>
+<h2><span class="caption-index-2">45.3</span><a name="caption-45-3"></a>Thanks</h2>
+<p>
+This module uses libtiff which is distributed in the following site:
+</p>
+<p>
+<a href="http://www.libtiff.org/">http://www.libtiff.org/</a>
 </p>
 <h1><span class="caption-index-1">46</span><a name="caption-46"></a>uuid Module</h1>
 <p>
@@ -26476,7 +26564,14 @@ Writes WAV audio to a stream.
 <p>
 The <code>wx</code> module provides functions and methods of wxWidgets library.
 </p>
-<h3><span class="caption-index-3">48.0.1</span><a name="caption-48-0-1"></a>Module Function'</h3>
+<h2><span class="caption-index-2">48.1</span><a name="caption-48-1"></a>Module Function</h2>
+<h2><span class="caption-index-2">48.2</span><a name="caption-48-2"></a>Thanks</h2>
+<p>
+This module uses wxWidgets library which is distributed in the following site:
+</p>
+<p>
+<a href="http://www.wxwidgets.org/">http://www.wxwidgets.org/</a>
+</p>
 <h1><span class="caption-index-1">49</span><a name="caption-49"></a>xml Module</h1>
 <h2><span class="caption-index-2">49.1</span><a name="caption-49-1"></a>Module Function</h2>
 <p>
@@ -26567,6 +26662,13 @@ The <code>wx</code> module provides functions and methods of wxWidgets library.
 <p>
 <code>xml.parser#parse(stream:stream:r):void</code>
 </p>
+<h2><span class="caption-index-2">49.6</span><a name="caption-49-6"></a>Thanks</h2>
+<p>
+This module uses expat library which is distributed in the following site:
+</p>
+<p>
+<a href="http://expat.sourceforge.net/">http://expat.sourceforge.net/</a>
+</p>
 <h1><span class="caption-index-1">50</span><a name="caption-50"></a>xpm Module</h1>
 <p>
 The <code>xpm</code> module provides measures to write image data in XPM format and to parse a list of strings that is described in the format. To utilize it, import the <code>xpm</code> module using <code>import</code> function.
@@ -26645,6 +26747,13 @@ The <code>yaml</code> module provides measures to read/write YAML files.
 </p>
 <p>
 <code>yaml.write(stream:stream:w, obj):reduce</code>
+</p>
+<h2><span class="caption-index-2">51.2</span><a name="caption-51-2"></a>Thanks</h2>
+<p>
+This module uses yaml library which is distributed in the following site:
+</p>
+<p>
+<a href="http://pyyaml.org/wiki/LibYAML">http://pyyaml.org/wiki/LibYAML</a>
 </p>
 <h1><span class="caption-index-1">52</span><a name="caption-52"></a>zip Module</h1>
 <p>
@@ -26745,5 +26854,13 @@ Argument <code>compression</code> specifies the compression method and takes one
 <p>
 Closes the zip file after flushing cached data.
 </p>
+<h2><span class="caption-index-2">52.3</span><a name="caption-52-3"></a>Thanks</h2>
+<p>
+This module uses zlib and bzip2 library which are distributed in the following sites:
+</p>
+<ul>
+<li><a href="http://zlib.net/">http://zlib.net/</a></li>
+<li><a href="http://www.bzip.org/">http://www.bzip.org/</a></li>
+</ul>
 </body>
 </html>

@@ -546,6 +546,12 @@ sdl2.acos
 ## sdl2.HapticEffect Class
 ## sdl2.Surface Class
 ## sdl2.Finger Class
+
+## Thanks
+
+This module uses SDL2 library which is distributed in the following site:
+
+[http://www.libsdl.org/](http://www.libsdl.org/)
 '''.template().render()
 
 write(doc:markdown.document) = {

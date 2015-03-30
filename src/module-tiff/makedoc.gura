@@ -37,6 +37,13 @@ This module extends the `image` class with methods described here.
 ${markdown.funcdoc(
 image.read@tiff
 )}
+
+
+## Thanks
+
+This module uses libtiff which is distributed in the following site:
+
+[http://www.libtiff.org/](http://www.libtiff.org/)
 '''.template().render()
 
 write(doc:markdown.document) = {

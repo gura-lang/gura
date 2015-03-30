@@ -20,6 +20,12 @@ sqlite3.db.getcolnames
 sqlite3.db.query
 sqlite3.db.transaction
 )}
+
+## Thanks
+
+This module uses SQlite3 library which is distributed in the following site:
+
+[http://www.sqlite.org/index.html](http://www.sqlite.org/index.html)
 '''.template().render()
 
 write(doc:markdown.document) = {

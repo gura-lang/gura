@@ -53,6 +53,14 @@ ${markdown.funcdoc(
 zip.writer.add
 zip.writer.close
 )}
+
+
+## Thanks
+
+This module uses zlib and bzip2 library which are distributed in the following sites:
+
+- [http://zlib.net/](http://zlib.net/)
+- [http://www.bzip.org/](http://www.bzip.org/)
 '''.template().render()
 
 write(doc:markdown.document) = {

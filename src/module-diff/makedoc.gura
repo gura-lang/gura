@@ -116,7 +116,7 @@ diff.hunk.print
 
 ## Thanks
 
-This module uses dtl (Diff Template Library) which official site is:
+This module uses dtl (Diff Template Library) which is distributed in the following site:
 
 [https://code.google.com/p/dtl-cpp/](https://code.google.com/p/dtl-cpp/)
 '''.template().render()

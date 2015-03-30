@@ -6,13 +6,16 @@ text = R'''
 
 The `wx` module provides functions and methods of wxWidgets library.
 
-### Module Function'
+## Module Function
+
+## Thanks
+
+This module uses wxWidgets library which is distributed in the following site:
+
+[http://www.wxwidgets.org/](http://www.wxwidgets.org/)
 '''
 
-write(doc:markdown.document) = {
-	doc << text
-	doc
-}
+write(doc:markdown.document) = doc << text
 
 if (__name__ == '__main__') {
 	write(markdown.document()).render@html(sys.stdout)

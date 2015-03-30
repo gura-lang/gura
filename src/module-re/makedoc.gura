@@ -235,7 +235,7 @@ re.scan
 
 ## Thanks
 
-This module uses Oniguruma which official site is:
+This module uses Oniguruma library which is distributed in the following site:
 
 [http://www.geocities.jp/kosako3/oniguruma/index.html](http://www.geocities.jp/kosako3/oniguruma/index.html)
 '''.template().render()

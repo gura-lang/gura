@@ -181,6 +181,12 @@ sdl.AddTimer
 sdl.Timer.RemoveTimer
 //sdl.Timer.SetTimer
 )}
+
+## Thanks
+
+This module uses SDL library which is distributed in the following site:
+
+[http://www.libsdl.org/](http://www.libsdl.org/)
 '''.template().render()
 
 write(doc:markdown.document) = {
