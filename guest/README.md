@@ -6,8 +6,6 @@ Source URLs
 
 <table>
 
-<tr><td>dSFMT-src-2.2.1.zip</td><td>http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/index.html</td></tr>
-
 <tr><td>7za920.zip</td><td>http://www.7-zip.org/</td></tr>
 
 <tr><td>bzip2-1.0.6.tar.gz</td><td>http://www.bzip.org/</td></tr>
@@ -21,6 +19,8 @@ Source URLs
 <tr><td>curl-7.30.0.zip</td><td>http://curl.haxx.se/</td></tr>
 
 <tr><td>curl_737_1.zip</td><td>http://curl.haxx.se/</td></tr>
+
+<tr><td>dSFMT-src-2.2.1.zip</td><td>http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/index.html</td></tr>
 
 <tr><td>dtl-1.18.tar.gz</td><td>https://code.google.com/p/dtl-cpp/</td></tr>
 

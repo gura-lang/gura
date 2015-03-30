@@ -34,6 +34,12 @@ ${markdown.funcdoc(
 stream.reader@gzip
 stream.writer@gzip
 )}
+
+## Thanks
+
+This module uses zlib which official site is:
+
+[http://zlib.net/](http://zlib.net/)
 '''.template().render()
 
 write(doc:markdown.document) = {
