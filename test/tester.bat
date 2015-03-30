@@ -75,7 +75,8 @@ rem --------
 for %%C in (%cases%) do (
 	echo %%C
 	%PROGRAM_GURA% test-%%C.gura > result\test-%%C.result.txt
-	fc result\test-%%C.sample.txt result\test-%%C.result.txt
+	%PROGRAM_GURA% check-result.gura result\test-%%C.sample.txt result\test-%%C.result.txt
+	rem fc result\test-%%C.sample.txt result\test-%%C.result.txt
 )
 goto done
 rem --------
@@ -83,7 +84,8 @@ rem --------
 for %%C in (%cases%) do (
 	echo genscript: %%C
 	%PROGRAM_GURA% genscript.gura --eval test-%%C.gura > result\test-%%C.result.txt
-	fc result\test-%%C.sample.txt result\test-%%C.result.txt
+	%PROGRAM_GURA% check-result.gura result\test-%%C.sample.txt result\test-%%C.result.txt
+	rem fc result\test-%%C.sample.txt result\test-%%C.result.txt
 )
 goto done
 rem --------
