@@ -1,9 +1,37 @@
 #!/usr/bin/gura
 import(diff)
+import(conio)
+
+PrintEdits(edits[]:diff.edit) = {
+	edits.each {|edit|
+		if (edit.type == `copy) {
+			println(edit.unified)
+		} else {
+			conio.setcolor(`green) {
+				println(edit.unified)
+			}
+		}
+	}
+}
 
 if (sys.argv.len() < 3) {
 	sys.stderr.println('usage: check-result.gura file1 file2')
 	sys.exit(1)
 }
 [fileNameSample, fileNameResult] = sys.argv[1, 2]
-diff.compose(stream(fileNameSample), stream(fileNameResult)).render(sys.stdout)
+edits = []
+diffFlag = false
+diff.compose(stream(fileNameSample), stream(fileNameResult)) {|result|
+	if (result.distance != 0) {
+		result.eachedit {|edit|
+			if (edit.source.startswith('========')) {
+				(!edits.isempty() && diffFlag) && PrintEdits(edits)
+				edits.clear()
+				diffFlag = false
+			}
+			edits.add(edit)
+			if (edit.type != `copy) { diffFlag = true }
+		}
+		(!edits.isempty() && diffFlag) && PrintEdits(edits)
+	}
+}
