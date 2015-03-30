@@ -1,0 +1,128 @@
+#!/usr/bin/env gura
+import(markdown)
+import(diff)
+
+text = R'''
+# diff Module
+
+The `diff` module provices measures to detect differences between texts.
+To utilize it, import the `diff` module using `import` function.
+
+
+## Module Function
+
+${markdown.funcdoc(
+diff.compose
+)}
+
+
+## diff.result Class
+
+The `diff.result` instance provides information about differences.
+
+### Property
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>diff.result#distance</code></td><td><code>number</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>diff.result#nlines@org</code></td><td><code>number</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>diff.result#nlines@new</code></td><td><code>number</code></td><td>R</td>
+<td></td></tr>
+
+</table>
+
+### Method
+
+${markdown.funcdoc(
+diff.result.eachedit
+diff.result.eachhunk
+diff.result.render
+)}
+
+
+## diff.edit Class
+
+The `diff.edit` provides information about an edit operation.
+
+### Property
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>diff.edit#type</code></td><td><code>symbol</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>diff.edit#mark</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>diff.edit#lineno@org</code></td><td><code>number</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>diff.edit#lineno@new</code></td><td><code>number</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>diff.edit#source</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>diff.edit#unified</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
+</table>
+
+### Method
+
+${markdown.funcdoc(
+diff.edit.print
+)}
+
+
+## diff.hunk Class
+
+The `diff.hunk` instance provides information about a hunk.
+
+### Property
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>diff.hunk#edits</code></td><td><code>iterator</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>diff.hunk#lineno@org</code></td><td><code>number</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>diff.hunk#lineno@new</code></td><td><code>number</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>diff.hunk#nlines@org</code></td><td><code>number</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>diff.hunk#nlines@new</code></td><td><code>number</code></td><td>R</td>
+<td></td></tr>
+
+</table>
+
+### Method
+
+${markdown.funcdoc(
+diff.hunk.print
+)}
+
+
+## Thanks
+
+This module uses dtl (Diff Template Library) which official site is:
+
+[https://code.google.com/p/dtl-cpp/](https://code.google.com/p/dtl-cpp/)
+'''.template().render()
+
+write(doc:markdown.document) = doc << text
+
+if (__name__ == '__main__') {
+	write(markdown.document()).render@html(sys.stdout)
+}
