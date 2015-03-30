@@ -1,6 +1,7 @@
 #!/usr/bin/gura
 import(diff)
 import(conio)
+import(argopt)
 
 PrintEdits(edits[]:diff.edit) = {
 	edits.each {|edit|
@@ -14,14 +15,25 @@ PrintEdits(edits[]:diff.edit) = {
 	}
 }
 
-if (sys.argv.len() < 3) {
-	sys.stderr.println('usage: check-result.gura file1 file2')
-	sys.exit(1)
-}
-[fileNameSample, fileNameResult] = sys.argv[1, 2]
-edits = []
-diffFlag = false
-diff.compose(stream(fileNameSample), stream(fileNameResult)) {|result|
+main() = {
+	argopt.Parser {|p|
+		p.addFlag('detail', 'd')
+		errorFlag = false
+		try {
+			[cfg, argv] = p.parse(sys.argv)
+		} catch {
+			errorFlag = true
+		}
+		if (errorFlag || argv.len() < 2) {
+			sys.stderr.println('usage: check-result.gura [--detail] file1 file2')
+			sys.exit(1)
+		}
+		detailFlag = cfg['detail']
+	}
+	[fileNameSample, fileNameResult] = argv[0, 1]
+	edits = []
+	diffFlag = false
+	result = diff.compose(stream(fileNameSample), stream(fileNameResult))
 	if (result.distance != 0) {
 		result.eachedit {|edit|
 			if (edit.source.startswith('========')) {
@@ -29,9 +41,11 @@ diff.compose(stream(fileNameSample), stream(fileNameResult)) {|result|
 				edits.clear()
 				diffFlag = false
 			}
-			edits.add(edit)
+			(detailFlag || edit.type != `copy) && edits.add(edit)
 			if (edit.type != `copy) { diffFlag = true }
 		}
 		(!edits.isempty() && diffFlag) && PrintEdits(edits)
 	}
 }
+
+main()

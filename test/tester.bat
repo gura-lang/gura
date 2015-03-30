@@ -65,9 +65,11 @@ set cases=%cases% xml
 set cases=%cases% xpm
 set cases=%cases% yaml
 
+set options=""
 if "%1" == "" goto usage
 if "%1" == "all" goto all
 set cases=%1
+set options="--detail"
 :all
 if "%2" == "genscript" goto genscript
 if "%2" == "update" goto update
@@ -75,7 +77,7 @@ rem --------
 for %%C in (%cases%) do (
 	echo %%C
 	%PROGRAM_GURA% test-%%C.gura > result\test-%%C.result.txt
-	%PROGRAM_GURA% check-result.gura result\test-%%C.sample.txt result\test-%%C.result.txt
+	%PROGRAM_GURA% check-result.gura %options% result\test-%%C.sample.txt result\test-%%C.result.txt
 	rem fc result\test-%%C.sample.txt result\test-%%C.result.txt
 )
 goto done
@@ -84,7 +86,7 @@ rem --------
 for %%C in (%cases%) do (
 	echo genscript: %%C
 	%PROGRAM_GURA% genscript.gura --eval test-%%C.gura > result\test-%%C.result.txt
-	%PROGRAM_GURA% check-result.gura result\test-%%C.sample.txt result\test-%%C.result.txt
+	%PROGRAM_GURA% check-result.gura %options% result\test-%%C.sample.txt result\test-%%C.result.txt
 	rem fc result\test-%%C.sample.txt result\test-%%C.result.txt
 )
 goto done

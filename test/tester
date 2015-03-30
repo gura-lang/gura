@@ -66,15 +66,17 @@ if [ $# -eq 0 ]; then
 	echo "usage: tester all/casename [genscript/update]"
 	exit
 fi
+options=""
 if [ "$1" != "all" ]; then
 	cases="$1"
+	options="--detail"
 fi
 if [ $# -eq 1 ]; then
 	for case in $cases
 	do
 		echo "$case"
 		gura test-$case.gura > result/test-$case.result.txt
-		gura check-result.gura result/test-$case.sample.txt result/test-$case.result.txt
+		gura check-result.gura $options result/test-$case.sample.txt result/test-$case.result.txt
 		#diff -u --strip-trailing-cr result/test-$case.sample.txt result/test-$case.result.txt
 	done	
 elif [ "$2" = "genscript" ]; then
@@ -82,7 +84,7 @@ elif [ "$2" = "genscript" ]; then
 	do
 		echo "genscript: $case"
 		gura genscript.gura --eval test-$case.gura > result/test-$case.result.txt
-		gura check-result.gura result/test-$case.sample.txt result/test-$case.result.txt
+		gura check-result.gura $options result/test-$case.sample.txt result/test-$case.result.txt
 		#diff -u --strip-trailing-cr result/test-$case.sample.txt result/test-$case.result.txt
 	done	
 elif [ "$2" = "update" ]; then
