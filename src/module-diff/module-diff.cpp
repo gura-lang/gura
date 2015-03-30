@@ -618,15 +618,18 @@ Gura_DeclareFunction(compose)
 		"\n"
 		"Below is an example to compare between two strings:\n"
 		"\n"
-		"    result = diff.compose(txtOrg, txtNew)\n"
+		"    strOrg = '...'\n"
+		"    strNew = '...'\n"
+		"    result = diff.compose(strOrg, strNew)\n"
 		"\n"
 		"Below is an example to compare between two files:\n"
 		"\n"
-		"    result = diff.compose(open('org.txt'), open('new.txt'))\n"
+		"    result = diff.compose(stream('org.txt'), stream('new.txt'))\n"
 		"\n"
 		"Below is an example to compare between a file and a string:\n"
 		"\n"
-		"    result = diff.compose(open('org.txt'), txtNew)\n");
+		"    strNew = '...'\n"
+		"    result = diff.compose(stream('org.txt'), strNew)\n");
 }
 
 Gura_ImplementFunction(compose)
