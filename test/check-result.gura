@@ -1,0 +1,9 @@
+#!/usr/bin/gura
+import(diff)
+
+if (sys.argv.len() < 3) {
+	sys.stderr.println('usage: check-result.gura file1 file2')
+	sys.exit(1)
+}
+[fileNameSample, fileNameResult] = sys.argv[1, 2]
+diff.compose(stream(fileNameSample), stream(fileNameResult)).render(sys.stdout)

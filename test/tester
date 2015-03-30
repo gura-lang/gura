@@ -74,14 +74,16 @@ if [ $# -eq 1 ]; then
 	do
 		echo "$case"
 		gura test-$case.gura > result/test-$case.result.txt
-		diff -u --strip-trailing-cr result/test-$case.sample.txt result/test-$case.result.txt
+		gura check-result.gura result/test-$case.sample.txt result/test-$case.result.txt
+		#diff -u --strip-trailing-cr result/test-$case.sample.txt result/test-$case.result.txt
 	done	
 elif [ "$2" = "genscript" ]; then
 	for case in $cases
 	do
 		echo "genscript: $case"
 		gura genscript.gura --eval test-$case.gura > result/test-$case.result.txt
-		diff -u --strip-trailing-cr result/test-$case.sample.txt result/test-$case.result.txt
+		gura check-result.gura result/test-$case.sample.txt result/test-$case.result.txt
+		#diff -u --strip-trailing-cr result/test-$case.sample.txt result/test-$case.result.txt
 	done	
 elif [ "$2" = "update" ]; then
 	for case in $cases
