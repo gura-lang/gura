@@ -8,6 +8,10 @@ text = R'''
 The `diff` module provices measures to detect differences between texts.
 To utilize it, import the `diff` module using `import` function.
 
+Below is an example to show differences between files `org.txt` and `new.txt`:
+
+    diff.compose(stream('org.txt'), stream('new.txt')).render(sys.stdout)
+
 
 ## Module Function
 
@@ -18,7 +22,9 @@ diff.compose
 
 ## diff.result Class
 
-The `diff.result` instance provides information about differences.
+The `diff.result` instance is created by function `diff.compose()`
+and provides information about differences between two texts.
+
 
 ### Property
 
@@ -55,7 +61,13 @@ The `diff.edit` provides information about an edit operation.
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code>diff.edit#type</code></td><td><code>symbol</code></td><td>R</td>
-<td></td></tr>
+<td>Edit operation:
+<ul>
+<li><code>`copy</code> .. Copy the line.</li>
+<li><code>`add</code> .. Add the line.</li>
+<li><code>`delete</code> .. Delete the line.</li>
+</ul>
+</td></tr>
 
 <tr><td><code>diff.edit#mark</code></td><td><code>string</code></td><td>R</td>
 <td></td></tr>
@@ -91,19 +103,19 @@ The `diff.hunk` instance provides information about a hunk.
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code>diff.hunk#edits</code></td><td><code>iterator</code></td><td>R</td>
-<td></td></tr>
+<td>An iterator that returns <code>diff.edit</code> instances stored in the hunk.</td></tr>
 
 <tr><td><code>diff.hunk#lineno@org</code></td><td><code>number</code></td><td>R</td>
-<td></td></tr>
+<td>Top line number of the original text affected by the hunk.</td></tr>
 
 <tr><td><code>diff.hunk#lineno@new</code></td><td><code>number</code></td><td>R</td>
-<td></td></tr>
+<td>Top line number of the new text affected by the hunk.</td></tr>
 
 <tr><td><code>diff.hunk#nlines@org</code></td><td><code>number</code></td><td>R</td>
-<td></td></tr>
+<td>Number of lines in the original text affected by the hunk.</td></tr>
 
 <tr><td><code>diff.hunk#nlines@new</code></td><td><code>number</code></td><td>R</td>
-<td></td></tr>
+<td>Number of lines in the new text affected by the hunk.</td></tr>
 
 </table>
 

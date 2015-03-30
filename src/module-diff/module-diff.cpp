@@ -271,6 +271,9 @@ Gura_DeclareMethod(result, eachhunk)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates an iterator that returns `diff.hunk` instance stored in the result.\n"
 		"\n"
+		"The argument `lines` specifies a number of common lines appended before and after\n"
+		"different lines\n"
+		"\n"
 		GURA_HELPTEXT_ITERATOR_en());
 }
 

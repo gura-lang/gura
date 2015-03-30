@@ -13111,6 +13111,11 @@ This module uses libcurl which is distributed in the following site:
 <p>
 The <code>diff</code> module provices measures to detect differences between texts. To utilize it, import the <code>diff</code> module using <code>import</code> function.
 </p>
+<p>
+Below is an example to show differences between files <code>org.txt</code> and <code>new.txt</code>:
+</p>
+<pre><code>diff.compose(stream('org.txt'), stream('new.txt')).render(sys.stdout)
+</code></pre>
 <h2><span class="caption-index-2">14.1</span><a name="caption-14-1"></a>Module Function</h2>
 <p>
 <strong>diff.compose</strong>
@@ -13144,7 +13149,7 @@ result = diff.compose(stream('org.txt'), strNew)
 </code></pre>
 <h2><span class="caption-index-2">14.2</span><a name="caption-14-2"></a>diff.result Class</h2>
 <p>
-The <code>diff.result</code> instance provides information about differences.
+The <code>diff.result</code> instance is created by function <code>diff.compose()</code> and provides information about differences between two texts.
 </p>
 <h3><span class="caption-index-3">14.2.1</span><a name="caption-14-2-1"></a>Property</h3>
 <p>
@@ -13250,6 +13255,9 @@ If a block is specified, it would be evaluated repeatingly with block parameters
 Creates an iterator that returns <code>diff.hunk</code> instance stored in the result.
 </p>
 <p>
+The argument <code>lines</code> specifies a number of common lines appended before and after different lines
+</p>
+<p>
 In default, this returns an iterator as its result value. Specifying the following attributes would convert it into other formats:
 </p>
 <ul>
@@ -13319,6 +13327,26 @@ symbol</code>
 R</td>
 
 <td>
+Edit operation:
+<ul>
+
+<li>
+<code>
+`copy</code>
+ .. Copy the line.</li>
+
+<li>
+<code>
+`add</code>
+ .. Add the line.</li>
+
+<li>
+<code>
+`delete</code>
+ .. Delete the line.</li>
+
+</ul>
+
 </td>
 </tr>
 
@@ -13454,7 +13482,9 @@ iterator</code>
 R</td>
 
 <td>
-</td>
+An iterator that returns <code>
+diff.edit</code>
+ instances stored in the hunk.</td>
 </tr>
 
 
@@ -13471,7 +13501,7 @@ number</code>
 R</td>
 
 <td>
-</td>
+Top line number of the original text affected by the hunk.</td>
 </tr>
 
 
@@ -13488,7 +13518,7 @@ number</code>
 R</td>
 
 <td>
-</td>
+Top line number of the new text affected by the hunk.</td>
 </tr>
 
 
@@ -13505,7 +13535,7 @@ number</code>
 R</td>
 
 <td>
-</td>
+Number of lines in the original text affected by the hunk.</td>
 </tr>
 
 
@@ -13522,7 +13552,7 @@ number</code>
 R</td>
 
 <td>
-</td>
+Number of lines in the new text affected by the hunk.</td>
 </tr>
 
 
