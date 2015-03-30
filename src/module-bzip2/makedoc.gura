@@ -18,12 +18,14 @@ Below is an example to read data from a file and write its compressed data to a 
     import(bzip2)
     bzip2.writer('foo.dat.bz2').copyfrom('foo.dat')
 
+
 ## Module Function
 
 ${markdown.funcdoc(
 bzip2.reader
 bzip2.writer
 )}
+
 
 ## Extension to stream Class
 
@@ -33,6 +35,13 @@ ${markdown.funcdoc(
 stream.reader@bzip2
 stream.writer@bzip2
 )}
+
+
+## Thanks
+
+This module uses libbzip2 which official site is:
+
+[http://www.bzip.org/](http://www.bzip.org/)
 '''.template().render()
 
 write(doc:markdown.document) = {

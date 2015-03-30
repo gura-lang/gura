@@ -27,6 +27,12 @@ curl.easy_handle.send
 curl.easy_handle.setopt
 curl.easy_handle.unescape
 )}
+
+## Thanks
+
+This module uses libcurl which official site is:
+
+[http://curl.haxx.se/libcurl/](http://curl.haxx.se/libcurl/)
 '''.template().render()
 
 write(doc:markdown.document) = {

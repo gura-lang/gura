@@ -11,10 +11,6 @@ using GMP library. To utilize it, import the `gmp` module using `import` functio
 It expands features of operators like addition and multiplier
 so that they can calculate such numbers.
 
-The official site of GMP is:
-
-[https://gmplib.org](https://gmplib.org)
-
 ## Operator
 
 Following tables show values types of operands and returned value for each operator:
@@ -538,6 +534,14 @@ string.cast@mpf
 string.cast@mpq
 string.cast@mpz
 )}
+
+## Thanks
+
+This module uses GMP and its forked project MPIR which official sites are:
+
+- [https://gmplib.org](https://gmplib.org)
+- [http://www.mpir.org/](http://www.mpir.org/)
+
 '''.template().render()
 
 write(doc:markdown.document) = {

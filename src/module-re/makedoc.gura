@@ -15,11 +15,6 @@ write(doc:markdown.document) = doc << R'''
 The `re` module provides measures to operate strings with a regular expression.
 To utilize it, import the `re` module using `import` function.
 
-This module uses Oniguruma to handle regular expressions.
-The official site of Oniguruma is:
-
-[http://www.geocities.jp/kosako3/oniguruma/index.html](http://www.geocities.jp/kosako3/oniguruma/index.html)
-
 This module provides three different forms of function that has the same feature as below:
 
 - Module function
@@ -236,6 +231,13 @@ re.sub
 re.split
 re.scan
 )}
+
+
+## Thanks
+
+This module uses Oniguruma which official site is:
+
+[http://www.geocities.jp/kosako3/oniguruma/index.html](http://www.geocities.jp/kosako3/oniguruma/index.html)
 '''.template().render()
 
 if (__name__ == '__main__') {

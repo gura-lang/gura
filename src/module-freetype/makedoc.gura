@@ -177,6 +177,13 @@ This module extends the `image` class with methods described here.
 ${markdown.funcdoc(
 image.drawtext
 )}
+
+
+## Thanks
+
+This module uses FreeType library which official site is :
+
+[http://www.freetype.org/](http://www.freetype.org/)
 '''.template().render()
 
 write(doc:markdown.document) = {

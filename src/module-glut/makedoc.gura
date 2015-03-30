@@ -126,6 +126,14 @@ glut.glutEnterGameMode
 glut.glutLeaveGameMode
 glut.glutGameModeGet
 )}
+
+
+## Thanks
+
+This module uses freeglut which official site is:
+
+[http://freeglut.sourceforge.net/](http://freeglut.sourceforge.net/)
+
 '''.template().render()
 
 write(doc:markdown.document) = {
