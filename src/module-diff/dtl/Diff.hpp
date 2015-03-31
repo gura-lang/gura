@@ -49,7 +49,7 @@ namespace dtl {
     {
     public :
         dtl_typedefs(elem, sequence)
-    private :
+    protected :
         sequence           A;
         sequence           B;
         size_t             M;

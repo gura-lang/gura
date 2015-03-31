@@ -29,8 +29,8 @@ String Hunk::TextizeUnifiedRange() const
 
 Hunk::Format Hunk::SymbolToFormat(Signal sig, const Symbol *pSymbol)
 {
-	if (pSymbol->IsIdentical(Gura_UserSymbol(legacy))) {
-		return FORMAT_Legacy;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(normal))) {
+		return FORMAT_Normal;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(context))) {
 		return FORMAT_Context;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(unified))) {
@@ -44,7 +44,7 @@ Hunk::Format Hunk::SymbolToFormat(Signal sig, const Symbol *pSymbol)
 //-----------------------------------------------------------------------------
 // DiffString
 //-----------------------------------------------------------------------------
-void DiffString::FeedString(std::vector<String> &seq, const char *src)
+void DiffString::FeedString(SequenceString &seq, const char *src)
 {
 	String str;
 	for (const char *p = src; *p != '\0'; p++) {
@@ -59,7 +59,7 @@ void DiffString::FeedString(std::vector<String> &seq, const char *src)
 	if (!str.empty()) seq.push_back(str);
 }
 
-bool DiffString::FeedStream(Signal sig, std::vector<String> &seq, Stream &src)
+bool DiffString::FeedStream(Signal sig, SequenceString &seq, Stream &src)
 {
 	bool includeEOLFlag = false;
 	for (;;) {
@@ -71,7 +71,7 @@ bool DiffString::FeedStream(Signal sig, std::vector<String> &seq, Stream &src)
 }
 
 bool DiffString::FeedIterator(Environment &env, Signal sig,
-							  std::vector<String> &seq, Iterator *pIterator)
+							  SequenceString &seq, Iterator *pIterator)
 {
 	Value value;
 	while (pIterator->Next(env, sig, value)) {
@@ -80,7 +80,7 @@ bool DiffString::FeedIterator(Environment &env, Signal sig,
 	return !sig.IsSignalled();
 }
 
-void DiffString::FeedList(std::vector<String> &seq, const ValueList &valList)
+void DiffString::FeedList(SequenceString &seq, const ValueList &valList)
 {
 	foreach_const (ValueList, pValue, valList) {
 		seq.push_back(pValue->ToString());
@@ -319,9 +319,9 @@ Gura_DeclareMethodAlias(result, render, "render")
 		"\n"
 		"The argument `format` takes one of the symbols that specifies the rendering format:\n"
 		"\n"
-		"- `` `legacy`` .. Legacy format (not supported yet).\n"
+		"- `` `normal`` .. Normal format (not supported yet).\n"
 		"- `` `context`` .. Context format (not supported yet).\n"
-		"- `` `unified`` .. Unified format.\n"
+		"- `` `unified`` .. Unified format. This is the default.\n"
 		"\n"
 		"The argument `lines` specifies a number of common lines appended before and after\n"
 		"different lines\n");
@@ -519,9 +519,9 @@ Gura_DeclareMethod(hunk, print)
 		"\n"
 		"The argument `format` takes one of the symbols that specifies the rendering format:\n"
 		"\n"
-		"- `` `legacy`` .. Legacy format (not supported yet).\n"
+		"- `` `normal`` .. Normal format (not supported yet).\n"
 		"- `` `context`` .. Context format (not supported yet).\n"
-		"- `` `unified`` .. Unified format.\n");
+		"- `` `unified`` .. Unified format. This is the default.\n");
 }
 
 Gura_ImplementMethod(hunk, print)
@@ -622,12 +622,13 @@ void IteratorHunk::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &en
 //-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
-// diff.compose(src1, src2) {block?}
+// diff.compose(src1, src2):[icase] {block?}
 Gura_DeclareFunction(compose)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "src1", VTYPE_any);
 	DeclareArg(env, "src2", VTYPE_any);
+	DeclareAttr(Gura_Symbol(icase));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -666,7 +667,8 @@ Gura_DeclareFunction(compose)
 
 Gura_ImplementFunction(compose)
 {
-	AutoPtr<Result> pResult(new Result());
+	bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
+	AutoPtr<Result> pResult(new Result(ignoreCaseFlag));
 	for (size_t i = 0; i < 2; i++) {
 		if (args.IsType(i, VTYPE_string)) {
 			DiffString::FeedString(pResult->GetSeq(i), args.GetString(i));
@@ -702,12 +704,12 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(delete);
 	Gura_RealizeUserSymbol(distance);
 	Gura_RealizeUserSymbol(edits);
-	Gura_RealizeUserSymbol(legacy);
 	Gura_RealizeUserSymbolAlias(lineno_at_org, "lineno@org");
 	Gura_RealizeUserSymbolAlias(lineno_at_new, "lineno@new");
 	Gura_RealizeUserSymbol(mark);
 	Gura_RealizeUserSymbolAlias(nlines_at_org, "nlines@org");
 	Gura_RealizeUserSymbolAlias(nlines_at_new, "nlines@new");
+	Gura_RealizeUserSymbol(normal);
 	Gura_RealizeUserSymbol(source);
 	Gura_RealizeUserSymbol(type);
 	Gura_RealizeUserSymbol(unified);

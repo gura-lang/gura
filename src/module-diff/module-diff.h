@@ -14,15 +14,35 @@ Gura_DeclareUserSymbol(copy);
 Gura_DeclareUserSymbol(delete);
 Gura_DeclareUserSymbol(distance);
 Gura_DeclareUserSymbol(edits);
-Gura_DeclareUserSymbol(legacy);
 Gura_DeclareUserSymbol(lineno_at_org);
 Gura_DeclareUserSymbol(lineno_at_new);
 Gura_DeclareUserSymbol(mark);
 Gura_DeclareUserSymbol(nlines_at_org);
 Gura_DeclareUserSymbol(nlines_at_new);
+Gura_DeclareUserSymbol(normal);
 Gura_DeclareUserSymbol(source);
 Gura_DeclareUserSymbol(type);
 Gura_DeclareUserSymbol(unified);
+
+//-----------------------------------------------------------------------------
+// SequenceString
+//-----------------------------------------------------------------------------
+typedef std::vector<String> SequenceString;
+
+//-----------------------------------------------------------------------------
+// ComparatorString
+//-----------------------------------------------------------------------------
+class ComparatorString {
+private:
+	bool _ignoreCaseFlag;
+public:
+	inline ComparatorString() : _ignoreCaseFlag(false) {}
+	inline void SetIgnoreCaseFlag(bool ignoreCaseFlag) { _ignoreCaseFlag = ignoreCaseFlag; }
+	inline bool impl(const String &str1, const String &str2) const {
+		return _ignoreCaseFlag?
+			::strcasecmp(str1.c_str(), str2.c_str()) == 0 : str1 == str2;
+	}
+};
 
 //-----------------------------------------------------------------------------
 // Hunk
@@ -31,7 +51,7 @@ struct Hunk {
 public:
 	enum Format {
 		FORMAT_None,
-		FORMAT_Legacy,
+		FORMAT_Normal,
 		FORMAT_Context,
 		FORMAT_Unified,
 	};
@@ -50,18 +70,20 @@ public:
 //-----------------------------------------------------------------------------
 // DiffString
 //-----------------------------------------------------------------------------
-class DiffString : public dtl::Diff<String> {
+class DiffString : public dtl::Diff<String, SequenceString, ComparatorString> {
 public:
 	typedef sesElem Edit;
 	typedef sesElemVec EditList;
 public:
-	inline DiffString() {}
+	inline DiffString(bool ignoreCaseFlag) {
+		cmp.SetIgnoreCaseFlag(ignoreCaseFlag);
+	}
 	inline const EditList &GetEditList() const { return getSes().getSequence(); }
-	static void FeedString(std::vector<String> &seq, const char *src);
-	static bool FeedStream(Signal sig, std::vector<String> &seq, Stream &stream);
+	static void FeedString(SequenceString &seq, const char *src);
+	static bool FeedStream(Signal sig, SequenceString &seq, Stream &stream);
 	static bool FeedIterator(Environment &env, Signal sig,
-							 std::vector<String> &seq, Iterator *pIterator);
-	static void FeedList(std::vector<String> &seq, const ValueList &valList);
+							 SequenceString &seq, Iterator *pIterator);
+	static void FeedList(SequenceString &seq, const ValueList &valList);
 	static String TextizeUnifiedEdit(const Edit &edit);
 	static bool PrintEdit(Signal sig, SimpleStream &stream, const Edit &edit);
 	inline static const char *GetEditMark(const Edit &edit) {
@@ -81,12 +103,12 @@ private:
 public:
 	Gura_DeclareReferenceAccessor(Result);
 public:
-	inline Result() : _cntRef(1) {}
+	inline Result(bool ignoreCaseFlag) : _cntRef(1), _diffString(ignoreCaseFlag) {}
 protected:
 	inline ~Result() {}
 public:
 	inline long long GetEditDistance() const { return _diffString.getEditDistance(); }
-	inline std::vector<String> &GetSeq(size_t idx) {
+	inline SequenceString &GetSeq(size_t idx) {
 		return (idx == 0)? _diffString.getA() : _diffString.getB();
 	}
 	void Compose();
