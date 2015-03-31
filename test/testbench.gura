@@ -11,6 +11,7 @@ scriptNames = [
 	'test-datetime.gura'
 	'test-declaration.gura'
 	'test-dict.gura'
+	'test-diff.gura'
 	'test-mathdiff.gura'
 	'test-error.gura'
 	//'test-file.gura'

@@ -8,9 +8,9 @@ text = R'''
 The `diff` module provices measures to detect differences between texts.
 To utilize it, import the `diff` module using `import` function.
 
-Below is an example to show differences between files `org.txt` and `new.txt`:
+Below is an example to show differences between files `file1.txt` and `file2.txt`:
 
-    diff.compose(stream('org.txt'), stream('new.txt')).render(sys.stdout)
+    diff.compose(stream('file1.txt'), stream('file2.txt')).render(sys.stdout)
 
 
 ## Module Function

@@ -44,18 +44,7 @@ Hunk::Format Hunk::SymbolToFormat(Signal sig, const Symbol *pSymbol)
 //-----------------------------------------------------------------------------
 // DiffString
 //-----------------------------------------------------------------------------
-bool DiffString::ReadLines(Signal sig, Stream &src, std::vector<String> &seq)
-{
-	bool includeEOLFlag = false;
-	for (;;) {
-		String str;
-		if (!src.ReadLine(sig, str, includeEOLFlag)) break;
-		seq.push_back(str);
-	}
-	return !sig.IsSignalled();
-}
-
-void DiffString::SplitLines(const char *src, std::vector<String> &seq)
+void DiffString::FeedString(std::vector<String> &seq, const char *src)
 {
 	String str;
 	for (const char *p = src; *p != '\0'; p++) {
@@ -68,6 +57,34 @@ void DiffString::SplitLines(const char *src, std::vector<String> &seq)
 		}
 	}
 	if (!str.empty()) seq.push_back(str);
+}
+
+bool DiffString::FeedStream(Signal sig, std::vector<String> &seq, Stream &src)
+{
+	bool includeEOLFlag = false;
+	for (;;) {
+		String str;
+		if (!src.ReadLine(sig, str, includeEOLFlag)) break;
+		seq.push_back(str);
+	}
+	return !sig.IsSignalled();
+}
+
+bool DiffString::FeedIterator(Environment &env, Signal sig,
+							  std::vector<String> &seq, Iterator *pIterator)
+{
+	Value value;
+	while (pIterator->Next(env, sig, value)) {
+		seq.push_back(value.ToString());
+	}
+	return !sig.IsSignalled();
+}
+
+void DiffString::FeedList(std::vector<String> &seq, const ValueList &valList)
+{
+	foreach_const (ValueList, pValue, valList) {
+		seq.push_back(pValue->ToString());
+	}
 }
 
 String DiffString::TextizeUnifiedEdit(const DiffString::Edit &edit)
@@ -614,25 +631,37 @@ Gura_DeclareFunction(compose)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Calculates differences between string sources and returns `diff.result` instance\n"
+		"Calculates differences between two sources of strings and returns `diff.result` instance\n"
 		"that contains the difference information.\n"
 		"\n"
-		"You can specify a `string` or `stream` for the argument `src1` and `src2`.\n"
+		"You can specify a value of `string`, `stream`, `iterator` or `list`\n"
+		"for the argument `src1` and `src2`.\n"
+		"In the result, the content of `src1` is referred to as an \"original\" one\n"
+		"and that of `src2` as a \"new\" one.\n"
 		"\n"
 		"Below is an example to compare between two strings:\n"
 		"\n"
-		"    strOrg = '...'\n"
-		"    strNew = '...'\n"
-		"    result = diff.compose(strOrg, strNew)\n"
+		"    str1 = '...'\n"
+		"    str2 = '...'\n"
+		"    result = diff.compose(str1, str2)\n"
 		"\n"
 		"Below is an example to compare between two files:\n"
 		"\n"
-		"    result = diff.compose(stream('org.txt'), stream('new.txt'))\n"
+		"    file1 = stream('file1.txt')\n"
+		"    file2 = stream('file2.txt')\n"
+		"    result = diff.compose(file1, file2)\n"
+		"\n"
+		"Below is an example to compare between two iterators:\n"
+		"\n"
+		"    chars1 = '...'.each()\n"
+		"    chars2 = '...'.each()\n"
+		"    result = diff.compose(chars1, chars2)\n"
 		"\n"
 		"Below is an example to compare between a file and a string:\n"
 		"\n"
-		"    strNew = '...'\n"
-		"    result = diff.compose(stream('org.txt'), strNew)\n");
+		"    file = stream('file.txt')\n"
+		"    str = '...'\n"
+		"    result = diff.compose(file, str)\n");
 }
 
 Gura_ImplementFunction(compose)
@@ -640,11 +669,18 @@ Gura_ImplementFunction(compose)
 	AutoPtr<Result> pResult(new Result());
 	for (size_t i = 0; i < 2; i++) {
 		if (args.IsType(i, VTYPE_string)) {
-			DiffString::SplitLines(args.GetString(i), pResult->GetSeq(i));
+			DiffString::FeedString(pResult->GetSeq(i), args.GetString(i));
 		} else if (args.IsType(i, VTYPE_stream)) {
-			if (!DiffString::ReadLines(sig, args.GetStream(i), pResult->GetSeq(i))) {
+			if (!DiffString::FeedStream(sig, pResult->GetSeq(i), args.GetStream(i))) {
 				return Value::Null;
 			}
+		} else if (args.IsType(i, VTYPE_iterator)) {
+			AutoPtr<Iterator> pIterator(args.GetIterator(i)->Clone());
+			if (!DiffString::FeedIterator(env, sig, pResult->GetSeq(i), pIterator.get())) {
+				return Value::Null;
+			}				
+		} else if (args.IsType(i, VTYPE_list)) {
+			DiffString::FeedList(pResult->GetSeq(i), args.GetList(i));
 		} else {
 			sig.SetError(ERR_TypeError, "difference source must be string or stream");
 			return Value::Null;

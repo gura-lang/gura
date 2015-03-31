@@ -1,0 +1,114 @@
+======== #1 case - 1 ========
+
+@@ -1,3 +1,9 @@
++This is an important
++notice! It should
++therefore be located at
++the beginning of this
++document!
++
+ This part of the
+ document has stayed the
+ same from version to
+@@ -5,16 +11,10 @@
+ be shown if it doesn't
+ change.  Otherwise, that
+ would not be helping to
++compress anything.
+-compress the size of the
+-changes.
+ 
+-This paragraph contains
+-text that is outdated.
+-It will be deleted in the
+-near future.
+-
+ It is important to spell
++check this document. On
+-check this dokument. On
+ the other hand, a
+ misspelled word isn't
+ the end of the world.
+@@ -22,3 +22,7 @@
+ this paragraph needs to
+ be changed. Things can
+ be added after it.
++
++This paragraph contains
++important new additions
++to this document.
+
+======== #2 case - 2 ========
+
+ I need to buy apples.
+ I need to run the laundry.
+-I need to wash the dog.
++I need to wash the dogg.
+ I need to get the car detailed.
+
+======== #3 case - 3 ========
+
+@@ -1,4 +1,4 @@
+ I need to buy apples.
+-I need to run the laundry.
+-I need to wash the dog.
+-I need to get the car detailed.
++I need to do the laundry.
++I need to wash the car.
++I need to get the dog detailed.
+
+======== #4 case - 4 ========
+
+@@ -1,3 +1,4 @@
+ I need to go to the store.
+ I need to buy some apples.
++Oh yeah, I also need to buy grated cheese.
+ When I get home, I'll wash the dog.
+
+======== #5 case - 5 ========
+
+@@ -1,4 +1,3 @@
+ I need to go to the store.
+ I need to buy some apples.
+ When I get home, I'll wash the dog.
+-I promise.
+
+======== #6 case - 6 ========
+
+@@ -1,11 +1,13 @@
+-The Way that can be told of is not the eternal Way;
+-The name that can be named is not the eternal name.
+ The Nameless is the origin of Heaven and Earth;
++The named is the mother of all things.
++
+-The Named is the mother of all things.
+ Therefore let there always be non-being,
++  so we may see their subtlety,
+-so we may see their subtlety,
+ And let there always be being,
++  so we may see their outcome.
+-so we may see their outcome.
+ The two are the same,
+ But after they are produced,
++  they have different names.
++They both may be called deep and profound.
++Deeper and more profound,
++The door of all subtleties!
+-they have different names.
+
+======== #7 list and iterator ========
+
+@@ -1,4 +1,5 @@
++'A'
+-'a'
+ 'b'
+ 'c'
++'X'
+ 'd'
+@@ -1,4 +1,5 @@
++'A'
+-'a'
+ 'b'
+ 'c'
++'X'
+ 'd'

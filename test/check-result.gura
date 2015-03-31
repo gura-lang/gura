@@ -6,10 +6,14 @@ import(argopt)
 PrintEdits(edits[]:diff.edit) = {
 	edits.each {|edit|
 		if (edit.type == `copy) {
-			println(edit.unified)
+			println(' ', edit.source)
 		} else {
-			conio.setcolor(`green) {
-				println(edit.unified)
+			clr = cond(edit.type == `add, `green, `red)
+			conio.setcolor(`white, clr) {
+				print(edit.mark)
+			}
+			conio.setcolor(clr) {
+				println(edit.source)
 			}
 		}
 	}
@@ -34,7 +38,11 @@ main() = {
 	edits = []
 	diffFlag = false
 	result = diff.compose(stream(fileNameSample), stream(fileNameResult))
-	if (result.distance != 0) {
+	if (!detailFlag && result.distance > 20) {
+		conio.setcolor(`red) {
+			println('******** too much difference ********')
+		}
+	} elsif (result.distance != 0) {
 		result.eachedit {|edit|
 			if (edit.source.startswith('========')) {
 				(!edits.isempty() && diffFlag) && PrintEdits(edits)

@@ -2,7 +2,7 @@
 import(helper.test) {*}
 import(diff)
 
-testcase {
+testcase('case - 1') {
 	textOrg = R'''
 	This part of the
 	document has stayed the
@@ -62,7 +62,7 @@ testcase {
 	diff.compose(textOrg, textNew).render(sys.stdout)
 }
 
-testcase {
+testcase('case - 2') {
 	textOrg = R'''
 	I need to buy apples.
 	I need to run the laundry.
@@ -82,7 +82,7 @@ testcase {
 	}
 }
 
-testcase {
+testcase('case - 3') {
 	textOrg = R'''
 	I need to buy apples.
 	I need to run the laundry.
@@ -98,7 +98,7 @@ testcase {
 	diff.compose(textOrg, textNew).render(sys.stdout)
 }
 
-testcase {
+testcase('case - 4') {
 	textOrg = R'''
 	I need to go to the store.
 	I need to buy some apples.
@@ -113,7 +113,7 @@ testcase {
 	diff.compose(textOrg, textNew).render(sys.stdout)
 }
 
-testcase {
+testcase('case - 5') {
 	textOrg = R'''
 	I need to go to the store.
 	I need to buy some apples.
@@ -128,15 +128,7 @@ testcase {
 	diff.compose(textOrg, textNew).render(sys.stdout)
 }
 
-testcase {
-	textOrg = R'''
-	'''
-	textNew = R'''
-	'''
-	diff.compose(textOrg, textNew).render(sys.stdout)
-}
-
-testcase {
+testcase('case - 6') {
 	textOrg = R'''
 	The Way that can be told of is not the eternal Way;
 	The name that can be named is not the eternal name.
@@ -166,4 +158,11 @@ testcase {
 	The door of all subtleties!
 	'''
 	diff.compose(textOrg, textNew).render(sys.stdout)
+}
+
+testcase('list and iterator') {
+	listOrg = ['a', 'b', 'c', 'd']
+	listNew = ['A', 'b', 'c', 'X', 'd']
+	diff.compose(listOrg, listNew).render(sys.stdout)
+	diff.compose(listOrg.each(), listNew.each()).render(sys.stdout)
 }

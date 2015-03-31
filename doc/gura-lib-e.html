@@ -13112,9 +13112,9 @@ This module uses libcurl which is distributed in the following site:
 The <code>diff</code> module provices measures to detect differences between texts. To utilize it, import the <code>diff</code> module using <code>import</code> function.
 </p>
 <p>
-Below is an example to show differences between files <code>org.txt</code> and <code>new.txt</code>:
+Below is an example to show differences between files <code>file1.txt</code> and <code>file2.txt</code>:
 </p>
-<pre><code>diff.compose(stream('org.txt'), stream('new.txt')).render(sys.stdout)
+<pre><code>diff.compose(stream('file1.txt'), stream('file2.txt')).render(sys.stdout)
 </code></pre>
 <h2><span class="caption-index-2">14.1</span><a name="caption-14-1"></a>Module Function</h2>
 <p>
@@ -13124,28 +13124,38 @@ Below is an example to show differences between files <code>org.txt</code> and <
 <code>diff.compose(src1, src2) {block?}</code>
 </p>
 <p>
-Calculates differences between string sources and returns <code>diff.result</code> instance that contains the difference information.
+Calculates differences between two sources of strings and returns <code>diff.result</code> instance that contains the difference information.
 </p>
 <p>
-You can specify a <code>string</code> or <code>stream</code> for the argument <code>src1</code> and <code>src2</code>.
+You can specify a value of <code>string</code>, <code>stream</code>, <code>iterator</code> or <code>list</code> for the argument <code>src1</code> and <code>src2</code>. In the result, the content of <code>src1</code> is referred to as an "original" one and that of <code>src2</code> as a "new" one.
 </p>
 <p>
 Below is an example to compare between two strings:
 </p>
-<pre><code>strOrg = '...'
-strNew = '...'
-result = diff.compose(strOrg, strNew)
+<pre><code>str1 = '...'
+str2 = '...'
+result = diff.compose(str1, str2)
 </code></pre>
 <p>
 Below is an example to compare between two files:
 </p>
-<pre><code>result = diff.compose(stream('org.txt'), stream('new.txt'))
+<pre><code>file1 = stream('file1.txt')
+file2 = stream('file2.txt')
+result = diff.compose(file1, file2)
+</code></pre>
+<p>
+Below is an example to compare between two iterators:
+</p>
+<pre><code>chars1 = 'ABCDEFG'.each()
+chars2 = 'ABbCDxxEFG'.each()
+result = diff.compose(chars1, chars2)
 </code></pre>
 <p>
 Below is an example to compare between a file and a string:
 </p>
-<pre><code>strNew = '...'
-result = diff.compose(stream('org.txt'), strNew)
+<pre><code>file = stream('file.txt')
+str = '...'
+result = diff.compose(file, str)
 </code></pre>
 <h2><span class="caption-index-2">14.2</span><a name="caption-14-2"></a>diff.result Class</h2>
 <p>

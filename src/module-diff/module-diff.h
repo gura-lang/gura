@@ -57,8 +57,11 @@ public:
 public:
 	inline DiffString() {}
 	inline const EditList &GetEditList() const { return getSes().getSequence(); }
-	static bool ReadLines(Signal sig, Stream &stream, std::vector<String> &seq);
-	static void SplitLines(const char *src, std::vector<String> &seq);
+	static void FeedString(std::vector<String> &seq, const char *src);
+	static bool FeedStream(Signal sig, std::vector<String> &seq, Stream &stream);
+	static bool FeedIterator(Environment &env, Signal sig,
+							 std::vector<String> &seq, Iterator *pIterator);
+	static void FeedList(std::vector<String> &seq, const ValueList &valList);
 	static String TextizeUnifiedEdit(const Edit &edit);
 	static bool PrintEdit(Signal sig, SimpleStream &stream, const Edit &edit);
 	inline static const char *GetEditMark(const Edit &edit) {
