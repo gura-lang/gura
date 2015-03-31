@@ -11129,8 +11129,6 @@ This module uses libbzip2 which is distributed in the following site:
 <a href="http://www.bzip.org/">http://www.bzip.org/</a>
 </p>
 <h1><span class="caption-index-1">10</span><a name="caption-10"></a>cairo Module</h1>
-<pre><code>
-</code></pre>
 <p>
 The <code>cairo</code> module provides methods to draw 2-D graphics using Cairo library. Official site of Cairo is <a href="http://cairographics.org/">http://cairographics.org/</a>.
 </p>
@@ -12829,6 +12827,13 @@ Gets the weight a toy font.
 <h3><span class="caption-index-3">10.3.14</span><a name="caption-10-3-14"></a>Script Surfaces - Rendering to replayable scripts</h3>
 <h2><span class="caption-index-2">10.4</span><a name="caption-10-4"></a>Utilities</h2>
 <h3><span class="caption-index-3">10.4.1</span><a name="caption-10-4-1"></a>cairo_matrix_t - Generic matrix operations</h3>
+<h2><span class="caption-index-2">10.5</span><a name="caption-10-5"></a>Thanks</h2>
+<p>
+This module uses Cairo library which is distributed in the following site:
+</p>
+<p>
+<a href="http://cairographics.org/">http://cairographics.org/</a>
+</p>
 <h1><span class="caption-index-1">11</span><a name="caption-11"></a>conio Module</h1>
 <p>
 The <code>conio</code> module provides following measures to work on a console screen:
@@ -13121,7 +13126,7 @@ Below is an example to show differences between files <code>file1.txt</code> and
 <strong>diff.compose</strong>
 </p>
 <p>
-<code>diff.compose(src1, src2) {block?}</code>
+<code>diff.compose(src1, src2):[icase] {block?}</code>
 </p>
 <p>
 Calculates differences between two sources of strings and returns <code>diff.result</code> instance that contains the difference information.
@@ -13146,8 +13151,8 @@ result = diff.compose(file1, file2)
 <p>
 Below is an example to compare between two iterators:
 </p>
-<pre><code>chars1 = 'ABCDEFG'.each()
-chars2 = 'ABbCDxxEFG'.each()
+<pre><code>chars1 = '...'.each()
+chars2 = '...'.each()
 result = diff.compose(chars1, chars2)
 </code></pre>
 <p>
@@ -13157,6 +13162,9 @@ Below is an example to compare between a file and a string:
 str = '...'
 result = diff.compose(file, str)
 </code></pre>
+<p>
+If attribute <code>:icase</code> is specified, it wouldn't distinguish upper and lower case of characters.
+</p>
 <h2><span class="caption-index-2">14.2</span><a name="caption-14-2"></a>diff.result Class</h2>
 <p>
 The <code>diff.result</code> instance is created by function <code>diff.compose()</code> and provides information about differences between two texts.
@@ -13190,7 +13198,7 @@ number</code>
 R</td>
 
 <td>
-</td>
+The distance between the texts. Zero means that they are identical each other.</td>
 </tr>
 
 
@@ -13207,7 +13215,7 @@ number</code>
 R</td>
 
 <td>
-</td>
+Number of lines in the "original" text.</td>
 </tr>
 
 
@@ -13224,7 +13232,7 @@ number</code>
 R</td>
 
 <td>
-</td>
+Number of lines in the "new" text.</td>
 </tr>
 
 
@@ -13297,9 +13305,9 @@ If the argument <code>out</code> is omitted, this method returns a string of the
 The argument <code>format</code> takes one of the symbols that specifies the rendering format:
 </p>
 <ul>
-<li><code>`legacy</code> .. Legacy format (not supported yet).</li>
+<li><code>`normal</code> .. Normal format (not supported yet).</li>
 <li><code>`context</code> .. Context format (not supported yet).</li>
-<li><code>`unified</code> .. Unified format.</li>
+<li><code>`unified</code> .. Unified format. This is the default.</li>
 </ul>
 <p>
 The argument <code>lines</code> specifies a number of common lines appended before and after different lines
@@ -13374,7 +13382,7 @@ string</code>
 R</td>
 
 <td>
-</td>
+A mark string that appears on the top of each line in Unified format.</td>
 </tr>
 
 
@@ -13391,7 +13399,7 @@ number</code>
 R</td>
 
 <td>
-</td>
+Line number of the "original" text correspond to the edit.</td>
 </tr>
 
 
@@ -13408,7 +13416,7 @@ number</code>
 R</td>
 
 <td>
-</td>
+Lop line number of the "new" text correspond to the edit.</td>
 </tr>
 
 
@@ -13425,7 +13433,7 @@ string</code>
 R</td>
 
 <td>
-</td>
+A source text.</td>
 </tr>
 
 
@@ -13442,7 +13450,7 @@ string</code>
 R</td>
 
 <td>
-</td>
+A composed string in Unified format.</td>
 </tr>
 
 
@@ -13511,7 +13519,7 @@ number</code>
 R</td>
 
 <td>
-Top line number of the original text affected by the hunk.</td>
+Top line number of the "original" text covered by the hunk.</td>
 </tr>
 
 
@@ -13528,7 +13536,7 @@ number</code>
 R</td>
 
 <td>
-Top line number of the new text affected by the hunk.</td>
+Top line number of the "new" text covered by the hunk.</td>
 </tr>
 
 
@@ -13545,7 +13553,7 @@ number</code>
 R</td>
 
 <td>
-Number of lines in the original text affected by the hunk.</td>
+Number of lines in the "original" text covered by the hunk.</td>
 </tr>
 
 
@@ -13562,7 +13570,7 @@ number</code>
 R</td>
 
 <td>
-Number of lines in the new text affected by the hunk.</td>
+Number of lines in the "new" text covered by the hunk.</td>
 </tr>
 
 
@@ -13583,9 +13591,9 @@ Prints the content of the <code>diff.hunk</code> instance to the specified strea
 The argument <code>format</code> takes one of the symbols that specifies the rendering format:
 </p>
 <ul>
-<li><code>`legacy</code> .. Legacy format (not supported yet).</li>
+<li><code>`normal</code> .. Normal format (not supported yet).</li>
 <li><code>`context</code> .. Context format (not supported yet).</li>
-<li><code>`unified</code> .. Unified format.</li>
+<li><code>`unified</code> .. Unified format. This is the default.</li>
 </ul>
 <h2><span class="caption-index-2">14.5</span><a name="caption-14-5"></a>Thanks</h2>
 <p>
@@ -18667,7 +18675,7 @@ markdown.document('foo.md').render@html('foo.html')
 <strong>markdown.funcdoc</strong>
 </p>
 <p>
-<code>markdown.funcdoc(funcs+:function)</code>
+<code>markdown.funcdoc(funcs*:function)</code>
 </p>
 <p>
 <strong>markdown.setpresenter</strong>
