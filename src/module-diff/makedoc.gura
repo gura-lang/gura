@@ -32,13 +32,13 @@ and provides information about differences between two texts.
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code>diff.result#distance</code></td><td><code>number</code></td><td>R</td>
-<td></td></tr>
+<td>The distance between the texts. Zero means that they are identical each other.</td></tr>
 
 <tr><td><code>diff.result#nlines@org</code></td><td><code>number</code></td><td>R</td>
-<td></td></tr>
+<td>Number of lines in the "original" text.</td></tr>
 
 <tr><td><code>diff.result#nlines@new</code></td><td><code>number</code></td><td>R</td>
-<td></td></tr>
+<td>Number of lines in the "new" text.</td></tr>
 
 </table>
 
@@ -70,19 +70,19 @@ The `diff.edit` provides information about an edit operation.
 </td></tr>
 
 <tr><td><code>diff.edit#mark</code></td><td><code>string</code></td><td>R</td>
-<td></td></tr>
+<td>A mark string that appears on the top of each line in Unified format.</td></tr>
 
 <tr><td><code>diff.edit#lineno@org</code></td><td><code>number</code></td><td>R</td>
-<td></td></tr>
+<td>Line number of the "original" text correspond to the edit.</td></tr>
 
 <tr><td><code>diff.edit#lineno@new</code></td><td><code>number</code></td><td>R</td>
-<td></td></tr>
+<td>Lop line number of the "new" text correspond to the edit.</td></tr>
 
 <tr><td><code>diff.edit#source</code></td><td><code>string</code></td><td>R</td>
-<td></td></tr>
+<td>A source text.</td></tr>
 
 <tr><td><code>diff.edit#unified</code></td><td><code>string</code></td><td>R</td>
-<td></td></tr>
+<td>A composed string in Unified format.</td></tr>
 
 </table>
 
@@ -106,16 +106,16 @@ The `diff.hunk` instance provides information about a hunk.
 <td>An iterator that returns <code>diff.edit</code> instances stored in the hunk.</td></tr>
 
 <tr><td><code>diff.hunk#lineno@org</code></td><td><code>number</code></td><td>R</td>
-<td>Top line number of the original text affected by the hunk.</td></tr>
+<td>Top line number of the "original" text covered by the hunk.</td></tr>
 
 <tr><td><code>diff.hunk#lineno@new</code></td><td><code>number</code></td><td>R</td>
-<td>Top line number of the new text affected by the hunk.</td></tr>
+<td>Top line number of the "new" text covered by the hunk.</td></tr>
 
 <tr><td><code>diff.hunk#nlines@org</code></td><td><code>number</code></td><td>R</td>
-<td>Number of lines in the original text affected by the hunk.</td></tr>
+<td>Number of lines in the "original" text covered by the hunk.</td></tr>
 
 <tr><td><code>diff.hunk#nlines@new</code></td><td><code>number</code></td><td>R</td>
-<td>Number of lines in the new text affected by the hunk.</td></tr>
+<td>Number of lines in the "new" text covered by the hunk.</td></tr>
 
 </table>
 
