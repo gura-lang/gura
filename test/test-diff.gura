@@ -59,7 +59,10 @@ testcase('case - 1') {
 	important new additions
 	to this document.
 	'''
-	diff.compose(textOrg, textNew).render(sys.stdout)
+	diff.compose(textOrg, textNew) {|rtn|
+		printf('nlines@org=%d, nlines@new=%d\n', rtn.nlines@org, rtn.nlines@new)
+		rtn.render(sys.stdout)
+	}
 }
 
 testcase('case - 2') {
@@ -76,9 +79,8 @@ testcase('case - 2') {
 	I need to get the car detailed.
 	'''
 	diff.compose(textOrg, textNew) {|rtn|
-		//printf('%d %d\n', rtn.nlines@org, rtn.nlines@new)
 		println(rtn.eachedit():*unified)
-		//d.eachhunk()::print()
+		rtn.eachhunk()::print()
 	}
 }
 
@@ -165,4 +167,28 @@ testcase('list and iterator') {
 	listNew = ['A', 'b', 'c', 'X', 'd']
 	diff.compose(listOrg, listNew).render(sys.stdout)
 	diff.compose(listOrg.each(), listNew.each()).render(sys.stdout)
+}
+
+testcase('ignore case') {
+	textOrg = R'''
+	abcde
+	fghij
+	klmno
+	pqrst
+	uvwxy
+	z
+	'''
+	textNew = R'''
+	abcde
+	fghij
+	hello
+	KLMNO
+	pqrst
+	UVWXY
+	z
+	'''
+	println('without :icase')
+	diff.compose(textOrg, textNew).render(sys.stdout)
+	println('with :icase')
+	(diff.compose(textOrg, textNew):icase).render(sys.stdout)
 }

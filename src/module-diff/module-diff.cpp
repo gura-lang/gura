@@ -662,7 +662,10 @@ Gura_DeclareFunction(compose)
 		"\n"
 		"    file = stream('file.txt')\n"
 		"    str = '...'\n"
-		"    result = diff.compose(file, str)\n");
+		"    result = diff.compose(file, str)\n"
+		"\n"
+		"If attribute `:icase` is specified, it wouldn't distinguish\n"
+		"upper and lower case of characters.\n");
 }
 
 Gura_ImplementFunction(compose)
