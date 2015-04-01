@@ -158,18 +158,18 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Class declaration for diff.result@line
+// Class declaration for diff.diff@line
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(result_at_line);
+Gura_DeclareUserClass(diff_at_line);
 
-class Object_result_at_line : public Object {
+class Object_diff_at_line : public Object {
 private:
 	AutoPtr<DiffLine> _pDiffLine;
 public:
-	Gura_DeclareObjectAccessor(result_at_line)
+	Gura_DeclareObjectAccessor(diff_at_line)
 public:
-	inline Object_result_at_line(DiffLine *pDiffLine) :
-		Object(Gura_UserClass(result_at_line)), _pDiffLine(pDiffLine) {}
+	inline Object_diff_at_line(DiffLine *pDiffLine) :
+		Object(Gura_UserClass(diff_at_line)), _pDiffLine(pDiffLine) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
