@@ -6,28 +6,6 @@
 Gura_BeginModuleBody(diff)
 
 //-----------------------------------------------------------------------------
-// DiffLine::Hunk
-//-----------------------------------------------------------------------------
-String DiffLine::Hunk::TextizeUnifiedRange() const
-{
-	String str;
-	char buff[80];
-	::sprintf(buff, "-%lu", linenoOrg);
-	str += buff;
-	if (nLinesOrg != 1) {
-		::sprintf(buff, ",%lu", nLinesOrg);
-		str += buff;
-	}
-	::sprintf(buff, " +%lu", linenoNew);
-	str += buff;
-	if (nLinesNew != 1) {
-		::sprintf(buff, ",%lu", nLinesNew);
-		str += buff;
-	}
-	return str;
-}
-
-//-----------------------------------------------------------------------------
 // DiffLine
 //-----------------------------------------------------------------------------
 void DiffLine::Compose()
@@ -145,7 +123,7 @@ bool DiffLine::NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) cons
 	return false;
 }
 
-void DiffLine::FeedString(SequenceLine &seq, const char *src)
+void DiffLine::FeedString(Sequence &seq, const char *src)
 {
 	String str;
 	for (const char *p = src; *p != '\0'; p++) {
@@ -160,7 +138,7 @@ void DiffLine::FeedString(SequenceLine &seq, const char *src)
 	if (!str.empty()) seq.push_back(str);
 }
 
-bool DiffLine::FeedStream(Signal sig, SequenceLine &seq, Stream &src)
+bool DiffLine::FeedStream(Signal sig, Sequence &seq, Stream &src)
 {
 	bool includeEOLFlag = false;
 	for (;;) {
@@ -171,8 +149,7 @@ bool DiffLine::FeedStream(Signal sig, SequenceLine &seq, Stream &src)
 	return !sig.IsSignalled();
 }
 
-bool DiffLine::FeedIterator(Environment &env, Signal sig,
-							  SequenceLine &seq, Iterator *pIterator)
+bool DiffLine::FeedIterator(Environment &env, Signal sig, Sequence &seq, Iterator *pIterator)
 {
 	Value value;
 	while (pIterator->Next(env, sig, value)) {
@@ -181,7 +158,7 @@ bool DiffLine::FeedIterator(Environment &env, Signal sig,
 	return !sig.IsSignalled();
 }
 
-void DiffLine::FeedList(SequenceLine &seq, const ValueList &valList)
+void DiffLine::FeedList(Sequence &seq, const ValueList &valList)
 {
 	foreach_const (ValueList, pValue, valList) {
 		seq.push_back(pValue->ToString());
@@ -208,6 +185,28 @@ DiffLine::Format DiffLine::SymbolToFormat(Signal sig, const Symbol *pSymbol)
 		sig.SetError(ERR_ValueError, "invalid symbol for the format");
 		return FORMAT_None;
 	}
+}
+
+//-----------------------------------------------------------------------------
+// DiffLine::Hunk
+//-----------------------------------------------------------------------------
+String DiffLine::Hunk::TextizeUnifiedRange() const
+{
+	String str;
+	char buff[80];
+	::sprintf(buff, "-%lu", linenoOrg);
+	str += buff;
+	if (nLinesOrg != 1) {
+		::sprintf(buff, ",%lu", nLinesOrg);
+		str += buff;
+	}
+	::sprintf(buff, " +%lu", linenoNew);
+	str += buff;
+	if (nLinesNew != 1) {
+		::sprintf(buff, ",%lu", nLinesNew);
+		str += buff;
+	}
+	return str;
 }
 
 //-----------------------------------------------------------------------------

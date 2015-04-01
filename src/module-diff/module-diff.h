@@ -25,11 +25,6 @@ Gura_DeclareUserSymbol(type);
 Gura_DeclareUserSymbol(unified);
 
 //-----------------------------------------------------------------------------
-// SequenceLine
-//-----------------------------------------------------------------------------
-typedef std::vector<String> SequenceLine;
-
-//-----------------------------------------------------------------------------
 // ComparatorLine
 //-----------------------------------------------------------------------------
 class ComparatorLine {
@@ -47,7 +42,7 @@ public:
 //-----------------------------------------------------------------------------
 // DiffLine
 //-----------------------------------------------------------------------------
-class DiffLine : public dtl::Diff<String, SequenceLine, ComparatorLine> {
+class DiffLine : public dtl::Diff<String, std::vector<String>, ComparatorLine> {
 public:
 	enum Format {
 		FORMAT_None,
@@ -66,7 +61,7 @@ public:
 	public:
 		String TextizeUnifiedRange() const;
 	};
-public:
+	typedef std::vector<String> Sequence;
 	typedef sesElem Edit;
 	typedef sesElemVec EditList;
 private:
@@ -89,16 +84,16 @@ public:
 	bool PrintHunks(Signal sig, SimpleStream &stream,
 						Format format, size_t nLinesCommon) const;
 	bool NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const;
-	static void FeedString(SequenceLine &seq, const char *src);
-	static bool FeedStream(Signal sig, SequenceLine &seq, Stream &stream);
+	static void FeedString(Sequence &seq, const char *src);
+	static bool FeedStream(Signal sig, Sequence &seq, Stream &stream);
 	static bool FeedIterator(Environment &env, Signal sig,
-							 SequenceLine &seq, Iterator *pIterator);
-	static void FeedList(SequenceLine &seq, const ValueList &valList);
+							 Sequence &seq, Iterator *pIterator);
+	static void FeedList(Sequence &seq, const ValueList &valList);
 	static String TextizeUnifiedEdit(const Edit &edit);
 	static Format SymbolToFormat(Signal sig, const Symbol *pSymbol);
 	inline const EditList &GetEditList() const { return getSes().getSequence(); }
 	inline long long GetEditDistance() const { return getEditDistance(); }
-	inline SequenceLine &GetSeq(size_t idx) { return (idx == 0)? getA() : getB(); }
+	inline Sequence &GetSeq(size_t idx) { return (idx == 0)? getA() : getB(); }
 	inline size_t CountEdits() const {
 		return GetEditList().size();
 	}
