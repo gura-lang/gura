@@ -27,20 +27,6 @@ String HunkLine::TextizeUnifiedRange() const
 	return str;
 }
 
-HunkLine::Format HunkLine::SymbolToFormat(Signal sig, const Symbol *pSymbol)
-{
-	if (pSymbol->IsIdentical(Gura_UserSymbol(normal))) {
-		return FORMAT_Normal;
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(context))) {
-		return FORMAT_Context;
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(unified))) {
-		return FORMAT_Unified;
-	} else {		
-		sig.SetError(ERR_ValueError, "invalid symbol for the format");
-		return FORMAT_None;
-	}
-}
-
 //-----------------------------------------------------------------------------
 // DiffLine
 //-----------------------------------------------------------------------------
@@ -72,7 +58,7 @@ bool DiffLine::PrintEdits(Signal sig, SimpleStream &stream) const
 }
 
 bool DiffLine::PrintHunkLine(Signal sig, SimpleStream &stream,
-					   HunkLine::Format format, const HunkLine &hunkLine) const
+					   DiffLine::Format format, const HunkLine &hunkLine) const
 {
 	const EditList &edits = GetEditList();
 	EditList::const_iterator pEdit = edits.begin() + hunkLine.idxEditBegin;
@@ -85,7 +71,7 @@ bool DiffLine::PrintHunkLine(Signal sig, SimpleStream &stream,
 }
 
 bool DiffLine::PrintHunkLines(Signal sig, SimpleStream &stream,
-						HunkLine::Format format, size_t nLinesCommon) const
+						DiffLine::Format format, size_t nLinesCommon) const
 {
 	size_t idxEdit = 0;
 	HunkLine hunkLine;
@@ -210,6 +196,20 @@ String DiffLine::TextizeUnifiedEdit(const DiffLine::Edit &edit)
 	return str;
 }
 
+DiffLine::Format DiffLine::SymbolToFormat(Signal sig, const Symbol *pSymbol)
+{
+	if (pSymbol->IsIdentical(Gura_UserSymbol(normal))) {
+		return FORMAT_Normal;
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(context))) {
+		return FORMAT_Context;
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(unified))) {
+		return FORMAT_Unified;
+	} else {		
+		sig.SetError(ERR_ValueError, "invalid symbol for the format");
+		return FORMAT_None;
+	}
+}
+
 //-----------------------------------------------------------------------------
 // Object_result
 //-----------------------------------------------------------------------------
@@ -327,10 +327,10 @@ Gura_DeclareMethodAlias(result, render, "render")
 Gura_ImplementMethod(result, render)
 {
 	DiffLine *pDiffLine = Object_result::GetThisObj(args)->GetDiffLine();
-	HunkLine::Format format = HunkLine::FORMAT_Unified;
+	DiffLine::Format format = DiffLine::FORMAT_Unified;
 	if (args.IsValid(1)) {
-		format = HunkLine::SymbolToFormat(sig, args.GetSymbol(1));
-		if (format == HunkLine::FORMAT_None) return Value::Null;
+		format = DiffLine::SymbolToFormat(sig, args.GetSymbol(1));
+		if (format == DiffLine::FORMAT_None) return Value::Null;
 	}
 	size_t nLinesCommon = args.IsValid(2)? args.GetSizeT(2) : 3;
 	if (args.IsValid(0)) {
@@ -525,10 +525,10 @@ Gura_ImplementMethod(hunk, print)
 {
 	Object_hunk *pThis = Object_hunk::GetThisObj(args);
 	Stream &stream = args.IsValid(0)? args.GetStream(0) : *env.GetConsole();
-	HunkLine::Format format = HunkLine::FORMAT_Unified;
+	DiffLine::Format format = DiffLine::FORMAT_Unified;
 	if (args.IsValid(1)) {
-		format = HunkLine::SymbolToFormat(sig, args.GetSymbol(1));
-		if (format == HunkLine::FORMAT_None) return Value::Null;
+		format = DiffLine::SymbolToFormat(sig, args.GetSymbol(1));
+		if (format == DiffLine::FORMAT_None) return Value::Null;
 	}
 	pThis->GetDiffLine()->PrintHunkLine(sig, stream, format, pThis->GetHunkLine());
 	return Value::Null;

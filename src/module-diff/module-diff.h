@@ -49,12 +49,6 @@ public:
 //-----------------------------------------------------------------------------
 struct HunkLine {
 public:
-	enum Format {
-		FORMAT_None,
-		FORMAT_Normal,
-		FORMAT_Context,
-		FORMAT_Unified,
-	};
 public:
 	size_t idxEditBegin;
 	size_t idxEditEnd;
@@ -64,13 +58,19 @@ public:
 	size_t nLinesNew;
 public:
 	String TextizeUnifiedRange() const;
-	static Format SymbolToFormat(Signal sig, const Symbol *pSymbol);
 };
 
 //-----------------------------------------------------------------------------
 // DiffLine
 //-----------------------------------------------------------------------------
 class DiffLine : public dtl::Diff<String, SequenceLine, ComparatorLine> {
+public:
+	enum Format {
+		FORMAT_None,
+		FORMAT_Normal,
+		FORMAT_Context,
+		FORMAT_Unified,
+	};
 public:
 	typedef sesElem Edit;
 	typedef sesElemVec EditList;
@@ -90,9 +90,9 @@ public:
 	bool PrintEdit(Signal sig, SimpleStream &stream, size_t idxEdit);
 	bool PrintEdits(Signal sig, SimpleStream &stream) const;
 	bool PrintHunkLine(Signal sig, SimpleStream &stream,
-				   HunkLine::Format format, const HunkLine &hunkLine) const;
+					   Format format, const HunkLine &hunkLine) const;
 	bool PrintHunkLines(Signal sig, SimpleStream &stream,
-					HunkLine::Format format, size_t nLinesCommon) const;
+						Format format, size_t nLinesCommon) const;
 	bool NextHunkLine(size_t *pIdxEdit, size_t nLinesCommon, HunkLine *pHunkLine) const;
 	static void FeedString(SequenceLine &seq, const char *src);
 	static bool FeedStream(Signal sig, SequenceLine &seq, Stream &stream);
@@ -100,6 +100,7 @@ public:
 							 SequenceLine &seq, Iterator *pIterator);
 	static void FeedList(SequenceLine &seq, const ValueList &valList);
 	static String TextizeUnifiedEdit(const Edit &edit);
+	static Format SymbolToFormat(Signal sig, const Symbol *pSymbol);
 	inline const EditList &GetEditList() const { return getSes().getSequence(); }
 	inline long long GetEditDistance() const { return getEditDistance(); }
 	inline SequenceLine &GetSeq(size_t idx) { return (idx == 0)? getA() : getB(); }
