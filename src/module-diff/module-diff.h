@@ -64,6 +64,33 @@ public:
 	typedef std::vector<String> Sequence;
 	typedef sesElem Edit;
 	typedef sesElemVec EditList;
+public:
+	class IteratorEdit : public Iterator {
+	private:
+		AutoPtr<DiffLine> _pDiffLine;
+		size_t _idxEdit;
+		size_t _idxEditBegin;
+		size_t _idxEditEnd;
+	public:
+		IteratorEdit(DiffLine *pDiffLine);
+		IteratorEdit(DiffLine *pDiffLine, const DiffLine::Hunk &hunk);
+		virtual Iterator *GetSource();
+		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual String ToString() const;
+		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+	};
+	class IteratorHunk : public Iterator {
+	private:
+		AutoPtr<DiffLine> _pDiffLine;
+		size_t _idxEdit;
+		size_t _nLinesCommon;
+	public:
+		IteratorHunk(DiffLine *pDiffLine, size_t nLinesCommon);
+		virtual Iterator *GetSource();
+		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual String ToString() const;
+		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+	};
 private:
 	int _cntRef;
 public:
@@ -172,40 +199,6 @@ public:
 	virtual String ToString(bool exprFlag);
 	inline DiffLine *GetDiffLine() { return _pDiffLine.get(); }
 	inline const DiffLine::Hunk &GetHunk() const { return _hunk; }
-};
-
-//-----------------------------------------------------------------------------
-// IteratorEdit
-//-----------------------------------------------------------------------------
-class IteratorEdit : public Iterator {
-private:
-	AutoPtr<DiffLine> _pDiffLine;
-	size_t _idxEdit;
-	size_t _idxEditBegin;
-	size_t _idxEditEnd;
-public:
-	IteratorEdit(DiffLine *pDiffLine);
-	IteratorEdit(DiffLine *pDiffLine, const DiffLine::Hunk &hunk);
-	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal sig, Value &value);
-	virtual String ToString() const;
-	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-};
-
-//-----------------------------------------------------------------------------
-// IteratorHunk
-//-----------------------------------------------------------------------------
-class IteratorHunk : public Iterator {
-private:
-	AutoPtr<DiffLine> _pDiffLine;
-	size_t _idxEdit;
-	size_t _nLinesCommon;
-public:
-	IteratorHunk(DiffLine *pDiffLine, size_t nLinesCommon);
-	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal sig, Value &value);
-	virtual String ToString() const;
-	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
 Gura_EndModuleHeader(diff)

@@ -210,6 +210,79 @@ String DiffLine::Hunk::TextizeUnifiedRange() const
 }
 
 //-----------------------------------------------------------------------------
+// DiffLine::IteratorEdit
+//-----------------------------------------------------------------------------
+DiffLine::IteratorEdit::IteratorEdit(DiffLine *pDiffLine) :
+	Iterator(false), _pDiffLine(pDiffLine),
+	_idxEdit(0), _idxEditBegin(0), _idxEditEnd(pDiffLine->CountEdits())
+{
+}
+
+DiffLine::IteratorEdit::IteratorEdit(DiffLine *pDiffLine, const DiffLine::Hunk &hunk) :
+	Iterator(false), _pDiffLine(pDiffLine),
+	_idxEdit(hunk.idxEditBegin), _idxEditBegin(hunk.idxEditBegin), _idxEditEnd(hunk.idxEditEnd)
+{
+}
+
+Iterator *DiffLine::IteratorEdit::GetSource()
+{
+	return NULL;
+}
+
+bool DiffLine::IteratorEdit::DoNext(Environment &env, Signal sig, Value &value)
+{
+	if (_idxEdit >= _idxEditEnd) return false;
+	value = Value(new Object_edit_at_line(_pDiffLine->Reference(), _idxEdit));
+	_idxEdit++;
+	return true;
+}
+
+String DiffLine::IteratorEdit::ToString() const
+{
+	String str;
+	str += "diff.edit";
+	return str;
+}
+
+void DiffLine::IteratorEdit::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
+//-----------------------------------------------------------------------------
+// DiffLine::IteratorHunk
+//-----------------------------------------------------------------------------
+DiffLine::IteratorHunk::IteratorHunk(DiffLine *pDiffLine, size_t nLinesCommon) :
+	Iterator(false), _pDiffLine(pDiffLine), _idxEdit(0), _nLinesCommon(nLinesCommon)
+{
+}
+
+Iterator *DiffLine::IteratorHunk::GetSource()
+{
+	return NULL;
+}
+
+bool DiffLine::IteratorHunk::DoNext(Environment &env, Signal sig, Value &value)
+{
+	DiffLine::Hunk hunk;
+	if (_pDiffLine->NextHunk(&_idxEdit, _nLinesCommon, &hunk)) {
+		value = Value(new Object_hunk_at_line(_pDiffLine->Reference(), hunk));
+		return true;
+	}
+	return false;
+}
+
+String DiffLine::IteratorHunk::ToString() const
+{
+	String str;
+	str += "diff.hunk@line";
+	return str;
+}
+
+void DiffLine::IteratorHunk::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
+//-----------------------------------------------------------------------------
 // Object_result_at_line
 //-----------------------------------------------------------------------------
 Object *Object_result_at_line::Clone() const
@@ -270,7 +343,7 @@ Gura_DeclareMethod(result_at_line, eachedit)
 Gura_ImplementMethod(result_at_line, eachedit)
 {
 	DiffLine *pDiffLine = Object_result_at_line::GetThisObj(args)->GetDiffLine();
-	AutoPtr<IteratorEdit> pIterator(new IteratorEdit(pDiffLine->Reference()));
+	AutoPtr<DiffLine::IteratorEdit> pIterator(new DiffLine::IteratorEdit(pDiffLine->Reference()));
 	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
@@ -294,7 +367,8 @@ Gura_ImplementMethod(result_at_line, eachhunk)
 {
 	DiffLine *pDiffLine = Object_result_at_line::GetThisObj(args)->GetDiffLine();
 	size_t nLinesCommon = args.IsValid(0)? args.GetSizeT(0) : 3;
-	AutoPtr<IteratorHunk> pIterator(new IteratorHunk(pDiffLine->Reference(), nLinesCommon));
+	AutoPtr<DiffLine::IteratorHunk> pIterator(
+		new DiffLine::IteratorHunk(pDiffLine->Reference(), nLinesCommon));
 	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
@@ -474,7 +548,7 @@ Value Object_hunk_at_line::DoGetProp(Environment &env, Signal sig, const Symbol 
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(edits))) {
-		AutoPtr<Iterator> pIterator(new IteratorEdit(_pDiffLine->Reference(), _hunk));
+		AutoPtr<Iterator> pIterator(new DiffLine::IteratorEdit(_pDiffLine->Reference(), _hunk));
 		return Value(new Object_iterator(env, pIterator.release()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_org))) {
 		return Value(_hunk.linenoOrg);
@@ -540,79 +614,6 @@ Gura_ImplementUserClass(hunk_at_line)
 {
 	Gura_AssignValueEx("hunk@line", Value(Reference()));
 	Gura_AssignMethod(hunk_at_line, print);
-}
-
-//-----------------------------------------------------------------------------
-// IteratorEdit
-//-----------------------------------------------------------------------------
-IteratorEdit::IteratorEdit(DiffLine *pDiffLine) :
-	Iterator(false), _pDiffLine(pDiffLine),
-	_idxEdit(0), _idxEditBegin(0), _idxEditEnd(pDiffLine->CountEdits())
-{
-}
-
-IteratorEdit::IteratorEdit(DiffLine *pDiffLine, const DiffLine::Hunk &hunk) :
-	Iterator(false), _pDiffLine(pDiffLine),
-	_idxEdit(hunk.idxEditBegin), _idxEditBegin(hunk.idxEditBegin), _idxEditEnd(hunk.idxEditEnd)
-{
-}
-
-Iterator *IteratorEdit::GetSource()
-{
-	return NULL;
-}
-
-bool IteratorEdit::DoNext(Environment &env, Signal sig, Value &value)
-{
-	if (_idxEdit >= _idxEditEnd) return false;
-	value = Value(new Object_edit_at_line(_pDiffLine->Reference(), _idxEdit));
-	_idxEdit++;
-	return true;
-}
-
-String IteratorEdit::ToString() const
-{
-	String str;
-	str += "diff.edit";
-	return str;
-}
-
-void IteratorEdit::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
-{
-}
-
-//-----------------------------------------------------------------------------
-// IteratorHunk
-//-----------------------------------------------------------------------------
-IteratorHunk::IteratorHunk(DiffLine *pDiffLine, size_t nLinesCommon) :
-	Iterator(false), _pDiffLine(pDiffLine), _idxEdit(0), _nLinesCommon(nLinesCommon)
-{
-}
-
-Iterator *IteratorHunk::GetSource()
-{
-	return NULL;
-}
-
-bool IteratorHunk::DoNext(Environment &env, Signal sig, Value &value)
-{
-	DiffLine::Hunk hunk;
-	if (_pDiffLine->NextHunk(&_idxEdit, _nLinesCommon, &hunk)) {
-		value = Value(new Object_hunk_at_line(_pDiffLine->Reference(), hunk));
-		return true;
-	}
-	return false;
-}
-
-String IteratorHunk::ToString() const
-{
-	String str;
-	str += "diff.hunk@line";
-	return str;
-}
-
-void IteratorHunk::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
-{
 }
 
 //-----------------------------------------------------------------------------
