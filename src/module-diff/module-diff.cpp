@@ -833,7 +833,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClassAlias(diff_at_line, "diff@line", env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassAlias(hunk_at_line, "hunk@line", env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassAlias(edit_at_line, "edit@line", env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClassAlias(diff_at_line, "diff@char", env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassAlias(diff_at_char, "diff@char", env.LookupClass(VTYPE_object));
 	// class preparation
 	Gura_PrepareUserClass(diff_at_line);
 	Gura_PrepareUserClass(hunk_at_line);
