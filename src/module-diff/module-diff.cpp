@@ -306,9 +306,9 @@ Value Object_diff_at_line::DoGetProp(Environment &env, Signal sig, const Symbol 
 	if (pSymbol->IsIdentical(Gura_UserSymbol(distance))) {
 		return Value(_pDiffLine->GetEditDistance());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(nlines_at_org))) {
-		return Value(_pDiffLine->GetSeq(0).size());
+		return Value(_pDiffLine->GetSequence(0).size());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(nlines_at_new))) {
-		return Value(_pDiffLine->GetSeq(1).size());
+		return Value(_pDiffLine->GetSequence(1).size());
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -671,18 +671,18 @@ Gura_ImplementFunction(compose)
 	AutoPtr<DiffLine> pDiffLine(new DiffLine(ignoreCaseFlag));
 	for (size_t i = 0; i < 2; i++) {
 		if (args.IsType(i, VTYPE_string)) {
-			DiffLine::FeedString(pDiffLine->GetSeq(i), args.GetString(i));
+			DiffLine::FeedString(pDiffLine->GetSequence(i), args.GetString(i));
 		} else if (args.IsType(i, VTYPE_stream)) {
-			if (!DiffLine::FeedStream(sig, pDiffLine->GetSeq(i), args.GetStream(i))) {
+			if (!DiffLine::FeedStream(sig, pDiffLine->GetSequence(i), args.GetStream(i))) {
 				return Value::Null;
 			}
 		} else if (args.IsType(i, VTYPE_iterator)) {
 			AutoPtr<Iterator> pIterator(args.GetIterator(i)->Clone());
-			if (!DiffLine::FeedIterator(env, sig, pDiffLine->GetSeq(i), pIterator.get())) {
+			if (!DiffLine::FeedIterator(env, sig, pDiffLine->GetSequence(i), pIterator.get())) {
 				return Value::Null;
 			}				
 		} else if (args.IsType(i, VTYPE_list)) {
-			DiffLine::FeedList(pDiffLine->GetSeq(i), args.GetList(i));
+			DiffLine::FeedList(pDiffLine->GetSequence(i), args.GetList(i));
 		} else {
 			sig.SetError(ERR_TypeError, "difference source must be string or stream");
 			return Value::Null;

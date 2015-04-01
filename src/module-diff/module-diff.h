@@ -40,6 +40,20 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// ComparatorChar
+//-----------------------------------------------------------------------------
+class ComparatorChar {
+private:
+	bool _ignoreCaseFlag;
+public:
+	inline ComparatorChar() : _ignoreCaseFlag(false) {}
+	inline void SetIgnoreCaseFlag(bool ignoreCaseFlag) { _ignoreCaseFlag = ignoreCaseFlag; }
+	inline bool impl(ULong ch1, ULong ch2) const {
+		return ch1 == ch2;
+	}
+};
+
+//-----------------------------------------------------------------------------
 // DiffLine
 //-----------------------------------------------------------------------------
 class DiffLine : public dtl::Diff<String, std::vector<String>, ComparatorLine> {
@@ -120,7 +134,7 @@ public:
 	static Format SymbolToFormat(Signal sig, const Symbol *pSymbol);
 	inline const EditList &GetEditList() const { return getSes().getSequence(); }
 	inline long long GetEditDistance() const { return getEditDistance(); }
-	inline Sequence &GetSeq(size_t idx) { return (idx == 0)? getA() : getB(); }
+	inline Sequence &GetSequence(size_t idx) { return (idx == 0)? getA() : getB(); }
 	inline size_t CountEdits() const {
 		return GetEditList().size();
 	}
@@ -132,6 +146,22 @@ public:
 			(edit.second.type == dtl::SES_ADD)? "+" :
 			(edit.second.type == dtl::SES_DELETE)? "-" : " ";
 	}
+};
+
+//-----------------------------------------------------------------------------
+// DiffChar
+//-----------------------------------------------------------------------------
+class DiffChar : public dtl::Diff<ULong, std::vector<ULong>, ComparatorChar> {
+private:
+	int _cntRef;
+public:
+	inline DiffChar(bool ignoreCaseFlag) : _cntRef(1) {
+		cmp.SetIgnoreCaseFlag(ignoreCaseFlag);
+	}
+protected:
+	inline ~DiffChar() {}
+public:
+	//void Compose();
 };
 
 //-----------------------------------------------------------------------------
