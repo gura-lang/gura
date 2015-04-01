@@ -25,18 +25,18 @@ Gura_DeclareUserSymbol(type);
 Gura_DeclareUserSymbol(unified);
 
 //-----------------------------------------------------------------------------
-// SequenceString
+// SequenceLine
 //-----------------------------------------------------------------------------
-typedef std::vector<String> SequenceString;
+typedef std::vector<String> SequenceLine;
 
 //-----------------------------------------------------------------------------
-// ComparatorString
+// ComparatorLine
 //-----------------------------------------------------------------------------
-class ComparatorString {
+class ComparatorLine {
 private:
 	bool _ignoreCaseFlag;
 public:
-	inline ComparatorString() : _ignoreCaseFlag(false) {}
+	inline ComparatorLine() : _ignoreCaseFlag(false) {}
 	inline void SetIgnoreCaseFlag(bool ignoreCaseFlag) { _ignoreCaseFlag = ignoreCaseFlag; }
 	inline bool impl(const String &str1, const String &str2) const {
 		return _ignoreCaseFlag?
@@ -68,22 +68,22 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// DiffString
+// DiffLine
 //-----------------------------------------------------------------------------
-class DiffString : public dtl::Diff<String, SequenceString, ComparatorString> {
+class DiffLine : public dtl::Diff<String, SequenceLine, ComparatorLine> {
 public:
 	typedef sesElem Edit;
 	typedef sesElemVec EditList;
 public:
-	inline DiffString(bool ignoreCaseFlag) {
+	inline DiffLine(bool ignoreCaseFlag) {
 		cmp.SetIgnoreCaseFlag(ignoreCaseFlag);
 	}
 	inline const EditList &GetEditList() const { return getSes().getSequence(); }
-	static void FeedString(SequenceString &seq, const char *src);
-	static bool FeedStream(Signal sig, SequenceString &seq, Stream &stream);
+	static void FeedString(SequenceLine &seq, const char *src);
+	static bool FeedStream(Signal sig, SequenceLine &seq, Stream &stream);
 	static bool FeedIterator(Environment &env, Signal sig,
-							 SequenceString &seq, Iterator *pIterator);
-	static void FeedList(SequenceString &seq, const ValueList &valList);
+							 SequenceLine &seq, Iterator *pIterator);
+	static void FeedList(SequenceLine &seq, const ValueList &valList);
 	static String TextizeUnifiedEdit(const Edit &edit);
 	static bool PrintEdit(Signal sig, SimpleStream &stream, const Edit &edit);
 	inline static const char *GetEditMark(const Edit &edit) {
@@ -99,17 +99,17 @@ public:
 class Result {
 private:
 	int _cntRef;
-	DiffString _diffString;
+	DiffLine _diffLine;
 public:
 	Gura_DeclareReferenceAccessor(Result);
 public:
-	inline Result(bool ignoreCaseFlag) : _cntRef(1), _diffString(ignoreCaseFlag) {}
+	inline Result(bool ignoreCaseFlag) : _cntRef(1), _diffLine(ignoreCaseFlag) {}
 protected:
 	inline ~Result() {}
 public:
-	inline long long GetEditDistance() const { return _diffString.getEditDistance(); }
-	inline SequenceString &GetSeq(size_t idx) {
-		return (idx == 0)? _diffString.getA() : _diffString.getB();
+	inline long long GetEditDistance() const { return _diffLine.getEditDistance(); }
+	inline SequenceLine &GetSeq(size_t idx) {
+		return (idx == 0)? _diffLine.getA() : _diffLine.getB();
 	}
 	void Compose();
 	bool PrintEdit(Signal sig, SimpleStream &stream, size_t idxEdit);
@@ -120,10 +120,10 @@ public:
 					Hunk::Format format, size_t nLinesCommon) const;
 	bool NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const;
 	inline size_t CountEdits() const {
-		return _diffString.GetEditList().size();
+		return _diffLine.GetEditList().size();
 	}
-	inline const DiffString::Edit &GetEdit(size_t idxEdit) const {
-		return _diffString.GetEditList()[idxEdit];
+	inline const DiffLine::Edit &GetEdit(size_t idxEdit) const {
+		return _diffLine.GetEditList()[idxEdit];
 	}
 };
 

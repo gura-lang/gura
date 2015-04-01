@@ -42,9 +42,9 @@ Hunk::Format Hunk::SymbolToFormat(Signal sig, const Symbol *pSymbol)
 }
 
 //-----------------------------------------------------------------------------
-// DiffString
+// DiffLine
 //-----------------------------------------------------------------------------
-void DiffString::FeedString(SequenceString &seq, const char *src)
+void DiffLine::FeedString(SequenceLine &seq, const char *src)
 {
 	String str;
 	for (const char *p = src; *p != '\0'; p++) {
@@ -59,7 +59,7 @@ void DiffString::FeedString(SequenceString &seq, const char *src)
 	if (!str.empty()) seq.push_back(str);
 }
 
-bool DiffString::FeedStream(Signal sig, SequenceString &seq, Stream &src)
+bool DiffLine::FeedStream(Signal sig, SequenceLine &seq, Stream &src)
 {
 	bool includeEOLFlag = false;
 	for (;;) {
@@ -70,8 +70,8 @@ bool DiffString::FeedStream(Signal sig, SequenceString &seq, Stream &src)
 	return !sig.IsSignalled();
 }
 
-bool DiffString::FeedIterator(Environment &env, Signal sig,
-							  SequenceString &seq, Iterator *pIterator)
+bool DiffLine::FeedIterator(Environment &env, Signal sig,
+							  SequenceLine &seq, Iterator *pIterator)
 {
 	Value value;
 	while (pIterator->Next(env, sig, value)) {
@@ -80,14 +80,14 @@ bool DiffString::FeedIterator(Environment &env, Signal sig,
 	return !sig.IsSignalled();
 }
 
-void DiffString::FeedList(SequenceString &seq, const ValueList &valList)
+void DiffLine::FeedList(SequenceLine &seq, const ValueList &valList)
 {
 	foreach_const (ValueList, pValue, valList) {
 		seq.push_back(pValue->ToString());
 	}
 }
 
-String DiffString::TextizeUnifiedEdit(const DiffString::Edit &edit)
+String DiffLine::TextizeUnifiedEdit(const DiffLine::Edit &edit)
 {
 	String str;
 	str += GetEditMark(edit);
@@ -95,7 +95,7 @@ String DiffString::TextizeUnifiedEdit(const DiffString::Edit &edit)
 	return str;
 }
 
-bool DiffString::PrintEdit(Signal sig, SimpleStream &stream, const DiffString::Edit &edit)
+bool DiffLine::PrintEdit(Signal sig, SimpleStream &stream, const DiffLine::Edit &edit)
 {
 	stream.Println(sig, TextizeUnifiedEdit(edit).c_str());
 	return !sig.IsSignalled();
@@ -106,21 +106,21 @@ bool DiffString::PrintEdit(Signal sig, SimpleStream &stream, const DiffString::E
 //-----------------------------------------------------------------------------
 void Result::Compose()
 {
-	_diffString.init();
-	_diffString.onHuge();
-	_diffString.compose();
+	_diffLine.init();
+	_diffLine.onHuge();
+	_diffLine.compose();
 }
 
 bool Result::PrintEdit(Signal sig, SimpleStream &stream, size_t idxEdit)
 {
-	const DiffString::Edit &edit = _diffString.GetEditList()[idxEdit];
-	return DiffString::PrintEdit(sig, stream, edit);
+	const DiffLine::Edit &edit = _diffLine.GetEditList()[idxEdit];
+	return DiffLine::PrintEdit(sig, stream, edit);
 }
 
 bool Result::PrintEdits(Signal sig, SimpleStream &stream) const
 {
-	foreach_const (DiffString::EditList, pEdit, _diffString.GetEditList()) {
-		if (!DiffString::PrintEdit(sig, stream, *pEdit)) return false;
+	foreach_const (DiffLine::EditList, pEdit, _diffLine.GetEditList()) {
+		if (!DiffLine::PrintEdit(sig, stream, *pEdit)) return false;
 	}
 	return true;
 }
@@ -128,12 +128,12 @@ bool Result::PrintEdits(Signal sig, SimpleStream &stream) const
 bool Result::PrintHunk(Signal sig, SimpleStream &stream,
 					   Hunk::Format format, const Hunk &hunk) const
 {
-	const DiffString::EditList &edits = _diffString.GetEditList();
-	DiffString::EditList::const_iterator pEdit = edits.begin() + hunk.idxEditBegin;
-	DiffString::EditList::const_iterator pEditEnd = edits.begin() + hunk.idxEditEnd;
+	const DiffLine::EditList &edits = _diffLine.GetEditList();
+	DiffLine::EditList::const_iterator pEdit = edits.begin() + hunk.idxEditBegin;
+	DiffLine::EditList::const_iterator pEditEnd = edits.begin() + hunk.idxEditEnd;
 	stream.Printf(sig, "@@ %s @@\n", hunk.TextizeUnifiedRange().c_str());
 	for ( ; pEdit != pEditEnd; pEdit++) {
-		if (!DiffString::PrintEdit(sig, stream, *pEdit)) return false;
+		if (!DiffLine::PrintEdit(sig, stream, *pEdit)) return false;
 	}
 	return true;
 }
@@ -158,13 +158,13 @@ bool Result::NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const
 	if (idxEdit >= nEdits) return false;
 	size_t nLines = 0;
 	for ( ; idxEdit < nEdits; idxEdit++) {
-		const DiffString::Edit &edit = GetEdit(idxEdit);
+		const DiffLine::Edit &edit = GetEdit(idxEdit);
 		if (edit.second.type == dtl::SES_COMMON) continue;
 		pHunk->idxEditBegin = (idxEdit > idxEditTop + nLinesCommon)?
 			idxEdit - nLinesCommon : idxEditTop;
 		idxEdit++;
 		for ( ; idxEdit < nEdits; idxEdit++) {
-			const DiffString::Edit &edit = GetEdit(idxEdit);
+			const DiffLine::Edit &edit = GetEdit(idxEdit);
 			if (edit.second.type == dtl::SES_COMMON) {
 				nLines++;
 				if (nLines >= nLinesCommon * 2) {
@@ -178,32 +178,32 @@ bool Result::NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const
 		*pIdxEdit = idxEdit;
 		pHunk->idxEditEnd = idxEdit;
 		for (size_t idxEdit = pHunk->idxEditBegin; idxEdit < pHunk->idxEditEnd; idxEdit++) {
-			const DiffString::Edit &edit = GetEdit(idxEdit);
+			const DiffLine::Edit &edit = GetEdit(idxEdit);
 			if (edit.second.beforeIdx > 0) {
 				pHunk->linenoOrg = edit.second.beforeIdx;
 				break;
 			}
 		}
 		for (size_t idxEdit = pHunk->idxEditBegin; idxEdit < pHunk->idxEditEnd; idxEdit++) {
-			const DiffString::Edit &edit = GetEdit(idxEdit);
+			const DiffLine::Edit &edit = GetEdit(idxEdit);
 			if (edit.second.afterIdx > 0) {
 				pHunk->linenoNew = edit.second.afterIdx;
 				break;
 			}
 		}
 		do {
-			const DiffString::Edit &edit = GetEdit(pHunk->idxEditBegin);
+			const DiffLine::Edit &edit = GetEdit(pHunk->idxEditBegin);
 			if (pHunk->linenoOrg == 0 && pHunk->idxEditBegin > 0) {
-				const DiffString::Edit &edit = GetEdit(pHunk->idxEditBegin - 1);
+				const DiffLine::Edit &edit = GetEdit(pHunk->idxEditBegin - 1);
 				pHunk->linenoOrg = edit.second.beforeIdx;
 			}
 			if (pHunk->linenoNew == 0 && pHunk->idxEditBegin > 0) {
-				const DiffString::Edit &edit = GetEdit(pHunk->idxEditBegin - 1);
+				const DiffLine::Edit &edit = GetEdit(pHunk->idxEditBegin - 1);
 				pHunk->linenoNew = edit.second.afterIdx;
 			}
 		} while (0);
 		for (size_t idxEdit = pHunk->idxEditBegin; idxEdit < pHunk->idxEditEnd; idxEdit++) {
-			const DiffString::Edit &edit = GetEdit(idxEdit);
+			const DiffLine::Edit &edit = GetEdit(idxEdit);
 			if (edit.second.type != dtl::SES_ADD) pHunk->nLinesOrg++;
 			if (edit.second.type != dtl::SES_DELETE) pHunk->nLinesNew++;
 		}
@@ -382,7 +382,7 @@ bool Object_edit::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 Value Object_edit::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	const DiffString::Edit &edit = _pResult->GetEdit(_idxEdit);
+	const DiffLine::Edit &edit = _pResult->GetEdit(_idxEdit);
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
 		if (edit.second.type == dtl::SES_ADD) {
@@ -393,7 +393,7 @@ Value Object_edit::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 			return Value(Gura_UserSymbol(copy));
 		}
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mark))) {
-		return Value(DiffString::GetEditMark(edit));
+		return Value(DiffLine::GetEditMark(edit));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_org))) {
 		return Value(edit.second.beforeIdx);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_new))) {
@@ -401,7 +401,7 @@ Value Object_edit::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(source))) {
 		return Value(edit.first);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(unified))) {
-		return Value(DiffString::TextizeUnifiedEdit(edit));
+		return Value(DiffLine::TextizeUnifiedEdit(edit));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -409,7 +409,7 @@ Value Object_edit::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 
 String Object_edit::ToString(bool exprFlag)
 {
-	const DiffString::Edit &edit = _pResult->GetEdit(_idxEdit);
+	const DiffLine::Edit &edit = _pResult->GetEdit(_idxEdit);
 	String str;
 	str += "<diff.edit:";
 	if (edit.second.type == dtl::SES_ADD) {
@@ -674,18 +674,18 @@ Gura_ImplementFunction(compose)
 	AutoPtr<Result> pResult(new Result(ignoreCaseFlag));
 	for (size_t i = 0; i < 2; i++) {
 		if (args.IsType(i, VTYPE_string)) {
-			DiffString::FeedString(pResult->GetSeq(i), args.GetString(i));
+			DiffLine::FeedString(pResult->GetSeq(i), args.GetString(i));
 		} else if (args.IsType(i, VTYPE_stream)) {
-			if (!DiffString::FeedStream(sig, pResult->GetSeq(i), args.GetStream(i))) {
+			if (!DiffLine::FeedStream(sig, pResult->GetSeq(i), args.GetStream(i))) {
 				return Value::Null;
 			}
 		} else if (args.IsType(i, VTYPE_iterator)) {
 			AutoPtr<Iterator> pIterator(args.GetIterator(i)->Clone());
-			if (!DiffString::FeedIterator(env, sig, pResult->GetSeq(i), pIterator.get())) {
+			if (!DiffLine::FeedIterator(env, sig, pResult->GetSeq(i), pIterator.get())) {
 				return Value::Null;
 			}				
 		} else if (args.IsType(i, VTYPE_list)) {
-			DiffString::FeedList(pResult->GetSeq(i), args.GetList(i));
+			DiffLine::FeedList(pResult->GetSeq(i), args.GetList(i));
 		} else {
 			sig.SetError(ERR_TypeError, "difference source must be string or stream");
 			return Value::Null;
