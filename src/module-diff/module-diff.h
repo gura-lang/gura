@@ -121,15 +121,14 @@ public:
 	bool PrintEdit(Signal sig, SimpleStream &stream, size_t idxEdit);
 	bool PrintEdits(Signal sig, SimpleStream &stream) const;
 	bool PrintHunk(Signal sig, SimpleStream &stream,
-					   Format format, const Hunk &hunk) const;
+				   Format format, const Hunk &hunk) const;
 	bool PrintHunks(Signal sig, SimpleStream &stream,
-						Format format, size_t nLinesCommon) const;
+					Format format, size_t nLinesCommon) const;
 	bool NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const;
-	static void FeedString(Sequence &seq, const char *src);
-	static bool FeedStream(Signal sig, Sequence &seq, Stream &stream);
-	static bool FeedIterator(Environment &env, Signal sig,
-							 Sequence &seq, Iterator *pIterator);
-	static void FeedList(Sequence &seq, const ValueList &valList);
+	void FeedString(size_t idx, const char *src);
+	bool FeedStream(Signal sig, size_t idx, Stream &stream);
+	bool FeedIterator(Environment &env, Signal sig, size_t idx, Iterator *pIterator);
+	void FeedList(size_t idx, const ValueList &valList);
 	static String TextizeUnifiedEdit(const Edit &edit);
 	static Format SymbolToFormat(Signal sig, const Symbol *pSymbol);
 	inline const EditList &GetEditList() const { return getSes().getSequence(); }
@@ -161,7 +160,7 @@ public:
 protected:
 	inline ~DiffChar() {}
 public:
-	//void Compose();
+	void Compose();
 };
 
 //-----------------------------------------------------------------------------

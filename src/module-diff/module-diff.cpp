@@ -123,8 +123,9 @@ bool DiffLine::NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) cons
 	return false;
 }
 
-void DiffLine::FeedString(Sequence &seq, const char *src)
+void DiffLine::FeedString(size_t idx, const char *src)
 {
+	Sequence &seq = GetSequence(idx);
 	String str;
 	for (const char *p = src; *p != '\0'; p++) {
 		char ch = *p;
@@ -138,8 +139,9 @@ void DiffLine::FeedString(Sequence &seq, const char *src)
 	if (!str.empty()) seq.push_back(str);
 }
 
-bool DiffLine::FeedStream(Signal sig, Sequence &seq, Stream &src)
+bool DiffLine::FeedStream(Signal sig, size_t idx, Stream &src)
 {
+	Sequence &seq = GetSequence(idx);
 	bool includeEOLFlag = false;
 	for (;;) {
 		String str;
@@ -149,8 +151,9 @@ bool DiffLine::FeedStream(Signal sig, Sequence &seq, Stream &src)
 	return !sig.IsSignalled();
 }
 
-bool DiffLine::FeedIterator(Environment &env, Signal sig, Sequence &seq, Iterator *pIterator)
+bool DiffLine::FeedIterator(Environment &env, Signal sig, size_t idx, Iterator *pIterator)
 {
+	Sequence &seq = GetSequence(idx);
 	Value value;
 	while (pIterator->Next(env, sig, value)) {
 		seq.push_back(value.ToString());
@@ -158,8 +161,9 @@ bool DiffLine::FeedIterator(Environment &env, Signal sig, Sequence &seq, Iterato
 	return !sig.IsSignalled();
 }
 
-void DiffLine::FeedList(Sequence &seq, const ValueList &valList)
+void DiffLine::FeedList(size_t idx, const ValueList &valList)
 {
+	Sequence &seq = GetSequence(idx);
 	foreach_const (ValueList, pValue, valList) {
 		seq.push_back(pValue->ToString());
 	}
@@ -280,6 +284,16 @@ String DiffLine::IteratorEdit::ToString() const
 
 void DiffLine::IteratorEdit::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
+}
+
+//-----------------------------------------------------------------------------
+// DiffChar
+//-----------------------------------------------------------------------------
+void DiffChar::Compose()
+{
+	init();
+	onHuge();
+	compose();
 }
 
 //-----------------------------------------------------------------------------
@@ -671,18 +685,18 @@ Gura_ImplementFunction(compose)
 	AutoPtr<DiffLine> pDiffLine(new DiffLine(ignoreCaseFlag));
 	for (size_t i = 0; i < 2; i++) {
 		if (args.IsType(i, VTYPE_string)) {
-			DiffLine::FeedString(pDiffLine->GetSequence(i), args.GetString(i));
+			pDiffLine->FeedString(i, args.GetString(i));
 		} else if (args.IsType(i, VTYPE_stream)) {
-			if (!DiffLine::FeedStream(sig, pDiffLine->GetSequence(i), args.GetStream(i))) {
+			if (!pDiffLine->FeedStream(sig, i, args.GetStream(i))) {
 				return Value::Null;
 			}
 		} else if (args.IsType(i, VTYPE_iterator)) {
 			AutoPtr<Iterator> pIterator(args.GetIterator(i)->Clone());
-			if (!DiffLine::FeedIterator(env, sig, pDiffLine->GetSequence(i), pIterator.get())) {
+			if (!pDiffLine->FeedIterator(env, sig, i, pIterator.get())) {
 				return Value::Null;
 			}				
 		} else if (args.IsType(i, VTYPE_list)) {
-			DiffLine::FeedList(pDiffLine->GetSequence(i), args.GetList(i));
+			pDiffLine->FeedList(i, args.GetList(i));
 		} else {
 			sig.SetError(ERR_TypeError, "difference source must be string or stream");
 			return Value::Null;
