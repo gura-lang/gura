@@ -210,6 +210,40 @@ String DiffLine::Hunk::TextizeUnifiedRange() const
 }
 
 //-----------------------------------------------------------------------------
+// DiffLine::IteratorHunk
+//-----------------------------------------------------------------------------
+DiffLine::IteratorHunk::IteratorHunk(DiffLine *pDiffLine, size_t nLinesCommon) :
+	Iterator(false), _pDiffLine(pDiffLine), _idxEdit(0), _nLinesCommon(nLinesCommon)
+{
+}
+
+Iterator *DiffLine::IteratorHunk::GetSource()
+{
+	return NULL;
+}
+
+bool DiffLine::IteratorHunk::DoNext(Environment &env, Signal sig, Value &value)
+{
+	DiffLine::Hunk hunk;
+	if (_pDiffLine->NextHunk(&_idxEdit, _nLinesCommon, &hunk)) {
+		value = Value(new Object_hunk_at_line(_pDiffLine->Reference(), hunk));
+		return true;
+	}
+	return false;
+}
+
+String DiffLine::IteratorHunk::ToString() const
+{
+	String str;
+	str += "diff.hunk@line";
+	return str;
+}
+
+void DiffLine::IteratorHunk::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
+//-----------------------------------------------------------------------------
 // DiffLine::IteratorEdit
 //-----------------------------------------------------------------------------
 DiffLine::IteratorEdit::IteratorEdit(DiffLine *pDiffLine) :
@@ -245,40 +279,6 @@ String DiffLine::IteratorEdit::ToString() const
 }
 
 void DiffLine::IteratorEdit::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
-{
-}
-
-//-----------------------------------------------------------------------------
-// DiffLine::IteratorHunk
-//-----------------------------------------------------------------------------
-DiffLine::IteratorHunk::IteratorHunk(DiffLine *pDiffLine, size_t nLinesCommon) :
-	Iterator(false), _pDiffLine(pDiffLine), _idxEdit(0), _nLinesCommon(nLinesCommon)
-{
-}
-
-Iterator *DiffLine::IteratorHunk::GetSource()
-{
-	return NULL;
-}
-
-bool DiffLine::IteratorHunk::DoNext(Environment &env, Signal sig, Value &value)
-{
-	DiffLine::Hunk hunk;
-	if (_pDiffLine->NextHunk(&_idxEdit, _nLinesCommon, &hunk)) {
-		value = Value(new Object_hunk_at_line(_pDiffLine->Reference(), hunk));
-		return true;
-	}
-	return false;
-}
-
-String DiffLine::IteratorHunk::ToString() const
-{
-	String str;
-	str += "diff.hunk@line";
-	return str;
-}
-
-void DiffLine::IteratorHunk::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }
 
@@ -328,7 +328,7 @@ String Object_diff_at_line::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Methods of diff.diff@line
 //-----------------------------------------------------------------------------
-// diff.diff#eachedit() {block?}
+// diff.diff@line#eachedit() {block?}
 Gura_DeclareMethod(diff_at_line, eachedit)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
@@ -430,6 +430,98 @@ Gura_ImplementUserClass(diff_at_line)
 }
 
 //-----------------------------------------------------------------------------
+// Object_hunk_at_line
+//-----------------------------------------------------------------------------
+Object *Object_hunk_at_line::Clone() const
+{
+	return NULL;
+}
+
+bool Object_hunk_at_line::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(edits));
+	symbols.insert(Gura_UserSymbol(lineno_at_org));
+	symbols.insert(Gura_UserSymbol(lineno_at_new));
+	symbols.insert(Gura_UserSymbol(nlines_at_org));
+	symbols.insert(Gura_UserSymbol(nlines_at_new));
+	return true;
+}
+
+Value Object_hunk_at_line::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(edits))) {
+		AutoPtr<Iterator> pIterator(new DiffLine::IteratorEdit(_pDiffLine->Reference(), _hunk));
+		return Value(new Object_iterator(env, pIterator.release()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_org))) {
+		return Value(_hunk.linenoOrg);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_new))) {
+		return Value(_hunk.linenoNew);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(nlines_at_org))) {
+		return Value(_hunk.nLinesOrg);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(nlines_at_new))) {
+		return Value(_hunk.nLinesNew);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+String Object_hunk_at_line::ToString(bool exprFlag)
+{
+	char buff[80];
+	String str;
+	str += "<diff.hunk@line:";
+	str += _hunk.TextizeUnifiedRange();
+	str += ">";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Methods of diff.hunk@line
+//-----------------------------------------------------------------------------
+// diff.hunk@line#print(out?:stream:w, format?:symbol):void
+Gura_DeclareMethod(hunk_at_line, print)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "format", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Prints the content of the `diff.hunk` instance to the specified stream.\n"
+		"\n"
+		"The argument `format` takes one of the symbols that specifies the rendering format:\n"
+		"\n"
+		"- `` `normal`` .. Normal format (not supported yet).\n"
+		"- `` `context`` .. Context format (not supported yet).\n"
+		"- `` `unified`` .. Unified format. This is the default.\n");
+}
+
+Gura_ImplementMethod(hunk_at_line, print)
+{
+	Object_hunk_at_line *pThis = Object_hunk_at_line::GetThisObj(args);
+	Stream &stream = args.IsValid(0)? args.GetStream(0) : *env.GetConsole();
+	DiffLine::Format format = DiffLine::FORMAT_Unified;
+	if (args.IsValid(1)) {
+		format = DiffLine::SymbolToFormat(sig, args.GetSymbol(1));
+		if (format == DiffLine::FORMAT_None) return Value::Null;
+	}
+	pThis->GetDiffLine()->PrintHunk(sig, stream, format, pThis->GetHunk());
+	return Value::Null;
+}
+
+//-----------------------------------------------------------------------------
+// Class implementation for diff.hunk@line
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(hunk_at_line)
+{
+	Gura_AssignValueEx("hunk@line", Value(Reference()));
+	Gura_AssignMethod(hunk_at_line, print);
+}
+
+//-----------------------------------------------------------------------------
 // Object_edit_at_line
 //-----------------------------------------------------------------------------
 Object *Object_edit_at_line::Clone() const
@@ -525,98 +617,6 @@ Gura_ImplementUserClass(edit_at_line)
 }
 
 //-----------------------------------------------------------------------------
-// Object_hunk_at_line
-//-----------------------------------------------------------------------------
-Object *Object_hunk_at_line::Clone() const
-{
-	return NULL;
-}
-
-bool Object_hunk_at_line::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(edits));
-	symbols.insert(Gura_UserSymbol(lineno_at_org));
-	symbols.insert(Gura_UserSymbol(lineno_at_new));
-	symbols.insert(Gura_UserSymbol(nlines_at_org));
-	symbols.insert(Gura_UserSymbol(nlines_at_new));
-	return true;
-}
-
-Value Object_hunk_at_line::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(edits))) {
-		AutoPtr<Iterator> pIterator(new DiffLine::IteratorEdit(_pDiffLine->Reference(), _hunk));
-		return Value(new Object_iterator(env, pIterator.release()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_org))) {
-		return Value(_hunk.linenoOrg);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_new))) {
-		return Value(_hunk.linenoNew);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(nlines_at_org))) {
-		return Value(_hunk.nLinesOrg);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(nlines_at_new))) {
-		return Value(_hunk.nLinesNew);
-	}
-	evaluatedFlag = false;
-	return Value::Null;
-}
-
-String Object_hunk_at_line::ToString(bool exprFlag)
-{
-	char buff[80];
-	String str;
-	str += "<diff.hunk@line:";
-	str += _hunk.TextizeUnifiedRange();
-	str += ">";
-	return str;
-}
-
-//-----------------------------------------------------------------------------
-// Methods of diff.hunk@line
-//-----------------------------------------------------------------------------
-// diff.hunk@line#print(out?:stream:w, format?:symbol):void
-Gura_DeclareMethod(hunk_at_line, print)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "format", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Prints the content of the `diff.hunk` instance to the specified stream.\n"
-		"\n"
-		"The argument `format` takes one of the symbols that specifies the rendering format:\n"
-		"\n"
-		"- `` `normal`` .. Normal format (not supported yet).\n"
-		"- `` `context`` .. Context format (not supported yet).\n"
-		"- `` `unified`` .. Unified format. This is the default.\n");
-}
-
-Gura_ImplementMethod(hunk_at_line, print)
-{
-	Object_hunk_at_line *pThis = Object_hunk_at_line::GetThisObj(args);
-	Stream &stream = args.IsValid(0)? args.GetStream(0) : *env.GetConsole();
-	DiffLine::Format format = DiffLine::FORMAT_Unified;
-	if (args.IsValid(1)) {
-		format = DiffLine::SymbolToFormat(sig, args.GetSymbol(1));
-		if (format == DiffLine::FORMAT_None) return Value::Null;
-	}
-	pThis->GetDiffLine()->PrintHunk(sig, stream, format, pThis->GetHunk());
-	return Value::Null;
-}
-
-//-----------------------------------------------------------------------------
-// Class implementation for diff.hunk@line
-//-----------------------------------------------------------------------------
-Gura_ImplementUserClass(hunk_at_line)
-{
-	Gura_AssignValueEx("hunk@line", Value(Reference()));
-	Gura_AssignMethod(hunk_at_line, print);
-}
-
-//-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
 // diff.compose(src1, src2):[icase] {block?}
@@ -692,6 +692,25 @@ Gura_ImplementFunction(compose)
 	return ReturnValue(env, sig, args, Value(new Object_diff_at_line(pDiffLine.release())));
 }
 
+// diff.compose@char(src1:string, src2:string):[icase] {block?}
+Gura_DeclareFunctionAlias(compose_at_char, "compose@char")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "src1", VTYPE_string);
+	DeclareArg(env, "src2", VTYPE_string);
+	DeclareAttr(Gura_Symbol(icase));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(compose_at_char)
+{
+	//bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // Module entry
 //-----------------------------------------------------------------------------
@@ -715,14 +734,15 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(unified);
 	// class realization
 	Gura_RealizeUserClassAlias(diff_at_line, "diff@line", env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClassAlias(edit_at_line, "edit@line", env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassAlias(hunk_at_line, "hunk@line", env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassAlias(edit_at_line, "edit@line", env.LookupClass(VTYPE_object));
 	// class preparation
 	Gura_PrepareUserClass(diff_at_line);
-	Gura_PrepareUserClass(edit_at_line);
 	Gura_PrepareUserClass(hunk_at_line);
+	Gura_PrepareUserClass(edit_at_line);
 	// function assignment
 	Gura_AssignFunction(compose);
+	Gura_AssignFunction(compose_at_char);
 	return true;
 }
 

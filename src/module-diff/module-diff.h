@@ -65,6 +65,18 @@ public:
 	typedef sesElem Edit;
 	typedef sesElemVec EditList;
 public:
+	class IteratorHunk : public Iterator {
+	private:
+		AutoPtr<DiffLine> _pDiffLine;
+		size_t _idxEdit;
+		size_t _nLinesCommon;
+	public:
+		IteratorHunk(DiffLine *pDiffLine, size_t nLinesCommon);
+		virtual Iterator *GetSource();
+		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual String ToString() const;
+		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+	};
 	class IteratorEdit : public Iterator {
 	private:
 		AutoPtr<DiffLine> _pDiffLine;
@@ -74,18 +86,6 @@ public:
 	public:
 		IteratorEdit(DiffLine *pDiffLine);
 		IteratorEdit(DiffLine *pDiffLine, const DiffLine::Hunk &hunk);
-		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString() const;
-		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-	};
-	class IteratorHunk : public Iterator {
-	private:
-		AutoPtr<DiffLine> _pDiffLine;
-		size_t _idxEdit;
-		size_t _nLinesCommon;
-	public:
-		IteratorHunk(DiffLine *pDiffLine, size_t nLinesCommon);
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString() const;
@@ -135,29 +135,6 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Class declaration for diff.edit@line
-//-----------------------------------------------------------------------------
-Gura_DeclareUserClass(edit_at_line);
-
-class Object_edit_at_line : public Object {
-private:
-	AutoPtr<DiffLine> _pDiffLine;
-	size_t _idxEdit;
-public:
-	Gura_DeclareObjectAccessor(edit_at_line)
-public:
-	inline Object_edit_at_line(DiffLine *pDiffLine, size_t idxEdit) :
-		Object(Gura_UserClass(edit_at_line)), _pDiffLine(pDiffLine), _idxEdit(idxEdit) {}
-	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual String ToString(bool exprFlag);
-	DiffLine *GetDiffLine() { return _pDiffLine.get(); }
-	size_t GetEditIndex() const { return _idxEdit; }
-};
-
-//-----------------------------------------------------------------------------
 // Class declaration for diff.diff@line
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(diff_at_line);
@@ -199,6 +176,29 @@ public:
 	virtual String ToString(bool exprFlag);
 	inline DiffLine *GetDiffLine() { return _pDiffLine.get(); }
 	inline const DiffLine::Hunk &GetHunk() const { return _hunk; }
+};
+
+//-----------------------------------------------------------------------------
+// Class declaration for diff.edit@line
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(edit_at_line);
+
+class Object_edit_at_line : public Object {
+private:
+	AutoPtr<DiffLine> _pDiffLine;
+	size_t _idxEdit;
+public:
+	Gura_DeclareObjectAccessor(edit_at_line)
+public:
+	inline Object_edit_at_line(DiffLine *pDiffLine, size_t idxEdit) :
+		Object(Gura_UserClass(edit_at_line)), _pDiffLine(pDiffLine), _idxEdit(idxEdit) {}
+	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(bool exprFlag);
+	DiffLine *GetDiffLine() { return _pDiffLine.get(); }
+	size_t GetEditIndex() const { return _idxEdit; }
 };
 
 Gura_EndModuleHeader(diff)
