@@ -152,19 +152,19 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Class declaration for diff.hunk
+// Class declaration for diff.hunk@line
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(hunk);
+Gura_DeclareUserClass(hunk_at_line);
 
-class Object_hunk : public Object {
+class Object_hunk_at_line : public Object {
 private:
 	AutoPtr<DiffLine> _pDiffLine;
 	DiffLine::Hunk _hunk;
 public:
-	Gura_DeclareObjectAccessor(hunk)
+	Gura_DeclareObjectAccessor(hunk_at_line)
 public:
-	inline Object_hunk(DiffLine *pDiffLine, const DiffLine::Hunk &hunk) :
-		Object(Gura_UserClass(hunk)), _pDiffLine(pDiffLine), _hunk(hunk) {}
+	inline Object_hunk_at_line(DiffLine *pDiffLine, const DiffLine::Hunk &hunk) :
+		Object(Gura_UserClass(hunk_at_line)), _pDiffLine(pDiffLine), _hunk(hunk) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,

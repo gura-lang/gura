@@ -451,14 +451,14 @@ Gura_ImplementUserClass(edit_at_line)
 }
 
 //-----------------------------------------------------------------------------
-// Object_hunk
+// Object_hunk_at_line
 //-----------------------------------------------------------------------------
-Object *Object_hunk::Clone() const
+Object *Object_hunk_at_line::Clone() const
 {
 	return NULL;
 }
 
-bool Object_hunk::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_hunk_at_line::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(edits));
@@ -469,7 +469,7 @@ bool Object_hunk::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_hunk::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_hunk_at_line::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -489,21 +489,21 @@ Value Object_hunk::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	return Value::Null;
 }
 
-String Object_hunk::ToString(bool exprFlag)
+String Object_hunk_at_line::ToString(bool exprFlag)
 {
 	char buff[80];
 	String str;
-	str += "<diff.hunk:";
+	str += "<diff.hunk@line:";
 	str += _hunk.TextizeUnifiedRange();
 	str += ">";
 	return str;
 }
 
 //-----------------------------------------------------------------------------
-// Methods of diff.hunk
+// Methods of diff.hunk@line
 //-----------------------------------------------------------------------------
-// diff.hunk#print(out?:stream:w, format?:symbol):void
-Gura_DeclareMethod(hunk, print)
+// diff.hunk@line#print(out?:stream:w, format?:symbol):void
+Gura_DeclareMethod(hunk_at_line, print)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
@@ -520,9 +520,9 @@ Gura_DeclareMethod(hunk, print)
 		"- `` `unified`` .. Unified format. This is the default.\n");
 }
 
-Gura_ImplementMethod(hunk, print)
+Gura_ImplementMethod(hunk_at_line, print)
 {
-	Object_hunk *pThis = Object_hunk::GetThisObj(args);
+	Object_hunk_at_line *pThis = Object_hunk_at_line::GetThisObj(args);
 	Stream &stream = args.IsValid(0)? args.GetStream(0) : *env.GetConsole();
 	DiffLine::Format format = DiffLine::FORMAT_Unified;
 	if (args.IsValid(1)) {
@@ -534,12 +534,12 @@ Gura_ImplementMethod(hunk, print)
 }
 
 //-----------------------------------------------------------------------------
-// Class implementation for diff.hunk
+// Class implementation for diff.hunk@line
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClass(hunk)
+Gura_ImplementUserClass(hunk_at_line)
 {
-	Gura_AssignValue(hunk, Value(Reference()));
-	Gura_AssignMethod(hunk, print);
+	Gura_AssignValueEx("hunk@line", Value(Reference()));
+	Gura_AssignMethod(hunk_at_line, print);
 }
 
 //-----------------------------------------------------------------------------
@@ -598,7 +598,7 @@ bool IteratorHunk::DoNext(Environment &env, Signal sig, Value &value)
 {
 	DiffLine::Hunk hunk;
 	if (_pDiffLine->NextHunk(&_idxEdit, _nLinesCommon, &hunk)) {
-		value = Value(new Object_hunk(_pDiffLine->Reference(), hunk));
+		value = Value(new Object_hunk_at_line(_pDiffLine->Reference(), hunk));
 		return true;
 	}
 	return false;
@@ -607,7 +607,7 @@ bool IteratorHunk::DoNext(Environment &env, Signal sig, Value &value)
 String IteratorHunk::ToString() const
 {
 	String str;
-	str += "diff.hunk";
+	str += "diff.hunk@line";
 	return str;
 }
 
@@ -715,11 +715,11 @@ Gura_ModuleEntry()
 	// class realization
 	Gura_RealizeUserClassAlias(result_at_line, "result@line", env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassAlias(edit_at_line, "edit@line", env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(hunk, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassAlias(hunk_at_line, "hunk@line", env.LookupClass(VTYPE_object));
 	// class preparation
 	Gura_PrepareUserClass(result_at_line);
 	Gura_PrepareUserClass(edit_at_line);
-	Gura_PrepareUserClass(hunk);
+	Gura_PrepareUserClass(hunk_at_line);
 	// function assignment
 	Gura_AssignFunction(compose);
 	return true;
