@@ -45,9 +45,9 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Hunk
+// HunkLine
 //-----------------------------------------------------------------------------
-struct Hunk {
+struct HunkLine {
 public:
 	enum Format {
 		FORMAT_None,
@@ -114,11 +114,11 @@ public:
 	void Compose();
 	bool PrintEdit(Signal sig, SimpleStream &stream, size_t idxEdit);
 	bool PrintEdits(Signal sig, SimpleStream &stream) const;
-	bool PrintHunk(Signal sig, SimpleStream &stream,
-				   Hunk::Format format, const Hunk &hunk) const;
-	bool PrintHunks(Signal sig, SimpleStream &stream,
-					Hunk::Format format, size_t nLinesCommon) const;
-	bool NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const;
+	bool PrintHunkLine(Signal sig, SimpleStream &stream,
+				   HunkLine::Format format, const HunkLine &hunkLine) const;
+	bool PrintHunkLines(Signal sig, SimpleStream &stream,
+					HunkLine::Format format, size_t nLinesCommon) const;
+	bool NextHunkLine(size_t *pIdxEdit, size_t nLinesCommon, HunkLine *pHunkLine) const;
 	inline size_t CountEdits() const {
 		return _diffLine.GetEditList().size();
 	}
@@ -179,19 +179,19 @@ Gura_DeclareUserClass(hunk);
 class Object_hunk : public Object {
 private:
 	AutoPtr<Result> _pResult;
-	Hunk _hunk;
+	HunkLine _hunkLine;
 public:
 	Gura_DeclareObjectAccessor(hunk)
 public:
-	inline Object_hunk(Result *pResult, const Hunk &hunk) :
-		Object(Gura_UserClass(hunk)), _pResult(pResult), _hunk(hunk) {}
+	inline Object_hunk(Result *pResult, const HunkLine &hunkLine) :
+		Object(Gura_UserClass(hunk)), _pResult(pResult), _hunkLine(hunkLine) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline Result *GetResult() { return _pResult.get(); }
-	inline const Hunk &GetHunk() const { return _hunk; }
+	inline const HunkLine &GetHunkLine() const { return _hunkLine; }
 };
 
 //-----------------------------------------------------------------------------
@@ -205,7 +205,7 @@ private:
 	size_t _idxEditEnd;
 public:
 	IteratorEdit(Result *pResult);
-	IteratorEdit(Result *pResult, const Hunk &hunk);
+	IteratorEdit(Result *pResult, const HunkLine &hunkLine);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString() const;
@@ -213,15 +213,15 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// IteratorHunk
+// IteratorHunkLine
 //-----------------------------------------------------------------------------
-class IteratorHunk : public Iterator {
+class IteratorHunkLine : public Iterator {
 private:
 	AutoPtr<Result> _pResult;
 	size_t _idxEdit;
 	size_t _nLinesCommon;
 public:
-	IteratorHunk(Result *pResult, size_t nLinesCommon);
+	IteratorHunkLine(Result *pResult, size_t nLinesCommon);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString() const;
