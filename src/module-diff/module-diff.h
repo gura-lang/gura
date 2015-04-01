@@ -94,18 +94,18 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Result
+// ResultLine
 //-----------------------------------------------------------------------------
-class Result {
+class ResultLine {
 private:
 	int _cntRef;
 	DiffLine _diffLine;
 public:
-	Gura_DeclareReferenceAccessor(Result);
+	Gura_DeclareReferenceAccessor(ResultLine);
 public:
-	inline Result(bool ignoreCaseFlag) : _cntRef(1), _diffLine(ignoreCaseFlag) {}
+	inline ResultLine(bool ignoreCaseFlag) : _cntRef(1), _diffLine(ignoreCaseFlag) {}
 protected:
-	inline ~Result() {}
+	inline ~ResultLine() {}
 public:
 	inline long long GetEditDistance() const { return _diffLine.getEditDistance(); }
 	inline SequenceLine &GetSeq(size_t idx) {
@@ -134,19 +134,19 @@ Gura_DeclareUserClass(edit);
 
 class Object_edit : public Object {
 private:
-	AutoPtr<Result> _pResult;
+	AutoPtr<ResultLine> _pResultLine;
 	size_t _idxEdit;
 public:
 	Gura_DeclareObjectAccessor(edit)
 public:
-	inline Object_edit(Result *pResult, size_t idxEdit) :
-		Object(Gura_UserClass(edit)), _pResult(pResult), _idxEdit(idxEdit) {}
+	inline Object_edit(ResultLine *pResultLine, size_t idxEdit) :
+		Object(Gura_UserClass(edit)), _pResultLine(pResultLine), _idxEdit(idxEdit) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
-	Result *GetResult() { return _pResult.get(); }
+	ResultLine *GetResultLine() { return _pResultLine.get(); }
 	size_t GetEditIndex() const { return _idxEdit; }
 };
 
@@ -157,18 +157,18 @@ Gura_DeclareUserClass(result);
 
 class Object_result : public Object {
 private:
-	AutoPtr<Result> _pResult;
+	AutoPtr<ResultLine> _pResultLine;
 public:
 	Gura_DeclareObjectAccessor(result)
 public:
-	inline Object_result(Result *pResult) :
-		Object(Gura_UserClass(result)), _pResult(pResult) {}
+	inline Object_result(ResultLine *pResultLine) :
+		Object(Gura_UserClass(result)), _pResultLine(pResultLine) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
-	inline Result *GetResult() { return _pResult.get(); }
+	inline ResultLine *GetResultLine() { return _pResultLine.get(); }
 };
 
 //-----------------------------------------------------------------------------
@@ -178,19 +178,19 @@ Gura_DeclareUserClass(hunk);
 
 class Object_hunk : public Object {
 private:
-	AutoPtr<Result> _pResult;
+	AutoPtr<ResultLine> _pResultLine;
 	HunkLine _hunkLine;
 public:
 	Gura_DeclareObjectAccessor(hunk)
 public:
-	inline Object_hunk(Result *pResult, const HunkLine &hunkLine) :
-		Object(Gura_UserClass(hunk)), _pResult(pResult), _hunkLine(hunkLine) {}
+	inline Object_hunk(ResultLine *pResultLine, const HunkLine &hunkLine) :
+		Object(Gura_UserClass(hunk)), _pResultLine(pResultLine), _hunkLine(hunkLine) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
-	inline Result *GetResult() { return _pResult.get(); }
+	inline ResultLine *GetResultLine() { return _pResultLine.get(); }
 	inline const HunkLine &GetHunkLine() const { return _hunkLine; }
 };
 
@@ -199,13 +199,13 @@ public:
 //-----------------------------------------------------------------------------
 class IteratorEdit : public Iterator {
 private:
-	AutoPtr<Result> _pResult;
+	AutoPtr<ResultLine> _pResultLine;
 	size_t _idxEdit;
 	size_t _idxEditBegin;
 	size_t _idxEditEnd;
 public:
-	IteratorEdit(Result *pResult);
-	IteratorEdit(Result *pResult, const HunkLine &hunkLine);
+	IteratorEdit(ResultLine *pResultLine);
+	IteratorEdit(ResultLine *pResultLine, const HunkLine &hunkLine);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString() const;
@@ -217,11 +217,11 @@ public:
 //-----------------------------------------------------------------------------
 class IteratorHunkLine : public Iterator {
 private:
-	AutoPtr<Result> _pResult;
+	AutoPtr<ResultLine> _pResultLine;
 	size_t _idxEdit;
 	size_t _nLinesCommon;
 public:
-	IteratorHunkLine(Result *pResult, size_t nLinesCommon);
+	IteratorHunkLine(ResultLine *pResultLine, size_t nLinesCommon);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString() const;
