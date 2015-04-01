@@ -210,14 +210,14 @@ String DiffLine::Hunk::TextizeUnifiedRange() const
 }
 
 //-----------------------------------------------------------------------------
-// Object_result
+// Object_result_at_line
 //-----------------------------------------------------------------------------
-Object *Object_result::Clone() const
+Object *Object_result_at_line::Clone() const
 {
 	return NULL;
 }
 
-bool Object_result::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_result_at_line::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(distance));
@@ -226,7 +226,7 @@ bool Object_result::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_result::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_result_at_line::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -241,7 +241,7 @@ Value Object_result::DoGetProp(Environment &env, Signal sig, const Symbol *pSymb
 	return Value::Null;
 }
 
-String Object_result::ToString(bool exprFlag)
+String Object_result_at_line::ToString(bool exprFlag)
 {
 	char buff[80];
 	String str;
@@ -253,36 +253,36 @@ String Object_result::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Methods of diff.result
+// Methods of diff.result@line
 //-----------------------------------------------------------------------------
 // diff.result#eachedit() {block?}
-Gura_DeclareMethod(result, eachedit)
+Gura_DeclareMethod(result_at_line, eachedit)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates an iterator that returns `diff.edit` instance stored in the result.\n"
+		"Creates an iterator that returns `diff.edit@line` instance stored in the result.\n"
 		"\n"
 		GURA_HELPTEXT_ITERATOR_en());
 }
 
-Gura_ImplementMethod(result, eachedit)
+Gura_ImplementMethod(result_at_line, eachedit)
 {
-	DiffLine *pDiffLine = Object_result::GetThisObj(args)->GetDiffLine();
+	DiffLine *pDiffLine = Object_result_at_line::GetThisObj(args)->GetDiffLine();
 	AutoPtr<IteratorEdit> pIterator(new IteratorEdit(pDiffLine->Reference()));
 	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
-// diff.result#eachhunk(lines?:number) {block?}
-Gura_DeclareMethod(result, eachhunk)
+// diff.result@line#eachhunk(lines?:number) {block?}
+Gura_DeclareMethod(result_at_line, eachhunk)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "lines", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates an iterator that returns `diff.hunk` instance stored in the result.\n"
+		"Creates an iterator that returns `diff.hunk@line` instance stored in the result.\n"
 		"\n"
 		"The argument `lines` specifies a number of common lines appended before and after\n"
 		"different lines\n"
@@ -290,16 +290,16 @@ Gura_DeclareMethod(result, eachhunk)
 		GURA_HELPTEXT_ITERATOR_en());
 }
 
-Gura_ImplementMethod(result, eachhunk)
+Gura_ImplementMethod(result_at_line, eachhunk)
 {
-	DiffLine *pDiffLine = Object_result::GetThisObj(args)->GetDiffLine();
+	DiffLine *pDiffLine = Object_result_at_line::GetThisObj(args)->GetDiffLine();
 	size_t nLinesCommon = args.IsValid(0)? args.GetSizeT(0) : 3;
 	AutoPtr<IteratorHunk> pIterator(new IteratorHunk(pDiffLine->Reference(), nLinesCommon));
 	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
-// diff.result#render(out?:stream:w, format?:symbol, lines?:number)
-Gura_DeclareMethodAlias(result, render, "render")
+// diff.result@line#render(out?:stream:w, format?:symbol, lines?:number)
+Gura_DeclareMethodAlias(result_at_line, render, "render")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
@@ -323,9 +323,9 @@ Gura_DeclareMethodAlias(result, render, "render")
 		"different lines\n");
 }
 
-Gura_ImplementMethod(result, render)
+Gura_ImplementMethod(result_at_line, render)
 {
-	DiffLine *pDiffLine = Object_result::GetThisObj(args)->GetDiffLine();
+	DiffLine *pDiffLine = Object_result_at_line::GetThisObj(args)->GetDiffLine();
 	DiffLine::Format format = DiffLine::FORMAT_Unified;
 	if (args.IsValid(1)) {
 		format = DiffLine::SymbolToFormat(sig, args.GetSymbol(1));
@@ -345,14 +345,14 @@ Gura_ImplementMethod(result, render)
 }
 
 //-----------------------------------------------------------------------------
-// Class implementation for diff.result
+// Class implementation for diff.result@line
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClass(result)
+Gura_ImplementUserClass(result_at_line)
 {
-	Gura_AssignValue(result, Value(Reference()));
-	Gura_AssignMethod(result, eachedit);
-	Gura_AssignMethod(result, eachhunk);
-	Gura_AssignMethod(result, render);
+	Gura_AssignValueEx("result@line", Value(Reference()));
+	Gura_AssignMethod(result_at_line, eachedit);
+	Gura_AssignMethod(result_at_line, eachhunk);
+	Gura_AssignMethod(result_at_line, render);
 }
 
 //-----------------------------------------------------------------------------
@@ -628,7 +628,7 @@ Gura_DeclareFunction(compose)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Calculates differences between two sources of strings and returns `diff.result` instance\n"
+		"Calculates differences between two sources of strings and returns `diff.result@line` instance\n"
 		"that contains the difference information.\n"
 		"\n"
 		"You can specify a value of `string`, `stream`, `iterator` or `list`\n"
@@ -688,7 +688,7 @@ Gura_ImplementFunction(compose)
 		}
 	}
 	pDiffLine->Compose();
-	return ReturnValue(env, sig, args, Value(new Object_result(pDiffLine.release())));
+	return ReturnValue(env, sig, args, Value(new Object_result_at_line(pDiffLine.release())));
 }
 
 //-----------------------------------------------------------------------------
@@ -713,11 +713,11 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(type);
 	Gura_RealizeUserSymbol(unified);
 	// class realization
-	Gura_RealizeUserClass(result, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassAlias(result_at_line, "result@line", env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassAlias(edit_at_line, "edit@line", env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(hunk, env.LookupClass(VTYPE_object));
 	// class preparation
-	Gura_PrepareUserClass(result);
+	Gura_PrepareUserClass(result_at_line);
 	Gura_PrepareUserClass(edit_at_line);
 	Gura_PrepareUserClass(hunk);
 	// function assignment

@@ -108,7 +108,7 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Class declaration for diff.edit_at_line
+// Class declaration for diff.edit@line
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(edit_at_line);
 
@@ -131,18 +131,18 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Class declaration for diff.result
+// Class declaration for diff.result@line
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(result);
+Gura_DeclareUserClass(result_at_line);
 
-class Object_result : public Object {
+class Object_result_at_line : public Object {
 private:
 	AutoPtr<DiffLine> _pDiffLine;
 public:
-	Gura_DeclareObjectAccessor(result)
+	Gura_DeclareObjectAccessor(result_at_line)
 public:
-	inline Object_result(DiffLine *pDiffLine) :
-		Object(Gura_UserClass(result)), _pDiffLine(pDiffLine) {}
+	inline Object_result_at_line(DiffLine *pDiffLine) :
+		Object(Gura_UserClass(result_at_line)), _pDiffLine(pDiffLine) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
