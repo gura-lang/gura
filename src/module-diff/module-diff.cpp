@@ -6,9 +6,9 @@
 Gura_BeginModuleBody(diff)
 
 //-----------------------------------------------------------------------------
-// HunkLine
+// DiffLine::Hunk
 //-----------------------------------------------------------------------------
-String HunkLine::TextizeUnifiedRange() const
+String DiffLine::Hunk::TextizeUnifiedRange() const
 {
 	String str;
 	char buff[80];
@@ -57,33 +57,33 @@ bool DiffLine::PrintEdits(Signal sig, SimpleStream &stream) const
 	return true;
 }
 
-bool DiffLine::PrintHunkLine(Signal sig, SimpleStream &stream,
-					   DiffLine::Format format, const HunkLine &hunkLine) const
+bool DiffLine::PrintHunk(Signal sig, SimpleStream &stream,
+					   DiffLine::Format format, const Hunk &hunk) const
 {
 	const EditList &edits = GetEditList();
-	EditList::const_iterator pEdit = edits.begin() + hunkLine.idxEditBegin;
-	EditList::const_iterator pEditEnd = edits.begin() + hunkLine.idxEditEnd;
-	stream.Printf(sig, "@@ %s @@\n", hunkLine.TextizeUnifiedRange().c_str());
+	EditList::const_iterator pEdit = edits.begin() + hunk.idxEditBegin;
+	EditList::const_iterator pEditEnd = edits.begin() + hunk.idxEditEnd;
+	stream.Printf(sig, "@@ %s @@\n", hunk.TextizeUnifiedRange().c_str());
 	for ( ; pEdit != pEditEnd; pEdit++) {
 		if (!PrintEdit(sig, stream, *pEdit)) return false;
 	}
 	return true;
 }
 
-bool DiffLine::PrintHunkLines(Signal sig, SimpleStream &stream,
+bool DiffLine::PrintHunks(Signal sig, SimpleStream &stream,
 						DiffLine::Format format, size_t nLinesCommon) const
 {
 	size_t idxEdit = 0;
-	HunkLine hunkLine;
-	while (NextHunkLine(&idxEdit, nLinesCommon, &hunkLine)) {
-		if (!PrintHunkLine(sig, stream, format, hunkLine)) return false;
+	Hunk hunk;
+	while (NextHunk(&idxEdit, nLinesCommon, &hunk)) {
+		if (!PrintHunk(sig, stream, format, hunk)) return false;
 	}
 	return true;
 }
 
-bool DiffLine::NextHunkLine(size_t *pIdxEdit, size_t nLinesCommon, HunkLine *pHunkLine) const
+bool DiffLine::NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const
 {
-	::memset(pHunkLine, 0x00, sizeof(HunkLine));
+	::memset(pHunk, 0x00, sizeof(Hunk));
 	size_t idxEdit = *pIdxEdit;
 	size_t idxEditTop = idxEdit;
 	size_t nEdits = CountEdits();
@@ -92,7 +92,7 @@ bool DiffLine::NextHunkLine(size_t *pIdxEdit, size_t nLinesCommon, HunkLine *pHu
 	for ( ; idxEdit < nEdits; idxEdit++) {
 		const Edit &edit = GetEdit(idxEdit);
 		if (edit.second.type == dtl::SES_COMMON) continue;
-		pHunkLine->idxEditBegin = (idxEdit > idxEditTop + nLinesCommon)?
+		pHunk->idxEditBegin = (idxEdit > idxEditTop + nLinesCommon)?
 			idxEdit - nLinesCommon : idxEditTop;
 		idxEdit++;
 		for ( ; idxEdit < nEdits; idxEdit++) {
@@ -108,36 +108,36 @@ bool DiffLine::NextHunkLine(size_t *pIdxEdit, size_t nLinesCommon, HunkLine *pHu
 			}
 		}
 		*pIdxEdit = idxEdit;
-		pHunkLine->idxEditEnd = idxEdit;
-		for (size_t idxEdit = pHunkLine->idxEditBegin; idxEdit < pHunkLine->idxEditEnd; idxEdit++) {
+		pHunk->idxEditEnd = idxEdit;
+		for (size_t idxEdit = pHunk->idxEditBegin; idxEdit < pHunk->idxEditEnd; idxEdit++) {
 			const Edit &edit = GetEdit(idxEdit);
 			if (edit.second.beforeIdx > 0) {
-				pHunkLine->linenoOrg = edit.second.beforeIdx;
+				pHunk->linenoOrg = edit.second.beforeIdx;
 				break;
 			}
 		}
-		for (size_t idxEdit = pHunkLine->idxEditBegin; idxEdit < pHunkLine->idxEditEnd; idxEdit++) {
+		for (size_t idxEdit = pHunk->idxEditBegin; idxEdit < pHunk->idxEditEnd; idxEdit++) {
 			const Edit &edit = GetEdit(idxEdit);
 			if (edit.second.afterIdx > 0) {
-				pHunkLine->linenoNew = edit.second.afterIdx;
+				pHunk->linenoNew = edit.second.afterIdx;
 				break;
 			}
 		}
 		do {
-			const Edit &edit = GetEdit(pHunkLine->idxEditBegin);
-			if (pHunkLine->linenoOrg == 0 && pHunkLine->idxEditBegin > 0) {
-				const Edit &edit = GetEdit(pHunkLine->idxEditBegin - 1);
-				pHunkLine->linenoOrg = edit.second.beforeIdx;
+			const Edit &edit = GetEdit(pHunk->idxEditBegin);
+			if (pHunk->linenoOrg == 0 && pHunk->idxEditBegin > 0) {
+				const Edit &edit = GetEdit(pHunk->idxEditBegin - 1);
+				pHunk->linenoOrg = edit.second.beforeIdx;
 			}
-			if (pHunkLine->linenoNew == 0 && pHunkLine->idxEditBegin > 0) {
-				const Edit &edit = GetEdit(pHunkLine->idxEditBegin - 1);
-				pHunkLine->linenoNew = edit.second.afterIdx;
+			if (pHunk->linenoNew == 0 && pHunk->idxEditBegin > 0) {
+				const Edit &edit = GetEdit(pHunk->idxEditBegin - 1);
+				pHunk->linenoNew = edit.second.afterIdx;
 			}
 		} while (0);
-		for (size_t idxEdit = pHunkLine->idxEditBegin; idxEdit < pHunkLine->idxEditEnd; idxEdit++) {
+		for (size_t idxEdit = pHunk->idxEditBegin; idxEdit < pHunk->idxEditEnd; idxEdit++) {
 			const Edit &edit = GetEdit(idxEdit);
-			if (edit.second.type != dtl::SES_ADD) pHunkLine->nLinesOrg++;
-			if (edit.second.type != dtl::SES_DELETE) pHunkLine->nLinesNew++;
+			if (edit.second.type != dtl::SES_ADD) pHunk->nLinesOrg++;
+			if (edit.second.type != dtl::SES_DELETE) pHunk->nLinesNew++;
 		}
 		return true;
 	}
@@ -295,7 +295,7 @@ Gura_ImplementMethod(result, eachhunk)
 {
 	DiffLine *pDiffLine = Object_result::GetThisObj(args)->GetDiffLine();
 	size_t nLinesCommon = args.IsValid(0)? args.GetSizeT(0) : 3;
-	AutoPtr<IteratorHunkLine> pIterator(new IteratorHunkLine(pDiffLine->Reference(), nLinesCommon));
+	AutoPtr<IteratorHunk> pIterator(new IteratorHunk(pDiffLine->Reference(), nLinesCommon));
 	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
@@ -335,12 +335,12 @@ Gura_ImplementMethod(result, render)
 	size_t nLinesCommon = args.IsValid(2)? args.GetSizeT(2) : 3;
 	if (args.IsValid(0)) {
 		Stream &streamOut = args.GetStream(0);
-		pDiffLine->PrintHunkLines(sig, streamOut, format, nLinesCommon);
+		pDiffLine->PrintHunks(sig, streamOut, format, nLinesCommon);
 		return Value::Null;
 	} else {
 		String strOut;
 		SimpleStream_StringWriter streamOut(strOut);
-		pDiffLine->PrintHunkLines(sig, streamOut, format, nLinesCommon);
+		pDiffLine->PrintHunks(sig, streamOut, format, nLinesCommon);
 		return Value(strOut);
 	}
 }
@@ -475,16 +475,16 @@ Value Object_hunk::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(edits))) {
-		AutoPtr<Iterator> pIterator(new IteratorEdit(_pDiffLine->Reference(), _hunkLine));
+		AutoPtr<Iterator> pIterator(new IteratorEdit(_pDiffLine->Reference(), _hunk));
 		return Value(new Object_iterator(env, pIterator.release()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_org))) {
-		return Value(_hunkLine.linenoOrg);
+		return Value(_hunk.linenoOrg);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_new))) {
-		return Value(_hunkLine.linenoNew);
+		return Value(_hunk.linenoNew);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(nlines_at_org))) {
-		return Value(_hunkLine.nLinesOrg);
+		return Value(_hunk.nLinesOrg);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(nlines_at_new))) {
-		return Value(_hunkLine.nLinesNew);
+		return Value(_hunk.nLinesNew);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -495,7 +495,7 @@ String Object_hunk::ToString(bool exprFlag)
 	char buff[80];
 	String str;
 	str += "<diff.hunk:";
-	str += _hunkLine.TextizeUnifiedRange();
+	str += _hunk.TextizeUnifiedRange();
 	str += ">";
 	return str;
 }
@@ -530,7 +530,7 @@ Gura_ImplementMethod(hunk, print)
 		format = DiffLine::SymbolToFormat(sig, args.GetSymbol(1));
 		if (format == DiffLine::FORMAT_None) return Value::Null;
 	}
-	pThis->GetDiffLine()->PrintHunkLine(sig, stream, format, pThis->GetHunkLine());
+	pThis->GetDiffLine()->PrintHunk(sig, stream, format, pThis->GetHunk());
 	return Value::Null;
 }
 
@@ -552,9 +552,9 @@ IteratorEdit::IteratorEdit(DiffLine *pDiffLine) :
 {
 }
 
-IteratorEdit::IteratorEdit(DiffLine *pDiffLine, const HunkLine &hunkLine) :
+IteratorEdit::IteratorEdit(DiffLine *pDiffLine, const DiffLine::Hunk &hunk) :
 	Iterator(false), _pDiffLine(pDiffLine),
-	_idxEdit(hunkLine.idxEditBegin), _idxEditBegin(hunkLine.idxEditBegin), _idxEditEnd(hunkLine.idxEditEnd)
+	_idxEdit(hunk.idxEditBegin), _idxEditBegin(hunk.idxEditBegin), _idxEditEnd(hunk.idxEditEnd)
 {
 }
 
@@ -583,36 +583,36 @@ void IteratorEdit::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &en
 }
 
 //-----------------------------------------------------------------------------
-// IteratorHunkLine
+// IteratorHunk
 //-----------------------------------------------------------------------------
-IteratorHunkLine::IteratorHunkLine(DiffLine *pDiffLine, size_t nLinesCommon) :
+IteratorHunk::IteratorHunk(DiffLine *pDiffLine, size_t nLinesCommon) :
 	Iterator(false), _pDiffLine(pDiffLine), _idxEdit(0), _nLinesCommon(nLinesCommon)
 {
 }
 
-Iterator *IteratorHunkLine::GetSource()
+Iterator *IteratorHunk::GetSource()
 {
 	return NULL;
 }
 
-bool IteratorHunkLine::DoNext(Environment &env, Signal sig, Value &value)
+bool IteratorHunk::DoNext(Environment &env, Signal sig, Value &value)
 {
-	HunkLine hunkLine;
-	if (_pDiffLine->NextHunkLine(&_idxEdit, _nLinesCommon, &hunkLine)) {
-		value = Value(new Object_hunk(_pDiffLine->Reference(), hunkLine));
+	DiffLine::Hunk hunk;
+	if (_pDiffLine->NextHunk(&_idxEdit, _nLinesCommon, &hunk)) {
+		value = Value(new Object_hunk(_pDiffLine->Reference(), hunk));
 		return true;
 	}
 	return false;
 }
 
-String IteratorHunkLine::ToString() const
+String IteratorHunk::ToString() const
 {
 	String str;
 	str += "diff.hunk";
 	return str;
 }
 
-void IteratorHunkLine::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+void IteratorHunk::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }
 

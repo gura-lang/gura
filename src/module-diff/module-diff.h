@@ -45,22 +45,6 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// HunkLine
-//-----------------------------------------------------------------------------
-struct HunkLine {
-public:
-public:
-	size_t idxEditBegin;
-	size_t idxEditEnd;
-	size_t linenoOrg;
-	size_t linenoNew;
-	size_t nLinesOrg;
-	size_t nLinesNew;
-public:
-	String TextizeUnifiedRange() const;
-};
-
-//-----------------------------------------------------------------------------
 // DiffLine
 //-----------------------------------------------------------------------------
 class DiffLine : public dtl::Diff<String, SequenceLine, ComparatorLine> {
@@ -70,6 +54,17 @@ public:
 		FORMAT_Normal,
 		FORMAT_Context,
 		FORMAT_Unified,
+	};
+	struct Hunk {
+	public:
+		size_t idxEditBegin;
+		size_t idxEditEnd;
+		size_t linenoOrg;
+		size_t linenoNew;
+		size_t nLinesOrg;
+		size_t nLinesNew;
+	public:
+		String TextizeUnifiedRange() const;
 	};
 public:
 	typedef sesElem Edit;
@@ -89,11 +84,11 @@ public:
 	static bool PrintEdit(Signal sig, SimpleStream &stream, const Edit &edit);
 	bool PrintEdit(Signal sig, SimpleStream &stream, size_t idxEdit);
 	bool PrintEdits(Signal sig, SimpleStream &stream) const;
-	bool PrintHunkLine(Signal sig, SimpleStream &stream,
-					   Format format, const HunkLine &hunkLine) const;
-	bool PrintHunkLines(Signal sig, SimpleStream &stream,
+	bool PrintHunk(Signal sig, SimpleStream &stream,
+					   Format format, const Hunk &hunk) const;
+	bool PrintHunks(Signal sig, SimpleStream &stream,
 						Format format, size_t nLinesCommon) const;
-	bool NextHunkLine(size_t *pIdxEdit, size_t nLinesCommon, HunkLine *pHunkLine) const;
+	bool NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const;
 	static void FeedString(SequenceLine &seq, const char *src);
 	static bool FeedStream(Signal sig, SequenceLine &seq, Stream &stream);
 	static bool FeedIterator(Environment &env, Signal sig,
@@ -169,19 +164,19 @@ Gura_DeclareUserClass(hunk);
 class Object_hunk : public Object {
 private:
 	AutoPtr<DiffLine> _pDiffLine;
-	HunkLine _hunkLine;
+	DiffLine::Hunk _hunk;
 public:
 	Gura_DeclareObjectAccessor(hunk)
 public:
-	inline Object_hunk(DiffLine *pDiffLine, const HunkLine &hunkLine) :
-		Object(Gura_UserClass(hunk)), _pDiffLine(pDiffLine), _hunkLine(hunkLine) {}
+	inline Object_hunk(DiffLine *pDiffLine, const DiffLine::Hunk &hunk) :
+		Object(Gura_UserClass(hunk)), _pDiffLine(pDiffLine), _hunk(hunk) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline DiffLine *GetDiffLine() { return _pDiffLine.get(); }
-	inline const HunkLine &GetHunkLine() const { return _hunkLine; }
+	inline const DiffLine::Hunk &GetHunk() const { return _hunk; }
 };
 
 //-----------------------------------------------------------------------------
@@ -195,7 +190,7 @@ private:
 	size_t _idxEditEnd;
 public:
 	IteratorEdit(DiffLine *pDiffLine);
-	IteratorEdit(DiffLine *pDiffLine, const HunkLine &hunkLine);
+	IteratorEdit(DiffLine *pDiffLine, const DiffLine::Hunk &hunk);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString() const;
@@ -203,15 +198,15 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// IteratorHunkLine
+// IteratorHunk
 //-----------------------------------------------------------------------------
-class IteratorHunkLine : public Iterator {
+class IteratorHunk : public Iterator {
 private:
 	AutoPtr<DiffLine> _pDiffLine;
 	size_t _idxEdit;
 	size_t _nLinesCommon;
 public:
-	IteratorHunkLine(DiffLine *pDiffLine, size_t nLinesCommon);
+	IteratorHunk(DiffLine *pDiffLine, size_t nLinesCommon);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString() const;
