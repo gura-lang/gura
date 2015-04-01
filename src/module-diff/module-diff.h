@@ -151,8 +151,14 @@ public:
 // DiffChar
 //-----------------------------------------------------------------------------
 class DiffChar : public dtl::Diff<ULong, std::vector<ULong>, ComparatorChar> {
+public:
+	typedef std::vector<ULong> Sequence;
+	typedef sesElem Edit;
+	typedef sesElemVec EditList;
 private:
 	int _cntRef;
+public:
+	Gura_DeclareReferenceAccessor(DiffChar);
 public:
 	inline DiffChar(bool ignoreCaseFlag) : _cntRef(1) {
 		cmp.SetIgnoreCaseFlag(ignoreCaseFlag);
@@ -161,6 +167,8 @@ protected:
 	inline ~DiffChar() {}
 public:
 	void Compose();
+	void FeedString(size_t idx, const char *src);
+	inline Sequence &GetSequence(size_t idx) { return (idx == 0)? getA() : getB(); }
 };
 
 //-----------------------------------------------------------------------------
@@ -228,6 +236,27 @@ public:
 	virtual String ToString(bool exprFlag);
 	DiffLine *GetDiffLine() { return _pDiffLine.get(); }
 	size_t GetEditIndex() const { return _idxEdit; }
+};
+
+//-----------------------------------------------------------------------------
+// Class declaration for diff.diff@char
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(diff_at_char);
+
+class Object_diff_at_char : public Object {
+private:
+	AutoPtr<DiffChar> _pDiffChar;
+public:
+	Gura_DeclareObjectAccessor(diff_at_char)
+public:
+	inline Object_diff_at_char(DiffChar *pDiffChar) :
+		Object(Gura_UserClass(diff_at_char)), _pDiffChar(pDiffChar) {}
+	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(bool exprFlag);
+	inline DiffChar *GetDiffChar() { return _pDiffChar.get(); }
 };
 
 Gura_EndModuleHeader(diff)

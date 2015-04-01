@@ -296,6 +296,15 @@ void DiffChar::Compose()
 	compose();
 }
 
+void DiffChar::FeedString(size_t idx, const char *src)
+{
+	ULong codeUTF32 = 0;
+	Sequence &seq = GetSequence(idx);
+	for (const char *p = src; *p != '\0'; ) {
+		p = NextUTF32(p, codeUTF32);
+	}
+}
+
 //-----------------------------------------------------------------------------
 // Object_diff_at_line
 //-----------------------------------------------------------------------------
@@ -631,6 +640,76 @@ Gura_ImplementUserClass(edit_at_line)
 }
 
 //-----------------------------------------------------------------------------
+// Object_diff_at_char
+//-----------------------------------------------------------------------------
+Object *Object_diff_at_char::Clone() const
+{
+	return NULL;
+}
+
+bool Object_diff_at_char::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(distance));
+	return true;
+}
+
+Value Object_diff_at_char::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(distance))) {
+		//return Value(_pDiffChar->GetEditDistance());
+		return Value::Null;
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+String Object_diff_at_char::ToString(bool exprFlag)
+{
+	char buff[80];
+	String str;
+	str += "<diff.diff@char:";
+	//::sprintf(buff, "dist=%lld", _pDiffChar->GetEditDistance());
+	//str += buff;
+	str += ">";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Methods of diff.diff@char
+//-----------------------------------------------------------------------------
+// diff.diff@char#eachedit() {block?}
+Gura_DeclareMethod(diff_at_char, eachedit)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates an iterator that returns `diff.edit@char` instance stored in the result.\n"
+		"\n"
+		GURA_HELPTEXT_ITERATOR_en());
+}
+
+Gura_ImplementMethod(diff_at_char, eachedit)
+{
+	//DiffChar *pDiffChar = Object_diff_at_char::GetThisObj(args)->GetDiffChar();
+	//AutoPtr<DiffChar::IteratorEdit> pIterator(new DiffChar::IteratorEdit(pDiffChar->Reference()));
+	//return ReturnIterator(env, sig, args, pIterator.release());
+	return Value::Null;
+}
+
+//-----------------------------------------------------------------------------
+// Class implementation for diff.diff@char
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(diff_at_char)
+{
+	Gura_AssignValueEx("diff@char", Value(Reference()));
+	Gura_AssignMethod(diff_at_char, eachedit);
+}
+
+//-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
 // diff.compose(src1, src2):[icase] {block?}
@@ -721,8 +800,12 @@ Gura_DeclareFunctionAlias(compose_at_char, "compose@char")
 
 Gura_ImplementFunction(compose_at_char)
 {
-	//bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
-	return Value::Null;
+	bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
+	AutoPtr<DiffChar> pDiffChar(new DiffChar(ignoreCaseFlag));
+	pDiffChar->FeedString(0, args.GetString(0));
+	pDiffChar->FeedString(1, args.GetString(1));
+	pDiffChar->Compose();
+	return ReturnValue(env, sig, args, Value(new Object_diff_at_char(pDiffChar.release())));
 }
 
 //-----------------------------------------------------------------------------
@@ -750,10 +833,12 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClassAlias(diff_at_line, "diff@line", env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassAlias(hunk_at_line, "hunk@line", env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassAlias(edit_at_line, "edit@line", env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassAlias(diff_at_line, "diff@char", env.LookupClass(VTYPE_object));
 	// class preparation
 	Gura_PrepareUserClass(diff_at_line);
 	Gura_PrepareUserClass(hunk_at_line);
 	Gura_PrepareUserClass(edit_at_line);
+	Gura_PrepareUserClass(diff_at_char);
 	// function assignment
 	Gura_AssignFunction(compose);
 	Gura_AssignFunction(compose_at_char);
