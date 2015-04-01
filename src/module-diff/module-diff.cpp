@@ -356,14 +356,14 @@ Gura_ImplementUserClass(result)
 }
 
 //-----------------------------------------------------------------------------
-// Object_edit
+// Object_edit_at_line
 //-----------------------------------------------------------------------------
-Object *Object_edit::Clone() const
+Object *Object_edit_at_line::Clone() const
 {
 	return NULL;
 }
 
-bool Object_edit::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_edit_at_line::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(type));
@@ -375,7 +375,7 @@ bool Object_edit::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_edit::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_edit_at_line::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	const DiffLine::Edit &edit = _pDiffLine->GetEdit(_idxEdit);
@@ -403,11 +403,11 @@ Value Object_edit::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	return Value::Null;
 }
 
-String Object_edit::ToString(bool exprFlag)
+String Object_edit_at_line::ToString(bool exprFlag)
 {
 	const DiffLine::Edit &edit = _pDiffLine->GetEdit(_idxEdit);
 	String str;
-	str += "<diff.edit:";
+	str += "<diff.edit@line:";
 	if (edit.second.type == dtl::SES_ADD) {
 		str += "add";
 	} else if (edit.second.type == dtl::SES_DELETE) {
@@ -420,10 +420,10 @@ String Object_edit::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Methods of diff.edit
+// Methods of diff.edit@line
 //-----------------------------------------------------------------------------
-// diff.edit#print(out?:stream:w):void
-Gura_DeclareMethod(edit, print)
+// diff.edit@line#print(out?:stream:w):void
+Gura_DeclareMethod(edit_at_line, print)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
@@ -433,21 +433,21 @@ Gura_DeclareMethod(edit, print)
 		"Prints the content of the `diff.edit` instance to the specified stream.\n");
 }
 
-Gura_ImplementMethod(edit, print)
+Gura_ImplementMethod(edit_at_line, print)
 {
-	Object_edit *pThis = Object_edit::GetThisObj(args);
+	Object_edit_at_line *pThis = Object_edit_at_line::GetThisObj(args);
 	Stream &stream = args.IsValid(0)? args.GetStream(0) : *env.GetConsole();
 	pThis->GetDiffLine()->PrintEdit(sig, stream, pThis->GetEditIndex());
 	return Value::Null;
 }
 
 //-----------------------------------------------------------------------------
-// Class implementation for diff.edit
+// Class implementation for diff.edit@line
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClass(edit)
+Gura_ImplementUserClass(edit_at_line)
 {
-	Gura_AssignValue(edit, Value(Reference()));
-	Gura_AssignMethod(edit, print);
+	Gura_AssignValueEx("edit@line", Value(Reference()));
+	Gura_AssignMethod(edit_at_line, print);
 }
 
 //-----------------------------------------------------------------------------
@@ -565,7 +565,7 @@ Iterator *IteratorEdit::GetSource()
 bool IteratorEdit::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (_idxEdit >= _idxEditEnd) return false;
-	value = Value(new Object_edit(_pDiffLine->Reference(), _idxEdit));
+	value = Value(new Object_edit_at_line(_pDiffLine->Reference(), _idxEdit));
 	_idxEdit++;
 	return true;
 }
@@ -714,11 +714,11 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(unified);
 	// class realization
 	Gura_RealizeUserClass(result, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(edit, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassAlias(edit_at_line, "edit@line", env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(hunk, env.LookupClass(VTYPE_object));
 	// class preparation
 	Gura_PrepareUserClass(result);
-	Gura_PrepareUserClass(edit);
+	Gura_PrepareUserClass(edit_at_line);
 	Gura_PrepareUserClass(hunk);
 	// function assignment
 	Gura_AssignFunction(compose);

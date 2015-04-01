@@ -108,19 +108,19 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Class declaration for diff.edit
+// Class declaration for diff.edit_at_line
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(edit);
+Gura_DeclareUserClass(edit_at_line);
 
-class Object_edit : public Object {
+class Object_edit_at_line : public Object {
 private:
 	AutoPtr<DiffLine> _pDiffLine;
 	size_t _idxEdit;
 public:
-	Gura_DeclareObjectAccessor(edit)
+	Gura_DeclareObjectAccessor(edit_at_line)
 public:
-	inline Object_edit(DiffLine *pDiffLine, size_t idxEdit) :
-		Object(Gura_UserClass(edit)), _pDiffLine(pDiffLine), _idxEdit(idxEdit) {}
+	inline Object_edit_at_line(DiffLine *pDiffLine, size_t idxEdit) :
+		Object(Gura_UserClass(edit_at_line)), _pDiffLine(pDiffLine), _idxEdit(idxEdit) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
