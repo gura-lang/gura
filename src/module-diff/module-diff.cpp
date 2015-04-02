@@ -64,7 +64,7 @@ bool DiffLine::NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) cons
 	::memset(pHunk, 0x00, sizeof(Hunk));
 	size_t idxEdit = *pIdxEdit;
 	size_t idxEditTop = idxEdit;
-	size_t nEdits = CountEdits();
+	size_t nEdits = GetEditList().size();
 	if (idxEdit >= nEdits) return false;
 	size_t nLines = 0;
 	for ( ; idxEdit < nEdits; idxEdit++) {
@@ -252,7 +252,7 @@ void DiffLine::IteratorHunk::GatherFollower(Environment::Frame *pFrame, Environm
 //-----------------------------------------------------------------------------
 DiffLine::IteratorEdit::IteratorEdit(DiffLine *pDiffLine) :
 	Iterator(false), _pDiffLine(pDiffLine),
-	_idxEdit(0), _idxEditBegin(0), _idxEditEnd(pDiffLine->CountEdits())
+	_idxEdit(0), _idxEditBegin(0), _idxEditEnd(pDiffLine->GetEditList().size())
 {
 }
 
@@ -659,8 +659,7 @@ Value Object_diff_at_char::DoGetProp(Environment &env, Signal sig, const Symbol 
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(distance))) {
-		//return Value(_pDiffChar->GetEditDistance());
-		return Value::Null;
+		return Value(_pDiffChar->GetEditDistance());
 	}
 	evaluatedFlag = false;
 	return Value::Null;

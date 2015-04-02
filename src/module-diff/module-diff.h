@@ -134,9 +134,6 @@ public:
 	inline const EditList &GetEditList() const { return getSes().getSequence(); }
 	inline long long GetEditDistance() const { return getEditDistance(); }
 	inline Sequence &GetSequence(size_t idx) { return (idx == 0)? getA() : getB(); }
-	inline size_t CountEdits() const {
-		return GetEditList().size();
-	}
 	inline const DiffLine::Edit &GetEdit(size_t idxEdit) const {
 		return GetEditList()[idxEdit];
 	}
@@ -169,6 +166,7 @@ public:
 	void Compose();
 	void FeedString(size_t idx, const char *src);
 	inline Sequence &GetSequence(size_t idx) { return (idx == 0)? getA() : getB(); }
+	inline long long GetEditDistance() const { return getEditDistance(); }
 };
 
 //-----------------------------------------------------------------------------
