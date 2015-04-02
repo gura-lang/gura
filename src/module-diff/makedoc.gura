@@ -17,13 +17,14 @@ Below is an example to show differences between files `file1.txt` and `file2.txt
 
 ${markdown.funcdoc(
 diff.compose
+diff.compose@char
 )}
 
 
 ## diff.diff@line Class
 
 The `diff.diff@line` instance is created by function `diff.compose()`
-and provides information about differences between two texts.
+and provides information about differences between two texts by lines.
 
 
 ### Property
@@ -50,6 +51,39 @@ and provides information about differences between two texts.
 ${markdown.funcdoc(
 diff.diff@line.eachhunk
 diff.diff@line.render
+)}
+
+
+## diff.hunk@line Class
+
+The `diff.hunk@line` instance provides information about a hunk.
+
+### Property
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>diff.hunk@line#edits</code></td><td><code>iterator</code></td><td>R</td>
+<td>An iterator that returns <code>diff.edit@line</code> instances stored in the hunk.</td></tr>
+
+<tr><td><code>diff.hunk@line#lineno@org</code></td><td><code>number</code></td><td>R</td>
+<td>Top line number of the "original" text covered by the hunk.</td></tr>
+
+<tr><td><code>diff.hunk@line#lineno@new</code></td><td><code>number</code></td><td>R</td>
+<td>Top line number of the "new" text covered by the hunk.</td></tr>
+
+<tr><td><code>diff.hunk@line#nlines@org</code></td><td><code>number</code></td><td>R</td>
+<td>Number of lines in the "original" text covered by the hunk.</td></tr>
+
+<tr><td><code>diff.hunk@line#nlines@new</code></td><td><code>number</code></td><td>R</td>
+<td>Number of lines in the "new" text covered by the hunk.</td></tr>
+
+</table>
+
+### Method
+
+${markdown.funcdoc(
+diff.hunk@line.print
 )}
 
 
@@ -95,37 +129,60 @@ diff.edit@line.print
 )}
 
 
-## diff.hunk@line Class
+## diff.diff@char Class
 
-The `diff.hunk@line` instance provides information about a hunk.
+The `diff.diff@char` instance is created by function `diff.compose@char()`
+and provides information about differences between two texts by characters.
+
 
 ### Property
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>diff.hunk@line#edits</code></td><td><code>iterator</code></td><td>R</td>
-<td>An iterator that returns <code>diff.edit@line</code> instances stored in the hunk.</td></tr>
+<tr><td><code>diff.diff@line#distance</code></td><td><code>number</code></td><td>R</td>
+<td>The distance between the texts. Zero means that they are identical each other.</td></tr>
 
-<tr><td><code>diff.hunk@line#lineno@org</code></td><td><code>number</code></td><td>R</td>
-<td>Top line number of the "original" text covered by the hunk.</td></tr>
+<tr><td><code>diff.diff@line#edits</code></td><td><code>iterator</code></td><td>R</td>
+<td>An iterator that returns <code>diff.edit@char</code> instances stored in the result.</td></tr>
 
-<tr><td><code>diff.hunk@line#lineno@new</code></td><td><code>number</code></td><td>R</td>
-<td>Top line number of the "new" text covered by the hunk.</td></tr>
+<tr><td><code>diff.diff@line#edits@org</code></td><td><code>iterator</code></td><td>R</td>
+<td>An iterator that returns <code>diff.edit@char</code> instances
+that are applied to the "original" string.</td></tr>
 
-<tr><td><code>diff.hunk@line#nlines@org</code></td><td><code>number</code></td><td>R</td>
-<td>Number of lines in the "original" text covered by the hunk.</td></tr>
-
-<tr><td><code>diff.hunk@line#nlines@new</code></td><td><code>number</code></td><td>R</td>
-<td>Number of lines in the "new" text covered by the hunk.</td></tr>
+<tr><td><code>diff.diff@line#edits@new</code></td><td><code>iterator</code></td><td>R</td>
+<td>An iterator that returns <code>diff.edit@char</code> instances
+that are applied to the "new" string.</td></tr>
 
 </table>
 
-### Method
 
-${markdown.funcdoc(
-diff.hunk@line.print
-)}
+
+## diff.edit@char Class
+
+The `diff.edit@char` provides information about an edit operation.
+
+### Property
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>diff.edit@char#type</code></td><td><code>symbol</code></td><td>R</td>
+<td>Edit operation:
+<ul>
+<li><code>`copy</code> .. Copy the line.</li>
+<li><code>`add</code> .. Add the line.</li>
+<li><code>`delete</code> .. Delete the line.</li>
+</ul>
+</td></tr>
+
+<tr><td><code>diff.edit@char#mark</code></td><td><code>string</code></td><td>R</td>
+<td>A mark string that appears on the top of each line in Unified format.</td></tr>
+
+<tr><td><code>diff.edit@char#source</code></td><td><code>string</code></td><td>R</td>
+<td>A source text.</td></tr>
+
+</table>
 
 
 ## Thanks

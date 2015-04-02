@@ -854,7 +854,7 @@ Gura_DeclareFunction(compose)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Extracts differences between two sources of strings and returns `diff.diff@line` instance\n"
+		"Extracts differences between two sets of line sequence and returns `diff.diff@line` instance\n"
 		"that contains the difference information.\n"
 		"\n"
 		"You can specify a value of `string`, `stream`, `iterator` or `list`\n"
@@ -885,6 +885,8 @@ Gura_DeclareFunction(compose)
 		"    file = stream('file.txt')\n"
 		"    str = '...'\n"
 		"    result = diff.compose(file, str)\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("d", "diff.diff@line")
 		"\n"
 		"If attribute `:icase` is specified, it wouldn't distinguish\n"
 		"upper and lower case of characters.\n");
@@ -927,7 +929,13 @@ Gura_DeclareFunctionAlias(compose_at_char, "compose@char")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Extracts differences between two strings and returns `diff.diff@line` instance\n"
+		"that contains the difference information.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("d", "diff.diff@char")
+		"\n"
+		"If attribute `:icase` is specified, it wouldn't distinguish\n"
+		"upper and lower case of characters.\n");
 }
 
 Gura_ImplementFunction(compose_at_char)
