@@ -34,6 +34,9 @@ and provides information about differences between two texts.
 <tr><td><code>diff.diff@line#distance</code></td><td><code>number</code></td><td>R</td>
 <td>The distance between the texts. Zero means that they are identical each other.</td></tr>
 
+<tr><td><code>diff.diff@line#edits</code></td><td><code>iterator</code></td><td>R</td>
+<td>An iterator that returns <code>diff.edit@line</code> instances stored in the result.</td></tr>
+
 <tr><td><code>diff.diff@line#nlines@org</code></td><td><code>number</code></td><td>R</td>
 <td>Number of lines in the "original" text.</td></tr>
 
@@ -45,7 +48,6 @@ and provides information about differences between two texts.
 ### Method
 
 ${markdown.funcdoc(
-diff.diff@line.eachedit
 diff.diff@line.eachhunk
 diff.diff@line.render
 )}

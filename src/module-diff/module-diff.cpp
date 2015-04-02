@@ -305,12 +305,15 @@ const char *NextUTF8(const char *p, UInt64 &codeUTF8)
 
 void AppendUTF8(String &str, UInt64 codeUTF8)
 {
+	if (codeUTF8 == 0) {
+		str.push_back('\0');
+		return;
+	}
 	size_t i = 0;
 	char buff[8];
-	for ( ; codeUTF8 != 0; codeUTF8 >>= 8, i++) {
+	for ( ; codeUTF8 != 0 && i < 8; codeUTF8 >>= 8, i++) {
 		buff[i] = static_cast<char>(static_cast<UChar>(codeUTF8 & 0xff));
 	}
-	if (i == 0) buff[i++] = '\0';
 	while (i > 0) {
 		i--;
 		str.push_back(buff[i]);
@@ -399,6 +402,7 @@ bool Object_diff_at_line::DoDirProp(Environment &env, Signal sig, SymbolSet &sym
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(distance));
+	symbols.insert(Gura_UserSymbol(edits));
 	symbols.insert(Gura_UserSymbol(nlines_at_org));
 	symbols.insert(Gura_UserSymbol(nlines_at_new));
 	return true;
@@ -410,6 +414,10 @@ Value Object_diff_at_line::DoGetProp(Environment &env, Signal sig, const Symbol 
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(distance))) {
 		return Value(_pDiffLine->GetEditDistance());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(edits))) {
+		AutoPtr<DiffLine::IteratorEdit> pIterator(
+			new DiffLine::IteratorEdit(_pDiffLine->Reference()));
+		return Value(new Object_iterator(env, pIterator.release()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(nlines_at_org))) {
 		return Value(_pDiffLine->GetSequence(0).size());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(nlines_at_new))) {
@@ -433,25 +441,6 @@ String Object_diff_at_line::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Methods of diff.diff@line
 //-----------------------------------------------------------------------------
-// diff.diff@line#eachedit() {block?}
-Gura_DeclareMethod(diff_at_line, eachedit)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates an iterator that returns `diff.edit@line` instance stored in the result.\n"
-		"\n"
-		GURA_HELPTEXT_ITERATOR_en());
-}
-
-Gura_ImplementMethod(diff_at_line, eachedit)
-{
-	DiffLine *pDiffLine = Object_diff_at_line::GetThisObj(args)->GetDiffLine();
-	AutoPtr<DiffLine::IteratorEdit> pIterator(new DiffLine::IteratorEdit(pDiffLine->Reference()));
-	return ReturnIterator(env, sig, args, pIterator.release());
-}
-
 // diff.diff@line#eachhunk(lines?:number) {block?}
 Gura_DeclareMethod(diff_at_line, eachhunk)
 {
@@ -529,7 +518,6 @@ Gura_ImplementMethod(diff_at_line, render)
 Gura_ImplementUserClass(diff_at_line)
 {
 	Gura_AssignValueEx("diff@line", Value(Reference()));
-	Gura_AssignMethod(diff_at_line, eachedit);
 	Gura_AssignMethod(diff_at_line, eachhunk);
 	Gura_AssignMethod(diff_at_line, render);
 }
