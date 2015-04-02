@@ -152,6 +152,11 @@ public:
 //-----------------------------------------------------------------------------
 class DiffChar : public dtl::Diff<UInt64, std::vector<UInt64>, ComparatorChar> {
 public:
+	enum FilterType {
+		FILTER_None,
+		FILTER_Original,
+		FILTER_New,
+	};
 	typedef std::vector<UInt64> Sequence;
 	class Edit {
 	private:
@@ -171,11 +176,12 @@ public:
 	class IteratorEdit : public Iterator {
 	private:
 		AutoPtr<DiffChar> _pDiffChar;
+		FilterType _filterType;
 		size_t _idxEdit;
 		size_t _idxEditBegin;
 		size_t _idxEditEnd;
 	public:
-		IteratorEdit(DiffChar *pDiffChar);
+		IteratorEdit(DiffChar *pDiffChar, FilterType filterType);
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString() const;

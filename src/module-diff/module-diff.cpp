@@ -357,8 +357,8 @@ void DiffChar::FeedString(size_t idx, const char *src)
 //-----------------------------------------------------------------------------
 // DiffChar::IteratorEdit
 //-----------------------------------------------------------------------------
-DiffChar::IteratorEdit::IteratorEdit(DiffChar *pDiffChar) :
-	Iterator(false), _pDiffChar(pDiffChar),
+DiffChar::IteratorEdit::IteratorEdit(DiffChar *pDiffChar, FilterType filterType) :
+	Iterator(false), _pDiffChar(pDiffChar), _filterType(filterType),
 	_idxEdit(0), _idxEditBegin(0), _idxEditEnd(pDiffChar->GetEditList().size())
 {
 }
@@ -733,6 +733,7 @@ bool Object_diff_at_char::DoDirProp(Environment &env, Signal sig, SymbolSet &sym
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(distance));
+	symbols.insert(Gura_UserSymbol(edits));
 	return true;
 }
 
@@ -740,8 +741,13 @@ Value Object_diff_at_char::DoGetProp(Environment &env, Signal sig, const Symbol 
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
+
 	if (pSymbol->IsIdentical(Gura_UserSymbol(distance))) {
 		return Value(_pDiffChar->GetEditDistance());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(edits))) {
+		AutoPtr<DiffChar::IteratorEdit> pIterator(
+			new DiffChar::IteratorEdit(_pDiffChar->Reference(), DiffChar::FILTER_None));
+		return Value(new Object_iterator(env, pIterator.release()));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -759,34 +765,11 @@ String Object_diff_at_char::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Methods of diff.diff@char
-//-----------------------------------------------------------------------------
-// diff.diff@char#eachedit() {block?}
-Gura_DeclareMethod(diff_at_char, eachedit)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates an iterator that returns `diff.edit@char` instance stored in the result.\n"
-		"\n"
-		GURA_HELPTEXT_ITERATOR_en());
-}
-
-Gura_ImplementMethod(diff_at_char, eachedit)
-{
-	DiffChar *pDiffChar = Object_diff_at_char::GetThisObj(args)->GetDiffChar();
-	AutoPtr<DiffChar::IteratorEdit> pIterator(new DiffChar::IteratorEdit(pDiffChar->Reference()));
-	return ReturnIterator(env, sig, args, pIterator.release());
-}
-
-//-----------------------------------------------------------------------------
 // Class implementation for diff.diff@char
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(diff_at_char)
 {
 	Gura_AssignValueEx("diff@char", Value(Reference()));
-	Gura_AssignMethod(diff_at_char, eachedit);
 }
 
 //-----------------------------------------------------------------------------
