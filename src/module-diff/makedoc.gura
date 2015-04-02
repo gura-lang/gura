@@ -20,9 +20,9 @@ diff.compose
 )}
 
 
-## diff.result Class
+## diff.diff@line Class
 
-The `diff.result` instance is created by function `diff.compose()`
+The `diff.diff@line` instance is created by function `diff.compose()`
 and provides information about differences between two texts.
 
 
@@ -31,13 +31,13 @@ and provides information about differences between two texts.
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>diff.result#distance</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>diff.diff@line#distance</code></td><td><code>number</code></td><td>R</td>
 <td>The distance between the texts. Zero means that they are identical each other.</td></tr>
 
-<tr><td><code>diff.result#nlines@org</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>diff.diff@line#nlines@org</code></td><td><code>number</code></td><td>R</td>
 <td>Number of lines in the "original" text.</td></tr>
 
-<tr><td><code>diff.result#nlines@new</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>diff.diff@line#nlines@new</code></td><td><code>number</code></td><td>R</td>
 <td>Number of lines in the "new" text.</td></tr>
 
 </table>
@@ -45,22 +45,22 @@ and provides information about differences between two texts.
 ### Method
 
 ${markdown.funcdoc(
-diff.result.eachedit
-diff.result.eachhunk
-diff.result.render
+diff.diff@line.eachedit
+diff.diff@line.eachhunk
+diff.diff@line.render
 )}
 
 
-## diff.edit Class
+## diff.edit@line Class
 
-The `diff.edit` provides information about an edit operation.
+The `diff.edit@line` provides information about an edit operation.
 
 ### Property
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>diff.edit#type</code></td><td><code>symbol</code></td><td>R</td>
+<tr><td><code>diff.edit@line#type</code></td><td><code>symbol</code></td><td>R</td>
 <td>Edit operation:
 <ul>
 <li><code>`copy</code> .. Copy the line.</li>
@@ -69,19 +69,19 @@ The `diff.edit` provides information about an edit operation.
 </ul>
 </td></tr>
 
-<tr><td><code>diff.edit#mark</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>diff.edit@line#mark</code></td><td><code>string</code></td><td>R</td>
 <td>A mark string that appears on the top of each line in Unified format.</td></tr>
 
-<tr><td><code>diff.edit#lineno@org</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>diff.edit@line#lineno@org</code></td><td><code>number</code></td><td>R</td>
 <td>Line number of the "original" text correspond to the edit.</td></tr>
 
-<tr><td><code>diff.edit#lineno@new</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>diff.edit@line#lineno@new</code></td><td><code>number</code></td><td>R</td>
 <td>Lop line number of the "new" text correspond to the edit.</td></tr>
 
-<tr><td><code>diff.edit#source</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>diff.edit@line#source</code></td><td><code>string</code></td><td>R</td>
 <td>A source text.</td></tr>
 
-<tr><td><code>diff.edit#unified</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>diff.edit@line#unified</code></td><td><code>string</code></td><td>R</td>
 <td>A composed string in Unified format.</td></tr>
 
 </table>
@@ -89,32 +89,32 @@ The `diff.edit` provides information about an edit operation.
 ### Method
 
 ${markdown.funcdoc(
-diff.edit.print
+diff.edit@line.print
 )}
 
 
-## diff.hunk Class
+## diff.hunk@line Class
 
-The `diff.hunk` instance provides information about a hunk.
+The `diff.hunk@line` instance provides information about a hunk.
 
 ### Property
 
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>diff.hunk#edits</code></td><td><code>iterator</code></td><td>R</td>
-<td>An iterator that returns <code>diff.edit</code> instances stored in the hunk.</td></tr>
+<tr><td><code>diff.hunk@line#edits</code></td><td><code>iterator</code></td><td>R</td>
+<td>An iterator that returns <code>diff.edit@line</code> instances stored in the hunk.</td></tr>
 
-<tr><td><code>diff.hunk#lineno@org</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>diff.hunk@line#lineno@org</code></td><td><code>number</code></td><td>R</td>
 <td>Top line number of the "original" text covered by the hunk.</td></tr>
 
-<tr><td><code>diff.hunk#lineno@new</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>diff.hunk@line#lineno@new</code></td><td><code>number</code></td><td>R</td>
 <td>Top line number of the "new" text covered by the hunk.</td></tr>
 
-<tr><td><code>diff.hunk#nlines@org</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>diff.hunk@line#nlines@org</code></td><td><code>number</code></td><td>R</td>
 <td>Number of lines in the "original" text covered by the hunk.</td></tr>
 
-<tr><td><code>diff.hunk#nlines@new</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>diff.hunk@line#nlines@new</code></td><td><code>number</code></td><td>R</td>
 <td>Number of lines in the "new" text covered by the hunk.</td></tr>
 
 </table>
@@ -122,7 +122,7 @@ The `diff.hunk` instance provides information about a hunk.
 ### Method
 
 ${markdown.funcdoc(
-diff.hunk.print
+diff.hunk@line.print
 )}
 
 
