@@ -72,7 +72,7 @@ namespace dtl {
     const   edit_t SES_DELETE = -1;
     const   edit_t SES_COMMON = 0;
     const   edit_t SES_ADD    = 1;
-    
+
     /**
      * mark of SES
      */

@@ -173,7 +173,7 @@ String DiffLine::TextizeUnifiedEdit(const DiffLine::Edit &edit)
 {
 	String str;
 	str += GetEditMark(edit);
-	str += edit.first;
+	str += GetEditSource(edit);
 	return str;
 }
 
@@ -278,12 +278,43 @@ bool DiffLine::IteratorEdit::DoNext(Environment &env, Signal sig, Value &value)
 String DiffLine::IteratorEdit::ToString() const
 {
 	String str;
-	str += "diff.edit";
+	str += "diff.edit@line";
 	return str;
 }
 
 void DiffLine::IteratorEdit::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
+}
+
+const char *NextUTF8(const char *p, UInt64 &codeUTF8)
+{
+	codeUTF8 = 0x000000000000;
+	if (*p != '\0') {
+		int ch = static_cast<UChar>(*p);
+		codeUTF8 = ch;
+		p++;
+		if (IsUTF8First(ch)) {
+			while (IsUTF8Follower(*p)) {
+				codeUTF8 = (codeUTF8 << 8) | static_cast<UChar>(*p);
+				p++;
+			}
+		}
+	}
+	return p;
+}
+
+void AppendUTF8(String &str, UInt64 codeUTF8)
+{
+	size_t i = 0;
+	char buff[8];
+	for ( ; codeUTF8 != 0; codeUTF8 >>= 8, i++) {
+		buff[i] = static_cast<char>(static_cast<UChar>(codeUTF8 & 0xff));
+	}
+	if (i == 0) buff[i++] = '\0';
+	while (i > 0) {
+		i--;
+		str.push_back(buff[i]);
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -294,15 +325,66 @@ void DiffChar::Compose()
 	init();
 	onHuge();
 	compose();
+	String str;
+	dtl::edit_t typePrev = dtl::SES_COMMON;
+	foreach_const (sesElemVec, pSesElem, getSes().getSequence()) {
+		if (str.empty()) {
+			typePrev = pSesElem->second.type;
+		} else if (typePrev != pSesElem->second.type) {
+			_editList.push_back(Edit(typePrev, str));
+			str.clear();
+			typePrev = pSesElem->second.type;
+		}
+		AppendUTF8(str, pSesElem->first);
+		//pSesElem->second.beforeIdx
+		//pSesElem->second.afterIdx
+	}
+	if (!str.empty()) {
+		_editList.push_back(Edit(typePrev, str));
+	}
 }
 
 void DiffChar::FeedString(size_t idx, const char *src)
 {
-	ULong codeUTF32 = 0;
+	UInt64 codeUTF8 = 0;
 	Sequence &seq = GetSequence(idx);
 	for (const char *p = src; *p != '\0'; ) {
-		p = NextUTF32(p, codeUTF32);
+		p = NextUTF8(p, codeUTF8);
+		seq.push_back(codeUTF8);
 	}
+}
+
+//-----------------------------------------------------------------------------
+// DiffChar::IteratorEdit
+//-----------------------------------------------------------------------------
+DiffChar::IteratorEdit::IteratorEdit(DiffChar *pDiffChar) :
+	Iterator(false), _pDiffChar(pDiffChar),
+	_idxEdit(0), _idxEditBegin(0), _idxEditEnd(pDiffChar->GetEditList().size())
+{
+}
+
+Iterator *DiffChar::IteratorEdit::GetSource()
+{
+	return NULL;
+}
+
+bool DiffChar::IteratorEdit::DoNext(Environment &env, Signal sig, Value &value)
+{
+	if (_idxEdit >= _idxEditEnd) return false;
+	value = Value(new Object_edit_at_char(_pDiffChar->Reference(), _idxEdit));
+	_idxEdit++;
+	return true;
+}
+
+String DiffChar::IteratorEdit::ToString() const
+{
+	String str;
+	str += "diff.edit@char";
+	return str;
+}
+
+void DiffChar::IteratorEdit::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
 }
 
 //-----------------------------------------------------------------------------
@@ -584,7 +666,7 @@ Value Object_edit_at_line::DoGetProp(Environment &env, Signal sig, const Symbol 
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_new))) {
 		return Value(edit.second.afterIdx);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(source))) {
-		return Value(edit.first);
+		return Value(DiffLine::GetEditSource(edit));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(unified))) {
 		return Value(DiffLine::TextizeUnifiedEdit(edit));
 	}
@@ -670,8 +752,8 @@ String Object_diff_at_char::ToString(bool exprFlag)
 	char buff[80];
 	String str;
 	str += "<diff.diff@char:";
-	//::sprintf(buff, "dist=%lld", _pDiffChar->GetEditDistance());
-	//str += buff;
+	::sprintf(buff, "dist=%lld", _pDiffChar->GetEditDistance());
+	str += buff;
 	str += ">";
 	return str;
 }
@@ -693,10 +775,9 @@ Gura_DeclareMethod(diff_at_char, eachedit)
 
 Gura_ImplementMethod(diff_at_char, eachedit)
 {
-	//DiffChar *pDiffChar = Object_diff_at_char::GetThisObj(args)->GetDiffChar();
-	//AutoPtr<DiffChar::IteratorEdit> pIterator(new DiffChar::IteratorEdit(pDiffChar->Reference()));
-	//return ReturnIterator(env, sig, args, pIterator.release());
-	return Value::Null;
+	DiffChar *pDiffChar = Object_diff_at_char::GetThisObj(args)->GetDiffChar();
+	AutoPtr<DiffChar::IteratorEdit> pIterator(new DiffChar::IteratorEdit(pDiffChar->Reference()));
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 //-----------------------------------------------------------------------------
@@ -706,6 +787,70 @@ Gura_ImplementUserClass(diff_at_char)
 {
 	Gura_AssignValueEx("diff@char", Value(Reference()));
 	Gura_AssignMethod(diff_at_char, eachedit);
+}
+
+//-----------------------------------------------------------------------------
+// Object_edit_at_char
+//-----------------------------------------------------------------------------
+Object *Object_edit_at_char::Clone() const
+{
+	return NULL;
+}
+
+bool Object_edit_at_char::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(type));
+	symbols.insert(Gura_UserSymbol(mark));
+	symbols.insert(Gura_UserSymbol(source));
+	symbols.insert(Gura_UserSymbol(unified));
+	return true;
+}
+
+Value Object_edit_at_char::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	const DiffChar::Edit &edit = _pDiffChar->GetEdit(_idxEdit);
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
+		if (edit.GetType() == dtl::SES_ADD) {
+			return Value(Gura_UserSymbol(add));
+		} else if (edit.GetType() == dtl::SES_DELETE) {
+			return Value(Gura_UserSymbol(delete));
+		} else {
+			return Value(Gura_UserSymbol(copy));
+		}
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mark))) {
+		return Value(edit.GetMark());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(source))) {
+		return Value(edit.GetSource());
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+String Object_edit_at_char::ToString(bool exprFlag)
+{
+	const DiffChar::Edit &edit = _pDiffChar->GetEdit(_idxEdit);
+	String str;
+	str += "<diff.edit@char:";
+	if (edit.GetType() == dtl::SES_ADD) {
+		str += "add";
+	} else if (edit.GetType() == dtl::SES_DELETE) {
+		str += "delete";
+	} else {
+		str += "copy";
+	}
+	str += ">";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Class implementation for diff.edit@char
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(edit_at_char)
+{
+	Gura_AssignValueEx("edit@char", Value(Reference()));
 }
 
 //-----------------------------------------------------------------------------
@@ -833,11 +978,13 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClassAlias(hunk_at_line, "hunk@line", env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassAlias(edit_at_line, "edit@line", env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassAlias(diff_at_char, "diff@char", env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassAlias(edit_at_char, "edit@char", env.LookupClass(VTYPE_object));
 	// class preparation
 	Gura_PrepareUserClass(diff_at_line);
 	Gura_PrepareUserClass(hunk_at_line);
 	Gura_PrepareUserClass(edit_at_line);
 	Gura_PrepareUserClass(diff_at_char);
+	Gura_PrepareUserClass(edit_at_char);
 	// function assignment
 	Gura_AssignFunction(compose);
 	Gura_AssignFunction(compose_at_char);

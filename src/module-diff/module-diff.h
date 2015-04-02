@@ -48,7 +48,7 @@ private:
 public:
 	inline ComparatorChar() : _ignoreCaseFlag(false) {}
 	inline void SetIgnoreCaseFlag(bool ignoreCaseFlag) { _ignoreCaseFlag = ignoreCaseFlag; }
-	inline bool impl(ULong ch1, ULong ch2) const {
+	inline bool impl(UInt64 ch1, UInt64 ch2) const {
 		return ch1 == ch2;
 	}
 };
@@ -131,10 +131,10 @@ public:
 	void FeedList(size_t idx, const ValueList &valList);
 	static String TextizeUnifiedEdit(const Edit &edit);
 	static Format SymbolToFormat(Signal sig, const Symbol *pSymbol);
-	inline const EditList &GetEditList() const { return getSes().getSequence(); }
-	inline long long GetEditDistance() const { return getEditDistance(); }
 	inline Sequence &GetSequence(size_t idx) { return (idx == 0)? getA() : getB(); }
-	inline const DiffLine::Edit &GetEdit(size_t idxEdit) const {
+	inline long long GetEditDistance() const { return getEditDistance(); }
+	inline const EditList &GetEditList() const { return getSes().getSequence(); }
+	inline const Edit &GetEdit(size_t idxEdit) const {
 		return GetEditList()[idxEdit];
 	}
 	inline static const char *GetEditMark(const Edit &edit) {
@@ -142,18 +142,48 @@ public:
 			(edit.second.type == dtl::SES_ADD)? "+" :
 			(edit.second.type == dtl::SES_DELETE)? "-" : " ";
 	}
+	inline static const String &GetEditSource(const Edit &edit) {
+		return edit.first;
+	}
 };
 
 //-----------------------------------------------------------------------------
 // DiffChar
 //-----------------------------------------------------------------------------
-class DiffChar : public dtl::Diff<ULong, std::vector<ULong>, ComparatorChar> {
+class DiffChar : public dtl::Diff<UInt64, std::vector<UInt64>, ComparatorChar> {
 public:
-	typedef std::vector<ULong> Sequence;
-	typedef sesElem Edit;
-	typedef sesElemVec EditList;
+	typedef std::vector<UInt64> Sequence;
+	class Edit {
+	private:
+		dtl::edit_t _type;
+		String _str;
+	public:
+		inline Edit(dtl::edit_t type, const String &str) : _type(type), _str(str) {}
+		inline dtl::edit_t GetType() const { return _type; }
+		inline const char *GetSource() const { return _str.c_str(); }
+		inline const char *GetMark() const {
+			return
+				(_type == dtl::SES_ADD)? "+" :
+				(_type == dtl::SES_DELETE)? "-" : " ";
+		}
+	};
+	typedef std::vector<Edit> EditList;
+	class IteratorEdit : public Iterator {
+	private:
+		AutoPtr<DiffChar> _pDiffChar;
+		size_t _idxEdit;
+		size_t _idxEditBegin;
+		size_t _idxEditEnd;
+	public:
+		IteratorEdit(DiffChar *pDiffChar);
+		virtual Iterator *GetSource();
+		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual String ToString() const;
+		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+	};
 private:
 	int _cntRef;
+	EditList _editList;
 public:
 	Gura_DeclareReferenceAccessor(DiffChar);
 public:
@@ -167,6 +197,10 @@ public:
 	void FeedString(size_t idx, const char *src);
 	inline Sequence &GetSequence(size_t idx) { return (idx == 0)? getA() : getB(); }
 	inline long long GetEditDistance() const { return getEditDistance(); }
+	inline const EditList &GetEditList() const { return _editList; }
+	inline const Edit &GetEdit(size_t idxEdit) const {
+		return GetEditList()[idxEdit];
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -255,6 +289,29 @@ public:
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline DiffChar *GetDiffChar() { return _pDiffChar.get(); }
+};
+
+//-----------------------------------------------------------------------------
+// Class declaration for diff.edit@char
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(edit_at_char);
+
+class Object_edit_at_char : public Object {
+private:
+	AutoPtr<DiffChar> _pDiffChar;
+	size_t _idxEdit;
+public:
+	Gura_DeclareObjectAccessor(edit_at_char)
+public:
+	inline Object_edit_at_char(DiffChar *pDiffChar, size_t idxEdit) :
+		Object(Gura_UserClass(edit_at_char)), _pDiffChar(pDiffChar), _idxEdit(idxEdit) {}
+	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(bool exprFlag);
+	DiffChar *GetDiffChar() { return _pDiffChar.get(); }
+	size_t GetEditIndex() const { return _idxEdit; }
 };
 
 Gura_EndModuleHeader(diff)
