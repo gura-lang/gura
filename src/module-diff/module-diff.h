@@ -51,6 +51,10 @@ public:
 	inline ComparatorChar() : _ignoreCaseFlag(false) {}
 	inline void SetIgnoreCaseFlag(bool ignoreCaseFlag) { _ignoreCaseFlag = ignoreCaseFlag; }
 	inline bool impl(UInt64 ch1, UInt64 ch2) const {
+		if (_ignoreCaseFlag) {
+			if ('a' <= ch1 && ch1 <= 'z') ch1 = ch1 - 'a' + 'A';
+			if ('a' <= ch2 && ch2 <= 'z') ch2 = ch2 - 'a' + 'A';
+		}
 		return ch1 == ch2;
 	}
 };

@@ -215,4 +215,13 @@ testcase('diff.compose@char()') {
 	println()
 }
 
-
+testcase('ignore case for diff.compose@char()') {
+	textOrg = 'abcdefghijklmnopqrstuvwxyz'
+	textNew = 'abcdefghijhelloKLMNOpqrstUVWXYz'
+	println('without :icase')
+	edits = diff.compose@char(textOrg, textNew).edits
+	println(edits:*mark, edits:*source)
+	println('with :icase')
+	edits = (diff.compose@char(textOrg, textNew):icase).edits
+	println(edits:*mark, edits:*source)
+}
