@@ -158,3 +158,23 @@ with :icase
  z
 -ab-cdefghijkl-あいうmnop-qrstuv-wxy-z
 +AB+cdefg+123+hijkl+かきくMNOP+qrstuvz
+
+======== #10 ignore case for diff.compose@char() ========
+
+without :icase
+ abcdefghij
++he
+-k
+ l
++l
+-mn
+ o
++KLMNO
+ pqrst
++UVWXY
+-uvwxy
+ z
+with :icase
+ abcdefghij
++hello
+ klmnopqrstuvwxyz
