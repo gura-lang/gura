@@ -14,6 +14,8 @@ Gura_DeclareUserSymbol(copy);
 Gura_DeclareUserSymbol(delete);
 Gura_DeclareUserSymbol(distance);
 Gura_DeclareUserSymbol(edits);
+Gura_DeclareUserSymbol(edits_at_org);
+Gura_DeclareUserSymbol(edits_at_new);
 Gura_DeclareUserSymbol(lineno_at_org);
 Gura_DeclareUserSymbol(lineno_at_new);
 Gura_DeclareUserSymbol(mark);

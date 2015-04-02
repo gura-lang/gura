@@ -373,10 +373,17 @@ Iterator *DiffChar::IteratorEdit::GetSource()
 
 bool DiffChar::IteratorEdit::DoNext(Environment &env, Signal sig, Value &value)
 {
-	if (_idxEdit >= _idxEditEnd) return false;
-	value = Value(new Object_edit_at_char(_pDiffChar->Reference(), _idxEdit));
-	_idxEdit++;
-	return true;
+	for ( ; _idxEdit < _idxEditEnd; _idxEdit++) {
+		dtl::edit_t type = _pDiffChar->GetEdit(_idxEdit).GetType();
+		if (type == dtl::SES_COMMON || _filterType == FILTER_None ||
+			(_filterType == FILTER_Original && type == dtl::SES_DELETE) ||
+			(_filterType == FILTER_New && type == dtl::SES_ADD)) {
+			value = Value(new Object_edit_at_char(_pDiffChar->Reference(), _idxEdit));
+			_idxEdit++;
+			return true;
+		}
+	}
+	return false;
 }
 
 String DiffChar::IteratorEdit::ToString() const
@@ -722,6 +729,8 @@ bool Object_diff_at_char::DoDirProp(Environment &env, Signal sig, SymbolSet &sym
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(distance));
 	symbols.insert(Gura_UserSymbol(edits));
+	symbols.insert(Gura_UserSymbol(edits_at_org));
+	symbols.insert(Gura_UserSymbol(edits_at_new));
 	return true;
 }
 
@@ -735,6 +744,14 @@ Value Object_diff_at_char::DoGetProp(Environment &env, Signal sig, const Symbol 
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(edits))) {
 		AutoPtr<DiffChar::IteratorEdit> pIterator(
 			new DiffChar::IteratorEdit(_pDiffChar->Reference(), DiffChar::FILTER_None));
+		return Value(new Object_iterator(env, pIterator.release()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(edits_at_org))) {
+		AutoPtr<DiffChar::IteratorEdit> pIterator(
+			new DiffChar::IteratorEdit(_pDiffChar->Reference(), DiffChar::FILTER_Original));
+		return Value(new Object_iterator(env, pIterator.release()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(edits_at_new))) {
+		AutoPtr<DiffChar::IteratorEdit> pIterator(
+			new DiffChar::IteratorEdit(_pDiffChar->Reference(), DiffChar::FILTER_New));
 		return Value(new Object_iterator(env, pIterator.release()));
 	}
 	evaluatedFlag = false;
@@ -935,6 +952,8 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(delete);
 	Gura_RealizeUserSymbol(distance);
 	Gura_RealizeUserSymbol(edits);
+	Gura_RealizeUserSymbolAlias(edits_at_org, "edits@org");
+	Gura_RealizeUserSymbolAlias(edits_at_new, "edits@new");
 	Gura_RealizeUserSymbolAlias(lineno_at_org, "lineno@org");
 	Gura_RealizeUserSymbolAlias(lineno_at_new, "lineno@new");
 	Gura_RealizeUserSymbol(mark);

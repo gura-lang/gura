@@ -142,3 +142,19 @@ with :icase
  pqrst
  uvwxy
  z
+
+======== #9 diff.compose@char() ========
+
+<diff.diff@char:dist=24>
+-ab
++AB
+ cdefg
++123
+ hijkl
+-あいうmnop
++かきくMNOP
+ qrstuv
+-wxy
+ z
+-ab-cdefghijkl-あいうmnop-qrstuv-wxy-z
++AB+cdefg+123+hijkl+かきくMNOP+qrstuvz

@@ -43,7 +43,7 @@ main() = {
 			println('******** too much difference ********')
 		}
 	} elsif (result.distance != 0) {
-		result.eachedit {|edit|
+		result.edits.each {|edit|
 			if (edit.source.startswith('========')) {
 				(!edits.isempty() && diffFlag) && PrintEdits(edits)
 				edits.clear()

@@ -79,7 +79,7 @@ testcase('case - 2') {
 	I need to get the car detailed.
 	'''
 	diff.compose(textOrg, textNew) {|rtn|
-		println(rtn.eachedit():*unified)
+		println(rtn.edits:*unified)
 		rtn.eachhunk()::print()
 	}
 }
@@ -192,3 +192,27 @@ testcase('ignore case') {
 	println('with :icase')
 	(diff.compose(textOrg, textNew):icase).render(sys.stdout)
 }
+
+testcase('diff.compose@char()') {
+	d = diff.compose@char('abcdefghijklあいうmnopqrstuvwxyz', 'ABcdefg123hijklかきくMNOPqrstuvz')
+	println(d)
+	println(d.edits:*mark, d.edits:*source)
+	d.edits@org.each {|edit|
+		if (edit.type == `copy) {
+			print(edit.source)
+		} else {
+			print('-', edit.source, '-')
+		}
+	}
+	println()
+	d.edits@new.each {|edit|
+		if (edit.type == `copy) {
+			print(edit.source)
+		} else {
+			print('+', edit.source, '+')
+		}
+	}
+	println()
+}
+
+
