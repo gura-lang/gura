@@ -196,7 +196,7 @@ testcase('ignore case') {
 testcase('diff.compose@char()') {
 	d = diff.compose@char('abcdefghijklあいうmnopqrstuvwxyz', 'ABcdefg123hijklかきくMNOPqrstuvz')
 	println(d)
-	println(d.edits:*mark, d.edits:*source)
+	println(d.edits:*mark@unified, d.edits:*source)
 	d.edits@org.each {|edit|
 		if (edit.type == `copy) {
 			print(edit.source)
@@ -220,8 +220,8 @@ testcase('ignore case for diff.compose@char()') {
 	textNew = 'abcdefghijhelloKLMNOpqrstUVWXYz'
 	println('without :icase')
 	edits = diff.compose@char(textOrg, textNew).edits
-	println(edits:*mark, edits:*source)
+	println(edits:*mark@unified, edits:*source)
 	println('with :icase')
 	edits = (diff.compose@char(textOrg, textNew):icase).edits
-	println(edits:*mark, edits:*source)
+	println(edits:*mark@unified, edits:*source)
 }

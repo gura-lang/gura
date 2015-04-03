@@ -9,6 +9,7 @@
 Gura_BeginModuleHeader(diff)
 
 Gura_DeclareUserSymbol(add);
+Gura_DeclareUserSymbol(change);
 Gura_DeclareUserSymbol(context);
 Gura_DeclareUserSymbol(copy);
 Gura_DeclareUserSymbol(delete);
@@ -18,7 +19,7 @@ Gura_DeclareUserSymbol(edits_at_org);
 Gura_DeclareUserSymbol(edits_at_new);
 Gura_DeclareUserSymbol(lineno_at_org);
 Gura_DeclareUserSymbol(lineno_at_new);
-Gura_DeclareUserSymbol(mark);
+Gura_DeclareUserSymbol(mark_at_unified);
 Gura_DeclareUserSymbol(nlines_at_org);
 Gura_DeclareUserSymbol(nlines_at_new);
 Gura_DeclareUserSymbol(normal);
@@ -34,7 +35,6 @@ typedef dtl::edit_t EditType;
 const EditType EDITTYPE_Delete	= dtl::SES_DELETE;	// -1
 const EditType EDITTYPE_Copy	= dtl::SES_COMMON; 	// 0
 const EditType EDITTYPE_Add		= dtl::SES_ADD;		// 1;
-const EditType EDITTYPE_Change	= 2;				// only appears in hunk
 
 //-----------------------------------------------------------------------------
 // FilterType
@@ -98,7 +98,10 @@ public:
 		size_t nLinesOrg;
 		size_t nLinesNew;
 	public:
-		String TextizeUnifiedRange() const;
+		String TextizeRange_Unified() const;
+		bool IsAdd() const { return nLinesOrg == 0 && nLinesNew > 0; }
+		bool IsDelete() const { return nLinesOrg > 0 && nLinesNew == 0; }
+		bool IsChange() const { return nLinesOrg > 0 && nLinesNew > 0; }
 	};
 	typedef std::vector<String> Sequence;
 	typedef sesElem Edit;
@@ -143,7 +146,6 @@ protected:
 public:
 	void Compose();
 	static bool PrintEdit(Signal sig, SimpleStream &stream, const Edit &edit);
-	bool PrintEdit(Signal sig, SimpleStream &stream, size_t idxEdit);
 	bool PrintEdits(Signal sig, SimpleStream &stream) const;
 	bool PrintHunk(Signal sig, SimpleStream &stream,
 				   Format format, const Hunk &hunk) const;
@@ -154,18 +156,13 @@ public:
 	bool FeedStream(Signal sig, size_t idx, Stream &stream);
 	bool FeedIterator(Environment &env, Signal sig, size_t idx, Iterator *pIterator);
 	void FeedList(size_t idx, const ValueList &valList);
-	static String TextizeUnifiedEdit(const Edit &edit);
+	static String TextizeEdit_Unified(const Edit &edit);
 	static Format SymbolToFormat(Signal sig, const Symbol *pSymbol);
 	inline Sequence &GetSequence(size_t idx) { return (idx == 0)? getA() : getB(); }
 	inline long long GetEditDistance() const { return getEditDistance(); }
 	inline const EditList &GetEditList() const { return getSes().getSequence(); }
 	inline const Edit &GetEdit(size_t idxEdit) const {
 		return GetEditList()[idxEdit];
-	}
-	inline static const char *GetEditMark(const Edit &edit) {
-		return
-			(edit.second.type == EDITTYPE_Add)? "+" :
-			(edit.second.type == EDITTYPE_Delete)? "-" : " ";
 	}
 	inline static const String &GetEditSource(const Edit &edit) {
 		return edit.first;
@@ -186,11 +183,6 @@ public:
 		inline Edit(EditType editType, const String &str) : _editType(editType), _str(str) {}
 		inline EditType GetEditType() const { return _editType; }
 		inline const char *GetSource() const { return _str.c_str(); }
-		inline const char *GetMark() const {
-			return
-				(_editType == EDITTYPE_Add)? "+" :
-				(_editType == EDITTYPE_Delete)? "-" : " ";
-		}
 	};
 	typedef std::vector<Edit> EditList;
 	class IteratorEdit : public Iterator {
@@ -293,7 +285,7 @@ public:
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	DiffLine *GetDiffLine() { return _pDiffLine.get(); }
-	size_t GetEditIndex() const { return _idxEdit; }
+	const DiffLine::Edit &GetEdit() const { return _pDiffLine->GetEdit(_idxEdit); }
 };
 
 //-----------------------------------------------------------------------------
@@ -339,6 +331,12 @@ public:
 	DiffChar *GetDiffChar() { return _pDiffChar.get(); }
 	size_t GetEditIndex() const { return _idxEdit; }
 };
+
+//-----------------------------------------------------------------------------
+// Utilities
+//-----------------------------------------------------------------------------
+const char *GetEditMark_Normal(EditType editType);
+const char *GetEditMark_Unified(EditType editType);
 
 Gura_EndModuleHeader(diff)
 

@@ -10,7 +10,7 @@ PrintEdits(edits[]:diff.edit) = {
 		} else {
 			clr = cond(edit.type == `add, `green, `red)
 			conio.setcolor(`white, clr) {
-				print(edit.mark)
+				print(edit.mark@unified)
 			}
 			conio.setcolor(clr) {
 				println(edit.source)
