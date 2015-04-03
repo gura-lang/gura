@@ -15,47 +15,46 @@ void DiffLine::Compose()
 	compose();
 }
 
-bool DiffLine::PrintEdit(Signal sig, SimpleStream &stream, const DiffLine::Edit &edit)
-{
-	stream.Println(sig, TextizeEdit_Unified(edit).c_str());
-	return !sig.IsSignalled();
-}
-
-bool DiffLine::PrintEdits(Signal sig, SimpleStream &stream) const
-{
-	foreach_const (EditList, pEdit, GetEditList()) {
-		if (!PrintEdit(sig, stream, *pEdit)) return false;
-	}
-	return true;
-}
-
-bool DiffLine::PrintHunk(Signal sig, SimpleStream &stream,
-					   DiffLine::Format format, const Hunk &hunk) const
+bool DiffLine::PrintHunk(Signal sig, SimpleStream &stream, const Hunk &hunk) const
 {
 	const EditList &edits = GetEditList();
 	EditList::const_iterator pEdit = edits.begin() + hunk.idxEditBegin;
 	EditList::const_iterator pEditEnd = edits.begin() + hunk.idxEditEnd;
-	stream.Printf(sig, "@@ %s @@\n", hunk.TextizeRange_Unified().c_str());
-	for ( ; pEdit != pEditEnd; pEdit++) {
-		if (!PrintEdit(sig, stream, *pEdit)) return false;
+	if (hunk.format == FORMAT_Normal) {
+		stream.Printf(sig, "%s\n", hunk.TextizeRange_Normal().c_str());
+		for ( ; pEdit != pEditEnd; pEdit++) {
+			stream.Println(sig, TextizeEdit_Normal(*pEdit).c_str());
+			if (sig.IsSignalled()) return false;
+		}
+	} else if (hunk.format == FORMAT_Context) {
+
+	} else if (hunk.format == FORMAT_Unified) {
+		stream.Printf(sig, "@@ %s @@\n", hunk.TextizeRange_Unified().c_str());
+		if (sig.IsSignalled()) return false;
+		for ( ; pEdit != pEditEnd; pEdit++) {
+			stream.Println(sig, TextizeEdit_Unified(*pEdit).c_str());
+			if (sig.IsSignalled()) return false;
+		}
 	}
 	return true;
 }
 
 bool DiffLine::PrintHunks(Signal sig, SimpleStream &stream,
-						DiffLine::Format format, size_t nLinesCommon) const
+						  DiffLine::Format format, size_t nLinesCommon) const
 {
 	size_t idxEdit = 0;
 	Hunk hunk;
-	while (NextHunk(&idxEdit, nLinesCommon, &hunk)) {
-		if (!PrintHunk(sig, stream, format, hunk)) return false;
+	while (NextHunk(&idxEdit, format, nLinesCommon, &hunk)) {
+		if (!PrintHunk(sig, stream, hunk)) return false;
 	}
 	return true;
 }
 
-bool DiffLine::NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const
+bool DiffLine::NextHunk(size_t *pIdxEdit, Format format, size_t nLinesCommon, Hunk *pHunk) const
 {
 	::memset(pHunk, 0x00, sizeof(Hunk));
+	pHunk->format = format;
+	if (format == FORMAT_Normal) nLinesCommon = 0;
 	size_t idxEdit = *pIdxEdit;
 	size_t idxEditTop = idxEdit;
 	size_t nEdits = GetEditList().size();
@@ -70,6 +69,7 @@ bool DiffLine::NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) cons
 		for ( ; idxEdit < nEdits; idxEdit++) {
 			const Edit &edit = GetEdit(idxEdit);
 			if (edit.second.type == EDITTYPE_Copy) {
+				if (nLinesCommon == 0) break;
 				nLines++;
 				if (nLines >= nLinesCommon * 2) {
 					idxEdit = idxEdit + 1 - nLinesCommon;
@@ -163,6 +163,14 @@ void DiffLine::FeedList(size_t idx, const ValueList &valList)
 	}
 }
 
+String DiffLine::TextizeEdit_Normal(const DiffLine::Edit &edit)
+{
+	String str;
+	str += GetEditMark_Normal(edit.second.type);
+	str += GetEditSource(edit);
+	return str;
+}
+
 String DiffLine::TextizeEdit_Unified(const DiffLine::Edit &edit)
 {
 	String str;
@@ -188,6 +196,32 @@ DiffLine::Format DiffLine::SymbolToFormat(Signal sig, const Symbol *pSymbol)
 //-----------------------------------------------------------------------------
 // DiffLine::Hunk
 //-----------------------------------------------------------------------------
+String DiffLine::Hunk::TextizeRange_Normal() const
+{
+	String str;
+	char buff[80];
+	::sprintf(buff, "%lu", linenoOrg);
+	str += buff;
+	if (nLinesOrg > 1) {
+		::sprintf(buff, ",%lu", linenoOrg + nLinesOrg - 1);
+		str += buff;
+	}
+	str += IsAdd()? "a" : IsDelete()? "d" : IsChange()? "c" : "?";
+	::sprintf(buff, "%lu", linenoNew);
+	str += buff;
+	if (nLinesNew > 1) {
+		::sprintf(buff, ",%lu", linenoNew + nLinesNew - 1);
+		str += buff;
+	}
+	return str;
+}
+
+String DiffLine::Hunk::TextizeRange_Context() const
+{
+	String str;
+	return str;
+}
+
 String DiffLine::Hunk::TextizeRange_Unified() const
 {
 	String str;
@@ -210,8 +244,10 @@ String DiffLine::Hunk::TextizeRange_Unified() const
 //-----------------------------------------------------------------------------
 // DiffLine::IteratorHunk
 //-----------------------------------------------------------------------------
-DiffLine::IteratorHunk::IteratorHunk(DiffLine *pDiffLine, size_t nLinesCommon) :
-	Iterator(false), _pDiffLine(pDiffLine), _idxEdit(0), _nLinesCommon(nLinesCommon)
+DiffLine::IteratorHunk::IteratorHunk(DiffLine *pDiffLine,
+									 Format format, size_t nLinesCommon) :
+	Iterator(false), _pDiffLine(pDiffLine), _idxEdit(0),
+	_format(format), _nLinesCommon(nLinesCommon)
 {
 }
 
@@ -223,7 +259,7 @@ Iterator *DiffLine::IteratorHunk::GetSource()
 bool DiffLine::IteratorHunk::DoNext(Environment &env, Signal sig, Value &value)
 {
 	DiffLine::Hunk hunk;
-	if (_pDiffLine->NextHunk(&_idxEdit, _nLinesCommon, &hunk)) {
+	if (_pDiffLine->NextHunk(&_idxEdit, _format, _nLinesCommon, &hunk)) {
 		value = Value(new Object_hunk_at_line(_pDiffLine->Reference(), hunk));
 		return true;
 	}
@@ -442,10 +478,11 @@ String Object_diff_at_line::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Methods of diff.diff@line
 //-----------------------------------------------------------------------------
-// diff.diff@line#eachhunk(lines?:number) {block?}
+// diff.diff@line#eachhunk(format?:symbol, lines?:number) {block?}
 Gura_DeclareMethod(diff_at_line, eachhunk)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "format", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "lines", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -461,9 +498,14 @@ Gura_DeclareMethod(diff_at_line, eachhunk)
 Gura_ImplementMethod(diff_at_line, eachhunk)
 {
 	DiffLine *pDiffLine = Object_diff_at_line::GetThisObj(args)->GetDiffLine();
-	size_t nLinesCommon = args.IsValid(0)? args.GetSizeT(0) : 3;
+	DiffLine::Format format = DiffLine::FORMAT_Unified;
+	if (args.IsValid(0)) {
+		format = DiffLine::SymbolToFormat(sig, args.GetSymbol(0));
+		if (format == DiffLine::FORMAT_None) return Value::Null;
+	}
+	size_t nLinesCommon = args.IsValid(1)? args.GetSizeT(1) : 3;
 	AutoPtr<DiffLine::IteratorHunk> pIterator(
-		new DiffLine::IteratorHunk(pDiffLine->Reference(), nLinesCommon));
+		new DiffLine::IteratorHunk(pDiffLine->Reference(), format, nLinesCommon));
 	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
@@ -609,7 +651,7 @@ Gura_ImplementMethod(hunk_at_line, print)
 		format = DiffLine::SymbolToFormat(sig, args.GetSymbol(1));
 		if (format == DiffLine::FORMAT_None) return Value::Null;
 	}
-	pThis->GetDiffLine()->PrintHunk(sig, stream, format, pThis->GetHunk());
+	pThis->GetDiffLine()->PrintHunk(sig, stream, pThis->GetHunk());
 	return Value::Null;
 }
 
@@ -634,6 +676,8 @@ bool Object_edit_at_line::DoDirProp(Environment &env, Signal sig, SymbolSet &sym
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(type));
+	symbols.insert(Gura_UserSymbol(mark_at_normal));
+	symbols.insert(Gura_UserSymbol(mark_at_context));
 	symbols.insert(Gura_UserSymbol(mark_at_unified));
 	symbols.insert(Gura_UserSymbol(lineno_at_org));
 	symbols.insert(Gura_UserSymbol(lineno_at_new));
@@ -655,6 +699,10 @@ Value Object_edit_at_line::DoGetProp(Environment &env, Signal sig, const Symbol 
 		} else {
 			return Value(Gura_UserSymbol(copy));
 		}
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mark_at_normal))) {
+		return Value(GetEditMark_Normal(edit.second.type));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mark_at_context))) {
+		return Value(GetEditMark_Context(edit.second.type));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mark_at_unified))) {
 		return Value(GetEditMark_Unified(edit.second.type));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(lineno_at_org))) {
@@ -704,7 +752,7 @@ Gura_ImplementMethod(edit_at_line, print)
 {
 	Object_edit_at_line *pThis = Object_edit_at_line::GetThisObj(args);
 	Stream &stream = args.IsValid(0)? args.GetStream(0) : *env.GetConsole();
-	pThis->GetDiffLine()->PrintEdit(sig, stream, pThis->GetEdit());
+	stream.Println(sig, DiffLine::TextizeEdit_Unified(pThis->GetEdit()).c_str());
 	return Value::Null;
 }
 
@@ -790,6 +838,8 @@ bool Object_edit_at_char::DoDirProp(Environment &env, Signal sig, SymbolSet &sym
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(type));
+	symbols.insert(Gura_UserSymbol(mark_at_normal));
+	symbols.insert(Gura_UserSymbol(mark_at_context));
 	symbols.insert(Gura_UserSymbol(mark_at_unified));
 	symbols.insert(Gura_UserSymbol(source));
 	symbols.insert(Gura_UserSymbol(unified));
@@ -809,6 +859,10 @@ Value Object_edit_at_char::DoGetProp(Environment &env, Signal sig, const Symbol 
 		} else {
 			return Value(Gura_UserSymbol(copy));
 		}
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mark_at_normal))) {
+		return Value(GetEditMark_Normal(edit.GetEditType()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mark_at_context))) {
+		return Value(GetEditMark_Context(edit.GetEditType()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mark_at_unified))) {
 		return Value(GetEditMark_Unified(edit.GetEditType()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(source))) {
@@ -957,6 +1011,12 @@ const char *GetEditMark_Normal(EditType editType)
 	return (editType == EDITTYPE_Add)? ">" : (editType == EDITTYPE_Delete)? "<" : " ";
 }
 
+const char *GetEditMark_Context(EditType editType)
+{
+	return (editType == EDITTYPE_Add)? "+" : (editType == EDITTYPE_Delete)? "-" :
+		(editType == EDITTYPE_Change)? "!" : " ";
+}
+
 const char *GetEditMark_Unified(EditType editType)
 {
 	return (editType == EDITTYPE_Add)? "+" : (editType == EDITTYPE_Delete)? "-" : " ";
@@ -979,6 +1039,8 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbolAlias(edits_at_new, "edits@new");
 	Gura_RealizeUserSymbolAlias(lineno_at_org, "lineno@org");
 	Gura_RealizeUserSymbolAlias(lineno_at_new, "lineno@new");
+	Gura_RealizeUserSymbolAlias(mark_at_normal, "mark@normal");
+	Gura_RealizeUserSymbolAlias(mark_at_context, "mark@context");
 	Gura_RealizeUserSymbolAlias(mark_at_unified, "mark@unified");
 	Gura_RealizeUserSymbolAlias(nlines_at_org, "nlines@org");
 	Gura_RealizeUserSymbolAlias(nlines_at_new, "nlines@new");

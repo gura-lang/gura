@@ -19,6 +19,8 @@ Gura_DeclareUserSymbol(edits_at_org);
 Gura_DeclareUserSymbol(edits_at_new);
 Gura_DeclareUserSymbol(lineno_at_org);
 Gura_DeclareUserSymbol(lineno_at_new);
+Gura_DeclareUserSymbol(mark_at_normal);
+Gura_DeclareUserSymbol(mark_at_context);
 Gura_DeclareUserSymbol(mark_at_unified);
 Gura_DeclareUserSymbol(nlines_at_org);
 Gura_DeclareUserSymbol(nlines_at_new);
@@ -35,6 +37,7 @@ typedef dtl::edit_t EditType;
 const EditType EDITTYPE_Delete	= dtl::SES_DELETE;	// -1
 const EditType EDITTYPE_Copy	= dtl::SES_COMMON; 	// 0
 const EditType EDITTYPE_Add		= dtl::SES_ADD;		// 1;
+const EditType EDITTYPE_Change	= 2;
 
 //-----------------------------------------------------------------------------
 // FilterType
@@ -91,6 +94,7 @@ public:
 	};
 	struct Hunk {
 	public:
+		Format format;
 		size_t idxEditBegin;
 		size_t idxEditEnd;
 		size_t linenoOrg;
@@ -98,6 +102,8 @@ public:
 		size_t nLinesOrg;
 		size_t nLinesNew;
 	public:
+		String TextizeRange_Normal() const;
+		String TextizeRange_Context() const;
 		String TextizeRange_Unified() const;
 		bool IsAdd() const { return nLinesOrg == 0 && nLinesNew > 0; }
 		bool IsDelete() const { return nLinesOrg > 0 && nLinesNew == 0; }
@@ -111,9 +117,10 @@ public:
 	private:
 		AutoPtr<DiffLine> _pDiffLine;
 		size_t _idxEdit;
+		Format _format;
 		size_t _nLinesCommon;
 	public:
-		IteratorHunk(DiffLine *pDiffLine, size_t nLinesCommon);
+		IteratorHunk(DiffLine *pDiffLine, Format format, size_t nLinesCommon);
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString() const;
@@ -145,17 +152,14 @@ protected:
 	inline ~DiffLine() {}
 public:
 	void Compose();
-	static bool PrintEdit(Signal sig, SimpleStream &stream, const Edit &edit);
-	bool PrintEdits(Signal sig, SimpleStream &stream) const;
-	bool PrintHunk(Signal sig, SimpleStream &stream,
-				   Format format, const Hunk &hunk) const;
-	bool PrintHunks(Signal sig, SimpleStream &stream,
-					Format format, size_t nLinesCommon) const;
-	bool NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) const;
+	bool PrintHunk(Signal sig, SimpleStream &stream, const Hunk &hunk) const;
+	bool PrintHunks(Signal sig, SimpleStream &stream, Format format, size_t nLinesCommon) const;
+	bool NextHunk(size_t *pIdxEdit, Format format, size_t nLinesCommon, Hunk *pHunk) const;
 	void FeedString(size_t idx, const char *src);
 	bool FeedStream(Signal sig, size_t idx, Stream &stream);
 	bool FeedIterator(Environment &env, Signal sig, size_t idx, Iterator *pIterator);
 	void FeedList(size_t idx, const ValueList &valList);
+	static String TextizeEdit_Normal(const Edit &edit);
 	static String TextizeEdit_Unified(const Edit &edit);
 	static Format SymbolToFormat(Signal sig, const Symbol *pSymbol);
 	inline Sequence &GetSequence(size_t idx) { return (idx == 0)? getA() : getB(); }
@@ -336,6 +340,7 @@ public:
 // Utilities
 //-----------------------------------------------------------------------------
 const char *GetEditMark_Normal(EditType editType);
+const char *GetEditMark_Context(EditType editType);
 const char *GetEditMark_Unified(EditType editType);
 
 Gura_EndModuleHeader(diff)
