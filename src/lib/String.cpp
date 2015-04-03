@@ -743,6 +743,23 @@ String::const_iterator NextUTF8(const String &str, String::const_iterator p, UIn
 	return p;
 }
 
+const char *NextUTF8(const char *p, UInt64 &codeUTF8)
+{
+	codeUTF8 = 0x000000000000;
+	if (*p != '\0') {
+		int ch = static_cast<UChar>(*p);
+		codeUTF8 = ch;
+		p++;
+		if (IsUTF8First(ch)) {
+			while (IsUTF8Follower(*p)) {
+				codeUTF8 = (codeUTF8 << 8) | static_cast<UChar>(*p);
+				p++;
+			}
+		}
+	}
+	return p;
+}
+
 String::const_iterator NextUTF32(const String &str, String::const_iterator p, ULong &codeUTF32)
 {
 	codeUTF32 = 0x00000000;
@@ -810,6 +827,23 @@ const char *NextUTF32(const char *p, ULong &codeUTF32)
 		}
 	}
 	return p;
+}
+
+void AppendUTF8(String &str, UInt64 codeUTF8)
+{
+	if (codeUTF8 == 0) {
+		str.push_back('\0');
+		return;
+	}
+	size_t i = 0;
+	char buff[8];
+	for ( ; codeUTF8 != 0 && i < 8; codeUTF8 >>= 8, i++) {
+		buff[i] = static_cast<char>(static_cast<UChar>(codeUTF8 & 0xff));
+	}
+	while (i > 0) {
+		i--;
+		str.push_back(buff[i]);
+	}
 }
 
 void _Copy(String &rtn, const char *str, size_t len)

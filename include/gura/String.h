@@ -30,8 +30,10 @@ GURA_DLLDECLARE String::const_iterator FindString(String::const_iterator str,
 GURA_DLLDECLARE String PickChar(const String &str, size_t idx);
 GURA_DLLDECLARE String::const_iterator NextChar(const String &str, String::const_iterator p);
 GURA_DLLDECLARE String::const_iterator NextUTF8(const String &str, String::const_iterator p, uint64 &codeUTF8);
+GURA_DLLDECLARE const char *NextUTF8(const char *p, UInt64 &codeUTF8);
 GURA_DLLDECLARE String::const_iterator NextUTF32(const String &str, String::const_iterator p, ULong &codeUTF32);
 GURA_DLLDECLARE const char *NextUTF32(const char *p, ULong &codeUTF32);
+GURA_DLLDECLARE void AppendUTF8(String &str, UInt64 codeUTF8);
 
 GURA_DLLDECLARE String MakeQuotedString(const char *str);
 

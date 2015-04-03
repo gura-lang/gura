@@ -316,40 +316,6 @@ void DiffLine::IteratorEdit::GatherFollower(Environment::Frame *pFrame, Environm
 {
 }
 
-const char *NextUTF8(const char *p, UInt64 &codeUTF8)
-{
-	codeUTF8 = 0x000000000000;
-	if (*p != '\0') {
-		int ch = static_cast<UChar>(*p);
-		codeUTF8 = ch;
-		p++;
-		if (IsUTF8First(ch)) {
-			while (IsUTF8Follower(*p)) {
-				codeUTF8 = (codeUTF8 << 8) | static_cast<UChar>(*p);
-				p++;
-			}
-		}
-	}
-	return p;
-}
-
-void AppendUTF8(String &str, UInt64 codeUTF8)
-{
-	if (codeUTF8 == 0) {
-		str.push_back('\0');
-		return;
-	}
-	size_t i = 0;
-	char buff[8];
-	for ( ; codeUTF8 != 0 && i < 8; codeUTF8 >>= 8, i++) {
-		buff[i] = static_cast<char>(static_cast<UChar>(codeUTF8 & 0xff));
-	}
-	while (i > 0) {
-		i--;
-		str.push_back(buff[i]);
-	}
-}
-
 //-----------------------------------------------------------------------------
 // DiffChar
 //-----------------------------------------------------------------------------
@@ -489,6 +455,12 @@ Gura_DeclareMethod(diff_at_line, eachhunk)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates an iterator that returns `diff.hunk@line` instance stored in the result.\n"
 		"\n"
+		"The argument `format` takes one of the symbols that specifies the hunk format:\n"
+		"\n"
+		"- `` `normal`` .. Normal format (not supported yet).\n"
+		"- `` `context`` .. Context format (not supported yet).\n"
+		"- `` `unified`` .. Unified format. This is the default.\n"
+		"\n"
 		"The argument `lines` specifies a number of common lines appended before and after\n"
 		"different lines\n"
 		"\n"
@@ -624,33 +596,21 @@ String Object_hunk_at_line::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Methods of diff.hunk@line
 //-----------------------------------------------------------------------------
-// diff.hunk@line#print(out?:stream:w, format?:symbol):void
+// diff.hunk@line#print(out?:stream:w):void
 Gura_DeclareMethod(hunk_at_line, print)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "format", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Prints the content of the `diff.hunk` instance to the specified stream.\n"
-		"\n"
-		"The argument `format` takes one of the symbols that specifies the rendering format:\n"
-		"\n"
-		"- `` `normal`` .. Normal format (not supported yet).\n"
-		"- `` `context`` .. Context format (not supported yet).\n"
-		"- `` `unified`` .. Unified format. This is the default.\n");
+		"Prints the content of the `diff.hunk` instance to the specified stream.\n");
 }
 
 Gura_ImplementMethod(hunk_at_line, print)
 {
 	Object_hunk_at_line *pThis = Object_hunk_at_line::GetThisObj(args);
 	Stream &stream = args.IsValid(0)? args.GetStream(0) : *env.GetConsole();
-	DiffLine::Format format = DiffLine::FORMAT_Unified;
-	if (args.IsValid(1)) {
-		format = DiffLine::SymbolToFormat(sig, args.GetSymbol(1));
-		if (format == DiffLine::FORMAT_None) return Value::Null;
-	}
 	pThis->GetDiffLine()->PrintHunk(sig, stream, pThis->GetHunk());
 	return Value::Null;
 }
