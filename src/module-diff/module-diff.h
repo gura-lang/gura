@@ -27,6 +27,25 @@ Gura_DeclareUserSymbol(type);
 Gura_DeclareUserSymbol(unified);
 
 //-----------------------------------------------------------------------------
+// EditType
+//-----------------------------------------------------------------------------
+typedef dtl::edit_t EditType;
+
+const EditType EDITTYPE_Delete	= dtl::SES_DELETE;	// -1
+const EditType EDITTYPE_Copy	= dtl::SES_COMMON; 	// 0
+const EditType EDITTYPE_Add		= dtl::SES_ADD;		// 1;
+const EditType EDITTYPE_Change	= 2;				// only appears in hunk
+
+//-----------------------------------------------------------------------------
+// FilterType
+//-----------------------------------------------------------------------------
+enum FilterType {
+	FILTERTYPE_None,
+	FILTERTYPE_Original,
+	FILTERTYPE_New,
+};
+
+//-----------------------------------------------------------------------------
 // ComparatorLine
 //-----------------------------------------------------------------------------
 class ComparatorLine {
@@ -145,8 +164,8 @@ public:
 	}
 	inline static const char *GetEditMark(const Edit &edit) {
 		return
-			(edit.second.type == dtl::SES_ADD)? "+" :
-			(edit.second.type == dtl::SES_DELETE)? "-" : " ";
+			(edit.second.type == EDITTYPE_Add)? "+" :
+			(edit.second.type == EDITTYPE_Delete)? "-" : " ";
 	}
 	inline static const String &GetEditSource(const Edit &edit) {
 		return edit.first;
@@ -158,24 +177,19 @@ public:
 //-----------------------------------------------------------------------------
 class DiffChar : public dtl::Diff<UInt64, std::vector<UInt64>, ComparatorChar> {
 public:
-	enum FilterType {
-		FILTER_None,
-		FILTER_Original,
-		FILTER_New,
-	};
 	typedef std::vector<UInt64> Sequence;
 	class Edit {
 	private:
-		dtl::edit_t _type;
+		EditType _editType;
 		String _str;
 	public:
-		inline Edit(dtl::edit_t type, const String &str) : _type(type), _str(str) {}
-		inline dtl::edit_t GetType() const { return _type; }
+		inline Edit(EditType editType, const String &str) : _editType(editType), _str(str) {}
+		inline EditType GetEditType() const { return _editType; }
 		inline const char *GetSource() const { return _str.c_str(); }
 		inline const char *GetMark() const {
 			return
-				(_type == dtl::SES_ADD)? "+" :
-				(_type == dtl::SES_DELETE)? "-" : " ";
+				(_editType == EDITTYPE_Add)? "+" :
+				(_editType == EDITTYPE_Delete)? "-" : " ";
 		}
 	};
 	typedef std::vector<Edit> EditList;

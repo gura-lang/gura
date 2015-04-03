@@ -69,13 +69,13 @@ bool DiffLine::NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) cons
 	size_t nLines = 0;
 	for ( ; idxEdit < nEdits; idxEdit++) {
 		const Edit &edit = GetEdit(idxEdit);
-		if (edit.second.type == dtl::SES_COMMON) continue;
+		if (edit.second.type == EDITTYPE_Copy) continue;
 		pHunk->idxEditBegin = (idxEdit > idxEditTop + nLinesCommon)?
 			idxEdit - nLinesCommon : idxEditTop;
 		idxEdit++;
 		for ( ; idxEdit < nEdits; idxEdit++) {
 			const Edit &edit = GetEdit(idxEdit);
-			if (edit.second.type == dtl::SES_COMMON) {
+			if (edit.second.type == EDITTYPE_Copy) {
 				nLines++;
 				if (nLines >= nLinesCommon * 2) {
 					idxEdit = idxEdit + 1 - nLinesCommon;
@@ -114,8 +114,8 @@ bool DiffLine::NextHunk(size_t *pIdxEdit, size_t nLinesCommon, Hunk *pHunk) cons
 		} while (0);
 		for (size_t idxEdit = pHunk->idxEditBegin; idxEdit < pHunk->idxEditEnd; idxEdit++) {
 			const Edit &edit = GetEdit(idxEdit);
-			if (edit.second.type != dtl::SES_ADD) pHunk->nLinesOrg++;
-			if (edit.second.type != dtl::SES_DELETE) pHunk->nLinesNew++;
+			if (edit.second.type != EDITTYPE_Add) pHunk->nLinesOrg++;
+			if (edit.second.type != EDITTYPE_Delete) pHunk->nLinesNew++;
 		}
 		return true;
 	}
@@ -329,21 +329,21 @@ void DiffChar::Compose()
 	onHuge();
 	compose();
 	String str;
-	dtl::edit_t typePrev = dtl::SES_COMMON;
+	EditType editTypePrev = EDITTYPE_Copy;
 	foreach_const (sesElemVec, pSesElem, getSes().getSequence()) {
 		if (str.empty()) {
-			typePrev = pSesElem->second.type;
-		} else if (typePrev != pSesElem->second.type) {
-			_editList.push_back(Edit(typePrev, str));
+			editTypePrev = pSesElem->second.type;
+		} else if (editTypePrev != pSesElem->second.type) {
+			_editList.push_back(Edit(editTypePrev, str));
 			str.clear();
-			typePrev = pSesElem->second.type;
+			editTypePrev = pSesElem->second.type;
 		}
 		AppendUTF8(str, pSesElem->first);
 		//pSesElem->second.beforeIdx
 		//pSesElem->second.afterIdx
 	}
 	if (!str.empty()) {
-		_editList.push_back(Edit(typePrev, str));
+		_editList.push_back(Edit(editTypePrev, str));
 	}
 }
 
@@ -374,10 +374,10 @@ Iterator *DiffChar::IteratorEdit::GetSource()
 bool DiffChar::IteratorEdit::DoNext(Environment &env, Signal sig, Value &value)
 {
 	for ( ; _idxEdit < _idxEditEnd; _idxEdit++) {
-		dtl::edit_t type = _pDiffChar->GetEdit(_idxEdit).GetType();
-		if (type == dtl::SES_COMMON || _filterType == FILTER_None ||
-			(_filterType == FILTER_Original && type == dtl::SES_DELETE) ||
-			(_filterType == FILTER_New && type == dtl::SES_ADD)) {
+		EditType editType = _pDiffChar->GetEdit(_idxEdit).GetEditType();
+		if (editType == EDITTYPE_Copy || _filterType == FILTERTYPE_None ||
+			(_filterType == FILTERTYPE_Original && editType == EDITTYPE_Delete) ||
+			(_filterType == FILTERTYPE_New && editType == EDITTYPE_Add)) {
 			value = Value(new Object_edit_at_char(_pDiffChar->Reference(), _idxEdit));
 			_idxEdit++;
 			return true;
@@ -647,9 +647,9 @@ Value Object_edit_at_line::DoGetProp(Environment &env, Signal sig, const Symbol 
 	const DiffLine::Edit &edit = _pDiffLine->GetEdit(_idxEdit);
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
-		if (edit.second.type == dtl::SES_ADD) {
+		if (edit.second.type == EDITTYPE_Add) {
 			return Value(Gura_UserSymbol(add));
-		} else if (edit.second.type == dtl::SES_DELETE) {
+		} else if (edit.second.type == EDITTYPE_Delete) {
 			return Value(Gura_UserSymbol(delete));
 		} else {
 			return Value(Gura_UserSymbol(copy));
@@ -674,9 +674,9 @@ String Object_edit_at_line::ToString(bool exprFlag)
 	const DiffLine::Edit &edit = _pDiffLine->GetEdit(_idxEdit);
 	String str;
 	str += "<diff.edit@line:";
-	if (edit.second.type == dtl::SES_ADD) {
+	if (edit.second.type == EDITTYPE_Add) {
 		str += "add";
-	} else if (edit.second.type == dtl::SES_DELETE) {
+	} else if (edit.second.type == EDITTYPE_Delete) {
 		str += "delete";
 	} else {
 		str += "copy";
@@ -743,15 +743,15 @@ Value Object_diff_at_char::DoGetProp(Environment &env, Signal sig, const Symbol 
 		return Value(_pDiffChar->GetEditDistance());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(edits))) {
 		AutoPtr<DiffChar::IteratorEdit> pIterator(
-			new DiffChar::IteratorEdit(_pDiffChar->Reference(), DiffChar::FILTER_None));
+			new DiffChar::IteratorEdit(_pDiffChar->Reference(), FILTERTYPE_None));
 		return Value(new Object_iterator(env, pIterator.release()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(edits_at_org))) {
 		AutoPtr<DiffChar::IteratorEdit> pIterator(
-			new DiffChar::IteratorEdit(_pDiffChar->Reference(), DiffChar::FILTER_Original));
+			new DiffChar::IteratorEdit(_pDiffChar->Reference(), FILTERTYPE_Original));
 		return Value(new Object_iterator(env, pIterator.release()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(edits_at_new))) {
 		AutoPtr<DiffChar::IteratorEdit> pIterator(
-			new DiffChar::IteratorEdit(_pDiffChar->Reference(), DiffChar::FILTER_New));
+			new DiffChar::IteratorEdit(_pDiffChar->Reference(), FILTERTYPE_New));
 		return Value(new Object_iterator(env, pIterator.release()));
 	}
 	evaluatedFlag = false;
@@ -801,9 +801,9 @@ Value Object_edit_at_char::DoGetProp(Environment &env, Signal sig, const Symbol 
 	const DiffChar::Edit &edit = _pDiffChar->GetEdit(_idxEdit);
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
-		if (edit.GetType() == dtl::SES_ADD) {
+		if (edit.GetEditType() == EDITTYPE_Add) {
 			return Value(Gura_UserSymbol(add));
-		} else if (edit.GetType() == dtl::SES_DELETE) {
+		} else if (edit.GetEditType() == EDITTYPE_Delete) {
 			return Value(Gura_UserSymbol(delete));
 		} else {
 			return Value(Gura_UserSymbol(copy));
@@ -822,9 +822,9 @@ String Object_edit_at_char::ToString(bool exprFlag)
 	const DiffChar::Edit &edit = _pDiffChar->GetEdit(_idxEdit);
 	String str;
 	str += "<diff.edit@char:";
-	if (edit.GetType() == dtl::SES_ADD) {
+	if (edit.GetEditType() == EDITTYPE_Add) {
 		str += "add";
-	} else if (edit.GetType() == dtl::SES_DELETE) {
+	} else if (edit.GetEditType() == EDITTYPE_Delete) {
 		str += "delete";
 	} else {
 		str += "copy";
