@@ -117,9 +117,9 @@ bool DiffLine::NextHunk(size_t *pIdxEdit, Format format, size_t nLinesCommon, Hu
 	return false;
 }
 
-void DiffLine::FeedString(size_t idx, const char *src)
+void DiffLine::FeedString(size_t iSeq, const char *src)
 {
-	Sequence &seq = GetSequence(idx);
+	Sequence &seq = GetSequence(iSeq);
 	String str;
 	for (const char *p = src; *p != '\0'; p++) {
 		char ch = *p;
@@ -133,9 +133,9 @@ void DiffLine::FeedString(size_t idx, const char *src)
 	if (!str.empty()) seq.push_back(str);
 }
 
-bool DiffLine::FeedStream(Signal sig, size_t idx, Stream &src)
+bool DiffLine::FeedStream(Signal sig, size_t iSeq, Stream &src)
 {
-	Sequence &seq = GetSequence(idx);
+	Sequence &seq = GetSequence(iSeq);
 	bool includeEOLFlag = false;
 	for (;;) {
 		String str;
@@ -145,9 +145,9 @@ bool DiffLine::FeedStream(Signal sig, size_t idx, Stream &src)
 	return !sig.IsSignalled();
 }
 
-bool DiffLine::FeedIterator(Environment &env, Signal sig, size_t idx, Iterator *pIterator)
+bool DiffLine::FeedIterator(Environment &env, Signal sig, size_t iSeq, Iterator *pIterator)
 {
-	Sequence &seq = GetSequence(idx);
+	Sequence &seq = GetSequence(iSeq);
 	Value value;
 	while (pIterator->Next(env, sig, value)) {
 		seq.push_back(value.ToString());
@@ -155,12 +155,25 @@ bool DiffLine::FeedIterator(Environment &env, Signal sig, size_t idx, Iterator *
 	return !sig.IsSignalled();
 }
 
-void DiffLine::FeedList(size_t idx, const ValueList &valList)
+void DiffLine::FeedList(size_t iSeq, const ValueList &valList)
 {
-	Sequence &seq = GetSequence(idx);
+	Sequence &seq = GetSequence(iSeq);
 	foreach_const (ValueList, pValue, valList) {
 		seq.push_back(pValue->ToString());
 	}
+}
+
+DiffChar *DiffLine::CreateDiffChar(const Hunk &hunk)
+{
+	const EditList &editList = GetEditList();
+	EditList::const_iterator pEdit = editList.begin() + hunk.idxEditBegin;
+	EditList::const_iterator pEditEnd = editList.begin() + hunk.idxEditEnd;
+	AutoPtr<DiffChar> pDiffChar(new DiffChar(GetIgnoreCaseFlag()));
+	for ( ; pEdit != pEditEnd; pEdit++) {
+		pDiffChar->FeedEdit(*pEdit);
+	}
+	pDiffChar->Compose();
+	return pDiffChar.release();
 }
 
 String DiffLine::TextizeEdit_Normal(const DiffLine::Edit &edit)
@@ -327,29 +340,57 @@ void DiffChar::Compose()
 	String str;
 	EditType editTypePrev = EDITTYPE_Copy;
 	foreach_const (sesElemVec, pSesElem, getSes().getSequence()) {
-		if (str.empty()) {
-			editTypePrev = pSesElem->second.type;
-		} else if (editTypePrev != pSesElem->second.type) {
-			_editList.push_back(Edit(editTypePrev, str));
-			str.clear();
-			editTypePrev = pSesElem->second.type;
+		UInt64 ch = pSesElem->first;
+		EditType editType = pSesElem->second.type;
+		if (ch == '\n') {
+			if (!str.empty()) {
+				_editList.push_back(Edit(editTypePrev, str));
+				str.clear();
+			}
+			_editList.push_back(Edit(editType, "\n"));
+			editTypePrev = editType;
+		} else {
+			if (str.empty()) {
+				editTypePrev = editType;
+			} else if (editTypePrev != editType) {
+				_editList.push_back(Edit(editTypePrev, str));
+				str.clear();
+				editTypePrev = editType;
+			}
+			AppendUTF8(str, ch);
 		}
-		AppendUTF8(str, pSesElem->first);
-		//pSesElem->second.beforeIdx
-		//pSesElem->second.afterIdx
 	}
 	if (!str.empty()) {
 		_editList.push_back(Edit(editTypePrev, str));
 	}
 }
 
-void DiffChar::FeedString(size_t idx, const char *src)
+void DiffChar::FeedChar(size_t iSeq, char ch)
+{
+	Sequence &seq = GetSequence(iSeq);
+	seq.push_back(ch);
+}
+
+void DiffChar::FeedString(size_t iSeq, const char *src)
 {
 	UInt64 codeUTF8 = 0;
-	Sequence &seq = GetSequence(idx);
+	Sequence &seq = GetSequence(iSeq);
 	for (const char *p = src; *p != '\0'; ) {
 		p = NextUTF8(p, codeUTF8);
 		seq.push_back(codeUTF8);
+	}
+}
+
+void DiffChar::FeedEdit(const DiffLine::Edit &edit)
+{
+	EditType editType = edit.second.type;
+	if (editType == EDITTYPE_Copy || editType == EDITTYPE_Delete) {
+		FeedString(0, edit.first.c_str());
+		FeedChar(0, '\n');
+	}
+	if (editType == EDITTYPE_Copy || editType == EDITTYPE_Add) {
+		FeedString(1, edit.first.c_str());
+		FeedChar(1, '\n');
 	}
 }
 
@@ -554,6 +595,7 @@ bool Object_hunk_at_line::DoDirProp(Environment &env, Signal sig, SymbolSet &sym
 	symbols.insert(Gura_UserSymbol(lineno_at_new));
 	symbols.insert(Gura_UserSymbol(nlines_at_org));
 	symbols.insert(Gura_UserSymbol(nlines_at_new));
+	symbols.insert(Gura_UserSymbol(diff_at_char));
 	return true;
 }
 
@@ -578,6 +620,8 @@ Value Object_hunk_at_line::DoGetProp(Environment &env, Signal sig, const Symbol 
 		return Value(_hunk.nLinesOrg);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(nlines_at_new))) {
 		return Value(_hunk.nLinesNew);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(diff_at_char))) {
+		return Value(new Object_diff_at_char(GetDiffChar()->Reference()));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -591,6 +635,14 @@ String Object_hunk_at_line::ToString(bool exprFlag)
 	str += _hunk.TextizeRange_Unified();
 	str += ">";
 	return str;
+}
+
+const DiffChar *Object_hunk_at_line::GetDiffChar()
+{
+	if (_pDiffChar.IsNull()) {
+		_pDiffChar.reset(_pDiffLine->CreateDiffChar(_hunk));
+	}
+	return _pDiffChar.get();
 }
 
 //-----------------------------------------------------------------------------
@@ -993,6 +1045,8 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(context);
 	Gura_RealizeUserSymbol(copy);
 	Gura_RealizeUserSymbol(delete);
+	Gura_RealizeUserSymbolAlias(diff_at_char, "diff@char");
+	Gura_RealizeUserSymbolAlias(diff_at_line, "diff@line");
 	Gura_RealizeUserSymbol(distance);
 	Gura_RealizeUserSymbol(edits);
 	Gura_RealizeUserSymbolAlias(edits_at_org, "edits@org");

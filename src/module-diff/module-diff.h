@@ -13,6 +13,8 @@ Gura_DeclareUserSymbol(change);
 Gura_DeclareUserSymbol(context);
 Gura_DeclareUserSymbol(copy);
 Gura_DeclareUserSymbol(delete);
+Gura_DeclareUserSymbol(diff_at_char);
+Gura_DeclareUserSymbol(diff_at_line);
 Gura_DeclareUserSymbol(distance);
 Gura_DeclareUserSymbol(edits);
 Gura_DeclareUserSymbol(edits_at_org);
@@ -28,6 +30,8 @@ Gura_DeclareUserSymbol(normal);
 Gura_DeclareUserSymbol(source);
 Gura_DeclareUserSymbol(type);
 Gura_DeclareUserSymbol(unified);
+
+class DiffChar;
 
 //-----------------------------------------------------------------------------
 // EditType
@@ -57,6 +61,7 @@ private:
 public:
 	inline ComparatorLine() : _ignoreCaseFlag(false) {}
 	inline void SetIgnoreCaseFlag(bool ignoreCaseFlag) { _ignoreCaseFlag = ignoreCaseFlag; }
+	inline bool GetIgnoreCaseFlag() const { return _ignoreCaseFlag; }
 	inline bool impl(const String &str1, const String &str2) const {
 		return _ignoreCaseFlag?
 			::strcasecmp(str1.c_str(), str2.c_str()) == 0 : str1 == str2;
@@ -72,6 +77,7 @@ private:
 public:
 	inline ComparatorChar() : _ignoreCaseFlag(false) {}
 	inline void SetIgnoreCaseFlag(bool ignoreCaseFlag) { _ignoreCaseFlag = ignoreCaseFlag; }
+	inline bool GetIgnoreCaseFlag() const { return _ignoreCaseFlag; }
 	inline bool impl(UInt64 ch1, UInt64 ch2) const {
 		if (_ignoreCaseFlag) {
 			if ('a' <= ch1 && ch1 <= 'z') ch1 = ch1 - 'a' + 'A';
@@ -155,14 +161,16 @@ public:
 	bool PrintHunk(Signal sig, SimpleStream &stream, const Hunk &hunk) const;
 	bool PrintHunks(Signal sig, SimpleStream &stream, Format format, size_t nLinesCommon) const;
 	bool NextHunk(size_t *pIdxEdit, Format format, size_t nLinesCommon, Hunk *pHunk) const;
-	void FeedString(size_t idx, const char *src);
-	bool FeedStream(Signal sig, size_t idx, Stream &stream);
-	bool FeedIterator(Environment &env, Signal sig, size_t idx, Iterator *pIterator);
-	void FeedList(size_t idx, const ValueList &valList);
+	void FeedString(size_t iSeq, const char *src);
+	bool FeedStream(Signal sig, size_t iSeq, Stream &stream);
+	bool FeedIterator(Environment &env, Signal sig, size_t iSeq, Iterator *pIterator);
+	void FeedList(size_t iSeq, const ValueList &valList);
+	DiffChar *CreateDiffChar(const Hunk &hunk);
 	static String TextizeEdit_Normal(const Edit &edit);
 	static String TextizeEdit_Unified(const Edit &edit);
 	static Format SymbolToFormat(Signal sig, const Symbol *pSymbol);
-	inline Sequence &GetSequence(size_t idx) { return (idx == 0)? getA() : getB(); }
+	inline bool GetIgnoreCaseFlag() const { return cmp.GetIgnoreCaseFlag(); }
+	inline Sequence &GetSequence(size_t iSeq) { return (iSeq == 0)? getA() : getB(); }
 	inline long long GetEditDistance() const { return getEditDistance(); }
 	inline const EditList &GetEditList() const { return getSes().getSequence(); }
 	inline const Edit &GetEdit(size_t idxEdit) const {
@@ -187,6 +195,7 @@ public:
 		inline Edit(EditType editType, const String &str) : _editType(editType), _str(str) {}
 		inline EditType GetEditType() const { return _editType; }
 		inline const char *GetSource() const { return _str.c_str(); }
+		inline bool IsEOL() const { return _str == "\n"; }
 	};
 	typedef std::vector<Edit> EditList;
 	class IteratorEdit : public Iterator {
@@ -216,8 +225,11 @@ protected:
 	inline ~DiffChar() {}
 public:
 	void Compose();
-	void FeedString(size_t idx, const char *src);
-	inline Sequence &GetSequence(size_t idx) { return (idx == 0)? getA() : getB(); }
+	void FeedChar(size_t iSeq, char ch);
+	void FeedString(size_t iSeq, const char *src);
+	void FeedEdit(const DiffLine::Edit &edit);
+	inline bool GetIgnoreCaseFlag() const { return cmp.GetIgnoreCaseFlag(); }
+	inline Sequence &GetSequence(size_t iSeq) { return (iSeq == 0)? getA() : getB(); }
 	inline long long GetEditDistance() const { return getEditDistance(); }
 	inline const EditList &GetEditList() const { return _editList; }
 	inline const Edit &GetEdit(size_t idxEdit) const {
@@ -255,6 +267,7 @@ class Object_hunk_at_line : public Object {
 private:
 	AutoPtr<DiffLine> _pDiffLine;
 	DiffLine::Hunk _hunk;
+	AutoPtr<DiffChar> _pDiffChar;
 public:
 	Gura_DeclareObjectAccessor(hunk_at_line)
 public:
@@ -265,6 +278,7 @@ public:
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
+	const DiffChar *GetDiffChar();
 	inline DiffLine *GetDiffLine() { return _pDiffLine.get(); }
 	inline const DiffLine::Hunk &GetHunk() const { return _hunk; }
 };
