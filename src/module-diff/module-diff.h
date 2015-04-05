@@ -108,12 +108,13 @@ public:
 		size_t nLinesOrg;
 		size_t nLinesNew;
 	public:
+		inline void Clear() { ::memset(this, 0x00, sizeof(Hunk)); }
 		String TextizeRange_Normal() const;
 		String TextizeRange_Context() const;
 		String TextizeRange_Unified() const;
-		bool IsAdd() const { return nLinesOrg == 0 && nLinesNew > 0; }
-		bool IsDelete() const { return nLinesOrg > 0 && nLinesNew == 0; }
-		bool IsChange() const { return nLinesOrg > 0 && nLinesNew > 0; }
+		inline bool IsAdd() const { return nLinesOrg == 0 && nLinesNew > 0; }
+		inline bool IsDelete() const { return nLinesOrg > 0 && nLinesNew == 0; }
+		inline bool IsChange() const { return nLinesOrg > 0 && nLinesNew > 0; }
 	};
 	typedef std::vector<String> Sequence;
 	typedef sesElem Edit;

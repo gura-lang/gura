@@ -52,7 +52,7 @@ bool DiffLine::PrintHunks(Signal sig, SimpleStream &stream,
 
 bool DiffLine::NextHunk(size_t *pIdxEdit, Format format, size_t nLinesCommon, Hunk *pHunk) const
 {
-	::memset(pHunk, 0x00, sizeof(Hunk));
+	pHunk->Clear();
 	pHunk->format = format;
 	if (format == FORMAT_Normal) nLinesCommon = 0;
 	size_t idxEdit = *pIdxEdit;
