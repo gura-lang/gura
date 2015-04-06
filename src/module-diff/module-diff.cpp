@@ -163,11 +163,11 @@ void DiffLine::FeedList(size_t iSeq, const ValueList &valList)
 	}
 }
 
-DiffChar *DiffLine::CreateDiffChar(const Hunk &hunk)
+DiffChar *DiffLine::CreateDiffChar(size_t idxEditBegin, size_t idxEditEnd)
 {
 	const EditList &editList = GetEditList();
-	EditList::const_iterator pEdit = editList.begin() + hunk.idxEditBegin;
-	EditList::const_iterator pEditEnd = editList.begin() + hunk.idxEditEnd;
+	EditList::const_iterator pEdit = editList.begin() + idxEditBegin;
+	EditList::const_iterator pEditEnd = editList.begin() + idxEditEnd;
 	AutoPtr<DiffChar> pDiffChar(new DiffChar(GetIgnoreCaseFlag()));
 	for ( ; pEdit != pEditEnd; pEdit++) {
 		EditType editType = pEdit->second.type;
@@ -651,7 +651,7 @@ String Object_hunk_at_line::ToString(bool exprFlag)
 const DiffChar *Object_hunk_at_line::GetDiffChar()
 {
 	if (_pDiffChar.IsNull()) {
-		_pDiffChar.reset(_pDiffLine->CreateDiffChar(_hunk));
+		_pDiffChar.reset(_pDiffLine->CreateDiffChar(_hunk.idxEditBegin, _hunk.idxEditEnd));
 	}
 	return _pDiffChar.get();
 }

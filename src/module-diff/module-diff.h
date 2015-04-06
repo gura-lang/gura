@@ -166,7 +166,7 @@ public:
 	bool FeedStream(Signal sig, size_t iSeq, Stream &stream);
 	bool FeedIterator(Environment &env, Signal sig, size_t iSeq, Iterator *pIterator);
 	void FeedList(size_t iSeq, const ValueList &valList);
-	DiffChar *CreateDiffChar(const Hunk &hunk);
+	DiffChar *CreateDiffChar(size_t idxEditBegin, size_t idxEditEnd);
 	static String TextizeEdit_Normal(const Edit &edit);
 	static String TextizeEdit_Unified(const Edit &edit);
 	static Format SymbolToFormat(Signal sig, const Symbol *pSymbol);
