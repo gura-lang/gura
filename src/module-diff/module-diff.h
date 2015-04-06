@@ -257,7 +257,16 @@ public:
 //-----------------------------------------------------------------------------
 class Sync {
 private:
+	int _cntRef;
 	DiffCharOwner _diffCharOwner;
+public:
+	Gura_DeclareReferenceAccessor(Sync);
+public:
+	inline Sync() : _cntRef(1) {}
+protected:
+	inline ~Sync() {}
+public:
+	inline DiffCharOwner &GetDiffCharOwner() { return _diffCharOwner; }
 };
 
 //-----------------------------------------------------------------------------
