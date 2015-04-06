@@ -190,15 +190,28 @@ public:
 	typedef std::vector<UInt64> Sequence;
 	class Edit {
 	private:
+		int _cntRef;
 		EditType _editType;
 		String _str;
 	public:
-		inline Edit(EditType editType, const String &str) : _editType(editType), _str(str) {}
+		Gura_DeclareReferenceAccessor(Edit);
+	public:
+		inline Edit(EditType editType, const String &str) :
+								_cntRef(1), _editType(editType), _str(str) {}
+	protected:
+		inline ~Edit() {}
+	public:
 		inline EditType GetEditType() const { return _editType; }
 		inline const char *GetSource() const { return _str.c_str(); }
 		inline bool IsEOL() const { return _str == "\n"; }
 	};
-	typedef std::vector<Edit> EditList;
+	class EditList : public std::vector<Edit *> {
+	};
+	class EditOwner : public EditList {
+	public:
+		~EditOwner();
+		void Clear();
+	};
 	class IteratorEdit : public Iterator {
 	private:
 		AutoPtr<DiffChar> _pDiffChar;
@@ -215,7 +228,7 @@ public:
 	};
 private:
 	int _cntRef;
-	EditList _editList;
+	EditOwner _editOwner;
 public:
 	Gura_DeclareReferenceAccessor(DiffChar);
 public:
@@ -231,25 +244,10 @@ public:
 	inline bool GetIgnoreCaseFlag() const { return cmp.GetIgnoreCaseFlag(); }
 	inline Sequence &GetSequence(size_t iSeq) { return (iSeq == 0)? getA() : getB(); }
 	inline long long GetEditDistance() const { return getEditDistance(); }
-	inline const EditList &GetEditList() const { return _editList; }
-	inline const Edit &GetEdit(size_t idxEdit) const {
-		return GetEditList()[idxEdit];
+	inline const EditOwner &GetEditOwner() const { return _editOwner; }
+	inline const Edit *GetEdit(size_t idxEdit) const {
+		return GetEditOwner()[idxEdit];
 	}
-};
-
-//-----------------------------------------------------------------------------
-// DiffCharList
-//-----------------------------------------------------------------------------
-class DiffCharList : public std::vector<DiffChar *> {
-};
-
-//-----------------------------------------------------------------------------
-// DiffCharOwner
-//-----------------------------------------------------------------------------
-class DiffCharOwner : public DiffCharList {
-public:
-	~DiffCharOwner();
-	void Clear();
 };
 
 //-----------------------------------------------------------------------------
@@ -258,7 +256,7 @@ public:
 class Sync {
 private:
 	int _cntRef;
-	DiffCharOwner _diffCharOwner;
+	DiffChar::EditOwner _editOwner;
 public:
 	Gura_DeclareReferenceAccessor(Sync);
 public:
@@ -266,7 +264,7 @@ public:
 protected:
 	inline ~Sync() {}
 public:
-	inline DiffCharOwner &GetDiffCharOwner() { return _diffCharOwner; }
+	inline DiffChar::EditOwner &GetEditOwner() { return _editOwner; }
 };
 
 //-----------------------------------------------------------------------------
@@ -366,20 +364,18 @@ Gura_DeclareUserClass(edit_at_char);
 
 class Object_edit_at_char : public Object {
 private:
-	AutoPtr<DiffChar> _pDiffChar;
-	size_t _idxEdit;
+	AutoPtr<DiffChar::Edit> _pEdit;
 public:
 	Gura_DeclareObjectAccessor(edit_at_char)
 public:
-	inline Object_edit_at_char(DiffChar *pDiffChar, size_t idxEdit) :
-		Object(Gura_UserClass(edit_at_char)), _pDiffChar(pDiffChar), _idxEdit(idxEdit) {}
+	inline Object_edit_at_char(DiffChar::Edit *pEdit) :
+		Object(Gura_UserClass(edit_at_char)), _pEdit(pEdit) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
-	DiffChar *GetDiffChar() { return _pDiffChar.get(); }
-	size_t GetEditIndex() const { return _idxEdit; }
+	DiffChar::Edit *GetEdit() { return _pEdit.get(); }
 };
 
 //-----------------------------------------------------------------------------

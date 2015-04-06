@@ -352,16 +352,16 @@ void DiffChar::Compose()
 		EditType editType = pSesElem->second.type;
 		if (ch == '\n') {
 			if (!str.empty()) {
-				_editList.push_back(Edit(editTypePrev, str));
+				_editOwner.push_back(new Edit(editTypePrev, str));
 				str.clear();
 			}
-			_editList.push_back(Edit(editType, "\n"));
+			_editOwner.push_back(new Edit(editType, "\n"));
 			editTypePrev = editType;
 		} else {
 			if (str.empty()) {
 				editTypePrev = editType;
 			} else if (editTypePrev != editType) {
-				_editList.push_back(Edit(editTypePrev, str));
+				_editOwner.push_back(new Edit(editTypePrev, str));
 				str.clear();
 				editTypePrev = editType;
 			}
@@ -369,7 +369,7 @@ void DiffChar::Compose()
 		}
 	}
 	if (!str.empty()) {
-		_editList.push_back(Edit(editTypePrev, str));
+		_editOwner.push_back(new Edit(editTypePrev, str));
 	}
 }
 
@@ -394,7 +394,7 @@ void DiffChar::FeedString(size_t iSeq, const char *src)
 //-----------------------------------------------------------------------------
 DiffChar::IteratorEdit::IteratorEdit(DiffChar *pDiffChar, FilterType filterType) :
 	Iterator(false), _pDiffChar(pDiffChar), _filterType(filterType),
-	_idxEdit(0), _idxEditBegin(0), _idxEditEnd(pDiffChar->GetEditList().size())
+	_idxEdit(0), _idxEditBegin(0), _idxEditEnd(pDiffChar->GetEditOwner().size())
 {
 }
 
@@ -406,11 +406,11 @@ Iterator *DiffChar::IteratorEdit::GetSource()
 bool DiffChar::IteratorEdit::DoNext(Environment &env, Signal sig, Value &value)
 {
 	for ( ; _idxEdit < _idxEditEnd; _idxEdit++) {
-		EditType editType = _pDiffChar->GetEdit(_idxEdit).GetEditType();
+		EditType editType = _pDiffChar->GetEdit(_idxEdit)->GetEditType();
 		if (editType == EDITTYPE_Copy || _filterType == FILTERTYPE_None ||
 			(_filterType == FILTERTYPE_Original && editType == EDITTYPE_Delete) ||
 			(_filterType == FILTERTYPE_New && editType == EDITTYPE_Add)) {
-			value = Value(new Object_edit_at_char(_pDiffChar->Reference(), _idxEdit));
+			value = Value(new Object_edit_at_char(_pDiffChar->GetEdit(_idxEdit)->Reference()));
 			_idxEdit++;
 			return true;
 		}
@@ -430,17 +430,17 @@ void DiffChar::IteratorEdit::GatherFollower(Environment::Frame *pFrame, Environm
 }
 
 //-----------------------------------------------------------------------------
-// DiffCharOwner
+// DiffChar::EditOwner
 //-----------------------------------------------------------------------------
-DiffCharOwner::~DiffCharOwner()
+DiffChar::EditOwner::~EditOwner()
 {
 	Clear();
 }
 
-void DiffCharOwner::Clear()
+void DiffChar::EditOwner::Clear()
 {
-	foreach (DiffCharOwner, ppDiffChar, *this) {
-		DiffChar::Delete(*ppDiffChar);
+	foreach (EditOwner, ppEdit, *this) {
+		Edit::Delete(*ppEdit);
 	}
 	clear();
 }
@@ -876,24 +876,23 @@ bool Object_edit_at_char::DoDirProp(Environment &env, Signal sig, SymbolSet &sym
 Value Object_edit_at_char::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	const DiffChar::Edit &edit = _pDiffChar->GetEdit(_idxEdit);
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
-		if (edit.GetEditType() == EDITTYPE_Add) {
+		if (_pEdit->GetEditType() == EDITTYPE_Add) {
 			return Value(Gura_UserSymbol(add));
-		} else if (edit.GetEditType() == EDITTYPE_Delete) {
+		} else if (_pEdit->GetEditType() == EDITTYPE_Delete) {
 			return Value(Gura_UserSymbol(delete));
 		} else {
 			return Value(Gura_UserSymbol(copy));
 		}
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mark_at_normal))) {
-		return Value(GetEditMark_Normal(edit.GetEditType()));
+		return Value(GetEditMark_Normal(_pEdit->GetEditType()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mark_at_context))) {
-		return Value(GetEditMark_Context(edit.GetEditType()));
+		return Value(GetEditMark_Context(_pEdit->GetEditType()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mark_at_unified))) {
-		return Value(GetEditMark_Unified(edit.GetEditType()));
+		return Value(GetEditMark_Unified(_pEdit->GetEditType()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(source))) {
-		return Value(edit.GetSource());
+		return Value(_pEdit->GetSource());
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -901,12 +900,11 @@ Value Object_edit_at_char::DoGetProp(Environment &env, Signal sig, const Symbol 
 
 String Object_edit_at_char::ToString(bool exprFlag)
 {
-	const DiffChar::Edit &edit = _pDiffChar->GetEdit(_idxEdit);
 	String str;
 	str += "<diff.edit@char:";
-	if (edit.GetEditType() == EDITTYPE_Add) {
+	if (_pEdit->GetEditType() == EDITTYPE_Add) {
 		str += "add";
-	} else if (edit.GetEditType() == EDITTYPE_Delete) {
+	} else if (_pEdit->GetEditType() == EDITTYPE_Delete) {
 		str += "delete";
 	} else {
 		str += "copy";
