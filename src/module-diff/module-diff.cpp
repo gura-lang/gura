@@ -170,7 +170,15 @@ DiffChar *DiffLine::CreateDiffChar(const Hunk &hunk)
 	EditList::const_iterator pEditEnd = editList.begin() + hunk.idxEditEnd;
 	AutoPtr<DiffChar> pDiffChar(new DiffChar(GetIgnoreCaseFlag()));
 	for ( ; pEdit != pEditEnd; pEdit++) {
-		pDiffChar->FeedEdit(*pEdit);
+		EditType editType = pEdit->second.type;
+		if (editType == EDITTYPE_Copy || editType == EDITTYPE_Delete) {
+			pDiffChar->FeedString(0, pEdit->first.c_str());
+			pDiffChar->FeedChar(0, '\n');
+		}
+		if (editType == EDITTYPE_Copy || editType == EDITTYPE_Add) {
+			pDiffChar->FeedString(1, pEdit->first.c_str());
+			pDiffChar->FeedChar(1, '\n');
+		}
 	}
 	pDiffChar->Compose();
 	return pDiffChar.release();
@@ -381,19 +389,6 @@ void DiffChar::FeedString(size_t iSeq, const char *src)
 	}
 }
 
-void DiffChar::FeedEdit(const DiffLine::Edit &edit)
-{
-	EditType editType = edit.second.type;
-	if (editType == EDITTYPE_Copy || editType == EDITTYPE_Delete) {
-		FeedString(0, edit.first.c_str());
-		FeedChar(0, '\n');
-	}
-	if (editType == EDITTYPE_Copy || editType == EDITTYPE_Add) {
-		FeedString(1, edit.first.c_str());
-		FeedChar(1, '\n');
-	}
-}
-
 //-----------------------------------------------------------------------------
 // DiffChar::IteratorEdit
 //-----------------------------------------------------------------------------
@@ -432,6 +427,22 @@ String DiffChar::IteratorEdit::ToString() const
 
 void DiffChar::IteratorEdit::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
+}
+
+//-----------------------------------------------------------------------------
+// DiffCharOwner
+//-----------------------------------------------------------------------------
+DiffCharOwner::~DiffCharOwner()
+{
+	Clear();
+}
+
+void DiffCharOwner::Clear()
+{
+	foreach (DiffCharOwner, ppDiffChar, *this) {
+		DiffChar::Delete(*ppDiffChar);
+	}
+	clear();
 }
 
 //-----------------------------------------------------------------------------

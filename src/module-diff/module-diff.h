@@ -228,7 +228,6 @@ public:
 	void Compose();
 	void FeedChar(size_t iSeq, char ch);
 	void FeedString(size_t iSeq, const char *src);
-	void FeedEdit(const DiffLine::Edit &edit);
 	inline bool GetIgnoreCaseFlag() const { return cmp.GetIgnoreCaseFlag(); }
 	inline Sequence &GetSequence(size_t iSeq) { return (iSeq == 0)? getA() : getB(); }
 	inline long long GetEditDistance() const { return getEditDistance(); }
@@ -236,6 +235,29 @@ public:
 	inline const Edit &GetEdit(size_t idxEdit) const {
 		return GetEditList()[idxEdit];
 	}
+};
+
+//-----------------------------------------------------------------------------
+// DiffCharList
+//-----------------------------------------------------------------------------
+class DiffCharList : public std::vector<DiffChar *> {
+};
+
+//-----------------------------------------------------------------------------
+// DiffCharOwner
+//-----------------------------------------------------------------------------
+class DiffCharOwner : public DiffCharList {
+public:
+	~DiffCharOwner();
+	void Clear();
+};
+
+//-----------------------------------------------------------------------------
+// Sync
+//-----------------------------------------------------------------------------
+class Sync {
+private:
+	DiffCharOwner _diffCharOwner;
 };
 
 //-----------------------------------------------------------------------------
