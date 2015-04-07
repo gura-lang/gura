@@ -32,6 +32,7 @@ Gura_DeclareUserSymbol(type);
 Gura_DeclareUserSymbol(unified);
 
 class DiffChar;
+class SyncPair;
 
 //-----------------------------------------------------------------------------
 // EditType
@@ -162,6 +163,7 @@ public:
 	bool PrintHunk(Signal sig, SimpleStream &stream, const Hunk &hunk) const;
 	bool PrintHunks(Signal sig, SimpleStream &stream, Format format, size_t nLinesCommon) const;
 	bool NextHunk(size_t *pIdxEdit, Format format, size_t nLinesCommon, Hunk *pHunk) const;
+	SyncPair *NextSyncPair(size_t *pIdxEdit) const;
 	void FeedString(size_t iSeq, const char *src);
 	bool FeedStream(Signal sig, size_t iSeq, Stream &stream);
 	bool FeedIterator(Environment &env, Signal sig, size_t iSeq, Iterator *pIterator);
@@ -254,17 +256,35 @@ public:
 // Sync
 //-----------------------------------------------------------------------------
 class Sync {
+public:
+	class Line {
+	private:
+		int _cntRef;
+		EditType _editType;
+		DiffChar::EditOwner _editOwner;
+	public:
+		Gura_DeclareReferenceAccessor(Line);
+	public:
+		inline Line(EditType editType) : _cntRef(1), _editType(editType) {}
+	protected:
+		inline ~Line() {}
+	public:
+		inline void AddEditChar(DiffChar::Edit *pEdit) { _editOwner.push_back(pEdit); }
+		inline DiffChar::EditOwner &GetEditOwner() { return _editOwner; }
+	};
+	class LineList : public std::vector<Line *> {
+	};
+	class LineOwner : public LineList {
+	public:
+		~LineOwner();
+		void Clear();
+	};
 private:
-	int _cntRef;
-	DiffChar::EditOwner _editOwner;
+	LineOwner _linesOrg;
+	LineOwner _linesNew;
 public:
-	Gura_DeclareReferenceAccessor(Sync);
-public:
-	inline Sync() : _cntRef(1) {}
-protected:
-	inline ~Sync() {}
-public:
-	inline DiffChar::EditOwner &GetEditOwner() { return _editOwner; }
+	inline Sync() {}
+	void Compose(DiffLine *pDiffLine);
 };
 
 //-----------------------------------------------------------------------------

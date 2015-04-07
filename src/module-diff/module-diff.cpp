@@ -448,6 +448,89 @@ void DiffChar::EditOwner::Clear()
 //-----------------------------------------------------------------------------
 // Sync
 //-----------------------------------------------------------------------------
+void Sync::Compose(DiffLine *pDiffLine)
+{
+	enum Region {
+		REGION_Copy,
+		REGION_Add,
+		REGION_Delete,
+		REGION_Change,
+	} region = REGION_Copy;
+	const DiffLine::EditList &editList = pDiffLine->GetEditList();
+	DiffLine::EditList::const_iterator pEditLineBegin = editList.end();
+	foreach_const (DiffLine::EditList, pEditLine, editList) {
+		const String &str = pEditLine->first;
+		const EditType editType = pEditLine->second.type;
+		bool continueFlag = false;
+		do {
+			switch (region) {
+			case REGION_Copy: {
+				if (editType == EDITTYPE_Copy) {
+					Line *pLineOrg = new Line(EDITTYPE_Copy);
+					Line *pLineNew = pLineOrg->Reference();
+					pLineOrg->AddEditChar(new DiffChar::Edit(EDITTYPE_Copy, str));
+					_linesOrg.push_back(pLineOrg);
+					_linesNew.push_back(pLineNew);
+				} else if (editType == EDITTYPE_Add) {
+					pEditLineBegin = pEditLine;
+					continueFlag = true;
+					region = REGION_Add;
+				} else if (editType == EDITTYPE_Delete) {
+					pEditLineBegin = pEditLine;
+					continueFlag = true;
+					region = REGION_Delete;
+				}
+				break;
+			}
+			case REGION_Add: {
+				if (editType == EDITTYPE_Copy) {
+					DiffLine::EditList::const_iterator pEditLineEnd = pEditLine;
+					for (DiffLine::EditList::const_iterator pEditLine = pEditLineBegin;
+									 pEditLine != pEditLineEnd; pEditLine++) {
+						Line *pLineOrg = new Line(EDITTYPE_Add);
+						Line *pLineNew = new Line(EDITTYPE_Add);
+						pLineNew->AddEditChar(new DiffChar::Edit(EDITTYPE_Copy, str));
+						_linesOrg.push_back(pLineOrg);
+						_linesNew.push_back(pLineNew);
+					}
+					continueFlag = true;
+					region = REGION_Copy;
+				} else if (editType == EDITTYPE_Add) {
+					// nothing to do
+				} else if (editType == EDITTYPE_Delete) {
+					region = REGION_Change;
+				}
+				break;
+			}
+			case REGION_Delete: {
+				if (editType == EDITTYPE_Copy) {
+					
+					continueFlag = true;
+					region = REGION_Copy;
+				} else if (editType == EDITTYPE_Add) {
+					region = REGION_Change;
+				} else if (editType == EDITTYPE_Delete) {
+					// nothing to do
+				}
+				break;
+			}
+			case REGION_Change: {
+				if (editType == EDITTYPE_Copy) {
+					
+					continueFlag = true;
+					region = REGION_Copy;
+				} else if (editType == EDITTYPE_Add) {
+					// nothing to do
+				} else if (editType == EDITTYPE_Delete) {
+					// nothing to do
+				}
+				break;
+			}
+			}
+		} while (continueFlag);
+		
+	}
+}
 
 //-----------------------------------------------------------------------------
 // Object_diff_at_line
