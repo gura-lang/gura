@@ -281,10 +281,16 @@ public:
 		void Clear();
 	};
 private:
+	int _cntRef;
 	LineOwner _linesOrg;
 	LineOwner _linesNew;
 public:
-	inline Sync() {}
+	Gura_DeclareReferenceAccessor(Sync);
+public:
+	inline Sync() : _cntRef(1) {}
+protected:
+	inline ~Sync() {}
+public:
 	void Compose(DiffLine *pDiffLine);
 };
 
@@ -397,6 +403,26 @@ public:
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	DiffChar::Edit *GetEdit() { return _pEdit.get(); }
+};
+
+//-----------------------------------------------------------------------------
+// Class declaration for diff.sync
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(sync);
+
+class Object_sync : public Object {
+private:
+	AutoPtr<Sync> _pSync;
+public:
+	Gura_DeclareObjectAccessor(sync)
+public:
+	inline Object_sync(Sync *pSync) : Object(Gura_UserClass(sync)), _pSync(pSync) {}
+	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(bool exprFlag);
+	Sync *GetSync() { return _pSync.get(); }
 };
 
 //-----------------------------------------------------------------------------

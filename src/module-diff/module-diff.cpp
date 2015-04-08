@@ -1136,7 +1136,7 @@ Gura_ImplementFunction(compose)
 	}
 	pDiffLine->Compose();
 	if (syncFlag) {
-		Sync *pSync = new Sync();
+		AutoPtr<Sync> pSync(new Sync());
 		pSync->Compose(pDiffLine.get());
 		return Value::Null; //********
 	}
