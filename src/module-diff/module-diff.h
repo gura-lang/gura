@@ -228,13 +228,13 @@ public:
 	};
 	class IteratorEdit : public Iterator {
 	private:
-		AutoPtr<DiffChar> _pDiffChar;
+		AutoPtr<EditOwner> _pEditOwner;
 		FilterType _filterType;
 		size_t _idxEdit;
 		size_t _idxEditBegin;
 		size_t _idxEditEnd;
 	public:
-		IteratorEdit(DiffChar *pDiffChar, FilterType filterType);
+		IteratorEdit(EditOwner *pEditOwner, FilterType filterType);
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString() const;

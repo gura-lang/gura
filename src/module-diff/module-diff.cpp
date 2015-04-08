@@ -398,9 +398,9 @@ void DiffChar::FeedString(size_t iSeq, const char *src)
 //-----------------------------------------------------------------------------
 // DiffChar::IteratorEdit
 //-----------------------------------------------------------------------------
-DiffChar::IteratorEdit::IteratorEdit(DiffChar *pDiffChar, FilterType filterType) :
-	Iterator(false), _pDiffChar(pDiffChar), _filterType(filterType),
-	_idxEdit(0), _idxEditBegin(0), _idxEditEnd(pDiffChar->GetEditOwner().size())
+DiffChar::IteratorEdit::IteratorEdit(EditOwner *pEditOwner, FilterType filterType) :
+	Iterator(false), _pEditOwner(pEditOwner), _filterType(filterType),
+	_idxEdit(0), _idxEditBegin(0), _idxEditEnd(pEditOwner->size())
 {
 }
 
@@ -412,11 +412,11 @@ Iterator *DiffChar::IteratorEdit::GetSource()
 bool DiffChar::IteratorEdit::DoNext(Environment &env, Signal sig, Value &value)
 {
 	for ( ; _idxEdit < _idxEditEnd; _idxEdit++) {
-		EditType editType = _pDiffChar->GetEdit(_idxEdit)->GetEditType();
+		EditType editType = (*_pEditOwner)[_idxEdit]->GetEditType();
 		if (editType == EDITTYPE_Copy || _filterType == FILTERTYPE_None ||
 			(_filterType == FILTERTYPE_Original && editType == EDITTYPE_Delete) ||
 			(_filterType == FILTERTYPE_New && editType == EDITTYPE_Add)) {
-			value = Value(new Object_edit_at_char(_pDiffChar->GetEdit(_idxEdit)->Reference()));
+			value = Value(new Object_edit_at_char((*_pEditOwner)[_idxEdit]->Reference()));
 			_idxEdit++;
 			return true;
 		}
@@ -990,15 +990,15 @@ Value Object_diff_at_char::DoGetProp(Environment &env, Signal sig, const Symbol 
 		return Value(_pDiffChar->GetEditDistance());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(edits))) {
 		AutoPtr<DiffChar::IteratorEdit> pIterator(
-			new DiffChar::IteratorEdit(_pDiffChar->Reference(), FILTERTYPE_None));
+			new DiffChar::IteratorEdit(_pDiffChar->GetEditOwner().Reference(), FILTERTYPE_None));
 		return Value(new Object_iterator(env, pIterator.release()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(edits_at_org))) {
 		AutoPtr<DiffChar::IteratorEdit> pIterator(
-			new DiffChar::IteratorEdit(_pDiffChar->Reference(), FILTERTYPE_Original));
+			new DiffChar::IteratorEdit(_pDiffChar->GetEditOwner().Reference(), FILTERTYPE_Original));
 		return Value(new Object_iterator(env, pIterator.release()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(edits_at_new))) {
 		AutoPtr<DiffChar::IteratorEdit> pIterator(
-			new DiffChar::IteratorEdit(_pDiffChar->Reference(), FILTERTYPE_New));
+			new DiffChar::IteratorEdit(_pDiffChar->GetEditOwner().Reference(), FILTERTYPE_New));
 		return Value(new Object_iterator(env, pIterator.release()));
 	}
 	evaluatedFlag = false;
