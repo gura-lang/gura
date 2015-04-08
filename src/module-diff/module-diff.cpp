@@ -163,13 +163,11 @@ void DiffLine::FeedList(size_t iSeq, const ValueList &valList)
 	}
 }
 
-DiffChar *DiffLine::CreateDiffChar(size_t idxEditBegin, size_t idxEditEnd)
+DiffChar *DiffLine::CreateDiffChar(EditList::const_iterator pEditBegin,
+								   EditList::const_iterator pEditEnd)
 {
-	const EditList &editList = GetEditList();
-	EditList::const_iterator pEdit = editList.begin() + idxEditBegin;
-	EditList::const_iterator pEditEnd = editList.begin() + idxEditEnd;
 	AutoPtr<DiffChar> pDiffChar(new DiffChar(GetIgnoreCaseFlag()));
-	for ( ; pEdit != pEditEnd; pEdit++) {
+	for (EditList::const_iterator pEdit = pEditBegin; pEdit != pEditEnd; pEdit++) {
 		EditType editType = pEdit->second.type;
 		if (editType == EDITTYPE_Copy || editType == EDITTYPE_Delete) {
 			pDiffChar->FeedString(0, pEdit->first.c_str());
@@ -182,6 +180,14 @@ DiffChar *DiffLine::CreateDiffChar(size_t idxEditBegin, size_t idxEditEnd)
 	}
 	pDiffChar->Compose();
 	return pDiffChar.release();
+}
+
+DiffChar *DiffLine::CreateDiffChar(size_t idxEditBegin, size_t idxEditEnd)
+{
+	const EditList &editList = GetEditList();
+	EditList::const_iterator pEditBegin = editList.begin() + idxEditBegin;
+	EditList::const_iterator pEditEnd = editList.begin() + idxEditEnd;
+	return CreateDiffChar(pEditBegin, pEditEnd);
 }
 
 String DiffLine::TextizeEdit_Normal(const DiffLine::Edit &edit)
@@ -504,7 +510,15 @@ void Sync::Compose(DiffLine *pDiffLine)
 			}
 			case REGION_Delete: {
 				if (editType == EDITTYPE_Copy) {
-					
+					DiffLine::EditList::const_iterator pEditLineEnd = pEditLine;
+					for (DiffLine::EditList::const_iterator pEditLine = pEditLineBegin;
+									 pEditLine != pEditLineEnd; pEditLine++) {
+						Line *pLineOrg = new Line(EDITTYPE_Delete);
+						Line *pLineNew = new Line(EDITTYPE_Delete);
+						_linesOrg.push_back(pLineOrg);
+						_linesNew.push_back(pLineNew);
+						pLineOrg->AddEditChar(new DiffChar::Edit(EDITTYPE_Delete, str));
+					}
 					continueFlag = true;
 					region = REGION_Copy;
 				} else if (editType == EDITTYPE_Add) {
@@ -516,7 +530,31 @@ void Sync::Compose(DiffLine *pDiffLine)
 			}
 			case REGION_Change: {
 				if (editType == EDITTYPE_Copy) {
-					
+					DiffLine::EditList::const_iterator pEditLineEnd = pEditLine;
+					AutoPtr<DiffChar> pDiffChar(pDiffLine->CreateDiffChar(
+													pEditLineBegin, pEditLineEnd));
+					Line *pLineOrg = NULL;
+					Line *pLineNew = NULL;
+					foreach_const (DiffChar::EditOwner, ppEditChar, pDiffChar->GetEditOwner()) {
+						const DiffChar::Edit *pEditChar = *ppEditChar;
+						if (pLineOrg == NULL) {
+							pLineOrg = new Line(EDITTYPE_Change);
+							pLineNew = new Line(EDITTYPE_Change);
+							_linesOrg.push_back(pLineOrg);
+							_linesNew.push_back(pLineNew);
+						}
+						if (pEditChar->IsEOL()) {
+							pLineOrg = NULL;
+							pLineNew = NULL;
+						} else if (pEditChar->GetEditType() == EDITTYPE_Copy) {
+							pLineOrg->AddEditChar(pEditChar->Reference());
+							pLineNew->AddEditChar(pEditChar->Reference());
+						} else if (pEditChar->GetEditType() == EDITTYPE_Add) {
+							pLineNew->AddEditChar(pEditChar->Reference());
+						} else if (pEditChar->GetEditType() == EDITTYPE_Delete) {
+							pLineOrg->AddEditChar(pEditChar->Reference());
+						}
+					}
 					continueFlag = true;
 					region = REGION_Copy;
 				} else if (editType == EDITTYPE_Add) {
@@ -530,6 +568,22 @@ void Sync::Compose(DiffLine *pDiffLine)
 		} while (continueFlag);
 		
 	}
+}
+
+//-----------------------------------------------------------------------------
+// Sync::LineOwner
+//-----------------------------------------------------------------------------
+Sync::LineOwner::~LineOwner()
+{
+	Clear();
+}
+
+void Sync::LineOwner::Clear()
+{
+	foreach (LineOwner, ppLine, *this) {
+		Line::Delete(*ppLine);
+	}
+	clear();
 }
 
 //-----------------------------------------------------------------------------
@@ -1007,13 +1061,14 @@ Gura_ImplementUserClass(edit_at_char)
 //-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
-// diff.compose(src1, src2):[icase] {block?}
+// diff.compose(src1, src2):[icase,sync] {block?}
 Gura_DeclareFunction(compose)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "src1", VTYPE_any);
 	DeclareArg(env, "src2", VTYPE_any);
 	DeclareAttr(Gura_Symbol(icase));
+	DeclareAttr(Gura_UserSymbol(sync));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -1058,6 +1113,7 @@ Gura_DeclareFunction(compose)
 Gura_ImplementFunction(compose)
 {
 	bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
+	bool syncFlag = args.IsSet(Gura_UserSymbol(sync));
 	AutoPtr<DiffLine> pDiffLine(new DiffLine(ignoreCaseFlag));
 	for (size_t i = 0; i < 2; i++) {
 		if (args.IsType(i, VTYPE_string)) {
@@ -1079,6 +1135,11 @@ Gura_ImplementFunction(compose)
 		}
 	}
 	pDiffLine->Compose();
+	if (syncFlag) {
+		Sync *pSync = new Sync();
+		pSync->Compose(pDiffLine.get());
+		return Value::Null; //********
+	}
 	return ReturnValue(env, sig, args, Value(new Object_diff_at_line(pDiffLine.release())));
 }
 
@@ -1156,6 +1217,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbolAlias(nlines_at_new, "nlines@new");
 	Gura_RealizeUserSymbol(normal);
 	Gura_RealizeUserSymbol(source);
+	Gura_RealizeUserSymbol(sync);
 	Gura_RealizeUserSymbol(type);
 	Gura_RealizeUserSymbol(unified);
 	// class realization

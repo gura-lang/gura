@@ -28,11 +28,11 @@ Gura_DeclareUserSymbol(nlines_at_org);
 Gura_DeclareUserSymbol(nlines_at_new);
 Gura_DeclareUserSymbol(normal);
 Gura_DeclareUserSymbol(source);
+Gura_DeclareUserSymbol(sync);
 Gura_DeclareUserSymbol(type);
 Gura_DeclareUserSymbol(unified);
 
 class DiffChar;
-class SyncPair;
 
 //-----------------------------------------------------------------------------
 // EditType
@@ -163,11 +163,12 @@ public:
 	bool PrintHunk(Signal sig, SimpleStream &stream, const Hunk &hunk) const;
 	bool PrintHunks(Signal sig, SimpleStream &stream, Format format, size_t nLinesCommon) const;
 	bool NextHunk(size_t *pIdxEdit, Format format, size_t nLinesCommon, Hunk *pHunk) const;
-	SyncPair *NextSyncPair(size_t *pIdxEdit) const;
 	void FeedString(size_t iSeq, const char *src);
 	bool FeedStream(Signal sig, size_t iSeq, Stream &stream);
 	bool FeedIterator(Environment &env, Signal sig, size_t iSeq, Iterator *pIterator);
 	void FeedList(size_t iSeq, const ValueList &valList);
+	DiffChar *CreateDiffChar(EditList::const_iterator pEditBegin,
+							 EditList::const_iterator pEditEnd);
 	DiffChar *CreateDiffChar(size_t idxEditBegin, size_t idxEditEnd);
 	static String TextizeEdit_Normal(const Edit &edit);
 	static String TextizeEdit_Unified(const Edit &edit);
