@@ -358,16 +358,16 @@ void DiffChar::Compose()
 		EditType editType = pSesElem->second.type;
 		if (ch == '\n') {
 			if (!str.empty()) {
-				_editOwner.push_back(new Edit(editTypePrev, str));
+				_pEditOwner->push_back(new Edit(editTypePrev, str));
 				str.clear();
 			}
-			_editOwner.push_back(new Edit(editType, "\n"));
+			_pEditOwner->push_back(new Edit(editType, "\n"));
 			editTypePrev = editType;
 		} else {
 			if (str.empty()) {
 				editTypePrev = editType;
 			} else if (editTypePrev != editType) {
-				_editOwner.push_back(new Edit(editTypePrev, str));
+				_pEditOwner->push_back(new Edit(editTypePrev, str));
 				str.clear();
 				editTypePrev = editType;
 			}
@@ -375,7 +375,7 @@ void DiffChar::Compose()
 		}
 	}
 	if (!str.empty()) {
-		_editOwner.push_back(new Edit(editTypePrev, str));
+		_pEditOwner->push_back(new Edit(editTypePrev, str));
 	}
 }
 
@@ -469,6 +469,7 @@ void Sync::Compose(DiffLine *pDiffLine)
 		const EditType editType = pEditLine->second.type;
 		bool continueFlag = false;
 		do {
+			bool continueFlag = false;
 			switch (region) {
 			case REGION_Copy: {
 				if (editType == EDITTYPE_Copy) {
@@ -584,6 +585,40 @@ void SyncLineOwner::Clear()
 		SyncLine::Delete(*ppSyncLine);
 	}
 	clear();
+}
+
+//-----------------------------------------------------------------------------
+// IteratorSyncLine
+//-----------------------------------------------------------------------------
+IteratorSyncLine::IteratorSyncLine(Sync *pSync, Target target) :
+	Iterator(false), _pSync(pSync), _idxSyncLine(0), _idxSyncLineBegin(0),
+	_syncLines(pSync->GetSyncLines(target))
+{
+	_idxSyncLineEnd = _syncLines.size();
+}
+
+Iterator *IteratorSyncLine::GetSource()
+{
+	return NULL;
+}
+
+bool IteratorSyncLine::DoNext(Environment &env, Signal sig, Value &value)
+{
+	if (_idxSyncLine >= _idxSyncLineEnd) return false;
+	value = Value(new Object_syncline(_syncLines[_idxSyncLine]->Reference()));
+	_idxSyncLine++;
+	return true;
+}
+
+String IteratorSyncLine::ToString() const
+{
+	String str;
+	str += "diff.syncline";
+	return str;
+}
+
+void IteratorSyncLine::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
 }
 
 //-----------------------------------------------------------------------------
@@ -951,7 +986,6 @@ Value Object_diff_at_char::DoGetProp(Environment &env, Signal sig, const Symbol 
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-
 	if (pSymbol->IsIdentical(Gura_UserSymbol(distance))) {
 		return Value(_pDiffChar->GetEditDistance());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(edits))) {
@@ -1069,12 +1103,22 @@ Object *Object_sync::Clone() const
 bool Object_sync::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(synclines_at_org));
+	symbols.insert(Gura_UserSymbol(synclines_at_new));
 	return true;
 }
 
 Value Object_sync::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(synclines_at_org))) {
+		AutoPtr<Iterator> pIterator(new IteratorSyncLine(_pSync->Reference(), TARGET_Org));
+		return Value(new Object_iterator(env, pIterator.release()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(synclines_at_new))) {
+		AutoPtr<Iterator> pIterator(new IteratorSyncLine(_pSync->Reference(), TARGET_New));
+		return Value(new Object_iterator(env, pIterator.release()));
+	}
 	evaluatedFlag = false;
 	return Value::Null;
 }
@@ -1105,12 +1149,18 @@ Object *Object_syncline::Clone() const
 bool Object_syncline::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(edits));
 	return true;
 }
 
 Value Object_syncline::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(edits))) {
+		//AutoPtr<Iterator> pIterator(new DiffChar::IteratorEdit(_pSync->Reference(), TARGET_Org));
+		//return Value(new Object_iterator(env, pIterator.release()));
+	}
 	evaluatedFlag = false;
 	return Value::Null;
 }
@@ -1293,6 +1343,8 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(normal);
 	Gura_RealizeUserSymbol(source);
 	Gura_RealizeUserSymbol(sync);
+	Gura_RealizeUserSymbolAlias(synclines_at_org, "synclines@org");
+	Gura_RealizeUserSymbolAlias(synclines_at_new, "synclines@new");
 	Gura_RealizeUserSymbol(type);
 	Gura_RealizeUserSymbol(unified);
 	// class realization

@@ -29,10 +29,14 @@ Gura_DeclareUserSymbol(nlines_at_new);
 Gura_DeclareUserSymbol(normal);
 Gura_DeclareUserSymbol(source);
 Gura_DeclareUserSymbol(sync);
+Gura_DeclareUserSymbol(synclines_at_org);
+Gura_DeclareUserSymbol(synclines_at_new);
 Gura_DeclareUserSymbol(type);
 Gura_DeclareUserSymbol(unified);
 
 class DiffChar;
+
+enum Target { TARGET_Org, TARGET_New };
 
 //-----------------------------------------------------------------------------
 // EditType
@@ -211,8 +215,15 @@ public:
 	class EditList : public std::vector<Edit *> {
 	};
 	class EditOwner : public EditList {
+	private:
+		int _cntRef;
 	public:
+		Gura_DeclareReferenceAccessor(EditOwner);
+	public:
+		inline EditOwner() : _cntRef(1) {}
+	protected:
 		~EditOwner();
+	public:
 		void Clear();
 	};
 	class IteratorEdit : public Iterator {
@@ -231,11 +242,11 @@ public:
 	};
 private:
 	int _cntRef;
-	EditOwner _editOwner;
+	AutoPtr<EditOwner> _pEditOwner;
 public:
 	Gura_DeclareReferenceAccessor(DiffChar);
 public:
-	inline DiffChar(bool ignoreCaseFlag) : _cntRef(1) {
+	inline DiffChar(bool ignoreCaseFlag) : _cntRef(1), _pEditOwner(new EditOwner()) {
 		cmp.SetIgnoreCaseFlag(ignoreCaseFlag);
 	}
 protected:
@@ -247,7 +258,7 @@ public:
 	inline bool GetIgnoreCaseFlag() const { return cmp.GetIgnoreCaseFlag(); }
 	inline Sequence &GetSequence(size_t iSeq) { return (iSeq == 0)? getA() : getB(); }
 	inline long long GetEditDistance() const { return getEditDistance(); }
-	inline const EditOwner &GetEditOwner() const { return _editOwner; }
+	inline const EditOwner &GetEditOwner() const { return *_pEditOwner; }
 	inline const Edit *GetEdit(size_t idxEdit) const {
 		return GetEditOwner()[idxEdit];
 	}
@@ -260,16 +271,17 @@ class SyncLine {
 private:
 	int _cntRef;
 	EditType _editType;
-	DiffChar::EditOwner _editOwner;
+	AutoPtr<DiffChar::EditOwner> _pEditOwner;
 public:
 	Gura_DeclareReferenceAccessor(SyncLine);
 public:
-	inline SyncLine(EditType editType) : _cntRef(1), _editType(editType) {}
+	inline SyncLine(EditType editType) : _cntRef(1),
+		_editType(editType), _pEditOwner(new DiffChar::EditOwner()) {}
 protected:
 	inline ~SyncLine() {}
 public:
-	inline void AddEditChar(DiffChar::Edit *pEdit) { _editOwner.push_back(pEdit); }
-	inline DiffChar::EditOwner &GetEditOwner() { return _editOwner; }
+	inline void AddEditChar(DiffChar::Edit *pEdit) { _pEditOwner->push_back(pEdit); }
+	inline DiffChar::EditOwner &GetEditOwner() { return *_pEditOwner; }
 };
 
 class SyncLineList : public std::vector<SyncLine *> {
@@ -298,6 +310,27 @@ protected:
 	inline ~Sync() {}
 public:
 	void Compose(DiffLine *pDiffLine);
+	SyncLineOwner &GetSyncLines(Target target) {
+		return (target == TARGET_Org)? _syncLinesOrg : _syncLinesNew;
+	}
+};
+
+//-----------------------------------------------------------------------------
+// IteratorSyncLine
+//-----------------------------------------------------------------------------
+class IteratorSyncLine : public Iterator {
+private:
+	AutoPtr<Sync> _pSync;
+	SyncLineOwner &_syncLines;
+	size_t _idxSyncLine;
+	size_t _idxSyncLineBegin;
+	size_t _idxSyncLineEnd;
+public:
+	IteratorSyncLine(Sync *pSync, Target target);
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual String ToString() const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
 //-----------------------------------------------------------------------------
