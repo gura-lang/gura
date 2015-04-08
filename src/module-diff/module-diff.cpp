@@ -1059,6 +1059,42 @@ Gura_ImplementUserClass(edit_at_char)
 }
 
 //-----------------------------------------------------------------------------
+// Object_sync
+//-----------------------------------------------------------------------------
+Object *Object_sync::Clone() const
+{
+	return NULL;
+}
+
+bool Object_sync::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	return true;
+}
+
+Value Object_sync::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+String Object_sync::ToString(bool exprFlag)
+{
+	String str;
+	str += "<diff.sync";
+	str += ">";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Class implementation for diff.sync
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(sync)
+{
+}
+
+//-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
 // diff.compose(src1, src2):[icase,sync] {block?}
@@ -1226,12 +1262,14 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClassAlias(edit_at_line, "edit@line", env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassAlias(diff_at_char, "diff@char", env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassAlias(edit_at_char, "edit@char", env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(sync, env.LookupClass(VTYPE_object));
 	// class preparation
 	Gura_PrepareUserClass(diff_at_line);
 	Gura_PrepareUserClass(hunk_at_line);
 	Gura_PrepareUserClass(edit_at_line);
 	Gura_PrepareUserClass(diff_at_char);
 	Gura_PrepareUserClass(edit_at_char);
+	Gura_PrepareUserClass(sync);
 	// function assignment
 	Gura_AssignFunction(compose);
 	Gura_AssignFunction(compose_at_char);
