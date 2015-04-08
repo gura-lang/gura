@@ -1171,12 +1171,15 @@ Gura_ImplementFunction(compose)
 		}
 	}
 	pDiffLine->Compose();
+	Value value;
 	if (syncFlag) {
 		AutoPtr<Sync> pSync(new Sync());
 		pSync->Compose(pDiffLine.get());
-		return Value::Null; //********
+		value = Value(new Object_sync(pSync.release()));
+	} else {
+		value = Value(new Object_diff_at_line(pDiffLine.release()));
 	}
-	return ReturnValue(env, sig, args, Value(new Object_diff_at_line(pDiffLine.release())));
+	return ReturnValue(env, sig, args, value);
 }
 
 // diff.compose@char(src1:string, src2:string):[icase] {block?}
