@@ -1158,8 +1158,9 @@ Value Object_syncline::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(edits))) {
-		//AutoPtr<Iterator> pIterator(new DiffChar::IteratorEdit(_pSync->Reference(), TARGET_Org));
-		//return Value(new Object_iterator(env, pIterator.release()));
+		AutoPtr<Iterator> pIterator(new DiffChar::IteratorEdit(
+										_pSyncLine->GetEditOwner().Reference(), FILTERTYPE_None));
+		return Value(new Object_iterator(env, pIterator.release()));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
