@@ -472,11 +472,11 @@ void Sync::Compose(DiffLine *pDiffLine)
 			switch (region) {
 			case REGION_Copy: {
 				if (editType == EDITTYPE_Copy) {
-					Line *pLineOrg = new Line(EDITTYPE_Copy);
-					Line *pLineNew = pLineOrg->Reference();
-					pLineOrg->AddEditChar(new DiffChar::Edit(EDITTYPE_Copy, str));
-					_linesOrg.push_back(pLineOrg);
-					_linesNew.push_back(pLineNew);
+					SyncLine *pSyncLineOrg = new SyncLine(EDITTYPE_Copy);
+					SyncLine *pSyncLineNew = pSyncLineOrg->Reference();
+					pSyncLineOrg->AddEditChar(new DiffChar::Edit(EDITTYPE_Copy, str));
+					_syncLinesOrg.push_back(pSyncLineOrg);
+					_syncLinesNew.push_back(pSyncLineNew);
 				} else if (editType == EDITTYPE_Add) {
 					pEditLineBegin = pEditLine;
 					continueFlag = true;
@@ -493,11 +493,11 @@ void Sync::Compose(DiffLine *pDiffLine)
 					DiffLine::EditList::const_iterator pEditLineEnd = pEditLine;
 					for (DiffLine::EditList::const_iterator pEditLine = pEditLineBegin;
 									 pEditLine != pEditLineEnd; pEditLine++) {
-						Line *pLineOrg = new Line(EDITTYPE_Add);
-						Line *pLineNew = new Line(EDITTYPE_Add);
-						pLineNew->AddEditChar(new DiffChar::Edit(EDITTYPE_Copy, str));
-						_linesOrg.push_back(pLineOrg);
-						_linesNew.push_back(pLineNew);
+						SyncLine *pSyncLineOrg = new SyncLine(EDITTYPE_Add);
+						SyncLine *pSyncLineNew = new SyncLine(EDITTYPE_Add);
+						pSyncLineNew->AddEditChar(new DiffChar::Edit(EDITTYPE_Copy, str));
+						_syncLinesOrg.push_back(pSyncLineOrg);
+						_syncLinesNew.push_back(pSyncLineNew);
 					}
 					continueFlag = true;
 					region = REGION_Copy;
@@ -513,11 +513,11 @@ void Sync::Compose(DiffLine *pDiffLine)
 					DiffLine::EditList::const_iterator pEditLineEnd = pEditLine;
 					for (DiffLine::EditList::const_iterator pEditLine = pEditLineBegin;
 									 pEditLine != pEditLineEnd; pEditLine++) {
-						Line *pLineOrg = new Line(EDITTYPE_Delete);
-						Line *pLineNew = new Line(EDITTYPE_Delete);
-						_linesOrg.push_back(pLineOrg);
-						_linesNew.push_back(pLineNew);
-						pLineOrg->AddEditChar(new DiffChar::Edit(EDITTYPE_Delete, str));
+						SyncLine *pSyncLineOrg = new SyncLine(EDITTYPE_Delete);
+						SyncLine *pSyncLineNew = new SyncLine(EDITTYPE_Delete);
+						_syncLinesOrg.push_back(pSyncLineOrg);
+						_syncLinesNew.push_back(pSyncLineNew);
+						pSyncLineOrg->AddEditChar(new DiffChar::Edit(EDITTYPE_Delete, str));
 					}
 					continueFlag = true;
 					region = REGION_Copy;
@@ -533,26 +533,26 @@ void Sync::Compose(DiffLine *pDiffLine)
 					DiffLine::EditList::const_iterator pEditLineEnd = pEditLine;
 					AutoPtr<DiffChar> pDiffChar(pDiffLine->CreateDiffChar(
 													pEditLineBegin, pEditLineEnd));
-					Line *pLineOrg = NULL;
-					Line *pLineNew = NULL;
+					SyncLine *pSyncLineOrg = NULL;
+					SyncLine *pSyncLineNew = NULL;
 					foreach_const (DiffChar::EditOwner, ppEditChar, pDiffChar->GetEditOwner()) {
 						const DiffChar::Edit *pEditChar = *ppEditChar;
-						if (pLineOrg == NULL) {
-							pLineOrg = new Line(EDITTYPE_Change);
-							pLineNew = new Line(EDITTYPE_Change);
-							_linesOrg.push_back(pLineOrg);
-							_linesNew.push_back(pLineNew);
+						if (pSyncLineOrg == NULL) {
+							pSyncLineOrg = new SyncLine(EDITTYPE_Change);
+							pSyncLineNew = new SyncLine(EDITTYPE_Change);
+							_syncLinesOrg.push_back(pSyncLineOrg);
+							_syncLinesNew.push_back(pSyncLineNew);
 						}
 						if (pEditChar->IsEOL()) {
-							pLineOrg = NULL;
-							pLineNew = NULL;
+							pSyncLineOrg = NULL;
+							pSyncLineNew = NULL;
 						} else if (pEditChar->GetEditType() == EDITTYPE_Copy) {
-							pLineOrg->AddEditChar(pEditChar->Reference());
-							pLineNew->AddEditChar(pEditChar->Reference());
+							pSyncLineOrg->AddEditChar(pEditChar->Reference());
+							pSyncLineNew->AddEditChar(pEditChar->Reference());
 						} else if (pEditChar->GetEditType() == EDITTYPE_Add) {
-							pLineNew->AddEditChar(pEditChar->Reference());
+							pSyncLineNew->AddEditChar(pEditChar->Reference());
 						} else if (pEditChar->GetEditType() == EDITTYPE_Delete) {
-							pLineOrg->AddEditChar(pEditChar->Reference());
+							pSyncLineOrg->AddEditChar(pEditChar->Reference());
 						}
 					}
 					continueFlag = true;
@@ -571,17 +571,17 @@ void Sync::Compose(DiffLine *pDiffLine)
 }
 
 //-----------------------------------------------------------------------------
-// Sync::LineOwner
+// SyncLineOwner
 //-----------------------------------------------------------------------------
-Sync::LineOwner::~LineOwner()
+SyncLineOwner::~SyncLineOwner()
 {
 	Clear();
 }
 
-void Sync::LineOwner::Clear()
+void SyncLineOwner::Clear()
 {
-	foreach (LineOwner, ppLine, *this) {
-		Line::Delete(*ppLine);
+	foreach (SyncLineOwner, ppSyncLine, *this) {
+		SyncLine::Delete(*ppSyncLine);
 	}
 	clear();
 }
@@ -1095,6 +1095,42 @@ Gura_ImplementUserClass(sync)
 }
 
 //-----------------------------------------------------------------------------
+// Object_syncline
+//-----------------------------------------------------------------------------
+Object *Object_syncline::Clone() const
+{
+	return NULL;
+}
+
+bool Object_syncline::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	return true;
+}
+
+Value Object_syncline::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+String Object_syncline::ToString(bool exprFlag)
+{
+	String str;
+	str += "<diff.syncline";
+	str += ">";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Class implementation for diff.syncline
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(syncline)
+{
+}
+
+//-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
 // diff.compose(src1, src2):[icase,sync] {block?}
@@ -1266,6 +1302,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClassAlias(diff_at_char, "diff@char", env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassAlias(edit_at_char, "edit@char", env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(sync, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(syncline, env.LookupClass(VTYPE_object));
 	// class preparation
 	Gura_PrepareUserClass(diff_at_line);
 	Gura_PrepareUserClass(hunk_at_line);
@@ -1273,6 +1310,7 @@ Gura_ModuleEntry()
 	Gura_PrepareUserClass(diff_at_char);
 	Gura_PrepareUserClass(edit_at_char);
 	Gura_PrepareUserClass(sync);
+	Gura_PrepareUserClass(syncline);
 	// function assignment
 	Gura_AssignFunction(compose);
 	Gura_AssignFunction(compose_at_char);

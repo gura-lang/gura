@@ -254,36 +254,42 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// SyncLine
+//-----------------------------------------------------------------------------
+class SyncLine {
+private:
+	int _cntRef;
+	EditType _editType;
+	DiffChar::EditOwner _editOwner;
+public:
+	Gura_DeclareReferenceAccessor(SyncLine);
+public:
+	inline SyncLine(EditType editType) : _cntRef(1), _editType(editType) {}
+protected:
+	inline ~SyncLine() {}
+public:
+	inline void AddEditChar(DiffChar::Edit *pEdit) { _editOwner.push_back(pEdit); }
+	inline DiffChar::EditOwner &GetEditOwner() { return _editOwner; }
+};
+
+class SyncLineList : public std::vector<SyncLine *> {
+};
+
+class SyncLineOwner : public SyncLineList {
+public:
+	~SyncLineOwner();
+	void Clear();
+};
+
+//-----------------------------------------------------------------------------
 // Sync
 //-----------------------------------------------------------------------------
 class Sync {
 public:
-	class Line {
-	private:
-		int _cntRef;
-		EditType _editType;
-		DiffChar::EditOwner _editOwner;
-	public:
-		Gura_DeclareReferenceAccessor(Line);
-	public:
-		inline Line(EditType editType) : _cntRef(1), _editType(editType) {}
-	protected:
-		inline ~Line() {}
-	public:
-		inline void AddEditChar(DiffChar::Edit *pEdit) { _editOwner.push_back(pEdit); }
-		inline DiffChar::EditOwner &GetEditOwner() { return _editOwner; }
-	};
-	class LineList : public std::vector<Line *> {
-	};
-	class LineOwner : public LineList {
-	public:
-		~LineOwner();
-		void Clear();
-	};
 private:
 	int _cntRef;
-	LineOwner _linesOrg;
-	LineOwner _linesNew;
+	SyncLineOwner _syncLinesOrg;
+	SyncLineOwner _syncLinesNew;
 public:
 	Gura_DeclareReferenceAccessor(Sync);
 public:
@@ -423,6 +429,27 @@ public:
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	Sync *GetSync() { return _pSync.get(); }
+};
+
+//-----------------------------------------------------------------------------
+// Class declaration for diff.syncline
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(syncline);
+
+class Object_syncline : public Object {
+private:
+	AutoPtr<SyncLine> _pSyncLine;
+public:
+	Gura_DeclareObjectAccessor(syncline)
+public:
+	inline Object_syncline(SyncLine *pSyncLine) :
+			Object(Gura_UserClass(syncline)), _pSyncLine(pSyncLine) {}
+	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(bool exprFlag);
+	SyncLine *GetSyncLine() { return _pSyncLine.get(); }
 };
 
 //-----------------------------------------------------------------------------
