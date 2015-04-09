@@ -473,11 +473,10 @@ void Sync::Compose(DiffLine *pDiffLine)
 			switch (region) {
 			case REGION_Copy: {
 				if (editType == EDITTYPE_Copy) {
-					SyncLine *pSyncLineOrg = new SyncLine(EDITTYPE_Copy);
-					SyncLine *pSyncLineNew = pSyncLineOrg->Reference();
-					pSyncLineOrg->AddEditChar(new DiffChar::Edit(EDITTYPE_Copy, str));
-					_syncLinesOrg.push_back(pSyncLineOrg);
-					_syncLinesNew.push_back(pSyncLineNew);
+					SyncLine *pSyncLine = new SyncLine(EDITTYPE_Copy);
+					pSyncLine->AddEditChar(new DiffChar::Edit(EDITTYPE_Copy, str));
+					_syncLinesOrg.push_back(pSyncLine);
+					_syncLinesNew.push_back(pSyncLine->Reference());
 				} else if (editType == EDITTYPE_Add) {
 					pEditLineBegin = pEditLine;
 					continueFlag = true;
