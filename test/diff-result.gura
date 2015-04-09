@@ -29,7 +29,7 @@ main() = {
 			errorFlag = true
 		}
 		if (errorFlag || argv.len() < 2) {
-			sys.stderr.println('usage: check-result.gura [--detail] file1 file2')
+			sys.stderr.println('usage: diff-result.gura [--detail] file1 file2')
 			sys.exit(1)
 		}
 		detailFlag = cfg['detail']
