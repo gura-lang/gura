@@ -13126,7 +13126,7 @@ Below is an example to show differences between files <code>file1.txt</code> and
 <strong>diff.compose</strong>
 </p>
 <p>
-<code>diff.compose(src1, src2):[icase] {block?}</code>
+<code>diff.compose(src1, src2):[icase,sync] {block?}</code>
 </p>
 <p>
 Extracts differences between two sets of line sequence and returns <code>diff.diff@line</code> instance that contains the difference information.
@@ -13281,11 +13281,19 @@ Number of lines in the "new" text.</td>
 <strong>diff.diff@line#eachhunk</strong>
 </p>
 <p>
-<code>diff.diff@line#eachhunk(lines?:number) {block?}</code>
+<code>diff.diff@line#eachhunk(format?:symbol, lines?:number) {block?}</code>
 </p>
 <p>
 Creates an iterator that returns <code>diff.hunk@line</code> instance stored in the result.
 </p>
+<p>
+The argument <code>format</code> takes one of the symbols that specifies the hunk format:
+</p>
+<ul>
+<li><code>`normal</code> .. Normal format (not supported yet).</li>
+<li><code>`context</code> .. Context format (not supported yet).</li>
+<li><code>`unified</code> .. Unified format. This is the default.</li>
+</ul>
 <p>
 The argument <code>lines</code> specifies a number of common lines appended before and after different lines
 </p>
@@ -13441,19 +13449,11 @@ Number of lines in the "new" text covered by the hunk.</td>
 <strong>diff.hunk@line#print</strong>
 </p>
 <p>
-<code>diff.hunk@line#print(out?:stream, format?:symbol):void {block?}</code>
+<code>diff.hunk@line#print(out?:stream):void {block?}</code>
 </p>
 <p>
 Prints the content of the <code>diff.hunk</code> instance to the specified stream.
 </p>
-<p>
-The argument <code>format</code> takes one of the symbols that specifies the rendering format:
-</p>
-<ul>
-<li><code>`normal</code> .. Normal format (not supported yet).</li>
-<li><code>`context</code> .. Context format (not supported yet).</li>
-<li><code>`unified</code> .. Unified format. This is the default.</li>
-</ul>
 <h2><span class="caption-index-2">14.4</span><a name="caption-14-4"></a>diff.edit@line Class</h2>
 <p>
 The <code>diff.edit@line</code> provides information about an edit operation.
