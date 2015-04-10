@@ -107,11 +107,11 @@ BuilderBase = class {
 			return(this)
 		}
 		if (this.command == `install) {
-			this.doInstall(target, true)
+			this.doInstall(this.outDir, target, true)
 			return(this)
 		}
 		if (this.command == `install_root) {
-			this.doInstall(target, false)
+			this.doInstall(this.outDir, target, false)
 			return(this)
 		}
 		if (this.command == `guest) {
@@ -133,8 +133,12 @@ BuilderBase = class {
 		}
 		objs = this.makeObjName(srcs)
 		!this.doLink(target, objs) && this.printHint() && return(this)
-		(this.command == `build_install) && this.doInstall(target, true)
-		(this.command == `build_install_root) && this.doInstall(target, false)
+		if (this.command == `build_install) {
+			this.doInstall(this.outDir, target, true)
+		}
+		if (this.command == `build_install_root) {
+			this.doInstall(this.outDir, target, false)
+		}
 		this
 	}
 	execute(pathname:string, args*:string) = {
@@ -161,21 +165,23 @@ BuilderBase = class {
 		}
 		true
 	}
-	doInstall(target:string, siteFlag:boolean) = {
+	doInstall(dirNameSrc:string, fileName:string, siteFlag:boolean) = {
+		pathNameSrc = path.join(dirNameSrc, fileName)
+		!path.exists(pathNameSrc) && return
 		if (siteFlag) {
-			targetPath = path.join(this.modDir, 'site', target)
+			pathNameDst = path.join(this.modDir, 'site', fileName)
 		} else {
-			targetPath = path.join(this.modDir, target)
+			pathNameDst = path.join(this.modDir, fileName)
 		}
-		dirName = path.dirname(targetPath)
-		!path.exists(dirName) && fs.mkdir(dirName):tree
+		dirNameDst = path.dirname(pathNameDst)
+		!path.exists(dirNameDst) && fs.mkdir(dirNameDst):tree
 		try {
-			stream.copy(path.join(this.outDir, target), targetPath):finalize
+			stream.copy(pathNameSrc, pathNameDst):finalize
 		} catch {
-			println('-- failed to install: ', targetPath)
+			println('-- failed to install: ', pathNameDst)
 			return
 		}
-		println('-- installed: ', targetPath)
+		println('-- installed: ', pathNameDst)
 	}
 	printHelp(p:argopt.Parser) = {
 		sys.stderr.printf('usage: %s [options] command\n', path.filename(sys.argv[0]))
