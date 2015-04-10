@@ -4,10 +4,12 @@ import(argopt)
 ModuleInfo = struct(moduleName:string, action:symbol, platforms[]:symbol)
 moduleInfos = @(ModuleInfo) {
 	['base64',			`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
+	['basement',		`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['bmp',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['bzip2',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['cairo',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['canvas',			`build,	[`mswin,															]]
+	['codecs',			`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['codecs_basic',	`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['codecs_iso8859',	`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['codecs_japanese',	`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
@@ -45,11 +47,11 @@ moduleInfos = @(ModuleInfo) {
 	['sdl',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['sdl2',			`build,	[`mswin,	`darwin,	`ubuntu										]]
 	['sqlite3',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['sys',				`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['tar',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['tcl',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['tester',			`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// just for test
 	['tiff',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
-	['time',			`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['uuid',			`build,	[`mswin,	`darwin,												]]
 	['wav',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['wx',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
@@ -137,13 +139,16 @@ argopt.Parser {|p|
 	}
 }
 moduleNamesExcept = cfg['exclude'].split(',')
-moduleNames = moduleInfos.filter(moduleInfos:*action == `build && \
-		moduleInfos:*platforms:*contains(platform))::moduleName
+//moduleNames = moduleInfos.filter(moduleInfos:*action == `build && \
+//		moduleInfos:*platforms:*contains(platform))::moduleName
 dirNamePre = path.dirname(sys.argv[0])
 moduleNamesError = []
 debFilesDevel = []
 rpmFilesDevel = []
-for (moduleName in moduleNames) {
+//for (moduleName in moduleNames) {
+moduleInfos.each {|moduleInfo|
+	moduleName = moduleInfo.moduleName
+	actualFlag = (moduleInfo.action == `build && moduleInfo.platforms.contains(platform))
 	if (moduleName in moduleNamesExcept) {
 		printf('[%s]', moduleName)
 		printf(' .. skipped\n')
@@ -155,18 +160,34 @@ for (moduleName in moduleNames) {
 	}
 	argvOrg = sys.argv
 	sys.argv = ['build.gura']
-	if (command == `build) {
-		// nothing to do
-	} elsif (command == `clean) {
-		sys.argv.append('clean')
-	} elsif (command == `install) {
-		sys.argv.append('install-root')
-	} elsif (command == `build_install) {
-		sys.argv.append('build-install-root')
-	} elsif (command == `setup_guest) {
-		sys.argv.append('guest')
+	if (actualFlag) {
+		if (command == `build) {
+			// nothing to do
+		} elsif (command == `clean) {
+			sys.argv.append('clean')
+		} elsif (command == `install) {
+			sys.argv.append('install-root')
+		} elsif (command == `build_install) {
+			sys.argv.append('build-install-root')
+		} elsif (command == `setup_guest) {
+			sys.argv.append('guest')
+		} else {
+			// nothing to do
+		}
 	} else {
-		// nothing to do
+		if (command == `build) {
+			continue
+		} elsif (command == `clean) {
+			continue
+		} elsif (command == `install) {
+			sys.argv.append('install-root')
+		} elsif (command == `build_install) {
+			sys.argv.append('install-root')
+		} elsif (command == `setup_guest) {
+			continue
+		} else {
+			continue
+		}
 	}
 	cfg['verbose'] && sys.argv.append('--verbose')
 	cfg['debug'] && sys.argv.append('--debug')

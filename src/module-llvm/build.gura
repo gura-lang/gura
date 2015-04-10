@@ -1,6 +1,9 @@
 #!/usr/bin/env gura
-import(modbuild) {build, guestDir}
+import(modbuild)
+builder = modbuild.Builder()
+builder.build('llvm', ['module-llvm.cpp'])
 
+/*
 dirLLVM = path.join(guestDir, 'llvm-2.8')
 hintLLVM = '''\
 It seems necessary libraries have not been installed on your system.
@@ -79,3 +82,4 @@ successFlag && build('llvm', ['module-llvm.cpp']) {
 		`hint => hintLLVM
 	}
 }
+*/
