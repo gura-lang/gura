@@ -1,6 +1,9 @@
 #!/usr/bin/env gura
 import(markdown)
 
+dirNameOut = 'result'
+!path.exists(dirNameOut) && fs.mkdir(dirNameOut)
+
 baseNames = [
 	'basement'
 	'base64'
@@ -135,209 +138,70 @@ moduleNames.each {|moduleName|
 	import(&moduleName).write(doc)
 }
 
-header = R'''
-<html>
-<head>
-<meta charset="utf-8">
-<title>Gura Library Reference</title>
-<link rel="stylesheet" href="styles.css">
-</head>
-<body class="wrapper">
-<div class="title">Gura Library Reference</div>
-<div class="copyright">Copyright &copy; 2011-2015 ypsitau (<a href="ypsitau@nifty.com">ypsitau@nifty.com</a>)</div>
-<div class="official-site">Official Site: <a href="http://www.gura-lang.org/">http://www.gura-lang.org/</a></div>
-<hr />
-'''
-footer = R'''
-</body>
-</html>
+headerForIndex = R'''
+---
+layout: page
+lang: en
+title: Gura Library Reference
+---
+
+<h1>Gura Library Reference</h1>
+
 '''
 
-RendererCustom = class {
-	__init__() = {
-		this.out = nil
-		this.indices = dim(6) {0}
-		this.captionIndex = true
+footerForIndex = R'''
+<p />
+'''
+
+headerForPage = R'''
+---
+layout: page
+lang: en
+title: Gura Library Reference
+---
+
+'''
+
+footerForPage = R'''
+<p />
+'''
+
+Renderer@html = class(markdown.Renderer@html) {
+	__init__() = {|sys.stdout, true|
 	}
-	Render(doc:markdown.document):void = {
-		this.RenderItem(doc.root)
-		this.out = nil
-	}
-	RenderItem(item:markdown.item):map:void = {
+	OnRenderItemPre(item:item) = {
 		if (item.type == `h1) {
-			this.out = open(format('chapter-%s.html', this.indices[0] + 1), 'w')
+			fileName = path.join(dirNameOut, 'chapter-%d.md' % (this.indices[0] + 1))
+			println('rendering ', fileName)
+			this.out = open(fileName, 'w')
+			this.out.print(headerForPage)
 		}
+		true
+	}
+	OnRenderItemPost(item:item):void = {
 		if (item.type == `root) {
-			this.RenderItem(item.children)
-		} elsif (item.type == `h1) {
-			this.out.print('<h1>')
-			if (this.captionIndex) {
-				this.indices[0] += 1
-				this.indices[1..5] = 0
-				this.out.printf('<span class="caption-index-1">%d</span>',
-								this.indices[0])
-			}
-			this.out.printf('<a name="%s">', markdown.MakeCaptionId([this.indices[0]]))
-			this.out.print('</a>')
-			this.RenderItem(item.children)
-			this.out.print('</h1>\n')
-		} elsif (item.type == `h2) {
-			this.out.print('<h2>')
-			if (this.captionIndex) {
-				this.indices[1] += 1
-				this.indices[2..5] = 0
-				this.out.printf('<span class="caption-index-2">%d.%d</span>',
-								this.indices[0..1]*)
-			}
-			this.out.printf('<a name="%s">', markdown.MakeCaptionId(this.indices[0..1]))
-			this.out.print('</a>')
-			this.RenderItem(item.children)
-			this.out.print('</h2>\n')
-		} elsif (item.type == `h3) {
-			this.out.print('<h3>')
-			if (this.captionIndex) {
-				this.indices[2] += 1
-				this.indices[3..5] = 0
-				this.out.printf('<span class="caption-index-3">%d.%d.%d</span>',
-								this.indices[0..2]*)
-			}
-			this.out.printf('<a name="%s">', markdown.MakeCaptionId(this.indices[0..2]))
-			this.out.print('</a>')
-			this.RenderItem(item.children)
-			this.out.print('</h3>\n')
-		} elsif (item.type == `h4) {
-			this.out.print('<h4>')
-			if (this.captionIndex) {
-				this.indices[3] += 1
-				this.indices[4..5] = 0
-				this.out.printf('<span class="caption-index-4">%d.%d.%d.%d</span>',
-								this.indices[0..3]*)
-			}
-			this.out.printf('<a name="%s">', markdown.MakeCaptionId(this.indices[0..3]))
-			this.out.print('</a>')
-			this.RenderItem(item.children)
-			this.out.print('</h4>\n')
-		} elsif (item.type == `h5) {
-			this.out.print('<h5>')
-			if (this.captionIndex) {
-				this.indices[4] += 1
-				this.indices[5] = 0
-				this.out.printf('<span class="caption-index-5">%d.%d.%d.%d.%d</span>',
-								this.indices[0..4]*)
-			}
-			this.out.printf('<a name="%s">', markdown.MakeCaptionId(this.indices[0..4]))
-			this.out.print('</a>')
-			this.RenderItem(item.children)
-			this.out.print('</h5>\n')
-		} elsif (item.type == `h6) {
-			this.out.print('<h6>')
-			if (this.captionIndex) {
-				this.indices[5] += 1
-				this.out.printf('<span class="caption-index-6">%d.%d.%d.%d.%d.%d</span>',
-								this.indices[0..5]*)
-			}
-			this.out.printf('<a name="%s">', markdown.MakeCaptionId(this.indices[0..5]))
-			this.out.print('</a>')
-			this.RenderItem(item.children)
-			this.out.print('</h6>\n')
-		} elsif (item.type == `p) {
-			this.out.print('<p>\n')
-			this.RenderItem(item.children)
-			this.out.println()
-			this.out.print('</p>\n')
-		} elsif (item.type == `blockquote) {
-			this.out.print('<blockquote>\n')
-			this.RenderItem(item.children)
-			this.out.println()
-			this.out.print('</blockquote>\n')
-		} elsif (item.type == `em) {
-			this.out.print('<em>')
-			this.RenderItem(item.children)
-			this.out.print('</em>')
-		} elsif (item.type == `strong) {
-			this.out.print('<strong>')
-			this.RenderItem(item.children)
-			this.out.print('</strong>')
-		} elsif (item.type == `codeblock) {
-			this.out.print('<pre><code>')
-			this.RenderItem(item.children)
-			this.out.print('</code></pre>\n')
-		} elsif (item.type == `ol) {
-			this.out.print('<ol>\n')
-			this.RenderItem(item.children)
-			this.out.print('</ol>\n')
-		} elsif (item.type == `ul) {
-			this.out.print('<ul>\n')
-			this.RenderItem(item.children)
-			this.out.print('</ul>\n')
-		} elsif (item.type == `li) {
-			this.out.print('<li>')
-			this.RenderItem(item.children)
-			this.out.print('</li>\n')
-		} elsif (item.type == `line) {
-			this.RenderItem(item.children)
-			this.out.print('\n')
-		} elsif (item.type == `a) {
-			this.out.print('<a')
-			item.url && this.out.print(' href="', item.url.encodeuri(), '"')
-			item.title && this.out.print(' title="', item.title.escapehtml(), '"')
-			this.out.print('>')
-			this.RenderItem(item.children)
-			this.out.print('</a>')
-		} elsif (item.type == `img) {
-			this.out.print('<img')
-			item.url && this.out.print(' src="', item.url.encodeuri(), '"')
-			item.text && this.out.print(' alt="', item.text.escapehtml(), '"')
-			item.title && this.out.print(' title="', item.title.escapehtml(), '"')
-			this.out.print('>')
-		} elsif (item.type == `text) {
-			this.out.print(item.text.escapehtml())
-		} elsif (item.type == `code) {
-			this.out.print('<code>')
-			this.out.print(item.text.escapehtml())
-			this.out.print('</code>')
-		} elsif (item.type == `entity) {
-			this.out.print('&', item.text.escapehtml(), ';')
-		} elsif (item.type == `tag) {
-			this.out.print('<')
-			this.out.print(item.text)
-			item.attrs && this.out.print(' ', item.attrs)
-			if (item.children) {
-				this.out.println('>')
-				item.children && this.RenderItem(item.children)
-				this.out.print('</')
-				this.out.print(item.text)
-				this.out.println('>')
-			} else {
-				this.out.println(' />')
-			}
-		} elsif (item.type == `hr) {
-			this.out.print('<hr />\n')
-		} elsif (item.type == `br) {
-			this.out.print('<br />\n')
+			this.out = nil
 		}
 	}
 }
 
-fileName = 'gura-lib-e.html'
+fileName = path.join(dirNameOut, 'index.md')
+println('rendering ', fileName)
 open(fileName, 'w') {|out|
-	println('rendering TOC ..')
-	out.print(header)
+	out.print(headerForIndex)
 	out.println('<h1>Table of Contents</h1>')
-	doc.render@toc {|level:number, indices[]:number, captionId:string, text:string|
+	doc.render@toc {|level:number, indices[]:number, anchorName:string, text:string|
 		if (level == 0) {
 			out.printf(
-					'<div><span class="toc-index-1">%d</span><a href="#%s">%s</a>\</div>\n',
-					indices[0], captionId, text)
+					'<div><span class="toc-index-1">%d</span><a href="chapter-%d.html#%s">%s</a>\</div>\n',
+					indices[0], indices[0], anchorName, text)
 		} elsif (level == 1 && indices[0] in [4, 6]) {
 			out.printf(
-					'<div><span class="toc-index-2">%d.%d</span><a href="#%s">%s</a>\</div>\n',
-					indices[0], indices[1], captionId, text)
+					'<div><span class="toc-index-2">%d.%d</span><a href="chapter-%d.html#%s">%s</a>\</div>\n',
+					indices[0], indices[1], indices[0], anchorName, text)
 		}
 	}
 	out.println('<hr />')
-	println('rendering document body ..')
-	markdown.Renderer@html(out, true).Render(doc)
-	out.print(footer)
+	out.print(footerForIndex)
 }
-println(fileName, ' was created.')
+Renderer@html().Render(doc)

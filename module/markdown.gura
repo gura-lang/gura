@@ -2,7 +2,7 @@
 import(conio)
 import(markdown):binary:mixin_type {*}
 
-MakeCaptionId(indices[]:number) = 'caption-' + format('%d', indices).join('-')
+MakeAnchorNameDef(indices[]:number) = 'anchor-' + format('%d', indices).join('-')
 
 Renderer@html = class {
 	__init__(out:stream:w, captionIndex:boolean) = {
@@ -14,6 +14,7 @@ Renderer@html = class {
 		this.RenderItem(doc.root)
 	}
 	RenderItem(item:item):map:void = {
+		!this.OnRenderItemPre(item) && return
 		if (item.type == `root) {
 			this.RenderItem(item.children)
 		} elsif (item.type == `h1) {
@@ -24,7 +25,7 @@ Renderer@html = class {
 				this.out.printf('<span class="caption-index-1">%d</span>',
 								this.indices[0])
 			}
-			this.out.printf('<a name="%s">', MakeCaptionId([this.indices[0]]))
+			this.out.printf('<a name="%s">', this.MakeAnchorName([this.indices[0]]))
 			this.out.print('</a>')
 			this.RenderItem(item.children)
 			this.out.print('</h1>\n')
@@ -36,7 +37,7 @@ Renderer@html = class {
 				this.out.printf('<span class="caption-index-2">%d.%d</span>',
 								this.indices[0..1]*)
 			}
-			this.out.printf('<a name="%s">', MakeCaptionId(this.indices[0..1]))
+			this.out.printf('<a name="%s">', this.MakeAnchorName(this.indices[0..1]))
 			this.out.print('</a>')
 			this.RenderItem(item.children)
 			this.out.print('</h2>\n')
@@ -48,7 +49,7 @@ Renderer@html = class {
 				this.out.printf('<span class="caption-index-3">%d.%d.%d</span>',
 								this.indices[0..2]*)
 			}
-			this.out.printf('<a name="%s">', MakeCaptionId(this.indices[0..2]))
+			this.out.printf('<a name="%s">', this.MakeAnchorName(this.indices[0..2]))
 			this.out.print('</a>')
 			this.RenderItem(item.children)
 			this.out.print('</h3>\n')
@@ -60,7 +61,7 @@ Renderer@html = class {
 				this.out.printf('<span class="caption-index-4">%d.%d.%d.%d</span>',
 								this.indices[0..3]*)
 			}
-			this.out.printf('<a name="%s">', MakeCaptionId(this.indices[0..3]))
+			this.out.printf('<a name="%s">', this.MakeAnchorName(this.indices[0..3]))
 			this.out.print('</a>')
 			this.RenderItem(item.children)
 			this.out.print('</h4>\n')
@@ -72,7 +73,7 @@ Renderer@html = class {
 				this.out.printf('<span class="caption-index-5">%d.%d.%d.%d.%d</span>',
 								this.indices[0..4]*)
 			}
-			this.out.printf('<a name="%s">', MakeCaptionId(this.indices[0..4]))
+			this.out.printf('<a name="%s">', this.MakeAnchorName(this.indices[0..4]))
 			this.out.print('</a>')
 			this.RenderItem(item.children)
 			this.out.print('</h5>\n')
@@ -83,7 +84,7 @@ Renderer@html = class {
 				this.out.printf('<span class="caption-index-6">%d.%d.%d.%d.%d.%d</span>',
 								this.indices[0..5]*)
 			}
-			this.out.printf('<a name="%s">', MakeCaptionId(this.indices[0..5]))
+			this.out.printf('<a name="%s">', this.MakeAnchorName(this.indices[0..5]))
 			this.out.print('</a>')
 			this.RenderItem(item.children)
 			this.out.print('</h6>\n')
@@ -163,7 +164,11 @@ Renderer@html = class {
 		} elsif (item.type == `br) {
 			this.out.print('<br />\n')
 		}
+		this.OnRenderItemPost(item)
 	}
+	MakeAnchorName(indices[]:number) = MakeAnchorNameDef(indices)
+	OnRenderItemPre(item:item) = true
+	OnRenderItemPost(item:item):void = nil
 }
 
 Renderer@rtf = class {
@@ -515,41 +520,41 @@ Renderer@toc = class {
 			this.indices[1..5] = 0
 			this.text = ''
 			this.RenderItem(item.children)
-			this.handler(0, this.indices, MakeCaptionId([this.indices[0]]), this.text)
+			this.handler(0, this.indices, this.MakeAnchorName([this.indices[0]]), this.text)
 			this.text = nil
 		} elsif (item.type == `h2) {
 			this.indices[1] += 1
 			this.indices[2..5] = 0
 			this.text = ''
 			this.RenderItem(item.children)
-			this.handler(1, this.indices, MakeCaptionId(this.indices[0..1]), this.text)
+			this.handler(1, this.indices, this.MakeAnchorName(this.indices[0..1]), this.text)
 			this.text = nil
 		} elsif (item.type == `h3) {
 			this.indices[2] += 1
 			this.indices[3..5] = 0
 			this.text = ''
 			this.RenderItem(item.children)
-			this.handler(2, this.indices, MakeCaptionId(this.indices[0..2]), this.text)
+			this.handler(2, this.indices, this.MakeAnchorName(this.indices[0..2]), this.text)
 			this.text = nil
 		} elsif (item.type == `h4) {
 			this.indices[3] += 1
 			this.indices[4..5] = 0
 			this.text = ''
 			this.RenderItem(item.children)
-			this.handler(3, this.indices, MakeCaptionId(this.indices[0..3]), this.text)
+			this.handler(3, this.indices, this.MakeAnchorName(this.indices[0..3]), this.text)
 			this.text = nil
 		} elsif (item.type == `h5) {
 			this.indices[4] += 1
 			this.indices[5] = 0
 			this.text = ''
 			this.RenderItem(item.children)
-			this.handler(4, this.indices, MakeCaptionId(this.indices[0..4]), this.text)
+			this.handler(4, this.indices, this.MakeAnchorName(this.indices[0..4]), this.text)
 			this.text = nil
 		} elsif (item.type == `h6) {
 			this.indices[5] += 1
 			this.text = ''
 			this.RenderItem(item.children)
-			this.handler(5, this.indices, MakeCaptionId(this.indices[0..5]), this.text)
+			this.handler(5, this.indices, this.MakeAnchorName(this.indices[0..5]), this.text)
 			this.text = nil
 		} elsif (item.type == `p) {
 			// nothing to do
@@ -591,6 +596,7 @@ Renderer@toc = class {
 			// nothing to do
 		}
 	}
+	MakeAnchorName(indices[]:number) = MakeAnchorNameDef(indices)
 }
 
 _funcdoc(func:function, fullname:string, fmt:string):map = {
