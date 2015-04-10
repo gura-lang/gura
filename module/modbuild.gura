@@ -102,16 +102,19 @@ BuilderBase = class {
 		if (!target.endswith('.gurd')) {
 			target = target + '.gurd'
 		}
+		fileNameDoc = target.replace('.gurd', '.doc.gura')
 		if (this.command == `clean) {
 			this.doClean(target)
 			return(this)
 		}
 		if (this.command == `install) {
 			this.doInstall(this.outDir, target, true)
+			this.doInstall('.', fileNameDoc, true)
 			return(this)
 		}
 		if (this.command == `install_root) {
 			this.doInstall(this.outDir, target, false)
+			this.doInstall('.', fileNameDoc, false)
 			return(this)
 		}
 		if (this.command == `guest) {
@@ -135,9 +138,11 @@ BuilderBase = class {
 		!this.doLink(target, objs) && this.printHint() && return(this)
 		if (this.command == `build_install) {
 			this.doInstall(this.outDir, target, true)
+			this.doInstall('.', fileNameDoc, true)
 		}
 		if (this.command == `build_install_root) {
 			this.doInstall(this.outDir, target, false)
+			this.doInstall('.', fileNameDoc, false)
 		}
 		this
 	}
