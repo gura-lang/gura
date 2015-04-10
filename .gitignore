@@ -34,6 +34,7 @@
 /gura-app
 /gura-doc
 /gura-guest
+/module/makedoc@*.gura
 msc/
 gnuc/
 Release/
