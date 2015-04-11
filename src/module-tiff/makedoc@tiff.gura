@@ -46,11 +46,11 @@ This module uses libtiff which is distributed in the following site:
 [http://www.libtiff.org/](http://www.libtiff.org/)
 '''.template().render()
 
-write(doc:markdown.document) = {
+write(doc:markdown.document, lang:symbol) = {
 	doc << text
 	doc
 }
 
 if (__name__ == '__main__') {
-	write(markdown.document()).render@html(sys.stdout)
+	write(markdown.document(), `en).render@html(sys.stdout)
 }

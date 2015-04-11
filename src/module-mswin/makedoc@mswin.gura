@@ -34,11 +34,11 @@ mswin.regkey.enumvalue
 )}
 '''.template().render()
 
-write(doc:markdown.document) = {
+write(doc:markdown.document, lang:symbol) = {
 	doc << text
 	doc
 }
 
 if (__name__ == '__main__') {
-	write(markdown.document()).render@html(sys.stdout)
+	write(markdown.document(), `en).render@html(sys.stdout)
 }
