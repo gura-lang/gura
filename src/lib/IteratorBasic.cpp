@@ -938,14 +938,6 @@ bool Iterator_Skip::DoNext(Environment &env, Signal sig, Value &value)
 		}
 	}
 	return _pIterator->Next(env, sig, value);
-#if 0
-	bool flag = _pIterator->Next(env, sig, value);
-	for (int i = 0; i < _nSkip; i++) {
-		Value valueTmp;
-		if (!_pIterator->Next(env, sig, valueTmp)) break;
-	}
-	return flag;
-#endif
 }
 
 String Iterator_Skip::ToString() const
