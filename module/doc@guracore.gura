@@ -1593,6 +1593,11 @@ that takes a `stream` instance in its argument as below:
 ${markdown.funcdoc(
 open
 stream
+)}
+
+### Utility Function
+
+${markdown.funcdoc(
 readlines
 )}
 

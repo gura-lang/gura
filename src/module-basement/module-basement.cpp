@@ -70,7 +70,7 @@ Gura_DeclareFunction(printf)
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Prints out `values` to standard output depending on formatter specifiers in `format`.\n"
+		"Prints out `values` to standard output according to formatter specifiers in `format`.\n"
 		"The format specifier has a format of `%[flags][width][.precision]specifier`.\n"
 		"\n"
 		"The `specifier` takes one of the following characters:\n"
@@ -145,7 +145,7 @@ Gura_DeclareFunction(println)
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Prints out `values` and a line-break to the standard output.\n");
+		"Prints out `values` and an end-of-line character to the standard output.\n");
 }
 
 Gura_ImplementFunction(println)

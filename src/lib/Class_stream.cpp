@@ -88,7 +88,21 @@ Gura_DeclareFunction(stream)
 	}
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `stream` instance from the specified `pathname`.\n"
+		"\n"
+		"The argument `mode` takes one of the strings that specifies what access\n"
+		"should be allowed with the stream.\n"
+		"If omitted, the stream would be opened with read mode.\n"
+		"\n"
+		"- `'r'` .. read\n"
+		"- `'w'` .. write\n"
+		"- `'a'` .. append\n"
+		"\n"
+		"The argument `codec` specifies a name of the character codec that converts\n"
+		"between the stream's character code and UTF-8, which is a code\n"
+		"used in the iterpreter's internal process.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("s", "stream"));
 }
 
 Gura_ImplementFunction(stream)
@@ -128,7 +142,12 @@ Gura_DeclareFunction(readlines)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that reads text from the specified stream line by line.\n"
+		"\n"
+		"If attribute `:chop` is specified, it eliminates an end-of-line character that\n"
+		"appears at the end of each line.\n"
+		"\n"
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementFunction(readlines)
@@ -465,7 +484,7 @@ Gura_DeclareMethod(stream, print)
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Prints out `values` to the `stream` instance.\n");
 }
 
 Gura_ImplementMethod(stream, print)
@@ -489,7 +508,9 @@ Gura_DeclareMethod(stream, printf)
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Prints out `values` to the `stream` instance according to formatter specifiers in `format`.\n"
+		"\n"
+		"Refer to the help of `printf()` function to see information about formatter specifiers.\n");
 }
 
 Gura_ImplementMethod(stream, printf)
@@ -507,7 +528,7 @@ Gura_DeclareMethod(stream, println)
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Prints out `values` and an end-of-line character to the `stream` instance.\n");
 }
 
 Gura_ImplementMethod(stream, println)
@@ -628,7 +649,15 @@ Gura_DeclareMethod(stream, readlines)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that reads text from the specified stream line by line.\n"
+		"\n"
+		"The argument `nlines` specifies how many lines should be read from the stream.\n"
+		"If omitted, it would read all the lines.\n"
+		"\n"
+		"If attribute `:chop` is specified, it eliminates an end-of-line character that\n"
+		"appears at the end of each line.\n"
+		"\n"
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(stream, readlines)
