@@ -2,7 +2,7 @@
 import(modbuild)
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	postgresqlDir = path.join(modbuild.guestDir, 'postgresql-8.4.4-1-windows-binaries')
+	postgresqlDir = path.join(builder.guestDir, 'postgresql-8.4.4-1-windows-binaries')
 	builder.incDirs.append(path.join(postgresqlDir, 'pgsql', 'include'))
 	builder.dlls.append(path.join(postgresqlDir, 'pgsql', 'lib', 'libpq.dll'))
 } elsif (sys.platform == `linux) {
