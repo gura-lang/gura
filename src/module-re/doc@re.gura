@@ -9,7 +9,7 @@ funcdoc_iterable(funcs+:function) = {
 			function.getformat(funcs):*replace('iterator#', 'iterable#'))
 }
 
-write(doc:markdown.document, lang:symbol) = doc << R'''
+text = R'''
 # re Module
 
 The `re` module provides measures to operate strings with a regular expression.
@@ -239,6 +239,8 @@ This module uses Oniguruma library which is distributed in the following site:
 
 [http://www.geocities.jp/kosako3/oniguruma/index.html](http://www.geocities.jp/kosako3/oniguruma/index.html)
 '''.template().render()
+
+write(doc:markdown.document, lang:symbol) = doc << text
 
 if (__name__ == '__main__') {
 	write(markdown.document(), `en).render@html(sys.stdout)
