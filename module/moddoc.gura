@@ -8,8 +8,9 @@ import(markdown)
 
 funcdoc = markdown.funcdoc
 
-register(mod:environment) {`block} = {
-	d = dict {|block|}
+suffixmgr(`string).assign(`moddoc) {|str| str.template().render()}
+
+register(mod:environment, d:dict) = {
 	mod.write(doc:markdown.document, lang:symbol) = {
 		doc << d.get(lang, d[d.keys().next()])
 	}
@@ -17,8 +18,8 @@ register(mod:environment) {`block} = {
 		mod.write(markdown.document(), `en).render@html(sys.stdout)
 	}
 } % {`en, 'markdown', R'''
-Registers a list of documents that appear in the block as dictionary pairs
-of a language symbol and a document text described in Markdown format.
+Registers a dictionary of document texts written in Markdown format
+that are associated with language symbols as their keys.
 
 The argument `mod` takes an `environment` instance referring to the module
 envioronemnt in which the documents are provided.
@@ -29,11 +30,11 @@ Below is an example to call this function:
     text@en = '..'
     text@ja = '..'
     text@fr = '..'
-    register(locals()) {
+    register(locals(), %{
         `en => text@en
         `ja => text@ja
         `fr => text@fr
-    }
+	})
 
 It creates a module function that has the following format:
 

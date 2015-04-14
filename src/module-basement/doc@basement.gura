@@ -1,12 +1,12 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 
-text = R'''
+text@en = R'''
 # Built-in Functions
 
 ## Formatting and Printing of Text
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 format
 print
 printf
@@ -15,7 +15,7 @@ println
 
 ## Repetition
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 cross
 for
 repeat
@@ -24,7 +24,7 @@ while
 
 ## Value Generator
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 consts
 dim
 interval
@@ -33,7 +33,7 @@ range
 
 ## Flow Control
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 break
 continue
 return
@@ -41,7 +41,7 @@ return
 
 ## Branch Sequence
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 if
 elsif
 else
@@ -53,7 +53,7 @@ default
 
 ## Exception Handling
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 try
 catch
 finally
@@ -62,7 +62,7 @@ raise
 
 ## Data Converter
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 chr
 hex
 int
@@ -74,7 +74,7 @@ tosymbol
 
 ## Class Operations
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 class
 classref
 struct
@@ -83,7 +83,7 @@ super
 
 ## Scope Operations
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 //extern
 local
 locals
@@ -94,14 +94,14 @@ scope
 
 ## Module Operations
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 import
 module
 )}
 
 ## Value Type Information
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 isbinary
 isboolean
 isclass
@@ -133,7 +133,7 @@ undef
 
 ## Data Processing
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 choose
 cond
 conds
@@ -143,7 +143,7 @@ min
 
 ## Random
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 rand
 rands
 randseed
@@ -151,17 +151,10 @@ randseed
 
 ## Property Listing
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 dir
 dirtype
 )}
-'''.template().render()
+'''moddoc
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})
