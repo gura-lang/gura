@@ -24,6 +24,6 @@ stream.reader@base64
 stream.writer@base64
 )}
 
-'''moddoc
+'''.template().render()
 
 moddoc.register(locals(), %{`en => text@en})

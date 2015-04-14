@@ -1,8 +1,8 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 import(hash)
 
-text = R'''
+text@en = R'''
 # hash Module
 
 The `hash` module provides measures to calculate hash values of a data sequence in a stream.
@@ -36,7 +36,7 @@ This field is valid only for CRC32 and returns `nil` for other hashes.</td></tr>
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 hash.md5
 hash.sha1
 hash.crc32
@@ -44,17 +44,10 @@ hash.crc32
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 hash.accumulator.init
 hash.accumulator.update
 )}
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})

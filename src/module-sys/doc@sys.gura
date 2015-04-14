@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 
-text = R'''
+text@en = R'''
 # sys Module
 
 The `sys` module provides system-related information.
@@ -31,18 +31,11 @@ This is a built-in module, so you can use it without being imported.
 
 ## Module Function
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 sys.echo
 sys.exit
 sys.required_version
 )}
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})

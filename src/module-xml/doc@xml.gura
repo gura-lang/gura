@@ -1,13 +1,13 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 import(xml)
 
-text = R'''
+text@en = R'''
 # xml Module
 
 ## Module Function
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 xml.comment
 )}
 
@@ -17,13 +17,13 @@ xml.comment
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 xml.document
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 xml.document.parse
 xml.document.read
 xml.document.textize
@@ -34,13 +34,13 @@ xml.document.write
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 xml.element
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 xml.element.addchild
 xml.element.gettext
 xml.element.textize
@@ -51,13 +51,13 @@ xml.element.write
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 xml.parser
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 xml.parser.parse
 )}
 
@@ -69,11 +69,4 @@ This module uses expat library which is distributed in the following site:
 [http://expat.sourceforge.net/](http://expat.sourceforge.net/)
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})

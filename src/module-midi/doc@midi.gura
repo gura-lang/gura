@@ -1,8 +1,8 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 import(midi)
 
-text = R'''
+text@en = R'''
 # midi Module
 
 The `midi` module provides measures to read/write MIDI files.
@@ -14,7 +14,7 @@ To utilize it, import the `midi` module using `import` function.
 
 ## midi.track Class
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 midi.track.seek
 midi.track.tell
 midi.track.erase
@@ -45,7 +45,7 @@ midi.track.sequencer_specific_event
 
 ## midi.sequence Class
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 midi.sequence
 midi.sequence.read
 midi.sequence.write
@@ -58,7 +58,7 @@ midi.sequence.readmml
 
 ## midi.port Class
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 midi.port.send
 midi.port.play
 midi.port.mml
@@ -79,7 +79,7 @@ midi.port.pitch_bend
 
 ## midi.soundfont Class
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 midi.soundfont
 midi.soundfont.synthesizer,
 midi.soundfont.print
@@ -89,11 +89,4 @@ midi.soundfont.print
 
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})

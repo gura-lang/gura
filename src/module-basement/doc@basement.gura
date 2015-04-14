@@ -155,6 +155,6 @@ ${moddoc.funcdoc(
 dir
 dirtype
 )}
-'''moddoc
+'''.template().render()
 
 moddoc.register(locals(), %{`en => text@en})

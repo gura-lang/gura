@@ -1,8 +1,8 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 import(uuid)
 
-text = R'''
+text@en = R'''
 # uuid Module
 
 The `uuid` module provides functions to generate UUIDs.
@@ -10,16 +10,9 @@ To utilize it, import the `uuid` module using `import` function.
 
 ## Module Function
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 uuid.generate
 )}
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})

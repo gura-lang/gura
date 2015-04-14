@@ -1,8 +1,8 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 import(csv)
 
-text = R'''
+text@en = R'''
 # csv Module
 
 The `csv` module provices measures to read/write CSV files.
@@ -19,7 +19,7 @@ Below is an example to read a CSV file that contains three fields per line:
 
 ## Module Function
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 csv.parse
 csv.read
 )}
@@ -28,13 +28,13 @@ csv.read
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 csv.writer
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 csv.writer.write
 )}
 
@@ -42,17 +42,10 @@ csv.writer.write
 
 This module extends the `stream` class with methods described here.
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 stream.read@csv
 stream.writer@csv
 )}
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})

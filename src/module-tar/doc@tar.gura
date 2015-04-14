@@ -1,8 +1,8 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 import(tar)
 
-text = R'''
+text@en = R'''
 # tar Module
 
 The `tar` module provides measures to read/write TAR files.
@@ -12,13 +12,13 @@ To utilize it, import the `tar` module using `import` function.
 
 ### Function To Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 tar.reader
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 tar.reader.entries
 )}
 
@@ -26,13 +26,13 @@ tar.reader.entries
 
 ### Function To Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 tar.writer
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 tar.writer.add
 tar.writer.close
 )}
@@ -45,11 +45,4 @@ This module uses zlib and bzip2 library which are distributed in the following s
 - [http://www.bzip.org/](http://www.bzip.org/)
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})

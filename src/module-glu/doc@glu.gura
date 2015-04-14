@@ -1,15 +1,15 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 import(glu)
 
-text = R'''
+text@en = R'''
 # glu Module
 
 The `glu` module provides functions of GLU library.
 
 ## Module Functions
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 glu.gluBeginCurve
 glu.gluBeginPolygon
 glu.gluBeginSurface
@@ -68,11 +68,4 @@ glu.gluUnProject
 )}
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})

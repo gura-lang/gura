@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 
-text = R'''
+text@en = R'''
 # math Module
 
 The `math` module provices functions for mathematical calculation.
@@ -9,7 +9,7 @@ This is a built-in module, so you can use it without being imported.
 
 ## Module Functions
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 math.real
 math.imag
 math.arg
@@ -47,11 +47,4 @@ math.lcm
 )}
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})

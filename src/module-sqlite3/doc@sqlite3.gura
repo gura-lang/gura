@@ -1,8 +1,8 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 import(sqlite3)
 
-text = R'''
+text@en = R'''
 # sqlite3 Module
 
 The `sqlite3` module provices measures to access SQLite3 database.
@@ -12,7 +12,7 @@ To utilize it, import the `sqlite3` module using `import` function.
 
 ## sqlite3.db Class
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 sqlite3.db
 sqlite3.db.close
 sqlite3.db.exec
@@ -28,11 +28,4 @@ This module uses SQlite3 library which is distributed in the following site:
 [http://www.sqlite.org/index.html](http://www.sqlite.org/index.html)
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})

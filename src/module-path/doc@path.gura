@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 
-text = R'''
+text@en = R'''
 # path Module
 
 The `path` module provides functions related to path operations.
@@ -21,7 +21,7 @@ Below is an example to list path names that matches a wild card pattern "`*.txt`
 
 ## Module Function
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 path.absname
 path.basename
 path.bottom
@@ -42,11 +42,4 @@ path.walk
 )}
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})

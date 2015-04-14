@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 
-text = R'''
+text@en = R'''
 # markdown Module
 
 The `markdown` module provides measures to parse a text formatted in markdown syntax.
@@ -25,8 +25,8 @@ and then render its HTML text into a file.
 
 ## Module Functions
 
-${markdown.funcdoc(
-markdown.funcdoc
+${moddoc.funcdoc(
+moddoc.funcdoc
 markdown.setpresenter
 )}
 
@@ -57,13 +57,13 @@ and its children that are `markdown.item` instances.
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 markdown.document
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 markdown.document.parse
 markdown.document.read
 markdown.document.render@console
@@ -137,16 +137,9 @@ Below is a table of item type:
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 markdown.item.print
 )}
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})

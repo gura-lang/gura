@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 
-text = R'''
+text@en = R'''
 # wx Module
 
 The `wx` module provides functions and methods of wxWidgets library.
@@ -15,8 +15,4 @@ This module uses wxWidgets library which is distributed in the following site:
 [http://www.wxwidgets.org/](http://www.wxwidgets.org/)
 '''
 
-write(doc:markdown.document, lang:symbol) = doc << text
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})

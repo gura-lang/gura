@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 
-text = R'''
+text@en = R'''
 # fs Module
 
 The `fs` module provides measures to access and modify information in file systems.
@@ -9,7 +9,7 @@ This is a built-in module, so you can use it without being imported.
 
 ## Module Functions
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 fs.chdir
 fs.chmod
 fs.copy
@@ -22,11 +22,4 @@ fs.rmdir
 )}
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})

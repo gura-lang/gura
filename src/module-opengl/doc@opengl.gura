@@ -1,15 +1,15 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 import(opengl)
 
-text = R'''
+text@en = R'''
 # opengl Module
 
 The `opengl` module provides functions of OpenGL library.
 
 ## Module Functions
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 opengl.glAccum
 opengl.glAlphaFunc
 opengl.glAreTexturesResident
@@ -361,11 +361,4 @@ opengl.glUniformMatrix4x3fv
 )}
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})

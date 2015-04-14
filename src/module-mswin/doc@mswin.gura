@@ -1,27 +1,27 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 import(mswin)
 
-text = R'''
+text@en = R'''
 # mswin Module
 
 The `mswin` module provides methods that are related to Windows operating system.
 
 ## Module Functions
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 GetACP
 )}
 
 ## mswin.ole Class
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 mswin.ole
 )}
 
 ## mswin.regkey Class
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 mswin.regkey
 mswin.regkey.createkey
 mswin.regkey.openkey
@@ -34,11 +34,4 @@ mswin.regkey.enumvalue
 )}
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})

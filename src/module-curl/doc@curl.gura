@@ -1,8 +1,8 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 import(curl)
 
-text = R'''
+text@en = R'''
 # curl Module
 
 The `curl` module provices measures to access Internet resources using cURL library.
@@ -10,14 +10,14 @@ To utilize it, import the `curl` module using `import` function.
 
 ## Module Functions
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 curl.version
 curl.easy_init
 )}
 
 ## curl.easy\_handle Class
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 curl.easy_handle.escape
 curl.easy_handle.getinfo
 curl.easy_handle.perform
@@ -35,11 +35,4 @@ This module uses libcurl which is distributed in the following site:
 [http://curl.haxx.se/libcurl/](http://curl.haxx.se/libcurl/)
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})

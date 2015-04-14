@@ -1,8 +1,8 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 import(zip)
 
-text = R'''
+text@en = R'''
 # zip Module
 
 The `zip` module provides measures to read/write ZIP files.
@@ -28,13 +28,13 @@ Below is an exapmple to create a ZIP archive file:
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 zip.reader
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 zip.reader.entry
 zip.reader.entries
 )}
@@ -43,13 +43,13 @@ zip.reader.entries
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 zip.writer
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 zip.writer.add
 zip.writer.close
 )}
@@ -63,11 +63,4 @@ This module uses zlib and bzip2 library which are distributed in the following s
 - [http://www.bzip.org/](http://www.bzip.org/)
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})

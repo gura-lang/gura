@@ -1,8 +1,8 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 import(conio)
 
-text = R'''
+text@en = R'''
 # conio Module
 
 The `conio` module provides following measures to work on a console screen:
@@ -33,7 +33,7 @@ Below is an example to print a frame around a console:
 
 ## Module Function
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 conio.clear
 conio.getwinsize
 conio.setcolor
@@ -42,11 +42,4 @@ conio.waitkey
 )}
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})

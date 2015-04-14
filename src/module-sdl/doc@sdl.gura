@@ -1,8 +1,8 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 import(sdl)
 
-text = R'''
+text@en = R'''
 # sdl Module
 
 The `sdl` module provides functions of SDL library.
@@ -10,7 +10,7 @@ Official site of SDL is <http://www.libsdl.org/>.
 
 ## General
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 sdl.Init
 sdl.InitSubSystem
 sdl.QuitSubSystem
@@ -21,7 +21,7 @@ sdl.GetError
 
 ## Video
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 sdl.GetVideoSurface
 sdl.GetVideoInfo
 sdl.VideoDriverName
@@ -83,7 +83,7 @@ sdl.Overlay.DisplayYUVOverlay
 
 ## Window Management
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 sdl.WM_SetCaption
 sdl.WM_GetCaption
 sdl.WM_SetIcon
@@ -94,7 +94,7 @@ sdl.WM_GrabInput
 
 ## Events
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 sdl.PumpEvents
 sdl.AddEvents
 sdl.PeekEvents
@@ -119,7 +119,7 @@ sdl.JoystickEventState
 
 ## Joystick
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 sdl.NumJoysticks
 sdl.JoystickName
 sdl.JoystickOpen
@@ -139,7 +139,7 @@ sdl.Joystick.JoystickClose
 
 ## Audio
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 //sdl.AudioSpec
 sdl.OpenAudio
 sdl.PauseAudio
@@ -157,7 +157,7 @@ sdl.CloseAudio
 
 ## CD-ROM
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 sdl.CDNumDrives
 sdl.CDName
 sdl.CDOpen
@@ -174,7 +174,7 @@ sdl.CD.CDClose
 
 ## Time
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 sdl.GetTicks
 sdl.Delay
 sdl.AddTimer
@@ -189,11 +189,4 @@ This module uses SDL library which is distributed in the following site:
 [http://www.libsdl.org/](http://www.libsdl.org/)
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})

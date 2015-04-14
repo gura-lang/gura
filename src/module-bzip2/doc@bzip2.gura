@@ -1,8 +1,8 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 import(bzip2)
 
-text = R'''
+text@en = R'''
 # bzip2 Module
 
 The `bzip2` module provices measures to read/write BZIP2 files.
@@ -21,7 +21,7 @@ Below is an example to read data from a file and write its compressed data to a 
 
 ## Module Function
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 bzip2.reader
 bzip2.writer
 )}
@@ -31,7 +31,7 @@ bzip2.writer
 
 This module extends the `stream` class with methods described here.
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 stream.reader@bzip2
 stream.writer@bzip2
 )}
@@ -44,11 +44,4 @@ This module uses libbzip2 which is distributed in the following site:
 [http://www.bzip.org/](http://www.bzip.org/)
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})

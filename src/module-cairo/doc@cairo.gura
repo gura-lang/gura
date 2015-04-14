@@ -1,8 +1,8 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 import(cairo)
 
-text = R'''
+text@en = R'''
 # cairo Module
 
 The `cairo` module provides methods to draw 2-D graphics using Cairo library.
@@ -12,7 +12,7 @@ Official site of Cairo is <http://cairographics.org/>.
 
 ### cairo\_t - The cairo drawing context
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 cairo.context.status
 cairo.context.save
 cairo.context.restore
@@ -69,7 +69,7 @@ cairo.context.show_page
 
 ### Paths - Creating paths and manipulating path data
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 cairo.context.copy_path
 cairo.context.copy_path_flat
 cairo.context.append_path
@@ -94,7 +94,7 @@ cairo.context.path_extents
 
 ### cairo\_pattern\_t - Sources for drawing
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 cairo.pattern.add_color_stop_rgb
 cairo.pattern.add_color_stop_rgba
 cairo.pattern.get_color_stop_count
@@ -133,7 +133,7 @@ cairo.pattern.get_type
 
 ### Regions - Representing a pixel-aligned area
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 cairo.region.create
 cairo.region.create_rectangle
 cairo.region.create_rectangles
@@ -156,7 +156,7 @@ cairo.region.xor_rectangle
 
 ### Transformations - Manipulating the current transformation matrix
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 cairo.context.translate
 cairo.context.scale
 cairo.context.rotate
@@ -172,7 +172,7 @@ cairo.context.device_to_user_distance
 
 ### text - Rendering text and glyphs
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 cairo.context.select_font_face
 cairo.context.set_font_size
 cairo.context.set_font_matrix
@@ -196,7 +196,7 @@ cairo.toy_font_face.get_weight
 
 ### Raster Sources - Supplying arbitary image data
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 //cairo.raster_source_pattern.create
 //cairo.raster_source_pattern.set_callback_data
 //cairo.raster_source_pattern.get_callback_data
@@ -214,14 +214,14 @@ ${markdown.funcdoc(
 
 ### cairo\_font\_face\_t - Base class for font faces
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 //cairo.font_face.status
 //cairo.font_face.get_type
 )}
 
 ### cairo\_scaled\_font\_t - Font face at particular size and options
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 cairo.scaled_font.create
 //cairo.scaled_font.status
 //cairo.scaled_font.extents
@@ -289,8 +289,4 @@ This module uses Cairo library which is distributed in the following site:
 [http://cairographics.org/](http://cairographics.org/)
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = doc << text
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})

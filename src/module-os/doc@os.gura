@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
-import(markdown)
+import(moddoc)
 
-text = R'''
+text@en = R'''
 # os Module
 
 The `os` module provides functions that are specific to each OS environment.
@@ -9,7 +9,7 @@ This is a built-in module, so you can use it without being imported.
 
 ## Module Functions
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 os.clock
 os.exec
 os.fromnative
@@ -23,11 +23,4 @@ os.unsetenv
 )}
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document(), `en).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})
