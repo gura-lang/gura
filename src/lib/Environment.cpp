@@ -648,10 +648,11 @@ Module *Environment::ImportModule(Signal sig, SymbolList::const_iterator ppSymbo
 		if (pModule == NULL) return NULL;
 	}
 	if (pSymbolsToMixIn == NULL) {
-		// import(hoge)
 		if (!assignModuleNameFlag) {
+			// import(-foo)
 			// nothing to do
 		} else if (pSymbolAlias == NULL) {
+			// import(foo)
 			Environment *pEnvDst = this;
 			for (SymbolList::const_iterator ppSymbol = ppSymbolOfModule;
 								ppSymbol + 1 != ppSymbolOfModuleEnd; ppSymbol++) {
@@ -680,6 +681,7 @@ Module *Environment::ImportModule(Signal sig, SymbolList::const_iterator ppSymbo
 				return NULL;
 			}
 		} else {
+			// import(foo, bar)
 			Value valueOfModule(Module::Reference(pModule));
 			if (!ImportValue(pSymbolAlias, valueOfModule, EXTRA_Public, false)) {
 				sig.SetError(ERR_ImportError,
