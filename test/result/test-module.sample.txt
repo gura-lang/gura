@@ -14,3 +14,13 @@ string m1.m2
 string m1.m2.m3
 string m1.m2.m3.m4
 string m1.m2.m3.m4.m5
+
+======== #4 symbol confliction in hierarchical module ========
+
+[sub1]
+import(subsub.test)
+[sub2]
+import(subsub.test)
+
+Check if symbol confliction is mistakenly detected for 'test' in subsub module. 
+OK

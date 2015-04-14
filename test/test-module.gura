@@ -7,6 +7,7 @@ testcase {
 	import(example)
 	println(dir(example).join(', '))
 }
+
 testcase {
 	re = 3
 	try {
@@ -18,6 +19,7 @@ testcase {
 	import(re)
 	println('no error')
 }
+
 testcase {
 	import(m1.m2.m3.m4.m5)
 	println(m1.str)
@@ -25,4 +27,23 @@ testcase {
 	println(m1.m2.m3.str)
 	println(m1.m2.m3.m4.str)
 	println(m1.m2.m3.m4.m5.str)
+}
+
+testcase('symbol confliction in hierarchical module') {
+	print(R'''
+	[sub1]
+	import(subsub.test)
+	[sub2]
+	import(subsub.test)
+	
+	Check if symbol confliction is mistakenly detected for 'test' in subsub module. 
+	''')
+	successFlag = true
+	try {
+		import(sub1)
+		import(sub2)
+	} catch {
+		successFlag = false
+	}
+	println(cond(successFlag, 'OK', '*** NG ***'))
 }

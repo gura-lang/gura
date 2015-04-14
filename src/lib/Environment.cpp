@@ -673,12 +673,17 @@ Module *Environment::ImportModule(Signal sig, SymbolList::const_iterator ppSymbo
 					return NULL;
 				}
 			}
-			Value valueOfModule(Module::Reference(pModule));
-			if (!pEnvDst->ImportValue(pSymbolOfModule, valueOfModule, EXTRA_Public, false)) {
-				sig.SetError(ERR_ImportError,
-					"module symbol conflicts with an existing variable '%s'",
-					SymbolList::Join(ppSymbolOfModule, ppSymbolOfModuleEnd, '.').c_str());
-				return NULL;
+			Value *pValue = pEnvDst->LookupValue(pSymbolOfModule, ENVREF_NoEscalate);
+			if (pValue != NULL && pValue->IsModule() && pValue->GetModule() == pModule) {
+				// nothing to do
+			} else {
+				Value valueOfModule(Module::Reference(pModule));
+				if (!pEnvDst->ImportValue(pSymbolOfModule, valueOfModule, EXTRA_Public, false)) {
+					sig.SetError(ERR_ImportError,
+							 "module symbol conflicts with an existing variable '%s'",
+							 SymbolList::Join(ppSymbolOfModule, ppSymbolOfModuleEnd, '.').c_str());
+					return NULL;
+				}
 			}
 		} else {
 			// import(foo, bar)
