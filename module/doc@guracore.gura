@@ -1,8 +1,16 @@
 #!/usr/bin/env gura
 import(markdown)
+import(moddoc)
+
+funcdoc@array(funcs+:function) = {
+	markdown._funcdoc(
+			funcs.each(),
+			function.getfullname(funcs):*replace('@char', '@T'),
+			function.getformat(funcs):*replace('@char', '@T'))
+}
 
 //-----------------------------------------------------------------------------
-text = R'''
+text@en = R'''
 # Built-in Operators
 
 <table>
@@ -76,37 +84,7 @@ text = R'''
 </table>
 
 # Built-in Classes
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@Class = R'''
-## Class Class
-'''.template().render()
-
-//-----------------------------------------------------------------------------
-text@Module = R'''
-## Module Class
-'''.template().render()
-
-//-----------------------------------------------------------------------------
-text@Sequence = R'''
-## Sequence Class
-'''.template().render()
-
-//-----------------------------------------------------------------------------
-funcdoc@array(funcs+:function) = {
-	markdown._funcdoc(
-			funcs.each(),
-			function.getfullname(funcs):*replace('@char', '@T'),
-			function.getformat(funcs):*replace('@char', '@T'))
-}
-
-text@any = R'''
-## any Class
-'''.template().render()
-
-//-----------------------------------------------------------------------------
-text@args = R'''
 ## args Class
 
 The `args` class provides measures to access argument information that is passed to a function.
@@ -139,15 +117,13 @@ An `args` instance has the following properties:
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 args.finalize_trailer
 args.isset
 args.quit_trailer
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@array = R'''
+
 ## array Class
 
 An instance of the `array` class stores multiple numeric values in a seamless binary sequence,
@@ -189,27 +165,22 @@ array@char.paste
 array@char.tail
 )}
 
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@audio = R'''
 ## audio Class
 
 The `audio` class provides measures to work on audio data.
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 audio.each
 audio.get
 audio.put
 audio.sinewave
 audio.store
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@binary = R'''
+
 ## binary Class
 
 The `binary` class provides measures to work on binary data
@@ -237,13 +208,13 @@ A `binary` instance has the following properties:
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 binary
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 binary.add
 binary.alloc
 binary.decode
@@ -261,10 +232,7 @@ binary.unpacks
 binary.writer
 )}
 
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@boolean = R'''
 ## boolean Class
 
 The `boolean` class represents a boolean data type that is used in logical operations
@@ -279,10 +247,7 @@ according to the following general rule:
 
 Notice that the number `0` is treated as true in logical operations.
 
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@codec = R'''
 ## codec Class
 
 The `codec` class provides measures to convert character codes.
@@ -311,23 +276,20 @@ The `codec` class provides measures to convert character codes.
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 codec
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 codec.addcr
 codec.decode
 codec.delcr
 codec.encode
 )}
 
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@color = R'''
 ## color Class
 
 An instance of the `color` class represents a color data that consists of red, green, blue and alpha elements.
@@ -396,21 +358,19 @@ that takes a `color` instance in its argument as below:
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 color
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 color.getgray
 color.html
 color.tolist
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@complex = R'''
+
 ## complex Class
 
 The `complex` class provides measures to calculate complex numbers.
@@ -424,20 +384,18 @@ You can create a `complex` instance by following ways:
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 complex
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 complex.polar
 complex.roundoff
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@datetime = R'''
+
 ## datetime Class
 
 The `datetime` class provides measures to handle date and time information.
@@ -528,13 +486,13 @@ Week symbol that takes one of the followings:
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 datetime
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 datetime.clrtzoff
 datetime.format
 datetime.isleap
@@ -547,10 +505,8 @@ datetime.today
 datetime.utc
 datetime.weekday
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@declaration = R'''
+
 ## declaration Class
 
 The `declaration` class provides information about argument's declaration defined in a function.
@@ -586,13 +542,11 @@ A `declaration` instance has the following properties:
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 declaration.istype
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@dict = R'''
+
 ## dict Class
 
 The `dict` class provides measures to handle dictionary data.
@@ -604,13 +558,13 @@ that is an alias of `dict()` function.
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 dict
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 dict.append
 dict.clear
 dict.erase
@@ -622,10 +576,8 @@ dict.len
 dict.put
 dict.values
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@directory = R'''
+
 ## directory Class
 
 The `directory` class handles information necessary to seek directory structure in a path.
@@ -637,13 +589,11 @@ works implicitly in a function call.
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 directory
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@environment = R'''
+
 ## environment Class
 
 The `environment` class provides measures to operate variables in an environment,
@@ -651,15 +601,13 @@ which is a fundamental mechanism to store variables.
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 environment.getprop!
 environment.lookup
 environment.setprop!
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@error = R'''
+
 ## error Class
 
 The `error` class provides measures to access error information.
@@ -784,10 +732,8 @@ If an attribute `:lineno` is specified, it would contain a line number.</td></tr
 
 </table>
 
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@expr = R'''
+
 ## expr Class
 
 ### Property
@@ -870,13 +816,13 @@ An `expr` instance has the following properties:
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 expr
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 expr.eval
 expr.parse
 expr.textize
@@ -907,10 +853,8 @@ expr.isvalue
 expr.isidentifier
 expr.issuffixed
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@formatter = R'''
+
 ## formatter Class
 
 The `formatter` class provides information about a format specifier.
@@ -946,7 +890,7 @@ The `formatter` instance is created for each specifier and passed to a method li
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 formatter.getminwidth
 formatter.getpadding
 formatter.getplusmode
@@ -955,10 +899,8 @@ formatter.isleftalign
 formatter.issharp
 formatter.isuppercase
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@function = R'''
+
 ## function Class
 
 The `function` class provides measure to inspect information about the instance.
@@ -1029,13 +971,13 @@ Below is an example to print the help of `printf()` function:
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 function
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 function.addhelp
 function.getdecls
 function.getexpr
@@ -1046,10 +988,8 @@ function.getname
 function.getsymbol
 function.mathdiff
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@help = R'''
+
 ## help Class
 
 The `help` class provides measures to access help information
@@ -1075,10 +1015,8 @@ For example, <code>`en</code> for English and <code>`ja</code> for Japanese.</td
 <td>The help text.</td></tr>
 
 </table>
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@image = R'''
+
 ## image Class
 
 The `image` class provides following measures to handle graphic image data:
@@ -1135,13 +1073,13 @@ If there's no palette associated, this property returns <code>nil</code>.</td></
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 image
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 image.allocbuff
 image.blur
 image.clear
@@ -1168,21 +1106,19 @@ image.setalpha
 image.thumbnail
 image.write
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@iterator = R'''
+
 ## iterator Class
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 iterator
 )}
 
 ### Method Specific to Iterator Class
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 iterator.delay
 iterator.isinfinite
 iterator.next
@@ -1191,7 +1127,7 @@ iterator.repeater
 
 ### Method Common between Iterator and List Class
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 iterator.after
 iterator.align
 iterator.and
@@ -1239,10 +1175,8 @@ iterator.variance
 iterator.walk
 iterator.while
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@list = R'''
+
 ## list Class
 
 The `list` class provides measures to handle a list structure,
@@ -1263,7 +1197,7 @@ Below is an example:
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 list
 xlist
 set
@@ -1273,7 +1207,7 @@ xset
 
 ### Method Specific to List Class
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 list.add
 list.append
 list.clear
@@ -1294,7 +1228,7 @@ list.zip
 
 ### Method Common between Iterator and List Class
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 list.after
 list.align
 list.and
@@ -1341,21 +1275,19 @@ list.variance
 list.walk
 list.while
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@matrix = R'''
+
 ## matrix Class
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 matrix
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 matrix.col
 matrix.colsize
 matrix.each
@@ -1378,28 +1310,22 @@ matrix.submat
 matrix.tolist
 matrix.transpose
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@nil = R'''
+
 ## nil Class
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@number = R'''
+
 ## number Class
 
 The `number` class provides measures to calculate numbers.
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 number.roundoff
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@operator = R'''
+
 ## operator Class
 
 The `operator` class provides measures to assign operators with a user-defined procedure.
@@ -1420,21 +1346,19 @@ An `operator` instance has the following properties:
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 operator
 )}
 
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 operator.assign
 operator.entries
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@palette = R'''
+
 ## palette Class
 
 The `palette` instance has a set of `color` instance.
@@ -1442,44 +1366,38 @@ The `palette` instance has a set of `color` instance.
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 palette
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 palette.each
 palette.nearest
 palette.shrink
 palette.updateby
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@pointer = R'''
+
 ## pointer Class
 
 The `pointer` class provides measures to read and write content in a `binary` instance.
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 pointer.forward
 pointer.pack
 pointer.reset
 pointer.unpack
 pointer.unpacks
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@quote = R'''
+
 ## quote Class
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@rational = R'''
+
 ## rational Class
 
 The `rational` class provides measures to handle rational numbers.
@@ -1497,38 +1415,34 @@ Below are examples to realize a common fraction two-thirds:
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 rational
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 rational.reduce
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@semaphore = R'''
+
 ## semaphore Class
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 semaphore
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 semaphore.release
 semaphore.session
 semaphore.wait
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@stream = R'''
+
 ## stream Class
 
 
@@ -1590,20 +1504,20 @@ that takes a `stream` instance in its argument as below:
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 open
 stream
 )}
 
 ### Utility Function
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 readlines
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 stream.addcr
 stream.close
 stream.compare
@@ -1629,10 +1543,8 @@ stream.setcodec
 stream.tell
 stream.write
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@string = R'''
+
 ## string Class
 
 The `string` class provides measures to operate on strings.
@@ -1667,7 +1579,7 @@ the string into other natural languages would be evaluated.
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 string.align
 string.binary
 string.capitalize
@@ -1704,10 +1616,8 @@ string.upper
 string.width
 string.zentohan
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@suffixmgr = R'''
+
 ## suffixmgr Class
 
 The `suffixmgr` class provides measures to access suffix managers
@@ -1724,30 +1634,26 @@ You can use that suffix like below:
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 suffixmgr
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 suffixmgr.assign
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@symbol = R'''
+
 ## symbol Class
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 symbol.eval
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@template = R'''
+
 ## template Class
 
 ### Cast Operation
@@ -1770,13 +1676,13 @@ that takes a `template` instance in its argument as below:
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 template
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 template.parse
 template.read
 template.render
@@ -1784,7 +1690,7 @@ template.render
 
 ### Method Called by Template Directive
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 template.block
 template.call
 template.define
@@ -1793,10 +1699,7 @@ template.extends
 template.super
 )}
 
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@timedelta = R'''
 ## timedelta Class
 
 The `timedelta` instance provides a time delta information that works with `datetime` instance.
@@ -1823,18 +1726,11 @@ A `timedelta` instance has the following properties:
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 timedelta
 )}
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@undefined = R'''
-## undefined Class
-'''.template().render()
 
-//-----------------------------------------------------------------------------
-text@uri = R'''
 ## uri Class
 
 ### Property
@@ -1869,13 +1765,13 @@ A `uri` instance has the following properties:
 
 ### Function to Create Instance
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 uri
 )}
 
 ### Method
 
-${markdown.funcdoc(
+${moddoc.funcdoc(
 uri.getfragment
 uri.getpath
 uri.getquery
@@ -1883,53 +1779,4 @@ uri.parsequery
 )}
 '''.template().render()
 
-write(doc:markdown.document, lang:symbol) = {
-	doc << text
-	//doc << text@Class
-	//doc << text@Module
-	//doc << text@Sequence
-	//doc << text@any
-	doc << text@args
-	doc << text@array
-	doc << text@audio
-	doc << text@binary
-	doc << text@boolean
-	doc << text@codec
-	doc << text@color
-	doc << text@complex
-	doc << text@datetime
-	doc << text@declaration
-	doc << text@dict
-	doc << text@directory
-	doc << text@environment
-	doc << text@error
-	doc << text@expr
-	doc << text@formatter
-	doc << text@function
-	doc << text@help
-	doc << text@image
-	doc << text@iterator
-	doc << text@list
-	doc << text@matrix
-	doc << text@nil
-	doc << text@number
-	doc << text@operator
-	doc << text@palette
-	doc << text@pointer
-	doc << text@quote
-	doc << text@rational
-	doc << text@semaphore
-	doc << text@stream
-	doc << text@string
-	doc << text@suffixmgr
-	doc << text@symbol
-	doc << text@template
-	doc << text@timedelta
-	//doc << text@undefined
-	doc << text@uri
-	doc
-}
-
-if (__name__ == '__main__') {
-	write(markdown.document()).render@html(sys.stdout)
-}
+moddoc.register(locals(), %{`en => text@en})
