@@ -9,19 +9,19 @@ The `mswin` module provides methods that are related to Windows operating system
 
 ## Module Functions
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 GetACP
 )}
 
 ## mswin.ole Class
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 mswin.ole
 )}
 
 ## mswin.regkey Class
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 mswin.regkey
 mswin.regkey.createkey
 mswin.regkey.openkey

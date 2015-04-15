@@ -9,7 +9,7 @@ The `glu` module provides functions of GLU library.
 
 ## Module Functions
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 glu.gluBeginCurve
 glu.gluBeginPolygon
 glu.gluBeginSurface

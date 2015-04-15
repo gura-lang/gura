@@ -8,7 +8,7 @@ import(markdown)
 
 suffixmgr(`string).assign(`moddoc) {|str| str.template().render()}
 
-_funcdoc(lang:symbol, func:function, fullname:string, fmt:string):map = {
+_reference(lang:symbol, func:function, fullname:string, fmt:string):map = {
 	str = '**' + fullname.replace('_', '\\_').replace('`', '\\`') + '**\n\n'
 	if (fmt.find('`')) {
 		str += '`` ' + fmt + '``\n\n'
@@ -23,14 +23,14 @@ _funcdoc(lang:symbol, func:function, fullname:string, fmt:string):map = {
 	str
 }
 
-funcdoc(lang:symbol, funcs*:function) = {
+reference(lang:symbol, funcs*:function) = {
 	funcs = funcs.each()
-	_funcdoc(lang, funcs, function.getfullname(funcs), function.getformat(funcs))
+	_reference(lang, funcs, function.getfullname(funcs), function.getformat(funcs))
 }
 
-funcdoc@iterable(lang:symbol, funcs*:function) = {
+reference@iterable(lang:symbol, funcs*:function) = {
 	funcs = funcs.each()
-	_funcdoc(lang, funcs,
+	_reference(lang, funcs,
 			 function.getfullname(funcs):*replace('iterator#', 'iterable#'),
 			 function.getformat(funcs):*replace('iterator#', 'iterable#'))
 }

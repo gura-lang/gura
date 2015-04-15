@@ -7,7 +7,7 @@ text@en = R'''
 
 ## Module Functions
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 tcl.TK_MainLoop
 )}
 
@@ -15,13 +15,13 @@ tcl.TK_MainLoop
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 tcl.interp
 )}
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 tcl.interp.command
 tcl.interp.eval
 tcl.interp.evalscript
@@ -33,7 +33,7 @@ tcl.interp.variable
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 timer.cancel
 timer.start
 )}
@@ -44,7 +44,7 @@ timer.start
 
 This module extends the `image` class with methods described here.
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 image.read@tcl
 image.write@tcl
 )}

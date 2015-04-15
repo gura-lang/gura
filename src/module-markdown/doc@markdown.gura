@@ -25,7 +25,7 @@ and then render its HTML text into a file.
 
 ## Module Functions
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 markdown.setpresenter
 )}
 
@@ -56,13 +56,13 @@ and its children that are `markdown.item` instances.
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 markdown.document
 )}
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 markdown.document.parse
 markdown.document.read
 markdown.document.render@console
@@ -136,7 +136,7 @@ Below is a table of item type:
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 markdown.item.print
 )}
 '''.template().render()

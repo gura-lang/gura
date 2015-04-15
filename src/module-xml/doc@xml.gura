@@ -7,7 +7,7 @@ text@en = R'''
 
 ## Module Function
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 xml.comment
 )}
 
@@ -17,13 +17,13 @@ xml.comment
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 xml.document
 )}
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 xml.document.parse
 xml.document.read
 xml.document.textize
@@ -34,13 +34,13 @@ xml.document.write
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 xml.element
 )}
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 xml.element.addchild
 xml.element.gettext
 xml.element.textize
@@ -51,13 +51,13 @@ xml.element.write
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 xml.parser
 )}
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 xml.parser.parse
 )}
 

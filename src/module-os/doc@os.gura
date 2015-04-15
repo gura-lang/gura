@@ -9,7 +9,7 @@ This is a built-in module, so you can use it without being imported.
 
 ## Module Functions
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 os.clock
 os.exec
 os.fromnative

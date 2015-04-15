@@ -36,7 +36,7 @@ This field is valid only for CRC32 and returns `nil` for other hashes.</td></tr>
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 hash.md5
 hash.sha1
 hash.crc32
@@ -44,7 +44,7 @@ hash.crc32
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 hash.accumulator.init
 hash.accumulator.update
 )}

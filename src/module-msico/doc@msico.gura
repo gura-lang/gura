@@ -33,13 +33,13 @@ it would write image data in ICO format.
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 msico.content
 )}
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 msico.content.write
 msico.content.addimage
 )}
@@ -48,7 +48,7 @@ msico.content.addimage
 
 This module extends the `image` class with methods described here.
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 image.read@msico
 )}
 '''.template().render()

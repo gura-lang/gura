@@ -36,7 +36,7 @@ Below is an example to parse a list of strings described in XPM format.
 
 This module extends the `image` class with methods described here.
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 image.write@xpm
 image.xpmdata
 )}

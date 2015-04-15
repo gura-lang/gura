@@ -10,7 +10,7 @@ To utilize it, import the `freetype` module using `import` function.
 
 ## Module Functions
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 freetype.sysfontpath
 )}
 
@@ -22,7 +22,7 @@ freetype.sysfontpath
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 freetype.Bitmap.Embolden
 )}
 
@@ -30,7 +30,7 @@ freetype.Bitmap.Embolden
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 freetype.CharMap.Get_Index
 )}
 
@@ -54,13 +54,13 @@ freetype.CharMap.Get_Index
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 freetype.Face
 )}
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 freetype.Face.CheckTrueTypePatents
 freetype.Face.Get_Advance
 freetype.Face.Get_Advances
@@ -78,7 +78,7 @@ freetype.Face.Set_Pixel_Sizes
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 freetype.Glyph.Copy
 freetype.Glyph.Stroke
 freetype.Glyph.StrokeBorder
@@ -88,7 +88,7 @@ freetype.Glyph.StrokeBorder
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 freetype.GlyphSlot.Get_Glyph
 freetype.GlyphSlot.Render
 )}
@@ -97,13 +97,13 @@ freetype.GlyphSlot.Render
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 freetype.Matrix
 )}
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 freetype.Matrix.Multiply
 freetype.Matrix.Invert
 )}
@@ -112,7 +112,7 @@ freetype.Matrix.Invert
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 freetype.Outline.Translate
 freetype.Outline.Transform
 freetype.Outline.Embolden
@@ -128,13 +128,13 @@ freetype.Outline.Reverse
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 freetype.Stroker
 )}
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 freetype.Stroker.BeginSubPath
 )}
 
@@ -142,13 +142,13 @@ freetype.Stroker.BeginSubPath
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 freetype.Vector
 )}
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 freetype.Vector.Length
 freetype.Vector.Transform
 )}
@@ -157,13 +157,13 @@ freetype.Vector.Transform
 
 ## Function to Create Instance
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 freetype.font
 )}
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 freetype.font.cleardeco
 freetype.font.drawtext
 freetype.font.calcsize
@@ -174,7 +174,7 @@ freetype.font.calcbbox
 
 This module extends the `image` class with methods described here.
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 image.drawtext
 )}
 

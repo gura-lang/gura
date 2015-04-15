@@ -6,7 +6,7 @@ text@en = R'''
 
 ## Formatting and Printing of Text
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 format
 print
 printf
@@ -15,7 +15,7 @@ println
 
 ## Repetition
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 cross
 for
 repeat
@@ -24,7 +24,7 @@ while
 
 ## Value Generator
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 consts
 dim
 interval
@@ -33,7 +33,7 @@ range
 
 ## Flow Control
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 break
 continue
 return
@@ -41,7 +41,7 @@ return
 
 ## Branch Sequence
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 if
 elsif
 else
@@ -53,7 +53,7 @@ default
 
 ## Exception Handling
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 try
 catch
 finally
@@ -62,7 +62,7 @@ raise
 
 ## Data Converter
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 chr
 hex
 int
@@ -74,7 +74,7 @@ tosymbol
 
 ## Class Operations
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 class
 classref
 struct
@@ -83,7 +83,7 @@ super
 
 ## Scope Operations
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 //extern
 local
 locals
@@ -94,14 +94,14 @@ scope
 
 ## Module Operations
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 import
 module
 )}
 
 ## Value Type Information
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 isbinary
 isboolean
 isclass
@@ -133,7 +133,7 @@ undef
 
 ## Data Processing
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 choose
 cond
 conds
@@ -143,7 +143,7 @@ min
 
 ## Random
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 rand
 rands
 randseed
@@ -151,7 +151,7 @@ randseed
 
 ## Property Listing
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 dir
 dirtype
 )}

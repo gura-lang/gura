@@ -33,7 +33,7 @@ Below is an example to print a frame around a console:
 
 ## Module Function
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 conio.clear
 conio.getwinsize
 conio.setcolor

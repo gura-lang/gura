@@ -35,7 +35,7 @@ it would write image data in PNG format.
 
 This module extends the `image` class with methods described here.
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 image.read@png
 image.write@png
 )}

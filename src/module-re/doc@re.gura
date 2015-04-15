@@ -130,7 +130,7 @@ Below is an example:
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 re.match.group
 re.match.groups
 )}
@@ -180,14 +180,14 @@ that expects a `re.pattern` instance in its argument as below:
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 re.pattern
 )}
 
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 re.pattern.match
 re.pattern.sub
 re.pattern.split
@@ -199,7 +199,7 @@ re.pattern.scan
 
 This module extends the `string` class with methods described here.
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 string.match
 string.sub
 string.splitreg
@@ -211,14 +211,14 @@ string.scan
 
 This module extends the iterable classes, `list` and `iterator`, with methods described here.
 
-${moddoc.funcdoc@iterable(`en
+${moddoc.reference@iterable(`en
 iterator.grep
 )}
 
 
 ## Module Function
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 re.match
 re.sub
 re.split

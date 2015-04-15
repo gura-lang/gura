@@ -10,7 +10,7 @@ To utilize it, import the `uuid` module using `import` function.
 
 ## Module Function
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 uuid.generate
 )}
 '''.template().render()

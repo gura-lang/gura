@@ -484,7 +484,7 @@ Following tables show values types of operands and returned value for each opera
 
 ## Module Function
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 gmp.gcd
 gmp.lcm
 gmp.sqrt
@@ -494,12 +494,12 @@ gmp.sqrt
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 gmp.mpf
 )}
 
 ### Method
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 gmp.mpf.get_default_prec
 gmp.mpf.set_default_prec
 )}
@@ -508,12 +508,12 @@ gmp.mpf.set_default_prec
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 gmp.mpq
 )}
 
 ### Method
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 gmp.mpq.cast@mpf
 )}
 
@@ -521,7 +521,7 @@ gmp.mpq.cast@mpf
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 gmp.mpz
 )}
 
@@ -529,7 +529,7 @@ gmp.mpz
 
 This module extends the `string` class with methods described here.
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 string.cast@mpf
 string.cast@mpq
 string.cast@mpz

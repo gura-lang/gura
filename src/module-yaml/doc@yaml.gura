@@ -9,7 +9,7 @@ The `yaml` module provides measures to read/write YAML files.
 
 ## Module Function
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 yaml.compose
 yaml.parse
 yaml.read

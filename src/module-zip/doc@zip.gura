@@ -28,13 +28,13 @@ Below is an exapmple to create a ZIP archive file:
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 zip.reader
 )}
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 zip.reader.entry
 zip.reader.entries
 )}
@@ -43,13 +43,13 @@ zip.reader.entries
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 zip.writer
 )}
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 zip.writer.add
 zip.writer.close
 )}

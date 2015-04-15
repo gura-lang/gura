@@ -12,7 +12,7 @@ To utilize it, import the `sqlite3` module using `import` function.
 
 ## sqlite3.db Class
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 sqlite3.db
 sqlite3.db.close
 sqlite3.db.exec

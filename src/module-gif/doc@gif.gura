@@ -37,7 +37,7 @@ it would write image data in GIF format.
 
 ## gif.content Class
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 gif.content
 gif.content.addimage
 gif.content.write
@@ -47,7 +47,7 @@ gif.content.write
 
 This module extends the `stream` class with methods described here.
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 image.read@gif
 image.write@gif
 )}

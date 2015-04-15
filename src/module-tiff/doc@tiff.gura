@@ -34,7 +34,7 @@ it would write image data in TIFF format.
 
 This module extends the `image` class with methods described here.
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 image.read@tiff
 )}
 

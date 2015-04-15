@@ -15,7 +15,7 @@ Below is an example to show differences between files `file1.txt` and `file2.txt
 
 ## Module Function
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 diff.compose
 diff.compose@char
 )}
@@ -48,7 +48,7 @@ and provides information about differences between two texts by lines.
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 diff.diff@line.eachhunk
 diff.diff@line.render
 )}
@@ -82,7 +82,7 @@ The `diff.hunk@line` instance provides information about a hunk.
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 diff.hunk@line.print
 )}
 
@@ -124,7 +124,7 @@ The `diff.edit@line` provides information about an edit operation.
 
 ### Method
 
-${moddoc.funcdoc(`en
+${moddoc.reference(`en
 diff.edit@line.print
 )}
 
