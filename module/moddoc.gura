@@ -6,9 +6,27 @@
 //==============================================================================
 import(markdown)
 
-funcdoc = markdown.funcdoc
-
 suffixmgr(`string).assign(`moddoc) {|str| str.template().render()}
+
+_funcdoc(func:function, fullname:string, fmt:string):map = {
+	str = '**' + fullname.replace('_', '\\_').replace('`', '\\`') + '**\n\n'
+	if (fmt.find('`')) {
+		str += '`` ' + fmt + '``\n\n'
+	} else {
+		str += '`' + fmt + '`\n\n'
+	}
+	if (help = function.gethelp(func, `en)) {
+		str +=  help.text
+		if (!str.endswith('\n')) { str += '\n' }
+		str += '\n'
+	}
+	str
+}
+
+funcdoc(funcs*:function) = {
+	funcs = funcs.each()
+	_funcdoc(funcs, function.getfullname(funcs), function.getformat(funcs))
+}
 
 register(mod:environment, d:dict) = {
 	mod.write(doc:markdown.document, lang:symbol) = {

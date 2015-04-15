@@ -599,34 +599,6 @@ Renderer@toc = class {
 	MakeAnchorName(indices[]:number) = MakeAnchorNameDef(indices)
 }
 
-_funcdoc(func:function, fullname:string, fmt:string):map = {
-	str = '**' + fullname.replace('_', '\\_').replace('`', '\\`') + '**\n\n'
-	if (fmt.find('`')) {
-		str += '`` ' + fmt + '``\n\n'
-	} else {
-		str += '`' + fmt + '`\n\n'
-	}
-	if (help = function.gethelp(func, `en)) {
-		str +=  help.text
-		if (!str.endswith('\n')) { str += '\n' }
-		str += '\n'
-	}
-	str
-}
-
-funcdoc(funcs*:function) = {
-	funcs = funcs.each()
-	_funcdoc(funcs, function.getfullname(funcs), function.getformat(funcs))
-}
-
-classref(`document).writefunc(func:function, fullname:string, fmt:string) = {
-	this << _funcdoc(func, fullname, fmt)
-}
-
-operator(`<<).assign(`document, `function) {|doc, func|
-	doc.writefunc(func, function.getfullname(func), function.getformat(func))
-}
-
 classref(`document).render@html(
 		out?:stream:w, easyFormatFlag:boolean => true, captionIndex:boolean => false) = {
 	out = out || sys.stdout

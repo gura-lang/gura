@@ -1,10 +1,9 @@
 #!/usr/bin/env gura
-import(markdown)
 import(moddoc)
 import(re)
 
 funcdoc_iterable(funcs+:function) = {
-	markdown._funcdoc(
+	moddoc._funcdoc(
 			funcs.each(),
 			function.getfullname(funcs):*replace('iterator#', 'iterable#'),
 			function.getformat(funcs):*replace('iterator#', 'iterable#'))

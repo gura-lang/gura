@@ -1,9 +1,8 @@
 #!/usr/bin/env gura
-import(markdown)
 import(moddoc)
 
 funcdoc@array(funcs+:function) = {
-	markdown._funcdoc(
+	moddoc._funcdoc(
 			funcs.each(),
 			function.getfullname(funcs):*replace('@char', '@T'),
 			function.getformat(funcs):*replace('@char', '@T'))
