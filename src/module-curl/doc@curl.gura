@@ -10,14 +10,14 @@ To utilize it, import the `curl` module using `import` function.
 
 ## Module Functions
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 curl.version
 curl.easy_init
 )}
 
 ## curl.easy\_handle Class
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 curl.easy_handle.escape
 curl.easy_handle.getinfo
 curl.easy_handle.perform

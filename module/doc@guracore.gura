@@ -1,8 +1,8 @@
 #!/usr/bin/env gura
 import(moddoc)
 
-funcdoc@array(funcs+:function) = {
-	moddoc._funcdoc(
+funcdoc@array(lang:symbol, funcs+:function) = {
+	moddoc._funcdoc(lang,
 			funcs.each(),
 			function.getfullname(funcs):*replace('@char', '@T'),
 			function.getformat(funcs):*replace('@char', '@T'))
@@ -116,7 +116,7 @@ An `args` instance has the following properties:
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 args.finalize_trailer
 args.isset
 args.quit_trailer
@@ -148,13 +148,13 @@ They're listed in the the table below:
 
 ### Function to Create Instance
 
-${funcdoc@array(
+${funcdoc@array(`en
 array@char
 )}
 
 ### Method
 
-${funcdoc@array(
+${funcdoc@array(`en
 array@char.dump
 array@char.each
 array@char.fill
@@ -171,7 +171,7 @@ The `audio` class provides measures to work on audio data.
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 audio.each
 audio.get
 audio.put
@@ -207,13 +207,13 @@ A `binary` instance has the following properties:
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 binary
 )}
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 binary.add
 binary.alloc
 binary.decode
@@ -275,13 +275,13 @@ The `codec` class provides measures to convert character codes.
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 codec
 )}
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 codec.addcr
 codec.decode
 codec.delcr
@@ -357,13 +357,13 @@ that takes a `color` instance in its argument as below:
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 color
 )}
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 color.getgray
 color.html
 color.tolist
@@ -383,13 +383,13 @@ You can create a `complex` instance by following ways:
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 complex
 )}
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 complex.polar
 complex.roundoff
 )}
@@ -485,13 +485,13 @@ Week symbol that takes one of the followings:
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 datetime
 )}
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 datetime.clrtzoff
 datetime.format
 datetime.isleap
@@ -541,7 +541,7 @@ A `declaration` instance has the following properties:
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 declaration.istype
 )}
 
@@ -557,13 +557,13 @@ that is an alias of `dict()` function.
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 dict
 )}
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 dict.append
 dict.clear
 dict.erase
@@ -588,7 +588,7 @@ works implicitly in a function call.
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 directory
 )}
 
@@ -600,7 +600,7 @@ which is a fundamental mechanism to store variables.
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 environment.getprop!
 environment.lookup
 environment.setprop!
@@ -815,13 +815,13 @@ An `expr` instance has the following properties:
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 expr
 )}
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 expr.eval
 expr.parse
 expr.textize
@@ -889,7 +889,7 @@ The `formatter` instance is created for each specifier and passed to a method li
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 formatter.getminwidth
 formatter.getpadding
 formatter.getplusmode
@@ -970,13 +970,13 @@ Below is an example to print the help of `printf()` function:
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 function
 )}
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 function.addhelp
 function.getdecls
 function.getexpr
@@ -1072,13 +1072,13 @@ If there's no palette associated, this property returns <code>nil</code>.</td></
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 image
 )}
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 image.allocbuff
 image.blur
 image.clear
@@ -1111,13 +1111,13 @@ image.write
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 iterator
 )}
 
 ### Method Specific to Iterator Class
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 iterator.delay
 iterator.isinfinite
 iterator.next
@@ -1126,7 +1126,7 @@ iterator.repeater
 
 ### Method Common between Iterator and List Class
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 iterator.after
 iterator.align
 iterator.and
@@ -1196,7 +1196,7 @@ Below is an example:
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 list
 xlist
 set
@@ -1206,7 +1206,7 @@ xset
 
 ### Method Specific to List Class
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 list.add
 list.append
 list.clear
@@ -1227,7 +1227,7 @@ list.zip
 
 ### Method Common between Iterator and List Class
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 list.after
 list.align
 list.and
@@ -1280,13 +1280,13 @@ list.while
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 matrix
 )}
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 matrix.col
 matrix.colsize
 matrix.each
@@ -1320,7 +1320,7 @@ The `number` class provides measures to calculate numbers.
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 number.roundoff
 )}
 
@@ -1345,14 +1345,14 @@ An `operator` instance has the following properties:
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 operator
 )}
 
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 operator.assign
 operator.entries
 )}
@@ -1365,13 +1365,13 @@ The `palette` instance has a set of `color` instance.
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 palette
 )}
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 palette.each
 palette.nearest
 palette.shrink
@@ -1385,7 +1385,7 @@ The `pointer` class provides measures to read and write content in a `binary` in
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 pointer.forward
 pointer.pack
 pointer.reset
@@ -1414,13 +1414,13 @@ Below are examples to realize a common fraction two-thirds:
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 rational
 )}
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 rational.reduce
 )}
 
@@ -1429,13 +1429,13 @@ rational.reduce
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 semaphore
 )}
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 semaphore.release
 semaphore.session
 semaphore.wait
@@ -1503,20 +1503,20 @@ that takes a `stream` instance in its argument as below:
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 open
 stream
 )}
 
 ### Utility Function
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 readlines
 )}
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 stream.addcr
 stream.close
 stream.compare
@@ -1578,7 +1578,7 @@ the string into other natural languages would be evaluated.
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 string.align
 string.binary
 string.capitalize
@@ -1633,13 +1633,13 @@ You can use that suffix like below:
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 suffixmgr
 )}
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 suffixmgr.assign
 )}
 
@@ -1648,7 +1648,7 @@ suffixmgr.assign
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 symbol.eval
 )}
 
@@ -1675,13 +1675,13 @@ that takes a `template` instance in its argument as below:
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 template
 )}
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 template.parse
 template.read
 template.render
@@ -1689,7 +1689,7 @@ template.render
 
 ### Method Called by Template Directive
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 template.block
 template.call
 template.define
@@ -1725,7 +1725,7 @@ A `timedelta` instance has the following properties:
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 timedelta
 )}
 
@@ -1764,13 +1764,13 @@ A `uri` instance has the following properties:
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 uri
 )}
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 uri.getfragment
 uri.getpath
 uri.getquery

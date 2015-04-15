@@ -12,7 +12,7 @@ Official site of Cairo is <http://cairographics.org/>.
 
 ### cairo\_t - The cairo drawing context
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 cairo.context.status
 cairo.context.save
 cairo.context.restore
@@ -69,7 +69,7 @@ cairo.context.show_page
 
 ### Paths - Creating paths and manipulating path data
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 cairo.context.copy_path
 cairo.context.copy_path_flat
 cairo.context.append_path
@@ -94,7 +94,7 @@ cairo.context.path_extents
 
 ### cairo\_pattern\_t - Sources for drawing
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 cairo.pattern.add_color_stop_rgb
 cairo.pattern.add_color_stop_rgba
 cairo.pattern.get_color_stop_count
@@ -133,7 +133,7 @@ cairo.pattern.get_type
 
 ### Regions - Representing a pixel-aligned area
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 cairo.region.create
 cairo.region.create_rectangle
 cairo.region.create_rectangles
@@ -156,7 +156,7 @@ cairo.region.xor_rectangle
 
 ### Transformations - Manipulating the current transformation matrix
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 cairo.context.translate
 cairo.context.scale
 cairo.context.rotate
@@ -172,7 +172,7 @@ cairo.context.device_to_user_distance
 
 ### text - Rendering text and glyphs
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 cairo.context.select_font_face
 cairo.context.set_font_size
 cairo.context.set_font_matrix
@@ -196,7 +196,7 @@ cairo.toy_font_face.get_weight
 
 ### Raster Sources - Supplying arbitary image data
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 //cairo.raster_source_pattern.create
 //cairo.raster_source_pattern.set_callback_data
 //cairo.raster_source_pattern.get_callback_data
@@ -214,14 +214,14 @@ ${moddoc.funcdoc(
 
 ### cairo\_font\_face\_t - Base class for font faces
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 //cairo.font_face.status
 //cairo.font_face.get_type
 )}
 
 ### cairo\_scaled\_font\_t - Font face at particular size and options
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 cairo.scaled_font.create
 //cairo.scaled_font.status
 //cairo.scaled_font.extents

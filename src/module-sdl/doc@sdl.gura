@@ -10,7 +10,7 @@ Official site of SDL is <http://www.libsdl.org/>.
 
 ## General
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 sdl.Init
 sdl.InitSubSystem
 sdl.QuitSubSystem
@@ -21,7 +21,7 @@ sdl.GetError
 
 ## Video
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 sdl.GetVideoSurface
 sdl.GetVideoInfo
 sdl.VideoDriverName
@@ -83,7 +83,7 @@ sdl.Overlay.DisplayYUVOverlay
 
 ## Window Management
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 sdl.WM_SetCaption
 sdl.WM_GetCaption
 sdl.WM_SetIcon
@@ -94,7 +94,7 @@ sdl.WM_GrabInput
 
 ## Events
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 sdl.PumpEvents
 sdl.AddEvents
 sdl.PeekEvents
@@ -119,7 +119,7 @@ sdl.JoystickEventState
 
 ## Joystick
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 sdl.NumJoysticks
 sdl.JoystickName
 sdl.JoystickOpen
@@ -139,7 +139,7 @@ sdl.Joystick.JoystickClose
 
 ## Audio
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 //sdl.AudioSpec
 sdl.OpenAudio
 sdl.PauseAudio
@@ -157,7 +157,7 @@ sdl.CloseAudio
 
 ## CD-ROM
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 sdl.CDNumDrives
 sdl.CDName
 sdl.CDOpen
@@ -174,7 +174,7 @@ sdl.CD.CDClose
 
 ## Time
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 sdl.GetTicks
 sdl.Delay
 sdl.AddTimer

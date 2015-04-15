@@ -14,7 +14,7 @@ To utilize it, import the `midi` module using `import` function.
 
 ## midi.track Class
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 midi.track.seek
 midi.track.tell
 midi.track.erase
@@ -45,7 +45,7 @@ midi.track.sequencer_specific_event
 
 ## midi.sequence Class
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 midi.sequence
 midi.sequence.read
 midi.sequence.write
@@ -58,7 +58,7 @@ midi.sequence.readmml
 
 ## midi.port Class
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 midi.port.send
 midi.port.play
 midi.port.mml
@@ -79,7 +79,7 @@ midi.port.pitch_bend
 
 ## midi.soundfont Class
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 midi.soundfont
 midi.soundfont.synthesizer,
 midi.soundfont.print

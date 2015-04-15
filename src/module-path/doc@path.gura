@@ -21,7 +21,7 @@ Below is an example to list path names that matches a wild card pattern "`*.txt`
 
 ## Module Function
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 path.absname
 path.basename
 path.bottom

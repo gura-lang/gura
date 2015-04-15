@@ -9,7 +9,7 @@ The `sdl2` module provices functions of SDL2 library.
 
 ## Module Functions
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 sdl2.Init
 sdl2.InitSubSystem
 sdl2.Quit

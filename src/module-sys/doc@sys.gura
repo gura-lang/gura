@@ -31,7 +31,7 @@ This is a built-in module, so you can use it without being imported.
 
 ## Module Function
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 sys.echo
 sys.exit
 sys.required_version

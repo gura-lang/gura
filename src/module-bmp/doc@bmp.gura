@@ -35,7 +35,7 @@ it would write image data in BMP format.
 
 This module extends the `image` class with methods described here.
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 image.read@bmp
 image.write@bmp
 )}

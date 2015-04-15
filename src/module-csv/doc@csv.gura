@@ -19,7 +19,7 @@ Below is an example to read a CSV file that contains three fields per line:
 
 ## Module Function
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 csv.parse
 csv.read
 )}
@@ -28,13 +28,13 @@ csv.read
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 csv.writer
 )}
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 csv.writer.write
 )}
 
@@ -42,7 +42,7 @@ csv.writer.write
 
 This module extends the `stream` class with methods described here.
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 stream.read@csv
 stream.writer@csv
 )}

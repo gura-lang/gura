@@ -11,7 +11,7 @@ text@en = R'''
 
 This module extends the `audio` class with methods described here.
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 audio.read@wav
 audio.write@wav
 )}

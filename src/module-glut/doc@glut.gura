@@ -9,7 +9,7 @@ The `glut` module provides functions of GLUT library.
 
 ## Module Functions
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 glut.glutInit
 glut.glutInitDisplayMode
 glut.glutInitDisplayString

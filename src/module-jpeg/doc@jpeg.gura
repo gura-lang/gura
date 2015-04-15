@@ -75,13 +75,13 @@ A `jpeg.exif` instance has the following properties:
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 jpeg.exif
 )}
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 jpeg.exif.each
 )}
 
@@ -106,7 +106,7 @@ A `jpeg.ifd` instance has the following properties:
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 jpeg.ifd.each
 )}
 
@@ -150,7 +150,7 @@ numbers in some tags are translated to human-readable symbols.</td></tr>
 
 This module extends the `image` class with methods described here.
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 image.read@jpeg
 image.write@jpeg
 )}

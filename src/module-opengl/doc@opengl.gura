@@ -9,7 +9,7 @@ The `opengl` module provides functions of OpenGL library.
 
 ## Module Functions
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 opengl.glAccum
 opengl.glAlphaFunc
 opengl.glAreTexturesResident

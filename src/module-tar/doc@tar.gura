@@ -12,13 +12,13 @@ To utilize it, import the `tar` module using `import` function.
 
 ### Function To Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 tar.reader
 )}
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 tar.reader.entries
 )}
 
@@ -26,13 +26,13 @@ tar.reader.entries
 
 ### Function To Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 tar.writer
 )}
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 tar.writer.add
 tar.writer.close
 )}

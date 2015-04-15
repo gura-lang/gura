@@ -21,7 +21,7 @@ Below is an example to read data from a file and write its compressed data to a 
 
 ## Module Function
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 bzip2.reader
 bzip2.writer
 )}
@@ -31,7 +31,7 @@ bzip2.writer
 
 This module extends the `stream` class with methods described here.
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 stream.reader@bzip2
 stream.writer@bzip2
 )}

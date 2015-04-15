@@ -8,7 +8,7 @@ The `base64` module provides measures to read/write text stream that is formatte
 
 ## Module Function
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 base64.decode
 base64.encode
 base64.reader
@@ -19,7 +19,7 @@ base64.writer
 
 This module extends the `stream` class with methods described here.
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 stream.reader@base64
 stream.writer@base64
 )}

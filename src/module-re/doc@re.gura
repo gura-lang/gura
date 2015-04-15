@@ -2,8 +2,8 @@
 import(moddoc)
 import(re)
 
-funcdoc_iterable(funcs+:function) = {
-	moddoc._funcdoc(
+funcdoc@iterable(lang:symbol, funcs+:function) = {
+	moddoc._funcdoc(lang,
 			funcs.each(),
 			function.getfullname(funcs):*replace('iterator#', 'iterable#'),
 			function.getformat(funcs):*replace('iterator#', 'iterable#'))
@@ -137,7 +137,7 @@ Below is an example:
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 re.match.group
 re.match.groups
 )}
@@ -187,14 +187,14 @@ that expects a `re.pattern` instance in its argument as below:
 
 ### Function to Create Instance
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 re.pattern
 )}
 
 
 ### Method
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 re.pattern.match
 re.pattern.sub
 re.pattern.split
@@ -206,7 +206,7 @@ re.pattern.scan
 
 This module extends the `string` class with methods described here.
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 string.match
 string.sub
 string.splitreg
@@ -218,14 +218,14 @@ string.scan
 
 This module extends the iterable classes, `list` and `iterator`, with methods described here.
 
-${funcdoc_iterable(
+${funcdoc@iterable(`en
 iterator.grep
 )}
 
 
 ## Module Function
 
-${moddoc.funcdoc(
+${moddoc.funcdoc(`en
 re.match
 re.sub
 re.split
