@@ -28,6 +28,13 @@ funcdoc(lang:symbol, funcs*:function) = {
 	_funcdoc(lang, funcs, function.getfullname(funcs), function.getformat(funcs))
 }
 
+funcdoc@iterable(lang:symbol, funcs*:function) = {
+	funcs = funcs.each()
+	_funcdoc(lang, funcs,
+			 function.getfullname(funcs):*replace('iterator#', 'iterable#'),
+			 function.getformat(funcs):*replace('iterator#', 'iterable#'))
+}
+
 register(mod:environment, d:dict) = {
 	mod.write(doc:markdown.document, lang:symbol) = {
 		doc << d.get(lang, d[d.keys().next()])

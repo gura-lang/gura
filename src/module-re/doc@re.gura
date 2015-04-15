@@ -2,13 +2,6 @@
 import(moddoc)
 import(re)
 
-funcdoc@iterable(lang:symbol, funcs+:function) = {
-	moddoc._funcdoc(lang,
-			funcs.each(),
-			function.getfullname(funcs):*replace('iterator#', 'iterable#'),
-			function.getformat(funcs):*replace('iterator#', 'iterable#'))
-}
-
 text@en = R'''
 # re Module
 
@@ -218,7 +211,7 @@ string.scan
 
 This module extends the iterable classes, `list` and `iterator`, with methods described here.
 
-${funcdoc@iterable(`en
+${moddoc.funcdoc@iterable(`en
 iterator.grep
 )}
 
