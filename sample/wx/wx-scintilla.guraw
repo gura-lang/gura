@@ -17,12 +17,20 @@ MyFrame = class(wx.Frame) {
 			size:wx.Size => wx.DefaultSize) = {|nil, wx.ID_ANY, title, pos, size|
 		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
 		wx.StyledTextCtrl(this, ID_StyledTextCtrl) {|ctrl|
+			// wx.STC_MARGIN_SYMBOL
+			// wx.STC_MARGIN_NUMBER
+			// wx.STC_MARGIN_BACK
+			// wx.STC_MARGIN_FORE
+			// wx.STC_MARGIN_TEXT
+			// wx.STC_MARGIN_RTEXT
 			ctrl.SetMarginType(1, wx.STC_MARGIN_NUMBER)
+
 			ctrl.SetMarginWidth(1, 30)
 			ctrl.StyleSetSpec(wx.STC_STYLE_LINENUMBER, 'fore:#888888')
 			ctrl.ConvertEOLs(wx.STC_EOL_LF)
 			ctrl.SetIndentationGuides(wx.STC_IV_REAL)
 			ctrl.SetViewEOL(true)
+			ctrl.SetTabWidth(4)
 		}
 		this.Bind(wx.EVT_STC_CHANGE, ID_StyledTextCtrl) {|event|
 			println('Change')
