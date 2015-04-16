@@ -53,7 +53,7 @@ MyFrame = class(wx.Frame) {
 			// - wx.STC_IV_LOOKBOTH
 			ctrl.SetIndentationGuides(wx.STC_IV_REAL)
 			// wx.StyledTextCtrl#SetViewEOL(visible:boolean):void
-			ctrl.SetViewEOL(true)
+			ctrl.SetViewEOL(false)
 			// wx.StyledTextCtrl#SetTabWidth(tabWidth:number):void
 			ctrl.SetTabWidth(4)
 			// wx.StyledTextCtrl#SetLexer(lexer:number):void
@@ -173,7 +173,7 @@ MyFrame = class(wx.Frame) {
 			// - wx.STC_WS_INVISIBLE
 			// - wx.STC_WS_VISIBLEALWAYS
 			// - wx.STC_WS_VISIBLEAFTERINDENT
-			ctrl.SetViewWhiteSpace(wx.STC_WS_VISIBLEALWAYS)
+			ctrl.SetViewWhiteSpace(wx.STC_WS_INVISIBLE)
 			// wx.StyledTextCtrl#SetProperty(key:string, value:string):void
 			ctrl.SetProperty('fold', '1')
 			ctrl.SetProperty('tab.timmy.whinge.level', '4')
