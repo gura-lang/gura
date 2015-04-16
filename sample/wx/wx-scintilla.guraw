@@ -12,14 +12,111 @@ MyApp = class(wx.App) {
 }
 
 MyFrame = class(wx.Frame) {
+	ID_StyledTextCtrl = wx.NewId()
 	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
 			size:wx.Size => wx.DefaultSize) = {|nil, wx.ID_ANY, title, pos, size|
 		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
-		wx.StyledTextCtrl(this, wx.ID_ANY) {|ctrl|
+		wx.StyledTextCtrl(this, ID_StyledTextCtrl) {|ctrl|
+			ctrl.SetMarginType(1, wx.STC_MARGIN_NUMBER)
+			ctrl.SetMarginWidth(1, 30)
+			ctrl.StyleSetSpec(wx.STC_STYLE_LINENUMBER, 'fore:#888888')
 			ctrl.ConvertEOLs(wx.STC_EOL_LF)
 			ctrl.SetIndentationGuides(wx.STC_IV_REAL)
-			//ctrl.SetViewEOL(true)
+			ctrl.SetViewEOL(true)
 		}
+		this.Bind(wx.EVT_STC_CHANGE, ID_StyledTextCtrl) {|event|
+			println('Change')
+		}
+		this.Bind(wx.EVT_STC_STYLENEEDED, ID_StyledTextCtrl) {|event|
+			println('StyleNeeded')
+		}
+		this.Bind(wx.EVT_STC_CHARADDED, ID_StyledTextCtrl) {|event|
+			println('CharAdded')
+		}
+		this.Bind(wx.EVT_STC_SAVEPOINTREACHED, ID_StyledTextCtrl) {|event|
+			println('SavePointReached')
+		}
+		this.Bind(wx.EVT_STC_SAVEPOINTLEFT, ID_StyledTextCtrl) {|event|
+			println('SavePointLeft')
+		}
+		this.Bind(wx.EVT_STC_ROMODIFYATTEMPT, ID_StyledTextCtrl) {|event|
+			println('RoModifyAttempt')
+		}
+		this.Bind(wx.EVT_STC_KEY, ID_StyledTextCtrl) {|event|
+			println('')
+		}
+		this.Bind(wx.EVT_STC_DOUBLECLICK, ID_StyledTextCtrl) {|event|
+			println('DoubleClick')
+		}
+		this.Bind(wx.EVT_STC_UPDATEUI, ID_StyledTextCtrl) {|event|
+			println('UpdateUI')
+		}
+		this.Bind(wx.EVT_STC_MODIFIED, ID_StyledTextCtrl) {|event|
+			println('Modified')
+		}
+		this.Bind(wx.EVT_STC_MACRORECORD, ID_StyledTextCtrl) {|event|
+			println('MacroRecord')
+		}
+		this.Bind(wx.EVT_STC_MARGINCLICK, ID_StyledTextCtrl) {|event|
+			println('MarginClick')
+		}
+		this.Bind(wx.EVT_STC_NEEDSHOWN, ID_StyledTextCtrl) {|event|
+			println('NeedShown')
+		}
+		this.Bind(wx.EVT_STC_PAINTED, ID_StyledTextCtrl) {|event|
+			println('Painted')
+		}
+		this.Bind(wx.EVT_STC_USERLISTSELECTION, ID_StyledTextCtrl) {|event|
+			println('UserListSelection')
+		}
+		this.Bind(wx.EVT_STC_URIDROPPED, ID_StyledTextCtrl) {|event|
+			println('URIDropped')
+		}
+		this.Bind(wx.EVT_STC_DWELLSTART, ID_StyledTextCtrl) {|event|
+			println('DwellStart')
+		}
+		this.Bind(wx.EVT_STC_DWELLEND, ID_StyledTextCtrl) {|event|
+			println('DwellEnd')
+		}
+		this.Bind(wx.EVT_STC_START_DRAG, ID_StyledTextCtrl) {|event|
+			println('Start_Drag')
+		}
+		this.Bind(wx.EVT_STC_DRAG_OVER, ID_StyledTextCtrl) {|event|
+			println('Drag_Over')
+		}
+		this.Bind(wx.EVT_STC_DO_DROP, ID_StyledTextCtrl) {|event|
+			println('Do_Drop')
+		}
+		this.Bind(wx.EVT_STC_ZOOM, ID_StyledTextCtrl) {|event|
+			println('Zoom')
+		}
+		this.Bind(wx.EVT_STC_HOTSPOT_CLICK, ID_StyledTextCtrl) {|event|
+			println('Hotspot_Click')
+		}
+		this.Bind(wx.EVT_STC_HOTSPOT_DCLICK, ID_StyledTextCtrl) {|event|
+			println('Hotspot_DClick')
+		}
+		this.Bind(wx.EVT_STC_CALLTIP_CLICK, ID_StyledTextCtrl) {|event|
+			println('CallTip_Click')
+		}
+		this.Bind(wx.EVT_STC_AUTOCOMP_SELECTION, ID_StyledTextCtrl) {|event|
+			println('AutoComp_Selection')
+		}
+		this.Bind(wx.EVT_STC_INDICATOR_CLICK, ID_StyledTextCtrl) {|event|
+			println('Indicator_Click')
+		}
+		this.Bind(wx.EVT_STC_INDICATOR_RELEASE, ID_StyledTextCtrl) {|event|
+			println('Indicator_Release')
+		}
+		this.Bind(wx.EVT_STC_AUTOCOMP_CANCELLED, ID_StyledTextCtrl) {|event|
+			println('AutoComp_Cancelled')
+		}
+		this.Bind(wx.EVT_STC_AUTOCOMP_CHAR_DELETED, ID_StyledTextCtrl) {|event|
+			println('AutoComp_CharDeleted')
+		}
+		//this.Bind(wx.EVT_STC_HOTSPOT_RELEASE_CLICK, ID_StyledTextCtrl) {|event|
+		//	println('HotSpot_Release_Click')
+		//}
 	}
 }
 
