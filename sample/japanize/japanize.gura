@@ -1,19 +1,19 @@
 #!/usr/bin/env gura
 # -*- coding: utf-8 -*-
 scope(root) {
-	もし				= if
-	ちがえば			= else
-	もしくは			= elsif
-	それぞれ			= for
-	回数				= repeat
-	もしもし			= while
-	クラス				= class
-	構造				= struct
-	イメージ			= image
-	表示				= println
-	数入力(str => '')	= { print(str), int(sys.stdin.readline()) }
-	文字入力(str => '')	= { print(str), sys.stdin.readline() }
+	もし		= if
+	ちがえば		= else
+	もしくは		= elsif
+	それぞれ		= for
+	くりかえす	= repeat
+	つづける		= while
+	クラス		= class
+	こうぞう		= struct
+	イメージ		= image
+	かく		= println
+	かず入力(str => '')	= { print(str), int(sys.stdin.readline()) }
+	もじ入力(str => '')	= { print(str), sys.stdin.readline() }
 }
 root.setprop!(`ぬける, root.getprop!(`break))
-root.setprop!(`続ける, root.getprop!(`continue))
-root.setprop!(`帰る, root.getprop!(`return))
+root.setprop!(`つぎ, root.getprop!(`continue))
+root.setprop!(`かえる, root.getprop!(`return))
