@@ -5,6 +5,19 @@ import(resource)
 
 EditorCtrl = class(wx.StyledTextCtrl) {
 	__init__(args*) = {|args*|
+		// StyleSetFont(styleNum:number, font:wx.Font):void
+		// styleNum:
+		// - wx.STC_STYLE_DEFAUT
+		// - wx.STC_STYLE_LINENUMBER
+		// - wx.STC_STYLE_BRACELIGHT
+		// - wx.STC_STYLE_BRACEBAD
+		// - wx.STC_STYLE_CONTROLCHAR
+		// - wx.STC_STYLE_INDENTGUIDE
+		// - wx.STC_STYLE_CALLTIP
+		// - wx.STC_STYLE_LASTPREDEFINED
+		//this.StyleSetFont(wx.STC_STYLE_DEFAULT,
+		//				  wx.Font(14, wx.FONTFAMILY_TELETYPE,
+		//						  wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL))
 		// SetMarginType(margin:number, marginType:number):void
 		// marginType
 		// - wx.STC_MARGIN_SYMBOL
@@ -31,7 +44,10 @@ EditorCtrl = class(wx.StyledTextCtrl) {
 		// - wx.STC_STYLE_INDENTGUIDE
 		// - wx.STC_STYLE_CALLTIP
 		// - wx.STC_STYLE_LASTPREDEFINED
-		this.StyleSetSpec(wx.STC_STYLE_LINENUMBER, 'fore:#888888')
+		this.StyleSetSpec(wx.STC_STYLE_DEFAULT,
+						  'fore:#888800,back:#ffffff,face:Menlo,size:12')
+		this.StyleSetSpec(wx.STC_STYLE_LINENUMBER,
+						  'fore:#888888')
 		// ConvertEOLs(eolMode:number):void
 		// eolMode
 		// - wx.STC_EOL_CRLF
@@ -171,7 +187,7 @@ EditorCtrl = class(wx.StyledTextCtrl) {
 		this.SetProperty('fold', '1')
 		this.SetProperty('tab.timmy.whinge.level', '4')
 		// SetUseTabs(useTabs:boolean):void
-		this.SetUseTabs(true)
+		//this.SetUseTabs(true)
 
 		// CmdKeyAssign(key:number, modifiers:number, cmd:number):void
 		// modifiers:
