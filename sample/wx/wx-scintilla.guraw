@@ -15,7 +15,12 @@ EditorCtrl = class(wx.StyledTextCtrl) {
 		// - wx.STC_MARGIN_RTEXT
 		this.SetMarginType(1, wx.STC_MARGIN_NUMBER)
 		// SetMarginWidth(margin:number, pixelWidth:number):void
-		this.SetMarginWidth(1, 30)
+		this.SetMarginWidth(1, 80)
+
+		//this.MarkerAdd(0, wx.STC_MARK_CIRCLE)
+		//this.MarkerAdd(0, wx.STC_MARK_CIRCLEPLUS)
+
+
 		// StyleSetSpec(styleNum:number, spec:string):void
 		// styleNum
 		// - wx.STC_STYLE_DEFAULT
@@ -167,6 +172,21 @@ EditorCtrl = class(wx.StyledTextCtrl) {
 		this.SetProperty('tab.timmy.whinge.level', '4')
 		// SetUseTabs(useTabs:boolean):void
 		this.SetUseTabs(true)
+
+		// CmdKeyAssign(key:number, modifiers:number, cmd:number):void
+		// modifiers:
+		// - wx.STC_SCMOD_NORM
+		// - wx.STC_SCMOD_SHIFT
+		// - wx.STC_SCMOD_CTRL
+		// - wx.STC_SCMOD_ALT
+		// - wx.STC_SCMOD_SUPER
+		// - wx.STC_SCMOD_META
+		//this.CmdKeyAssign(ord('P'), wx.STC_SCMOD_ALT, wx.STC_CMD_LINEUP)
+		//this.CmdKeyAssign(ord('N'), wx.STC_SCMOD_ALT, wx.STC_CMD_LINEDOWN)
+
+		// UsePopUp(allowPopUp:boolean)
+		this.UsePopUp(true)
+
 		this.Bind(wx.EVT_KEY_DOWN) {|event|
 			if (event.GetKeyCode() == wx.WXK_RETURN) {
 				this.NewLineAndIndent()
