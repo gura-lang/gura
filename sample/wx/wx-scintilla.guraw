@@ -5,7 +5,7 @@ import(resource)
 
 EditorCtrl = class(wx.StyledTextCtrl) {
 	__init__(args*) = {|args*|
-		// wx.StyledTextCtrl#SetMarginType(margin:number, marginType:number):void
+		// SetMarginType(margin:number, marginType:number):void
 		// marginType
 		// - wx.STC_MARGIN_SYMBOL
 		// - wx.STC_MARGIN_NUMBER
@@ -14,9 +14,9 @@ EditorCtrl = class(wx.StyledTextCtrl) {
 		// - wx.STC_MARGIN_TEXT
 		// - wx.STC_MARGIN_RTEXT
 		this.SetMarginType(1, wx.STC_MARGIN_NUMBER)
-		// wx.StyledTextCtrl#SetMarginWidth(margin:number, pixelWidth:number):void
+		// SetMarginWidth(margin:number, pixelWidth:number):void
 		this.SetMarginWidth(1, 30)
-		// wx.StyledTextCtrl#StyleSetSpec(styleNum:number, spec:string):void
+		// StyleSetSpec(styleNum:number, spec:string):void
 		// styleNum
 		// - wx.STC_STYLE_DEFAULT
 		// - wx.STC_STYLE_LINENUMBER
@@ -27,24 +27,24 @@ EditorCtrl = class(wx.StyledTextCtrl) {
 		// - wx.STC_STYLE_CALLTIP
 		// - wx.STC_STYLE_LASTPREDEFINED
 		this.StyleSetSpec(wx.STC_STYLE_LINENUMBER, 'fore:#888888')
-		// wx.StyledTextCtrl#ConvertEOLs(eolMode:number):void
+		// ConvertEOLs(eolMode:number):void
 		// eolMode
 		// - wx.STC_EOL_CRLF
 		// - wx.STC_EOL_CR
 		// - wx.STC_EOL_LF
 		this.ConvertEOLs(wx.STC_EOL_LF)
-		// wx.StyledTextCtrl#SetIndentationGuides(indentView:number):void
+		// SetIndentationGuides(indentView:number):void
 		// indentView
 		// - wx.STC_IV_NONE
 		// - wx.STC_IV_REAL
 		// - wx.STC_IV_LOOKFORWARD
 		// - wx.STC_IV_LOOKBOTH
 		this.SetIndentationGuides(wx.STC_IV_REAL)
-		// wx.StyledTextCtrl#SetViewEOL(visible:boolean):void
+		// SetViewEOL(visible:boolean):void
 		this.SetViewEOL(false)
-		// wx.StyledTextCtrl#SetTabWidth(tabWidth:number):void
+		// SetTabWidth(tabWidth:number):void
 		this.SetTabWidth(4)
-		// wx.StyledTextCtrl#SetLexer(lexer:number):void
+		// SetLexer(lexer:number):void
 		// lexer
 		// - wx.STC_LEX_CONTAINER
 		// - wx.STC_LEX_NULL
@@ -154,18 +154,18 @@ EditorCtrl = class(wx.StyledTextCtrl) {
 		// - wx.STC_LEX_VISUALPROLOG
 		// - wx.STC_LEX_AUTOMATIC
 		this.SetLexer(wx.STC_LEX_CPP)
-		// wx.StyledTextCtrl#SetKeyWords(keywordSet:number, keyWords:string):void
+		// SetKeyWords(keywordSet:number, keyWords:string):void
 		this.SetKeyWords(0, ['if', 'else', 'for', 'while'].join(' '))
-		// wx.StyledTextCtrl#SetViewWhiteSpace(viewWS:number):void
+		// SetViewWhiteSpace(viewWS:number):void
 		// viewWS
 		// - wx.STC_WS_INVISIBLE
 		// - wx.STC_WS_VISIBLEALWAYS
 		// - wx.STC_WS_VISIBLEAFTERINDENT
 		this.SetViewWhiteSpace(wx.STC_WS_INVISIBLE)
-		// wx.StyledTextCtrl#SetProperty(key:string, value:string):void
+		// SetProperty(key:string, value:string):void
 		this.SetProperty('fold', '1')
 		this.SetProperty('tab.timmy.whinge.level', '4')
-		// wx.StyledTextCtrl#SetUseTabs(useTabs:boolean):void
+		// SetUseTabs(useTabs:boolean):void
 		this.SetUseTabs(true)
 		this.Bind(wx.EVT_KEY_DOWN) {|event|
 			if (event.GetKeyCode() == wx.WXK_RETURN) {
@@ -272,7 +272,7 @@ EditorCtrl = class(wx.StyledTextCtrl) {
 		indentSize = this.GetLineIndentation(this.GetCurrentLine())
 		this.CmdKeyExecute(wx.STC_CMD_NEWLINE)
 		this.SetLineIndentation(this.GetCurrentLine(), indentSize)
-		this.CmdKeyExecute(wx.STC_CMD_WORDRIGHT)
+		(indentSize > 0) && this.CmdKeyExecute(wx.STC_CMD_WORDRIGHT)
 	}
 }
 
@@ -290,6 +290,9 @@ MyFrame = class(wx.Frame) {
 			 size:wx.Size => wx.Size(480, 640)) = {|nil, wx.ID_ANY, title, pos, size|
 		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
 		EditorCtrl(this, ID_StyledTextCtrl)
+		wx.MenuBar {|menuBar|
+			this.SetMenuBar(menuBar)
+		}
 	}
 }
 
