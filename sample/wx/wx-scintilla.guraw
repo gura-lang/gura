@@ -3,6 +3,279 @@
 import(wx)
 import(resource)
 
+EditorCtrl = class(wx.StyledTextCtrl) {
+	__init__(args*) = {|args*|
+		// wx.StyledTextCtrl#SetMarginType(margin:number, marginType:number):void
+		// marginType
+		// - wx.STC_MARGIN_SYMBOL
+		// - wx.STC_MARGIN_NUMBER
+		// - wx.STC_MARGIN_BACK
+		// - wx.STC_MARGIN_FORE
+		// - wx.STC_MARGIN_TEXT
+		// - wx.STC_MARGIN_RTEXT
+		this.SetMarginType(1, wx.STC_MARGIN_NUMBER)
+		// wx.StyledTextCtrl#SetMarginWidth(margin:number, pixelWidth:number):void
+		this.SetMarginWidth(1, 30)
+		// wx.StyledTextCtrl#StyleSetSpec(styleNum:number, spec:string):void
+		// styleNum
+		// - wx.STC_STYLE_DEFAULT
+		// - wx.STC_STYLE_LINENUMBER
+		// - wx.STC_STYLE_BRACELIGHT
+		// - wx.STC_STYLE_BRACEBAD
+		// - wx.STC_STYLE_CONTROLCHAR
+		// - wx.STC_STYLE_INDENTGUIDE
+		// - wx.STC_STYLE_CALLTIP
+		// - wx.STC_STYLE_LASTPREDEFINED
+		this.StyleSetSpec(wx.STC_STYLE_LINENUMBER, 'fore:#888888')
+		// wx.StyledTextCtrl#ConvertEOLs(eolMode:number):void
+		// eolMode
+		// - wx.STC_EOL_CRLF
+		// - wx.STC_EOL_CR
+		// - wx.STC_EOL_LF
+		this.ConvertEOLs(wx.STC_EOL_LF)
+		// wx.StyledTextCtrl#SetIndentationGuides(indentView:number):void
+		// indentView
+		// - wx.STC_IV_NONE
+		// - wx.STC_IV_REAL
+		// - wx.STC_IV_LOOKFORWARD
+		// - wx.STC_IV_LOOKBOTH
+		this.SetIndentationGuides(wx.STC_IV_REAL)
+		// wx.StyledTextCtrl#SetViewEOL(visible:boolean):void
+		this.SetViewEOL(false)
+		// wx.StyledTextCtrl#SetTabWidth(tabWidth:number):void
+		this.SetTabWidth(4)
+		// wx.StyledTextCtrl#SetLexer(lexer:number):void
+		// lexer
+		// - wx.STC_LEX_CONTAINER
+		// - wx.STC_LEX_NULL
+		// - wx.STC_LEX_PYTHON
+		// - wx.STC_LEX_CPP
+		// - wx.STC_LEX_HTML
+		// - wx.STC_LEX_XML
+		// - wx.STC_LEX_PERL
+		// - wx.STC_LEX_SQL
+		// - wx.STC_LEX_VB
+		// - wx.STC_LEX_PROPERTIES
+		// - wx.STC_LEX_ERRORLIST
+		// - wx.STC_LEX_MAKEFILE
+		// - wx.STC_LEX_BATCH
+		// - wx.STC_LEX_XCODE
+		// - wx.STC_LEX_LATEX
+		// - wx.STC_LEX_LUA
+		// - wx.STC_LEX_DIFF
+		// - wx.STC_LEX_CONF
+		// - wx.STC_LEX_PASCAL
+		// - wx.STC_LEX_AVE
+		// - wx.STC_LEX_ADA
+		// - wx.STC_LEX_LISP
+		// - wx.STC_LEX_RUBY
+		// - wx.STC_LEX_EIFFEL
+		// - wx.STC_LEX_EIFFELKW
+		// - wx.STC_LEX_TCL
+		// - wx.STC_LEX_NNCRONTAB
+		// - wx.STC_LEX_BULLANT
+		// - wx.STC_LEX_VBSCRIPT
+		// - wx.STC_LEX_BAAN
+		// - wx.STC_LEX_MATLAB
+		// - wx.STC_LEX_SCRIPTOL
+		// - wx.STC_LEX_ASM
+		// - wx.STC_LEX_CPPNOCASE
+		// - wx.STC_LEX_FORTRAN
+		// - wx.STC_LEX_F77
+		// - wx.STC_LEX_CSS
+		// - wx.STC_LEX_POV
+		// - wx.STC_LEX_LOUT
+		// - wx.STC_LEX_ESCRIPT
+		// - wx.STC_LEX_PS
+		// - wx.STC_LEX_NSIS
+		// - wx.STC_LEX_MMIXAL
+		// - wx.STC_LEX_CLW
+		// - wx.STC_LEX_CLWNOCASE
+		// - wx.STC_LEX_LOT
+		// - wx.STC_LEX_YAML
+		// - wx.STC_LEX_TEX
+		// - wx.STC_LEX_METAPOST
+		// - wx.STC_LEX_POWERBASIC
+		// - wx.STC_LEX_FORTH
+		// - wx.STC_LEX_ERLANG
+		// - wx.STC_LEX_OCTAVE
+		// - wx.STC_LEX_MSSQL
+		// - wx.STC_LEX_VERILOG
+		// - wx.STC_LEX_KIX
+		// - wx.STC_LEX_GUI4CLI
+		// - wx.STC_LEX_SPECMAN
+		// - wx.STC_LEX_AU3
+		// - wx.STC_LEX_APDL
+		// - wx.STC_LEX_BASH
+		// - wx.STC_LEX_ASN1
+		// - wx.STC_LEX_VHDL
+		// - wx.STC_LEX_CAML
+		// - wx.STC_LEX_BLITZBASIC
+		// - wx.STC_LEX_PUREBASIC
+		// - wx.STC_LEX_HASKELL
+		// - wx.STC_LEX_PHPSCRIPT
+		// - wx.STC_LEX_TADS3
+		// - wx.STC_LEX_REBOL
+		// - wx.STC_LEX_SMALLTALK
+		// - wx.STC_LEX_FLAGSHIP
+		// - wx.STC_LEX_CSOUND
+		// - wx.STC_LEX_FREEBASIC
+		// - wx.STC_LEX_INNOSETUP
+		// - wx.STC_LEX_OPAL
+		// - wx.STC_LEX_SPICE
+		// - wx.STC_LEX_D
+		// - wx.STC_LEX_CMAKE
+		// - wx.STC_LEX_GAP
+		// - wx.STC_LEX_PLM
+		// - wx.STC_LEX_PROGRESS
+		// - wx.STC_LEX_ABAQUS
+		// - wx.STC_LEX_ASYMPTOTE
+		// - wx.STC_LEX_R
+		// - wx.STC_LEX_MAGIK
+		// - wx.STC_LEX_POWERSHELL
+		// - wx.STC_LEX_MYSQL
+		// - wx.STC_LEX_PO
+		// - wx.STC_LEX_TAL
+		// - wx.STC_LEX_COBOL
+		// - wx.STC_LEX_TACL
+		// - wx.STC_LEX_SORCUS
+		// - wx.STC_LEX_POWERPRO
+		// - wx.STC_LEX_NIMROD
+		// - wx.STC_LEX_SML
+		// - wx.STC_LEX_MARKDOWN
+		// - wx.STC_LEX_TXT2TAGS
+		// - wx.STC_LEX_A68K
+		// - wx.STC_LEX_MODULA
+		// - wx.STC_LEX_COFFEESCRIPT
+		// - wx.STC_LEX_TCMD
+		// - wx.STC_LEX_AVS
+		// - wx.STC_LEX_ECL
+		// - wx.STC_LEX_OSCRIPT
+		// - wx.STC_LEX_VISUALPROLOG
+		// - wx.STC_LEX_AUTOMATIC
+		this.SetLexer(wx.STC_LEX_CPP)
+		// wx.StyledTextCtrl#SetKeyWords(keywordSet:number, keyWords:string):void
+		this.SetKeyWords(0, ['if', 'else', 'for', 'while'].join(' '))
+		// wx.StyledTextCtrl#SetViewWhiteSpace(viewWS:number):void
+		// viewWS
+		// - wx.STC_WS_INVISIBLE
+		// - wx.STC_WS_VISIBLEALWAYS
+		// - wx.STC_WS_VISIBLEAFTERINDENT
+		this.SetViewWhiteSpace(wx.STC_WS_INVISIBLE)
+		// wx.StyledTextCtrl#SetProperty(key:string, value:string):void
+		this.SetProperty('fold', '1')
+		this.SetProperty('tab.timmy.whinge.level', '4')
+		// wx.StyledTextCtrl#SetUseTabs(useTabs:boolean):void
+		this.SetUseTabs(true)
+		this.Bind(wx.EVT_KEY_DOWN) {|event|
+			if (event.GetKeyCode() == wx.WXK_RETURN) {
+				this.NewLineAndIndent()
+			} else {
+				event.Skip()
+			}
+		}
+		this.Bind(wx.EVT_STC_CHANGE) {|event|
+			//println('Change')
+		}
+		this.Bind(wx.EVT_STC_STYLENEEDED) {|event|
+			//println('StyleNeeded')
+		}
+		this.Bind(wx.EVT_STC_CHARADDED) {|event|
+			//println('CharAdded')
+		}
+		this.Bind(wx.EVT_STC_SAVEPOINTREACHED) {|event|
+			//println('SavePointReached')
+		}
+		this.Bind(wx.EVT_STC_SAVEPOINTLEFT) {|event|
+			//println('SavePointLeft')
+		}
+		this.Bind(wx.EVT_STC_ROMODIFYATTEMPT) {|event|
+			//println('RoModifyAttempt')
+		}
+		this.Bind(wx.EVT_STC_KEY) {|event|
+			//println('Key')
+		}
+		this.Bind(wx.EVT_STC_DOUBLECLICK) {|event|
+			//println('DoubleClick')
+		}
+		this.Bind(wx.EVT_STC_UPDATEUI) {|event|
+			//println('UpdateUI')
+		}
+		this.Bind(wx.EVT_STC_MODIFIED) {|event|
+			//println('Modified')
+		}
+		this.Bind(wx.EVT_STC_MACRORECORD) {|event|
+			//println('MacroRecord')
+		}
+		this.Bind(wx.EVT_STC_MARGINCLICK) {|event|
+			//println('MarginClick')
+		}
+		this.Bind(wx.EVT_STC_NEEDSHOWN) {|event|
+			//println('NeedShown')
+		}
+		this.Bind(wx.EVT_STC_PAINTED) {|event|
+			//println('Painted')
+		}
+		this.Bind(wx.EVT_STC_USERLISTSELECTION) {|event|
+			//println('UserListSelection')
+		}
+		this.Bind(wx.EVT_STC_URIDROPPED) {|event|
+			//println('URIDropped')
+		}
+		this.Bind(wx.EVT_STC_DWELLSTART) {|event|
+			//println('DwellStart')
+		}
+		this.Bind(wx.EVT_STC_DWELLEND) {|event|
+			//println('DwellEnd')
+		}
+		this.Bind(wx.EVT_STC_START_DRAG) {|event|
+			//println('Start_Drag')
+		}
+		this.Bind(wx.EVT_STC_DRAG_OVER) {|event|
+			//println('Drag_Over')
+		}
+		this.Bind(wx.EVT_STC_DO_DROP) {|event|
+			//println('Do_Drop')
+		}
+		this.Bind(wx.EVT_STC_ZOOM) {|event|
+			//println('Zoom')
+		}
+		this.Bind(wx.EVT_STC_HOTSPOT_CLICK) {|event|
+			//println('Hotspot_Click')
+		}
+		this.Bind(wx.EVT_STC_HOTSPOT_DCLICK) {|event|
+			//println('Hotspot_DClick')
+		}
+		this.Bind(wx.EVT_STC_CALLTIP_CLICK) {|event|
+			//println('CallTip_Click')
+		}
+		this.Bind(wx.EVT_STC_AUTOCOMP_SELECTION) {|event|
+			//println('AutoComp_Selection')
+		}
+		this.Bind(wx.EVT_STC_INDICATOR_CLICK) {|event|
+			//println('Indicator_Click')
+		}
+		this.Bind(wx.EVT_STC_INDICATOR_RELEASE) {|event|
+			//println('Indicator_Release')
+		}
+		this.Bind(wx.EVT_STC_AUTOCOMP_CANCELLED) {|event|
+			//println('AutoComp_Cancelled')
+		}
+		this.Bind(wx.EVT_STC_AUTOCOMP_CHAR_DELETED) {|event|
+			//println('AutoComp_CharDeleted')
+		}
+		//this.Bind(wx.EVT_STC_HOTSPOT_RELEASE_CLICK) {|event|
+		//	println('HotSpot_Release_Click')
+		//}
+	}
+	NewLineAndIndent() = {
+		indentSize = this.GetLineIndentation(this.GetCurrentLine())
+		this.CmdKeyExecute(wx.STC_CMD_NEWLINE)
+		this.SetLineIndentation(this.GetCurrentLine(), indentSize)
+		this.CmdKeyExecute(wx.STC_CMD_WORDRIGHT)
+	}
+}
+
 MyApp = class(wx.App) {
 	OnInit() = {
 		frame = MyFrame('Simple')
@@ -14,281 +287,9 @@ MyApp = class(wx.App) {
 MyFrame = class(wx.Frame) {
 	ID_StyledTextCtrl = wx.NewId()
 	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
-			size:wx.Size => wx.DefaultSize) = {|nil, wx.ID_ANY, title, pos, size|
+			 size:wx.Size => wx.Size(480, 640)) = {|nil, wx.ID_ANY, title, pos, size|
 		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
-		wx.StyledTextCtrl(this, ID_StyledTextCtrl) {|ctrl|
-			// wx.StyledTextCtrl#SetMarginType(margin:number, marginType:number):void
-			// marginType
-			// - wx.STC_MARGIN_SYMBOL
-			// - wx.STC_MARGIN_NUMBER
-			// - wx.STC_MARGIN_BACK
-			// - wx.STC_MARGIN_FORE
-			// - wx.STC_MARGIN_TEXT
-			// - wx.STC_MARGIN_RTEXT
-			ctrl.SetMarginType(1, wx.STC_MARGIN_NUMBER)
-			// wx.StyledTextCtrl#SetMarginWidth(margin:number, pixelWidth:number):void
-			ctrl.SetMarginWidth(1, 30)
-			// wx.StyledTextCtrl#StyleSetSpec(styleNum:number, spec:string):void
-			// styleNum
-			// - wx.STC_STYLE_DEFAULT
-			// - wx.STC_STYLE_LINENUMBER
-			// - wx.STC_STYLE_BRACELIGHT
-			// - wx.STC_STYLE_BRACEBAD
-			// - wx.STC_STYLE_CONTROLCHAR
-			// - wx.STC_STYLE_INDENTGUIDE
-			// - wx.STC_STYLE_CALLTIP
-			// - wx.STC_STYLE_LASTPREDEFINED
-			ctrl.StyleSetSpec(wx.STC_STYLE_LINENUMBER, 'fore:#888888')
-			// wx.StyledTextCtrl#ConvertEOLs(eolMode:number):void
-			// eolMode
-			// - wx.STC_EOL_CRLF
-			// - wx.STC_EOL_CR
-			// - wx.STC_EOL_LF
-			ctrl.ConvertEOLs(wx.STC_EOL_LF)
-			// wx.StyledTextCtrl#SetIndentationGuides(indentView:number):void
-			// indentView
-			// - wx.STC_IV_NONE
-			// - wx.STC_IV_REAL
-			// - wx.STC_IV_LOOKFORWARD
-			// - wx.STC_IV_LOOKBOTH
-			ctrl.SetIndentationGuides(wx.STC_IV_REAL)
-			// wx.StyledTextCtrl#SetViewEOL(visible:boolean):void
-			ctrl.SetViewEOL(false)
-			// wx.StyledTextCtrl#SetTabWidth(tabWidth:number):void
-			ctrl.SetTabWidth(4)
-			// wx.StyledTextCtrl#SetLexer(lexer:number):void
-			// lexer
-			// - wx.STC_LEX_CONTAINER
-			// - wx.STC_LEX_NULL
-			// - wx.STC_LEX_PYTHON
-			// - wx.STC_LEX_CPP
-			// - wx.STC_LEX_HTML
-			// - wx.STC_LEX_XML
-			// - wx.STC_LEX_PERL
-			// - wx.STC_LEX_SQL
-			// - wx.STC_LEX_VB
-			// - wx.STC_LEX_PROPERTIES
-			// - wx.STC_LEX_ERRORLIST
-			// - wx.STC_LEX_MAKEFILE
-			// - wx.STC_LEX_BATCH
-			// - wx.STC_LEX_XCODE
-			// - wx.STC_LEX_LATEX
-			// - wx.STC_LEX_LUA
-			// - wx.STC_LEX_DIFF
-			// - wx.STC_LEX_CONF
-			// - wx.STC_LEX_PASCAL
-			// - wx.STC_LEX_AVE
-			// - wx.STC_LEX_ADA
-			// - wx.STC_LEX_LISP
-			// - wx.STC_LEX_RUBY
-			// - wx.STC_LEX_EIFFEL
-			// - wx.STC_LEX_EIFFELKW
-			// - wx.STC_LEX_TCL
-			// - wx.STC_LEX_NNCRONTAB
-			// - wx.STC_LEX_BULLANT
-			// - wx.STC_LEX_VBSCRIPT
-			// - wx.STC_LEX_BAAN
-			// - wx.STC_LEX_MATLAB
-			// - wx.STC_LEX_SCRIPTOL
-			// - wx.STC_LEX_ASM
-			// - wx.STC_LEX_CPPNOCASE
-			// - wx.STC_LEX_FORTRAN
-			// - wx.STC_LEX_F77
-			// - wx.STC_LEX_CSS
-			// - wx.STC_LEX_POV
-			// - wx.STC_LEX_LOUT
-			// - wx.STC_LEX_ESCRIPT
-			// - wx.STC_LEX_PS
-			// - wx.STC_LEX_NSIS
-			// - wx.STC_LEX_MMIXAL
-			// - wx.STC_LEX_CLW
-			// - wx.STC_LEX_CLWNOCASE
-			// - wx.STC_LEX_LOT
-			// - wx.STC_LEX_YAML
-			// - wx.STC_LEX_TEX
-			// - wx.STC_LEX_METAPOST
-			// - wx.STC_LEX_POWERBASIC
-			// - wx.STC_LEX_FORTH
-			// - wx.STC_LEX_ERLANG
-			// - wx.STC_LEX_OCTAVE
-			// - wx.STC_LEX_MSSQL
-			// - wx.STC_LEX_VERILOG
-			// - wx.STC_LEX_KIX
-			// - wx.STC_LEX_GUI4CLI
-			// - wx.STC_LEX_SPECMAN
-			// - wx.STC_LEX_AU3
-			// - wx.STC_LEX_APDL
-			// - wx.STC_LEX_BASH
-			// - wx.STC_LEX_ASN1
-			// - wx.STC_LEX_VHDL
-			// - wx.STC_LEX_CAML
-			// - wx.STC_LEX_BLITZBASIC
-			// - wx.STC_LEX_PUREBASIC
-			// - wx.STC_LEX_HASKELL
-			// - wx.STC_LEX_PHPSCRIPT
-			// - wx.STC_LEX_TADS3
-			// - wx.STC_LEX_REBOL
-			// - wx.STC_LEX_SMALLTALK
-			// - wx.STC_LEX_FLAGSHIP
-			// - wx.STC_LEX_CSOUND
-			// - wx.STC_LEX_FREEBASIC
-			// - wx.STC_LEX_INNOSETUP
-			// - wx.STC_LEX_OPAL
-			// - wx.STC_LEX_SPICE
-			// - wx.STC_LEX_D
-			// - wx.STC_LEX_CMAKE
-			// - wx.STC_LEX_GAP
-			// - wx.STC_LEX_PLM
-			// - wx.STC_LEX_PROGRESS
-			// - wx.STC_LEX_ABAQUS
-			// - wx.STC_LEX_ASYMPTOTE
-			// - wx.STC_LEX_R
-			// - wx.STC_LEX_MAGIK
-			// - wx.STC_LEX_POWERSHELL
-			// - wx.STC_LEX_MYSQL
-			// - wx.STC_LEX_PO
-			// - wx.STC_LEX_TAL
-			// - wx.STC_LEX_COBOL
-			// - wx.STC_LEX_TACL
-			// - wx.STC_LEX_SORCUS
-			// - wx.STC_LEX_POWERPRO
-			// - wx.STC_LEX_NIMROD
-			// - wx.STC_LEX_SML
-			// - wx.STC_LEX_MARKDOWN
-			// - wx.STC_LEX_TXT2TAGS
-			// - wx.STC_LEX_A68K
-			// - wx.STC_LEX_MODULA
-			// - wx.STC_LEX_COFFEESCRIPT
-			// - wx.STC_LEX_TCMD
-			// - wx.STC_LEX_AVS
-			// - wx.STC_LEX_ECL
-			// - wx.STC_LEX_OSCRIPT
-			// - wx.STC_LEX_VISUALPROLOG
-			// - wx.STC_LEX_AUTOMATIC
-			ctrl.SetLexer(wx.STC_LEX_CPP)
-			// wx.StyledTextCtrl#SetKeyWords(keywordSet:number, keyWords:string):void
-			ctrl.SetKeyWords(0, ['if', 'else', 'for', 'while'].join(' '))
-			// wx.StyledTextCtrl#SetViewWhiteSpace(viewWS:number):void
-			// viewWS
-			// - wx.STC_WS_INVISIBLE
-			// - wx.STC_WS_VISIBLEALWAYS
-			// - wx.STC_WS_VISIBLEAFTERINDENT
-			ctrl.SetViewWhiteSpace(wx.STC_WS_INVISIBLE)
-			// wx.StyledTextCtrl#SetProperty(key:string, value:string):void
-			ctrl.SetProperty('fold', '1')
-			ctrl.SetProperty('tab.timmy.whinge.level', '4')
-			// wx.StyledTextCtrl#SetUseTabs(useTabs:boolean):void
-			ctrl.SetUseTabs(true)
-			ctrl.Bind(wx.EVT_KEY_DOWN) {|event|
-				if (event.GetKeyCode() == wx.WXK_RETURN) {
-					indent = ctrl.GetLineIndentation(ctrl.GetCurrentLine())
-					ctrl.CmdKeyExecute(wx.STC_CMD_NEWLINE)
-					ctrl.SetLineIndentation(ctrl.GetCurrentLine(), indent)
-					posForward = if (ctrl.GetUseTabs()) {
-						int(indent / ctrl.GetTabWidth()) + indent % ctrl.GetTabWidth()
-					} else {
-						indent
-					}
-					ctrl.GotoPos(ctrl.GetCurrentPos() + posForward)
-				} else {
-					event.Skip()
-				}
-			}
-
-		}
-		this.Bind(wx.EVT_STC_CHANGE, ID_StyledTextCtrl) {|event|
-			//println('Change')
-		}
-		this.Bind(wx.EVT_STC_STYLENEEDED, ID_StyledTextCtrl) {|event|
-			//println('StyleNeeded')
-		}
-		this.Bind(wx.EVT_STC_CHARADDED, ID_StyledTextCtrl) {|event|
-			//println('CharAdded')
-		}
-		this.Bind(wx.EVT_STC_SAVEPOINTREACHED, ID_StyledTextCtrl) {|event|
-			//println('SavePointReached')
-		}
-		this.Bind(wx.EVT_STC_SAVEPOINTLEFT, ID_StyledTextCtrl) {|event|
-			//println('SavePointLeft')
-		}
-		this.Bind(wx.EVT_STC_ROMODIFYATTEMPT, ID_StyledTextCtrl) {|event|
-			//println('RoModifyAttempt')
-		}
-		this.Bind(wx.EVT_STC_KEY, ID_StyledTextCtrl) {|event|
-			//println('Key')
-		}
-		this.Bind(wx.EVT_STC_DOUBLECLICK, ID_StyledTextCtrl) {|event|
-			//println('DoubleClick')
-		}
-		this.Bind(wx.EVT_STC_UPDATEUI, ID_StyledTextCtrl) {|event|
-			//println('UpdateUI')
-		}
-		this.Bind(wx.EVT_STC_MODIFIED, ID_StyledTextCtrl) {|event|
-			//println('Modified')
-		}
-		this.Bind(wx.EVT_STC_MACRORECORD, ID_StyledTextCtrl) {|event|
-			//println('MacroRecord')
-		}
-		this.Bind(wx.EVT_STC_MARGINCLICK, ID_StyledTextCtrl) {|event|
-			//println('MarginClick')
-		}
-		this.Bind(wx.EVT_STC_NEEDSHOWN, ID_StyledTextCtrl) {|event|
-			//println('NeedShown')
-		}
-		this.Bind(wx.EVT_STC_PAINTED, ID_StyledTextCtrl) {|event|
-			//println('Painted')
-		}
-		this.Bind(wx.EVT_STC_USERLISTSELECTION, ID_StyledTextCtrl) {|event|
-			//println('UserListSelection')
-		}
-		this.Bind(wx.EVT_STC_URIDROPPED, ID_StyledTextCtrl) {|event|
-			//println('URIDropped')
-		}
-		this.Bind(wx.EVT_STC_DWELLSTART, ID_StyledTextCtrl) {|event|
-			//println('DwellStart')
-		}
-		this.Bind(wx.EVT_STC_DWELLEND, ID_StyledTextCtrl) {|event|
-			//println('DwellEnd')
-		}
-		this.Bind(wx.EVT_STC_START_DRAG, ID_StyledTextCtrl) {|event|
-			//println('Start_Drag')
-		}
-		this.Bind(wx.EVT_STC_DRAG_OVER, ID_StyledTextCtrl) {|event|
-			//println('Drag_Over')
-		}
-		this.Bind(wx.EVT_STC_DO_DROP, ID_StyledTextCtrl) {|event|
-			//println('Do_Drop')
-		}
-		this.Bind(wx.EVT_STC_ZOOM, ID_StyledTextCtrl) {|event|
-			//println('Zoom')
-		}
-		this.Bind(wx.EVT_STC_HOTSPOT_CLICK, ID_StyledTextCtrl) {|event|
-			//println('Hotspot_Click')
-		}
-		this.Bind(wx.EVT_STC_HOTSPOT_DCLICK, ID_StyledTextCtrl) {|event|
-			//println('Hotspot_DClick')
-		}
-		this.Bind(wx.EVT_STC_CALLTIP_CLICK, ID_StyledTextCtrl) {|event|
-			//println('CallTip_Click')
-		}
-		this.Bind(wx.EVT_STC_AUTOCOMP_SELECTION, ID_StyledTextCtrl) {|event|
-			//println('AutoComp_Selection')
-		}
-		this.Bind(wx.EVT_STC_INDICATOR_CLICK, ID_StyledTextCtrl) {|event|
-			//println('Indicator_Click')
-		}
-		this.Bind(wx.EVT_STC_INDICATOR_RELEASE, ID_StyledTextCtrl) {|event|
-			//println('Indicator_Release')
-		}
-		this.Bind(wx.EVT_STC_AUTOCOMP_CANCELLED, ID_StyledTextCtrl) {|event|
-			//println('AutoComp_Cancelled')
-		}
-		this.Bind(wx.EVT_STC_AUTOCOMP_CHAR_DELETED, ID_StyledTextCtrl) {|event|
-			//println('AutoComp_CharDeleted')
-		}
-		//this.Bind(wx.EVT_STC_HOTSPOT_RELEASE_CLICK, ID_StyledTextCtrl) {|event|
-		//	println('HotSpot_Release_Click')
-		//}
+		EditorCtrl(this, ID_StyledTextCtrl)
 	}
 }
 
