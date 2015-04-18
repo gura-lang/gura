@@ -30,8 +30,6 @@ EditorCtrl = class(wx.StyledTextCtrl) {
 		// SetMarginWidth(margin:number, pixelWidth:number):void
 		this.SetMarginWidth(1, 80)
 
-		//this.MarkerAdd(0, wx.STC_MARK_CIRCLE)
-		//this.MarkerAdd(0, wx.STC_MARK_CIRCLEPLUS)
 
 
 		// StyleSetSpec(styleNum:number, spec:string):void
@@ -311,9 +309,9 @@ EditorCtrl = class(wx.StyledTextCtrl) {
 	}
 	NewLineAndIndent() = {
 		indentSize = this.GetLineIndentation(this.GetCurrentLine())
-		this.CmdKeyExecute(wx.STC_CMD_NEWLINE)
+		this.NewLine()
 		this.SetLineIndentation(this.GetCurrentLine(), indentSize)
-		(indentSize > 0) && this.CmdKeyExecute(wx.STC_CMD_WORDRIGHT)
+		(indentSize > 0) && this.WordRight()
 	}
 }
 
@@ -328,9 +326,27 @@ MyApp = class(wx.App) {
 MyFrame = class(wx.Frame) {
 	ID_StyledTextCtrl = wx.NewId()
 	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
-			 size:wx.Size => wx.Size(480, 640)) = {|nil, wx.ID_ANY, title, pos, size|
+			 size:wx.Size => wx.Size(640, 640)) = {|nil, wx.ID_ANY, title, pos, size|
 		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
-		EditorCtrl(this, ID_StyledTextCtrl)
+		EditorCtrl(this, ID_StyledTextCtrl) {|ctrl|
+			ctrl.LoadFile('wx-scintilla.guraw')
+			// MarkerDefine(markerNumber:number, markerSymbol:number,
+			//              foreground?:wx.Colour, background?:wx.Colour):void
+			ctrl.MarkerDefine(0, wx.STC_MARK_CIRCLEPLUS)
+			ctrl.MarkerDefine(1, wx.STC_MARK_ARROW)
+			ctrl.MarkerDefine(2, wx.STC_MARK_CHARACTER + ord('A'))
+			ctrl.MarkerDefine(3, wx.STC_MARK_BOXPLUS)
+			ctrl.MarkerDefine(4, wx.STC_MARK_VLINE)
+			//ctrl.MarkerAdd(0, wx.STC_MARK_CIRCLE)
+			// MarkerAdd(line:number, markerNumber:number)
+			// - markerNumber: an integer in the range 0..31
+			ctrl.MarkerAdd(0, 0)
+			ctrl.MarkerAdd(1, 1)
+			ctrl.MarkerAdd(2, 2)
+			ctrl.MarkerAdd(3, 3)
+			ctrl.MarkerAdd(4, 4)
+			ctrl.MarkerAdd(5, 4)
+		}
 		wx.MenuBar {|menuBar|
 			this.SetMenuBar(menuBar)
 		}
