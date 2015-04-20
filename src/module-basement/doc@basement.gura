@@ -20,6 +20,8 @@ cross
 for
 repeat
 while
+break
+continue
 )}
 
 ## Value Generator
@@ -31,15 +33,7 @@ interval
 range
 )}
 
-## Flow Control
-
-${moddoc.reference(`en
-break
-continue
-return
-)}
-
-## Branch Sequence
+## Branch and Flow Control
 
 ${moddoc.reference(`en
 if
@@ -49,6 +43,7 @@ end
 switch
 case
 default
+return
 )}
 
 ## Exception Handling
