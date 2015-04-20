@@ -204,7 +204,9 @@ EditorCtrl = class(wx.StyledTextCtrl) {
 		// - wx.STC_SCMOD_ALT
 		// - wx.STC_SCMOD_SUPER
 		// - wx.STC_SCMOD_META
-		//this.CmdKeyAssign(ord('P'), wx.STC_SCMOD_ALT, wx.STC_CMD_LINEUP)
+		//this.CmdKeyAssign(1, wx.STC_SCMOD_NORM, wx.STC_CMD_LINEUP)
+		//this.CmdKeyAssign(2, wx.STC_SCMOD_NORM, wx.STC_CMD_LINEUP)
+		//this.CmdKeyAssign(ord('P'), wx.STC_SCMOD_CTRL, wx.STC_CMD_LINEUP)
 		//this.CmdKeyAssign(ord('N'), wx.STC_SCMOD_ALT, wx.STC_CMD_LINEDOWN)
 
 		// UsePopUp(allowPopUp:boolean)
