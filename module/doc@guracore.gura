@@ -1107,7 +1107,7 @@ image.write
 )}
 
 
-## iterator/list Class
+## list/iterator Class
 
 The `list` class provides measures to handle a list structure,
 which stores values on memory that can be accessed by indexer.
