@@ -1107,15 +1107,66 @@ image.write
 )}
 
 
-## iterator Class
+## iterator/list Class
 
-### Function to Create Instance
+The `list` class provides measures to handle a list structure,
+which stores values on memory that can be accessed by indexer.
+
+The `iterator` class provides measures to operate an iterator,
+which iterates values that come from containers and streams.
+
+
+### Index Access
+
+You can read and write element values in a list with an indexer
+by giving it an index number starting from zero.
+Below is an example:
+
+    x = [`A, `B, `C, `D, `E, `F]
+
+    println(x[2]) // prints `C
+    x[4] = `e     // replaces `E with `e
+
+
+### Function to Create list Instance
+
+${moddoc.reference(`en
+list
+xlist
+set
+xset
+)}
+
+
+### Function to Create iterator Instance
 
 ${moddoc.reference(`en
 iterator
 )}
 
-### Method Specific to Iterator Class
+
+### Method Specific to list Class
+
+${moddoc.reference(`en
+list.add
+list.append
+list.clear
+list.combination
+list.erase
+list.first
+list.flat
+list.get
+list.insert
+list.isempty
+list.last
+list.permutation
+list.put
+list.shift
+list.shuffle
+list.zip
+)}
+
+### Method Specific to iterator Class
 
 ${moddoc.reference(`en
 iterator.delay
@@ -1124,9 +1175,10 @@ iterator.next
 iterator.repeater
 )}
 
-### Method Common between Iterator and List Class
 
-${moddoc.reference(`en
+### Method Common between list and iterator Class
+
+${moddoc.reference@iterable(`en
 iterator.after
 iterator.align
 iterator.and
@@ -1173,106 +1225,6 @@ iterator.until
 iterator.variance
 iterator.walk
 iterator.while
-)}
-
-
-## list Class
-
-The `list` class provides measures to handle a list structure,
-which stores values on memory that can be accessed by indexer.
-
-
-### Index Access
-
-You can read and write element values in a list with an indexer
-by giving it an index number starting from zero.
-Below is an example:
-
-    x = [`A, `B, `C, `D, `E, `F]
-
-    println(x[2]) // prints `C
-    x[4] = `e     // replaces `E with `e
-
-
-### Function to Create Instance
-
-${moddoc.reference(`en
-list
-xlist
-set
-xset
-)}
-
-
-### Method Specific to List Class
-
-${moddoc.reference(`en
-list.add
-list.append
-list.clear
-list.combination
-list.erase
-list.first
-list.flat
-list.get
-list.insert
-list.isempty
-list.last
-list.permutation
-list.put
-list.shift
-list.shuffle
-list.zip
-)}
-
-### Method Common between Iterator and List Class
-
-${moddoc.reference(`en
-list.after
-list.align
-list.and
-list.average
-list.before
-list.contains
-list.count
-list.cycle
-list.each
-list.filter
-list.find
-list.fold
-list.format
-list.head
-list.join
-list.joinb
-list.len
-list.map
-list.max
-list.min
-list.nilto
-list.offset
-list.or
-list.pack
-list.pingpong
-list.print
-list.printf
-list.println
-list.rank
-list.reduce
-list.replace
-list.reverse
-list.roundoff
-list.runlength
-list.since
-list.skip
-list.skipnil
-list.sort
-list.stddev
-list.sum
-list.tail
-list.until
-list.variance
-list.walk
-list.while
 )}
 
 
