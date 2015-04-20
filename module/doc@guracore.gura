@@ -1368,9 +1368,6 @@ pointer.unpacks
 )}
 
 
-## quote Class
-
-
 ## rational Class
 
 The `rational` class provides measures to handle rational numbers.
