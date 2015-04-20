@@ -1116,7 +1116,17 @@ The `iterator` class provides measures to operate an iterator,
 which iterates values that come from containers and streams.
 
 
-### Index Access
+### List-specific Features
+
+#### Creating List
+
+There are several ways to create a list.
+
+    [3, 1, 4, 1, 5, 9]
+    @{3, 1, 4, 1, 5, 9}
+
+
+#### Index Access
 
 You can read and write element values in a list with an indexer
 by giving it an index number starting from zero.
@@ -1128,7 +1138,7 @@ Below is an example:
     x[4] = `e     // replaces `E with `e
 
 
-### Function to Create list Instance
+#### Function to Create list Instance
 
 ${moddoc.reference(`en
 list
@@ -1138,14 +1148,7 @@ xset
 )}
 
 
-### Function to Create iterator Instance
-
-${moddoc.reference(`en
-iterator
-)}
-
-
-### Method Specific to list Class
+#### Method Specific to list Class
 
 ${moddoc.reference(`en
 list.add
@@ -1166,7 +1169,17 @@ list.shuffle
 list.zip
 )}
 
-### Method Specific to iterator Class
+
+### Iterator-specific Features
+
+#### Function to Create iterator Instance
+
+${moddoc.reference(`en
+iterator
+)}
+
+
+#### Method Specific to iterator Class
 
 ${moddoc.reference(`en
 iterator.delay
@@ -1176,7 +1189,7 @@ iterator.repeater
 )}
 
 
-### Method Common between list and iterator Class
+### Method Common to Both list and iterator Classes
 
 ${moddoc.reference@iterable(`en
 iterator.after
@@ -1229,6 +1242,15 @@ iterator.while
 
 
 ## matrix Class
+
+The `matrix` class provides measures to calculate matrices.
+
+#### Creating Matrix
+
+Below shows a way to create a matrix instance:
+
+    @@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
+
 
 ### Function to Create Instance
 
