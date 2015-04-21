@@ -138,6 +138,8 @@ min
 
 ## Random
 
+Random numbers are generated using [SIMD-oriented Fast Mersenne Twister (SFMT)](http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/index.html) library.
+
 ${moddoc.reference(`en
 rand
 rands
