@@ -58,7 +58,7 @@ Gura_DeclareMethod(formatter, getminwidth)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns an expected minimum width for the field.\n"
 		"\n"
-		"For example, with `%3d`, this method would return `3`.\n");
+		"For example, with `'%3d'`, this method would return `3`.\n");
 }
 
 Gura_ImplementMethod(formatter, getminwidth)
@@ -73,13 +73,13 @@ Gura_DeclareMethod(formatter, getpadding)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a string containing a padding character, a space or '0'.\n"
+		"Returns a string containing a padding character, a space or `'0'`.\n"
 		"\n"
 		"In default, a space is used for padding.\n"
-		"For example, with `%3d`, this method would return `' '`.\n"
+		"For example, with `'%3d'`, this method would return `' '`.\n"
 		"\n"
-		"When a character `0` appears after `%`, that becomes the padding character.\n"
-		"For example, with `%03d`, this method would return `'0'`.\n");
+		"When a character `'0'` appears after `'%'`, that becomes the padding character.\n"
+		"For example, with `'%03d'`, this method would return `'0'`.\n");
 }
 
 Gura_ImplementMethod(formatter, getpadding)
@@ -121,7 +121,7 @@ Gura_DeclareMethod(formatter, getprecision)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns an expected precision for the field.\n"
 		"\n"
-		"For example, with `%.3d`, this method would return `3`.\n");
+		"For example, with `'%.3d'`, this method would return `3`.\n");
 }
 
 Gura_ImplementMethod(formatter, getprecision)
@@ -138,7 +138,7 @@ Gura_DeclareMethod(formatter, isleftalign)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns `true` if the field is expected to be aligned on left.\n"
 		"\n"
-		"For example, with `%-3d`, this method would return `true`.\n");
+		"For example, with `'%-3d'`, this method would return `true`.\n");
 }
 
 Gura_ImplementMethod(formatter, isleftalign)
@@ -153,10 +153,10 @@ Gura_DeclareMethod(formatter, issharp)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns `true` if the specifier sequence includes `#` flag,\n"
+		"Returns `true` if the specifier sequence includes `'#'` flag,\n"
 		"which means some literal prefixes such as `0x` are expected to be appended at the top.\n"
 		"\n"
-		"For example, with `%#x`, this method would return `true`.\n");
+		"For example, with `'%#x'`, this method would return `true`.\n");
 }
 
 Gura_ImplementMethod(formatter, issharp)
@@ -174,7 +174,7 @@ Gura_DeclareMethod(formatter, isuppercase)
 		"Returns `true` if alphabet characters are expected to be shown in upper case.\n"
 		"\n"
 		"Upper case characters are requested\n"
-		"when a specifier such as `%X`, `%E` and `%G` is specified.\n");
+		"when a specifier such as `'%X'`, `'%E'` and `'%G'` is specified.\n");
 }
 
 Gura_ImplementMethod(formatter, isuppercase)
