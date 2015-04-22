@@ -55,7 +55,10 @@ EditorCtrl = class(wx.StyledTextCtrl) {
 			this.StyleSetSpec(wx.STC_STYLE_DEFAULT,
 						  'fore:#888800,back:#ffffff,face:Menlo,size:12')
 		}
-		this.StyleSetSpec(wx.STC_STYLE_LINENUMBER, 'fore:#888888,back:#444444')
+		this.StyleSetSpec(wx.STC_STYLE_LINENUMBER,
+						  'fore:#888888,back:#444444')
+		this.StyleSetSpec(wx.STC_STYLE_BRACELIGHT,
+						  'fore:#880000,back:#ffffff')
 		// ConvertEOLs(eolMode:number):void
 		// eolMode
 		// - wx.STC_EOL_CRLF
@@ -68,7 +71,7 @@ EditorCtrl = class(wx.StyledTextCtrl) {
 		// - wx.STC_IV_REAL
 		// - wx.STC_IV_LOOKFORWARD
 		// - wx.STC_IV_LOOKBOTH
-		this.SetIndentationGuides(wx.STC_IV_REAL)
+		this.SetIndentationGuides(wx.STC_IV_NONE)
 		// SetViewEOL(visible:boolean):void
 		this.SetViewEOL(false)
 		// SetTabWidth(tabWidth:number):void
@@ -220,98 +223,99 @@ EditorCtrl = class(wx.StyledTextCtrl) {
 			}
 		}
 		this.Bind(wx.EVT_STC_CHANGE) {|event|
-			//println('Change')
+			this.printEventFlag && println('Change')
 		}
 		this.Bind(wx.EVT_STC_STYLENEEDED) {|event|
-			//println('StyleNeeded')
+			this.printEventFlag && println('StyleNeeded')
 		}
 		this.Bind(wx.EVT_STC_CHARADDED) {|event|
-			//println('CharAdded')
+			this.printEventFlag && println('CharAdded')
 		}
 		this.Bind(wx.EVT_STC_SAVEPOINTREACHED) {|event|
-			//println('SavePointReached')
+			this.printEventFlag && println('SavePointReached')
 		}
 		this.Bind(wx.EVT_STC_SAVEPOINTLEFT) {|event|
-			//println('SavePointLeft')
+			this.printEventFlag && println('SavePointLeft')
 		}
 		this.Bind(wx.EVT_STC_ROMODIFYATTEMPT) {|event|
-			//println('RoModifyAttempt')
+			this.printEventFlag && println('RoModifyAttempt')
 		}
 		this.Bind(wx.EVT_STC_KEY) {|event|
-			//println('Key')
+			this.printEventFlag && println('Key')
 		}
 		this.Bind(wx.EVT_STC_DOUBLECLICK) {|event|
-			//println('DoubleClick')
+			this.printEventFlag && println('DoubleClick')
 		}
 		this.Bind(wx.EVT_STC_UPDATEUI) {|event|
-			//println('UpdateUI')
+			this.printEventFlag && println('UpdateUI')
 		}
 		this.Bind(wx.EVT_STC_MODIFIED) {|event|
-			//println('Modified')
+			this.printEventFlag && println('Modified')
 		}
 		this.Bind(wx.EVT_STC_MACRORECORD) {|event|
-			//println('MacroRecord')
+			this.printEventFlag && println('MacroRecord')
 		}
 		this.Bind(wx.EVT_STC_MARGINCLICK) {|event|
-			//println('MarginClick')
+			this.printEventFlag && println('MarginClick')
 		}
 		this.Bind(wx.EVT_STC_NEEDSHOWN) {|event|
-			//println('NeedShown')
+			this.printEventFlag && println('NeedShown')
 		}
 		this.Bind(wx.EVT_STC_PAINTED) {|event|
-			//println('Painted')
+			this.printEventFlag && println('Painted')
 		}
 		this.Bind(wx.EVT_STC_USERLISTSELECTION) {|event|
-			//println('UserListSelection')
+			this.printEventFlag && println('UserListSelection')
 		}
 		this.Bind(wx.EVT_STC_URIDROPPED) {|event|
-			//println('URIDropped')
+			this.printEventFlag && println('URIDropped')
 		}
 		this.Bind(wx.EVT_STC_DWELLSTART) {|event|
-			//println('DwellStart')
+			this.printEventFlag && println('DwellStart')
 		}
 		this.Bind(wx.EVT_STC_DWELLEND) {|event|
-			//println('DwellEnd')
+			this.printEventFlag && println('DwellEnd')
 		}
 		this.Bind(wx.EVT_STC_START_DRAG) {|event|
-			//println('Start_Drag')
+			this.printEventFlag && println('Start_Drag')
 		}
 		this.Bind(wx.EVT_STC_DRAG_OVER) {|event|
-			//println('Drag_Over')
+			this.printEventFlag && println('Drag_Over')
 		}
 		this.Bind(wx.EVT_STC_DO_DROP) {|event|
-			//println('Do_Drop')
+			this.printEventFlag && println('Do_Drop')
 		}
 		this.Bind(wx.EVT_STC_ZOOM) {|event|
-			//println('Zoom')
+			this.printEventFlag && println('Zoom')
 		}
 		this.Bind(wx.EVT_STC_HOTSPOT_CLICK) {|event|
-			//println('Hotspot_Click')
+			this.printEventFlag && println('Hotspot_Click')
 		}
 		this.Bind(wx.EVT_STC_HOTSPOT_DCLICK) {|event|
-			//println('Hotspot_DClick')
+			this.printEventFlag && println('Hotspot_DClick')
 		}
 		this.Bind(wx.EVT_STC_CALLTIP_CLICK) {|event|
-			//println('CallTip_Click')
+			this.printEventFlag && println('CallTip_Click')
 		}
 		this.Bind(wx.EVT_STC_AUTOCOMP_SELECTION) {|event|
-			//println('AutoComp_Selection')
+			this.printEventFlag && println('AutoComp_Selection')
 		}
 		this.Bind(wx.EVT_STC_INDICATOR_CLICK) {|event|
-			//println('Indicator_Click')
+			this.printEventFlag && println('Indicator_Click')
 		}
 		this.Bind(wx.EVT_STC_INDICATOR_RELEASE) {|event|
-			//println('Indicator_Release')
+			this.printEventFlag && println('Indicator_Release')
 		}
 		this.Bind(wx.EVT_STC_AUTOCOMP_CANCELLED) {|event|
-			//println('AutoComp_Cancelled')
+			this.printEventFlag && println('AutoComp_Cancelled')
 		}
 		this.Bind(wx.EVT_STC_AUTOCOMP_CHAR_DELETED) {|event|
-			//println('AutoComp_CharDeleted')
+			this.printEventFlag && println('AutoComp_CharDeleted')
 		}
 		//this.Bind(wx.EVT_STC_HOTSPOT_RELEASE_CLICK) {|event|
 		//	println('HotSpot_Release_Click')
 		//}
+		this.printEventFlag = false
 	}
 	NewLineAndIndent() = {
 		indentSize = this.GetLineIndentation(this.GetCurrentLine())
@@ -352,10 +356,68 @@ MyFrame = class(wx.Frame) {
 			ctrl.MarkerAdd(3, 3)
 			ctrl.MarkerAdd(4, 4)
 			ctrl.MarkerAdd(5, 4)
+			this.editorCtrl = ctrl
 		}
 		wx.MenuBar {|menuBar|
 			this.SetMenuBar(menuBar)
+			wx.Menu {|menu|
+				menuBar.Append(menu, '&File')
+				menu.Append(wx.ID_OPEN, '&Open\tCtrl-O')
+				menu.Append(wx.ID_SAVE, '&Save\tCtrl-S')
+				menu.Append(wx.ID_SAVE, 'Save &As')
+			}
+			wx.Menu {|menu|
+				menuBar.Append(menu, '&Edit')
+			}
 		}
+		this.Bind(wx.EVT_MENU, wx.ID_OPEN) {|event| this.OnMenu_Open(event)}
+		this.Bind(wx.EVT_MENU, wx.ID_SAVE) {|event| this.OnMenu_Save(event)}
+		this.Bind(wx.EVT_MENU, wx.ID_SAVEAS) {|event| this.OnMenu_SaveAs(event)}
+		this.editorCtrl.Bind(wx.EVT_STC_MODIFIED) {|event| this.UpdateTitle()}
+		this.pathNameCur = ''
+		this.UpdateTitle()
+	}
+	UpdateTitle() = {
+		if (this.pathNameCur.isempty()) {
+			str = '(no title)'
+		} else {
+			str = path.filename(this.pathNameCur)
+		}
+		if (this.editorCtrl.GetModify()) {
+			str += ' *'
+		}
+		this.SetTitle(str)
+	}
+	DoOpenFile() = {
+		dlg = wx.FileDialog(this, 'Open File', wx.EmptyString, this.pathNameCur,
+							'Any files (*.*)|*.*')
+		dlg.CentreOnParent()
+		if (dlg.ShowModal() == wx.ID_OK) {
+			this.pathNameCur = dlg.GetPath()
+			this.editorCtrl.LoadFile(this.pathNameCur)
+		}
+	}
+	DoSaveFile() = {
+		dlg = wx.FileDialog(this, 'SaveFile', wx.EmptyString, this.pathNameCur,
+							'Any files (*.*)|*.*', wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT)
+		dlg.CentreOnParent()
+		if (dlg.ShowModal() == wx.ID_OK) {
+			this.pathNameCur = dlg.GetPath()
+			this.editorCtrl.SaveFile(this.pathNameCur)
+		}
+	}
+	OnMenu_Open(event:wx.CommandEvent) = {
+		this.DoOpenFile()
+	}
+	OnMenu_Save(event:wx.CommandEvent) = {
+		if (this.pathNameCur.isempty()) {
+			this.DoSaveFile()
+		} else {
+			this.editorCtrl.SaveFile(this.pathNameCur)
+		}
+	}
+	OnMenu_SaveAs(event:wx.CommandEvent) = {
+		this.DoSaveFile()
 	}
 }
 
