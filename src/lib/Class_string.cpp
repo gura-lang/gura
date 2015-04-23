@@ -190,6 +190,37 @@ Gura_ImplementMethod(string, eachline)
 					args.GetThis().GetStringSTL(), maxSplit, includeEOLFlag));
 }
 
+// string#embed(dst?:stream:w):[noindent,lasteol]
+Gura_DeclareMethod(string, embed)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "dst", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	DeclareAttr(Gura_Symbol(noindent));
+	DeclareAttr(Gura_Symbol(lasteol));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(string, embed)
+{
+	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
+	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
+	AutoPtr<Template> pTemplate(new Template());
+	if (!pTemplate->Parse(env, sig, args.GetThis().GetString(), NULL,
+						  autoIndentFlag, appendLastEOLFlag)) return Value::Null;
+	if (args.Is_stream(0)) {
+		Stream &streamDst = args.GetStream(0);
+		pTemplate->Render(env, sig, &streamDst);
+		return Value::Null;
+	} else {
+		String strDst;
+		SimpleStream_StringWriter streamDst(strDst);
+		if (!pTemplate->Render(env, sig, &streamDst)) return Value::Null;
+		return Value(strDst);
+	}
+}
+
 // string#encode(codec:codec)
 Gura_DeclareMethodPrimitive(string, encode)
 {
@@ -797,6 +828,7 @@ void Class_string::Prepare(Environment &env)
 	Gura_AssignMethod(string, decodeuri);
 	Gura_AssignMethod(string, each);
 	Gura_AssignMethod(string, eachline);
+	Gura_AssignMethod(string, embed);
 	Gura_AssignMethod(string, encode);
 	Gura_AssignMethod(string, encodeuri);
 	Gura_AssignMethod(string, endswith);
