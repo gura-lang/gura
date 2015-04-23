@@ -20,6 +20,21 @@ bool Template::Read(Environment &env, Signal sig,
 	return parser.ParseStream(env, sig, this, streamSrc);
 }
 
+bool Template::Parse(Environment &env, Signal sig,
+		String::const_iterator strSrc, String::const_iterator strSrcEnd,
+		bool autoIndentFlag, bool appendLastEOLFlag)
+{
+	SimpleStream_StringReader streamSrc(strSrc, strSrcEnd);
+	return Read(env, sig, streamSrc, autoIndentFlag, appendLastEOLFlag);
+}
+
+bool Template::Parse(Environment &env, Signal sig,
+		const char *strSrc, const char *strSrcEnd, bool autoIndentFlag, bool appendLastEOLFlag)
+{
+	SimpleStream_CStringReader streamSrc(strSrc, strSrcEnd);
+	return Read(env, sig, streamSrc, autoIndentFlag, appendLastEOLFlag);
+}
+
 bool Template::Render(Environment &env, Signal sig, SimpleStream *pStreamDst)
 {
 	Template *pTemplateTop = NULL;

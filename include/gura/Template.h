@@ -46,7 +46,13 @@ private:
 	inline ~Template() {}
 public:
 	bool Read(Environment &env, Signal sig,
-			SimpleStream &streamSrc, bool autoIndentFlag, bool appendLastEOLFlag);
+			  SimpleStream &streamSrc, bool autoIndentFlag, bool appendLastEOLFlag);
+	bool Parse(Environment &env, Signal sig,
+			   String::const_iterator strSrc, String::const_iterator strSrcEnd,
+			   bool autoIndentFlag, bool appendLastEOLFlag);
+	bool Parse(Environment &env, Signal sig,
+			   const char *strSrc, const char *strSrcEnd,
+			   bool autoIndentFlag, bool appendLastEOLFlag);
 	bool Render(Environment &env, Signal sig, SimpleStream *pStreamDst);
 	bool Prepare(Environment &env, Signal sig);
 	const ValueEx *LookupValue(const Symbol *pSymbol) const;
