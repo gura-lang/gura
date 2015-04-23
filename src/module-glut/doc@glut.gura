@@ -134,6 +134,6 @@ This module uses freeglut which official site is:
 
 [http://freeglut.sourceforge.net/](http://freeglut.sourceforge.net/)
 
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

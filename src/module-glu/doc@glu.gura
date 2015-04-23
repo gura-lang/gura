@@ -66,6 +66,6 @@ glu.gluTessProperty
 glu.gluTessVertex
 glu.gluUnProject
 )}
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

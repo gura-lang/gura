@@ -48,6 +48,6 @@ ${moddoc.reference(`en
 hash.accumulator.init
 hash.accumulator.update
 )}
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

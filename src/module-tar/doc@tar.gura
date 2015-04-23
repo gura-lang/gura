@@ -43,6 +43,6 @@ This module uses zlib and bzip2 library which are distributed in the following s
 
 - [http://zlib.net/](http://zlib.net/)
 - [http://www.bzip.org/](http://www.bzip.org/)
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

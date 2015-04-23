@@ -287,6 +287,6 @@ cairo.scaled_font.create
 This module uses Cairo library which is distributed in the following site:
 
 [http://cairographics.org/](http://cairographics.org/)
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

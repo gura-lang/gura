@@ -55,6 +55,6 @@ image.write@tcl
 This module uses Tcl library which is distributed in the following site:
 
 [http://www.tcl.tk/](http://www.tcl.tk/)
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

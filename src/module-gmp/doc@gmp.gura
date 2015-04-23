@@ -542,6 +542,6 @@ This module uses GMP and its forked project MPIR which are distributed in the fo
 - [https://gmplib.org](https://gmplib.org)
 - [http://www.mpir.org/](http://www.mpir.org/)
 
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

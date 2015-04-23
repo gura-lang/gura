@@ -359,6 +359,6 @@ opengl.glUniformMatrix4x2fv
 opengl.glUniformMatrix3x4fv
 opengl.glUniformMatrix4x3fv
 )}
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

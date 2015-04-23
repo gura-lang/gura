@@ -26,6 +26,6 @@ sqlite3.db.transaction
 This module uses SQlite3 library which is distributed in the following site:
 
 [http://www.sqlite.org/index.html](http://www.sqlite.org/index.html)
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

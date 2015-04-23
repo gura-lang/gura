@@ -42,6 +42,6 @@ stream.writer@bzip2
 This module uses libbzip2 which is distributed in the following site:
 
 [http://www.bzip.org/](http://www.bzip.org/)
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

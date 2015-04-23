@@ -20,6 +20,6 @@ fs.remove
 fs.rename
 fs.rmdir
 )}
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

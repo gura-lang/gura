@@ -87,6 +87,6 @@ midi.soundfont.print
 
 ## midi.synthesizer Class
 
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

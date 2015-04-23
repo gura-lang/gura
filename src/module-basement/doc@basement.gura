@@ -152,6 +152,6 @@ ${moddoc.reference(`en
 dir
 dirtype
 )}
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

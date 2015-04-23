@@ -139,6 +139,6 @@ Below is a table of item type:
 ${moddoc.reference(`en
 markdown.item.print
 )}
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

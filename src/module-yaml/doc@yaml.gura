@@ -21,6 +21,6 @@ yaml.write
 This module uses yaml library which is distributed in the following site:
 
 [http://pyyaml.org/wiki/LibYAML](http://pyyaml.org/wiki/LibYAML)
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

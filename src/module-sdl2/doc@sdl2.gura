@@ -552,6 +552,6 @@ sdl2.acos
 This module uses SDL2 library which is distributed in the following site:
 
 [http://www.libsdl.org/](http://www.libsdl.org/)
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

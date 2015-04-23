@@ -40,6 +40,6 @@ stream.writer@gzip
 This module uses zlib which official site is:
 
 [http://zlib.net/](http://zlib.net/)
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

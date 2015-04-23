@@ -45,6 +45,6 @@ image.write@png
 This module uses libpng library which is distributed in the following site:
 
 [http://www.libpng.org/pub/png/libpng.html](http://www.libpng.org/pub/png/libpng.html)
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

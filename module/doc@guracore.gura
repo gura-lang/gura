@@ -1748,6 +1748,6 @@ uri.getpath
 uri.getquery
 uri.parsequery
 )}
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

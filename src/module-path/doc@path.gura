@@ -40,6 +40,6 @@ path.splitext
 path.stat
 path.walk
 )}
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

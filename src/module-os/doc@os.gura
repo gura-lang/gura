@@ -21,6 +21,6 @@ os.symlink
 os.tonative
 os.unsetenv
 )}
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

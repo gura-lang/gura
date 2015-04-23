@@ -5,6 +5,6 @@ text@en = R'''
 # llvm Module
 
 ## Module Functions
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

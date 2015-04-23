@@ -45,6 +45,6 @@ math.integral
 math.gcd
 math.lcm
 )}
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

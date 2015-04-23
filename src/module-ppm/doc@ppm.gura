@@ -39,6 +39,6 @@ ${moddoc.reference(`en
 image.read@ppm
 image.write@ppm
 )}
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

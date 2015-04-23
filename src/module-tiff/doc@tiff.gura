@@ -44,6 +44,6 @@ image.read@tiff
 This module uses libtiff which is distributed in the following site:
 
 [http://www.libtiff.org/](http://www.libtiff.org/)
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

@@ -39,6 +39,6 @@ ${moddoc.reference(`en
 image.read@bmp
 image.write@bmp
 )}
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

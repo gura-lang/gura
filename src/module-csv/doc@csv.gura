@@ -46,6 +46,6 @@ ${moddoc.reference(`en
 stream.read@csv
 stream.writer@csv
 )}
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

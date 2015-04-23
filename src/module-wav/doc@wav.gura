@@ -15,6 +15,6 @@ ${moddoc.reference(`en
 audio.read@wav
 audio.write@wav
 )}
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

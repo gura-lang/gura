@@ -32,6 +32,6 @@ mswin.regkey.deletevalue
 mswin.regkey.queryvalue
 mswin.regkey.enumvalue
 )}
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

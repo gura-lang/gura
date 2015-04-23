@@ -51,6 +51,6 @@ ${moddoc.reference(`en
 image.read@gif
 image.write@gif
 )}
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

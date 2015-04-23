@@ -33,6 +33,6 @@ curl.easy_handle.unescape
 This module uses libcurl which is distributed in the following site:
 
 [http://curl.haxx.se/libcurl/](http://curl.haxx.se/libcurl/)
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

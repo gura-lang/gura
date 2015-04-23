@@ -40,6 +40,6 @@ conio.setcolor
 conio.moveto
 conio.waitkey
 )}
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

@@ -184,6 +184,6 @@ image.drawtext
 This module uses FreeType library which is distributed in the following site:
 
 [http://www.freetype.org/](http://www.freetype.org/)
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

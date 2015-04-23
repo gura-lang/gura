@@ -187,6 +187,6 @@ sdl.Timer.RemoveTimer
 This module uses SDL library which is distributed in the following site:
 
 [http://www.libsdl.org/](http://www.libsdl.org/)
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

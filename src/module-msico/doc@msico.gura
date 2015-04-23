@@ -51,6 +51,6 @@ This module extends the `image` class with methods described here.
 ${moddoc.reference(`en
 image.read@msico
 )}
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

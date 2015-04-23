@@ -13,6 +13,6 @@ To utilize it, import the `uuid` module using `import` function.
 ${moddoc.reference(`en
 uuid.generate
 )}
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

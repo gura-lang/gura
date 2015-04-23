@@ -161,6 +161,6 @@ image.write@jpeg
 This module uses JPEG library which is distributed in the following site:
 
 [http://www.ijg.org/](http://www.ijg.org/)
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

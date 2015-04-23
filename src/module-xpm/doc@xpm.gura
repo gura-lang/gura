@@ -40,6 +40,6 @@ ${moddoc.reference(`en
 image.write@xpm
 image.xpmdata
 )}
-'''.template().render()
+'''.embed()
 
 moddoc.register(locals(), %{`en => text@en})
