@@ -728,6 +728,18 @@
     <text>'Image: '
     <img url='/path/img.jpg' title='Title'>'alt text'
     <text>' .. with title'
+  <p>
+    <text>'pre text post'
+  <p>
+    <text>'pre '
+    <a url='http://a.b.c/'>
+      <text>'text'
+    <text>' post'
+  <p>
+    <text>'pre '
+    <a url='http://a.b.c/'>
+      <text>'text'
+    <text>' post'
   <ul>
     <li>
       <p>

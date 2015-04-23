@@ -413,6 +413,16 @@ Image: ![alt text](</path/img.jpg>) .. without title
 
 Image: ![alt text](</path/img.jpg> "Title") .. with title
 
+pre
+text
+post
+
+pre
+[text](http://a.b.c/)
+post
+
+pre [text](http://a.b.c/) post
+
 - list item
 
         block under list item
