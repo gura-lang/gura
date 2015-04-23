@@ -733,6 +733,7 @@ string
   string#decodeuri()
   string#each():map:[utf32,utf8] {block?}
   string#eachline(nlines?:number):[chop] {block?}
+  string#embed(dst?:stream:w):[lasteol,noindent]
   string.encode(codec:codec)
   string#encodeuri()
   string#endswith(suffix:string, endpos?:number):map:[icase,rest]

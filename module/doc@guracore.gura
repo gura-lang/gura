@@ -1557,6 +1557,7 @@ string.chop
 string.decodeuri
 string.each
 string.eachline
+string.embed
 string.encode
 string.encodeuri
 string.endswith

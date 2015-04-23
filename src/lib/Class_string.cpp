@@ -199,7 +199,13 @@ Gura_DeclareMethod(string, embed)
 	DeclareAttr(Gura_Symbol(lasteol));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Evaluates a string that contains embedded scripts\n"
+		"and renders the result to the specified stream.\n"
+		"\n"
+		"If the stream is omitted, the function returns the rendered result as a string.\n"
+		"\n"
+		"Calling this method is equivalent to calling a method `string#template()` to\n"
+		"create a `template` instance on which a method `template#render()` is applied afterward.\n");
 }
 
 Gura_ImplementMethod(string, embed)
