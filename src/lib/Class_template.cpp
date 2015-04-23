@@ -107,8 +107,9 @@ Gura_ImplementMethod(template_, parse)
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
-	SimpleStream_CStringReader streamSrc(args.GetString(0));
-	pTemplate->Read(env, sig, streamSrc, autoIndentFlag, appendLastEOLFlag);
+	//SimpleStream_CStringReader streamSrc(args.GetString(0));
+	//pTemplate->Read(env, sig, streamSrc, autoIndentFlag, appendLastEOLFlag);
+	pTemplate->Parse(env, sig, args.GetString(0), NULL, autoIndentFlag, appendLastEOLFlag);
 	return Value::Null;
 }
 
