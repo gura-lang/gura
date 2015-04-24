@@ -963,7 +963,7 @@ A `function` instance has the following properties:
 
 ### Operator
 
-You can print a function's help from the interactive prompt using the unary operator `~`.
+You can print a function's help from the interactive prompt using the unary operator "`~`".
 Below is an example to print the help of `printf()` function:
 
     >>> ~printf
@@ -1415,6 +1415,10 @@ semaphore.wait
 
 ## stream Class
 
+The `stream` class provides methods to read and write data through a stream,
+an abstract structure to handle a byte sequence.
+It also provides information of the stream such as the pathname and the creation date and time.
+
 
 ### Property
 
@@ -1445,8 +1449,8 @@ A `stream` instance has the following properties:
 
 ### Operator
 
-You can use the operator `<<` to output a content of a value to a `stream`.
-It comes like `stream << obj` and `obj` is converted to a string before output to the stream.
+You can use the operator "`<<`" to output a content of a value to a `stream`.
+It comes like "`stream << obj`" where `obj` is converted to a string before output to the stream.
 
     sys.stdout << 'Hello World.'
     
