@@ -139,13 +139,10 @@ argopt.Parser {|p|
 	}
 }
 moduleNamesExcept = cfg['exclude'].split(',')
-//moduleNames = moduleInfos.filter(moduleInfos:*action == `build && \
-//		moduleInfos:*platforms:*contains(platform))::moduleName
 dirNamePre = path.dirname(sys.argv[0])
 moduleNamesError = []
 debFilesDevel = []
 rpmFilesDevel = []
-//for (moduleName in moduleNames) {
 moduleInfos.each {|moduleInfo|
 	moduleName = moduleInfo.moduleName
 	actualFlag = (moduleInfo.action == `build && moduleInfo.platforms.contains(platform))
