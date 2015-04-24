@@ -10,7 +10,7 @@ reference@array(lang:symbol, funcs+:function) = {
 
 //-----------------------------------------------------------------------------
 text@en = R'''
-# Built-in Operators
+# Built-in Operator
 
 <table>
 <tr><th>Operation</th><th>Explanation</th></tr>
@@ -82,7 +82,7 @@ text@en = R'''
 <tr><td><code>pointer - pointer</code></td><td></td></tr>
 </table>
 
-# Built-in Classes
+# Built-in Class
 
 ## args Class
 

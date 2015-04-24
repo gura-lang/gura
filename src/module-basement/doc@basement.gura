@@ -2,7 +2,7 @@
 import(moddoc)
 
 text@en = R'''
-# Built-in Functions
+# Built-in Function
 
 ## Formatting and Printing of Text
 
