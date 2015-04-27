@@ -203,7 +203,7 @@ int ItemStack::CountQuoteLevel() const
 // Document
 //-----------------------------------------------------------------------------
 Document::Document() : _cntRef(1), _resolvedFlag(false), _decoPrecedingFlag(false),
-		_stat(STAT_LineTop),
+		_stat(STAT_LineTop), _cntLine(0),
 		_indentLevel(0), _quoteLevel(0), _cntEmptyLine(0),
 		_pItemOwner(new ItemOwner()), _pItemRefereeOwner(new ItemOwner())
 {
@@ -1195,6 +1195,67 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
+	case STAT_AngleBracketFirst: {
+		if (ch == '!') {
+			_stat = STAT_CommentStartFirst;
+		} else {
+			continueFlag = true;
+			_stat = STAT_AngleBracket;
+		}
+		break;
+	}
+	case STAT_CommentStartFirst: {
+		if (ch == '-') {
+			_stat = STAT_CommentStartSecond;
+		} else {
+			_textAhead += "!";
+			_field += "!";
+			continueFlag = true;
+			_stat = STAT_AngleBracket;
+		}
+		break;
+	}
+	case STAT_CommentStartSecond: {
+		if (ch == '-') {
+			FlushText(Item::TYPE_Text, false, false);
+			_text = "<!--";
+			_stat = STAT_Comment;
+		} else {
+			_textAhead += "!-";
+			_field += "!-";
+			continueFlag = true;
+			_stat = STAT_AngleBracket;
+		}
+		break;
+	}
+	case STAT_Comment: {
+		_text += ch;
+		if (ch == '-') {
+			_stat = STAT_CommentEndFirst;
+		} else {
+			// nothing to do
+		}
+		break;
+	}
+	case STAT_CommentEndFirst: {
+		_text += ch;
+		if (ch == '-') {
+			_stat = STAT_CommentEndSecond;
+		} else {
+			_stat = STAT_Comment;
+		}
+		break;
+	}
+	case STAT_CommentEndSecond: {
+		_text += ch;
+		if (ch == '>') {
+			FlushText(Item::TYPE_Text, false, false);
+			_stat = _statStack.Pop();
+		} else {
+			_stat = STAT_Comment;
+		}
+		break;
+	}
 	case STAT_AngleBracket: {
 		if (ch == '>') {
 			String tagName, attrs;
@@ -1212,7 +1273,7 @@ bool Document::ParseChar(Signal sig, char ch)
 				BeginTag(tagName.c_str(), attrs.c_str(), closedFlag);
 			} else if (IsEndTag(_field.c_str(), tagName)) {
 				if (!EndTag(tagName.c_str())) {
-					sig.SetError(ERR_FormatError, "unbalanced tags");
+					sig.SetError(ERR_FormatError, "unbalanced tags at line %d", _cntLine + 1);
 					return false;
 				}
 			} else {
@@ -1225,6 +1286,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
+			// take care of STAT_CommentStartFirst and STAT_CommentStartSecond as well
 			_textAhead += ch;
 			_field += ch;
 		}
@@ -1631,6 +1693,9 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	}
 	} while (continueFlag);
+	if (ch == '\n') {
+		_cntLine++;
+	}
 	return true;
 }
 
@@ -1643,7 +1708,7 @@ bool Document::CheckSpecialChar(char ch)
 			_field.clear();
 			_textAhead += ch;
 			_statStack.Push(_stat);
-			_stat = STAT_AngleBracket;
+			_stat = STAT_AngleBracketFirst;
 			return true;
 		}
 		return false;
@@ -1679,7 +1744,7 @@ bool Document::CheckSpecialChar(char ch)
 		_field.clear();
 		_textAhead += ch;
 		_statStack.Push(_stat);
-		_stat = STAT_AngleBracket;
+		_stat = STAT_AngleBracketFirst;
 		return true;
 	} else if (ch == '[') {
 		_pItemLink.reset(new Item(Item::TYPE_Link, new ItemOwner()));

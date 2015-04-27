@@ -1109,6 +1109,16 @@
   <p>
     <tag>'br'
     <tag>'br'
+  <p>
+    <text>'pre '
+    <text>'<!-- comment -->'
+    <text>' post'
+  <p>
+    <text>'pre '
+    <text>'<!-- comment -->'
+    <text>'post'
+  <p>
+    <text>'<!-- <code>aaaaaa</code> -->'
 
 ======== #2 print referee items ========
 

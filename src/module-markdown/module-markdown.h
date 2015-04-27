@@ -223,7 +223,13 @@ private:
 		STAT_UnderscoreStrongEnd,
 		STAT_DecorationPost,
 		STAT_Ampersand,
+		STAT_AngleBracketFirst,
 		STAT_AngleBracket,
+		STAT_CommentStartFirst,
+		STAT_CommentStartSecond,
+		STAT_Comment,
+		STAT_CommentEndFirst,
+		STAT_CommentEndSecond,
 		STAT_LinkAltTextPre,
 		STAT_LinkAltText,
 		STAT_LinkText,
@@ -269,6 +275,7 @@ private:
 	bool _resolvedFlag;
 	bool _decoPrecedingFlag;
 	Stat _stat;
+	int _cntLine;
 	StatStack _statStack;
 	int _indentLevel;
 	int _quoteLevel;

@@ -664,6 +664,14 @@ out << hogehoge
 
 <br />
 <br/>
+
+pre <!-- comment --> post
+
+pre
+<!-- comment -->
+post
+
+<!-- <code>aaaaaa</code> -->
 '''
 
 testcase('print rendering items') {
