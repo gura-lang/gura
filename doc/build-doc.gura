@@ -3,7 +3,8 @@ import(markdown)
 
 DocInfo = struct(fileName:string, title:string)
 
-dirNameOut = path.dirname(sys.argv[0])
+//dirNameOut = path.dirname(sys.argv[0])
+dirNameOut = 'tmp'
 
 docInfos = @(DocInfo) {
 	{'Introduction.md', 'Introduction'}
@@ -34,7 +35,7 @@ docInfos.each {|docInfo|
 	println('module: ', docInfo.fileName)
 	doc.read(docInfo.fileName)
 }
-/*
+
 headerForIndex = R'''
 ---
 layout: page
@@ -68,7 +69,9 @@ footerForPage = R'''
 
 Renderer@html = class(markdown.Renderer@html) {
 	__init__() = {|sys.stdout, true|
-		this.out = nil
+		//this.out = nil
+		fileName = path.join(dirNameOut, 'aa.md')
+		this.out = open(fileName, 'w')
 	}
 	OnRenderItemPre(item:item) = {
 		if (item.type == `h1) {
@@ -98,7 +101,7 @@ open(fileName, 'w') {|out|
 			out.printf(
 					'<div><span class="toc-index-1">%d</span><a href="chapter-%02d.html#%s">%s</a>\</div>\n',
 					indices[0], indices[0], anchorName, text)
-		} elsif (level == 1 && indices[0] in [4, 6]) {
+		} elsif (level == 1) {
 			out.printf(
 					'<div><span class="toc-index-2">%d.%d</span><a href="chapter-%02d.html#%s">%s</a>\</div>\n',
 					indices[0], indices[1], indices[0], anchorName, text)
@@ -107,4 +110,3 @@ open(fileName, 'w') {|out|
 	out.print(footerForIndex)
 }
 Renderer@html().Render(doc)
-*/
