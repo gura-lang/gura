@@ -358,7 +358,6 @@ In the above case, `x` is an *iterator* that generates values of 0, 20, 40, 60 a
 
 You can also use `break()` and `continue()` in an iterator created by a repeating function.
 Such an iterator yields elements in the same way as a repeating process that creates a list.
-See subsection for detail.
 
 An iterator created by a repeat function and a closure generated within a function
 are similar in that they postpone their actual jobs.
