@@ -1,26 +1,26 @@
-# {{ page.chapter }}. Syntax
+# Syntax
 
-## {{ page.chapter }}.1. Overview
+## Overview
 
 Gura's parser consits of two parts: token parser and syntax parser.
 
 The token parser is responsible of splitting a text into tokens
 that represent atomic factors in a program.
-Section {{ page.chapter }}.2 explains
+Section explains
 about how the tokens should be described in a code
 and about their traits.
 
 The syntax parser will build up expressions from tokens following Gura's syntax rule.
 While a program is running, the interpreter reads the expressions
 and executes them along with Environment status.
-Section {{ page.chapter }}.3 explains
+Section explains
 about what tokens compose each expression
 and about relationship between expressions using class diagrams.
 
 
-## {{ page.chapter }}.2. Token
+## Token
 
-### {{ page.chapter }}.2.1. Symbol
+### Symbol
 
 A symbol is used as a name of variable, function, symbol, type name, attribute and suffix.
 
@@ -52,7 +52,7 @@ Special symbols:
     +  *  ?  -
 
 
-### {{ page.chapter }}.2.2. Number Literal
+### Number Literal
 
 A decimal number is the most common number literal.
 
@@ -100,7 +100,7 @@ You can also add your own suffix symbols by using Suffix Manager
 that is responsible for managing suffix symbols and their associated functions.
 
 
-### {{ page.chapter }}.2.3. String Literal
+### String Literal
 
 A string literal is a sequence of characters surrounded
 by a pair of single or double quotations.
@@ -211,7 +211,7 @@ that has been registered in Suffix Manager.
 There's no built-in suffix for string literals.
 
 
-### {{ page.chapter }}.2.4. Operator
+### Operator
 
 An Operator takes one or two values as its inputs and returns a calculation result.
 It's categorized in the following types:
@@ -238,7 +238,7 @@ It's categorized in the following types:
 See section [Operator](Operator.html) for more detail.
 
 
-### {{ page.chapter }}.2.5. Bracket
+### Bracket
 
 Multiple expressions can be grouped by surronding them with a pair of brackets.
 There are three types of brackets as listed below.
@@ -299,7 +299,7 @@ The following two codes have the same result.
     ]
 
 
-### {{ page.chapter }}.2.6. Back Quote
+### Back Quote
 
 A symbol preceded by a back quote creates an instance of `symbol` data type.
 
@@ -316,7 +316,7 @@ As an `expr` instance can hold any code without any evaluation,
 it can be used to pass a procedure itself to a function as one of the arguments.
 
 
-### {{ page.chapter }}.2.7. Comment
+### Comment
 
 There are two types of comments: line comment and block comment.
 
@@ -343,10 +343,10 @@ Following are valid examples of block comment.
     /* /* /* nested comment */ */ */
 
 
-## {{ page.chapter }}.3. Expression
+## Expression
 
 
-### {{ page.chapter }}.3.1. Class Diagram of Expression
+### Class Diagram of Expression
 
 The following figure shows a hierarchy of expressions.
 
@@ -372,7 +372,7 @@ don't appear in the actual code either,
 but just provide common functions for their derivations.
 
 
-### {{ page.chapter }}.3.2. Value
+### Value
 
 A `Value` expression holds a value of `number`, `string`, `binary` type.
   
@@ -402,7 +402,7 @@ Consider the following expressions:
   It has a value of `binary` type.
 
 
-### {{ page.chapter }}.3.3. Identifier
+### Identifier
 
 An `Identifier` expression consists of a symbol and zero or more attributes trailing after it.
 
@@ -432,7 +432,7 @@ Consider the following expressions:
   It has a symbol `foo` and has symbols `attr1` and `attr2` as its attrs element.
 
 
-### {{ page.chapter }}.3.4. Suffixed
+### Suffixed
 
 A `Suffixed` expression has a suffix symbol and a preceding literal of string or number.
 
@@ -458,7 +458,7 @@ Consider the following expressions:
   It has a string `'hello world'` as its body and a symbol `bar` as its suffix.
 
 
-### {{ page.chapter }}.3.5. UnaryOp
+### UnaryOp
 
 A `UnaryOp` expression consists of a unary operator
 and a child expression on which the operator is applied.
@@ -478,7 +478,7 @@ Consider the following expression:
   It has an operator "`-`" and owns an Identifer expression as its child.
 
 
-### {{ page.chapter }}.3.6. Quote
+### Quote
 
 A `Quote` expression consists of a back quotation
 and a child expression that is to be quoted by it.
@@ -498,7 +498,7 @@ Consider the following expression:
   It owns an Value expression with a number value as its child.
 
 
-### {{ page.chapter }}.3.7. BinaryOp
+### BinaryOp
 
 A `BinaryOp` expression consists of a binary operator
 and two child expressions on which the operator is applied.
@@ -525,7 +525,7 @@ Consider the following expression:
   and also an Identifier expression `y` as its right.
 
 
-### {{ page.chapter }}.3.8. Assign
+### Assign
 
 An `Assign` expression consists of an equal symbol,
 an expression on the left side that is a target of the assignment
@@ -564,7 +564,7 @@ Consider the following expressions:
   and also an Identifier expression `y` as its right.
   It also has an operator "`+`".
 
-### {{ page.chapter }}.3.9. Member
+### Member
 
 A `Member` expression is responsible for accessing variables
 in a property owner like instance, class and module.
@@ -607,7 +607,7 @@ and take a list or an iterator as its left's result value,
 each of which expressions is a reference to a property owner.
 
 
-### {{ page.chapter }}.3.10. Lister
+### Lister
 
 A `Lister` expression is a series of element expressions embraced by a pair of square brackets.
 
@@ -626,7 +626,7 @@ Consider the following expression:
   It contains three Identifier expressions `x`, `y` and `z` as its elements.
 
 
-### {{ page.chapter }}.3.11. Iterer
+### Iterer
 
 An `Iterer` expression is a series of element expressions embraced by a pair of parentheses.
 
@@ -645,7 +645,7 @@ Consider the following expression:
   It contains three Identifier expressions `x`, `y` and `z` as its elements.
 
 
-### {{ page.chapter }}.3.12. Block
+### Block
 
 A `Block` expression is a series of element expressions embraced by a pair of curly brackets.
 
@@ -678,7 +678,7 @@ Consider the following expression:
   It also owns Identifier expressions `a`, `b` and `c` as its block-parameters.
 
 
-### {{ page.chapter }}.3.13. Root
+### Root
 
 A `Root` expression represents a series of element expressions that appear in the top sequence.
 
@@ -697,7 +697,7 @@ Consider the following expression:
   It contains three Identifier expressions `x`, `y` and `z` as its elements.
 
 
-### {{ page.chapter }}.3.14. Indexer
+### Indexer
 
 An `Indexer` expression consists of a car element
 and a series of expressions that represent indices.
@@ -724,7 +724,7 @@ Consider the following expression:
   and three Identifier expressions `x`, `y` and `z` as its indices.
 
 
-### {{ page.chapter }}.3.15. Caller
+### Caller
 
 A `Caller` expression consists of a car element
 and a series of expressions that represent arguments.

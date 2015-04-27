@@ -1,6 +1,6 @@
-# {{ page.chapter }}. Iterator/List Operation
+# Iterator/List Operation
 
-## {{ page.chapter }}.1. Overview
+## Overview
 
 An iterator and a list are quite similar in terms of
 handling multiple values in a flat structure.
@@ -23,7 +23,7 @@ Even with such functions, you can easily get a list as their result
 by calling it with `:list` attribute.
 
 
-## {{ page.chapter }}.2. Iteration on Iterators and Lists
+## Iteration on Iterators and Lists
 
 Consider a task that prints elements in the list shown below:
 
@@ -99,14 +99,14 @@ The result comes as below:
     2: ten
 
 
-## {{ page.chapter }}.3. Iterator-specific Manipulation
+## Iterator-specific Manipulation
 
-### {{ page.chapter }}.3.1. About This Section
+### About This Section
 
 This section explains about methods and ohter manipulation that are specific to iterators.
 
 
-### {{ page.chapter }}.3.2. Finite Iterator vs. Infinite Iterator
+### Finite Iterator vs. Infinite Iterator
 
 Iterators that generate a limited numer of elements are called Finite Iterator.
 An iterator `0..5` is a representative one that is definitely expected to generate 6 elements.
@@ -152,7 +152,7 @@ In the code below, `y` is an Infinite Iterator that generates even numbers indef
     // rtn is infinite
 
 
-### {{ page.chapter }}.3.3. Conversion into List
+### Conversion into List
 
 Embracing iterators with a pair of square brackets would make a list from them.
 
@@ -172,7 +172,7 @@ Another way to create a list from an iterator is to use `iterator#each()` method
     tbl.each():list      // returns [0, 1, 2, 3, 4, 5]
 
 
-### {{ page.chapter }}.3.4. Operation on Elements
+### Operation on Elements
 
 You can retrieve elements from an iterator by using method `iterator#next()`.
 
@@ -182,14 +182,14 @@ You can retrieve elements from an iterator by using method `iterator#next()`.
     tbl.next()   // returns 2
 
 
-## {{ page.chapter }}.4. List-specific Manipulation
+## List-specific Manipulation
 
-### {{ page.chapter }}.4.1. About This Section
+### About This Section
 
 This section explains about methods and ohter manipulation that are specific to lists.
 
 
-### {{ page.chapter }}.4.2. Indexing Read from List
+### Indexing Read from List
 
 You can specify an index number starting from zero embraced by a pair of square brackets
 to retrieve an element at the specified position.
@@ -235,7 +235,7 @@ which would be useful when used with Member Mapping.
     tbl::get(0)     // returns [1, 4, 7]
 
 
-### {{ page.chapter }}.4.3. Indexing Modification on List
+### Indexing Modification on List
 
 An assignment to elements in a list through indexing access is also available.
 
@@ -289,7 +289,7 @@ which would be useful when used with Member Mapping.
     // tbl is [[1, 2, 99], [4, 5, 99], [7, 8, 99]]
 
 
-### {{ page.chapter }}.4.4. Conversion into Iterator
+### Conversion into Iterator
 
 Method `list#each()` returns an iterator that generates values based on the list's elements.
 
@@ -298,7 +298,7 @@ Method `list#each()` returns an iterator that generates values based on the list
     // rtn is an iterator that generates 'one', 'two', 'three' and 'four'.
 
 
-### {{ page.chapter }}.4.5. Operation on Elements
+### Operation on Elements
 
 Method `list#isempty()` will check if a list is empty or not.
 
@@ -356,15 +356,15 @@ Method `list#shift()` erase the first element before it returns that value.
 
 `list.zip()`
 
-## {{ page.chapter }}.5. Common Manipulation for Iterator and List
+## Common Manipulation for Iterator and List
 
-### {{ page.chapter }}.5.1. About This Section
+### About This Section
 
 This section explains about methods that are prepared for both iterators and lists.
 To make descriptions simple, a pseudo class name `iterable` is used to represent `list` or `iterator` class.
 For example, `iterable#len()` is an inclusive term for `list#len()` and `iterator#len()`.
 
-### {{ page.chapter }}.5.2. Inspection and Reduce
+### Inspection and Reduce
 
 Method `iterable#len()` return the number of elements in the iterable.
 
@@ -430,7 +430,7 @@ For example, you can use `iterable#reduce()` to implement a function that works 
 
 `iterable#find()`
 
-### {{ page.chapter }}.5.3. Mapping Method
+### Mapping Method
 
 Method `iterable#nilto()` returns an iterator
 that replaces `nil` existing in the iterable into a specified value.
@@ -457,7 +457,7 @@ which is described in a document of `iterable#sort()`.
 Method `iterable#map()` returns an iterator that applies a function on each element.
 In general, you can use Implicit Mapping to get the same result with this method.
 
-### {{ page.chapter }}.5.4. Element Manipulation
+### Element Manipulation
 
 This subsection explains about methods that changes the order of elements
 and extracts elements by a certain condition.
@@ -626,7 +626,7 @@ If it omits the argument, all the elements would be extracted.
 Method `list#shuffle()` returns a list in which elements are shuffled in a random order.
 
 
-## {{ page.chapter }}.6. Iterator Generation
+## Iterator Generation
 
 Function `range()` returns an iterator that generates numbers within the specified range.
 

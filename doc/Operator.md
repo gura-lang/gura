@@ -1,6 +1,6 @@
-# {{ page.chapter }}. Operator
+# Operator
 
-## {{ page.chapter }}.1. Overview
+## Overview
 
 There are three types of Operators.
 
@@ -22,7 +22,7 @@ it would override the registered procedure.
 Otherwise, it would add a new procedure to the operator.
 
 
-## {{ page.chapter }}.2. Precedence
+## Precedence
 
 The following table shows operators' precedence order from the lowest to the highest.
 
@@ -45,13 +45,13 @@ The following table shows operators' precedence order from the lowest to the hig
  Higher     | `**`
 
 
-## {{ page.chapter }}.3. Calculation Operators
+## Calculation Operators
 
 Basically, Operators are used for mathematical and logical calculation.
 This subsection explains such functions of operators.
 
 
-### {{ page.chapter }}.3.1 Prefixed Unary Operators
+### Prefixed Unary Operators
 
 **Operation `+x`** returns the value of `x` itself.
 
@@ -93,7 +93,7 @@ after evaluating it as a boolean value.
 <tr><td><code>!any</code></td><td><code>boolean</code></td></tr>
 </table>
 
-### {{ page.chapter }}.3.2 Suffixed Unary Operators
+### Suffixed Unary Operators
 
 **Operation `x..`** returns an infinite iterator
 that starts from `x` and is increased by one.
@@ -114,7 +114,7 @@ and returns `true` if `x` is of `list` or `iterator` type.
 </table>
 
 
-### {{ page.chapter }}.3.3. Binary Operators
+### Binary Operators
 
 **Operation `x + y`** returns an added result of `x` and `y`.
 
@@ -441,7 +441,7 @@ it would work as a named argument.
 See [Chapter.7. Function](Function.html) for their detail.
 
 
-## {{ page.chapter }}.4. Other Operators
+## Other Operators
 
 **Operation `string % any`** returns a result formatted
 by the string containing specifiers of `printf` format.
@@ -460,7 +460,7 @@ The code above has the same result as the following.
     sys.stdout << 'Hello World\n'
 
 
-## {{ page.chapter }}.5. Operator Overload
+## Operator Overload
 
 You can assign your own functions to operators through `operator` instance.
 The example below assings `string - string` operation by using `operator#assign()` method.

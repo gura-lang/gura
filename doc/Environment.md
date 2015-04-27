@@ -1,6 +1,6 @@
-# {{ page.chapter }}. Environment
+# Environment
 
-## {{ page.chapter }}.1. Overview
+## Overview
 
 Environment is a container to store
 maps associating symbols and values and maps associating symbols and value types.
@@ -15,7 +15,7 @@ scope problems
     }
     println(x)
 
-## {{ page.chapter }}.2. Frame
+## Frame
 
 Frame contains:
 

@@ -1,7 +1,7 @@
-# {{ page.chapter }}. Launch Program
+# Launch Program
 
 
-## {{ page.chapter }}.1. Program Files
+## Program Files
 
 For Windows, there are two types of program files to launch Gura interpreter:
 `gura.exe` and `guraw.exe`. `guraw.exe` doesn't show command prompt window
@@ -10,7 +10,7 @@ and you can use it to run a script with graphical user interface.
 For Linux, an executable binary `gura` is the interpreter program.
 
 
-## {{ page.chapter }}.2. Interactive Mode
+## Interactive Mode
 
 When you run `gura.exe` or `gura` with no script file specified in the argument,
 it will enter an interactive mode that waits for user inputs.
@@ -40,7 +40,7 @@ Below is an example to show a help of function `println()`:
 *(this feature will be provided in v0.6.2 or later)*
 
 
-## {{ page.chapter }}.3. Run Script File
+## Run Script File
 
 You can run a script file by specifying it as an argument for Gura interpreter program.
 
@@ -97,7 +97,7 @@ This is good to make Emacs determine what character encoding it should choose fo
 Available encoding names are described in Chapter.X.
 
 
-## {{ page.chapter }}.4. Composite File
+## Composite File
 
 It often happens that an application consists of multiple script files and
 other resources such as image files.
@@ -146,7 +146,7 @@ and put executable attribute to it so that the created one can run
 independently under Linux environment.
 
 
-## {{ page.chapter }}.5. Command Line Options
+## Command Line Options
 
 Available command line options are listed below:
 
@@ -168,7 +168,7 @@ Available command line options are listed below:
 </table>
 
 
-## {{ page.chapter }}.6. Working Directory
+## Working Directory
 
 When the interpret is launched, it creates a working directory if it's not exist,
 which Gura applications can use to store working files.

@@ -1,6 +1,6 @@
-# {{ page.chapter }}. Mapping Process
+# Mapping Process
 
-## {{ page.chapter }}.1. About This Chapter
+## About This Chapter
 
 This chapter explains about Gura's mapping process, Implicit Mapping and Member Mapping.
 In the documentation, following terms are used to describe species of values.
@@ -10,9 +10,9 @@ In the documentation, following terms are used to describe species of values.
 * iterator &mdash; an instance of `iterator`
 * iterable &mdash; list or iterator
 
-## {{ page.chapter }}.2. Implicit Mapping
+## Implicit Mapping
 
-### {{ page.chapter }}.2.1. Overview
+### Overview
 
 **Implicit Mapping** is a feature that evaluates a function or an operator repeatedly
 when it's given with a list or an iterator.
@@ -113,7 +113,7 @@ Implicit Mapping enhances that idea so that it has the following capabilities:
         f('fourth', 4, 'four')
 
 
-### {{ page.chapter }}.2.2. Mapping Rule with Operator
+### Mapping Rule with Operator
 
 Implicit Mapping works on most of the operators even though there are several exceptions.
 In the description below, a symbol `o` is used to represent a certain operator.
@@ -182,7 +182,7 @@ Operation|Note
 `x => y` | It expects `y` may take a list value.
 
 
-### {{ page.chapter }}.2.3. Mapping Rule with Function
+### Mapping Rule with Function
 
 A function with `:map` attribute in its declaration is capable of Implicit Mapping.
 
@@ -264,7 +264,7 @@ Implicit Mapping does not work with arguments that match the following case:
         f(x, y, z:nomap):map = { /* body */ }
 
 
-### {{ page.chapter }}.2.4. Result Control on List
+### Result Control on List
 
 Consider a function `f(n:number):map` that is defined as below:
 
@@ -432,7 +432,7 @@ even when it's expected to generate a list by default.
   `g([nil, nil, 3, 5, 3, nil]):xreduce` | `3`
 
 
-### {{ page.chapter }}.2.5. Result Control on Iterator
+### Result Control on Iterator
 
 Consider a function below that simply returns the given value as its result.
 
@@ -598,7 +598,7 @@ without any worry.
     f((3, 1, 4))
 
 
-### {{ page.chapter }}.2.6. Suspend Implicit Mapping
+### Suspend Implicit Mapping
 
 A function call with an attribute `:nomap` would suspend Implicit Mapping.
 
@@ -609,9 +609,9 @@ To avoid it, put `:nomap` for the call as below.
     println(x):nomap
 
 
-## {{ page.chapter }}.3. Member Mapping
+## Member Mapping
 
-### {{ page.chapter }}.3.1. Overview
+### Overview
 
 **Member Mapping** is a feature to access members of instances
 that are stored in a list or are generated from an iterator.
@@ -636,7 +636,7 @@ A member accessor `:*` creates an iterator that gets results of member access.
     // ns is an iterator that generates (5, 6, 5, 6)
 
 
-### {{ page.chapter }}.3.2. Mapping Rule
+### Mapping Rule
 
 There are three member accessors in Member Mapping as shown below:
 

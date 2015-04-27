@@ -1,6 +1,6 @@
-# {{ page.chapter }}. Function
+# Function
 
-## {{ page.chapter }}.1. Definition and Evaluation
+## Definition and Evaluation
 
 The figure below shows an example of function definition with each part's designation.
 
@@ -50,7 +50,7 @@ If the Caller doesn't pass any argument for evaluation, specify an empty list.
     g()
 
 
-## {{ page.chapter }}.2. Returned Value
+## Returned Value
 
 An evaluation result of the last expression in a function body becomes its returned value.
 
@@ -97,10 +97,10 @@ A call for a function below returns `nil`, not a string `'hello'`.
 You should put `:reduce` attribute if the function is supposed to return a unchanged value.
 Attributes `:void` and `:reduce` have a significant effect with Implicit Mapping.
 
-## {{ page.chapter }}.3. Arguments
+## Arguments
 
 
-### {{ page.chapter }}.3.1. Type Name Declaration
+### Type Name Declaration
 
 You can specify a type name by describing it as an attribute
 after an Identifier's symbol.
@@ -126,7 +126,7 @@ In this case, the Interpreter checks types of all the items in the list
 and applies casting on them if possible.
 
 
-### {{ page.chapter }}.3.2. Data Type Casting
+### Data Type Casting
 
 If the data type of a value given as an argument
 doesn't match with that that is specified in an argument list,
@@ -202,7 +202,7 @@ You can find information about what data type can be casted from which data type
 in **Gura Library Reference**.
 
 
-### {{ page.chapter }}.3.3. Optional Argument
+### Optional Argument
 
 You can declare an optional argument by putting `?` right after an Identifier's symbol.
 
@@ -237,7 +237,7 @@ Note that it's inhibited to declare any non-optional arguments following after o
     f(x?, y?, z)  = { /* body */ }  // Error
 
 
-### {{ page.chapter }}.3.4. Argument with Default Value
+### Argument with Default Value
 
 An argument with a default value can be declared with an operator `=>`.
 
@@ -269,7 +269,7 @@ follow the same positioning rule each other in an argument list.
     f(x => 1, y => 2, z?) = { /* body */ }  // OK
 
 
-### {{ page.chapter }}.3.5. Variable-length Argument
+### Variable-length Argument
 
 You can declare a variable-length argument by putting `+` or `*`
 right after an Identifier's symbol.
@@ -321,7 +321,7 @@ For instance, consider the code below:
 In function `f`, variables `x`, `y` and `z` are set to `1`, `2` and `[3, 4, 5]` respectively.
 
 
-### {{ page.chapter }}.3.6. Named Argument
+### Named Argument
 
 Consider the following function:
 
@@ -348,7 +348,7 @@ When you evaluate it like below:
 Then, variables `a`, `b` and `x` are set to `1`, `2` and `%{c => 3, d => 4}`.
 
 
-### {{ page.chapter }}.3.7. Argument Expansion
+### Argument Expansion
 
 
 
@@ -360,7 +360,7 @@ Then, variables `a`, `b` and `x` are set to `1`, `2` and `%{c => 3, d => 4}`.
     f(x%)
 
 
-### {{ page.chapter }}.3.8. Quoted Argument
+### Quoted Argument
 
 Sometimes, there's a need to pass a function a procedure, not an evaluated result.
 For such a purpose, you can use a Quote operator that creates `expr` instance from any code,
@@ -395,7 +395,7 @@ for the expression that you want to pass.
     g(println('hello'))
 
 
-## {{ page.chapter }}.4. Block
+## Block
 
 A block can be seen as a special form of an argument.
 It appears after an argument list and contains a procedure embraced by a pair of curly braces.
@@ -529,10 +529,10 @@ you can omit the list like below.
     f { /* body */ }
 
 
-## {{ page.chapter }}.5. Attribute
+## Attribute
 
 
-### {{ page.chapter }}.5.1. User-defined Attribute
+### User-defined Attribute
 
 An attribute works as another way to pass information to a function.
 In a function definition,
@@ -560,7 +560,7 @@ and you can use `args#isset()` method to check if an attribute is set.
     }
 
 
-### {{ page.chapter }}.5.2. Predefined Attributes
+### Predefined Attributes
 
 
 <table>
@@ -590,7 +590,7 @@ and you can use `args#isset()` method to check if an attribute is set.
 </table>
 
 
-## {{ page.chapter }}.6. Help Block
+## Help Block
 
 You can add a help block to a function by appending `%` and a block containing help information
 to a function declaration.
@@ -647,7 +647,7 @@ You can also pass a language symbol to `function.gethelp` function as below.
     function.gethelp(add, `ja)
 
 
-## {{ page.chapter }}.7. Anonymous Function
+## Anonymous Function
 
 A function `function()` creates an anonymous function instance
 from an argument list and a block that contains its function body.
@@ -683,7 +683,7 @@ This is equivalent with the function creation shown below:
 The order of arguments is the same with the order in which the variables appear in the body.
 
 
-## {{ page.chapter }}.8. Closure
+## Closure
 
 You can define a function inside another function body.
 In that case, the inner function can access variables in the outer function.
@@ -711,7 +711,7 @@ The environment of the outer function will be held in the inner function.
     h()
 
 
-## {{ page.chapter }}.9. Leader-trailer Relationship
+## Leader-trailer Relationship
 
 When a Caller expression is described at the same line with the end of a preceding one,
 they have a leader-trailer relationship

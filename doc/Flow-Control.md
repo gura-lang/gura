@@ -1,7 +1,7 @@
-## {{ page.chapter }}. Flow Control
+## Flow Control
 
 
-## {{ page.chapter }}.1. Branch
+## Branch
 
 Branch may be the most common flow-control in a program.
 Just like other programming language,
@@ -75,10 +75,10 @@ the result value will be `nil`.
     // result is nil
 
 
-## {{ page.chapter }}.2. Repeat
+## Repeat
 
 
-### {{ page.chapter }}.2.1. Repeating Functions
+### Repeating Functions
 
 This subsection explains about some representative functions
 that evaluate a procedure repeatedly while it meets a given condition.
@@ -173,7 +173,7 @@ Of course, you can specify any number of iterable assignments.
     }
 
 
-### {{ page.chapter }}.2.2. Block Parameter
+### Block Parameter
 
 When calling `for()`, `while()` and `for()`,
 you can specify a block parameter in a format of `|i:number|`
@@ -197,7 +197,7 @@ If you don't need indices information, you can omit whole the block parameter
 or part of its parameters.
 
 
-### {{ page.chapter }}.2.3. Result Value of Repeat
+### Result Value of Repeat
 
 Like a branch sequence, a repeat sequence also has a result value
 that comes from an evaluation of the last expression in the block procedure.
@@ -238,7 +238,7 @@ but they would create a list that contains unique values
 by rejecting a value that already exists in the list.
 
 
-### {{ page.chapter }}.2.4. Flow Control in Repeat Sequence
+### Flow Control in Repeat Sequence
 
 If you want to quit a repeat sequence, you can use `break()` function.
 Aiming for a similar appearance with C and Java,
@@ -310,7 +310,7 @@ that value will be included in the repeat's result.
     // x is [99, 1, 99, 3, 99, 5, 99, 7, 99, 9]
 
 
-### {{ page.chapter }}.2.5. Generate Iterator
+### Generate Iterator
 
 As you've already seen in the above,
 appending an attribute `:list` causes the repeating process to create a list
@@ -358,7 +358,7 @@ In the above case, `x` is an *iterator* that generates values of 0, 20, 40, 60 a
 
 You can also use `break()` and `continue()` in an iterator created by a repeating function.
 Such an iterator yields elements in the same way as a repeating process that creates a list.
-See subsection {{ page.chapter }}.2.4 for detail.
+See subsection for detail.
 
 An iterator created by a repeat function and a closure generated within a function
 are similar in that they postpone their actual jobs.
@@ -423,7 +423,7 @@ you have to call `iterator#repeater()` method to turn it on as shown below.
     }
 
 
-### {{ page.chapter }}.2.6. Repeat Process with Function that Creates Iterator
+### Repeat Process with Function that Creates Iterator
 
 Many of functions that creates an iterator as their result may take an optional block procedure.
 For such functions, you can specify a block that is to be evaluated repeatedly
@@ -481,7 +481,7 @@ And attributes `:iter` and `:xiter` that create an iterator are also available.
     // x is an iterator that generates each line's string in uppercase.
 
 
-## {{ page.chapter }}.3. Error Handling
+## Error Handling
 
 You can use `try-catch` sequence to capture errors.
 Any process that may occur errors is written in a block of `try()` function

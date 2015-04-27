@@ -1,14 +1,14 @@
-# {{ page.chapter }}. Template Engine
+# Template Engine
 
 <!-- --------------------------------------------------------------------- -->
-## {{ page.chapter }}.1. Overview
+## Overview
 
 Sometimes, you may want to daynamically generate text from a template
 that contains some variable fields.
 You can use Template Engine to embed Gura scripts within a text for such purposes.
 
 <!-- --------------------------------------------------------------------- -->
-## {{ page.chapter }}.2. How to Invoke Template Engine
+## How to Invoke Template Engine
 
 There are two ways to invoke Template Engine as below:
 
@@ -68,7 +68,7 @@ The above code can also be writen as below:
 
 
 <!-- --------------------------------------------------------------------- -->
-## {{ page.chapter }}.3. Embedded Script
+## Embedded Script
 
 When the engine finds a region surrounded by borders "`${`" and "`}`" in a template,
 that would be recognized as an embedded script in which you can put any number and any type of
@@ -172,7 +172,7 @@ Below is an example to render the content of an external text file with line num
     ----
 
 <!-- --------------------------------------------------------------------- -->
-## {{ page.chapter }}.4. Indentation
+## Indentation
 
 If an embedded script that has a string containing multiple lines appears first in a line
 and is preceded by white spaces or tabs, each line would be indented with the preceding spaces.
@@ -205,7 +205,7 @@ each element would also be indented.
       3rd
 
 <!-- --------------------------------------------------------------------- -->
-## {{ page.chapter }}.5. Rendering nil Value
+## Rendering nil Value
 
 An embedded script that has `nil` value would render nothing just like an empty string.
 
@@ -294,7 +294,7 @@ A symbol "`-`" is defined as `nil` so that it can be used as a terminator for su
     Hello World
 
 <!-- --------------------------------------------------------------------- -->
-## {{ page.chapter }}.6. Calling Function with Block
+## Calling Function with Block
 
 The engine can also call a function with a block
 that usually appears surrounded by "`{`" and "`}`" in an ordinary script.
@@ -397,7 +397,7 @@ To give such a function a block, specify an empty block "`{}`" in an embedded sc
 
 
 <!-- --------------------------------------------------------------------- -->
-## {{ page.chapter }}.7. Template Directive
+## Template Directive
 
 An embedded script that begins with a character "`=`" is called a template directive,
 which is categorized into the following types:
@@ -407,7 +407,7 @@ which is categorized into the following types:
 - Rendering Other Templates
 
 
-### {{ page.chapter }}.7.1. Macro Definition and Call
+### Macro Definition and Call
 
 Macros are used to define text patterns that can be applied for multiple times.
 They're defined and called with the following directives:
@@ -427,7 +427,7 @@ Below is an example:
     Author: Taro Yamada
 
 
-### {{ page.chapter }}.7.2. Inheritance
+### Inheritance
 
 Using Template Engine's inheritance feature, you can create a derived template
 that inherits the text content from a base template.
@@ -548,7 +548,7 @@ defined in the base template.
     block3-content derived
 
 
-### {{ page.chapter }}.7.3. Rendering Other Templates
+### Rendering Other Templates
 
 The directive `${=embed()}` renders other templates from the current template.
 
@@ -563,7 +563,7 @@ Below is an example:
     ${=embed('footer.tmpl')}
 
 
-### {{ page.chapter }}.7.4. How Does Directive Work?
+### How Does Directive Work?
 
 A directive actually consists of two methods named like
 `template#xxxxx()` and `template#init_xxxxx()` where `xxxxx` is the directive name.
@@ -578,7 +578,7 @@ and `this.xxxxx()` to the presentation phase.
 
 
 <!-- --------------------------------------------------------------------- -->
-## {{ page.chapter }}.8. Comment
+## Comment
 
 The engine recognizes a region surrounded by "`${==`" and "`==}$`" as a comment
 and just skips it during parsing process.
@@ -610,7 +610,7 @@ and just skips it during parsing process.
     8th line
 
 <!-- --------------------------------------------------------------------- -->
-## {{ page.chapter }}.9. Scope Issues
+## Scope Issues
 
 An embedded script in a template runs with a scope in which `template#render()` is evaluated.
 

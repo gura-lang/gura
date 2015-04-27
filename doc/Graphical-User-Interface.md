@@ -1,6 +1,6 @@
-# {{ page.chapter }}. Graphical User Interface
+# Graphical User Interface
 
-## {{ page.chapter }}.1. Overview
+## Overview
 
 wxWidgets
 
@@ -8,15 +8,15 @@ Tk
 
 SDL
 
-## {{ page.chapter }}.2. wxWidgets
+## wxWidgets
 
 
-### {{ page.chapter }}.2.1. About wxWidgets
+### About wxWidgets
 
 Gura's `wx` module uses libraries of [wxWidgets](https://www.wxwidgets.org/) 3.0.0.
 
 
-### {{ page.chapter }}.2.2. Simple Example
+### Simple Example
 
 The code below is the simplest example that shows an empty window.
 
@@ -53,7 +53,7 @@ An application class is realized by calling `wx.IMPLEMENT_APP`,
 which runs a main loop in it.
 
 
-### {{ page.chapter }}.2.3. Event Handling
+### Event Handling
 
 There are several ways to address event handling.
 The first one is to call `wx.Window#Bind` method to the control instance like below.
@@ -124,7 +124,7 @@ The identifier is necessary because the parent window must determine
 what control has issued the event.
 
 
-### {{ page.chapter }}.2.4. Layout Management
+### Layout Management
 
 You can use classes derived from `wx.Sizer` to arrange controls' size and position.
 
@@ -162,19 +162,19 @@ The method takes a `wx.SizerFlags` instance as its second argument,
 with which you can specify how the control's size is arranged.
 
 
-### {{ page.chapter }}.2.5. More Sample Scripts
+### More Sample Scripts
 
 You can find sample scripts using wxWidgets on
 [GitHub repository](https://github.com/gura-lang/gura/tree/master/sample/wx/).
 
-## {{ page.chapter }}.3. Tk
+## Tk
 
-### {{ page.chapter }}.3.1. About Tk
+### About Tk
 
 Gura provides modules named `tcl` and `tk` that use [Tcl/Tk](http://www.tcl.tk/) library for GUI programming.
 
 
-### {{ page.chapter }}.3.2. Simple Example
+### Simple Example
 
 The following example creates a window that has one Button widget.
 
@@ -191,7 +191,7 @@ The following example creates a window that has one Button widget.
     tk.mainloop()
 
 
-### {{ page.chapter }}.3.3. Sample Script
+### Sample Script
 
 The code below is a drawing program. I have ported it from a sample in
 [TkDocs](http://www.tkdocs.com/).
@@ -231,16 +231,16 @@ Sample result.
 ![tk-demo](../images/tk-demo.png)
 
 
-### {{ page.chapter }}.3.4. More Sample Scripts
+### More Sample Scripts
 
 You can find sample scripts using Tk on
 [GitHub repository](https://github.com/gura-lang/gura/tree/master/sample/tk/).
 
 
-## {{ page.chapter }}.4. SDL
+## SDL
 
 
-### {{ page.chapter }}.4.1. About SDL
+### About SDL
 
 Gura provides a module named `sdl` that uses [SDL](http://www.libsdl.org/) library.
 
@@ -249,7 +249,7 @@ designed to provide low level access to audio, keyboard, mouse, joystick,
 and graphics hardware via OpenGL and Direct3D.
 
 
-### {{ page.chapter }}.4.2. Simple Example
+### Simple Example
 
 The following script only shows a blank window by using SDL.
 
@@ -271,7 +271,7 @@ The function `sdl.WaitEvent` would wait until some events come in
 and returns an instance of `sdl.Event` class that contains event type and related information.
 
 
-### {{ page.chapter }}.4.3. More Sample Scripts
+### More Sample Scripts
 
 You can find sample scripts using SDL on
 [GitHub repository](https://github.com/gura-lang/gura/tree/master/sample/sdl/).

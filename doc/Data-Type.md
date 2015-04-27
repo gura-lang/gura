@@ -1,6 +1,6 @@
-# {{ page.chapter }}. Data Type
+# Data Type
 
-## {{ page.chapter }}.1. Overview
+## Overview
 
 A value has a corresponding Data Type that defines its behavior and properties.
 
@@ -27,7 +27,7 @@ Most Data Types except for what are picked up as Primitive Data Types above
 belong to this.
 
 
-## {{ page.chapter }}.2. Primitive Data Types
+## Primitive Data Types
 
 Below is a list of Primitve Data Types,
 which also shows one of the typical ways to instantiate values of each type.
@@ -99,10 +99,10 @@ which also shows one of the typical ways to instantiate values of each type.
         `foo  `bar
 
 
-## {{ page.chapter }}.3. Object Data Types Frequently Used
+## Object Data Types Frequently Used
 
 
-## {{ page.chapter }}.3.1. List
+## List
 
 If one or more elements are surrounced by a pair of square brackets,
 it would instantiate a value of `list` type.
@@ -114,7 +114,7 @@ Any type of value can be an element of lists.
 
 
 
-## {{ page.chapter }}.3.2. Iterator
+## Iterator
 
 If one or more elements are surrounced by a pair of parentheses,
 it would instantiate a value of `iterator` type.
@@ -156,7 +156,7 @@ The most commonly used function may be `readlines`,
 which creates an iterator that reads a stream and returns strings splitted by line.
 
 
-## {{ page.chapter }}.3.3. Dictionary
+## Dictionary
 
 `dict` is a dictionary that contains key-value pairs as its elements
 where a key is one of `number`, `string` or `symbol` and a value is of any type.
@@ -188,14 +188,14 @@ You can also describe keys and values alternately in one-dimentional format.
         `symbol3, 'value 3'
     }
 
-## {{ page.chapter }}.3.4. Expression
+## Expression
 
 Any expression preceded by a back quote instantiates a value of `expr` type.
 
     `(x + y)  `func(x)  `{ println('hello'), x += 1 }
 
 
-## {{ page.chapter }}.3.5. Binary
+## Binary
 
 A string literal preceded by `b` instantiates a value of `binary` type.
 

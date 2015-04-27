@@ -1,4 +1,4 @@
-# {{ page.chapter }}. Mathematic Functions
+# Mathematic Functions
 
 ## Complex Number
 

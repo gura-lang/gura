@@ -1,7 +1,7 @@
-# {{ page.chapter }}. Object Oriented Programming
+# Object Oriented Programming
 
 
-## {{ page.chapter }}.1. Class and Instance
+## Class and Instance
 
 A **class** is a kind of environment that contains properties such as functions and variables,
 and has an ability to create **instances** that share these properties.
@@ -49,7 +49,7 @@ You can use `dir()` function to see what methods and variables are available wit
     [`__call__, `__iter__, `clone, `getprop!, `is, `isinstance, `isnil, `istype, `nomap, `roundoff, `setprop!, `tonumber, `tostring]
 
 
-## {{ page.chapter }}.2. User-defined Class
+## User-defined Class
 
 You can use `class` function to create a user-defined class.
 The code below creates a class named `A` with empty properties.
@@ -148,9 +148,9 @@ You can also call a class method by specifying an instance.
 
 
 
-## {{ page.chapter }}.3. Inheritance
+## Inheritance
 
-### {{ page.chapter }}.3.1. Basic
+### Basic
 
 You can create an inherited class by specifying a super class in an argument of `class()`.
 
@@ -161,7 +161,7 @@ You can create an inherited class by specifying a super class in an argument of 
 If you don't declare `__init__()` method in the derived class, it would inherit a constructor of the super class.
 
 
-### {{ page.chapter }}.3.2. Constructor in Derived Class
+### Constructor in Derived Class
 
 When you declare `__init__()` method in the derived class,
 you have to specify block parameters that satisfies the argument declaration of the super class's constructor.
@@ -201,7 +201,7 @@ See the example below:
     }
 
 
-### {{ page.chapter }}.3.3. Method Override
+### Method Override
 
 Take a look at a behavior of instance methods in an inherited class.
 Consider the following script:
@@ -240,7 +240,7 @@ Below is a sample code to show how to use it.
     }
 
 
-## {{ page.chapter }}.4. Encapsulation
+## Encapsulation
 
 By default, instance and class variables are only accessible through `this` variable.
 Such variables are called **private variable**.
@@ -293,7 +293,7 @@ by specifying `:private` attribute in their assignment expressions.
 Those methods are called **private method**.
 
 
-## {{ page.chapter }}.5. Structure
+## Structure
 
 A structure is a kind of a class, but offers a simple way to implement a constructor.
 Function `struct` takes variable declarations as its arguments that are reflected on the generated constructor.
@@ -335,7 +335,7 @@ A structure can also have methods by describing them in a block of `struct` func
     }
 
 
-## {{ page.chapter }}.6. Creation of Multiple Instances
+## Creation of Multiple Instances
 
 How can we create a list of instances from a certain class?
 Below is an example to create a list of `Person` instances.

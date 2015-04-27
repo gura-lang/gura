@@ -1,6 +1,6 @@
-# {{ page.chapter }}. Network Operation
+# Network Operation
 
-## {{ page.chapter }}.1. Overview
+## Overview
 
 `curl` module
 
@@ -9,7 +9,7 @@
 client-side and server-side
 
 
-## {{ page.chapter }}.2. Client-side Operation
+## Client-side Operation
 
 You can download files via HTTP protocol using a generic stream-copy function copy.
 Below is the example.
@@ -25,7 +25,7 @@ using http.addproxy like follows.
     copy('http://sourceforge.jp/', 'sf.html')
 
 
-## {{ page.chapter }}.3. Server-side Operation
+## Server-side Operation
 
 Simple Example:
 

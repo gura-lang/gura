@@ -1,8 +1,8 @@
-# {{ page.chapter }}. Image Operation
+# Image Operation
 
-## {{ page.chapter }}.1. Overview
+## Overview
 
-## {{ page.chapter }}.2. Image Instance
+## Image Instance
 
 An instance of `image` class contains image data and provides functions
 such as reading/writing image files, resizing and rotating.
@@ -35,15 +35,15 @@ Importing those modules also add methods to `image` class
 like `jpeg` module adding `image#jpegread` and `image#jpegwrite`.
 
 
-## {{ page.chapter }}.3. Format-specific Operations
+## Format-specific Operations
 
 
-## {{ page.chapter }}.3.1. JPEG
+## JPEG
 
 EXIF
 
 
-## {{ page.chapter }}.3.2. GIF
+## GIF
 
 Here is a JPEG image file that contains animation frames:
 [cat-picture.jpg](../images/cat-picture.jpg).
@@ -83,9 +83,9 @@ about how it's created by `image#crop()` and how it's processed in `gif.content#
 ![cat-picture](../images/cat-anim.gif) [cat-anim.gif](../images/cat-anim.gif)
 
 
-## {{ page.chapter }}.4. Cairo
+## Cairo
 
-### {{ page.chapter }}.4.1. Simple Example
+### Simple Example
 
 Here is a simple example using Cairo.
 
@@ -106,7 +106,7 @@ Here is a simple example using Cairo.
     img.show()
 
 
-### {{ page.chapter }}.4.2. Render in Exisiting Image
+### Render in Exisiting Image
 
 The following is an example that performs reading a JPEG file,
 drawing something on it with Cairo APIs and writing it out as a JPEG file.
@@ -130,7 +130,7 @@ drawing something on it with Cairo APIs and writing it out as a JPEG file.
     img.write('result.jpg')
 
 
-### {{ page.chapter }}.4.3. Output Animation GIF File Combining Multiple Image Files
+### Output Animation GIF File Combining Multiple Image Files
 
 You can create a GIF file that has a dynamically produced image.
 The example below shows how to output an animation GIF file that contains
@@ -156,16 +156,16 @@ images created by Cairo APIs.
     gifobj.write('anim2.gif')
 
 
-### {{ page.chapter }}.4.4. More Sample Scripts
+### More Sample Scripts
 
 You can find sample scripts using Cairo on
 [GitHub repository](https://github.com/gura-lang/gura/tree/master/sample/cairo/).
 
 
-## {{ page.chapter }}.5. OpenGL
+## OpenGL
 
 
-### {{ page.chapter }}.5.1. Sample Script
+### Sample Script
 
 Gura supports APIs of OpenGL 1.1.
 
@@ -228,7 +228,7 @@ Execution result.
 ![gl-cube](../images/gl-cube.png)
 
 
-### {{ page.chapter }}.5.2. More Sample Scripts
+### More Sample Scripts
 
 You can find sample scripts using OpenGL on
 [GitHub repository](https://github.com/gura-lang/gura/tree/master/sample/opengl/),

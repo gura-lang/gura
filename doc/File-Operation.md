@@ -1,6 +1,6 @@
-# {{ page.chapter }}. File Operation
+# File Operation
 
-## {{ page.chapter }}.1. Overview
+## Overview
 
 Gura provides mechanism of **Stream** and **Directory** to work on files:
 Stream is prepared to read and write content of a file
@@ -17,9 +17,9 @@ and dispatching file operations to appropriate processes
 that have been registered by built-in and imported Modules.
 
 
-## {{ page.chapter }}.2. Pathname
+## Pathname
 
-### {{ page.chapter }}.2.1. Acceptable Format of Pathname
+### Acceptable Format of Pathname
 
 A pathname is a string that identifies Stream and Directory, which should be handled by Path Manager.
 
@@ -35,7 +35,7 @@ which is to be converted by `fs` module to what the current OS can accept.
 You can see variable `path.sep_file` to check what character is favorable to the OS.
 
 
-### {{ page.chapter }}.2.3. Utility Functions to Parse Pathname
+### Utility Functions to Parse Pathname
 
 Function `path.dirname()` extracts a directory part by eliminating a file part from a pathname.
 
@@ -98,9 +98,9 @@ Function `path.absname()` takes a relative path name in a file system
 and returns an absolute name based on the current directory.
 
 
-## {{ page.chapter }}.3. Stream
+## Stream
 
-### {{ page.chapter }}.3.1. Stream Instance
+### Stream Instance
 
 A Stream is a data object to read and write content of a file
 and represented by a `stream` instance created by a constructor function named `stream()`.
@@ -152,7 +152,7 @@ Using this description, you can access the created instance only within the bloc
 which will be automatically destroyed at the end of the procedure.
 
 
-### {{ page.chapter }}.3.2. Cast to Stream Instance
+### Cast to Stream Instance
 
 If a certain function has an argument that expects a `stream` instance,
 you can pass it a string of a pathname,
@@ -178,7 +178,7 @@ Attribute `:r` is also prepared
 to explicitly declara that the stream is to be opened for reading.
 
 
-### {{ page.chapter }}.3.3. Stream Instance for Standard Input/Output
+### Stream Instance for Standard Input/Output
 
 There are three `stream` instances for the access to standard input and output,
 which are assigned to variables in `sys` module.
@@ -200,7 +200,7 @@ Assignment to `sys.stdout` would affect the behavior of functions such as `print
     println('Hello world')   // result will be written into 'foo.txt'.
 
 
-### {{ page.chapter }}.3.4. Stream with Text Data
+### Stream with Text Data
 
 There are fundamental functions that print texts out to standard output stream.
 
@@ -305,7 +305,7 @@ If you want to append CR code at each end of line in a file to write, call `stre
     fd.addcr(true)
 
 
-### {{ page.chapter }}.3.5. Character Codecs
+### Character Codecs
 
 While a `string` instance holds string data in UTF-8 format,
 there are various character code sets to describe texts in files.
@@ -345,7 +345,7 @@ In such a case, you can use `stream#setcodec()` like below:
     sys.stdout.setcodec('utf-8')
 
 
-### {{ page.chapter }}.3.6. Stream with Binary Data
+### Stream with Binary Data
 
 In addition to methods to handle text data,
 class `stream` is equipped with methods to read/write binary data as well.
@@ -392,7 +392,7 @@ Method `stream#compare()` compares contents between two streams
 and returns `true` if there's no difference and `false` otherwise.
 
 
-### {{ page.chapter }}.3.7. Filter Stream
+### Filter Stream
 
 A Filter Stream is what is attached to other `stream` instance
 and applies data modification while reading or writing operation.
@@ -514,7 +514,7 @@ Below shows a diagram of the process:
     +--------+    +-----------------+    +---------------+
 
 
-### {{ page.chapter }}.3.8. Stream with Archive File and Network
+### Stream with Archive File and Network
 
 After importing `tar` module, you can create a stream that reads an item stored in a TAR archive file.
 When a pathname contains a filename suffixed with `.tar`, `.tgz`, `.tar.gz` or `tar.bz2`,
@@ -552,9 +552,9 @@ or importing `http` module would make Path Manager able to recognize URIs that b
     }
 
 
-## {{ page.chapter }}.4. Directory
+## Directory
 
-### {{ page.chapter }}.4.1. Operations
+### Operations
 
 A Directory is a data object to seek a list of files and sub directories and is represented by `directory` class.
 But currently, there's few chance to utilize the `directory` instance explicitly
@@ -615,7 +615,7 @@ For example, a call `path.walk('example')` create an iterator that returns follo
     example/dir-B/dir-C/file-7.doc
 
 
-### {{ page.chapter }}.4.2. Status Object
+### Status Object
 
 By default, functions `path.dir()`, `path.glob()` and `path.glob()` create an iterator that returns a string of pathname.
 Specifying `:stat` attribute would create an iterator generating an object called `stat` that contains more detail information about items.
@@ -651,7 +651,7 @@ The code below shows an example that prints each filename and size of items unde
     printf('%-16s %d\n', stats:*filename, stats:*size)
 
 
-### {{ page.chapter }}.3.8. Directory in Archive File
+### Directory in Archive File
 
 After importing `tar` module, you can get a list of items stored in a TAR archive file.
 The code below prints all the items stored in `example.tar.gz` by `path.walk()`.
@@ -703,9 +703,9 @@ An item in ZIP archive file returns `zip.stat` instance that has following prope
 </table>
 
 
-## {{ page.chapter }}.5. OS-specific Operations
+## OS-specific Operations
 
-### {{ page.chapter }}.5.1. Operation on File System
+### Operation on File System
 
 Module `fs` provides functions that work with file systems.
 
@@ -725,7 +725,7 @@ Function `fs.chmod()` modifies attribute of a file or a directory.
 
 Function `fs.cpdir()` copies content of a directory to another directory.
 
-### {{ page.chapter }}.5.2. Execute Other Process
+### Execute Other Process
 
 Function `os.exec()` executes a process and waits until it finishes.
 While the process runs, its standard output and standard error are redirected to streams defined by variables `os.stdout` and `os.stderr`,

@@ -1,6 +1,6 @@
-# {{ page.chapter }}. Module
+# Module
 
-## {{ page.chapter }}.1. Module as Environment
+## Module as Environment
 
 A **module** is a kind of environment and capable of containing variables and functions inside it.
 You can use `module()` function that takes a block procedure containing expressions
@@ -28,7 +28,7 @@ But its main purpose is to provide a mechanism to load external files
 that extend the language's capability.
 
 
-## {{ page.chapter }}.2. Importing Module File
+## Importing Module File
 
 Gura language has a policy that the interpreter itself should provide functions
 that are less dependent on external libraries, operating systems and hardware specifications.
@@ -99,7 +99,7 @@ A variable `sys.path` is assigned with a list that contains path names to search
 You can add path names into the list while a script is running.
 
 
-## {{ page.chapter }}.3. Creating Module File
+## Creating Module File
 
 Any script file can be a script module file, which you can import in other scripts.
 But there are several points you need to know concerning access controls.
@@ -140,7 +140,7 @@ Since the body of `if()` function would only be evaluated when the script runs a
 you can write codes inside it that wouldn't be evaluated when imported as a module.
 
 
-## {{ page.chapter }}.4. Extensions by Module
+## Extensions by Module
 
 Modules don't only provide functions but could enhance various capabilities.
 
@@ -208,7 +208,7 @@ Modules don't only provide functions but could enhance various capabilities.
 
 
 
-## {{ page.chapter }}.5. List of Bundled Modules
+## List of Bundled Modules
 
 This section describes a list of modules that are bundled with the interpreter.
 
@@ -339,7 +339,7 @@ Utilities:
 </table>
 
 
-## {{ page.chapter }}.6. Creating Binary Module File
+## Creating Binary Module File
 
 Gura has a mechanism to support users who create binary modules.
 This document shows how to create an original binary module hoge.

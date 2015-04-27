@@ -1,6 +1,6 @@
-# {{ page.chapter }}. String and Binary
+# String and Binary
 
-## {{ page.chapter }}.1. Overview
+## Overview
 
 A string is a sequence of character codes in UTF-8 format and is represented by `string` class.
 Class `string` is a primitive type,
@@ -19,10 +19,10 @@ Class `binary` is an object type, so you can modify the content of the instance.
 A `binary` instance can be used as a plain memory image capable of containing any data.
 
 
-## {{ page.chapter }}.2. Operation on String
+## Operation on String
 
 
-### {{ page.chapter }}.2.1. Character Manipulation
+### Character Manipulation
 
 You can specify an index number starting from zero embraced by a pair of square brackets
 to retrieve a character as a sub string at the specified position.
@@ -65,7 +65,7 @@ Function 'ord()` takes a string and returns UTF-8 character code of its first ch
     ord('A')        // returns 65
 
 
-### {{ page.chapter }}.2.2. Iteration
+### Iteration
 
 Method `string#each()` creates an iterator that returns each character as a sub string.
 
@@ -123,7 +123,7 @@ use `string#fold()` method.
     // x is an iterator that returns 'abcde', 'fghij', 'klmno', 'pqrst', 'uvwxy' and 'z'
 
 
-### {{ page.chapter }}.2.3. Modification and Conversion
+### Modification and Conversion
 
 Applying an operator `+` between two `string` instances would concatenate them together.
 
@@ -184,7 +184,7 @@ with character entities prefixed by an ampersand,
 while method `string#unescapehtml()`converts such escaped ones into normal characters.
 
 
-### {{ page.chapter }}.2.4. Extraction
+### Extraction
 
 Method `string#strip()` removes space characters that exist on both sides of the string.
 Attributes `:left` and `:right` would specify the side to remove spaces.
@@ -209,7 +209,7 @@ that has extracted specified number of characters from the specified position.
     str.mid(10, 5)  // returns 'brown'
 
 
-### {{ page.chapter }}.2.5. Search, Replace and Inspection
+### Search, Replace and Inspection
 
 To see the length of a string, `string#len()` is available.
 Note that `string#len()` returns the number of characters, not the size in byte.
@@ -250,9 +250,9 @@ If the sub string doesn't match, they would return `nil`.
     str.endswith('hoge'):rest   // returns nil
 
 
-## {{ page.chapter }}.3. Formatter
+## Formatter
 
-## {{ page.chapter }}.3.1. Functions Equipped with Formatter
+## Functions Equipped with Formatter
 
 You can use format specifiers in some functions that are similar to what are realized in C language's `printf`
 to convert objects like numbers into readable strings.
@@ -290,7 +290,7 @@ you can even give the operator the value without a list.
     str = 'x = %d\n' % x
 
 
-## {{ page.chapter }}.3.2. Syntax of Format Specifier
+## Syntax of Format Specifier
 
 A format specifier begins with a percent character and has the syntax below,
 where optional fields are embraced by square brackets:
@@ -348,7 +348,7 @@ The optional field `precision` has different meanings depending on the specifier
 </table>
 
 
-## {{ page.chapter }}.4. Regular Expression
+## Regular Expression
 
 You can import module `re` to use regular expression for string search and substition,
 which supports a syntax based on POSIX Extended Regular Expression.
@@ -425,9 +425,9 @@ An anonymous function would make the code more simple.
     str.sub('#+', &{format('%d', $m[0].len())})  // returns '3 4 5 2 5'
 
 
-## {{ page.chapter }}.5. Operation on Binary
+## Operation on Binary
 
-### {{ page.chapter }}.5.1. Creation of Instance
+### Creation of Instance
 
 You can create a `binary` instance by put a prefix `b` to a string literal.
 
@@ -457,7 +457,7 @@ There are several ways to create a `binary` instance that accepts modification.
 You can use method `binary#dump()` to print out a content of a `binary` in a hexadecimal dump format.
 
 
-### {{ page.chapter }}.5.2. Byte Manipulation
+### Byte Manipulation
 
 An index access on a `binary` would return a number value at the specified position.
 
@@ -484,7 +484,7 @@ Method `binary#each()` creates an iterator that returns each 8-bit number value 
     // x is an iterator that returns 0xaa, 0xbb, 0xcc, 0xdd and 0xee.
 
 
-### {{ page.chapter }}.5.3. Pack and Unpack
+### Pack and Unpack
 
 Using an indexer and `binary#each()` method, you can retrieve and modify the content of a binary by a unit of 8-bit number.
 To store and extract values such as number that consits of multiple octets
@@ -593,7 +593,7 @@ Specifiers `c` and `s` are prepared to pack or unpack string data.
 You can specify a codec for `s` specifier by surrounding its name with `{` and `}`.
 
 
-### {{ page.chapter }}.5.4. Pointer
+### Pointer
 
 `binary#pointer()`
 
@@ -602,7 +602,7 @@ You can specify a codec for `s` specifier by surrounding its name with `{` and `
 `pointer#pack()`
 
 
-### {{ page.chapter }}.5.5. Binary as Stream
+### Binary as Stream
 
 `binary#writer()`
 
