@@ -1,11 +1,4 @@
----
-layout: page
-lang: en
-title: Environment
-chapter: 5
----
-
-# {{ page.chapter }}. {{ page.title }}
+# {{ page.chapter }}. Environment
 
 ## {{ page.chapter }}.1. Overview
 

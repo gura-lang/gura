@@ -1,11 +1,4 @@
----
-layout: page
-lang: en
-title: Image Operation
-chapter: 16
----
-
-# {{ page.chapter }}. {{ page.title }}
+# {{ page.chapter }}. Image Operation
 
 ## {{ page.chapter }}.1. Overview
 

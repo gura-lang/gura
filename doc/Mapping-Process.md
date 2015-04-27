@@ -1,11 +1,4 @@
----
-layout: page
-lang: en
-title: Mapping Process
-chapter: 10
----
-
-# {{ page.chapter }}. {{ page.title }}
+# {{ page.chapter }}. Mapping Process
 
 ## {{ page.chapter }}.1. About This Chapter
 

@@ -1,11 +1,4 @@
----
-layout: page
-lang: en
-title: Interpreter
-chapter: 6
----
-
-# {{ page.chapter }}. {{ page.title }}
+# {{ page.chapter }}. Interpreter
 
 ## {{ page.chapter }}.1. How Interpreter Works
 

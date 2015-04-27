@@ -1,10 +1,3 @@
----
-layout: page
-lang: en
-title: Flow Control
-chapter: 8
----
-
 ## {{ page.chapter }}. Flow Control
 
 

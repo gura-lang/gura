@@ -1,11 +1,4 @@
----
-layout: page
-lang: en
-title: String and Binary
-chapter: 12
----
-
-# {{ page.chapter }}. {{ page.title }}
+# {{ page.chapter }}. String and Binary
 
 ## {{ page.chapter }}.1. Overview
 

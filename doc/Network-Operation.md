@@ -1,11 +1,4 @@
----
-layout: page
-lang: en
-title: Network Operation
-chapter: 15
----
-
-# {{ page.chapter }}. {{ page.title }}
+# {{ page.chapter }}. Network Operation
 
 ## {{ page.chapter }}.1. Overview
 

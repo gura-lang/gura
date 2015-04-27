@@ -1,11 +1,4 @@
----
-layout: page
-lang: en
-title: Launch Program
-chapter: 1
----
-
-# {{ page.chapter }}. {{ page.title }}
+# {{ page.chapter }}. Launch Program
 
 
 ## {{ page.chapter }}.1. Program Files

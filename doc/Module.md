@@ -1,11 +1,4 @@
----
-layout: page
-lang: en
-title: Module
-chapter: 11
----
-
-# {{ page.chapter }}. {{ page.title }}
+# {{ page.chapter }}. Module
 
 ## {{ page.chapter }}.1. Module as Environment
 

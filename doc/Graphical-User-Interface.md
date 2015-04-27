@@ -1,11 +1,4 @@
----
-layout: page
-lang: en
-title: Graphical User Interface
-chapter: 17
----
-
-# {{ page.chapter }}. {{ page.title }}
+# {{ page.chapter }}. Graphical User Interface
 
 ## {{ page.chapter }}.1. Overview
 

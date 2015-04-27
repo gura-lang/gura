@@ -1,11 +1,4 @@
----
-layout: page
-lang: en
-title: Mathematic Functions
-chapter: 18
----
-
-# {{ page.chapter }}. {{ page.title }}
+# {{ page.chapter }}. Mathematic Functions
 
 ## Complex Number
 

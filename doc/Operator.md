@@ -1,11 +1,4 @@
----
-layout: page
-lang: en
-title: Operator
-chapter: 4
----
-
-# {{ page.chapter }}. {{ page.title }}
+# {{ page.chapter }}. Operator
 
 ## {{ page.chapter }}.1. Overview
 

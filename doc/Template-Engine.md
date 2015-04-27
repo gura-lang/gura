@@ -1,11 +1,4 @@
----
-layout: page
-lang: en
-title: Template Engine
-chapter: 19
----
-
-# {{ page.chapter }}. {{ page.title }}
+# {{ page.chapter }}. Template Engine
 
 <!-- --------------------------------------------------------------------- -->
 ## {{ page.chapter }}.1. Overview

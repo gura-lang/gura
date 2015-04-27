@@ -1,11 +1,4 @@
----
-layout: page
-lang: en
-title: File Operation
-chapter: 14
----
-
-# {{ page.chapter }}. {{ page.title }}
+# {{ page.chapter }}. File Operation
 
 ## {{ page.chapter }}.1. Overview
 

@@ -1,11 +1,4 @@
----
-layout: page
-lang: en
-title: Syntax
-chapter: 2
----
-
-# {{ page.chapter }}. {{ page.title }}
+# {{ page.chapter }}. Syntax
 
 ## {{ page.chapter }}.1. Overview
 

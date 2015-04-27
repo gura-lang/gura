@@ -1,11 +1,4 @@
----
-layout: page
-lang: en
-title: Function
-chapter: 7
----
-
-# {{ page.chapter }}. {{ page.title }}
+# {{ page.chapter }}. Function
 
 ## {{ page.chapter }}.1. Definition and Evaluation
 

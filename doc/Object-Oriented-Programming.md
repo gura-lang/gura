@@ -1,11 +1,4 @@
----
-layout: page
-lang: en
-title: Object Oriented Programming
-chapter: 9
----
-
-# {{ page.chapter }}. {{ page.title }}
+# {{ page.chapter }}. Object Oriented Programming
 
 
 ## {{ page.chapter }}.1. Class and Instance

@@ -1,10 +1,4 @@
----
-layout: page
-lang: en
-title: Introduction
----
-
-# {{ page.title }}
+# Introduction
 
 We often see a process that applies some operation or transformation
 on multiple data stored in lists and then put the results into another list.

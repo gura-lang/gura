@@ -40,10 +40,10 @@ headerForIndex = R'''
 ---
 layout: page
 lang: en
-title: Gura Library Reference
+title: Gura Language Manual
 ---
 
-<h1>Gura Library Reference</h1>
+<h1>Gura Language Manual</h1>
 
 '''
 
@@ -55,7 +55,7 @@ headerForPage = R'''
 ---
 layout: page
 lang: en
-title: Gura Library Reference
+title: Gura Language Manual
 ---
 
 {% raw %}

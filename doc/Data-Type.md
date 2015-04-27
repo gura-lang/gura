@@ -1,11 +1,4 @@
----
-layout: page
-lang: en
-title: Data Type
-chapter: 3
----
-
-# {{ page.chapter }}. {{ page.title }}
+# {{ page.chapter }}. Data Type
 
 ## {{ page.chapter }}.1. Overview
 

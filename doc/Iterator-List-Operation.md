@@ -1,11 +1,4 @@
----
-layout: page
-lang: en
-title: Iterator/List Operation
-chapter: 13
----
-
-# {{ page.chapter }}. {{ page.title }}
+# {{ page.chapter }}. Iterator/List Operation
 
 ## {{ page.chapter }}.1. Overview
 
