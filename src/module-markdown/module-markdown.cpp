@@ -1870,18 +1870,6 @@ void Document::EndDecoration()
 
 void Document::BeginTag(const char *tagName, const char *attrs, bool closedFlag)
 {
-#if 0
-	FlushItem(Item::TYPE_Paragraph, false, false);
-	Item *pItemParent = _itemStack.back();
-	Item *pItem = new Item(Item::TYPE_Tag);
-	pItem->SetText(tagName);
-	if (attrs[0] != '\0') pItem->SetAttrs(attrs);
-	pItemParent->GetItemOwner()->push_back(pItem);
-	if (!closedFlag) {
-		pItem->SetItemOwner(new ItemOwner());
-		_itemStack.push_back(pItem);
-	}
-#else
 	FlushText(Item::TYPE_Text, false, false);
 	Item *pItem = new Item(Item::TYPE_Tag);
 	pItem->SetText(tagName);
@@ -1894,23 +1882,16 @@ void Document::BeginTag(const char *tagName, const char *attrs, bool closedFlag)
 		_pItemOwner.reset(pItemOwner->Reference());
 		_itemStackTag.push_back(pItem);
 	}
-#endif
 }
 
 bool Document::EndTag(const char *tagName)
 {
-#if 0
-	FlushElement();
-	Item *pItem = _itemStack.back();
-	if (pItem->IsTag()) _itemStack.pop_back();
-#else
 	if (_itemStackTag.empty() || ::strcmp(_itemStackTag.back()->GetText(), tagName) != 0) {
 		return false;
 	}
 	FlushText(Item::TYPE_Text, false, false);
 	_pItemOwner.reset(_itemOwnerStack.Pop());
 	_itemStackTag.pop_back();
-#endif
 	return true;
 }
 
