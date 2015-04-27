@@ -134,7 +134,7 @@ and returns `true` if `x` is of `list` or `iterator` type.
 <tr><td><code>complex + complex</code></td><td><code>complex</code></td></tr>
 <tr><td><code>complex + rational</code></td><td>(error)</td></tr>
 <tr><td><code>rational + number</code></td><td><code>rational</code></td></tr>
-<tr><td><code>rational + complex</code></td><td>(error)</code></td></tr>
+<tr><td><code>rational + complex</code></td><td>(error)</td></tr>
 <tr><td><code>rational + rational</code></td><td><code>rational</code></td></tr>
 <tr><td><code>matrix + matrix</code></td><td><code>matrix</code></td></tr>
 <tr><td><code>datetime + timedelta</code></td><td><code>datetime</code></td></tr>
@@ -167,7 +167,7 @@ Operation `x + y` returns concatenated result of `x` and `y`.
 <tr><td><code>complex - complex</code></td><td><code>complex</code></td></tr>
 <tr><td><code>complex - rational</code></td><td>(error)</td></tr>
 <tr><td><code>rational - number</code></td><td><code>rational</code></td></tr>
-<tr><td><code>rational - complex</code></td><td>(error)</code></td></tr>
+<tr><td><code>rational - complex</code></td><td>(error)</td></tr>
 <tr><td><code>rational - rational</code></td><td><code>rational</code></td></tr>
 <tr><td><code>matrix - matrix</code></td><td><code>matrix</code></td></tr>
 <tr><td><code>datetime - timedelta</code></td><td><code>datetime</code></td></tr>
@@ -187,7 +187,7 @@ Operation `x + y` returns concatenated result of `x` and `y`.
 <tr><td><code>complex * complex</code></td><td><code>complex</code></td></tr>
 <tr><td><code>complex * rational</code></td><td>(error)</td></tr>
 <tr><td><code>rational * number</code></td><td><code>rational</code></td></tr>
-<tr><td><code>rational * complex</code></td><td>(error)</code></td></tr>
+<tr><td><code>rational * complex</code></td><td>(error)</td></tr>
 <tr><td><code>rational * rational</code></td><td><code>rational</code></td></tr>
 <tr><td><code>matrix * matrix</code></td><td><code>matrix</code></td></tr>
 <tr><td><code>matrix * list</code></td><td><code>list</code></td></tr>
@@ -219,7 +219,7 @@ will join the `string`/`binary` for `number` times.
 <tr><td><code>complex / complex</code></td><td><code>complex</code></td></tr>
 <tr><td><code>complex / rational</code></td><td>(error)</td></tr>
 <tr><td><code>rational / number</code></td><td><code>rational</code></td></tr>
-<tr><td><code>rational / complex</code></td><td>(error)</code></td></tr>
+<tr><td><code>rational / complex</code></td><td>(error)</td></tr>
 <tr><td><code>rational / rational</code></td><td><code>rational</code></td></tr>
 <tr><td><code>matrix / matrix</code></td><td><code>matrix</code></td></tr>
 </table>
@@ -256,7 +256,7 @@ will join the `string`/`binary` for `number` times.
 
 <table>
 <tr><th>Operation</th><th>Result Data Type</th></tr>
-<tr><td><code>any < any</code></td><td><code>boolean</code></td></tr>
+<tr><td><code>any &lt; any</code></td><td><code>boolean</code></td></tr>
 </table>
 
 
@@ -272,7 +272,7 @@ will join the `string`/`binary` for `number` times.
 
 <table>
 <tr><th>Operation</th><th>Result Data Type</th></tr>
-<tr><td><code>any <= any</code></td><td><code>boolean</code></td></tr>
+<tr><td><code>any &lt;= any</code></td><td><code>boolean</code></td></tr>
 </table>
 
 
@@ -335,10 +335,10 @@ See [Chapter.8. Flow Control](Flow-Control.html) for detail.
 
 <table>
 <tr><th>Operation</th><th>Result Data Type</th></tr>
-<tr><td><code>number & number</code></td><td><code>number</code></td></tr>
-<tr><td><code>boolean & boolean</code></td><td><code>boolean</code></td></tr>
-<tr><td><code>nil & any</code></td><td><code>nil</code></td></tr>
-<tr><td><code>any & nil</code></td><td><code>nil</code></td></tr>
+<tr><td><code>number &amp; number</code></td><td><code>number</code></td></tr>
+<tr><td><code>boolean &amp; boolean</code></td><td><code>boolean</code></td></tr>
+<tr><td><code>nil &amp; any</code></td><td><code>nil</code></td></tr>
+<tr><td><code>any &amp; nil</code></td><td><code>nil</code></td></tr>
 </table>
 
 
@@ -373,7 +373,7 @@ See [Chapter.8. Flow Control](Flow-Control.html) for detail.
 
 <table>
 <tr><th>Operation</th><th>Result Data Type</th></tr>
-<tr><td><code>number << number</code></td><td><code>number</code></td></tr>
+<tr><td><code>number &lt;&lt; number</code></td><td><code>number</code></td></tr>
 </table>
 
 

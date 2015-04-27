@@ -214,6 +214,7 @@ Document::Document() : _cntRef(1), _resolvedFlag(false), _decoPrecedingFlag(fals
 
 bool Document::ParseStream(Signal sig, SimpleStream &stream)
 {
+	_cntLine = 0;
 	for (;;) {
 		int chRaw = stream.GetChar(sig);
 		char ch = (chRaw < 0)? '\0' : static_cast<UChar>(chRaw);
