@@ -267,83 +267,9 @@ a library designed to provide low level access to audio, keyboard, mouse, joysti
 <!-- <tr><td><code>canvas</code></td><td>(obsolete)</td></tr> -->
 </table>
 
-Audio operation:
 
-<table>
-<tr><th>Module</th><th>Note</th></tr>
-<tr><td><code>midi</code></td><td>provides APIs to control MIDI hardware and to create MIDI files</td></tr>
-<!-- <tr><td><code>wav</code></td><td></td></tr> -->
-</table>
 
-Network operation:
 
-<table>
-<tr><th>Module</th><th>Note</th></tr>
-<tr><td><code>curl</code></td><td>provides APIs to access to network using <a href="http://curl.haxx.se/">CURL</a> library</td></tr>
-<tr><td><code>http</code></td><td>provides APIs for HTTP server and client functions</td></tr>
-<!-- <tr><td><code>guri</code></td><td></td></tr> -->
-</table>
-
-OS specific:
-
-<table>
-<tr><th>Module</th><th>Note</th></tr>
-<tr><td><code>conio</code></td><td>controls console I/O</td></tr>
-<tr><td><code>mswin</code></td><td>provides APIs for OLE interface registry access</td></tr>
-<tr><td><code>msxls</code></td><td>provides simple classes that handle MS Excel documents</td></tr>
-<tr><td><code>uuid</code></td><td>generates UUID</td></tr>
-</table>
-
-Text file operation:
-
-<table>
-<tr><th>Module</th><th>Note</th></tr>
-<tr><td><code>csv</code></td><td>Read/write CSV file</td></tr>
-<tr><td><code>markdown</code></td><td>parser of Markdown syntax</td></tr>
-<tr><td><code>re</code></td><td>Regular expression</td></tr>
-<tr><td><code>tokenizer</code></td><td>provides APIs that tokenize strings</td></tr>
-<tr><td><code>xml</code></td><td>XML parser</td></tr>
-<tr><td><code>xhtml</code></td><td>XHTML composer</td></tr>
-<tr><td><code>yaml</code></td><td>provides APIs to read/write document in <a href="http://pyyaml.org/wiki/LibYAML">YAML</a> format</td></tr>
-</table>
-
-Mathematical:
-
-<table>
-<tr><th>Module</th><th>Note</th></tr>
-<tr><td><code>gmp</code></td><td>provides APIs of <a href="https://gmplib.org/">GMP</a>,
-  a library for arbitrary precision arithmetic, operating on signed integers, rational numbers, and floating-point numbers.</td></tr>
-</table>
-
-Database:
-
-<table>
-<tr><th>Module</th><th>Note</th></tr>
-<tr><td><code>sqlite3</code></td><td>provides APIs to access to database of <a href="http://www.sqlite.org/index.html">sqlite3</a></td></tr>
-</table>
-
-Helper to build modules:
-
-<table>
-<tr><th>Module</th><th>Note</th></tr>
-<tr><td><code>gurcbuild</code></td><td>provides APIs to create a composite file</td></tr>
-<tr><td><code>modbuild</code></td><td>used in a script to build a binary module</td></tr>
-<tr><td><code>modgen</code></td><td>generates template files to build a binary module</td></tr>
-</table>
-
-Utilities:
-
-<table>
-<tr><th>Module</th><th>Note</th></tr>
-<tr><td><code>argopt</code></td><td>provides APIs to handle argument options</td></tr>
-<tr><td><code>calendar</code></td><td>generates a specified year's calendar</td></tr>
-<tr><td><code>sed</code></td><td>replaces strings using regular expression across multiple files</td></tr>
-<tr><td><code>testutil</code></td><td>utilities for tester script</td></tr>
-<tr><td><code>units</code></td><td>definition of units</td></tr>
-<tr><td><code>utils</code></td><td>utilities</td></tr>
-<!-- <tr><td><code>sample</code></td><td></td></tr> -->
-<!-- <tr><td><code>graph</code></td><td></td></tr> -->
-</table>
 
 
 ## {{ page.chapter }}.6. Creating Binary Module File
