@@ -339,6 +339,6 @@ An Assignment operator can be combined with one of several other operators.
 <tr><td><code>x &= y</code></td><td><code>x = x & y</code></td></tr>
 <tr><td><code>x |= y</code></td><td><code>x = x | y</code></td></tr>
 <tr><td><code>x ^= y</code></td><td><code>x = x ^ y</code></td></tr>
-<tr><td><code>x &lt;&lt;= y</code></td><td><code>x = x &lt;&lt; y</code></td></tr>
+<tr><td><code>x <<= y</code></td><td><code>x = x << y</code></td></tr>
 <tr><td><code>x >>= y</code></td><td><code>x = x >> y</code></td></tr>
 </table>
