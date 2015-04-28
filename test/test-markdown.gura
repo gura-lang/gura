@@ -672,6 +672,17 @@ pre
 post
 
 <!-- <code>aaaaaa</code> -->
+
+pre
+
+    four spaces ahead
+	one tab ahead
+        eight spaces ahead
+		two tabs ahead
+            twelve spaces ahead
+			three tabs ahead
+
+post
 '''
 
 testcase('print rendering items') {

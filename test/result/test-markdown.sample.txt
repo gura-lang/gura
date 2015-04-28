@@ -1119,6 +1119,23 @@
     <text>'post'
   <p>
     <text>'<!-- <code>aaaaaa</code> -->'
+  <p>
+    <text>'pre'
+  <codeblock>
+    <line>
+      <text>'four spaces ahead'
+    <line>
+      <text>'one tab ahead'
+    <line>
+      <text>'    eight spaces ahead'
+    <line>
+      <text>'    two tabs ahead'
+    <line>
+      <text>'        twelve spaces ahead'
+    <line>
+      <text>'        three tabs ahead'
+  <p>
+    <text>'post'
 
 ======== #2 print referee items ========
 
