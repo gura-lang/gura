@@ -217,9 +217,12 @@ Gura_DeclareFunction(dict)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates a `dict` instance.\n"
-		"It takes a list of key-value pairs in an argument or in a block as shown below.\n"
+		"\n"
+		"It takes a list of key-value pairs in an argument as shown below:\n"
 		"\n"
 		"    d = dict([['apple', 100], ['grape', 200], ['banana', 80]])\n"
+		"\n"
+		"Or, you can use a block to describe them like below:"
 		"\n"
 		"    d = dict {\n"
 		"        ['apple', 100], ['grape', 200], ['banana', 80]\n"
@@ -230,6 +233,8 @@ Gura_DeclareFunction(dict)
 		"You can also use the operator `=>` to create a key-value pair like below:\n"
 		"\n"
 		"    d = dict(['apple' => 100, 'grape' => 200, 'banana' => 80])\n"
+		"\n"
+		"Below is an example using a block:"
 		"\n"
 		"    d = dict {\n"
 		"        'apple' => 100, 'grape' => 200, 'banana' => 80\n"
@@ -405,9 +410,8 @@ Gura_DeclareMethod(dict, get)
 		"Another measure to get a value associated with a key is to use an index operator.\n"
 		"The following two codes have the same effect.\n"
 		"\n"
-		"    v = d['foo']\n"
-		"\n"
-		"    v = d.get('foo'):raise\n");
+		"- `v = d['foo']`\n"
+		"- `v = d.get('foo'):raise`\n");
 }
 
 Gura_ImplementMethod(dict, get)
@@ -523,9 +527,8 @@ Gura_DeclareMethod(dict, put)
 		"Another measure to add a key-value pair is to use an index operator.\n"
 		"The following two codes have the same effect.\n"
 		"\n"
-		"    d['foo'] = 3\n"
-		"\n"
-		"    d.put('foo', 3)\n");
+		"- `d['foo'] = 3`\n"
+		"- `d.put('foo', 3)`\n");
 }
 
 Gura_ImplementMethod(dict, put)

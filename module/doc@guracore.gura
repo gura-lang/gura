@@ -1528,7 +1528,7 @@ with a pair of single- or double-quotes.
 
     'Hello World'
 
-    "Hello World'
+    "Hello World"
 
 If you need to declare a string that contains multiple lines,
 embrace it with a pair of sequences of three single- or double-quotes.
@@ -1539,12 +1539,6 @@ embrace it with a pair of sequences of three single- or double-quotes.
     third line
     '''
 """ R'''
-
-    """first line
-    second line
-    third line
-    """
-
 ### Suffix Management
 
 When an string literal is suffixed by a character `$`,

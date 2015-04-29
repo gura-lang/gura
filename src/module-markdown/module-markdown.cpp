@@ -900,14 +900,14 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '>' && _indentLevel == 0) {
 			_indentLevel = -1;
 			_quoteLevel = 1;
-			_stat = STAT_CodeBlock_BlockQuote;
+			_stat = STAT_CodeBlockUnderBlockQuote;
 		} else {
 			continueFlag = true;
 			EndCodeBlock();
 		}
 		break;
 	}
-	case STAT_CodeBlock_BlockQuote: {
+	case STAT_CodeBlockUnderBlockQuote: {
 		if (ch == ' ') {
 			_indentLevel += 1;
 		} else if (ch == '\t') {

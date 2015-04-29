@@ -161,9 +161,8 @@ Gura_DeclareFunction(function)
 		"\n"
 		"Following two codes have the same effect with each other.\n"
 		"\n"
-		"    f = function(a, b, c) { /* any job */ }\n"
-		"\n"
-		"    f(a, b, c) = { /* any job */ }\n");
+		"- `f = function(a, b, c) { /* any job */ }`\n"
+		"- `f(a, b, c) = { /* any job */ }`\n");
 }
 
 Gura_ImplementFunction(function)
