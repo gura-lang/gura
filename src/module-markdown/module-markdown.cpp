@@ -877,21 +877,20 @@ bool Document::ParseChar(Signal sig, char ch)
 			_indentLevel += 1;
 		} else if (ch == '\t') {
 			_indentLevel += 4;
-		//} else if (IsEOL(ch) || IsEOF(ch)) {
-		//	_cntEmptyLine++;
-		//	_indentLevel = 0;
+		} else if (IsEOL(ch)) {
+			_cntEmptyLine++;
+			_indentLevel = 0;
 		} else if (_indentLevel >= INDENT_CodeBlock) {
 			Item *pItemParent = _itemStack.back();
 			for (int i = 0; i < _cntEmptyLine; i++) {
+				ItemOwner *pItemOwner = new ItemOwner();
 				do {
-					Item *pItem = new Item(Item::TYPE_Text, _text);
-					_pItemOwner->push_back(pItem);
-					_text.clear();
+					Item *pItem = new Item(Item::TYPE_Line, pItemOwner);
+					pItemParent->GetItemOwner()->push_back(pItem);
 				} while (0);
 				do {
-					Item *pItem = new Item(Item::TYPE_Line, _pItemOwner.release());
-					pItemParent->GetItemOwner()->push_back(pItem);
-					_pItemOwner.reset(new ItemOwner());
+					Item *pItem = new Item(Item::TYPE_Text, _text);
+					pItemOwner->push_back(pItem);
 				} while (0);
 			}
 			_text.clear();

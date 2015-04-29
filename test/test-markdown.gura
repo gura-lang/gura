@@ -611,14 +611,6 @@ normal paragraph
 
 normal paragraph
 
->     #include <stdio.h>
->     int main() {
->         int i;
->         for (i = 0; i < 10; i++) {
->             printf("hello world\n");
->         }
->     }
-
 paragraph
 
     > hoge
@@ -683,6 +675,16 @@ pre
 			three tabs ahead
 
 post
+'''
+
+text@todo = R'''
+>     #include <stdio.h>
+>     int main() {
+>         int i;
+>         for (i = 0; i < 10; i++) {
+>             printf("hello world\n");
+>         }
+>     }
 '''
 
 testcase('print rendering items') {
