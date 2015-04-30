@@ -212,6 +212,7 @@ Document::Document() : _cntRef(1), _resolvedFlag(false), _decoPrecedingFlag(fals
 	_itemStack.push_back(_pItemRoot.get());
 }
 
+#if 0
 bool Document::ParseStream(Signal sig, SimpleStream &stream)
 {
 	_cntLine = 0;
@@ -220,6 +221,30 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 		char ch = (chRaw < 0)? '\0' : static_cast<UChar>(chRaw);
 		if (!ParseChar(sig, ch)) return false;
 		if (chRaw < 0) break;
+	}
+	return true;
+}
+#endif
+
+bool Document::ParseStream(Signal sig, SimpleStream &stream)
+{
+	_cntLine = 0;
+	String textPrefetch;
+	for (;;) {
+		int chRaw;
+		textPrefetch.clear();
+		while ((chRaw = stream.GetChar(sig)) >= 0) {
+			char ch = static_cast<char>(static_cast<UChar>(chRaw));
+			textPrefetch += ch;
+			if (ch == '\n') break;
+		}
+		if (textPrefetch.empty()) {
+			if (!ParseChar(sig, '\0')) return false;
+			break;
+		} else {
+			if (!_ParseString(sig, textPrefetch)) return false;
+		}
+		_cntLine++;
 	}
 	return true;
 }
@@ -1693,9 +1718,6 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	}
 	} while (continueFlag);
-	if (ch == '\n') {
-		_cntLine++;
-	}
 	return true;
 }
 
