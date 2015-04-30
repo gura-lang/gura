@@ -128,7 +128,8 @@
       <text>'{'
     <line>
       <text>'}'
-  <codeblock>
+    <line>
+      <text>''
     <line>
       <text>'void sub2()'
     <line>
@@ -985,22 +986,6 @@
       <text>'paragraph in quote'
   <p>
     <text>'normal paragraph'
-  <blockquote>
-    <codeblock>
-      <line>
-        <text>'2.#include <stdio.h>'
-      <line>
-        <text>'int main() {'
-      <line>
-        <text>'    int i;'
-      <line>
-        <text>'    for (i = 0; i < 10; i++) {'
-      <line>
-        <text>'        printf("hello world\n");'
-      <line>
-        <text>'    }'
-      <line>
-        <text>'}'
   <p>
     <text>'paragraph'
   <codeblock>
@@ -1019,8 +1004,6 @@
       <text>'+ foo'
     <line>
       <text>'+ bar'
-    <line>
-      <text>''
   <p>
     <text>'paragraph'
   <codeblock>
