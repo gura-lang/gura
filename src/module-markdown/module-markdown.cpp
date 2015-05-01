@@ -212,7 +212,7 @@ Document::Document() : _cntRef(1), _resolvedFlag(false), _decoPrecedingFlag(fals
 	_itemStack.push_back(_pItemRoot.get());
 }
 
-#if 0
+#if 1
 bool Document::ParseStream(Signal sig, SimpleStream &stream)
 {
 	_cntLine = 0;
@@ -224,19 +224,122 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 	}
 	return true;
 }
-#endif
-
+#else
 bool Document::ParseStream(Signal sig, SimpleStream &stream)
 {
+	enum Stat {
+		STAT_FirstLineHead,
+		STAT_FirstLineBody,
+		STAT_SecondLineHead,
+		STAT_SecondLineBody,
+		STAT_TrailingLineHead,
+		STAT_TrailingLineBody,
+		STAT_SkipToEOL,
+	} stat = STAT_FirstLineHead;
 	_cntLine = 0;
 	String textPrefetch;
 	for (;;) {
 		int chRaw;
 		textPrefetch.clear();
+		int nSeps = 0;
+		bool barTopFlag = false;
+		bool barFoundFlag = false;
+		bool tableFlag = true;
 		while ((chRaw = stream.GetChar(sig)) >= 0) {
 			char ch = static_cast<char>(static_cast<UChar>(chRaw));
 			textPrefetch += ch;
-			if (ch == '\n') break;
+			if (stat == STAT_FirstLineHead) {
+				if (ch == '|') {
+					barTopFlag = barFoundFlag = true;
+					nSeps = 0;
+					stat = STAT_FirstLineBody;
+				} else if (IsEOL(ch)) {
+					tableFlag = false;
+					break;
+				} else {
+					barTopFlag = barFoundFlag = false;
+					nSeps = 0;
+					stat = STAT_FirstLineBody;
+				}
+			} else if (stat == STAT_FirstLineBody) {
+				if (ch == '|') {
+					barFoundFlag = true;
+					nSeps++;
+				} else if (IsEOL(ch)) {
+					if (barFoundFlag) {
+						stat == STAT_SecondLineHead;
+					} else {
+						tableFlag = false;
+						break;
+					}
+				} else {
+					// nothing to do 
+				}
+			} else if (stat == STAT_SecondLineHead) {
+				if (ch == '|') {
+					barFoundFlag = true;
+					nSeps = 0;
+					stat = STAT_SecondLineBody;
+				} else if (IsEOL(ch)) {
+					tableFlag = false;
+					break;
+				} else {
+					barFoundFlag = false;
+					nSeps = 0;
+					stat = STAT_SecondLineBody;
+				}
+			} else if (stat == STAT_SecondLineBody) {
+				if (ch == '|') {
+					nSeps++;
+				} else if (IsEOL(ch)) {
+					if (barFoundFlag) {
+						stat == STAT_TrailingLineHead;
+					} else {
+						tableFlag = false;
+						break;
+					}
+				} else if (IsWhite(ch)) {
+					// nothing to do 
+				} else if (ch == '-') {
+					// nothing to do 
+				} else if (ch == ':') {
+					
+				} else {
+					stat = STAT_SkipToEOL;
+				}
+			} else if (stat == STAT_TrailingLineHead) {
+				if (ch == '|') {
+					barFoundFlag = true;
+					nSeps = 0;
+					stat = STAT_TrailingLineBody;
+				} else if (IsEOL(ch)) {
+					tableFlag = false;
+					break;
+				} else {
+					barFoundFlag = false;
+					nSeps = 0;
+					stat = STAT_TrailingLineBody;
+				}
+			} else if (stat == STAT_TrailingLineBody) {
+				if (ch == '|') {
+					nSeps++;
+				} else if (IsEOL(ch)) {
+					if (barFoundFlag) {
+						stat == STAT_TrailingLineHead;
+					} else {
+						tableFlag = false;
+						break;
+					}
+				} else {
+					// nothing to do
+				}
+			} else if (stat == STAT_SkipToEOL) {
+				if (IsEOL(ch)) {
+					break;
+				} else {
+					// nothing to do
+				}
+			}
 		}
 		if (textPrefetch.empty()) {
 			if (!ParseChar(sig, '\0')) return false;
@@ -248,6 +351,7 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 	}
 	return true;
 }
+#endif
 
 bool Document::ParseString(Signal sig, const char *text)
 {
