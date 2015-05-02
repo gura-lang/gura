@@ -119,7 +119,7 @@ argopt.Parser {|p|
 		usage: ${path.filename(sys.argv[0])} [options] command
 		command:
 		 clean          clean output files
-		 install        install built files to root directory
+		 install        install built files to the module directory
 
 		options:
 		 ${p.formatHelp() + '\n'}
@@ -163,9 +163,9 @@ moduleInfos.each {|moduleInfo|
 		} elsif (command == `clean) {
 			sys.argv.append('clean')
 		} elsif (command == `install) {
-			sys.argv.append('install-root')
+			sys.argv.append('install')
 		} elsif (command == `build_install) {
-			sys.argv.append('build-install-root')
+			sys.argv.append('build-install')
 		} elsif (command == `setup_guest) {
 			sys.argv.append('guest')
 		} else {
@@ -177,9 +177,9 @@ moduleInfos.each {|moduleInfo|
 		} elsif (command == `clean) {
 			continue
 		} elsif (command == `install) {
-			sys.argv.append('install-root')
+			sys.argv.append('install')
 		} elsif (command == `build_install) {
-			sys.argv.append('install-root')
+			sys.argv.append('install')
 		} elsif (command == `setup_guest) {
 			continue
 		} else {

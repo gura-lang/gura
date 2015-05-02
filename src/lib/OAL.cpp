@@ -978,7 +978,6 @@ void SetupModulePath(StringList &strList)
 	strList.push_back(JoinPathName(GetLocalDir().c_str(), "module"));
 	strList.push_back(dirBase);
 	strList.push_back(JoinPathName(dirBase.c_str(), "module"));
-	strList.push_back(JoinPathName(dirBase.c_str(), "module/doc"));
 	strList.push_back(JoinPathName(dirBase.c_str(), "module/site"));
 }
 
@@ -1759,7 +1758,6 @@ void SetupModulePath(StringList &strList)
 	}
 	strList.push_back(JoinPathName(GetLocalDir().c_str(), "module"));
 	strList.push_back(GetModuleDir());
-	strList.push_back(JoinPathName(GetModuleDir().c_str(), "doc"));
 	strList.push_back(JoinPathName(GetModuleDir().c_str(), "site"));
 }
 

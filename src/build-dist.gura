@@ -77,7 +77,8 @@ gatherFiles() = {
 			'bin-x86', 'module/', 'sample/', 'script/', 'include/'
 		]):*or()))
 		fileNames.append(path.glob('gura-doc/*.pdf'))
-		fileNames.append(path.glob('module/*.gurd'))
+		fileNames.append(path.glob('module/site/*.gura'))
+		fileNames.append(path.glob('module/site/*.gurd'))
 		fileNames.append(path.glob('guest/tcl/bin/*.dll'))
 		fileNames.append(path.walk('guest/tcl/lib', nil):file)
 		fileNames.append(path.glob('guest/dylib/*.dll'))

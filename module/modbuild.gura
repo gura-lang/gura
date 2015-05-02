@@ -61,12 +61,8 @@ BuilderBase = class {
 				`clean
 			} elsif (argv[0] == 'build-install') {
 				`build_install
-			} elsif (argv[0] == 'build-install-root') {
-				`build_install_root
 			} elsif (argv[0] == 'install') {
 				`install
-			} elsif (argv[0] == 'install-root') {
-				`install_root
 			} elsif (argv[0] == 'guest') {
 				`guest
 			} else {
@@ -112,11 +108,6 @@ BuilderBase = class {
 			this.doInstall('.', fileNameDoc, 'site')
 			return(this)
 		}
-		if (this.command == `install_root) {
-			this.doInstall(this.outDir, target, nil)
-			this.doInstall('.', fileNameDoc, 'doc')
-			return(this)
-		}
 		if (this.command == `guest) {
 			return(this)
 		}
@@ -139,10 +130,6 @@ BuilderBase = class {
 		if (this.command == `build_install) {
 			this.doInstall(this.outDir, target, 'site')
 			this.doInstall('.', fileNameDoc, 'site')
-		}
-		if (this.command == `build_install_root) {
-			this.doInstall(this.outDir, target, nil)
-			this.doInstall('.', fileNameDoc, 'doc')
 		}
 		this
 	}
@@ -193,9 +180,7 @@ BuilderBase = class {
 		sys.stderr.println('command:')
 		sys.stderr.println(' clean              clean output files')
 		sys.stderr.println(' install            install built files')
-		sys.stderr.println(' install-root       install built files to root directory')
 		sys.stderr.println(' build-install      build and install files')
-		sys.stderr.println(' build-install-root build and install files to root directory')
 		sys.stderr.println('options:')
 		sys.stderr.println(' ', p.formatHelp())
 	}
