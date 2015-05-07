@@ -19,4 +19,4 @@ if (sys.platform == `mswin) {
 	builder.libs.append('onig')
 	builder.cflags.append('-DONIG_EXTERN=extern')
 }
-builder.build('re', ['module-re.cpp'])
+builder.build('re', ['module-re.cpp'], ['sed.gura'])

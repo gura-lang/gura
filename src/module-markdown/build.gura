@@ -2,4 +2,4 @@
 import(modbuild)
 
 builder = modbuild.Builder()
-builder.build('markdown', ['module-markdown.cpp'])
+builder.build('markdown', ['module-markdown.cpp'], ['markdown.gura'])

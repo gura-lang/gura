@@ -1,4 +1,4 @@
 #!/usr/bin/env gura
 import(modbuild)
 builder = modbuild.Builder()
-builder.build('mswin', ['module-mswin.cpp'])
+builder.build('mswin', ['module-mswin.cpp'], ['msxls.gura'])

@@ -755,6 +755,6 @@ if (sys.platform == `mswin) {
 }
 if (contFlag) {
 	builder.progressFlag = true
-	builder.build('wx', srcs)
+	builder.build('wx', srcs, ['wx.show.gura', 'wx.utils.gura'])
 }
 builder

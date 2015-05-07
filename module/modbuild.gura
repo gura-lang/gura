@@ -89,7 +89,7 @@ BuilderBase = class {
 		baseDir = this.cfg['basedir']
 		this.outDir = (this.cfg['here'] && baseDir) || path.join(baseDir, outDir)
 	}
-	build(fileNameTgt:string, fileNamesSrc[]:string) = {
+	build(fileNameTgt:string, fileNamesSrc[]:string, fileNamesScript[]:string => []) = {
 		if (this.cfg['hint']) {
 			this.printHint()
 			return(this)
@@ -104,8 +104,9 @@ BuilderBase = class {
 			return(this)
 		}
 		if (this.command == `install) {
-			this.doInstall(this.outDir, fileNameTgt, 'site')
-			this.doInstall('.', fileNameDoc, 'site')
+			this.doInstall(path.join(this.outDir, fileNameTgt), 'site')
+			this.doInstall(fileNameDoc, 'site')
+			this.doInstall(fileNamesScript, 'site')
 			return(this)
 		}
 		if (this.command == `guest) {
@@ -128,8 +129,9 @@ BuilderBase = class {
 		fileNamesObj = this.makeFileNameObj(fileNamesSrc)
 		!this.doLink(fileNameTgt, fileNamesObj) && this.printHint() && return(this)
 		if (this.command == `build_install) {
-			this.doInstall(this.outDir, fileNameTgt, 'site')
-			this.doInstall('.', fileNameDoc, 'site')
+			this.doInstall(path.join(this.outDir, fileNameTgt), 'site')
+			this.doInstall(fileNameDoc, 'site')
+			this.doInstall(fileNamesScript, 'site')
 		}
 		this
 	}
@@ -157,8 +159,9 @@ BuilderBase = class {
 		}
 		true
 	}
-	doInstall(dirNameSrc:string, fileName:string, dirNameSub:string:nil) = {
-		pathNameSrc = path.join(dirNameSrc, fileName)
+	doInstall(pathNameSrc:string, dirNameSub:string:nil):map = {
+		//pathNameSrc = path.join(dirNameSrc, fileName)
+		fileName = path.filename(pathNameSrc)
 		!path.exists(pathNameSrc) && return
 		if (dirNameSub) {
 			pathNameDst = path.join(this.modDir, dirNameSub, fileName)
