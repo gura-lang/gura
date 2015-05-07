@@ -4,10 +4,10 @@ import(argopt)
 //-----------------------------------------------------------------------------
 // Rule
 //-----------------------------------------------------------------------------
-Rule = struct(target:string, sources[]:string, func:function) {
+Rule = struct(fileNameTgt:string, fileNamesSrc[]:string, func:function) {
 	execute() = {
-		if (!path.exists(this.target) || \
-				(path.stat(this.target).mtime < path.stat(this.sources):*mtime).or()) {
+		if (!path.exists(this.fileNameTgt) || \
+				(path.stat(this.fileNameTgt).mtime < path.stat(this.fileNamesSrc):*mtime).or()) {
 			this.func()
 		} else {
 			true
@@ -89,22 +89,22 @@ BuilderBase = class {
 		baseDir = this.cfg['basedir']
 		this.outDir = (this.cfg['here'] && baseDir) || path.join(baseDir, outDir)
 	}
-	build(target:string, srcs[]:string) = {
+	build(fileNameTgt:string, fileNamesSrc[]:string) = {
 		if (this.cfg['hint']) {
 			this.printHint()
 			return(this)
 		}
-		target = target.replace('/', path.sep_file)
-		if (!target.endswith('.gurd')) {
-			target = target + '.gurd'
+		fileNameTgt = fileNameTgt.replace('/', path.sep_file)
+		if (!fileNameTgt.endswith('.gurd')) {
+			fileNameTgt = fileNameTgt + '.gurd'
 		}
-		fileNameDoc = 'doc@' + target.replace('.gurd', '.gura')
+		fileNameDoc = 'doc@' + fileNameTgt.replace('.gurd', '.gura')
 		if (this.command == `clean) {
-			this.doClean(target)
+			this.doClean(fileNameTgt)
 			return(this)
 		}
 		if (this.command == `install) {
-			this.doInstall(this.outDir, target, 'site')
+			this.doInstall(this.outDir, fileNameTgt, 'site')
 			this.doInstall('.', fileNameDoc, 'site')
 			return(this)
 		}
@@ -112,23 +112,23 @@ BuilderBase = class {
 			return(this)
 		}
 		if (this.cfg['rebuild']) {
-			this.doClean(target)
+			this.doClean(fileNameTgt)
 		}
-		outDir = path.join(this.outDir, path.dirname(target))
+		outDir = path.join(this.outDir, path.dirname(fileNameTgt))
 		!path.exists(outDir) && fs.mkdir(outDir):tree
 		(this.precompile && !this.doPrecompile()) && this.printHint() && return(this)
 		this.rules.each {|rule|
 			!rule.execute() && \
 				(this.skipErrorFlag || this.printHint() && return(this))
 		}
-		srcs.each {|src, idx|
-			!this.doCompile(src, idx, srcs.len()) && \
+		fileNamesSrc.each {|fileNameSrc, idx|
+			!this.doCompile(fileNameSrc, idx, fileNamesSrc.len()) && \
 				(this.skipErrorFlag || this.printHint() && return(this))
 		}
-		objs = this.makeObjName(srcs)
-		!this.doLink(target, objs) && this.printHint() && return(this)
+		fileNamesObj = this.makeFileNameObj(fileNamesSrc)
+		!this.doLink(fileNameTgt, fileNamesObj) && this.printHint() && return(this)
 		if (this.command == `build_install) {
-			this.doInstall(this.outDir, target, 'site')
+			this.doInstall(this.outDir, fileNameTgt, 'site')
 			this.doInstall('.', fileNameDoc, 'site')
 		}
 		this
@@ -184,8 +184,8 @@ BuilderBase = class {
 		sys.stderr.println('options:')
 		sys.stderr.println(' ', p.formatHelp())
 	}
-	addRule(target:string, sources[]:string) {block} = {
-		this.rules.add(Rule(target, sources, block))
+	addRule(fileNameTgt:string, fileNamesSrc[]:string) {block} = {
+		this.rules.add(Rule(fileNameTgt, fileNamesSrc, block))
 	}
 }
 
@@ -217,8 +217,8 @@ if (sys.build == `msc) {
 			this.dlls = []
 			this.precompile = nil
 		}
-		makeObjName(src:string):map = {
-			path.join(this.outDir, path.filename(src).\
+		makeFileNameObj(fileNameSrc:string):map = {
+			path.join(this.outDir, path.filename(fileNameSrc).\
 				replace('.cpp', '.obj').replace('.c', '.obj').replace('.h', '.obj').replace('.rc', '.res'))
 		}
 		makeLibPath(lib:string):map = {
@@ -236,38 +236,38 @@ if (sys.build == `msc) {
 			libPath
 		}
 		doPrecompile() = {
-			src = this.precompile.replace('.h', '.cpp')
-			obj = this.makeObjName(src)
+			fileNameSrc = this.precompile.replace('.h', '.cpp')
+			fileNameObj = this.makeFileNameObj(fileNameSrc)
 			cflags = []
 			cflags.append('/I' + this.incDirs)
 			cflags.append(this.cflags)
 			this.debugFlag && cflags.append('/ZI')
 			cflags.append('/Yc' + this.precompile)
-			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
-				this.progressFlag && println('-- compiling: ', src)
-				if (!this.execute('cl', cflags*, '/Fo' + obj, '/c', src)) {
+			if (!path.exists(fileNameObj) || path.stat(fileNameObj).mtime < path.stat(fileNameSrc).mtime) {
+				this.progressFlag && println('-- compiling: ', fileNameSrc)
+				if (!this.execute('cl', cflags*, '/Fo' + fileNameObj, '/c', fileNameSrc)) {
 					this.errorFlag = true
 					return(false)
 				}
 			}
 			true
 		}
-		doCompile(src:string, idx:number, cnt:number):map = {
-			if (src.endswith('.rc'):icase) {
-				obj = this.makeObjName(src)
+		doCompile(fileNameSrc:string, idx:number, cnt:number):map = {
+			if (fileNameSrc.endswith('.rc'):icase) {
+				fileNameObj = this.makeFileNameObj(fileNameSrc)
 				rcflags = []
 				rcflags.append('/I' + this.incDirs)
-				if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
+				if (!path.exists(fileNameObj) || path.stat(fileNameObj).mtime < path.stat(fileNameSrc).mtime) {
 					this.progressFlag && printf('-- compiling: %*d/%d %s\n',
-										format('%d', cnt).len(), idx + 1, cnt, src)
-					if (!this.execute('rc', rcflags*, '/fo' + obj, src)) {
+										format('%d', cnt).len(), idx + 1, cnt, fileNameSrc)
+					if (!this.execute('rc', rcflags*, '/fo' + fileNameObj, fileNameSrc)) {
 						this.errorFlag = true
 						return(false)
 					}
 				}
 			} else {
 				firstFlag = (idx == 0)
-				obj = this.makeObjName(src)
+				fileNameObj = this.makeFileNameObj(fileNameSrc)
 				cflags = []
 				cflags.append('/I' + this.incDirs)
 				cflags.append(this.cflags)
@@ -277,10 +277,10 @@ if (sys.build == `msc) {
 				} else {
 					this.precompile && cflags.append('/Yu' + this.precompile)
 				}
-				if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
+				if (!path.exists(fileNameObj) || path.stat(fileNameObj).mtime < path.stat(fileNameSrc).mtime) {
 					this.progressFlag && printf('-- compiling: %*d/%d %s\n',
-										format('%d', cnt).len(), idx + 1, cnt, src)
-					if (!this.execute('cl', cflags*, '/Fo' + obj, '/c', src)) {
+										format('%d', cnt).len(), idx + 1, cnt, fileNameSrc)
+					if (!this.execute('cl', cflags*, '/Fo' + fileNameObj, '/c', fileNameSrc)) {
 						this.errorFlag = true
 						return(false)
 					}
@@ -288,30 +288,30 @@ if (sys.build == `msc) {
 			}
 			true
 		}
-		doLink(target:string, objs[]:string) = {
-			target = path.join(this.outDir, target)
+		doLink(fileNameTgt:string, fileNamesObj[]:string) = {
+			fileNameTgt = path.join(this.outDir, fileNameTgt)
 			ldflags = this.ldflags.clone()
 			ldflags.append('/LIBPATH:' + this.libDirs)
 			libs = this.libs.clone()
-			objsEx = []
-			this.precompile && objsEx.append(this.makeObjName(this.precompile))
+			fileNamesObjEx = []
+			this.precompile && fileNamesObjEx.append(this.makeFileNameObj(this.precompile))
 			libs.append(this.makeLibPath(this.dlls::replace('.dll', '.lib'):icase))
 			this.debugFlag && ldflags.append(['/DEBUG'])
-			if (!path.exists(target) || (path.stat(target).mtime < path.stat(objs):*mtime).or()) {
+			if (!path.exists(fileNameTgt) || (path.stat(fileNameTgt).mtime < path.stat(fileNamesObj):*mtime).or()) {
 				fileNameCmd = path.join(this.outDir, 'linker.cmd')
-				open(fileNameCmd, 'w').println(objs)
+				open(fileNameCmd, 'w').println(fileNamesObj)
 				if (!this.execute('link', ldflags*,
-							'/OUT:' + target, '@' + fileNameCmd, objsEx*, libs*)) {
+							'/OUT:' + fileNameTgt, '@' + fileNameCmd, fileNamesObjEx*, libs*)) {
 					this.errorFlag = true
 					return(false)
 				}
-				println('-- generated: ', target)
+				println('-- generated: ', fileNameTgt)
 			}
 			true
 		}
-		doClean(target:string) = {
+		doClean(fileNameTgt:string) = {
 			!path.exists(this.outDir) && return
-			fileNames = path.dir(this.outDir, target, '*.obj', '*.exp', '*.lib', '*.cmd'):list
+			fileNames = path.dir(this.outDir, fileNameTgt, '*.obj', '*.exp', '*.lib', '*.cmd'):list
 			fileNames.isempty() && return
 			fileNames.each {|fileName|
 				fs.remove(fileName)
@@ -331,29 +331,29 @@ if (sys.build == `msc) {
 			this.libs = []
 			this.precompile = nil
 		}
-		makeObjName(src:string):map = {
-			path.join(this.outDir, path.filename(src). \
+		makeFileNameObj(fileNameSrc:string):map = {
+			path.join(this.outDir, path.filename(fileNameSrc). \
 					  replace('.cpp', '.o').replace('.c', '.o'))
 		}
 		doPrecompile() = {
-			src = this.precompile
+			fileNameSrc = this.precompile
 			cflags = this.cflags.clone()
 			cflags.append('-I' + this.incDirs)
 			cflags.append('-I' + sys.incdir)
 			this.debugFlag && cflags.append('-g')
-			obj = src + '.gch'
-			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
-				this.progressFlag && println('-- compiling: ', src)
-				if (!this.execute('gcc', cflags*, '-x', 'c++-header', src)) {
+			fileNameObj = fileNameSrc + '.gch'
+			if (!path.exists(fileNameObj) || path.stat(fileNameObj).mtime < path.stat(fileNameSrc).mtime) {
+				this.progressFlag && println('-- compiling: ', fileNameSrc)
+				if (!this.execute('gcc', cflags*, '-x', 'c++-header', fileNameSrc)) {
 					this.errorFlag = true
 					return(false)
 				}
 			}
 			true
 		}
-		doCompile(src:string, idx:number, cnt:number):map = {
+		doCompile(fileNameSrc:string, idx:number, cnt:number):map = {
 			firstFlag = (idx == 0)
-			obj = this.makeObjName(src)
+			fileNameObj = this.makeFileNameObj(fileNameSrc)
 			cflags = this.cflags.clone()
 			cflags.append('-I' + this.incDirs)
 			cflags.append('-I' + sys.incdir)
@@ -363,49 +363,49 @@ if (sys.build == `msc) {
 			} elsif (sys.platform == `darwin && this.precompile) {
 				cflags.append('-include', this.precompile)
 			}
-			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
+			if (!path.exists(fileNameObj) || path.stat(fileNameObj).mtime < path.stat(fileNameSrc).mtime) {
 				this.progressFlag && printf('-- compiling: %*d/%d %s\n',
-									format('%d', cnt).len(), idx + 1, cnt, src)
-				if (!this.execute('gcc', cflags*, '-o', obj, '-c', src)) {
+									format('%d', cnt).len(), idx + 1, cnt, fileNameSrc)
+				if (!this.execute('gcc', cflags*, '-o', fileNameObj, '-c', fileNameSrc)) {
 					this.errorFlag = true
 					return(false)
 				}
 			}
 			true
 		}
-		doLink(target:string, objs[]:string) = {
-			target = path.join(this.outDir, target)
+		doLink(fileNameTgt:string, fileNamesObj[]:string) = {
+			fileNameTgt = path.join(this.outDir, fileNameTgt)
 			ldflags = this.ldflags.clone()
 			if (sys.platform == `darwin) {
-				ldflags.append('-install_name', path.filename(target))
+				ldflags.append('-install_name', path.filename(fileNameTgt))
 			}
 			ldflags.append('-L' + this.libDirs)
 			if (!(sys.libdir in ['/lib', '/usr/lib', '/usr/local/lib'])) {
 				ldflags.append('-L' + sys.libdir)
 			}
 			libs = '-l' + this.libs.clone()
-			objsEx = []
-			this.precompile && objsEx.append(this.makeObjName(this.precompile))
+			fileNamesObjEx = []
+			this.precompile && fileNamesObjEx.append(this.makeFileNameObj(this.precompile))
 			this.debugFlag && ldflags.append('-g')
-			if (!path.exists(target) || (path.stat(target).mtime < path.stat(objs):*mtime).or()) {
+			if (!path.exists(fileNameTgt) || (path.stat(fileNameTgt).mtime < path.stat(fileNamesObj):*mtime).or()) {
 				fileNameCmd = path.join(this.outDir, 'linker.cmd')
-				open(fileNameCmd, 'w').println(objs)
-				if (!this.execute('gcc', '-o' + target, '@' + fileNameCmd, libs*,
+				open(fileNameCmd, 'w').println(fileNamesObj)
+				if (!this.execute('gcc', '-o' + fileNameTgt, '@' + fileNameCmd, libs*,
 								  '-lstdc++', '-lguracore', ldflags*)) {
 					this.errorFlag = true
 					return(false)
 				}
-				println('-- generated: ', target)
+				println('-- generated: ', fileNameTgt)
 			}
 			true
 		}
-		doClean(target:string) = {
+		doClean(fileNameTgt:string) = {
 			if (path.exists(this.outDir)) {
-				fileNames = path.dir(this.outDir, target, '*.o', '*.cmd'):list
+				fileNames = path.dir(this.outDir, fileNameTgt, '*.o', '*.cmd'):list
 			} else {
 				fileNames = []
 			}
-			fileNames.append(this.rules:*target)
+			fileNames.append(this.rules:*fileNameTgt)
 			fileNames.append(path.dir('.', '*.gch', '*.pch'))
 			fileNames.isempty() && return
 			fileNames.each {|fileName|
