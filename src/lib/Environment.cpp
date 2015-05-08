@@ -33,28 +33,6 @@ const char *GetEnvTypeName(EnvType envType)
 }
 
 //-----------------------------------------------------------------------------
-// IntegratedModule
-//-----------------------------------------------------------------------------
-
-#if 0
-//-----------------------------------------------------------------------------
-// IntegratedModuleOwner
-//-----------------------------------------------------------------------------
-IntegratedModuleOwner::~IntegratedModuleOwner()
-{
-	Clear();
-}
-
-void IntegratedModuleOwner::Clear()
-{
-	foreach (IntegratedModuleOwner, ppIntegratedModule, *this) {
-		delete *ppIntegratedModule;
-	}
-	clear();
-}
-#endif
-
-//-----------------------------------------------------------------------------
 // PathMgrOwner
 //-----------------------------------------------------------------------------
 PathMgrOwner::~PathMgrOwner()
@@ -70,22 +48,9 @@ void PathMgrOwner::Clear()
 	clear();
 }
 
-#if 0
-//-----------------------------------------------------------------------------
-// ModuleIntegrator
-//-----------------------------------------------------------------------------
-ModuleIntegrator::ModuleIntegrator(const char *name,
-			ModuleEntryType moduleEntry, ModuleTerminateType moduleTerminate)
-{
-	Environment::IntegrateModule(name, moduleEntry, moduleTerminate);
-}
-#endif
-
 //-----------------------------------------------------------------------------
 // Environment
 //-----------------------------------------------------------------------------
-//IntegratedModuleOwner *Environment::_pIntegratedModuleOwner = NULL;
-
 Environment::Environment() : _cntRef(1)
 {
 }
@@ -735,34 +700,6 @@ Module *Environment::ImportModule(Signal sig, SymbolList::const_iterator ppSymbo
 	return pModule;
 }
 
-#if 0
-Module *Environment::ImportIntegratedModule(Signal sig, const Symbol *pSymbol)
-{
-	int id = 0;
-	IntegratedModule *pIntegratedModule = NULL;
-	if (_pIntegratedModuleOwner != NULL) {
-		foreach (IntegratedModuleOwner, ppIntegratedModule, *_pIntegratedModuleOwner) {
-			if (::strcmp((*ppIntegratedModule)->GetName(), pSymbol->GetName()) == 0) {
-				pIntegratedModule = *ppIntegratedModule;
-				break;
-			}
-			id++;
-		}
-	}
-	if (pIntegratedModule == NULL) return NULL;
-	Module *pModule = GetGlobal()->LookupIntegratedModule(id);
-	if (pModule == NULL) {
-		pModule = new Module(this, pSymbol, "<integrated>", NULL, NULL);
-		if (!pIntegratedModule->ModuleEntry(*pModule, sig)) {
-			delete pModule;
-			return NULL;
-		}
-		GetGlobal()->RegisterIntegratedModule(id, pModule);
-	}
-	return pModule;
-}
-#endif
-
 bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 		SymbolList::const_iterator ppSymbolOfModule,
 		SymbolList::const_iterator ppSymbolOfModuleEnd, bool binaryOnlyFlag)
@@ -903,19 +840,6 @@ Stream *Environment::GetConsoleDumb()
 {
 	return GetGlobal()->GetConsoleDumb();
 }
-
-#if 0
-// this function is called in a args before main() function.
-void Environment::IntegrateModule(const char *name,
-			ModuleEntryType moduleEntry, ModuleTerminateType moduleTerminate)
-{
-	if (_pIntegratedModuleOwner == NULL) {
-		_pIntegratedModuleOwner = new IntegratedModuleOwner();
-	}
-	_pIntegratedModuleOwner->push_back(
-					new IntegratedModule(name, moduleEntry, moduleTerminate));
-}
-#endif
 
 bool Environment::IsModule() const { return false; }
 bool Environment::IsClass() const { return false; }

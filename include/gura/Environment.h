@@ -107,11 +107,6 @@ enum EnvRefMode {
 GURA_DLLDECLARE const char *GetEnvTypeName(EnvType envType);
 
 //-----------------------------------------------------------------------------
-// IntegratedModuleMap
-//-----------------------------------------------------------------------------
-//typedef std::map<int, Module *> IntegratedModuleMap;
-
-//-----------------------------------------------------------------------------
 // ModuleMap
 //-----------------------------------------------------------------------------
 typedef std::map<String, Module *> ModuleMap;
@@ -121,51 +116,6 @@ typedef std::map<String, Module *> ModuleMap;
 //-----------------------------------------------------------------------------
 typedef bool (*ModuleEntryType)(Environment &env, Signal sig);
 typedef void (*ModuleTerminateType)(Module *pModule);
-
-#if 0
-//-----------------------------------------------------------------------------
-// IntegratedModule
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE IntegratedModule {
-private:
-	String _name;
-	ModuleEntryType _moduleEntry;
-	ModuleTerminateType _moduleTerminate;
-public:
-	inline IntegratedModule(const char *name,
-			ModuleEntryType moduleEntry, ModuleTerminateType moduleTerminate) :
-		_name(name), _moduleEntry(moduleEntry), _moduleTerminate(moduleTerminate) {}
-	inline bool ModuleEntry(Environment &env, Signal sig) {
-		return (*_moduleEntry)(env, sig);
-	}
-	inline void ModuleTerminate(Module *pModule) {
-		(*_moduleTerminate)(pModule);
-	}
-	inline const char *GetName() const { return _name.c_str(); }
-};
-#endif
-
-#if 0
-//-----------------------------------------------------------------------------
-// IntegratedModuleOwner
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE IntegratedModuleOwner : public std::vector<IntegratedModule *> {
-public:
-	~IntegratedModuleOwner();
-	void Clear();
-};
-#endif
-
-#if 0
-//-----------------------------------------------------------------------------
-// ModuleIntegrator
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE ModuleIntegrator {
-public:
-	ModuleIntegrator(const char *name,
-			ModuleEntryType moduleEntry, ModuleTerminateType moduleTerminate);
-};
-#endif
 
 //-----------------------------------------------------------------------------
 // PathMgrOwner
@@ -302,7 +252,6 @@ protected:
 	int _cntRef;
 	FrameOwner _frameOwner;
 	AutoPtr<FrameCache> _pFrameCache;
-	//static IntegratedModuleOwner *_pIntegratedModuleOwner;
 public:
 	Gura_DeclareReferenceAccessor(Environment)
 public:
@@ -393,10 +342,7 @@ public:
 	Stream *GetConsole();
 	Stream *GetConsoleErr();
 	Stream *GetConsoleDumb();
-	static void IntegrateModule(const char *name,
-			ModuleEntryType moduleEntry, ModuleTerminateType moduleTerminate);
 private:
-	//Module *ImportIntegratedModule(Signal sig, const Symbol *pSymbol);
 	bool SearchSeparatedModuleFile(Signal sig, String &pathName,
 			SymbolList::const_iterator ppSymbolOfModule,
 			SymbolList::const_iterator ppSymbolOfModuleEnd, bool binaryOnlyFlag);
