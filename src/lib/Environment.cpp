@@ -36,6 +36,7 @@ const char *GetEnvTypeName(EnvType envType)
 // IntegratedModule
 //-----------------------------------------------------------------------------
 
+#if 0
 //-----------------------------------------------------------------------------
 // IntegratedModuleOwner
 //-----------------------------------------------------------------------------
@@ -51,6 +52,7 @@ void IntegratedModuleOwner::Clear()
 	}
 	clear();
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // PathMgrOwner
@@ -68,6 +70,7 @@ void PathMgrOwner::Clear()
 	clear();
 }
 
+#if 0
 //-----------------------------------------------------------------------------
 // ModuleIntegrator
 //-----------------------------------------------------------------------------
@@ -76,11 +79,12 @@ ModuleIntegrator::ModuleIntegrator(const char *name,
 {
 	Environment::IntegrateModule(name, moduleEntry, moduleTerminate);
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Environment
 //-----------------------------------------------------------------------------
-IntegratedModuleOwner *Environment::_pIntegratedModuleOwner = NULL;
+//IntegratedModuleOwner *Environment::_pIntegratedModuleOwner = NULL;
 
 Environment::Environment() : _cntRef(1)
 {
@@ -531,9 +535,10 @@ Value Environment::GetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	return Value::Null;
 }
 
-void Environment::AssignModule(Module *pModule)
+void Environment::AssignIntegratedModule(Module *pModule)
 {
 	ULong extra = EXTRA_Public;
+	GetGlobal()->RegisterIntegratedModule(pModule);
 	Value value(pModule);
 	foreach (FrameOwner, ppFrame, _frameOwner) {
 		Frame *pFrame = *ppFrame;
@@ -623,16 +628,12 @@ Module *Environment::ImportModule(Signal sig, SymbolList::const_iterator ppSymbo
 			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
 			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag)
 {
-	Module *pModule = NULL;
 	const Symbol *pSymbolOfModule = NULL;
 	for (SymbolList::const_iterator ppSymbol = ppSymbolOfModule;
 							ppSymbol != ppSymbolOfModuleEnd; ppSymbol++) {
 		pSymbolOfModule = *ppSymbol;
 	}
-	if (!binaryOnlyFlag) {
-		pModule = ImportIntegratedModule(sig, pSymbolOfModule);
-		if (sig.IsSignalled()) return NULL;
-	}
+	Module *pModule = GetGlobal()->LookupIntegratedModule(pSymbolOfModule->GetName());
 	if (pModule == NULL) {
 		String pathName;
 		if (!SearchSeparatedModuleFile(sig, pathName,
@@ -673,12 +674,12 @@ Module *Environment::ImportModule(Signal sig, SymbolList::const_iterator ppSymbo
 					return NULL;
 				}
 			}
-			Value *pValue = pEnvDst->LookupValue(pSymbolOfModule, ENVREF_NoEscalate);
+			Value *pValue = pEnvDst->LookupValue(pSymbolOfModule, ENVREF_Escalate);
 			if (pValue != NULL && pValue->IsModule() && pValue->GetModule() == pModule) {
 				// nothing to do
 			} else {
 				Value valueOfModule(Module::Reference(pModule));
-				if (!pEnvDst->ImportValue(pSymbolOfModule, valueOfModule, EXTRA_Public, false)) {
+				if (!pEnvDst->ImportValue(pSymbolOfModule, valueOfModule, EXTRA_Public, overwriteFlag)) {
 					sig.SetError(ERR_ImportError,
 							 "module symbol conflicts with an existing variable '%s'",
 							 SymbolList::Join(ppSymbolOfModule, ppSymbolOfModuleEnd, '.').c_str());
@@ -688,7 +689,7 @@ Module *Environment::ImportModule(Signal sig, SymbolList::const_iterator ppSymbo
 		} else {
 			// import(foo, bar)
 			Value valueOfModule(Module::Reference(pModule));
-			if (!ImportValue(pSymbolAlias, valueOfModule, EXTRA_Public, false)) {
+			if (!ImportValue(pSymbolAlias, valueOfModule, EXTRA_Public, overwriteFlag)) {
 				sig.SetError(ERR_ImportError,
 					"module symbol conflicts with an existing variable '%s'",
 					pSymbolAlias->GetName());
@@ -734,6 +735,7 @@ Module *Environment::ImportModule(Signal sig, SymbolList::const_iterator ppSymbo
 	return pModule;
 }
 
+#if 0
 Module *Environment::ImportIntegratedModule(Signal sig, const Symbol *pSymbol)
 {
 	int id = 0;
@@ -759,6 +761,7 @@ Module *Environment::ImportIntegratedModule(Signal sig, const Symbol *pSymbol)
 	}
 	return pModule;
 }
+#endif
 
 bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 		SymbolList::const_iterator ppSymbolOfModule,
@@ -901,6 +904,7 @@ Stream *Environment::GetConsoleDumb()
 	return GetGlobal()->GetConsoleDumb();
 }
 
+#if 0
 // this function is called in a args before main() function.
 void Environment::IntegrateModule(const char *name,
 			ModuleEntryType moduleEntry, ModuleTerminateType moduleTerminate)
@@ -911,6 +915,7 @@ void Environment::IntegrateModule(const char *name,
 	_pIntegratedModuleOwner->push_back(
 					new IntegratedModule(name, moduleEntry, moduleTerminate));
 }
+#endif
 
 bool Environment::IsModule() const { return false; }
 bool Environment::IsClass() const { return false; }
@@ -926,7 +931,7 @@ Environment::Global::Global() : _echoFlag(false)
 
 Environment::Global::~Global()
 {
-	foreach_const (SeparatedModuleMap, iter, _separatedModuleMap) {
+	foreach_const (ModuleMap, iter, _moduleMapSeparated) {
 		delete iter->second;
 	}
 }
@@ -943,31 +948,31 @@ Class *Environment::Global::LookupClass(ValueType valType) const
 	return ValueTypePool::GetInstance()->Lookup(valType)->GetClass();
 }
 
-Module *Environment::Global::LookupIntegratedModule(int id) const
+Module *Environment::Global::LookupIntegratedModule(const char *name) const
 {
-	IntegratedModuleMap::const_iterator iter = _integratedModuleMap.find(id);
-	return (iter == _integratedModuleMap.end())? NULL : iter->second;
+	ModuleMap::const_iterator iter = _moduleMapIntegrated.find(name);
+	return (iter == _moduleMapIntegrated.end())? NULL : iter->second;
 }
 
-void Environment::Global::RegisterIntegratedModule(int id, Module *pModule)
+void Environment::Global::RegisterIntegratedModule(Module *pModule)
 {
-	_integratedModuleMap[id] = pModule;
+	_moduleMapIntegrated[pModule->GetName()] = pModule;
 }
 
 Module *Environment::Global::LookupSeparatedModule(const char *pathName) const
 {
-	SeparatedModuleMap::const_iterator iter = _separatedModuleMap.find(pathName);
-	return (iter == _separatedModuleMap.end())? NULL : iter->second;
+	ModuleMap::const_iterator iter = _moduleMapSeparated.find(pathName);
+	return (iter == _moduleMapSeparated.end())? NULL : iter->second;
 }
 
 void Environment::Global::RegisterSeparatedModule(const char *pathName, Module *pModule)
 {
-	_separatedModuleMap[pathName] = pModule;
+	_moduleMapSeparated[pathName] = pModule;
 }
 
 void Environment::Global::UnregisterSeparatedModule(const char *pathName)
 {
-	_separatedModuleMap.erase(_separatedModuleMap.find(pathName));
+	_moduleMapSeparated.erase(_moduleMapSeparated.find(pathName));
 }
 
 //-----------------------------------------------------------------------------

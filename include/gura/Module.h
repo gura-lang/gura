@@ -31,10 +31,11 @@ GURA_DLLEXPORT void Terminate(Module *pModule) \
 } \
 GURA_DLLEXPORT Module *Import(Environment &env, Signal sig) \
 { \
-	AutoPtr<Module> pModule(new Module(&env, Symbol::Add(#nameBase), "<integrated>", NULL, Terminate)); \
+	Module *pModule = new Module(&env, Symbol::Add(#nameBase), \
+								 "<integrated>", NULL, Terminate); \
 	if (!MixIn(*pModule, sig)) return NULL; \
-	env.AssignModule(pModule.get()); \
-	return pModule.release(); \
+	env.AssignIntegratedModule(pModule); \
+	return pModule; \
 } \
 }}
 
@@ -61,9 +62,10 @@ void GuraModuleTerminate(Gura::Module *pModule) \
 #define Gura_RegisterModule(name) \
 namespace Gura { \
 namespace ModuleNS_##name { \
-ModuleIntegrator s_integrator(#name, MixIn, Terminate); \
 } }
 #endif
+
+//ModuleIntegrator s_integrator(#name, MixIn, Terminate);
 
 #define Gura_ModuleEntry() \
 GURA_DLLEXPORT bool MixIn(Environment &env, Signal sig)

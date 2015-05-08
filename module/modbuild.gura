@@ -98,7 +98,7 @@ BuilderBase = class {
 		if (!fileNameTgt.endswith('.gurd')) {
 			fileNameTgt = fileNameTgt + '.gurd'
 		}
-		fileNameDoc = 'doc@' + fileNameTgt.replace('.gurd', '.gura')
+		fileNameDoc = fileNameTgt.replace('.gurd', '.doc.gura')
 		if (this.command == `clean) {
 			this.doClean(fileNameTgt)
 			return(this)

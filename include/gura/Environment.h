@@ -109,12 +109,12 @@ GURA_DLLDECLARE const char *GetEnvTypeName(EnvType envType);
 //-----------------------------------------------------------------------------
 // IntegratedModuleMap
 //-----------------------------------------------------------------------------
-typedef std::map<int, Module *> IntegratedModuleMap;
+//typedef std::map<int, Module *> IntegratedModuleMap;
 
 //-----------------------------------------------------------------------------
-// SeparatedModuleMap
+// ModuleMap
 //-----------------------------------------------------------------------------
-typedef std::map<String, Module *> SeparatedModuleMap;
+typedef std::map<String, Module *> ModuleMap;
 
 //-----------------------------------------------------------------------------
 // Module Entry Type
@@ -122,6 +122,7 @@ typedef std::map<String, Module *> SeparatedModuleMap;
 typedef bool (*ModuleEntryType)(Environment &env, Signal sig);
 typedef void (*ModuleTerminateType)(Module *pModule);
 
+#if 0
 //-----------------------------------------------------------------------------
 // IntegratedModule
 //-----------------------------------------------------------------------------
@@ -142,7 +143,9 @@ public:
 	}
 	inline const char *GetName() const { return _name.c_str(); }
 };
+#endif
 
+#if 0
 //-----------------------------------------------------------------------------
 // IntegratedModuleOwner
 //-----------------------------------------------------------------------------
@@ -151,7 +154,9 @@ public:
 	~IntegratedModuleOwner();
 	void Clear();
 };
+#endif
 
+#if 0
 //-----------------------------------------------------------------------------
 // ModuleIntegrator
 //-----------------------------------------------------------------------------
@@ -160,6 +165,7 @@ public:
 	ModuleIntegrator(const char *name,
 			ModuleEntryType moduleEntry, ModuleTerminateType moduleTerminate);
 };
+#endif
 
 //-----------------------------------------------------------------------------
 // PathMgrOwner
@@ -178,8 +184,8 @@ public:
 	class GURA_DLLDECLARE Global {
 	private:
 		Option				_opt;
-		IntegratedModuleMap _integratedModuleMap;
-		SeparatedModuleMap	_separatedModuleMap;
+		ModuleMap 			_moduleMapIntegrated;
+		ModuleMap			_moduleMapSeparated;
 		StringList			_workingDirList;
 		SuffixMgr			_suffixMgrForString;
 		SuffixMgr			_suffixMgrForNumber;
@@ -199,8 +205,8 @@ public:
 		}
 		void Prepare(Environment &env, Signal sig);
 		Class *LookupClass(ValueType valType) const;
-		Module *LookupIntegratedModule(int id) const;
-		void RegisterIntegratedModule(int id, Module *pModule);
+		Module *LookupIntegratedModule(const char *name) const;
+		void RegisterIntegratedModule(Module *pModule);
 		Module *LookupSeparatedModule(const char *pathName) const;
 		void RegisterSeparatedModule(const char *pathName, Module *pModule);
 		void UnregisterSeparatedModule(const char *pathName);
@@ -296,7 +302,7 @@ protected:
 	int _cntRef;
 	FrameOwner _frameOwner;
 	AutoPtr<FrameCache> _pFrameCache;
-	static IntegratedModuleOwner *_pIntegratedModuleOwner;
+	//static IntegratedModuleOwner *_pIntegratedModuleOwner;
 public:
 	Gura_DeclareReferenceAccessor(Environment)
 public:
@@ -363,7 +369,7 @@ public:
 	inline Class *LookupClass(ValueType valType) const {
 		return GetGlobal()->LookupClass(valType);
 	}
-	void AssignModule(Module *pModule);
+	void AssignIntegratedModule(Module *pModule);
 	bool ImportModules(Signal sig, const char *moduleNames,
 								bool binaryOnlyFlag, bool mixinTypeFlag);
 	Module *ImportModule(Signal sig, const Expr *pExpr,
@@ -390,7 +396,7 @@ public:
 	static void IntegrateModule(const char *name,
 			ModuleEntryType moduleEntry, ModuleTerminateType moduleTerminate);
 private:
-	Module *ImportIntegratedModule(Signal sig, const Symbol *pSymbol);
+	//Module *ImportIntegratedModule(Signal sig, const Symbol *pSymbol);
 	bool SearchSeparatedModuleFile(Signal sig, String &pathName,
 			SymbolList::const_iterator ppSymbolOfModule,
 			SymbolList::const_iterator ppSymbolOfModuleEnd, bool binaryOnlyFlag);
