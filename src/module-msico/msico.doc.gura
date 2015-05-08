@@ -31,7 +31,7 @@ it would write image data in ICO format.
 
 ## msico.content Class
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 msico.content

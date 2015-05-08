@@ -54,7 +54,7 @@ and its children that are `markdown.item` instances.
 
 </table>
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 markdown.document

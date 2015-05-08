@@ -34,7 +34,7 @@ This field is valid only for CRC32 and returns `nil` for other hashes.</td></tr>
 </table>
 
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 hash.md5

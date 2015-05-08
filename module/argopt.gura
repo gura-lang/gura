@@ -43,7 +43,9 @@ Entry = struct(type:symbol, longName:string, shortName:string:nil,
 Parser = class {
 	__init__() = {
 		this.entries = []
-	}
+	} % {`en, 'markdown', R'''
+	Create an `argopt.Parser` instance.
+	'''}
 	parse(argv[]:string) = {
 		cfg = %{}
 		cfg[this.entries:*longName] = this.entries:*defValue
@@ -104,18 +106,28 @@ Parser = class {
 			}
 		}
 		[cfg, argvRest]
-	}
+	} % {`en, 'markdown', R'''
+	Parses an argument list which is usually the value of `sys.argv` given by `sys` module.
+
+	It returns the result in a format `[cfg, argv]` where `cfg` is a `dict` instance
+	containing parameter values and `argv` a list of arguments that have not been
+	parsed as options.
+	'''}
 	addParam(longName:string, shortName?:string, help?:string, helpValue?:string, defValue?:string) = {
 		this.entries.add(Entry(`param, longName, shortName, help, helpValue, defValue))
-	}
+	} % {`en, 'markdown', R'''
+	
+	'''}
 	addFlag(longName:string, shortName?:string, help?:string) = {
 		this.entries.add(Entry(`flag, longName, shortName, help, nil, false))
-	}
+	} % {`en, 'markdown', R'''
+	'''}
 	formatHelp(longNameFlag:boolean => true, shortNameFlag:boolean => true):[linefeed] = {
 		helpIndices = this.entries:*makeHelpIndex(longNameFlag, shortNameFlag)
 		str = format('%-*s  %s%s', helpIndices:*len().max(), helpIndices,
 					this.entries:*help, cond(__args__.isset(`linefeed), '\n', ''))
-	}
+	} % {`en, 'markdown', R'''
+	'''}
 }
 
 if (__name__ == '__main__') {

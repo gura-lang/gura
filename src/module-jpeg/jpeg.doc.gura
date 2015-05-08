@@ -73,7 +73,7 @@ A `jpeg.exif` instance has the following properties:
 </table>
 
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 jpeg.exif

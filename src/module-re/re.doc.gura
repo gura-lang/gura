@@ -178,7 +178,7 @@ that expects a `re.pattern` instance in its argument as below:
 - `f('gur[ai]')` .. Implicit casting: from `string` to `re.pattern`.
 
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 re.pattern

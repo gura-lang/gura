@@ -146,7 +146,7 @@ They're listed in the the table below:
 <tr><td><code>array@double</code></td><td><code>double</code></td></tr>
 </table>
 
-### Function to Create Instance
+### Constructor
 
 ${reference@array(`en
 array@char
@@ -205,7 +205,7 @@ A `binary` instance has the following properties:
 
 </table>
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 binary
@@ -273,7 +273,7 @@ The `codec` class provides measures to convert character codes.
 
 </table>
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 codec
@@ -355,7 +355,7 @@ that takes a `color` instance in its argument as below:
 - `f([128, 0, 128])` .. Implicit casting: from `list` to `color`.
 
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 color
@@ -381,7 +381,7 @@ You can create a `complex` instance by following ways:
 - Append `j` suffix after a number literal. eg) `2 + 3j`
 
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 complex
@@ -483,7 +483,7 @@ Week symbol that takes one of the followings:
 
 </table>
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 datetime
@@ -555,7 +555,7 @@ You can create a `dict` instance by calling `dict()` function.
 You can also use a function named `%` to create an instance
 that is an alias of `dict()` function.
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 dict
@@ -586,7 +586,7 @@ Though the instance can be created by `directory()` function,
 you don't have to use it in many cases because a casting from `string` to `directory` instance
 works implicitly in a function call.
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 directory
@@ -813,7 +813,7 @@ An `expr` instance has the following properties:
 
 </table>
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 expr
@@ -968,7 +968,7 @@ Below is an example to print the help of `printf()` function:
 
     >>> ~printf
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 function
@@ -1070,7 +1070,7 @@ If there's no palette associated, this property returns <code>nil</code>.</td></
 
 </table>
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 image
@@ -1252,7 +1252,7 @@ Below shows a way to create a matrix instance:
     @@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
 
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 matrix
@@ -1317,7 +1317,7 @@ An `operator` instance has the following properties:
 </table>
 
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 operator
@@ -1337,7 +1337,7 @@ operator.entries
 The `palette` instance has a set of `color` instance.
 
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 palette
@@ -1383,7 +1383,7 @@ Below are examples to realize a common fraction two-thirds:
     2r / 3
     2 / 3r
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 rational
@@ -1398,7 +1398,7 @@ rational.reduce
 
 ## semaphore Class
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 semaphore
@@ -1476,7 +1476,7 @@ that takes a `stream` instance in its argument as below:
 - `f(b'\x00\x12\x34\x56')` .. Implicit casting: from `binary` to `stream`.
 
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 open
@@ -1601,7 +1601,7 @@ You can use that suffix like below:
 
     'hello world'X
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 suffixmgr
@@ -1643,7 +1643,7 @@ that takes a `template` instance in its argument as below:
 - `f(template('foo.txt'))` .. Implicit casting: from `string` to `stream`.
 - `f('foo.txt')` .. Implicit casting: from `string` to `stream`, then from `stream` to `template`.
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 template
@@ -1693,7 +1693,7 @@ A `timedelta` instance has the following properties:
 
 </table>
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 timedelta
@@ -1732,7 +1732,7 @@ A `uri` instance has the following properties:
 
 </table>
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 uri

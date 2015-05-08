@@ -1,5 +1,6 @@
 #!/usr/bin/env gura
 import(moddoc)
+import(calendar)
 
 text@en = R'''
 # calendar Module
@@ -9,6 +10,7 @@ The `calendar` module ...
 ## Module Function
 
 ${moddoc.reference(`en
+calendar.calendar
 )}
 
 '''.embed()

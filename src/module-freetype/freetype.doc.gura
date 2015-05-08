@@ -52,7 +52,7 @@ freetype.CharMap.Get_Index
 
 ## freetype.Face Class
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 freetype.Face
@@ -95,7 +95,7 @@ freetype.GlyphSlot.Render
 
 ## freetype.Matrix Class
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 freetype.Matrix
@@ -126,7 +126,7 @@ freetype.Outline.Reverse
 
 ## freetype.Stroker Class
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 freetype.Stroker
@@ -140,7 +140,7 @@ freetype.Stroker.BeginSubPath
 
 ## freetype.Vector Class
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 freetype.Vector
@@ -155,7 +155,7 @@ freetype.Vector.Transform
 
 ## freetype.font Class
 
-## Function to Create Instance
+## Constructor
 
 ${moddoc.reference(`en
 freetype.font

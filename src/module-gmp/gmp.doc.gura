@@ -492,7 +492,7 @@ gmp.sqrt
 
 ## gmp.mpf Class
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 gmp.mpf
@@ -506,7 +506,7 @@ gmp.mpf.set_default_prec
 
 ## gmp.mpq Class
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 gmp.mpq
@@ -519,7 +519,7 @@ gmp.mpq.cast@mpf
 
 ## gmp.mpz Class
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 gmp.mpz

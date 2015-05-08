@@ -33,13 +33,12 @@ calendar(year:number, weekoffset:number => 0, ncols:number => 3) = {
 		}
 		rtn.append(lines)
 	}
-} % {`en, 'markdown',
-	R'''
-	Prints calendars of a specified year.
-	Argument `weekoffset` specifies from which week the calendar starts,
-	`0` from Sunday,  `1` from Monday, and so on.
-	Argument `ncols` specifies how many months are printed in one row.
-	'''
+} % {`en, 'markdown', R'''
+Prints calendars of a specified year.
+Argument `weekoffset` specifies from which week the calendar starts,
+`0` from Sunday,  `1` from Monday, and so on.
+Argument `ncols` specifies how many months are printed in one row.
+'''
 }
 
 if (__name__ == '__main__') {

@@ -26,7 +26,7 @@ csv.read
 
 ## csv.writer Class
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 csv.writer

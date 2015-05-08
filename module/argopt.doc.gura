@@ -1,14 +1,44 @@
 #!/usr/bin/env gura
 import(moddoc)
+import(argopt)
 
 text@en = R'''
 # argopt Module
 
-The `argopt` module ...
+The `argopt` module provides measure to parse option strings in an argument list
+given through the command line.
 
-## Module Function
+Below is an example:
+
+    import(argopt)
+
+    argopt.Parser {|p|
+        p.addParam('text', 't')
+        p.addFlag('test')
+        p.addFlag('bold', 'b')
+        try {
+            [cfg, argv] = p.parse(sys.argv)
+        } catch {|e|
+            println(e.text)
+            sys.exit(1)
+        }
+    }
+
+## argopt.Parser Class
+
+### Constructor
 
 ${moddoc.reference(`en
+argopt.Parser
+)}
+
+### Method
+
+${moddoc.reference(`en
+argopt.Parser.parse
+argopt.Parser.addParam
+argopt.Parser.addFlag
+argopt.Parser.formatHelp
 )}
 
 '''.embed()

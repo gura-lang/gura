@@ -13,7 +13,7 @@ tcl.TK_MainLoop
 
 ## tcl.interp Class
 
-### Function to Create Instance
+### Constructor
 
 ${moddoc.reference(`en
 tcl.interp
