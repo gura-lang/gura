@@ -203,7 +203,7 @@ int ItemStack::CountQuoteLevel() const
 // Document
 //-----------------------------------------------------------------------------
 Document::Document() : _cntRef(1), _resolvedFlag(false), _decoPrecedingFlag(false),
-		_stat(STAT_LineTop), _cntLine(0),
+		_tableFlag(false), _stat(STAT_LineTop), _cntLine(0),
 		_indentLevel(0), _quoteLevel(0), _cntEmptyLine(0),
 		_pItemOwner(new ItemOwner()), _pItemRefereeOwner(new ItemOwner())
 {
@@ -246,7 +246,7 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 		int nSeps = 0;
 		bool barTopFlag = false;
 		bool barFoundFlag = false;
-		bool tableFlag = true;
+		_tableFlag = true;
 		while ((chRaw = stream.GetChar(sig)) >= 0) {
 			char ch = static_cast<char>(static_cast<UChar>(chRaw));
 			textPrefetch += ch;
@@ -256,7 +256,7 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 					nSeps = 0;
 					stat = STAT_FirstLineBody;
 				} else if (IsEOL(ch)) {
-					tableFlag = false;
+					_tableFlag = false;
 					break;
 				} else {
 					barTopFlag = barFoundFlag = false;
@@ -271,7 +271,7 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 					if (barFoundFlag) {
 						stat = STAT_GuideLineHead;
 					} else {
-						tableFlag = false;
+						_tableFlag = false;
 						break;
 					}
 				} else {
@@ -286,41 +286,43 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 						guide.clear();
 						stat = STAT_GuideLineBody;
 					} else {
-						tableFlag = false;
+						_tableFlag = false;
 						stat = STAT_SkipToEOL;
 					}
 				} else if (IsEOL(ch)) {
-					tableFlag = false;
+					_tableFlag = false;
 					break;
-				} else {
+				} else if (IsWhite(ch) || ch == '-' || ch == ':') {
 					barFoundFlag = false;
 					nSeps = 0;
+					guideList.clear();
+					guide.clear();
+					guide += ch;
 					stat = STAT_GuideLineBody;
+				} else {
+					_tableFlag = false;
+					stat = STAT_SkipToEOL;
 				}
 			} else if (stat == STAT_GuideLineBody) {
 				if (ch == '|') {
 					barFoundFlag = true;
-					guideList.push_back(guide);
+					guideList.push_back(Strip(guide.c_str()));
 					guide.clear();
 					nSeps++;
 				} else if (IsEOL(ch)) {
 					if (barFoundFlag) {
 						if (!guide.empty()) {
-							guideList.push_back(guide);
+							guideList.push_back(Strip(guide.c_str()));
 						}
 						stat = STAT_TrailingLineHead;
 					} else {
-						tableFlag = false;
+						_tableFlag = false;
 						break;
 					}
-				} else if (IsWhite(ch)) {
-					guide += ch;
-				} else if (ch == '-') {
-					guide += ch;
-				} else if (ch == ':') {
+				} else if (IsWhite(ch) || ch == '-' || ch == ':') {
 					guide += ch;
 				} else {
-					tableFlag = false;
+					_tableFlag = false;
 					stat = STAT_SkipToEOL;
 				}
 			} else if (stat == STAT_TrailingLineHead) {
@@ -330,11 +332,11 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 						nSeps = 0;
 						stat = STAT_TrailingLineBody;
 					} else {
-						tableFlag = false;
+						_tableFlag = false;
 						stat = STAT_SkipToEOL;
 					}
 				} else if (IsEOL(ch)) {
-					tableFlag = false;
+					_tableFlag = false;
 					break;
 				} else {
 					barFoundFlag = false;
@@ -349,7 +351,7 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 					if (barFoundFlag) {
 						stat = STAT_TrailingLineHead;
 					} else {
-						tableFlag = false;
+						_tableFlag = false;
 						break;
 					}
 				} else {
@@ -366,13 +368,31 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 		if (textPrefetch.empty()) {
 			if (!ParseChar(sig, '\0')) return false;
 			break;
-		} else if (tableFlag) {
-			::printf("%s", textPrefetch.c_str());
-			if (!_ParseString(sig, textPrefetch)) return false;
-		} else {
-			if (!_ParseString(sig, textPrefetch)) return false;
 		}
-		_cntLine++;
+		if (_tableFlag) {
+			_alignList.clear();
+			foreach (StringList, pGuide, guideList) {
+				const String &guide = *pGuide;
+				Align align = ALIGN_Left;
+				if (guide.empty()) {
+					align = ALIGN_Left;
+				} else {
+					bool colonLeftFlag = (guide[0] == ':');
+					bool colonRightFlag = (guide[guide.size() - 1] == ':');
+					if (colonLeftFlag && colonRightFlag) {
+						align = ALIGN_Center;
+					} else if (colonLeftFlag) {
+						align = ALIGN_Left;
+					} else if (colonRightFlag) {
+						align = ALIGN_Right;
+					} else {
+						align = ALIGN_Left;
+					}
+				}
+				_alignList.push_back(align);
+			}
+		}
+		if (!_ParseString(sig, textPrefetch)) return false;
 	}
 	return true;
 }

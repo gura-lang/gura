@@ -23,6 +23,15 @@ Gura_DeclareUserSymbol(attrs);
 class ItemOwner;
 
 //-----------------------------------------------------------------------------
+// Align
+//-----------------------------------------------------------------------------
+enum Align {
+	ALIGN_Left, ALIGN_Center, ALIGN_Right
+};
+
+typedef std::vector<Align> AlignList;
+
+//-----------------------------------------------------------------------------
 // Item
 //-----------------------------------------------------------------------------
 class Item {
@@ -271,6 +280,7 @@ private:
 	int _cntRef;
 	bool _resolvedFlag;
 	bool _decoPrecedingFlag;
+	bool _tableFlag;
 	Stat _stat;
 	int _cntLine;
 	StatStack _statStack;
@@ -288,6 +298,7 @@ private:
 	ItemStack _itemStack;
 	ItemStack _itemStackTag;
 	ItemOwnerStack _itemOwnerStack;
+	AlignList _alignList;
 public:
 	Gura_DeclareReferenceAccessor(Document);
 public:
