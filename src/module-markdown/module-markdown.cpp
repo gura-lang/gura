@@ -442,6 +442,16 @@ bool Document::ParseChar(Signal sig, char ch)
 	continueFlag = false;
 	switch (_stat) {
 	case STAT_LineTop: {
+#if 0
+		if (_tableFlag) {
+			::printf("check\n");
+			Item *pItemParent = _itemStack.back();
+			Item *pItem = new Item(Item::TYPE_Tag, new ItemOwner());
+			pItem->SetText("tr");
+			pItemParent->GetItemOwner()->push_back(pItem);
+			_itemStack.push_back(pItem);
+		}
+#endif
 		_indentLevel = 0;
 		continueFlag = true;
 		_stat = STAT_LineHead;
