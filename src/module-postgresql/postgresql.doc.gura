@@ -4,7 +4,7 @@ import(moddoc)
 text@en = R'''
 # postgresql Module
 
-## Module Functions
+## Module Function
 
 '''
 

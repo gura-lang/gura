@@ -19,7 +19,7 @@ Below is an example to read data from a file and write its compressed data to a 
     gzip.writer('foo.dat.gz').copyfrom('foo.dat')
 
 
-## Module Functions
+## Module Function
 
 ${moddoc.reference(`en
 gzip.reader

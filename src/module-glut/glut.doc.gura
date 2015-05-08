@@ -7,7 +7,7 @@ text@en = R'''
 
 The `glut` module provides functions of GLUT library.
 
-## Module Functions
+## Module Function
 
 ${moddoc.reference(`en
 glut.glutInit

@@ -5,7 +5,7 @@ import(wav)
 text@en = R'''
 # wav Module
 
-## Module Functions
+## Module Function
 
 ## Extension to audio Class
 

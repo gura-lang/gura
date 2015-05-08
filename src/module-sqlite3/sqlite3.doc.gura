@@ -8,7 +8,7 @@ text@en = R'''
 The `sqlite3` module provices measures to access SQLite3 database.
 To utilize it, import the `sqlite3` module using `import` function.
 
-## Module Functions
+## Module Function
 
 ## sqlite3.db Class
 

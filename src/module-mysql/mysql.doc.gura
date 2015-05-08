@@ -4,7 +4,7 @@ import(moddoc)
 text@en = R'''
 # mysql Module
 
-## Module Functions
+## Module Function
 '''
 
 moddoc.register(locals(), %{`en => text@en})

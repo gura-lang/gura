@@ -6,7 +6,7 @@ text@en = R'''
 
 The `http` module provides measures to connect the Internet through HTTP protocol.
 
-## Module Functions
+## Module Function
 '''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

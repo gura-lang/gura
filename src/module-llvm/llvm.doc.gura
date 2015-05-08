@@ -4,7 +4,7 @@ import(moddoc)
 text@en = R'''
 # llvm Module
 
-## Module Functions
+## Module Function
 '''.embed()
 
 moddoc.register(locals(), %{`en => text@en})

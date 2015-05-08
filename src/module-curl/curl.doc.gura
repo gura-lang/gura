@@ -8,7 +8,7 @@ text@en = R'''
 The `curl` module provices measures to access Internet resources using cURL library.
 To utilize it, import the `curl` module using `import` function.
 
-## Module Functions
+## Module Function
 
 ${moddoc.reference(`en
 curl.version

@@ -8,7 +8,7 @@ text@en = R'''
 The `midi` module provides measures to read/write MIDI files.
 To utilize it, import the `midi` module using `import` function.
 
-## Module Functions
+## Module Function
 
 ## midi.event Class
 

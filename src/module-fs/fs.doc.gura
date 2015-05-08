@@ -7,7 +7,7 @@ text@en = R'''
 The `fs` module provides measures to access and modify information in file systems.
 This is a built-in module, so you can use it without being imported.
 
-## Module Functions
+## Module Function
 
 ${moddoc.reference(`en
 fs.chdir

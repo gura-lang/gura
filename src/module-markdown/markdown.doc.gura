@@ -23,7 +23,7 @@ and then render its HTML text into a file.
 `markdown.document << function`
 
 
-## Module Functions
+## Module Function
 
 ${moddoc.reference(`en
 markdown.setpresenter

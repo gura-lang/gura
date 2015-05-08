@@ -8,7 +8,7 @@ text@en = R'''
 The `freetype` module provices measures to access vectorized font data using freetype library.
 To utilize it, import the `freetype` module using `import` function.
 
-## Module Functions
+## Module Function
 
 ${moddoc.reference(`en
 freetype.sysfontpath

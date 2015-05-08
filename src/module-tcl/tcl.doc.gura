@@ -5,7 +5,7 @@ import(tcl)
 text@en = R'''
 # tcl Module
 
-## Module Functions
+## Module Function
 
 ${moddoc.reference(`en
 tcl.TK_MainLoop

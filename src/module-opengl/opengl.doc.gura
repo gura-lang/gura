@@ -7,7 +7,7 @@ text@en = R'''
 
 The `opengl` module provides functions of OpenGL library.
 
-## Module Functions
+## Module Function
 
 ${moddoc.reference(`en
 opengl.glAccum
