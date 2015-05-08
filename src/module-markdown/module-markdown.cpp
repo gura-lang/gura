@@ -1867,6 +1867,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	}
 	} while (continueFlag);
+	if (IsEOL(ch)) _cntLine++;
 	return true;
 }
 
