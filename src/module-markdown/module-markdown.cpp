@@ -212,7 +212,7 @@ Document::Document() : _cntRef(1), _resolvedFlag(false), _decoPrecedingFlag(fals
 	_itemStack.push_back(_pItemRoot.get());
 }
 
-#if 1
+#if 0
 bool Document::ParseStream(Signal sig, SimpleStream &stream)
 {
 	_cntLine = 0;
@@ -230,14 +230,16 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 	enum Stat {
 		STAT_FirstLineHead,
 		STAT_FirstLineBody,
-		STAT_SecondLineHead,
-		STAT_SecondLineBody,
+		STAT_GuideLineHead,
+		STAT_GuideLineBody,
 		STAT_TrailingLineHead,
 		STAT_TrailingLineBody,
 		STAT_SkipToEOL,
 	} stat = STAT_FirstLineHead;
 	_cntLine = 0;
 	String textPrefetch;
+	String guide;
+	StringList guideList;
 	for (;;) {
 		int chRaw;
 		textPrefetch.clear();
@@ -267,7 +269,7 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 					nSeps++;
 				} else if (IsEOL(ch)) {
 					if (barFoundFlag) {
-						stat == STAT_SecondLineHead;
+						stat = STAT_GuideLineHead;
 					} else {
 						tableFlag = false;
 						break;
@@ -275,43 +277,62 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 				} else {
 					// nothing to do 
 				}
-			} else if (stat == STAT_SecondLineHead) {
+			} else if (stat == STAT_GuideLineHead) {
 				if (ch == '|') {
-					barFoundFlag = true;
-					nSeps = 0;
-					stat = STAT_SecondLineBody;
+					if (barTopFlag) {
+						barFoundFlag = true;
+						nSeps = 0;
+						guideList.clear();
+						guide.clear();
+						stat = STAT_GuideLineBody;
+					} else {
+						tableFlag = false;
+						stat = STAT_SkipToEOL;
+					}
 				} else if (IsEOL(ch)) {
 					tableFlag = false;
 					break;
 				} else {
 					barFoundFlag = false;
 					nSeps = 0;
-					stat = STAT_SecondLineBody;
+					stat = STAT_GuideLineBody;
 				}
-			} else if (stat == STAT_SecondLineBody) {
+			} else if (stat == STAT_GuideLineBody) {
 				if (ch == '|') {
+					barFoundFlag = true;
+					guideList.push_back(guide);
+					guide.clear();
 					nSeps++;
 				} else if (IsEOL(ch)) {
 					if (barFoundFlag) {
-						stat == STAT_TrailingLineHead;
+						if (!guide.empty()) {
+							guideList.push_back(guide);
+						}
+						stat = STAT_TrailingLineHead;
 					} else {
 						tableFlag = false;
 						break;
 					}
 				} else if (IsWhite(ch)) {
-					// nothing to do 
+					guide += ch;
 				} else if (ch == '-') {
-					// nothing to do 
+					guide += ch;
 				} else if (ch == ':') {
-					
+					guide += ch;
 				} else {
+					tableFlag = false;
 					stat = STAT_SkipToEOL;
 				}
 			} else if (stat == STAT_TrailingLineHead) {
 				if (ch == '|') {
-					barFoundFlag = true;
-					nSeps = 0;
-					stat = STAT_TrailingLineBody;
+					if (barTopFlag) {
+						barFoundFlag = true;
+						nSeps = 0;
+						stat = STAT_TrailingLineBody;
+					} else {
+						tableFlag = false;
+						stat = STAT_SkipToEOL;
+					}
 				} else if (IsEOL(ch)) {
 					tableFlag = false;
 					break;
@@ -322,10 +343,11 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 				}
 			} else if (stat == STAT_TrailingLineBody) {
 				if (ch == '|') {
+					barFoundFlag = true;
 					nSeps++;
 				} else if (IsEOL(ch)) {
 					if (barFoundFlag) {
-						stat == STAT_TrailingLineHead;
+						stat = STAT_TrailingLineHead;
 					} else {
 						tableFlag = false;
 						break;
@@ -344,6 +366,9 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 		if (textPrefetch.empty()) {
 			if (!ParseChar(sig, '\0')) return false;
 			break;
+		} else if (tableFlag) {
+			::printf("%s", textPrefetch.c_str());
+			if (!_ParseString(sig, textPrefetch)) return false;
 		} else {
 			if (!_ParseString(sig, textPrefetch)) return false;
 		}
