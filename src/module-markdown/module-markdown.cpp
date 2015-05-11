@@ -453,12 +453,10 @@ bool Document::ParseChar(Signal sig, char ch)
 	switch (_stat) {
 	case STAT_LineTop: {
 		_indentLevel = 0;
+		continueFlag = true;
 		if (IsTableMode()) {
-			BeginTableRow();
-			continueFlag = true;
-			_stat = STAT_LineHead;
+			_stat = STAT_LineHeadTable;
 		} else {
-			continueFlag = true;
 			_stat = STAT_LineHead;
 		}
 		break;
@@ -521,6 +519,16 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_Text;
 		}
 		_decoPrecedingFlag = false;
+		break;
+	}
+	case STAT_LineHeadTable: {
+		if (IsWhite(ch) || IsEOL(ch)) {
+			// nothing to do
+		} else {
+			BeginTableRow();
+			continueFlag = true;
+			_stat = STAT_Text;
+		}
 		break;
 	}
 	case STAT_LineHeadNL: {
@@ -2049,7 +2057,11 @@ void Document::BeginTable()
 
 void Document::EndTable()
 {
-	_itemStack.pop_back();
+	while (!_itemStack.empty()) {
+		Item *pItem = _itemStack.back();
+		_itemStack.pop_back();
+		if (pItem->IsTag() && ::strcmp(pItem->GetText(), "table") == 0) break;
+	}
 	_iTableRow = -1;
 }
 

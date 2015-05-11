@@ -181,6 +181,7 @@ private:
 	enum Stat {
 		STAT_LineTop,
 		STAT_LineHead,
+		STAT_LineHeadTable,
 		STAT_LineHeadNL,
 		STAT_BlockQuote,
 		STAT_Equal,
