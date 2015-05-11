@@ -132,6 +132,9 @@ Below is a table of item type:
 <tr><td><code>markdown.item#attrs</code></td><td><code>string</code></td><td>R</td>
 <td></td></tr>
 
+<tr><td><code>markdown.item#align</code></td><td><code>symbol</code></td><td>R</td>
+<td><code>none</code>, <code>left</code>, <code>center</code>, <code>right</code></td></tr>
+
 </table>
 
 ### Method

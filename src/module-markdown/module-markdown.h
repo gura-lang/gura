@@ -19,6 +19,7 @@ Gura_DeclareUserSymbol(children);
 Gura_DeclareUserSymbol(url);
 Gura_DeclareUserSymbol(title);
 Gura_DeclareUserSymbol(attrs);
+Gura_DeclareUserSymbol(align);
 
 class ItemOwner;
 
@@ -26,7 +27,7 @@ class ItemOwner;
 // Align
 //-----------------------------------------------------------------------------
 enum Align {
-	ALIGN_Left, ALIGN_Center, ALIGN_Right
+	ALIGN_None, ALIGN_Left, ALIGN_Center, ALIGN_Right
 };
 
 typedef std::vector<Align> AlignList;
@@ -72,6 +73,7 @@ private:
 	std::auto_ptr<String> _pTitle;	// valid when type is Link or Image
 	std::auto_ptr<String> _pRefId;	// valid when type is Link or Image
 	std::auto_ptr<String> _pAttrs;	// valid when type is Tag
+	Align _align;					// valid when type is Tag
 	int _indentLevel;
 public:
 	Gura_DeclareReferenceAccessor(Item);
@@ -108,11 +110,13 @@ public:
 	inline const char *GetAttrs() const {
 		return (_pAttrs.get() == NULL)? NULL : _pAttrs->c_str();
 	}
+	inline Align GetAlign() const { return _align; }
 	inline void SetText(const String &text) { _pText.reset(new String(text)); }
 	inline void SetURL(const String &url) { _pURL.reset(new String(url)); }
 	inline void SetTitle(const String &title) { _pTitle.reset(new String(title)); }
 	inline void SetRefId(const String &refId) { _pRefId.reset(new String(refId)); }
 	inline void SetAttrs(const String &attrs) { _pAttrs.reset(new String(attrs)); }
+	inline void SetAlign(Align align) { _align = align; }
 	inline void ClearURL() { _pURL.reset(NULL); }
 	inline void ClearTitle() { _pTitle.reset(NULL); }
 	inline void ClearRefId() { _pRefId.reset(NULL); }
@@ -330,7 +334,7 @@ private:
 	void EndTable();
 	void BeginTableRow();
 	void EndTableRow();
-	void FlushTableCol();
+	void FlushTableCol(bool eolFlag);
 	void BeginCodeBlock(const char *textInit);
 	void EndCodeBlock();
 	void BeginCodeBlockInList(const char *textInit);

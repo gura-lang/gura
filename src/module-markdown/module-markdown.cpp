@@ -10,17 +10,18 @@ AutoPtr<Function> g_pFunc_Presenter;
 //-----------------------------------------------------------------------------
 // Item
 //-----------------------------------------------------------------------------
-Item::Item(Type type, int indentLevel) : _cntRef(1), _type(type), _indentLevel(indentLevel)
+Item::Item(Type type, int indentLevel) : _cntRef(1), _type(type),
+								_indentLevel(indentLevel), _align(ALIGN_None)
 {
 }
 
 Item::Item(Type type, ItemOwner *pItemOwner, int indentLevel) : _cntRef(1),
-			_type(type), _pItemOwner(pItemOwner), _indentLevel(indentLevel)
+	_type(type), _pItemOwner(pItemOwner), _indentLevel(indentLevel), _align(ALIGN_None)
 {
 }
 
 Item::Item(Type type, const String &text, int indentLevel) : _cntRef(1),
-			_type(type), _pText(new String(text)), _indentLevel(indentLevel)
+	_type(type), _pText(new String(text)), _indentLevel(indentLevel), _align(ALIGN_None)
 {
 }
 
@@ -398,7 +399,6 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 				}
 				_alignList.push_back(align);
 			}
-			_stat = STAT_LineTop;
 			BeginTable();
 			if (!_ParseString(sig, textPrefetch)) return false;
 			EndTable();
@@ -454,11 +454,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_LineTop: {
 		_indentLevel = 0;
 		continueFlag = true;
-		if (IsTableMode()) {
-			_stat = STAT_LineHeadTable;
-		} else {
-			_stat = STAT_LineHead;
-		}
+		_stat = IsTableMode()? STAT_LineHeadTable : STAT_LineHead;
 		break;
 	}
 	case STAT_LineHead: {
@@ -524,6 +520,10 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_LineHeadTable: {
 		if (IsWhite(ch) || IsEOL(ch)) {
 			// nothing to do
+		} else if (ch == '|') {
+			// skip a bar character placed at the top of the line.
+			BeginTableRow();
+			_stat = STAT_Text;
 		} else {
 			BeginTableRow();
 			continueFlag = true;
@@ -1211,13 +1211,17 @@ bool Document::ParseChar(Signal sig, char ch)
 		break;
 	}
 	case STAT_Text: {
-		if (IsTableMode() && ch == '|') {
-			FlushTableCol();
-		} else if (CheckSpecialChar(ch)) {
+		if (CheckSpecialChar(ch)) {
 			// nothing to do
+		} else if (ch == '|') {
+			if (IsTableMode()) {
+				FlushTableCol(false);
+			} else {
+				_text += ch;
+			}
 		} else if (IsEOL(ch)) {
 			if (IsTableMode()) {
-				FlushTableCol();
+				FlushTableCol(true);
 				EndTableRow();
 				if (IsTableGuideRow()) {
 					_stat = STAT_SkipTableGuideRow;
@@ -2053,6 +2057,7 @@ void Document::BeginTable()
 	pItemParent->GetItemOwner()->push_back(pItem);
 	_itemStack.push_back(pItem);
 	_iTableRow = 0;
+	_stat = STAT_LineTop;
 }
 
 void Document::EndTable()
@@ -2063,6 +2068,7 @@ void Document::EndTable()
 		if (pItem->IsTag() && ::strcmp(pItem->GetText(), "table") == 0) break;
 	}
 	_iTableRow = -1;
+	_stat = STAT_LineTop;
 }
 
 void Document::BeginTableRow()
@@ -2081,22 +2087,25 @@ void Document::EndTableRow()
 	AdvanceTableRow();
 }
 
-void Document::FlushTableCol()
+void Document::FlushTableCol(bool eolFlag)
 {
 	bool stripLeftFlag = false, stripRightFlag = true;
 	Item *pItemParent = _itemStack.back();
 	FlushText(Item::TYPE_Text, stripLeftFlag, stripRightFlag);
-	Item *pItem = new Item(Item::TYPE_Tag, _pItemOwner.release());
-	pItem->SetText(IsTableFirstRow()? "th" : "td");
-	Align align = (_iTableCol < _alignList.size())? _alignList[_iTableCol] : ALIGN_Left;
-	if (align == ALIGN_Center) {
-		pItem->SetAttrs("style=\"text-align:center\"");
-	} else if (align == ALIGN_Right) {
-		pItem->SetAttrs("style=\"text-align:right\"");
+	if (!eolFlag || !_pItemOwner->empty()) {
+		Item *pItem = new Item(Item::TYPE_Tag, _pItemOwner.release());
+		pItem->SetText(IsTableFirstRow()? "th" : "td");
+		Align align = (_iTableCol < _alignList.size())? _alignList[_iTableCol] : ALIGN_Left;
+		pItem->SetAlign(align);
+		if (align == ALIGN_Center) {
+			pItem->SetAttrs("style=\"text-align:center\"");
+		} else if (align == ALIGN_Right) {
+			pItem->SetAttrs("style=\"text-align:right\"");
+		}
+		pItemParent->GetItemOwner()->push_back(pItem);
+		_pItemOwner.reset(new ItemOwner());
+		_iTableCol++;
 	}
-	pItemParent->GetItemOwner()->push_back(pItem);
-	_pItemOwner.reset(new ItemOwner());
-	_iTableCol++;
 }
 
 void Document::BeginCodeBlock(const char *textInit)
@@ -2561,6 +2570,7 @@ bool Object_item::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	symbols.insert(Gura_UserSymbol(url));
 	symbols.insert(Gura_UserSymbol(title));
 	symbols.insert(Gura_UserSymbol(attrs));
+	symbols.insert(Gura_UserSymbol(align));
 	return true;
 }
 
@@ -2591,6 +2601,12 @@ Value Object_item::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		const char *attrs = _pItem->GetAttrs();
 		if (attrs == NULL) return Value::Null;
 		return Value(attrs);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(align))) {
+		Align align = _pItem->GetAlign();
+		return Value(
+			(align == ALIGN_Left)? Gura_Symbol(left) :
+			(align == ALIGN_Center)? Gura_Symbol(center) :
+			(align == ALIGN_Right)? Gura_Symbol(right) : Gura_Symbol(none));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -2781,6 +2797,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(url);
 	Gura_RealizeUserSymbol(title);
 	Gura_RealizeUserSymbol(attrs);
+	Gura_RealizeUserSymbol(align);
 	// class realization
 	Gura_RealizeUserClass(document, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(item, env.LookupClass(VTYPE_object));
