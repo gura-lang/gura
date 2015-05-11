@@ -220,6 +220,7 @@ private:
 		STAT_CodeEsc,
 		STAT_CodeEsc_Backquote,
 		STAT_Text,
+		STAT_SkipTableGuideRow,
 		STAT_AsteriskEmphasisPre,
 		STAT_AsteriskEmphasis,
 		STAT_AsteriskStrong,
@@ -280,7 +281,8 @@ private:
 	int _cntRef;
 	bool _resolvedFlag;
 	bool _decoPrecedingFlag;
-	bool _tableFlag;
+	int _iTableRow;
+	int _iTableCol;
 	Stat _stat;
 	int _cntLine;
 	StatStack _statStack;
@@ -323,6 +325,11 @@ private:
 	void FlushText(Item::Type type, bool stripLeftFlag, bool stripRightFlag);
 	void FlushItem(Item::Type type, bool stripLeftFlag, bool stripRightFlag);
 	void FlushElement();
+	void BeginTable();
+	void EndTable();
+	void BeginTableRow();
+	void EndTableRow();
+	void FlushTableCol();
 	void BeginCodeBlock(const char *textInit);
 	void EndCodeBlock();
 	void BeginCodeBlockInList(const char *textInit);
@@ -341,6 +348,11 @@ private:
 	inline static bool IsEOL(char ch) { return ch == '\n'; }
 	inline static bool IsEOF(char ch) { return ch == '\0'; }
 	inline static bool IsDigit(char ch) { return '0' <= ch && ch <= '9'; }
+	inline void AdvanceTableRow() { if (_iTableRow >= 0) _iTableRow++; }
+	inline bool IsTableMode() const { return _iTableRow >= 0; }
+	inline bool IsTableFirstRow() const { return _iTableRow == 0; }
+	inline bool IsTableGuideRow() const { return _iTableRow == 1; }
+	inline bool IsTableTrailingRow() const { return _iTableRow >= 2; }
 };
 
 //-----------------------------------------------------------------------------

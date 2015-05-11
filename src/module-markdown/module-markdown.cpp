@@ -203,7 +203,7 @@ int ItemStack::CountQuoteLevel() const
 // Document
 //-----------------------------------------------------------------------------
 Document::Document() : _cntRef(1), _resolvedFlag(false), _decoPrecedingFlag(false),
-		_tableFlag(false), _stat(STAT_LineTop), _cntLine(0),
+		_iTableRow(-1), _iTableCol(0), _stat(STAT_LineTop), _cntLine(0),
 		_indentLevel(0), _quoteLevel(0), _cntEmptyLine(0),
 		_pItemOwner(new ItemOwner()), _pItemRefereeOwner(new ItemOwner())
 {
@@ -228,14 +228,15 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 bool Document::ParseStream(Signal sig, SimpleStream &stream)
 {
 	enum Stat {
-		STAT_FirstLineHead,
-		STAT_FirstLineBody,
-		STAT_GuideLineHead,
-		STAT_GuideLineBody,
-		STAT_TrailingLineHead,
-		STAT_TrailingLineBody,
+		STAT_FirstRowTop,
+		STAT_FirstRowBody,
+		STAT_GuideRowTop,
+		STAT_GuideRowBody,
+		STAT_TrailingRowTop,
+		STAT_TrailingRowHead,
+		STAT_TrailingRowBody,
 		STAT_SkipToEOL,
-	} stat = STAT_FirstLineHead;
+	} stat = STAT_FirstRowTop;
 	_cntLine = 0;
 	String textPrefetch;
 	String guide;
@@ -244,66 +245,66 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 		int chRaw;
 		textPrefetch.clear();
 		int nSeps = 0;
+		int nTrailingRows = 0;
 		bool barTopFlag = false;
 		bool barFoundFlag = false;
-		_tableFlag = true;
-		while ((chRaw = stream.GetChar(sig)) >= 0) {
+		bool prefetchFlag = true;
+		stat = STAT_FirstRowTop;
+		while (prefetchFlag && (chRaw = stream.GetChar(sig)) >= 0) {
 			char ch = static_cast<char>(static_cast<UChar>(chRaw));
 			textPrefetch += ch;
-			if (stat == STAT_FirstLineHead) {
+			bool continueFlag = false;
+			do {
+			continueFlag = false;
+			if (stat == STAT_FirstRowTop) {
 				if (ch == '|') {
 					barTopFlag = barFoundFlag = true;
 					nSeps = 0;
-					stat = STAT_FirstLineBody;
+					stat = STAT_FirstRowBody;
 				} else if (IsEOL(ch)) {
-					_tableFlag = false;
-					break;
+					prefetchFlag = false;
 				} else {
 					barTopFlag = barFoundFlag = false;
 					nSeps = 0;
-					stat = STAT_FirstLineBody;
+					stat = STAT_FirstRowBody;
 				}
-			} else if (stat == STAT_FirstLineBody) {
+			} else if (stat == STAT_FirstRowBody) {
 				if (ch == '|') {
 					barFoundFlag = true;
 					nSeps++;
 				} else if (IsEOL(ch)) {
 					if (barFoundFlag) {
-						stat = STAT_GuideLineHead;
+						stat = STAT_GuideRowTop;
 					} else {
-						_tableFlag = false;
-						break;
+						prefetchFlag = false;
 					}
 				} else {
 					// nothing to do 
 				}
-			} else if (stat == STAT_GuideLineHead) {
+			} else if (stat == STAT_GuideRowTop) {
 				if (ch == '|') {
 					if (barTopFlag) {
 						barFoundFlag = true;
 						nSeps = 0;
 						guideList.clear();
 						guide.clear();
-						stat = STAT_GuideLineBody;
+						stat = STAT_GuideRowBody;
 					} else {
-						_tableFlag = false;
 						stat = STAT_SkipToEOL;
 					}
 				} else if (IsEOL(ch)) {
-					_tableFlag = false;
-					break;
+					prefetchFlag = false;
 				} else if (IsWhite(ch) || ch == '-' || ch == ':') {
 					barFoundFlag = false;
 					nSeps = 0;
 					guideList.clear();
 					guide.clear();
 					guide += ch;
-					stat = STAT_GuideLineBody;
+					stat = STAT_GuideRowBody;
 				} else {
-					_tableFlag = false;
 					stat = STAT_SkipToEOL;
 				}
-			} else if (stat == STAT_GuideLineBody) {
+			} else if (stat == STAT_GuideRowBody) {
 				if (ch == '|') {
 					barFoundFlag = true;
 					guideList.push_back(Strip(guide.c_str()));
@@ -314,62 +315,68 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 						if (!guide.empty()) {
 							guideList.push_back(Strip(guide.c_str()));
 						}
-						stat = STAT_TrailingLineHead;
+						stat = STAT_TrailingRowTop;
 					} else {
-						_tableFlag = false;
-						break;
+						prefetchFlag = false;
 					}
 				} else if (IsWhite(ch) || ch == '-' || ch == ':') {
 					guide += ch;
 				} else {
-					_tableFlag = false;
 					stat = STAT_SkipToEOL;
 				}
-			} else if (stat == STAT_TrailingLineHead) {
+			} else if (stat == STAT_TrailingRowTop) {
 				if (ch == '|') {
 					if (barTopFlag) {
 						barFoundFlag = true;
 						nSeps = 0;
-						stat = STAT_TrailingLineBody;
+						stat = STAT_TrailingRowBody;
 					} else {
-						_tableFlag = false;
 						stat = STAT_SkipToEOL;
 					}
-				} else if (IsEOL(ch)) {
-					_tableFlag = false;
-					break;
+				} else if (IsWhite(ch) || IsEOL(ch)) {
+					continueFlag = true;
+					stat = STAT_TrailingRowHead;
 				} else {
 					barFoundFlag = false;
 					nSeps = 0;
-					stat = STAT_TrailingLineBody;
+					stat = STAT_TrailingRowBody;
 				}
-			} else if (stat == STAT_TrailingLineBody) {
+			} else if (stat == STAT_TrailingRowHead) {
+				if (IsWhite(ch)) {
+					// nothing to do
+				} else if (IsEOL(ch)) {
+					// detected a blank line
+					prefetchFlag = false;
+				} else {
+					continueFlag = true;
+					stat = STAT_TrailingRowBody;
+				}
+			} else if (stat == STAT_TrailingRowBody) {
 				if (ch == '|') {
 					barFoundFlag = true;
 					nSeps++;
 				} else if (IsEOL(ch)) {
-					if (barFoundFlag) {
-						stat = STAT_TrailingLineHead;
-					} else {
-						_tableFlag = false;
-						break;
-					}
+					nTrailingRows++;
+					stat = STAT_TrailingRowTop;
 				} else {
 					// nothing to do
 				}
 			} else if (stat == STAT_SkipToEOL) {
 				if (IsEOL(ch)) {
-					break;
+					prefetchFlag = false;
 				} else {
 					// nothing to do
 				}
 			}
+			} while (continueFlag);
 		}
 		if (textPrefetch.empty()) {
 			if (!ParseChar(sig, '\0')) return false;
 			break;
 		}
-		if (_tableFlag) {
+		if (nTrailingRows == 0) {
+			if (!_ParseString(sig, textPrefetch)) return false;
+		} else {
 			_alignList.clear();
 			foreach (StringList, pGuide, guideList) {
 				const String &guide = *pGuide;
@@ -391,8 +398,11 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 				}
 				_alignList.push_back(align);
 			}
+			_stat = STAT_LineTop;
+			BeginTable();
+			if (!_ParseString(sig, textPrefetch)) return false;
+			EndTable();
 		}
-		if (!_ParseString(sig, textPrefetch)) return false;
 	}
 	return true;
 }
@@ -442,19 +452,15 @@ bool Document::ParseChar(Signal sig, char ch)
 	continueFlag = false;
 	switch (_stat) {
 	case STAT_LineTop: {
-#if 0
-		if (_tableFlag) {
-			::printf("check\n");
-			Item *pItemParent = _itemStack.back();
-			Item *pItem = new Item(Item::TYPE_Tag, new ItemOwner());
-			pItem->SetText("tr");
-			pItemParent->GetItemOwner()->push_back(pItem);
-			_itemStack.push_back(pItem);
-		}
-#endif
 		_indentLevel = 0;
-		continueFlag = true;
-		_stat = STAT_LineHead;
+		if (IsTableMode()) {
+			BeginTableRow();
+			continueFlag = true;
+			_stat = STAT_LineHead;
+		} else {
+			continueFlag = true;
+			_stat = STAT_LineHead;
+		}
 		break;
 	}
 	case STAT_LineHead: {
@@ -1197,10 +1203,20 @@ bool Document::ParseChar(Signal sig, char ch)
 		break;
 	}
 	case STAT_Text: {
-		if (CheckSpecialChar(ch)) {
+		if (IsTableMode() && ch == '|') {
+			FlushTableCol();
+		} else if (CheckSpecialChar(ch)) {
 			// nothing to do
 		} else if (IsEOL(ch)) {
-			if (_itemStackTag.empty()) {
+			if (IsTableMode()) {
+				FlushTableCol();
+				EndTableRow();
+				if (IsTableGuideRow()) {
+					_stat = STAT_SkipTableGuideRow;
+				} else {
+					_stat = STAT_LineTop;
+				}
+			} else if (_itemStackTag.empty()) {
 				_stat = STAT_LineTop;
 			} else {
 				_text += ch;
@@ -1210,6 +1226,15 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_LineTop;
 		} else {
 			_text += ch;
+		}
+		break;
+	}
+	case STAT_SkipTableGuideRow: {
+		if (IsEOL(ch)) {
+			AdvanceTableRow();
+			_stat = STAT_LineTop;
+		} else {
+			// nothing to do
 		}
 		break;
 	}
@@ -2010,6 +2035,56 @@ void Document::FlushElement()
 		pItemParent->GetItemOwner()->push_back(pItem);
 		_pItemOwner.reset(new ItemOwner());
 	}
+}
+
+void Document::BeginTable()
+{
+	Item *pItemParent = _itemStack.back();
+	Item *pItem = new Item(Item::TYPE_Tag, new ItemOwner());
+	pItem->SetText("table");
+	pItemParent->GetItemOwner()->push_back(pItem);
+	_itemStack.push_back(pItem);
+	_iTableRow = 0;
+}
+
+void Document::EndTable()
+{
+	_itemStack.pop_back();
+	_iTableRow = -1;
+}
+
+void Document::BeginTableRow()
+{
+	Item *pItemParent = _itemStack.back();
+	Item *pItem = new Item(Item::TYPE_Tag, new ItemOwner());
+	pItem->SetText("tr");
+	pItemParent->GetItemOwner()->push_back(pItem);
+	_itemStack.push_back(pItem);
+	_iTableCol = 0;
+}
+
+void Document::EndTableRow()
+{
+	_itemStack.pop_back();
+	AdvanceTableRow();
+}
+
+void Document::FlushTableCol()
+{
+	bool stripLeftFlag = false, stripRightFlag = true;
+	Item *pItemParent = _itemStack.back();
+	FlushText(Item::TYPE_Text, stripLeftFlag, stripRightFlag);
+	Item *pItem = new Item(Item::TYPE_Tag, _pItemOwner.release());
+	pItem->SetText(IsTableFirstRow()? "th" : "td");
+	Align align = (_iTableCol < _alignList.size())? _alignList[_iTableCol] : ALIGN_Left;
+	if (align == ALIGN_Center) {
+		pItem->SetAttrs("style=\"text-align:center\"");
+	} else if (align == ALIGN_Right) {
+		pItem->SetAttrs("style=\"text-align:right\"");
+	}
+	pItemParent->GetItemOwner()->push_back(pItem);
+	_pItemOwner.reset(new ItemOwner());
+	_iTableCol++;
 }
 
 void Document::BeginCodeBlock(const char *textInit)
