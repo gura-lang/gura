@@ -295,7 +295,7 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 					}
 				} else if (IsEOL(ch)) {
 					prefetchFlag = false;
-				} else if (IsWhite(ch) || ch == '-' || ch == ':') {
+				} else if (ch == '-' || ch == ':') {
 					barFoundFlag = false;
 					nSeps = 0;
 					guideList.clear();
@@ -521,7 +521,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (IsWhite(ch) || IsEOL(ch)) {
 			// nothing to do
 		} else if (ch == '|') {
-			// skip a bar character placed at the top of the line.
+			// skip a bar character placed at top of the line.
 			BeginTableRow();
 			_stat = STAT_Text;
 		} else {

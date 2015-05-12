@@ -447,12 +447,12 @@ Renderer@console = class {
 				} else {
 					continue
 				}
-				TableCol(JoinText(item))
+				TableCol(JoinText(item), item.align)
 			}
 			TableRow(headerFlag, cols)
 		}
 		nCols = rows:*cols:*len().max()
-		rows::cols = rows:*cols::align(nCols, TableCol('')):list
+		rows::cols = rows:*cols::align(nCols, TableCol('', `left)):list
 		widths = repeat(nCols):list {|iCol|
 			rows:*cols:*get(iCol):*text:*len().max()
 		}
@@ -485,14 +485,27 @@ Renderer@console = class {
 				text.split('\n'):*foldw(widths[i]).flat().each()
 			}
 			while ((texts = textsFolded:*next()).or()) {
-				println(format('%-*s', widths, texts || '').join('|'))
+				//println(format('%-*s', widths, texts || '').join('|'))
+				println(this.MakeAlign(texts || '', widths, row.cols:*align).join('|'))
 			}
 			row.headerFlag && println(separator)
 		}
 	}
+	MakeAlign(str:string, width:number, align:symbol):map:static = {
+		if (align == `left) {
+			str.align(width):left
+		} elsif (align == `center) {
+			str.align(width):center
+		} elsif (align == `right) {
+			str.align(width):right
+		} else {	
+			str.align(width):left
+		}
+	}
 }
 
-TableCol = struct(text:string)
+
+TableCol = struct(text:string, align:symbol)
 TableRow = struct(headerFlag:boolean, cols[]:TableCol)
 
 JoinText(item:item):map = {
