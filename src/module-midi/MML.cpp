@@ -108,11 +108,11 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 		_stateMachineStack.push_back(new StateMachine());
 	}
 	StateMachine *pStateMachine = _stateMachineStack.back();
-	bool continueFlag;
+	bool pushbackFlag;
 	int chRaw = ch;
 	if ('a' <= ch && ch <= 'z') ch = ch - 'a' + 'A';
 	do {
-		continueFlag = false;
+		pushbackFlag = false;
 		switch (pStateMachine->GetStat()) {
 		case STAT_Begin: {
 			if (IsEOD(ch) || ch == ';') {
@@ -271,13 +271,13 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 		case STAT_RepeatNumPre: {
 			if (IsDigit(ch)) {
 				_numAccum = 0;
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_RepeatNum);
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
 				_numAccum = 2;	// default repeat count
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_RepeatNumFix);
 			}
 			break;
@@ -286,7 +286,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			if (IsDigit(ch)) {
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_RepeatNumFix);
 			}
 			break;
@@ -304,7 +304,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 					if (result != RSLT_None) return result;
 				}
 			}
-			continueFlag = true;
+			pushbackFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
 		}
@@ -313,7 +313,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				_operatorSub = ch;
 				pStateMachine->SetStat(STAT_NoteLengthPre);
 			} else if (IsDigit(ch)) {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_NoteLength);
 			} else if (ch == '.') {
 				_cntDot = 1;
@@ -323,14 +323,14 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_NoteFix);
 			}
 			break;
 		}
 		case STAT_NoteLengthPre: {
 			if (IsDigit(ch)) {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_NoteLength);
 			} else if (ch == '.') {
 				_cntDot = 1;
@@ -340,7 +340,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_NoteFix);
 			}
 			break;
@@ -357,7 +357,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				pStateMachine->SetStat(STAT_NoteGatePre);
 			} else {
 				_length = _numAccum;
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_NoteFix);
 			}
 			break;
@@ -366,7 +366,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			if (ch == '.') {
 				_cntDot++;
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_NoteFix);
 			}
 			break;
@@ -374,14 +374,14 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 		case STAT_NoteGatePre: {
 			if (IsDigit(ch)) {
 				_numAccum = 0;
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_NoteGate);
 			} else if (ch == ',') {
 				pStateMachine->SetStat(STAT_NoteVelocityPre);
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_NoteFix);
 			}
 			break;
@@ -394,7 +394,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				pStateMachine->SetStat(STAT_NoteVelocityPre);
 			} else {
 				_gate = _numAccum;
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_NoteFix);
 			}
 			break;
@@ -402,7 +402,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 		case STAT_NoteVelocityPre: {
 			if (IsDigit(ch)) {
 				_numAccum = 0;
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_NoteVelocity);
 			} else if (ch == ',') {
 				sig.SetError(ERR_FormatError, "too many note parameters");
@@ -410,7 +410,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_NoteFix);
 			}
 			break;
@@ -428,7 +428,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 					return RSLT_Error;
 				}
 				_velocity = _numAccum;
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_NoteFix);
 			}
 			break;
@@ -478,7 +478,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				_pMIDIEventLast = pMIDIEvent;
 			}
 			if (_timeStampTail < timeStampTail) _timeStampTail = timeStampTail;
-			continueFlag = true;
+			pushbackFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
 		}
@@ -494,14 +494,14 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				_numAccum = 0;
 				_cntDot = 0;
 				pStateMachine->SetStat(STAT_Note);
-				continueFlag = true;
+				pushbackFlag = true;
 			}
 			break;
 		}
 		case STAT_ChannelPre: {	// -------- Channel --------
 			if (IsDigit(ch)) {
 				_numAccum = 0;
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_Channel);
 			} else if (IsWhite(ch)) {
 				// nothing to do
@@ -515,7 +515,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			if (IsDigit(ch)) {
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_ChannelFix);
 			}
 			break;
@@ -526,13 +526,13 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				return RSLT_Error;
 			}
 			pTrack->SetChannel(_numAccum);
-			continueFlag = true;
+			pushbackFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
 		}
 		case STAT_RestLengthPre: {// -------- Rest --------
 			if (IsDigit(ch)) {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_RestLength);
 			} else if (ch == '.') {
 				_cntDot = 1;
@@ -540,7 +540,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_RestFix);
 			}
 			break;
@@ -554,7 +554,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				pStateMachine->SetStat(STAT_RestLengthDot);
 			} else {
 				_length = _numAccum;
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_RestFix);
 			}
 			break;
@@ -563,7 +563,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			if (ch == '.') {
 				_cntDot++;
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_RestFix);
 			}
 		}
@@ -574,18 +574,18 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			int deltaTime = CalcDeltaTime(pTrack, _length, _cntDot);
 			ULong timeStampTail = _timeStampHead + deltaTime;
 			if (_timeStampTail < timeStampTail) _timeStampTail = timeStampTail;
-			continueFlag = true;
+			pushbackFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
 		}
 		case STAT_OctavePre: {	// -------- Octave --------
 			if (IsDigit(ch)) {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_Octave);
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_OctaveFix);
 			}
 			break;
@@ -594,7 +594,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			if (IsDigit(ch)) {
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_OctaveFix);
 			}
 			break;
@@ -606,18 +606,18 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				return RSLT_Error;
 			}
 			_octave = _numAccum;
-			continueFlag = true;
+			pushbackFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
 		}
 		case STAT_GatePre: {	// -------- Gate --------
 			if (IsDigit(ch)) {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_Gate);
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_GateFix);
 			}
 			break;
@@ -626,7 +626,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			if (IsDigit(ch)) {
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_GateFix);
 			}
 			break;
@@ -638,13 +638,13 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				return RSLT_Error;
 			}
 			_gateDefault = _numAccum;
-			continueFlag = true;
+			pushbackFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
 		}
 		case STAT_LengthPre: {	// -------- Length --------
 			if (IsDigit(ch)) {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_Length);
 			} else if (ch == '.') {
 				_cntDot = 1;
@@ -652,7 +652,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_LengthFix);
 			}
 			break;
@@ -664,7 +664,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				_cntDot++;
 				pStateMachine->SetStat(STAT_LengthDot);
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_LengthFix);
 			}
 			break;
@@ -673,25 +673,25 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			if (ch == '.') {
 				_cntDot++;
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_LengthFix);
 			}
 			break;
 		}
 		case STAT_LengthFix: {
 			_lengthDefault = static_cast<int>(_numAccum);
-			continueFlag = true;
+			pushbackFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
 		}
 		case STAT_VelocityPre: {	// -------- Velocity --------
 			if (IsDigit(ch)) {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_Velocity);
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_VelocityFix);
 			}
 			break;
@@ -700,7 +700,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			if (IsDigit(ch)) {
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_VelocityFix);
 			}
 			break;
@@ -712,13 +712,13 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				return RSLT_Error;
 			}
 			_velocityDefault = static_cast<UChar>(_numAccum);
-			continueFlag = true;
+			pushbackFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
 		}
 		case STAT_ProgramPre: {		// ------- Program --------
 			if (IsDigit(ch)) {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_Program);
 			} else if (IsWhite(ch)) {
 				// nothing to do
@@ -726,7 +726,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				_token.clear();
 				pStateMachine->SetStat(STAT_ProgramName);
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_ProgramFix);
 			}
 			break;
@@ -735,7 +735,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			if (IsDigit(ch)) {
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_ProgramFix);
 			}
 			break;
@@ -764,18 +764,18 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			UChar program = static_cast<UChar>(_numAccum);
 			pTrack->AddEvent(new MIDIEvent_ProgramChange(
 									_timeStampHead, channel, program));
-			continueFlag = true;
+			pushbackFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
 		}
 		case STAT_TempoPre: {	// -------- Tempo --------
 			if (IsDigit(ch)) {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_Tempo);
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_TempoFix);
 			}
 			break;
@@ -784,7 +784,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			if (IsDigit(ch)) {
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_TempoFix);
 			}
 			break;
@@ -792,13 +792,13 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 		case STAT_TempoFix: {
 			ULong mpqn = static_cast<ULong>(60000000 / _numAccum);
 			pTrack->AddEvent(new MetaEvent_TempoSetting(_timeStampHead, mpqn));
-			continueFlag = true;
+			pushbackFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
 		}
 		case STAT_GroupLengthPre: {
 			if (IsDigit(ch)) {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_GroupLength);
 			} else if (ch == '.') {
 				_cntDot = 1;
@@ -807,7 +807,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				// nothing to do
 			} else {
 				_offsetGroup = -1;
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_Begin);
 			}
 			break;
@@ -821,7 +821,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				pStateMachine->SetStat(STAT_GroupLengthDot);
 			} else {
 				_length = _numAccum;
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_GroupFix);
 			}
 			break;
@@ -830,7 +830,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			if (ch == '.') {
 				_cntDot++;
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_GroupFix);
 			}
 			break;
@@ -850,7 +850,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				_timeStampTail = timeStampHead + deltaTime;
 			}
 			_offsetGroup = -1;
-			continueFlag = true;
+			pushbackFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
 		}
@@ -891,7 +891,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			if (ch == '*') {
 				pStateMachine->IncCommentLevel();
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_BlockComment);
 			}
 			break;
@@ -904,13 +904,13 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 					pStateMachine->SetStat(pStateMachine->GetStatToReturn());
 				}
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				pStateMachine->SetStat(STAT_BlockComment);
 			}
 			break;
 		}
 		}
-	} while (continueFlag);
+	} while (pushbackFlag);
 	_pos++;
 	return result;
 }

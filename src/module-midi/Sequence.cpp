@@ -87,9 +87,9 @@ bool Sequence::Read(Environment &env, Signal sig, Stream &stream)
 			for ( ; lengthRead > 0; p++, lengthRead--) {
 				UChar data = *p;
 				//::printf("%02x", data);
-				bool continueFlag = false;
+				bool pushbackFlag = false;
 				do {
-					continueFlag = false;
+					pushbackFlag = false;
 					if (stat == STAT_EventStart) {
 						deltaTime = 0x00000000;
 						length = 0x00000000;
@@ -107,7 +107,7 @@ bool Sequence::Read(Environment &env, Signal sig, Stream &stream)
 						UChar status = data;
 						if ((status & 0x80) == 0) {
 							// running status
-							continueFlag = true;
+							pushbackFlag = true;
 							status = statusPrev;
 						} else if (status == statusPrev) {
 							enableRunningStatus = false;
@@ -193,7 +193,7 @@ bool Sequence::Read(Environment &env, Signal sig, Stream &stream)
 							stat = STAT_EventStart;
 						}
 					}
-				} while (continueFlag);
+				} while (pushbackFlag);
 			}
 		}
 	}

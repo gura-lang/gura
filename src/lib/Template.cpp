@@ -135,21 +135,21 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 		if (sig.IsSignalled()) return false;
 		if (chRaw < 0) break;
 		char ch = static_cast<char>(chRaw);
-		bool continueFlag = false;
+		bool pushbackFlag = false;
 		do {
-			continueFlag = false;
+			pushbackFlag = false;
 			switch (stat) {
 			case STAT_LineTop: {
 				if (ch == '\n') {
 					str += ch;
 				} else if (IsWhite(ch)) {
-					continueFlag = true;
+					pushbackFlag = true;
 					stat = STAT_Indent;
 				} else if (ch == chMarker) {
 					stat = STAT_ScriptPre;
 				} else {
 					stringAheadFlag = true;
-					continueFlag = true;
+					pushbackFlag = true;
 					stat = STAT_String;
 				}
 				break;
@@ -163,7 +163,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 					str += strIndent;
 					strIndent.clear();
 					stringAheadFlag = true;
-					continueFlag = true;
+					pushbackFlag = true;
 					stat = STAT_String;
 				}
 				break;
@@ -200,7 +200,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 					strIndent.clear();
 					str += chMarker;
 					stringAheadFlag = true;
-					continueFlag = true;
+					pushbackFlag = true;
 					stat = STAT_String;
 				}
 				break;
@@ -209,7 +209,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 				if (ch == '=') {
 					stat = STAT_ScriptSecond;
 				} else {
-					continueFlag = true;
+					pushbackFlag = true;
 					stat = STAT_Script;
 				}
 				break;
@@ -219,7 +219,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 					stat = STAT_Comment;
 				} else {
 					strTmplScript += '=';
-					continueFlag = true;
+					pushbackFlag = true;
 					stat = STAT_Script;
 				}
 				break;
@@ -253,7 +253,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 					stat = STAT_LineTop;
 				} else {
 					stringAheadFlag = true;
-					continueFlag = true;
+					pushbackFlag = true;
 					stat = STAT_String;
 				}
 				break;
@@ -321,17 +321,17 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 			case STAT_CommentPost: {
 				if (!stringAheadFlag && ch == '\n') {
 					stringAheadFlag = false;
-					continueFlag = false;
+					pushbackFlag = false;
 					stat = STAT_LineTop;
 				} else {
 					stringAheadFlag = true;
-					continueFlag = true;
+					pushbackFlag = true;
 					stat = STAT_String;
 				}
 				break;
 			}
 			}
-		} while (continueFlag);
+		} while (pushbackFlag);
 		if (ch == '\n') cntLine++;
 	}
 	if (!strTmplScript.empty()) {

@@ -161,16 +161,16 @@ Chunk::~Chunk()
 bool Chunk::ParseChar(Signal sig, char ch)
 {
 	if (ch == '\r') return true;	// just skip CR code
-	bool continueFlag;
+	bool pushbackFlag;
 	do {
-	continueFlag = false;
+	pushbackFlag = false;
 	switch (_stat) {
 	case STAT_Start: {
 		if (IsSpace(ch)) {
 			// nothing to do
 		} else {
 			_stat = STAT_Size;
-			continueFlag = true;
+			pushbackFlag = true;
 		}
 		break;
 	}
@@ -206,7 +206,7 @@ bool Chunk::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	} } while (continueFlag);
+	} } while (pushbackFlag);
 	return true;
 }
 
@@ -219,9 +219,9 @@ bool Chunk::ParseChar(Signal sig, char ch)
 bool SimpleHTMLParser::ParseChar(Signal sig, char ch)
 {
 	if (ch == '\r') return true;	// just skip CR code
-	bool continueFlag;
+	bool pushbackFlag;
 	do {
-	continueFlag = false;
+	pushbackFlag = false;
 	switch (_stat) {
 	case STAT_Init: {
 		if (ch == '<') {
@@ -246,7 +246,7 @@ bool SimpleHTMLParser::ParseChar(Signal sig, char ch)
 			_tagPrefix = '/';
 			_stat = STAT_TagName;
 		} else {
-			continueFlag = true;
+			pushbackFlag = true;
 			_stat = STAT_TagName;
 		}
 		break;
@@ -299,7 +299,7 @@ bool SimpleHTMLParser::ParseChar(Signal sig, char ch)
 		} else if (ch == '"') {
 			_stat = STAT_AttrValueQuotedD;
 		} else {
-			continueFlag = true;
+			pushbackFlag = true;
 			_stat = STAT_AttrValueNaked;
 		}
 		break;
@@ -388,7 +388,7 @@ bool SimpleHTMLParser::ParseChar(Signal sig, char ch)
 		if (IsSpace(ch)) {
 			// nothing to do
 		} else {
-			continueFlag = true;
+			pushbackFlag = true;
 			_stat = _statNext;
 		}
 		break;
@@ -399,7 +399,7 @@ bool SimpleHTMLParser::ParseChar(Signal sig, char ch)
 	case STAT_Complete: {
 		break;
 	}
-	} } while (continueFlag);
+	} } while (pushbackFlag);
 	return true;
 }
 
@@ -498,9 +498,9 @@ void Header::Reset()
 bool Header::ParseChar(Signal sig, char ch)
 {
 	if (ch == '\r') return true;	// just skip CR code
-	bool continueFlag;
+	bool pushbackFlag;
 	do {
-	continueFlag = false;
+	pushbackFlag = false;
 	switch (_stat) {
 	case STAT_LineTop: {
 		if (ch == '\n') {
@@ -508,7 +508,7 @@ bool Header::ParseChar(Signal sig, char ch)
 		} else {
 			_fieldName.clear();
 			_fieldValue.clear();
-			continueFlag = true;
+			pushbackFlag = true;
 			_stat = STAT_FieldName;
 		}
 		break;
@@ -544,7 +544,7 @@ bool Header::ParseChar(Signal sig, char ch)
 			_stat = STAT_SkipWhiteSpace;
 		} else {
 			SetField(_fieldName.c_str(), _fieldValue.c_str());
-			continueFlag = true;
+			pushbackFlag = true;
 			_stat = STAT_LineTop;
 		}
 		break;
@@ -553,7 +553,7 @@ bool Header::ParseChar(Signal sig, char ch)
 		if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else {
-			continueFlag = true;
+			pushbackFlag = true;
 			_stat = STAT_FieldValue;
 		}
 		break;
@@ -561,7 +561,7 @@ bool Header::ParseChar(Signal sig, char ch)
 	case STAT_Complete: {
 		break;
 	}
-	} } while (continueFlag);
+	} } while (pushbackFlag);
 	return true;
 }
 
@@ -798,16 +798,16 @@ void Header::DoDirProp(SymbolSet &symbols)
 bool Request::ParseChar(Signal sig, char ch)
 {
 	if (ch == '\r') return true;	// just skip CR code
-	bool continueFlag;
+	bool pushbackFlag;
 	do {
-	continueFlag = false;
+	pushbackFlag = false;
 	switch (_stat) {
 	case STAT_Start: {
 		if (IsSpace(ch)) {
 			// nothing to do
 		} else {
 			_stat = STAT_Method;
-			continueFlag = true;
+			pushbackFlag = true;
 		}
 		break;
 	}
@@ -850,7 +850,7 @@ bool Request::ParseChar(Signal sig, char ch)
 		if (ch == ' ') {
 			// nothing to do
 		} else {
-			continueFlag = true;
+			pushbackFlag = true;
 			_stat = _statNext;
 		}
 		break;
@@ -859,7 +859,7 @@ bool Request::ParseChar(Signal sig, char ch)
 		if (!_header.ParseChar(sig, ch)) return false;
 		break;
 	}
-	} } while (continueFlag);
+	} } while (pushbackFlag);
 	return true;
 }
 
@@ -964,16 +964,16 @@ void Status::SetStatus(const char *httpVersion,
 bool Status::ParseChar(Signal sig, char ch)
 {
 	if (ch == '\r') return true;	// just skip CR code
-	bool continueFlag;
+	bool pushbackFlag;
 	do {
-	continueFlag = false;
+	pushbackFlag = false;
 	switch (_stat) {
 	case STAT_Start: {
 		if (IsSpace(ch)) {
 			// nothing to do
 		} else {
 			_stat = STAT_HttpVersion;
-			continueFlag = true;
+			pushbackFlag = true;
 		}
 		break;
 	}
@@ -1016,7 +1016,7 @@ bool Status::ParseChar(Signal sig, char ch)
 		if (ch == ' ') {
 			// nothing to do
 		} else {
-			continueFlag = true;
+			pushbackFlag = true;
 			_stat = _statNext;
 		}
 		break;
@@ -1025,7 +1025,7 @@ bool Status::ParseChar(Signal sig, char ch)
 		if (!_header.ParseChar(sig, ch)) return false;
 		break;
 	}
-	} } while (continueFlag);
+	} } while (pushbackFlag);
 	return true;
 }
 

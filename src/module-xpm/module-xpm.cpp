@@ -81,15 +81,15 @@ Gura_ImplementMethod(image, xpmdata)
 		const char *p = pValue->GetString();
 		for (;;) {
 			char ch = *p++;
-			bool continueFlag = false;
+			bool pushbackFlag = false;
 			do {
-				continueFlag = false;
+				pushbackFlag = false;
 				if (stat == STAT_WidthPre) {
 					if (ch == ' ' || ch == '\t') {
 						// nothing to do
 					} else {
 						stat = STAT_Width;
-						continueFlag = true;
+						pushbackFlag = true;
 					}
 				} else if (stat == STAT_Width) {
 					if ('0' <= ch && ch <= '9') {
@@ -105,7 +105,7 @@ Gura_ImplementMethod(image, xpmdata)
 						// nothing to do
 					} else {
 						stat = STAT_Height;
-						continueFlag = true;
+						pushbackFlag = true;
 					}
 				} else if (stat == STAT_Height) {
 					if ('0' <= ch && ch <= '9') {
@@ -121,7 +121,7 @@ Gura_ImplementMethod(image, xpmdata)
 						// nothing to do
 					} else {
 						stat = STAT_NColors;
-						continueFlag = true;
+						pushbackFlag = true;
 					}
 				} else if (stat == STAT_NColors) {
 					if ('0' <= ch && ch <= '9') {
@@ -137,7 +137,7 @@ Gura_ImplementMethod(image, xpmdata)
 						// nothing to do
 					} else {
 						stat = STAT_NBytes;
-						continueFlag = true;
+						pushbackFlag = true;
 					}
 				} else if (stat == STAT_NBytes) {
 					if ('0' <= ch && ch <= '9') {
@@ -149,7 +149,7 @@ Gura_ImplementMethod(image, xpmdata)
 						return Value::Null;
 					}
 				}
-			} while (continueFlag);
+			} while (pushbackFlag);
 			if (ch == '\0') break;
 		}
 		//::printf("%d %d %d %d\n", width, height, nColors, nBytes);

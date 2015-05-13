@@ -726,9 +726,9 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 	Environment &env = *_pEnv;
 	ValueList &valListArg = _pArgs->GetValueListArg();
 	ValueDict &valDictArg = _pArgs->GetValueDictArg();
-	bool continueFlag = false;
+	bool pushbackFlag = false;
 	do {
-	continueFlag = false;
+	pushbackFlag = false;
 	switch (_stat) {
 	//-------------------------------------------------------------------------
 	case STAT_Init: {
@@ -798,14 +798,14 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 		_pArgs->SetResultMode(resultMode);
 		_pArgs->SetFlags(flags);
 		_pArgs->SetValueTypeResult(_pFunc->GetValueTypeResult());
-		continueFlag = true;
+		pushbackFlag = true;
 		_stat = STAT_ExprArgs;
 		break;
 	}
 	//-------------------------------------------------------------------------
 	case STAT_ExprArgs: {
 		if (_ppExprArg == _pArgs->GetExprListArg().end()) {
-			continueFlag = true;
+			pushbackFlag = true;
 			_stat = STAT_OptArgs;
 			break;
 		}
@@ -860,7 +860,7 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 				if (sig.IsSignalled()) return false;
 			}
 		} else if (_pFunc->GetDeclOwner().IsAllowTooManyArgs()) {
-			continueFlag = true;
+			pushbackFlag = true;
 			_stat = STAT_OptArgs;
 			break;
 		} else {
@@ -873,7 +873,7 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 	case STAT_OptArgs: {
 		if (_stayDeclPointerFlag || _ppDecl == _pFunc->GetDeclOwner().end()) {
 			_iterExprMap = _exprMap.begin();
-			continueFlag = true;
+			pushbackFlag = true;
 			_stat = STAT_NamedArgs;
 			break;
 		}
@@ -890,7 +890,7 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 				value = Value::Undefined;
 			} else if (pDecl->GetOccurPattern() == OCCUR_ZeroOrMore) {
 				_iterExprMap = _exprMap.begin();
-				continueFlag = true;
+				pushbackFlag = true;
 				_stat = STAT_NamedArgs;
 				break;
 			} else {
@@ -922,12 +922,12 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 				sig.SetError(ERR_ValueError, "%s", str.c_str());
 				return false;
 			}
-			continueFlag = true;
+			pushbackFlag = true;
 			_stat = STAT_Exec;
 			break;
 		}
 		if (_iterExprMap == _exprMap.end()) {
-			continueFlag = true;
+			pushbackFlag = true;
 			_stat = STAT_Exec;
 			break;
 		}
@@ -950,7 +950,7 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 		_doneFlag = true;
 		break;
 	}
-	} } while (continueFlag);
+	} } while (pushbackFlag);
 	return !sig.IsSignalled();
 }
 

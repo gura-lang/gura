@@ -467,9 +467,9 @@ void Sync::Compose(DiffLine *pDiffLine)
 	foreach_const (DiffLine::EditList, pEditLine, editList) {
 		const String &str = pEditLine->first;
 		const EditType editType = pEditLine->second.type;
-		bool continueFlag = false;
+		bool pushbackFlag = false;
 		do {
-			bool continueFlag = false;
+			bool pushbackFlag = false;
 			switch (region) {
 			case REGION_Copy: {
 				if (editType == EDITTYPE_Copy) {
@@ -479,11 +479,11 @@ void Sync::Compose(DiffLine *pDiffLine)
 					_syncLinesNew.push_back(pSyncLine->Reference());
 				} else if (editType == EDITTYPE_Add) {
 					pEditLineBegin = pEditLine;
-					continueFlag = true;
+					pushbackFlag = true;
 					region = REGION_Add;
 				} else if (editType == EDITTYPE_Delete) {
 					pEditLineBegin = pEditLine;
-					continueFlag = true;
+					pushbackFlag = true;
 					region = REGION_Delete;
 				}
 				break;
@@ -499,7 +499,7 @@ void Sync::Compose(DiffLine *pDiffLine)
 						_syncLinesOrg.push_back(pSyncLineOrg);
 						_syncLinesNew.push_back(pSyncLineNew);
 					}
-					continueFlag = true;
+					pushbackFlag = true;
 					region = REGION_Copy;
 				} else if (editType == EDITTYPE_Add) {
 					// nothing to do
@@ -519,7 +519,7 @@ void Sync::Compose(DiffLine *pDiffLine)
 						_syncLinesNew.push_back(pSyncLineNew);
 						pSyncLineOrg->AddEditChar(new DiffChar::Edit(EDITTYPE_Delete, str));
 					}
-					continueFlag = true;
+					pushbackFlag = true;
 					region = REGION_Copy;
 				} else if (editType == EDITTYPE_Add) {
 					region = REGION_Change;
@@ -555,7 +555,7 @@ void Sync::Compose(DiffLine *pDiffLine)
 							pSyncLineOrg->AddEditChar(pEditChar->Reference());
 						}
 					}
-					continueFlag = true;
+					pushbackFlag = true;
 					region = REGION_Copy;
 				} else if (editType == EDITTYPE_Add) {
 					// nothing to do
@@ -565,7 +565,7 @@ void Sync::Compose(DiffLine *pDiffLine)
 				break;
 			}
 			}
-		} while (continueFlag);
+		} while (pushbackFlag);
 		
 	}
 }

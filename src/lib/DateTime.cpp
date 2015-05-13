@@ -177,14 +177,14 @@ bool DateTime::Parse(const char *str, const char **next)
 	const char *p = str;
 	for (;;) {
 		char ch = *p;
-		bool continueFlag = false;
+		bool pushbackFlag = false;
 		switch (stat) {
 		case STAT_Start: {
 			if (IsAlpha(ch)) {
-				continueFlag = true;
+				pushbackFlag = true;
 				stat = STAT_Weekday;
 			} else if (IsDigit(ch)) {
-				continueFlag = true;
+				pushbackFlag = true;
 				stat = STAT_W3C_Year;
 			} else {
 				return false;
@@ -206,10 +206,10 @@ bool DateTime::Parse(const char *str, const char **next)
 		}
 		case STAT_Date: {
 			if (IsAlpha(ch)) {
-				continueFlag = true;
+				pushbackFlag = true;
 				stat = STAT_DateAscTime_Month;
 			} else if (IsDigit(ch)) {
-				continueFlag = true;
+				pushbackFlag = true;
 				stat = STAT_DateRFC_Day;
 			} else {
 				return false;
@@ -293,10 +293,10 @@ bool DateTime::Parse(const char *str, const char **next)
 		}
 		case STAT_DateAscTime_YearPre: {
 			if (IsDigit(ch)) {
-				continueFlag = true;
+				pushbackFlag = true;
 				stat = STAT_DateAscTime_Year;
 			} else if (IsAlpha(ch) || ch == '+' || ch == '-') {
-				continueFlag = true;
+				pushbackFlag = true;
 				statNext = STAT_DateAscTime_YearPre;
 				stat = STAT_TimeZone;
 			} else if (IsWhite(ch)) {
@@ -371,7 +371,7 @@ bool DateTime::Parse(const char *str, const char **next)
 			if (IsWhite(ch)) {
 				// nothing to do
 			} else if (IsDigit(ch)) {
-				continueFlag = true;
+				pushbackFlag = true;
 				stat = STAT_Time_Hour;
 			} else {
 				return false;
@@ -414,7 +414,7 @@ bool DateTime::Parse(const char *str, const char **next)
 			} else {
 				if (nCols != 2) return false;
 				nCols = 0;
-				continueFlag = true;
+				pushbackFlag = true;
 				stat = statNext;
 				statNext = STAT_End;
 			}
@@ -422,7 +422,7 @@ bool DateTime::Parse(const char *str, const char **next)
 		}
 		case STAT_TimeZone: {
 			if (IsAlpha(ch)) {
-				continueFlag = true;
+				pushbackFlag = true;
 				stat = STAT_TimeZoneName;
 			} else if (ch == '+' || ch == '-') {
 				timeZone = ch;
@@ -438,7 +438,7 @@ bool DateTime::Parse(const char *str, const char **next)
 			if (IsAlpha(ch)) {
 				timeZone += ch;
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				stat = statNext;
 				statNext = STAT_End;
 			}
@@ -452,7 +452,7 @@ bool DateTime::Parse(const char *str, const char **next)
 				// accept ':' character between hour and minute fields
 			} else {
 				if (timeZone.size() != 5) return false;
-				continueFlag = true;
+				pushbackFlag = true;
 				stat = statNext;
 				statNext = STAT_End;
 			}
@@ -462,7 +462,7 @@ bool DateTime::Parse(const char *str, const char **next)
 			if (IsWhite(ch)) {
 				// nothing to do
 			} else {
-				continueFlag = true;
+				pushbackFlag = true;
 				stat = statNext;
 				statNext = STAT_End;
 			}
@@ -473,7 +473,7 @@ bool DateTime::Parse(const char *str, const char **next)
 			break;
 		}
 		}
-		if (continueFlag) {
+		if (pushbackFlag) {
 			// nothing to do
 		} else if (ch == '\0') {
 			break;

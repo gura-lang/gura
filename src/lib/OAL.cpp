@@ -104,9 +104,9 @@ String RegulatePathName(char chSeparator, const char *pathName, bool cutLastSepF
 	bool sepTailFlag = false;
 	for ( ; ; p++) {
 		char ch = *p;
-		bool continueFlag = false;
+		bool pushbackFlag = false;
 		do {
-			continueFlag = false;
+			pushbackFlag = false;
 			switch (stat) {
 			case STAT_Field: {
 				if (IsFileSeparator(ch) || ch == '\0') {
@@ -138,13 +138,13 @@ String RegulatePathName(char chSeparator, const char *pathName, bool cutLastSepF
 				} else if (IsFileSeparator(ch)) {
 					// nothing to do
 				} else {
-					continueFlag = true;
+					pushbackFlag = true;
 					stat = STAT_Field;
 				}
 				break;
 			}
 			}
-		} while (continueFlag);
+		} while (pushbackFlag);
 		if (ch == '\0') break;
 	}
 	String rtn;
