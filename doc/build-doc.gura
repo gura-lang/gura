@@ -1,39 +1,37 @@
 #!/usr/bin/env gura
 import(markdown)
 
-DocInfo = struct(fileName:string, title:string)
-
 //dirNameOut = path.dirname(sys.argv[0])
-dirNameOut = 'tmp'
+dirNameOut = '../../gura-lang.github.io/language-manual.t'
 
-docInfos = @(DocInfo) {
-	{'Introduction.md', 'Introduction'}
-	{'Launch-Program.md', 'Launch Program'}
-	{'Syntax.md', 'Syntax'}
-	{'Data-Type.md', 'Data Type'}
-	{'Operator.md', 'Operator'}
-	{'Environment.md', 'Environment'}
-	{'Interpreter.md', 'Interpreter'}
-	{'Function.md', 'Function'}
-	{'Flow-Control.md', 'Flow Control'}
-	{'Object-Oriented-Programming.md', 'Object Oriented Programming'}
-	{'Mapping-Process.md', 'Mapping Process'}
-	{'Module.md', 'Module'}
-	{'String-and-Binary.md', 'String and Binary'}
-	{'Iterator-List-Operation.md', 'Iterator/divst Operation'}
-	{'File-Operation.md', 'File Operation'}
-	{'Network-Operation.md', 'Network Operation'}
-	{'Image-Operation.md', 'Image Operation'}
-	{'Graphical-User-Interface.md', 'Graphical User Interface'}
-	{'Mathematic-Functions.md', 'Mathematic Functions'}
-	{'Template-Engine.md', 'Template Engine'}
-}
+fileNames = [
+	'Introduction.md'
+	'Launch-Program.md'
+	'Syntax.md'
+	'Data-Type.md'
+	'Operator.md'
+	'Environment.md'
+	'Interpreter.md'
+	'Function.md'
+	'Flow-Control.md'
+	'Object-Oriented-Programming.md'
+	'Mapping-Process.md'
+	'Module.md'
+	'String-and-Binary.md'
+	'Iterator-List-Operation.md'
+	'File-Operation.md'
+	'Network-Operation.md'
+	'Image-Operation.md'
+	'Graphical-User-Interface.md'
+	'Mathematic-Functions.md'
+	'Template-Engine.md'
+]
 
 doc = markdown.document()
 
-docInfos.each {|docInfo|
-	println('module: ', docInfo.fileName)
-	doc.read(docInfo.fileName)
+fileNames.each {|fileName|
+	println('reading: ', fileName)
+	doc.read(fileName)
 }
 
 headerForIndex = R'''
@@ -70,8 +68,6 @@ footerForPage = R'''
 Renderer@html = class(markdown.Renderer@html) {
 	__init__() = {|sys.stdout, true|
 		this.out = nil
-		//fileName = path.join(dirNameOut, 'aa.md')
-		//this.out = open(fileName, 'w')
 	}
 	OnRenderItemPre(item:item) = {
 		if (item.type == `h1) {
