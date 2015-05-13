@@ -1230,7 +1230,9 @@ bool Document::ParseChar(Signal sig, char ch)
 				}
 			} else if (_itemStackTag.empty()) {
 				if (EndsWith(_text.c_str(), "  ", false) != NULL) {
-					//::printf("check\n");
+					FlushText(Item::TYPE_Text, false, true);
+					Item *pItem = new Item(Item::TYPE_LineBreak);
+					_pItemOwner->push_back(pItem);
 				}
 				_stat = STAT_LineTop;
 			} else {

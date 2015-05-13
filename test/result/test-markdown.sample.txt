@@ -1356,6 +1356,22 @@
         <text>'2'
       <tag>'td'
         <text>'3'
+======== line break ========
+<root>
+  <p>
+    <text>'1st line'
+    <br>
+    <text>'2nd line'
+    <br>
+    <text>'3rd line three spaces'
+    <br>
+    <text>'4th line four spaces'
+    <br>
+    <text>'5th line '
+    <strong>
+      <text>'strong'
+    <br>
+    <text>'6th line'
 ======== print referee items ========
 <root>
   <p>

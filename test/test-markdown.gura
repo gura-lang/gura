@@ -735,6 +735,15 @@ Markdown | Less | Pretty
 1 | 2 | 3
 ''')
 
+testcase@markdown('line break', R'''
+1st line  
+2nd line  
+3rd line three spaces   
+4th line four spaces    
+5th line **strong**  
+6th line
+''')
+
 testcase@markdown('print referee items', R'''
 Link: [example][1] .. reference
 
