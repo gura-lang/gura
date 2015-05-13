@@ -1229,6 +1229,9 @@ bool Document::ParseChar(Signal sig, char ch)
 					_stat = STAT_LineTop;
 				}
 			} else if (_itemStackTag.empty()) {
+				if (EndsWith(_text.c_str(), "  ", false) != NULL) {
+					//::printf("check\n");
+				}
 				_stat = STAT_LineTop;
 			} else {
 				_text += ch;
@@ -2017,11 +2020,13 @@ void Document::AppendJointSpace()
 
 void Document::FlushText(Item::Type type, bool stripLeftFlag, bool stripRightFlag)
 {
-	if (!_text.empty()) {
-		Item *pItem = new Item(type, Strip(_text.c_str(), stripLeftFlag, stripRightFlag));
+	String text = Strip(_text.c_str(),
+						stripLeftFlag || _pItemOwner->empty(), stripRightFlag);
+	if (!text.empty()) {
+		Item *pItem = new Item(type, text);
 		_pItemOwner->push_back(pItem);
-		_text.clear();
 	}
+	_text.clear();
 }
 
 void Document::FlushItem(Item::Type type, bool stripLeftFlag, bool stripRightFlag)
