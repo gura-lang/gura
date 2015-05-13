@@ -1,5 +1,4 @@
-======== #1 print rendering items ========
-
+======== header ========
 <root>
   <p>
     <text>'No Header ===hoge'
@@ -32,6 +31,8 @@
       <text>'item3 +100 yen'
     <li>
       <text>'item4'
+======== decoration-1 ========
+<root>
   <p>
     <code>'code'
     <em>
@@ -46,6 +47,9 @@
     <text>'text'
     <strong>
       <text>'not terminated strong'
+======== code block ========
+<root>
+  <p>
     <text>'text'
   <codeblock>
     <line>
@@ -182,6 +186,8 @@
           <text>'item 4-2'
         <li>
           <text>'item 4-3'
+======== header-2 ========
+<root>
   <h1>
     <text>'Header1'
   <h1>
@@ -201,6 +207,8 @@
   <ul>
     <li>
       <text>'hoge'
+======== list-1 ========
+<root>
   <ol>
     <li>
       <text>'first'
@@ -229,6 +237,8 @@
       <text>'Open '
       <code>'gura\src\gura.sln'
       <text>' with Visual Studio 2010, switch the configuration to Release and build it.'
+======== header-3 ========
+<root>
   <h1>
     <text>'header1'
   <h2>
@@ -263,6 +273,8 @@
     <text>'# not a header'
   <p>
     <text>'# not a header'
+======== list-2 ========
+<root>
   <ul>
     <li>
       <p>
@@ -449,6 +461,8 @@
       <text>'item-3'
   <p>
     <text>'3.1415 at beginning of line'
+======== decoration-2 ========
+<root>
   <p>
     <code>'<code>'
     <text>' spans are delimited by backticks.'
@@ -656,6 +670,8 @@
     <text>' '
     <strong>
       <text>'A_ubar'
+======== link ========
+<root>
   <p>
     <a url='http://www.google.com/'>
       <text>'http://www.google.com/'
@@ -740,6 +756,8 @@
     <a url='http://a.b.c/'>
       <text>'text'
     <text>' post'
+======== list-3 ========
+<root>
   <ul>
     <li>
       <p>
@@ -819,83 +837,8 @@
     <text>' in paragraph'
   <p>
     <text>'1986. What a great season.'
-  <p>
-    <text>'Link: '
-    <a url='http://example-1.com' refid='1'>
-      <text>'example'
-    <text>' .. reference'
-  <p>
-    <text>'Link: '
-    <a url='http://example-2.com' title='title-2' refid='2'>
-      <text>'example'
-    <text>' .. reference'
-  <p>
-    <text>'Link: '
-    <a url='http://example-3.com' title='title-3' refid='3'>
-      <text>'example'
-    <text>' .. reference'
-  <p>
-    <text>'Link: '
-    <a url='http://example-4.com' title='title-4' refid='4'>
-      <text>'example'
-    <text>' .. reference'
-  <p>
-    <text>'Link: '
-    <a url='http://example-5.com' title='title-5' refid='  5  '>
-      <text>'example'
-    <text>' .. reference'
-  <p>
-    <text>'Link: '
-    <a url='http://example-6.com' title='title-6 "quoted"' refid='6'>
-      <text>'example'
-    <text>' .. reference'
-  <p>
-    <text>'Link: '
-    <a url='http://example-7.com' title='title-7 'quoted'' refid='7'>
-      <text>'example'
-    <text>' .. reference'
-  <p>
-    <text>'Link: '
-    <a url='http://example-8.com' title='title-8 (quoted)' refid='8'>
-      <text>'example'
-    <text>' .. reference'
-  <p>
-    <text>'Link: '
-    <a url='http://example-9.com' refid='9'>
-      <text>'example'
-    <text>' .. reference'
-  <p>
-    <text>'Link: '
-    <a url='http://example-ABCDEF.com' title='title-ABCDEF' refid='ABCDEF'>
-      <text>'example'
-    <text>' .. reference'
-  <p>
-    <text>'Link: '
-    <a url='http://example-ABCDEF.com' title='title-ABCDEF' refid='abcdef'>
-      <text>'example'
-    <text>' .. reference'
-  <p>
-    <text>'Link: '
-    <a url='http://example-sABCDEFs.com' title='title-sABCDEFs' refid='   ABCDEF  '>
-      <text>'example'
-    <text>' .. reference'
-  <p>
-    <text>'[NG]:http://example-NG.com "title-NG" .. should be normal text'
-  <p>
-    <text>'[NG]:http://example-NG.com "title-NG .. should be normal text'
-  <p>
-    <text>'[NG]:http://example-NG.com [title-NG .. should be normal text'
-  <codeblock>
-    <line>
-      <text>'[NG]:http://example-NG.com [title-NG] .. should be block'
-  <p>
-    <text>'An '
-    <a url='http://example.com/' title='Title' refid='id1'>
-      <text>'example'
-    <text>'. Then, anywhere else in the doc, define the link:'
-  <p>
-    <text>'Reference-style image: '
-    <img url='/url/to/img.jpg' title='Title' refid='id2'>'alt text'
+======== quotation ========
+<root>
   <blockquote>
     <p>
       <text>'1st-1 1st-2 1st-3'
@@ -1014,6 +957,8 @@
       <text>'= bar'
   <p>
     <text>'paragraph'
+======== entities ========
+<root>
   <p>
     <text>'3 < 4 > 2'
   <p>
@@ -1032,6 +977,8 @@
     <text>'AT&T'
     <entity>'gt'
     <entity>'lt'
+======== HTML tag ========
+<root>
   <p>
     <tag>'table'
       <tag>'tr'
@@ -1095,6 +1042,8 @@
     <text>'post'
   <p>
     <text>'<!-- <code>aaaaaa</code> -->'
+======== code block ========
+<root>
   <p>
     <text>'pre'
   <codeblock>
@@ -1112,6 +1061,8 @@
       <text>'        three tabs ahead'
   <p>
     <text>'post'
+======== table ========
+<root>
   <p>
     <text>'normal'
   <tag>'table'
@@ -1405,9 +1356,85 @@
         <text>'2'
       <tag>'td'
         <text>'3'
-
-======== #2 print referee items ========
-
+======== print referee items ========
+<root>
+  <p>
+    <text>'Link: '
+    <a url='http://example-1.com' refid='1'>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'Link: '
+    <a url='http://example-2.com' title='title-2' refid='2'>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'Link: '
+    <a url='http://example-3.com' title='title-3' refid='3'>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'Link: '
+    <a url='http://example-4.com' title='title-4' refid='4'>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'Link: '
+    <a url='http://example-5.com' title='title-5' refid='  5  '>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'Link: '
+    <a url='http://example-6.com' title='title-6 "quoted"' refid='6'>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'Link: '
+    <a url='http://example-7.com' title='title-7 'quoted'' refid='7'>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'Link: '
+    <a url='http://example-8.com' title='title-8 (quoted)' refid='8'>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'Link: '
+    <a url='http://example-9.com' refid='9'>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'Link: '
+    <a url='http://example-ABCDEF.com' title='title-ABCDEF' refid='ABCDEF'>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'Link: '
+    <a url='http://example-ABCDEF.com' title='title-ABCDEF' refid='abcdef'>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'Link: '
+    <a url='http://example-sABCDEFs.com' title='title-sABCDEFs' refid='   ABCDEF  '>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'[NG]:http://example-NG.com "title-NG" .. should be normal text'
+  <p>
+    <text>'[NG]:http://example-NG.com "title-NG .. should be normal text'
+  <p>
+    <text>'[NG]:http://example-NG.com [title-NG .. should be normal text'
+  <codeblock>
+    <line>
+      <text>'[NG]:http://example-NG.com [title-NG] .. should be block'
+  <p>
+    <text>'An '
+    <a url='http://example.com/' title='Title' refid='id1'>
+      <text>'example'
+    <text>'. Then, anywhere else in the doc, define the link:'
+  <p>
+    <text>'Reference-style image: '
+    <img url='/url/to/img.jpg' title='Title' refid='id2'>'alt text'
 <referee url='http://example-1.com' refid='1'>
 <referee url='http://example-2.com' title='title-2' refid='2'>
 <referee url='http://example-3.com' title='title-3' refid='3'>

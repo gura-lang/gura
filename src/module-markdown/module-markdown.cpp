@@ -1395,12 +1395,6 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_DecorationPost: {
 		_stat = _statStack.Pop();
-		//if (_stat == STAT_Text && IsEOL(ch)) {
-		//	_decoPrecedingFlag = true;
-		//	_stat = STAT_LineTop;
-		//} else {
-		//	continueFlag = true;
-		//}
 		if (_stat == STAT_Text && IsEOL(ch)) {
 			_decoPrecedingFlag = true;
 		}
