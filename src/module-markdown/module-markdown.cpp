@@ -214,20 +214,6 @@ Document::Document() : _cntRef(1), _resolvedFlag(false), _decoPrecedingFlag(fals
 	_itemStack.push_back(_pItemRoot.get());
 }
 
-#if 0
-bool Document::ParseStream(Signal sig, SimpleStream &stream)
-{
-	_cntLine = 0;
-	_chPrev = '\0';
-	for (;;) {
-		int chRaw = stream.GetChar(sig);
-		char ch = (chRaw < 0)? '\0' : static_cast<UChar>(chRaw);
-		if (!ParseChar(sig, ch)) return false;
-		if (chRaw < 0) break;
-	}
-	return true;
-}
-#else
 bool Document::ParseStream(Signal sig, SimpleStream &stream)
 {
 	enum Stat {
@@ -409,7 +395,6 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 	}
 	return true;
 }
-#endif
 
 bool Document::ParseString(Signal sig, const char *text)
 {
