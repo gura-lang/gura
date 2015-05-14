@@ -41,12 +41,8 @@
       <text>'strong'
     <text>' text '
     <code>'not terminated code'
-    <text>'text'
-    <em>
-      <text>'not terminated emphasis'
-    <text>'text'
-    <strong>
-      <text>'not terminated strong'
+    <text>'text*not terminated emphasis'
+    <text>'text**not terminated strong'
 ======== code block ========
 <root>
   <p>
