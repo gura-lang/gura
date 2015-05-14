@@ -107,9 +107,9 @@ Renderer@html = class {
 			this.RenderItem(item.children)
 			this.out.print('</strong>')
 		} elsif (item.type == `strike) {
-			this.out.print('<strike>')
+			this.out.print('<del>')
 			this.RenderItem(item.children)
-			this.out.print('</strike>')
+			this.out.print('</del>')
 		} elsif (item.type == `codeblock) {
 			this.out.print('<pre><code>')
 			this.RenderItem(item.children)
@@ -235,7 +235,7 @@ Renderer@rtf = class {
 			this.RenderItem(item.children)
 			this.out.print(r'}')
 		} elsif (item.type == `strike) {
-			this.out.print(r'{\b ')
+			this.out.print(r'{\strike ')
 			this.RenderItem(item.children)
 			this.out.print(r'}')
 		} elsif (item.type == `codeblock) {
