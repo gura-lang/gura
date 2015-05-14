@@ -1281,7 +1281,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			EndDecoration();
 			_stat = STAT_DecorationPost;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			EndDecoration();
+			CancelDecoration("*");
 			pushbackFlag = true;
 			_stat = _statStack.Pop();
 		} else {
@@ -1300,7 +1300,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '*') {
 			_stat = STAT_AsteriskStrongEnd;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			EndDecoration();
+			CancelDecoration("**");
 			pushbackFlag = true;
 			_stat = _statStack.Pop();
 		} else {
@@ -1313,7 +1313,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			EndDecoration();
 			_stat = STAT_DecorationPost;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			EndDecoration();
+			ReplaceDecoration(Item::TYPE_Emphasis, "*");
 			pushbackFlag = true;
 			_stat = _statStack.Pop();
 		} else {
@@ -1351,7 +1351,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			EndDecoration();
 			_stat = STAT_DecorationPost;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			EndDecoration();
+			CancelDecoration("_");
 			pushbackFlag = true;
 			_stat = _statStack.Pop();
 		} else {
@@ -1370,7 +1370,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '_') {
 			_stat = STAT_UnderscoreStrongEnd;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			EndDecoration();
+			CancelDecoration("__");
 			pushbackFlag = true;
 			_stat = _statStack.Pop();
 		} else {
@@ -1383,7 +1383,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			EndDecoration();
 			_stat = STAT_DecorationPost;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			EndDecoration();
+			ReplaceDecoration(Item::TYPE_Emphasis, "_");
 			pushbackFlag = true;
 			_stat = _statStack.Pop();
 		} else {
@@ -2214,6 +2214,35 @@ void Document::EndDecoration()
 {
 	FlushText(Item::TYPE_Text, false, false);
 	_pItemOwner.reset(_itemOwnerStack.Pop());
+}
+
+void Document::CancelDecoration(const char *textAhead)
+{
+	_text.insert(0, textAhead);
+	FlushText(Item::TYPE_Text, false, false);
+	_pItemOwner.reset(_itemOwnerStack.Pop());
+	Item *pItemToCancel = _pItemOwner->back();
+	_pItemOwner->pop_back();
+	ItemOwner &itemOwnerToCancel = *pItemToCancel->GetItemOwner();
+	ItemOwner::iterator ppItem = itemOwnerToCancel.begin();
+	if (ppItem != itemOwnerToCancel.end() && (*ppItem)->IsText() &&
+		!_pItemOwner->empty() && _pItemOwner->back()->IsText()) {
+		_pItemOwner->back()->AppendText((*ppItem)->GetText());
+		ppItem++;
+	}
+	for ( ; ppItem != itemOwnerToCancel.end(); ppItem++) {
+		_pItemOwner->push_back((*ppItem)->Reference());
+	}
+	Item::Delete(pItemToCancel);
+}
+
+void Document::ReplaceDecoration(Item::Type type, const char *textAhead)
+{
+	_text.insert(0, textAhead);
+	FlushText(Item::TYPE_Text, false, false);
+	_pItemOwner.reset(_itemOwnerStack.Pop());
+	Item *pItemToReplace = _pItemOwner->back();
+	pItemToReplace->SetType(type);
 }
 
 void Document::BeginTag(const char *tagName, const char *attrs, bool closedFlag)

@@ -91,6 +91,7 @@ public:
 	inline bool Is_list() const { return _type == TYPE_UList || _type == TYPE_OList; }
 	inline bool IsListItem() const { return _type == TYPE_ListItem; }
 	inline bool IsTag() const { return _type == TYPE_Tag; }
+	inline bool IsText() const { return _type == TYPE_Text; }
 	inline bool IsOwner() const { return !_pItemOwner.IsNull(); }
 	inline void SetItemOwner(ItemOwner *pItemOwner) { _pItemOwner.reset(pItemOwner); }
 	inline ItemOwner *GetItemOwner() { return _pItemOwner.get(); }
@@ -112,6 +113,13 @@ public:
 	}
 	inline Align GetAlign() const { return _align; }
 	inline void SetText(const String &text) { _pText.reset(new String(text)); }
+	inline void AppendText(const String &text) {
+		if (_pText.get() == NULL) {
+			_pText.reset(new String(text));
+		} else {
+			*_pText += text;
+		}
+	}
 	inline void SetURL(const String &url) { _pURL.reset(new String(url)); }
 	inline void SetTitle(const String &title) { _pTitle.reset(new String(title)); }
 	inline void SetRefId(const String &refId) { _pRefId.reset(new String(refId)); }
@@ -343,6 +351,8 @@ private:
 	void EndListItem();
 	void BeginDecoration(Item::Type type);
 	void EndDecoration();
+	void CancelDecoration(const char *textAhead);
+	void ReplaceDecoration(Item::Type type, const char *textAhead);
 	void BeginTag(const char *tagName, const char *attrs, bool closedFlag);
 	bool EndTag(const char *tagName);
 	static bool IsAtxHeader2(const char *text);
