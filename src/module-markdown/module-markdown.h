@@ -245,7 +245,7 @@ private:
 		STAT_UnderscoreStrong,
 		STAT_UnderscoreStrongEnd,
 		STAT_UnderscoreStrongPost,
-		STAT_TildaStrikePre,
+		STAT_Tilda,
 		STAT_TildaStrike,
 		STAT_TildaStrikeEnd,
 		STAT_DecorationPost,

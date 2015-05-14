@@ -422,6 +422,46 @@ pre _aaa_post_
 pre _aaa_post_ post
 ''')
 
+testcase@markdown('decoration-4', R'''
+~~strike~~
+
+pre ~~strike~~
+
+~~strike~~ post
+
+pre ~~strike~~ post
+
+pre~~strike~~
+
+~~strike~~post
+
+pre~~strike~~post
+
+~not-strike
+
+~~not-strike
+
+~~not-strike~
+
+pre ~not-strike
+
+pre ~~not-strike
+
+pre ~~not-strike~
+
+~not-strike post
+
+~~not-strike post
+
+~~not-strike~ post
+
+pre ~not-strike post
+
+pre ~~not-strike post
+
+pre ~~not-strike~ post
+''')
+
 testcase@markdown('link', R'''
 <http://www.google.com/>
 <https://www.google.com/>

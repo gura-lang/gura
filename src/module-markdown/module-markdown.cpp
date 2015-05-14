@@ -1424,6 +1424,59 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
+
+
+
+	case STAT_Tilda: {
+		if (ch == '~') {
+			BeginDecoration(Item::TYPE_Strike);
+			_stat = STAT_TildaStrike;
+		} else {
+			_text += '~';
+			pushbackFlag = true;
+			_stat = _statStack.Pop();
+		}
+		break;
+	}
+	case STAT_TildaStrike: {
+		if (ch == '\\') {
+			_statStack.Push(_stat);
+			_stat = STAT_Escape;
+		} else if (ch == '`') {
+			FlushText(Item::TYPE_Text, false, false);
+			_statStack.Push(_stat);
+			_stat = STAT_Backquote;
+		} else if (ch == '~') {
+			_stat = STAT_TildaStrikeEnd;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			CancelDecoration("~~");
+			pushbackFlag = true;
+			_stat = _statStack.Pop();
+		} else {
+			_text += ch;
+		}
+		break;
+	}
+	case STAT_TildaStrikeEnd: {
+		if (ch == '~') {
+			EndDecoration();
+			_stat = STAT_DecorationPost;
+		} else {
+			CancelDecoration("~~");
+			_text += '~';
+			pushbackFlag = true;
+			_stat = _statStack.Pop();
+		}
+		break;
+	}
+
+
+
+
+
+
+
+
 	case STAT_DecorationPost: {
 		_stat = _statStack.Pop();
 		if (_stat == STAT_Text && IsEOL(ch)) {
@@ -1983,6 +2036,11 @@ bool Document::CheckSpecialChar(char ch)
 		FlushText(Item::TYPE_Text, false, false);
 		_statStack.Push(_stat);
 		_stat = STAT_Underscore;
+		return true;
+	} else if (ch == '~') {
+		FlushText(Item::TYPE_Text, false, false);
+		_statStack.Push(_stat);
+		_stat = STAT_Tilda;
 		return true;
 	} else if (ch == '&') {
 		_textAhead.clear();

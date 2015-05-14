@@ -698,6 +698,61 @@
     <em>
       <text>'aaa_post'
     <text>' post'
+======== decoration-4 ========
+<root>
+  <p>
+    <strike>
+      <text>'strike'
+  <p>
+    <text>'pre '
+    <strike>
+      <text>'strike'
+  <p>
+    <strike>
+      <text>'strike'
+    <text>' post'
+  <p>
+    <text>'pre '
+    <strike>
+      <text>'strike'
+    <text>' post'
+  <p>
+    <text>'pre'
+    <strike>
+      <text>'strike'
+  <p>
+    <strike>
+      <text>'strike'
+    <text>'post'
+  <p>
+    <text>'pre'
+    <strike>
+      <text>'strike'
+    <text>'post'
+  <p>
+    <text>'~not-strike'
+  <p>
+    <text>'~~not-strike'
+  <p>
+    <text>'~~not-strike~'
+  <p>
+    <text>'pre ~not-strike'
+  <p>
+    <text>'pre ~~not-strike'
+  <p>
+    <text>'pre ~~not-strike~'
+  <p>
+    <text>'~not-strike post'
+  <p>
+    <text>'~~not-strike post'
+  <p>
+    <text>'~~not-strike~ post'
+  <p>
+    <text>'pre ~not-strike post'
+  <p>
+    <text>'pre ~~not-strike post'
+  <p>
+    <text>'pre ~~not-strike~ post'
 ======== link ========
 <root>
   <p>
