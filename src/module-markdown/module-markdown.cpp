@@ -598,7 +598,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			FlushText(Item::TYPE_Text, false, false);
 			_statStack.Push(STAT_Text);
 			pushbackFlag = true;
-			_stat = STAT_AsteriskEmphasisPre;
+			_stat = STAT_Asterisk;
 		}
 		break;
 	}
@@ -856,7 +856,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			FlushText(Item::TYPE_Text, false, false);
 			_statStack.Push(STAT_ListItem);
 			pushbackFlag = true;
-			_stat = STAT_AsteriskEmphasisPre;
+			_stat = STAT_Asterisk;
 		}
 		break;
 	}
@@ -965,7 +965,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			FlushItem(Item::TYPE_Paragraph, false, false);
 			pushbackFlag = true;
 			_statStack.Push(STAT_ListItem);
-			_stat = STAT_AsteriskEmphasisPre;
+			_stat = STAT_Asterisk;
 		}
 		break;
 	}
@@ -1258,7 +1258,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_AsteriskEmphasisPre: {
+	case STAT_Asterisk: {
 		if (ch == '*') {
 			BeginDecoration(Item::TYPE_Strong);
 			_stat = STAT_AsteriskStrong;
@@ -1328,7 +1328,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_UnderscoreEmphasisPre: {
+	case STAT_Underscore: {
 		if (ch == '_') {
 			BeginDecoration(Item::TYPE_Strong);
 			_stat = STAT_UnderscoreStrong;
@@ -1977,12 +1977,12 @@ bool Document::CheckSpecialChar(char ch)
 	} else if (ch == '*') {
 		FlushText(Item::TYPE_Text, false, false);
 		_statStack.Push(_stat);
-		_stat = STAT_AsteriskEmphasisPre;
+		_stat = STAT_Asterisk;
 		return true;
 	} else if (ch == '_' && IsSpace(_chPrev)) {
 		FlushText(Item::TYPE_Text, false, false);
 		_statStack.Push(_stat);
-		_stat = STAT_UnderscoreEmphasisPre;
+		_stat = STAT_Underscore;
 		return true;
 	} else if (ch == '&') {
 		_textAhead.clear();
