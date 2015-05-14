@@ -402,6 +402,26 @@ _A\_ubar_
 __A\_ubar__
 ''')
 				  
+testcase@markdown('decoration-3', R'''
+_aaa_
+
+_aaa_ post
+
+_aaa_post post
+
+_aaa_post_ post
+
+pre _aaa_ post
+
+pre_aaa_ post
+
+pre _aaa_post
+
+pre _aaa_post_
+
+pre _aaa_post_ post
+''')
+
 testcase@markdown('link', R'''
 <http://www.google.com/>
 <https://www.google.com/>

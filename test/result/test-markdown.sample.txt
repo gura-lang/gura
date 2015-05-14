@@ -41,8 +41,7 @@
       <text>'strong'
     <text>' text '
     <code>'not terminated code'
-    <text>'text*not terminated emphasis'
-    <text>'text**not terminated strong'
+    <text>'text*not terminated emphasistext**not terminated strong'
 ======== code block ========
 <root>
   <p>
@@ -666,6 +665,39 @@
     <text>' '
     <strong>
       <text>'A_ubar'
+======== decoration-3 ========
+<root>
+  <p>
+    <em>
+      <text>'aaa'
+  <p>
+    <em>
+      <text>'aaa'
+    <text>' post'
+  <p>
+    <text>'_aaa_post post'
+  <p>
+    <em>
+      <text>'aaa_post'
+    <text>' post'
+  <p>
+    <text>'pre '
+    <em>
+      <text>'aaa'
+    <text>' post'
+  <p>
+    <text>'pre_aaa_ post'
+  <p>
+    <text>'pre _aaa_post'
+  <p>
+    <text>'pre '
+    <em>
+      <text>'aaa_post'
+  <p>
+    <text>'pre '
+    <em>
+      <text>'aaa_post'
+    <text>' post'
 ======== link ========
 <root>
   <p>
@@ -1029,13 +1061,9 @@
     <tag>'br'
     <tag>'br'
   <p>
-    <text>'pre '
-    <text>'<!-- comment -->'
-    <text>' post'
+    <text>'pre <!-- comment --> post'
   <p>
-    <text>'pre '
-    <text>'<!-- comment -->'
-    <text>'post'
+    <text>'pre <!-- comment -->post'
   <p>
     <text>'<!-- <code>aaaaaa</code> -->'
 ======== code block ========

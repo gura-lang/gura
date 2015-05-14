@@ -204,7 +204,7 @@ int ItemStack::CountQuoteLevel() const
 // Document
 //-----------------------------------------------------------------------------
 Document::Document() : _cntRef(1), _resolvedFlag(false), _decoPrecedingFlag(false),
-		_iTableRow(-1), _iTableCol(0), _stat(STAT_LineTop), _cntLine(0),
+		_iTableRow(-1), _iTableCol(0), _stat(STAT_LineTop), _cntLine(0), _chPrev('\0'),
 		_indentLevel(0), _quoteLevel(0), _cntEmptyLine(0),
 		_pItemOwner(new ItemOwner()), _pItemRefereeOwner(new ItemOwner())
 {
@@ -217,6 +217,7 @@ Document::Document() : _cntRef(1), _resolvedFlag(false), _decoPrecedingFlag(fals
 bool Document::ParseStream(Signal sig, SimpleStream &stream)
 {
 	_cntLine = 0;
+	_chPrev = '\0';
 	for (;;) {
 		int chRaw = stream.GetChar(sig);
 		char ch = (chRaw < 0)? '\0' : static_cast<UChar>(chRaw);
@@ -239,6 +240,7 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 		STAT_SkipToEOL,
 	} stat = STAT_FirstRowTop;
 	_cntLine = 0;
+	_chPrev = '\0';
 	String textPrefetch;
 	String guide;
 	StringList guideList;
@@ -1348,14 +1350,27 @@ bool Document::ParseChar(Signal sig, char ch)
 			_statStack.Push(_stat);
 			_stat = STAT_Backquote;
 		} else if (ch == '_') {
-			EndDecoration();
-			_stat = STAT_DecorationPost;
+			//EndDecoration();
+			//_stat = STAT_DecorationPost;
+			_stat = STAT_UnderscoreEmphasisPost;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			CancelDecoration("_");
 			pushbackFlag = true;
 			_stat = _statStack.Pop();
 		} else {
 			_text += ch;
+		}
+		break;
+	}
+	case STAT_UnderscoreEmphasisPost: {
+		if (IsSpace(ch)) {
+			EndDecoration();
+			pushbackFlag = true;
+			_stat = STAT_DecorationPost;
+		} else {
+			_text += '_';
+			pushbackFlag = true;
+			_stat = STAT_UnderscoreEmphasis;
 		}
 		break;
 	}
@@ -1380,8 +1395,9 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_UnderscoreStrongEnd: {
 		if (ch == '_') {
-			EndDecoration();
-			_stat = STAT_DecorationPost;
+			//EndDecoration();
+			//_stat = STAT_DecorationPost;
+			_stat = STAT_UnderscoreStrongPost;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			ReplaceDecoration(Item::TYPE_Emphasis, "_");
 			pushbackFlag = true;
@@ -1392,6 +1408,18 @@ bool Document::ParseChar(Signal sig, char ch)
 			_statStack.Push(STAT_UnderscoreStrong);
 			pushbackFlag = true;
 			_stat = STAT_UnderscoreEmphasis;
+		}
+		break;
+	}
+	case STAT_UnderscoreStrongPost: {
+		if (IsSpace(ch)) {
+			EndDecoration();
+			pushbackFlag = true;
+			_stat = STAT_DecorationPost;
+		} else {
+			_text += "__";
+			pushbackFlag = true;
+			_stat = STAT_UnderscoreStrong;
 		}
 		break;
 	}
@@ -1918,6 +1946,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	} while (pushbackFlag);
 	if (IsEOL(ch)) _cntLine++;
+	_chPrev = ch;
 	return true;
 }
 
@@ -1949,7 +1978,7 @@ bool Document::CheckSpecialChar(char ch)
 		_statStack.Push(_stat);
 		_stat = STAT_AsteriskEmphasisPre;
 		return true;
-	} else if (ch == '_') {
+	} else if (ch == '_' && IsSpace(_chPrev)) {
 		FlushText(Item::TYPE_Text, false, false);
 		_statStack.Push(_stat);
 		_stat = STAT_UnderscoreEmphasisPre;
@@ -2022,7 +2051,11 @@ void Document::FlushText(Item::Type type, bool stripLeftFlag, bool stripRightFla
 {
 	String text = Strip(_text.c_str(),
 						stripLeftFlag || _pItemOwner->empty(), stripRightFlag);
-	if (!text.empty()) {
+	if (text.empty()) {
+		// nothing to do
+	} else if (!_pItemOwner->empty() && _pItemOwner->back()->GetType() == type) {
+		_pItemOwner->back()->AppendText(text);
+	} else {
 		Item *pItem = new Item(type, text);
 		_pItemOwner->push_back(pItem);
 	}

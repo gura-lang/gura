@@ -240,8 +240,10 @@ private:
 		STAT_AsteriskStrongEnd,
 		STAT_UnderscoreEmphasisPre,
 		STAT_UnderscoreEmphasis,
+		STAT_UnderscoreEmphasisPost,
 		STAT_UnderscoreStrong,
 		STAT_UnderscoreStrongEnd,
+		STAT_UnderscoreStrongPost,
 		STAT_DecorationPost,
 		STAT_Ampersand,
 		STAT_AngleBracketFirst,
@@ -298,6 +300,7 @@ private:
 	int _iTableCol;
 	Stat _stat;
 	int _cntLine;
+	char _chPrev;
 	StatStack _statStack;
 	int _indentLevel;
 	int _quoteLevel;
@@ -360,6 +363,9 @@ private:
 	static bool IsLink(const char *text);
 	static bool IsBeginTag(const char *text, String &tagName, String &attrs, bool &closedFlag);
 	static bool IsEndTag(const char *text, String &tagName);
+	inline static bool IsSpace(char ch) {
+		return ch == '\n' || ch == ' ' || ch == '\t' || ch == '\0';
+	}
 	inline static bool IsEOL(char ch) { return ch == '\n'; }
 	inline static bool IsEOF(char ch) { return ch == '\0'; }
 	inline static bool IsDigit(char ch) { return '0' <= ch && ch <= '9'; }
