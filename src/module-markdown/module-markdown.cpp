@@ -479,7 +479,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '=') {
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_Equal;
+			_stat = STAT_EqualAtHead;
 		} else if (ch == '#' && _indentLevel <= 0) {
 			FlushItem(Item::TYPE_Paragraph, false, false);
 			_indentLevel = 1;
@@ -487,19 +487,19 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '*') {
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_Asterisk;
+			_stat = STAT_AsteriskAtHead;
 		} else if (ch == '+') {
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_Plus;
+			_stat = STAT_PlusAtHead;
 		} else if (ch == '-') {
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_Hyphen;
+			_stat = STAT_HyphenAtHead;
 		} else if (IsDigit(ch)) {
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_Digit;
+			_stat = STAT_DigitAtHead;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			FlushItem(Item::TYPE_Paragraph, false, false);
 			_indentLevel = 0;
@@ -569,7 +569,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_Equal: {
+	case STAT_EqualAtHead: {
 		if (ch == '=') {
 			_textAhead += ch;
 			_stat = STAT_AtxHeader1;
@@ -587,7 +587,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_Asterisk: {
+	case STAT_AsteriskAtHead: {
 		if (ch == ' ' || ch == '\t') {
 			FlushItem(Item::TYPE_Paragraph, false, false);
 			BeginListItem(Item::TYPE_UList);
@@ -602,7 +602,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_Plus: {
+	case STAT_PlusAtHead: {
 		if (ch == ' ' || ch == '\t') {
 			FlushItem(Item::TYPE_Paragraph, false, false);
 			BeginListItem(Item::TYPE_UList);
@@ -617,7 +617,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_Hyphen: {
+	case STAT_HyphenAtHead: {
 		if (ch == '-') {
 			_textAhead += ch;
 			_stat = STAT_AtxHeader2;
@@ -638,12 +638,12 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_Digit: {
+	case STAT_DigitAtHead: {
 		if (IsDigit(ch)) {
 			_textAhead += ch;
 		} else if (ch == '.') {
 			_textAhead += ch;
-			_stat = STAT_DigitDot;
+			_stat = STAT_DigitDotAtHead;
 		} else if (_indentLevel >= INDENT_CodeBlock) {
 			pushbackFlag = true;
 			BeginCodeBlock(_textAhead.c_str());
@@ -655,7 +655,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_DigitDot: {
+	case STAT_DigitDotAtHead: {
 		if (ch == ' ' || ch == '\t') {
 			BeginListItem(Item::TYPE_OList);
 		} else if (_indentLevel >= INDENT_CodeBlock) {
