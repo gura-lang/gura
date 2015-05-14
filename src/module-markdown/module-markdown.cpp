@@ -1424,9 +1424,6 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-
-
-
 	case STAT_Tilda: {
 		if (ch == '~') {
 			BeginDecoration(Item::TYPE_Strike);
@@ -1469,14 +1466,6 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-
-
-
-
-
-
-
-
 	case STAT_DecorationPost: {
 		_stat = _statStack.Pop();
 		if (_stat == STAT_Text && IsEOL(ch)) {
