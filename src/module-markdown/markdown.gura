@@ -106,6 +106,10 @@ Renderer@html = class {
 			this.out.print('<strong>')
 			this.RenderItem(item.children)
 			this.out.print('</strong>')
+		} elsif (item.type == `strike) {
+			this.out.print('<strike>')
+			this.RenderItem(item.children)
+			this.out.print('</strike>')
 		} elsif (item.type == `codeblock) {
 			this.out.print('<pre><code>')
 			this.RenderItem(item.children)
@@ -227,6 +231,10 @@ Renderer@rtf = class {
 			this.RenderItem(item.children)
 			this.out.print(r'}')
 		} elsif (item.type == `strong) {
+			this.out.print(r'{\b ')
+			this.RenderItem(item.children)
+			this.out.print(r'}')
+		} elsif (item.type == `strike) {
 			this.out.print(r'{\b ')
 			this.RenderItem(item.children)
 			this.out.print(r'}')
@@ -375,6 +383,10 @@ Renderer@console = class {
 			}
 		} elsif (item.type == `strong) {
 			this.setcolor(`red) {
+				this.RenderItem(item.children)
+			}
+		} elsif (item.type == `strike) {
+			this.setcolor(`gray) {
 				this.RenderItem(item.children)
 			}
 		} elsif (item.type == `codeblock) {
@@ -577,6 +589,8 @@ Renderer@toc = class {
 			this.RenderItem(item.children)
 		} elsif (item.type == `strong) {
 			this.RenderItem(item.children)
+		} elsif (item.type == `strike) {
+			//this.RenderItem(item.children)
 		} elsif (item.type == `codeblock) {
 			// nothing to do
 		} elsif (item.type == `ol) {

@@ -49,6 +49,7 @@ public:
 		TYPE_BlockQuote,	// container, can be a parent
 		TYPE_Emphasis,		// container
 		TYPE_Strong,		// container
+		TYPE_Strike,		// container
 		TYPE_CodeBlock,		// container, can be a parent
 		TYPE_OList,			// container, can be a parent
 		TYPE_UList,			// container, can be a parent

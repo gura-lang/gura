@@ -42,6 +42,7 @@ const char *Item::GetTypeName() const
 		{ TYPE_BlockQuote,		"blockquote",	},	// container
 		{ TYPE_Emphasis,		"em",			},	// container
 		{ TYPE_Strong,			"strong",		},	// container
+		{ TYPE_Strike,			"strike",		},	// container
 		{ TYPE_CodeBlock,		"codeblock",	},	// container
 		{ TYPE_OList,			"ol",			},	// container
 		{ TYPE_UList,			"ul",			},	// container
