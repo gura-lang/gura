@@ -442,6 +442,17 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_LineTop: {
 		_indentLevel = 0;
 		pushbackFlag = true;
+#if 0
+		if (!IsTableMode()) {
+			_stat = STAT_LineHead;
+		} else if (ch == '|') {
+			// skip a pipe character placed at top of the line.
+			BeginTableRow();
+			_stat = STAT_Text;
+		} else {
+			_stat = STAT_LineHeadTable;
+		}
+#endif
 		_stat = IsTableMode()? STAT_LineHeadTable : STAT_LineHead;
 		break;
 	}
@@ -513,7 +524,6 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (IsWhite(ch) || IsEOL(ch)) {
 			// nothing to do
 		} else if (ch == '|') {
-			// skip a pipe character placed at top of the line.
 			BeginTableRow();
 			_stat = STAT_Text;
 		} else {
@@ -1310,6 +1320,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '|') {
 			if (IsTableMode()) {
 				FlushTableCol(false);
+				_stat = STAT_SkipWhiteAfterPipe;
 			} else {
 				_text += ch;
 			}
@@ -1337,6 +1348,15 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_LineTop;
 		} else {
 			_text += ch;
+		}
+		break;
+	}
+	case STAT_SkipWhiteAfterPipe: {
+		if (IsWhite(ch)) {
+			// nothing to do
+		} else {
+			pushbackFlag = true;
+			_stat = STAT_Text;
 		}
 		break;
 	}

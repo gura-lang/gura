@@ -242,6 +242,7 @@ private:
 		STAT_CodeEsc,
 		STAT_CodeEsc_Backquote,
 		STAT_Text,
+		STAT_SkipWhiteAfterPipe,
 		STAT_SkipTableGuideRow,
 		STAT_Asterisk,
 		STAT_AsteriskEmphasis,
