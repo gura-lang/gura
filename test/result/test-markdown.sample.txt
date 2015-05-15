@@ -1,4 +1,4 @@
-======== header ========
+======== header-1 ========
 <root>
   <p>
     <text>'No Header ===hoge'
@@ -31,180 +31,6 @@
       <text>'item3 +100 yen'
     <li>
       <text>'item4'
-======== decoration-1 ========
-<root>
-  <p>
-    <code>'code'
-    <em>
-      <text>'emphasis'
-    <strong>
-      <text>'strong'
-    <text>' text'
-    <code>'not terminated code'
-    <text>'text*not terminated emphasistext**not terminated strong'
-======== code block ========
-<root>
-  <p>
-    <text>'text'
-  <codeblock>
-    <line>
-      <text>'#include <stdio.h>'
-    <line>
-      <text>'int main()'
-    <line>
-      <text>'{'
-    <line>
-      <text>'    -3;'
-    <line>
-      <text>'    =a+2'
-    <line>
-      <text>'    return 0;'
-    <line>
-      <text>'    ======'
-    <line>
-      <text>'    hoge'
-    <line>
-      <text>'    for (int i = 0; i < 10; i++) {'
-    <line>
-      <text>'        printf("hello\n");'
-    <line>
-      <text>'    }'
-    <line>
-      <text>'    ------'
-    <line>
-      <text>'}'
-  <p>
-    <text>'fsafdsasa'
-  <codeblock>
-    <line>
-      <text>'1 is the first character in code block'
-    <line>
-      <text>'beginning of code block'
-    <line>
-      <text>'hoge hoge'
-  <p>
-    <text>'fadsfdsafdsa'
-  <codeblock>
-    <line>
-      <text>'    four spaces ahead'
-  <p>
-    <text>'paragraph'
-  <codeblock>
-    <line>
-      <text>'// just after paragraph with no space between'
-    <line>
-      <text>'#include <stdio.h>'
-    <line>
-      <text>'int main()'
-    <line>
-      <text>'{'
-    <line>
-      <text>'    -3;'
-    <line>
-      <text>'    =a+2'
-    <line>
-      <text>'    return 0;'
-    <line>
-      <text>'    ======'
-    <line>
-      <text>'    hoge'
-    <line>
-      <text>'    for (int i = 0; i < 10; i++) {'
-    <line>
-      <text>'        printf("hello\n");'
-    <line>
-      <text>'    }'
-    <line>
-      <text>'    ------'
-    <line>
-      <text>'}'
-  <p>
-    <text>'normal text'
-  <codeblock>
-    <line>
-      <text>'void sub1()'
-    <line>
-      <text>'{'
-    <line>
-      <text>'}'
-    <line>
-      <text>''
-    <line>
-      <text>'void sub2()'
-    <line>
-      <text>'{'
-    <line>
-      <text>'// 3 blank lines below'
-    <line>
-      <text>''
-    <line>
-      <text>''
-    <line>
-      <text>''
-    <line>
-      <text>'// 3 blank lines above'
-    <line>
-      <text>'}'
-  <ul>
-    <li>
-      <text>'item 1'
-    <li>
-      <text>'item 2'
-    <li>
-      <text>'item 3 '
-      <em>
-        <text>'strong'
-      <ul>
-        <li>
-          <text>'item 3-1 '
-          <em>
-            <text>'strong'
-        <li>
-          <text>'item 3-2 '
-          <em>
-            <text>'strong'
-          <text>' '
-          <code>'code'
-        <li>
-          <text>'item 3-3'
-          <ul>
-            <li>
-              <text>'item 3-3-1'
-            <li>
-              <text>'item 3-3-2'
-    <li>
-      <text>'item 4'
-      <ul>
-        <li>
-          <text>'item 4-1'
-        <li>
-          <text>'item 4-2'
-        <li>
-          <text>'item 4-3'
-======== fenced code block ========
-<root>
-  <p>
-    <text>'pre'
-  <codeblock>
-    <line>
-      <text>'1st'
-    <line>
-      <text>'2nd'
-    <line>
-      <text>'3rd'
-  <p>
-    <text>'post'
-  <p>
-    <text>'pre'
-  <codeblock>
-    <line>
-      <text>'10.times {|i|'
-    <line>
-      <text>'    print("Hello #", i, "\n")'
-    <line>
-      <text>'}'
-  <p>
-    <text>'post'
 ======== header-2 ========
 <root>
   <h1>
@@ -226,36 +52,6 @@
   <ul>
     <li>
       <text>'hoge'
-======== list-1 ========
-<root>
-  <ol>
-    <li>
-      <text>'first'
-    <li>
-      <text>'second'
-    <li>
-      <text>'third'
-    <li>
-      <text>'fourth'
-    <li>
-      <text>'fifth'
-  <ol>
-    <li>
-      <text>'Check if Visual Studio 2010 has been installed. You can use Express version as well.'
-    <li>
-      <text>'Run a batch file '
-      <code>'gura\src\setup-gura-guest.bat'
-      <text>', which downloads necessary packages from Git repository (https://github.com/ypsitau/gura-guest.git) and build them. The batch file may occur an error that says it cannot find '
-      <code>'vcvarsall.bat'
-      <text>'. In such a case, you have to edit '
-      <code>'gura\gura-guest\setup.bat'
-      <text>' and modify '
-      <code>'VCVARSALL'
-      <text>' variable so that it points to a right directory of Visual Studio.'
-    <li>
-      <text>'Open '
-      <code>'gura\src\gura.sln'
-      <text>' with Visual Studio 2010, switch the configuration to Release and build it.'
 ======== header-3 ========
 <root>
   <h1>
@@ -292,6 +88,36 @@
     <text>'# not a header'
   <p>
     <text>'# not a header'
+======== list-1 ========
+<root>
+  <ol>
+    <li>
+      <text>'first'
+    <li>
+      <text>'second'
+    <li>
+      <text>'third'
+    <li>
+      <text>'fourth'
+    <li>
+      <text>'fifth'
+  <ol>
+    <li>
+      <text>'Check if Visual Studio 2010 has been installed. You can use Express version as well.'
+    <li>
+      <text>'Run a batch file '
+      <code>'gura\src\setup-gura-guest.bat'
+      <text>', which downloads necessary packages from Git repository (https://github.com/ypsitau/gura-guest.git) and build them. The batch file may occur an error that says it cannot find '
+      <code>'vcvarsall.bat'
+      <text>'. In such a case, you have to edit '
+      <code>'gura\gura-guest\setup.bat'
+      <text>' and modify '
+      <code>'VCVARSALL'
+      <text>' variable so that it points to a right directory of Visual Studio.'
+    <li>
+      <text>'Open '
+      <code>'gura\src\gura.sln'
+      <text>' with Visual Studio 2010, switch the configuration to Release and build it.'
 ======== list-2 ========
 <root>
   <ul>
@@ -480,6 +306,98 @@
       <text>'item-3'
   <p>
     <text>'3.1415 at beginning of line'
+======== list-3 ========
+<root>
+  <ul>
+    <li>
+      <p>
+        <text>'list item'
+      <codeblock>
+        <line>
+          <text>'block under list item'
+        <line>
+          <text>'2nd line'
+        <line>
+          <text>'3rd line'
+    <li>
+      <p>
+        <text>'list item'
+      <codeblock>
+        <line>
+          <text>'  block under list item (2 spaces ahead)'
+        <line>
+          <text>'   2nd line (3 spaces ahead)'
+        <line>
+          <text>'    3rd line (4 spaces ahead)'
+  <ul>
+    <li>
+      <text>'item -hyphen +plus '
+      <em>
+        <text>'emphasis'
+    <li>
+      <text>'item -hyphen +plus '
+      <em>
+        <text>'emphasis'
+  <ul>
+    <li>
+      <p>
+        <text>'item'
+      <p>
+        <text>'-hyphen at beginning'
+      <p>
+        <text>'-hyphen at beginning'
+      <p>
+        <text>'+plus at beginning'
+      <p>
+        <em>
+          <text>'emphasis'
+        <text>' at beginning'
+    <li>
+      <p>
+        <text>'item'
+      <codeblock>
+        <line>
+          <text>'-hyphen at beginning in block'
+        <line>
+          <text>'+plus at beginning in block'
+        <line>
+          <text>'*star at beginning in block'
+    <li>
+      <text>'Abacus'
+      <ul>
+        <li>
+          <text>'answer'
+    <li>
+      <text>'Bubbles'
+      <ol>
+        <li>
+          <text>'bunk'
+        <li>
+          <text>'bupkis'
+          <ul>
+            <li>
+              <text>'BELITTLER'
+        <li>
+          <text>'burper'
+    <li>
+      <text>'Cunning'
+  <p>
+    <em>
+      <text>'strong'
+    <text>' in paragraph'
+  <p>
+    <text>'1986. What a great season.'
+======== decoration-1 ========
+<root>
+  <p>
+    <code>'code'
+    <em>
+      <text>'emphasis'
+    <strong>
+      <text>'strong'
+    <text>' text'
+    <code>'not terminated code'
+    <text>'text*not terminated emphasistext**not terminated strong'
 ======== decoration-2 ========
 <root>
   <p>
@@ -864,87 +782,186 @@
     <a url='http://a.b.c/'>
       <text>'text'
     <text>' post'
-======== list-3 ========
+======== code block ========
 <root>
+  <p>
+    <text>'text'
+  <codeblock>
+    <line>
+      <text>'#include <stdio.h>'
+    <line>
+      <text>'int main()'
+    <line>
+      <text>'{'
+    <line>
+      <text>'    -3;'
+    <line>
+      <text>'    =a+2'
+    <line>
+      <text>'    return 0;'
+    <line>
+      <text>'    ======'
+    <line>
+      <text>'    hoge'
+    <line>
+      <text>'    for (int i = 0; i < 10; i++) {'
+    <line>
+      <text>'        printf("hello\n");'
+    <line>
+      <text>'    }'
+    <line>
+      <text>'    ------'
+    <line>
+      <text>'}'
+  <p>
+    <text>'fsafdsasa'
+  <codeblock>
+    <line>
+      <text>'1 is the first character in code block'
+    <line>
+      <text>'beginning of code block'
+    <line>
+      <text>'hoge hoge'
+  <p>
+    <text>'fadsfdsafdsa'
+  <codeblock>
+    <line>
+      <text>'    four spaces ahead'
+  <p>
+    <text>'paragraph'
+  <codeblock>
+    <line>
+      <text>'// just after paragraph with no space between'
+    <line>
+      <text>'#include <stdio.h>'
+    <line>
+      <text>'int main()'
+    <line>
+      <text>'{'
+    <line>
+      <text>'    -3;'
+    <line>
+      <text>'    =a+2'
+    <line>
+      <text>'    return 0;'
+    <line>
+      <text>'    ======'
+    <line>
+      <text>'    hoge'
+    <line>
+      <text>'    for (int i = 0; i < 10; i++) {'
+    <line>
+      <text>'        printf("hello\n");'
+    <line>
+      <text>'    }'
+    <line>
+      <text>'    ------'
+    <line>
+      <text>'}'
+  <p>
+    <text>'normal text'
+  <codeblock>
+    <line>
+      <text>'void sub1()'
+    <line>
+      <text>'{'
+    <line>
+      <text>'}'
+    <line>
+      <text>''
+    <line>
+      <text>'void sub2()'
+    <line>
+      <text>'{'
+    <line>
+      <text>'// 3 blank lines below'
+    <line>
+      <text>''
+    <line>
+      <text>''
+    <line>
+      <text>''
+    <line>
+      <text>'// 3 blank lines above'
+    <line>
+      <text>'}'
   <ul>
     <li>
-      <p>
-        <text>'list item'
-      <codeblock>
-        <line>
-          <text>'block under list item'
-        <line>
-          <text>'2nd line'
-        <line>
-          <text>'3rd line'
+      <text>'item 1'
     <li>
-      <p>
-        <text>'list item'
-      <codeblock>
-        <line>
-          <text>'  block under list item (2 spaces ahead)'
-        <line>
-          <text>'   2nd line (3 spaces ahead)'
-        <line>
-          <text>'    3rd line (4 spaces ahead)'
-  <ul>
+      <text>'item 2'
     <li>
-      <text>'item -hyphen +plus '
+      <text>'item 3 '
       <em>
-        <text>'emphasis'
-    <li>
-      <text>'item -hyphen +plus '
-      <em>
-        <text>'emphasis'
-  <ul>
-    <li>
-      <p>
-        <text>'item'
-      <p>
-        <text>'-hyphen at beginning'
-      <p>
-        <text>'-hyphen at beginning'
-      <p>
-        <text>'+plus at beginning'
-      <p>
-        <em>
-          <text>'emphasis'
-        <text>' at beginning'
-    <li>
-      <p>
-        <text>'item'
-      <codeblock>
-        <line>
-          <text>'-hyphen at beginning in block'
-        <line>
-          <text>'+plus at beginning in block'
-        <line>
-          <text>'*star at beginning in block'
-    <li>
-      <text>'Abacus'
+        <text>'strong'
       <ul>
         <li>
-          <text>'answer'
-    <li>
-      <text>'Bubbles'
-      <ol>
+          <text>'item 3-1 '
+          <em>
+            <text>'strong'
         <li>
-          <text>'bunk'
+          <text>'item 3-2 '
+          <em>
+            <text>'strong'
+          <text>' '
+          <code>'code'
         <li>
-          <text>'bupkis'
+          <text>'item 3-3'
           <ul>
             <li>
-              <text>'BELITTLER'
-        <li>
-          <text>'burper'
+              <text>'item 3-3-1'
+            <li>
+              <text>'item 3-3-2'
     <li>
-      <text>'Cunning'
+      <text>'item 4'
+      <ul>
+        <li>
+          <text>'item 4-1'
+        <li>
+          <text>'item 4-2'
+        <li>
+          <text>'item 4-3'
   <p>
-    <em>
-      <text>'strong'
-    <text>' in paragraph'
+    <text>'pre'
+  <codeblock>
+    <line>
+      <text>'four spaces ahead'
+    <line>
+      <text>'one tab ahead'
+    <line>
+      <text>'    eight spaces ahead'
+    <line>
+      <text>'    two tabs ahead'
+    <line>
+      <text>'        twelve spaces ahead'
+    <line>
+      <text>'        three tabs ahead'
   <p>
-    <text>'1986. What a great season.'
+    <text>'post'
+======== fenced code block ========
+<root>
+  <p>
+    <text>'pre'
+  <codeblock>
+    <line>
+      <text>'1st'
+    <line>
+      <text>'2nd'
+    <line>
+      <text>'3rd'
+  <p>
+    <text>'post'
+  <p>
+    <text>'pre'
+  <codeblock>
+    <line>
+      <text>'10.times {|i|'
+    <line>
+      <text>'    print("Hello #", i, "\n")'
+    <line>
+      <text>'}'
+  <p>
+    <text>'post'
 ======== quotation ========
 <root>
   <blockquote>
@@ -1146,25 +1163,6 @@
     <text>'pre <!-- comment -->post'
   <p>
     <text>'<!-- <code>aaaaaa</code> -->'
-======== code block ========
-<root>
-  <p>
-    <text>'pre'
-  <codeblock>
-    <line>
-      <text>'four spaces ahead'
-    <line>
-      <text>'one tab ahead'
-    <line>
-      <text>'    eight spaces ahead'
-    <line>
-      <text>'    two tabs ahead'
-    <line>
-      <text>'        twelve spaces ahead'
-    <line>
-      <text>'        three tabs ahead'
-  <p>
-    <text>'post'
 ======== table ========
 <root>
   <p>

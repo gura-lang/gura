@@ -10,7 +10,7 @@ testcase@markdown(title:string, text:string) = {
 	doc.refs:*print()
 }
 
-testcase@markdown('header', R'''
+testcase@markdown('header-1', R'''
 No Header
 ===hoge
 
@@ -44,110 +44,6 @@ Header2
 + item4
 ''')
 
-testcase@markdown('decoration-1', R'''
-`code`
-*emphasis*
-**strong**
-text
-`not terminated code
-text
-*not terminated emphasis
-text
-**not terminated strong
-''')
-
-testcase@markdown('code block', R'''
-text
-
-    #include <stdio.h>
-    int main()
-    {
-        -3;
-        =a+2
-        return 0;
-        ======
-        hoge
-        for (int i = 0; i < 10; i++) {
-            printf("hello\n");
-        }
-        ------
-    }
-
-fsafdsasa
-
-    1 is the first character in code block
-    beginning of code block
-    hoge hoge
-
-fadsfdsafdsa
-
-        four spaces ahead
-
-paragraph
-    // just after paragraph with no space between
-    #include <stdio.h>
-    int main()
-    {
-        -3;
-        =a+2
-        return 0;
-        ======
-        hoge
-        for (int i = 0; i < 10; i++) {
-            printf("hello\n");
-        }
-        ------
-    }
-  normal text
-    void sub1()
-    {
-    }
-  
-    void sub2()
-    {
-    // 3 blank lines below
-    
-    
-    
-    // 3 blank lines above
-    }
-- item 1
-- item 2
-- item 3
-  *strong*
-  - item 3-1
-    *strong*
-  - item 3-2 *strong* `code`
-  - item 3-3
-    - item 3-3-1
-    - item 3-3-2
-- item 4
-  - item 4-1
-  - item 4-2
-  - item 4-3
-''')
-
-testcase@markdown('fenced code block', R'''
-pre
-
-```
-1st
-2nd
-3rd
-```
-post
-
-pre
-
-```ruby
-10.times {|i|
-    print("Hello #", i, "\n")
-}
-```
-
-post
-''')
-
 testcase@markdown('header-2', R'''
 Header1
 ==
@@ -174,24 +70,6 @@ Build for Windows
 - hoge
 ''')
 
-testcase@markdown('list-1', R'''
-1. first
-2. second
-33. third
-444. fourth
-5555. fifth
-
-
-1. Check if Visual Studio 2010 has been installed. You can use Express version as well.
-2. Run a batch file `gura\src\setup-gura-guest.bat`, which downloads necessary packages
-   from Git repository (https://github.com/ypsitau/gura-guest.git) and build them.
-   The batch file may occur an error that says it cannot find `vcvarsall.bat`.
-   In such a case, you have to edit `gura\gura-guest\setup.bat
-   and modify `VCVARSALL` variable so that it points to a right directory of Visual Studio.
-3. Open `gura\src\gura.sln` with Visual Studio 2010, switch the configuration to Release
-   and build it.
-''')
-						
 testcase@markdown('header-3', R'''
 # header1
 ## header2
@@ -217,6 +95,24 @@ testcase@markdown('header-3', R'''
    # not a header
 ''')
 
+testcase@markdown('list-1', R'''
+1. first
+2. second
+33. third
+444. fourth
+5555. fifth
+
+
+1. Check if Visual Studio 2010 has been installed. You can use Express version as well.
+2. Run a batch file `gura\src\setup-gura-guest.bat`, which downloads necessary packages
+   from Git repository (https://github.com/ypsitau/gura-guest.git) and build them.
+   The batch file may occur an error that says it cannot find `vcvarsall.bat`.
+   In such a case, you have to edit `gura\gura-guest\setup.bat
+   and modify `VCVARSALL` variable so that it points to a right directory of Visual Studio.
+3. Open `gura\src\gura.sln` with Visual Studio 2010, switch the configuration to Release
+   and build it.
+''')
+						
 testcase@markdown('list-2', R'''
 - para1
   hoge
@@ -343,6 +239,76 @@ hoge
 - item-3
 
 3.1415 at beginning of line
+''')
+
+testcase@markdown('list-3', R'''
+- list item
+
+        block under list item
+        2nd line
+        3rd line
+
+- list item
+
+          block under list item (2 spaces ahead)
+           2nd line (3 spaces ahead)
+            3rd line (4 spaces ahead)
+
+
+- item
+-hyphen
++plus
+*emphasis*
+
+- item
+  -hyphen
+  +plus
+  *emphasis*
+
+
+- item
+
+  -hyphen at beginning
+
+  -hyphen at beginning
+
+  +plus at beginning
+
+  *emphasis* at beginning
+
+- item
+
+        -hyphen at beginning in block
+        +plus at beginning in block
+        *star at beginning in block
+
+*   Abacus
+    * answer
+*   Bubbles
+    1.  bunk
+    2.  bupkis
+        * BELITTLER
+    3. burper
+*   Cunning
+
+
+*strong* in paragraph
+
+1986\. What a great season.
+
+
+''')
+				  
+testcase@markdown('decoration-1', R'''
+`code`
+*emphasis*
+**strong**
+text
+`not terminated code
+text
+*not terminated emphasis
+text
+**not terminated strong
 ''')
 
 testcase@markdown('decoration-2', R'''
@@ -530,64 +496,109 @@ pre [text](http://a.b.c/) post
 
 ''')
 				  
-testcase@markdown('list-3', R'''
-- list item
+testcase@markdown('code block', R'''
+text
 
-        block under list item
-        2nd line
-        3rd line
+    #include <stdio.h>
+    int main()
+    {
+        -3;
+        =a+2
+        return 0;
+        ======
+        hoge
+        for (int i = 0; i < 10; i++) {
+            printf("hello\n");
+        }
+        ------
+    }
 
-- list item
+fsafdsasa
 
-          block under list item (2 spaces ahead)
-           2nd line (3 spaces ahead)
-            3rd line (4 spaces ahead)
+    1 is the first character in code block
+    beginning of code block
+    hoge hoge
 
+fadsfdsafdsa
 
-- item
--hyphen
-+plus
-*emphasis*
+        four spaces ahead
 
-- item
-  -hyphen
-  +plus
-  *emphasis*
+paragraph
+    // just after paragraph with no space between
+    #include <stdio.h>
+    int main()
+    {
+        -3;
+        =a+2
+        return 0;
+        ======
+        hoge
+        for (int i = 0; i < 10; i++) {
+            printf("hello\n");
+        }
+        ------
+    }
+  normal text
+    void sub1()
+    {
+    }
+  
+    void sub2()
+    {
+    // 3 blank lines below
+    
+    
+    
+    // 3 blank lines above
+    }
+- item 1
+- item 2
+- item 3
+  *strong*
+  - item 3-1
+    *strong*
+  - item 3-2 *strong* `code`
+  - item 3-3
+    - item 3-3-1
+    - item 3-3-2
+- item 4
+  - item 4-1
+  - item 4-2
+  - item 4-3
 
+pre
 
-- item
+    four spaces ahead
+	one tab ahead
+        eight spaces ahead
+		two tabs ahead
+            twelve spaces ahead
+			three tabs ahead
 
-  -hyphen at beginning
-
-  -hyphen at beginning
-
-  +plus at beginning
-
-  *emphasis* at beginning
-
-- item
-
-        -hyphen at beginning in block
-        +plus at beginning in block
-        *star at beginning in block
-
-*   Abacus
-    * answer
-*   Bubbles
-    1.  bunk
-    2.  bupkis
-        * BELITTLER
-    3. burper
-*   Cunning
-
-
-*strong* in paragraph
-
-1986\. What a great season.
-
-
+post
 ''')
-				  
+
+testcase@markdown('fenced code block', R'''
+pre
+
+```
+1st
+2nd
+3rd
+```
+post
+
+pre
+
+```ruby
+10.times {|i|
+    print("Hello #", i, "\n")
+}
+```
+
+post
+''')
+
 testcase@markdown('quotation', R'''
 > 1st-1
 > 1st-2
@@ -720,19 +731,6 @@ post
 
 <!-- <code>aaaaaa</code> -->
 
-''')
-				  
-testcase@markdown('code block', R'''
-pre
-
-    four spaces ahead
-	one tab ahead
-        eight spaces ahead
-		two tabs ahead
-            twelve spaces ahead
-			three tabs ahead
-
-post
 ''')
 				  
 testcase@markdown('table', R'''
