@@ -236,8 +236,8 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 		textPrefetch.clear();
 		int nSeps = 0;
 		int nTrailingRows = 0;
-		bool barTopFlag = false;
-		bool barFoundFlag = false;
+		bool pipeTopFlag = false;
+		bool pipeFoundFlag = false;
 		bool prefetchFlag = true;
 		stat = STAT_FirstRowTop;
 		while (prefetchFlag && (chRaw = stream.GetChar(sig)) >= 0) {
@@ -248,22 +248,22 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 			pushbackFlag = false;
 			if (stat == STAT_FirstRowTop) {
 				if (ch == '|') {
-					barTopFlag = barFoundFlag = true;
+					pipeTopFlag = pipeFoundFlag = true;
 					nSeps = 0;
 					stat = STAT_FirstRowBody;
 				} else if (IsEOL(ch)) {
 					prefetchFlag = false;
 				} else {
-					barTopFlag = barFoundFlag = false;
+					pipeTopFlag = pipeFoundFlag = false;
 					nSeps = 0;
 					stat = STAT_FirstRowBody;
 				}
 			} else if (stat == STAT_FirstRowBody) {
 				if (ch == '|') {
-					barFoundFlag = true;
+					pipeFoundFlag = true;
 					nSeps++;
 				} else if (IsEOL(ch)) {
-					if (barFoundFlag) {
+					if (pipeFoundFlag) {
 						stat = STAT_GuideRowTop;
 					} else {
 						prefetchFlag = false;
@@ -273,8 +273,8 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 				}
 			} else if (stat == STAT_GuideRowTop) {
 				if (ch == '|') {
-					if (barTopFlag) {
-						barFoundFlag = true;
+					if (pipeTopFlag) {
+						pipeFoundFlag = true;
 						nSeps = 0;
 						guideList.clear();
 						guide.clear();
@@ -285,7 +285,7 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 				} else if (IsEOL(ch)) {
 					prefetchFlag = false;
 				} else if (ch == '-' || ch == ':') {
-					barFoundFlag = false;
+					pipeFoundFlag = false;
 					nSeps = 0;
 					guideList.clear();
 					guide.clear();
@@ -296,12 +296,12 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 				}
 			} else if (stat == STAT_GuideRowBody) {
 				if (ch == '|') {
-					barFoundFlag = true;
+					pipeFoundFlag = true;
 					guideList.push_back(Strip(guide.c_str()));
 					guide.clear();
 					nSeps++;
 				} else if (IsEOL(ch)) {
-					if (barFoundFlag) {
+					if (pipeFoundFlag) {
 						if (!guide.empty()) {
 							guideList.push_back(Strip(guide.c_str()));
 						}
@@ -316,8 +316,8 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 				}
 			} else if (stat == STAT_TrailingRowTop) {
 				if (ch == '|') {
-					if (barTopFlag) {
-						barFoundFlag = true;
+					if (pipeTopFlag) {
+						pipeFoundFlag = true;
 						nSeps = 0;
 						stat = STAT_TrailingRowBody;
 					} else {
@@ -327,7 +327,7 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 					pushbackFlag = true;
 					stat = STAT_TrailingRowHead;
 				} else {
-					barFoundFlag = false;
+					pipeFoundFlag = false;
 					nSeps = 0;
 					stat = STAT_TrailingRowBody;
 				}
@@ -343,7 +343,7 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 				}
 			} else if (stat == STAT_TrailingRowBody) {
 				if (ch == '|') {
-					barFoundFlag = true;
+					pipeFoundFlag = true;
 					nSeps++;
 				} else if (IsEOL(ch)) {
 					nTrailingRows++;
@@ -513,7 +513,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (IsWhite(ch) || IsEOL(ch)) {
 			// nothing to do
 		} else if (ch == '|') {
-			// skip a bar character placed at top of the line.
+			// skip a pipe character placed at top of the line.
 			BeginTableRow();
 			_stat = STAT_Text;
 		} else {
