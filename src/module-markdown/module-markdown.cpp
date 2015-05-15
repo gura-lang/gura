@@ -441,19 +441,17 @@ bool Document::ParseChar(Signal sig, char ch)
 	switch (_stat) {
 	case STAT_LineTop: {
 		_indentLevel = 0;
-		pushbackFlag = true;
-#if 0
 		if (!IsTableMode()) {
+			pushbackFlag = true;
 			_stat = STAT_LineHead;
 		} else if (ch == '|') {
 			// skip a pipe character placed at top of the line.
 			BeginTableRow();
 			_stat = STAT_Text;
 		} else {
+			pushbackFlag = true;
 			_stat = STAT_LineHeadTable;
 		}
-#endif
-		_stat = IsTableMode()? STAT_LineHeadTable : STAT_LineHead;
 		break;
 	}
 	case STAT_LineHead: {
@@ -523,9 +521,6 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_LineHeadTable: {
 		if (IsWhite(ch) || IsEOL(ch)) {
 			// nothing to do
-		} else if (ch == '|') {
-			BeginTableRow();
-			_stat = STAT_Text;
 		} else {
 			BeginTableRow();
 			pushbackFlag = true;
