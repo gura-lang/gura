@@ -620,6 +620,22 @@
     <em>
       <text>'aaa_post'
     <text>' post'
+  <p>
+    <em>
+      <text>'aaa'
+    <text>':colon below'
+  <p>
+    <text>'colon ahead:'
+    <em>
+      <text>'aaa'
+  <p>
+    <strong>
+      <text>'aaa'
+    <text>':colon below'
+  <p>
+    <text>'colon ahead:'
+    <strong>
+      <text>'aaa'
 ======== decoration-4 ========
 <root>
   <p>

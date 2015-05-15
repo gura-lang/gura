@@ -394,6 +394,14 @@ pre _aaa_post
 pre _aaa_post_
 
 pre _aaa_post_ post
+
+_aaa_:colon below
+
+colon ahead:_aaa_
+
+__aaa__:colon below
+
+colon ahead:__aaa__
 ''')
 
 testcase@markdown('decoration-4', R'''

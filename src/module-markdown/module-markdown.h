@@ -377,8 +377,9 @@ private:
 	static bool IsLink(const char *text);
 	static bool IsBeginTag(const char *text, String &tagName, String &attrs, bool &closedFlag);
 	static bool IsEndTag(const char *text, String &tagName);
-	inline static bool IsSpace(char ch) {
-		return ch == '\n' || ch == ' ' || ch == '\t' || ch == '\0';
+	inline bool IsWordChar(char ch) {
+		return (GetCType(ch) &
+				(CTYPE_Alpha | CTYPE_Digit | CTYPE_UTF8First | CTYPE_UTF8Follower)) != 0;
 	}
 	inline static bool IsEOL(char ch) { return ch == '\n'; }
 	inline static bool IsEOF(char ch) { return ch == '\0'; }

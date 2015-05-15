@@ -1455,14 +1455,14 @@ bool Document::ParseChar(Signal sig, char ch)
 		break;
 	}
 	case STAT_UnderscoreEmphasisPost: {
-		if (IsSpace(ch)) {
-			EndDecoration();
-			pushbackFlag = true;
-			_stat = STAT_DecorationPost;
-		} else {
+		if (IsWordChar(ch)) {
 			_text += '_';
 			pushbackFlag = true;
 			_stat = STAT_UnderscoreEmphasis;
+		} else {
+			EndDecoration();
+			pushbackFlag = true;
+			_stat = STAT_DecorationPost;
 		}
 		break;
 	}
@@ -1504,14 +1504,14 @@ bool Document::ParseChar(Signal sig, char ch)
 		break;
 	}
 	case STAT_UnderscoreStrongPost: {
-		if (IsSpace(ch)) {
-			EndDecoration();
-			pushbackFlag = true;
-			_stat = STAT_DecorationPost;
-		} else {
+		if (IsWordChar(ch)) {
 			_text += "__";
 			pushbackFlag = true;
 			_stat = STAT_UnderscoreStrong;
+		} else {
+			EndDecoration();
+			pushbackFlag = true;
+			_stat = STAT_DecorationPost;
 		}
 		break;
 	}
@@ -2112,7 +2112,7 @@ bool Document::CheckSpecialChar(char ch)
 		_statStack.Push(_stat);
 		_stat = STAT_Asterisk;
 		return true;
-	} else if (ch == '_' && IsSpace(_chPrev)) {
+	} else if (ch == '_' && !IsWordChar(_chPrev)) {
 		FlushText(Item::TYPE_Text, false, false);
 		_statStack.Push(_stat);
 		_stat = STAT_Underscore;
