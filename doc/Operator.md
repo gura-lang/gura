@@ -494,7 +494,7 @@ You can use `operator#entries()` method to get all of the functions registered i
     println(op.entries())
 
 The method returns entries registered as binary operators.
-Specifying a symbol ``unary` as its argument would return a list of unary operators.
+Specifying a symbol `` `unary`` as its argument would return a list of unary operators.
 
     op = operator(`-)
     println(op.entries(`unary))
