@@ -825,6 +825,12 @@ blank items
 |       |data2-2|       |
 |       |       |data3-3|
 
+column1|column2|column3
+-------|-------|-------
+data1-1|       |       
+       |data2-2|       
+       |       |data3-3
+
 decorative items
 
 *emphasized*        |**strong**  |column3
