@@ -310,27 +310,6 @@
 <root>
   <ul>
     <li>
-      <p>
-        <text>'list item'
-      <codeblock>
-        <line>
-          <text>'block under list item'
-        <line>
-          <text>'2nd line'
-        <line>
-          <text>'3rd line'
-    <li>
-      <p>
-        <text>'list item'
-      <codeblock>
-        <line>
-          <text>'  block under list item (2 spaces ahead)'
-        <line>
-          <text>'   2nd line (3 spaces ahead)'
-        <line>
-          <text>'    3rd line (4 spaces ahead)'
-  <ul>
-    <li>
       <text>'item -hyphen +plus '
       <em>
         <text>'emphasis'
@@ -938,6 +917,74 @@
       <text>'        three tabs ahead'
   <p>
     <text>'post'
+======== code block in list ========
+<root>
+  <ul>
+    <li>
+      <p>
+        <text>'list item'
+      <codeblock>
+        <line>
+          <text>'block under list item'
+        <line>
+          <text>'2nd line'
+        <line>
+          <text>'3rd line'
+    <li>
+      <p>
+        <text>'list item'
+      <codeblock>
+        <line>
+          <text>'  block under list item (2 spaces ahead)'
+        <line>
+          <text>'   2nd line (3 spaces ahead)'
+        <line>
+          <text>'    3rd line (4 spaces ahead)'
+  <p>
+    <text>'paragraph'
+  <ul>
+    <li>
+      <p>
+        <text>'item-1'
+      <codeblock>
+        <line>
+          <text>'code line 1st'
+        <line>
+          <text>'code line 2nd'
+        <line>
+          <text>'code line 3rd'
+    <li>
+      <p>
+        <text>'item-2'
+      <codeblock>
+        <line>
+          <text>'+ code line 1st'
+        <line>
+          <text>'+ code line 2nd'
+        <line>
+          <text>'+ code line 3rd'
+      <ul>
+        <li>
+          <p>
+            <text>'item-2-1'
+          <codeblock>
+            <line>
+              <text>'+ code line 1st'
+            <line>
+              <text>'+ code line 2nd'
+            <line>
+              <text>'+ code line 3rd'
+          <ul>
+            <li>
+              <p>
+                <text>'item-2-1-1'
+              <codeblock>
+                <line>
+                  <text>'+ code line 1st'
+                <line>
+                  <text>'+ code line 2nd'
+                <line>
+                  <text>'+ code line 3rd'
 ======== fenced code block ========
 <root>
   <p>

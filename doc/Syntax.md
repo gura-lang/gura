@@ -6,14 +6,14 @@ Gura's parser consits of two parts: token parser and syntax parser.
 
 The token parser is responsible of splitting a text into tokens
 that represent atomic factors in a program.
-Section explains
+Section "Token" explains
 about how the tokens should be described in a code
 and about their traits.
 
 The syntax parser will build up expressions from tokens following Gura's syntax rule.
 While a program is running, the interpreter reads the expressions
 and executes them along with Environment status.
-Section explains
+Section "Expression" explains
 about what tokens compose each expression
 and about relationship between expressions using class diagrams.
 

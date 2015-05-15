@@ -242,19 +242,6 @@ hoge
 ''')
 
 testcase@markdown('list-3', R'''
-- list item
-
-        block under list item
-        2nd line
-        3rd line
-
-- list item
-
-          block under list item (2 spaces ahead)
-           2nd line (3 spaces ahead)
-            3rd line (4 spaces ahead)
-
-
 - item
 -hyphen
 +plus
@@ -576,6 +563,46 @@ pre
 			three tabs ahead
 
 post
+''')
+
+testcase@markdown('code block in list', R'''
+- list item
+
+        block under list item
+        2nd line
+        3rd line
+
+- list item
+
+          block under list item (2 spaces ahead)
+           2nd line (3 spaces ahead)
+            3rd line (4 spaces ahead)
+
+paragraph
+
+- item-1
+
+        code line 1st
+        code line 2nd
+        code line 3rd
+
+- item-2
+
+        + code line 1st
+        + code line 2nd
+        + code line 3rd
+
+  - item-2-1
+  
+        + code line 1st
+        + code line 2nd
+        + code line 3rd
+
+    - item-2-1-1
+
+        + code line 1st
+        + code line 2nd
+        + code line 3rd
 ''')
 
 testcase@markdown('fenced code block', R'''

@@ -934,6 +934,14 @@ bool Document::ParseChar(Signal sig, char ch)
 			_indentLevel += 1;
 		} else if (ch == '\t') {
 			_indentLevel += 4;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			EndListItem();
+			_itemStack.ClearListItem();
+			pushbackFlag = IsEOF(ch);
+			_stat = STAT_LineTop;
+		} else if (_indentLevel >= INDENT_CodeBlockInList) {
+			pushbackFlag = true;
+			BeginCodeBlockInList(NULL);
 		} else if (ch == '*') {
 			_textAhead.clear();
 			_textAhead += ch;
@@ -950,20 +958,12 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAhead.clear();
 			_textAhead += ch;
 			_stat = STAT_ListItemNL_Digit;
-		} else if (IsEOL(ch) || IsEOF(ch)) {
-			EndListItem();
-			_itemStack.ClearListItem();
-			pushbackFlag = IsEOF(ch);
-			_stat = STAT_LineTop;
 		} else if (_indentLevel <= 0) {
 			EndListItem();
 			_itemStack.ClearListItem();
 			AdjustBlockQuote();
 			pushbackFlag = true;
 			_stat = STAT_LineTop;
-		} else if (_indentLevel >= INDENT_CodeBlockInList) {
-			pushbackFlag = true;
-			BeginCodeBlockInList(NULL);
 		} else {
  			FlushItem(Item::TYPE_Paragraph, false, false);
 			pushbackFlag = true;
