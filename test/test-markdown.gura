@@ -329,9 +329,9 @@ testcase@markdown('decoration-2', R'''
 
 You can include literal backticks like `` `this` ``.
 
-``test` hoge
+`` `test`` hoge
 
-```this` ``
+`` `this` ``
 
 *strong*
 *`strong code`*

@@ -203,6 +203,8 @@ private:
 		STAT_HyphenAtHead,
 		STAT_DigitAtHead,
 		STAT_DigitDotAtHead,
+		STAT_BackquoteAtHead,
+		STAT_BackquoteAtHead2nd,
 		STAT_SetextHeaderHead,
 		STAT_SetextHeaderPre,
 		STAT_SetextHeader,
@@ -224,8 +226,11 @@ private:
 		STAT_ListItemNL_Hyphen,
 		STAT_ListItemNL_Digit,
 		STAT_ListItemNL_DigitDot,
+		STAT_CodeBlockLexerName,
 		STAT_CodeBlock,
+		STAT_CodeBlockQ,
 		STAT_CodeBlock_LineHead,
+		STAT_CodeBlockQ_LineHead,
 		STAT_CodeBlockUnderBlockQuote,
 		STAT_CodeBlockInList,
 		STAT_CodeBlockInList_LineHead,
@@ -352,6 +357,8 @@ private:
 	void FlushTableCol(bool eolFlag);
 	void BeginCodeBlock(const char *textInit);
 	void EndCodeBlock();
+	void BeginCodeBlockQ();
+	void EndCodeBlockQ();
 	void BeginCodeBlockInList(const char *textInit);
 	void EndCodeBlockInList();
 	void BeginListItem(Item::Type type);

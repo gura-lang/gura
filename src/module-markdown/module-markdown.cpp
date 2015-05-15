@@ -485,6 +485,10 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAhead.clear();
 			_textAhead += ch;
 			_stat = STAT_DigitAtHead;
+		} else if (ch == '`') {
+			_textAhead.clear();
+			_textAhead += ch;
+			_stat = STAT_BackquoteAtHead;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			FlushItem(Item::TYPE_Paragraph, false, false);
 			_indentLevel = 0;
@@ -651,6 +655,39 @@ bool Document::ParseChar(Signal sig, char ch)
 			_text += _textAhead;
 			pushbackFlag = true;
 			_stat = STAT_Text;
+		}
+		break;
+	}
+	case STAT_BackquoteAtHead: {
+		if (ch == '`') {
+			_textAhead += ch;
+			_stat = STAT_BackquoteAtHead2nd;
+		} else {
+			_stat = STAT_Text;
+			if (CheckSpecialChar('`')) {
+				// nothing to do
+			} else {
+				AppendJointSpace();
+				_text += _textAhead;
+			}
+			pushbackFlag = true;
+		}
+		break;
+	}
+	case STAT_BackquoteAtHead2nd: {
+		if (ch == '`') {
+			_field.clear();
+			_stat = STAT_CodeBlockLexerName;
+		} else {
+			_stat = STAT_Text;
+			if (CheckSpecialChar('`')) {
+				// see STAT_Backquote as well
+				_stat = STAT_CodeEsc;
+			} else {
+				AppendJointSpace();
+				_text += _textAhead;
+			}
+			pushbackFlag = true;
 		}
 		break;
 	}
@@ -1037,6 +1074,14 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
+	case STAT_CodeBlockLexerName: {
+		if (IsEOL(ch) || IsEOF(ch)) {
+			BeginCodeBlockQ();
+		} else {
+			_field += ch;
+		}
+		break;
+	}
 	case STAT_CodeBlock: {
 		if (IsEOL(ch) || IsEOF(ch)) {
 			Item *pItemParent = _itemStack.back();
@@ -1093,6 +1138,35 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
+
+
+	case STAT_CodeBlockQ: {
+		if (IsEOL(ch) || IsEOF(ch)) {
+			Item *pItemParent = _itemStack.back();
+			do {
+				Item *pItem = new Item(Item::TYPE_Text, _text);
+				_pItemOwner->push_back(pItem);
+				_text.clear();
+			} while (0);
+			do {
+				Item *pItem = new Item(Item::TYPE_Line, _pItemOwner.release());
+				pItemParent->GetItemOwner()->push_back(pItem);
+				_pItemOwner.reset(new ItemOwner());
+			} while (0);
+			_indentLevel = 0;
+			_stat = STAT_CodeBlockQ_LineHead;
+		} else {
+			_text += ch;
+		}
+		break;
+	}
+	case STAT_CodeBlockQ_LineHead: {
+		break;
+	}
+
+
+
+
 	case STAT_CodeBlockUnderBlockQuote: {
 		if (ch == ' ') {
 			_indentLevel += 1;
@@ -1155,6 +1229,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_Backquote: {
 		if (ch == '`') {
+			// see STAT_BackquoteAtHead2nd as well
 			_stat = STAT_CodeEsc;
 		} else {
 			pushbackFlag = true;
@@ -2194,6 +2269,24 @@ void Document::BeginCodeBlock(const char *textInit)
 }
 
 void Document::EndCodeBlock()
+{
+	_itemStack.pop_back();
+	_stat = STAT_LineTop;
+}
+
+void Document::BeginCodeBlockQ()
+{
+	FlushItem(Item::TYPE_Paragraph, false, false);
+	do {
+		Item *pItemParent = _itemStack.back();
+		Item *pItem = new Item(Item::TYPE_CodeBlock, new ItemOwner(), _indentLevel);
+		pItemParent->GetItemOwner()->push_back(pItem);
+		_itemStack.push_back(pItem);
+	} while (0);
+	_stat = STAT_CodeBlockQ;
+}
+
+void Document::EndCodeBlockQ()
 {
 	_itemStack.pop_back();
 	_stat = STAT_LineTop;
