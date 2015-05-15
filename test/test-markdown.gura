@@ -127,6 +127,27 @@ paragraph
   - item 4-3
 ''')
 
+testcase@markdown('fenced code block', R'''
+pre
+
+```
+1st
+2nd
+3rd
+```
+post
+
+pre
+
+```ruby
+10.times {|i|
+    print("Hello #", i, "\n")
+}
+```
+
+post
+''')
+
 testcase@markdown('header-2', R'''
 Header1
 ==

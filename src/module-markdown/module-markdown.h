@@ -226,11 +226,14 @@ private:
 		STAT_ListItemNL_Hyphen,
 		STAT_ListItemNL_Digit,
 		STAT_ListItemNL_DigitDot,
-		STAT_CodeBlockLexerName,
 		STAT_CodeBlock,
-		STAT_CodeBlockQ,
 		STAT_CodeBlock_LineHead,
-		STAT_CodeBlockQ_LineHead,
+		STAT_FencedCodeBlockAttr,
+		STAT_FencedCodeBlock,
+		STAT_FencedCodeBlock_LineHead,
+		STAT_FencedCodeBlock_LineHead2nd,
+		STAT_FencedCodeBlock_LineHead3rd,
+		STAT_FencedCodeBlock_SkipToEOL,
 		STAT_CodeBlockUnderBlockQuote,
 		STAT_CodeBlockInList,
 		STAT_CodeBlockInList_LineHead,
@@ -357,8 +360,8 @@ private:
 	void FlushTableCol(bool eolFlag);
 	void BeginCodeBlock(const char *textInit);
 	void EndCodeBlock();
-	void BeginCodeBlockQ();
-	void EndCodeBlockQ();
+	void BeginFencedCodeBlock();
+	void EndFencedCodeBlock();
 	void BeginCodeBlockInList(const char *textInit);
 	void EndCodeBlockInList();
 	void BeginListItem(Item::Type type);

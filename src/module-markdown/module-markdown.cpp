@@ -677,7 +677,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_BackquoteAtHead2nd: {
 		if (ch == '`') {
 			_field.clear();
-			_stat = STAT_CodeBlockLexerName;
+			_stat = STAT_FencedCodeBlockAttr;
 		} else {
 			_stat = STAT_Text;
 			if (CheckSpecialChar('`')) {
@@ -1074,14 +1074,6 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_CodeBlockLexerName: {
-		if (IsEOL(ch) || IsEOF(ch)) {
-			BeginCodeBlockQ();
-		} else {
-			_field += ch;
-		}
-		break;
-	}
 	case STAT_CodeBlock: {
 		if (IsEOL(ch) || IsEOF(ch)) {
 			Item *pItemParent = _itemStack.back();
@@ -1138,9 +1130,15 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-
-
-	case STAT_CodeBlockQ: {
+	case STAT_FencedCodeBlockAttr: {
+		if (IsEOL(ch) || IsEOF(ch)) {
+			BeginFencedCodeBlock();
+		} else {
+			_field += ch;
+		}
+		break;
+	}
+	case STAT_FencedCodeBlock: {
 		if (IsEOL(ch) || IsEOF(ch)) {
 			Item *pItemParent = _itemStack.back();
 			do {
@@ -1154,19 +1152,52 @@ bool Document::ParseChar(Signal sig, char ch)
 				_pItemOwner.reset(new ItemOwner());
 			} while (0);
 			_indentLevel = 0;
-			_stat = STAT_CodeBlockQ_LineHead;
+			_stat = STAT_FencedCodeBlock_LineHead;
 		} else {
 			_text += ch;
 		}
 		break;
 	}
-	case STAT_CodeBlockQ_LineHead: {
+	case STAT_FencedCodeBlock_LineHead: {
+		if (ch == '`') {
+			_textAhead.clear();
+			_textAhead += ch;
+			_stat = STAT_FencedCodeBlock_LineHead2nd;
+		} else {
+			pushbackFlag = true;
+			_stat = STAT_FencedCodeBlock;
+		}
 		break;
 	}
-
-
-
-
+	case STAT_FencedCodeBlock_LineHead2nd: {
+		if (ch == '`') {
+			_textAhead += ch;
+			_stat = STAT_FencedCodeBlock_LineHead3rd;
+		} else {
+			_text += _textAhead;
+			pushbackFlag = true;
+			_stat = STAT_FencedCodeBlock;
+		}
+		break;
+	}
+	case STAT_FencedCodeBlock_LineHead3rd: {
+		if (ch == '`') {
+			_stat = STAT_FencedCodeBlock_SkipToEOL;
+		} else {
+			_text += _textAhead;
+			pushbackFlag = true;
+			_stat = STAT_FencedCodeBlock;
+		}
+		break;
+	}
+	case STAT_FencedCodeBlock_SkipToEOL: {
+		if (IsEOL(ch) || IsEOF(ch)) {
+			EndFencedCodeBlock();
+		} else {
+			// nothing to do
+		}
+		break;
+	}
 	case STAT_CodeBlockUnderBlockQuote: {
 		if (ch == ' ') {
 			_indentLevel += 1;
@@ -2274,7 +2305,7 @@ void Document::EndCodeBlock()
 	_stat = STAT_LineTop;
 }
 
-void Document::BeginCodeBlockQ()
+void Document::BeginFencedCodeBlock()
 {
 	FlushItem(Item::TYPE_Paragraph, false, false);
 	do {
@@ -2283,10 +2314,10 @@ void Document::BeginCodeBlockQ()
 		pItemParent->GetItemOwner()->push_back(pItem);
 		_itemStack.push_back(pItem);
 	} while (0);
-	_stat = STAT_CodeBlockQ;
+	_stat = STAT_FencedCodeBlock;
 }
 
-void Document::EndCodeBlockQ()
+void Document::EndFencedCodeBlock()
 {
 	_itemStack.pop_back();
 	_stat = STAT_LineTop;

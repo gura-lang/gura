@@ -39,7 +39,7 @@
       <text>'emphasis'
     <strong>
       <text>'strong'
-    <text>' text '
+    <text>' text'
     <code>'not terminated code'
     <text>'text*not terminated emphasistext**not terminated strong'
 ======== code block ========
@@ -181,6 +181,30 @@
           <text>'item 4-2'
         <li>
           <text>'item 4-3'
+======== fenced code block ========
+<root>
+  <p>
+    <text>'pre'
+  <codeblock>
+    <line>
+      <text>'1st'
+    <line>
+      <text>'2nd'
+    <line>
+      <text>'3rd'
+  <p>
+    <text>'post'
+  <p>
+    <text>'pre'
+  <codeblock>
+    <line>
+      <text>'10.times {|i|'
+    <line>
+      <text>'    print("Hello #", i, "\n")'
+    <line>
+      <text>'}'
+  <p>
+    <text>'post'
 ======== header-2 ========
 <root>
   <h1>
@@ -466,7 +490,8 @@
     <code>'`this`'
     <text>'.'
   <p>
-    <code>'test` hoge'
+    <code>'`test'
+    <text>' hoge'
   <p>
     <code>'`this`'
   <p>
