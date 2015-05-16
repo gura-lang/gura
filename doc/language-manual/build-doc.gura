@@ -2,7 +2,7 @@
 import(markdown)
 
 //dirNameOut = path.dirname(sys.argv[0])
-dirNameOut = '../../gura-lang.github.io/language-manual.t'
+dirNameOut = '../../../gura-lang.github.io/language-manual.t'
 
 fileNames = [
 	'Introduction.md'
