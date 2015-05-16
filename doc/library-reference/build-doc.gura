@@ -1,0 +1,154 @@
+#!/usr/bin/env gura
+import(markdown)
+
+//dirNameOut = path.dirname(sys.argv[0])
+//!path.exists(dirNameOut) && fs.mkdir(dirNameOut)
+dirNameOut = '../../../gura-lang.github.io/library-reference'
+
+baseNames = [
+	'basement' // this must come at first
+	'guracore' // this must come at second
+	'argopt'
+	'base64'
+	'bmp'
+	'bzip2'
+	'cairo'
+	'calendar'
+	//'canvas'
+	'cbridge'
+	'conio'
+	'csv'
+	'curl'
+	'diff'
+	//'emf'
+	'example'
+	'freetype'
+	'fs'
+	'gif'
+	'glu'
+	'glut'
+	'gmp'
+	'gurcbuild'
+	//'guri'
+	'gzip'
+	'hash'
+	'http'
+	'jpeg'
+	//'llvm'
+	'markdown'
+	'math'
+	'midi'
+	'modbuild'
+	'moddoc'
+	//'modgen'
+	'msico'
+	//'mswin'
+	//'mysql'
+	'opengl'
+	'os'
+	'path'
+	'png'
+	//'postgresql'
+	'ppm'
+	're'
+	'show'
+	//'sdl'
+	'sdl2'
+	'sqlite3'
+	'sys'
+	'tar'
+	//'tcl'
+	//'tester'
+	'tiff'
+	'tokenizer'
+	'units'
+	'uuid'
+	'wav'
+	'wx'
+	'xml'
+	'xpm'
+	'yaml'
+	'zip'
+]
+
+doc = markdown.document()
+doc.read('Main.md')
+
+baseNames.each {|baseName|
+	println('module: ', baseName)
+	moduleName = baseName + '.doc'
+	import(&moduleName).write(doc, `en)
+}
+
+headerForIndex = R'''
+---
+layout: page
+lang: en
+title: Gura Library Reference
+---
+
+<h1>Gura Library Reference</h1>
+
+'''
+
+footerForIndex = R'''
+<p />
+'''
+
+headerForPage = R'''
+---
+layout: page
+lang: en
+title: Gura Library Reference
+---
+
+{% raw %}
+'''
+
+footerForPage = R'''
+<p />
+
+{% endraw %}
+'''
+
+Renderer@html = class(markdown.Renderer@html) {
+	__init__() = {|sys.stdout, true|
+		this.out = nil
+	}
+	OnRenderItemPre(item:item) = {
+		if (item.type == `h1) {
+			this.out && this.out.print(footerForPage)
+			fileName = path.join(dirNameOut, 'chapter-%02d.md' % (this.indices[0] + 1))
+			println('rendering ', path.filename(fileName))
+			this.out = open(fileName, 'w')
+			this.out.print(headerForPage)
+		}
+		true
+	}
+	OnRenderItemPost(item:item):void = {
+		if (item.type == `root) {
+			this.out && this.out.print(footerForPage)
+			this.out = nil
+		}
+	}
+}
+
+println('Output directory: ', dirNameOut)
+fileName = path.join(dirNameOut, 'index.md')
+println('rendering ', path.filename(fileName))
+open(fileName, 'w') {|out|
+	out.print(headerForIndex)
+	doc.render@toc {|level:number, indices[]:number, anchorName:string, text:string|
+		if (level == 0) {
+			out.printf(
+					'<div><span class="toc-index-1">%d</span><a href="chapter-%02d.html#%s">%s</a>\</div>\n',
+					indices[0], indices[0], anchorName, text)
+		} elsif (level == 1 && indices[0] in [4, 6]) {
+			out.printf(
+					'<div><span class="toc-index-2">%d.%d</span><a href="chapter-%02d.html#%s">%s</a>\</div>\n',
+					indices[0], indices[1], indices[0], anchorName, text)
+		}
+	}
+	out.print(footerForIndex)
+}
+Renderer@html().Render(doc)
