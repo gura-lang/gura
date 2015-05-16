@@ -816,7 +816,7 @@ paragraph
 
 ''')
 				  
-testcase@markdown('entities', R'''
+testcase@markdown('entity', R'''
 3 < 4 > 2
 
 out << hogehoge
@@ -825,6 +825,11 @@ out << hogehoge
 
 &copy;&amp;AT&T&gt;&lt;
 
+&amp;
+
+<a>
+&amp;
+</a>
 ''')
 				  
 testcase@markdown('HTML tag', R'''

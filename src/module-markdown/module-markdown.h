@@ -258,7 +258,7 @@ private:
 		STAT_TildaStrike,
 		STAT_TildaStrikeEnd,
 		STAT_DecorationPost,
-		STAT_Ampersand,
+		STAT_Entity,
 		STAT_AngleBracketFirst,
 		STAT_AngleBracket,
 		STAT_CommentStartFirst,

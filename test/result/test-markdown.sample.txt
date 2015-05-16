@@ -1304,7 +1304,7 @@
       <text>'= bar'
   <p>
     <text>'paragraph'
-======== entities ========
+======== entity ========
 <root>
   <p>
     <text>'3 < 4 > 2'
@@ -1324,6 +1324,13 @@
     <text>'AT&T'
     <entity>'gt'
     <entity>'lt'
+  <p>
+    <entity>'amp'
+  <p>
+    <tag>'a'
+      <entity>'amp'
+      <text>'
+'
 ======== HTML tag ========
 <root>
   <p>
