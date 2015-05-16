@@ -6,7 +6,7 @@ MakeAnchorNameDef(indices[]:number) = 'anchor-' + format('%d', indices).join('-'
 
 Renderer@html = class {
 	tagsInline = [
-		'a', 'b', 'em', 'img', 'span', 'strike', 'strong', 'u'
+		'a', 'b', 'code', 'em', 'img', 'span', 'strike', 'strong', 'u'
 	]
 	__init__(out:stream:w, captionIndex:boolean) = {
 		this.out = out
