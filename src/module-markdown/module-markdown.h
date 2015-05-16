@@ -390,6 +390,7 @@ private:
 	inline bool IsTableFirstRow() const { return _iTableRow == 0; }
 	inline bool IsTableGuideRow() const { return _iTableRow == 1; }
 	inline bool IsTableTrailingRow() const { return _iTableRow >= 2; }
+	inline bool IsWithinTag() const { return !_itemStackTag.empty(); }
 };
 
 //-----------------------------------------------------------------------------

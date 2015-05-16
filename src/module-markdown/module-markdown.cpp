@@ -455,7 +455,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		break;
 	}
 	case STAT_LineHead: {
-		if (!_itemStackTag.empty()) {
+		if (IsWithinTag()) {
 			// When within a tag, ignore special characters except for '<'.
 			pushbackFlag = true;
 			_stat = STAT_Text;
@@ -1329,15 +1329,15 @@ bool Document::ParseChar(Signal sig, char ch)
 				} else {
 					_stat = STAT_LineTop;
 				}
-			} else if (_itemStackTag.empty()) {
+			} else if (IsWithinTag()) {
+				_text += ch;
+			} else {
 				if (EndsWith(_text.c_str(), "  ", false) != NULL) {
 					FlushText(Item::TYPE_Text, false, true);
 					Item *pItem = new Item(Item::TYPE_LineBreak);
 					_pItemOwner->push_back(pItem);
 				}
 				_stat = STAT_LineTop;
-			} else {
-				_text += ch;
 			}
 		} else if (IsEOF(ch)) {
 			pushbackFlag = true;
@@ -2102,7 +2102,7 @@ bool Document::ParseChar(Signal sig, char ch)
 
 bool Document::CheckSpecialChar(char ch)
 {
-	if (!_itemStackTag.empty()) {
+	if (IsWithinTag()) {
 		// When within a tag, ignore special characters except for '<'.
 		if (ch == '<') {
 			_textAhead.clear();
@@ -2469,7 +2469,7 @@ void Document::BeginTag(const char *tagName, const char *attrs, bool closedFlag)
 
 bool Document::EndTag(const char *tagName)
 {
-	if (_itemStackTag.empty() || ::strcmp(_itemStackTag.back()->GetText(), tagName) != 0) {
+	if (!IsWithinTag() || ::strcmp(_itemStackTag.back()->GetText(), tagName) != 0) {
 		return false;
 	}
 	FlushText(Item::TYPE_Text, false, false);
