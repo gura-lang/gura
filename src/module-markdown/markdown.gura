@@ -5,6 +5,9 @@ import(markdown):binary:mixin_type {*}
 MakeAnchorNameDef(indices[]:number) = 'anchor-' + format('%d', indices).join('-')
 
 Renderer@html = class {
+	tagsInline = [
+		'a', 'b', 'em', 'img', 'span', 'strike', 'strong', 'u'
+	]
 	__init__(out:stream:w, captionIndex:boolean) = {
 		this.out = out
 		this.indices = dim(6) {0}
@@ -151,18 +154,21 @@ Renderer@html = class {
 		} elsif (item.type == `entity) {
 			this.out.print('&', item.text.escapehtml(), ';')
 		} elsif (item.type == `tag) {
+			inlineFlag = item.text in tagsInline
 			this.out.print('<')
 			this.out.print(item.text)
 			item.attrs && this.out.print(' ', item.attrs)
 			if (item.children) {
-				this.out.println('>')
+				this.out.print('>')
+				!inlineFlag && this.out.println()
 				item.children && this.RenderItem(item.children)
 				this.out.print('</')
 				this.out.print(item.text)
-				this.out.println('>')
+				this.out.print('>')
 			} else {
-				this.out.println(' />')
+				this.out.print(' />')
 			}
+			!inlineFlag && this.out.println()
 		} elsif (item.type == `hr) {
 			this.out.print('<hr />\n')
 		} elsif (item.type == `br) {
