@@ -376,35 +376,119 @@ _A\_ubar_
 __A\_ubar__
 ''')
 				  
-testcase@markdown('decoration-3', R'''
-_aaa_
+testcase@markdown('decoration-em-star', R'''
+*em*
 
-_aaa_ post
+*em* post
 
-_aaa_post post
+*em*post post
 
-_aaa_post_ post
+*em_post* post
 
-pre _aaa_ post
+pre *em* post
 
-pre_aaa_ post
+pre*em* post
 
-pre _aaa_post
+pre *em*post
 
-pre _aaa_post_
+pre *em_post*
 
-pre _aaa_post_ post
+pre *em_post* post
 
-_aaa_:colon below
+*em*:colon below
 
-colon ahead:_aaa_
+colon ahead:*em*
 
-__aaa__:colon below
-
-colon ahead:__aaa__
+pre
+*em*
+post
 ''')
 
-testcase@markdown('decoration-4', R'''
+testcase@markdown('decoration-strong-star', R'''
+**strong**
+
+**strong** post
+
+**strong**post post
+
+**strong_post** post
+
+pre **strong** post
+
+pre**strong** post
+
+pre **strong**post
+
+pre **strong_post**
+
+pre **strong_post** post
+
+**strong**:colon below
+
+colon ahead:**strong**
+
+pre
+**strong**
+post
+''')
+
+testcase@markdown('decoration-em-ubar', R'''
+_em_
+
+_em_ post
+
+_not-em_post post
+
+_em_post_ post
+
+pre _em_ post
+
+pre_not-em_ post
+
+pre _not-em_post
+
+pre _em_post_
+
+pre _em_post_ post
+
+_em_:colon below
+
+colon ahead:_em_
+
+pre
+_em_
+post
+''')
+
+testcase@markdown('decoration-strong-ubar', R'''
+__strong__
+
+__strong__ post
+
+__not-strong__post post
+
+__strong__post__ post
+
+pre __strong__ post
+
+pre__not-strong__ post
+
+pre __not-strong__post
+
+pre __strong__post__
+
+pre __strong__post__ post
+
+__strong__:colon below
+
+colon ahead:__strong__
+
+pre
+__strong__
+post
+''')
+
+testcase@markdown('decoration-strike', R'''
 ~~strike~~
 
 pre ~~strike~~
@@ -442,6 +526,10 @@ pre ~not-strike post
 pre ~~not-strike post
 
 pre ~~not-strike~ post
+
+pre
+~~strike~~
+post
 ''')
 
 testcase@markdown('link', R'''

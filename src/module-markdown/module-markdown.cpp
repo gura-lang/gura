@@ -589,6 +589,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			pushbackFlag = true;
 			BeginCodeBlock(_textAhead.c_str());
 		} else {
+			AppendJointSpace();
 			FlushText(Item::TYPE_Text, false, false);
 			_statStack.Push(STAT_Text);
 			pushbackFlag = true;
@@ -669,10 +670,10 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_BackquoteAtHead2nd;
 		} else {
 			_stat = STAT_Text;
+			AppendJointSpace();
 			if (CheckSpecialChar('`')) {
 				// nothing to do
 			} else {
-				AppendJointSpace();
 				_text += _textAhead;
 			}
 			pushbackFlag = true;
