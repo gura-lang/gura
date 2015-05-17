@@ -135,20 +135,20 @@ testcase@markdown('list-2', R'''
 - para1
   hoge
 
-        #include <stdio.h>
-        main()
-        {
-        }
+      #include <stdio.h>
+      main()
+      {
+      }
 
   foo
   bar
 - para1
   hoge
 
-        #include <stdio.h>
-        main()
-        {
-        }
+      #include <stdio.h>
+      main()
+      {
+      }
 
   foo
   bar
@@ -156,20 +156,20 @@ testcase@markdown('list-2', R'''
 1. para1
   hoge
 
-        #include <stdio.h>
-        main()
-        {
-        }
+      #include <stdio.h>
+      main()
+      {
+      }
 
   foo
   bar
 2. para1
   hoge
 
-        #include <stdio.h>
-        main()
-        {
-        }
+      #include <stdio.h>
+      main()
+      {
+      }
 
   foo
   bar
@@ -265,9 +265,9 @@ testcase@markdown('list-3', R'''
 
 - item
 
-        -hyphen at beginning in block
-        +plus at beginning in block
-        *star at beginning in block
+      -hyphen at beginning in block
+      +plus at beginning in block
+      *star at beginning in block
 
 *   Abacus
     * answer
@@ -664,29 +664,29 @@ post
 testcase@markdown('code block in list', R'''
 - list item
 
-        block under list item
-        2nd line
-        3rd line
+      block under list item
+      2nd line
+      3rd line
 
 - list item
 
-          block under list item (2 spaces ahead)
-           2nd line (3 spaces ahead)
-            3rd line (4 spaces ahead)
+        block under list item (2 spaces ahead)
+         2nd line (3 spaces ahead)
+          3rd line (4 spaces ahead)
 
 paragraph
 
 - item-1
 
-        code line 1st
-        code line 2nd
-        code line 3rd
+      code line 1st
+      code line 2nd
+      code line 3rd
 
 - item-2
 
-        + code line 1st
-        + code line 2nd
-        + code line 3rd
+      + code line 1st
+      + code line 2nd
+      + code line 3rd
 
   - item-2-1
   
@@ -696,9 +696,9 @@ paragraph
 
     - item-2-1-1
 
-        + code line 1st
-        + code line 2nd
-        + code line 3rd
+          + code line 1st
+          + code line 2nd
+          + code line 3rd
 ''')
 
 testcase@markdown('fenced code block', R'''

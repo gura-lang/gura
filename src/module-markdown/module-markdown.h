@@ -294,7 +294,7 @@ private:
 	};
 	enum {
 		INDENT_CodeBlock		= 4,
-		INDENT_CodeBlockInList	= 8,
+		//INDENT_CodeBlockInList	= 8,
 	};
 	class StatStack : public std::vector<Stat> {
 	public:
@@ -373,6 +373,7 @@ private:
 	void ReplaceDecoration(Item::Type type, const char *textAhead);
 	void BeginTag(const char *tagName, const char *attrs, bool closedFlag);
 	bool EndTag(const char *tagName);
+	int GetIndentLevelForCodeBlockInList() const;
 	static bool IsAtxHeader2(const char *text);
 	static bool IsHorzRule(const char *text);
 	static bool IsLink(const char *text);

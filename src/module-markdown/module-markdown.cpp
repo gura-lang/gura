@@ -863,7 +863,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_indentLevel += 1;
 		} else if (ch == '\t') {
 			_indentLevel += 4;
-		} else if (_indentLevel >= INDENT_CodeBlockInList) {
+		} else if (_indentLevel >= GetIndentLevelForCodeBlockInList()) {
 			pushbackFlag = true;
 			BeginCodeBlockInList(_textAhead.c_str());
 		} else if (ch == '>') {
@@ -945,7 +945,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_itemStack.ClearListItem();
 			pushbackFlag = IsEOF(ch);
 			_stat = STAT_LineTop;
-		} else if (_indentLevel >= INDENT_CodeBlockInList) {
+		} else if (_indentLevel >= GetIndentLevelForCodeBlockInList()) {
 			pushbackFlag = true;
 			BeginCodeBlockInList(NULL);
 		} else if (ch == '*') {
@@ -986,7 +986,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_LineTop;
 			if (!_ParseString(sig, _textAhead)) return false;
 			pushbackFlag = true;
-		} else if (_indentLevel >= INDENT_CodeBlockInList) {
+		} else if (_indentLevel >= GetIndentLevelForCodeBlockInList()) {
 			pushbackFlag = true;
 			BeginCodeBlockInList(_textAhead.c_str());
 		} else {
@@ -1006,7 +1006,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_LineTop;
 			if (!_ParseString(sig, _textAhead)) return false;
 			pushbackFlag = true;
-		} else if (_indentLevel >= INDENT_CodeBlockInList) {
+		} else if (_indentLevel >= GetIndentLevelForCodeBlockInList()) {
 			pushbackFlag = true;
 			BeginCodeBlockInList(_textAhead.c_str());
 		} else {
@@ -1026,7 +1026,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_LineTop;
 			if (!_ParseString(sig, _textAhead)) return false;
 			pushbackFlag = true;
-		} else if (_indentLevel >= INDENT_CodeBlockInList) {
+		} else if (_indentLevel >= GetIndentLevelForCodeBlockInList()) {
 			pushbackFlag = true;
 			BeginCodeBlockInList(_textAhead.c_str());
 		} else {
@@ -1049,7 +1049,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_LineTop;
 			if (!_ParseString(sig, _textAhead)) return false;
 			pushbackFlag = true;
-		} else if (_indentLevel >= INDENT_CodeBlockInList) {
+		} else if (_indentLevel >= GetIndentLevelForCodeBlockInList()) {
 			pushbackFlag = true;
 			BeginCodeBlockInList(_textAhead.c_str());
 		} else {
@@ -1069,7 +1069,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_LineTop;
 			if (!_ParseString(sig, _textAhead)) return false;
 			pushbackFlag = true;
-		} else if (_indentLevel >= INDENT_CodeBlockInList) {
+		} else if (_indentLevel >= GetIndentLevelForCodeBlockInList()) {
 			pushbackFlag = true;
 			BeginCodeBlockInList(_textAhead.c_str());
 		} else {
@@ -1254,8 +1254,10 @@ bool Document::ParseChar(Signal sig, char ch)
 			_indentLevel += 1;
 		} else if (ch == '\t') {
 			_indentLevel += 4;
-		} else if (_indentLevel >= INDENT_CodeBlockInList) {
-			for (int i = 0; i < _indentLevel - INDENT_CodeBlockInList; i++) _text += ' ';
+		} else if (_indentLevel >= GetIndentLevelForCodeBlockInList()) {
+			for (int i = 0; i < _indentLevel - GetIndentLevelForCodeBlockInList(); i++) {
+				_text += ' ';
+			}
 			pushbackFlag = true;
 			_stat = STAT_CodeBlockInList;
 		} else {
@@ -2337,7 +2339,7 @@ void Document::EndFencedCodeBlock()
 void Document::BeginCodeBlockInList(const char *textInit)
 {
 	FlushItem(Item::TYPE_Paragraph, false, false);
-	for (int i = 0; i < _indentLevel - INDENT_CodeBlockInList; i++) _text += ' ';
+	for (int i = 0; i < _indentLevel - GetIndentLevelForCodeBlockInList(); i++) _text += ' ';
 	if (textInit != NULL) _text += textInit;
 	do {
 		Item *pItemParent = _itemStack.back();
@@ -2471,6 +2473,17 @@ bool Document::EndTag(const char *tagName)
 	_pItemOwner.reset(_itemOwnerStack.Pop());
 	_itemStackTag.pop_back();
 	return true;
+}
+
+int Document::GetIndentLevelForCodeBlockInList() const
+{
+	foreach_const_reverse (ItemStack, ppItem, _itemStack) {
+		const Item *pItem = *ppItem;
+		if (pItem->IsListItem()) {
+			return pItem->GetIndentLevel() + 2 + INDENT_CodeBlock;
+		}
+	}
+	return 0;
 }
 
 bool Document::IsAtxHeader2(const char *text)
