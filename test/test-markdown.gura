@@ -171,6 +171,23 @@ testcase@markdown('list-2', R'''
       {
       }
 
+100. para1
+  hoge
+
+      #include <stdio.h>
+      main()
+      {
+      }
+
+101. para1
+    hoge
+ foo
+
+     #include <stdio.h>
+     main()
+     {
+     }
+
   foo
   bar
 

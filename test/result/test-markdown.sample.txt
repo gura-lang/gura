@@ -212,6 +212,30 @@
           <text>'{'
         <line>
           <text>'}'
+    <li>
+      <p>
+        <text>'para1 hoge'
+      <codeblock>
+        <line>
+          <text>'#include <stdio.h>'
+        <line>
+          <text>'main()'
+        <line>
+          <text>'{'
+        <line>
+          <text>'}'
+    <li>
+      <p>
+        <text>'para1 hoge foo'
+      <codeblock>
+        <line>
+          <text>'#include <stdio.h>'
+        <line>
+          <text>'main()'
+        <line>
+          <text>'{'
+        <line>
+          <text>'}'
       <p>
         <text>'foo bar'
   <p>

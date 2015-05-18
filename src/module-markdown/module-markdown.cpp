@@ -863,6 +863,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			Gura_Pushback();
 			_stat = STAT_LineTop;
 		} else {
+			UpdateIndentLevelItemBody(_indentLevel);
 			_text += ' ';
 			Gura_Pushback();
 			_stat = STAT_ListItem;
@@ -874,7 +875,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_indentLevel += 1;
 		} else if (ch == '\t') {
 			_indentLevel += WIDTH_Tab;
-		} else if (_indentLevel >= GetIndentLevelForCodeBlockInList()) {
+		} else if (_indentLevel >= GetIndentLevelForCodeBlock()) {
 			Gura_Pushback();
 			BeginCodeBlockInList(_textAhead.c_str());
 		} else if (ch == '>') {
@@ -956,22 +957,26 @@ bool Document::ParseChar(Signal sig, char ch)
 			_itemStack.ClearListItem();
 			Gura_PushbackCond(IsEOF(ch));
 			_stat = STAT_LineTop;
-		} else if (_indentLevel >= GetIndentLevelForCodeBlockInList()) {
+		} else if (_indentLevel >= GetIndentLevelForCodeBlock()) {
 			Gura_Pushback();
 			BeginCodeBlockInList(NULL);
 		} else if (ch == '*') {
+			UpdateIndentLevelItemBody(_indentLevel);
 			_textAhead.clear();
 			_textAhead += ch;
 			_stat = STAT_ListItemNL_Asterisk;
 		} else if (ch == '+') {
+			UpdateIndentLevelItemBody(_indentLevel);
 			_textAhead.clear();
 			_textAhead += ch;
 			_stat = STAT_ListItemNL_Plus;
 		} else if (ch == '-') {
+			UpdateIndentLevelItemBody(_indentLevel);
 			_textAhead.clear();
 			_textAhead += ch;
 			_stat = STAT_ListItemNL_Hyphen;
 		} else if (IsDigit(ch)) {
+			UpdateIndentLevelItemBody(_indentLevel);
 			_textAhead.clear();
 			_textAhead += ch;
 			_stat = STAT_ListItemNL_Digit;
@@ -982,6 +987,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			Gura_Pushback();
 			_stat = STAT_LineTop;
 		} else {
+			UpdateIndentLevelItemBody(_indentLevel);
  			FlushItem(Item::TYPE_Paragraph, false, false);
 			Gura_Pushback();
 			_stat = STAT_ListItem;
@@ -997,7 +1003,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_LineTop;
 			if (!_ParseString(sig, _textAhead)) return false;
 			Gura_Pushback();
-		} else if (_indentLevel >= GetIndentLevelForCodeBlockInList()) {
+		} else if (_indentLevel >= GetIndentLevelForCodeBlock()) {
 			Gura_Pushback();
 			BeginCodeBlockInList(_textAhead.c_str());
 		} else {
@@ -1017,7 +1023,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_LineTop;
 			if (!_ParseString(sig, _textAhead)) return false;
 			Gura_Pushback();
-		} else if (_indentLevel >= GetIndentLevelForCodeBlockInList()) {
+		} else if (_indentLevel >= GetIndentLevelForCodeBlock()) {
 			Gura_Pushback();
 			BeginCodeBlockInList(_textAhead.c_str());
 		} else {
@@ -1037,7 +1043,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_LineTop;
 			if (!_ParseString(sig, _textAhead)) return false;
 			Gura_Pushback();
-		} else if (_indentLevel >= GetIndentLevelForCodeBlockInList()) {
+		} else if (_indentLevel >= GetIndentLevelForCodeBlock()) {
 			Gura_Pushback();
 			BeginCodeBlockInList(_textAhead.c_str());
 		} else {
@@ -1060,7 +1066,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_LineTop;
 			if (!_ParseString(sig, _textAhead)) return false;
 			Gura_Pushback();
-		} else if (_indentLevel >= GetIndentLevelForCodeBlockInList()) {
+		} else if (_indentLevel >= GetIndentLevelForCodeBlock()) {
 			Gura_Pushback();
 			BeginCodeBlockInList(_textAhead.c_str());
 		} else {
@@ -1080,7 +1086,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_LineTop;
 			if (!_ParseString(sig, _textAhead)) return false;
 			Gura_Pushback();
-		} else if (_indentLevel >= GetIndentLevelForCodeBlockInList()) {
+		} else if (_indentLevel >= GetIndentLevelForCodeBlock()) {
 			Gura_Pushback();
 			BeginCodeBlockInList(_textAhead.c_str());
 		} else {
@@ -1265,8 +1271,8 @@ bool Document::ParseChar(Signal sig, char ch)
 			_indentLevel += 1;
 		} else if (ch == '\t') {
 			_indentLevel += WIDTH_Tab;
-		} else if (_indentLevel >= GetIndentLevelForCodeBlockInList()) {
-			for (int i = 0; i < _indentLevel - GetIndentLevelForCodeBlockInList(); i++) {
+		} else if (_indentLevel >= GetIndentLevelForCodeBlock()) {
+			for (int i = 0; i < _indentLevel - GetIndentLevelForCodeBlock(); i++) {
 				_text += ' ';
 			}
 			Gura_Pushback();
@@ -2357,7 +2363,7 @@ void Document::EndFencedCodeBlock()
 void Document::BeginCodeBlockInList(const char *textInit)
 {
 	FlushItem(Item::TYPE_Paragraph, false, false);
-	for (int i = 0; i < _indentLevel - GetIndentLevelForCodeBlockInList(); i++) _text += ' ';
+	for (int i = 0; i < _indentLevel - GetIndentLevelForCodeBlock(); i++) _text += ' ';
 	if (textInit != NULL) _text += textInit;
 	do {
 		Item *pItemParent = _itemStack.back();
@@ -2491,15 +2497,31 @@ bool Document::EndTag(const char *tagName)
 	return true;
 }
 
-int Document::GetIndentLevelForCodeBlockInList() const
+int Document::GetIndentLevel() const
 {
 	foreach_const_reverse (ItemStack, ppItem, _itemStack) {
 		const Item *pItem = *ppItem;
 		if (pItem->IsListItem()) {
-			return pItem->GetIndentLevel() + 2 + INDENT_CodeBlock;
+			return pItem->GetIndentLevelItemBody();
 		}
 	}
 	return 0;
+}
+
+int Document::GetIndentLevelForCodeBlock() const
+{
+	return GetIndentLevel() + INDENT_CodeBlock;
+}
+
+void Document::UpdateIndentLevelItemBody(int indentLevelItemBody)
+{
+	foreach_reverse (ItemStack, ppItem, _itemStack) {
+		Item *pItem = *ppItem;
+		if (pItem->IsListItem()) {
+			pItem->SetIndentLevelItemBody(indentLevelItemBody);
+			break;
+		}
+	}
 }
 
 bool Document::IsAtxHeader2(const char *text)

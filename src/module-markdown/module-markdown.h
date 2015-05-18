@@ -137,7 +137,7 @@ public:
 		_indentLevelItemBody = indentLevelItemBody;
 	}
 	inline int GetIndentLevel() const { return _indentLevel; }
-	inline int GetIndentLevelText() const { return _indentLevelItemBody; }
+	inline int GetIndentLevelItemBody() const { return _indentLevelItemBody; }
 	const char *GetTypeName() const;
 	void Print(Signal sig, Stream &stream, int indentLevel) const;
 };
@@ -382,7 +382,9 @@ private:
 	void ReplaceDecoration(Item::Type type, const char *textAhead);
 	void BeginTag(const char *tagName, const char *attrs, bool closedFlag);
 	bool EndTag(const char *tagName);
-	int GetIndentLevelForCodeBlockInList() const;
+	int GetIndentLevel() const;
+	int GetIndentLevelForCodeBlock() const;
+	void UpdateIndentLevelItemBody(int indentLevelItemBody);
 	static bool IsAtxHeader2(const char *text);
 	static bool IsHorzRule(const char *text);
 	static bool IsLink(const char *text);
