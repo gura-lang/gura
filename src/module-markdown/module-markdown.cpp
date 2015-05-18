@@ -2404,8 +2404,7 @@ void Document::BeginListItem(Item::Type type)
 	}
 	do {
 		Item *pItemParent = _itemStack.back();
-		Item *pItem = new Item(Item::TYPE_ListItem, new ItemOwner());
-		pItem->SetIndentLevel(_indentLevel);
+		Item *pItem = new Item(Item::TYPE_ListItem, new ItemOwner(), _indentLevel);
 		pItemParent->GetItemOwner()->push_back(pItem);
 		_itemStack.push_back(pItem);
 	} while (0);
