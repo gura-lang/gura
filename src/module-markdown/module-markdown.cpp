@@ -10,18 +10,21 @@ AutoPtr<Function> g_pFunc_Presenter;
 //-----------------------------------------------------------------------------
 // Item
 //-----------------------------------------------------------------------------
-Item::Item(Type type, int indentLevel) : _cntRef(1), _type(type),
-								_indentLevel(indentLevel), _align(ALIGN_None)
+Item::Item(Type type, int indentLevel, int indentLevelItemBody) :
+	_cntRef(1), _type(type),
+	_indentLevel(indentLevel), _indentLevelItemBody(indentLevelItemBody), _align(ALIGN_None)
 {
 }
 
-Item::Item(Type type, ItemOwner *pItemOwner, int indentLevel) : _cntRef(1),
-	_type(type), _pItemOwner(pItemOwner), _indentLevel(indentLevel), _align(ALIGN_None)
+Item::Item(Type type, ItemOwner *pItemOwner, int indentLevel, int indentLevelItemBody) :
+	_cntRef(1), _type(type), _pItemOwner(pItemOwner),
+	_indentLevel(indentLevel), _indentLevelItemBody(indentLevelItemBody), _align(ALIGN_None)
 {
 }
 
-Item::Item(Type type, const String &text, int indentLevel) : _cntRef(1),
-	_type(type), _pText(new String(text)), _indentLevel(indentLevel), _align(ALIGN_None)
+Item::Item(Type type, const String &text, int indentLevel, int indentLevelItemBody) :
+	_cntRef(1), _type(type), _pText(new String(text)),
+	_indentLevel(indentLevel), _indentLevelItemBody(indentLevelItemBody), _align(ALIGN_None)
 {
 }
 

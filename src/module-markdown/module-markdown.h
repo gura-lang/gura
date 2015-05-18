@@ -76,12 +76,13 @@ private:
 	std::auto_ptr<String> _pAttrs;	// valid when type is Tag
 	Align _align;					// valid when type is Tag
 	int _indentLevel;
+	int _indentLevelItemBody;		// valid when type is ListItem
 public:
 	Gura_DeclareReferenceAccessor(Item);
 public:
-	Item(Type type, int indentLevel = 0);
-	Item(Type type, ItemOwner *pItemOwner, int indentLevel = 0);
-	Item(Type type, const String &text, int indentLevel = 0);
+	Item(Type type, int indentLevel = 0, int indentLevelItemBody = 0);
+	Item(Type type, ItemOwner *pItemOwner, int indentLevel = 0, int indentLevelItemBody = 0);
+	Item(Type type, const String &text, int indentLevel = 0, int indentLevelItemBody = 0);
 private:
 	inline ~Item() {}
 public:
@@ -130,7 +131,11 @@ public:
 	inline void ClearTitle() { _pTitle.reset(NULL); }
 	inline void ClearRefId() { _pRefId.reset(NULL); }
 	inline void SetIndentLevel(int indentLevel) { _indentLevel = indentLevel; }
+	inline void SetIndentLevelItemBody(int indentLevelItemBody) {
+		_indentLevelItemBody = indentLevelItemBody;
+	}
 	inline int GetIndentLevel() const { return _indentLevel; }
+	inline int GetIndentLevelText() const { return _indentLevelItemBody; }
 	const char *GetTypeName() const;
 	void Print(Signal sig, Stream &stream, int indentLevel) const;
 };
