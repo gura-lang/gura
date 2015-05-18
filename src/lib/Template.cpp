@@ -135,203 +135,201 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 		if (sig.IsSignalled()) return false;
 		if (chRaw < 0) break;
 		char ch = static_cast<char>(chRaw);
-		bool pushbackFlag = false;
-		do {
-			pushbackFlag = false;
-			switch (stat) {
-			case STAT_LineTop: {
-				if (ch == '\n') {
-					str += ch;
-				} else if (IsWhite(ch)) {
-					pushbackFlag = true;
-					stat = STAT_Indent;
-				} else if (ch == chMarker) {
-					stat = STAT_ScriptPre;
-				} else {
-					stringAheadFlag = true;
-					pushbackFlag = true;
-					stat = STAT_String;
-				}
-				break;
+		Gura_BeginPushbackRegion();
+		switch (stat) {
+		case STAT_LineTop: {
+			if (ch == '\n') {
+				str += ch;
+			} else if (IsWhite(ch)) {
+				Gura_Pushback();
+				stat = STAT_Indent;
+			} else if (ch == chMarker) {
+				stat = STAT_ScriptPre;
+			} else {
+				stringAheadFlag = true;
+				Gura_Pushback();
+				stat = STAT_String;
 			}
-			case STAT_Indent: {
-				if (IsWhite(ch)) {
-					strIndent += ch;
-				} else if (ch == chMarker) {
-					stat = STAT_ScriptPre;
-				} else {
-					str += strIndent;
-					strIndent.clear();
-					stringAheadFlag = true;
-					pushbackFlag = true;
-					stat = STAT_String;
-				}
-				break;
-			}
-			case STAT_String: {
-				if (ch == chMarker) {
-					stat = STAT_ScriptPre;
-				} else if (ch == '\n') {
-					str += ch;
-					stringAheadFlag = false;
-					stat = STAT_LineTop;
-				} else {
-					str += ch;
-				}
-				break;
-			}
-			case STAT_ScriptPre: {
-				if (ch == '{') {
-					if (!str.empty()) {
-						ExprOwner &exprOwner = _exprLeaderStack.empty()?
-							pExprBlockRoot->GetExprOwner() :
-							_exprLeaderStack.back()->GetBlock()->GetExprOwner();
-						Expr *pExpr = new Expr_TmplString(pTemplate, str);
-						pExpr->SetSourceInfo(pSourceName->Reference(), 0, 0);
-						exprOwner.push_back(pExpr);
-						str.clear();
-					}
-					cntLineTop = cntLine;
-					nDepth = 1;
-					strTmplScript.clear();
-					stat = STAT_ScriptFirst;
-				} else {
-					str += strIndent;
-					strIndent.clear();
-					str += chMarker;
-					stringAheadFlag = true;
-					pushbackFlag = true;
-					stat = STAT_String;
-				}
-				break;
-			}
-			case STAT_ScriptFirst: {
-				if (ch == '=') {
-					stat = STAT_ScriptSecond;
-				} else {
-					pushbackFlag = true;
-					stat = STAT_Script;
-				}
-				break;
-			}
-			case STAT_ScriptSecond: {
-				if (ch == '=') {
-					stat = STAT_Comment;
-				} else {
-					strTmplScript += '=';
-					pushbackFlag = true;
-					stat = STAT_Script;
-				}
-				break;
-			}
-			case STAT_Script: {
-				if (ch == '{') {
-					strTmplScript += ch;
-					nDepth++;
-				} else if (ch == '}') {
-					nDepth--;
-					if (nDepth > 0) {
-						strTmplScript += ch;
-						break;
-					}
-					stat = STAT_ScriptPost;
-				} else {
-					strTmplScript += ch;
-				}
-				break;
-			}
-			case STAT_ScriptPost: {
-				const char *strPost = (ch == '\n')? "\n" : "";
-				if (!CreateTmplScript(env, sig,
-						strIndent.c_str(), strTmplScript.c_str(), strPost,
-						pTemplate, pExprBlockRoot,
-						pSourceName.get(), cntLineTop, cntLine)) return false;
+			break;
+		}
+		case STAT_Indent: {
+			if (IsWhite(ch)) {
+				strIndent += ch;
+			} else if (ch == chMarker) {
+				stat = STAT_ScriptPre;
+			} else {
+				str += strIndent;
 				strIndent.clear();
+				stringAheadFlag = true;
+				Gura_Pushback();
+				stat = STAT_String;
+			}
+			break;
+		}
+		case STAT_String: {
+			if (ch == chMarker) {
+				stat = STAT_ScriptPre;
+			} else if (ch == '\n') {
+				str += ch;
+				stringAheadFlag = false;
+				stat = STAT_LineTop;
+			} else {
+				str += ch;
+			}
+			break;
+		}
+		case STAT_ScriptPre: {
+			if (ch == '{') {
+				if (!str.empty()) {
+					ExprOwner &exprOwner = _exprLeaderStack.empty()?
+						pExprBlockRoot->GetExprOwner() :
+						_exprLeaderStack.back()->GetBlock()->GetExprOwner();
+					Expr *pExpr = new Expr_TmplString(pTemplate, str);
+					pExpr->SetSourceInfo(pSourceName->Reference(), 0, 0);
+					exprOwner.push_back(pExpr);
+					str.clear();
+				}
+				cntLineTop = cntLine;
+				nDepth = 1;
 				strTmplScript.clear();
-				if (ch == '\n') {
-					stringAheadFlag = false;
-					stat = STAT_LineTop;
-				} else {
-					stringAheadFlag = true;
-					pushbackFlag = true;
-					stat = STAT_String;
+				stat = STAT_ScriptFirst;
+			} else {
+				str += strIndent;
+				strIndent.clear();
+				str += chMarker;
+				stringAheadFlag = true;
+				Gura_Pushback();
+				stat = STAT_String;
+			}
+			break;
+		}
+		case STAT_ScriptFirst: {
+			if (ch == '=') {
+				stat = STAT_ScriptSecond;
+			} else {
+				Gura_Pushback();
+				stat = STAT_Script;
+			}
+			break;
+		}
+		case STAT_ScriptSecond: {
+			if (ch == '=') {
+				stat = STAT_Comment;
+			} else {
+				strTmplScript += '=';
+				Gura_Pushback();
+				stat = STAT_Script;
+			}
+			break;
+		}
+		case STAT_Script: {
+			if (ch == '{') {
+				strTmplScript += ch;
+				nDepth++;
+			} else if (ch == '}') {
+				nDepth--;
+				if (nDepth > 0) {
+					strTmplScript += ch;
+					break;
 				}
-				break;
+				stat = STAT_ScriptPost;
+			} else {
+				strTmplScript += ch;
 			}
-			case STAT_Comment: {
-				if (ch == '=') {
-					stat = STAT_CommentEnd_Second;
-				} else if (ch == '\n') {
-					stringAheadFlag = false;
-					stat = STAT_Comment_LineTop;
-				} else {
-					// nothing to do
-				}
-				break;
+			break;
+		}
+		case STAT_ScriptPost: {
+			const char *strPost = (ch == '\n')? "\n" : "";
+			if (!CreateTmplScript(env, sig,
+								  strIndent.c_str(), strTmplScript.c_str(), strPost,
+								  pTemplate, pExprBlockRoot,
+								  pSourceName.get(), cntLineTop, cntLine)) return false;
+			strIndent.clear();
+			strTmplScript.clear();
+			if (ch == '\n') {
+				stringAheadFlag = false;
+				stat = STAT_LineTop;
+			} else {
+				stringAheadFlag = true;
+				Gura_Pushback();
+				stat = STAT_String;
 			}
-			case STAT_Comment_LineTop: {
-				if (ch == '=') {
-					stat = STAT_CommentEnd_Second;
-				} else if (ch == '\n') {
-					// nothing to do
-				} else if (IsWhite(ch)) {
-					// nothing to do
-				} else {
-					stringAheadFlag = true;
-					stat = STAT_Comment;
-				}
-				break;
+			break;
+		}
+		case STAT_Comment: {
+			if (ch == '=') {
+				stat = STAT_CommentEnd_Second;
+			} else if (ch == '\n') {
+				stringAheadFlag = false;
+				stat = STAT_Comment_LineTop;
+			} else {
+				// nothing to do
 			}
-			case STAT_CommentEnd_Second: {
-				if (ch == '=') {
-					stat = STAT_CommentEnd_SeekR;
-				} else if (ch == '\n') {
-					stringAheadFlag = false;
-					stat = STAT_Comment_LineTop;
-				} else {
-					stringAheadFlag = true;
-					stat = STAT_Comment;
-				}
-				break;
+			break;
+		}
+		case STAT_Comment_LineTop: {
+			if (ch == '=') {
+				stat = STAT_CommentEnd_Second;
+			} else if (ch == '\n') {
+				// nothing to do
+			} else if (IsWhite(ch)) {
+				// nothing to do
+			} else {
+				stringAheadFlag = true;
+				stat = STAT_Comment;
 			}
-			case STAT_CommentEnd_SeekR: {
-				if (ch == '}') {
-					stat = STAT_CommentEnd_Marker;
-				} else if (ch == '\n') {
-					stringAheadFlag = false;
-					stat = STAT_Comment_LineTop;
-				} else {
-					stringAheadFlag = true;
-					stat = STAT_Comment;
-				}
-				break;
+			break;
+		}
+		case STAT_CommentEnd_Second: {
+			if (ch == '=') {
+				stat = STAT_CommentEnd_SeekR;
+			} else if (ch == '\n') {
+				stringAheadFlag = false;
+				stat = STAT_Comment_LineTop;
+			} else {
+				stringAheadFlag = true;
+				stat = STAT_Comment;
 			}
-			case STAT_CommentEnd_Marker: {
-				if (ch == chMarker) {
-					stat = STAT_CommentPost;
-				} else if (ch == '\n') {
-					stringAheadFlag = false;
-					stat = STAT_Comment_LineTop;
-				} else {
-					stringAheadFlag = true;
-					stat = STAT_Comment;
-				}
-				break;
+			break;
+		}
+		case STAT_CommentEnd_SeekR: {
+			if (ch == '}') {
+				stat = STAT_CommentEnd_Marker;
+			} else if (ch == '\n') {
+				stringAheadFlag = false;
+				stat = STAT_Comment_LineTop;
+			} else {
+				stringAheadFlag = true;
+				stat = STAT_Comment;
 			}
-			case STAT_CommentPost: {
-				if (!stringAheadFlag && ch == '\n') {
-					stringAheadFlag = false;
-					pushbackFlag = false;
-					stat = STAT_LineTop;
-				} else {
-					stringAheadFlag = true;
-					pushbackFlag = true;
-					stat = STAT_String;
-				}
-				break;
+			break;
+		}
+		case STAT_CommentEnd_Marker: {
+			if (ch == chMarker) {
+				stat = STAT_CommentPost;
+			} else if (ch == '\n') {
+				stringAheadFlag = false;
+				stat = STAT_Comment_LineTop;
+			} else {
+				stringAheadFlag = true;
+				stat = STAT_Comment;
 			}
+			break;
+		}
+		case STAT_CommentPost: {
+			if (!stringAheadFlag && ch == '\n') {
+				stringAheadFlag = false;
+				Gura_PushbackCond(false);
+				stat = STAT_LineTop;
+			} else {
+				stringAheadFlag = true;
+				Gura_Pushback();
+				stat = STAT_String;
 			}
-		} while (pushbackFlag);
+			break;
+		}
+		}
+		Gura_EndPushbackRegion();
 		if (ch == '\n') cntLine++;
 	}
 	if (!strTmplScript.empty()) {

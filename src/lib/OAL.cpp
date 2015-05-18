@@ -104,47 +104,45 @@ String RegulatePathName(char chSeparator, const char *pathName, bool cutLastSepF
 	bool sepTailFlag = false;
 	for ( ; ; p++) {
 		char ch = *p;
-		bool pushbackFlag = false;
-		do {
-			pushbackFlag = false;
-			switch (stat) {
-			case STAT_Field: {
-				if (IsFileSeparator(ch) || ch == '\0') {
-					if (field == ".") {
-						// nothing to do
-					} else if (field == "..") {
-						if (fields.empty()) {
-							if (prefix.empty()) {
-								fields.push_back(field);
-							}
-						} else if (fields.back() == "..") {
-							fields.push_back(field);
-						} else {
-							fields.pop_back();
-						}
-					} else if (!field.empty()) {
-						fields.push_back(field);
-					}
-					field.clear();
-					stat = STAT_FileSeparator;
-				} else {
-					field += ch;
-				}
-				break;
-			}
-			case STAT_FileSeparator: {
-				if (ch == '\0') {
-					sepTailFlag = true;
-				} else if (IsFileSeparator(ch)) {
+		Gura_BeginPushbackRegion();
+		switch (stat) {
+		case STAT_Field: {
+			if (IsFileSeparator(ch) || ch == '\0') {
+				if (field == ".") {
 					// nothing to do
-				} else {
-					pushbackFlag = true;
-					stat = STAT_Field;
+				} else if (field == "..") {
+					if (fields.empty()) {
+						if (prefix.empty()) {
+							fields.push_back(field);
+						}
+					} else if (fields.back() == "..") {
+						fields.push_back(field);
+					} else {
+						fields.pop_back();
+					}
+				} else if (!field.empty()) {
+					fields.push_back(field);
 				}
-				break;
+				field.clear();
+				stat = STAT_FileSeparator;
+			} else {
+				field += ch;
 			}
+			break;
+		}
+		case STAT_FileSeparator: {
+			if (ch == '\0') {
+				sepTailFlag = true;
+			} else if (IsFileSeparator(ch)) {
+				// nothing to do
+			} else {
+				Gura_Pushback();
+				stat = STAT_Field;
 			}
-		} while (pushbackFlag);
+			break;
+		}
+		}
+		Gura_EndPushbackRegion();
 		if (ch == '\0') break;
 	}
 	String rtn;

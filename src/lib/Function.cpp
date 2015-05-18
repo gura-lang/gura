@@ -726,9 +726,7 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 	Environment &env = *_pEnv;
 	ValueList &valListArg = _pArgs->GetValueListArg();
 	ValueDict &valDictArg = _pArgs->GetValueDictArg();
-	bool pushbackFlag = false;
-	do {
-	pushbackFlag = false;
+	Gura_BeginPushbackRegion();
 	switch (_stat) {
 	//-------------------------------------------------------------------------
 	case STAT_Init: {
@@ -798,14 +796,14 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 		_pArgs->SetResultMode(resultMode);
 		_pArgs->SetFlags(flags);
 		_pArgs->SetValueTypeResult(_pFunc->GetValueTypeResult());
-		pushbackFlag = true;
+		Gura_Pushback();
 		_stat = STAT_ExprArgs;
 		break;
 	}
 	//-------------------------------------------------------------------------
 	case STAT_ExprArgs: {
 		if (_ppExprArg == _pArgs->GetExprListArg().end()) {
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_OptArgs;
 			break;
 		}
@@ -860,7 +858,7 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 				if (sig.IsSignalled()) return false;
 			}
 		} else if (_pFunc->GetDeclOwner().IsAllowTooManyArgs()) {
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_OptArgs;
 			break;
 		} else {
@@ -873,7 +871,7 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 	case STAT_OptArgs: {
 		if (_stayDeclPointerFlag || _ppDecl == _pFunc->GetDeclOwner().end()) {
 			_iterExprMap = _exprMap.begin();
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_NamedArgs;
 			break;
 		}
@@ -890,7 +888,7 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 				value = Value::Undefined;
 			} else if (pDecl->GetOccurPattern() == OCCUR_ZeroOrMore) {
 				_iterExprMap = _exprMap.begin();
-				pushbackFlag = true;
+				Gura_Pushback();
 				_stat = STAT_NamedArgs;
 				break;
 			} else {
@@ -922,12 +920,12 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 				sig.SetError(ERR_ValueError, "%s", str.c_str());
 				return false;
 			}
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_Exec;
 			break;
 		}
 		if (_iterExprMap == _exprMap.end()) {
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_Exec;
 			break;
 		}
@@ -950,7 +948,8 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 		_doneFlag = true;
 		break;
 	}
-	} } while (pushbackFlag);
+	}
+	Gura_EndPushbackRegion();
 	return !sig.IsSignalled();
 }
 

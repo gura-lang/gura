@@ -43,7 +43,6 @@ void Parser::InitStack()
 Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 {
 	if (ch == '\r') return NULL;
-	bool pushbackFlag;
 	Expr *pExpr = NULL;
 	if (_lineHeadFlag) {
 		if (IsWhite(ch)) {
@@ -52,8 +51,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_lineHeadFlag = false;
 		}
 	}
-	do {
-	pushbackFlag = false;
+	Gura_BeginPushbackRegion();
 	switch (_stat) {
 	case STAT_BOF: {
 		if (ch == '\xef') {
@@ -61,7 +59,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_token.push_back(ch);
 			_stat = STAT_BOF_2nd;
 		} else {
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_Start;
 		}
 		break;
@@ -71,7 +69,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_token.push_back(ch);
 			_stat = STAT_BOF_3rd;
 		} else {
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_Symbol;
 		}
 		break;
@@ -80,7 +78,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 		if (ch == '\xbf') {
 			_stat = STAT_Start;
 		} else {
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_Symbol;
 		}
 		break;
@@ -265,7 +263,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			SetError(sig, ERR_SyntaxError, "unmatching comment description");
 			_stat = STAT_Error;
 		} else {
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_Start;
 			for (int i = 0; i < ArraySizeOf(tbl); i++) {
 				if (tbl[i].chFirst != chFirst) continue;
@@ -275,7 +273,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 					if (tbl[i].tblCand[j].chSecond != ch) continue;
 					_token.push_back(ch);
 					elemType = tbl[i].tblCand[j].elemType;
-					pushbackFlag = false;
+					Gura_PushbackCond(false);
 					break;
 				}
 				if (elemType == ETYPE_TripleChars) {
@@ -315,7 +313,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 				{ '=', ETYPE_AssignShr		},
 				{ '\0', ETYPE_Unknown		}, } },
 		};
-		pushbackFlag = true;
+		Gura_Pushback();
 		_stat = STAT_Start;
 		for (int i = 0; i < ArraySizeOf(tbl); i++) {
 			if (_token.compare(tbl[i].strFirst) != 0) continue;
@@ -325,7 +323,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 				if (tbl[i].tblCand[j].chThird != ch) continue;
 				_token.push_back(ch);
 				elemType = tbl[i].tblCand[j].elemType;
-				pushbackFlag = false;
+				Gura_PushbackCond(false);
 				break;
 			}
 			if (_elemStack.back().IsType(ETYPE_Quote)) {
@@ -342,7 +340,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 	}
 	case STAT_Escape: {
 		if (ch == '\0') {
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_Start;
 		} else if (ch == '\n') {
 			_stat = STAT_Start;
@@ -371,7 +369,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			ElemType elemType = _elemStack.back().IsSuffixElement()?
 									ETYPE_ColonAfterSuffix : ETYPE_Colon;
 			pExpr = FeedElement(env, sig, Element(elemType, GetLineNo()));
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -379,13 +377,13 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 	case STAT_Error: {
 		InitStack();
 		_blockParamFlag = false;
-		pushbackFlag = true;
+		Gura_Pushback();
 		_stat = STAT_ErrorRecovery;
 		break;
 	}
 	case STAT_ErrorRecovery: {
 		if (ch == '\n' || ch == '\0') {
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_Start;
 		} else {
 			// nothing to do
@@ -404,7 +402,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 		} else if (ch == '\n' || IsWhite(ch)) {
 			// nothing to do
 		} else {
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_Start;
 		}
 		break;
@@ -420,7 +418,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_token.push_back(ch);
 			_stat = STAT_NumberOct;
 		} else {
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_Number;
 		}
 		break;
@@ -430,7 +428,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_token.push_back(ch);
 		} else if (_token.size() <= 2) {
 			SetError(sig, ERR_SyntaxError, "wrong format of hexadecimal number");
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_Error;
 		} else if (IsSymbolFirstChar(ch)) {
 			_suffix.clear();
@@ -438,7 +436,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_stat = STAT_NumberSuffixed;
 		} else {
 			pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -452,7 +450,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_stat = STAT_NumberSuffixed;
 		} else {
 			pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -462,7 +460,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_token.push_back(ch);
 		} else if (_token.size() <= 2) {
 			SetError(sig, ERR_SyntaxError, "wrong format of binary number");
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_Error;
 		} else if (IsSymbolFirstChar(ch)) {
 			_suffix.clear();
@@ -470,7 +468,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_stat = STAT_NumberSuffixed;
 		} else {
 			pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -489,7 +487,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_stat = STAT_Number;
 		} else {
 			pExpr = FeedElement(env, sig, Element(ETYPE_Dot, GetLineNo()));
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -521,7 +519,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_stat = STAT_NumberSuffixed;
 		} else {
 			pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -558,7 +556,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_stat = STAT_NumberSuffixed;
 		} else {
 			pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -569,7 +567,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 		} else {
 			pExpr = FeedElement(env, sig, Element(ETYPE_NumberSuffixed,
 												GetLineNo(), _token, _suffix));
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -590,7 +588,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			} else {
 				pExpr = FeedElement(env, sig, Element(ETYPE_Symbol, GetLineNo(), _token));
 			}
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -607,7 +605,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			}
 		} else {
 			_token.push_back('!');
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_Symbol;
 		}
 		break;
@@ -618,7 +616,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_stat = STAT_ShebangLine;
 		} else {
 			_stat = STAT_MagicCommentLine;
-			pushbackFlag = true;
+			Gura_Pushback();
 		}
 		break;
 	}
@@ -674,7 +672,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 				_stat = STAT_Start;
 			}
 		} else {
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_CommentBlock;
 		}
 		break;
@@ -684,7 +682,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_commentNestLevel++;
 			_stat = STAT_CommentBlock;
 		} else {
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_CommentBlock;
 		}
 		break;
@@ -693,7 +691,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 		if (ch == _stringInfo.chBorder) {
 			_stat = STAT_StringSecond;
 		} else {
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_String;
 		}
 		break;
@@ -713,7 +711,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 		} else {
 			ElemType elemType = ElemTypeForString(_stringInfo);
 			pExpr = FeedElement(env, sig, Element(elemType, GetLineNo(), _token));
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -739,7 +737,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 		if (ch == '\n') {
 			_stat = STAT_MStringLineHead;
 		} else {
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_MString;
 		}
 		break;
@@ -771,7 +769,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			}
 		} else {
 			_token += _strIndent;
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_MString;
 		}
 		break;
@@ -846,7 +844,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_stat = STAT_MStringEndSecond;
 		} else {
 			_token.push_back(_stringInfo.chBorder);
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_MString;
 		}
 		break;
@@ -860,7 +858,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 		} else {
 			_token.push_back(_stringInfo.chBorder);
 			_token.push_back(_stringInfo.chBorder);
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = STAT_MString;
 		}
 		break;
@@ -873,7 +871,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 		} else {
 			ElemType elemType = ElemTypeForString(_stringInfo);
 			pExpr = FeedElement(env, sig, Element(elemType, GetLineNo(), _token));
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
@@ -884,12 +882,13 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 		} else {
 			pExpr = FeedElement(env, sig, Element(ETYPE_StringSuffixed,
 												GetLineNo(), _token, _suffix));
-			pushbackFlag = true;
+			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
 	}
-	} } while (pushbackFlag);
+	}
+	Gura_EndPushbackRegion();
 	if (ch == '\n') {
 		_lineHeadFlag = true;
 		_strIndent.clear();
