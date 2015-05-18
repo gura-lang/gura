@@ -313,7 +313,8 @@ private:
 	int _iTableRow;
 	int _iTableCol;
 	Stat _stat;
-	int _cntLine;
+	int _iLine;
+	int _iCol;
 	char _chPrev;
 	StatStack _statStack;
 	int _indentLevel;

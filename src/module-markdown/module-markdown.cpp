@@ -205,7 +205,7 @@ int ItemStack::CountQuoteLevel() const
 // Document
 //-----------------------------------------------------------------------------
 Document::Document() : _cntRef(1), _resolvedFlag(false), _decoPrecedingFlag(false),
-		_iTableRow(-1), _iTableCol(0), _stat(STAT_LineTop), _cntLine(0), _chPrev('\0'),
+		_iTableRow(-1), _iTableCol(0), _stat(STAT_LineTop), _iLine(0), _iCol(0), _chPrev('\0'),
 		_indentLevel(0), _quoteLevel(0), _cntEmptyLine(0),
 		_pItemOwner(new ItemOwner()), _pItemRefereeOwner(new ItemOwner())
 {
@@ -226,7 +226,8 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 		STAT_TrailingRowBody,
 		STAT_SkipToEOL,
 	} stat = STAT_FirstRowTop;
-	_cntLine = 0;
+	_iLine = 0;
+	_iCol = 0;
 	_chPrev = '\0';
 	String textPrefetch;
 	String guide;
@@ -1696,7 +1697,7 @@ bool Document::ParseChar(Signal sig, char ch)
 				BeginTag(tagName.c_str(), attrs.c_str(), closedFlag);
 			} else if (IsEndTag(_field.c_str(), tagName)) {
 				if (!EndTag(tagName.c_str())) {
-					sig.SetError(ERR_FormatError, "unbalanced tags at line %d", _cntLine + 1);
+					sig.SetError(ERR_FormatError, "unbalanced tags at line %d", _iLine + 1);
 					return false;
 				}
 			} else {
@@ -2116,7 +2117,12 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	}
 	Gura_EndPushbackRegion();
-	if (IsEOL(ch)) _cntLine++;
+	if (IsEOL(ch)) {
+		_iLine++;
+		_iCol = 0;
+	} else {
+		_iCol++;
+	}
 	_chPrev = ch;
 	return true;
 }
