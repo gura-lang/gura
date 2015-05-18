@@ -91,6 +91,20 @@ inline static void Delete(T *p) { \
 	if (p->_cntRef <= 0) delete p; \
 }
 
+#define Gura_BeginPushbackRegion() \
+bool __pushbackFlag = false; \
+do { \
+__pushbackFlag = false
+
+#define Gura_EndPushbackRegion() \
+} while (__pushbackFlag)
+
+#define Gura_Pushback() \
+__pushbackFlag = true
+
+#define Gura_PushbackCond(pushbackFlag) \
+__pushbackFlag = (pushbackFlag)
+
 Gura_BeginNameSpace()
 
 #if defined(GURA_ON_MSWIN)
