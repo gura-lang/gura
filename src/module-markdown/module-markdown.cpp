@@ -244,6 +244,7 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 		bool pipeFoundFlag = false;
 		bool prefetchFlag = true;
 		stat = STAT_FirstRowTop;
+		//int indentLevel = GetIndentLevel();
 		while (prefetchFlag && (chRaw = stream.GetChar(sig)) >= 0) {
 			char ch = static_cast<char>(static_cast<UChar>(chRaw));
 			textPrefetch += ch;
