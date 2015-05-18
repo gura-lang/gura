@@ -462,7 +462,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == ' ') {
 			_indentLevel += 1;
 		} else if (ch == '\t') {
-			_indentLevel += 4;
+			_indentLevel += WIDTH_Tab;
 		} else if (_indentLevel >= INDENT_CodeBlock) {
 			Gura_Pushback();
 			BeginCodeBlock(NULL);
@@ -532,7 +532,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == ' ') {
 			_indentLevel += 1;
 		} else if (ch == '\t') {
-			_indentLevel += 4;
+			_indentLevel += WIDTH_Tab;
 		} else if (ch == '>') {
 			Gura_Pushback();
 			_stat = STAT_LineHead;
@@ -548,7 +548,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == ' ') {
 			_indentLevel += 1;
 		} else if (ch == '\t') {
-			_indentLevel += 4;
+			_indentLevel += WIDTH_Tab;
 		} else if (_indentLevel >= INDENT_CodeBlock) {
 			Gura_Pushback();
 			AdjustBlockQuote();
@@ -833,7 +833,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == ' ') {
 			_indentLevel += 1;
 		} else if (ch == '\t') {
-			_indentLevel += 4;
+			_indentLevel += WIDTH_Tab;
 		} else if (ch == '>') {
 			_indentLevel = -1;
 			_quoteLevel = 1;
@@ -873,7 +873,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == ' ') {
 			_indentLevel += 1;
 		} else if (ch == '\t') {
-			_indentLevel += 4;
+			_indentLevel += WIDTH_Tab;
 		} else if (_indentLevel >= GetIndentLevelForCodeBlockInList()) {
 			Gura_Pushback();
 			BeginCodeBlockInList(_textAhead.c_str());
@@ -950,7 +950,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == ' ') {
 			_indentLevel += 1;
 		} else if (ch == '\t') {
-			_indentLevel += 4;
+			_indentLevel += WIDTH_Tab;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndListItem();
 			_itemStack.ClearListItem();
@@ -1116,7 +1116,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == ' ') {
 			_indentLevel += 1;
 		} else if (ch == '\t') {
-			_indentLevel += 4;
+			_indentLevel += WIDTH_Tab;
 		} else if (IsEOL(ch)) {
 			_cntEmptyLine++;
 			_indentLevel = 0;
@@ -1219,7 +1219,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == ' ') {
 			_indentLevel += 1;
 		} else if (ch == '\t') {
-			_indentLevel += 4;
+			_indentLevel += WIDTH_Tab;
 		} else if (_indentLevel >= INDENT_CodeBlock) {
 			Gura_Pushback();
 			if (AdjustBlockQuote()) {
@@ -1264,7 +1264,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == ' ') {
 			_indentLevel += 1;
 		} else if (ch == '\t') {
-			_indentLevel += 4;
+			_indentLevel += WIDTH_Tab;
 		} else if (_indentLevel >= GetIndentLevelForCodeBlockInList()) {
 			for (int i = 0; i < _indentLevel - GetIndentLevelForCodeBlockInList(); i++) {
 				_text += ' ';
@@ -2111,6 +2111,8 @@ bool Document::ParseChar(Signal sig, char ch)
 	if (IsEOL(ch)) {
 		_iLine++;
 		_iCol = 0;
+	} else if (ch == '\t') {
+		_iCol = (_iCol / WIDTH_Tab) * WIDTH_Tab + WIDTH_Tab;
 	} else {
 		_iCol++;
 	}
@@ -2407,7 +2409,7 @@ void Document::BeginListItem(Item::Type type)
 	}
 	do {
 		Item *pItemParent = _itemStack.back();
-		Item *pItem = new Item(Item::TYPE_ListItem, new ItemOwner(), _indentLevel);
+		Item *pItem = new Item(Item::TYPE_ListItem, new ItemOwner(), _indentLevel, _iCol);
 		pItemParent->GetItemOwner()->push_back(pItem);
 		_itemStack.push_back(pItem);
 	} while (0);
