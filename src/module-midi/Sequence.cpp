@@ -87,113 +87,111 @@ bool Sequence::Read(Environment &env, Signal sig, Stream &stream)
 			for ( ; lengthRead > 0; p++, lengthRead--) {
 				UChar data = *p;
 				//::printf("%02x", data);
-				bool pushbackFlag = false;
-				do {
-					pushbackFlag = false;
-					if (stat == STAT_EventStart) {
-						deltaTime = 0x00000000;
-						length = 0x00000000;
-						stat = STAT_DeltaTime;
-						binary.clear();
-						//::printf("\n");
+				Gura_BeginPushbackRegion();
+				if (stat == STAT_EventStart) {
+					deltaTime = 0x00000000;
+					length = 0x00000000;
+					stat = STAT_DeltaTime;
+					binary.clear();
+					//::printf("\n");
+				}
+				if (stat == STAT_DeltaTime) {
+					deltaTime = (deltaTime << 7) + (data & 0x7f);
+					if ((data & 0x80) == 0) {
+						stat = STAT_Status;
 					}
-					if (stat == STAT_DeltaTime) {
-						deltaTime = (deltaTime << 7) + (data & 0x7f);
-						if ((data & 0x80) == 0) {
-							stat = STAT_Status;
-						}
-					} else if (stat == STAT_Status) {
-						enableRunningStatus = true;
-						UChar status = data;
-						if ((status & 0x80) == 0) {
-							// running status
-							pushbackFlag = true;
-							status = statusPrev;
-						} else if (status == statusPrev) {
-							enableRunningStatus = false;
-						}
-						timeStamp += deltaTime;
-						statusPrev = status;
-						if (MIDIEvent::CheckStatus(status)) {
-							UChar statusUpper = status & 0xf0;
-							UChar channel = status & 0x0f;
-							if (statusUpper == MIDIEvent_NoteOff::Status) {
-								pMIDIEvent.reset(new MIDIEvent_NoteOff(timeStamp, channel));
-							} else if (statusUpper == MIDIEvent_NoteOn::Status) {
-								pMIDIEvent.reset(new MIDIEvent_NoteOn(timeStamp, channel));
-							} else if (statusUpper == MIDIEvent_PolyPressure::Status) {
-								pMIDIEvent.reset(new MIDIEvent_PolyPressure(timeStamp, channel));
-							} else if (statusUpper == MIDIEvent_ControlChange::Status) {
-								pMIDIEvent.reset(new MIDIEvent_ControlChange(timeStamp, channel));
-							} else if (statusUpper == MIDIEvent_ProgramChange::Status) {
-								pMIDIEvent.reset(new MIDIEvent_ProgramChange(timeStamp, channel));
-							} else if (statusUpper == MIDIEvent_ChannelPressure::Status) {
-								pMIDIEvent.reset(new MIDIEvent_ChannelPressure(timeStamp, channel));
-							} else if (statusUpper == MIDIEvent_PitchBend::Status) {
-								pMIDIEvent.reset(new MIDIEvent_PitchBend(timeStamp, channel));
-							} else {
-								// this must not happen
-								return false;
-							}
-							pMIDIEvent->EnableRunningStatus(enableRunningStatus);
-							stat = STAT_MIDIEvent_Param1st;
-						} else if (status == SysExEvent::StatusF0 ||
-											status == SysExEvent::StatusF7) {
-							binary.push_back(data);
-							stat = STAT_SysExEvent;
-						} else if (status == MetaEvent::Status) {
-							stat = STAT_MetaEvent_Type;
+				} else if (stat == STAT_Status) {
+					enableRunningStatus = true;
+					UChar status = data;
+					if ((status & 0x80) == 0) {
+						// running status
+						Gura_Pushback();
+						status = statusPrev;
+					} else if (status == statusPrev) {
+						enableRunningStatus = false;
+					}
+					timeStamp += deltaTime;
+					statusPrev = status;
+					if (MIDIEvent::CheckStatus(status)) {
+						UChar statusUpper = status & 0xf0;
+						UChar channel = status & 0x0f;
+						if (statusUpper == MIDIEvent_NoteOff::Status) {
+							pMIDIEvent.reset(new MIDIEvent_NoteOff(timeStamp, channel));
+						} else if (statusUpper == MIDIEvent_NoteOn::Status) {
+							pMIDIEvent.reset(new MIDIEvent_NoteOn(timeStamp, channel));
+						} else if (statusUpper == MIDIEvent_PolyPressure::Status) {
+							pMIDIEvent.reset(new MIDIEvent_PolyPressure(timeStamp, channel));
+						} else if (statusUpper == MIDIEvent_ControlChange::Status) {
+							pMIDIEvent.reset(new MIDIEvent_ControlChange(timeStamp, channel));
+						} else if (statusUpper == MIDIEvent_ProgramChange::Status) {
+							pMIDIEvent.reset(new MIDIEvent_ProgramChange(timeStamp, channel));
+						} else if (statusUpper == MIDIEvent_ChannelPressure::Status) {
+							pMIDIEvent.reset(new MIDIEvent_ChannelPressure(timeStamp, channel));
+						} else if (statusUpper == MIDIEvent_PitchBend::Status) {
+							pMIDIEvent.reset(new MIDIEvent_PitchBend(timeStamp, channel));
 						} else {
-							sig.SetError(ERR_FormatError, "unknown SMF status %02x", status);
+							// this must not happen
 							return false;
 						}
-					} else if (stat == STAT_MIDIEvent_Param1st) {
-						pMIDIEvent->SetParam1st(data);
-						if (pMIDIEvent->CountParams() == 1) {
-							pTrack->AddEvent(pMIDIEvent.release());
-							stat = STAT_EventStart;
-						} else {
-							stat = STAT_MIDIEvent_Param2nd;
-						}
-					} else if (stat == STAT_MIDIEvent_Param2nd) {
-						pMIDIEvent->SetParam2nd(data);
+						pMIDIEvent->EnableRunningStatus(enableRunningStatus);
+						stat = STAT_MIDIEvent_Param1st;
+					} else if (status == SysExEvent::StatusF0 ||
+							   status == SysExEvent::StatusF7) {
+						binary.push_back(data);
+						stat = STAT_SysExEvent;
+					} else if (status == MetaEvent::Status) {
+						stat = STAT_MetaEvent_Type;
+					} else {
+						sig.SetError(ERR_FormatError, "unknown SMF status %02x", status);
+						return false;
+					}
+				} else if (stat == STAT_MIDIEvent_Param1st) {
+					pMIDIEvent->SetParam1st(data);
+					if (pMIDIEvent->CountParams() == 1) {
 						pTrack->AddEvent(pMIDIEvent.release());
 						stat = STAT_EventStart;
-					} else if (stat == STAT_SysExEvent) {
-						binary.push_back(data);
-						if (data == 0xf7) {
-							SysExEvent *pEvent = new SysExEvent(timeStamp, binary);
-							pEvent->EnableRunningStatus(enableRunningStatus);
-							pTrack->AddEvent(pEvent);
-							stat = STAT_EventStart;
-						}
-					} else if (stat == STAT_MetaEvent_Type) {
-						eventType = data;
-						stat = STAT_MetaEvent_Length;
-					} else if (stat == STAT_MetaEvent_Length) {
-						length = (length << 7) + (data & 0x7f);
-						if ((data & 0x80) != 0) {
-							// nothing to do
-						} else if (length == 0) {
-							if (!MetaEvent::Add(sig, pTrack, enableRunningStatus,
-												timeStamp, eventType, binary)) {
-								return false;
-							}
-							stat = STAT_EventStart;
-						} else {
-							stat = STAT_MetaEvent_Data;
-						}
-					} else if (stat == STAT_MetaEvent_Data) {
-						binary.push_back(data);
-						if (binary.size() == length) {
-							if (!MetaEvent::Add(sig, pTrack, enableRunningStatus,
-												timeStamp, eventType, binary)) {
-								return false;
-							}
-							stat = STAT_EventStart;
-						}
+					} else {
+						stat = STAT_MIDIEvent_Param2nd;
 					}
-				} while (pushbackFlag);
+				} else if (stat == STAT_MIDIEvent_Param2nd) {
+					pMIDIEvent->SetParam2nd(data);
+					pTrack->AddEvent(pMIDIEvent.release());
+					stat = STAT_EventStart;
+				} else if (stat == STAT_SysExEvent) {
+					binary.push_back(data);
+					if (data == 0xf7) {
+						SysExEvent *pEvent = new SysExEvent(timeStamp, binary);
+						pEvent->EnableRunningStatus(enableRunningStatus);
+						pTrack->AddEvent(pEvent);
+						stat = STAT_EventStart;
+					}
+				} else if (stat == STAT_MetaEvent_Type) {
+					eventType = data;
+					stat = STAT_MetaEvent_Length;
+				} else if (stat == STAT_MetaEvent_Length) {
+					length = (length << 7) + (data & 0x7f);
+					if ((data & 0x80) != 0) {
+						// nothing to do
+					} else if (length == 0) {
+						if (!MetaEvent::Add(sig, pTrack, enableRunningStatus,
+											timeStamp, eventType, binary)) {
+							return false;
+						}
+						stat = STAT_EventStart;
+					} else {
+						stat = STAT_MetaEvent_Data;
+					}
+				} else if (stat == STAT_MetaEvent_Data) {
+					binary.push_back(data);
+					if (binary.size() == length) {
+						if (!MetaEvent::Add(sig, pTrack, enableRunningStatus,
+											timeStamp, eventType, binary)) {
+							return false;
+						}
+						stat = STAT_EventStart;
+					}
+				}
+				Gura_EndPushbackRegion();
 			}
 		}
 	}

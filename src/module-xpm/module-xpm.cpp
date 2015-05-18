@@ -81,75 +81,73 @@ Gura_ImplementMethod(image, xpmdata)
 		const char *p = pValue->GetString();
 		for (;;) {
 			char ch = *p++;
-			bool pushbackFlag = false;
-			do {
-				pushbackFlag = false;
-				if (stat == STAT_WidthPre) {
-					if (ch == ' ' || ch == '\t') {
-						// nothing to do
-					} else {
-						stat = STAT_Width;
-						pushbackFlag = true;
-					}
-				} else if (stat == STAT_Width) {
-					if ('0' <= ch && ch <= '9') {
-						width = width * 10 + (ch - '0');
-					} else if (ch == ' ' || ch == '\t') {
-						stat = STAT_HeightPre;
-					} else {
-						sig.SetError(ERR_FormatError, "invalid XPM header");
-						return Value::Null;
-					}
-				} else if (stat == STAT_HeightPre) {
-					if (ch == ' ' || ch == '\t') {
-						// nothing to do
-					} else {
-						stat = STAT_Height;
-						pushbackFlag = true;
-					}
-				} else if (stat == STAT_Height) {
-					if ('0' <= ch && ch <= '9') {
-						height = height * 10 + (ch - '0');
-					} else if (ch == ' ' || ch == '\t') {
-						stat = STAT_NColorsPre;
-					} else {
-						sig.SetError(ERR_FormatError, "invalid XPM header");
-						return Value::Null;
-					}
-				} else if (stat == STAT_NColorsPre) {
-					if (ch == ' ' || ch == '\t') {
-						// nothing to do
-					} else {
-						stat = STAT_NColors;
-						pushbackFlag = true;
-					}
-				} else if (stat == STAT_NColors) {
-					if ('0' <= ch && ch <= '9') {
-						nColors = nColors * 10 + (ch - '0');
-					} else if (ch == ' ' || ch == '\t') {
-						stat = STAT_NBytesPre;
-					} else {
-						sig.SetError(ERR_FormatError, "invalid XPM header");
-						return Value::Null;
-					}
-				} else if (stat == STAT_NBytesPre) {
-					if (ch == ' ' || ch == '\t') {
-						// nothing to do
-					} else {
-						stat = STAT_NBytes;
-						pushbackFlag = true;
-					}
-				} else if (stat == STAT_NBytes) {
-					if ('0' <= ch && ch <= '9') {
-						nBytes = nBytes * 10 + (ch - '0');
-					} else if (ch == ' ' || ch == '\t' || ch == '\0') {
-						stat = STAT_Finish;
-					} else {
-						sig.SetError(ERR_FormatError, "invalid XPM header");
-						return Value::Null;
-					}
+			Gura_BeginPushbackRegion();
+			if (stat == STAT_WidthPre) {
+				if (ch == ' ' || ch == '\t') {
+					// nothing to do
+				} else {
+					stat = STAT_Width;
+					Gura_Pushback();
 				}
-			} while (pushbackFlag);
+			} else if (stat == STAT_Width) {
+				if ('0' <= ch && ch <= '9') {
+					width = width * 10 + (ch - '0');
+				} else if (ch == ' ' || ch == '\t') {
+					stat = STAT_HeightPre;
+				} else {
+					sig.SetError(ERR_FormatError, "invalid XPM header");
+					return Value::Null;
+				}
+			} else if (stat == STAT_HeightPre) {
+				if (ch == ' ' || ch == '\t') {
+					// nothing to do
+				} else {
+					stat = STAT_Height;
+					Gura_Pushback();
+				}
+			} else if (stat == STAT_Height) {
+				if ('0' <= ch && ch <= '9') {
+					height = height * 10 + (ch - '0');
+				} else if (ch == ' ' || ch == '\t') {
+					stat = STAT_NColorsPre;
+				} else {
+					sig.SetError(ERR_FormatError, "invalid XPM header");
+					return Value::Null;
+				}
+			} else if (stat == STAT_NColorsPre) {
+				if (ch == ' ' || ch == '\t') {
+					// nothing to do
+				} else {
+					stat = STAT_NColors;
+					Gura_Pushback();
+				}
+			} else if (stat == STAT_NColors) {
+				if ('0' <= ch && ch <= '9') {
+					nColors = nColors * 10 + (ch - '0');
+				} else if (ch == ' ' || ch == '\t') {
+					stat = STAT_NBytesPre;
+				} else {
+					sig.SetError(ERR_FormatError, "invalid XPM header");
+					return Value::Null;
+				}
+			} else if (stat == STAT_NBytesPre) {
+				if (ch == ' ' || ch == '\t') {
+					// nothing to do
+				} else {
+					stat = STAT_NBytes;
+					Gura_Pushback();
+				}
+			} else if (stat == STAT_NBytes) {
+				if ('0' <= ch && ch <= '9') {
+					nBytes = nBytes * 10 + (ch - '0');
+				} else if (ch == ' ' || ch == '\t' || ch == '\0') {
+					stat = STAT_Finish;
+				} else {
+					sig.SetError(ERR_FormatError, "invalid XPM header");
+					return Value::Null;
+				}
+			}
+			Gura_EndPushbackRegion();
 			if (ch == '\0') break;
 		}
 		//::printf("%d %d %d %d\n", width, height, nColors, nBytes);

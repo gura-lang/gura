@@ -467,106 +467,103 @@ void Sync::Compose(DiffLine *pDiffLine)
 	foreach_const (DiffLine::EditList, pEditLine, editList) {
 		const String &str = pEditLine->first;
 		const EditType editType = pEditLine->second.type;
-		bool pushbackFlag = false;
-		do {
-			bool pushbackFlag = false;
-			switch (region) {
-			case REGION_Copy: {
-				if (editType == EDITTYPE_Copy) {
-					SyncLine *pSyncLine = new SyncLine(EDITTYPE_Copy);
-					pSyncLine->AddEditChar(new DiffChar::Edit(EDITTYPE_Copy, str));
-					_syncLinesOrg.push_back(pSyncLine);
-					_syncLinesNew.push_back(pSyncLine->Reference());
-				} else if (editType == EDITTYPE_Add) {
-					pEditLineBegin = pEditLine;
-					pushbackFlag = true;
-					region = REGION_Add;
-				} else if (editType == EDITTYPE_Delete) {
-					pEditLineBegin = pEditLine;
-					pushbackFlag = true;
-					region = REGION_Delete;
-				}
-				break;
+		Gura_BeginPushbackRegion();
+		switch (region) {
+		case REGION_Copy: {
+			if (editType == EDITTYPE_Copy) {
+				SyncLine *pSyncLine = new SyncLine(EDITTYPE_Copy);
+				pSyncLine->AddEditChar(new DiffChar::Edit(EDITTYPE_Copy, str));
+				_syncLinesOrg.push_back(pSyncLine);
+				_syncLinesNew.push_back(pSyncLine->Reference());
+			} else if (editType == EDITTYPE_Add) {
+				pEditLineBegin = pEditLine;
+				Gura_Pushback();
+				region = REGION_Add;
+			} else if (editType == EDITTYPE_Delete) {
+				pEditLineBegin = pEditLine;
+				Gura_Pushback();
+				region = REGION_Delete;
 			}
-			case REGION_Add: {
-				if (editType == EDITTYPE_Copy) {
-					DiffLine::EditList::const_iterator pEditLineEnd = pEditLine;
-					for (DiffLine::EditList::const_iterator pEditLine = pEditLineBegin;
-									 pEditLine != pEditLineEnd; pEditLine++) {
-						SyncLine *pSyncLineOrg = new SyncLine(EDITTYPE_Add);
-						SyncLine *pSyncLineNew = new SyncLine(EDITTYPE_Add);
-						pSyncLineNew->AddEditChar(new DiffChar::Edit(EDITTYPE_Copy, str));
+			break;
+		}
+		case REGION_Add: {
+			if (editType == EDITTYPE_Copy) {
+				DiffLine::EditList::const_iterator pEditLineEnd = pEditLine;
+				for (DiffLine::EditList::const_iterator pEditLine = pEditLineBegin;
+					 pEditLine != pEditLineEnd; pEditLine++) {
+					SyncLine *pSyncLineOrg = new SyncLine(EDITTYPE_Add);
+					SyncLine *pSyncLineNew = new SyncLine(EDITTYPE_Add);
+					pSyncLineNew->AddEditChar(new DiffChar::Edit(EDITTYPE_Copy, str));
+					_syncLinesOrg.push_back(pSyncLineOrg);
+					_syncLinesNew.push_back(pSyncLineNew);
+				}
+				Gura_Pushback();
+				region = REGION_Copy;
+			} else if (editType == EDITTYPE_Add) {
+				// nothing to do
+			} else if (editType == EDITTYPE_Delete) {
+				region = REGION_Change;
+			}
+			break;
+		}
+		case REGION_Delete: {
+			if (editType == EDITTYPE_Copy) {
+				DiffLine::EditList::const_iterator pEditLineEnd = pEditLine;
+				for (DiffLine::EditList::const_iterator pEditLine = pEditLineBegin;
+					 pEditLine != pEditLineEnd; pEditLine++) {
+					SyncLine *pSyncLineOrg = new SyncLine(EDITTYPE_Delete);
+					SyncLine *pSyncLineNew = new SyncLine(EDITTYPE_Delete);
+					_syncLinesOrg.push_back(pSyncLineOrg);
+					_syncLinesNew.push_back(pSyncLineNew);
+					pSyncLineOrg->AddEditChar(new DiffChar::Edit(EDITTYPE_Delete, str));
+				}
+				Gura_Pushback();
+				region = REGION_Copy;
+			} else if (editType == EDITTYPE_Add) {
+				region = REGION_Change;
+			} else if (editType == EDITTYPE_Delete) {
+				// nothing to do
+			}
+			break;
+		}
+		case REGION_Change: {
+			if (editType == EDITTYPE_Copy) {
+				DiffLine::EditList::const_iterator pEditLineEnd = pEditLine;
+				AutoPtr<DiffChar> pDiffChar(pDiffLine->CreateDiffChar(
+												pEditLineBegin, pEditLineEnd));
+				SyncLine *pSyncLineOrg = NULL;
+				SyncLine *pSyncLineNew = NULL;
+				foreach_const (DiffChar::EditOwner, ppEditChar, pDiffChar->GetEditOwner()) {
+					const DiffChar::Edit *pEditChar = *ppEditChar;
+					if (pSyncLineOrg == NULL) {
+						pSyncLineOrg = new SyncLine(EDITTYPE_Change);
+						pSyncLineNew = new SyncLine(EDITTYPE_Change);
 						_syncLinesOrg.push_back(pSyncLineOrg);
 						_syncLinesNew.push_back(pSyncLineNew);
 					}
-					pushbackFlag = true;
-					region = REGION_Copy;
-				} else if (editType == EDITTYPE_Add) {
-					// nothing to do
-				} else if (editType == EDITTYPE_Delete) {
-					region = REGION_Change;
-				}
-				break;
-			}
-			case REGION_Delete: {
-				if (editType == EDITTYPE_Copy) {
-					DiffLine::EditList::const_iterator pEditLineEnd = pEditLine;
-					for (DiffLine::EditList::const_iterator pEditLine = pEditLineBegin;
-									 pEditLine != pEditLineEnd; pEditLine++) {
-						SyncLine *pSyncLineOrg = new SyncLine(EDITTYPE_Delete);
-						SyncLine *pSyncLineNew = new SyncLine(EDITTYPE_Delete);
-						_syncLinesOrg.push_back(pSyncLineOrg);
-						_syncLinesNew.push_back(pSyncLineNew);
-						pSyncLineOrg->AddEditChar(new DiffChar::Edit(EDITTYPE_Delete, str));
+					if (pEditChar->IsEOL()) {
+						pSyncLineOrg = NULL;
+						pSyncLineNew = NULL;
+					} else if (pEditChar->GetEditType() == EDITTYPE_Copy) {
+						pSyncLineOrg->AddEditChar(pEditChar->Reference());
+						pSyncLineNew->AddEditChar(pEditChar->Reference());
+					} else if (pEditChar->GetEditType() == EDITTYPE_Add) {
+						pSyncLineNew->AddEditChar(pEditChar->Reference());
+					} else if (pEditChar->GetEditType() == EDITTYPE_Delete) {
+						pSyncLineOrg->AddEditChar(pEditChar->Reference());
 					}
-					pushbackFlag = true;
-					region = REGION_Copy;
-				} else if (editType == EDITTYPE_Add) {
-					region = REGION_Change;
-				} else if (editType == EDITTYPE_Delete) {
-					// nothing to do
 				}
-				break;
+				Gura_Pushback();
+				region = REGION_Copy;
+			} else if (editType == EDITTYPE_Add) {
+				// nothing to do
+			} else if (editType == EDITTYPE_Delete) {
+				// nothing to do
 			}
-			case REGION_Change: {
-				if (editType == EDITTYPE_Copy) {
-					DiffLine::EditList::const_iterator pEditLineEnd = pEditLine;
-					AutoPtr<DiffChar> pDiffChar(pDiffLine->CreateDiffChar(
-													pEditLineBegin, pEditLineEnd));
-					SyncLine *pSyncLineOrg = NULL;
-					SyncLine *pSyncLineNew = NULL;
-					foreach_const (DiffChar::EditOwner, ppEditChar, pDiffChar->GetEditOwner()) {
-						const DiffChar::Edit *pEditChar = *ppEditChar;
-						if (pSyncLineOrg == NULL) {
-							pSyncLineOrg = new SyncLine(EDITTYPE_Change);
-							pSyncLineNew = new SyncLine(EDITTYPE_Change);
-							_syncLinesOrg.push_back(pSyncLineOrg);
-							_syncLinesNew.push_back(pSyncLineNew);
-						}
-						if (pEditChar->IsEOL()) {
-							pSyncLineOrg = NULL;
-							pSyncLineNew = NULL;
-						} else if (pEditChar->GetEditType() == EDITTYPE_Copy) {
-							pSyncLineOrg->AddEditChar(pEditChar->Reference());
-							pSyncLineNew->AddEditChar(pEditChar->Reference());
-						} else if (pEditChar->GetEditType() == EDITTYPE_Add) {
-							pSyncLineNew->AddEditChar(pEditChar->Reference());
-						} else if (pEditChar->GetEditType() == EDITTYPE_Delete) {
-							pSyncLineOrg->AddEditChar(pEditChar->Reference());
-						}
-					}
-					pushbackFlag = true;
-					region = REGION_Copy;
-				} else if (editType == EDITTYPE_Add) {
-					// nothing to do
-				} else if (editType == EDITTYPE_Delete) {
-					// nothing to do
-				}
-				break;
-			}
-			}
-		} while (pushbackFlag);
-		
+			break;
+		}
+		}
+		Gura_EndPushbackRegion();
 	}
 }
 
