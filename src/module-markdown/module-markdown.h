@@ -385,6 +385,7 @@ private:
 	int GetIndentLevel() const;
 	int GetIndentLevelForCodeBlock() const;
 	void UpdateIndentLevelItemBody(int indentLevelItemBody);
+	bool IsWithin(Item::Type type) const;
 	static bool IsAtxHeader2(const char *text);
 	static bool IsHorzRule(const char *text);
 	static bool IsLink(const char *text);

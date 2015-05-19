@@ -993,6 +993,32 @@ Content Cell  | Content Cell
 | zebra stripes | are neat        |    $1 |
 ''')
 
+testcase@markdown('table under list item', R'''
+- item-1
+
+  column-1 |column-2 |column-3
+  ---------|---------|---------
+  data-1-1 |data-1-2 |data-1-3
+  data-2-1 |data-2-2 |data-2-3
+  data-3-1 |data-3-2 |data-3-3
+
+- item-2
+
+  column-1 |column-2 |column-3
+  ---------|---------|---------
+  data-1-1 |data-1-2 |data-1-3
+  data-2-1 |data-2-2 |data-2-3
+  data-3-1 |data-3-2 |data-3-3
+
+  - item-2-1
+
+    column-1 |column-2 |column-3
+    ---------|---------|---------
+    data-1-1 |data-1-2 |data-1-3
+    data-2-1 |data-2-2 |data-2-3
+    data-3-1 |data-3-2 |data-3-3
+''')
+				  
 testcase@markdown('line break', R'''
 1st line  
 2nd line  
