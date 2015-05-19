@@ -1494,8 +1494,6 @@ bool Document::ParseChar(Signal sig, char ch)
 			_statStack.Push(_stat);
 			_stat = STAT_Backquote;
 		} else if (ch == '_') {
-			//EndDecoration();
-			//_stat = STAT_DecorationPost;
 			_stat = STAT_UnderscoreEmphasisPost;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			CancelDecoration("_");
@@ -1539,8 +1537,6 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_UnderscoreStrongEnd: {
 		if (ch == '_') {
-			//EndDecoration();
-			//_stat = STAT_DecorationPost;
 			_stat = STAT_UnderscoreStrongPost;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			ReplaceDecoration(Item::TYPE_Emphasis, "_");
