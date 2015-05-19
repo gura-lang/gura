@@ -219,7 +219,7 @@ Document::Document() : _cntRef(1), _resolvedFlag(false), _decoPrecedingFlag(fals
 
 bool Document::ParseStream(Signal sig, SimpleStream &stream)
 {
-	enum Stat {
+	enum {
 		STAT_FirstRowTop,
 		STAT_FirstRowBody,
 		STAT_GuideRowTop,
@@ -408,8 +408,11 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 			}
 			FlushItem(Item::TYPE_Paragraph, false, false);
 			BeginTable();
+			Stat statPrev = _stat;
+			_stat = STAT_LineTop;
 			if (!_ParseString(sig, textPrefetch)) return false;
 			EndTable();
+			_stat = statPrev;
 		}
 	}
 	return true;
@@ -2284,7 +2287,6 @@ void Document::BeginTable()
 	pItemParent->GetItemOwner()->push_back(pItem);
 	_itemStack.push_back(pItem);
 	_iTableRow = 0;
-	_stat = STAT_LineTop;
 }
 
 void Document::EndTable()
@@ -2295,7 +2297,6 @@ void Document::EndTable()
 		if (pItem->IsTag() && ::strcmp(pItem->GetText(), "table") == 0) break;
 	}
 	_iTableRow = -1;
-	_stat = STAT_LineTop;
 }
 
 void Document::BeginTableRow()

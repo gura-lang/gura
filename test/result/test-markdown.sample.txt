@@ -2007,6 +2007,39 @@
       <text>'item-3'
     <li>
       <text>'item-4'
+  <p>
+    <text>'para1 in root'
+  <p>
+    <text>'para2 in root'
+  <ul>
+    <li>
+      <p>
+        <text>'item-1'
+      <p>
+        <text>'para1 in item-1'
+      <p>
+        <text>'para2 in item-1'
+      <ul>
+        <li>
+          <p>
+            <text>'item-1-1'
+          <p>
+            <text>'para1 in item-1-1'
+          <p>
+            <text>'para2 in item-1-1'
+          <tag>'table'
+            <tag>'tr'
+              <tag>'th'
+                <text>'aaaa'
+              <tag>'th'
+                <text>'bbbb'
+            <tag>'tr'
+              <tag>'td'
+                <text>'A'
+              <tag>'td'
+                <text>'B'
+  <p>
+    <text>'para3 in root'
 ======== line break ========
 <root>
   <p>

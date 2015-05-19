@@ -1043,6 +1043,28 @@ testcase@markdown('table under list item', R'''
 - item-3
 
 - item-4
+
+para1 in root
+
+para2 in root
+
+- item-1
+
+  para1 in item-1
+
+  para2 in item-1
+
+  - item-1-1
+
+    para1 in item-1-1
+
+    para2 in item-1-1
+
+    aaaa|bbbb|
+	----|----|
+	A   |B   |
+
+para3 in root
 ''')
 				  
 testcase@markdown('line break', R'''
