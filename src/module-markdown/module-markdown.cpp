@@ -223,7 +223,7 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 		STAT_FirstRowTop,
 		STAT_FirstRowBody,
 		STAT_GuideRowTop,
-		STAT_GuideRowHead,
+		//STAT_GuideRowHead,
 		STAT_GuideRowBody,
 		STAT_TrailingRowTop,
 		STAT_TrailingRowHead,
@@ -239,9 +239,7 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 	for (;;) {
 		int chRaw;
 		textPrefetch.clear();
-		int nSeps = 0;
 		int nTrailingRows = 0;
-		bool pipeTopFlag = false;
 		bool pipeFoundFlag = false;
 		bool prefetchFlag = true;
 		stat = STAT_FirstRowTop;
@@ -253,20 +251,17 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 			Gura_BeginPushbackRegion();
 			if (stat == STAT_FirstRowTop) {
 				if (ch == '|') {
-					pipeTopFlag = pipeFoundFlag = true;
-					nSeps = 0;
+					pipeFoundFlag = true;
 					stat = STAT_FirstRowBody;
 				} else if (IsEOL(ch)) {
 					prefetchFlag = false;
 				} else {
-					pipeTopFlag = pipeFoundFlag = false;
-					nSeps = 0;
+					pipeFoundFlag = false;
 					stat = STAT_FirstRowBody;
 				}
 			} else if (stat == STAT_FirstRowBody) {
 				if (ch == '|') {
 					pipeFoundFlag = true;
-					nSeps++;
 				} else if (IsEOL(ch)) {
 					if (pipeFoundFlag) {
 						indentLevel = 0;
@@ -286,38 +281,21 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 					Gura_Pushback();
 					stat = STAT_SkipToEOL;
 				} else {
-					Gura_Pushback();
-					stat = STAT_GuideRowHead;
-				}
-			} else if (stat == STAT_GuideRowHead) {
-				if (ch == '|') {
-					if (pipeTopFlag) {
+					if (ch == '|') {
 						pipeFoundFlag = true;
-						nSeps = 0;
-						guideList.clear();
-						guide.clear();
-						stat = STAT_GuideRowBody;
 					} else {
-						stat = STAT_SkipToEOL;
+						pipeFoundFlag = false;
+						Gura_Pushback();
 					}
-				} else if (IsEOL(ch)) {
-					prefetchFlag = false;
-				} else if (ch == '-' || ch == ':') {
-					pipeFoundFlag = false;
-					nSeps = 0;
 					guideList.clear();
 					guide.clear();
-					guide += ch;
 					stat = STAT_GuideRowBody;
-				} else {
-					stat = STAT_SkipToEOL;
 				}
 			} else if (stat == STAT_GuideRowBody) {
 				if (ch == '|') {
 					pipeFoundFlag = true;
 					guideList.push_back(Strip(guide.c_str()));
 					guide.clear();
-					nSeps++;
 				} else if (IsEOL(ch)) {
 					if (pipeFoundFlag) {
 						if (!guide.empty()) {
@@ -334,19 +312,13 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 				}
 			} else if (stat == STAT_TrailingRowTop) {
 				if (ch == '|') {
-					if (pipeTopFlag) {
-						pipeFoundFlag = true;
-						nSeps = 0;
-						stat = STAT_TrailingRowBody;
-					} else {
-						stat = STAT_SkipToEOL;
-					}
+					pipeFoundFlag = true;
+					stat = STAT_TrailingRowBody;
 				} else if (IsWhite(ch) || IsEOL(ch)) {
 					Gura_Pushback();
 					stat = STAT_TrailingRowHead;
 				} else {
 					pipeFoundFlag = false;
-					nSeps = 0;
 					stat = STAT_TrailingRowBody;
 				}
 			} else if (stat == STAT_TrailingRowHead) {
@@ -362,7 +334,6 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 			} else if (stat == STAT_TrailingRowBody) {
 				if (ch == '|') {
 					pipeFoundFlag = true;
-					nSeps++;
 				} else if (IsEOL(ch)) {
 					nTrailingRows++;
 					stat = STAT_TrailingRowTop;
