@@ -325,6 +325,7 @@ private:
 	char _chPrev;
 	StatStack _statStack;
 	int _indentLevel;
+	int _indentLevelTableTop;
 	int _quoteLevel;
 	int _cntEmptyLine;
 	String _text;

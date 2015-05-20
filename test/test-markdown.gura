@@ -1046,6 +1046,84 @@ testcase@markdown('table under list item', R'''
 
 para1 in root
 
+- item-1
+
+  col1|col2
+  ----|----
+  A   |B   
+
+- item-2
+
+  col1|col2|
+  ----|----|
+  A   |B   |
+
+- item-3
+
+  |col1|col2
+  |----|----
+  |A   |B   
+
+- item-4
+
+  |col1|col2|
+  |----|----|
+  |A   |B   |
+
+- item-5
+
+  - item-5-1
+  
+    col1|col2
+    ----|----
+    A   |B   
+  
+  - item-5-2
+  
+    col1|col2|
+    ----|----|
+    A   |B   |
+  
+  - item-5-3
+  
+    |col1|col2
+    |----|----
+    |A   |B   
+  
+  - item-5-4
+  
+    |col1|col2|
+    |----|----|
+    |A   |B   |
+
+- item-6
+
+  - item-6-1
+
+    - item-6-1-1
+    
+      col1|col2
+      ----|----
+      A   |B   
+    
+    - item-6-1-2
+    
+      col1|col2|
+      ----|----|
+      A   |B   |
+    
+    - item-6-1-3
+    
+      |col1|col2
+      |----|----
+      |A   |B   
+    
+    - item-6-1-4
+    
+      |col1|col2|
+      |----|----|
+      |A   |B   |
+
 para2 in root
 
 - item-1

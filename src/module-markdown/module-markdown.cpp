@@ -209,7 +209,7 @@ int ItemStack::CountQuoteLevel() const
 //-----------------------------------------------------------------------------
 Document::Document() : _cntRef(1), _resolvedFlag(false), _decoPrecedingFlag(false),
 		_iTableRow(-1), _iTableCol(0), _stat(STAT_LineTop), _iLine(0), _iCol(0), _chPrev('\0'),
-		_indentLevel(0), _quoteLevel(0), _cntEmptyLine(0),
+		_indentLevel(0), _indentLevelTableTop(0), _quoteLevel(0), _cntEmptyLine(0),
 		_pItemOwner(new ItemOwner()), _pItemRefereeOwner(new ItemOwner())
 {
 	_statStack.Push(STAT_LineTop);
@@ -245,6 +245,7 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 		stat = STAT_FirstRowTop;
 		int indentLevelForCodeBlock = GetIndentLevelForCodeBlock();
 		int indentLevel = 0;
+		_indentLevelTableTop = 0;
 		while (prefetchFlag && (chRaw = stream.GetChar(sig)) >= 0) {
 			char ch = static_cast<char>(static_cast<UChar>(chRaw));
 			textPrefetch += ch;
@@ -283,6 +284,7 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 				} else {
 					if (ch == '|') {
 						pipeFoundFlag = true;
+						_indentLevelTableTop = indentLevel + 1;
 					} else {
 						pipeFoundFlag = false;
 						Gura_Pushback();
@@ -435,10 +437,10 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (!IsTableMode()) {
 			Gura_Pushback();
 			_stat = STAT_LineHead;
-		} else if (ch == '|') {
-			// skip a pipe character placed at top of the line.
-			BeginTableRow();
-			_stat = STAT_Text;
+		//} else if (ch == '|') {
+		//	// skip a pipe character placed at top of the line.
+		//	BeginTableRow();
+		//	_stat = STAT_Text;
 		} else {
 			Gura_Pushback();
 			_stat = STAT_LineHeadTable;
@@ -510,11 +512,15 @@ bool Document::ParseChar(Signal sig, char ch)
 		break;
 	}
 	case STAT_LineHeadTable: {
-		if (IsWhite(ch) || IsEOL(ch)) {
-			// nothing to do
+		if (ch == ' ') {
+			_indentLevel += 1;
+		} else if (ch == '\t') {
+			_indentLevel += WIDTH_Tab;
+		} else if (IsEOL(ch)) {
+			_indentLevel = 0;
 		} else {
 			BeginTableRow();
-			Gura_Pushback();
+			Gura_PushbackCond(ch != '|' || _indentLevel >= _indentLevelTableTop);
 			_stat = STAT_Text;
 		}
 		break;
