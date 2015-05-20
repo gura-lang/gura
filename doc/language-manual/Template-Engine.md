@@ -16,7 +16,7 @@ There are two ways to invoke Template Engine as below:
 - In a script, create a `template` instance in a script with which you can control the engine.
 
 
-### {{ page.chapter}}.2.1. Invoke from Command Line
+### Invoke from Command Line
 
 Consider a template file `sample.tmpl` that contains the below text content
 containing an embedded script:
@@ -36,7 +36,7 @@ that renders the result to the standard output like below:
     Current time is 12:34:56.
 
 
-### {{ page.chapter}}.2.2. Invoke from Script
+### Invoke from Script
 
 In a script, you can create a `template` instance to work with the engine.
 Below is an example to read the above sample file and create the instance:
