@@ -54,6 +54,7 @@ const char *Item::GetTypeName() const
 		{ TYPE_Link,			"a",			},	// container
 		{ TYPE_Image,			"img",			},	// text
 		{ TYPE_Text,			"text",			},	// text
+		{ TYPE_Comment,			"comment",		},	// text
 		{ TYPE_Code,			"code",			},	// text
 		{ TYPE_Entity,			"entity",		},	// text
 		{ TYPE_Tag,				"tag",			},	// container and text (attributes)
@@ -1663,7 +1664,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_CommentEndSecond: {
 		_text += ch;
 		if (ch == '>') {
-			FlushText(Item::TYPE_Text, false, false);
+			FlushText(Item::TYPE_Comment, false, false);
 			_stat = _statStack.Pop();
 		} else {
 			_stat = STAT_Comment;

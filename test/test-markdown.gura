@@ -867,7 +867,9 @@ testcase@markdown('HTML tag', R'''
 
 <br />
 <br/>
+''')
 
+testcase@markdown('comment', R'''
 pre <!-- comment --> post
 
 pre
@@ -875,7 +877,6 @@ pre
 post
 
 <!-- <code>aaaaaa</code> -->
-
 ''')
 				  
 testcase@markdown('table', R'''

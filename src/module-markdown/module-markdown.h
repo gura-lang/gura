@@ -61,6 +61,7 @@ public:
 		TYPE_Link,			// container
 		TYPE_Image,			// text
 		TYPE_Text,			// text
+		TYPE_Comment,		// text
 		TYPE_Code,			// text
 		TYPE_Entity,		// text
 		TYPE_Tag,			// container and text (attributes), can be a parent

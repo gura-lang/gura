@@ -147,6 +147,8 @@ Renderer@html = class {
 			this.out.print('>')
 		} elsif (item.type == `text) {
 			this.out.print(item.text.escapehtml())
+		} elsif (item.type == `comment) {
+			this.out.print(item.text)
 		} elsif (item.type == `code) {
 			this.out.print('<code>')
 			this.out.print(item.text.escapehtml())
@@ -272,6 +274,8 @@ Renderer@rtf = class {
 			//this.out.print('>')
 		} elsif (item.type == `text) {
 			this.out.print(this.EscapeText(item.text))
+		} elsif (item.type == `comment) {
+			this.out.print(item.text)
 		} elsif (item.type == `code) {
 			this.out.print(r'{\f1 ')
 			this.out.print(this.EscapeText(item.text))
@@ -430,6 +434,8 @@ Renderer@console = class {
 		} elsif (item.type == `img) {
 			print('[', item.text, ']')
 		} elsif (item.type == `text) {
+			print(item.text)
+		} elsif (item.type == `comment) {
 			print(item.text)
 		} elsif (item.type == `code) {
 			this.setcolor(`blue) {
@@ -615,6 +621,8 @@ Renderer@toc = class {
 			if (this.text) {
 				this.text += item.text
 			}
+		} elsif (item.type == `comment) {
+			// nothing to do
 		} elsif (item.type == `code) {
 			if (this.text) {
 				this.text += item.text

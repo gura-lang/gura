@@ -1410,12 +1410,18 @@
   <p>
     <tag>'br'
     <tag>'br'
+======== comment ========
+<root>
   <p>
-    <text>'pre <!-- comment --> post'
+    <text>'pre '
+    <comment>'<!-- comment -->'
+    <text>' post'
   <p>
-    <text>'pre <!-- comment -->post'
+    <text>'pre '
+    <comment>'<!-- comment -->'
+    <text>'post'
   <p>
-    <text>'<!-- <code>aaaaaa</code> -->'
+    <comment>'<!-- <code>aaaaaa</code> -->'
 ======== table ========
 <root>
   <p>
