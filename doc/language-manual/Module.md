@@ -161,9 +161,9 @@ Modules don't only provide functions but could enhance various capabilities.
   to support additional image formats.
   For example, after importing `jpeg` module, the function can read a file in JPEG format like following:
 
-        import(jpeg)
-        img = image('foo.jpg')
-        // .. any jobs
+      import(jpeg)
+      img = image('foo.jpg')
+      // .. any jobs
 
 * **Path Name for Stream**
 
@@ -173,15 +173,15 @@ Modules don't only provide functions but could enhance various capabilities.
   For example, importing a module named `curl` would allow access to a file stored in networks
   and enhance the path name handler to be able to recognize names that begin with '`http:`'.
 
-        import(curl)
-        print(readlines('http://example.com/index.html'))
+      import(curl)
+      print(readlines('http://example.com/index.html'))
 
   For another example, module `zip` provides functions to read and write content of ZIP files.
   and it would make the path name accessible in a ZIP file.
   The example below prints a content of `doc/readme.txt` that is stored in `foo.zip`.
 
-        import(zip)
-        print(readlines('foo.zip/doc/readme.txt'))
+      import(zip)
+      print(readlines('foo.zip/doc/readme.txt'))
 
 * **Path Name for Directory**
 
@@ -190,8 +190,8 @@ Modules don't only provide functions but could enhance various capabilities.
   A function `path.walk()` recursively retrieves entries in a storage with a specified path name.
   After importing module `zip`, you can seek entries in a ZIP file using that function.
 
-        import(zip)
-        println(path.walk('foo.zip/src'))
+      import(zip)
+      println(path.walk('foo.zip/src'))
 
 * **Suffix Handler**
 
@@ -199,8 +199,8 @@ Modules don't only provide functions but could enhance various capabilities.
   For example, module `gmp` can handle suffix `L`
   that creates an instance of arbitrary precision number from a number literal.
 
-        import(gmp)
-        x = 3.1415L * 2 * r
+      import(gmp)
+      x = 3.1415L * 2 * r
 
 * **Character Codec**
 

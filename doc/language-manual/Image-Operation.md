@@ -50,8 +50,7 @@ Here is a JPEG image file that contains animation frames:
 
 ![cat-picture](../images/cat-picture.jpg)
 
-_(Any size of picture would be acceptable
-if only all the frames have the same size and are aligned at regular invervals.)_
+_(Any size of picture would be acceptable if only all the frames have the same size and are aligned at regular invervals.)_
 
 The program needs to do the following jobs.
 

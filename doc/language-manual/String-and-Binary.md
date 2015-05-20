@@ -60,7 +60,7 @@ Function `chr()` returns a string that contains a character of the given UTF-8 c
 
     chr(65)         // returns 'A'
 
-Function 'ord()` takes a string and returns UTF-8 character code of its first character.
+Function `ord()` takes a string and returns UTF-8 character code of its first character.
 
     ord('A')        // returns 65
 

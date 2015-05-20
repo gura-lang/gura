@@ -36,39 +36,39 @@ There are several ways to iterate elements in an iterator or a list.
   You can simply call `printf()` function with iterators or lists
   that causes a repetitive evaluation of the function.
 
-        printf('%s\n', words)
+      printf('%s\n', words)
 
   A function with Implicit Mapping is capable of iterating multiple iterables provided as its arguments.
   In addition to the list of words, you can specify an iterator
   that generates numbers starting from zero to print indexing numbers as shown below.
 
-        printf('%d: %s\n', 0.., words)
+      printf('%d: %s\n', 0.., words)
 
 * Using `for()` function, you can iterate a list or an iterator
   in a way that you may have been familiar with in other languages.
 
-        for (word in words) {
-            printf('%s\n', word)
-        }
+      for (word in words) {
+          printf('%s\n', word)
+      }
 
   You can get a loop index starting from zero by specifying a block parameter.
 
-        for (word in words) {|i|
-            printf('%d: %s\n', i, word)
-        }
+      for (word in words) {|i|
+          printf('%d: %s\n', i, word)
+      }
 
 * You can also use method `iterator#each()` or `list#each()` to iterate elements on them.
   In this case, the block parameter contains an iterated element as its first value.
 
-        words.each {|word|
-            printf('%s\n', word)
-        }
+      words.each {|word|
+          printf('%s\n', word)
+      }
   
   It provides a loop index as the second value in the block parameters as below.
 
-        words.each {|word, i|
-            printf('%d: %s\n', i, word)
-        }
+      words.each {|word, i|
+          printf('%d: %s\n', i, word)
+      }
 
 Most functions and methods that return an iterator as their result
 are designed to iterate elements when they take a block.
@@ -375,18 +375,18 @@ The method behaves differently depends on a value given to `criteria`.
 * If no value is specified for `criteria`, it would return the number of elements
   that can be determined as `true`.
 
-        [true, false, true, true}.count()          // returns 3
+      [true, false, true, true}.count()          // returns 3
 
 * If it takes a `function`, which takes one argument and returns a boolean value,
   it would call the given function with each element's value
   and count the number of `true` returned from it.
 
-        [3, 1, 4, 1, 5, 9, 2, 6].count(&{$x < 4}) // returns 4
+      [3, 1, 4, 1, 5, 9, 2, 6].count(&{$x < 4}) // returns 4
 
 * If it takes a value other than `function`, it would return the number of elements
   that equals to the given value.
 
-        [3, 1, 4, 1, 5, 9, 2, 6].count(1)         // returns 2
+      [3, 1, 4, 1, 5, 9, 2, 6].count(1)         // returns 2
 
 Method `iterable#contains()` checks if the iterable contains the specified value in it.
 
@@ -571,38 +571,38 @@ The `criteria` is the same as that of `iterable#filter()` and may take a functio
 * An iterator by `iterable#after()` starts extraction of elements
   right after the `criteria` is evaluated as `true`.
 
-        tbl = [3, 1, 4, 1, 5, 9, 2, 6, 5]
-        rtn = tbl.after(&{$x >= 5})
-        // rtn is an iterator that generates 9, 2, 6, 5.
+      tbl = [3, 1, 4, 1, 5, 9, 2, 6, 5]
+      rtn = tbl.after(&{$x >= 5})
+      // rtn is an iterator that generates 9, 2, 6, 5.
 
 * An iterator by `iterable#since()` starts extraction of elements
   at the point where the `criteria` is evaluated as `true`.
 
-        tbl = [3, 1, 4, 1, 5, 9, 2, 6, 5]
-        rtn = tbl.since(&{$x >= 5})
-        // rtn is an iterator that generates 5, 9, 2, 6, 5.
+      tbl = [3, 1, 4, 1, 5, 9, 2, 6, 5]
+      rtn = tbl.since(&{$x >= 5})
+      // rtn is an iterator that generates 5, 9, 2, 6, 5.
 
 * An iterator by `iterable#before()` carrys on extraction of elements
   until right before the `criteria` is evaluated as `true`.
 
-        tbl = [3, 1, 4, 1, 5, 9, 2, 6, 5]
-        rtn = tbl.before(&{$x >= 5})
-        // rtn is an iterator that generates 3, 1, 4, 1.
+      tbl = [3, 1, 4, 1, 5, 9, 2, 6, 5]
+      rtn = tbl.before(&{$x >= 5})
+      // rtn is an iterator that generates 3, 1, 4, 1.
         
 * An iterator by `iterable#until()` carrys on extraction of elements
   until the point where the `criteria` is evaluated as `true`.
 
-        tbl = [3, 1, 4, 1, 5, 9, 2, 6, 5]
-        rtn = tbl.until(&{$x >= 5})
-        // rtn is an iterator that generates 3, 1, 4, 1, 5.
+      tbl = [3, 1, 4, 1, 5, 9, 2, 6, 5]
+      rtn = tbl.until(&{$x >= 5})
+      // rtn is an iterator that generates 3, 1, 4, 1, 5.
     
 * An iterator by `iterable#while()` carrys on extraction of elements
   while the `criteria` is evaluated as `true`.
 
-        tbl = [3, 1, 4, 1, 5, 9, 2, 6, 5]
+      tbl = [3, 1, 4, 1, 5, 9, 2, 6, 5]
 
-        rtn = tbl.while(&{$x < 5})
-        // rtn is an iterator that generates 3, 1, 4, 1.
+      rtn = tbl.while(&{$x < 5})
+      // rtn is an iterator that generates 3, 1, 4, 1.
 
 Method `list#combination()` creates an iterator
 that returns a group of all combinations of elements extracted from the target list.

@@ -53,25 +53,25 @@ Implicit Mapping enhances that idea so that it has the following capabilities:
    after converting alphabet characters in the string to upper case.
    When you call it with a single value, it will return one result.
 
-        str = 'hello'
-        x = g(str)
-        // x is 'HELLO'
+       str = 'hello'
+       x = g(str)
+       // x is 'HELLO'
 
    You can call it with a list of string
    to get a list of results by using Implicit Mapping feature.
 
-        strs = ['hello', 'Gura', 'world']
-        x = g(strs)
-        // x is ['HELLO', 'GURA', 'WORLD']
+       strs = ['hello', 'Gura', 'world']
+       x = g(strs)
+       // x is ['HELLO', 'GURA', 'WORLD']
 
 2. Implicit Mapping can operate with an iterator as well.
 
    Consider the function `g(str:string):map` that has been mentioned above.
    If you call it with an iterator, it will return an iterator as its result.
    
-        strs = ('hello', 'Gura', 'world') // creates an iterator
-        x = g(strs)
-        // x is an iterator that equivalent with ('HELLO', 'GURA', 'WORLD')
+       strs = ('hello', 'Gura', 'world') // creates an iterator
+       x = g(strs)
+       // x is an iterator that equivalent with ('HELLO', 'GURA', 'WORLD')
    
    It means that the actual evaluation of the function `g()` will be postponed
    by the time when the created iterator is evaluated or destroyed.
@@ -86,13 +86,13 @@ Implicit Mapping enhances that idea so that it has the following capabilities:
    that contains `['hello', 'Gura', 'world']`.
    With an ordinary idea, you may use `for()` to process each item in a list.
 
-        for (str in strs) {
-            println(str)
-        }
+       for (str in strs) {
+           println(str)
+       }
 
    Using Implicit Mapping, you can simply do it like below:
 
-        println(strs)
+       println(strs)
 
 4. Implicit Mapping can work on any number of lists and iterators
    given in an argument list of a function call.
@@ -100,17 +100,17 @@ Implicit Mapping enhances that idea so that it has the following capabilities:
    Consider that there's a function `f(a:string, b:number, c:string):map`,
    and you give it lists as its arguments like below:
 
-        as = ['first', 'second', 'third', 'fourth']
-        bs = [1, 2, 3, 4]
-        cs = ['one', 'two', 'three', 'four']
-        f(as, bs, cs)
+       as = ['first', 'second', 'third', 'fourth']
+       bs = [1, 2, 3, 4]
+       cs = ['one', 'two', 'three', 'four']
+       f(as, bs, cs)
 
    This has the same effect as below:
 
-        f('first', 1, 'one')
-        f('second', 2, 'two')
-        f('third', 3, 'three')
-        f('fourth', 4, 'four')
+       f('first', 1, 'one')
+       f('second', 2, 'two')
+       f('third', 3, 'three')
+       f('fourth', 4, 'four')
 
 
 ### Mapping Rule with Operator
@@ -252,16 +252,16 @@ Implicit Mapping does not work with arguments that match the following case:
   which expects a list or an iterator as its value, is not considered as
   a criteria for Implicit Mapping.
 
-        f(x, y, z:list):map     = { /* body */ }
-        f(x, y, z:iterator):map = { /* body */ }
-        f(x, y, z[]):map        = { /* body */ }
+      f(x, y, z:list):map     = { /* body */ }
+      f(x, y, z:iterator):map = { /* body */ }
+      f(x, y, z[]):map        = { /* body */ }
 
 * Putting an attribute `:nomap` to an argument declaration
   would exclude it from Implicit Mapping criteria.
   In the example below, specifying a list or an iterator to argument `z` is
   not considered as a criteria for Implicit Mapping.
 
-        f(x, y, z:nomap):map = { /* body */ }
+      f(x, y, z:nomap):map = { /* body */ }
 
 
 ### Result Control on List
