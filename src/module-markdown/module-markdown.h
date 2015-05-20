@@ -9,6 +9,7 @@
 Gura_BeginModuleHeader(markdown)
 
 const int WIDTH_Tab = 4;
+const int INDENT_CodeBlock = 4;
 
 //-----------------------------------------------------------------------------
 // symbols
@@ -299,10 +300,6 @@ private:
 		STAT_RefereeTitlePost,
 		STAT_Escape,
 		STAT_EscapeInLink,
-	};
-	enum {
-		INDENT_CodeBlock		= 4,
-		//INDENT_CodeBlockInList	= 8,
 	};
 	class StatStack : public std::vector<Stat> {
 	public:
