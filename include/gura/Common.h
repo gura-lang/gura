@@ -105,6 +105,17 @@ __pushbackFlag = true
 #define Gura_PushbackCond(pushbackFlag) \
 __pushbackFlag = (pushbackFlag)
 
+#define Gura_BeginPushbackRegionEx(T, var) \
+T __pushbackBuff[16] = {var};  \
+for (int __pushbackLevel = 1; __pushbackLevel > 0; ) { \
+var = __pushbackBuff[--__pushbackLevel];
+
+#define Gura_EndPushbackRegionEx() \
+}
+
+#define Gura_PushbackEx(value) \
+__pushbackBuff[__pushbackLevel++] = (value)
+
 Gura_BeginNameSpace()
 
 #if defined(GURA_ON_MSWIN)
