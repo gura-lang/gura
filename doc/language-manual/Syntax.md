@@ -493,7 +493,7 @@ Class diagram is:
 
 Consider the following expression:
 
-* ``12345`
+* `` `12345``
 
   It owns an Value expression with a number value as its child.
 

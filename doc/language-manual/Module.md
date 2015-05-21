@@ -79,21 +79,21 @@ Under Windows, the interpreter searches module files in the following path,
 where `GURA_VERSION` and `GURA_DIR` represent
 the interpreter's version and the path name in which the program has been installed respectively.
 
-1. current directory
-2. directories specified by `-I` option in the command line
-3. directories specified by environment variable `GURAPATH`
-4. `%LOCALAPPDATA%\Gura\GURA_VERSION\module`
-5. `GURA_DIR\module`
-6. `GURA_DIR\module\site`
+1. Current directory.
+2. Directories specified by `-I` option in the command line.
+3. Directories specified by environment variable `GURAPATH`.
+4. Directory: `%LOCALAPPDATA%\Gura\GURA_VERSION\module`.
+5. Directory: `GURA_DIR\module`.
+6. Directory: `GURA_DIR\module\site`.
 
 Under Linux, the interpreter searces module files in the following path.
 
-1. current directory
-2. directories specified by `-I` option in the command line
-3. directories specified by environment variable `GURAPATH`
-4. `$HOME/.gura/GURA_VERSION/module`
-5. `/usr/lib/gura/GURA_VERSION/module`
-6. `/usr/lib/gura/GURA_VERSION/module/site`
+1. Current directory.
+2. Directories specified by `-I` option in the command line.
+3. Directories specified by environment variable `GURAPATH`.
+4. Directory: `$HOME/.gura/GURA_VERSION/module`.
+5. Directory: `/usr/lib/gura/GURA_VERSION/module`.
+6. Directory: `/usr/lib/gura/GURA_VERSION/module/site`.
 
 A variable `sys.path` is assigned with a list that contains path names to search module files.
 You can add path names into the list while a script is running.

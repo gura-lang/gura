@@ -558,7 +558,7 @@ Method `iterable#sort()` sorts iterable's elements in an ascending order.
     rtn = [3, 1, 4, 1, 5, 9, 2, 6].sort()
     // rtn is an iterator that generates 1, 1, 2, 3, 4, 5, 6, 9.
 
-Specifying a symbol ``descend` in an argument of the method will sort elements in a descending order.
+Specifying a symbol `` `descend`` in an argument of the method will sort elements in a descending order.
 
     rtn = [3, 1, 4, 1, 5, 9, 2, 6].sort(`descend)
     // rtn is an iterator that generates 9, 6, 5, 4, 3, 2, 1, 1.
@@ -588,7 +588,7 @@ The `criteria` is the same as that of `iterable#filter()` and may take a functio
       tbl = [3, 1, 4, 1, 5, 9, 2, 6, 5]
       rtn = tbl.before(&{$x >= 5})
       // rtn is an iterator that generates 3, 1, 4, 1.
-        
+
 * An iterator by `iterable#until()` carrys on extraction of elements
   until the point where the `criteria` is evaluated as `true`.
 
