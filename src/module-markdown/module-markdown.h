@@ -371,8 +371,8 @@ private:
 	void EndCodeBlock();
 	void BeginFencedCodeBlock();
 	void EndFencedCodeBlock();
-	void BeginCodeBlockInList(const char *textInit);
-	void EndCodeBlockInList();
+	//void BeginCodeBlockInList(const char *textInit);
+	//void EndCodeBlockInList();
 	void BeginListItem(Item::Type type);
 	void EndListItem();
 	void BeginDecoration(Item::Type type);

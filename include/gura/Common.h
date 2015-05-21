@@ -105,8 +105,8 @@ __pushbackFlag = true
 #define Gura_PushbackCond(pushbackFlag) \
 __pushbackFlag = (pushbackFlag)
 
-#define Gura_BeginPushbackRegionEx(T, var) \
-T __pushbackBuff[16] = {var};  \
+#define Gura_BeginPushbackRegionEx(T, n, var)	\
+T __pushbackBuff[n] = {var};  \
 for (int __pushbackLevel = 1; __pushbackLevel > 0; ) { \
 var = __pushbackBuff[--__pushbackLevel];
 
