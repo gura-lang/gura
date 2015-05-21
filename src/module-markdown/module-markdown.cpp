@@ -8,24 +8,8 @@
 #undef Gura_Pushback
 #undef Gura_PushbackCond
 
-/*
-#define Gura_BeginPushbackRegion() \
-bool __pushbackFlag = false; \
-do { \
-__pushbackFlag = false
-
-#define Gura_EndPushbackRegion() \
-} while (__pushbackFlag)
-
-#define Gura_Pushback() \
-__pushbackFlag = true
-
-#define Gura_PushbackCond(pushbackFlag) \
-__pushbackFlag = (pushbackFlag)
-*/
-
 #define Gura_BeginPushbackRegion(T, var) \
-T __pushbackBuff[8] = {var};  \
+T __pushbackBuff[16] = {var};  \
 for (int __pushbackLevel = 1; __pushbackLevel > 0; ) { \
 var = __pushbackBuff[--__pushbackLevel];
 
