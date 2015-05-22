@@ -1152,6 +1152,17 @@
           <text>'code line 2nd'
         <line>
           <text>'code line 3rd'
+      <p>
+        <text>'item-1 para1'
+      <codeblock>
+        <line>
+          <text>'code line 1st'
+        <line>
+          <text>'code line 2nd'
+        <line>
+          <text>'code line 3rd'
+      <p>
+        <text>'item-1 para2'
     <li>
       <p>
         <text>'item-2'
@@ -1173,6 +1184,17 @@
               <text>'+ code line 2nd'
             <line>
               <text>'+ code line 3rd'
+          <p>
+            <text>'item-2-1 para1'
+          <codeblock>
+            <line>
+              <text>'code line 1st'
+            <line>
+              <text>'code line 2nd'
+            <line>
+              <text>'code line 3rd'
+          <p>
+            <text>'item-2-1 para2'
           <ul>
             <li>
               <p>

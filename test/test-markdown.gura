@@ -699,6 +699,14 @@ paragraph
       code line 2nd
       code line 3rd
 
+  item-1 para1
+
+      code line 1st
+      code line 2nd
+      code line 3rd
+
+  item-1 para2
+
 - item-2
 
       + code line 1st
@@ -710,6 +718,14 @@ paragraph
         + code line 1st
         + code line 2nd
         + code line 3rd
+
+    item-2-1 para1
+
+        code line 1st
+        code line 2nd
+        code line 3rd
+
+    item-2-1 para2
 
     - item-2-1-1
 
