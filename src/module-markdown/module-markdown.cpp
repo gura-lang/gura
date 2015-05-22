@@ -1179,6 +1179,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_FencedCodeBlockAttr: {
 		if (IsEOL(ch) || IsEOF(ch)) {
 			BeginFencedCodeBlock();
+			_stat = STAT_FencedCodeBlock;
 		} else {
 			_field += ch;
 		}
@@ -1239,6 +1240,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_FencedCodeBlock_SkipToEOL: {
 		if (IsEOL(ch) || IsEOF(ch)) {
 			EndFencedCodeBlock();
+			_stat = STAT_LineTop;
 		} else {
 			// nothing to do
 		}
@@ -2388,13 +2390,11 @@ void Document::BeginFencedCodeBlock()
 		pItemParent->GetItemOwner()->push_back(pItem);
 		_itemStack.push_back(pItem);
 	} while (0);
-	_stat = STAT_FencedCodeBlock;
 }
 
 void Document::EndFencedCodeBlock()
 {
 	_itemStack.pop_back();
-	_stat = STAT_LineTop;
 }
 
 // type must be TYPE_UList or TYPE_OList
