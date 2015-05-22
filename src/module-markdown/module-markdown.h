@@ -245,8 +245,6 @@ private:
 		STAT_FencedCodeBlock_LineHead3rd,
 		STAT_FencedCodeBlock_SkipToEOL,
 		STAT_CodeBlockUnderBlockQuote,
-		STAT_CodeBlockInList,
-		STAT_CodeBlockInList_LineHead,
 		STAT_Backquote,
 		STAT_Code,
 		STAT_CodeEsc,
