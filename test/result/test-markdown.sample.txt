@@ -1184,6 +1184,107 @@
                   <text>'+ code line 2nd'
                 <line>
                   <text>'+ code line 3rd'
+    <li>
+      <p>
+        <text>'item-1'
+      <codeblock>
+        <line>
+          <text>'code 1st line'
+        <line>
+          <text>'code 2nd line'
+        <line>
+          <text>''
+        <line>
+          <text>'code 3rd line after a blank line'
+        <line>
+          <text>'code 4th line'
+        <line>
+          <text>''
+        <line>
+          <text>''
+        <line>
+          <text>''
+        <line>
+          <text>''
+        <line>
+          <text>'code 5th line after 4 blank lines'
+    <li>
+      <text>'item-2'
+      <ul>
+        <li>
+          <p>
+            <text>'item-2-1'
+          <codeblock>
+            <line>
+              <text>'code 1st line'
+            <line>
+              <text>'code 2nd line'
+            <line>
+              <text>''
+            <line>
+              <text>'code 3rd line after a blank line'
+            <line>
+              <text>'code 4th line'
+            <line>
+              <text>''
+            <line>
+              <text>''
+            <line>
+              <text>''
+            <line>
+              <text>''
+            <line>
+              <text>'code 5th line after 4 blank lines'
+        <li>
+          <p>
+            <text>'item-2-2'
+          <codeblock>
+            <line>
+              <text>'code 1st line'
+            <line>
+              <text>'code 2nd line'
+            <line>
+              <text>''
+            <line>
+              <text>'code 3rd line after a blank line'
+            <line>
+              <text>'code 4th line'
+            <line>
+              <text>''
+            <line>
+              <text>''
+            <line>
+              <text>''
+            <line>
+              <text>''
+            <line>
+              <text>'code 5th line after 4 blank lines'
+    <li>
+      <p>
+        <text>'item-3'
+      <codeblock>
+        <line>
+          <text>'code 1st line'
+        <line>
+          <text>'code 2nd line'
+        <line>
+          <text>''
+        <line>
+          <text>'code 3rd line after a blank line'
+        <line>
+          <text>'code 4th line'
+        <line>
+          <text>''
+        <line>
+          <text>''
+        <line>
+          <text>''
+        <line>
+          <text>''
+        <line>
+          <text>'code 5th line after 4 blank lines'
+  <p>
+    <text>'paragrph'
 ======== fenced code block ========
 <root>
   <p>

@@ -716,6 +716,62 @@ paragraph
           + code line 1st
           + code line 2nd
           + code line 3rd
+
+- item-1
+
+      code 1st line
+      code 2nd line
+
+      code 3rd line after a blank line
+      code 4th line
+
+
+
+
+      code 5th line after 4 blank lines
+
+- item-2
+
+  - item-2-1
+
+        code 1st line
+        code 2nd line
+
+        code 3rd line after a blank line
+        code 4th line
+
+
+
+
+        code 5th line after 4 blank lines
+
+  - item-2-2
+
+        code 1st line
+        code 2nd line
+
+        code 3rd line after a blank line
+        code 4th line
+
+
+
+
+        code 5th line after 4 blank lines
+
+- item-3
+
+      code 1st line
+      code 2nd line
+
+      code 3rd line after a blank line
+      code 4th line
+
+
+
+
+      code 5th line after 4 blank lines
+
+paragrph
 ''')
 
 testcase@markdown('fenced code block', R'''
