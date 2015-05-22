@@ -38,7 +38,7 @@ which also shows one of the typical ways to instantiate values of each type.
   It is often used as a returned value of a function when it fails its expected work.
   A variable `nil` has a value of nil type.
 
-        nil
+      nil
 
   Since `nil` is the only instance of `nil` type,
   the term `nil` can both mean the name of the value and its type.
@@ -50,7 +50,7 @@ which also shows one of the typical ways to instantiate values of each type.
   Variables named `true` and `false` are assigned
   with a true value and a false value respectively.
 
-        true  false
+      true  false
 
   In a function like `if` having arguments to check true/false condition
   and in a logical calculation,
@@ -63,7 +63,7 @@ which also shows one of the typical ways to instantiate values of each type.
   A number literal suffixed by `j` instantiates a value of `complex` type
   that represents a complex number.
 
-        3.14j  1000j  1e3j
+      3.14j  1000j  1e3j
 
   See chapter [Mathematic Functions](Mathematic-Functions.html) for more detail.
 
@@ -71,14 +71,14 @@ which also shows one of the typical ways to instantiate values of each type.
 
   A number literal without any suffix instantiates a value of `number` type.
 
-        3.14  1000  1e3  0xaabb
+      3.14  1000  1e3  0xaabb
 
 * `rational`
 
   A number literal suffixed by `r` instantiates a value of `rational` type
   that represents a rational number.
 
-        3r  123r
+      3r  123r
 
   See chapter [Mathematic Functions](Mathematic-Functions.html) for more detail.
 
@@ -86,17 +86,17 @@ which also shows one of the typical ways to instantiate values of each type.
 
   A string literal without any suffix instantiates a value of `string` type.
 
-        'hello world'
-        
-        R'''
-        message text
-        '''
+      'hello world'
+
+      R'''
+      message text
+      '''
 
 * `symbol`
 
   An identifier preceded by a back quote instantiates a value of `symbol` type.
 
-        `foo  `bar
+      `foo  `bar
 
 
 ## Object Data Types Frequently Used

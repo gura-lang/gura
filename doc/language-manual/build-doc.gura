@@ -2,7 +2,7 @@
 import(markdown)
 
 //dirNameOut = path.dirname(sys.argv[0])
-dirNameOut = '../../../gura-lang.github.io/language-manual.t'
+dirNameOut = '../../../gura-lang.github.io/language-manual'
 
 fileNames = [
 	'Introduction.md'
@@ -87,6 +87,9 @@ Renderer@html = class(markdown.Renderer@html) {
 	}
 }
 
+doc.render@rtf('a.rtf')
+
+/*
 println('Output directory: ', dirNameOut)
 fileName = path.join(dirNameOut, 'index.md')
 println('rendering ', path.filename(fileName))
@@ -106,3 +109,4 @@ open(fileName, 'w') {|out|
 	out.print(footerForIndex)
 }
 Renderer@html().Render(doc)
+*/

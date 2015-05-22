@@ -185,7 +185,9 @@ Renderer@html = class {
 
 Renderer@rtf = class {
 	__init__(out:stream:w) = {
+		this.captionIndex = true
 		this.out = out
+		this.indices = dim(6) {0}
 		this.quoteLevel = 0
 		this.listLevel = 0
 		this.indentPerQuote = 720
@@ -201,26 +203,55 @@ Renderer@rtf = class {
 			this.out.println('}')
 		} elsif (item.type == `h1) {
 			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs36 ')
+			if (this.captionIndex) {
+				this.indices[0] += 1
+				this.indices[1..5] = 0
+				this.out.printf('%d ', this.indices[0])
+			}
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `h2) {
 			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 ')
+			if (this.captionIndex) {
+				this.indices[1] += 1
+				this.indices[2..5] = 0
+				this.out.printf('%d.%d ', this.indices[0..1]*)
+			}
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `h3) {
 			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 ')
+			if (this.captionIndex) {
+				this.indices[2] += 1
+				this.indices[3..5] = 0
+				this.out.printf('%d.%d.%d ', this.indices[0..2]*)
+			}
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `h4) {
 			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs24 ')
+			if (this.captionIndex) {
+				this.indices[3] += 1
+				this.indices[4..5] = 0
+				this.out.printf('%d.%d.%d.%d ', this.indices[0..3]*)
+			}
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `h5) {
 			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs20 ')
+			if (this.captionIndex) {
+				this.indices[4] += 1
+				this.indices[5] = 0
+				this.out.printf('%d.%d.%d.%d.%d ', this.indices[0..4]*)
+			}
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `h6) {
 			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs16 ')
+			if (this.captionIndex) {
+				this.indices[5] += 1
+				this.out.printf('%d.%d.%d.%d.%d.%d ', this.indices[0..5]*)
+			}
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `p) {
@@ -275,7 +306,7 @@ Renderer@rtf = class {
 		} elsif (item.type == `text) {
 			this.out.print(this.EscapeText(item.text))
 		} elsif (item.type == `comment) {
-			this.out.print(item.text)
+			// nothing to do here
 		} elsif (item.type == `code) {
 			this.out.print(r'{\f1 ')
 			this.out.print(this.EscapeText(item.text))
