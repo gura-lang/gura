@@ -438,10 +438,6 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (!IsTableMode()) {
 			Gura_PushbackEx(ch);
 			_stat = STAT_LineHead;
-		//} else if (ch == '|') {
-		//	// skip a pipe character placed at top of the line.
-		//	BeginTableRow();
-		//	_stat = STAT_Text;
 		} else {
 			Gura_PushbackEx(ch);
 			_stat = STAT_LineHeadTable;
