@@ -183,11 +183,139 @@ Renderer@html = class {
 	OnRenderItemPost(item:item):void = nil
 }
 
+Renderer@tex = class {
+	__init__(out:stream:w, title:string, author:string, date:string) = {
+		this.out = out
+		this.title = title
+		this.author = author
+		this.date = date
+		this.escapeTextFlag = true
+	}
+	Render(doc:document):void = {
+		this.RenderItem(doc.root)
+	}
+	RenderItem(item:item):map:void = {
+		if (item.type == `root) {
+			this.out.printf(R'''
+			\documentclass{report}
+			\title{%s}
+			\author{%s}
+			\date{%s}
+			\usepackage{fancyvrb}
+
+			\setlength{\textwidth}{145mm}
+			\setlength{\oddsidemargin}{35mm}
+			\addtolength{\oddsidemargin}{-1in}
+
+			\setlength{\textheight}{244mm}
+			\setlength{\headheight}{0mm}
+			\setlength{\headsep}{25mm}
+			\setlength{\footskip}{15mm}
+			\addtolength{\topmargin}{-1in}
+
+			\begin{document}
+			\maketitle
+			''', this.title, this.author, this.date)
+			this.RenderItem(item.children)
+			this.out.print(R'''
+			\end{document}
+			''')
+		} elsif (item.type == `h1) {
+			this.out.print(r'\chapter{')
+			this.RenderItem(item.children)
+			this.out.println(r'}')
+		} elsif (item.type == `h2) {
+			this.out.print(r'\section{')
+			this.RenderItem(item.children)
+			this.out.println(r'}')
+		} elsif (item.type == `h3) {
+			this.out.print(r'\subsection{')
+			this.RenderItem(item.children)
+			this.out.println(r'}')
+		} elsif (item.type == `h4) {
+			this.out.print(r'\subsubsection{')
+			this.RenderItem(item.children)
+			this.out.println(r'}')
+		} elsif (item.type == `h5) {
+			this.out.print(r'\paragraph{')
+			this.RenderItem(item.children)
+			this.out.println(r'}')
+		} elsif (item.type == `h6) {
+			this.out.print(r'\paragraph{')
+			this.RenderItem(item.children)
+			this.out.println(r'}')
+		} elsif (item.type == `p) {
+			this.RenderItem(item.children)
+			this.out.println()
+		} elsif (item.type == `blockquote) {
+			this.out.println(r'\begin{quotation}')
+			this.RenderItem(item.children)
+			this.out.println(r'\end{quotation}')
+		} elsif (item.type == `em) {
+			this.out.print(r'{\it ')
+			this.RenderItem(item.children)
+			this.out.print(r'}')
+		} elsif (item.type == `strong) {
+			this.out.print(r'{\bf ')
+			this.RenderItem(item.children)
+			this.out.print(r'}')
+		} elsif (item.type == `strike) {
+			this.RenderItem(item.children)
+		} elsif (item.type == `codeblock) {
+			this.out.println(r'\begin{Verbatim}[frame=single,framesep=2mm,fontsize=\small]')
+			this.escapeTextFlag = false
+			this.RenderItem(item.children)
+			this.escapeTextFlag = true
+			this.out.println(r'\end{Verbatim}')
+		} elsif (item.type == `ol) {
+			this.out.println(r'\begin{enumerate}')
+			this.RenderItem(item.children)
+			this.out.println(r'\end{enumerate}')
+		} elsif (item.type == `ul) {
+			this.out.println(r'\begin{itemize}')
+			this.RenderItem(item.children)
+			this.out.println(r'\end{itemize}')
+		} elsif (item.type == `li) {
+			this.out.print(r'\item ')
+			this.RenderItem(item.children)
+		} elsif (item.type == `line) {
+			this.RenderItem(item.children)
+			this.out.println()
+		} elsif (item.type == `a) {
+			this.RenderItem(item.children)
+		} elsif (item.type == `img) {
+			
+		} elsif (item.type == `text) {
+			if (this.escapeTextFlag) {
+				this.out.print(this.EscapeText(item.text))
+			} else {
+				this.out.print(item.text)
+			}
+		} elsif (item.type == `comment) {
+			// nothing to do
+		} elsif (item.type == `code) {
+			this.out.print(r'{\verb ')
+			this.out.print(this.EscapeText(item.text))
+			this.out.print(r' }')
+		} elsif (item.type == `entity) {
+			//this.out.print(r'\u%d?', 169)
+		} elsif (item.type == `tag) {
+			
+		} elsif (item.type == `hr) {
+			
+		} elsif (item.type == `br) {
+			this.out.println(r'\newline')
+		}
+	}
+	EscapeText(text:string):static = {
+		text.replace('\\', '\\\\').replace('{', r'\{').replace('}', r'\}').\
+			replace('_', r'\_').replace('&', r'\&').replace('^', r'\^')
+	}
+}
+
 Renderer@rtf = class {
 	__init__(out:stream:w) = {
-		this.captionIndex = true
 		this.out = out
-		this.indices = dim(6) {0}
 		this.quoteLevel = 0
 		this.listLevel = 0
 		this.indentPerQuote = 720
@@ -203,55 +331,26 @@ Renderer@rtf = class {
 			this.out.println('}')
 		} elsif (item.type == `h1) {
 			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs36 ')
-			if (this.captionIndex) {
-				this.indices[0] += 1
-				this.indices[1..5] = 0
-				this.out.printf('%d ', this.indices[0])
-			}
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `h2) {
 			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 ')
-			if (this.captionIndex) {
-				this.indices[1] += 1
-				this.indices[2..5] = 0
-				this.out.printf('%d.%d ', this.indices[0..1]*)
-			}
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `h3) {
 			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 ')
-			if (this.captionIndex) {
-				this.indices[2] += 1
-				this.indices[3..5] = 0
-				this.out.printf('%d.%d.%d ', this.indices[0..2]*)
-			}
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `h4) {
 			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs24 ')
-			if (this.captionIndex) {
-				this.indices[3] += 1
-				this.indices[4..5] = 0
-				this.out.printf('%d.%d.%d.%d ', this.indices[0..3]*)
-			}
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `h5) {
 			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs20 ')
-			if (this.captionIndex) {
-				this.indices[4] += 1
-				this.indices[5] = 0
-				this.out.printf('%d.%d.%d.%d.%d ', this.indices[0..4]*)
-			}
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `h6) {
 			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs16 ')
-			if (this.captionIndex) {
-				this.indices[5] += 1
-				this.out.printf('%d.%d.%d.%d.%d.%d ', this.indices[0..5]*)
-			}
 			this.RenderItem(item.children)
 			this.out.println(r'\par}')
 		} elsif (item.type == `p) {
@@ -306,13 +405,13 @@ Renderer@rtf = class {
 		} elsif (item.type == `text) {
 			this.out.print(this.EscapeText(item.text))
 		} elsif (item.type == `comment) {
-			// nothing to do here
+			this.out.print(item.text)
 		} elsif (item.type == `code) {
 			this.out.print(r'{\f1 ')
 			this.out.print(this.EscapeText(item.text))
 			this.out.print(r'}')
 		} elsif (item.type == `entity) {
-			this.out.print(r'\u%d?', 169)
+			this.out.printf(r'\u%d?', 169)
 		} elsif (item.type == `tag) {
 			
 		} elsif (item.type == `hr) {
@@ -685,6 +784,11 @@ classref(`document).render@html(
 	</body>
 	</html>
 	''')
+}
+
+classref(`document).render@tex(title:string, author:string, date:string, out?:stream:w) = {
+	out = out || sys.stdout
+	Renderer@tex(out, title, author, date).Render(this)
 }
 
 classref(`document).render@rtf(out?:stream:w) = {
