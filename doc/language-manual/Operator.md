@@ -53,7 +53,7 @@ This subsection explains such functions of operators.
 
 ### Prefixed Unary Operators
 
-**Operation `+x`** returns the value of `x` itself.
+Operation `+x` returns the value of `x` itself.
 
 <table>
 <tr><th>Operation</th><th>Result Data Type</th></tr>
@@ -65,7 +65,7 @@ This subsection explains such functions of operators.
 </table>
 
 
-**Operation `-x`** returns a negaive value of `x`.
+Operation `-x` returns a negaive value of `x`.
 
 <table>
 <tr><th>Operation</th><th>Result Data Type</th></tr>
@@ -77,7 +77,7 @@ This subsection explains such functions of operators.
 </table>
 
 
-**Operation `~x`** returns a bit-inverted value of `x`.
+Operation `~x` returns a bit-inverted value of `x`.
 
 <table>
 <tr><th>Operation</th><th>Result Data Type</th></tr>
@@ -85,7 +85,7 @@ This subsection explains such functions of operators.
 </table>
 
 
-**Operation `!x`** returns a logically inverted value of `x`
+Operation `!x` returns a logically inverted value of `x`
 after evaluating it as a boolean value.
 
 <table>
@@ -95,7 +95,7 @@ after evaluating it as a boolean value.
 
 ### Suffixed Unary Operators
 
-**Operation `x..`** returns an infinite iterator
+Operation `x..` returns an infinite iterator
 that starts from `x` and is increased by one.
 
 <table>
@@ -104,7 +104,7 @@ that starts from `x` and is increased by one.
 </table>
 
 
-**Operation `x?`** returns `false` if `x` is `false` or `nil`, and `true` otherwise.
+Operation `x?` returns `false` if `x` is `false` or `nil`, and `true` otherwise.
 This operator is not affected by Implicit Mapping
 and returns `true` if `x` is of `list` or `iterator` type.
 
@@ -116,7 +116,7 @@ and returns `true` if `x` is of `list` or `iterator` type.
 
 ### Binary Operators
 
-**Operation `x + y`** returns an added result of `x` and `y`.
+Operation `x + y` returns an added result of `x` and `y`.
 
 <table>
 <tr><th>Operation</th><th>Result Data Type</th></tr>
@@ -149,7 +149,7 @@ Operation `x + y` returns concatenated result of `x` and `y`.
 </table>
 
 
-**Operation `x - y`** returns a subtracted result of `x` and `y`.
+Operation `x - y` returns a subtracted result of `x` and `y`.
 
 <table>
 <tr><th>Operation</th><th>Result Data Type</th></tr>
@@ -169,7 +169,7 @@ Operation `x + y` returns concatenated result of `x` and `y`.
 </table>
 
 
-**Operation `x * y`** returns a multiplied result of `x` and `y`.
+Operation `x * y` returns a multiplied result of `x` and `y`.
 
 <table>
 <tr><th>Operation</th><th>Result Data Type</th></tr>
@@ -201,7 +201,7 @@ will join the `string`/`binary` for `number` times.
 </table>
 
 
-**Operation `x / y`** returns a divided result of `x` and `y`.
+Operation `x / y` returns a divided result of `x` and `y`.
 
 <table>
 <tr><th>Operation</th><th>Result Data Type</th></tr>
@@ -218,7 +218,7 @@ will join the `string`/`binary` for `number` times.
 </table>
 
 
-**Operation `x % y`** returns a remainder after dividing `x` by `y`.
+Operation `x % y` returns a remainder after dividing `x` by `y`.
 
 <table>
 <tr><th>Operation</th><th>Result Data Type</th></tr>
@@ -226,7 +226,7 @@ will join the `string`/`binary` for `number` times.
 </table>
 
 
-**Operation `x ** y`** returns a powered result of `x` and `y`.
+Operation `x ** y` returns a powered result of `x` and `y`.
 
 <table>
 <tr><th>Operation</th><th>Result Data Type</th></tr>
@@ -237,7 +237,7 @@ will join the `string`/`binary` for `number` times.
 </table>
 
 
-**Operation `x == y`** returns `true` when `x` equals to `y`, and `false` otherwise.
+Operation `x == y` returns `true` when `x` equals to `y`, and `false` otherwise.
 
 <table>
 <tr><th>Operation</th><th>Result Data Type</th></tr>
@@ -245,7 +245,7 @@ will join the `string`/`binary` for `number` times.
 </table>
 
 
-**Operation `x < y`** returns `true` when `x` is less than `y`, and `false` otherwise.
+Operation `x < y` returns `true` when `x` is less than `y`, and `false` otherwise.
 
 <table>
 <tr><th>Operation</th><th>Result Data Type</th></tr>
@@ -253,7 +253,7 @@ will join the `string`/`binary` for `number` times.
 </table>
 
 
-**Operation `x > y`** returns `true` when `x` is greater than `y`, and `false` otherwise.
+Operation `x > y` returns `true` when `x` is greater than `y`, and `false` otherwise.
 
 <table>
 <tr><th>Operation</th><th>Result Data Type</th></tr>
@@ -261,7 +261,7 @@ will join the `string`/`binary` for `number` times.
 </table>
 
 
-**Operation `x <= y`** returns `true` when `x` is less than or equal to `y`, and `false` otherwise.
+Operation `x <= y` returns `true` when `x` is less than or equal to `y`, and `false` otherwise.
 
 <table>
 <tr><th>Operation</th><th>Result Data Type</th></tr>
@@ -269,7 +269,7 @@ will join the `string`/`binary` for `number` times.
 </table>
 
 
-**Operation `x >= y`** returns `true` when `x` is greater than or equal to `y`, and `false` otherwise.
+Operation `x >= y` returns `true` when `x` is greater than or equal to `y`, and `false` otherwise.
 
 <table>
 <tr><th>Operation</th><th>Result Data Type</th></tr>
@@ -277,7 +277,7 @@ will join the `string`/`binary` for `number` times.
 </table>
 
 
-**Operation `x <=> y`** returns `0` when `x` is equal to `y`,
+Operation `x <=> y` returns `0` when `x` is equal to `y`,
 `-1` when `x` is less than `y` and `1` when `x` is greater than `y`.
 
 <table>
@@ -286,7 +286,7 @@ will join the `string`/`binary` for `number` times.
 </table>
 
 
-**Operation `x in y`** checks if `x` is contained in `y`.
+Operation `x in y` checks if `x` is contained in `y`.
 
 When Operator `in` takes a value of any type other than `list` and `iterator` at its left,
 it will check if the value is contained in the container specified at its right.
@@ -320,7 +320,7 @@ it would work as an iterable assignment.
 See [Chapter.8. Flow Control](Flow-Control.html) for detail.
 
 
-**Operation `x & y`** returns an AND calculation result of `x` and `y`.
+Operation `x & y` returns an AND calculation result of `x` and `y`.
 
 * If `x` and `y` are of `number` type, it calculates bitwise AND between them.
 * If `x` and `y` are of `boolean` type, it calculates logical AND between them.
@@ -335,7 +335,7 @@ See [Chapter.8. Flow Control](Flow-Control.html) for detail.
 </table>
 
 
-**Operation `x | y`** returns an OR calculation result of `x` and `y`.
+Operation `x | y` returns an OR calculation result of `x` and `y`.
 
 * If `x` and `y` are of `number` type, it calculates bitwise OR between them.
 * If `x` and `y` are of `boolean` type, it calculates logical OR between them.
@@ -350,7 +350,7 @@ See [Chapter.8. Flow Control](Flow-Control.html) for detail.
 </table>
 
 
-**Operation `x ^ y`** returns a XOR calculation result of `x` and `y`.
+Operation `x ^ y` returns a XOR calculation result of `x` and `y`.
 
 * If `x` and `y` are of `number` type, it calculates bitwise XOR between them.
 * If `x` and `y` are of `boolean` type, it calculates logical XOR between them.
@@ -362,7 +362,7 @@ See [Chapter.8. Flow Control](Flow-Control.html) for detail.
 </table>
 
 
-**Operation `x << y`** returns a value of `x` shifted left by `y` bits.
+Operation `x << y` returns a value of `x` shifted left by `y` bits.
 
 <table>
 <tr><th>Operation</th><th>Result Data Type</th></tr>
@@ -370,7 +370,7 @@ See [Chapter.8. Flow Control](Flow-Control.html) for detail.
 </table>
 
 
-**Operation `x >> y`** returns a value of `x` shifted right by `y` bits.
+Operation `x >> y` returns a value of `x` shifted right by `y` bits.
 
 <table>
 <tr><th>Operation</th><th>Result Data Type</th></tr>
@@ -378,7 +378,7 @@ See [Chapter.8. Flow Control](Flow-Control.html) for detail.
 </table>
 
 
-**Operation `x && y`** returns a conditional AND result of `x` and `y` as described below:
+Operation `x && y` returns a conditional AND result of `x` and `y` as described below:
 
 * If `x` is not of `list` nor `iterator` type,
   it would return the value of `x` when `x` is determined as `false`,
@@ -397,7 +397,7 @@ See [Chapter.8. Flow Control](Flow-Control.html) for detail.
 </table>
 
 
-**Operation `x || y`** returns a conditional OR result of `x` and `y` as described below:
+Operation `x || y` returns a conditional OR result of `x` and `y` as described below:
 
 * If `x` is not of `list` nor `iterator` type,
   it would return the value of `x` when `x` is determined as `true`,
@@ -416,7 +416,7 @@ See [Chapter.8. Flow Control](Flow-Control.html) for detail.
 </table>
 
 
-**Operation `x..y`** creates an iterator that returns `number` value
+Operation `x..y` creates an iterator that returns `number` value
 that starts from `x` and is increased by one until `y`.
 
 <table>
@@ -425,7 +425,7 @@ that starts from `x` and is increased by one until `y`.
 </table>
 
 
-**Operation `x => y`** returns a list `[x, y]`.
+Operation `x => y` returns a list `[x, y]`.
 
 <table>
 <tr><th>Operation</th><th>Result Data Type</th></tr>
@@ -443,7 +443,7 @@ See [Chapter.7. Function](Function.html) for their detail.
 
 ## Other Operators
 
-**Operation `string % any`** returns a result formatted
+Operation `string % any` returns a result formatted
 by the string containing specifiers of `printf` format.
 The value of `any` must be a list if more than one argument are necessary.
 
@@ -453,9 +453,9 @@ The code above has the same result as the following.
 
     format('Name: %s, Age: %d', name, age)
 
-**Operation `function * any`** applies the function on `any`.
+Operation `function * any` applies the function on `any`.
 
-**Operation `stream << any`** outputs `any` to the `stream`.
+Operation `stream << any` outputs `any` to the `stream`.
 
     sys.stdout << 'Hello World\n'
 
