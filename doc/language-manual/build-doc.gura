@@ -1,8 +1,12 @@
 #!/usr/bin/env gura
 import(markdown)
 
-//dirNameOut = path.dirname(sys.argv[0])
-dirNameOut = '../../../gura-lang.github.io/language-manual'
+fileNameTeX = 'gura-lang-e.tex'
+dirNameHtml = '../../../gura-lang.github.io/language-manual'
+
+title = 'Gura Language Manual'
+author = 'Yutaka Saito'
+date = 'May 24th, 2015'
 
 fileNames = [
 	'Introduction.md'
@@ -27,52 +31,41 @@ fileNames = [
 	'Template-Engine.md'
 ]
 
-doc = markdown.document()
-
-fileNames.each {|fileName|
-	println('reading: ', fileName)
-	doc.read(fileName)
-}
-
-headerForIndex = R'''
----
-layout: page
-lang: en
-title: Gura Language Manual
----
-
-<h1>Gura Language Manual</h1>
-
-'''
-
-footerForIndex = R'''
-<p />
-'''
-
-headerForPage = R'''
----
-layout: page
-lang: en
-title: Gura Language Manual
----
-
-{% raw %}
-'''
-
-footerForPage = R'''
-<p />
-
-{% endraw %}
-'''
-
 Renderer@html = class(markdown.Renderer@html) {
+	headerForTOC:public = R'''
+	---
+	layout: page
+	lang: en
+	title: ${title}
+	---
+
+	<h1>${title}</h1>
+
+	'''.embed()
+	footerForTOC:public = R'''
+	<p />
+	'''
+	headerForPage:public = R'''
+	---
+	layout: page
+	lang: en
+	title: ${title}
+	---
+
+	{% raw %}
+	'''.embed()
+	footerForPage:public = R'''
+	<p />
+
+	{% endraw %}
+	'''
 	__init__() = {|sys.stdout, true|
 		this.out = nil
 	}
 	OnRenderItemPre(item:item) = {
 		if (item.type == `h1) {
 			this.out && this.out.print(footerForPage)
-			fileName = path.join(dirNameOut, 'chapter-%02d.md' % (this.indices[0] + 1))
+			fileName = path.join(dirNameHtml, 'chapter-%02d.md' % (this.indices[0] + 1))
 			println('rendering ', path.filename(fileName))
 			this.out = open(fileName, 'w')
 			this.out.print(headerForPage)
@@ -87,26 +80,64 @@ Renderer@html = class(markdown.Renderer@html) {
 	}
 }
 
-doc.render@rtf('a.rtf')
-
-/*
-println('Output directory: ', dirNameOut)
-fileName = path.join(dirNameOut, 'index.md')
-println('rendering ', path.filename(fileName))
-open(fileName, 'w') {|out|
-	out.print(headerForIndex)
-	doc.render@toc {|level:number, indices[]:number, anchorName:string, text:string|
-		if (level == 0) {
-			out.printf(
-					'<div><span class="toc-index-1">%d</span><a href="chapter-%02d.html#%s">%s</a>\</div>\n',
-					indices[0], indices[0], anchorName, text)
-		} elsif (level == 1) {
-			out.printf(
-					'<div><span class="toc-index-2">%d.%d</span><a href="chapter-%02d.html#%s">%s</a>\</div>\n',
-					indices[0], indices[1], indices[0], anchorName, text)
-		}
+makeDocument() = {
+	doc = markdown.document()
+	fileNames.each {|fileName|
+		println('reading: ', fileName)
+		doc.read(fileName)
 	}
-	out.print(footerForIndex)
+	doc
 }
-Renderer@html().Render(doc)
-*/
+
+output@tex() = {
+	doc = makeDocument()
+	doc.render@tex(title, author, date, fileNameTeX)
+	sys.stderr.println(fileNameTeX, ' was created.')
+}
+
+output@pdf() = {
+	output@tex()
+	os.exec('platex', fileNameTeX)
+	os.exec('dvipdf', fileNameTeX.replace('.tex', '.dvi'))
+}
+
+output@html() = {
+	doc = makeDocument()
+	println('Output directory: ', dirNameHtml)
+	fileName = path.join(dirNameHtml, 'index.md')
+	println('rendering ', path.filename(fileName))
+	open(fileName, 'w') {|out|
+		out.print(Renderer@html.headerForTOC)
+		doc.render@toc {|level:number, indices[]:number, anchorName:string, text:string|
+			if (level == 0) {
+				out.printf(
+						'<div><span class="toc-index-1">%d</span>' \
+						'<a href="chapter-%02d.html#%s">%s</a>\</div>\n',
+						indices[0], indices[0], anchorName, text)
+			} elsif (level == 1) {
+				out.printf(
+						'<div><span class="toc-index-2">%d.%d</span>' \
+						'<a href="chapter-%02d.html#%s">%s</a>\</div>\n',
+						indices[0], indices[1], indices[0], anchorName, text)
+			}
+		}
+		out.print(Renderer@html.footerForTOC)
+	}
+	Renderer@html().Render(doc)
+}
+
+usage() = {
+	sys.stderr.println('usage: gura build-doc [tex|pdf|html]')
+}
+
+if (sys.argv.len() < 2) {
+	usage()
+} elsif (sys.argv[1] == 'tex') {
+	output@tex()
+} elsif (sys.argv[1] == 'pdf') {
+	output@pdf()
+} elsif (sys.argv[1] == 'html') {
+	output@html()
+} else {
+	usage()
+}
