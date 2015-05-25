@@ -300,7 +300,11 @@ Renderer@tex = class {
 		} elsif (item.type == `entity) {
 			//this.out.print(r'\u%d?', 169)
 		} elsif (item.type == `tag) {
-			
+			if (item.text.lower() == 'table') {
+				this.RenderTable(item)
+			} else {
+				item.children && this.RenderItem(item.children)
+			}
 		} elsif (item.type == `hr) {
 			
 		} elsif (item.type == `br) {
@@ -309,7 +313,43 @@ Renderer@tex = class {
 	}
 	EscapeText(text:string):static = {
 		text.replace('\\', '\\\\').replace('{', r'\{').replace('}', r'\}').\
-			replace('_', r'\_').replace('&', r'\&').replace('^', r'\^')
+			replace('_', r'\_').replace('&', r'\&').replace('^', r'\^').\
+			replace('~', r'\~')
+	}
+	RenderTable(item:item) = {
+		rows = item.children.each():xlist {|item|
+			(item.type != `tag || item.text.lower() != 'tr') && continue
+			headerFlag = false
+			item.children.each():xlist {|item|
+				(item.type != `tag) && continue
+				tagName = item.text.lower()
+				if (tagName == 'th') {
+					headerFlag = true
+				} elsif (tagName == 'td') {
+					// nothing to do
+				} else {
+					continue
+				}
+				item
+			}
+		}
+		alignChars = %{`left => 'l', `right => 'r', `center => 'c'}
+		alignSpecifier = alignChars.get(rows[0]::align, 'l').join('|')
+		this.out.printf('\\begin{tabular}{|%s|} \\hline\n', alignSpecifier)
+		rows.each {|cols|
+			cols.each {|item, i|
+				(i > 0) && this.out.print(' & ')
+				if (item.text.lower() == 'th') {
+					this.out.print(r'{\bf ')
+					this.RenderItem(item)
+					this.out.print(r' }')
+				} else {
+					this.RenderItem(item)
+				}
+			}
+			this.out.println(r' \\ \hline')
+		}
+		this.out.println(r'\end{tabular}')
 	}
 }
 
@@ -576,7 +616,7 @@ Renderer@console = class {
 				print(item.text.escapehtml())
 			}
 		} elsif (item.type == `tag) {
-			if (item.text == 'table') {
+			if (item.text.lower() == 'table') {
 				this.RenderTable(item)
 			} else {
 				item.children && this.RenderItem(item.children)
