@@ -224,7 +224,6 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 		STAT_FirstRowTop,
 		STAT_FirstRowBody,
 		STAT_GuideRowTop,
-		//STAT_GuideRowHead,
 		STAT_GuideRowBody,
 		STAT_TrailingRowTop,
 		STAT_TrailingRowHead,
