@@ -71,3 +71,6 @@ install-rpm.sh
 *.so
 *.so.*
 *.swp
+*.aux
+*.dvi
+*.log
