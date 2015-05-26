@@ -206,6 +206,7 @@ Renderer@tex = class {
 			\setlength{\textwidth}{145mm}
 			\setlength{\oddsidemargin}{35mm}
 			\addtolength{\oddsidemargin}{-1in}
+			\setlength{\parindent}{0mm}
 
 			\setlength{\textheight}{244mm}
 			\setlength{\headheight}{0mm}
@@ -246,6 +247,7 @@ Renderer@tex = class {
 			this.out.println(r'}')
 		} elsif (item.type == `p) {
 			this.RenderItem(item.children)
+			this.out.println()
 			this.out.println()
 		} elsif (item.type == `blockquote) {
 			this.out.println(r'\begin{quotation}')
@@ -294,7 +296,7 @@ Renderer@tex = class {
 		} elsif (item.type == `comment) {
 			// nothing to do
 		} elsif (item.type == `code) {
-			this.out.print(r'{\verb ')
+			this.out.print(r'{\tt ')
 			this.out.print(this.EscapeText(item.text))
 			this.out.print(r' }')
 		} elsif (item.type == `entity) {
@@ -312,9 +314,10 @@ Renderer@tex = class {
 		}
 	}
 	EscapeText(text:string):static = {
-		text.replace('\\', '\\\\').replace('{', r'\{').replace('}', r'\}').\
-			replace('_', r'\_').replace('&', r'\&').replace('^', r'\^').\
-			replace('~', r'\~')
+		text.replace('\\', r'').replace('#', r'\#').replace('$', r'\$').\
+			replace('%', r'\%').replace('&', r'\&').replace('_', r'\_').\
+			replace('{', r'\{').replace('}', r'\}').\
+			replace('^', r'$\wedge$').replace('*', r'$\ast$')
 	}
 	RenderTable(item:item) = {
 		rows = item.children.each():xlist {|item|
@@ -335,6 +338,7 @@ Renderer@tex = class {
 		}
 		alignChars = %{`left => 'l', `right => 'r', `center => 'c'}
 		alignSpecifier = alignChars.get(rows[0]::align, 'l').join('|')
+		this.out.print('\n\\vspace{3mm}\n\n')
 		this.out.printf('\\begin{tabular}{|%s|} \\hline\n', alignSpecifier)
 		rows.each {|cols|
 			cols.each {|item, i|
@@ -350,6 +354,7 @@ Renderer@tex = class {
 			this.out.println(r' \\ \hline')
 		}
 		this.out.println(r'\end{tabular}')
+		this.out.print('\n\\vspace{3mm}\n\n')
 	}
 }
 

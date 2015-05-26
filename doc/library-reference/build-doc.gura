@@ -1,9 +1,12 @@
 #!/usr/bin/env gura
 import(markdown)
 
-//dirNameOut = path.dirname(sys.argv[0])
-//!path.exists(dirNameOut) && fs.mkdir(dirNameOut)
+fileNameTeX = 'gura-lib-e.tex'
 dirNameOut = '../../../gura-lang.github.io/library-reference'
+
+title = 'Gura Library Reference'
+author = 'Yutaka Saito'
+date = 'May 24th, 2015'
 
 baseNames = [
 	'basement' // this must come at first
@@ -71,47 +74,34 @@ baseNames = [
 	'zip'
 ]
 
-doc = markdown.document()
-doc.read('Main.md')
-
-baseNames.each {|baseName|
-	println('module: ', baseName)
-	moduleName = baseName + '.doc'
-	import(&moduleName).write(doc, `en)
-}
-
-headerForIndex = R'''
----
-layout: page
-lang: en
-title: Gura Library Reference
----
-
-<h1>Gura Library Reference</h1>
-
-'''
-
-footerForIndex = R'''
-<p />
-'''
-
-headerForPage = R'''
----
-layout: page
-lang: en
-title: Gura Library Reference
----
-
-{% raw %}
-'''
-
-footerForPage = R'''
-<p />
-
-{% endraw %}
-'''
-
 Renderer@html = class(markdown.Renderer@html) {
+	headerForTOC:public = R'''
+	---
+	layout: page
+	lang: en
+	title: ${title}
+	---
+
+	<h1>${title}</h1>
+
+	'''.embed()
+	footerForTOC:public = R'''
+	<p />
+	'''
+	headerForPage:public = R'''
+	---
+	layout: page
+	lang: en
+	title: ${title}
+	---
+
+	{% raw %}
+	'''.embed()
+	footerForPage:public = R'''
+	<p />
+
+	{% endraw %}
+	'''
 	__init__() = {|sys.stdout, true|
 		this.out = nil
 	}
@@ -133,22 +123,66 @@ Renderer@html = class(markdown.Renderer@html) {
 	}
 }
 
-println('Output directory: ', dirNameOut)
-fileName = path.join(dirNameOut, 'index.md')
-println('rendering ', path.filename(fileName))
-open(fileName, 'w') {|out|
-	out.print(headerForIndex)
-	doc.render@toc {|level:number, indices[]:number, anchorName:string, text:string|
-		if (level == 0) {
-			out.printf(
-					'<div><span class="toc-index-1">%d</span><a href="chapter-%02d.html#%s">%s</a>\</div>\n',
-					indices[0], indices[0], anchorName, text)
-		} elsif (level == 1 && indices[0] in [4, 6]) {
-			out.printf(
-					'<div><span class="toc-index-2">%d.%d</span><a href="chapter-%02d.html#%s">%s</a>\</div>\n',
-					indices[0], indices[1], indices[0], anchorName, text)
-		}
+makeDocument() = {
+	doc = markdown.document()
+	doc.read('Main.md')
+	baseNames.each {|baseName|
+		println('module: ', baseName)
+		moduleName = baseName + '.doc'
+		import(&moduleName).write(doc, `en)
 	}
-	out.print(footerForIndex)
+	doc
 }
-Renderer@html().Render(doc)
+
+output@tex() = {
+	doc = makeDocument()
+	doc.render@tex(title, author, date, fileNameTeX)
+	sys.stderr.println(fileNameTeX, ' was created.')
+}
+
+output@pdf() = {
+	output@tex()
+	os.exec('platex', fileNameTeX)
+	os.exec('dvipdf', fileNameTeX.replace('.tex', '.dvi'))
+}
+
+output@html() = {
+	doc = makeDocument()
+	println('Output directory: ', dirNameOut)
+	fileName = path.join(dirNameOut, 'index.md')
+	println('rendering ', path.filename(fileName))
+	open(fileName, 'w') {|out|
+		out.print(Renderer@html.headerForTOC)
+		doc.render@toc {|level:number, indices[]:number, anchorName:string, text:string|
+			if (level == 0) {
+				out.printf(
+						'<div><span class="toc-index-1">%d</span>' \
+						'<a href="chapter-%02d.html#%s">%s</a>\</div>\n',
+						indices[0], indices[0], anchorName, text)
+			} elsif (level == 1 && indices[0] in [4, 6]) {
+				out.printf(
+						'<div><span class="toc-index-2">%d.%d</span>' \
+						'<a href="chapter-%02d.html#%s">%s</a>\</div>\n',
+						indices[0], indices[1], indices[0], anchorName, text)
+			}
+		}
+	out.print(Renderer@html.footerForTOC)
+	}
+	Renderer@html().Render(doc)
+}
+
+usage() = {
+	sys.stderr.println('usage: gura build-doc [tex|pdf|html]')
+}
+
+if (sys.argv.len() < 2) {
+	usage()
+} elsif (sys.argv[1] == 'tex') {
+	output@tex()
+} elsif (sys.argv[1] == 'pdf') {
+	output@pdf()
+} elsif (sys.argv[1] == 'html') {
+	output@html()
+} else {
+	usage()
+}
