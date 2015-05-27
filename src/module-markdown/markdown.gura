@@ -302,8 +302,13 @@ Renderer@tex = class {
 		} elsif (item.type == `entity) {
 			//this.out.print(r'\u%d?', 169)
 		} elsif (item.type == `tag) {
-			if (item.text.lower() == 'table') {
+			tagName = item.text.lower()
+			if (tagName == 'table') {
 				this.RenderTable(item)
+			} elsif (tagName == 'code') {
+				this.out.print(r'{\tt ')
+				item.children && this.RenderItem(item.children)
+				this.out.print(r' }')
 			} else {
 				item.children && this.RenderItem(item.children)
 			}
