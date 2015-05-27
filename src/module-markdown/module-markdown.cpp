@@ -840,23 +840,23 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '>') {
 			_indentLevel = -1;
 			_quoteLevel = 1;
-			_stat = STAT_ListItem_BlockQuote;
+			_stat = STAT_ListItem_BlockQuoteAtHead;
 		} else if (ch == '*') {
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_ListItem_Asterisk;
+			_stat = STAT_ListItem_AsteriskAtHead;
 		} else if (ch == '+') {
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_ListItem_Plus;
+			_stat = STAT_ListItem_PlusAtHead;
 		} else if (ch == '-') {
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_ListItem_Hyphen;
+			_stat = STAT_ListItem_HyphenAtHead;
 		} else if (IsDigit(ch)) {
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_ListItem_Digit;
+			_stat = STAT_ListItem_DigitAtHead;
 		} else if (IsEOL(ch)) {
 			_indentLevel = 0;
 			_stat = STAT_ListItemNL;
@@ -873,7 +873,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_ListItem_BlockQuote: {
+	case STAT_ListItem_BlockQuoteAtHead: {
 		if (ch == ' ') {
 			_indentLevel += 1;
 		} else if (ch == '\t') {
@@ -892,7 +892,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_ListItem_Asterisk: {
+	case STAT_ListItem_AsteriskAtHead: {
 		if (ch == ' ' || ch == '\t') {
 			_stat = STAT_UListItemPre;
 		} else {
@@ -904,7 +904,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_ListItem_Plus: {
+	case STAT_ListItem_PlusAtHead: {
 		if (ch == ' ' || ch == '\t') {
 			_stat = STAT_UListItemPre;
 		} else {
@@ -915,7 +915,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_ListItem_Hyphen: {
+	case STAT_ListItem_HyphenAtHead: {
 		if (ch == ' ' || ch == '\t') {
 			_stat = STAT_UListItemPre;
 		} else {
@@ -926,12 +926,12 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_ListItem_Digit: {
+	case STAT_ListItem_DigitAtHead: {
 		if (IsDigit(ch)) {
 			_textAhead += ch;
 		} else if (ch == '.') {
 			_textAhead += ch;
-			_stat = STAT_ListItem_DigitDot;
+			_stat = STAT_ListItem_DigitDotAtHead;
 		} else {
 			_text += ' ';
 			_text += _textAhead;
@@ -940,7 +940,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_ListItem_DigitDot: {
+	case STAT_ListItem_DigitDotAtHead: {
 		if (ch == ' ' || ch == '\t') {
 			_stat = STAT_OListItemPre;
 		} else {
@@ -969,22 +969,22 @@ bool Document::ParseChar(Signal sig, char ch)
 			UpdateIndentLevelItemBody(_indentLevel);
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_ListItemNL_Asterisk;
+			_stat = STAT_ListItemNL_AsteriskAtHead;
 		} else if (ch == '+') {
 			UpdateIndentLevelItemBody(_indentLevel);
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_ListItemNL_Plus;
+			_stat = STAT_ListItemNL_PlusAtHead;
 		} else if (ch == '-') {
 			UpdateIndentLevelItemBody(_indentLevel);
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_ListItemNL_Hyphen;
+			_stat = STAT_ListItemNL_HyphenAtHead;
 		} else if (IsDigit(ch)) {
 			UpdateIndentLevelItemBody(_indentLevel);
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_ListItemNL_Digit;
+			_stat = STAT_ListItemNL_DigitAtHead;
 		} else if (_indentLevel <= 0) {
 			EndListItem();
 			_itemStack.ClearListItem();
@@ -999,7 +999,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_ListItemNL_Asterisk: {
+	case STAT_ListItemNL_AsteriskAtHead: {
 		if (ch == ' ' || ch == '\t') {
 			_stat = STAT_UListItemPre;
 		} else if (_indentLevel <= 0) {
@@ -1020,7 +1020,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_ListItemNL_Plus: {
+	case STAT_ListItemNL_PlusAtHead: {
 		if (ch == ' ' || ch == '\t') {
 			_stat = STAT_UListItemPre;
 		} else if (_indentLevel <= 0) {
@@ -1041,7 +1041,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_ListItemNL_Hyphen: {
+	case STAT_ListItemNL_HyphenAtHead: {
 		if (ch == ' ' || ch == '\t') {
 			_stat = STAT_UListItemPre;
 		} else if (_indentLevel <= 0) {
@@ -1062,12 +1062,12 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_ListItemNL_Digit: {
+	case STAT_ListItemNL_DigitAtHead: {
 		if (IsDigit(ch)) {
 			_textAhead += ch;
 		} else if (ch == '.') {
 			_textAhead += ch;
-			_stat = STAT_ListItemNL_DigitDot;
+			_stat = STAT_ListItemNL_DigitDotAtHead;
 		} else if (_indentLevel <= 0) {
 			EndListItem();
 			_itemStack.ClearListItem();
@@ -1086,7 +1086,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_ListItemNL_DigitDot: {
+	case STAT_ListItemNL_DigitDotAtHead: {
 		if (ch == ' ' || ch == '\t') {
 			_stat = STAT_OListItemPre;
 		} else if (_indentLevel <= 0) {
