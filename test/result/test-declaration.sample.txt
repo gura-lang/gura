@@ -750,7 +750,8 @@ string
   string.print(stream?:stream:w):void
   string.println(stream?:stream:w):void
   string#reader() {block?}
-  string#replace(sub:string, replace:string, count?:number):map:[icase] {block?}
+  string#replace(match:string, sub:string, count?:number):map:[icase] {block?}
+  string#replaces(map[]:string, count?:number):map:[icase] {block?}
   string#right(len?:number):map
   string#split(sep?:string, count?:number):[icase] {block?}
   string#startswith(prefix:string, pos:number => 0):map:[icase,rest]
