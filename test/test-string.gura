@@ -464,3 +464,17 @@ testcase('string#foldw()') {
 	tester(`str.foldw(3):list)
 	tester(`str.foldw(3):list:padding)
 }
+testcase('string#replaces()') {
+	str = 'A brown fox jumps over the lazy dog.'
+	tester(`str.replaces([]))
+	tester(`str.replaces(['brown', 'red']))
+	tester(`str.replaces(['.', '!!!']))
+	tester(`str.replaces(['fox', 'FOX', 'dog', 'DOG']))
+	tester(`str.replaces(['fox', 'dog', 'dog', 'fox']))
+	tester(`str.replaces(['fox', 'f-o-x', 'dog', 'd-o-g']))
+	tester(`str.replaces(['FOX', 'f-o-x', 'DOG', 'd-o-g']))
+	tester(`str.replaces(['FOX', 'f-o-x', 'DOG', 'd-o-g']):icase)
+	tester(`str.replaces(['fox', 'FOX', 'dog', 'DOG'], 0))
+	tester(`str.replaces(['fox', 'FOX', 'dog', 'DOG'], 1))
+	tester(`str.replaces(['fox', 'FOX', 'dog', 'DOG'], 2))
+}

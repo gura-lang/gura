@@ -550,30 +550,80 @@ Gura_ImplementMethod(string, reader)
 		new Stream_StringReader(env, sig, args.GetThis().GetStringSTL()))));
 }
 
-// string#replace(sub:string, replace:string, count?:number):map:[icase] {block?}
+// string#replace(match:string, sub:string, count?:number):map:[icase] {block?}
 Gura_DeclareMethod(string, replace)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "match",	VTYPE_string);
 	DeclareArg(env, "sub",		VTYPE_string);
-	DeclareArg(env, "replace",	VTYPE_string);
 	DeclareArg(env, "count",	VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(icase));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Replaces string parts that match `sub` with `replace` and returns the result.\n"
+		"Replaces sub strings that matches the string `match` with a string specified by `sub`\n"
+		"and returns the result.\n"
 		"\n"
 		"The argument `count` limits the maximum number of substitution.\n"
 		"If omitted, there's no limit of the work.\n"
 		"\n"
-		"With an attribute `:icase`, character cases are ignored while matching strings.");
+		"With an attribute `:icase`, character cases are ignored while matching strings."
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|result:string, replaced:boolean|`,\n"
+		"where `result` is the result string and `replaced` indicates if there is any change\n"
+		"between the result and its original string.\n"
+		"In this case, the block's result would become the function's returned value.\n");
 }
 
 Gura_ImplementMethod(string, replace)
 {
 	String result = Replace(args.GetThis().GetString(),
 			args.GetString(0), args.GetString(1),
-			args.Is_number(2)? args.GetInt(2) : -1, args.GetAttrs());
+			args.IsValid(2)? args.GetInt(2) : -1, args.GetAttrs());
+	if (!args.IsBlockSpecified()) return Value(result);
+	ValueList valListArg;
+	valListArg.reserve(2);
+	valListArg.push_back(Value(result));
+	valListArg.push_back(Value(result != args.GetThis().GetStringSTL()));
+	return ReturnValues(env, sig, args, valListArg);
+}
+
+// string#replaces(map[]:string, count?:number):map:[icase] {block?}
+Gura_DeclareMethod(string, replaces)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "map",		VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "count",	VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(icase));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Replaces string parts according to a list of pairs of a matching and a substituting string\n"
+		"and returns the result.\n"
+		"\n"
+		"The argument `map` contains the replacing list in a format of `[match1, sub1, match2, sub2, ..]`.\n"
+		"\n"
+		"The argument `count` limits the maximum number of substitution.\n"
+		"If omitted, there's no limit of the work.\n"
+		"\n"
+		"With an attribute `:icase`, character cases are ignored while matching strings."
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter `|result:string, replaced:boolean|`,\n"
+		"where `result` is the result string and `replaced` indicates if there is any change\n"
+		"between the result and its original string.\n"
+		"In this case, the block's result would become the function's returned value.\n");
+}
+
+Gura_ImplementMethod(string, replaces)
+{
+	const ValueList &valList = args.GetList(0);
+	if (valList.size() & 1) {
+		sig.SetError(ERR_ValueError, "the list must contain match-sub pairs");
+		return Value::Null;
+	}
+	int nMaxReplace = args.IsValid(1)? args.GetInt(1) : -1;
+	String result = Replaces(args.GetThis().GetString(),
+							 valList, nMaxReplace, args.GetAttrs());
 	if (!args.IsBlockSpecified()) return Value(result);
 	ValueList valListArg;
 	valListArg.reserve(2);
@@ -852,6 +902,7 @@ void Class_string::Prepare(Environment &env)
 	Gura_AssignMethod(string, println);
 	Gura_AssignMethod(string, reader);
 	Gura_AssignMethod(string, replace);
+	Gura_AssignMethod(string, replaces);
 	Gura_AssignMethod(string, right);
 	Gura_AssignMethod(string, split);
 	Gura_AssignMethod(string, startswith);

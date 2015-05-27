@@ -1041,6 +1041,40 @@ String Replace(const char *str, const char *sub, const char *replace,
 	return result;
 }
 
+GURA_DLLDECLARE String Replaces(const char *str, const ValueList &valList,
+									int nMaxReplace, const SymbolSet &attrs)
+{
+	bool ignoreCaseFlag = attrs.IsSet(Gura_Symbol(icase));
+	String result;
+	const char *p = str;
+	for (int nReplace = 0; (nMaxReplace < 0 || nReplace < nMaxReplace) && *p != '\0'; ) {
+		bool replacedFlag = false;
+		foreach_const (ValueList, pValue, valList) {
+			const char *sub = pValue->GetString();
+			pValue++;
+			if (pValue == valList.end()) break;
+			if (*sub == '\0') continue;
+			const char *p1 = p, *p2 = sub;
+			for ( ; *p2 != '\0'; p1++, p2++) {
+				if (CompareChar(*p1, *p2, ignoreCaseFlag) != 0) break;
+			}
+			if (*p2 == '\0') {
+				const char *replace = pValue->GetString();
+				p = p1;
+				result += replace;
+				replacedFlag = true;
+				nReplace++;
+				break;
+			}
+		}
+		if (!replacedFlag) {
+			result += *p++;
+		}
+	}
+	result += p;
+	return result;
+}
+
 void SplitPathList(const char *str, StringList &strList)
 {
 	enum {

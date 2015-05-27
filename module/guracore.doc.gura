@@ -1573,6 +1573,7 @@ string.print
 string.println
 string.reader
 string.replace
+string.replaces
 string.right
 string.split
 string.startswith

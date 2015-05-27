@@ -70,6 +70,8 @@ GURA_DLLDECLARE String Right(const char *str, size_t len);
 GURA_DLLDECLARE String Middle(const char *str, int start, int len);
 GURA_DLLDECLARE String Replace(const char *str, const char *sub, const char *replace,
 									int nMaxReplace, const SymbolSet &attrs);
+GURA_DLLDECLARE String Replaces(const char *str, const ValueList &valList,
+									int nMaxReplace, const SymbolSet &attrs);
 GURA_DLLDECLARE void SplitPathList(const char *str, StringList &strList);
 GURA_DLLDECLARE Value FindString(Environment &env, Signal sig,
 		const char *str, const char *sub, int start, const SymbolSet &attrs);

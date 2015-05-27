@@ -1382,3 +1382,17 @@ str.foldw(6):list:padding .. ['Ç†Ç¢Ç§', 'Ç¶Ç®Ç©', 'Ç´Ç≠ÇØ', 'Ç±Ç≥Çµ', 'Ç∑ÇπÇª', 
 str.foldw(7):list:padding .. ['Ç†Ç¢Ç§ ', 'Ç¶Ç®Ç© ', 'Ç´Ç≠ÇØ ', 'Ç±Ç≥Çµ ', 'Ç∑ÇπÇª ', 'ÇΩÇøÇ¬ ', 'ÇƒÇ∆']
 str.foldw(3):list .. ['êº', 'óÔ2', '014', 'îN']
 str.foldw(3):list:padding .. ['êº ', 'óÔ2', '014', 'îN']
+
+======== #29 string#replaces() ========
+
+str.replaces([]) .. A brown fox jumps over the lazy dog.
+str.replaces(['brown', 'red']) .. A red fox jumps over the lazy dog.
+str.replaces(['.', '!!!']) .. A brown fox jumps over the lazy dog!!!
+str.replaces(['fox', 'FOX', 'dog', 'DOG']) .. A brown FOX jumps over the lazy DOG.
+str.replaces(['fox', 'dog', 'dog', 'fox']) .. A brown dog jumps over the lazy fox.
+str.replaces(['fox', 'f-o-x', 'dog', 'd-o-g']) .. A brown f-o-x jumps over the lazy d-o-g.
+str.replaces(['FOX', 'f-o-x', 'DOG', 'd-o-g']) .. A brown fox jumps over the lazy dog.
+str.replaces(['FOX', 'f-o-x', 'DOG', 'd-o-g']):icase .. A brown f-o-x jumps over the lazy d-o-g.
+str.replaces(['fox', 'FOX', 'dog', 'DOG'], 0) .. A brown fox jumps over the lazy dog.
+str.replaces(['fox', 'FOX', 'dog', 'DOG'], 1) .. A brown FOX jumps over the lazy dog.
+str.replaces(['fox', 'FOX', 'dog', 'DOG'], 2) .. A brown FOX jumps over the lazy DOG.
