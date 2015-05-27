@@ -357,18 +357,24 @@ Renderer@tex = class {
 		alignSpecifier = alignChars.get(rows[0]::align, 'l').join('|')
 		this.out.print('\n\\vspace{3mm}\n\n')
 		this.out.printf('\\begin{tabular}{|%s|} \\hline\n', alignSpecifier)
-		rows.each {|cols|
-			cols.each {|item, i|
-				(i > 0) && this.out.print(' & ')
+		rows.each {|cols, iRow|
+			headerFlag = false
+			cols.each {|item, iCol|
+				(iCol > 0) && this.out.print(' & ')
 				if (item.text.lower() == 'th') {
 					this.out.print(r'{\bf ')
 					this.RenderItem(item)
 					this.out.print(r' }')
+					headerFlag = true
 				} else {
 					this.RenderItem(item)
 				}
 			}
-			this.out.println(r' \\ \hline')
+			if (headerFlag || iRow == rows.len() - 1) {
+				this.out.println(r' \\ \hline')
+			} else {
+				this.out.println(r' \\')
+			}
 		}
 		this.out.println(r'\end{tabular}')
 		this.out.print('\n\\vspace{3mm}\n\n')
