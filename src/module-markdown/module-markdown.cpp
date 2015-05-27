@@ -672,14 +672,11 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAhead += ch;
 			_stat = STAT_BackquoteAtHead2nd;
 		} else {
-			_stat = STAT_Text;
+			if (_decoPrecedingFlag) _text += ' ';
 			AppendJointSpace();
-			if (CheckSpecialChar('`')) {
-				// nothing to do
-			} else {
-				_text += _textAhead;
-			}
 			Gura_PushbackEx(ch);
+			Gura_PushbackEx('`');
+			_stat = STAT_Text;
 		}
 		break;
 	}
@@ -688,15 +685,12 @@ bool Document::ParseChar(Signal sig, char ch)
 			_field.clear();
 			_stat = STAT_FencedCodeBlockAttr;
 		} else {
-			_stat = STAT_Text;
-			if (CheckSpecialChar('`')) {
-				// see STAT_Backquote as well
-				_stat = STAT_CodeEsc;
-			} else {
-				AppendJointSpace();
-				_text += _textAhead;
-			}
+			if (_decoPrecedingFlag) _text += ' ';
+			AppendJointSpace();
 			Gura_PushbackEx(ch);
+			Gura_PushbackEx('`');
+			Gura_PushbackEx('`');
+			_stat = STAT_Text;
 		}
 		break;
 	}
