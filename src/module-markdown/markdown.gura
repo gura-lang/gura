@@ -196,11 +196,12 @@ Renderer@tex = class {
 	}
 	RenderItem(item:item):map:void = {
 		if (item.type == `root) {
-			this.out.printf(R'''
+			_this = this
+			this.out.print(R'''
 			\documentclass{report}
-			\title{%s}
-			\author{%s}
-			\date{%s}
+			\title{${_this.title}}
+			\author{${_this.author}}
+			\date{${_this.date}}
 			\usepackage{fancyvrb}
 
 			\setlength{\textwidth}{145mm}
@@ -216,7 +217,8 @@ Renderer@tex = class {
 
 			\begin{document}
 			\maketitle
-			''', this.title, this.author, this.date)
+			\tableofcontents
+			'''.embed())
 			this.RenderItem(item.children)
 			this.out.print(R'''
 			\end{document}
@@ -300,6 +302,9 @@ Renderer@tex = class {
 			this.out.print(this.EscapeText(item.text))
 			this.out.print(r' }')
 		} elsif (item.type == `entity) {
+			if (item.text == 'hellip') {
+				this.out.print(r'\textellipsis ')
+			}
 			//this.out.print(r'\u%d?', 169)
 		} elsif (item.type == `tag) {
 			tagName = item.text.lower()

@@ -97,7 +97,7 @@ output@tex() = {
 
 output@pdf() = {
 	output@tex()
-	os.exec('platex', fileNameTeX)
+	repeat (2) { os.exec('platex', fileNameTeX) }
 	os.exec('dvipdf', fileNameTeX.replace('.tex', '.dvi'))
 }
 
