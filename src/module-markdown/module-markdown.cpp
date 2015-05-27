@@ -1154,13 +1154,8 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else {
 			Gura_PushbackEx(ch);
 			EndCodeBlock();
-			if (!IsWithin(Item::TYPE_ListItem)) {
-				_stat = STAT_LineTop;
-			} else if (_cntEmptyLine == 0) {
-				_stat = STAT_ListItem_LineHead;
-			} else {
-				_stat = STAT_ListItemNL;
-			}
+			_stat = !IsWithin(Item::TYPE_ListItem)? STAT_LineTop :
+				(_cntEmptyLine == 0)? STAT_ListItem_LineHead : STAT_ListItemNL;
 		}
 		break;
 	}
@@ -1228,7 +1223,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_FencedCodeBlock_SkipToEOL: {
 		if (IsEOL(ch) || IsEOF(ch)) {
 			EndFencedCodeBlock();
-			_stat = STAT_LineTop;
+			_stat = IsWithin(Item::TYPE_ListItem)? STAT_ListItem_LineHead : STAT_LineTop;
 		} else {
 			// nothing to do
 		}
@@ -1262,7 +1257,6 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_Backquote: {
 		if (ch == '`') {
-			// see STAT_BackquoteAtHead2nd as well
 			_stat = STAT_CodeEsc;
 		} else {
 			Gura_PushbackEx(ch);
@@ -1602,9 +1596,8 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == '-') {
 			_stat = STAT_CommentStartSecond;
 		} else {
-			_textAhead += "!";
-			_field += "!";
 			Gura_PushbackEx(ch);
+			Gura_PushbackEx('!');
 			_stat = STAT_AngleBracket;
 		}
 		break;
@@ -1680,7 +1673,6 @@ bool Document::ParseChar(Signal sig, char ch)
 			Gura_PushbackEx(ch);
 			_stat = _statStack.Pop();
 		} else {
-			// take care of STAT_CommentStartFirst and STAT_CommentStartSecond as well
 			_textAhead += ch;
 			_field += ch;
 		}
