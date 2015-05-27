@@ -313,12 +313,19 @@ Renderer@tex = class {
 			this.out.println(r'\newline')
 		}
 	}
-	EscapeText(text:string):static = {
-		text.replace('\\', r'').replace('#', r'\#').replace('$', r'\$').\
-			replace('%', r'\%').replace('&', r'\&').replace('_', r'\_').\
-			replace('{', r'\{').replace('}', r'\}').\
-			replace('^', r'$\wedge$').replace('*', r'$\ast$')
-	}
+	replaceTbl = [
+		'\\', r'$\backslash$',
+		'#', r'\#',
+		'$', r'\$',
+		'%', r'\%',
+		'&', r'\&',
+		'_', r'\_',
+		'{', r'\{',
+		'}', r'\}',
+		'^', r'$\wedge$',
+		'*', r'$\ast$'
+	]
+	EscapeText(text:string):static = text.replaces(replaceTbl)
 	RenderTable(item:item) = {
 		rows = item.children.each():xlist {|item|
 			(item.type != `tag || item.text.lower() != 'tr') && continue
