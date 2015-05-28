@@ -1,21 +1,22 @@
 #!/usr/bin/env gura
-// This Gura script has been ported from the original above by Yutaka SAITO.
 import(wx)
 import(resource)
 
-MyApp = class(wx.App) {
+App = class(wx.App) {
 	OnInit() = {
-		frame = MyFrame('Simple')
+		frame = FrameMain('Simple')
 		frame.Show()
 		true
 	}
 }
 
-MyFrame = class(wx.Frame) {
+FrameMain = class(wx.Frame) {
 	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
 			size:wx.Size => wx.DefaultSize) = {|nil, wx.ID_ANY, title, pos, size|
 		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		menuBar = wx.MenuBar()
+		this.SetMenuBar(menuBar)
 	}
 }
 
-wx.IMPLEMENT_APP(MyApp)
+wx.IMPLEMENT_APP(App)
