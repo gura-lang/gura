@@ -790,6 +790,14 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 				_stringInfo.accum = ConvOctDigit(ch);
 				_stringInfo.cntRest = 2;
 				_stat = STAT_StringEscOct;
+			} else if (ch == 'u') {
+				_stringInfo.accum = 0x0000;
+				_stringInfo.cntRest = 4;
+				_stat = STAT_StringEscUnicode;
+			} else if (ch == 'U') {
+				_stringInfo.accum = 0x00000000;
+				_stringInfo.cntRest = 8;
+				_stat = STAT_StringEscUnicode;
 			} else {
 				_token.push_back(GetEscaped(ch));
 				_stat = _stringInfo.statRtn;
@@ -821,6 +829,50 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			}
 		} else {
 			SetError(sig, ERR_SyntaxError, "invalid oct expression in string");
+			_stat = STAT_Error;
+		}
+		break;
+	}
+	case STAT_StringEscUnicode: {
+		if (IsHexDigit(ch)) {
+			_stringInfo.accum = (_stringInfo.accum << 4) + ConvHexDigit(ch);
+			_stringInfo.cntRest--;
+			if (_stringInfo.cntRest <= 0) {
+				int i = 0;
+				char buff[16];
+				ULong codeUTF = _stringInfo.accum;
+				if ((codeUTF & ~0x7f) == 0) {
+					buff[i++] = static_cast<char>(codeUTF);
+				} else {
+					buff[i++] = 0x80 | static_cast<char>(codeUTF & 0x3f);
+					codeUTF >>= 6;
+					if ((codeUTF & ~0x1f) == 0) {
+						buff[i++] = 0xc0 | static_cast<char>(codeUTF);
+					} else {
+						buff[i++] = 0x80 | static_cast<char>(codeUTF & 0x3f);
+						codeUTF >>= 6;
+						if ((codeUTF & ~0x0f) == 0) {
+							buff[i++] = 0xe0 | static_cast<char>(codeUTF);
+						} else {
+							buff[i++] = 0x80 | static_cast<char>(codeUTF & 0x3f);
+							codeUTF >>= 6;
+							if ((codeUTF & ~0x07) == 0) {
+								buff[i++] = 0xf0 | static_cast<char>(codeUTF);
+							} else {
+								buff[i++] = 0x80 | static_cast<char>(codeUTF & 0x3f);
+								codeUTF >>= 6;
+								buff[i++] = 0xf8 | static_cast<char>(codeUTF);
+							}
+						}
+					}
+				}
+				while (i > 0) {
+					_token.push_back(buff[--i]);
+				}
+				_stat = _stringInfo.statRtn;
+			}
+		} else {
+			SetError(sig, ERR_SyntaxError, "invalid Unicode code point in string");
 			_stat = STAT_Error;
 		}
 		break;

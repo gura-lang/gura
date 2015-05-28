@@ -48,7 +48,7 @@ private:
 		STAT_CommentBlock, STAT_CommentBlockEnd, STAT_CommentBlockNest,
 		STAT_StringFirst, STAT_StringSecond,
 		STAT_String, STAT_MString, STAT_MStringWise, STAT_MStringLineHead,
-		STAT_StringEsc, STAT_StringEscHex, STAT_StringEscOct,
+		STAT_StringEsc, STAT_StringEscHex, STAT_StringEscOct, STAT_StringEscUnicode,
 		STAT_StringInCommentBlock, STAT_StringEscInCommentBlock,
 		STAT_MStringEndFirst, STAT_MStringEndSecond,
 		STAT_StringPost, STAT_StringSuffixed,
