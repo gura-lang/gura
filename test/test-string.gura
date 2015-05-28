@@ -478,3 +478,13 @@ testcase('string#replaces()') {
 	tester(`str.replaces(['fox', 'FOX', 'dog', 'DOG'], 1))
 	tester(`str.replaces(['fox', 'FOX', 'dog', 'DOG'], 2))
 }
+testcase('Unicode point') {
+	[
+		'\u0001\u007f'
+		'\u0080\u07ff'
+		'\u0800\uffff'
+		'\U00010000\U001FFFFF'
+		'\U00200000\U03ffffff'
+		'\U04000000\U7fffffff'
+	]:*binary():*dump()
+}

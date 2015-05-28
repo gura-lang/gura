@@ -861,7 +861,13 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 							} else {
 								buff[i++] = 0x80 | static_cast<char>(codeUTF & 0x3f);
 								codeUTF >>= 6;
-								buff[i++] = 0xf8 | static_cast<char>(codeUTF);
+								if ((codeUTF & ~0x03) == 0) {
+									buff[i++] = 0xf8 | static_cast<char>(codeUTF);
+								} else {
+									buff[i++] = 0x80 | static_cast<char>(codeUTF & 0x3f);
+									codeUTF >>= 6;
+									buff[i++] = 0xfc | static_cast<char>(codeUTF);
+								}
 							}
 						}
 					}
