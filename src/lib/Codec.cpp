@@ -248,9 +248,14 @@ Codec::Result Codec_UTF::Decoder::FeedUTF32(ULong codeUTF32, char &chConv)
 		chConv = 0xf0 | static_cast<char>(codeUTF32);
 		return Codec::RESULT_Complete;
 	}
-	_idxBuff = 0;
-	chConv = '\0';
-	return Codec::RESULT_Error;
+	StoreChar(0x80 | static_cast<char>(codeUTF32 & 0x3f)); codeUTF32 >>= 6;
+	if ((codeUTF32 & ~0x03) == 0) {
+		chConv = 0xf8 | static_cast<char>(codeUTF32);
+		return Codec::RESULT_Complete;
+	}
+	StoreChar(0x80 | static_cast<char>(codeUTF32 & 0x3f)); codeUTF32 >>= 6;
+	chConv = 0xfc | static_cast<char>(codeUTF32);
+	return Codec::RESULT_Complete;
 }
 
 Codec::Result Codec_UTF::Encoder::FeedChar(char ch, char &chConv)
