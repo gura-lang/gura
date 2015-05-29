@@ -926,11 +926,12 @@ Gura_ImplementFunction(raise)
 //-----------------------------------------------------------------------------
 // Data Converter
 //-----------------------------------------------------------------------------
-// chr(num:number):map:[nil]
+// chr(code:number):map
 Gura_DeclareFunction(chr)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "num", VTYPE_number);
+	DeclareArg(env, "code", VTYPE_number);
+#if 0
 	DeclareAttr(Gura_Symbol(nil));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -938,10 +939,15 @@ Gura_DeclareFunction(chr)
 		"\n"
 		"A number between 128 and 255 is an invalid number and is converted to a null string.\n"
 		"If attribute `:nil` is specified, it returns `nil` for that case.\n");
+#endif
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Converts a UTF-32 code into a string.\n");
 }
 
 Gura_ImplementFunction(chr)
 {
+#if 0
 	ULong num = args.GetULong(0);
 	int i = 0;
 	UChar buff[4];
@@ -958,6 +964,11 @@ Gura_ImplementFunction(chr)
 	} else if (args.IsSet(Gura_Symbol(nil))) {
 		return Value::Null;
 	}
+	return Value(str);
+#endif
+	ULong codeUTF32 = args.GetULong(0);
+	String str;
+	AppendUTF32(str, codeUTF32);
 	return Value(str);
 }
 
@@ -1037,14 +1048,21 @@ Gura_DeclareFunction(ord)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
+#if 0
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Converts the first character of a string into a number of UTF-8 code.\n"
+		"If the string contains more than one characters, it simply neglects trailing ones.\n");
+#endif
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Converts the first character of a string into a number of UTF-32 code.\n"
 		"If the string contains more than one characters, it simply neglects trailing ones.\n");
 }
 
 Gura_ImplementFunction(ord)
 {
+#if 0
 	const char *str = args.GetString(0);
 	ULong num = static_cast<UChar>(*str);
 	if (IsUTF8First(*str)) {
@@ -1054,6 +1072,11 @@ Gura_ImplementFunction(ord)
 		}
 	}
 	return Value(num);
+#endif
+	const char *str = args.GetString(0);
+	ULong codeUTF32 = 0;
+	NextUTF32(str, codeUTF32);
+	return Value(codeUTF32);
 }
 
 // tonumber(value):map:[strict,raise,zero,nil]
