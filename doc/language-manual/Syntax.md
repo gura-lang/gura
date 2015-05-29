@@ -129,6 +129,8 @@ Within a string literal, you can use following escape characters.
 <tr><td><code>\v</code></td><td>vertical tab</td></tr>
 <tr><td><code>\0</code></td><td>null character</td></tr>
 <tr><td><code>\x<em>hh</em></code></td><td>any byte of character code <code><em>hh</em></code> in hexadecimal</td></tr>
+<tr><td><code>\u<em>hhhh</em></code></td><td><code>Unicode character at codepoint <em>hhhh</em></code> in hexadecimal</td></tr>
+<tr><td><code>\U<em>hhhhhhhh</em></code></td><td><code>Unicode character at codepoint <em>hhhhhhhh</em></code> in hexadecimal</td></tr>
 </table>
 
 If a string is prefixed by `r`, a back slash is treated as a normal character, not one for escaping.
