@@ -838,43 +838,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_stringInfo.accum = (_stringInfo.accum << 4) + ConvHexDigit(ch);
 			_stringInfo.cntRest--;
 			if (_stringInfo.cntRest <= 0) {
-				int i = 0;
-				char buff[16];
-				ULong codeUTF = _stringInfo.accum;
-				if ((codeUTF & ~0x7f) == 0) {
-					buff[i++] = static_cast<char>(codeUTF);
-				} else {
-					buff[i++] = 0x80 | static_cast<char>(codeUTF & 0x3f);
-					codeUTF >>= 6;
-					if ((codeUTF & ~0x1f) == 0) {
-						buff[i++] = 0xc0 | static_cast<char>(codeUTF);
-					} else {
-						buff[i++] = 0x80 | static_cast<char>(codeUTF & 0x3f);
-						codeUTF >>= 6;
-						if ((codeUTF & ~0x0f) == 0) {
-							buff[i++] = 0xe0 | static_cast<char>(codeUTF);
-						} else {
-							buff[i++] = 0x80 | static_cast<char>(codeUTF & 0x3f);
-							codeUTF >>= 6;
-							if ((codeUTF & ~0x07) == 0) {
-								buff[i++] = 0xf0 | static_cast<char>(codeUTF);
-							} else {
-								buff[i++] = 0x80 | static_cast<char>(codeUTF & 0x3f);
-								codeUTF >>= 6;
-								if ((codeUTF & ~0x03) == 0) {
-									buff[i++] = 0xf8 | static_cast<char>(codeUTF);
-								} else {
-									buff[i++] = 0x80 | static_cast<char>(codeUTF & 0x3f);
-									codeUTF >>= 6;
-									buff[i++] = 0xfc | static_cast<char>(codeUTF);
-								}
-							}
-						}
-					}
-				}
-				while (i > 0) {
-					_token.push_back(buff[--i]);
-				}
+				AppendUTF32(_token, _stringInfo.accum);
 				_stat = _stringInfo.statRtn;
 			}
 		} else {

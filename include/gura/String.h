@@ -34,6 +34,7 @@ GURA_DLLDECLARE const char *NextUTF8(const char *p, UInt64 &codeUTF8);
 GURA_DLLDECLARE String::const_iterator NextUTF32(const String &str, String::const_iterator p, ULong &codeUTF32);
 GURA_DLLDECLARE const char *NextUTF32(const char *p, ULong &codeUTF32);
 GURA_DLLDECLARE void AppendUTF8(String &str, UInt64 codeUTF8);
+GURA_DLLDECLARE void AppendUTF32(String &str, ULong codeUTF32);
 
 GURA_DLLDECLARE String MakeQuotedString(const char *str);
 
