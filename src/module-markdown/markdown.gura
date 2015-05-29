@@ -314,6 +314,14 @@ Renderer@tex = class {
 				this.out.print(r'{\tt ')
 				item.children && this.RenderItem(item.children)
 				this.out.print(r' }')
+			} elsif (tagName == 'em') {
+				this.out.print(r'{\it ')
+				item.children && this.RenderItem(item.children)
+				this.out.print(r' }')
+			} elsif (tagName == 'strong') {
+				this.out.print(r'{\bf ')
+				item.children && this.RenderItem(item.children)
+				this.out.print(r' }')
 			} else {
 				item.children && this.RenderItem(item.children)
 			}
