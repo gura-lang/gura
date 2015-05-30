@@ -13,6 +13,29 @@ Aligner = class {
 	}
 }
 
+__pushback_context = class {
+	__init__() = {
+		this.pushbackFlag = true
+	}
+	Pushback() = {
+		this.pushbackFlag = true
+	}
+	Cancel() = {
+		this.pushbackFlag = false
+	}
+	ShouldContinue() = {
+		this.pushbackFlag
+	}
+}
+
+pushback() {block} = {
+	pb = __pushback_context()
+	while (pb.ShouldContinue()) {
+		pb.Cancel()
+		block(pb)
+	}
+}
+
 if (__name__ == '__main__') {
 	lines = [
 		'0'
