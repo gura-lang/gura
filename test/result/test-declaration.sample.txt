@@ -40,7 +40,7 @@ boolean:class = <class:boolean>
 case(`cond) {block}
 catch(errors*:error):leader:trailer {block}
 choose(index:number, values+):map
-chr(num:number):map:[nil]
+chr(code:number):map
 class(superclass?:function) {block?}
 classref(type+:expr):map {block?}
 codec(encoding:string) {block?}
@@ -742,7 +742,11 @@ string
   string#fold(len:number, step?:number):[neat] {block?}
   string#foldw(width:number):[padding] {block?}
   string#format(values*):map
+  string#isalnum()
+  string#isalpha()
+  string#isdigit()
   string#isempty()
+  string#isspace()
   string#left(len?:number):map
   string#len()
   string#lower()

@@ -488,3 +488,15 @@ testcase('Unicode point') {
 		'\U04000000\U7fffffff'
 	]:*binary():*dump()
 }
+testcase('isalnum, isalpha, isdigit, isspace') {
+	[
+		'0123456789'
+		'abcdefghijklmnopqrstuvwxyz'
+		'0123456789abcdefghijklmnopqrstuvwxyz'
+		' \t\n'
+		'this is a test'
+	].each {|str|
+		printf('%s .. isalnum:%s isalpha:%s isdigit:%s isspace:%s\n', str,
+			   str.isalnum(), str.isalpha(), str.isdigit(), str.isspace())
+	}
+}
