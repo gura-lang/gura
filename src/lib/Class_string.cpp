@@ -407,6 +407,48 @@ Gura_ImplementMethod(string, format)
 	return Value(Formatter::FormatValueList(sig, args.GetThis().GetString(), args.GetList(0)));
 }
 
+// string#isalnum()
+Gura_DeclareMethod(string, isalnum)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns `true` if all the characters in the string are alphabet and digit.");
+}
+
+Gura_ImplementMethod(string, isalnum)
+{
+	return Value(CheckCType(args.GetThis().GetString(), CTYPE_Alpha | CTYPE_Digit));
+}
+
+// string#isalpha()
+Gura_DeclareMethod(string, isalpha)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns `true` if all the characters in the string are alphabet.");
+}
+
+Gura_ImplementMethod(string, isalpha)
+{
+	return Value(CheckCType(args.GetThis().GetString(), CTYPE_Alpha));
+}
+
+// string#isdigit()
+Gura_DeclareMethod(string, isdigit)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns `true` if all the characters in the string are digit.");
+}
+
+Gura_ImplementMethod(string, isdigit)
+{
+	return Value(CheckCType(args.GetThis().GetString(), CTYPE_Digit));
+}
+
 // string#isempty()
 Gura_DeclareMethod(string, isempty)
 {
@@ -419,6 +461,20 @@ Gura_DeclareMethod(string, isempty)
 Gura_ImplementMethod(string, isempty)
 {
 	return Value(*args.GetThis().GetString() == '\0');
+}
+
+// string#isspace()
+Gura_DeclareMethod(string, isspace)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns `true` if all the characters in the string are space.");
+}
+
+Gura_ImplementMethod(string, isspace)
+{
+	return Value(CheckCType(args.GetThis().GetString(), CTYPE_Space));
 }
 
 // string#left(len?:number):map
@@ -893,7 +949,11 @@ void Class_string::Prepare(Environment &env)
 	Gura_AssignMethod(string, fold);
 	Gura_AssignMethod(string, foldw);
 	Gura_AssignMethod(string, format);
+	Gura_AssignMethod(string, isalnum);
+	Gura_AssignMethod(string, isalpha);
+	Gura_AssignMethod(string, isdigit);
 	Gura_AssignMethod(string, isempty);
+	Gura_AssignMethod(string, isspace);
 	Gura_AssignMethod(string, left);
 	Gura_AssignMethod(string, len);
 	Gura_AssignMethod(string, lower);

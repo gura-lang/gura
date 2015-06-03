@@ -690,6 +690,18 @@ size_t Width(const char *str)
 	return width;
 }
 
+bool CheckCType(const char *str, UShort type)
+{
+	if (*str == '\0') return false;
+	ULong codeUTF32 = 0;
+	for (const char *p = str; *p != '\0'; ) {
+		p = NextUTF32(p, codeUTF32);
+		if (codeUTF32 > 0x7f) return false;
+		if ((GetCType(static_cast<char>(codeUTF32)) & type) == 0) return false;
+	}
+	return true;
+}
+
 size_t CalcCharPos(const char *str, size_t idx)
 {
 	size_t len = 0;
