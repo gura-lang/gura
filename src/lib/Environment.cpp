@@ -352,11 +352,11 @@ void Environment::AssignValueType(ValueTypeInfo *pValueTypeInfo)
 	GetTopFrame()->AssignValueType(pValueTypeInfo);
 }
 
-const ValueTypeInfo *Environment::LookupValueType(const SymbolList &symbolList) const
+ValueTypeInfo *Environment::LookupValueType(const SymbolList &symbolList)
 {
 	AutoPtr<Environment> pEnvRoot;
 	SymbolList::const_iterator ppSymbol = symbolList.begin();
-	const Environment *pEnv = this;
+	Environment *pEnv = this;
 	if ((*ppSymbol)->IsIdentical(Gura_Symbol(root))) {
 		// make a reference to the root environment
 		pEnvRoot.reset(new Environment());
@@ -368,7 +368,7 @@ const ValueTypeInfo *Environment::LookupValueType(const SymbolList &symbolList) 
 	EnvRefMode envRefMode = ENVREF_Escalate;
 	int cntSuperSkip = 0;
 	for ( ; ppSymbol + 1 != symbolList.end(); ppSymbol++) {
-		const Value *pValue = pEnv->LookupValue(*ppSymbol, envRefMode, cntSuperSkip);
+		Value *pValue = pEnv->LookupValue(*ppSymbol, envRefMode, cntSuperSkip);
 		if (pValue == NULL || !pValue->IsModule()) return NULL;
 		pEnv = pValue->GetModule();
 		envRefMode = ENVREF_NoEscalate;
@@ -376,17 +376,17 @@ const ValueTypeInfo *Environment::LookupValueType(const SymbolList &symbolList) 
 	return pEnv->LookupValueType(*ppSymbol);
 }
 
-const ValueTypeInfo *Environment::LookupValueType(const Symbol *pSymbol) const
+ValueTypeInfo *Environment::LookupValueType(const Symbol *pSymbol)
 {
 	foreach_const (FrameOwner, ppFrame, _frameOwner) {
-		const Frame *pFrame = *ppFrame;
-		const ValueTypeInfo *pValueTypeInfo = pFrame->LookupValueType(pSymbol);
+		Frame *pFrame = *ppFrame;
+		ValueTypeInfo *pValueTypeInfo = pFrame->LookupValueType(pSymbol);
 		if (pValueTypeInfo != NULL) return pValueTypeInfo;
 	}
 	return NULL;
 }
 
-const ValueTypeInfo *Environment::LookupValueType(Signal sig, const ValueList &valList)
+ValueTypeInfo *Environment::LookupValueType(Signal sig, const ValueList &valList)
 {
 	SymbolList symbolList;
 	foreach_const_reverse (ValueList, pValue, valList) {
@@ -400,7 +400,7 @@ const ValueTypeInfo *Environment::LookupValueType(Signal sig, const ValueList &v
 			return NULL;
 		}
 	}
-	const ValueTypeInfo *pValueTypeInfo = LookupValueType(symbolList);
+	ValueTypeInfo *pValueTypeInfo = LookupValueType(symbolList);
 	if (pValueTypeInfo == NULL) {
 		sig.SetError(ERR_ValueError, "can't find type name: '%s'",
 								symbolList.Join(".").c_str());
@@ -409,7 +409,7 @@ const ValueTypeInfo *Environment::LookupValueType(Signal sig, const ValueList &v
 	return pValueTypeInfo;
 }
 
-const ValueTypeInfo *Environment::LookupValueType(Signal sig, const Expr *pExpr)
+ValueTypeInfo *Environment::LookupValueType(Signal sig, const Expr *pExpr)
 {
 	SymbolList symbolList;
 	if (!Parser::ParseDottedIdentifier(pExpr, symbolList)) {
@@ -417,7 +417,7 @@ const ValueTypeInfo *Environment::LookupValueType(Signal sig, const Expr *pExpr)
 						pExpr->ToString(Expr::SCRSTYLE_OneLine).c_str());
 		return NULL;
 	}
-	const ValueTypeInfo *pValueTypeInfo = LookupValueType(symbolList);
+	ValueTypeInfo *pValueTypeInfo = LookupValueType(symbolList);
 	if (pValueTypeInfo == NULL) {
 		sig.SetError(ERR_ValueError, "can't find type name: '%s'",
 								symbolList.Join(".").c_str());
@@ -985,7 +985,7 @@ void Environment::Frame::AssignValueType(ValueTypeInfo *pValueTypeInfo)
 	(*_pValueTypeMap)[pValueTypeInfo->GetSymbol()] = pValueTypeInfo;
 }
 
-const ValueTypeInfo *Environment::Frame::LookupValueType(const Symbol *pSymbol) const
+ValueTypeInfo *Environment::Frame::LookupValueType(const Symbol *pSymbol)
 {
 	if (_pValueTypeMap.get() == NULL) return NULL;
 	ValueTypeMap::iterator iter = _pValueTypeMap->find(pSymbol);

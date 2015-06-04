@@ -1,7 +1,6 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
 
-sys.echo(false)
 testcase {
 	A = class {
 		var = 100
@@ -781,5 +780,19 @@ testcase {
 	try {
 		a:A = `x
 	} catch {|e| println('expected error: ', e.text) }
+}
+testcase('forward-declaration of class') {
+	A = class()
+	f(a:A) = {}
+	A = class()
+	f(a:A) = {}
+	a = A()
+	errorFlag = false
+	try {
+		f(a)	// error wouldn't happen
+	} catch {
+		errorFlag = true
+	}
+	println(cond(errorFlag, '***NG***', 'OK'))
 }
 println('<<end of script>>')

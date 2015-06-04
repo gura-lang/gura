@@ -518,6 +518,9 @@ String Class::ToString(bool exprFlag)
 	String str;
 	str += "<class:";
 	str += GetName();
+	//char buff[32];
+	//::sprintf(buff, ":%08x", GetValueType());
+	//str += buff;
 	str += ">";
 	return str;
 }

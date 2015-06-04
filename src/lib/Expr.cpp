@@ -880,9 +880,12 @@ Value Expr_Identifier::DoAssign(Environment &env, Signal sig, Value &valueAssign
 	} else if (valueAssigned.IsClass() && valueAssigned.GetClassItself()->IsCustom()) {
 		ClassCustom *pClass = dynamic_cast<ClassCustom *>(valueAssigned.GetClassItself());
 		if (pClass->IsAnonymous()) {
-			ValueTypeInfo *pValueTypeInfo =
-							ValueTypePool::GetInstance()->Add(GetSymbol());
+			ValueTypeInfo *pValueTypeInfo = env.GetTopFrame()->LookupValueType(GetSymbol());
+			if (pValueTypeInfo == NULL) {
+				pValueTypeInfo = ValueTypePool::GetInstance()->Add(GetSymbol());
+			}
 			pValueTypeInfo->SetClass(Class::Reference(pClass));
+			//env.GetTopFrame()->AssignValueType(pValueTypeInfo);
 			env.AssignValueType(pValueTypeInfo);
 			Function *pFunc = pClass->PrepareConstructor(env, sig);
 			if (pFunc == NULL) return Value::Null;

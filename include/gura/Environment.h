@@ -221,7 +221,7 @@ public:
 		void RemoveValue(const Symbol *pSymbol);
 		ValueEx *LookupValue(const Symbol *pSymbol);
 		void AssignValueType(ValueTypeInfo *pValueTypeInfo);
-		const ValueTypeInfo *LookupValueType(const Symbol *pSymbol) const;
+		ValueTypeInfo *LookupValueType(const Symbol *pSymbol);
 		SymbolSet &PrepareSymbolsPublic();
 		void DbgPrint() const;
 	};
@@ -303,10 +303,10 @@ public:
 	Function *LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip = 0) const;
 	FunctionCustom *LookupFunctionCustom(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip = 0) const;
 	virtual void AssignValueType(ValueTypeInfo *pValueTypeInfo);
-	const ValueTypeInfo *LookupValueType(const SymbolList &symbolList) const;
-	const ValueTypeInfo *LookupValueType(const Symbol *pSymbol) const;
-	const ValueTypeInfo *LookupValueType(Signal sig, const ValueList &valList);
-	const ValueTypeInfo *LookupValueType(Signal sig, const Expr *pExpr);
+	ValueTypeInfo *LookupValueType(const SymbolList &symbolList);
+	ValueTypeInfo *LookupValueType(const Symbol *pSymbol);
+	ValueTypeInfo *LookupValueType(Signal sig, const ValueList &valList);
+	ValueTypeInfo *LookupValueType(Signal sig, const Expr *pExpr);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,

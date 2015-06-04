@@ -340,4 +340,8 @@ expected error occurs
 0 "hoge"
 3 ""
 expected error: TypeError: number or string must be specified
+
+======== #35 forward-declaration of class ========
+
+OK
 <<end of script>>
