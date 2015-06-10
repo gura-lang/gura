@@ -4,6 +4,9 @@ import(re)
 Entry = struct(pattern:re.pattern, func:function)
 
 Tokenizer = class {
+	public {
+		match
+	}
 	__init__() = {
 		this.mode = `start
 		this.entriesDict = %{}
@@ -23,7 +26,7 @@ Tokenizer = class {
 				for (entry in this.entriesDict[this.mode]) {
 					if (this.match = entry.pattern.match(lineBuff, col)) {
 						entry.func(this)
-						col = this.match.end(0)
+						col = this.match.group(0).end
 						break
 					}
 				}
@@ -37,15 +40,15 @@ Tokenizer = class {
 		}
 	}
 	ParseBlock(block:expr) = {
-		block.each():xlist {|expr|
-			if (!expr.isdictassign()) {
+		block.children.each():xlist {|expr|
+			if (!(expr.isbinaryop() && expr.operator.symbol == `=>)) {
 				raise(error.SyntaxError, 'invalid element')
-			} elsif (expr.left().isquote()) {
+			} elsif (expr.left.isquote()) {
 				exprLeft = expr.left().unquote()
 				this.entriesDict[exprLeft.getsymbol()] = this.ParseBlock(expr.right())
 				nil
 			} else {
-				Entry(re.pattern('^' + expr.left().getstring()), expr.right().tofunction())
+				Entry(re.pattern('^' + expr.left.value), expr.right.tofunction())
 			}
 		}
 	}
