@@ -798,6 +798,9 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 		_pArgs->SetValueTypeResult(_pFunc->GetValueTypeResult());
 		Gura_Pushback();
 		_stat = STAT_ExprArgs;
+		//if (_pFunc->GetSymbol()->IsIdentical(Symbol::Add("scope"))) {
+		//	_stat = STAT_Exec;
+		//}
 		break;
 	}
 	//-------------------------------------------------------------------------
