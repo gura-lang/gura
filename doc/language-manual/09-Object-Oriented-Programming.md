@@ -359,3 +359,42 @@ Using a list creation function `@` enables you to write more simple code.
 
 Function `@` takes a function such as a constructor,
 and its block contains a set of argument lists fed into that function.
+
+
+## Forward Declaration
+
+Within a block of the `class` function, it would be no problem for argument declarations
+to refer to its own class being currently declared.
+
+    A = class {
+        func(a:A) = {     // This is OK.
+            // ...
+        }
+    }
+
+It's not allowed to refer to a class which declaration appears afterwards.
+
+    A = class {
+        func(b:B) = {     // *** error ***
+            // ...
+        }
+    }
+
+    B = class {
+
+    }
+
+For such a case, you need to prepare a forward declaration of the referenced class
+before the referencing point by creating an empty class like below:
+
+    B = class()           // B's forward declaration.
+
+    A = class {
+        func(b:B) = {     // This is OK.
+            // ...
+        }
+    }
+
+    B = class {           // B's actual declaration.
+        // ...
+    }
