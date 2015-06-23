@@ -2,7 +2,7 @@
 import(moddoc)
 
 text@en = R'''
-## example Module
+# example Module
 
 The `example` module is just an example that is supposed to be referenced as a skeleton
 when you want to create a new module.
