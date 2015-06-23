@@ -2,7 +2,7 @@
 import(markdown)
 
 fileNameTeX = 'gura-lib-e.tex'
-dirNameOut = '../../../gura-lang.github.io/library-reference'
+dirName@html = 'html'
 
 title = 'Gura Library Reference'
 author = 'Yutaka Saito'
@@ -108,7 +108,7 @@ Renderer@html = class(markdown.Renderer@html) {
 	OnRenderItemPre(item:item) = {
 		if (item.type == `h1) {
 			this.out && this.out.print(footerForPage)
-			fileName = path.join(dirNameOut, 'chapter-%02d.md' % (this.indices[0] + 1))
+			fileName = path.join(dirName@html, 'chapter-%02d.md' % (this.indices[0] + 1))
 			println('rendering ', path.filename(fileName))
 			this.out = open(fileName, 'w')
 			this.out.print(headerForPage)
@@ -148,8 +148,9 @@ output@pdf() = {
 
 output@html() = {
 	doc = makeDocument()
-	println('Output directory: ', dirNameOut)
-	fileName = path.join(dirNameOut, 'index.md')
+	println('Output directory: ', dirName@html)
+	!path.exists(dirName@html) && fs.mkdir(dirName@html)
+	fileName = path.join(dirName@html, 'index.md')
 	println('rendering ', path.filename(fileName))
 	open(fileName, 'w') {|out|
 		out.print(Renderer@html.headerForTOC)
