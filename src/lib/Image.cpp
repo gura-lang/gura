@@ -315,7 +315,7 @@ bool Image::Extract(Signal sig, size_t x, size_t y, size_t width, size_t height,
 void Image::ReplaceColorRect(size_t x, size_t y, size_t width, size_t height,
 				const Color &colorOrg, const Color &color, double tolerance)
 {
-	std::auto_ptr<Scanner> pScanner(CreateScanner(x, y, width, height));
+	std::unique_ptr<Scanner> pScanner(CreateScanner(x, y, width, height));
 	UChar buff[8];
 	PutPixel(buff, color);
 	if (tolerance == 0.) {
@@ -365,7 +365,7 @@ void Image::FillRect(size_t x, size_t y, size_t width, size_t height,
 {
 	UChar buff[8];
 	PutPixel(buff, color);
-	std::auto_ptr<Scanner> pScanner(CreateScanner(x, y, width, height));
+	std::unique_ptr<Scanner> pScanner(CreateScanner(x, y, width, height));
 	if (_format == FORMAT_RGBA) {
 		do {
 			StorePixelRGBA(pScanner->GetPointer(), buff);
@@ -380,7 +380,7 @@ void Image::FillRect(size_t x, size_t y, size_t width, size_t height,
 void Image::FillRectAlpha(size_t x, size_t y,
 					size_t width, size_t height, UChar a)
 {
-	std::auto_ptr<Scanner> pScanner(CreateScanner(x, y, width, height));
+	std::unique_ptr<Scanner> pScanner(CreateScanner(x, y, width, height));
 	do {
 		UChar *pPixel = pScanner->GetPointer();
 		*(pPixel + OffsetA) = a;
@@ -390,7 +390,7 @@ void Image::FillRectAlpha(size_t x, size_t y,
 void Image::FillRectAlpha(size_t x, size_t y,
 	size_t width, size_t height, UChar a, const Color &color, double tolerance)
 {
-	std::auto_ptr<Scanner> pScanner(CreateScanner(x, y, width, height));
+	std::unique_ptr<Scanner> pScanner(CreateScanner(x, y, width, height));
 	if (tolerance == 0.) {
 		UChar buff[8];
 		PutPixel(buff, color);
@@ -419,8 +419,8 @@ Image *Image::ReduceColor(Signal sig, const Palette *pPalette)
 	AutoPtr<Image> pImage(CreateDerivation(sig, _width, _height,
 										Palette::Reference(pPalette)));
 	if (sig.IsSignalled()) return NULL;
-	std::auto_ptr<Scanner> pScannerSrc(CreateScanner());
-	std::auto_ptr<Scanner> pScannerDst(pImage->CreateScanner());
+	std::unique_ptr<Scanner> pScannerSrc(CreateScanner());
+	std::unique_ptr<Scanner> pScannerDst(pImage->CreateScanner());
 	if (_format == FORMAT_RGBA) {
 		do {
 			size_t idx = pPalette->LookupNearest(pScannerSrc->GetPointer());
@@ -440,8 +440,8 @@ Image *Image::GrayScale(Signal sig)
 {
 	AutoPtr<Image> pImage(CreateDerivation(sig, _width, _height));
 	if (sig.IsSignalled()) return NULL;
-	std::auto_ptr<Scanner> pScannerSrc(CreateScanner());
-	std::auto_ptr<Scanner> pScannerDst(pImage->CreateScanner());
+	std::unique_ptr<Scanner> pScannerSrc(CreateScanner());
+	std::unique_ptr<Scanner> pScannerDst(pImage->CreateScanner());
 	if (_format == FORMAT_RGBA) {
 		do {
 			UChar gray = GetPixelGray(pScannerSrc->GetPointer());
@@ -460,8 +460,8 @@ Image *Image::MapColorLevel(Signal sig, const UChar *mapR, const UChar *mapG, co
 {
 	AutoPtr<Image> pImage(CreateDerivation(sig, _width, _height));
 	if (sig.IsSignalled()) return NULL;
-	std::auto_ptr<Scanner> pScannerSrc(CreateScanner());
-	std::auto_ptr<Scanner> pScannerDst(pImage->CreateScanner());
+	std::unique_ptr<Scanner> pScannerSrc(CreateScanner());
+	std::unique_ptr<Scanner> pScannerDst(pImage->CreateScanner());
 	if (_format == FORMAT_RGBA) {
 		do {
 			UChar r = mapR[pScannerSrc->GetR()];
@@ -519,9 +519,9 @@ Image *Image::Blur(Signal sig, int radius, Number sigma)
 	} while (0);
 	//pImage->Fill(Color(255, 0, 0, 255));
 	size_t width = GetWidth() - diameter, height = GetHeight() - diameter;
-	std::auto_ptr<Scanner> pScannerSrc(CreateScanner(0, 0, width, height));
-	std::auto_ptr<Scanner> pScannerDst(pImage->CreateScanner(radius, radius, width, height));
-	std::auto_ptr<Scanner> pScanner(pImage->CreateScanner(0, 0, diameter, diameter));
+	std::unique_ptr<Scanner> pScannerSrc(CreateScanner(0, 0, width, height));
+	std::unique_ptr<Scanner> pScannerDst(pImage->CreateScanner(radius, radius, width, height));
+	std::unique_ptr<Scanner> pScanner(pImage->CreateScanner(0, 0, diameter, diameter));
 	if (_format == FORMAT_RGBA) {
 		//
 		// image processing around border has not been implemented yet.
@@ -569,8 +569,8 @@ Image *Image::Flip(Signal sig, bool horzFlag, bool vertFlag)
 	AutoPtr<Image> pImage(CreateDerivation(sig, _width, _height));
 	if (sig.IsSignalled()) return NULL;
 	if (horzFlag) {
-		std::auto_ptr<Scanner> pScannerSrc(CreateScanner());
-		std::auto_ptr<Scanner> pScannerDst(pImage->CreateScanner(
+		std::unique_ptr<Scanner> pScannerSrc(CreateScanner());
+		std::unique_ptr<Scanner> pScannerDst(pImage->CreateScanner(
 				vertFlag? SCAN_RightBottomHorz : SCAN_RightTopHorz));
 		if (_format == FORMAT_RGBA) {
 			do {
@@ -599,8 +599,8 @@ Image *Image::Rotate90(Signal sig, bool clockwiseFlag)
 	size_t width = _height, height = _width;
 	AutoPtr<Image> pImage(CreateDerivation(sig, width, height));
 	if (sig.IsSignalled()) return NULL;
-	std::auto_ptr<Scanner> pScannerSrc(CreateScanner());
-	std::auto_ptr<Scanner> pScannerDst(pImage->CreateScanner(
+	std::unique_ptr<Scanner> pScannerSrc(CreateScanner());
+	std::unique_ptr<Scanner> pScannerDst(pImage->CreateScanner(
 			clockwiseFlag? SCAN_RightTopVert : SCAN_LeftBottomVert));
 	if (_format == FORMAT_RGBA) {
 		do {
@@ -1049,7 +1049,7 @@ bool Image::ReadDIB(Signal sig, Stream &stream,
 		size_t bytesPerLine = (biWidth + 1) / 2;
 		size_t bytesAlign = (bytesPerLine + 3) / 4 * 4 - bytesPerLine;
 		UChar ch;
-		std::auto_ptr<Scanner> pScanner(CreateScanner(
+		std::unique_ptr<Scanner> pScanner(CreateScanner(
 				vertRevFlag? SCAN_LeftBottomHorz : SCAN_LeftTopHorz));
 		if (stream.Read(sig, &ch, 1) < 1) return false;
 		int bitsRest = 8;
@@ -1072,7 +1072,7 @@ bool Image::ReadDIB(Signal sig, Stream &stream,
 	} else if (biBitCount == 8) {
 		size_t bytesAlign = (biWidth + 3) / 4 * 4 - biWidth;
 		UChar ch;
-		std::auto_ptr<Scanner> pScanner(CreateScanner(
+		std::unique_ptr<Scanner> pScanner(CreateScanner(
 				vertRevFlag? SCAN_LeftBottomHorz : SCAN_LeftTopHorz));
 		if (stream.Read(sig, &ch, 1) < 1) return false;
 		for (;;) {
@@ -1088,7 +1088,7 @@ bool Image::ReadDIB(Signal sig, Stream &stream,
 	} else if (biBitCount == 24) {
 		size_t bytesAlign = (3 * biWidth + 3) / 4 * 4 - 3 * biWidth;
 		UChar buff[3];
-		std::auto_ptr<Scanner> pScanner(CreateScanner(
+		std::unique_ptr<Scanner> pScanner(CreateScanner(
 				vertRevFlag? SCAN_LeftBottomHorz : SCAN_LeftTopHorz));
 		for (;;) {
 			if (stream.Read(sig, buff, 3) < 3) break;
@@ -1102,7 +1102,7 @@ bool Image::ReadDIB(Signal sig, Stream &stream,
 		if (sig.IsSignalled()) return false;
 	} else if (biBitCount == 32) {
 		UChar buff[4];
-		std::auto_ptr<Scanner> pScanner(CreateScanner(
+		std::unique_ptr<Scanner> pScanner(CreateScanner(
 				vertRevFlag? SCAN_LeftBottomHorz : SCAN_LeftTopHorz));
 		if (_format == FORMAT_RGBA) {
 			while (stream.Read(sig, buff, 4) == 4) {
@@ -1171,7 +1171,7 @@ bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
 		size_t bytesAlign = (bytesPerLine + 3) / 4 * 4 - bytesPerLine;
 		int bitsAccum = 0;
 		UChar chAccum = 0x00;
-		std::auto_ptr<Scanner> pScanner(CreateScanner(SCAN_LeftBottomHorz));
+		std::unique_ptr<Scanner> pScanner(CreateScanner(SCAN_LeftBottomHorz));
 		for (;;) {
 			UChar ch = static_cast<UChar>(
 							_pPalette->LookupNearest(pScanner->GetPointer()));
@@ -1201,7 +1201,7 @@ bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
 		size_t bytesAlign = (bytesPerLine + 3) / 4 * 4 - bytesPerLine;
 		int bitsAccum = 0;
 		UChar chAccum = 0x00;
-		std::auto_ptr<Scanner> pScanner(CreateScanner(SCAN_LeftBottomHorz));
+		std::unique_ptr<Scanner> pScanner(CreateScanner(SCAN_LeftBottomHorz));
 		for (;;) {
 			UChar ch = static_cast<UChar>(
 							_pPalette->LookupNearest(pScanner->GetPointer()));
@@ -1228,7 +1228,7 @@ bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
 	} else if (biBitCount == 8) {
 		if (_pPalette.IsNull()) return false;
 		size_t bytesAlign = (biWidth + 3) / 4 * 4 - biWidth;
-		std::auto_ptr<Scanner> pScanner(CreateScanner(SCAN_LeftBottomHorz));
+		std::unique_ptr<Scanner> pScanner(CreateScanner(SCAN_LeftBottomHorz));
 		for (;;) {
 			UChar ch = static_cast<UChar>(
 							_pPalette->LookupNearest(pScanner->GetPointer()));
@@ -1243,7 +1243,7 @@ bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
 	} else if (biBitCount == 24) {
 		size_t bytesAlign = ((3 * biWidth) + 3) / 4 * 4 - 3 * biWidth;
 		UChar buff[3];
-		std::auto_ptr<Scanner> pScanner(CreateScanner(SCAN_LeftBottomHorz));
+		std::unique_ptr<Scanner> pScanner(CreateScanner(SCAN_LeftBottomHorz));
 		for (;;) {
 			buff[0] = pScanner->GetB();
 			buff[1] = pScanner->GetG();
@@ -1258,7 +1258,7 @@ bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
 		}
 	} else if (biBitCount == 32) {
 		UChar buff[4];
-		std::auto_ptr<Scanner> pScanner(CreateScanner(SCAN_LeftBottomHorz));
+		std::unique_ptr<Scanner> pScanner(CreateScanner(SCAN_LeftBottomHorz));
 		for (;;) {
 			buff[0] = pScanner->GetB();
 			buff[1] = pScanner->GetG();
@@ -1280,7 +1280,7 @@ bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
 			// write AND bitmap
 			int bitsAccum = 0;
 			UChar chAccum = 0x00;
-			std::auto_ptr<Scanner> pScanner(CreateScanner(SCAN_LeftBottomHorz));
+			std::unique_ptr<Scanner> pScanner(CreateScanner(SCAN_LeftBottomHorz));
 			for (;;) {
 				UChar ch = (pScanner->GetA() < 128)? 1 : 0;
 				chAccum |= ch << ((8 - 1) - bitsAccum);

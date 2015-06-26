@@ -540,7 +540,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, GetSelections)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	std::auto_ptr<wxArrayInt> aSelections(CreateArrayInt(args.GetList(0)));
+	std::unique_ptr<wxArrayInt> aSelections(CreateArrayInt(args.GetList(0)));
 	int rtn = pThis->GetEntity()->GetSelections(*aSelections);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -603,7 +603,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, SetSelections)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	std::auto_ptr<wxArrayInt> aSelections(CreateArrayInt(args.GetList(0)));
+	std::unique_ptr<wxArrayInt> aSelections(CreateArrayInt(args.GetList(0)));
 	pThis->GetEntity()->SetSelections(*aSelections);
 	return Value::Null;
 }

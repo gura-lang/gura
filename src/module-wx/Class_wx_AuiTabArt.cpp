@@ -337,7 +337,7 @@ Gura_ImplementMethod(wx_AuiTabArt, ShowWindowList)
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *wnd = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	std::auto_ptr<wxArrayString> items(CreateArrayString(args.GetList(1)));
+	std::unique_ptr<wxArrayString> items(CreateArrayString(args.GetList(1)));
 	int active_idx = args.GetInt(2);
 	int rtn = pThis->GetEntity()->ShowWindowList(wnd, *items, active_idx);
 	return ReturnValue(env, sig, args, Value(rtn));

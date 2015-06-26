@@ -251,7 +251,7 @@ public:
 		ULong _dwLibrary;
 		ULong _dwGenre;
 		ULong _dwMorphology;
-		std::auto_ptr<sfPresetBagOwner> _pPresetBagOwner;
+		std::unique_ptr<sfPresetBagOwner> _pPresetBagOwner;
 	public:
 		Gura_DeclareReferenceAccessor(sfPresetHeader);
 	public:
@@ -283,8 +283,8 @@ public:
 		int _cntRef;
 		UShort _wGenNdx;
 		UShort _wModNdx;
-		std::auto_ptr<sfGenOwner> _pGenOwner;
-		std::auto_ptr<sfModOwner> _pModOwner;
+		std::unique_ptr<sfGenOwner> _pGenOwner;
+		std::unique_ptr<sfModOwner> _pModOwner;
 		AutoPtr<sfInst> _pInst; 				// valid only when instrument generator exists in sfGenOwner
 	public:
 		Gura_DeclareReferenceAccessor(sfPresetBag);
@@ -376,7 +376,7 @@ public:
 		int _cntRef;
 		char _achInstName[20];
 		UShort _wInstBagNdx;
-		std::auto_ptr<sfInstBagOwner> _pInstBagOwner;
+		std::unique_ptr<sfInstBagOwner> _pInstBagOwner;
 	public:
 		Gura_DeclareReferenceAccessor(sfInst);
 	public:
@@ -405,10 +405,10 @@ public:
 		int _cntRef;
 		UShort _wInstGenNdx;
 		UShort _wInstModNdx;
-		std::auto_ptr<sfGenOwner> _pInstGenOwner;
-		std::auto_ptr<sfModOwner> _pInstModOwner;
-		std::auto_ptr<RangesType> _pKeyRange;	// valid only when keyRange generator exists in sfGenOwner
-		std::auto_ptr<RangesType> _pVelRange;	// valid only when velRange generator exists in sfGenOwner
+		std::unique_ptr<sfGenOwner> _pInstGenOwner;
+		std::unique_ptr<sfModOwner> _pInstModOwner;
+		std::unique_ptr<RangesType> _pKeyRange;	// valid only when keyRange generator exists in sfGenOwner
+		std::unique_ptr<RangesType> _pVelRange;	// valid only when velRange generator exists in sfGenOwner
 	public:
 		Gura_DeclareReferenceAccessor(sfInstBag);
 	public:
@@ -553,7 +553,7 @@ public:
 	private:
 		int _cntRef;
 		Props _props;
-		std::auto_ptr<sfModOwner> _pModOwner;
+		std::unique_ptr<sfModOwner> _pModOwner;
 		AutoPtr<sfSample> _pSample;
 	public:
 		Gura_DeclareReferenceAccessor(Synthesizer);
@@ -569,16 +569,16 @@ public:
 public:
 	struct INFO_t {
 		AutoPtr<sfVersionTag>	p_ifil;	// mandatory
-		std::auto_ptr<String>	p_isng;	// mandatory
-		std::auto_ptr<String>	p_INAM;	// mandatory
-		std::auto_ptr<String>	p_irom;	// optional
+		std::unique_ptr<String>	p_isng;	// mandatory
+		std::unique_ptr<String>	p_INAM;	// mandatory
+		std::unique_ptr<String>	p_irom;	// optional
 		AutoPtr<sfVersionTag> 	p_iver;	// optional
-		std::auto_ptr<String>	p_ICRD;	// optional
-		std::auto_ptr<String>	p_IENG;	// optional
-		std::auto_ptr<String>	p_IPRD;	// optional
-		std::auto_ptr<String>	p_ICOP;	// optional
-		std::auto_ptr<String>	p_ICMT;	// optional
-		std::auto_ptr<String>	p_ISFT;	// optional
+		std::unique_ptr<String>	p_ICRD;	// optional
+		std::unique_ptr<String>	p_IENG;	// optional
+		std::unique_ptr<String>	p_IPRD;	// optional
+		std::unique_ptr<String>	p_ICOP;	// optional
+		std::unique_ptr<String>	p_ICMT;	// optional
+		std::unique_ptr<String>	p_ISFT;	// optional
 	};
 	struct pdta_t {
 		sfPresetHeaderOwner		phdrs;

@@ -56,7 +56,7 @@ Gura_ImplementFunction(SingleChoiceDialog)
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
 	wxString message = wxString::FromUTF8(args.GetString(1));
 	wxString caption = wxString::FromUTF8(args.GetString(2));
-	std::auto_ptr<wxArrayString> choices(CreateArrayString(args.GetList(3)));
+	std::unique_ptr<wxArrayString> choices(CreateArrayString(args.GetList(3)));
 	char **clientData = NULL;
 	long style = wxCHOICEDLG_STYLE;
 	if (args.IsValid(4)) style = args.GetLong(4);

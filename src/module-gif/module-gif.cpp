@@ -945,7 +945,7 @@ int GIF::GetPlausibleBackgroundIndex(Palette *pPalette, Image *pImage)
 {
 	int histTbl[256];
 	::memset(histTbl, 0x00, sizeof(histTbl));
-	std::auto_ptr<Image::Scanner> pScanner(pImage->CreateScanner());
+	std::unique_ptr<Image::Scanner> pScanner(pImage->CreateScanner());
 	size_t iPixelEnd = pScanner->CountPixels() - 1;
 	size_t iLineEnd = pScanner->CountLines() - 1;
 	for (;;) {

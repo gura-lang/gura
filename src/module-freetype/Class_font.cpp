@@ -300,7 +300,7 @@ void Object_font::DrawMonoOnImage(Image *pImage, int x, int y,
 	unsigned char red = color.GetR();
 	unsigned char green = color.GetG();
 	unsigned char blue = color.GetB();
-	std::auto_ptr<Image::Scanner>
+	std::unique_ptr<Image::Scanner>
 				pScanner(pImage->CreateScanner(x, y, width, height));
 	int bitOffset = xOffset % 8;
 	unsigned char mask = 1 << (7 - bitOffset);
@@ -339,7 +339,7 @@ void Object_font::DrawGrayOnImage(Image *pImage, int x, int y,
 	unsigned long redFg = color.GetR();
 	unsigned long greenFg = color.GetG();
 	unsigned long blueFg = color.GetB();
-	std::auto_ptr<Image::Scanner>
+	std::unique_ptr<Image::Scanner>
 				pScanner(pImage->CreateScanner(x, y, width, height));
 	const unsigned char *pLine = buffer + xOffset + yOffset * pitch;
 	const unsigned char *pPixel = pLine;

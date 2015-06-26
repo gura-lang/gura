@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_FileDropTarget, OnDropFiles)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
-	std::auto_ptr<wxArrayString> filenames(CreateArrayString(args.GetList(2)));
+	std::unique_ptr<wxArrayString> filenames(CreateArrayString(args.GetList(2)));
 	bool rtn = pThis->GetEntity()->OnDropFiles(x, y, *filenames);
 	return ReturnValue(env, sig, args, Value(rtn));
 }

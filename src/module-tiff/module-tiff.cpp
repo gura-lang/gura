@@ -161,7 +161,7 @@ bool ImageStreamer_TIFF::ReadStream(Environment &env, Signal sig, Image *pImage,
 		return false;
 	}
 	uint32 *pSrc = raster;
-	std::auto_ptr<Image::Scanner>
+	std::unique_ptr<Image::Scanner>
 			pScannerDst(pImage->CreateScanner(Image::SCAN_LeftBottomHorz));
 	if (pImage->GetFormat() == Image::FORMAT_RGBA) {
 		do {

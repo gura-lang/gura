@@ -136,7 +136,7 @@ const char *Stream_File::GetIdentifier() const
 
 bool Stream_File::GetAttribute(Attribute &attr)
 {
-	std::auto_ptr<OAL::FileStat> pFileStat(
+	std::unique_ptr<OAL::FileStat> pFileStat(
 					OAL::FileStat::Generate(_sig, _fileName.c_str()));
 	if (pFileStat.get() == NULL) return false;
 	attr.atime = pFileStat->GetATime();

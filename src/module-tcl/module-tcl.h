@@ -128,7 +128,7 @@ private:
 	int _cnt, _idx;
 	int _msecCont;
 	Tcl_TimerToken _token;
-	std::auto_ptr<Handler> _pHandler;
+	std::unique_ptr<Handler> _pHandler;
 public:
 	Object_timer(Object_interp *pObjInterp);
 	virtual ~Object_timer();

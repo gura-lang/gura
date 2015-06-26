@@ -73,11 +73,11 @@ private:
 	int _cntRef;
 	Type _type;
 	AutoPtr<ItemOwner> _pItemOwner;
-	std::auto_ptr<String> _pText;
-	std::auto_ptr<String> _pURL;	// valid when type is Link or Image
-	std::auto_ptr<String> _pTitle;	// valid when type is Link or Image
-	std::auto_ptr<String> _pRefId;	// valid when type is Link or Image
-	std::auto_ptr<String> _pAttrs;	// valid when type is Tag
+	std::unique_ptr<String> _pText;
+	std::unique_ptr<String> _pURL;	// valid when type is Link or Image
+	std::unique_ptr<String> _pTitle;	// valid when type is Link or Image
+	std::unique_ptr<String> _pRefId;	// valid when type is Link or Image
+	std::unique_ptr<String> _pAttrs;	// valid when type is Tag
 	Align _align;					// valid when type is Tag
 	int _indentLevel;
 	int _indentLevelItemBody;		// valid when type is ListItem

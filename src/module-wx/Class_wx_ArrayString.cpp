@@ -72,7 +72,7 @@ Gura_DeclareFunction(ArrayString)
 Gura_ImplementFunction(ArrayString)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
-	std::auto_ptr<wxArrayString> array(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> array(CreateArrayString(args.GetList(0)));
 	wx_ArrayString *pEntity = new wx_ArrayString(*array);
 	Object_wx_ArrayString *pObj = Object_wx_ArrayString::GetThisObj(args);
 	if (pObj == NULL) {

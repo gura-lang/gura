@@ -86,7 +86,7 @@ private:
 #else
 	DIR *_pDir;
 #endif
-	std::auto_ptr<OAL::FileStat> _pFileStat;
+	std::unique_ptr<OAL::FileStat> _pFileStat;
 public:
 	Directory_FileSys(Directory *pParent, const char *name,
 										Type type, OAL::FileStat *pFileStat);

@@ -87,7 +87,7 @@ Gura_DeclareMethod(GlyphSlot, Get_Glyph)
 Gura_ImplementMethod(GlyphSlot, Get_Glyph)
 {
 	FT_GlyphSlot glyphSlot = Object_GlyphSlot::GetThisObj(args)->GetEntity();
-	std::auto_ptr<FT_Glyph> pGlyph(new FT_Glyph);
+	std::unique_ptr<FT_Glyph> pGlyph(new FT_Glyph);
 	FT_Error err = ::FT_Get_Glyph(glyphSlot, pGlyph.get());
 	if (err != 0) {
 		SetError_Freetype(sig, err);

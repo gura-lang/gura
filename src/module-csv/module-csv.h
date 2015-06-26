@@ -71,7 +71,7 @@ public:
 //-----------------------------------------------------------------------------
 class Iterator_reader : public Iterator {
 private:
-	std::auto_ptr<Reader> _pReader;
+	std::unique_ptr<Reader> _pReader;
 public:
 	inline Iterator_reader(Reader *pReader) :
 								Iterator(false), _pReader(pReader) {}

@@ -55,7 +55,7 @@ Gura_ImplementFunction(DropFilesEvent)
 	if (args.IsValid(0)) id = static_cast<WXTYPE>(args.GetInt(0));
 	int noFiles = 0;
 	wxString *files = NULL;
-	std::auto_ptr<wxArrayString> pFilesArray;
+	std::unique_ptr<wxArrayString> pFilesArray;
 	if (args.IsValid(1)) {
 		pFilesArray.reset(CreateArrayString(args,GetList(1)));
 		files = pFilesArray->

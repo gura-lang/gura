@@ -246,7 +246,7 @@ public:
 //-----------------------------------------------------------------------------
 class Record_TAR : public DirBuilder::Record {
 private:
-	std::auto_ptr<Header> _pHdr;
+	std::unique_ptr<Header> _pHdr;
 public:
 	inline Record_TAR(DirBuilder::Structure *pStructure, Record_TAR *pParent,
 									const char *name, bool containerFlag) :

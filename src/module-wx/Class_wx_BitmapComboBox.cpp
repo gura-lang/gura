@@ -84,7 +84,7 @@ Gura_ImplementFunction(BitmapComboBox)
 	wxString value = wxString::FromUTF8(args.GetString(2));
 	wxPoint *pos = Object_wx_Point::GetObject(args, 3)->GetEntity();
 	wxSize *size = Object_wx_Size::GetObject(args, 4)->GetEntity();
-	std::auto_ptr<wxArrayString> choices(CreateArrayString(args.GetList(5)));
+	std::unique_ptr<wxArrayString> choices(CreateArrayString(args.GetList(5)));
 	long style = 0;
 	if (args.IsValid(6)) style = args.GetLong(6);
 	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Create)
 	wxString value = wxString::FromUTF8(args.GetString(2));
 	wxPoint *pos = Object_wx_Point::GetObject(args, 3)->GetEntity();
 	wxSize *size = Object_wx_Size::GetObject(args, 4)->GetEntity();
-	std::auto_ptr<wxArrayString> choices(CreateArrayString(args.GetList(5)));
+	std::unique_ptr<wxArrayString> choices(CreateArrayString(args.GetList(5)));
 	long style = 0;
 	if (args.IsValid(6)) style = args.GetLong(6);
 	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);

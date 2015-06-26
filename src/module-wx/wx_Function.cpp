@@ -430,7 +430,7 @@ Gura_ImplementFunction(Execute_2)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString command = wxString::FromUTF8(args.GetString(0));
-	std::auto_ptr<wxArrayString> output(CreateArrayString(args.GetList(1)));
+	std::unique_ptr<wxArrayString> output(CreateArrayString(args.GetList(1)));
 	int flags = 0;
 	if (args.IsValid(2)) flags = args.GetInt(2);
 	long rtn = wxExecute(command, *output, flags);
@@ -451,8 +451,8 @@ Gura_ImplementFunction(Execute_3)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString command = wxString::FromUTF8(args.GetString(0));
-	std::auto_ptr<wxArrayString> output(CreateArrayString(args.GetList(1)));
-	std::auto_ptr<wxArrayString> errors(CreateArrayString(args.GetList(2)));
+	std::unique_ptr<wxArrayString> output(CreateArrayString(args.GetList(1)));
+	std::unique_ptr<wxArrayString> errors(CreateArrayString(args.GetList(2)));
 	int flags = 0;
 	if (args.IsValid(3)) flags = args.GetInt(3);
 	long rtn = wxExecute(command, *output, *errors, flags);
@@ -1074,8 +1074,8 @@ Gura_ImplementFunction(ParseCommonDialogsFilter)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString wildCard = wxString::FromUTF8(args.GetString(0));
-	std::auto_ptr<wxArrayString> descriptions(CreateArrayString(args.GetList(1)));
-	std::auto_ptr<wxArrayString> filters(CreateArrayString(args.GetList(2)));
+	std::unique_ptr<wxArrayString> descriptions(CreateArrayString(args.GetList(1)));
+	std::unique_ptr<wxArrayString> filters(CreateArrayString(args.GetList(2)));
 	int rtn = wxParseCommonDialogsFilter(wildCard, *descriptions, *filters);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -1965,7 +1965,7 @@ Gura_ImplementFunction(GetMultipleChoices)
 	wxArrayInt selections;
 	wxString message = wxString::FromUTF8(args.GetString(0));
 	wxString caption = wxString::FromUTF8(args.GetString(1));
-	std::auto_ptr<wxArrayString> aChoices(CreateArrayString(args.GetList(2)));
+	std::unique_ptr<wxArrayString> aChoices(CreateArrayString(args.GetList(2)));
 	wxWindow *parent = (wxWindow *)(NULL);
 	if (args.IsValid(3)) parent = Object_wx_Window::GetObject(args, 3)->GetEntity();
 	int x = -1;
@@ -2101,7 +2101,7 @@ Gura_ImplementFunction(GetSingleChoice)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString message = wxString::FromUTF8(args.GetString(0));
 	wxString caption = wxString::FromUTF8(args.GetString(1));
-	std::auto_ptr<wxArrayString> aChoices(CreateArrayString(args.GetList(2)));
+	std::unique_ptr<wxArrayString> aChoices(CreateArrayString(args.GetList(2)));
 	wxWindow *parent = (wxWindow *)(NULL);
 	if (args.IsValid(3)) parent = Object_wx_Window::GetObject(args, 3)->GetEntity();
 	int x = -1;
@@ -2138,7 +2138,7 @@ Gura_ImplementFunction(GetSingleChoiceIndex)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString message = wxString::FromUTF8(args.GetString(0));
 	wxString caption = wxString::FromUTF8(args.GetString(1));
-	std::auto_ptr<wxArrayString> aChoices(CreateArrayString(args.GetList(2)));
+	std::unique_ptr<wxArrayString> aChoices(CreateArrayString(args.GetList(2)));
 	wxWindow *parent = (wxWindow *)(NULL);
 	if (args.IsValid(3)) parent = Object_wx_Window::GetObject(args, 3)->GetEntity();
 	int x = -1;
@@ -2177,7 +2177,7 @@ Gura_ImplementFunction(GetSingleChoiceData)
 #if 0
 	wxString message = wxString::FromUTF8(args.GetString(0));
 	wxString caption = wxString::FromUTF8(args.GetString(1));
-	std::auto_ptr<wxArrayString> aChoices(CreateArrayString(args.GetList(2)));
+	std::unique_ptr<wxArrayString> aChoices(CreateArrayString(args.GetList(2)));
 	wxString client_data[] = wxString::FromUTF8(args.GetString(3));
 	wxWindow *parent = (wxWindow *)(NULL);
 	if (args.IsValid(4)) parent = Object_wx_Window::GetObject(args, 4)->GetEntity();

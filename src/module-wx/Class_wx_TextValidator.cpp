@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_TextValidator, SetExcludes)
 {
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	std::auto_ptr<wxArrayString> stringList(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> stringList(CreateArrayString(args.GetList(0)));
 	pThis->GetEntity()->SetExcludes(*stringList);
 	return Value::Null;
 }
@@ -198,7 +198,7 @@ Gura_ImplementMethod(wx_TextValidator, SetIncludes)
 {
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	std::auto_ptr<wxArrayString> stringList(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> stringList(CreateArrayString(args.GetList(0)));
 	pThis->GetEntity()->SetIncludes(*stringList);
 	return Value::Null;
 }

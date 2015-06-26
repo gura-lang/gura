@@ -96,7 +96,7 @@ Gura_ImplementFunction(RadioBox)
 	if (args.IsValid(3)) point = Object_wx_Point::GetObject(args, 3)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
 	if (args.IsValid(4)) size = Object_wx_Size::GetObject(args, 4)->GetEntity();
-	std::auto_ptr<wxArrayString> choices;
+	std::unique_ptr<wxArrayString> choices;
 	if (args.IsValid(5)) {
 		choices.reset(CreateArrayString(args.GetList(5)));
 	} else {
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_RadioBox, Create)
 	wxString label = wxString::FromUTF8(args.GetString(2));
 	wxPoint *point = Object_wx_Point::GetObject(args, 3)->GetEntity();
 	wxSize *size = Object_wx_Size::GetObject(args, 4)->GetEntity();
-	std::auto_ptr<wxArrayString> choices(CreateArrayString(args.GetList(5)));
+	std::unique_ptr<wxArrayString> choices(CreateArrayString(args.GetList(5)));
 	int majorDimension = 0;
 	if (args.IsValid(6)) majorDimension = args.GetInt(6);
 	long style = wxRA_SPECIFY_COLS;

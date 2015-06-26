@@ -1066,7 +1066,7 @@ Gura_ImplementMethod(wx_DC, GetPartialTextExtents)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString text = wxString::FromUTF8(args.GetString(0));
-	std::auto_ptr<wxArrayInt> widths(CreateArrayInt(args.GetList(1)));
+	std::unique_ptr<wxArrayInt> widths(CreateArrayInt(args.GetList(1)));
 	bool rtn = pThis->GetEntity()->GetPartialTextExtents(text, *widths);
 	return ReturnValue(env, sig, args, Value(rtn));
 }

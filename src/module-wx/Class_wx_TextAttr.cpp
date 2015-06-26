@@ -465,7 +465,7 @@ Gura_ImplementMethod(wx_TextAttr, SetTabs)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	std::auto_ptr<wxArrayInt> tabs(CreateArrayInt(args.GetList(0)));
+	std::unique_ptr<wxArrayInt> tabs(CreateArrayInt(args.GetList(0)));
 	pThis->GetEntity()->SetTabs(*tabs);
 	return Value::Null;
 }

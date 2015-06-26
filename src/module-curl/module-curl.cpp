@@ -199,8 +199,8 @@ Gura_ImplementFunction(test)
 	if (curl == NULL) return Value::Null;
 	::curl_easy_setopt(curl, CURLOPT_URL, "ftp://ftp.debian.org/debian/*");
 	::curl_easy_setopt(curl, CURLOPT_WILDCARDMATCH, 1L);
-	std::auto_ptr<FileinfoOwner> pFileinfoOwner(new FileinfoOwner());
-	std::auto_ptr<Browser> pBrowser(new Browser(sig, *pFileinfoOwner));
+	std::unique_ptr<FileinfoOwner> pFileinfoOwner(new FileinfoOwner());
+	std::unique_ptr<Browser> pBrowser(new Browser(sig, *pFileinfoOwner));
 	::curl_easy_setopt(curl, CURLOPT_CHUNK_DATA, pBrowser.get());
 	::curl_easy_setopt(curl, CURLOPT_CHUNK_BGN_FUNCTION, Browser::OnChunkBgnStub);
 	::curl_easy_setopt(curl, CURLOPT_CHUNK_END_FUNCTION, Browser::OnChunkEndStub);
@@ -736,13 +736,13 @@ Stream *Directory_cURL::DoOpenStream(Environment &env, Signal sig, ULong attr)
 
 FileinfoOwner *Directory_cURL::DoBrowse(Signal sig)
 {
-	std::auto_ptr<FileinfoOwner> pFileinfoOwner(new FileinfoOwner());
+	std::unique_ptr<FileinfoOwner> pFileinfoOwner(new FileinfoOwner());
 	CURL *curl = ::curl_easy_init();
 	if (curl == NULL) return NULL;
 	String url = OAL::JoinPathName('/', MakePathName(false, NULL).c_str(), "*");
 	::curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 	::curl_easy_setopt(curl, CURLOPT_WILDCARDMATCH, 1L);
-	std::auto_ptr<Browser> pBrowser(new Browser(sig, *pFileinfoOwner));
+	std::unique_ptr<Browser> pBrowser(new Browser(sig, *pFileinfoOwner));
 	::curl_easy_setopt(curl, CURLOPT_CHUNK_DATA, pBrowser.get());
 	::curl_easy_setopt(curl, CURLOPT_CHUNK_BGN_FUNCTION, Browser::OnChunkBgnStub);
 	::curl_easy_setopt(curl, CURLOPT_CHUNK_END_FUNCTION, Browser::OnChunkEndStub);
@@ -764,7 +764,7 @@ void Directory_cURL::Thread::Run()
 	if (curl == NULL) return;
 	::curl_easy_setopt(curl, CURLOPT_URL, _name.c_str());
 	::curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-	std::auto_ptr<Writer> pWriter(new Writer(_sig, Stream::Reference(_pStreamFIFO.get())));
+	std::unique_ptr<Writer> pWriter(new Writer(_sig, Stream::Reference(_pStreamFIFO.get())));
 	::curl_easy_setopt(curl, CURLOPT_WRITEDATA, pWriter.get());
 	::curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, Writer::OnWriteStub);
 	CURLcode code = ::curl_easy_perform(curl);
@@ -950,7 +950,7 @@ Gura_ImplementMethod(easy_handle, perform)
 	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
 	Stream *pStreamOut = args.Is_stream(0)?
 			&Object_stream::GetObject(args, 0)->GetStream() : env.GetConsole();
-	std::auto_ptr<Writer> pWriter(new Writer(sig, Stream::Reference(pStreamOut)));
+	std::unique_ptr<Writer> pWriter(new Writer(sig, Stream::Reference(pStreamOut)));
 	::curl_easy_setopt(pThis->GetEntity(), CURLOPT_WRITEDATA, pWriter.get());
 	::curl_easy_setopt(pThis->GetEntity(), CURLOPT_WRITEFUNCTION, Writer::OnWriteStub);
 	CURLcode code = ::curl_easy_perform(pThis->GetEntity());

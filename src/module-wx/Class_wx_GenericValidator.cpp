@@ -175,7 +175,7 @@ Gura_ImplementFunction(GenericValidator_4)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
-	std::auto_ptr<wxArrayInt> valPtr(CreateArrayInt(args.GetList(0)));
+	std::unique_ptr<wxArrayInt> valPtr(CreateArrayInt(args.GetList(0)));
 	wx_GenericValidator *pEntity = new wx_GenericValidator(*valPtr);
 	Object_wx_GenericValidator *pObj = Object_wx_GenericValidator::GetThisObj(args);
 	if (pObj == NULL) {

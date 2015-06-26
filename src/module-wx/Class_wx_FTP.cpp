@@ -353,7 +353,7 @@ Gura_ImplementMethod(wx_FTP, GetDirList)
 {
 	Object_wx_FTP *pThis = Object_wx_FTP::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	std::auto_ptr<wxArrayString> files(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> files(CreateArrayString(args.GetList(0)));
 	wxString wildcard = wxT("");
 	if (args.IsValid(1)) wildcard = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->GetDirList(*files, wildcard);
@@ -372,7 +372,7 @@ Gura_ImplementMethod(wx_FTP, GetFilesList)
 {
 	Object_wx_FTP *pThis = Object_wx_FTP::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	std::auto_ptr<wxArrayString> files(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> files(CreateArrayString(args.GetList(0)));
 	wxString wildcard = wxT("");
 	if (args.IsValid(1)) wildcard = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->GetFilesList(*files, wildcard);

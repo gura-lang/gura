@@ -224,7 +224,7 @@ Gura_ImplementMethod(image, xpmdata)
 		return Value::Null;
 	}
 	if (!pImage->AllocBuffer(sig, width, height, 0xff)) return Value::Null;
-	std::auto_ptr<Image::Scanner>
+	std::unique_ptr<Image::Scanner>
 					pScannerDst(pImage->CreateScanner(Image::SCAN_LeftTopHorz));
 	bool alphaFlag = (pImage->GetFormat() == Image::FORMAT_RGBA);
 	for (int y = 0; y < height && pValue != valList.end(); y++, pValue++) {
@@ -374,7 +374,7 @@ bool ImageStreamer_xpm::WriteStream(Environment &env, Signal sig, Image *pImage,
 		stream.Println(sig, buff);
 	} while (0);
 	if (sig.IsSignalled()) return false;
-	std::auto_ptr<Image::Scanner> pScanner(pImage->CreateScanner());
+	std::unique_ptr<Image::Scanner> pScanner(pImage->CreateScanner());
 	String str = "\"";
 	bool hasAlphaFlag = (pImage->GetFormat() == Image::FORMAT_RGBA);
 	for (;;) {

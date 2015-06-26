@@ -117,7 +117,7 @@ public:
 	};
 private:
 	String _name;
-	std::auto_ptr<FileinfoOwner> _pFileinfoOwner;
+	std::unique_ptr<FileinfoOwner> _pFileinfoOwner;
 	FileinfoOwner::iterator _ppFileinfo;
 public:
 	Directory_cURL(Directory *pParent, const char *name, Type type);

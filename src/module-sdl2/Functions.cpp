@@ -4810,7 +4810,7 @@ Gura_DeclareFunctionAlias(__LoadBMP, "LoadBMP")
 Gura_ImplementFunction(__LoadBMP)
 {
 	Stream *src = &Object_stream::GetObject(args, 0)->GetStream();
-	std::auto_ptr<SDL_RWops> _src(CreateRWopsStream(src, &sig));
+	std::unique_ptr<SDL_RWops> _src(CreateRWopsStream(src, &sig));
 	SDL_Surface *_rtn = SDL_LoadBMP_RW(_src.get(), 0);
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
@@ -4947,7 +4947,7 @@ Gura_ImplementFunction(__SaveBMP)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	Stream *dst = &Object_stream::GetObject(args, 1)->GetStream();
-	std::auto_ptr<SDL_RWops> context(CreateRWopsStream(dst, &sig));
+	std::unique_ptr<SDL_RWops> context(CreateRWopsStream(dst, &sig));
 	int _rtn = SDL_SaveBMP_RW(surface, context.get(), 0);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
@@ -5484,7 +5484,7 @@ Gura_ImplementFunction(__LoadDollarTemplates)
 {
 	SDL_TouchID touchId = static_cast<SDL_TouchID>(args.GetInt(0));
 	Stream *src = &Object_stream::GetObject(args, 1)->GetStream();
-	std::auto_ptr<SDL_RWops> _src(CreateRWopsStream(src, &sig));
+	std::unique_ptr<SDL_RWops> _src(CreateRWopsStream(src, &sig));
 	int _rtn = SDL_LoadDollarTemplates(touchId, _src.get());
 	if (_rtn < 0) {
 		SetError_SDL(sig);
@@ -5712,7 +5712,7 @@ Gura_DeclareFunctionAlias(__SaveAllDollarTemplates, "SaveAllDollarTemplates")
 Gura_ImplementFunction(__SaveAllDollarTemplates)
 {
 	Stream *dst = &Object_stream::GetObject(args, 0)->GetStream();
-	std::auto_ptr<SDL_RWops> _dst(CreateRWopsStream(dst, &sig));
+	std::unique_ptr<SDL_RWops> _dst(CreateRWopsStream(dst, &sig));
 	int _rtn = SDL_SaveAllDollarTemplates(_dst.get());
 	if (_rtn < 0) {
 		SetError_SDL(sig);
@@ -5736,7 +5736,7 @@ Gura_ImplementFunction(__SaveDollarTemplate)
 {
 	SDL_GestureID gestureId = static_cast<SDL_GestureID>(args.GetInt(0));
 	Stream *dst = &Object_stream::GetObject(args, 1)->GetStream();
-	std::auto_ptr<SDL_RWops> _dst(CreateRWopsStream(dst, &sig));
+	std::unique_ptr<SDL_RWops> _dst(CreateRWopsStream(dst, &sig));
 	int _rtn = SDL_SaveDollarTemplate(gestureId, _dst.get());
 	if (_rtn < 0) {
 		SetError_SDL(sig);
@@ -6993,7 +6993,7 @@ Gura_DeclareFunctionAlias(__GameControllerAddMappingsFromFile, "GameControllerAd
 Gura_ImplementFunction(__GameControllerAddMappingsFromFile)
 {
 	Stream *file = &Object_stream::GetObject(args, 0)->GetStream();
-	std::auto_ptr<SDL_RWops> _file(CreateRWopsStream(file, &sig));
+	std::unique_ptr<SDL_RWops> _file(CreateRWopsStream(file, &sig));
 	int _rtn = SDL_GameControllerAddMappingsFromRW(_file.get(), 0);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
@@ -8441,7 +8441,7 @@ Gura_DeclareFunctionAlias(__LoadWAV, "LoadWAV")
 Gura_ImplementFunction(__LoadWAV)
 {
 	Stream *file = &Object_stream::GetObject(args, 0)->GetStream();
-	std::auto_ptr<SDL_RWops> _file(CreateRWopsStream(file, &sig));
+	std::unique_ptr<SDL_RWops> _file(CreateRWopsStream(file, &sig));
 	SDL_AudioSpec spec;
 	Uint8 *audio_buf = NULL;
 	Uint32 audio_len = 0;

@@ -90,7 +90,7 @@ Gura_ImplementFunction(ComboBox)
 	if (args.IsValid(3)) pos = Object_wx_Point::GetObject(args, 3)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
 	if (args.IsValid(4)) size = Object_wx_Size::GetObject(args, 4)->GetEntity();
-	std::auto_ptr<wxArrayString> choices;
+	std::unique_ptr<wxArrayString> choices;
 	if (args.IsValid(5)) {
 		choices.reset(CreateArrayString(args.GetList(5)));
 	} else {
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_ComboBox, Create)
 	if (args.IsValid(3)) pos = Object_wx_Point::GetObject(args, 3)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
 	if (args.IsValid(4)) size = Object_wx_Size::GetObject(args, 4)->GetEntity();
-	std::auto_ptr<wxArrayString> choices;
+	std::unique_ptr<wxArrayString> choices;
 	if (args.IsValid(5)) {
 		choices.reset(CreateArrayString(args.GetList(5)));
 	} else {

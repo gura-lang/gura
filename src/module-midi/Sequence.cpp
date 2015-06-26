@@ -66,7 +66,7 @@ bool Sequence::Read(Environment &env, Signal sig, Stream &stream)
 		}
 		Track *pTrack = new Track(Property::Reference(GetProperty()));
 		GetTrackOwner().push_back(pTrack);
-		std::auto_ptr<MIDIEvent> pMIDIEvent;
+		std::unique_ptr<MIDIEvent> pMIDIEvent;
 		UChar eventType = 0x00;
 		Binary binary;
 		Stat stat = STAT_EventStart;

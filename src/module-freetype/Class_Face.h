@@ -13,7 +13,7 @@ public:
 	Gura_DeclareObjectAccessor(Face)
 private:
 	FT_Face _face;
-	std::auto_ptr<Handler> _pHandler;
+	std::unique_ptr<Handler> _pHandler;
 public:
 	inline Object_Face(FT_Face face = NULL) :
 					Object(Gura_UserClass(Face)), _face(face) {}

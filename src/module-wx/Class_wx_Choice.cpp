@@ -84,7 +84,7 @@ Gura_ImplementFunction(Choice)
 	if (args.IsValid(2)) pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
 	if (args.IsValid(3)) size = Object_wx_Size::GetObject(args, 3)->GetEntity();
-	std::auto_ptr<wxArrayString> choices;
+	std::unique_ptr<wxArrayString> choices;
 	if (args.IsValid(4)) {
 		choices.reset(CreateArrayString(args.GetList(4)));
 	} else {
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_Choice, Create)
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
 	wxSize *size = Object_wx_Size::GetObject(args, 3)->GetEntity();
-	std::auto_ptr<wxArrayString> choices(CreateArrayString(args.GetList(4)));
+	std::unique_ptr<wxArrayString> choices(CreateArrayString(args.GetList(4)));
 	long style = 0;
 	if (args.IsValid(5)) style = args.GetLong(5);
 	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);

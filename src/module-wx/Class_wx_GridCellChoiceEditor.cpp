@@ -49,7 +49,7 @@ Gura_DeclareFunction(GridCellChoiceEditor)
 Gura_ImplementFunction(GridCellChoiceEditor)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
-	std::auto_ptr<wxArrayString> choices(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> choices(CreateArrayString(args.GetList(0)));
 	bool allowOthers = false;
 	if (args.IsValid(1)) allowOthers = args.GetBoolean(1);
 	wx_GridCellChoiceEditor *pEntity = new wx_GridCellChoiceEditor(*choices, allowOthers);

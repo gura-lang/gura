@@ -404,7 +404,7 @@ bool Iterator_Entry::DoNext(Environment &env, Signal sig, Value &value)
 	if (_offsetNext != InvalidSize) {
 		pStreamSrc->Seek(sig, _offsetNext, Stream::SeekSet);
 	}
-	std::auto_ptr<Header> pHdr(_pObjReader->NextHeader(sig));
+	std::unique_ptr<Header> pHdr(_pObjReader->NextHeader(sig));
 	if (pHdr.get() == NULL) return false;
 	_offsetNext = pStreamSrc->Tell() + pHdr->CalcBlocks() * BLOCKSIZE;
 	Stream *pStreamEntry = new Stream_Entry(env, sig,
@@ -702,7 +702,7 @@ Directory *PathMgr_TAR::DoOpenDirectory(Environment &env, Signal sig,
 	AutoPtr<DirBuilder::Structure> pStructure(new DirBuilder::Structure());
 	pStructure->SetRoot(new Record_TAR(pStructure.get(), NULL, "", true));
 	for (;;) {
-		std::auto_ptr<Header> pHdr(ReadHeader(sig, pStream.get(), buffBlock));
+		std::unique_ptr<Header> pHdr(ReadHeader(sig, pStream.get(), buffBlock));
 		if (sig.IsSignalled()) return NULL;
 		if (pHdr.get() == NULL) break;
 		Record_TAR *pRecord =
@@ -900,7 +900,7 @@ Header *ReadHeader(Signal sig, Stream *pStream, void *buffBlock)
 		if (nTerminator == 2) return NULL;
 	}
 	star_header &hdr = *reinterpret_cast<star_header *>(buffBlock);
-	std::auto_ptr<Header> pHdr(new Header());
+	std::unique_ptr<Header> pHdr(new Header());
 	pHdr->SetOffset(pStream->Tell());
 	if (!pHdr->SetRawHeader(sig, hdr)) return NULL;
 	return pHdr.release();

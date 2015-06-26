@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_DialUpManager, GetISPNames)
 {
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	std::auto_ptr<wxArrayString> names(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> names(CreateArrayString(args.GetList(0)));
 	size_t rtn = pThis->GetEntity()->GetISPNames(*names);
 	return ReturnValue(env, sig, args, Value(rtn));
 }

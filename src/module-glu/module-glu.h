@@ -164,7 +164,7 @@ public:
 	Gura_DeclareObjectAccessor(Tesselator)
 private:
 	GLUtesselator *_tess;
-	std::auto_ptr<PolygonPack> _pPolygonPack;
+	std::unique_ptr<PolygonPack> _pPolygonPack;
 	DeclareCallbackInfo(begin);
 	DeclareCallbackInfo(edge_flag);
 	DeclareCallbackInfo(vertex);

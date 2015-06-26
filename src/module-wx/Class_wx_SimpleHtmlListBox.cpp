@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, wxHtmlListBox_1)
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
 	wxSize *size = Object_wx_Size::GetObject(args, 3)->GetEntity();
-	std::auto_ptr<wxArrayString> choices(CreateArrayString(args.GetList(4)));
+	std::unique_ptr<wxArrayString> choices(CreateArrayString(args.GetList(4)));
 	long style = wxHLB_DEFAULT_STYLE;
 	if (args.IsValid(5)) style = args.GetLong(5);
 	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, Create_1)
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
 	wxSize *size = Object_wx_Size::GetObject(args, 3)->GetEntity();
-	std::auto_ptr<wxArrayString> choices(CreateArrayString(args.GetList(4)));
+	std::unique_ptr<wxArrayString> choices(CreateArrayString(args.GetList(4)));
 	long style = wxHLB_DEFAULT_STYLE;
 	if (args.IsValid(5)) style = args.GetLong(5);
 	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);

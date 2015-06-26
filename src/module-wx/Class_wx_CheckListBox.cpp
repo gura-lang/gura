@@ -84,7 +84,7 @@ Gura_ImplementFunction(CheckListBox)
 	if (args.IsValid(2)) pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
 	if (args.IsValid(3)) size = Object_wx_Size::GetObject(args, 3)->GetEntity();
-	std::auto_ptr<wxArrayString> choices;
+	std::unique_ptr<wxArrayString> choices;
 	if (args.IsValid(4)) {
 		choices.reset(CreateArrayString(args.GetList(4)));
 	} else {

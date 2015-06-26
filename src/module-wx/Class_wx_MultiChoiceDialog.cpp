@@ -102,7 +102,7 @@ Gura_ImplementFunction(MultiChoiceDialog_1)
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
 	wxString message = wxString::FromUTF8(args.GetString(1));
 	wxString caption = wxString::FromUTF8(args.GetString(2));
-	std::auto_ptr<wxArrayString> choices(CreateArrayString(args.GetList(3)));
+	std::unique_ptr<wxArrayString> choices(CreateArrayString(args.GetList(3)));
 	long style = wxCHOICEDLG_STYLE;
 	if (args.IsValid(4)) style = args.GetLong(4);
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_MultiChoiceDialog, SetSelections)
 {
 	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	std::auto_ptr<wxArrayInt> selections(CreateArrayInt(args.GetList(0)));
+	std::unique_ptr<wxArrayInt> selections(CreateArrayInt(args.GetList(0)));
 	pThis->GetEntity()->SetSelections(*selections);
 	return Value::Null;
 }

@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, SetArtists)
 {
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	std::auto_ptr<wxArrayString> artists(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> artists(CreateArrayString(args.GetList(0)));
 	pThis->GetEntity()->SetArtists(*artists);
 	return Value::Null;
 }
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, SetDevelopers)
 {
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	std::auto_ptr<wxArrayString> developers(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> developers(CreateArrayString(args.GetList(0)));
 	pThis->GetEntity()->SetDevelopers(*developers);
 	return Value::Null;
 }
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, SetDocWriters)
 {
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	std::auto_ptr<wxArrayString> docwriters(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> docwriters(CreateArrayString(args.GetList(0)));
 	pThis->GetEntity()->SetDocWriters(*docwriters);
 	return Value::Null;
 }
@@ -263,7 +263,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, SetTranslators)
 {
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	std::auto_ptr<wxArrayString> translators(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> translators(CreateArrayString(args.GetList(0)));
 	pThis->GetEntity()->SetTranslators(*translators);
 	return Value::Null;
 }

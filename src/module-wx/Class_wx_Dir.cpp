@@ -115,7 +115,7 @@ Gura_ImplementClassMethod(wx_Dir, GetAllFiles)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString dirname = wxString::FromUTF8(args.GetString(0));
-	std::auto_ptr<wxArrayString> files(CreateArrayString(args.GetList(1)));
+	std::unique_ptr<wxArrayString> files(CreateArrayString(args.GetList(1)));
 	wxString filespec = wxEmptyString;
 	if (args.IsValid(2)) filespec = wxString::FromUTF8(args.GetString(2));
 	int flags = wxDIR_DEFAULT;

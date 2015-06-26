@@ -84,7 +84,7 @@ Gura_ImplementFunction(ListBox)
 	if (args.IsValid(2)) pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
 	if (args.IsValid(3)) size = Object_wx_Size::GetObject(args, 3)->GetEntity();
-	std::auto_ptr<wxArrayString> choices;
+	std::unique_ptr<wxArrayString> choices;
 	if (args.IsValid(4)) {
 		choices.reset(CreateArrayString(args.GetList(4)));
 	} else {
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_ListBox, Create)
 	if (args.IsValid(2)) pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
 	if (args.IsValid(3)) size = Object_wx_Size::GetObject(args, 3)->GetEntity();
-	std::auto_ptr<wxArrayString> choices;
+	std::unique_ptr<wxArrayString> choices;
 	if (args.IsValid(4)) {
 		choices.reset(CreateArrayString(args.GetList(4)));
 	} else {
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_ListBox, InsertItems)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	std::auto_ptr<wxArrayString> items(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> items(CreateArrayString(args.GetList(0)));
 	unsigned pos = args.GetInt(1);
 	pThis->GetEntity()->InsertItems(*items, pos);
 	return Value::Null;
@@ -238,7 +238,7 @@ Gura_ImplementMethod(wx_ListBox, Set)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	std::auto_ptr<wxArrayString> choices(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> choices(CreateArrayString(args.GetList(0)));
 	void **clientData = NULL;
 	//if (args.IsValid(1)) **clientData = args.GetInt(1);
 	pThis->GetEntity()->Set(*choices, clientData);

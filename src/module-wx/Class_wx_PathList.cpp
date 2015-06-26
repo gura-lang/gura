@@ -70,7 +70,7 @@ Gura_DeclareFunction(PathList)
 Gura_ImplementFunction(PathList)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
-	std::auto_ptr<wxArrayString> arr(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> arr(CreateArrayString(args.GetList(0)));
 	wx_PathList *pEntity = new wx_PathList(*arr);
 	Object_wx_PathList *pObj = Object_wx_PathList::GetThisObj(args);
 	if (pObj == NULL) {
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_PathList, Add_1)
 {
 	Object_wx_PathList *pThis = Object_wx_PathList::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	std::auto_ptr<wxArrayString> arr(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> arr(CreateArrayString(args.GetList(0)));
 	pThis->GetEntity()->Add(*arr);
 	return Value::Null;
 }

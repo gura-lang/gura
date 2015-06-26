@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_DebugReportUpload, OnServerReply)
 #if 0
 	Object_wx_DebugReportUpload *pThis = Object_wx_DebugReportUpload::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	std::auto_ptr<wxArrayString> WXUNUSED(reply)(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> WXUNUSED(reply)(CreateArrayString(args.GetList(0)));
 	bool rtn = pThis->GetEntity()->OnServerReply(*WXUNUSED(reply));
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif

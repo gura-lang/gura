@@ -59,7 +59,7 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
-	std::auto_ptr<Wave> pWave(new Wave());
+	std::unique_ptr<Wave> pWave(new Wave());
 	pWave->Read(sig, args.GetStream(0));
 	pWave->Write(sig, args.GetStream(1));
 	pWave->Print();
@@ -113,7 +113,7 @@ bool AudioStreamer_WAV::ReadStream(Signal sig, Audio *pAudio, Stream &stream)
 
 bool AudioStreamer_WAV::WriteStream(Signal sig, Audio *pAudio, Stream &stream)
 {
-	std::auto_ptr<Wave> pWave(new Wave());
+	std::unique_ptr<Wave> pWave(new Wave());
 	if (!pWave->SetAudio(sig, pAudio)) return false;
 	if (!pWave->Write(sig, stream)) return false;
 	return true;

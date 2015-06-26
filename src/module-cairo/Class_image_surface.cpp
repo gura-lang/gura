@@ -60,7 +60,7 @@ Gura_DeclareClassMethod(image_surface, create_from_png)
 
 Gura_ImplementClassMethod(image_surface, create_from_png)
 {
-	std::auto_ptr<Reader_Stream> pReader(new Reader_Stream(sig,
+	std::unique_ptr<Reader_Stream> pReader(new Reader_Stream(sig,
 										args.GetStream(0).Reference()));
 	cairo_surface_t *surface = ::cairo_image_surface_create_from_png_stream(
 										Reader_Stream::read_func, pReader.get());

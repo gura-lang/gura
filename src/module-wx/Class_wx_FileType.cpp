@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_FileType, GetMimeType_1)
 #if 0
 	Object_wx_FileType *pThis = Object_wx_FileType::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	std::auto_ptr<wxArrayString> mimeTypes(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> mimeTypes(CreateArrayString(args.GetList(0)));
 	bool rtn = pThis->GetEntity()->GetMimeType(*mimeTypes);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_FileType, GetExtensions)
 {
 	Object_wx_FileType *pThis = Object_wx_FileType::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	std::auto_ptr<wxArrayString> extensions(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> extensions(CreateArrayString(args.GetList(0)));
 	bool rtn = pThis->GetEntity()->GetExtensions(*extensions);
 	return ReturnValue(env, sig, args, Value(rtn));
 }

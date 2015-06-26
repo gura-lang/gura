@@ -68,7 +68,7 @@ Value Object_exif::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 					return Value::Null;
 				}
 				Binary::const_iterator p = buff.begin();
-				std::auto_ptr<Image::Scanner> pScannerDst(
+				std::unique_ptr<Image::Scanner> pScannerDst(
 					pObjImage->GetImage()->CreateScanner(Image::SCAN_LeftTopHorz));
 				do {
 					unsigned char red = *p++;
