@@ -630,7 +630,7 @@ int ExecProgram(Environment &env, Signal sig, const char *pathName,
 		bool dataAvailFlag = false;
 		if (pStreamStdout != nullptr) {
 			DWORD bytesAvail;
-			::PeekNamedPipe(hStdoutWatch, nullptr, nullptr, nullptr, &bytesAvail, nullptr);
+			::PeekNamedPipe(hStdoutWatch, nullptr, 0, nullptr, &bytesAvail, nullptr);
 			if (bytesAvail > 0) {
 				dataAvailFlag = true;
 				char *buff = reinterpret_cast<char *>(pMemory->GetPointer());
@@ -642,7 +642,7 @@ int ExecProgram(Environment &env, Signal sig, const char *pathName,
 		}
 		if (pStreamStderr != nullptr) {
 			DWORD bytesAvail;
-			::PeekNamedPipe(hStderrWatch, nullptr, nullptr, nullptr, &bytesAvail, nullptr);
+			::PeekNamedPipe(hStderrWatch, nullptr, 0, nullptr, &bytesAvail, nullptr);
 			if (bytesAvail > 0) {
 				dataAvailFlag = true;
 				char *buff = reinterpret_cast<char *>(pMemory->GetPointer());

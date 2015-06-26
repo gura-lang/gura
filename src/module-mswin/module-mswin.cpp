@@ -407,7 +407,7 @@ bool Object_ole::ImportConstant(Environment &env, Signal sig)
 HRESULT Object_ole::GetDispID(const char *name, DISPID &dispid)
 {
 	OLECHAR *wszName = StringToBSTR(name);
-	HRESULT hr = _pDispatch->GetIDsOfNames(IID_nullptr,
+	HRESULT hr = _pDispatch->GetIDsOfNames(IID_NULL,
 							&wszName, 1, LOCALE_USER_DEFAULT, &dispid);
 	::SysFreeString(wszName);
 	return hr;
@@ -421,7 +421,7 @@ HRESULT Object_ole::GetDispIDOfNamedArg(
 	DISPID dispids[2];
 	wszNames[0] = StringToBSTR(nameMethod);
 	wszNames[1] = StringToBSTR(nameArg);
-	HRESULT hr = _pDispatch->GetIDsOfNames(IID_nullptr,
+	HRESULT hr = _pDispatch->GetIDsOfNames(IID_NULL,
 							wszNames, 2, LOCALE_USER_DEFAULT, dispids);
 	::SysFreeString(wszNames[0]);
 	::SysFreeString(wszNames[1]);
@@ -439,7 +439,7 @@ Iterator *Object_ole::CreateIterator(Signal sig)
 	    EXCEPINFO exceptInfo;
 		unsigned int argErr;
 		::memset(&exceptInfo, 0, sizeof(exceptInfo));
-		hr = _pDispatch->Invoke(DISPID_NEWENUM, IID_nullptr, LOCALE_USER_DEFAULT,
+		hr = _pDispatch->Invoke(DISPID_NEWENUM, IID_NULL, LOCALE_USER_DEFAULT,
 					DISPATCH_METHOD | DISPATCH_PROPERTYGET,
 					&dispParams, &var, &exceptInfo, &argErr);
 		if (FAILED(hr)) {
@@ -577,7 +577,7 @@ Value Object_ole::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	VARIANT var;
 	do {
 		DISPPARAMS dispParams = { nullptr, nullptr, 0, 0 };
-		HRESULT hr = _pDispatch->Invoke(dispid, IID_nullptr, LOCALE_USER_DEFAULT,
+		HRESULT hr = _pDispatch->Invoke(dispid, IID_NULL, LOCALE_USER_DEFAULT,
 						DISPATCH_PROPERTYGET, &dispParams, &var, nullptr, nullptr);
 		if (FAILED(hr)) {
 			SetError(sig, hr);
@@ -611,7 +611,7 @@ Value Object_ole::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 		dispParams.rgdispidNamedArgs = dispidNamedArgs;
 		dispParams.cArgs = 1;
 		dispParams.cNamedArgs = 1;
-		HRESULT hr = _pDispatch->Invoke(dispid, IID_nullptr, LOCALE_USER_DEFAULT,
+		HRESULT hr = _pDispatch->Invoke(dispid, IID_NULL, LOCALE_USER_DEFAULT,
 							DISPATCH_PROPERTYPUT, &dispParams, nullptr, nullptr, nullptr);
 		::VariantClear(&varArgs[0]);
 		if (FAILED(hr)) {
@@ -793,7 +793,7 @@ Value Object_ole::CallableOLE::DoCall(Environment &env, Signal sig, Args &argsEx
 	dispParams.rgdispidNamedArgs = dispidNamedArgs;
 	dispParams.cNamedArgs = static_cast<UINT>(argNames.size());
 	VARIANT varResult;
-	hr = _pObj->GetDispatch()->Invoke(_dispid, IID_nullptr, LOCALE_USER_DEFAULT,
+	hr = _pObj->GetDispatch()->Invoke(_dispid, IID_NULL, LOCALE_USER_DEFAULT,
 					DISPATCH_METHOD | DISPATCH_PROPERTYGET,
 					&dispParams, &varResult, nullptr, nullptr);
 	if (varArgs != nullptr) {

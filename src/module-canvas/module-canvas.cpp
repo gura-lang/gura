@@ -201,7 +201,7 @@ void Device_EnhMetaFile::SetPen(Signal sig,
 {
 	if (_hdc == nullptr) return;
 	if (color.IsInvalid()) {
-		::SelectObject(_hdc, ::CreatePen(PS_nullptr, 0, RGB(0, 0, 0)));
+		::SelectObject(_hdc, ::CreatePen(PS_NULL, 0, RGB(0, 0, 0)));
 		return;
 	}
 	int fnPenStyle = PS_SOLID;
@@ -227,7 +227,7 @@ void Device_EnhMetaFile::SetBrush(Signal sig, const Value &color, const Symbol *
 {
 	if (_hdc == nullptr) return;
 	if (color.IsInvalid()) {
-		::SelectObject(_hdc, reinterpret_cast<HBRUSH>(::GetStockObject(nullptr_BRUSH)));
+		::SelectObject(_hdc, reinterpret_cast<HBRUSH>(::GetStockObject(NULL_BRUSH)));
 		return;
 	}
 	Color colorWk(sig, color);
