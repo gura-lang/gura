@@ -46,11 +46,11 @@ public:
 	Gura_DeclareReferenceAccessor(Iterator);
 public:
 	inline Iterator(bool infiniteFlag, bool skipInvalidFlag = false, bool repeaterFlag = false) :
-			_cntRef(1), _idxCur(-1), _idxNext(0), _pShare(NULL),
+			_cntRef(1), _idxCur(-1), _idxNext(0), _pShare(nullptr),
 			_infiniteFlag(infiniteFlag), _skipInvalidFlag(skipInvalidFlag),
 			_repeaterFlag(repeaterFlag) {}
 	inline Iterator(const Iterator &iter) :
-			_cntRef(1), _idxCur(iter._idxCur), _idxNext(iter._idxNext), _pShare(NULL),
+			_cntRef(1), _idxCur(iter._idxCur), _idxNext(iter._idxNext), _pShare(nullptr),
 			_infiniteFlag(iter._infiniteFlag), _skipInvalidFlag(iter._skipInvalidFlag),
 			_repeaterFlag(iter._repeaterFlag) {}
 	virtual ~Iterator();
