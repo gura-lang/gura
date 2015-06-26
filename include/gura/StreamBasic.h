@@ -87,9 +87,9 @@ private:
 	bool _readReqFlag;
 	bool _writeReqFlag;
 	bool _writeDoneFlag;
-	std::auto_ptr<OAL::Semaphore> _pSemaphore;
-	std::auto_ptr<OAL::Event> _pEventReadReq;
-	std::auto_ptr<OAL::Event> _pEventWriteReq;
+	std::unique_ptr<OAL::Semaphore> _pSemaphore;
+	std::unique_ptr<OAL::Event> _pEventReadReq;
+	std::unique_ptr<OAL::Event> _pEventWriteReq;
 public:
 	StreamFIFO(Environment &env, Signal sig, size_t bytesBuff);
 	virtual const char *GetName() const;
@@ -114,7 +114,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE StreamMemory : public Stream {
 private:
-	std::auto_ptr<Binary> _pBinary;
+	std::unique_ptr<Binary> _pBinary;
 public:
 	StreamMemory(Environment &env, Signal sig);
 	virtual const char *GetName() const;

@@ -334,7 +334,7 @@ public:
 class GURA_DLLDECLARE Expr_Value : public Expr {
 protected:
 	Value _value;
-	std::auto_ptr<String> _pScript;
+	std::unique_ptr<String> _pScript;
 public:
 	inline Expr_Value(const Value &value) : Expr(EXPRTYPE_Value), _value(value) {}
 	inline Expr_Value(const Expr_Value &expr) : Expr(expr), _value(expr._value) {}

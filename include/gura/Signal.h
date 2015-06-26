@@ -39,7 +39,7 @@ private:
 	class Shared {
 	public:
 		SignalType sigType;
-		std::auto_ptr<Value> pValue;
+		std::unique_ptr<Value> pValue;
 		Error err;
 	public:
 		Shared();

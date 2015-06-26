@@ -38,7 +38,7 @@ protected:
 	int _cntRef;
 	int _idxCur;
 	int _idxNext;
-	std::auto_ptr<Share> _pShare;
+	std::unique_ptr<Share> _pShare;
 	bool _infiniteFlag;
 	bool _skipInvalidFlag;
 	bool _repeaterFlag;

@@ -184,8 +184,8 @@ public:
 		EnvType _envType;
 		Global *_pGlobal;
 		AutoPtr<ValueMap> _pValueMap;
-		std::auto_ptr<ValueTypeMap> _pValueTypeMap;
-		std::auto_ptr<SymbolSet> _pSymbolsPublic;
+		std::unique_ptr<ValueTypeMap> _pValueTypeMap;
+		std::unique_ptr<SymbolSet> _pSymbolsPublic;
 	public:
 		Frame(const Frame &frame);
 		Frame(EnvType envType, Global *pGlobal);

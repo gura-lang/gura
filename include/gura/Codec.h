@@ -96,8 +96,8 @@ public:
 private:
 	int _cntRef;
 	CodecFactory *_pFactory;
-	std::auto_ptr<Decoder> _pDecoder;
-	std::auto_ptr<Encoder> _pEncoder;
+	std::unique_ptr<Decoder> _pDecoder;
+	std::unique_ptr<Encoder> _pEncoder;
 	static CodecFactory *_pFactory_None;
 	static const WidthInfo _widthInfoTbl[];
 public:
