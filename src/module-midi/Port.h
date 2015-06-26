@@ -37,7 +37,7 @@ public:
 	}
 	inline bool Open(int id) {
 		if (_hMIDI != nullptr) Close();
-		return ::midiOutOpen(&_hMIDI, id, 0, 0, CALLBACK_nullptr) == MMSYSERR_NOERROR;
+		return ::midiOutOpen(&_hMIDI, id, 0, 0, CALLBACK_NULL) == MMSYSERR_NOERROR;
 	}
 	inline void Close() {
 		if (_hMIDI != nullptr) ::midiOutClose(_hMIDI);
