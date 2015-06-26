@@ -250,7 +250,7 @@ private:
 public:
 	inline Record_TAR(DirBuilder::Structure *pStructure, Record_TAR *pParent,
 									const char *name, bool containerFlag) :
-		DirBuilder::Record(pStructure, pParent, name, containerFlag), _pHdr(NULL) {}
+		DirBuilder::Record(pStructure, pParent, name, containerFlag), _pHdr(nullptr) {}
 	virtual DirBuilder::Record *DoGenerateChild(const char *name, bool containerFlag);
 	virtual Directory *DoGenerateDirectory(Directory *pParent, Directory::Type type);
 	inline void SetHeader(Header *pHdr) { _pHdr.reset(pHdr); }
